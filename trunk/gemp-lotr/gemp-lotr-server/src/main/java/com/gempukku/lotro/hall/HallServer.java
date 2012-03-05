@@ -5,9 +5,9 @@ import com.gempukku.lotro.chat.ChatServer;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.db.vo.League;
-import com.gempukku.lotro.db.vo.LeagueSerie;
 import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.game.formats.*;
+import com.gempukku.lotro.league.LeagueSerieData;
 import com.gempukku.lotro.league.LeagueService;
 import com.gempukku.lotro.logic.timing.GameResultListener;
 import com.gempukku.lotro.logic.vo.LotroDeck;
@@ -106,7 +106,7 @@ public class HallServer extends AbstractServer {
         _hallDataAccessLock.writeLock().lock();
         try {
             League league = null;
-            LeagueSerie leagueSerie = null;
+            LeagueSerieData leagueSerie = null;
             CollectionType collectionType = _allCardsCollectionType;
             LotroFormat format = _supportedFormats.get(type);
 
@@ -121,7 +121,7 @@ public class HallServer extends AbstractServer {
                     if (!_leagueService.canPlayRankedGame(league, leagueSerie, player.getName()))
                         throw new HallException("You have already played max games in league");
                     format = _supportedFormats.get(leagueSerie.getFormat());
-                    collectionType = league.getCollectionType();
+                    collectionType = leagueSerie.getCollectionType();
                 }
             }
             // It's not a normal format and also not a league one
@@ -293,7 +293,7 @@ public class HallServer extends AbstractServer {
         String tournamentName = "Casual";
         final League league = table.getLeague();
         if (league != null)
-            tournamentName = league.getName() + " - " + table.getLeagueSerie().getType();
+            tournamentName = league.getName() + " - " + table.getLeagueSerie().getName();
         return tournamentName;
     }
 
@@ -301,7 +301,7 @@ public class HallServer extends AbstractServer {
         Set<LotroGameParticipant> players = awaitingTable.getPlayers();
         LotroGameParticipant[] participants = players.toArray(new LotroGameParticipant[players.size()]);
         final League league = awaitingTable.getLeague();
-        final LeagueSerie leagueSerie = awaitingTable.getLeagueSerie();
+        final LeagueSerieData leagueSerie = awaitingTable.getLeagueSerie();
         String gameId = _lotroServer.createNewGame(awaitingTable.getLotroFormat(), participants, league != null);
         LotroGameMediator lotroGameMediator = _lotroServer.getGameById(gameId);
         if (league != null) {
@@ -321,7 +321,7 @@ public class HallServer extends AbstractServer {
     private void joinTableInternal(String tableId, String playerId, AwaitingTable awaitingTable, String deckName, LotroDeck lotroDeck) throws HallException {
         League league = awaitingTable.getLeague();
         if (league != null) {
-            LeagueSerie leagueSerie = awaitingTable.getLeagueSerie();
+            LeagueSerieData leagueSerie = awaitingTable.getLeagueSerie();
             if (!_leagueService.canPlayRankedGame(league, leagueSerie, playerId))
                 throw new HallException("You have already played max games in league");
             if (awaitingTable.getPlayerNames().size() != 0 && !_leagueService.canPlayRankedGame(league, leagueSerie, awaitingTable.getPlayerNames().iterator().next(), playerId))

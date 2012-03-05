@@ -2,9 +2,9 @@ package com.gempukku.lotro.hall;
 
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.db.vo.League;
-import com.gempukku.lotro.db.vo.LeagueSerie;
 import com.gempukku.lotro.game.LotroFormat;
 import com.gempukku.lotro.game.LotroGameParticipant;
+import com.gempukku.lotro.league.LeagueSerieData;
 
 import java.util.*;
 
@@ -12,12 +12,12 @@ public class AwaitingTable {
     private CollectionType _collectionType;
     private LotroFormat _lotroFormat;
     private League _league;
-    private LeagueSerie _leagueSerie;
+    private LeagueSerieData _leagueSerie;
     private Map<String, LotroGameParticipant> _players = new HashMap<String, LotroGameParticipant>();
 
     private int _capacity = 2;
 
-    public AwaitingTable(LotroFormat lotroFormat, CollectionType collectionType, League league, LeagueSerie leagueSerie) {
+    public AwaitingTable(LotroFormat lotroFormat, CollectionType collectionType, League league, LeagueSerieData leagueSerie) {
         _lotroFormat = lotroFormat;
         _collectionType = collectionType;
         _league = league;
@@ -58,7 +58,7 @@ public class AwaitingTable {
         return _league;
     }
 
-    public LeagueSerie getLeagueSerie() {
+    public LeagueSerieData getLeagueSerie() {
         return _leagueSerie;
     }
 }

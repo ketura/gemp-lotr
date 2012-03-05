@@ -2,19 +2,17 @@ package com.gempukku.lotro.league;
 
 import com.gempukku.lotro.cards.packs.RarityReader;
 import com.gempukku.lotro.cards.packs.SetRarity;
-import com.gempukku.lotro.db.vo.League;
-import com.gempukku.lotro.db.vo.LeagueSerie;
 import com.gempukku.lotro.game.CardCollection;
 import com.gempukku.lotro.game.DefaultCardCollection;
 
 import java.util.*;
 
-public class LeaguePrizes {
+public class SealedLeaguePrizes {
     private Map<String, List<String>> _blockPromos = new HashMap<String, List<String>>();
     private Map<String, List<String>> _blockCommons = new HashMap<String, List<String>>();
     private Map<String, List<String>> _blockUncommons = new HashMap<String, List<String>>();
 
-    public LeaguePrizes() {
+    public SealedLeaguePrizes() {
         List<String> fotrPromos = new ArrayList<String>();
         fotrPromos.add("0_1");
         fotrPromos.add("0_2");
@@ -93,14 +91,14 @@ public class LeaguePrizes {
         _blockUncommons.put("ttt_block", tttUncommons);
     }
 
-    public CardCollection getPrizeForLeagueMatchWinner(int winCountThisSerie, int totalGamesPlayedThisSerie, League league, LeagueSerie leagueSerie) {
+    public CardCollection getPrizeForLeagueMatchWinner(int winCountThisSerie, int totalGamesPlayedThisSerie, String format) {
         DefaultCardCollection winnerPrize = new DefaultCardCollection();
         if (winCountThisSerie == 1 || winCountThisSerie == 3 || winCountThisSerie == 5 || winCountThisSerie == 8 || winCountThisSerie == 10)
             winnerPrize.addItem("(S)Booster Choice", 1);
         else {
-            List<String> blockCommons = _blockCommons.get(leagueSerie.getFormat());
-            List<String> blockUncommons = _blockUncommons.get(leagueSerie.getFormat());
-            List<String> blockPromos = _blockPromos.get(leagueSerie.getFormat());
+            List<String> blockCommons = _blockCommons.get(format);
+            List<String> blockUncommons = _blockUncommons.get(format);
+            List<String> blockPromos = _blockPromos.get(format);
             if (winCountThisSerie == 2)
                 winnerPrize.addItem(getRandom(blockCommons) + "*", 1);
             else if (winCountThisSerie == 4)
@@ -117,7 +115,7 @@ public class LeaguePrizes {
         return winnerPrize;
     }
 
-    public CardCollection getPrizeForLeagueMatchLoser(int winCountThisSerie, int totalGamesPlayedThisSerie, League league, LeagueSerie leagueSerie) {
+    public CardCollection getPrizeForLeagueMatchLoser(int winCountThisSerie, int totalGamesPlayedThisSerie, String format) {
         return null;
     }
 

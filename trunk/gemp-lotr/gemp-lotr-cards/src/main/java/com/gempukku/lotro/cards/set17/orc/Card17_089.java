@@ -43,7 +43,7 @@ public class Card17_089 extends AbstractAttachable {
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(
                 new StrengthModifier(self, Filters.hasAttached(self), 2));
@@ -52,9 +52,21 @@ public class Card17_089 extends AbstractAttachable {
         modifiers.add(
                 new KeywordModifier(self, Filters.hasAttached(self), Keyword.FIERCE));
         modifiers.add(
-                new StrengthModifier(self, Filters.and(Filters.hasAttached(self), Filters.inSkirmishAgainst(CardType.COMPANION, (Race) self.getWhileInZoneData())), 3));
+                new StrengthModifier(self, Filters.and(Filters.hasAttached(self), Filters.inSkirmishAgainst(CardType.COMPANION,
+                        new Filter() {
+                            @Override
+                            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                                return self.getWhileInZoneData() != null && physicalCard.getBlueprint().getRace() == self.getWhileInZoneData();
+                            }
+                        })), 3));
         modifiers.add(
-                new KeywordModifier(self, Filters.and(Filters.hasAttached(self), Filters.inSkirmishAgainst(CardType.COMPANION, (Race) self.getWhileInZoneData())), Keyword.DAMAGE, 1));
+                new KeywordModifier(self, Filters.and(Filters.hasAttached(self), Filters.inSkirmishAgainst(CardType.COMPANION,
+                        new Filter() {
+                            @Override
+                            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                                return self.getWhileInZoneData() != null && physicalCard.getBlueprint().getRace() == self.getWhileInZoneData();
+                            }
+                        })), Keyword.DAMAGE, 1));
         return modifiers;
     }
 
