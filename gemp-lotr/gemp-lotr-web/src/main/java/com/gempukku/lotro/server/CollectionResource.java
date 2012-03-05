@@ -11,6 +11,7 @@ import com.gempukku.lotro.game.CardCollection;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.game.LotroServer;
 import com.gempukku.lotro.game.Player;
+import com.gempukku.lotro.league.LeagueSerieData;
 import com.gempukku.lotro.league.LeagueService;
 import com.gempukku.lotro.packs.PacksStorage;
 import com.sun.jersey.spi.resource.Singleton;
@@ -76,11 +77,10 @@ public class CollectionResource extends AbstractResource {
             @Context HttpServletResponse response) throws ParserConfigurationException {
         Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
-        final League league = _leagueService.getLeagueByType(collectionType);
-        if (league != null)
-            _leagueService.ensurePlayerIsInLeague(resourceOwner, league);
-
         CardCollection collection = getCollection(resourceOwner, collectionType);
+        if (collection == null && !collectionType.equals("default") && !collectionType.equals("permanent"))
+            collection = _leagueService.ensurePlayerHasCollection(resourceOwner, collectionType);
+
         if (collection == null)
             sendError(Response.Status.NOT_FOUND);
 
@@ -145,10 +145,14 @@ public class CollectionResource extends AbstractResource {
         Element collectionsElem = doc.createElement("collections");
 
         for (League league : _leagueService.getActiveLeagues()) {
-            Element collectionElem = doc.createElement("collection");
-            collectionElem.setAttribute("type", league.getType());
-            collectionElem.setAttribute("name", league.getName());
-            collectionsElem.appendChild(collectionElem);
+            LeagueSerieData serie = _leagueService.getCurrentLeagueSerie(league);
+            if (serie.isLimited()) {
+                CollectionType collectionType = serie.getCollectionType();
+                Element collectionElem = doc.createElement("collection");
+                collectionElem.setAttribute("type", collectionType.getCode());
+                collectionElem.setAttribute("name", collectionType.getFullName());
+                collectionsElem.appendChild(collectionElem);
+            }
         }
 
         doc.appendChild(collectionsElem);
@@ -215,6 +219,6 @@ public class CollectionResource extends AbstractResource {
         if (collectionType.equals("permanent"))
             return new CollectionType("permanent", "My cards");
 
-        return _leagueService.getLeagueByType(collectionType).getCollectionType();
+        return _leagueService.getCollectionTypeByCode(collectionType);
     }
 }
