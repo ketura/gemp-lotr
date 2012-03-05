@@ -1139,7 +1139,8 @@ var GempLotrGameUI = Class.extend({
                     if (card.zone == "EXTRA")
                         $(this).remove();
                 });
-        this.extraActionsGroup.layoutCards();
+        if (this.extraActionsGroup != null)
+            this.extraActionsGroup.layoutCards();
     },
 
     integerDecision: function(decision) {
