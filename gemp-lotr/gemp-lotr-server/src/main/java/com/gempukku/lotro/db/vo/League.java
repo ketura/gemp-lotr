@@ -1,42 +1,62 @@
 package com.gempukku.lotro.db.vo;
 
+import com.gempukku.lotro.league.LeagueData;
+
+import java.lang.reflect.Constructor;
+
 public class League {
     private int _id;
-    private String _type;
     private String _name;
+    private String _type;
+    private String _clazz;
+    private String _parameters;
     private int _start;
     private int _end;
+    private int _status;
 
-    public League(int id, String type, String name, int start, int end) {
+    public League(int id, String name, String type, String clazz, String parameters, int start, int end, int status) {
         _id = id;
-        _type = type;
         _name = name;
+        _type = type;
+        _clazz = clazz;
+        _parameters = parameters;
         _start = start;
         _end = end;
+        _status = status;
     }
 
     public int getId() {
         return _id;
     }
 
-    public CollectionType getCollectionType() {
-        return new CollectionType(_type, _name);
+    public String getName() {
+        return _name;
     }
 
     public String getType() {
         return _type;
     }
 
-    public String getName() {
-        return _name;
+    public LeagueData getLeagueData() {
+        try {
+            Class<?> aClass = Class.forName(_clazz);
+            Constructor<?> constructor = aClass.getConstructor(String.class);
+            return (LeagueData) constructor.newInstance(_parameters);
+        } catch (Exception exp) {
+            throw new RuntimeException("Unable to create LeagueData", exp);
+        }
+    }
+
+    public int getStart() {
+        return _start;
     }
 
     public int getEnd() {
         return _end;
     }
 
-    public int getStart() {
-        return _start;
+    public int getStatus() {
+        return _status;
     }
 
     @Override

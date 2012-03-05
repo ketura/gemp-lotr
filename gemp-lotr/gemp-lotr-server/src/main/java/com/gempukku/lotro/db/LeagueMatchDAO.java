@@ -2,7 +2,7 @@ package com.gempukku.lotro.db;
 
 import com.gempukku.lotro.db.vo.League;
 import com.gempukku.lotro.db.vo.LeagueMatch;
-import com.gempukku.lotro.db.vo.LeagueSerie;
+import com.gempukku.lotro.league.LeagueSerieData;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -48,14 +48,14 @@ public class LeagueMatchDAO {
         }
     }
 
-    public Collection<LeagueMatch> getLeagueSerieMatches(League league, LeagueSerie leagueSerie) {
+    public Collection<LeagueMatch> getLeagueSerieMatches(League league, LeagueSerieData leagueSerie) {
         try {
             Connection conn = _dbAccess.getDataSource().getConnection();
             try {
                 PreparedStatement statement = conn.prepareStatement("select winner, loser from league_match where league_type=? and season_type=?");
                 try {
                     statement.setString(1, league.getType());
-                    statement.setString(2, leagueSerie.getType());
+                    statement.setString(2, leagueSerie.getName());
                     ResultSet rs = statement.executeQuery();
                     try {
                         Set<LeagueMatch> result = new HashSet<LeagueMatch>();
@@ -80,14 +80,14 @@ public class LeagueMatchDAO {
         }
     }
 
-    public Collection<LeagueMatch> getPlayerMatchesPlayedOn(League league, LeagueSerie leagueSeason, String player) {
+    public Collection<LeagueMatch> getPlayerMatchesPlayedOn(League league, LeagueSerieData leagueSeason, String player) {
         try {
             Connection conn = _dbAccess.getDataSource().getConnection();
             try {
                 PreparedStatement statement = conn.prepareStatement("select winner, loser from league_match where league_type=? and season_type=? and (winner=? or loser=?)");
                 try {
                     statement.setString(1, league.getType());
-                    statement.setString(2, leagueSeason.getType());
+                    statement.setString(2, leagueSeason.getName());
                     statement.setString(3, player);
                     statement.setString(4, player);
                     ResultSet rs = statement.executeQuery();
@@ -114,14 +114,14 @@ public class LeagueMatchDAO {
         }
     }
 
-    public void addPlayedMatch(League league, LeagueSerie leagueSeason, String winner, String loser) {
+    public void addPlayedMatch(League league, LeagueSerieData leagueSeason, String winner, String loser) {
         try {
             Connection conn = _dbAccess.getDataSource().getConnection();
             try {
                 PreparedStatement statement = conn.prepareStatement("insert into league_match (league_type, season_type, winner, loser) values (?, ?, ?, ?)");
                 try {
                     statement.setString(1, league.getType());
-                    statement.setString(2, leagueSeason.getType());
+                    statement.setString(2, leagueSeason.getName());
                     statement.setString(3, winner);
                     statement.setString(4, loser);
                     statement.execute();

@@ -49,7 +49,7 @@ public class LeagueDAO {
     public Set<League> loadActiveLeagues(int currentTime) throws SQLException, IOException {
         Connection conn = _dbAccess.getDataSource().getConnection();
         try {
-            PreparedStatement statement = conn.prepareStatement("select id, name, type, start, end from league where start<=? and end>=? order by start desc");
+            PreparedStatement statement = conn.prepareStatement("select id, name, type, class, parameters, start, end, status from league where start<=? and end>=? order by start desc");
             try {
                 statement.setInt(1, currentTime);
                 statement.setInt(2, currentTime);
@@ -60,9 +60,12 @@ public class LeagueDAO {
                         int id = rs.getInt(1);
                         String name = rs.getString(2);
                         String type = rs.getString(3);
-                        int start = rs.getInt(4);
-                        int end = rs.getInt(5);
-                        activeLeagues.add(new League(id, type, name, start, end));
+                        String clazz = rs.getString(4);
+                        String parameters = rs.getString(5);
+                        int start = rs.getInt(6);
+                        int end = rs.getInt(7);
+                        int status = rs.getInt(8);
+                        activeLeagues.add(new League(id, name, type, clazz, parameters, start, end, status));
                     }
                     return activeLeagues;
                 } finally {
@@ -73,6 +76,28 @@ public class LeagueDAO {
             }
         } finally {
             conn.close();
+        }
+    }
+
+    public void setStatus(League league, int newStatus) {
+        try {
+            Connection connection = _dbAccess.getDataSource().getConnection();
+            try {
+                String sql = "update league set status=? where id=?";
+
+                PreparedStatement statement = connection.prepareStatement(sql);
+                try {
+                    statement.setInt(1, newStatus);
+                    statement.setInt(2, league.getId());
+                    statement.execute();
+                } finally {
+                    statement.close();
+                }
+            } finally {
+                connection.close();
+            }
+        } catch (SQLException exp) {
+            throw new RuntimeException("Unable to update league status", exp);
         }
     }
 }

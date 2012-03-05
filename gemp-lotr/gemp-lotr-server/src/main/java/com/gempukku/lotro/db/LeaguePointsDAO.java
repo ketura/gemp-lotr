@@ -1,7 +1,7 @@
 package com.gempukku.lotro.db;
 
 import com.gempukku.lotro.db.vo.League;
-import com.gempukku.lotro.db.vo.LeagueSerie;
+import com.gempukku.lotro.league.LeagueSerieData;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,14 +17,14 @@ public class LeaguePointsDAO {
         _dbAccess = dbAccess;
     }
 
-    public synchronized void addPoints(League league, LeagueSerie serie, String playerName, int points) {
+    public synchronized void addPoints(League league, LeagueSerieData serie, String playerName, int points) {
         try {
             Connection conn = _dbAccess.getDataSource().getConnection();
             try {
                 PreparedStatement statement = conn.prepareStatement("insert into league_points (league_type, season_type, player_name, points) values (?, ?, ?, ?)");
                 try {
                     statement.setString(1, league.getType());
-                    statement.setString(2, serie.getType());
+                    statement.setString(2, serie.getName());
                     statement.setString(3, playerName);
                     statement.setInt(4, points);
                     statement.execute();
@@ -74,14 +74,14 @@ public class LeaguePointsDAO {
         return result;
     }
 
-    public Map<String, Points> getLeagueSeriePoints(League league, LeagueSerie serie) {
+    public Map<String, Points> getLeagueSeriePoints(League league, LeagueSerieData serie) {
         try {
             Connection conn = _dbAccess.getDataSource().getConnection();
             try {
                 PreparedStatement statement = conn.prepareStatement("select player_name, sum(points), count(*) from league_points where league_type=? and season_type=? group by player_name order by 2 desc, 3 asc");
                 try {
                     statement.setString(1, league.getType());
-                    statement.setString(2, serie.getType());
+                    statement.setString(2, serie.getName());
                     ResultSet rs = statement.executeQuery();
                     try {
                         return createPoints(rs);
