@@ -3,7 +3,6 @@ package com.gempukku.lotro.server;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.db.DeckDAO;
 import com.gempukku.lotro.db.LeagueDAO;
-import com.gempukku.lotro.db.LeagueSerieDAO;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.hall.HallServer;
@@ -30,8 +29,6 @@ public class AdminResource extends AbstractResource {
     private DeckDAO _deckDao;
     @Context
     private LeagueDAO _leagueDao;
-    @Context
-    private LeagueSerieDAO _leagueSeasonDao;
     @Context
     private LotroCardBlueprintLibrary _library;
     @Context
@@ -99,25 +96,6 @@ public class AdminResource extends AbstractResource {
         validateAdmin(request);
 
         _leagueDao.addLeague(name, type, start, end);
-
-        return "OK";
-    }
-
-
-    @Path("/addLeagueSeason")
-    @POST
-    public String addLeagueSeason(
-            @FormParam("leagueType") String leagueType,
-            @FormParam("type") String type,
-            @FormParam("format") String format,
-            @FormParam("product") String product,
-            @FormParam("start") int start,
-            @FormParam("end") int end,
-            @FormParam("maxMatches") int maxMatches,
-            @Context HttpServletRequest request) throws Exception {
-        validateAdmin(request);
-
-        _leagueSeasonDao.addSerie(leagueType, type, format, product, start, end, maxMatches);
 
         return "OK";
     }
@@ -201,6 +179,6 @@ public class AdminResource extends AbstractResource {
         if (collectionType.equals("permanent"))
             return new CollectionType("permanent", "My cards");
 
-        return _leagueService.getLeagueByType(collectionType).getCollectionType();
+        return _leagueService.getCollectionTypeByCode(collectionType);
     }
 }

@@ -13,9 +13,13 @@ import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.decisions.AwaitingDecision;
 import com.gempukku.lotro.logic.decisions.AwaitingDecisionType;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
+import com.gempukku.lotro.logic.modifiers.Modifier;
+import com.gempukku.lotro.logic.modifiers.ModifierFlag;
+import com.gempukku.lotro.logic.modifiers.SpecialFlagModifier;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.fail;
 import org.junit.Test;
 
@@ -243,5 +247,68 @@ public class TimingAtTest extends AbstractAtTest {
 
         assertEquals(1, moveFrom.get());
         assertEquals(1, moveTo.get());
+    }
+
+    @Test
+    public void movementSiteAffecting() throws DecisionResultInvalidException {
+        initializeSimplestGame();
+
+        skipMulligans();
+
+        PhysicalCardImpl moveFromSite = new PhysicalCardImpl(100, "0_1234", P1,
+                new AbstractSite("Blah", Block.FELLOWSHIP, 1, 0, LotroCardBlueprint.Direction.LEFT) {
+                    @Override
+                    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+                        return new SpecialFlagModifier(self, ModifierFlag.RING_TEXT_INACTIVE);
+                    }
+                });
+        moveFromSite.setSiteNumber(1);
+        PhysicalCardImpl moveToSite = new PhysicalCardImpl(100, "0_1235", P1,
+                new AbstractSite("Blah", Block.FELLOWSHIP, 2, 0, LotroCardBlueprint.Direction.LEFT) {
+                    @Override
+                    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+                        return new SpecialFlagModifier(self, ModifierFlag.CANT_PREVENT_WOUNDS);
+                    }
+                });
+        moveToSite.setSiteNumber(2);
+
+        _game.getGameState().removeCardsFromZone(P1, Collections.singleton(_game.getGameState().getCurrentSite()));
+        _game.getGameState().addCardToZone(_game, moveFromSite, Zone.ADVENTURE_PATH);
+        _game.getGameState().addCardToZone(_game, moveToSite, Zone.ADVENTURE_PATH);
+
+        assertTrue(_game.getModifiersQuerying().hasFlagActive(_game.getGameState(), ModifierFlag.RING_TEXT_INACTIVE));
+        assertFalse(_game.getModifiersQuerying().hasFlagActive(_game.getGameState(), ModifierFlag.CANT_PREVENT_WOUNDS));
+
+        // End fellowship phase
+        playerDecided(P1, "");
+
+        // End shadow phase
+        playerDecided(P2, "");
+
+        assertFalse(_game.getModifiersQuerying().hasFlagActive(_game.getGameState(), ModifierFlag.RING_TEXT_INACTIVE));
+        assertTrue(_game.getModifiersQuerying().hasFlagActive(_game.getGameState(), ModifierFlag.CANT_PREVENT_WOUNDS));
+
+        // Pass in Regroup phase
+        assertEquals(Phase.REGROUP, _game.getGameState().getCurrentPhase());
+        playerDecided(P1, "");
+        assertEquals(Phase.REGROUP, _game.getGameState().getCurrentPhase());
+        playerDecided(P2, "");
+
+        // Decide not to move
+        assertEquals(Phase.REGROUP, _game.getGameState().getCurrentPhase());
+        playerDecided(P1, getMultipleDecisionIndex(_userFeedback.getAwaitingDecision(P1), "No"));
+
+        // Fellowship of player2
+        assertTrue(_game.getModifiersQuerying().hasFlagActive(_game.getGameState(), ModifierFlag.RING_TEXT_INACTIVE));
+        assertFalse(_game.getModifiersQuerying().hasFlagActive(_game.getGameState(), ModifierFlag.CANT_PREVENT_WOUNDS));
+
+        // End fellowship phase
+        playerDecided(P2, "");
+
+        // End shadow phase
+        playerDecided(P1, "");
+
+        assertFalse(_game.getModifiersQuerying().hasFlagActive(_game.getGameState(), ModifierFlag.RING_TEXT_INACTIVE));
+        assertTrue(_game.getModifiersQuerying().hasFlagActive(_game.getGameState(), ModifierFlag.CANT_PREVENT_WOUNDS));
     }
 }

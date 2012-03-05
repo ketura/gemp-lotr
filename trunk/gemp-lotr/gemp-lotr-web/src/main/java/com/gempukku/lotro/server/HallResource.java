@@ -1,12 +1,12 @@
 package com.gempukku.lotro.server;
 
 import com.gempukku.lotro.db.vo.League;
-import com.gempukku.lotro.db.vo.LeagueSerie;
 import com.gempukku.lotro.game.LotroFormat;
 import com.gempukku.lotro.game.Player;
 import com.gempukku.lotro.hall.HallException;
 import com.gempukku.lotro.hall.HallInfoVisitor;
 import com.gempukku.lotro.hall.HallServer;
+import com.gempukku.lotro.league.LeagueSerieData;
 import com.gempukku.lotro.league.LeagueService;
 import com.sun.jersey.spi.resource.Singleton;
 import org.w3c.dom.Document;
@@ -57,7 +57,7 @@ public class HallResource extends AbstractResource {
             hall.appendChild(formatElem);
         }
         for (League league : _leagueService.getActiveLeagues()) {
-            final LeagueSerie currentLeagueSerie = _leagueService.getCurrentLeagueSerie(league);
+            final LeagueSerieData currentLeagueSerie = _leagueService.getCurrentLeagueSerie(league);
             if (currentLeagueSerie != null) {
                 Element formatElem = doc.createElement("format");
                 formatElem.setAttribute("type", league.getType());

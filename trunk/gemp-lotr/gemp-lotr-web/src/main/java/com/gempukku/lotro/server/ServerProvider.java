@@ -37,8 +37,6 @@ public class ServerProvider implements InjectableProvider<Context, Type> {
     @Context
     private LeagueDAO _leagueDao;
     @Context
-    private LeagueSerieDAO _leagueSeasonDao;
-    @Context
     private LeagueMatchDAO _leagueMatchDao;
     @Context
     private LeaguePointsDAO _leaguePointsDao;
@@ -68,7 +66,7 @@ public class ServerProvider implements InjectableProvider<Context, Type> {
 
     private synchronized Injectable<LeagueService> getLeagueServiceInjectable() {
         if (_leagueServerInjectable == null) {
-            final LeagueService leagueService = new LeagueService(_leagueDao, _leagueSeasonDao, _leaguePointsDao, _leagueMatchDao, getCollectionsManagerInjectable().getValue());
+            final LeagueService leagueService = new LeagueService(_leagueDao, _leaguePointsDao, _leagueMatchDao, getCollectionsManagerInjectable().getValue());
             _leagueServerInjectable = new Injectable<LeagueService>() {
                 @Override
                 public LeagueService getValue() {
