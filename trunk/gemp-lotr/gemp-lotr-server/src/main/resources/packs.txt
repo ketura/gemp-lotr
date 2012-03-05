@@ -27,3 +27,4 @@ EoF - Witch-king Starter
 (S)RotEL - Starter
 Random FotR Foil Common
 Random FotR Foil Uncommon
+(S)TTT - Tengwar
