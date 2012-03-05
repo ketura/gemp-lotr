@@ -13,6 +13,7 @@ public abstract class AbstractPreventableCardEffect extends AbstractEffect {
     private Filter _filter;
     private Set<PhysicalCard> _preventedTargets = new HashSet<PhysicalCard>();
     private int _requiredTargets;
+    private int _insteadCount;
 
     public AbstractPreventableCardEffect(PhysicalCard... cards) {
         List<PhysicalCard> affectedCards = Arrays.asList(cards);
@@ -48,10 +49,14 @@ public abstract class AbstractPreventableCardEffect extends AbstractEffect {
         Collection<PhysicalCard> affectedCards = getAffectedCards(game);
         Collection<PhysicalCard> affectedMinusPreventedCards = getAffectedCardsMinusPrevented(game);
         playoutEffectOn(game, affectedMinusPreventedCards);
-        return new FullEffectResult(affectedCards.size() >= _requiredTargets, affectedMinusPreventedCards.size() >= _requiredTargets);
+        return new FullEffectResult(affectedCards.size() + _insteadCount >= _requiredTargets, affectedMinusPreventedCards.size() >= _requiredTargets);
     }
 
     public void preventEffect(LotroGame game, PhysicalCard card) {
         _preventedTargets.add(card);
+    }
+
+    public void incrementInstead() {
+        _insteadCount++;
     }
 }
