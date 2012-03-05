@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set17.rohan;
 
-import com.gempukku.lotro.cards.AbstractMinion;
+import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.SelfExertEffect;
@@ -15,7 +15,6 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.SpotCondition;
-import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.Collections;
 import java.util.List;
@@ -33,9 +32,9 @@ import java.util.List;
  * Assignment: Exert Eowyn and assign a minion to the Ringbearer to make that minion lose all game text keywords
  * and unable to gain game text keywords until the regroup phase.
  */
-public class Card17_096 extends AbstractMinion {
+public class Card17_096 extends AbstractCompanion {
     public Card17_096() {
-        super(2, 6, 3, 7, Race.MAN, Culture.ROHAN, "Eowyn", true);
+        super(2, 6, 3, 7, Culture.ROHAN, Race.MAN, null, "Eowyn", true);
     }
 
     @Override
@@ -47,7 +46,7 @@ public class Card17_096 extends AbstractMinion {
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
+    protected List<ActivateCardAction> getExtraInPlayPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.ASSIGNMENT, self)
                 && PlayConditions.canSelfExert(self, game)
                 && PlayConditions.canSpot(game, CardType.MINION, Filters.assignableToSkirmishAgainst(Side.FREE_PEOPLE, Filters.ringBearer))) {
