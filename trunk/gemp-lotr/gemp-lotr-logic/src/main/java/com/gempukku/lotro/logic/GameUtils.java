@@ -93,6 +93,10 @@ public class GameUtils {
     }
 
     public static int getRegion(GameState gameState) {
-        return 1 + ((gameState.getCurrentSiteNumber() - 1) / 3);
+        return getRegion(gameState.getCurrentSiteNumber());
+    }
+
+    public static int getRegion(int siteNumber) {
+        return 1 + ((siteNumber - 1) / 3);
     }
 }
