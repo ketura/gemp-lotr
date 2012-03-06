@@ -10,6 +10,7 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.common.Token;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.effects.DrawCardsEffect;
 
 /**
@@ -30,9 +31,12 @@ public class Card18_037 extends AbstractEvent {
         PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new ReinforceTokenEffect(self, playerId, Token.GOLLUM));
-        action.appendEffect(
-                new OptionalEffect(action, playerId,
-                        new DrawCardsEffect(action, playerId, 1)));
+        for (String shadowPlayer : GameUtils.getOpponents(game, playerId)) {
+            action.appendEffect(
+                    new OptionalEffect(action, shadowPlayer,
+                            new DrawCardsEffect(action, shadowPlayer, 1)));
+
+        }
         return action;
     }
 }
