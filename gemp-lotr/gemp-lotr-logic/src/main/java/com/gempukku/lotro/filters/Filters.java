@@ -57,7 +57,6 @@ public class Filters {
         _keywordFilterMap.put(Keyword.BESIEGER, Filters.and(CardType.MINION, keyword(Keyword.BESIEGER)));
     }
 
-
     public static boolean canSpot(GameState gameState, ModifiersQuerying modifiersQuerying, Filterable... filters) {
         Filter filter = Filters.and(filters);
         SpotFilterCardInPlayVisitor visitor = new SpotFilterCardInPlayVisitor(gameState, modifiersQuerying, filter);
@@ -99,6 +98,15 @@ public class Filters {
     }
 
     // Filters available
+
+    public static Filter canSpotCompanionWithStrengthAtLeast(final int strength) {
+        return new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                return Filters.canSpot(gameState, modifiersQuerying, CardType.COMPANION, Filters.not(Filters.lessStrengthThan(strength)));
+            }
+        };
+    }
 
     public static Filter lessVitalityThan(final int vitality) {
         return new Filter() {
