@@ -97,8 +97,8 @@ public class SealedLeagueData implements LeagueData {
                 for (LeagueStanding leagueStanding : leagueStandings) {
                     collectionsManager.moveCollectionToCollection(leagueStanding.getPlayerName(), _collectionType, _prizeCollectionType);
                 }
+                status++;
             }
-            status++;
         }
 
         return status;
