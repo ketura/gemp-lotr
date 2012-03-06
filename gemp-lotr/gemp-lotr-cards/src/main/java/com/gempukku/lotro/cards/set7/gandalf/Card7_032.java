@@ -11,6 +11,7 @@ import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.results.PlayEventResult;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -33,6 +34,7 @@ import java.util.List;
 public class Card7_032 extends AbstractResponseEvent {
     public Card7_032() {
         super(Side.FREE_PEOPLE, 0, Culture.GANDALF, "The Board Is Set");
+        addKeyword(Keyword.SPELL);
     }
 
     @Override
