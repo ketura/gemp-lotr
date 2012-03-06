@@ -11,5 +11,5 @@ public interface LeagueData {
 
     public CardCollection joinLeague(CollectionsManager collecionsManager, Player player, int currentTime);
 
-    public int process(CollectionsManager collectionsManager, int oldStatus, int currentTime);
+    public int process(CollectionsManager collectionsManager, List<LeagueStanding> leagueStandings, int oldStatus, int currentTime);
 }

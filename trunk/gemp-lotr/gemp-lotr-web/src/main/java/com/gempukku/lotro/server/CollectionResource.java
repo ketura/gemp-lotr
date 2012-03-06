@@ -146,7 +146,7 @@ public class CollectionResource extends AbstractResource {
 
         for (League league : _leagueService.getActiveLeagues()) {
             LeagueSerieData serie = _leagueService.getCurrentLeagueSerie(league);
-            if (serie.isLimited()) {
+            if (serie != null && serie.isLimited()) {
                 CollectionType collectionType = serie.getCollectionType();
                 Element collectionElem = doc.createElement("collection");
                 collectionElem.setAttribute("type", collectionType.getCode());
