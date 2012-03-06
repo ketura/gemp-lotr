@@ -52,7 +52,7 @@ public class Card17_105 extends AbstractPermanent {
                                     @Override
                                     public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
                                         PhysicalCard mountDoom = Filters.findFirstActive(gameState, modifiersQuerying, Filters.name("Mount Doom"));
-                                        return mountDoom != null && ((mountDoom.getSiteNumber() - 1) / 3) == GameUtils.getRegion(gameState);
+                                        return mountDoom != null && (1 + ((mountDoom.getSiteNumber() - 1) / 3)) == GameUtils.getRegion(gameState);
                                     }
                                 }), -2));
         return modifiers;
