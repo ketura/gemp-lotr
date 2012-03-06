@@ -20,11 +20,18 @@ public class PutCardsFromDeckIntoHandDiscardRestEffect extends AbstractSubAction
     private String _playerId;
     private Filterable[] _filters;
     private Set<PhysicalCard> _cards;
+    private int _drawn;
+    private int _maxCount;
 
     public PutCardsFromDeckIntoHandDiscardRestEffect(Action action, PhysicalCard source, String playerId, Collection<? extends PhysicalCard> cards, Filterable... filters) {
+        this(action, source, playerId, cards, Integer.MAX_VALUE, filters);
+    }
+
+    public PutCardsFromDeckIntoHandDiscardRestEffect(Action action, PhysicalCard source, String playerId, Collection<? extends PhysicalCard> cards, int maxCount, Filterable... filters) {
         _action = action;
         _source = source;
         _playerId = playerId;
+        _maxCount = maxCount;
         _filters = filters;
         _cards = new HashSet<PhysicalCard>(cards);
     }
@@ -74,12 +81,14 @@ public class PutCardsFromDeckIntoHandDiscardRestEffect extends AbstractSubAction
         @Override
         protected void doPlayEffect(LotroGame game) {
             if (game.getModifiersQuerying().canDrawCardNoIncrement(game.getGameState(), _playerId)
+                    && _drawn < _maxCount
                     && Filters.filter(_remainingCards, game.getGameState(), game.getModifiersQuerying(), _filters).size() > 0) {
                 _subAction.insertEffect(
                         new ChooseArbitraryCardsEffect(_playerId, "Put next card to put into your hand", _remainingCards, Filters.and(_filters), 1, 1) {
                             @Override
                             protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
                                 for (PhysicalCard selectedCard : selectedCards) {
+                                    _drawn++;
                                     _remainingCards.remove(selectedCard);
                                     _subAction.insertEffect(
                                             new ChooseAndPutNextCardFromDeckIntoHand(_subAction, _remainingCards));

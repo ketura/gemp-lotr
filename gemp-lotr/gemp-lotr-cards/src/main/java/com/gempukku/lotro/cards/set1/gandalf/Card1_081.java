@@ -2,8 +2,7 @@ package com.gempukku.lotro.cards.set1.gandalf;
 
 import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.DiscardCardFromDeckEffect;
-import com.gempukku.lotro.cards.effects.PutCardFromDeckIntoHandOrDiscardEffect;
+import com.gempukku.lotro.cards.effects.PutCardsFromDeckIntoHandDiscardRestEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
@@ -11,9 +10,7 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.effects.ChooseArbitraryCardsEffect;
 
-import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -45,18 +42,7 @@ public class Card1_081 extends AbstractOldEvent {
         List<? extends PhysicalCard> deck = game.getGameState().getDeck(playerId);
         final List<PhysicalCard> cards = new LinkedList<PhysicalCard>(deck.subList(0, Math.min(deck.size(), 4)));
         action.appendEffect(
-                new ChooseArbitraryCardsEffect(playerId, "Choose cards to put into hand", cards, Math.min(cards.size(), 2), Math.min(cards.size(), 2)) {
-                    @Override
-                    protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
-                        for (PhysicalCard selectedCard : selectedCards) {
-                            action.appendEffect(new PutCardFromDeckIntoHandOrDiscardEffect(selectedCard));
-                            cards.remove(selectedCard);
-                        }
-
-                        for (PhysicalCard remainingCard : cards)
-                            action.appendEffect(new DiscardCardFromDeckEffect(remainingCard));
-                    }
-                });
+                new PutCardsFromDeckIntoHandDiscardRestEffect(action, self, playerId, cards, 2, Filters.any));
         return action;
     }
 
