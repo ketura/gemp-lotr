@@ -15,6 +15,7 @@ public class SealedLeagueData implements LeagueData {
     private String _format;
     private List<LeagueSerieData> _series;
     private CollectionType _collectionType;
+    private CollectionType _prizeCollectionType = new CollectionType("permanent", "My cards");
     private SealedLeaguePrizes _leaguePrizes;
     private SealedLeagueProduct _leagueProduct;
 
@@ -71,7 +72,7 @@ public class SealedLeagueData implements LeagueData {
     }
 
     @Override
-    public int process(CollectionsManager collectionsManager, int oldStatus, int currentTime) {
+    public int process(CollectionsManager collectionsManager, List<LeagueStanding> leagueStandings, int oldStatus, int currentTime) {
         int status = oldStatus;
 
         for (int i = status; i < _series.size(); i++) {
@@ -89,8 +90,15 @@ public class SealedLeagueData implements LeagueData {
         if (status == _series.size()) {
             LeagueSerieData lastSerie = _series.get(_series.size() - 1);
             if (currentTime >= getDate(lastSerie.getEnd(), 1)) {
-                // Award prizes and move collections
+                for (LeagueStanding leagueStanding : leagueStandings) {
+                    CardCollection leaguePrize = _leaguePrizes.getPrizeForLeague(leagueStanding.getStanding(), leagueStandings.size(), _format);
+                    collectionsManager.addItemsToPlayerCollection(leagueStanding.getPlayerName(), _prizeCollectionType, leaguePrize.getAll());
+                }
+                for (LeagueStanding leagueStanding : leagueStandings) {
+                    collectionsManager.moveCollectionToCollection(leagueStanding.getPlayerName(), _collectionType, _prizeCollectionType);
+                }
             }
+            status++;
         }
 
         return status;

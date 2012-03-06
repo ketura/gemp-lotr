@@ -98,7 +98,7 @@ public class SealedLeagueDataTest {
         for (int i = 20120101; i < 20120108; i++) {
             CollectionsManager collectionsManager = Mockito.mock(CollectionsManager.class);
             Mockito.when(collectionsManager.getPlayersCollection("test")).thenReturn(new HashMap<Player, CardCollection>());
-            int result = data.process(collectionsManager, 0, i);
+            int result = data.process(collectionsManager, null, 0, i);
             assertEquals(1, result);
             Mockito.verify(collectionsManager, new Times(1)).getPlayersCollection("test");
             Mockito.verifyNoMoreInteractions(collectionsManager);
@@ -111,7 +111,7 @@ public class SealedLeagueDataTest {
         for (int i = 20120101; i < 20120108; i++) {
             CollectionsManager collectionsManager = Mockito.mock(CollectionsManager.class);
             Mockito.when(collectionsManager.getPlayersCollection("test")).thenReturn(new HashMap<Player, CardCollection>());
-            int result = data.process(collectionsManager, 1, i);
+            int result = data.process(collectionsManager, null, 1, i);
             assertEquals(1, result);
             Mockito.verifyNoMoreInteractions(collectionsManager);
         }
@@ -127,7 +127,7 @@ public class SealedLeagueDataTest {
             Player player = new Player(1, "Test", "A");
             playersInLeague.put(player, new DefaultCardCollection());
             Mockito.when(collectionsManager.getPlayersCollection("test")).thenReturn(playersInLeague);
-            int result = data.process(collectionsManager, 1, i);
+            int result = data.process(collectionsManager, null, 1, i);
             assertEquals(2, result);
             Map<String, Integer> expectedToAdd = new HashMap<String, Integer>();
             expectedToAdd.put("(S)MoM - Starter", 1);
@@ -145,7 +145,7 @@ public class SealedLeagueDataTest {
         for (int i = 20120108; i < 20120115; i++) {
             CollectionsManager collectionsManager = Mockito.mock(CollectionsManager.class);
             Mockito.when(collectionsManager.getPlayersCollection("test")).thenReturn(new HashMap<Player, CardCollection>());
-            int result = data.process(collectionsManager, 2, i);
+            int result = data.process(collectionsManager, null, 2, i);
             assertEquals(2, result);
             Mockito.verifyNoMoreInteractions(collectionsManager);
         }

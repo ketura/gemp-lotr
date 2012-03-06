@@ -109,6 +109,10 @@ public class CollectionsManager {
         addItemsToPlayerCollection(_playerDAO.getPlayer(player), collectionType, items);
     }
 
+    public void moveCollectionToCollection(String player, CollectionType collectionFrom, CollectionType collectionTo) {
+        moveCollectionToCollection(_playerDAO.getPlayer(player), collectionFrom, collectionTo);
+    }
+
     public void moveCollectionToCollection(Player player, CollectionType collectionFrom, CollectionType collectionTo) {
         _readWriteLock.writeLock().lock();
         try {
