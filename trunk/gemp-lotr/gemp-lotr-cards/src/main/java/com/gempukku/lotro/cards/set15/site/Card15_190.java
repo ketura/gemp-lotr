@@ -31,6 +31,7 @@ public class Card15_190 extends AbstractNewSite {
     @Override
     public List<ActivateCardAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.startOfPhase(game, effectResult, Phase.FELLOWSHIP)
+                && game.getGameState().getCurrentPlayerId().equals(playerId)
                 && PlayConditions.canExert(self, game, 1, 2, CardType.COMPANION, Keyword.HUNTER)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
