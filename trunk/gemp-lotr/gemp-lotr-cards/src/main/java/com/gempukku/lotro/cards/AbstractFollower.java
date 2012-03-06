@@ -65,7 +65,7 @@ public abstract class AbstractFollower extends AbstractPermanent {
     protected abstract Effect getAidCost(LotroGame game, PhysicalCard self);
 
     protected Filterable getFollowerTarget(LotroGame game, PhysicalCard self) {
-        return CardType.COMPANION;
+        return Filters.and(Filters.owner(self.getOwner()), Filters.or(CardType.COMPANION, CardType.MINION));
     }
 
     @Override
