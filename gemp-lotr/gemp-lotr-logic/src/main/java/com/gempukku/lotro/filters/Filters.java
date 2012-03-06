@@ -595,14 +595,7 @@ public class Filters {
                 @Override
                 public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
                     int siteNumber = physicalCard.getSiteNumber();
-                    int region;
-                    if (siteNumber <= 3)
-                        region = 1;
-                    else if (siteNumber > 3 && siteNumber <= 6)
-                        region = 2;
-                    else
-                        region = 3;
-                    return GameUtils.getRegion(gameState) == region;
+                    return GameUtils.getRegion(gameState) == GameUtils.getRegion(siteNumber);
                 }
             });
 
@@ -611,12 +604,7 @@ public class Filters {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
                 int siteNumber = physicalCard.getSiteNumber();
-                if (region == 1)
-                    return siteNumber <= 3;
-                else if (region == 2)
-                    return siteNumber > 3 && siteNumber <= 6;
-                else
-                    return siteNumber > 6;
+                return GameUtils.getRegion(siteNumber) == region;
             }
         };
     }
