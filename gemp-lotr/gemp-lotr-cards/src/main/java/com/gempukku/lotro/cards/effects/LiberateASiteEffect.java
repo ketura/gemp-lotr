@@ -14,9 +14,15 @@ import java.util.Set;
 
 public class LiberateASiteEffect extends AbstractEffect {
     private PhysicalCard _source;
+    private String _playerId;
 
     public LiberateASiteEffect(PhysicalCard source) {
         _source = source;
+    }
+
+    public LiberateASiteEffect(PhysicalCard source, String playerId) {
+        _source = source;
+        _playerId = playerId;
     }
 
     @Override
@@ -41,9 +47,14 @@ public class LiberateASiteEffect extends AbstractEffect {
 
         for (int i = maxUnoccupiedSite; i >= 1; i--) {
             PhysicalCard site = game.getGameState().getSite(i);
-            if (site != null && site.getCardController() != null
-                    && !site.getCardController().equals(game.getGameState().getCurrentPlayerId()))
-                return site;
+            if (_playerId == null) {
+                if (site != null && site.getCardController() != null
+                        && !site.getCardController().equals(game.getGameState().getCurrentPlayerId()))
+                    return site;
+            } else {
+                if (site != null && site.getCardController() != null && site.getCardController().equals(_playerId))
+                    return site;
+            }
         }
 
         return null;
