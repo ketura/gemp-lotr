@@ -12,6 +12,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.effects.AddTwilightEffect;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
+import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.Collections;
@@ -38,7 +39,7 @@ public class Card15_134 extends AbstractFollower {
     }
 
     @Override
-    protected Effect getAidCost(LotroGame game, PhysicalCard self) {
+    protected Effect getAidCost(LotroGame game, Action action, PhysicalCard self) {
         return new AddTwilightEffect(self, 1);
     }
 

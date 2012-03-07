@@ -15,6 +15,7 @@ import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.effects.AddThreatsEffect;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
+import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
@@ -44,7 +45,7 @@ public class Card17_020 extends AbstractFollower {
     }
 
     @Override
-    protected Effect getAidCost(LotroGame game, PhysicalCard self) {
+    protected Effect getAidCost(LotroGame game, Action action, PhysicalCard self) {
         return new AddThreatsEffect(self.getOwner(), self, 1);
     }
 

@@ -11,6 +11,7 @@ import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
+import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
@@ -62,7 +63,7 @@ public abstract class AbstractFollower extends AbstractPermanent {
 
     protected abstract boolean canPayAidCost(LotroGame game, PhysicalCard self);
 
-    protected abstract Effect getAidCost(LotroGame game, PhysicalCard self);
+    protected abstract Effect getAidCost(LotroGame game, Action action, PhysicalCard self);
 
     protected Filterable getFollowerTarget(LotroGame game, PhysicalCard self) {
         return Filters.and(Filters.owner(self.getOwner()), Filters.or(CardType.COMPANION, CardType.MINION));
@@ -75,7 +76,7 @@ public abstract class AbstractFollower extends AbstractPermanent {
                 && PlayConditions.canSpot(game, getFollowerTarget(game, self))) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(
-                    getAidCost(game, self));
+                    getAidCost(game, action, self));
             action.appendCost(
                     new ChooseActiveCardEffect(self, playerId, "Choose character to transfer follower to", getFollowerTarget(game, self)) {
                         @Override
