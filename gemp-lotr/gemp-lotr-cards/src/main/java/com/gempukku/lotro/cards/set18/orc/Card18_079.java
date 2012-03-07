@@ -37,7 +37,7 @@ public class Card18_079 extends AbstractEvent {
         action.appendEffect(
                 new AddUntilEndOfPhaseModifierEffect(
                         new ArcheryTotalModifier(self, Side.SHADOW, 2), Phase.ARCHERY));
-        int count = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.FOLLOWER);
+        final int count = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.FOLLOWER);
         if (count > 0)
             action.appendEffect(
                     new OptionalEffect(action, playerId,
