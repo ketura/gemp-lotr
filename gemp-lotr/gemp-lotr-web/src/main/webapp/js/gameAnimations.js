@@ -543,9 +543,10 @@ var GameAnimations = Class.extend({
                     var cardId = element.getAttribute("cardId");
                     var opposingCardIds = element.getAttribute("otherCardIds").split(",");
 
-                    $(".card:cardId(" + opposingCardIds + ")").each(function() {
-                        $(this).data("card").skirmish = true;
-                    });
+                    if (opposingCardIds.length > 0)
+                        $(".card:cardId(" + opposingCardIds + ")").each(function() {
+                            $(this).data("card").skirmish = true;
+                        });
 
                     if (cardId != null)
                         $(".card:cardId(" + cardId + ")").each(function() {
