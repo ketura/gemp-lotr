@@ -10,6 +10,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
+import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.Collections;
@@ -37,7 +38,7 @@ public class Card15_147 extends AbstractFollower {
     }
 
     @Override
-    protected Effect getAidCost(LotroGame game, PhysicalCard self) {
+    protected Effect getAidCost(LotroGame game, Action action, PhysicalCard self) {
         return new AddBurdenEffect(self, 1);
     }
 
