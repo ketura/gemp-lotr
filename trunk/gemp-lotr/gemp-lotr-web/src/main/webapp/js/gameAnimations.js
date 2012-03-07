@@ -541,9 +541,9 @@ var GameAnimations = Class.extend({
         $("#main").queue(
                 function(next) {
                     var cardId = element.getAttribute("cardId");
-                    var opposingCardIds = element.getAttribute("otherCardIds").split(",");
+                    var opposingCardIds = element.getAttribute("otherCardIds");
 
-                    if (opposingCardIds.length > 0 && opposingCardIds[0] != "")
+                    if (opposingCardIds != "")
                         $(".card:cardId(" + opposingCardIds + ")").each(function() {
                             $(this).data("card").skirmish = true;
                         });
