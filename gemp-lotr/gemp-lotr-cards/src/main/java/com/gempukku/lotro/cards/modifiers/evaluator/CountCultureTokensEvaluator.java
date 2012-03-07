@@ -12,8 +12,14 @@ import java.util.Map;
 
 public class CountCultureTokensEvaluator implements Evaluator {
     private Filterable[] _filters;
+    private Token _token;
 
     public CountCultureTokensEvaluator(Filterable... filters) {
+        _filters = filters;
+    }
+
+    public CountCultureTokensEvaluator(Token token, Filterable... filters) {
+        _token = token;
         _filters = filters;
     }
 
@@ -22,7 +28,8 @@ public class CountCultureTokensEvaluator implements Evaluator {
         int count = 0;
         for (PhysicalCard physicalCard : Filters.filterActive(gameState, modifiersQuerying, Filters.and(_filters, Filters.hasAnyCultureTokens(1)))) {
             for (Map.Entry<Token, Integer> tokens : gameState.getTokens(physicalCard).entrySet()) {
-                if (tokens.getKey().getCulture() != null)
+                if (tokens.getKey().getCulture() != null
+                        && ((_token == null) || tokens.getKey() == _token))
                     count += tokens.getValue();
             }
         }
