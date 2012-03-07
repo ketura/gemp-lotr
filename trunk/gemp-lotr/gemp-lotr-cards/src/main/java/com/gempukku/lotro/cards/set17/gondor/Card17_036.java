@@ -43,9 +43,7 @@ public class Card17_036 extends AbstractPermanent {
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayConditions.isPhase(game, Phase.SKIRMISH)
-                &&
-                (TriggerConditions.forEachKilled(game, effectResult, CardType.MINION)
-                        || TriggerConditions.forEachDiscardedFromPlay(game, effectResult, CardType.MINION))) {
+                && TriggerConditions.forEachDiscardedFromPlay(game, effectResult, CardType.MINION)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
                     new ReinforceTokenEffect(self, playerId, Token.GONDOR));
