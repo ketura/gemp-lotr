@@ -5,10 +5,10 @@ import org.junit.Test;
 
 import java.util.Map;
 
-public class SealedLeaguePrizesTest {
+public class LeaguePrizesTest {
     @Test
     public void test() {
-        SealedLeaguePrizes leaguePrizes = new SealedLeaguePrizes();
+        LeaguePrizes leaguePrizes = new LeaguePrizes();
         CardCollection prize = leaguePrizes.getPrizeForLeagueMatchWinner(2, 2, "fotr_block");
         for (Map.Entry<String, Integer> stringIntegerEntry : prize.getAll().entrySet()) {
             System.out.println(stringIntegerEntry.getKey() + ": " + stringIntegerEntry.getValue());

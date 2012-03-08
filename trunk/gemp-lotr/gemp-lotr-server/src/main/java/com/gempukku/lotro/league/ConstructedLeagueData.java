@@ -1,0 +1,81 @@
+package com.gempukku.lotro.league;
+
+import com.gempukku.lotro.collection.CollectionsManager;
+import com.gempukku.lotro.db.vo.CollectionType;
+import com.gempukku.lotro.game.CardCollection;
+import com.gempukku.lotro.game.Player;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+public class ConstructedLeagueData implements LeagueData {
+    private List<LeagueSerieData> _series = new ArrayList<LeagueSerieData>();
+    private String _leaguePrizePool;
+    private CollectionType _prizeCollectionType = new CollectionType("permanent", "My cards");
+    private float _prizeMultiplier;
+    private LeaguePrizes _leaguePrizes = new LeaguePrizes();
+
+    // Example params - 20120312,fotr_block,0.7,default,All cards,7,10,3,fotr1_block,fotr_block,fotr2_block,fotr_block,fotr_block,fotr_block
+    // Which means - start date,league prize pool,prizes multiplier,collection type,collection name,serie length,serie match count,series count,
+    // serie1 format, serie1 prize pool,
+    // serie2 format, serie2 prize pool,
+    // serie3 format, serie3 prize pool,
+    public ConstructedLeagueData(String parameters) {
+        String[] params = parameters.split(",");
+        final int start = Integer.parseInt(params[0]);
+        _leaguePrizePool = params[1];
+        _prizeMultiplier = Float.parseFloat(params[2]);
+        CollectionType collectionType = new CollectionType(params[3], params[4]);
+        int days = Integer.parseInt(params[5]);
+        int matchCount = Integer.parseInt(params[6]);
+        int series = Integer.parseInt(params[7]);
+        for (int i = 0; i < series; i++) {
+            String format = params[8 + i * 2];
+            String seriePrizePool = params[9 + i * 2];
+
+            DefaultLeagueSerieData data = new DefaultLeagueSerieData(_leaguePrizes, false, "Week " + (i + 1), getDate(start, i * days), getDate(start, ((i + 1) * days) - 1), matchCount, format, seriePrizePool, collectionType);
+            _series.add(data);
+        }
+    }
+
+    private int getDate(int start, int dayOffset) {
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+            Date date = format.parse(String.valueOf(start));
+            date.setDate(date.getDate() + dayOffset);
+            return Integer.parseInt(format.format(date));
+        } catch (ParseException exp) {
+            throw new RuntimeException("Can't parse date", exp);
+        }
+    }
+
+    @Override
+    public List<LeagueSerieData> getSeries() {
+        return _series;
+    }
+
+    @Override
+    public CardCollection joinLeague(CollectionsManager collecionsManager, Player player, int currentTime) {
+        return null;
+    }
+
+    @Override
+    public int process(CollectionsManager collectionsManager, List<LeagueStanding> leagueStandings, int oldStatus, int currentTime) {
+        int status = oldStatus;
+        if (status == 0) {
+            LeagueSerieData lastSerie = _series.get(_series.size() - 1);
+            if (currentTime > getDate(lastSerie.getEnd(), 1)) {
+                for (LeagueStanding leagueStanding : leagueStandings) {
+                    CardCollection leaguePrize = _leaguePrizes.getPrizeForLeague(leagueStanding.getStanding(), leagueStandings.size(), _prizeMultiplier, _leaguePrizePool);
+                    collectionsManager.addItemsToPlayerCollection(leagueStanding.getPlayerName(), _prizeCollectionType, leaguePrize.getAll());
+                }
+                status++;
+            }
+        }
+
+        return status;
+    }
+}

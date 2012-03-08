@@ -3,22 +3,26 @@ package com.gempukku.lotro.league;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.game.CardCollection;
 
-public class SealedLeagueSerieData implements LeagueSerieData {
-    private SealedLeaguePrizes _leaguePrizes;
+public class DefaultLeagueSerieData implements LeagueSerieData {
+    private LeaguePrizes _leaguePrizes;
+    private boolean _limited;
     private String _name;
     private int _start;
     private int _end;
     private int _maxMatches;
     private String _format;
+    private String _prizePool;
     private CollectionType _collectionType;
 
-    public SealedLeagueSerieData(SealedLeaguePrizes leaguePrizes, String name, int start, int end, int maxMatches, String format, CollectionType collectionType) {
+    public DefaultLeagueSerieData(LeaguePrizes leaguePrizes, boolean limited, String name, int start, int end, int maxMatches, String format, String prizePool, CollectionType collectionType) {
         _leaguePrizes = leaguePrizes;
+        _limited = limited;
         _name = name;
         _start = start;
         _end = end;
         _maxMatches = maxMatches;
         _format = format;
+        _prizePool = prizePool;
         _collectionType = collectionType;
     }
 
@@ -44,7 +48,7 @@ public class SealedLeagueSerieData implements LeagueSerieData {
 
     @Override
     public boolean isLimited() {
-        return true;
+        return _limited;
     }
 
     @Override
@@ -59,11 +63,11 @@ public class SealedLeagueSerieData implements LeagueSerieData {
 
     @Override
     public CardCollection getPrizeForLeagueMatchWinner(int winCountThisSerie, int totalGamesPlayedThisSerie) {
-        return _leaguePrizes.getPrizeForLeagueMatchWinner(winCountThisSerie, totalGamesPlayedThisSerie, _format);
+        return _leaguePrizes.getPrizeForLeagueMatchWinner(winCountThisSerie, totalGamesPlayedThisSerie, _prizePool);
     }
 
     @Override
     public CardCollection getPrizeForLeagueMatchLoser(int winCountThisSerie, int totalGamesPlayedThisSerie) {
-        return _leaguePrizes.getPrizeForLeagueMatchLoser(winCountThisSerie, totalGamesPlayedThisSerie, _format);
+        return _leaguePrizes.getPrizeForLeagueMatchLoser(winCountThisSerie, totalGamesPlayedThisSerie, _prizePool);
     }
 }
