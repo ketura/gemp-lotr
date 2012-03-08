@@ -12,7 +12,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public abstract class DefaultLotroFormat implements LotroFormat {
+public class DefaultLotroFormat implements LotroFormat {
     private LotroCardBlueprintLibrary _library;
     private String _name;
     private Block _siteBlock;
@@ -38,7 +38,7 @@ public abstract class DefaultLotroFormat implements LotroFormat {
 
     @Override
     public final boolean isOrderedSites() {
-        return _siteBlock != Block.OTHER;
+        return _siteBlock != Block.SHADOWS;
     }
 
     @Override

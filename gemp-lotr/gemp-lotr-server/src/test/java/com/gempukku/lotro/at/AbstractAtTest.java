@@ -2,8 +2,9 @@ package com.gempukku.lotro.at;
 
 import com.gempukku.lotro.game.DefaultUserFeedback;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
+import com.gempukku.lotro.game.LotroFormat;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.formats.MovieFormat;
+import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.gempukku.lotro.logic.actions.SystemQueueAction;
 import com.gempukku.lotro.logic.decisions.AwaitingDecision;
 import com.gempukku.lotro.logic.decisions.CardActionSelectionDecision;
@@ -12,10 +13,11 @@ import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.DefaultLotroGame;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.vo.LotroDeck;
-import static org.junit.Assert.fail;
 import org.junit.BeforeClass;
 
 import java.util.*;
+
+import static org.junit.Assert.fail;
 
 public abstract class AbstractAtTest {
     protected static LotroCardBlueprintLibrary _library;
@@ -55,7 +57,8 @@ public abstract class AbstractAtTest {
     protected void initializeGameWithDecks(Map<String, LotroDeck> decks) throws DecisionResultInvalidException {
         _userFeedback = new DefaultUserFeedback();
 
-        MovieFormat format = new MovieFormat(_library);
+        LotroFormatLibrary formatLibrary = new LotroFormatLibrary(_library);
+        LotroFormat format = formatLibrary.getFormat("movie");
 
         _game = new DefaultLotroGame(format, decks, _userFeedback, _library);
         _userFeedback.setGame(_game);

@@ -6,13 +6,16 @@ import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.db.vo.League;
 import com.gempukku.lotro.game.*;
-import com.gempukku.lotro.game.formats.*;
+import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.gempukku.lotro.league.LeagueSerieData;
 import com.gempukku.lotro.league.LeagueService;
 import com.gempukku.lotro.logic.timing.GameResultListener;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
@@ -20,6 +23,7 @@ public class HallServer extends AbstractServer {
     private ChatServer _chatServer;
     private LeagueService _leagueService;
     private LotroCardBlueprintLibrary _library;
+    private LotroFormatLibrary _formatLibrary;
     private CollectionsManager _collectionsManager;
     private LotroServer _lotroServer;
 
@@ -33,8 +37,6 @@ public class HallServer extends AbstractServer {
 
     private boolean _shutdown;
 
-    private Map<String, LotroFormat> _supportedFormats = new LinkedHashMap<String, LotroFormat>();
-
     private ReadWriteLock _hallDataAccessLock = new ReentrantReadWriteLock(false);
 
     private Map<String, AwaitingTable> _awaitingTables = new LinkedHashMap<String, AwaitingTable>();
@@ -42,23 +44,15 @@ public class HallServer extends AbstractServer {
 
     private Map<Player, Long> _lastVisitedPlayers = new HashMap<Player, Long>();
 
-    public HallServer(LotroServer lotroServer, ChatServer chatServer, LeagueService leagueService, LotroCardBlueprintLibrary library, CollectionsManager collectionsManager, boolean test) {
+    public HallServer(LotroServer lotroServer, ChatServer chatServer, LeagueService leagueService, LotroCardBlueprintLibrary library,
+                      LotroFormatLibrary formatLibrary, CollectionsManager collectionsManager, boolean test) {
         _lotroServer = lotroServer;
         _chatServer = chatServer;
         _leagueService = leagueService;
         _library = library;
+        _formatLibrary = formatLibrary;
         _collectionsManager = collectionsManager;
         _chatServer.createChatRoom("Game Hall", 10);
-
-        addFormat("fotr_block", new FotRBlockFormat(library));
-        addFormat("ttt_block", new TTTBlockFormat(library));
-        addFormat("towers_standard", new TowersStandardFormat(library));
-        addFormat("king_block", new KingBlockFormat(library));
-        addFormat("movie", new MovieFormat(library));
-        addFormat("war_block", new WarOfTheRingBlockFormat(library));
-        addFormat("war_standard", new WarOfTheRingStandardFormat(library));
-        addFormat("open", new OpenFormat(library));
-        addFormat("expanded", new ExpandedFormat(library));
     }
 
     public void setShutdown(boolean shutdown) {
@@ -75,16 +69,12 @@ public class HallServer extends AbstractServer {
         _motd = motd;
     }
 
-    private void addFormat(String formatCode, LotroFormat format) {
-        _supportedFormats.put(formatCode, format);
-    }
-
     public int getTablesCount() {
         return _awaitingTables.size() + _runningTables.size();
     }
 
     public Map<String, LotroFormat> getSupportedFormats() {
-        return Collections.unmodifiableMap(_supportedFormats);
+        return _formatLibrary.getHallFormats();
     }
 
     private void cancelWaitingTables() {
@@ -108,7 +98,7 @@ public class HallServer extends AbstractServer {
             League league = null;
             LeagueSerieData leagueSerie = null;
             CollectionType collectionType = _allCardsCollectionType;
-            LotroFormat format = _supportedFormats.get(type);
+            LotroFormat format = _formatLibrary.getHallFormats().get(type);
 
             if (format == null) {
                 // Maybe it's a league format?
@@ -120,7 +110,7 @@ public class HallServer extends AbstractServer {
 
                     if (!_leagueService.canPlayRankedGame(league, leagueSerie, player.getName()))
                         throw new HallException("You have already played max games in league");
-                    format = _supportedFormats.get(leagueSerie.getFormat());
+                    format = _formatLibrary.getFormat(leagueSerie.getFormat());
                     collectionType = leagueSerie.getCollectionType();
                 }
             }
