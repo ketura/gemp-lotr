@@ -1,0 +1,69 @@
+[
+    {
+        "name": "Fellowship block",
+        "code": "fotr_block",
+        "sites": "FELLOWSHIP",
+        "cancelRingBearerSkirmish": true,
+        "restricted": ["1_248"],
+        "set": [1,2,3]
+    },
+    {
+        "name": "Towers block",
+        "code": "ttt_block",
+        "sites": "TWO_TOWERS",
+        "cancelRingBearerSkirmish": true,
+        "set":[4,5,6]
+    },
+    {
+        "name": "Towers standard",
+        "code":"towers_standard",
+        "sites": "TWO_TOWERS",
+        "cancelRingBearerSkirmish": true,
+        "banned": ["1_40","1_45","1_80","1_108","1_139","1_234","1_248","1_313","2_32","2_101","2_108","3_38","3_42","3_68","4_192"],
+        "set":[1,2,3,4,5,6]
+    },
+    {
+        "name": "King block",
+        "code": "king_block",
+        "sites": "KING",
+        "cancelRingBearerSkirmish": true,
+        "restricted": ["7_49"],
+        "set": [7,8,10]
+    },
+    {
+        "name": "Movie block",
+        "code": "movie",
+        "sites": "KING",
+        "banned": ["8_1","3_38","3_106","1_40","2_32","1_248","3_108","1_45","7_96","3_42","10_2","10_91","1_108","1_80","3_67","1_195","3_68","1_139","7_49","1_313","1_234"],
+        "set": [1,2,3,4,5,6,7,8,9,10]
+    },
+    {
+        "name": "War of the Ring block",
+        "code": "war_block",
+        "sites": "SHADOWS",
+        "restricted": ["11_132","11_100"],
+        "set": [11,12,13]
+    },
+    {
+        "name": "War of the Ring standard",
+        "code": "war_standard",
+        "sites": "SHADOWS",
+        "banned": ["4_73","4_276","4_304","7_49","8_1","10_2","10_11","10_91","11_31","11_100","11_132"],
+        "set": [4,5,6,7,8,9,10,11,12,13,14]
+    },
+    {
+        "name": "Open",
+        "code": "open",
+        "sites": "SHADOWS",
+        "restricted": ["1_248","7_49","10_2","10_91","11_100","11_132"],
+        "set": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]
+    },
+    {
+        "name": "Expanded",
+        "code": "expanded",
+        "sites": "SHADOWS",
+        "banned": ["1_45","1_138","1_234","1_311","1_313","1_316","2_121","3_17","3_38","3_42","3_67","3_68","3_108","3_113","4_73","7_49","8_1","10_2","10_11","10_91","11_31","11_100","11_132"],
+        "restricted": ["1_40","1_80","1_108","1_139","1_195","1_248","2_32","2_75","3_106","4_276","4_304"],
+        "set": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]
+    }
+]
