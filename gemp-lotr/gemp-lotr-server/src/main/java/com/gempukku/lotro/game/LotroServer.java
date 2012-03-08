@@ -151,9 +151,16 @@ public class LotroServer extends AbstractServer {
                 });
         lotroGameMediator.sendMessageToPlayers("You're starting a game of " + lotroFormat.getName());
 
+        StringBuffer players = new StringBuffer();
         Map<String, String> deckNames = new HashMap<String, String>();
-        for (LotroGameParticipant participant : participants)
+        for (LotroGameParticipant participant : participants) {
             deckNames.put(participant.getPlayerId(), participant.getDeckName());
+            if (players.length() > 0)
+                players.append(", ");
+            players.append(participant.getPlayerId());
+        }
+
+        lotroGameMediator.sendMessageToPlayers("Players in the game are: " + players.toString());
 
         final GameRecorder.GameRecordingInProgress gameRecordingInProgress = _gameRecorder.recordGame(lotroGameMediator, lotroFormat.getName(), deckNames);
         lotroGameMediator.addGameResultListener(
@@ -241,3 +248,4 @@ public class LotroServer extends AbstractServer {
         return _runningGames.get(gameId);
     }
 }
+
