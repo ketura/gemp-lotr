@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set3.gondor;
 
 import com.gempukku.lotro.cards.AbstractResponseOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
@@ -38,8 +39,9 @@ public class Card3_048 extends AbstractResponseOldEvent {
 
     @Override
     public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.WHEN_FELLOWSHIP_MOVES
-                && game.getGameState().getCurrentPhase() == Phase.REGROUP
+        if (TriggerConditions.moves(game, effectResult)
+                && PlayConditions.isPhase(game, Phase.REGROUP)
+                && checkPlayRequirements(playerId, game, self, 0, 0, false, false)
                 && PlayConditions.canExert(self, game, 2, Culture.GONDOR, CardType.COMPANION)) {
             PlayEventAction action = new PlayEventAction(self);
             action.appendCost(
