@@ -82,11 +82,20 @@ public class RuleUtils {
     }
 
     public static int getShadowSkirmishStrength(LotroGame game) {
-        if (game.getGameState().getSkirmish() == null)
+        final Skirmish skirmish = game.getGameState().getSkirmish();
+        if (skirmish == null)
             return 0;
 
+        final Evaluator overrideEvaluator = skirmish.getShadowStrengthOverrideEvaluator();
+        if (overrideEvaluator != null) {
+            int total = 0;
+            for (PhysicalCard physicalCard : skirmish.getShadowCharacters())
+                total += overrideEvaluator.evaluateExpression(game.getGameState(), game.getModifiersQuerying(), physicalCard);
+            return total;
+        }
+
         int totalStrength = 0;
-        for (PhysicalCard physicalCard : game.getGameState().getSkirmish().getShadowCharacters())
+        for (PhysicalCard physicalCard : skirmish.getShadowCharacters())
             totalStrength += game.getModifiersQuerying().getStrength(game.getGameState(), physicalCard);
 
         return totalStrength;
