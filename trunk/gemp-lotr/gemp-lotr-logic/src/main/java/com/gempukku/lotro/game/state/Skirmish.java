@@ -12,6 +12,7 @@ public class Skirmish {
     private boolean _cancelled;
 
     private Evaluator _fpStrengthOverrideEvaluator;
+    private Evaluator _shadowStrengthOverrideEvaluator;
 
     private Set<PhysicalCard> _removedFromSkirmish = new HashSet<PhysicalCard>();
 
@@ -26,6 +27,14 @@ public class Skirmish {
 
     public void setFpStrengthOverrideEvaluator(Evaluator fpStrengthOverrideEvaluator) {
         _fpStrengthOverrideEvaluator = fpStrengthOverrideEvaluator;
+    }
+
+    public Evaluator getShadowStrengthOverrideEvaluator() {
+        return _shadowStrengthOverrideEvaluator;
+    }
+
+    public void setShadowStrengthOverrideEvaluator(Evaluator shadowStrengthOverrideEvaluator) {
+        _shadowStrengthOverrideEvaluator = shadowStrengthOverrideEvaluator;
     }
 
     public PhysicalCard getFellowshipCharacter() {
