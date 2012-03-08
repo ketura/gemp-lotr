@@ -19,7 +19,7 @@ public class ReinforceTokenEffect extends ChooseActiveCardEffect {
     }
 
     public ReinforceTokenEffect(PhysicalCard source, String playerId, Token token, int count) {
-        super(source, playerId, "Choose card to reinforce", Filters.owner(playerId), Filters.hasToken(token),
+        super(source, playerId, "Choose card to reinforce", Filters.owner(playerId), (token != null) ? Filters.hasToken(token) : Filters.hasAnyCultureTokens(1),
                 new Filter() {
                     @Override
                     public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
@@ -32,11 +32,19 @@ public class ReinforceTokenEffect extends ChooseActiveCardEffect {
 
     @Override
     public String getText(LotroGame game) {
-        return "Reinforce " + _count + " " + _token.getCulture().getHumanReadable() + " token" + (_count > 1 ? "s" : "");
+        if (_token != null)
+            return "Reinforce " + _count + " " + _token.getCulture().getHumanReadable() + " token" + (_count > 1 ? "s" : "");
+        else
+            return "Reinforce " + _count + " culture token" + (_count > 1 ? "s" : "");
     }
 
     @Override
     protected void cardSelected(LotroGame game, PhysicalCard card) {
-        game.getGameState().addTokens(card, _token, _count);
+        if (_token != null)
+            game.getGameState().addTokens(card, _token, _count);
+        else
+            for (Token token : game.getGameState().getTokens(card).keySet())
+                if (token.getCulture() != null)
+                    game.getGameState().addTokens(card, token, _count);
     }
 }
