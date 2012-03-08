@@ -5,6 +5,7 @@ import com.gempukku.lotro.communication.GameStateListener;
 import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.logic.PlayerOrder;
 import com.gempukku.lotro.logic.decisions.AwaitingDecision;
+import com.gempukku.lotro.logic.modifiers.ModifierFlag;
 import com.gempukku.lotro.logic.timing.GameStats;
 
 import java.util.*;
@@ -409,6 +410,9 @@ public class GameState {
     }
 
     private void addCardToZone(LotroGame game, PhysicalCard card, Zone zone, boolean end) {
+        if (zone == Zone.DISCARD && game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.REMOVE_CARDS_GOING_TO_DISCARD))
+            zone = Zone.REMOVED;
+
         if (zone.isInPlay())
             assignNewCardId(card);
 
