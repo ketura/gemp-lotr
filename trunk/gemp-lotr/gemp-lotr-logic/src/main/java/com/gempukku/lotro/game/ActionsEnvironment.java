@@ -38,4 +38,6 @@ public interface ActionsEnvironment {
     public <T extends Action> T findTopmostActionOfType(Class<T> clazz);
 
     public List<PhysicalCard> getPlayedCardsInCurrentPhase();
+
+    public boolean hasWonSkirmishThisTurn(PhysicalCard card);
 }
