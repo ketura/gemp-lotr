@@ -11,6 +11,7 @@ import com.gempukku.lotro.logic.timing.ActionStack;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.processes.GatherPlayableActionsFromDiscardVisitor;
+import com.gempukku.lotro.logic.timing.results.CharacterWonSkirmishResult;
 import com.gempukku.lotro.logic.timing.results.PlayCardResult;
 import com.gempukku.lotro.logic.timing.rules.CharacterDeathRule;
 
@@ -29,6 +30,8 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
 
     private Set<EffectResult> _effectResults = new HashSet<EffectResult>();
 
+    private Set<Integer> _wonSkirmishesInTurn = new HashSet<Integer>();
+
     public DefaultActionsEnvironment(LotroGame lotroGame, ActionStack actionStack) {
         _lotroGame = lotroGame;
         _actionStack = actionStack;
@@ -40,6 +43,17 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
                         if (effectResults.getType() == EffectResult.Type.PLAY) {
                             PlayCardResult playResult = (PlayCardResult) effectResults;
                             _playedCardsInPhase.add(playResult.getPlayedCard());
+                        }
+                        return null;
+                    }
+                });
+        addAlwaysOnActionProxy(
+                new AbstractActionProxy() {
+                    @Override
+                    public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult) {
+                        if (effectResult.getType() == EffectResult.Type.CHARACTER_WON_SKIRMISH) {
+                            final CharacterWonSkirmishResult winResult = (CharacterWonSkirmishResult) effectResult;
+                            _wonSkirmishesInTurn.add(winResult.getWinner().getCardId());
                         }
                         return null;
                     }
@@ -85,6 +99,7 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
     public void removeEndOfTurnActionProxies() {
         _actionProxies.removeAll(_untilEndOfTurnActionProxies);
         _untilEndOfTurnActionProxies.clear();
+        _wonSkirmishesInTurn.clear();
     }
 
     @Override
@@ -291,6 +306,11 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
     @Override
     public List<PhysicalCard> getPlayedCardsInCurrentPhase() {
         return Collections.unmodifiableList(_playedCardsInPhase);
+    }
+
+    @Override
+    public boolean hasWonSkirmishThisTurn(PhysicalCard card) {
+        return _wonSkirmishesInTurn.contains(card.getCardId());
     }
 
     private class GatherRequiredAfterTriggers extends CompletePhysicalCardVisitor {
