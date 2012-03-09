@@ -14,4 +14,12 @@ public enum Race implements Filterable {
     public String getHumanReadable() {
         return _humanReadable;
     }
+
+    public static Race findRaceByHumanReadable(String humanReadable) {
+        for (Race race : values()) {
+            if (race.getHumanReadable().equals(humanReadable))
+                return race;
+        }
+        return null;
+    }
 }

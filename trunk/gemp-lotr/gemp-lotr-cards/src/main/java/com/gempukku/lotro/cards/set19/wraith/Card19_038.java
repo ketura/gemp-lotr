@@ -1,11 +1,9 @@
-package com.gempukku.lotro.cards.set12.isengard;
+package com.gempukku.lotro.cards.set19.wraith;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Race;
+import com.gempukku.lotro.cards.modifiers.PreventMinionBeingAssignedToCharacterModifier;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -16,7 +14,6 @@ import com.gempukku.lotro.logic.decisions.MultipleChoiceAwaitingDecision;
 import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
-import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -25,40 +22,39 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Set: Black Rider
+ * Set: Ages End
  * Side: Shadow
- * Culture: Isengard
+ * Culture: Wraith
  * Twilight Cost: 4
- * Type: Minion • Wizard
- * Strength: 8
- * Vitality: 4
- * Site: 4
- * Game Text: Damage +1. Fierce. Lurker. (Skirmishes involving lurker minions must be resolved after any others.) When
- * you play Saruman, name a culture. Each companion of the named culture is strength -1.
+ * Type: Minion • Nazgul
+ * Strength: 9
+ * Vitality: 2
+ * Site: 3
+ * Game Text: Fierce. When you play Ulaire Nertea, name a race. The Free Peoples player cannot assign Ulaire Nertea
+ * to skirmish a companion of the named race.
  */
-public class Card12_054 extends AbstractMinion {
-    public Card12_054() {
-        super(4, 8, 4, 4, Race.WIZARD, Culture.ISENGARD, "Saruman", true);
-        addKeyword(Keyword.DAMAGE, 1);
+public class Card19_038 extends AbstractMinion {
+    public Card19_038() {
+        super(4, 9, 2, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Nertëa", true);
         addKeyword(Keyword.FIERCE);
-        addKeyword(Keyword.LURKER);
     }
 
     @Override
     public Modifier getAlwaysOnModifier(final PhysicalCard self) {
-        return new StrengthModifier(self, Filters.and(CardType.COMPANION,
-                new Filter() {
+        return new PreventMinionBeingAssignedToCharacterModifier(self, Side.FREE_PEOPLE,
+                Filters.and(CardType.COMPANION, new Filter() {
                     @Override
                     public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                        return self.getData() != null && physicalCard.getBlueprint().getCulture() == (Culture) self.getData();
+                        final Race race = physicalCard.getBlueprint().getRace();
+                        return self.getData() != null && self.getData() == race;
                     }
-                }), -1);
+                }), self);
     }
 
     @Override
     public String getDisplayableInformation(PhysicalCard self) {
         if (self.getData() != null)
-            return "Chosen culture is " + ((Culture) self.getData()).getHumanReadable();
+            return "Chosen race is " + ((Race) self.getData()).getHumanReadable();
         return null;
     }
 
@@ -67,16 +63,16 @@ public class Card12_054 extends AbstractMinion {
         if (TriggerConditions.played(game, effectResult, self)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
 
-            final Set<String> possibleCultures = new LinkedHashSet<String>();
-            for (Culture culture : Culture.values())
-                possibleCultures.add(culture.getHumanReadable());
+            final Set<String> possibleRaces = new LinkedHashSet<String>();
+            for (Race race : Race.values())
+                possibleRaces.add(race.getHumanReadable());
 
             action.appendEffect(
                     new PlayoutDecisionEffect(self.getOwner(),
-                            new MultipleChoiceAwaitingDecision(1, "Choose a culture", possibleCultures.toArray(new String[possibleCultures.size()])) {
+                            new MultipleChoiceAwaitingDecision(1, "Choose a race", possibleRaces.toArray(new String[possibleRaces.size()])) {
                                 @Override
                                 protected void validDecisionMade(int index, String result) {
-                                    self.storeData(Culture.findCultureByHumanReadable(result));
+                                    self.storeData(Race.findRaceByHumanReadable(result));
                                 }
                             }));
             return Collections.singletonList(action);
