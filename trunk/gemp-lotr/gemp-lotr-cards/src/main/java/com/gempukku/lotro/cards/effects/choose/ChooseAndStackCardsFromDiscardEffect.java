@@ -1,7 +1,6 @@
 package com.gempukku.lotro.cards.effects.choose;
 
 import com.gempukku.lotro.cards.effects.StackCardFromDiscardEffect;
-import com.gempukku.lotro.cards.effects.StackCardFromHandEffect;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -56,7 +55,7 @@ public class ChooseAndStackCardsFromDiscardEffect extends AbstractEffect {
         if (discard.size() <= _minimum) {
             SubAction subAction = new SubAction(_action);
             for (PhysicalCard card : discard)
-                subAction.appendEffect(new StackCardFromHandEffect(card, _stackOn));
+                subAction.appendEffect(new StackCardFromDiscardEffect(card, _stackOn));
             game.getActionsEnvironment().addActionToStack(subAction);
             stackFromDiscardCallback(discard);
         } else {
