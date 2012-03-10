@@ -3,8 +3,10 @@ var cardScale = 357 / 497;
 var fixedImages = {
     // "Forth the Three Hunters!" cards, separate special images
     "15_204": "http://lotrtcgdb.com/images/LOTR15060D.jpg",
-    "15_205":  "http://lotrtcgdb.com/images/LOTR15060E.jpg",
-    "15_206":  "http://lotrtcgdb.com/images/LOTR15060G.jpg"
+    "15_205": "http://lotrtcgdb.com/images/LOTR15060E.jpg",
+    "15_206": "http://lotrtcgdb.com/images/LOTR15060G.jpg",
+    // Holidays Gandalf
+    "15_207": "http://lotrtcgdb.com/images/LOTR15029H.jpg"
 };
 
 var packBlueprints = {
