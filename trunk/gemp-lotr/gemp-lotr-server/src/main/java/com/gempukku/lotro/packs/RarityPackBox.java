@@ -29,7 +29,9 @@ public class RarityPackBox implements PackBox {
                 Collections.shuffle(possibleCards, _random);
                 addCards(result, possibleCards.subList(0, 1), true);
             } else if (foilRarity < 4) {
-                List<String> possibleCards = new LinkedList<String>(_setRarity.getCardsOfRarity("U"));
+                List<String> possibleCards = new LinkedList<String>();
+                possibleCards.addAll(_setRarity.getCardsOfRarity("U"));
+                possibleCards.addAll(_setRarity.getCardsOfRarity("S"));
                 Collections.shuffle(possibleCards, _random);
                 addCards(result, possibleCards.subList(0, 1), true);
             } else {
@@ -45,7 +47,8 @@ public class RarityPackBox implements PackBox {
     }
 
     private void addRandomRareCard(List<CardCollection.Item> result, int count) {
-        List<String> possibleCards = new LinkedList<String>(_setRarity.getCardsOfRarity("R"));
+        List<String> possibleCards = new LinkedList<String>();
+        possibleCards.addAll(_setRarity.getCardsOfRarity("R"));
         possibleCards.addAll(_setRarity.getCardsOfRarity("R"));
         possibleCards.addAll(_setRarity.getCardsOfRarity("R"));
         possibleCards.addAll(_setRarity.getCardsOfRarity("A"));

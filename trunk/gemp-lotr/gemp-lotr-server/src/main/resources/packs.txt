@@ -32,3 +32,7 @@ Random FotR Foil Uncommon
 RotK - Booster
 SoG - Booster
 MD - Booster
+SH - Booster
+BR - Booster
+BL - Booster
+(S)SH - Tengwar
