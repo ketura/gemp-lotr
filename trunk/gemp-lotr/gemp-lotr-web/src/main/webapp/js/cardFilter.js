@@ -156,7 +156,6 @@ var CardFilter = Class.extend({
                 + "<option value='P'>Promo</option>"
                 + "<option value='X'>Rare+</option>"
                 + "<option value='S'>Fixed</option>"
-                + "<option value='unknown'>Unknown</option>"
                 + "</select>");
 
         this.fullFilterDiv.append(this.setSelect);

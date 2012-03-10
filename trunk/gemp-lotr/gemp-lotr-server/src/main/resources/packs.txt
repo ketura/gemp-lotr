@@ -36,3 +36,6 @@ SH - Booster
 BR - Booster
 BL - Booster
 (S)SH - Tengwar
+HU - Booster
+RoS - Booster
+TaD - Booster

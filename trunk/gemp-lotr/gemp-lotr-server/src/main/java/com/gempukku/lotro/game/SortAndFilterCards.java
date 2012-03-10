@@ -98,8 +98,6 @@ public class SortAndFilterCards {
     private boolean isRarity(String blueprintId, String rarity, LotroCardBlueprintLibrary library, Map<String, SetRarity> rarities) {
         if (blueprintId.contains("_")) {
             SetRarity setRarity = rarities.get(blueprintId.substring(0, blueprintId.indexOf("_")));
-            if (setRarity == null && rarity.equals("unknown"))
-                return true;
             if (setRarity != null && setRarity.getCardRarity(library.stripBlueprintModifiers(blueprintId)).equals(rarity))
                 return true;
             return false;

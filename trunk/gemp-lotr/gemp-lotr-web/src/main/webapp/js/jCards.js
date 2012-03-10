@@ -73,7 +73,19 @@ var packBlueprints = {
 
     "BL - Faramir Starter": "/gemp-lotr/images/boosters/eof_faramir_starter.png",
     "BL - Witch-king Starter": "/gemp-lotr/images/boosters/eof_witch_king_starter.png",
-    "BL - Booster": "/gemp-lotr/images/boosters/bl_booster.png"
+    "BL - Booster": "/gemp-lotr/images/boosters/bl_booster.png",
+
+    "HU - Faramir Starter": "/gemp-lotr/images/boosters/eof_faramir_starter.png",
+    "HU - Witch-king Starter": "/gemp-lotr/images/boosters/eof_witch_king_starter.png",
+    "HU - Booster": "/gemp-lotr/images/boosters/hu_booster.png",
+
+    "RoS - Faramir Starter": "/gemp-lotr/images/boosters/eof_faramir_starter.png",
+    "RoS - Witch-king Starter": "/gemp-lotr/images/boosters/eof_witch_king_starter.png",
+    "RoS - Booster": "/gemp-lotr/images/boosters/ros_booster.jpg",
+
+    "TaD - Faramir Starter": "/gemp-lotr/images/boosters/eof_faramir_starter.png",
+    "TaD - Witch-king Starter": "/gemp-lotr/images/boosters/eof_witch_king_starter.png",
+    "TaD - Booster": "/gemp-lotr/images/boosters/tad_booster.jpg"
 };
 
 var Card = Class.extend({
