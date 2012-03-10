@@ -54,7 +54,8 @@ public class Card1_031 extends AbstractAttachableFPPossession {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.location(game, Keyword.UNDERGROUND)) {
+        if (PlayConditions.canSpot(game, Filters.hasAttached(self), CardType.COMPANION)
+                && PlayConditions.location(game, Keyword.UNDERGROUND)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(new SelfDiscardEffect(self));
             return Collections.singletonList(action);
