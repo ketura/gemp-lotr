@@ -198,6 +198,8 @@
 15_201,15_184
 15_202,15_185
 15_203,15_186
+# Special Holidays Gandalf
+15_207,15_29
 # Masterworks in Rise of Saruman
 17_149,17_24
 17_150,17_20
