@@ -19,6 +19,7 @@ var packBlueprints = {
     "(S)FotR - Tengwar": "/gemp-lotr/images/boosters/fotr_tengwar_selection.png",
     "(S)TTT - Tengwar": "/gemp-lotr/images/boosters/ttt_tengwar_selection.png",
     "(S)RotK - Tengwar": "/gemp-lotr/images/boosters/rotk_tengwar_selection.png",
+    "(S)SH - Tengwar": "/gemp-lotr/images/boosters/sh_tengwar_selection.png",
 
     "(S)Booster Choice": "/gemp-lotr/images/boosters/booster_selection.png",
 
@@ -60,7 +61,19 @@ var packBlueprints = {
 
     "MD - Faramir Starter": "/gemp-lotr/images/boosters/eof_faramir_starter.png",
     "MD - Witch-king Starter": "/gemp-lotr/images/boosters/eof_witch_king_starter.png",
-    "MD - Booster": "/gemp-lotr/images/boosters/md_booster.png"
+    "MD - Booster": "/gemp-lotr/images/boosters/md_booster.png",
+
+    "SH - Faramir Starter": "/gemp-lotr/images/boosters/eof_faramir_starter.png",
+    "SH - Witch-king Starter": "/gemp-lotr/images/boosters/eof_witch_king_starter.png",
+    "SH - Booster": "/gemp-lotr/images/boosters/sh_booster.png",
+
+    "BR - Faramir Starter": "/gemp-lotr/images/boosters/eof_faramir_starter.png",
+    "BR - Witch-king Starter": "/gemp-lotr/images/boosters/eof_witch_king_starter.png",
+    "BR - Booster": "/gemp-lotr/images/boosters/br_booster.png",
+
+    "BL - Faramir Starter": "/gemp-lotr/images/boosters/eof_faramir_starter.png",
+    "BL - Witch-king Starter": "/gemp-lotr/images/boosters/eof_witch_king_starter.png",
+    "BL - Booster": "/gemp-lotr/images/boosters/bl_booster.png"
 };
 
 var Card = Class.extend({
