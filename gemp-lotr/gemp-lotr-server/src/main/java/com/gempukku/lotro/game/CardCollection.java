@@ -1,7 +1,5 @@
 package com.gempukku.lotro.game;
 
-import com.gempukku.lotro.cards.packs.SetRarity;
-
 import java.util.List;
 import java.util.Map;
 
@@ -10,9 +8,9 @@ public interface CardCollection extends OwnershipCheck {
 
     public int getItemCount(String blueprintId);
 
-    public List<Item> getItems(String filter, LotroCardBlueprintLibrary library, Map<String, SetRarity> rarities);
+    public List<CardCollection.Item> getAllItems();
 
-    public static class Item {
+    public static class Item implements CardItem {
         public enum Type {
             PACK, CARD, SELECTION
         }
@@ -35,6 +33,7 @@ public interface CardCollection extends OwnershipCheck {
             return _count;
         }
 
+        @Override
         public String getBlueprintId() {
             return _blueprintId;
         }
