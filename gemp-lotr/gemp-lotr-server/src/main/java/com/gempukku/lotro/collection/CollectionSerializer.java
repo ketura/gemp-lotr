@@ -38,6 +38,13 @@ public class CollectionSerializer {
             loadSet("11");
             loadSet("12");
             loadSet("13");
+            loadSet("14");
+            loadSet("15");
+            loadSet("16");
+            loadSet("17");
+            loadSet("18");
+            loadSet("19");
+
         } catch (IOException exp) {
             throw new RuntimeException("Problem loading collection data", exp);
         }
