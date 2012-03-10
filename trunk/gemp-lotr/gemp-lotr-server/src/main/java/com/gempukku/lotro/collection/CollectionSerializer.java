@@ -31,6 +31,10 @@ public class CollectionSerializer {
             loadSet("4");
             loadSet("5");
             loadSet("6");
+            loadSet("7");
+            loadSet("8");
+            loadSet("9");
+            loadSet("10");
         } catch (IOException exp) {
             throw new RuntimeException("Problem loading collection data", exp);
         }

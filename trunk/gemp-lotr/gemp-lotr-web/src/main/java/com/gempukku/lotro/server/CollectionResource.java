@@ -60,6 +60,10 @@ public class CollectionResource extends AbstractResource {
         _rarities.put("4", reader.getSetRarity("4"));
         _rarities.put("5", reader.getSetRarity("5"));
         _rarities.put("6", reader.getSetRarity("6"));
+        _rarities.put("7", reader.getSetRarity("7"));
+        _rarities.put("8", reader.getSetRarity("8"));
+        _rarities.put("9", reader.getSetRarity("9"));
+        _rarities.put("10", reader.getSetRarity("10"));
     }
 
     @Path("/{collectionType}")
