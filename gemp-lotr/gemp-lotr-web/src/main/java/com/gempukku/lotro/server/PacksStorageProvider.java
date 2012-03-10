@@ -44,8 +44,9 @@ public class PacksStorageProvider implements Injectable<PacksStorage>, Injectabl
             packStorage.addPackBox("(S)BoHD - Starter", new FixedPackBox("(S)BoHD - Starter"));
             packStorage.addPackBox("(S)EoF - Starter", new FixedPackBox("(S)EoF - Starter"));
 
-            packStorage.addPackBox("(S)FotR - Tengwar", new FixedPackBox("(S)FotR - Tengwar"));
-            packStorage.addPackBox("(S)TTT - Tengwar", new FixedPackBox("(S)TTT - Tengwar"));
+            packStorage.addPackBox("(S)FotR - Tengwar", new TengwarPackBox(new int[]{1, 2, 3}));
+            packStorage.addPackBox("(S)TTT - Tengwar", new TengwarPackBox(new int[]{4, 5, 6}));
+
             packStorage.addPackBox("(S)Booster Choice", new FixedPackBox("(S)Booster Choice"));
 
             packStorage.addPackBox("FotR - Gandalf Starter", new FixedPackBox("FotR - Gandalf Starter"));
@@ -73,6 +74,10 @@ public class PacksStorageProvider implements Injectable<PacksStorage>, Injectabl
             packStorage.addPackBox("TTT - Booster", new RarityPackBox(4));
             packStorage.addPackBox("BoHD - Booster", new RarityPackBox(5));
             packStorage.addPackBox("EoF - Booster", new RarityPackBox(6));
+
+            packStorage.addPackBox("RotK - Booster", new RarityPackBox(7));
+            packStorage.addPackBox("SoG - Booster", new RarityPackBox(8));
+            packStorage.addPackBox("MD - Booster", new RarityPackBox(10));
 
             return packStorage;
         } catch (IOException exp) {

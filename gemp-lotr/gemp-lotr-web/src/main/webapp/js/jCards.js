@@ -18,6 +18,8 @@ var packBlueprints = {
 
     "(S)FotR - Tengwar": "/gemp-lotr/images/boosters/fotr_tengwar_selection.png",
     "(S)TTT - Tengwar": "/gemp-lotr/images/boosters/ttt_tengwar_selection.png",
+    "(S)RotK - Tengwar": "/gemp-lotr/images/boosters/rotk_tengwar_selection.png",
+
     "(S)Booster Choice": "/gemp-lotr/images/boosters/booster_selection.png",
 
     "FotR - League Starter": "/gemp-lotr/images/boosters/fotr_league_starter.png",
@@ -46,7 +48,19 @@ var packBlueprints = {
 
     "EoF - Faramir Starter": "/gemp-lotr/images/boosters/eof_faramir_starter.png",
     "EoF - Witch-king Starter": "/gemp-lotr/images/boosters/eof_witch_king_starter.png",
-    "EoF - Booster": "/gemp-lotr/images/boosters/eof_booster.png"
+    "EoF - Booster": "/gemp-lotr/images/boosters/eof_booster.png",
+
+    "RotK - Aragorn Starter": "/gemp-lotr/images/boosters/ttt_aragorn_starter.png",
+    "RotK - Theoden Starter": "/gemp-lotr/images/boosters/ttt_theoden_starter.png",
+    "RotK - Booster": "/gemp-lotr/images/boosters/rotk_booster.png",
+
+    "SoG - Eowyn Starter": "/gemp-lotr/images/boosters/bohd_eowyn_starter.png",
+    "SoG - Legolas Starter": "/gemp-lotr/images/boosters/bohd_legolas_starter.png",
+    "SoG - Booster": "/gemp-lotr/images/boosters/sog_booster.png",
+
+    "MD - Faramir Starter": "/gemp-lotr/images/boosters/eof_faramir_starter.png",
+    "MD - Witch-king Starter": "/gemp-lotr/images/boosters/eof_witch_king_starter.png",
+    "MD - Booster": "/gemp-lotr/images/boosters/md_booster.png"
 };
 
 var Card = Class.extend({

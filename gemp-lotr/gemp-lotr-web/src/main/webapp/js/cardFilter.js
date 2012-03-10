@@ -154,6 +154,7 @@ var CardFilter = Class.extend({
                 + "<option value='C'>Common</option>"
                 + "<option value='A'>Alternate Image</option>"
                 + "<option value='P'>Promo</option>"
+                + "<option value='X'>Rare+</option>"
                 + "<option value='unknown'>Unknown</option>"
                 + "</select>");
 
