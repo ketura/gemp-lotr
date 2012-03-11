@@ -1,14 +1,12 @@
 package com.gempukku.lotro.league;
 
+import com.gempukku.lotro.DateUtils;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.game.CardCollection;
 import com.gempukku.lotro.game.Player;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class ConstructedLeagueData implements LeagueData {
@@ -36,19 +34,10 @@ public class ConstructedLeagueData implements LeagueData {
             String format = params[8 + i * 2];
             String seriePrizePool = params[9 + i * 2];
 
-            DefaultLeagueSerieData data = new DefaultLeagueSerieData(_leaguePrizes, false, "Week " + (i + 1), getDate(start, i * days), getDate(start, ((i + 1) * days) - 1), matchCount, format, seriePrizePool, collectionType);
+            DefaultLeagueSerieData data = new DefaultLeagueSerieData(_leaguePrizes, false, "Week " + (i + 1),
+                    DateUtils.offsetDate(start, i * days), DateUtils.offsetDate(start, ((i + 1) * days) - 1),
+                    matchCount, format, seriePrizePool, collectionType);
             _series.add(data);
-        }
-    }
-
-    private int getDate(int start, int dayOffset) {
-        try {
-            SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
-            Date date = format.parse(String.valueOf(start));
-            date.setDate(date.getDate() + dayOffset);
-            return Integer.parseInt(format.format(date));
-        } catch (ParseException exp) {
-            throw new RuntimeException("Can't parse date", exp);
         }
     }
 
@@ -67,7 +56,7 @@ public class ConstructedLeagueData implements LeagueData {
         int status = oldStatus;
         if (status == 0) {
             LeagueSerieData lastSerie = _series.get(_series.size() - 1);
-            if (currentTime > getDate(lastSerie.getEnd(), 1)) {
+            if (currentTime > DateUtils.offsetDate(lastSerie.getEnd(), 1)) {
                 for (LeagueStanding leagueStanding : leagueStandings) {
                     CardCollection leaguePrize = _leaguePrizes.getPrizeForLeague(leagueStanding.getStanding(), leagueStandings.size(), _prizeMultiplier, _leaguePrizePool);
                     collectionsManager.addItemsToPlayerCollection(leagueStanding.getPlayerName(), _prizeCollectionType, leaguePrize.getAll());

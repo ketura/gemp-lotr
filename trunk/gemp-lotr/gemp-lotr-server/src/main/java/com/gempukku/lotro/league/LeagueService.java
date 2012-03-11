@@ -1,5 +1,6 @@
 package com.gempukku.lotro.league;
 
+import com.gempukku.lotro.DateUtils;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.db.LeagueDAO;
 import com.gempukku.lotro.db.LeagueMatchDAO;
@@ -47,13 +48,8 @@ public class LeagueService {
         _activeLeaguesLoadedDate = 0;
     }
 
-    private int getCurrentDate() {
-        Calendar date = new GregorianCalendar(TimeZone.getTimeZone("GMT"));
-        return date.get(Calendar.YEAR) * 10000 + (date.get(Calendar.MONTH) + 1) * 100 + date.get(Calendar.DAY_OF_MONTH);
-    }
-
     private synchronized void ensureLoadedCurrentLeagues() {
-        int currentDate = getCurrentDate();
+        int currentDate = DateUtils.getCurrentDate();
         if (currentDate != _activeLeaguesLoadedDate) {
             try {
                 _activeLeagues = _leagueDao.loadActiveLeagues(currentDate);
@@ -68,7 +64,7 @@ public class LeagueService {
     }
 
     public Set<League> getActiveLeagues() {
-        if (getCurrentDate() == _activeLeaguesLoadedDate)
+        if (DateUtils.getCurrentDate() == _activeLeaguesLoadedDate)
             return Collections.unmodifiableSet(_activeLeagues);
         else {
             ensureLoadedCurrentLeagues();
@@ -91,7 +87,7 @@ public class LeagueService {
             for (LeagueSerieData leagueSerieData : leagueData.getSeries()) {
                 CollectionType serieCollectionType = leagueSerieData.getCollectionType();
                 if (serieCollectionType != null && serieCollectionType.getCode().equals(collectionType)) {
-                    return leagueData.joinLeague(_collectionsManager, player, getCurrentDate());
+                    return leagueData.joinLeague(_collectionsManager, player, DateUtils.getCurrentDate());
                 }
             }
         }
@@ -118,7 +114,7 @@ public class LeagueService {
     }
 
     public LeagueSerieData getCurrentLeagueSerie(League league) {
-        final int currentDate = getCurrentDate();
+        final int currentDate = DateUtils.getCurrentDate();
 
         for (LeagueSerieData leagueSerieData : league.getLeagueData().getSeries()) {
             if (currentDate >= leagueSerieData.getStart() && currentDate <= leagueSerieData.getEnd())

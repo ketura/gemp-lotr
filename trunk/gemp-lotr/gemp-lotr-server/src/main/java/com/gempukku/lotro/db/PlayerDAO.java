@@ -28,7 +28,7 @@ public class PlayerDAO {
         try {
             Connection conn = _dbAccess.getDataSource().getConnection();
             try {
-                PreparedStatement statement = conn.prepareStatement("select id, name, type from player where id=?");
+                PreparedStatement statement = conn.prepareStatement("select id, name, type, last_login_reward from player where id=?");
                 try {
                     statement.setInt(1, id);
                     ResultSet rs = statement.executeQuery();
@@ -36,8 +36,11 @@ public class PlayerDAO {
                         if (rs.next()) {
                             String name = rs.getString(2);
                             String type = rs.getString(3);
+                            Integer lastLoginReward = rs.getInt(4);
+                            if (rs.wasNull())
+                                lastLoginReward = null;
 
-                            return new Player(id, name, type);
+                            return new Player(id, name, type, lastLoginReward);
                         } else {
                             return null;
                         }
@@ -75,7 +78,7 @@ public class PlayerDAO {
     public Player loginUser(String login, String password) throws SQLException {
         Connection conn = _dbAccess.getDataSource().getConnection();
         try {
-            PreparedStatement statement = conn.prepareStatement("select id, name, type from player where name=? and password=?");
+            PreparedStatement statement = conn.prepareStatement("select id, name, type, last_login_reward from player where name=? and password=?");
             try {
                 statement.setString(1, login);
                 statement.setString(2, encodePassword(password));
@@ -85,13 +88,54 @@ public class PlayerDAO {
                         int id = rs.getInt(1);
                         String name = rs.getString(2);
                         String type = rs.getString(3);
+                        Integer lastLoginReward = rs.getInt(4);
+                        if (rs.wasNull())
+                            lastLoginReward = null;
 
-                        return new Player(id, name, type);
+                        return new Player(id, name, type, lastLoginReward);
                     } else
                         return null;
                 } finally {
                     rs.close();
                 }
+            } finally {
+                statement.close();
+            }
+        } finally {
+            conn.close();
+        }
+    }
+
+    public void setLastReward(Player player, int currentReward) throws SQLException {
+        Connection conn = _dbAccess.getDataSource().getConnection();
+        try {
+            PreparedStatement statement = conn.prepareStatement("update player set last_login_reward =? where id=?");
+            try {
+                statement.setInt(1, currentReward);
+                statement.setInt(2, player.getId());
+                statement.execute();
+                player.setLastLoginReward(currentReward);
+            } finally {
+                statement.close();
+            }
+        } finally {
+            conn.close();
+        }
+    }
+
+    public boolean updateLastReward(Player player, int previousReward, int currentReward) throws SQLException {
+        Connection conn = _dbAccess.getDataSource().getConnection();
+        try {
+            PreparedStatement statement = conn.prepareStatement("update player set last_login_reward =? where id=? and last_login_reward=?");
+            try {
+                statement.setInt(1, currentReward);
+                statement.setInt(2, player.getId());
+                statement.setInt(3, previousReward);
+                if (statement.executeUpdate() == 1) {
+                    player.setLastLoginReward(currentReward);
+                    return true;
+                }
+                return false;
             } finally {
                 statement.close();
             }
@@ -181,7 +225,7 @@ public class PlayerDAO {
     private Player getPlayerFromDB(String playerName) throws SQLException {
         Connection conn = _dbAccess.getDataSource().getConnection();
         try {
-            PreparedStatement statement = conn.prepareStatement("select id, name, type from player where name=?");
+            PreparedStatement statement = conn.prepareStatement("select id, name, type, last_login_reward from player where name=?");
             try {
                 statement.setString(1, playerName);
                 ResultSet rs = statement.executeQuery();
@@ -190,8 +234,11 @@ public class PlayerDAO {
                         int id = rs.getInt(1);
                         String name = rs.getString(2);
                         String type = rs.getString(3);
+                        Integer lastLoginReward = rs.getInt(4);
+                        if (rs.wasNull())
+                            lastLoginReward = null;
 
-                        return new Player(id, name, type);
+                        return new Player(id, name, type, lastLoginReward);
                     } else {
                         return null;
                     }

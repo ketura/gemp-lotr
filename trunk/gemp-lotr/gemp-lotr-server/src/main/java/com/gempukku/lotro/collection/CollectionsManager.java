@@ -109,6 +109,21 @@ public class CollectionsManager {
         addItemsToPlayerCollection(_playerDAO.getPlayer(player), collectionType, items);
     }
 
+    public void addCurrencyToPlayerCollection(Player player, CollectionType collectionType, int currency) {
+        _readWriteLock.writeLock().lock();
+        try {
+            final CardCollection playerCollection = getPlayerCollection(player, collectionType.getCode());
+            if (playerCollection != null) {
+                MutableCardCollection mutableCardCollection = new DefaultCardCollection(playerCollection);
+                mutableCardCollection.addCurrency(currency);
+
+                _collectionDAO.setCollectionForPlayer(player.getId(), collectionType.getCode(), mutableCardCollection);
+            }
+        } finally {
+            _readWriteLock.writeLock().unlock();
+        }
+    }
+
     public void moveCollectionToCollection(String player, CollectionType collectionFrom, CollectionType collectionTo) {
         moveCollectionToCollection(_playerDAO.getPlayer(player), collectionFrom, collectionTo);
     }

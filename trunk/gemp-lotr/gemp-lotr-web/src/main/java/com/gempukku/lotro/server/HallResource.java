@@ -36,7 +36,7 @@ public class HallResource extends AbstractResource {
     public Document getHall(
             @QueryParam("participantId") String participantId,
             @Context HttpServletRequest request,
-            @Context HttpServletResponse response) throws ParserConfigurationException {
+            @Context HttpServletResponse response) throws ParserConfigurationException, Exception {
         Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -68,6 +68,7 @@ public class HallResource extends AbstractResource {
 
         doc.appendChild(hall);
 
+        processLoginReward(request);
         processDeliveryServiceNotification(request, response);
 
         return doc;
