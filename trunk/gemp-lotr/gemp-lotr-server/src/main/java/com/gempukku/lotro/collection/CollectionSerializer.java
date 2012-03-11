@@ -85,8 +85,14 @@ public class CollectionSerializer {
     }
 
     public void serializeCollection(CardCollection collection, OutputStream outputStream) throws IOException {
-        byte version = 0;
+        byte version = 1;
         outputStream.write(version);
+
+        int currency = collection.getCurrency();
+        outputStream.write((currency >> 16) & 0x000000ff);
+        outputStream.write((currency >> 8) & 0x000000ff);
+        outputStream.write(currency & 0x000000ff);
+
         byte packBytes = (byte) _packIds.size();
         outputStream.write(packBytes);
 
@@ -116,6 +122,8 @@ public class CollectionSerializer {
         int version = inputStream.read();
         if (version == 0) {
             return deserializeCollectionVer0(new BufferedInputStream(inputStream));
+        } else if (version == 1) {
+            return deserializeCollectionVer1(new BufferedInputStream(inputStream));
         } else {
             throw new IllegalStateException("Unkown version of serialized collection: " + version);
         }
@@ -138,7 +146,41 @@ public class CollectionSerializer {
         byte[] cards = new byte[cardBytes];
         read = inputStream.read(cards);
         if (read != cardBytes)
-            throw new IllegalArgumentException("Under-read the packs information");
+            throw new IllegalArgumentException("Under-read the cards information");
+        for (int i = 0; i < cards.length; i++)
+            if (cards[i] > 0) {
+                final String blueprintId = _cardIds.get(i);
+                collection.addItem(blueprintId, cards[i]);
+            }
+
+        return collection;
+    }
+
+    private MutableCardCollection deserializeCollectionVer1(BufferedInputStream inputStream) throws IOException {
+        int byte1 = inputStream.read();
+        int byte2 = inputStream.read();
+        int byte3 = inputStream.read();
+
+        int currency = (byte1 << 16) + (byte2 << 8) + byte3;
+
+        int packBytes = inputStream.read();
+
+        DefaultCardCollection collection = new DefaultCardCollection();
+        collection.addCurrency(currency);
+
+        byte[] packs = new byte[packBytes];
+        int read = inputStream.read(packs);
+        if (read != packBytes)
+            throw new IllegalStateException("Under-read the packs information");
+        for (int i = 0; i < packs.length; i++)
+            if (packs[i] > 0)
+                collection.addItem(_packIds.get(i), packs[i]);
+
+        int cardBytes = (inputStream.read() << 8) + inputStream.read();
+        byte[] cards = new byte[cardBytes];
+        read = inputStream.read(cards);
+        if (read != cardBytes)
+            throw new IllegalArgumentException("Under-read the cards information");
         for (int i = 0; i < cards.length; i++)
             if (cards[i] > 0) {
                 final String blueprintId = _cardIds.get(i);

@@ -6,6 +6,7 @@ import java.util.*;
 
 public class DefaultCardCollection implements MutableCardCollection {
     private Map<String, Integer> _counts = new LinkedHashMap<String, Integer>();
+    private int _currency;
 
     public DefaultCardCollection() {
 
@@ -13,6 +14,22 @@ public class DefaultCardCollection implements MutableCardCollection {
 
     public DefaultCardCollection(CardCollection cardCollection) {
         _counts.putAll(cardCollection.getAll());
+    }
+
+    public void addCurrency(int currency) {
+        _currency += currency;
+    }
+
+    public boolean removeCurrency(int currency) {
+        if (_currency < currency)
+            return false;
+        _currency -= currency;
+        return true;
+    }
+
+    @Override
+    public int getCurrency() {
+        return _currency;
     }
 
     @Override

@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 public interface CardCollection extends OwnershipCheck {
+    public int getCurrency();
+
     public Map<String, Integer> getAll();
 
     public int getItemCount(String blueprintId);
