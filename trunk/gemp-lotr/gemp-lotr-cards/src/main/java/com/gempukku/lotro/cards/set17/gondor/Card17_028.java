@@ -68,7 +68,7 @@ public class Card17_028 extends AbstractCompanion {
             action.appendCost(
                     new WoundCharactersEffect(self, self));
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose a minion", CardType.MINION, Filters.inSkirmishAgainst(Culture.GOLLUM, Race.MAN)) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose a minion", CardType.MINION, Filters.inSkirmishAgainst(Culture.GONDOR, Race.MAN)) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.appendEffect(
