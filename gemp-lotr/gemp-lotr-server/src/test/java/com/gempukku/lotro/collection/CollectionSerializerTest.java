@@ -2,7 +2,7 @@ package com.gempukku.lotro.collection;
 
 import com.gempukku.lotro.game.CardCollection;
 import com.gempukku.lotro.game.DefaultCardCollection;
-import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
+import static junit.framework.Assert.assertEquals;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
@@ -10,14 +10,11 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Map;
 
-import static junit.framework.Assert.assertEquals;
-
 public class CollectionSerializerTest {
     @Test
     public void testSerializeDeserialize() throws IOException {
-        LotroCardBlueprintLibrary library = new LotroCardBlueprintLibrary();
-
         DefaultCardCollection collection = new DefaultCardCollection();
+        collection.addCurrency(256 * 256 * 250);
         collection.addItem("1_1", 2);
         collection.addItem("1_231T", 3);
         collection.addItem("1_23*", 3);
@@ -35,6 +32,7 @@ public class CollectionSerializerTest {
 
         final Map<String, Integer> result = resultCollection.getAll();
         assertEquals(5, result.size());
+        assertEquals(256 * 256 * 250, resultCollection.getCurrency());
         assertEquals(2, (int) result.get("1_1"));
         assertEquals(3, (int) result.get("1_231T"));
         assertEquals(3, (int) result.get("1_23*"));
@@ -44,8 +42,6 @@ public class CollectionSerializerTest {
 
     @Test
     public void testJustPack() throws IOException {
-        LotroCardBlueprintLibrary library = new LotroCardBlueprintLibrary();
-
         DefaultCardCollection collection = new DefaultCardCollection();
         collection.addItem("FotR - Booster", 8);
 
