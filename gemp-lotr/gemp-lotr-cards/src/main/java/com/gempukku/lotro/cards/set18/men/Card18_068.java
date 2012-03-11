@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card18_068 extends AbstractMinion {
     public Card18_068() {
-        super(3, 6, 2, 3, Race.MAN, Culture.MEN, "Harry Goatleaf");
+        super(3, 6, 2, 2, Race.MAN, Culture.MEN, "Harry Goatleaf");
     }
 
     @Override
