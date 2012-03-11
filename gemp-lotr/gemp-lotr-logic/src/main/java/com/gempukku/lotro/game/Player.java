@@ -4,8 +4,9 @@ public class Player {
     private int _id;
     private String _name;
     private String _type;
+    private Integer _lastLoginReward;
 
-    public Player(int id, String name, String type) {
+    public Player(int id, String name, String type, Integer lastLoginReward) {
         _id = id;
         _name = name;
         _type = type;
@@ -21,6 +22,14 @@ public class Player {
 
     public String getType() {
         return _type;
+    }
+
+    public Integer getLastLoginReward() {
+        return _lastLoginReward;
+    }
+
+    public void setLastLoginReward(int lastLoginReward) {
+        _lastLoginReward = lastLoginReward;
     }
 
     @Override

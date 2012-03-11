@@ -1,7 +1,10 @@
 package com.gempukku.lotro.server;
 
+import com.gempukku.lotro.DateUtils;
+import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.collection.DeliveryService;
 import com.gempukku.lotro.db.PlayerDAO;
+import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.game.Player;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,9 +18,32 @@ public abstract class AbstractResource {
 
     @Context
     protected PlayerDAO _playerDao;
+    @Context
+    protected CollectionsManager _collectionManager;
 
     @Context
     protected DeliveryService _deliveryService;
+
+    protected final void processLoginReward(HttpServletRequest request) throws Exception {
+        String logged = getLoggedUser(request);
+        if (logged != null) {
+            Player player = _playerDao.getPlayer(logged);
+
+            int currentDate = DateUtils.getCurrentDate();
+            int latestMonday = DateUtils.getMondayBeforeOrOn(currentDate);
+
+            Integer lastReward = player.getLastLoginReward();
+            if (lastReward == null) {
+                _playerDao.setLastReward(player, latestMonday);
+                _collectionManager.addCurrencyToPlayerCollection(player, new CollectionType("permanent", "My cards"), 5000);
+            } else {
+                if (latestMonday == lastReward) {
+                    if (_playerDao.updateLastReward(player, lastReward, latestMonday))
+                        _collectionManager.addCurrencyToPlayerCollection(player, new CollectionType("permanent", "My cards"), 5000);
+                }
+            }
+        }
+    }
 
     protected final void processDeliveryServiceNotification(HttpServletRequest request, HttpServletResponse response) {
         String logged = getLoggedUser(request);
