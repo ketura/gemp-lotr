@@ -22,7 +22,7 @@ public class SealedLeagueDataTest {
         CollectionType collectionType = new CollectionType("test", "Test Collection");
         for (int i = 20120101; i < 20120108; i++) {
             CollectionsManager collectionsManager = Mockito.mock(CollectionsManager.class);
-            Player player = new Player(1, "Test", "A");
+            Player player = new Player(1, "Test", "A", null);
             data.joinLeague(collectionsManager, player, i);
             Mockito.verify(collectionsManager, new Times(1)).addPlayerCollection(Mockito.eq(player), Mockito.eq(collectionType), Mockito.argThat(
                     new BaseMatcher<CardCollection>() {
@@ -57,7 +57,7 @@ public class SealedLeagueDataTest {
         CollectionType collectionType = new CollectionType("test", "Test Collection");
         for (int i = 20120108; i < 20120115; i++) {
             CollectionsManager collectionsManager = Mockito.mock(CollectionsManager.class);
-            Player player = new Player(1, "Test", "A");
+            Player player = new Player(1, "Test", "A", null);
             data.joinLeague(collectionsManager, player, i);
             Mockito.verify(collectionsManager, new Times(1)).addPlayerCollection(Mockito.eq(player), Mockito.eq(collectionType), Mockito.argThat(
                     new BaseMatcher<CardCollection>() {
@@ -124,7 +124,7 @@ public class SealedLeagueDataTest {
         for (int i = 20120108; i < 20120115; i++) {
             CollectionsManager collectionsManager = Mockito.mock(CollectionsManager.class);
             Map<Player, CardCollection> playersInLeague = new HashMap<Player, CardCollection>();
-            Player player = new Player(1, "Test", "A");
+            Player player = new Player(1, "Test", "A", null);
             playersInLeague.put(player, new DefaultCardCollection());
             Mockito.when(collectionsManager.getPlayersCollection("test")).thenReturn(playersInLeague);
             int result = data.process(collectionsManager, null, 1, i);
