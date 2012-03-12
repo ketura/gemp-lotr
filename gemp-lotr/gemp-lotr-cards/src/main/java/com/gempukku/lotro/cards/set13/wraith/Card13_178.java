@@ -6,6 +6,7 @@ import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.actions.SubCostToEffectAction;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
 import com.gempukku.lotro.cards.effects.OptionalEffect;
+import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -39,6 +40,8 @@ public class Card13_178 extends AbstractEvent {
     @Override
     public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self);
+        action.appendCost(
+                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, 2, Filters.owner(playerId), Race.NAZGUL));
         action.appendCost(
                 new ChooseActiveCardEffect(self, playerId, "Choose an exhausted companion", CardType.COMPANION, Filters.exhausted) {
                     @Override
