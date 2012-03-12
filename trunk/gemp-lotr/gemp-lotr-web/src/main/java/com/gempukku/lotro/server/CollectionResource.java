@@ -108,8 +108,9 @@ public class CollectionResource extends AbstractResource {
         doc.appendChild(collectionElem);
 
         int index = 0;
-        for (CardCollection.Item item : filteredResult) {
-            if (index >= start && index < start + count) {
+        for (int i = start; i < start + count; i++) {
+            if (i >= 0 && i < filteredResult.size()) {
+                CardCollection.Item item = filteredResult.get(i);
                 String blueprintId = item.getBlueprintId();
                 if (item.getType() == CardCollection.Item.Type.CARD) {
                     Element card = doc.createElement("card");
@@ -134,7 +135,6 @@ public class CollectionResource extends AbstractResource {
                     collectionElem.appendChild(pack);
                 }
             }
-            index++;
         }
 
         processDeliveryServiceNotification(request, response);

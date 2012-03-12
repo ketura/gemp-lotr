@@ -59,7 +59,8 @@ public class ConstructedLeagueData implements LeagueData {
             if (currentTime > DateUtils.offsetDate(lastSerie.getEnd(), 1)) {
                 for (LeagueStanding leagueStanding : leagueStandings) {
                     CardCollection leaguePrize = _leaguePrizes.getPrizeForLeague(leagueStanding.getStanding(), leagueStandings.size(), _prizeMultiplier, _leaguePrizePool);
-                    collectionsManager.addItemsToPlayerCollection(leagueStanding.getPlayerName(), _prizeCollectionType, leaguePrize.getAll());
+                    if (leaguePrize != null)
+                        collectionsManager.addItemsToPlayerCollection(leagueStanding.getPlayerName(), _prizeCollectionType, leaguePrize.getAll());
                 }
                 status++;
             }

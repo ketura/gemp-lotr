@@ -84,7 +84,8 @@ public class SealedLeagueData implements LeagueData {
             if (currentTime > DateUtils.offsetDate(lastSerie.getEnd(), 1)) {
                 for (LeagueStanding leagueStanding : leagueStandings) {
                     CardCollection leaguePrize = _leaguePrizes.getPrizeForLeague(leagueStanding.getStanding(), leagueStandings.size(), 1f, _format);
-                    collectionsManager.addItemsToPlayerCollection(leagueStanding.getPlayerName(), _prizeCollectionType, leaguePrize.getAll());
+                    if (leaguePrize != null)
+                        collectionsManager.addItemsToPlayerCollection(leagueStanding.getPlayerName(), _prizeCollectionType, leaguePrize.getAll());
                 }
                 for (LeagueStanding leagueStanding : leagueStandings) {
                     collectionsManager.moveCollectionToCollection(leagueStanding.getPlayerName(), _collectionType, _prizeCollectionType);

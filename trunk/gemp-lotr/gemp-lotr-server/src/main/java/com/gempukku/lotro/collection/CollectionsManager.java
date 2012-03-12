@@ -109,6 +109,44 @@ public class CollectionsManager {
         addItemsToPlayerCollection(_playerDAO.getPlayer(player), collectionType, items);
     }
 
+    public boolean buyCardToPlayerCollection(Player player, CollectionType collectionType, String blueprintId, int currency) {
+        _readWriteLock.writeLock().lock();
+        try {
+            final CardCollection playerCollection = getPlayerCollection(player, collectionType.getCode());
+            if (playerCollection != null) {
+                MutableCardCollection mutableCardCollection = new DefaultCardCollection(playerCollection);
+                if (!mutableCardCollection.removeCurrency(currency))
+                    return false;
+                mutableCardCollection.addItem(blueprintId, 1);
+
+                _collectionDAO.setCollectionForPlayer(player.getId(), collectionType.getCode(), mutableCardCollection);
+                return true;
+            }
+            return false;
+        } finally {
+            _readWriteLock.writeLock().unlock();
+        }
+    }
+
+    public boolean sellCardInPlayerCollection(Player player, CollectionType collectionType, String blueprintId, int currency) {
+        _readWriteLock.writeLock().lock();
+        try {
+            final CardCollection playerCollection = getPlayerCollection(player, collectionType.getCode());
+            if (playerCollection != null) {
+                MutableCardCollection mutableCardCollection = new DefaultCardCollection(playerCollection);
+                if (!mutableCardCollection.removeItem(blueprintId, 1))
+                    return false;
+                mutableCardCollection.addCurrency(currency);
+
+                _collectionDAO.setCollectionForPlayer(player.getId(), collectionType.getCode(), mutableCardCollection);
+                return true;
+            }
+            return false;
+        } finally {
+            _readWriteLock.writeLock().unlock();
+        }
+    }
+
     public void addCurrencyToPlayerCollection(Player player, CollectionType collectionType, int currency) {
         _readWriteLock.writeLock().lock();
         try {

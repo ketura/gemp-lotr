@@ -9,6 +9,7 @@ import com.gempukku.lotro.game.LotroServer;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.gempukku.lotro.hall.HallServer;
 import com.gempukku.lotro.league.LeagueService;
+import com.gempukku.lotro.merchant.MerchantService;
 import com.gempukku.lotro.trade.TradeServer;
 import com.sun.jersey.core.spi.component.ComponentContext;
 import com.sun.jersey.core.spi.component.ComponentScope;
@@ -22,7 +23,8 @@ import java.lang.reflect.Type;
 @Provider
 public class ServerProvider implements InjectableProvider<Context, Type> {
     private Injectable<ChatServer> _chatServerInjectable;
-    private Injectable<LeagueService> _leagueServerInjectable;
+    private Injectable<LeagueService> _leagueServiceInjectable;
+    private Injectable<MerchantService> _merchantServiceInjectable;
     private Injectable<HallServer> _hallServerInjectable;
     private Injectable<LotroServer> _lotroServerInjectable;
     private Injectable<TradeServer> _tradeServerInjectable;
@@ -65,6 +67,8 @@ public class ServerProvider implements InjectableProvider<Context, Type> {
             return getDeliveryServiceInjectable();
         if (type.equals(LotroFormatLibrary.class))
             return getLotroFormatLibraryInjectable();
+        if (type.equals(MerchantService.class))
+            return getMerchantServiceInjectable();
         return null;
     }
 
@@ -82,16 +86,29 @@ public class ServerProvider implements InjectableProvider<Context, Type> {
     }
 
     private synchronized Injectable<LeagueService> getLeagueServiceInjectable() {
-        if (_leagueServerInjectable == null) {
+        if (_leagueServiceInjectable == null) {
             final LeagueService leagueService = new LeagueService(_leagueDao, _leaguePointsDao, _leagueMatchDao, getCollectionsManagerInjectable().getValue());
-            _leagueServerInjectable = new Injectable<LeagueService>() {
+            _leagueServiceInjectable = new Injectable<LeagueService>() {
                 @Override
                 public LeagueService getValue() {
                     return leagueService;
                 }
             };
         }
-        return _leagueServerInjectable;
+        return _leagueServiceInjectable;
+    }
+
+    private synchronized Injectable<MerchantService> getMerchantServiceInjectable() {
+        if (_merchantServiceInjectable == null) {
+            final MerchantService merchantService = new MerchantService(_library, getCollectionsManagerInjectable().getValue());
+            _merchantServiceInjectable = new Injectable<MerchantService>() {
+                @Override
+                public MerchantService getValue() {
+                    return merchantService;
+                }
+            };
+        }
+        return _merchantServiceInjectable;
     }
 
     private synchronized Injectable<DeliveryService> getDeliveryServiceInjectable() {

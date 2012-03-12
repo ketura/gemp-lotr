@@ -149,6 +149,8 @@ public class LeaguePrizes {
             addPrizes(leaguePrize, getRandom(_blockPromos.get(format), 1));
         }
 
+        if (leaguePrize.getAll().size() == 0)
+            return null;
         return leaguePrize;
     }
 
