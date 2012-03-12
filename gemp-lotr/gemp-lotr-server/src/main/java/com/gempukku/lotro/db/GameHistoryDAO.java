@@ -120,6 +120,36 @@ public class GameHistoryDAO {
         }
     }
 
+    public int getActivePlayersInLastMs(long ms) {
+        try {
+            Connection connection = _dbAccess.getDataSource().getConnection();
+            try {
+                PreparedStatement statement = connection.prepareStatement(
+                        "select count(*) from (SELECT winner FROM game_history where end_date>=? union select loser from game_history where end_date>=?) as u");
+                try {
+                    long time = System.currentTimeMillis() - ms;
+                    statement.setLong(1, time);
+                    statement.setLong(2, time);
+                    ResultSet rs = statement.executeQuery();
+                    try {
+                        if (rs.next())
+                            return rs.getInt(1);
+                        else
+                            return -1;
+                    } finally {
+                        rs.close();
+                    }
+                } finally {
+                    statement.close();
+                }
+            } finally {
+                connection.close();
+            }
+        } catch (SQLException exp) {
+            throw new RuntimeException("Unable to get count of active players", exp);
+        }
+    }
+
     public int getGamesPlayedCountInLastMs(long ms) {
         try {
             Connection connection = _dbAccess.getDataSource().getConnection();

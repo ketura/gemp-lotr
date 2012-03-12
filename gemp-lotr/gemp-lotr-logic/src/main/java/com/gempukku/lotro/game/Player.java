@@ -10,6 +10,7 @@ public class Player {
         _id = id;
         _name = name;
         _type = type;
+        _lastLoginReward = lastLoginReward;
     }
 
     public int getId() {

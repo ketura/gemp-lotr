@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.packs;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class DefaultSetRarity implements SetRarity {
     private List<String> _tengwarCards;
@@ -33,5 +34,10 @@ public class DefaultSetRarity implements SetRarity {
     @Override
     public String getCardRarity(String cardId) {
         return _cardsRarity.get(cardId);
+    }
+
+    @Override
+    public Set<String> getAllCards() {
+        return Collections.unmodifiableSet(_cardsRarity.keySet());
     }
 }
