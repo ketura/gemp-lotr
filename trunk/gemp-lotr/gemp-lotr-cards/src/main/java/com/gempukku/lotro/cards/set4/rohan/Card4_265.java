@@ -43,9 +43,6 @@ public class Card4_265 extends AbstractCompanion {
     @Override
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
-                new StrengthModifier(self,
-                        Filters.and(
-                                self,
-                                Filters.inSkirmishAgainst(CardType.MINION, Filters.wounded)), 2));
+                new StrengthModifier(self, Filters.and(self, Filters.inSkirmishAgainst(CardType.MINION, Filters.wounded)), 2));
     }
 }

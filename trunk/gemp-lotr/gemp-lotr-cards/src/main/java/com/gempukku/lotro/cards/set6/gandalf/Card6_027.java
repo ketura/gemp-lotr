@@ -6,14 +6,10 @@ import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
-import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.Condition;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
-
-import java.util.Collections;
-import java.util.List;
 
 /**
  * Set: Ents of Fangorn
@@ -32,15 +28,14 @@ public class Card6_027 extends AbstractCompanion {
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
-        return Collections.singletonList(
-                new StrengthModifier(self, self,
-                        new Condition() {
-                            @Override
-                            public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return Filters.countActive(gameState, modifiersQuerying, Race.ENT)
-                                        + modifiersQuerying.getSpotBonus(gameState, Race.ENT) >= 3;
-                            }
-                        }, 2));
+    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+        return new StrengthModifier(self, self,
+                new Condition() {
+                    @Override
+                    public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
+                        return Filters.countActive(gameState, modifiersQuerying, Race.ENT)
+                                + modifiersQuerying.getSpotBonus(gameState, Race.ENT) >= 3;
+                    }
+                }, 2);
     }
 }
