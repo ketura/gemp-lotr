@@ -22,7 +22,7 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
  */
 public class Card18_124 extends AbstractMinion {
     public Card18_124() {
-        super(3, 8, 2, 5, Race.URUK_HAI, Culture.URUK_HAI, "White Hand Attacker");
+        super(3, 8, 2, 5, Race.URUK_HAI, Culture.URUK_HAI, "White Hand Attacker(2)");
         addKeyword(Keyword.DAMAGE, 1);
     }
 
