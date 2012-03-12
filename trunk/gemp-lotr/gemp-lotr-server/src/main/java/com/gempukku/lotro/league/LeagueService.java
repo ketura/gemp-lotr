@@ -190,9 +190,12 @@ public class LeagueService {
 
     private List<LeagueStanding> createStandingsForMatchesAndPoints(Map<String, LeaguePointsDAO.Points> points, Collection<LeagueMatch> matches) {
         Map<String, List<String>> playerOpponents = new HashMap<String, List<String>>();
+        Map<String, Integer> playerWins = new HashMap<String, Integer>();
+        Map<String, Integer> playerLoss = new HashMap<String, Integer>();
         for (LeagueMatch leagueMatch : matches) {
             appendPlayer(playerOpponents, leagueMatch.getWinner(), leagueMatch.getLoser());
             appendPlayer(playerOpponents, leagueMatch.getLoser(), leagueMatch.getWinner());
+            appendMatch(playerWins, playerLoss, leagueMatch.getWinner(), leagueMatch.getLoser());
         }
 
         List<LeagueStanding> leagueStandings = new LinkedList<LeagueStanding>();
@@ -202,9 +205,8 @@ public class LeagueService {
             int opponentWins = 0;
             int opponentGames = 0;
             for (String opponent : opponents) {
-                final LeaguePointsDAO.Points opponentPoints = points.get(opponent);
-                opponentWins += opponentPoints.getPoints() - opponentPoints.getGamesPlayed();
-                opponentGames += opponentPoints.getGamesPlayed();
+                opponentWins += playerWins.get(opponent);
+                opponentGames += playerWins.get(opponent) + playerLoss.get(opponent);
             }
             standing.setOpponentWin(opponentWins * 1f / opponentGames);
             leagueStandings.add(standing);
@@ -223,6 +225,23 @@ public class LeagueService {
             lastStanding = leagueStanding;
         }
         return leagueStandings;
+    }
+
+    private void appendMatch(Map<String, Integer> playerWins, Map<String, Integer> playerLoss, String winner, String loser) {
+        append(playerWins, winner);
+        append(playerLoss, loser);
+        if (!playerWins.containsKey(loser))
+            playerWins.put(loser, 0);
+        if (!playerLoss.containsKey(winner))
+            playerLoss.put(winner, 0);
+    }
+
+    private void append(Map<String, Integer> playerCounts, String player) {
+        Integer count = playerCounts.get(player);
+        if (count == null)
+            count = 0;
+        count++;
+        playerCounts.put(player, count);
     }
 
     private void appendPlayer(Map<String, List<String>> playerOpponents, String player, String opponent) {
