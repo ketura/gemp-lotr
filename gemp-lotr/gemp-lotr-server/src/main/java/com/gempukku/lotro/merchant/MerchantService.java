@@ -115,6 +115,20 @@ public class MerchantService {
         }
     }
 
+    public void tradeForFoil(Player player, String blueprintId) throws MerchantException {
+        if (!blueprintId.contains("_") || blueprintId.endsWith("*"))
+            throw new MerchantException("Unable to trade in this type of item");
+        Lock lock = _lock.writeLock();
+        lock.lock();
+        try {
+            boolean success = _collectionsManager.tradeCards(player, _permanentCollection, blueprintId, 4, blueprintId + "*", 1);
+            if (!success)
+                throw new MerchantException("Unable to remove the required cards from your collection");
+        } finally {
+            lock.unlock();
+        }
+    }
+
     private static class BasicCardItem implements CardItem {
         private String _blueprintId;
 
