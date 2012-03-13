@@ -111,6 +111,8 @@ public class MerchantResource extends AbstractResource {
                 elem = doc.createElement("pack");
 
             elem.setAttribute("count", String.valueOf(collection.getItemCount(blueprintId)));
+            if (blueprintId.contains("_") && !blueprintId.endsWith("*") && collection.getItemCount(blueprintId) >= 4)
+                elem.setAttribute("tradeFoil", "true");
             elem.setAttribute("blueprintId", blueprintId);
             Integer buyPrice = buyPrices.get(blueprintId);
             if (buyPrice != null)
