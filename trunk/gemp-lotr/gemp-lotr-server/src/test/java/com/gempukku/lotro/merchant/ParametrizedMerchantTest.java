@@ -2,10 +2,11 @@ package com.gempukku.lotro.merchant;
 
 import com.gempukku.lotro.db.MerchantDAO;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
-import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import java.util.Date;
+
+import static org.junit.Assert.assertTrue;
 
 public class ParametrizedMerchantTest {
     @Test
@@ -48,7 +49,7 @@ public class ParametrizedMerchantTest {
         long hour = 1000 * 60 * 60;
 
         System.out.println("-2,1000,700,1000,700");
-        for (long time = 0; time < hour * 24 * 20L; time += hour * 2) {
+        for (long time = 0; time < hour * 24 * 35L; time += hour * 2) {
             System.out.println(time / hour + "," + ((int) merchant.getCardSellPrice("1_1", new Date(time))) + "," + ((int) merchant.getCardBuyPrice("1_1", new Date(time)))
                     + "," + ((int) merchant.getCardSellPrice("1_2", new Date(time))) + "," + ((int) merchant.getCardBuyPrice("1_2", new Date(time))));
         }
