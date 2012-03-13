@@ -61,7 +61,6 @@ public class MerchantResource extends AbstractResource {
         _rarities.put("19", reader.getSetRarity("19"));
     }
 
-    @Path("/list")
     @GET
     @Produces(MediaType.APPLICATION_XML)
     public Document getCollection(

@@ -1,8 +1,8 @@
 var CardFilter = Class.extend({
-    communication: null,
     clearCollectionFunc: null,
     addCardFunc: null,
     finishCollectionFunc: null,
+    getCollectionFunc: null,
 
     collectionType: null,
 
@@ -23,11 +23,8 @@ var CardFilter = Class.extend({
     sortSelect: null,
     raritySelect: null,
 
-    init: function(url, elem, clearCollectionFunc, addCardFunc, finishCollectionFunc) {
-        this.communication = new GempLotrCommunication(url,
-                function(xhr, ajaxOptions, thrownError) {
-                });
-
+    init: function(elem, getCollectionFunc, clearCollectionFunc, addCardFunc, finishCollectionFunc) {
+        this.getCollectionFunc = getCollectionFunc;
         this.clearCollectionFunc = clearCollectionFunc;
         this.addCardFunc = addCardFunc;
         this.finishCollectionFunc = finishCollectionFunc;
@@ -35,12 +32,6 @@ var CardFilter = Class.extend({
         this.filter = "cardType:-THE_ONE_RING";
 
         this.buildUi(elem);
-    },
-
-    setCollectionType: function(collectionType) {
-        this.collectionType = collectionType;
-        this.start = 0;
-        this.getCollection();
     },
 
     enableDetailFilters: function(enable) {
@@ -358,7 +349,7 @@ var CardFilter = Class.extend({
 
     getCollection: function() {
         var that = this;
-        this.communication.getCollection(this.collectionType, this.filter + this.calculateFullFilterPostfix(), this.start, this.count, function(xml) {
+        this.getCollectionFunc(this.filter + this.calculateFullFilterPostfix(), this.start, this.count, function(xml) {
             that.displayCollection(xml);
         });
     },
@@ -366,31 +357,30 @@ var CardFilter = Class.extend({
     displayCollection: function(xml) {
         log(xml);
         var root = xml.documentElement;
-        if (root.tagName == "collection") {
-            this.clearCollectionFunc();
 
-            var packs = root.getElementsByTagName("pack");
-            for (var i = 0; i < packs.length; i++) {
-                var packElem = packs[i];
-                var blueprintId = packElem.getAttribute("blueprintId");
-                var count = packElem.getAttribute("count");
-                this.addCardFunc("pack", blueprintId, count, null, packElem.getAttribute("contents"));
-            }
+        this.clearCollectionFunc(root.tagName);
 
-            var cards = root.getElementsByTagName("card");
-            for (var i = 0; i < cards.length; i++) {
-                var cardElem = cards[i];
-                var blueprintId = cardElem.getAttribute("blueprintId");
-                var count = cardElem.getAttribute("count");
-                this.addCardFunc("card", blueprintId, count, cardElem.getAttribute("side"), null);
-            }
-
-            this.finishCollectionFunc();
-
-            $("#previousPage").button("option", "disabled", this.start == 0);
-            var cnt = parseInt(root.getAttribute("count"));
-            $("#nextPage").button("option", "disabled", (this.start + this.count) >= cnt);
-            $("#countSlider").slider("option", "disabled", false);
+        var packs = root.getElementsByTagName("pack");
+        for (var i = 0; i < packs.length; i++) {
+            var packElem = packs[i];
+            var blueprintId = packElem.getAttribute("blueprintId");
+            var count = packElem.getAttribute("count");
+            this.addCardFunc(packElem, "pack", blueprintId, count);
         }
+
+        var cards = root.getElementsByTagName("card");
+        for (var i = 0; i < cards.length; i++) {
+            var cardElem = cards[i];
+            var blueprintId = cardElem.getAttribute("blueprintId");
+            var count = cardElem.getAttribute("count");
+            this.addCardFunc(cardElem, "card", blueprintId, count);
+        }
+
+        this.finishCollectionFunc();
+
+        $("#previousPage").button("option", "disabled", this.start == 0);
+        var cnt = parseInt(root.getAttribute("count"));
+        $("#nextPage").button("option", "disabled", (this.start + this.count) >= cnt);
+        $("#countSlider").slider("option", "disabled", false);
     }
 });
