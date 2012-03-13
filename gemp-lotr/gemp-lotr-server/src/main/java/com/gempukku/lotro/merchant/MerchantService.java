@@ -23,12 +23,15 @@ public class MerchantService {
     private ReadWriteLock _lock = new ReentrantReadWriteLock(true);
     private Set<CardItem> _merchantableItems = new HashSet<CardItem>();
     private Set<String> _merchantableStrings = new HashSet<String>();
+
+    private Map<String, Integer> _fixedPriceItems = new HashMap<String, Integer>();
+
     private CollectionType _permanentCollection = new CollectionType("permanent", "My cards");
     private CollectionsManager _collectionsManager;
 
     public MerchantService(LotroCardBlueprintLibrary library, CollectionsManager collectionsManager, MerchantDAO merchantDAO) {
         _collectionsManager = collectionsManager;
-        ParametrizedMerchant parametrizedMerchant = new ParametrizedMerchant();
+        ParametrizedMerchant parametrizedMerchant = new ParametrizedMerchant(library);
         parametrizedMerchant.setMerchantSetupDate(new Date());
         parametrizedMerchant.setMerchantDao(merchantDAO);
         _merchant = parametrizedMerchant;
@@ -42,6 +45,28 @@ public class MerchantService {
                 _merchantableStrings.add(baseBlueprintId);
             }
         }
+
+        addBooster("FotR - Booster", 1000);
+        addBooster("MoM - Booster", 1000);
+        addBooster("RotEL - Booster", 1000);
+        addBooster("TTT - Booster", 1000);
+        addBooster("BoHD - Booster", 1000);
+        addBooster("EoF - Booster", 1000);
+        addBooster("RotK - Booster", 1000);
+        addBooster("SoG - Booster", 1000);
+        addBooster("MD - Booster", 1000);
+        addBooster("SH - Booster", 1000);
+        addBooster("BR - Booster", 1000);
+        addBooster("BL - Booster", 1000);
+        addBooster("HU - Booster", 1000);
+        addBooster("RoS - Booster", 1000);
+        addBooster("TaD - Booster", 1000);
+    }
+
+    private void addBooster(String blueprintId, int price) {
+        _fixedPriceItems.put(blueprintId, price);
+        _merchantableItems.add(new BasicCardItem(blueprintId));
+        _merchantableStrings.add(blueprintId);
     }
 
     public Set<CardItem> getSellableItems() {
@@ -58,13 +83,18 @@ public class MerchantService {
             for (CardItem cardItem : cardBlueprintIds) {
                 String blueprintId = cardItem.getBlueprintId();
 
-                Integer buyPrice = _merchant.getCardBuyPrice(blueprintId, currentTime);
-                if (buyPrice != null)
-                    buyPrices.put(blueprintId, buyPrice);
-                if (_merchantableStrings.contains(blueprintId)) {
-                    Integer sellPrice = _merchant.getCardSellPrice(blueprintId, currentTime);
-                    if (sellPrice != null)
-                        sellPrices.put(blueprintId, sellPrice);
+                Integer fixedPrice = _fixedPriceItems.get(blueprintId);
+                if (fixedPrice != null) {
+                    sellPrices.put(blueprintId, fixedPrice);
+                } else {
+                    Integer buyPrice = _merchant.getCardBuyPrice(blueprintId, currentTime);
+                    if (buyPrice != null)
+                        buyPrices.put(blueprintId, buyPrice);
+                    if (_merchantableStrings.contains(blueprintId)) {
+                        Integer sellPrice = _merchant.getCardSellPrice(blueprintId, currentTime);
+                        if (sellPrice != null)
+                            sellPrices.put(blueprintId, sellPrice);
+                    }
                 }
             }
             PriceGuarantee priceGuarantee = new PriceGuarantee(sellPrices, buyPrices, currentTime);

@@ -95,9 +95,10 @@ public class MerchantResource extends AbstractResource {
 
         Document doc = documentBuilder.newDocument();
 
-        Element collectionElem = doc.createElement("merchant");
-        collectionElem.setAttribute("count", String.valueOf(filteredResult.size()));
-        doc.appendChild(collectionElem);
+        Element merchantElem = doc.createElement("merchant");
+        merchantElem.setAttribute("currency", String.valueOf(_collectionsManager.getPlayerCollection(resourceOwner, "permanent").getCurrency()));
+        merchantElem.setAttribute("count", String.valueOf(filteredResult.size()));
+        doc.appendChild(merchantElem);
 
         for (CardItem cardItem : pageToDisplay) {
             String blueprintId = cardItem.getBlueprintId();
@@ -118,7 +119,7 @@ public class MerchantResource extends AbstractResource {
             Integer sellPrice = sellPrices.get(blueprintId);
             if (sellPrice != null)
                 elem.setAttribute("sellPrice", sellPrice.toString());
-            collectionElem.appendChild(elem);
+            merchantElem.appendChild(elem);
         }
 
         return doc;

@@ -33,7 +33,7 @@ public class DbMerchantDAO implements MerchantDAO {
         try {
             Connection connection = _dbAccess.getDataSource().getConnection();
             try {
-                PreparedStatement statement = connection.prepareStatement("update merchant set transaction_price=?, transaction_date=?, transaction_type=? where blueprint_id=?");
+                PreparedStatement statement = connection.prepareStatement("update merchant_data set transaction_price=?, transaction_date=?, transaction_type=? where blueprint_id=?");
                 try {
                     statement.setFloat(1, price);
                     statement.setTimestamp(2, new Timestamp(date.getTime()));
@@ -55,7 +55,7 @@ public class DbMerchantDAO implements MerchantDAO {
         try {
             Connection connection = _dbAccess.getDataSource().getConnection();
             try {
-                PreparedStatement statement = connection.prepareStatement("insert into merchant (transaction_price, transaction_date, transaction_type, blueprint_id) values (?,?,?,?)");
+                PreparedStatement statement = connection.prepareStatement("insert into merchant_data (transaction_price, transaction_date, transaction_type, blueprint_id) values (?,?,?,?)");
                 try {
                     statement.setFloat(1, price);
                     statement.setTimestamp(2, new Timestamp(date.getTime()));
@@ -82,7 +82,7 @@ public class DbMerchantDAO implements MerchantDAO {
         try {
             Connection connection = _dbAccess.getDataSource().getConnection();
             try {
-                PreparedStatement statement = connection.prepareStatement("select blueprint_id, transaction_price, transaction_date, transaction_type from merchant where blueprint_id=?");
+                PreparedStatement statement = connection.prepareStatement("select blueprint_id, transaction_price, transaction_date, transaction_type from merchant_data where blueprint_id=?");
                 try {
                     statement.setString(1, blueprintId);
                     ResultSet rs = statement.executeQuery();

@@ -1,11 +1,11 @@
 package com.gempukku.lotro.merchant;
 
 import com.gempukku.lotro.db.MerchantDAO;
+import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import java.util.Date;
-
-import static org.junit.Assert.assertTrue;
 
 public class ParametrizedMerchantTest {
     @Test
@@ -15,7 +15,7 @@ public class ParametrizedMerchantTest {
 
         MerchantDAO merchantDao = new MockMerchantDAO();
 
-        ParametrizedMerchant merchant = new ParametrizedMerchant();
+        ParametrizedMerchant merchant = new ParametrizedMerchant(new LotroCardBlueprintLibrary());
         merchant.setMerchantDao(merchantDao);
         merchant.setMerchantSetupDate(setupDate);
 
@@ -38,7 +38,7 @@ public class ParametrizedMerchantTest {
 
         MerchantDAO merchantDao = new MockMerchantDAO();
 
-        ParametrizedMerchant merchant = new ParametrizedMerchant();
+        ParametrizedMerchant merchant = new ParametrizedMerchant(new LotroCardBlueprintLibrary());
         merchant.setMerchantDao(merchantDao);
         merchant.setMerchantSetupDate(setupDate);
 
