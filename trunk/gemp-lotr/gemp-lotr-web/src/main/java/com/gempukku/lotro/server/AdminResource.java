@@ -3,6 +3,7 @@ package com.gempukku.lotro.server;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.db.DeckDAO;
 import com.gempukku.lotro.db.LeagueDAO;
+import com.gempukku.lotro.db.MerchantDAO;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.hall.HallServer;
@@ -30,6 +31,8 @@ public class AdminResource extends AbstractResource {
     @Context
     private LeagueDAO _leagueDao;
     @Context
+    private MerchantDAO _merchantDao;
+    @Context
     private LotroCardBlueprintLibrary _library;
     @Context
     private HallServer _hallServer;
@@ -45,6 +48,7 @@ public class AdminResource extends AbstractResource {
         _collectionsManager.clearDBCache();
         _deckDao.clearCache();
         _leagueDao.clearCache();
+        _merchantDao.clearCache();
         _leagueService.clearCache();
 
         return "OK";
