@@ -15,6 +15,7 @@ import java.lang.reflect.Type;
 public class DaoProvider implements InjectableProvider<Context, Type> {
     private Injectable<PlayerDAO> _playerDaoInjectable;
     private Injectable<CollectionDAO> _collectionDaoInjectable;
+    private Injectable<MerchantDAO> _merchantDaoInjectable;
     private Injectable<DeckDAO> _deckDaoInjectable;
     private Injectable<GameHistoryDAO> _gameHistoryDAOInjectable;
 
@@ -46,6 +47,8 @@ public class DaoProvider implements InjectableProvider<Context, Type> {
             return getLeagueMatchDaoSafely();
         else if (type.equals(LeaguePointsDAO.class))
             return getLeaguePointsDaoSafely();
+        else if (type.equals(MerchantDAO.class))
+            return getMerchantDaoSafely();
         return null;
     }
 
@@ -73,6 +76,19 @@ public class DaoProvider implements InjectableProvider<Context, Type> {
             };
         }
         return _leagueMatchDAOInjectable;
+    }
+
+    private synchronized Injectable<MerchantDAO> getMerchantDaoSafely() {
+        if (_merchantDaoInjectable == null) {
+            final MerchantDAO merchantDAO = new DbMerchantDAO(_dbAccess);
+            _merchantDaoInjectable = new Injectable<MerchantDAO>() {
+                @Override
+                public MerchantDAO getValue() {
+                    return merchantDAO;
+                }
+            };
+        }
+        return _merchantDaoInjectable;
     }
 
     private synchronized Injectable<LeagueDAO> getLeagueDaoSafely() {

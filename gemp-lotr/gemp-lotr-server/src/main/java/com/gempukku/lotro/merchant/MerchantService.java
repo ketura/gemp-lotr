@@ -3,6 +3,7 @@ package com.gempukku.lotro.merchant;
 import com.gempukku.lotro.cards.packs.RarityReader;
 import com.gempukku.lotro.cards.packs.SetRarity;
 import com.gempukku.lotro.collection.CollectionsManager;
+import com.gempukku.lotro.db.MerchantDAO;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.game.CardItem;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
@@ -21,20 +22,25 @@ public class MerchantService {
 
     private ReadWriteLock _lock = new ReentrantReadWriteLock(true);
     private Set<CardItem> _merchantableItems = new HashSet<CardItem>();
+    private Set<String> _merchantableStrings = new HashSet<String>();
     private CollectionType _permanentCollection = new CollectionType("permanent", "My cards");
     private CollectionsManager _collectionsManager;
 
-    public MerchantService(LotroCardBlueprintLibrary library, CollectionsManager collectionsManager) {
+    public MerchantService(LotroCardBlueprintLibrary library, CollectionsManager collectionsManager, MerchantDAO merchantDAO) {
         _collectionsManager = collectionsManager;
         ParametrizedMerchant parametrizedMerchant = new ParametrizedMerchant();
         parametrizedMerchant.setMerchantSetupDate(new Date());
+        parametrizedMerchant.setMerchantDao(merchantDAO);
         _merchant = parametrizedMerchant;
 
         RarityReader rarityReader = new RarityReader();
         for (int i = 0; i <= 19; i++) {
             SetRarity rarity = rarityReader.getSetRarity(String.valueOf(i));
-            for (String blueprintId : rarity.getAllCards())
-                _merchantableItems.add(new BasicCardItem(library.getBaseBlueprintId(blueprintId)));
+            for (String blueprintId : rarity.getAllCards()) {
+                String baseBlueprintId = library.getBaseBlueprintId(blueprintId);
+                _merchantableItems.add(new BasicCardItem(baseBlueprintId));
+                _merchantableStrings.add(baseBlueprintId);
+            }
         }
     }
 
@@ -50,12 +56,16 @@ public class MerchantService {
             Map<String, Integer> buyPrices = new HashMap<String, Integer>();
             Map<String, Integer> sellPrices = new HashMap<String, Integer>();
             for (CardItem cardItem : cardBlueprintIds) {
-                Integer buyPrice = _merchant.getCardBuyPrice(cardItem.getBlueprintId(), currentTime);
+                String blueprintId = cardItem.getBlueprintId();
+
+                Integer buyPrice = _merchant.getCardBuyPrice(blueprintId, currentTime);
                 if (buyPrice != null)
-                    buyPrices.put(cardItem.getBlueprintId(), buyPrice);
-                Integer sellPrice = _merchant.getCardSellPrice(cardItem.getBlueprintId(), currentTime);
-                if (sellPrice != null)
-                    sellPrices.put(cardItem.getBlueprintId(), sellPrice);
+                    buyPrices.put(blueprintId, buyPrice);
+                if (_merchantableStrings.contains(blueprintId)) {
+                    Integer sellPrice = _merchant.getCardSellPrice(blueprintId, currentTime);
+                    if (sellPrice != null)
+                        sellPrices.put(blueprintId, sellPrice);
+                }
             }
             PriceGuarantee priceGuarantee = new PriceGuarantee(sellPrices, buyPrices, currentTime);
             _priceGuarantees.put(player, priceGuarantee);
