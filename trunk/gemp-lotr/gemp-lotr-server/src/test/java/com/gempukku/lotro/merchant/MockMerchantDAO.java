@@ -24,4 +24,8 @@ public class MockMerchantDAO implements MerchantDAO {
             return new Transaction(_dates.get(blueprintId), _prices.get(blueprintId), _transactionTypes.get(blueprintId));
         return null;
     }
+
+    @Override
+    public void clearCache() {
+    }
 }

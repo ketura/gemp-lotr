@@ -3,6 +3,7 @@ package com.gempukku.lotro.merchant;
 import com.gempukku.lotro.cards.packs.RarityReader;
 import com.gempukku.lotro.cards.packs.SetRarity;
 import com.gempukku.lotro.db.MerchantDAO;
+import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -23,8 +24,10 @@ public class ParametrizedMerchant implements Merchant {
 
     private MerchantDAO _merchantDao;
     private Map<Integer, SetRarity> _rarity = new HashMap<Integer, SetRarity>();
+    private LotroCardBlueprintLibrary _library;
 
-    public ParametrizedMerchant() {
+    public ParametrizedMerchant(LotroCardBlueprintLibrary library) {
+        _library = library;
         RarityReader rarityReader = new RarityReader();
         for (int i = 0; i <= 19; i++)
             _rarity.put(i, rarityReader.getSetRarity(String.valueOf(i)));
@@ -40,10 +43,21 @@ public class ParametrizedMerchant implements Merchant {
 
     @Override
     public Integer getCardBuyPrice(String blueprintId, Date currentTime) {
+        boolean foil = false;
+        if (blueprintId.endsWith("*"))
+            foil = true;
+
+        blueprintId = _library.getBaseBlueprintId(blueprintId);
+
         Double normalPrice = getNormalPrice(blueprintId, currentTime);
         if (normalPrice == null)
             return null;
-        return (int) Math.floor(_profitMargin * normalPrice / getSetupComponent(currentTime));
+
+        int price = (int) Math.floor(_profitMargin * normalPrice / getSetupComponent(currentTime));
+
+        if (foil)
+            return 2 * price;
+        return price;
     }
 
     @Override
@@ -98,6 +112,9 @@ public class ParametrizedMerchant implements Merchant {
 
     @Override
     public void cardBought(String blueprintId, Date currentTime, int price) {
+        if (blueprintId.endsWith("*"))
+            price = price / 2;
+        blueprintId = _library.getBaseBlueprintId(blueprintId);
         _merchantDao.addTransaction(blueprintId, (price / _profitMargin), currentTime, MerchantDAO.TransactionType.BUY);
     }
 
