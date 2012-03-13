@@ -135,7 +135,7 @@ public class MerchantResource extends AbstractResource {
             @Context HttpServletResponse response) throws ParserConfigurationException {
         Player resourceOwner = getResourceOwnerSafely(request, participantId);
         try {
-            _merchantService.sellCard(resourceOwner, blueprintId, price);
+            _merchantService.merchantSellsCard(resourceOwner, blueprintId, price);
             return null;
         } catch (MerchantException exp) {
             return marshalException(exp);
@@ -153,7 +153,7 @@ public class MerchantResource extends AbstractResource {
             @Context HttpServletResponse response) throws ParserConfigurationException {
         Player resourceOwner = getResourceOwnerSafely(request, participantId);
         try {
-            _merchantService.buyCard(resourceOwner, blueprintId, price);
+            _merchantService.merchantBuysCard(resourceOwner, blueprintId, price);
             return null;
         } catch (MerchantException exp) {
             return marshalException(exp);

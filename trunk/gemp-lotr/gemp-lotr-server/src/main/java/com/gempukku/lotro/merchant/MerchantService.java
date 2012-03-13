@@ -75,27 +75,7 @@ public class MerchantService {
         }
     }
 
-    public void sellCard(Player player, String blueprintId, int price) throws MerchantException {
-        Date currentTime = new Date();
-        Lock lock = _lock.writeLock();
-        lock.lock();
-        try {
-            PriceGuarantee guarantee = _priceGuarantees.get(player);
-            if (guarantee == null || guarantee.getDate().getTime() + _priceGuaranteeExpire < currentTime.getTime())
-                throw new MerchantException("Price guarantee has expired");
-            Integer guaranteedPrice = guarantee.getSellPrices().get(blueprintId);
-            if (guaranteedPrice == null || price != guaranteedPrice)
-                throw new MerchantException("Guaranteed price does not match the user asked price");
-
-            boolean success = _collectionsManager.sellCardInPlayerCollection(player, _permanentCollection, blueprintId, price);
-            if (!success)
-                throw new MerchantException("Unable to remove the sold card from your collection");
-        } finally {
-            lock.unlock();
-        }
-    }
-
-    public void buyCard(Player player, String blueprintId, int price) throws MerchantException {
+    public void merchantBuysCard(Player player, String blueprintId, int price) throws MerchantException {
         Date currentTime = new Date();
         Lock lock = _lock.writeLock();
         lock.lock();
@@ -107,9 +87,33 @@ public class MerchantService {
             if (guaranteedPrice == null || price != guaranteedPrice)
                 throw new MerchantException("Guaranteed price does not match the user asked price");
 
+            boolean success = _collectionsManager.sellCardInPlayerCollection(player, _permanentCollection, blueprintId, price);
+            if (!success)
+                throw new MerchantException("Unable to remove the sold card from your collection");
+
+            _merchant.cardBought(blueprintId, currentTime, price);
+        } finally {
+            lock.unlock();
+        }
+    }
+
+    public void merchantSellsCard(Player player, String blueprintId, int price) throws MerchantException {
+        Date currentTime = new Date();
+        Lock lock = _lock.writeLock();
+        lock.lock();
+        try {
+            PriceGuarantee guarantee = _priceGuarantees.get(player);
+            if (guarantee == null || guarantee.getDate().getTime() + _priceGuaranteeExpire < currentTime.getTime())
+                throw new MerchantException("Price guarantee has expired");
+            Integer guaranteedPrice = guarantee.getSellPrices().get(blueprintId);
+            if (guaranteedPrice == null || price != guaranteedPrice)
+                throw new MerchantException("Guaranteed price does not match the user asked price");
+
             boolean success = _collectionsManager.buyCardToPlayerCollection(player, _permanentCollection, blueprintId, price);
             if (!success)
                 throw new MerchantException("Unable to remove required currency from your collection");
+
+            _merchant.cardSold(blueprintId, currentTime, price);
         } finally {
             lock.unlock();
         }
