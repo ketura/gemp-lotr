@@ -2,185 +2,217 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Gemp-LotR</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <meta http-equiv="pragma" content="no-cache"/>
+<title>Gemp-LotR</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta http-equiv="pragma" content="no-cache"/>
 
-    <style type="text/css">
-        body {
-            font-size: 12px;
-            background-color: #000000;
-        }
+<style type="text/css">
+    body {
+        font-size: 12px;
+        background-color: #000000;
+    }
 
-        .borderOverlay {
-            border: 2px solid #000000;
-        }
+    .borderOverlay {
+        border: 2px solid #000000;
+    }
 
-        .foilOverlay {
-            opacity: 0.2;
-        }
+    .foilOverlay {
+        opacity: 0.2;
+    }
 
-        .cardCount {
-            width: 20px;
-            height: 18px;
-            background-color: #000000;
-            color: #ffffff;
-            font-size: 120%;
-            font-weight: bolder;
-            display: table-cell;
-            text-align: center;
-            vertical-align: middle;
-            opacity: 0.7;
-        }
+    .cardCount {
+        width: 20px;
+        height: 18px;
+        background-color: #000000;
+        color: #ffffff;
+        font-size: 120%;
+        font-weight: bolder;
+        display: table-cell;
+        text-align: center;
+        vertical-align: middle;
+        opacity: 0.7;
+    }
 
-        .tableFormatName {
-            text-align: center;
-            font-weight: bold;
-            font-size: 100%;
-        }
+    .tableFormatName {
+        text-align: center;
+        font-weight: bold;
+        font-size: 100%;
+    }
 
-        .tableStatus {
-            text-align: center;
-            font-style: italic;
-            font-size: 100%;
-        }
+    .tableStatus {
+        text-align: center;
+        font-style: italic;
+        font-size: 100%;
+    }
 
-        .tablePlayer {
-            text-align: center;
-        }
+    .tablePlayer {
+        text-align: center;
+    }
 
-        .winningPlayer {
-            font-weight: bold;
-            font-size: 110%;
-        }
+    .winningPlayer {
+        font-weight: bold;
+        font-size: 110%;
+    }
 
-        .losingPlayer {
-            font-size: 80%;
-        }
+    .losingPlayer {
+        font-size: 80%;
+    }
 
-        .chatMessage {
-            color: #ffffff;
-        }
+    .chatMessage {
+        color: #ffffff;
+    }
 
-        .systemMessage {
-            color: #5f5f5f;
-        }
+    .systemMessage {
+        color: #5f5f5f;
+    }
 
-        .warningMessage {
-            color: #ff0000;
-        }
+    .warningMessage {
+        color: #ff0000;
+    }
 
-        .chatUser {
-            color: #ffffff;
-        }
+    .chatUser {
+        color: #ffffff;
+    }
 
-        .systemMessage > .timestamp {
-            display: inline;
-            color: #5f5f5f;
-        }
+    .systemMessage > .timestamp {
+        display: inline;
+        color: #5f5f5f;
+    }
 
-        .timestamp {
-            display: inline;
-            color: #cfcfcf;
-        }
+    .timestamp {
+        display: inline;
+        color: #cfcfcf;
+    }
 
-        #disclaimer {
-            color: #ffffff;
-            font-size: 80%;
-        }
+    #disclaimer {
+        color: #ffffff;
+        font-size: 80%;
+    }
 
-        #latestNews {
-            color: #ffffff;
-            font-size: 90%;
-        }
+    #latestNews {
+        color: #ffffff;
+        font-size: 90%;
+    }
 
-        #motd {
-            color: #ffffff;
-            font-size: 90%;
-        }
+    #motd {
+        color: #ffffff;
+        font-size: 90%;
+    }
 
-        table.tables {
-            width: 100%;
-        }
+    table.tables {
+        width: 100%;
+    }
 
-        table.tables td, table.tables th {
-            padding: 2px;
-            border: 1px solid white;
-        }
+    table.tables td, table.tables th {
+        padding: 2px;
+        border: 1px solid white;
+    }
 
-        .ui-tabs-nav li {
-            font-size: 70%;
-        }
+    .ui-tabs-nav li {
+        font-size: 70%;
+    }
 
-        .ui-button-text-only .ui-button-text {
-            font-size: 70%;
-            padding: .2em .5em;
-        }
+    .ui-button-text-only .ui-button-text {
+        font-size: 70%;
+        padding: .2em .5em;
+    }
 
-        .standings td, .standings th {
-            padding: 2px;
-            border: 1px solid white;
-        }
+    .standings td, .standings th {
+        padding: 2px;
+        border: 1px solid white;
+    }
 
-        .gameHistory td, .gameHistory th {
-            padding: 2px;
-            border: 1px solid white;
-        }
+    .gameHistory td, .gameHistory th {
+        padding: 2px;
+        border: 1px solid white;
+    }
 
-    </style>
-    <link rel="stylesheet" type="text/css" href="css/dark-hive/jquery-ui-1.8.16.custom.css">
-    <link rel="stylesheet" type="text/css" href="js/jquery/styles/jquery.spinnercontrol.css">
+</style>
+<link rel="stylesheet" type="text/css" href="css/dark-hive/jquery-ui-1.8.16.custom.css">
+<link rel="stylesheet" type="text/css" href="js/jquery/styles/jquery.spinnercontrol.css">
 
-    <script type="text/javascript" src="js/jquery/jquery-1.6.2.js"></script>
-    <script type="text/javascript" src="js/jquery/jquery-ui-1.8.16.custom.min.js"></script>
+<script type="text/javascript" src="js/jquery/jquery-1.6.2.js"></script>
+<script type="text/javascript" src="js/jquery/jquery-ui-1.8.16.custom.min.js"></script>
 
-    <script type="text/javascript" src="js/inheritance.js"></script>
-    <script type="text/javascript" src="js/common.js"></script>
-    <script type="text/javascript" src="js/logging.js"></script>
-    <script type="text/javascript" src="js/chat.js"></script>
-    <script type="text/javascript" src="js/commonUi.js"></script>
-    <script type="text/javascript" src="js/hallUi.js"></script>
-    <script type="text/javascript" src="js/leagueResultsUi.js"></script>
-    <script type="text/javascript" src="js/communication.js"></script>
-    <!-- This is needed for delivery -->
-    <script type="text/javascript" src="js/deliveryService.js"></script>
-    <script type="text/javascript" src="js/jCardGroup.js"></script>
-    <script type="text/javascript" src="js/jCards.js"></script>
+<script type="text/javascript" src="js/inheritance.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
+<script type="text/javascript" src="js/logging.js"></script>
+<script type="text/javascript" src="js/chat.js"></script>
+<script type="text/javascript" src="js/commonUi.js"></script>
+<script type="text/javascript" src="js/hallUi.js"></script>
+<script type="text/javascript" src="js/leagueResultsUi.js"></script>
+<script type="text/javascript" src="js/communication.js"></script>
+<!-- This is needed for delivery -->
+<script type="text/javascript" src="js/deliveryService.js"></script>
+<script type="text/javascript" src="js/jCardGroup.js"></script>
+<script type="text/javascript" src="js/jCards.js"></script>
 
-    <script type="text/javascript">
-        function getUrlParam(param) {
-            var search = window.location.search.substring(1);
-            if (search.indexOf('&') > -1) {
-                var params = search.split('&');
-                for (var i = 0; i < params.length; i++) {
-                    var key_value = params[i].split('=');
-                    if (key_value[0] == param) return key_value[1];
-                }
-            } else {
-                var params = search.split('=');
-                if (params[0] == param) return params[1];
+<script type="text/javascript">
+    var chat;
+    var hall;
+
+    function getUrlParam(param) {
+        var search = window.location.search.substring(1);
+        if (search.indexOf('&') > -1) {
+            var params = search.split('&');
+            for (var i = 0; i < params.length; i++) {
+                var key_value = params[i].split('=');
+                if (key_value[0] == param) return key_value[1];
             }
-            return null;
+        } else {
+            var params = search.split('=');
+            if (params[0] == param) return params[1];
         }
+        return null;
+    }
 
-        $(document).ready(
-                function() {
-                    $("#latestNews").append("<b>All sets are available to play.</b> "
-                            + "If you find any problems with specific card or rules in general, please report it <a href='http://lotrtcgdb.com/forums/index.php/topic,7592.0.html'>at the TLHH forums</a>.");
+    $(document).ready(
+            function() {
+                $("#latestNews").append("<b>All sets are available to play.</b> "
+                        + "If you find any problems with specific card or rules in general, please report it <a href='http://lotrtcgdb.com/forums/index.php/topic,7592.0.html'>at the TLHH forums</a>.");
 
-                    var chat = new ChatBoxUI("Game Hall", $("#chat"), "/gemp-lotr/server", true);
-                    chat.setBounds(2, 2, 780 - 4, 200 - 4);
-                    chat.showTimestamps = true;
+                chat = new ChatBoxUI("Game Hall", $("#chat"), "/gemp-lotr/server", true);
+                chat.setBounds(2, 2, 780 - 4, 200 - 4);
+                chat.showTimestamps = true;
 
-                    var hall = new GempLotrHallUI($("#hall"), "/gemp-lotr/server", chat);
+                hall = new GempLotrHallUI($("#hall"), "/gemp-lotr/server", chat);
 
-                    $("#tabs").tabs();
+                $("#tabs").tabs();
+
+                $(window).resize(function() {
+                    resizeHall();
                 });
-    </script>
+
+                resizeHall();
+            });
+
+    function resizeHall() {
+        var width = $(window).width();
+        var height = $(window).height();
+
+        var innerWidth = width - 60;
+        var innerHeight = height - 100;
+
+        if (innerHeight < 520)
+            innerHeight = 520;
+        if (innerWidth < 740)
+            innerWidth = 740;
+
+        var middleHeight = (innerHeight - 60) / 2;
+
+        $("#latestNews").css({width: innerWidth + "px", height: 30 + "px"});
+        $("#motd").css({width: innerWidth + "px", height: 30 + "px"});
+        $("#hall").css({width: innerWidth + "px", height: middleHeight + "px"});
+        $("#chat").css({width: innerWidth + "px", height: middleHeight + "px"});
+
+        chat.setBounds(2, 2, innerWidth - 4, middleHeight - 4);
+        hall.hallResized(innerWidth, middleHeight);
+    }
+</script>
 
 </head>
 <body>
-<div id="tabs" width="100%" height="800">
+<div id="tabs" width="100%">
     <ul>
         <li><a href="#gameHall">Game Hall</a></li>
         <li><a href="includes/gameHistory.html">Game History</a></li>
