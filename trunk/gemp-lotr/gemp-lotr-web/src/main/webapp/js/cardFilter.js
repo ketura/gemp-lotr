@@ -241,6 +241,7 @@ var CardFilter = Class.extend({
                 + "<option value='card'>Cards</option>"
                 + "<option value='foil'>Foils</option>"
                 + "<option value='nonFoil'>Non-foils</option>"
+                + "<option value='tengwar'>Tengwar</option>"
                 + "</select>");
         this.filterDiv.append(combos);
 
