@@ -45,6 +45,7 @@ public class HallResource extends AbstractResource {
         Document doc = documentBuilder.newDocument();
 
         Element hall = doc.createElement("hall");
+        hall.setAttribute("currency", String.valueOf(_collectionManager.getPlayerCollection(resourceOwner, "permanent").getCurrency()));
         String motd = _hallServer.getMOTD();
         if (motd != null)
             hall.setAttribute("motd", motd);
