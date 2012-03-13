@@ -56,7 +56,8 @@ public class SortAndFilterCards {
             if (type == null
                     || type.equals("card")
                     || (type.equals("foil") && blueprintId.endsWith("*"))
-                    || (type.equals("nonFoil") && !blueprintId.endsWith("*"))) {
+                    || (type.equals("nonFoil") && !blueprintId.endsWith("*"))
+                    || (type.equals("tengwar") && (blueprintId.endsWith("T*") || blueprintId.endsWith("T")))) {
                 final LotroCardBlueprint blueprint = library.getLotroCardBlueprint(blueprintId);
                 if (rarity == null || isRarity(blueprintId, rarity, library, rarities))
                     if (sets == null || isInSets(blueprintId, sets, library))
