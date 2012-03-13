@@ -2,9 +2,12 @@ package com.gempukku.lotro.db;
 
 import java.sql.*;
 import java.util.Date;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class DbMerchantDAO implements MerchantDAO {
     private DbAccess _dbAccess;
+    private Map<String, Transaction> _transactionsMap = new ConcurrentHashMap<String, Transaction>();
 
     public DbMerchantDAO(DbAccess dbAccess) {
         _dbAccess = dbAccess;
@@ -18,6 +21,7 @@ public class DbMerchantDAO implements MerchantDAO {
         } else {
             updateTransaction(blueprintId, price, date, transactionType);
         }
+        _transactionsMap.put(blueprintId, new Transaction(date, price, transactionType));
     }
 
     private void updateTransaction(String blueprintId, float price, Date date, TransactionType transactionType) {
@@ -66,6 +70,10 @@ public class DbMerchantDAO implements MerchantDAO {
 
     @Override
     public Transaction getLastTransaction(String blueprintId) {
+        final Transaction transaction = _transactionsMap.get(blueprintId);
+        if (transaction != null)
+            return transaction;
+
         try {
             Connection connection = _dbAccess.getDataSource().getConnection();
             try {
