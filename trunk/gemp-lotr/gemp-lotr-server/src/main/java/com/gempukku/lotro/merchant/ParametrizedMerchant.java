@@ -9,7 +9,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ParametrizedMerchant implements Merchant {
-    private static final long DAY = 1000 * 60 * 60 * 24;
+    private static final int BOOSTER_PRICE = 1000;
+    private static final long DAY = BOOSTER_PRICE * 60 * 60 * 24;
 
     private Date _merchantSetupDate;
 
@@ -37,15 +38,18 @@ public class ParametrizedMerchant implements Merchant {
 
     @Override
     public Integer getCardBuyPrice(String blueprintId, Date currentTime) {
-        double normalPrice = getNormalPrice(blueprintId, currentTime);
+        Double normalPrice = getNormalPrice(blueprintId, currentTime);
+        if (normalPrice == null)
+            return null;
         return (int) Math.floor(_profitMargin * normalPrice / getSetupComponent(currentTime));
     }
 
     @Override
     public Integer getCardSellPrice(String blueprintId, Date currentTime) {
-        double normalPrice = getNormalPrice(blueprintId, currentTime);
+        Double normalPrice = getNormalPrice(blueprintId, currentTime);
+        if (normalPrice == null)
+            return null;
         double setupComponent = getSetupComponent(currentTime);
-        System.out.println(setupComponent);
         return (int) Math.ceil(normalPrice * setupComponent);
     }
 
@@ -55,10 +59,33 @@ public class ParametrizedMerchant implements Merchant {
         return 1;
     }
 
-    private double getNormalPrice(String blueprintId, Date currentTime) {
+    private Double getNormalPrice(String blueprintId, Date currentTime) {
         MerchantDAO.Transaction lastTrans = _merchantDao.getLastTransaction(blueprintId);
+        if (lastTrans == null) {
+            Integer basePrice = getBasePrice(blueprintId);
+            if (basePrice == null)
+                return null;
+            lastTrans = new MerchantDAO.Transaction(_merchantSetupDate, basePrice);
+        }
         //  (stored price)/(1+(fluctuation value * ms since last transaction)/(price revert time in ms))
         return lastTrans.getPrice() / (1 + (_fluctuationValue * Math.pow(1f * (currentTime.getTime() - lastTrans.getDate().getTime()) / _priceRevertTimeMs, 0.9)));
+    }
+
+    private Integer getBasePrice(String blueprintId) {
+        int underscoreIndex = blueprintId.indexOf("_");
+        if (underscoreIndex == -1)
+            return null;
+        SetRarity rarity = _rarity.get(Integer.parseInt(blueprintId.substring(0, blueprintId.indexOf("_"))));
+        String cardRarity = rarity.getCardRarity(blueprintId);
+        if (cardRarity.equals("X"))
+            return 3 * BOOSTER_PRICE;
+        if (cardRarity.equals("R") || cardRarity.equals("P"))
+            return BOOSTER_PRICE;
+        if (cardRarity.equals("U") || cardRarity.equals("S"))
+            return BOOSTER_PRICE / 3;
+        if (cardRarity.equals("C"))
+            return BOOSTER_PRICE / 7;
+        throw new RuntimeException("Unkown rarity for priced card: " + cardRarity);
     }
 
     @Override

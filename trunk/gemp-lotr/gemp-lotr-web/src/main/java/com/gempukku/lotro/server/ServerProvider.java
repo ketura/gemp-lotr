@@ -39,6 +39,8 @@ public class ServerProvider implements InjectableProvider<Context, Type> {
     @Context
     private CollectionDAO _collectionDao;
     @Context
+    private MerchantDAO _merchantDao;
+    @Context
     private LeagueDAO _leagueDao;
     @Context
     private LeagueMatchDAO _leagueMatchDao;
@@ -100,7 +102,7 @@ public class ServerProvider implements InjectableProvider<Context, Type> {
 
     private synchronized Injectable<MerchantService> getMerchantServiceInjectable() {
         if (_merchantServiceInjectable == null) {
-            final MerchantService merchantService = new MerchantService(_library, getCollectionsManagerInjectable().getValue());
+            final MerchantService merchantService = new MerchantService(_library, getCollectionsManagerInjectable().getValue(), _merchantDao);
             _merchantServiceInjectable = new Injectable<MerchantService>() {
                 @Override
                 public MerchantService getValue() {
