@@ -10,7 +10,7 @@ public class DbMerchantDAO implements MerchantDAO {
     }
 
     @Override
-    public void addTransaction(String blueprintId, float price, Date date) {
+    public void addTransaction(String blueprintId, float price, Date date, TransactionType transactionType) {
 
     }
 

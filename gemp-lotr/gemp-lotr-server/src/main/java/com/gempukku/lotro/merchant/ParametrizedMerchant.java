@@ -14,10 +14,12 @@ public class ParametrizedMerchant implements Merchant {
 
     private Date _merchantSetupDate;
 
-    private float _fluctuationValue = 0.1f;
-    private long _priceRevertTimeMs = 5 * DAY;
-    private long _easingTimeMs = 30 * DAY;
-    private float _profitMargin = 0.7f;
+    private final float _fluctuationValue = 0.1f;
+    private final long _priceRevertTimeMs = 5 * DAY;
+    private final long _easingTimeMs = 30 * DAY;
+    private final float _profitMargin = 0.7f;
+    private final double _returnPrizeSlope = 0.3;
+    private final double _decreasePrizeSlope = 0.8;
 
     private MerchantDAO _merchantDao;
     private Map<Integer, SetRarity> _rarity = new HashMap<Integer, SetRarity>();
@@ -65,10 +67,16 @@ public class ParametrizedMerchant implements Merchant {
             Integer basePrice = getBasePrice(blueprintId);
             if (basePrice == null)
                 return null;
-            lastTrans = new MerchantDAO.Transaction(_merchantSetupDate, basePrice);
+            lastTrans = new MerchantDAO.Transaction(_merchantSetupDate, basePrice, MerchantDAO.TransactionType.SELL);
         }
+        if (lastTrans.getDate().getTime() + _priceRevertTimeMs > currentTime.getTime())
+            if (lastTrans.getTransactionType() == MerchantDAO.TransactionType.SELL) {
+                return (1 + _fluctuationValue) * lastTrans.getPrice() / (1 + (_fluctuationValue * Math.pow(1f * (currentTime.getTime() - lastTrans.getDate().getTime()) / _priceRevertTimeMs, _returnPrizeSlope)));
+            } else {
+                return (1 - _fluctuationValue) * lastTrans.getPrice() / (1 - (_fluctuationValue * Math.pow(1f * (currentTime.getTime() - lastTrans.getDate().getTime()) / _priceRevertTimeMs, _returnPrizeSlope)));
+            }
         //  (stored price)/(1+(fluctuation value * ms since last transaction)/(price revert time in ms))
-        return lastTrans.getPrice() / (1 + (_fluctuationValue * Math.pow(1f * (currentTime.getTime() - lastTrans.getDate().getTime()) / _priceRevertTimeMs, 0.9)));
+        return lastTrans.getPrice() / (1 + (_fluctuationValue * Math.pow(1f * (currentTime.getTime() - lastTrans.getDate().getTime() - _priceRevertTimeMs) / _priceRevertTimeMs, _decreasePrizeSlope)));
     }
 
     private Integer getBasePrice(String blueprintId) {
@@ -90,11 +98,11 @@ public class ParametrizedMerchant implements Merchant {
 
     @Override
     public void cardBought(String blueprintId, Date currentTime, int price) {
-        _merchantDao.addTransaction(blueprintId, (price / _profitMargin) * (1 + _fluctuationValue), currentTime);
+        _merchantDao.addTransaction(blueprintId, (price / _profitMargin), currentTime, MerchantDAO.TransactionType.BUY);
     }
 
     @Override
     public void cardSold(String blueprintId, Date currentTime, int price) {
-        _merchantDao.addTransaction(blueprintId, price * (1 + _fluctuationValue), currentTime);
+        _merchantDao.addTransaction(blueprintId, price, currentTime, MerchantDAO.TransactionType.SELL);
     }
 }
