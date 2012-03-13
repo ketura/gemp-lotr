@@ -43,21 +43,29 @@ var GempLotrDeckBuildingUI = Class.extend({
 
     cardFilter: null,
 
+    collectionType: null,
+
     init: function() {
         var that = this;
 
         this.comm = new GempLotrCommunication("/gemp-lotr/server", that.processError);
 
-        this.cardFilter = new CardFilter("/gemp-lotr/server", $("#collectionDiv"),
+        this.cardFilter = new CardFilter($("#collectionDiv"),
+                function(filter, start, count, callback) {
+                    that.comm.getCollection(that.collectionType, filter, start, count, function(xml) {
+                        callback(xml);
+                    });
+                },
                 function() {
                     that.clearCollection();
                 },
-                function(type, blueprintId, count, side, contents) {
-                    that.addCardToCollection(type, blueprintId, count, side, contents);
+                function(elem, type, blueprintId, count) {
+                    that.addCardToCollection(type, blueprintId, count, elem.getAttribute("side"), elem.getAttribute("contents"));
                 },
                 function() {
                     that.finishCollection();
                 });
+        this.collectionType = "default";
 
         this.deckDiv = $("#deckDiv");
 
@@ -151,7 +159,8 @@ var GempLotrDeckBuildingUI = Class.extend({
 
         $("#collectionSelect").change(
                 function() {
-                    that.cardFilter.setCollectionType(that.getCollectionType());
+                    that.collectionType = that.getCollectionType();
+                    that.cardFilter.getCollection();
                 });
 
         this.normalCollectionDiv = $("<div></div>");
@@ -249,7 +258,7 @@ var GempLotrDeckBuildingUI = Class.extend({
         this.getCollectionTypes();
 
         this.cardFilter.setFilter("cardType:-THE_ONE_RING");
-        this.cardFilter.setCollectionType("default");
+        this.cardFilter.getCollection();
 
         this.checkDeckStatsDirty();
     },

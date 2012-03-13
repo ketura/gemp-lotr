@@ -164,6 +164,21 @@ var GempLotrCommunication = Class.extend({
             dataType: "xml"
         });
     },
+    getMerchant: function(filter, start, count, callback) {
+        $.ajax({
+            type: "GET",
+            url: this.url + "/merchant",
+            cache: false,
+            data: {
+                participantId: getUrlParam("participantId"),
+                filter: filter,
+                start: start,
+                count: count},
+            success: this.deliveryCheck(callback),
+            error: this.failure,
+            dataType: "xml"
+        });
+    },
     getCollection: function(collectionType, filter, start, count, callback) {
         $.ajax({
             type: "GET",
