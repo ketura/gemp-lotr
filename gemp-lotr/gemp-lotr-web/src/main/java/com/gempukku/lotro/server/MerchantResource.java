@@ -4,6 +4,7 @@ import com.gempukku.lotro.cards.packs.RarityReader;
 import com.gempukku.lotro.cards.packs.SetRarity;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.game.*;
+import com.gempukku.lotro.merchant.MerchantException;
 import com.gempukku.lotro.merchant.MerchantService;
 import com.sun.jersey.spi.resource.Singleton;
 import org.w3c.dom.Document;
@@ -11,10 +12,7 @@ import org.w3c.dom.Element;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.xml.parsers.DocumentBuilder;
@@ -123,6 +121,71 @@ public class MerchantResource extends AbstractResource {
             collectionElem.appendChild(elem);
         }
 
+        return doc;
+    }
+
+    @Path("/buy")
+    @POST
+    @Produces(MediaType.APPLICATION_XML)
+    public Document buyItem(
+            @QueryParam("participantId") String participantId,
+            @QueryParam("blueprintId") String blueprintId,
+            @QueryParam("price") int price,
+            @Context HttpServletRequest request,
+            @Context HttpServletResponse response) throws ParserConfigurationException {
+        Player resourceOwner = getResourceOwnerSafely(request, participantId);
+        try {
+            _merchantService.sellCard(resourceOwner, blueprintId, price);
+            return null;
+        } catch (MerchantException exp) {
+            return marshalException(exp);
+        }
+    }
+
+    @Path("/sell")
+    @POST
+    @Produces(MediaType.APPLICATION_XML)
+    public Document sellItem(
+            @QueryParam("participantId") String participantId,
+            @QueryParam("blueprintId") String blueprintId,
+            @QueryParam("price") int price,
+            @Context HttpServletRequest request,
+            @Context HttpServletResponse response) throws ParserConfigurationException {
+        Player resourceOwner = getResourceOwnerSafely(request, participantId);
+        try {
+            _merchantService.buyCard(resourceOwner, blueprintId, price);
+            return null;
+        } catch (MerchantException exp) {
+            return marshalException(exp);
+        }
+    }
+
+    @Path("/tradeFoil")
+    @POST
+    @Produces(MediaType.APPLICATION_XML)
+    public Document tradeInFoil(
+            @QueryParam("participantId") String participantId,
+            @QueryParam("blueprintId") String blueprintId,
+            @Context HttpServletRequest request,
+            @Context HttpServletResponse response) throws ParserConfigurationException {
+        Player resourceOwner = getResourceOwnerSafely(request, participantId);
+        try {
+            _merchantService.tradeForFoil(resourceOwner, blueprintId);
+            return null;
+        } catch (MerchantException exp) {
+            return marshalException(exp);
+        }
+    }
+
+    private Document marshalException(MerchantException e) throws ParserConfigurationException {
+        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+
+        Document doc = documentBuilder.newDocument();
+
+        Element error = doc.createElement("error");
+        error.setAttribute("message", e.getMessage());
+        doc.appendChild(error);
         return doc;
     }
 }
