@@ -31,8 +31,8 @@ public class ParametrizedMerchantTest {
         assertEqualsMoreOrLess(1000, (int) merchant.getCardBuyPrice("1_2", currentTime));
     }
 
-    @Test
-    public void plotPriceAfterSold() {
+    //    @Test
+    public void plotPricesAfterTransactions() {
         Date setupDate = new Date(-1000 * 60 * 60 * 24 * 50L);
         Date firstTrans = new Date(0);
 
@@ -43,33 +43,14 @@ public class ParametrizedMerchantTest {
         merchant.setMerchantSetupDate(setupDate);
 
         merchant.cardSold("1_1", firstTrans, 1000);
+        merchant.cardBought("1_2", firstTrans, 700);
 
         long hour = 1000 * 60 * 60;
 
-        System.out.println("-2,1000");
+        System.out.println("-2,1000,700,1000,700");
         for (long time = 0; time < hour * 24 * 20L; time += hour * 2) {
-            System.out.println(time / hour + "," + (int) merchant.getCardSellPrice("1_1", new Date(time)));
-        }
-    }
-
-    @Test
-    public void plotPriceAfterBought() {
-        Date setupDate = new Date(-1000 * 60 * 60 * 24 * 50L);
-        Date firstTrans = new Date(0);
-
-        MerchantDAO merchantDao = new MockMerchantDAO();
-
-        ParametrizedMerchant merchant = new ParametrizedMerchant();
-        merchant.setMerchantDao(merchantDao);
-        merchant.setMerchantSetupDate(setupDate);
-
-        merchant.cardBought("1_1", firstTrans, 700);
-
-        long hour = 1000 * 60 * 60;
-
-        System.out.println("-2,1000");
-        for (long time = 0; time < hour * 24 * 20L; time += hour * 2) {
-            System.out.println(time / hour + "," + (int) merchant.getCardSellPrice("1_1", new Date(time)));
+            System.out.println(time / hour + "," + ((int) merchant.getCardSellPrice("1_1", new Date(time))) + "," + ((int) merchant.getCardBuyPrice("1_1", new Date(time)))
+                    + "," + ((int) merchant.getCardSellPrice("1_2", new Date(time))) + "," + ((int) merchant.getCardBuyPrice("1_2", new Date(time))));
         }
     }
 
