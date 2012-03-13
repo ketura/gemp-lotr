@@ -9,6 +9,7 @@ var GempLotrHallUI = Class.extend({
     leaveTableButton: null,
 
     tablesDiv: null,
+    buttonsDiv: null,
 
     init: function(div, url, chat) {
         this.div = div;
@@ -37,8 +38,8 @@ var GempLotrHallUI = Class.extend({
         this.tablesDiv.css({overflow: "auto", left: "0px", top: "0px", width: width + "px", height: (height - 30) + "px"});
         this.div.append(this.tablesDiv);
 
-        var buttonsDiv = $("<div></div>");
-        buttonsDiv.css({left: "0px", top: (height - 30) + "px", width: width + "px", height: 29 + "px", align: "right", backgroundColor: "#000000", "border-top-width": "1px", "border-top-color": "#ffffff", "border-top-style": "solid"});
+        this.buttonsDiv = $("<div></div>");
+        this.buttonsDiv.css({left: "0px", top: (height - 30) + "px", width: width + "px", height: 29 + "px", align: "right", backgroundColor: "#000000", "border-top-width": "1px", "border-top-color": "#ffffff", "border-top-style": "solid"});
 
         var that = this;
 
@@ -48,8 +49,8 @@ var GempLotrHallUI = Class.extend({
                     location.href = 'deckBuild.html';
                 });
 
-        buttonsDiv.append(editDeck);
-        buttonsDiv.append(" | ");
+        this.buttonsDiv.append(editDeck);
+        this.buttonsDiv.append(" | ");
 
         this.supportedFormatsSelect = $("<select style='width: 220px'></select>");
         this.supportedFormatsSelect.hide();
@@ -72,9 +73,9 @@ var GempLotrHallUI = Class.extend({
         this.decksSelect = $("<select style='width: 220px'></select>");
         this.decksSelect.hide();
 
-        buttonsDiv.append(this.supportedFormatsSelect);
-        buttonsDiv.append(this.decksSelect);
-        buttonsDiv.append(this.createTableButton);
+        this.buttonsDiv.append(this.supportedFormatsSelect);
+        this.buttonsDiv.append(this.decksSelect);
+        this.buttonsDiv.append(this.createTableButton);
 
         this.leaveTableButton = $("<button>Leave table</button>");
         $(this.leaveTableButton).button().click(
@@ -84,12 +85,17 @@ var GempLotrHallUI = Class.extend({
                 });
         this.leaveTableButton.hide();
 
-        buttonsDiv.append(this.leaveTableButton);
+        this.buttonsDiv.append(this.leaveTableButton);
 
-        this.div.append(buttonsDiv);
+        this.div.append(this.buttonsDiv);
 
         this.updateHall();
         this.updateDecks();
+    },
+
+    hallResized: function(width, height) {
+        this.tablesDiv.css({overflow: "auto", left: "0px", top: "0px", width: width + "px", height: (height - 30) + "px"});
+        this.buttonsDiv.css({left: "0px", top: (height - 30) + "px", width: width + "px", height: 29 + "px", align: "right", backgroundColor: "#000000", "border-top-width": "1px", "border-top-color": "#ffffff", "border-top-style": "solid"});
     },
 
     updateHall: function() {
