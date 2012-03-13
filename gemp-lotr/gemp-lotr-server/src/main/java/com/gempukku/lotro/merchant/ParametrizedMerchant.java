@@ -20,7 +20,8 @@ public class ParametrizedMerchant implements Merchant {
     private final long _easingTimeMs = 30 * DAY;
     private final float _profitMargin = 0.7f;
     private final double _returnPrizeSlope = 0.3;
-    private final double _decreasePrizeSlope = 0.8;
+    private final double _decreasePrizeSlope = 4;
+    private final long _decreaseHalfedMs = 30 * DAY;
 
     private MerchantDAO _merchantDao;
     private Map<Integer, SetRarity> _rarity = new HashMap<Integer, SetRarity>();
@@ -83,14 +84,16 @@ public class ParametrizedMerchant implements Merchant {
                 return null;
             lastTrans = new MerchantDAO.Transaction(_merchantSetupDate, basePrice, MerchantDAO.TransactionType.SELL);
         }
-        if (lastTrans.getDate().getTime() + _priceRevertTimeMs > currentTime.getTime())
+        if (lastTrans.getDate().getTime() + _priceRevertTimeMs > currentTime.getTime()) {
             if (lastTrans.getTransactionType() == MerchantDAO.TransactionType.SELL) {
                 return (1 + _fluctuationValue) * lastTrans.getPrice() / (1 + (_fluctuationValue * Math.pow(1f * (currentTime.getTime() - lastTrans.getDate().getTime()) / _priceRevertTimeMs, _returnPrizeSlope)));
             } else {
                 return (1 - _fluctuationValue) * lastTrans.getPrice() / (1 - (_fluctuationValue * Math.pow(1f * (currentTime.getTime() - lastTrans.getDate().getTime()) / _priceRevertTimeMs, _returnPrizeSlope)));
             }
+        }
+        long timeSinceRevertMs = currentTime.getTime() - lastTrans.getDate().getTime() - _priceRevertTimeMs;
         //  (stored price)/(1+(fluctuation value * ms since last transaction)/(price revert time in ms))
-        return lastTrans.getPrice() / (1 + (_fluctuationValue * Math.pow(1f * (currentTime.getTime() - lastTrans.getDate().getTime() - _priceRevertTimeMs) / _priceRevertTimeMs, _decreasePrizeSlope)));
+        return lastTrans.getPrice() / (1 + Math.pow(1f * timeSinceRevertMs / _decreaseHalfedMs, _decreasePrizeSlope));
     }
 
     private Integer getBasePrice(String blueprintId) {
