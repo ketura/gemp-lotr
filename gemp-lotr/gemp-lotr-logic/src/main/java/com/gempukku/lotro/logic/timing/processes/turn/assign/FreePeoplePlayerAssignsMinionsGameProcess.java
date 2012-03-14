@@ -17,13 +17,17 @@ import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
 import com.gempukku.lotro.logic.timing.results.FreePlayerStartsAssigningResult;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 public class FreePeoplePlayerAssignsMinionsGameProcess implements GameProcess {
-    private GameProcess _followingGameProcess;
+    private Set<PhysicalCard> _leftoverMinions;
+    private GameProcess _followingAssignments;
 
-    public FreePeoplePlayerAssignsMinionsGameProcess(LotroGame game, GameProcess followingGameProcess) {
-        _followingGameProcess = followingGameProcess;
+    public FreePeoplePlayerAssignsMinionsGameProcess(GameProcess followingAssignments) {
+        _followingAssignments = followingAssignments;
     }
 
     @Override
@@ -53,7 +57,7 @@ public class FreePeoplePlayerAssignsMinionsGameProcess implements GameProcess {
                                         public void decisionMade(String result) throws DecisionResultInvalidException {
                                             Map<PhysicalCard, Set<PhysicalCard>> assignments = getAssignmentsBasedOnResponse(result);
 
-                                            List<PhysicalCard> unassignedMinions = new LinkedList<PhysicalCard>(minions);
+                                            Set<PhysicalCard> unassignedMinions = new HashSet<PhysicalCard>(minions);
                                             // Validate minion count (Defender)
                                             for (PhysicalCard freeCard : assignments.keySet()) {
                                                 Set<PhysicalCard> minionsAssigned = assignments.get(freeCard);
@@ -64,6 +68,8 @@ public class FreePeoplePlayerAssignsMinionsGameProcess implements GameProcess {
 
                                             if (!game.getModifiersQuerying().isValidAssignments(game.getGameState(), Side.FREE_PEOPLE, assignments))
                                                 throw new DecisionResultInvalidException("Assignments are not valid for the effects affecting the cards");
+
+                                            _leftoverMinions = unassignedMinions;
 
                                             action.appendEffect(
                                                     new AssignmentPhaseEffect(gameState.getCurrentPlayerId(), assignments, "Free People player assignments"));
@@ -86,6 +92,6 @@ public class FreePeoplePlayerAssignsMinionsGameProcess implements GameProcess {
 
     @Override
     public GameProcess getNextProcess() {
-        return _followingGameProcess;
+        return new ShadowPlayersAssignTheirMinionsGameProcess(_followingAssignments, _leftoverMinions);
     }
 }

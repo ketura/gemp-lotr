@@ -21,18 +21,20 @@ import java.util.Set;
 public class ShadowPlayerAssignsHisMinionsGameProcess implements GameProcess {
     private PlayOrder _shadowOrder;
     private String _playerId;
+    private Set<PhysicalCard> _leftoverMinions;
     private GameProcess _followingGameProcess;
 
-    public ShadowPlayerAssignsHisMinionsGameProcess(PlayOrder shadowOrder, String playerId, GameProcess followingGameProcess) {
+    public ShadowPlayerAssignsHisMinionsGameProcess(PlayOrder shadowOrder, String playerId, Set<PhysicalCard> leftoverMinions, GameProcess followingGameProcess) {
         _shadowOrder = shadowOrder;
         _playerId = playerId;
+        _leftoverMinions = leftoverMinions;
         _followingGameProcess = followingGameProcess;
     }
 
     @Override
     public void process(final LotroGame game) {
         GameState gameState = game.getGameState();
-        Filter minionFilter = Filters.and(CardType.MINION, Filters.owner(_playerId));
+        Filter minionFilter = Filters.and(CardType.MINION, Filters.owner(_playerId), Filters.in(_leftoverMinions));
 
         final Collection<PhysicalCard> minions = Filters.filterActive(gameState, game.getModifiersQuerying(), minionFilter, Filters.assignableToSkirmish(Side.SHADOW, true, false));
         if (minions.size() > 0) {
@@ -66,7 +68,7 @@ public class ShadowPlayerAssignsHisMinionsGameProcess implements GameProcess {
     public GameProcess getNextProcess() {
         String nextPlayerId = _shadowOrder.getNextPlayer();
         if (nextPlayerId != null)
-            return new ShadowPlayerAssignsHisMinionsGameProcess(_shadowOrder, nextPlayerId, _followingGameProcess);
+            return new ShadowPlayerAssignsHisMinionsGameProcess(_shadowOrder, nextPlayerId, _leftoverMinions, _followingGameProcess);
         else
             return _followingGameProcess;
     }
