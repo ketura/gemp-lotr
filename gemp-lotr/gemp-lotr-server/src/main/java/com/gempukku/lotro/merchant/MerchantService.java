@@ -9,6 +9,8 @@ import com.gempukku.lotro.game.CardItem;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.game.Player;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.Lock;
@@ -32,7 +34,14 @@ public class MerchantService {
     public MerchantService(LotroCardBlueprintLibrary library, CollectionsManager collectionsManager, MerchantDAO merchantDAO) {
         _collectionsManager = collectionsManager;
         ParametrizedMerchant parametrizedMerchant = new ParametrizedMerchant(library);
-        parametrizedMerchant.setMerchantSetupDate(new Date());
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            format.setTimeZone(TimeZone.getTimeZone("GMT"));
+            Date setupDate = format.parse("2012-03-14 00:00:00");
+            parametrizedMerchant.setMerchantSetupDate(setupDate);
+        } catch (ParseException exp) {
+            throw new RuntimeException("Unable to parse merchant setup date");
+        }
         parametrizedMerchant.setMerchantDao(merchantDAO);
         _merchant = parametrizedMerchant;
 

@@ -54,7 +54,7 @@ public class ParametrizedMerchant implements Merchant {
         if (normalPrice == null)
             return null;
 
-        int price = (int) Math.floor(_profitMargin * normalPrice / getSetupComponent(currentTime));
+        int price = Math.max(1, (int) Math.floor(_profitMargin * normalPrice / getSetupComponent(currentTime)));
 
         if (foil)
             return 2 * price;
@@ -67,7 +67,7 @@ public class ParametrizedMerchant implements Merchant {
         if (normalPrice == null)
             return null;
         double setupComponent = getSetupComponent(currentTime);
-        return (int) Math.ceil(normalPrice * setupComponent);
+        return Math.max(2, (int) Math.ceil(normalPrice * setupComponent));
     }
 
     private double getSetupComponent(Date currentTime) {
