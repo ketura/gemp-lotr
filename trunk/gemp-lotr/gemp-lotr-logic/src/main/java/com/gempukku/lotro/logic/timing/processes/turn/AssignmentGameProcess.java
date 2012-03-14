@@ -6,7 +6,6 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
 import com.gempukku.lotro.logic.timing.processes.turn.assign.FreePeoplePlayerAssignsMinionsGameProcess;
-import com.gempukku.lotro.logic.timing.processes.turn.assign.ShadowPlayersAssignTheirMinionsGameProcess;
 import com.gempukku.lotro.logic.timing.processes.turn.general.EndOfPhaseGameProcess;
 import com.gempukku.lotro.logic.timing.processes.turn.general.PlayersPlayPhaseActionsInOrderGameProcess;
 import com.gempukku.lotro.logic.timing.processes.turn.general.StartOfPhaseGameProcess;
@@ -23,10 +22,9 @@ public class AssignmentGameProcess implements GameProcess {
         else
             _followingGameProcess = new StartOfPhaseGameProcess(Phase.ASSIGNMENT,
                     new PlayersPlayPhaseActionsInOrderGameProcess(game.getGameState().getPlayerOrder().getCounterClockwisePlayOrder(game.getGameState().getCurrentPlayerId(), true), 0,
-                            new FreePeoplePlayerAssignsMinionsGameProcess(game,
-                                    new ShadowPlayersAssignTheirMinionsGameProcess(
-                                            new EndOfPhaseGameProcess(Phase.ASSIGNMENT,
-                                                    new PlayoutSkirmishesGameProcess())))));
+                            new FreePeoplePlayerAssignsMinionsGameProcess(
+                                    new EndOfPhaseGameProcess(Phase.ASSIGNMENT,
+                                            new PlayoutSkirmishesGameProcess()))));
     }
 
     @Override
