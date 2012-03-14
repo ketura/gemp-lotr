@@ -33,7 +33,13 @@ public class DbMerchantDAO implements MerchantDAO {
         try {
             Connection connection = _dbAccess.getDataSource().getConnection();
             try {
-                PreparedStatement statement = connection.prepareStatement("update merchant_data set transaction_price=?, transaction_date=?, transaction_type=? where blueprint_id=?");
+                String sql;
+                if (transactionType == TransactionType.BUY)
+                    sql = "update merchant_data set transaction_price=?, transaction_date=?, transaction_type=?, buy_count=buy_count+1 where blueprint_id=?";
+                else
+                    sql = "update merchant_data set transaction_price=?, transaction_date=?, transaction_type=?, sell_count=sell_count+1 where blueprint_id=?";
+
+                PreparedStatement statement = connection.prepareStatement(sql);
                 try {
                     statement.setFloat(1, price);
                     statement.setTimestamp(2, new Timestamp(date.getTime()));
@@ -55,7 +61,13 @@ public class DbMerchantDAO implements MerchantDAO {
         try {
             Connection connection = _dbAccess.getDataSource().getConnection();
             try {
-                PreparedStatement statement = connection.prepareStatement("insert into merchant_data (transaction_price, transaction_date, transaction_type, blueprint_id) values (?,?,?,?)");
+                String sql;
+                if (transactionType == TransactionType.BUY)
+                    sql = "insert into merchant_data (transaction_price, transaction_date, transaction_type, blueprint_id, sell_count, buy_count) values (?,?,?,?,0,1)";
+                else
+                    sql = "insert into merchant_data (transaction_price, transaction_date, transaction_type, blueprint_id, sell_count, buy_count) values (?,?,?,?,1,0)";
+
+                PreparedStatement statement = connection.prepareStatement(sql);
                 try {
                     statement.setFloat(1, price);
                     statement.setTimestamp(2, new Timestamp(date.getTime()));
