@@ -63,6 +63,7 @@ public class MerchantResource extends AbstractResource {
     public Document getCollection(
             @QueryParam("participantId") String participantId,
             @QueryParam("filter") String filter,
+            @QueryParam("ownedMin") int ownedMin,
             @QueryParam("start") int start,
             @QueryParam("count") int count,
             @Context HttpServletRequest request,
@@ -72,11 +73,18 @@ public class MerchantResource extends AbstractResource {
         CardCollection collection = _collectionsManager.getPlayerCollection(resourceOwner, "permanent");
 
         Set<CardItem> cardItems = new HashSet<CardItem>();
-        cardItems.addAll(collection.getAllItems());
-        Set<CardItem> items = _merchantService.getSellableItems();
-        for (CardItem item : items) {
-            if (collection.getItemCount(item.getBlueprintId()) == 0)
+        final List<CardCollection.Item> allItems = collection.getAllItems();
+        for (CardCollection.Item item : allItems) {
+            if (item.getCount() >= ownedMin)
                 cardItems.add(item);
+        }
+
+        if (ownedMin <= 0) {
+            Set<CardItem> items = _merchantService.getSellableItems();
+            for (CardItem item : items) {
+                if (collection.getItemCount(item.getBlueprintId()) == 0)
+                    cardItems.add(item);
+            }
         }
         List<CardItem> filteredResult = _sortAndFilterCards.process(filter, cardItems, _library, _rarities);
 
