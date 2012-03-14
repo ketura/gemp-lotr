@@ -18,10 +18,7 @@ import javax.ws.rs.core.MediaType;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Singleton
 @Path("/merchant")
@@ -74,9 +71,13 @@ public class MerchantResource extends AbstractResource {
 
         CardCollection collection = _collectionsManager.getPlayerCollection(resourceOwner, "permanent");
 
-        List<CardItem> cardItems = new ArrayList<CardItem>();
+        Set<CardItem> cardItems = new HashSet<CardItem>();
         cardItems.addAll(collection.getAllItems());
-        cardItems.addAll(_merchantService.getSellableItems());
+        Set<CardItem> items = _merchantService.getSellableItems();
+        for (CardItem item : items) {
+            if (collection.getItemCount(item.getBlueprintId()) == 0)
+                cardItems.add(item);
+        }
         List<CardItem> filteredResult = _sortAndFilterCards.process(filter, cardItems, _library, _rarities);
 
         List<CardItem> pageToDisplay = new ArrayList<CardItem>();

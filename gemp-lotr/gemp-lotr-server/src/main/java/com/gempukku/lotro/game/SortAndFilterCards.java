@@ -8,7 +8,7 @@ import com.gempukku.lotro.common.Keyword;
 import java.util.*;
 
 public class SortAndFilterCards {
-    public <T extends CardItem> List<T> process(String filter, List<T> items, LotroCardBlueprintLibrary library, Map<String, SetRarity> rarities) {
+    public <T extends CardItem> List<T> process(String filter, Collection<T> items, LotroCardBlueprintLibrary library, Map<String, SetRarity> rarities) {
         if (filter == null)
             filter = "";
         String[] filterParams = filter.split(" ");

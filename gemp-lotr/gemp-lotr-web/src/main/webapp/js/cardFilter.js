@@ -29,7 +29,7 @@ var CardFilter = Class.extend({
         this.addCardFunc = addCardFunc;
         this.finishCollectionFunc = finishCollectionFunc;
 
-        this.filter = "cardType:-THE_ONE_RING";
+        this.filter = "";
 
         this.buildUi(elem);
     },
@@ -303,9 +303,9 @@ var CardFilter = Class.extend({
 
         var cardType = $("#cardType option:selected").prop("value");
         if (cardType == "")
-            cardType = "cardType:-THE_ONE_RING";
+            cardType = "";
         else
-            cardType = "cardType:" + cardType;
+            cardType = "cardType:" + cardType + " ";
 
         var keyword = $("#keyword option:selected").prop("value");
         if (keyword != "")
@@ -349,7 +349,7 @@ var CardFilter = Class.extend({
 
     getCollection: function() {
         var that = this;
-        this.getCollectionFunc(this.filter + this.calculateFullFilterPostfix(), this.start, this.count, function(xml) {
+        this.getCollectionFunc((this.filter + this.calculateFullFilterPostfix()).trim(), this.start, this.count, function(xml) {
             that.displayCollection(xml);
         });
     },
