@@ -13,6 +13,7 @@ var GempLotrMerchantUI = Class.extend({
     questionDialog: null,
 
     currencyCount: null,
+    ownedMin: 0,
 
     init: function(cardListElem, cardFilterElem) {
         var that = this;
@@ -21,7 +22,7 @@ var GempLotrMerchantUI = Class.extend({
 
         this.cardFilter = new CardFilter(cardFilterElem,
                 function(filter, start, count, callback) {
-                    that.comm.getMerchant(filter, start, count, callback);
+                    that.comm.getMerchant(filter, that.ownedMin, start, count, callback);
                 },
                 function(rootElem) {
                     that.clearList(rootElem);

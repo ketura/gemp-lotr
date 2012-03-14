@@ -164,7 +164,7 @@ var GempLotrCommunication = Class.extend({
             dataType: "xml"
         });
     },
-    getMerchant: function(filter, start, count, callback) {
+    getMerchant: function(filter, ownedMin, start, count, callback) {
         $.ajax({
             type: "GET",
             url: this.url + "/merchant",
@@ -172,6 +172,7 @@ var GempLotrCommunication = Class.extend({
             data: {
                 participantId: getUrlParam("participantId"),
                 filter: filter,
+                ownedMin: ownedMin,
                 start: start,
                 count: count},
             success: this.deliveryCheck(callback),
