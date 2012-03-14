@@ -35,7 +35,7 @@ public abstract class AbstractResource {
             Integer lastReward = player.getLastLoginReward();
             if (lastReward == null) {
                 _playerDao.setLastReward(player, latestMonday);
-                _collectionManager.addCurrencyToPlayerCollection(player, new CollectionType("permanent", "My cards"), 5000);
+                _collectionManager.addCurrencyToPlayerCollection(player, new CollectionType("permanent", "My cards"), 20000);
             } else {
                 if (latestMonday == lastReward) {
                     if (_playerDao.updateLastReward(player, lastReward, latestMonday))

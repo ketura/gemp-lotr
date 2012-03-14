@@ -358,7 +358,7 @@ var CardFilter = Class.extend({
         log(xml);
         var root = xml.documentElement;
 
-        this.clearCollectionFunc(root.tagName);
+        this.clearCollectionFunc(root);
 
         var packs = root.getElementsByTagName("pack");
         for (var i = 0; i < packs.length; i++) {
