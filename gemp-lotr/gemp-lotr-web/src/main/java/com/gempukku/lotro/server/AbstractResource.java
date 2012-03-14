@@ -1,6 +1,7 @@
 package com.gempukku.lotro.server;
 
 import com.gempukku.lotro.DateUtils;
+import com.gempukku.lotro.PlayerLock;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.collection.DeliveryService;
 import com.gempukku.lotro.db.PlayerDAO;
@@ -28,18 +29,19 @@ public abstract class AbstractResource {
         String logged = getLoggedUser(request);
         if (logged != null) {
             Player player = _playerDao.getPlayer(logged);
+            synchronized (PlayerLock.getLock(player)) {
+                int currentDate = DateUtils.getCurrentDate();
+                int latestMonday = DateUtils.getMondayBeforeOrOn(currentDate);
 
-            int currentDate = DateUtils.getCurrentDate();
-            int latestMonday = DateUtils.getMondayBeforeOrOn(currentDate);
-
-            Integer lastReward = player.getLastLoginReward();
-            if (lastReward == null) {
-                _playerDao.setLastReward(player, latestMonday);
-                _collectionManager.addCurrencyToPlayerCollection(player, new CollectionType("permanent", "My cards"), 20000);
-            } else {
-                if (latestMonday == lastReward) {
-                    if (_playerDao.updateLastReward(player, lastReward, latestMonday))
-                        _collectionManager.addCurrencyToPlayerCollection(player, new CollectionType("permanent", "My cards"), 5000);
+                Integer lastReward = player.getLastLoginReward();
+                if (lastReward == null) {
+                    _playerDao.setLastReward(player, latestMonday);
+                    _collectionManager.addCurrencyToPlayerCollection(player, new CollectionType("permanent", "My cards"), 20000);
+                } else {
+                    if (latestMonday != lastReward) {
+                        if (_playerDao.updateLastReward(player, lastReward, latestMonday))
+                            _collectionManager.addCurrencyToPlayerCollection(player, new CollectionType("permanent", "My cards"), 5000);
+                    }
                 }
             }
         }

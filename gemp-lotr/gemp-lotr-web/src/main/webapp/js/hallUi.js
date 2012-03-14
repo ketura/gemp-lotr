@@ -11,6 +11,8 @@ var GempLotrHallUI = Class.extend({
     tablesDiv: null,
     buttonsDiv: null,
 
+    pocketDiv: null,
+
     init: function(div, url, chat) {
         this.div = div;
         this.comm = new GempLotrCommunication(url, function(xhr, ajaxOptions, thrownError) {
@@ -49,8 +51,21 @@ var GempLotrHallUI = Class.extend({
                     location.href = 'deckBuild.html';
                 });
 
+        var merchant = $("<button>Merchant</button>");
+        merchant.button().click(
+                function() {
+                    location.href = 'merchant.html';
+                });
+
         this.buttonsDiv.append(editDeck);
         this.buttonsDiv.append(" | ");
+
+        this.buttonsDiv.append(merchant);
+        this.buttonsDiv.append(" | ");
+
+        this.pocketDiv = $("<div class='pocket'></div>");
+        this.pocketDiv.css({"float": "right", width: 75, height: 18});
+        this.buttonsDiv.append(this.pocketDiv);
 
         this.supportedFormatsSelect = $("<select style='width: 220px'></select>");
         this.supportedFormatsSelect.hide();
@@ -140,10 +155,17 @@ var GempLotrHallUI = Class.extend({
         }
     },
 
+    formatPrice: function(price) {
+        return Math.floor(price / 100) + "G " + price % 100 + "S";
+    },
+
     processHall: function(xml) {
         var root = xml.documentElement;
         if (root.tagName == "hall") {
             this.tablesDiv.html("");
+
+            var currency = root.getAttribute("currency");
+            this.pocketDiv.html(this.formatPrice(currency));
 
             var motd = root.getAttribute("motd");
             if (motd != null)
