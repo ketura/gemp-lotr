@@ -136,9 +136,18 @@ public class LotroServer extends AbstractServer {
             throw new IllegalArgumentException("There has to be at least two players");
         final String gameId = String.valueOf(_nextGameId);
 
-        _chatServer.createChatRoom(getChatRoomName(gameId), 30);
+        boolean privateGame = false;
 
-        LotroGameMediator lotroGameMediator = new LotroGameMediator(lotroFormat, participants, _lotroCardBlueprintLibrary, competetive ? 60 * 40 : 60 * 80);
+        if (privateGame) {
+            Set<String> allowedUsers = new HashSet<String>();
+            for (LotroGameParticipant participant : participants)
+                allowedUsers.add(participant.getPlayerId());
+            _chatServer.createPrivateChatRoom(getChatRoomName(gameId), allowedUsers, 30);
+        } else
+            _chatServer.createChatRoom(getChatRoomName(gameId), 30);
+
+        LotroGameMediator lotroGameMediator = new LotroGameMediator(lotroFormat, participants, _lotroCardBlueprintLibrary,
+                competetive ? 60 * 40 : 60 * 80, privateGame);
         lotroGameMediator.addGameResultListener(
                 new GameResultListener() {
                     @Override

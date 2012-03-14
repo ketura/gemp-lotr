@@ -27,6 +27,7 @@ public class LotroGameMediator {
     private Set<String> _playersPlaying = new HashSet<String>();
 
     private int _maxSecondsForGamePerPlayer = 60 * 80; // 80 minutes
+    private boolean _noSpectators;
     //    private final int _maxSecondsForGamePerPlayer = 60 * 40; // 40 minutes
     private final int _channelInactivityTimeoutPeriod = 1000 * 60 * 5; // 5 minutes
     private final int _playerDecisionTimeoutPeriod = 1000 * 60 * 10; // 10 minutes
@@ -35,8 +36,10 @@ public class LotroGameMediator {
     private ReentrantReadWriteLock.ReadLock _readLock = _lock.readLock();
     private ReentrantReadWriteLock.WriteLock _writeLock = _lock.writeLock();
 
-    public LotroGameMediator(LotroFormat lotroFormat, LotroGameParticipant[] participants, LotroCardBlueprintLibrary library, int maxSecondsForGamePerPlayer) {
+    public LotroGameMediator(LotroFormat lotroFormat, LotroGameParticipant[] participants, LotroCardBlueprintLibrary library, int maxSecondsForGamePerPlayer,
+                             boolean noSpectators) {
         _maxSecondsForGamePerPlayer = maxSecondsForGamePerPlayer;
+        _noSpectators = noSpectators;
         if (participants.length < 1)
             throw new IllegalArgumentException("Game can't have less than one participant");
 
@@ -52,6 +55,10 @@ public class LotroGameMediator {
         _userFeedback = new DefaultUserFeedback();
         _lotroGame = new DefaultLotroGame(lotroFormat, decks, _userFeedback, library);
         _userFeedback.setGame(_lotroGame);
+    }
+
+    public boolean isNoSpectators() {
+        return _noSpectators;
     }
 
     public void setPlayerAutoPassSettings(String playerId, Set<Phase> phases) {
@@ -280,8 +287,11 @@ public class LotroGameMediator {
         }
     }
 
-    public void processCommunicationChannel(Player player, ParticipantCommunicationVisitor visitor) {
+    public boolean processCommunicationChannel(Player player, ParticipantCommunicationVisitor visitor) {
         String playerName = player.getName();
+        if (_noSpectators && !_playersPlaying.contains(playerName))
+            return false;
+
         _readLock.lock();
         try {
             GatheringParticipantCommunicationChannel communicationChannel = _communicationChannels.get(playerName);
@@ -305,15 +315,20 @@ public class LotroGameMediator {
         } finally {
             _readLock.unlock();
         }
+        return true;
     }
 
-    public void singupUserForGame(Player player, ParticipantCommunicationVisitor visitor) {
+    public boolean singupUserForGame(Player player, ParticipantCommunicationVisitor visitor) {
+        String playerName = player.getName();
+        if (_noSpectators && !_playersPlaying.contains(playerName))
+            return false;
+
         _readLock.lock();
         try {
-            GatheringParticipantCommunicationChannel participantCommunicationChannel = new GatheringParticipantCommunicationChannel(player.getName());
-            _communicationChannels.put(player.getName(), participantCommunicationChannel);
+            GatheringParticipantCommunicationChannel participantCommunicationChannel = new GatheringParticipantCommunicationChannel(playerName);
+            _communicationChannels.put(playerName, participantCommunicationChannel);
 
-            _lotroGame.addGameStateListener(player.getName(), participantCommunicationChannel);
+            _lotroGame.addGameStateListener(playerName, participantCommunicationChannel);
 
             for (GameEvent gameEvent : participantCommunicationChannel.consumeGameEvents())
                 visitor.visitGameEvent(gameEvent);
@@ -327,6 +342,7 @@ public class LotroGameMediator {
         } finally {
             _readLock.unlock();
         }
+        return true;
     }
 
     private void startClocksForUsersPendingDecision() {

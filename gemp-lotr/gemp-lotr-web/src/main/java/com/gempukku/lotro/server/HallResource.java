@@ -145,12 +145,13 @@ public class HallResource extends AbstractResource {
         }
 
         @Override
-        public void visitTable(String tableId, String gameId, String tableStatus, String formatName, String tournamentName, Set<String> playerIds, String winner) {
+        public void visitTable(String tableId, String gameId, boolean noSpectators, String tableStatus, String formatName, String tournamentName, Set<String> playerIds, String winner) {
             Element table = _doc.createElement("table");
             table.setAttribute("id", tableId);
             if (gameId != null)
                 table.setAttribute("gameId", gameId);
             table.setAttribute("status", tableStatus);
+            table.setAttribute("noSpectators", String.valueOf(noSpectators));
             table.setAttribute("format", formatName);
             table.setAttribute("tournament", tournamentName);
             table.setAttribute("players", mergeStrings(playerIds));
