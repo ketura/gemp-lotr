@@ -7,6 +7,8 @@ var GempLotrMerchantUI = Class.extend({
     filterDiv: null,
     cardFilter: null,
 
+    pocketDiv: null,
+
     infoDialog: null,
     questionDialog: null,
 
@@ -37,6 +39,10 @@ var GempLotrMerchantUI = Class.extend({
         });
 
         this.filterDiv = cardFilterElem;
+
+        this.pocketDiv = $("<div class='pocket'></div>");
+
+        this.filterDiv.append(this.pocketDiv);
 
         this.infoDialog = $("<div></div>")
                 .dialog({
@@ -172,6 +178,7 @@ var GempLotrMerchantUI = Class.extend({
     clearList: function(rootElem) {
         $(".card", this.cardsDiv).remove();
         this.currencyCount = rootElem.getAttribute("currency");
+        this.pocketDiv.html(this.formatPrice(this.currencyCount));
     },
 
     addCardToList: function(elem, type, blueprintId, count) {
@@ -305,6 +312,8 @@ var GempLotrMerchantUI = Class.extend({
         var filterWidth = $(this.filterDiv).width();
         var filterHeight = $(this.filterDiv).height();
         this.cardFilter.layoutUi(0, 0, filterWidth, filterHeight);
+
+        this.pocketDiv.css({position: "absolute", left: filterWidth - 60, top: 35, width: 60, height: 18});
     },
 
     processError: function (xhr, ajaxOptions, thrownError) {
