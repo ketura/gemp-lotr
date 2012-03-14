@@ -46,20 +46,20 @@ var GempLotrMerchantUI = Class.extend({
 
         this.infoDialog = $("<div></div>")
                 .dialog({
-            autoOpen: false,
-            closeOnEscape: true,
-            resizable: false,
-            title: "Card information"
-        });
+                    autoOpen: false,
+                    closeOnEscape: true,
+                    resizable: false,
+                    title: "Card information"
+                });
 
         this.questionDialog = $("<div></div>")
                 .dialog({
-            autoOpen: false,
-            closeOnEscape: true,
-            resizable: false,
-            modal: true,
-            title: "Merchant operation"
-        });
+                    autoOpen: false,
+                    closeOnEscape: true,
+                    resizable: false,
+                    modal: true,
+                    title: "Merchant operation"
+                });
 
         var swipeOptions = {
             threshold: 20,
@@ -230,7 +230,7 @@ var GempLotrMerchantUI = Class.extend({
                         });
                 cardDiv.append(buyBut);
             }
-            if (sellPrice != null && sellPrice <= this.currencyCount) {
+            if (sellPrice != null) {
                 var formattedSellPrice = this.formatPrice(sellPrice);
                 var sellBut = $("<div class='sellPrice'>Buy for<br/>" + this.formatPrice(sellPrice) + "</div>").button();
                 sellBut.click(
@@ -242,6 +242,10 @@ var GempLotrMerchantUI = Class.extend({
                                         });
                                     });
                         });
+                if (parseInt(sellPrice) > parseInt(this.currencyCount)) {
+                    sellBut.button({disabled: true});
+                    sellBut.css({color: "#ff0000"});
+                }
                 cardDiv.append(sellBut);
             }
             if (tradeFoil == "true") {
