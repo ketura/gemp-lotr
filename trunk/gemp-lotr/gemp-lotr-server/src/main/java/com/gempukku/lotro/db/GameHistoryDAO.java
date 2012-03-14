@@ -178,4 +178,9 @@ public class GameHistoryDAO {
             throw new RuntimeException("Unable to get count of games played", exp);
         }
     }
+
+    // Statistics
+    // select deck_name, format_name, sum(win), sum(lose) from
+    // (select winner_deck_name as deck_name, format_name, 1 as win, 0 as lose from game_history where winner='hsiale' union all select loser_deck_name as deck_name, format_name, 0 as win, 1 as lose from game_history where loser='hsiale') as u
+    // group by deck_name, format_name order by format_name
 }
