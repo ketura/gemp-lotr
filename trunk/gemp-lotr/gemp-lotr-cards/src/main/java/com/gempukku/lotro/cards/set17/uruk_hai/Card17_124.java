@@ -10,6 +10,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
+import com.gempukku.lotro.logic.modifiers.SpotCondition;
 
 /**
  * Set: Rise of Saruman
@@ -30,7 +31,7 @@ public class Card17_124 extends AbstractMinion {
 
     @Override
     public Modifier getAlwaysOnModifier(PhysicalCard self) {
-        return new KeywordModifier(self, self, null, Keyword.HUNTER,
+        return new KeywordModifier(self, self, new SpotCondition(Filters.siteControlled(self.getOwner())), Keyword.HUNTER,
                 new MultiplyEvaluator(3, new CountActiveEvaluator(Filters.siteControlled(self.getOwner()))));
     }
 }
