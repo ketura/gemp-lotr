@@ -8,6 +8,7 @@ var GempLotrMerchantUI = Class.extend({
     cardFilter: null,
 
     pocketDiv: null,
+    countDiv: null,
 
     infoDialog: null,
     questionDialog: null,
@@ -43,24 +44,33 @@ var GempLotrMerchantUI = Class.extend({
 
         this.pocketDiv = $("<div class='pocket'></div>");
 
+        this.countDiv = $("<div class='countDiv'>Owned >= <select id='ownedMin'><option value='0'>0</option><option value='1'>1</option><option value='2'>2</option><option value='3'>3</option><option value='4'>4</option><option value='5'>5</option></select></div>");
+
         this.filterDiv.append(this.pocketDiv);
+        this.filterDiv.append(this.countDiv);
+
+        $("#ownedMin").change(
+                function() {
+                    that.ownedMin = $("#ownedMin option:selected").prop("value");
+                    that.cardFilter.getCollection();
+                });
 
         this.infoDialog = $("<div></div>")
                 .dialog({
-                    autoOpen: false,
-                    closeOnEscape: true,
-                    resizable: false,
-                    title: "Card information"
-                });
+            autoOpen: false,
+            closeOnEscape: true,
+            resizable: false,
+            title: "Card information"
+        });
 
         this.questionDialog = $("<div></div>")
                 .dialog({
-                    autoOpen: false,
-                    closeOnEscape: true,
-                    resizable: false,
-                    modal: true,
-                    title: "Merchant operation"
-                });
+            autoOpen: false,
+            closeOnEscape: true,
+            resizable: false,
+            modal: true,
+            title: "Merchant operation"
+        });
 
         var swipeOptions = {
             threshold: 20,
@@ -319,6 +329,7 @@ var GempLotrMerchantUI = Class.extend({
         this.cardFilter.layoutUi(0, 0, filterWidth, filterHeight);
 
         this.pocketDiv.css({position: "absolute", left: filterWidth - 60, top: 35, width: 60, height: 18});
+        this.countDiv.css({position: "absolute", left: filterWidth - 100, top: filterHeight - 20, width: 100, height: 20});
     },
 
     processError: function (xhr, ajaxOptions, thrownError) {
