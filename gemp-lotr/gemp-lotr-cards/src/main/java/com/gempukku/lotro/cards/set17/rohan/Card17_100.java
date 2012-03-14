@@ -37,7 +37,8 @@ public class Card17_100 extends AbstractPermanent {
 
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
-        if (PlayConditions.canSpot(game, CardType.MINION, Filters.assignableToSkirmishAgainst(Side.FREE_PEOPLE, Filters.frodo))) {
+        if (PlayConditions.canUseFPCardDuringPhase(game, Phase.ASSIGNMENT, self)
+                && PlayConditions.canSpot(game, CardType.MINION, Filters.assignableToSkirmishAgainst(Side.FREE_PEOPLE, Filters.frodo))) {
             final ActivateCardAction action = new ActivateCardAction(self);
             PhysicalCard frodo = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.frodo);
             action.appendCost(
