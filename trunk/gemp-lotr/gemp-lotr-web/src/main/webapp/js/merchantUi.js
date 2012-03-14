@@ -56,6 +56,19 @@ var GempLotrMerchantUI = Class.extend({
         };
         this.infoDialog.swipe(swipeOptions);
 
+        $("body").click(
+                function (event) {
+                    return that.clickCardFunction(event);
+                });
+        $("body").mousedown(
+                function (event) {
+                    return that.dragStartCardFunction(event);
+                });
+        $("body").mouseup(
+                function (event) {
+                    return that.dragStopCardFunction(event);
+                });
+
         this.cardFilter.getCollection();
     },
 
@@ -96,6 +109,34 @@ var GempLotrMerchantUI = Class.extend({
         return true;
     },
 
+    clickCardFunction: function(event) {
+        var that = this;
+
+        var tar = $(event.target);
+        if (!this.successfulDrag && this.infoDialog.dialog("isOpen")) {
+            this.infoDialog.dialog("close");
+            event.stopPropagation();
+            return false;
+        }
+
+        if (tar.hasClass("actionArea")) {
+            tar = tar.parent();
+            if (tar.hasClass("borderOverlay")) {
+                var selectedCardElem = tar.parent();
+                if (event.which == 1) {
+                    if (!this.successfulDrag) {
+                        if (event.shiftKey) {
+                            this.displayCardInfo(selectedCardElem.data("card"));
+                        }
+                        event.stopPropagation();
+                    }
+                }
+                return false;
+            }
+        }
+        return true;
+    },
+
     displayCardInfo: function(card) {
         this.infoDialog.html("");
         this.infoDialog.html("<div style='scroll: auto'></div>");
@@ -121,19 +162,55 @@ var GempLotrMerchantUI = Class.extend({
     },
 
     addCardToList: function(elem, type, blueprintId, count) {
+        var buyPrice = elem.getAttribute("buyPrice");
+        var sellPrice = elem.getAttribute("sellPrice");
+        var tradeFoil = elem.getAttribute("tradeFoil");
+
+        var sizeListeners = new Array();
+        sizeListeners[0] = {
+            sizeChanged: function(cardElem, width, height) {
+                $(".owned", cardElem).css({position:"absolute", left:5, top: height - 60, width: 30, height: 30});
+                $(".buyPrice", cardElem).css({position: "absolute", left: 40, top: height - 80, width: width - 45, height: 25});
+                $(".sellPrice", cardElem).css({position: "absolute", left: 40, top: height - 50, width: width - 45, height: 25});
+                $(".tradeFoil", cardElem).css({position: "absolute", left: 40, top: height - 20, width: width - 45, height: 15});
+            }
+        };
+
+        var cardDiv = null;
+
         if (type == "pack") {
             var card = new Card(blueprintId, "merchant", "collection", "player");
-            card.tokens = {"count":count};
-            var cardDiv = createCardDiv(card.imageUrl, null, false, true, true);
+            cardDiv = createCardDiv(card.imageUrl, null, false, true, true);
             cardDiv.data("card", card);
+            cardDiv.data("sizeListeners", sizeListeners);
             this.cardsDiv.append(cardDiv);
         } else if (type == "card") {
             var card = new Card(blueprintId, "merchant", "collection", "player");
-            card.tokens = {"count":count};
-            var cardDiv = createCardDiv(card.imageUrl, null, card.isFoil());
+            cardDiv = createCardDiv(card.imageUrl, null, card.isFoil());
             cardDiv.data("card", card);
+            cardDiv.data("sizeListeners", sizeListeners);
             this.cardsDiv.append(cardDiv);
         }
+
+        if (cardDiv != null) {
+            cardDiv.append("<div class='owned'>" + count + "</div>");
+            if (buyPrice != null) {
+                var buyBut = $("<div class='buyPrice'>Buy price<br/>" + this.formatPrice(buyPrice) + "</div>").button();
+                cardDiv.append(buyBut);
+            }
+            if (sellPrice != null) {
+                var sellBut = $("<div class='sellPrice'>Sell price<br/>" + this.formatPrice(sellPrice) + "</div>").button();
+                cardDiv.append(sellBut);
+            }
+            if (tradeFoil == "true") {
+                var tradeFoilBut = $("<div class='tradeFoil'>Trade 4 for foil</div>").button();
+                cardDiv.append(tradeFoilBut);
+            }
+        }
+    },
+
+    formatPrice: function(price) {
+        return Math.floor(price / 100) + "G " + price % 100 + "S";
     },
 
     finishList: function() {
