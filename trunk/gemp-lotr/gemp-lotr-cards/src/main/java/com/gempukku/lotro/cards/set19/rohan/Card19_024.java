@@ -47,7 +47,7 @@ public class Card19_024 extends AbstractAttachable {
         if (TriggerConditions.winsSkirmish(game, effectResult, self.getAttachedTo())) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new ChooseAndTransferAttachableEffect(action, playerId, self, null, Filters.and(Culture.ROHAN, Race.MAN)));
+                    new ChooseAndTransferAttachableEffect(action, playerId, self, Filters.any, Filters.and(Culture.ROHAN, Race.MAN)));
             return Collections.singletonList(action);
         }
         return null;
