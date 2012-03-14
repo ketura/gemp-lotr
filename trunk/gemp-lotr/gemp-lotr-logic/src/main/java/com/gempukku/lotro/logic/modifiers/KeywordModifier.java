@@ -45,7 +45,7 @@ public class KeywordModifier extends AbstractModifier implements KeywordAffectin
 
     @Override
     public boolean hasKeyword(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, Keyword keyword) {
-        return (keyword == _keyword);
+        return (keyword == _keyword && _evaluator.evaluateExpression(gameState, modifiersQuerying, physicalCard) > 0);
     }
 
     @Override
