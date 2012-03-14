@@ -13,12 +13,21 @@ public class ChatRoomMediator {
     private Map<String, GatheringChatRoomListener> _listeners = new HashMap<String, GatheringChatRoomListener>();
 
     private int _channelInactivityTimeoutPeriod = 1000 * 10; // 10 seconds
+    private Set<String> _allowedPlayers;
 
     public ChatRoomMediator(int secondsTimeoutPeriod) {
+        this(secondsTimeoutPeriod, null);
+    }
+
+    public ChatRoomMediator(int secondsTimeoutPeriod, Set<String> allowedPlayers) {
+        _allowedPlayers = allowedPlayers;
         _channelInactivityTimeoutPeriod = 1000 * secondsTimeoutPeriod;
     }
 
     public synchronized List<ChatMessage> joinUser(String playerId) {
+        if (_allowedPlayers != null && !_allowedPlayers.contains(playerId))
+            return null;
+
         GatheringChatRoomListener value = new GatheringChatRoomListener();
         _listeners.put(playerId, value);
         _chatRoom.joinChatRoom(playerId, value);
@@ -26,6 +35,9 @@ public class ChatRoomMediator {
     }
 
     public synchronized List<ChatMessage> getPendingMessages(String playerId) {
+        if (_allowedPlayers != null && !_allowedPlayers.contains(playerId))
+            return null;
+
         GatheringChatRoomListener gatheringChatRoomListener = _listeners.get(playerId);
         if (gatheringChatRoomListener == null)
             return null;
@@ -37,8 +49,12 @@ public class ChatRoomMediator {
         _listeners.remove(playerId);
     }
 
-    public synchronized void sendMessage(String playerId, String message) {
+    public synchronized boolean sendMessage(String playerId, String message) {
+        if (_allowedPlayers != null && !_allowedPlayers.contains(playerId))
+            return false;
+
         _chatRoom.postMessage(playerId, message);
+        return true;
     }
 
     public synchronized void cleanup() {

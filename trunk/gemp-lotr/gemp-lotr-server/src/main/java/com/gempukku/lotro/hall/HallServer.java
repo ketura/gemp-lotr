@@ -176,7 +176,7 @@ public class HallServer extends AbstractServer {
             for (Map.Entry<String, AwaitingTable> tableInformation : _awaitingTables.entrySet()) {
                 final AwaitingTable table = tableInformation.getValue();
 
-                visitor.visitTable(tableInformation.getKey(), null, "Waiting", table.getLotroFormat().getName(), getTournamentName(table), table.getPlayerNames(), null);
+                visitor.visitTable(tableInformation.getKey(), null, false, "Waiting", table.getLotroFormat().getName(), getTournamentName(table), table.getPlayerNames(), null);
             }
 
             // Then non-finished
@@ -188,7 +188,7 @@ public class HallServer extends AbstractServer {
                 if (lotroGameMediator != null) {
                     String gameStatus = lotroGameMediator.getGameStatus();
                     if (!gameStatus.equals("Finished"))
-                        visitor.visitTable(runningGame.getKey(), runningTable.getGameId(), gameStatus, runningTable.getFormatName(), runningTable.getTournamentName(), lotroGameMediator.getPlayersPlaying(), lotroGameMediator.getWinner());
+                        visitor.visitTable(runningGame.getKey(), runningTable.getGameId(), lotroGameMediator.isNoSpectators(), gameStatus, runningTable.getFormatName(), runningTable.getTournamentName(), lotroGameMediator.getPlayersPlaying(), lotroGameMediator.getWinner());
                     else
                         finishedTables.put(runningGame.getKey(), runningTable);
                 }
@@ -199,7 +199,7 @@ public class HallServer extends AbstractServer {
                 final RunningTable runningTable = nonPlayingGame.getValue();
                 LotroGameMediator lotroGameMediator = _lotroServer.getGameById(runningTable.getGameId());
                 if (lotroGameMediator != null)
-                    visitor.visitTable(nonPlayingGame.getKey(), runningTable.getGameId(), lotroGameMediator.getGameStatus(), runningTable.getFormatName(), runningTable.getTournamentName(), lotroGameMediator.getPlayersPlaying(), lotroGameMediator.getWinner());
+                    visitor.visitTable(nonPlayingGame.getKey(), runningTable.getGameId(), lotroGameMediator.isNoSpectators(), lotroGameMediator.getGameStatus(), runningTable.getFormatName(), runningTable.getTournamentName(), lotroGameMediator.getPlayersPlaying(), lotroGameMediator.getWinner());
             }
 
             String gameId = getPlayingPlayerGameId(player.getName());
