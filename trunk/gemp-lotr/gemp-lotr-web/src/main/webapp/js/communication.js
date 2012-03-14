@@ -179,6 +179,47 @@ var GempLotrCommunication = Class.extend({
             dataType: "xml"
         });
     },
+    buyItem: function(blueprintId, price, callback) {
+        $.ajax({
+            type: "POST",
+            url: this.url + "/merchant/buy",
+            cache: false,
+            data: {
+                participantId: getUrlParam("participantId"),
+                blueprintId: blueprintId,
+                price: price},
+            success: this.deliveryCheck(callback),
+            error: this.failure,
+            dataType: "xml"
+        });
+    },
+    sellItem: function(blueprintId, price, callback) {
+        $.ajax({
+            type: "POST",
+            url: this.url + "/merchant/sell",
+            cache: false,
+            data: {
+                participantId: getUrlParam("participantId"),
+                blueprintId: blueprintId,
+                price: price},
+            success: this.deliveryCheck(callback),
+            error: this.failure,
+            dataType: "xml"
+        });
+    },
+    tradeInFoil: function(blueprintId, callback) {
+        $.ajax({
+            type: "POST",
+            url: this.url + "/merchant/tradeFoil",
+            cache: false,
+            data: {
+                participantId: getUrlParam("participantId"),
+                blueprintId: blueprintId},
+            success: this.deliveryCheck(callback),
+            error: this.failure,
+            dataType: "xml"
+        });
+    },
     getCollection: function(collectionType, filter, start, count, callback) {
         $.ajax({
             type: "GET",

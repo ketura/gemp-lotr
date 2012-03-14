@@ -114,7 +114,7 @@ public class MerchantResource extends AbstractResource {
                 elem.setAttribute("tradeFoil", "true");
             elem.setAttribute("blueprintId", blueprintId);
             Integer buyPrice = buyPrices.get(blueprintId);
-            if (buyPrice != null)
+            if (buyPrice != null && collection.getItemCount(blueprintId) > 0)
                 elem.setAttribute("buyPrice", buyPrice.toString());
             Integer sellPrice = sellPrices.get(blueprintId);
             if (sellPrice != null)
@@ -129,9 +129,9 @@ public class MerchantResource extends AbstractResource {
     @POST
     @Produces(MediaType.APPLICATION_XML)
     public Document buyItem(
-            @QueryParam("participantId") String participantId,
-            @QueryParam("blueprintId") String blueprintId,
-            @QueryParam("price") int price,
+            @FormParam("participantId") String participantId,
+            @FormParam("blueprintId") String blueprintId,
+            @FormParam("price") int price,
             @Context HttpServletRequest request,
             @Context HttpServletResponse response) throws ParserConfigurationException {
         Player resourceOwner = getResourceOwnerSafely(request, participantId);
@@ -147,9 +147,9 @@ public class MerchantResource extends AbstractResource {
     @POST
     @Produces(MediaType.APPLICATION_XML)
     public Document sellItem(
-            @QueryParam("participantId") String participantId,
-            @QueryParam("blueprintId") String blueprintId,
-            @QueryParam("price") int price,
+            @FormParam("participantId") String participantId,
+            @FormParam("blueprintId") String blueprintId,
+            @FormParam("price") int price,
             @Context HttpServletRequest request,
             @Context HttpServletResponse response) throws ParserConfigurationException {
         Player resourceOwner = getResourceOwnerSafely(request, participantId);
@@ -165,8 +165,8 @@ public class MerchantResource extends AbstractResource {
     @POST
     @Produces(MediaType.APPLICATION_XML)
     public Document tradeInFoil(
-            @QueryParam("participantId") String participantId,
-            @QueryParam("blueprintId") String blueprintId,
+            @FormParam("participantId") String participantId,
+            @FormParam("blueprintId") String blueprintId,
             @Context HttpServletRequest request,
             @Context HttpServletResponse response) throws ParserConfigurationException {
         Player resourceOwner = getResourceOwnerSafely(request, participantId);

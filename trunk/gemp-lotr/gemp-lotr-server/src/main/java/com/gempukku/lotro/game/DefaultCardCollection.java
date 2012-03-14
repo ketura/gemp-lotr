@@ -14,6 +14,7 @@ public class DefaultCardCollection implements MutableCardCollection {
 
     public DefaultCardCollection(CardCollection cardCollection) {
         _counts.putAll(cardCollection.getAll());
+        _currency = cardCollection.getCurrency();
     }
 
     public void addCurrency(int currency) {
