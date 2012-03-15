@@ -223,8 +223,10 @@ var GameAnimations = Class.extend({
                         that.game.discardPileDialogs[participantId].append(cardDiv);
                     else if (zone == "DEAD")
                         that.game.deadPileDialogs[participantId].append(cardDiv);
-                    else
-                        $("#main").append(cardDiv);
+                    else if (zone == "ADVENTURE_DECK")
+                            that.game.adventureDeckDialogs[participantId].append(cardDiv);
+                        else
+                            $("#main").append(cardDiv);
 
                     if (targetCardId != null) {
                         var targetCardData = $(".card:cardId(" + targetCardId + ")").data("card");
@@ -243,7 +245,7 @@ var GameAnimations = Class.extend({
         }
 
         if (animate && (this.game.spectatorMode || this.game.replayMode || (participantId != this.game.bottomPlayerId))
-                && zone != "DISCARD" && zone != "DEAD" && zone != "HAND") {
+                && zone != "DISCARD" && zone != "DEAD" && zone != "HAND" && zone != "ADVENTURE_DECK") {
             var oldValues = {};
 
             $("#main").queue(
@@ -784,6 +786,7 @@ var GameAnimations = Class.extend({
                         var playerId = playerZone.getAttribute("name");
                         var hand = playerZone.getAttribute("HAND");
                         var discard = playerZone.getAttribute("DISCARD");
+                        var adventureDeck = playerZone.getAttribute("ADVENTURE_DECK");
                         var dead = playerZone.getAttribute("DEAD");
                         var deck = playerZone.getAttribute("DECK");
 
@@ -791,6 +794,7 @@ var GameAnimations = Class.extend({
                         $("#hand" + that.game.getPlayerIndex(playerId)).text(hand);
                         $("#discard" + that.game.getPlayerIndex(playerId)).text(discard);
                         $("#deadPile" + that.game.getPlayerIndex(playerId)).text(dead);
+                        $("#adventureDeck" + that.game.getPlayerIndex(playerId)).text(adventureDeck);
                     }
 
                     var playerThreats = element.getElementsByTagName("threats")
