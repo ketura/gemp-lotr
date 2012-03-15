@@ -3,10 +3,8 @@ package com.gempukku.lotro.game;
 import com.gempukku.lotro.AbstractServer;
 import com.gempukku.lotro.chat.ChatServer;
 import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.db.DeckDAO;
 import com.gempukku.lotro.db.GameHistoryDAO;
-import com.gempukku.lotro.db.vo.DeckVO;
 import com.gempukku.lotro.logic.timing.GameResultListener;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 import org.apache.log4j.Logger;
@@ -188,69 +186,31 @@ public class LotroServer extends AbstractServer {
         return gameId;
     }
 
-    private DeckVO validateDeck(String contents) {
-        List<String> cards = Arrays.asList(contents.split(","));
-        if (cards.size() < 2)
-            return null;
-
-        try {
-            String ringBearer = cards.get(0);
-            if (!_lotroCardBlueprintLibrary.getLotroCardBlueprint(ringBearer).hasKeyword(Keyword.CAN_START_WITH_RING))
-                return null;
-
-            String ring = cards.get(1);
-            if (_lotroCardBlueprintLibrary.getLotroCardBlueprint(ring).getCardType() != CardType.THE_ONE_RING)
-                return null;
-
-            return new DeckVO(ringBearer, ring, cards.subList(2, cards.size()));
-        } catch (IllegalArgumentException exp) {
-            return null;
-        }
-    }
-
     public LotroDeck getParticipantDeck(Player player, String deckName) {
-        DeckVO deck = _deckDao.getDeckForPlayer(player, deckName);
-        if (deck == null)
-            return null;
-
-        return convertDeck(deck);
+        return _deckDao.getDeckForPlayer(player, deckName);
     }
 
-    public LotroDeck savePlayerDeck(Player player, String deckName, String contents) {
-        DeckVO deck = validateDeck(contents);
-        if (deck == null)
-            return null;
-        _deckDao.saveDeckForPlayer(player, deckName, deck);
-        return convertDeck(deck);
-    }
+    public LotroDeck createDeckWithValidate(String contents) {
+        if (contents.contains("|")) {
+            // New format
+            int cnt = 0;
+            for (char c : contents.toCharArray()) {
+                if (c == '|')
+                    cnt++;
+            }
 
-    public LotroDeck renamePlayerDeck(Player player, String oldDeckName, String newDeckName) {
-        DeckVO deck = _deckDao.renameDeck(player, oldDeckName, newDeckName);
-        if (deck == null)
-            return null;
-        return convertDeck(deck);
-    }
+            if (cnt != 3)
+                return null;
 
-    public LotroDeck createTemporaryDeckForPlayer(Player player, String contents) {
-        DeckVO deck = validateDeck(contents);
-        if (deck == null)
-            return null;
-        return convertDeck(deck);
-    }
+            return _deckDao.buildDeckFromContents(contents);
+        } else {
+            // Old format
+            List<String> cards = Arrays.asList(contents.split(","));
+            if (cards.size() < 2)
+                return null;
 
-    private LotroDeck convertDeck(DeckVO deck) {
-        LotroDeck lotroDeck = new LotroDeck();
-        lotroDeck.setRing(deck.getRing());
-        lotroDeck.setRingBearer(deck.getRingBearer());
-        for (String card : deck.getCards()) {
-            LotroCardBlueprint cardBlueprint = _lotroCardBlueprintLibrary.getLotroCardBlueprint(card);
-            if (cardBlueprint.getCardType() == CardType.SITE)
-                lotroDeck.addSite(card);
-            else
-                lotroDeck.addCard(card);
+            return _deckDao.buildDeckFromContents(contents);
         }
-
-        return lotroDeck;
     }
 
     public LotroGameMediator getGameById(String gameId) {

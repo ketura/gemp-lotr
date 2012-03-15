@@ -4,6 +4,7 @@ import com.gempukku.lotro.cards.packs.SetRarity;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
+import com.gempukku.util.MultipleComparator;
 
 import java.util.*;
 
@@ -32,18 +33,32 @@ public class SortAndFilterCards {
         }
 
         String sort = getSort(filterParams);
-        if (sort != null && sort.equals("twilight"))
-            Collections.sort(result, new TwilightComparator(library));
-        else if (sort != null && sort.equals("siteNumber"))
-            Collections.sort(result, new SiteNumberComparator(library));
-        else if (sort != null && sort.equals("strength"))
-            Collections.sort(result, new StrengthComparator(library));
-        else if (sort != null && sort.equals("vitality"))
-            Collections.sort(result, new VitalityComparator(library));
-        else if (sort != null && sort.equals("collectorInfo"))
-            Collections.sort(result, new CardBlueprintIdComparator());
-        else
-            Collections.sort(result, new NameComparator(library));
+        if (sort == null || sort.equals(""))
+            sort = "name";
+
+        final String[] sortSplit = sort.split(",");
+
+        MultipleComparator<CardItem> comparators = new MultipleComparator<CardItem>();
+        for (String oneSort : sortSplit) {
+            if (oneSort.equals("twilight"))
+                comparators.addComparator(new PacksFirstComparator(new TwilightComparator(library)));
+            else if (oneSort.equals("siteNumber"))
+                comparators.addComparator(new PacksFirstComparator(new SiteNumberComparator(library)));
+            else if (oneSort.equals("strength"))
+                comparators.addComparator(new PacksFirstComparator(new StrengthComparator(library)));
+            else if (oneSort.equals("vitality"))
+                comparators.addComparator(new PacksFirstComparator(new VitalityComparator(library)));
+            else if (oneSort.equals("collectorInfo"))
+                comparators.addComparator(new PacksFirstComparator(new CardBlueprintIdComparator()));
+            else if (oneSort.equals("cardType"))
+                comparators.addComparator(new PacksFirstComparator(new CardTypeComparator(library)));
+            else if (oneSort.equals("culture"))
+                comparators.addComparator(new PacksFirstComparator(new CultureComparator(library)));
+            else if (oneSort.equals("name"))
+                comparators.addComparator(new PacksFirstComparator(new NameComparator(library)));
+        }
+
+        Collections.sort(result, comparators);
 
         return result;
     }
@@ -193,132 +208,90 @@ public class SortAndFilterCards {
         return !blueprintId.contains("_");
     }
 
-    private static class SiteNumberComparator implements Comparator<CardItem> {
-        private LotroCardBlueprintLibrary _library;
-        private NameComparator _nameComparator;
+    private static class PacksFirstComparator implements Comparator<CardItem> {
+        private Comparator<CardItem> _cardComparator;
 
-        private SiteNumberComparator(LotroCardBlueprintLibrary library) {
-            _library = library;
-            _nameComparator = new NameComparator(library);
+        private PacksFirstComparator(Comparator<CardItem> cardComparator) {
+            _cardComparator = cardComparator;
         }
 
         @Override
         public int compare(CardItem o1, CardItem o2) {
-            if (isPack(o1.getBlueprintId()) == isPack(o2.getBlueprintId())) {
-                if (isPack(o1.getBlueprintId()))
-                    return o1.getBlueprintId().compareTo(o2.getBlueprintId());
-                else {
-                    int siteNumberOne;
-                    try {
-                        siteNumberOne = _library.getLotroCardBlueprint(o1.getBlueprintId()).getSiteNumber();
-                    } catch (UnsupportedOperationException exp) {
-                        siteNumberOne = 10;
-                    }
-                    int siteNumberTwo;
-                    try {
-                        siteNumberTwo = _library.getLotroCardBlueprint(o2.getBlueprintId()).getSiteNumber();
-                    } catch (UnsupportedOperationException exp) {
-                        siteNumberTwo = 10;
-                    }
+            final boolean pack1 = isPack(o1.getBlueprintId());
+            final boolean pack2 = isPack(o2.getBlueprintId());
+            if (pack1 && pack2)
+                return o1.getBlueprintId().compareTo(o2.getBlueprintId());
+            else if (pack1)
+                return -1;
+            else if (pack2)
+                return 1;
+            else
+                return _cardComparator.compare(o1, o2);
+        }
+    }
 
-                    int result = siteNumberOne - siteNumberTwo;
-                    if (result == 0)
-                        return _nameComparator.compare(o1, o2);
-                    return result;
-                }
-            } else {
-                if (isPack(o1.getBlueprintId()))
-                    return -1;
-                else
-                    return 1;
+    private static class SiteNumberComparator implements Comparator<CardItem> {
+        private LotroCardBlueprintLibrary _library;
+
+        private SiteNumberComparator(LotroCardBlueprintLibrary library) {
+            _library = library;
+        }
+
+        @Override
+        public int compare(CardItem o1, CardItem o2) {
+            int siteNumberOne;
+            try {
+                siteNumberOne = _library.getLotroCardBlueprint(o1.getBlueprintId()).getSiteNumber();
+            } catch (UnsupportedOperationException exp) {
+                siteNumberOne = 10;
             }
+            int siteNumberTwo;
+            try {
+                siteNumberTwo = _library.getLotroCardBlueprint(o2.getBlueprintId()).getSiteNumber();
+            } catch (UnsupportedOperationException exp) {
+                siteNumberTwo = 10;
+            }
+
+            return siteNumberOne - siteNumberTwo;
         }
     }
 
     private static class NameComparator implements Comparator<CardItem> {
         private LotroCardBlueprintLibrary _library;
-        private CardBlueprintIdComparator _cardBlueprintIdComparator;
 
         private NameComparator(LotroCardBlueprintLibrary library) {
             _library = library;
-            _cardBlueprintIdComparator = new CardBlueprintIdComparator();
         }
 
         @Override
         public int compare(CardItem o1, CardItem o2) {
-            if (isPack(o1.getBlueprintId()) == isPack(o2.getBlueprintId())) {
-                if (isPack(o1.getBlueprintId()))
-                    return o1.getBlueprintId().compareTo(o2.getBlueprintId());
-                else {
-                    final int nameCompareResult = _library.getLotroCardBlueprint(o1.getBlueprintId()).getName().compareTo(_library.getLotroCardBlueprint(o2.getBlueprintId()).getName());
-                    if (nameCompareResult == 0)
-                        return _cardBlueprintIdComparator.compare(o1, o2);
-                    return nameCompareResult;
-                }
-            } else {
-                if (isPack(o1.getBlueprintId()))
-                    return -1;
-                else
-                    return 1;
-            }
+            return _library.getLotroCardBlueprint(o1.getBlueprintId()).getName().compareTo(_library.getLotroCardBlueprint(o2.getBlueprintId()).getName());
         }
     }
 
     private static class TwilightComparator implements Comparator<CardItem> {
         private LotroCardBlueprintLibrary _library;
-        private NameComparator _nameComparator;
 
         private TwilightComparator(LotroCardBlueprintLibrary library) {
             _library = library;
-            _nameComparator = new NameComparator(library);
         }
 
         @Override
         public int compare(CardItem o1, CardItem o2) {
-            if (isPack(o1.getBlueprintId()) == isPack(o2.getBlueprintId())) {
-                if (isPack(o1.getBlueprintId()))
-                    return o1.getBlueprintId().compareTo(o2.getBlueprintId());
-                else {
-                    int twilightResult = _library.getLotroCardBlueprint(o1.getBlueprintId()).getTwilightCost() - _library.getLotroCardBlueprint(o2.getBlueprintId()).getTwilightCost();
-                    if (twilightResult == 0)
-                        return _nameComparator.compare(o1, o2);
-                    return twilightResult;
-                }
-            } else {
-                if (isPack(o1.getBlueprintId()))
-                    return -1;
-                else
-                    return 1;
-            }
+            return _library.getLotroCardBlueprint(o1.getBlueprintId()).getTwilightCost() - _library.getLotroCardBlueprint(o2.getBlueprintId()).getTwilightCost();
         }
     }
 
     private static class StrengthComparator implements Comparator<CardItem> {
         private LotroCardBlueprintLibrary _library;
-        private NameComparator _nameComparator;
 
         private StrengthComparator(LotroCardBlueprintLibrary library) {
             _library = library;
-            _nameComparator = new NameComparator(library);
         }
 
         @Override
         public int compare(CardItem o1, CardItem o2) {
-            if (isPack(o1.getBlueprintId()) == isPack(o2.getBlueprintId())) {
-                if (isPack(o1.getBlueprintId()))
-                    return o1.getBlueprintId().compareTo(o2.getBlueprintId());
-                else {
-                    int strengthResult = getStrengthSafely(_library.getLotroCardBlueprint(o1.getBlueprintId())) - getStrengthSafely(_library.getLotroCardBlueprint(o2.getBlueprintId()));
-                    if (strengthResult == 0)
-                        return _nameComparator.compare(o1, o2);
-                    return strengthResult;
-                }
-            } else {
-                if (isPack(o1.getBlueprintId()))
-                    return -1;
-                else
-                    return 1;
-            }
+            return getStrengthSafely(_library.getLotroCardBlueprint(o1.getBlueprintId())) - getStrengthSafely(_library.getLotroCardBlueprint(o2.getBlueprintId()));
         }
 
         private int getStrengthSafely(LotroCardBlueprint blueprint) {
@@ -332,30 +305,14 @@ public class SortAndFilterCards {
 
     private static class VitalityComparator implements Comparator<CardItem> {
         private LotroCardBlueprintLibrary _library;
-        private NameComparator _nameComparator;
 
         private VitalityComparator(LotroCardBlueprintLibrary library) {
             _library = library;
-            _nameComparator = new NameComparator(library);
         }
 
         @Override
         public int compare(CardItem o1, CardItem o2) {
-            if (isPack(o1.getBlueprintId()) == isPack(o2.getBlueprintId())) {
-                if (isPack(o1.getBlueprintId()))
-                    return o1.getBlueprintId().compareTo(o2.getBlueprintId());
-                else {
-                    int strengthResult = getVitalitySafely(_library.getLotroCardBlueprint(o1.getBlueprintId())) - getVitalitySafely(_library.getLotroCardBlueprint(o2.getBlueprintId()));
-                    if (strengthResult == 0)
-                        return _nameComparator.compare(o1, o2);
-                    return strengthResult;
-                }
-            } else {
-                if (isPack(o1.getBlueprintId()))
-                    return -1;
-                else
-                    return 1;
-            }
+            return getVitalitySafely(_library.getLotroCardBlueprint(o1.getBlueprintId())) - getVitalitySafely(_library.getLotroCardBlueprint(o2.getBlueprintId()));
         }
 
         private int getVitalitySafely(LotroCardBlueprint blueprint) {
@@ -367,24 +324,48 @@ public class SortAndFilterCards {
         }
     }
 
+    private static class CardTypeComparator implements Comparator<CardItem> {
+        private LotroCardBlueprintLibrary _library;
+
+        private CardTypeComparator(LotroCardBlueprintLibrary library) {
+            _library = library;
+        }
+
+        @Override
+        public int compare(CardItem o1, CardItem o2) {
+            CardType cardType1 = _library.getLotroCardBlueprint(o1.getBlueprintId()).getCardType();
+            CardType cardType2 = _library.getLotroCardBlueprint(o2.getBlueprintId()).getCardType();
+            return cardType1.ordinal() - cardType2.ordinal();
+        }
+    }
+
+    private static class CultureComparator implements Comparator<CardItem> {
+        private LotroCardBlueprintLibrary _library;
+
+        private CultureComparator(LotroCardBlueprintLibrary library) {
+            _library = library;
+        }
+
+        @Override
+        public int compare(CardItem o1, CardItem o2) {
+            Culture culture1 = _library.getLotroCardBlueprint(o1.getBlueprintId()).getCulture();
+            Culture culture2 = _library.getLotroCardBlueprint(o2.getBlueprintId()).getCulture();
+
+            return getOrdinal(culture1) - getOrdinal(culture2);
+        }
+
+        private int getOrdinal(Culture culture) {
+            if (culture == null)
+                return -1;
+            return culture.ordinal();
+        }
+    }
+
     private static class CardBlueprintIdComparator implements Comparator<CardItem> {
         @Override
         public int compare(CardItem o1, CardItem o2) {
-            if (isPack(o1.getBlueprintId()) && isPack(o2.getBlueprintId()))
-                return o1.getBlueprintId().compareTo(o2.getBlueprintId());
-            if (isPack(o1.getBlueprintId()))
-                return -1;
-            if (isPack(o2.getBlueprintId()))
-                return 1;
             String[] o1Parts = o1.getBlueprintId().split("_");
             String[] o2Parts = o2.getBlueprintId().split("_");
-
-            if (o1Parts.length == 1 && o2Parts.length == 1)
-                return o1Parts[0].compareTo(o2Parts[0]);
-            if (o1Parts.length == 1)
-                return -1;
-            if (o2Parts.length == 1)
-                return 1;
 
             if (o1Parts[0].equals(o2Parts[0])) {
                 final int firstNumber = getAvailableNumber(o1Parts[1]);

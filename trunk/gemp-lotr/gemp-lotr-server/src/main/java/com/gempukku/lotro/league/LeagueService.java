@@ -10,6 +10,8 @@ import com.gempukku.lotro.db.vo.League;
 import com.gempukku.lotro.db.vo.LeagueMatch;
 import com.gempukku.lotro.game.CardCollection;
 import com.gempukku.lotro.game.Player;
+import com.gempukku.util.DescComparator;
+import com.gempukku.util.MultipleComparator;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -268,37 +270,6 @@ public class LeagueService {
                 return false;
         }
         return true;
-    }
-
-    private class MultipleComparator<T> implements Comparator<T> {
-        private Comparator<T>[] _comparators;
-
-        public MultipleComparator(Comparator<T>... comparators) {
-            _comparators = comparators;
-        }
-
-        @Override
-        public int compare(T o1, T o2) {
-            for (Comparator<T> comparator : _comparators) {
-                int result = comparator.compare(o1, o2);
-                if (result != 0)
-                    return result;
-            }
-            return 0;
-        }
-    }
-
-    private class DescComparator<T> implements Comparator<T> {
-        private Comparator<T> _comparator;
-
-        private DescComparator(Comparator<T> comparator) {
-            _comparator = comparator;
-        }
-
-        @Override
-        public int compare(T o1, T o2) {
-            return _comparator.compare(o2, o1);
-        }
     }
 
     private class PointsComparator implements Comparator<LeagueStanding> {
