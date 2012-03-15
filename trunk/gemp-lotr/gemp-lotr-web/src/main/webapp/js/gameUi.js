@@ -495,7 +495,7 @@ var GempLotrGameUI = Class.extend({
                     if (!this.successfulDrag) {
                         if (event.shiftKey) {
                             this.displayCardInfo(selectedCardElem.data("card"));
-                        } else if (selectedCardElem.hasClass("selectableCard") && !this.replayMode)
+                        } else if ((selectedCardElem.hasClass("selectableCard") || selectedCardElem.hasClass("actionableCard")) && !this.replayMode)
                             this.selectionFunction(selectedCardElem.data("card").cardId, event);
                         event.stopPropagation();
                     }
@@ -1375,9 +1375,13 @@ var GempLotrGameUI = Class.extend({
         return cardDiv;
     },
 
-    attachSelectionFunctions: function(cardIds) {
-        if (cardIds.length > 0)
-            $(".card:cardId(" + cardIds + ")").addClass("selectableCard");
+    attachSelectionFunctions: function(cardIds, selection) {
+        if (selection)
+            if (cardIds.length > 0)
+                $(".card:cardId(" + cardIds + ")").addClass("selectableCard");
+            else
+            if (cardIds.length > 0)
+                $(".card:cardId(" + cardIds + ")").addClass("actionableCard");
     },
 
     // Choosing cards from a predefined selection (for example stating fellowship)
@@ -1464,7 +1468,7 @@ var GempLotrGameUI = Class.extend({
                 processButtons();
             };
 
-            that.attachSelectionFunctions(selectableCardIds);
+            that.attachSelectionFunctions(selectableCardIds, true);
         };
 
         allowSelection();
@@ -1602,7 +1606,7 @@ var GempLotrGameUI = Class.extend({
                 }
             };
 
-            that.attachSelectionFunctions(cardIds);
+            that.attachSelectionFunctions(cardIds, false);
         };
 
         allowSelection();
@@ -1733,7 +1737,7 @@ var GempLotrGameUI = Class.extend({
                 }
             };
 
-            that.attachSelectionFunctions(cardIds);
+            that.attachSelectionFunctions(cardIds, true);
         };
 
         allowSelection();
@@ -1745,7 +1749,7 @@ var GempLotrGameUI = Class.extend({
         $('.ui-dialog :button').blur();
     },
 
-    // Choosing some number of cards, for example to character
+    // Choosing some number of cards, for example to wound
     cardSelectionDecision: function(decision) {
         var id = decision.getAttribute("id");
         var text = decision.getAttribute("text");
@@ -1809,7 +1813,7 @@ var GempLotrGameUI = Class.extend({
                 processButtons();
             };
 
-            that.attachSelectionFunctions(cardIds);
+            that.attachSelectionFunctions(cardIds, true);
         };
 
         allowSelection();
@@ -1914,15 +1918,16 @@ var GempLotrGameUI = Class.extend({
                 that.doAssignments(freeCharacters, minions);
             };
 
-            that.attachSelectionFunctions(freeCharacters);
-            that.attachSelectionFunctions([cardId]);
+            that.attachSelectionFunctions(freeCharacters, true);
+            that.attachSelectionFunctions([cardId], true);
         };
 
-        this.attachSelectionFunctions(minions);
+        this.attachSelectionFunctions(minions, true);
     },
 
     clearSelection: function() {
         $(".selectableCard").removeClass("selectableCard").data("action", null);
+        $(".actionableCard").removeClass("actionableCard").data("action", null);
         $(".selectedCard").removeClass("selectedCard");
         this.selectionFunction = null;
     },
