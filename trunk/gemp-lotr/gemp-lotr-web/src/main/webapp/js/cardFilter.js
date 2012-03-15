@@ -137,6 +137,7 @@ var CardFilter = Class.extend({
                 + "<option value='siteNumber'>Site number</option>"
                 + "<option value='strength'>Strength</option>"
                 + "<option value='vitality'>Vitality</option>"
+                + "<option value='collectorInfo'>Collector's Info</option>"
                 + "</select>");
         this.raritySelect = $("<select style='width: 40px; font-size: 80%;'>"
                 + "<option value=''>Rarity:</option>"
