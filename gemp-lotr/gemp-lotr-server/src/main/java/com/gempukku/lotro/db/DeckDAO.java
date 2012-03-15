@@ -167,9 +167,9 @@ public class DeckDAO {
             String[] parts = contents.split("\\|");
 
             LotroDeck deck = new LotroDeck();
-            if (parts.length > 0)
+            if (parts.length > 0 && !parts[0].equals(""))
                 deck.setRingBearer(parts[0]);
-            if (parts.length > 1)
+            if (parts.length > 1 && !parts[1].equals(""))
                 deck.setRing(parts[1]);
             if (parts.length > 2)
                 for (String site : parts[2].split(",")) {
