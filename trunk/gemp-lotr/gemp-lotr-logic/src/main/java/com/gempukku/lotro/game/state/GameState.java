@@ -146,13 +146,21 @@ public class GameState {
         return Collections.unmodifiableSet(_gameStateListeners);
     }
 
+    private String getPhaseString() {
+        if (isFierceSkirmishes())
+            return "Fierce " + _currentPhase.getHumanReadable();
+        if (isExtraSkirmishes())
+            return "Extra " + _currentPhase.getHumanReadable();
+        return _currentPhase.getHumanReadable();
+    }
+
     private void sendStateToPlayer(String playerId, GameStateListener listener, GameStats gameStats) {
         if (_playerOrder != null) {
             listener.setPlayerOrder(_playerOrder.getAllPlayers());
             if (_currentPlayerId != null)
                 listener.setCurrentPlayerId(_currentPlayerId);
             if (_currentPhase != null)
-                listener.setCurrentPhase(_currentPhase);
+                listener.setCurrentPhase(getPhaseString());
             listener.setTwilight(_twilightPool);
             for (Map.Entry<String, Integer> stringIntegerEntry : _playerPosition.entrySet())
                 listener.setPlayerPosition(stringIntegerEntry.getKey(), stringIntegerEntry.getValue());
@@ -887,7 +895,7 @@ public class GameState {
     public void setCurrentPhase(Phase phase) {
         _currentPhase = phase;
         for (GameStateListener listener : getAllGameStateListeners())
-            listener.setCurrentPhase(_currentPhase);
+            listener.setCurrentPhase(getPhaseString());
     }
 
     public Phase getCurrentPhase() {

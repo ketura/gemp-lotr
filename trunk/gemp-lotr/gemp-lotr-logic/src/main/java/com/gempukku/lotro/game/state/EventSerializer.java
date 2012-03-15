@@ -34,7 +34,7 @@ public class EventSerializer {
             eventElem.setAttribute("allParticipantIds", sb.toString());
         }
         if (gameEvent.getPhase() != null)
-            eventElem.setAttribute("phase", gameEvent.getPhase().name());
+            eventElem.setAttribute("phase", gameEvent.getPhase());
         if (gameEvent.getTargetCardId() != null)
             eventElem.setAttribute("targetCardId", gameEvent.getTargetCardId().toString());
         if (gameEvent.getZone() != null)

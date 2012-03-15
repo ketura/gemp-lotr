@@ -267,13 +267,7 @@ var GempLotrGameUI = Class.extend({
         }
 
         this.gameStateElem.append("<div class='twilightPool'>0</div>");
-        this.gameStateElem.append("<div class='phase' id='FELLOWSHIP'>Fel</div>");
-        this.gameStateElem.append("<div class='phase' id='SHADOW'>Sh</div>");
-        this.gameStateElem.append("<div class='phase' id='MANEUVER'>Man</div>");
-        this.gameStateElem.append("<div class='phase' id='ARCHERY'>Arc</div>");
-        this.gameStateElem.append("<div class='phase' id='ASSIGNMENT'>As</div>");
-        this.gameStateElem.append("<div class='phase' id='SKIRMISH'>Sk</div>");
-        this.gameStateElem.append("<div class='phase' id='REGROUP'>Re</div>");
+        this.gameStateElem.append("<div class='phase'></div>");
 
         $("#main").append(this.gameStateElem);
 
@@ -651,21 +645,21 @@ var GempLotrGameUI = Class.extend({
     initializeDialogs: function() {
         this.smallDialog = $("<div></div>")
                 .dialog({
-                    autoOpen: false,
-                    closeOnEscape: false,
-                    resizable: false,
-                    width: 400,
-                    height: 200
-                });
+            autoOpen: false,
+            closeOnEscape: false,
+            resizable: false,
+            width: 400,
+            height: 200
+        });
 
         this.cardActionDialog = $("<div></div>")
                 .dialog({
-                    autoOpen: false,
-                    closeOnEscape: false,
-                    resizable: true,
-                    width: 600,
-                    height: 300
-                });
+            autoOpen: false,
+            closeOnEscape: false,
+            resizable: true,
+            width: 600,
+            height: 300
+        });
 
         var that = this;
 
@@ -680,11 +674,11 @@ var GempLotrGameUI = Class.extend({
 
         this.infoDialog = $("<div></div>")
                 .dialog({
-                    autoOpen: false,
-                    closeOnEscape: true,
-                    resizable: false,
-                    title: "Card information"
-                });
+            autoOpen: false,
+            closeOnEscape: true,
+            resizable: false,
+            title: "Card information"
+        });
 
         var swipeOptions = {
             threshold: 20,
@@ -1165,12 +1159,12 @@ var GempLotrGameUI = Class.extend({
 
         if (!this.replayMode) {
             this.smallDialog.dialog("option", "buttons",
-                    {
-                        "OK": function() {
-                            $(this).dialog("close");
-                            that.decisionFunction(id, $("#integerDecision").val());
-                        }
-                    });
+            {
+                "OK": function() {
+                    $(this).dialog("close");
+                    that.decisionFunction(id, $("#integerDecision").val());
+                }
+            });
         }
 
         $("#integerDecision").SpinnerControl({ type: 'range',
@@ -1208,12 +1202,12 @@ var GempLotrGameUI = Class.extend({
 
             if (!this.replayMode) {
                 this.smallDialog.dialog("option", "buttons",
-                        {
-                            "OK": function() {
-                                that.smallDialog.dialog("close");
-                                that.decisionFunction(id, $("#multipleChoiceDecision").val());
-                            }
-                        });
+                {
+                    "OK": function() {
+                        that.smallDialog.dialog("close");
+                        that.decisionFunction(id, $("#multipleChoiceDecision").val());
+                    }
+                });
             }
         } else {
             this.smallDialog.append("<br />");
@@ -1601,8 +1595,8 @@ var GempLotrGameUI = Class.extend({
                     $(div).find('LI.hover').removeClass('hover');
                     $(this).parent().addClass('hover');
                 }).mouseout(function() {
-                    $(div).find('LI.hover').removeClass('hover');
-                });
+            $(div).find('LI.hover').removeClass('hover');
+        });
 
         var getRidOfContextMenu = function() {
             $(div).remove();

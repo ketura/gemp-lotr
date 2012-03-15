@@ -1,6 +1,5 @@
 package com.gempukku.lotro.communication;
 
-import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Token;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.logic.decisions.AwaitingDecision;
@@ -25,7 +24,7 @@ public interface GameStateListener {
 
     public void setCurrentPlayerId(String playerId);
 
-    public void setCurrentPhase(Phase currentPhase);
+    public void setCurrentPhase(String currentPhase);
 
     public void addAssignment(PhysicalCard fp, Set<PhysicalCard> minions);
 

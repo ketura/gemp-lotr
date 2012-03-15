@@ -443,8 +443,7 @@ var GameAnimations = Class.extend({
                 function(next) {
                     var phase = element.getAttribute("phase");
 
-                    $(".phase").removeClass("current");
-                    $(".phase#" + phase).addClass("current");
+                    $(".phase").text(phase);
 
                     next();
                 });
