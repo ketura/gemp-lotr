@@ -1,7 +1,7 @@
 package com.gempukku.lotro.common;
 
 public enum Phase {
-    PUT_RING_BEARER(null), PLAY_STARTING_FELLOWSHIP(null), FELLOWSHIP("Fellowship"), SHADOW("Shadow"), MANEUVER("Maneuver"), ARCHERY("Archery"), ASSIGNMENT("Assignment"), SKIRMISH("Skirmish"), REGROUP("Regroup"), BETWEEN_TURNS(null);
+    PUT_RING_BEARER("Put Ring-bearer"), PLAY_STARTING_FELLOWSHIP("Play starting fellowship"), FELLOWSHIP("Fellowship"), SHADOW("Shadow"), MANEUVER("Maneuver"), ARCHERY("Archery"), ASSIGNMENT("Assignment"), SKIRMISH("Skirmish"), REGROUP("Regroup"), BETWEEN_TURNS("Between turns");
 
     private String _humanReadable;
 

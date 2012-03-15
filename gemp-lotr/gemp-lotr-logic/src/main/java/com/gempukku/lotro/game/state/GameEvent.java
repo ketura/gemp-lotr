@@ -1,7 +1,6 @@
 package com.gempukku.lotro.game.state;
 
 import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Token;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -33,7 +32,7 @@ public class GameEvent {
     private String _blueprintId;
     private Integer _cardId;
     private Integer _targetCardId;
-    private Phase _phase;
+    private String _phase;
     private Integer _count;
     private Token _token;
     private int[] _otherCardIds;
@@ -198,11 +197,11 @@ public class GameEvent {
         return this;
     }
 
-    public Phase getPhase() {
+    public String getPhase() {
         return _phase;
     }
 
-    public GameEvent phase(Phase phase) {
+    public GameEvent phase(String phase) {
         _phase = phase;
         return this;
     }
