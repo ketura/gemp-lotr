@@ -236,11 +236,11 @@ var GempLotrDeckBuildingUI = Class.extend({
 
         this.infoDialog = $("<div></div>")
                 .dialog({
-            autoOpen: false,
-            closeOnEscape: true,
-            resizable: false,
-            title: "Card information"
-        });
+                    autoOpen: false,
+                    closeOnEscape: true,
+                    resizable: false,
+                    title: "Card information"
+                });
 
         var swipeOptions = {
             threshold: 20,
@@ -288,14 +288,14 @@ var GempLotrDeckBuildingUI = Class.extend({
             if (that.deckListDialog == null) {
                 that.deckListDialog = $("<div></div>")
                         .dialog({
-                    title: "Your stored decks",
-                    autoOpen: false,
-                    closeOnEscape: true,
-                    resizable: true,
-                    width: 400,
-                    height: 400,
-                    modal: true
-                });
+                            title: "Your stored decks",
+                            autoOpen: false,
+                            closeOnEscape: true,
+                            resizable: true,
+                            width: 400,
+                            height: 400,
+                            modal: true
+                        });
             }
             that.deckListDialog.html("");
 
@@ -393,14 +393,14 @@ var GempLotrDeckBuildingUI = Class.extend({
                             if (this.selectionDialog == null) {
                                 this.selectionDialog = $("<div></div>")
                                         .dialog({
-                                    title: "Choose one",
-                                    autoOpen: false,
-                                    closeOnEscape: true,
-                                    resizable: true,
-                                    width: 400,
-                                    height: 200,
-                                    modal: true
-                                });
+                                            title: "Choose one",
+                                            autoOpen: false,
+                                            closeOnEscape: true,
+                                            resizable: true,
+                                            width: 400,
+                                            height: 200,
+                                            modal: true
+                                        });
 
                                 this.selectionGroup = new NormalCardGroup(this.selectionDialog, function(card) {
                                     return true;
@@ -495,25 +495,30 @@ var GempLotrDeckBuildingUI = Class.extend({
         var ringBearer = $(".card", this.ringBearerDiv);
         var ring = $(".card", this.ringDiv);
 
-        if (ringBearer.length == 0 || ring.length == 0) {
-            return null;
-        } else {
-            var cards = new Array();
-            cards.push(ringBearer.data("card").blueprintId);
-            cards.push(ring.data("card").blueprintId);
+        var result = "";
+        if (ringBearer.length > 0)
+            result += ringBearer.data("card").blueprintId;
+        result += "|";
+        if (ring.length > 0)
+            result += ring.data("card").blueprintId;
+        result += "|";
 
-            $(".card", this.siteDiv).each(
-                    function() {
-                        cards.push($(this).data("card").blueprintId);
-                    });
+        var sites = new Array();
+        $(".card", this.siteDiv).each(
+                function() {
+                    sites.push($(this).data("card").blueprintId);
+                });
+        result += sites;
+        result += "|";
 
-            $(".card", this.drawDeckDiv).each(
-                    function() {
-                        cards.push($(this).data("card").blueprintId);
-                    });
+        var cards = new Array();
+        $(".card", this.drawDeckDiv).each(
+                function() {
+                    cards.push($(this).data("card").blueprintId);
+                });
+        result += cards;
 
-            return "" + cards;
-        }
+        return result;
     },
 
     saveDeck: function(reloadList) {
@@ -668,26 +673,28 @@ var GempLotrDeckBuildingUI = Class.extend({
     setupDeck: function(xml, deckName) {
         var root = xml.documentElement;
         if (root.tagName == "deck") {
+            this.clearDeck();
+            this.deckName = deckName;
+            $("#editingDeck").text(deckName);
+
             var ringBearer = root.getElementsByTagName("ringBearer");
-            if (ringBearer.length == 1) {
-                this.clearDeck();
-                this.deckName = deckName;
-                $("#editingDeck").text(deckName);
-
+            if (ringBearer.length > 0)
                 this.addCardToContainer(ringBearer[0].getAttribute("blueprintId"), "deck", this.ringBearerDiv, false).addClass("cardInDeck");
-                this.addCardToContainer(root.getElementsByTagName("ring")[0].getAttribute("blueprintId"), "deck", this.ringDiv, false).addClass("cardInDeck");
-                var sites = root.getElementsByTagName("site");
-                for (var i = 0; i < sites.length; i++)
-                    this.addCardToContainer(sites[i].getAttribute("blueprintId"), "deck", this.siteDiv, false).addClass("cardInDeck");
 
-                var cards = root.getElementsByTagName("card");
-                for (var i = 0; i < cards.length; i++)
-                    this.addCardToDeck(cards[i].getAttribute("blueprintId"), cards[i].getAttribute("side"));
+            var ring = root.getElementsByTagName("ring");
+            this.addCardToContainer(ring[0].getAttribute("blueprintId"), "deck", this.ringDiv, false).addClass("cardInDeck");
 
-                this.layoutUI(false);
+            var sites = root.getElementsByTagName("site");
+            for (var i = 0; i < sites.length; i++)
+                this.addCardToContainer(sites[i].getAttribute("blueprintId"), "deck", this.siteDiv, false).addClass("cardInDeck");
 
-                this.cardFilter.getCollection();
-            }
+            var cards = root.getElementsByTagName("card");
+            for (var i = 0; i < cards.length; i++)
+                this.addCardToDeck(cards[i].getAttribute("blueprintId"), cards[i].getAttribute("side"));
+
+            this.layoutUI(false);
+
+            this.cardFilter.getCollection();
         }
     },
 

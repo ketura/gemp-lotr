@@ -1,7 +1,9 @@
 package com.gempukku.lotro.db;
 
-import com.gempukku.lotro.db.vo.DeckVO;
+import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.game.Player;
+import com.gempukku.lotro.logic.vo.LotroDeck;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,24 +14,26 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class DeckDAO {
     private DbAccess _dbAccess;
+    private LotroCardBlueprintLibrary _library;
 
-    private Map<Integer, Map<String, DeckVO>> _decks = new ConcurrentHashMap<Integer, Map<String, DeckVO>>();
+    private Map<Integer, Map<String, LotroDeck>> _decks = new ConcurrentHashMap<Integer, Map<String, LotroDeck>>();
 
-    public DeckDAO(DbAccess dbAccess) {
+    public DeckDAO(DbAccess dbAccess, LotroCardBlueprintLibrary library) {
         _dbAccess = dbAccess;
+        _library = library;
     }
 
     public void clearCache() {
         _decks.clear();
     }
 
-    public DeckVO getDeckForPlayer(Player player, String name) {
-        Map<String, DeckVO> deckMap = getPlayerDecks(player);
+    public LotroDeck getDeckForPlayer(Player player, String name) {
+        Map<String, LotroDeck> deckMap = getPlayerDecks(player);
         return deckMap.get(name);
     }
 
-    public synchronized void saveDeckForPlayer(Player player, String name, DeckVO deck) {
-        final Map<String, DeckVO> playerDecks = getPlayerDecks(player);
+    public synchronized void saveDeckForPlayer(Player player, String name, LotroDeck deck) {
+        final Map<String, LotroDeck> playerDecks = getPlayerDecks(player);
         boolean newDeck = !playerDecks.containsKey(name);
         storeDeckToDB(player.getId(), name, deck, newDeck);
         playerDecks.put(name, deck);
@@ -38,15 +42,15 @@ public class DeckDAO {
     public synchronized void deleteDeckForPlayer(Player player, String name) {
         try {
             deleteDeckFromDB(player.getId(), name);
-            Map<String, DeckVO> map = getPlayerDecks(player);
+            Map<String, LotroDeck> map = getPlayerDecks(player);
             map.remove(name);
         } catch (SQLException exp) {
             throw new RuntimeException("Unable to delete player deck from DB", exp);
         }
     }
 
-    public synchronized DeckVO renameDeck(Player player, String oldName, String newName) {
-        DeckVO deck = getDeckForPlayer(player, oldName);
+    public synchronized LotroDeck renameDeck(Player player, String oldName, String newName) {
+        LotroDeck deck = getDeckForPlayer(player, oldName);
         if (deck == null)
             return null;
         saveDeckForPlayer(player, newName, deck);
@@ -59,8 +63,8 @@ public class DeckDAO {
         return Collections.unmodifiableSet(getPlayerDecks(player).keySet());
     }
 
-    private Map<String, DeckVO> getPlayerDecks(Player player) {
-        Map<String, DeckVO> decksByName = _decks.get(player.getId());
+    private Map<String, LotroDeck> getPlayerDecks(Player player) {
+        Map<String, LotroDeck> decksByName = _decks.get(player.getId());
         if (decksByName == null) {
             decksByName = loadPlayerDecks(player);
             _decks.put(player.getId(), decksByName);
@@ -68,7 +72,7 @@ public class DeckDAO {
         return decksByName;
     }
 
-    private Map<String, DeckVO> loadPlayerDecks(Player player) {
+    private Map<String, LotroDeck> loadPlayerDecks(Player player) {
         try {
             return loadPlayerDecksFromDB(player.getId());
         } catch (SQLException exp) {
@@ -76,7 +80,7 @@ public class DeckDAO {
         }
     }
 
-    private Map<String, DeckVO> loadPlayerDecksFromDB(int playerId) throws SQLException {
+    private Map<String, LotroDeck> loadPlayerDecksFromDB(int playerId) throws SQLException {
         Connection connection = _dbAccess.getDataSource().getConnection();
         try {
             PreparedStatement statement = connection.prepareStatement("select name, contents from deck where player_id=?");
@@ -84,7 +88,7 @@ public class DeckDAO {
                 statement.setInt(1, playerId);
                 ResultSet rs = statement.executeQuery();
                 try {
-                    Map<String, DeckVO> result = new HashMap<String, DeckVO>();
+                    Map<String, LotroDeck> result = new HashMap<String, LotroDeck>();
                     while (rs.next()) {
                         String name = rs.getString(1);
                         String contents = rs.getString(2);
@@ -104,13 +108,8 @@ public class DeckDAO {
 
     }
 
-    private void storeDeckToDB(int playerId, String name, DeckVO deck, boolean newDeck) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(deck.getRingBearer());
-        sb.append(",").append(deck.getRing());
-        appendList(sb, deck.getCards());
-
-        String contents = sb.toString();
+    private void storeDeckToDB(int playerId, String name, LotroDeck deck, boolean newDeck) {
+        String contents = buildContentsFromDeck(deck);
         try {
             if (newDeck)
                 storeDeckInDB(playerId, name, contents);
@@ -126,7 +125,7 @@ public class DeckDAO {
             sb.append("," + card);
     }
 
-    private DeckVO getDeckFromDB(int playerId, String name) {
+    private LotroDeck getDeckFromDB(int playerId, String name) {
         try {
             String contents = getDeckContentsFromDB(playerId, name);
             if (contents != null) {
@@ -139,11 +138,66 @@ public class DeckDAO {
         }
     }
 
-    private DeckVO buildDeckFromContents(String contents) {
-        List<String> cardsList = Arrays.asList(contents.split(","));
-        String ringBearer = cardsList.get(0);
-        String ring = cardsList.get(1);
-        return new DeckVO(ringBearer, ring, cardsList.subList(2, cardsList.size()));
+    private String buildContentsFromDeck(LotroDeck deck) {
+        StringBuilder sb = new StringBuilder();
+        if (deck.getRingBearer() != null)
+            sb.append(deck.getRingBearer());
+        sb.append("|");
+        if (deck.getRing() != null)
+            sb.append(deck.getRing());
+        sb.append("|");
+        for (int i = 0; i < deck.getSites().size(); i++) {
+            if (i > 0)
+                sb.append(",");
+            sb.append(deck.getSites().get(i));
+        }
+        sb.append("|");
+        for (int i = 0; i < deck.getAdventureCards().size(); i++) {
+            if (i > 0)
+                sb.append(",");
+            sb.append(deck.getAdventureCards().get(i));
+        }
+
+        return sb.toString();
+    }
+
+    public LotroDeck buildDeckFromContents(String contents) {
+        if (contents.contains("|")) {
+            // New format
+            String[] parts = contents.split("\\|");
+
+            LotroDeck deck = new LotroDeck();
+            if (parts.length > 0)
+                deck.setRingBearer(parts[0]);
+            if (parts.length > 1)
+                deck.setRing(parts[1]);
+            if (parts.length > 2)
+                for (String site : parts[2].split(",")) {
+                    deck.addSite(site);
+                }
+            if (parts.length > 3)
+                for (String card : parts[3].split(",")) {
+                    deck.addCard(card);
+                }
+
+            return deck;
+        } else {
+            // Old format
+            List<String> cardsList = Arrays.asList(contents.split(","));
+            String ringBearer = cardsList.get(0);
+            String ring = cardsList.get(1);
+            final LotroDeck lotroDeck = new LotroDeck();
+            lotroDeck.setRingBearer(ringBearer);
+            lotroDeck.setRing(ring);
+            for (String blueprintId : cardsList.subList(2, cardsList.size())) {
+                if (_library.getLotroCardBlueprint(blueprintId).getCardType() == CardType.SITE)
+                    lotroDeck.addSite(blueprintId);
+                else
+                    lotroDeck.addCard(blueprintId);
+            }
+
+            return lotroDeck;
+        }
     }
 
     private void deleteDeckFromDB(int playerId, String name) throws SQLException {

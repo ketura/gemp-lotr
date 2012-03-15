@@ -1,14 +1,14 @@
 package com.gempukku.lotro.logic.vo;
 
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
 public class LotroDeck {
     private String _ringBearer;
     private String _ring;
-    private List<String> _siteCards = new LinkedList<String>();
-    private List<String> _nonSiteCards = new LinkedList<String>();
+    private List<String> _siteCards = new ArrayList<String>();
+    private List<String> _nonSiteCards = new ArrayList<String>();
 
     public void setRingBearer(String ringBearer) {
         _ringBearer = ringBearer;

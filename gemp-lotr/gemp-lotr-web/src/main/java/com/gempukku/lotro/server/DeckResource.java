@@ -19,6 +19,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 @Singleton
@@ -32,6 +33,8 @@ public class DeckResource extends AbstractResource {
     private LotroCardBlueprintLibrary _library;
     @Context
     private DeckDAO _deckDao;
+
+    private SortAndFilterCards _sortAndFilterCards = new SortAndFilterCards();
 
     @Path("/list")
     @GET
@@ -65,7 +68,7 @@ public class DeckResource extends AbstractResource {
             @Context HttpServletRequest request) throws ParserConfigurationException {
         Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
-        LotroDeck deck = _lotroServer.getParticipantDeck(resourceOwner, deckName);
+        LotroDeck deck = _deckDao.getDeckForPlayer(resourceOwner, deckName);
 
         if (deck == null) {
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -88,9 +91,11 @@ public class DeckResource extends AbstractResource {
             @Context HttpServletRequest request) throws ParserConfigurationException {
         Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
-        LotroDeck deck = _lotroServer.savePlayerDeck(resourceOwner, deckName, contents);
-        if (deck == null)
+        LotroDeck lotroDeck = _lotroServer.createDeckWithValidate(contents);
+        if (lotroDeck == null)
             sendError(Response.Status.BAD_REQUEST);
+
+        _deckDao.saveDeckForPlayer(resourceOwner, deckName, lotroDeck);
 
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
@@ -112,7 +117,7 @@ public class DeckResource extends AbstractResource {
             @Context HttpServletRequest request) throws ParserConfigurationException {
         Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
-        LotroDeck deck = _lotroServer.renamePlayerDeck(resourceOwner, oldDeckName, deckName);
+        LotroDeck deck = _deckDao.renameDeck(resourceOwner, oldDeckName, deckName);
         if (deck == null)
             sendError(Response.Status.NOT_FOUND);
 
@@ -139,7 +144,7 @@ public class DeckResource extends AbstractResource {
             @Context HttpServletRequest request) {
         Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
-        LotroDeck deck = _lotroServer.createTemporaryDeckForPlayer(resourceOwner, contents);
+        LotroDeck deck = _lotroServer.createDeckWithValidate(contents);
         if (deck == null)
             sendError(Response.Status.BAD_REQUEST);
 
@@ -176,26 +181,52 @@ public class DeckResource extends AbstractResource {
         Element deckElem = doc.createElement("deck");
         doc.appendChild(deckElem);
 
-        Element ringBearer = doc.createElement("ringBearer");
-        ringBearer.setAttribute("blueprintId", deck.getRingBearer());
-        deckElem.appendChild(ringBearer);
+        if (deck.getRingBearer() != null) {
+            Element ringBearer = doc.createElement("ringBearer");
+            ringBearer.setAttribute("blueprintId", deck.getRingBearer());
+            deckElem.appendChild(ringBearer);
+        }
 
-        Element ring = doc.createElement("ring");
-        ring.setAttribute("blueprintId", deck.getRing());
-        deckElem.appendChild(ring);
+        if (deck.getRing() != null) {
+            Element ring = doc.createElement("ring");
+            ring.setAttribute("blueprintId", deck.getRing());
+            deckElem.appendChild(ring);
+        }
 
-        for (String s : deck.getSites()) {
+        for (CardItem cardItem : _sortAndFilterCards.process("sort:siteNumber,twilight", createCardItems(deck.getSites()), _library, null)) {
             Element site = doc.createElement("site");
-            site.setAttribute("blueprintId", s);
+            site.setAttribute("blueprintId", cardItem.getBlueprintId());
             deckElem.appendChild(site);
         }
-        for (String s : deck.getAdventureCards()) {
+
+        for (CardItem cardItem : _sortAndFilterCards.process("sort:cardType,culture,name", createCardItems(deck.getAdventureCards()), _library, null)) {
             Element card = doc.createElement("card");
-            card.setAttribute("side", _library.getLotroCardBlueprint(s).getSide().toString());
-            card.setAttribute("blueprintId", s);
+            card.setAttribute("side", _library.getLotroCardBlueprint(cardItem.getBlueprintId()).getSide().toString());
+            card.setAttribute("blueprintId", cardItem.getBlueprintId());
             deckElem.appendChild(card);
         }
 
         return doc;
+    }
+
+    private List<CardItem> createCardItems(List<String> blueprintIds) {
+        List<CardItem> cardItems = new LinkedList<CardItem>();
+        for (String blueprintId : blueprintIds)
+            cardItems.add(new BasicCardItem(blueprintId));
+
+        return cardItems;
+    }
+
+    private static class BasicCardItem implements CardItem {
+        private String _blueprintId;
+
+        private BasicCardItem(String blueprintId) {
+            _blueprintId = blueprintId;
+        }
+
+        @Override
+        public String getBlueprintId() {
+            return _blueprintId;
+        }
     }
 }

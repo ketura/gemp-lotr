@@ -2,6 +2,7 @@ package com.gempukku.lotro.server;
 
 import com.gempukku.lotro.collection.CollectionSerializer;
 import com.gempukku.lotro.db.*;
+import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.sun.jersey.core.spi.component.ComponentContext;
 import com.sun.jersey.core.spi.component.ComponentScope;
 import com.sun.jersey.spi.inject.Injectable;
@@ -25,6 +26,9 @@ public class DaoProvider implements InjectableProvider<Context, Type> {
 
     private DbAccess _dbAccess;
     private CollectionSerializer _collectionSerializer;
+
+    @Context
+    private LotroCardBlueprintLibrary _library;
 
     public DaoProvider() {
         _dbAccess = new DbAccess();
@@ -119,7 +123,7 @@ public class DaoProvider implements InjectableProvider<Context, Type> {
 
     private synchronized Injectable<DeckDAO> getDeckDaoSafely() {
         if (_deckDaoInjectable == null) {
-            final DeckDAO deckDao = new DeckDAO(_dbAccess);
+            final DeckDAO deckDao = new DeckDAO(_dbAccess, _library);
             _deckDaoInjectable = new Injectable<DeckDAO>() {
                 @Override
                 public DeckDAO getValue() {
