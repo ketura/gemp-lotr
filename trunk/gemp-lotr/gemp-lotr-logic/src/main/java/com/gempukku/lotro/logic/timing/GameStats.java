@@ -112,6 +112,7 @@ public class GameStats {
                 final HashMap<Zone, Integer> playerZoneSizes = new HashMap<Zone, Integer>();
                 playerZoneSizes.put(Zone.HAND, game.getGameState().getHand(player).size());
                 playerZoneSizes.put(Zone.DECK, game.getGameState().getDeck(player).size());
+                playerZoneSizes.put(Zone.ADVENTURE_DECK, game.getGameState().getAdventureDeck(player).size());
                 playerZoneSizes.put(Zone.DISCARD, game.getGameState().getDiscard(player).size());
                 playerZoneSizes.put(Zone.DEAD, game.getGameState().getDeadPile(player).size());
                 newZoneSizes.put(player, playerZoneSizes);

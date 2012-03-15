@@ -93,12 +93,13 @@ public class GameState {
     private void addPlayerCards(String playerId, List<String> cards, LotroCardBlueprintLibrary library) {
         for (String blueprintId : cards) {
             PhysicalCardImpl physicalCard = createPhysicalCard(playerId, library, blueprintId);
-            physicalCard.setZone(Zone.DECK);
-
-            if (physicalCard.getBlueprint().getCardType() == CardType.SITE)
+            if (physicalCard.getBlueprint().getCardType() == CardType.SITE) {
+                physicalCard.setZone(Zone.ADVENTURE_DECK);
                 _adventureDecks.get(playerId).add(physicalCard);
-            else
+            } else {
+                physicalCard.setZone(Zone.DECK);
                 _decks.get(playerId).add(physicalCard);
+            }
         }
     }
 
@@ -307,9 +308,9 @@ public class GameState {
     }
 
     private List<PhysicalCardImpl> getZoneCards(String playerId, CardType type, Zone zone) {
-        if (zone == Zone.DECK && type != CardType.SITE)
+        if (zone == Zone.DECK)
             return _decks.get(playerId);
-        else if (zone == Zone.DECK)
+        else if (zone == Zone.ADVENTURE_DECK)
             return _adventureDecks.get(playerId);
         else if (zone == Zone.DISCARD)
             return _discards.get(playerId);

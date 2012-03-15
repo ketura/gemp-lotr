@@ -119,7 +119,7 @@ public class PlaySiteEffect extends AbstractEffect {
 
                                 gameState.removeCardsFromZone(_playerId, Collections.singleton(oldSite));
                                 oldSite.setSiteNumber(null);
-                                gameState.addCardToZone(game, oldSite, Zone.DECK);
+                                gameState.addCardToZone(game, oldSite, Zone.ADVENTURE_DECK);
                                 if (gameState.getCurrentSiteNumber() == siteNumber
                                         && !_playerId.equals(gameState.getCurrentPlayerId()))
                                     game.getModifiersEnvironment().addUntilEndOfTurnModifier(
@@ -140,7 +140,7 @@ public class PlaySiteEffect extends AbstractEffect {
                             }
 
                             sitePlayedCallback(newSite);
-                            game.getActionsEnvironment().emitEffectResult(new PlayCardResult(Zone.DECK, newSite, null, null));
+                            game.getActionsEnvironment().emitEffectResult(new PlayCardResult(Zone.ADVENTURE_DECK, newSite, null, null));
                         }
                     });
 
