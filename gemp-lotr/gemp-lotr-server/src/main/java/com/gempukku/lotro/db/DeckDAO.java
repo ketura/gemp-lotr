@@ -173,11 +173,13 @@ public class DeckDAO {
                 deck.setRing(parts[1]);
             if (parts.length > 2)
                 for (String site : parts[2].split(",")) {
-                    deck.addSite(site);
+                    if (!site.equals(""))
+                        deck.addSite(site);
                 }
             if (parts.length > 3)
                 for (String card : parts[3].split(",")) {
-                    deck.addCard(card);
+                    if (!card.equals(""))
+                        deck.addCard(card);
                 }
 
             return deck;
