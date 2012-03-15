@@ -1504,7 +1504,7 @@ var GempLotrGameUI = Class.extend({
         var processButtons = function() {
             that.alertButtons.html("");
             if (selectedCardIds.length == 0) {
-                that.alertButtons.append("<button id='Pass'>Pass</button>");
+                that.alertButtons.append("<button id='Pass' style='float: right'>Pass</button>");
                 $("#Pass").button().click(function() {
                     finishChoice();
                 });
