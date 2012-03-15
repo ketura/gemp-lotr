@@ -199,6 +199,12 @@ public class GameState {
                     listener.cardCreated(physicalCard);
             }
 
+            List<PhysicalCardImpl> adventureDeck = _adventureDecks.get(playerId);
+            if (adventureDeck != null) {
+                for (PhysicalCardImpl physicalCard : adventureDeck)
+                    listener.cardCreated(physicalCard);
+            }
+
             for (Assignment assignment : _assignments)
                 listener.addAssignment(assignment.getFellowshipCharacter(), assignment.getShadowCharacters());
 
