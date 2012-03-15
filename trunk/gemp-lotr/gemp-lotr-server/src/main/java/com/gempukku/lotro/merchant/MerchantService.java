@@ -164,9 +164,9 @@ public class MerchantService {
         Lock lock = _lock.writeLock();
         lock.lock();
         try {
-            boolean success = _collectionsManager.tradeCards(player, _permanentCollection, blueprintId, 4, blueprintId + "*", 1);
+            boolean success = _collectionsManager.tradeCards(player, _permanentCollection, blueprintId, 4, blueprintId + "*", 1, 400);
             if (!success)
-                throw new MerchantException("Unable to remove the required cards from your collection");
+                throw new MerchantException("Unable to remove the required cards or currency from your collection");
         } finally {
             lock.unlock();
         }

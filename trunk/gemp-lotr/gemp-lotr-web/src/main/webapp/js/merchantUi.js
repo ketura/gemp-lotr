@@ -68,20 +68,20 @@ var GempLotrMerchantUI = Class.extend({
 
         this.infoDialog = $("<div></div>")
                 .dialog({
-                    autoOpen: false,
-                    closeOnEscape: true,
-                    resizable: false,
-                    title: "Card information"
-                });
+            autoOpen: false,
+            closeOnEscape: true,
+            resizable: false,
+            title: "Card information"
+        });
 
         this.questionDialog = $("<div></div>")
                 .dialog({
-                    autoOpen: false,
-                    closeOnEscape: true,
-                    resizable: false,
-                    modal: true,
-                    title: "Merchant operation"
-                });
+            autoOpen: false,
+            closeOnEscape: true,
+            resizable: false,
+            modal: true,
+            title: "Merchant operation"
+        });
 
         var swipeOptions = {
             threshold: 20,
@@ -275,7 +275,7 @@ var GempLotrMerchantUI = Class.extend({
                     var tradeFoilBut = $("<div class='tradeFoil'>Trade 4 for foil</div>").button();
                     tradeFoilBut.click(
                             function() {
-                                that.displayMerchantAction(card, "Do you want to trade 4 of this card for a foil version?",
+                                that.displayMerchantAction(card, "Do you want to trade 4 of this card and 4G in currency for a foil version of the card?",
                                         function() {
                                             that.comm.tradeInFoil(blueprintId, function() {
                                                 that.cardFilter.getCollection();

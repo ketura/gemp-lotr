@@ -109,13 +109,15 @@ public class CollectionsManager {
         addItemsToPlayerCollection(_playerDAO.getPlayer(player), collectionType, items);
     }
 
-    public boolean tradeCards(Player player, CollectionType collectionType, String blueprintId1, int count1, String blueprintId2, int count2) {
+    public boolean tradeCards(Player player, CollectionType collectionType, String blueprintId1, int count1, String blueprintId2, int count2, int currencyCost) {
         _readWriteLock.writeLock().lock();
         try {
             final CardCollection playerCollection = getPlayerCollection(player, collectionType.getCode());
             if (playerCollection != null) {
                 MutableCardCollection mutableCardCollection = new DefaultCardCollection(playerCollection);
                 if (!mutableCardCollection.removeItem(blueprintId1, count1))
+                    return false;
+                if (!mutableCardCollection.removeCurrency(currencyCost))
                     return false;
                 mutableCardCollection.addItem(blueprintId2, count2);
 
