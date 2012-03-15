@@ -658,21 +658,21 @@ var GempLotrGameUI = Class.extend({
     initializeDialogs: function() {
         this.smallDialog = $("<div></div>")
                 .dialog({
-                    autoOpen: false,
-                    closeOnEscape: false,
-                    resizable: false,
-                    width: 400,
-                    height: 200
-                });
+            autoOpen: false,
+            closeOnEscape: false,
+            resizable: false,
+            width: 400,
+            height: 200
+        });
 
         this.cardActionDialog = $("<div></div>")
                 .dialog({
-                    autoOpen: false,
-                    closeOnEscape: false,
-                    resizable: true,
-                    width: 600,
-                    height: 300
-                });
+            autoOpen: false,
+            closeOnEscape: false,
+            resizable: true,
+            width: 600,
+            height: 300
+        });
 
         var that = this;
 
@@ -687,11 +687,11 @@ var GempLotrGameUI = Class.extend({
 
         this.infoDialog = $("<div></div>")
                 .dialog({
-                    autoOpen: false,
-                    closeOnEscape: true,
-                    resizable: false,
-                    title: "Card information"
-                });
+            autoOpen: false,
+            closeOnEscape: true,
+            resizable: false,
+            title: "Card information"
+        });
 
         var swipeOptions = {
             threshold: 20,
@@ -1198,12 +1198,12 @@ var GempLotrGameUI = Class.extend({
 
         if (!this.replayMode) {
             this.smallDialog.dialog("option", "buttons",
-                    {
-                        "OK": function() {
-                            $(this).dialog("close");
-                            that.decisionFunction(id, $("#integerDecision").val());
-                        }
-                    });
+            {
+                "OK": function() {
+                    $(this).dialog("close");
+                    that.decisionFunction(id, $("#integerDecision").val());
+                }
+            });
         }
 
         $("#integerDecision").SpinnerControl({ type: 'range',
@@ -1241,12 +1241,12 @@ var GempLotrGameUI = Class.extend({
 
             if (!this.replayMode) {
                 this.smallDialog.dialog("option", "buttons",
-                        {
-                            "OK": function() {
-                                that.smallDialog.dialog("close");
-                                that.decisionFunction(id, $("#multipleChoiceDecision").val());
-                            }
-                        });
+                {
+                    "OK": function() {
+                        that.smallDialog.dialog("close");
+                        that.decisionFunction(id, $("#multipleChoiceDecision").val());
+                    }
+                });
             }
         } else {
             this.smallDialog.append("<br />");
@@ -1376,12 +1376,13 @@ var GempLotrGameUI = Class.extend({
     },
 
     attachSelectionFunctions: function(cardIds, selection) {
-        if (selection)
+        if (selection) {
             if (cardIds.length > 0)
                 $(".card:cardId(" + cardIds + ")").addClass("selectableCard");
-            else
+        } else {
             if (cardIds.length > 0)
                 $(".card:cardId(" + cardIds + ")").addClass("actionableCard");
+        }
     },
 
     // Choosing cards from a predefined selection (for example stating fellowship)
@@ -1638,8 +1639,8 @@ var GempLotrGameUI = Class.extend({
                     $(div).find('LI.hover').removeClass('hover');
                     $(this).parent().addClass('hover');
                 }).mouseout(function() {
-                    $(div).find('LI.hover').removeClass('hover');
-                });
+            $(div).find('LI.hover').removeClass('hover');
+        });
 
         var getRidOfContextMenu = function() {
             $(div).remove();
