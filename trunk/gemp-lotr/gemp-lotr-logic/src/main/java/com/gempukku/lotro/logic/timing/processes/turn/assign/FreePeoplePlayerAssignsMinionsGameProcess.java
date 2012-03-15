@@ -75,8 +75,9 @@ public class FreePeoplePlayerAssignsMinionsGameProcess implements GameProcess {
                                                     new AssignmentPhaseEffect(gameState.getCurrentPlayerId(), assignments, "Free People player assignments"));
                                         }
                                     });
+                        } else {
+                            _leftoverMinions = new HashSet<PhysicalCard>();
                         }
-
                     }
                 });
         game.getActionsEnvironment().addActionToStack(action);
