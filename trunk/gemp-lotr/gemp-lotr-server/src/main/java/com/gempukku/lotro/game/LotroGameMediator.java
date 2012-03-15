@@ -1,9 +1,6 @@
 package com.gempukku.lotro.game;
 
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.common.Token;
-import com.gempukku.lotro.common.Zone;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.communication.GameStateListener;
 import com.gempukku.lotro.game.state.GameEvent;
 import com.gempukku.lotro.game.state.GatheringParticipantCommunicationChannel;
@@ -125,6 +122,9 @@ public class LotroGameMediator {
                 }
                 if (modifiers.size() == 0)
                     sb.append("<br><i>nothing</i>");
+
+                if (card.getZone().isInPlay() && card.getBlueprint().getCardType() == CardType.SITE)
+                    sb.append("<br><b>Owner:</b> " + card.getOwner());
 
                 Map<Token, Integer> map = _lotroGame.getGameState().getTokens(card);
                 if (map != null && map.size() > 0) {
