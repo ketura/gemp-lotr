@@ -40,6 +40,8 @@ public class SortAndFilterCards {
             Collections.sort(result, new StrengthComparator(library));
         else if (sort != null && sort.equals("vitality"))
             Collections.sort(result, new VitalityComparator(library));
+        else if (sort != null && sort.equals("collectorInfo"))
+            Collections.sort(result, new CardBlueprintIdComparator());
         else
             Collections.sort(result, new NameComparator(library));
 
@@ -250,7 +252,7 @@ public class SortAndFilterCards {
                 else {
                     final int nameCompareResult = _library.getLotroCardBlueprint(o1.getBlueprintId()).getName().compareTo(_library.getLotroCardBlueprint(o2.getBlueprintId()).getName());
                     if (nameCompareResult == 0)
-                        return _cardBlueprintIdComparator.compare(o1.getBlueprintId(), o2.getBlueprintId());
+                        return _cardBlueprintIdComparator.compare(o1, o2);
                     return nameCompareResult;
                 }
             } else {
@@ -365,11 +367,17 @@ public class SortAndFilterCards {
         }
     }
 
-    private static class CardBlueprintIdComparator implements Comparator<String> {
+    private static class CardBlueprintIdComparator implements Comparator<CardItem> {
         @Override
-        public int compare(String o1, String o2) {
-            String[] o1Parts = o1.split("_");
-            String[] o2Parts = o2.split("_");
+        public int compare(CardItem o1, CardItem o2) {
+            if (isPack(o1.getBlueprintId()) && isPack(o2.getBlueprintId()))
+                return o1.getBlueprintId().compareTo(o2.getBlueprintId());
+            if (isPack(o1.getBlueprintId()))
+                return -1;
+            if (isPack(o2.getBlueprintId()))
+                return 1;
+            String[] o1Parts = o1.getBlueprintId().split("_");
+            String[] o2Parts = o2.getBlueprintId().split("_");
 
             if (o1Parts.length == 1 && o2Parts.length == 1)
                 return o1Parts[0].compareTo(o2Parts[0]);
