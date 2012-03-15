@@ -15,6 +15,6 @@ public class CantReplaceSiteModifier extends AbstractModifier {
 
     @Override
     public boolean isSiteReplaceable(GameState gameState, ModifiersQuerying modifiersQuerying, String playerId) {
-        return true;
+        return false;
     }
 }

@@ -11,6 +11,7 @@ import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import org.junit.Test;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -158,8 +159,7 @@ public class TriggersAtTest extends AbstractAtTest {
 
     @Test
     public void userOfMusterDisablesUseOfOtherOptionalStartOfRegroupTrigger() throws DecisionResultInvalidException {
-        Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
-        initializeSimplestGame(extraCards);
+        initializeSimplestGame();
 
         PhysicalCardImpl dervorin = new PhysicalCardImpl(100, "7_88", P1, _library.getLotroCardBlueprint("7_88"));
         PhysicalCardImpl boromir = new PhysicalCardImpl(101, "1_96", P1, _library.getLotroCardBlueprint("1_96"));
@@ -198,5 +198,39 @@ public class TriggersAtTest extends AbstractAtTest {
         validateContents(new String[]{}, (String[]) regroupPhaseActionDecision.getDecisionParameters().get("cardId"));
 
         assertEquals(Phase.REGROUP, _game.getGameState().getCurrentPhase());
+    }
+
+    @Test
+    public void replaceSiteNotPossibleWithMountDoom() throws DecisionResultInvalidException {
+        initializeSimplestGame();
+
+        PhysicalCardImpl gandalf = new PhysicalCardImpl(100, "1_72", P1, _library.getLotroCardBlueprint("1_72"));
+        PhysicalCardImpl traveledLeader = new PhysicalCardImpl(101, "12_34", P1, _library.getLotroCardBlueprint("12_34"));
+        PhysicalCardImpl mountDoom = new PhysicalCardImpl(102, "15_193", P2, _library.getLotroCardBlueprint("15_193"));
+
+        skipMulligans();
+
+        _game.getGameState().addCardToZone(_game, traveledLeader, Zone.HAND);
+        _game.getGameState().addCardToZone(_game, gandalf, Zone.FREE_CHARACTERS);
+
+        // End fellowship phase
+        playerDecided(P1, "");
+
+        _game.getGameState().removeCardsFromZone(P2, Collections.singleton(_game.getGameState().getSite(2)));
+        mountDoom.setSiteNumber(2);
+        _game.getGameState().addCardToZone(_game, mountDoom, Zone.ADVENTURE_PATH);
+
+        // End shadow phase
+        playerDecided(P2, "");
+
+        final AwaitingDecision regroupActionDecision = _userFeedback.getAwaitingDecision(P1);
+        assertEquals(AwaitingDecisionType.CARD_ACTION_CHOICE, regroupActionDecision.getDecisionType());
+        validateContents(new String[]{"" + traveledLeader.getCardId()}, (String[]) regroupActionDecision.getDecisionParameters().get("cardId"));
+
+        playerDecided(P1, "0");
+
+        playerDecided(P1, "" + mountDoom.getCardId());
+
+        assertEquals(mountDoom, _game.getGameState().getSite(2));
     }
 }
