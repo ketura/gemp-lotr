@@ -14,6 +14,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
 import java.util.Collections;
 import java.util.List;
@@ -48,8 +49,14 @@ public class Card15_112 extends AbstractMinion {
             @Override
             protected void discountPaidCallback() {
                 action.appendEffect(
-                        new AddUntilEndOfTurnModifierEffect(
-                                new KeywordModifier(self, self, Keyword.FIERCE)));
+                        new UnrespondableEffect() {
+                            @Override
+                            protected void doPlayEffect(LotroGame game) {
+                                action.appendEffect(
+                                        new AddUntilEndOfTurnModifierEffect(
+                                                new KeywordModifier(self, self, Keyword.FIERCE)));
+                            }
+                        });
             }
         };
     }
