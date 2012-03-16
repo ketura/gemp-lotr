@@ -70,6 +70,8 @@ public class MerchantService {
         addBooster("HU - Booster", 1000);
         addBooster("RoS - Booster", 1000);
         addBooster("TaD - Booster", 1000);
+
+        addBooster("REF - Booster", 2000);
     }
 
     private void addBooster(String blueprintId, int price) {

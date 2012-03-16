@@ -87,7 +87,9 @@ var packBlueprints = {
 
     "TaD - Faramir Starter": "/gemp-lotr/images/boosters/eof_faramir_starter.png",
     "TaD - Witch-king Starter": "/gemp-lotr/images/boosters/eof_witch_king_starter.png",
-    "TaD - Booster": "/gemp-lotr/images/boosters/tad_booster.png"
+    "TaD - Booster": "/gemp-lotr/images/boosters/tad_booster.png",
+
+    "REF - Booster": "/gemp-lotr/images/boosters/ref_booster.png"
 };
 
 var Card = Class.extend({
