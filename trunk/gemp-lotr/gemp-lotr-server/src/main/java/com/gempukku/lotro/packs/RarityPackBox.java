@@ -22,20 +22,20 @@ public class RarityPackBox implements PackBox {
         if (hasFoil) {
             int foilRarity = _random.nextInt(11);
             if (foilRarity == 0) {
-                List<String> possibleCards = new LinkedList<String>();
+                List<String> possibleCards = new ArrayList<String>();
                 possibleCards.addAll(_setRarity.getCardsOfRarity("R"));
                 possibleCards.addAll(_setRarity.getCardsOfRarity("P"));
                 possibleCards.addAll(_setRarity.getCardsOfRarity("A"));
                 Collections.shuffle(possibleCards, _random);
                 addCards(result, possibleCards.subList(0, 1), true);
             } else if (foilRarity < 4) {
-                List<String> possibleCards = new LinkedList<String>();
+                List<String> possibleCards = new ArrayList<String>();
                 possibleCards.addAll(_setRarity.getCardsOfRarity("U"));
                 possibleCards.addAll(_setRarity.getCardsOfRarity("S"));
                 Collections.shuffle(possibleCards, _random);
                 addCards(result, possibleCards.subList(0, 1), true);
             } else {
-                List<String> possibleCards = new LinkedList<String>(_setRarity.getCardsOfRarity("C"));
+                List<String> possibleCards = new ArrayList<String>(_setRarity.getCardsOfRarity("C"));
                 Collections.shuffle(possibleCards, _random);
                 addCards(result, possibleCards.subList(0, 1), true);
             }
@@ -47,7 +47,7 @@ public class RarityPackBox implements PackBox {
     }
 
     private void addRandomRareCard(List<CardCollection.Item> result, int count) {
-        List<String> possibleCards = new LinkedList<String>();
+        List<String> possibleCards = new ArrayList<String>();
         possibleCards.addAll(_setRarity.getCardsOfRarity("R"));
         possibleCards.addAll(_setRarity.getCardsOfRarity("R"));
         possibleCards.addAll(_setRarity.getCardsOfRarity("R"));
@@ -57,7 +57,7 @@ public class RarityPackBox implements PackBox {
     }
 
     private void addRandomCardsOfRarity(List<CardCollection.Item> result, int count, String rarity) {
-        List<String> possibleCards = new LinkedList<String>(_setRarity.getCardsOfRarity(rarity));
+        List<String> possibleCards = new ArrayList<String>(_setRarity.getCardsOfRarity(rarity));
         Collections.shuffle(possibleCards, _random);
         addCards(result, possibleCards.subList(0, count), false);
     }

@@ -89,6 +89,8 @@ public class PacksStorageProvider implements Injectable<PacksStorage>, Injectabl
             packStorage.addPackBox("RoS - Booster", new RarityPackBox(17));
             packStorage.addPackBox("TaD - Booster", new RarityPackBox(18));
 
+            packStorage.addPackBox("REF - Booster", new ReflectionsPackBox());
+
             return packStorage;
         } catch (IOException exp) {
             _logger.error("Error while creating resource", exp);
