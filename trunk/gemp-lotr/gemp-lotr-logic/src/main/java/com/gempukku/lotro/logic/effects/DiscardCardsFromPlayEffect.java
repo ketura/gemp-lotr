@@ -18,6 +18,7 @@ import java.util.Set;
 
 public class DiscardCardsFromPlayEffect extends AbstractPreventableCardEffect {
     private PhysicalCard _source;
+    private String _performingPlayer;
 
     public DiscardCardsFromPlayEffect(PhysicalCard source, PhysicalCard... cards) {
         super(cards);
