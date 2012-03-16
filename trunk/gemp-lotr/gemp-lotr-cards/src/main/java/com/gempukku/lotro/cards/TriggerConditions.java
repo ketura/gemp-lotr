@@ -270,6 +270,15 @@ public class TriggerConditions {
         return false;
     }
 
+    public static boolean isGettingDiscardedByOpponent(Effect effect, LotroGame game, String playerId, Filterable... filters) {
+        if (effect.getType() == Effect.Type.BEFORE_DISCARD_FROM_PLAY) {
+            DiscardCardsFromPlayEffect discardEffect = (DiscardCardsFromPlayEffect) effect;
+            if (discardEffect.getSource() != null && !discardEffect.getPerformingPlayer().equals(playerId))
+                return Filters.filter(discardEffect.getAffectedCardsMinusPrevented(game), game.getGameState(), game.getModifiersQuerying(), filters).size() > 0;
+        }
+        return false;
+    }
+
     public static boolean isGettingDiscarded(Effect effect, LotroGame game, Filterable... filters) {
         if (effect.getType() == Effect.Type.BEFORE_DISCARD_FROM_PLAY) {
             DiscardCardsFromPlayEffect discardEffect = (DiscardCardsFromPlayEffect) effect;

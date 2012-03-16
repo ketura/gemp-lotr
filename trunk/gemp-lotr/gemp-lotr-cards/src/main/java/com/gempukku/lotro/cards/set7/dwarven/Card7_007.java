@@ -42,7 +42,7 @@ public class Card7_007 extends AbstractCompanion {
 
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
-        if (TriggerConditions.isGettingDiscardedBy(effect, game, Side.SHADOW, Culture.DWARVEN, CardType.CONDITION)
+        if (TriggerConditions.isGettingDiscardedByOpponent(effect, game, playerId, Culture.DWARVEN, CardType.CONDITION)
                 && (PlayConditions.canExert(self, game, Race.DWARF)
                 || PlayConditions.canDiscardFromHand(game, playerId, 1, Culture.DWARVEN))) {
             final DiscardCardsFromPlayEffect discardEffect = (DiscardCardsFromPlayEffect) effect;
