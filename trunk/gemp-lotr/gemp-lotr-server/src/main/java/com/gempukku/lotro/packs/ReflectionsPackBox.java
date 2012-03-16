@@ -32,8 +32,14 @@ public class ReflectionsPackBox implements PackBox {
         result.add(new CardCollection.Item(CardCollection.Item.Type.CARD, 1, getRandomReflectionsCard() + "*"));
         result.add(new CardCollection.Item(CardCollection.Item.Type.CARD, 1, getRandomReflectionsCard() + "*"));
 
-        for (int i = 0; i < 16; i++)
-            result.add(new CardCollection.Item(CardCollection.Item.Type.CARD, 1, _previousSetCards.get(_random.nextInt(_previousSetCards.size()))));
+        for (int i = 0; i < 16; i++) {
+            final String blueprintId = _previousSetCards.get(_random.nextInt(_previousSetCards.size()));
+            // There is a 1/6 * 1/11 chance it will be a foil
+            if (_random.nextInt(66) == 0)
+                result.add(new CardCollection.Item(CardCollection.Item.Type.CARD, 1, blueprintId + "*"));
+            else
+                result.add(new CardCollection.Item(CardCollection.Item.Type.CARD, 1, blueprintId));
+        }
 
         return result;
     }
