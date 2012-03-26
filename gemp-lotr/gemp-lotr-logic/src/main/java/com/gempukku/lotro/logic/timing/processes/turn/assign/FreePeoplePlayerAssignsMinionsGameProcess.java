@@ -57,7 +57,7 @@ public class FreePeoplePlayerAssignsMinionsGameProcess implements GameProcess {
                                         public void decisionMade(String result) throws DecisionResultInvalidException {
                                             Map<PhysicalCard, Set<PhysicalCard>> assignments = getAssignmentsBasedOnResponse(result);
 
-                                            Set<PhysicalCard> unassignedMinions = new HashSet<PhysicalCard>(minions);
+                                            Set<PhysicalCard> unassignedMinions = new HashSet<PhysicalCard>(Filters.filterActive(gameState, game.getModifiersQuerying(), CardType.MINION));
                                             // Validate minion count (Defender)
                                             for (PhysicalCard freeCard : assignments.keySet()) {
                                                 Set<PhysicalCard> minionsAssigned = assignments.get(freeCard);
@@ -76,7 +76,7 @@ public class FreePeoplePlayerAssignsMinionsGameProcess implements GameProcess {
                                         }
                                     });
                         } else {
-                            _leftoverMinions = new HashSet<PhysicalCard>();
+                            _leftoverMinions = new HashSet<PhysicalCard>(Filters.filterActive(gameState, game.getModifiersQuerying(), CardType.MINION));
                         }
                     }
                 });
