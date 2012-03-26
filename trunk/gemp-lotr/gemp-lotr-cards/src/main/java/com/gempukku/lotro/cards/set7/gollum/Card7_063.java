@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set7.gollum;
 import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -25,6 +26,12 @@ import java.util.List;
 public class Card7_063 extends AbstractAttachable {
     public Card7_063() {
         super(Side.SHADOW, CardType.CONDITION, 1, Culture.GOLLUM, null, "Let Her Deal With Them");
+    }
+
+    @Override
+    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, Filter additionalAttachmentFilter, int twilightModifier) {
+        return super.checkPlayRequirements(playerId, game, self, additionalAttachmentFilter, twilightModifier)
+                && PlayConditions.canSpot(game, Filters.gollumOrSmeagol);
     }
 
     @Override
