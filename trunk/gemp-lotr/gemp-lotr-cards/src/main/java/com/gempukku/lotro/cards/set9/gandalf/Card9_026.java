@@ -43,10 +43,10 @@ public class Card9_026 extends AbstractCompanion {
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if ((TriggerConditions.played(game, effectResult, self) || effectResult.getType() == EffectResult.Type.START_OF_TURN)
-                && self.getData() == null) {
-            self.storeData(new Object());
+                && game.getModifiersQuerying().getUntilEndOfTurnLimitCounter(self).getUsedLimit() < 1) {
             game.getModifiersEnvironment().addUntilEndOfTurnModifier(
                     new MoveLimitModifier(self, 1));
+            game.getModifiersQuerying().getUntilEndOfTurnLimitCounter(self).incrementToLimit(1, 1);
         }
         if (effectResult.getType() == EffectResult.Type.WHEN_FELLOWSHIP_MOVES
                 && PlayConditions.isPhase(game, Phase.REGROUP)) {

@@ -10,7 +10,6 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
-import com.gempukku.lotro.logic.modifiers.evaluator.ConstantEvaluator;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.List;
@@ -35,8 +34,8 @@ public class Card1_342 extends AbstractSite {
                 && game.getModifiersQuerying().getUntilEndOfTurnLimitCounter(self).getUsedLimit() < 1
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Keyword.RANGER)) {
             game.getModifiersEnvironment().addUntilEndOfTurnModifier(
-                    new MoveLimitModifier(self, null,
-                            new CardTurnLimitEvaluator(game, self, 1, new ConstantEvaluator(1))));
+                    new MoveLimitModifier(self, 1));
+            game.getModifiersQuerying().getUntilEndOfTurnLimitCounter(self).incrementToLimit(1, 1);
         }
         return null;
     }
