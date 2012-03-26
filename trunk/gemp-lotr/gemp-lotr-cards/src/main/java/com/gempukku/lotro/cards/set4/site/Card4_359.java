@@ -9,6 +9,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.effects.AddTwilightEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
 import java.util.Collections;
 import java.util.List;
@@ -26,17 +27,21 @@ public class Card4_359 extends AbstractSite {
     }
 
     @Override
-    public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         if (TriggerConditions.startOfPhase(game, effectResult, Phase.SHADOW)
-                && self.getData() == null
+                && game.getModifiersQuerying().getUntilEndOfTurnLimitCounter(self).getUsedLimit() < 1
                 && game.getGameState().getTwilightPool() < 9) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new AddTwilightEffect(self, 4));
+            action.appendEffect(
+                    new UnrespondableEffect() {
+                        @Override
+                        protected void doPlayEffect(LotroGame game) {
+                            game.getModifiersQuerying().getUntilEndOfTurnLimitCounter(self).incrementToLimit(1, 1);
+                        }
+                    });
             return Collections.singletonList(action);
-        }
-        if (TriggerConditions.endOfPhase(game, effectResult, Phase.SHADOW)) {
-            self.storeData(new Object());
         }
         return null;
     }

@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set7.sauron;
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddTokenEffect;
-import com.gempukku.lotro.cards.effects.CheckLimitEffect;
+import com.gempukku.lotro.cards.effects.CheckPhaseLimitEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromHandEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndRemoveCultureTokensFromCardEffect;
@@ -48,7 +48,7 @@ public class Card7_281 extends AbstractPermanent {
             action.appendCost(
                     new ChooseAndRemoveCultureTokensFromCardEffect(self, playerId, Token.SAURON, 1, CardType.CONDITION));
             action.appendEffect(
-                    new CheckLimitEffect(action, self, 2, Phase.SKIRMISH,
+                    new CheckPhaseLimitEffect(action, self, 2, Phase.SKIRMISH,
                             new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, 1, Culture.SAURON, Race.ORC)));
             return Collections.singletonList(action);
         }

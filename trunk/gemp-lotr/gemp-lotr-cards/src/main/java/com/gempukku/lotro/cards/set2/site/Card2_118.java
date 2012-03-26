@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set2.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
+import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Culture;
@@ -43,7 +44,7 @@ public class Card2_118 extends AbstractSite {
                                 new Filter() {
                                     @Override
                                     public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                        return gameState.getCurrentPhase() == Phase.SHADOW && (self.getData() == null);
+                                        return gameState.getCurrentPhase() == Phase.SHADOW && modifiersQuerying.getUntilEndOfPhaseLimitCounter(self, Phase.SHADOW).getUsedLimit() < 1;
                                     }
                                 }
                         ), -2));
@@ -52,12 +53,8 @@ public class Card2_118 extends AbstractSite {
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.played(game, effectResult, Filters.and(Culture.MORIA, Keyword.ARCHER))
-                && game.getGameState().getCurrentPhase() == Phase.SHADOW
-                && game.getGameState().getCurrentSite() == self)
-            self.storeData(new Object());
-        if (TriggerConditions.endOfPhase(game, effectResult, Phase.SHADOW)
-                && self.getData() != null)
-            self.removeData();
+                && PlayConditions.isPhase(game, Phase.SHADOW))
+            game.getModifiersQuerying().getUntilEndOfPhaseLimitCounter(self, Phase.SHADOW).incrementToLimit(1, 1);
         return null;
     }
 }

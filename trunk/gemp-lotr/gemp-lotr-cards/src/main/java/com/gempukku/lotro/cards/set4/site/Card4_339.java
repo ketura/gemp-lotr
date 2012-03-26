@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set4.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.CheckLimitEffect;
+import com.gempukku.lotro.cards.effects.CheckPhaseLimitEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromDeckEffect;
 import com.gempukku.lotro.common.*;
@@ -36,7 +36,7 @@ public class Card4_339 extends AbstractSite {
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Culture.ROHAN, Race.MAN));
             action.appendEffect(
-                    new CheckLimitEffect(action, self, 1, Phase.FELLOWSHIP,
+                    new CheckPhaseLimitEffect(action, self, 1, Phase.FELLOWSHIP,
                             new ChooseAndPlayCardFromDeckEffect(playerId, Culture.ROHAN, PossessionClass.MOUNT)));
             return Collections.singletonList(action);
         }

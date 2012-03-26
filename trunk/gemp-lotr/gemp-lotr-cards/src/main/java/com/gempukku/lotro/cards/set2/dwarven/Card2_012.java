@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set2.dwarven;
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
-import com.gempukku.lotro.cards.effects.CheckLimitEffect;
+import com.gempukku.lotro.cards.effects.CheckPhaseLimitEffect;
 import com.gempukku.lotro.cards.effects.DiscardTopCardFromDeckEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -44,12 +44,12 @@ public class Card2_012 extends AbstractPermanent {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard dwarf) {
                             action.appendEffect(
-                                    new CheckLimitEffect(action, self, 3, Phase.SKIRMISH,
+                                    new CheckPhaseLimitEffect(action, self, 3, Phase.SKIRMISH,
                                             new AddUntilEndOfPhaseModifierEffect(
                                                     new StrengthModifier(self, Filters.sameCard(dwarf), 1), Phase.SKIRMISH)));
                             if (PlayConditions.location(game, Keyword.UNDERGROUND))
                                 action.appendEffect(
-                                        new CheckLimitEffect(action, self, 3, Phase.SKIRMISH,
+                                        new CheckPhaseLimitEffect(action, self, 3, Phase.SKIRMISH,
                                                 new AddUntilEndOfPhaseModifierEffect(
                                                         new KeywordModifier(self, Filters.sameCard(dwarf), Keyword.DAMAGE), Phase.SKIRMISH)));
                         }

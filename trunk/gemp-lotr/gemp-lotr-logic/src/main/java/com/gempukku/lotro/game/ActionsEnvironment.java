@@ -1,6 +1,8 @@
 package com.gempukku.lotro.game;
 
+import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
@@ -39,5 +41,9 @@ public interface ActionsEnvironment {
 
     public List<PhysicalCard> getPlayedCardsInCurrentPhase();
 
-    public boolean hasWonSkirmishThisTurn(PhysicalCard card);
+    public boolean hasWonSkirmishThisTurn(LotroGame game, Filterable... filters);
+
+    public boolean hasLostSkirmishThisTurn(LotroGame game, Filterable... filters);
+
+    public boolean wasAssignedThisTurn(LotroGame game, Filterable... filters);
 }

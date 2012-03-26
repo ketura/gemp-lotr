@@ -4,8 +4,6 @@ import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.game.PhysicalCard;
 
 public interface ModifiersEnvironment {
-    public LimitCounter getUntilEndOfPhaseLimitCounter(PhysicalCard card, Phase phase);
-
     public ModifierHook addAlwaysOnModifier(Modifier modifier);
 
     public void addUntilStartOfPhaseModifier(Modifier modifier, Phase phase);

@@ -50,15 +50,15 @@ public class Card12_054 extends AbstractMinion {
                 new Filter() {
                     @Override
                     public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                        return self.getData() != null && physicalCard.getBlueprint().getCulture() == (Culture) self.getData();
+                        return self.getWhileInZoneData() != null && physicalCard.getBlueprint().getCulture() == (Culture) self.getWhileInZoneData();
                     }
                 }), -1);
     }
 
     @Override
     public String getDisplayableInformation(PhysicalCard self) {
-        if (self.getData() != null)
-            return "Chosen culture is " + ((Culture) self.getData()).getHumanReadable();
+        if (self.getWhileInZoneData() != null)
+            return "Chosen culture is " + ((Culture) self.getWhileInZoneData()).getHumanReadable();
         return null;
     }
 
@@ -76,7 +76,7 @@ public class Card12_054 extends AbstractMinion {
                             new MultipleChoiceAwaitingDecision(1, "Choose a culture", possibleCultures.toArray(new String[possibleCultures.size()])) {
                                 @Override
                                 protected void validDecisionMade(int index, String result) {
-                                    self.storeData(Culture.findCultureByHumanReadable(result));
+                                    self.setWhileInZoneData(Culture.findCultureByHumanReadable(result));
                                 }
                             }));
             return Collections.singletonList(action);

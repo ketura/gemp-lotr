@@ -47,7 +47,7 @@ public class Card5_102 extends AbstractPermanent {
                         new Filter() {
                             @Override
                             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                return self.getData() == null;
+                                return modifiersQuerying.getUntilEndOfTurnLimitCounter(self).getUsedLimit() < 1;
                             }
                         }),
                 new LocationCondition(Filters.siteNumber(4), Filters.siteBlock(Block.TWO_TOWERS)), -3);
@@ -57,7 +57,7 @@ public class Card5_102 extends AbstractPermanent {
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.played(game, effectResult, Culture.SAURON, Race.ORC)
                 && Filters.and(Filters.siteNumber(4), Filters.siteBlock(Block.TWO_TOWERS)).accepts(game.getGameState(), game.getModifiersQuerying(), game.getGameState().getCurrentSite()))
-            self.storeData(new Object());
+            game.getModifiersQuerying().getUntilEndOfTurnLimitCounter(self).incrementToLimit(1, 1);
         return null;
     }
 

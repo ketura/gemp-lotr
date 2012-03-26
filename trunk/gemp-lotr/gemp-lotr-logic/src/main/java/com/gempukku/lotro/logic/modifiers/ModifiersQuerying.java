@@ -13,6 +13,10 @@ import java.util.Map;
 import java.util.Set;
 
 public interface ModifiersQuerying {
+    public LimitCounter getUntilEndOfPhaseLimitCounter(PhysicalCard card, Phase phase);
+
+    public LimitCounter getUntilEndOfTurnLimitCounter(PhysicalCard card);
+
     public Collection<Modifier> getModifiersAffecting(GameState gameState, PhysicalCard card);
 
     public boolean hasTextRemoved(GameState gameState, PhysicalCard card);

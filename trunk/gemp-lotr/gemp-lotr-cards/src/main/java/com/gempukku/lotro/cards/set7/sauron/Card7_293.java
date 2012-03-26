@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set7.sauron;
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
-import com.gempukku.lotro.cards.modifiers.evaluator.CardLimitEvaluator;
+import com.gempukku.lotro.cards.modifiers.evaluator.CardPhaseLimitEvaluator;
 import com.gempukku.lotro.cards.modifiers.evaluator.CountActiveEvaluator;
 import com.gempukku.lotro.cards.modifiers.evaluator.NegativeEvaluator;
 import com.gempukku.lotro.common.CardType;
@@ -54,7 +54,7 @@ public class Card7_293 extends AbstractMinion {
                                     new AddUntilEndOfPhaseModifierEffect(
                                             new StrengthModifier(self, card, null,
                                                     new NegativeEvaluator(
-                                                            new CardLimitEvaluator(game, self, Phase.SKIRMISH, 3,
+                                                            new CardPhaseLimitEvaluator(game, self, Phase.SKIRMISH, 3,
                                                                     new CountActiveEvaluator(Filters.not(self), Culture.SAURON, Race.ORC)))), Phase.SKIRMISH));
                         }
                     });

@@ -46,7 +46,7 @@ public class Card19_039 extends AbstractMinion {
                 new Filter() {
                     @Override
                     public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                        final Set<Integer> data = (Set<Integer>) self.getData();
+                        final Set<Integer> data = (Set<Integer>) self.getWhileInZoneData();
                         if (data == null)
                             return false;
                         return data.contains(physicalCard.getCardId());
@@ -67,7 +67,7 @@ public class Card19_039 extends AbstractMinion {
             Set<Integer> data = (Set<Integer>) self.getData();
             if (data == null) {
                 data = new HashSet<Integer>();
-                self.storeData(data);
+                self.setWhileInZoneData(data);
             }
             for (PhysicalCard physicalCard : ((AssignmentResult) effectResult).getAgainst())
                 data.add(physicalCard.getCardId());

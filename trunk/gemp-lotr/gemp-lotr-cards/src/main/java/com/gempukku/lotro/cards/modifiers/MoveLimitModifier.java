@@ -6,21 +6,27 @@ import com.gempukku.lotro.logic.modifiers.AbstractModifier;
 import com.gempukku.lotro.logic.modifiers.Condition;
 import com.gempukku.lotro.logic.modifiers.ModifierEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.logic.modifiers.evaluator.ConstantEvaluator;
+import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 
 public class MoveLimitModifier extends AbstractModifier {
-    private int _moveLimitModifier;
+    private Evaluator _moveLimitModifier;
 
     public MoveLimitModifier(PhysicalCard source, int moveLimitModifier) {
         this(source, null, moveLimitModifier);
     }
 
     public MoveLimitModifier(PhysicalCard source, Condition condition, int moveLimitModifier) {
-        super(source, "Move limit " + ((moveLimitModifier < 0) ? moveLimitModifier : ("+" + moveLimitModifier)), null, condition, ModifierEffect.MOVE_LIMIT_MODIFIER);
+        this(source, condition, new ConstantEvaluator(moveLimitModifier));
+    }
+
+    public MoveLimitModifier(PhysicalCard source, Condition condition, Evaluator moveLimitModifier) {
+        super(source, null, null, condition, ModifierEffect.MOVE_LIMIT_MODIFIER);
         _moveLimitModifier = moveLimitModifier;
     }
 
     @Override
     public int getMoveLimitModifier(GameState gameState, ModifiersQuerying modifiersQuerying) {
-        return _moveLimitModifier;
+        return _moveLimitModifier.evaluateExpression(gameState, modifiersQuerying, null);
     }
 }

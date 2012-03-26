@@ -1,6 +1,8 @@
 package com.gempukku.lotro.game.state.actions;
 
+import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
@@ -11,6 +13,8 @@ import com.gempukku.lotro.logic.timing.ActionStack;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.processes.GatherPlayableActionsFromDiscardVisitor;
+import com.gempukku.lotro.logic.timing.results.AssignmentResult;
+import com.gempukku.lotro.logic.timing.results.CharacterLostSkirmishResult;
 import com.gempukku.lotro.logic.timing.results.CharacterWonSkirmishResult;
 import com.gempukku.lotro.logic.timing.results.PlayCardResult;
 import com.gempukku.lotro.logic.timing.rules.CharacterDeathRule;
@@ -30,7 +34,9 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
 
     private Set<EffectResult> _effectResults = new HashSet<EffectResult>();
 
-    private Set<Integer> _wonSkirmishesInTurn = new HashSet<Integer>();
+    private Set<PhysicalCard> _wonSkirmishesInTurn = new HashSet<PhysicalCard>();
+    private Set<PhysicalCard> _lostSkirmishesInTurn = new HashSet<PhysicalCard>();
+    private Set<PhysicalCard> _assignedInTurn = new HashSet<PhysicalCard>();
 
     public DefaultActionsEnvironment(LotroGame lotroGame, ActionStack actionStack) {
         _lotroGame = lotroGame;
@@ -53,11 +59,34 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
                     public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult) {
                         if (effectResult.getType() == EffectResult.Type.CHARACTER_WON_SKIRMISH) {
                             final CharacterWonSkirmishResult winResult = (CharacterWonSkirmishResult) effectResult;
-                            _wonSkirmishesInTurn.add(winResult.getWinner().getCardId());
+                            _wonSkirmishesInTurn.add(winResult.getWinner());
                         }
                         return null;
                     }
                 });
+        addAlwaysOnActionProxy(
+                new AbstractActionProxy() {
+                    @Override
+                    public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult) {
+                        if (effectResult.getType() == EffectResult.Type.CHARACTER_LOST_SKIRMISH) {
+                            final CharacterLostSkirmishResult winResult = (CharacterLostSkirmishResult) effectResult;
+                            _lostSkirmishesInTurn.add(winResult.getLoser());
+                        }
+                        return null;
+                    }
+                });
+        addAlwaysOnActionProxy(
+                new AbstractActionProxy() {
+                    @Override
+                    public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult) {
+                        if (effectResult.getType() == EffectResult.Type.CHARACTER_ASSIGNED) {
+                            AssignmentResult assignmentResult = (AssignmentResult) effectResult;
+                            _assignedInTurn.add(assignmentResult.getAssignedCard());
+                        }
+                        return null;
+                    }
+                }
+        );
     }
 
     @Override
@@ -100,6 +129,8 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
         _actionProxies.removeAll(_untilEndOfTurnActionProxies);
         _untilEndOfTurnActionProxies.clear();
         _wonSkirmishesInTurn.clear();
+        _lostSkirmishesInTurn.clear();
+        _assignedInTurn.clear();
     }
 
     @Override
@@ -309,8 +340,18 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
     }
 
     @Override
-    public boolean hasWonSkirmishThisTurn(PhysicalCard card) {
-        return _wonSkirmishesInTurn.contains(card.getCardId());
+    public boolean hasWonSkirmishThisTurn(LotroGame game, Filterable... filters) {
+        return Filters.filter(_wonSkirmishesInTurn, game.getGameState(), game.getModifiersQuerying(), filters).size() > 0;
+    }
+
+    @Override
+    public boolean hasLostSkirmishThisTurn(LotroGame game, Filterable... filters) {
+        return Filters.filter(_lostSkirmishesInTurn, game.getGameState(), game.getModifiersQuerying(), filters).size() > 0;
+    }
+
+    @Override
+    public boolean wasAssignedThisTurn(LotroGame game, Filterable... filters) {
+        return Filters.filter(_assignedInTurn, game.getGameState(), game.getModifiersQuerying(), filters).size() > 0;
     }
 
     private class GatherRequiredAfterTriggers extends CompletePhysicalCardVisitor {

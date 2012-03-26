@@ -5,7 +5,7 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
 import com.gempukku.lotro.cards.modifiers.ArcheryTotalModifier;
-import com.gempukku.lotro.cards.modifiers.evaluator.CardLimitEvaluator;
+import com.gempukku.lotro.cards.modifiers.evaluator.CardPhaseLimitEvaluator;
 import com.gempukku.lotro.cards.modifiers.evaluator.CountActiveEvaluator;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -43,7 +43,7 @@ public class Card6_080 extends AbstractMinion {
                     new RemoveTwilightEffect(3));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new ArcheryTotalModifier(self, Side.SHADOW, null, new CardLimitEvaluator(game, self, Phase.ARCHERY, 4, new CountActiveEvaluator(4, (Integer) null, CardType.COMPANION))), Phase.ARCHERY));
+                            new ArcheryTotalModifier(self, Side.SHADOW, null, new CardPhaseLimitEvaluator(game, self, Phase.ARCHERY, 4, new CountActiveEvaluator(4, (Integer) null, CardType.COMPANION))), Phase.ARCHERY));
             return Collections.singletonList(action);
         }
         return null;

@@ -41,7 +41,7 @@ public class Card1_338 extends AbstractSite {
                         new Filter() {
                             @Override
                             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                return (self.getData() == null);
+                                return modifiersQuerying.getUntilEndOfTurnLimitCounter(self).getUsedLimit() < 1;
                             }
                         }), -5);
     }
@@ -50,7 +50,7 @@ public class Card1_338 extends AbstractSite {
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.played(game, effectResult, Race.NAZGUL)
                 && PlayConditions.location(game, self))
-            self.storeData(new Object());
+            game.getModifiersQuerying().getUntilEndOfTurnLimitCounter(self).incrementToLimit(1, 1);
         return null;
     }
 }

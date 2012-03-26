@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set7.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.CheckLimitEffect;
+import com.gempukku.lotro.cards.effects.CheckPhaseLimitEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromDeckEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -30,7 +30,7 @@ public class Card7_329 extends AbstractSite {
                 && PlayConditions.canSpot(game, Race.DWARF)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
-                    new CheckLimitEffect(action, self, 1, Phase.FELLOWSHIP,
+                    new CheckPhaseLimitEffect(action, self, 1, Phase.FELLOWSHIP,
                             new ChooseAndPlayCardFromDeckEffect(playerId, Culture.DWARVEN, CardType.CONDITION)));
             return Collections.singletonList(action);
         }

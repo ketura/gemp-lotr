@@ -18,22 +18,33 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
 
     private Set<Modifier> _skipSet = new HashSet<Modifier>();
 
-    private Map<Phase, Map<Integer, LimitCounter>> _counters = new HashMap<Phase, Map<Integer, LimitCounter>>();
+    private Map<Phase, Map<Integer, LimitCounter>> _phaseLimitCounters = new HashMap<Phase, Map<Integer, LimitCounter>>();
+    private Map<Integer, LimitCounter> _turnLimitCounters = new HashMap<Integer, LimitCounter>();
 
     private int _drawnThisPhaseCount = 0;
     private Map<Integer, Integer> _woundsPerPhaseMap = new HashMap<Integer, Integer>();
 
     @Override
     public LimitCounter getUntilEndOfPhaseLimitCounter(PhysicalCard card, Phase phase) {
-        Map<Integer, LimitCounter> limitCounterMap = _counters.get(phase);
+        Map<Integer, LimitCounter> limitCounterMap = _phaseLimitCounters.get(phase);
         if (limitCounterMap == null) {
             limitCounterMap = new HashMap<Integer, LimitCounter>();
-            _counters.put(phase, limitCounterMap);
+            _phaseLimitCounters.put(phase, limitCounterMap);
         }
         LimitCounter limitCounter = limitCounterMap.get(card.getCardId());
         if (limitCounter == null) {
             limitCounter = new DefaultLimitCounter();
             limitCounterMap.put(card.getCardId(), limitCounter);
+        }
+        return limitCounter;
+    }
+
+    @Override
+    public LimitCounter getUntilEndOfTurnLimitCounter(PhysicalCard card) {
+        LimitCounter limitCounter = _turnLimitCounters.get(card.getCardId());
+        if (limitCounter == null) {
+            limitCounter = new DefaultLimitCounter();
+            _turnLimitCounters.put(card.getCardId(), limitCounter);
         }
         return limitCounter;
     }
@@ -117,7 +128,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
             removeModifiers(list);
             list.clear();
         }
-        Map<Integer, LimitCounter> counterMap = _counters.get(phase);
+        Map<Integer, LimitCounter> counterMap = _phaseLimitCounters.get(phase);
         if (counterMap != null)
             counterMap.clear();
 
@@ -136,6 +147,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     public void removeEndOfTurn() {
         removeModifiers(_untilEndOfTurnModifiers);
         _untilEndOfTurnModifiers.clear();
+        _turnLimitCounters.clear();
     }
 
     @Override

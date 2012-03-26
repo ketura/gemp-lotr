@@ -4,7 +4,7 @@ import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddTokenEffect;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
-import com.gempukku.lotro.cards.effects.CheckLimitEffect;
+import com.gempukku.lotro.cards.effects.CheckPhaseLimitEffect;
 import com.gempukku.lotro.cards.effects.RemoveTokenEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.modifiers.ArcheryTotalModifier;
@@ -52,7 +52,7 @@ public class Card8_013 extends AbstractPermanent {
             action.appendCost(
                     new RemoveTokenEffect(self, self, Token.ELVEN));
             action.appendEffect(
-                    new CheckLimitEffect(action, self, 2, Phase.ARCHERY,
+                    new CheckPhaseLimitEffect(action, self, 2, Phase.ARCHERY,
                             new AddUntilEndOfPhaseModifierEffect(
                                     new ArcheryTotalModifier(self, Side.FREE_PEOPLE, 1), Phase.ARCHERY)));
             return Collections.singletonList(action);

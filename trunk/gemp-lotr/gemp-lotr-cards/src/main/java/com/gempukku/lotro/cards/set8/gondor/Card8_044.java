@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set8.gondor;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.CheckLimitEffect;
+import com.gempukku.lotro.cards.effects.CheckPhaseLimitEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromDiscardEffect;
 import com.gempukku.lotro.common.*;
@@ -38,7 +38,7 @@ public class Card8_044 extends AbstractPermanent {
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Culture.GONDOR, Race.MAN));
             action.appendEffect(
-                    new CheckLimitEffect(action, self, 1, Phase.REGROUP,
+                    new CheckPhaseLimitEffect(action, self, 1, Phase.REGROUP,
                             new ChooseAndPlayCardFromDiscardEffect(playerId, game, Culture.GONDOR, Keyword.FORTIFICATION)));
             return Collections.singletonList(action);
         }
