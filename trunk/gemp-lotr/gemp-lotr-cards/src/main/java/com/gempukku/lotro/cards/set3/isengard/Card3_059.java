@@ -35,7 +35,8 @@ public class Card3_059 extends AbstractMinion {
 
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
-        if (TriggerConditions.isGettingWounded(effect, game, Culture.ISENGARD, Race.ORC)) {
+        if (TriggerConditions.isGettingWounded(effect, game, Culture.ISENGARD, Race.ORC)
+                && game.getGameState().getTwilightPool() >= 2) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new RemoveTwilightEffect(2));
