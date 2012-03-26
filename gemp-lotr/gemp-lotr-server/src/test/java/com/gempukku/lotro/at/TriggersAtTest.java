@@ -3,20 +3,20 @@ package com.gempukku.lotro.at;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Zone;
+import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.AwaitingDecision;
 import com.gempukku.lotro.logic.decisions.AwaitingDecisionType;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertTrue;
 import org.junit.Test;
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertTrue;
 
 public class TriggersAtTest extends AbstractAtTest {
     @Test
@@ -223,14 +223,38 @@ public class TriggersAtTest extends AbstractAtTest {
         // End shadow phase
         playerDecided(P2, "");
 
+        // End regroup phase
+        playerDecided(P1, "");
+        playerDecided(P2, "");
+
+        playerDecided(P1, "1");
+
+        // Reconcile
+        playerDecided(P1, "");
+
+        playerDecided(P2, "");
+        playerDecided(P1, "");
+        playerDecided(P2, "");
+        playerDecided(P1, "");
+
+        // Reconcile
+        playerDecided(P1, "");
+
+        playerDecided(P2, "1");
+
+        playerDecided(P1, "");
+        playerDecided(P2, "");
+
         final AwaitingDecision regroupActionDecision = _userFeedback.getAwaitingDecision(P1);
         assertEquals(AwaitingDecisionType.CARD_ACTION_CHOICE, regroupActionDecision.getDecisionType());
         validateContents(new String[]{"" + traveledLeader.getCardId()}, (String[]) regroupActionDecision.getDecisionParameters().get("cardId"));
 
         playerDecided(P1, "0");
 
-        playerDecided(P1, "" + mountDoom.getCardId());
+        PhysicalCard siteOne = _game.getGameState().getSite(1);
 
-        assertEquals(mountDoom, _game.getGameState().getSite(2));
+        playerDecided(P1, "" + siteOne.getCardId());
+
+        assertEquals(siteOne, _game.getGameState().getSite(1));
     }
 }
