@@ -64,7 +64,7 @@ public class Card19_039 extends AbstractMinion {
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.assignedAgainst(game, effectResult, null, Filters.any, self)) {
-            Set<Integer> data = (Set<Integer>) self.getData();
+            Set<Integer> data = (Set<Integer>) self.getWhileInZoneData();
             if (data == null) {
                 data = new HashSet<Integer>();
                 self.setWhileInZoneData(data);

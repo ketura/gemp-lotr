@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set1.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.effects.CheckTurnLimitEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromDeckEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -30,11 +31,11 @@ public class Card1_348 extends AbstractSite {
     @Override
     public List<? extends Action> getPhaseActions(final String playerId, final LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseSiteDuringPhase(game, Phase.SHADOW, self)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Culture.ISENGARD, CardType.MINION)
-                && self.getData() == null) {
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Culture.ISENGARD, CardType.MINION)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
-                    new ChooseAndPlayCardFromDeckEffect(playerId, Keyword.WEATHER));
+                    new CheckTurnLimitEffect(action, self, 1,
+                            new ChooseAndPlayCardFromDeckEffect(playerId, Keyword.WEATHER)));
             return Collections.singletonList(action);
         }
         return null;
