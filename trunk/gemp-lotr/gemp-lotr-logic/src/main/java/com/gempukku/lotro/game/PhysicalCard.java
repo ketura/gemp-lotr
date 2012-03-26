@@ -20,12 +20,6 @@ public interface PhysicalCard extends Filterable {
 
     public PhysicalCard getStackedOn();
 
-    public void storeData(Object object);
-
-    public Object getData();
-
-    public void removeData();
-
     public void setWhileInZoneData(Object object);
 
     public Object getWhileInZoneData();

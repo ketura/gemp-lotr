@@ -24,8 +24,6 @@ public class PhysicalCardImpl implements PhysicalCard {
     private List<ModifierHook> _modifierHooksInDiscard;
     private List<ModifierHook> _modifierHooksControlledSite;
 
-    private Object _data;
-
     private Object _whileInZoneData;
 
     private Integer _siteNumber;
@@ -163,21 +161,6 @@ public class PhysicalCardImpl implements PhysicalCard {
     @Override
     public PhysicalCard getStackedOn() {
         return _stackedOn;
-    }
-
-    @Override
-    public void storeData(Object object) {
-        _data = object;
-    }
-
-    @Override
-    public Object getData() {
-        return _data;
-    }
-
-    @Override
-    public void removeData() {
-        _data = null;
     }
 
     @Override
