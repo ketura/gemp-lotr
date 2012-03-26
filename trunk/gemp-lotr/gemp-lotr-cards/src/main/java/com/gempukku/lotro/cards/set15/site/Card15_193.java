@@ -6,6 +6,7 @@ import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
@@ -28,7 +29,7 @@ public class Card15_193 extends AbstractNewSite {
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (self.getWhileInZoneData() == null) {
-            int region = 1 + ((self.getSiteNumber() - 1) / 3);
+            int region = GameUtils.getRegion(self.getSiteNumber());
             self.setWhileInZoneData(new Object());
             game.getModifiersEnvironment().addAlwaysOnModifier(
                     new CantReplaceSiteModifier(self, null, Filters.region(region)));
