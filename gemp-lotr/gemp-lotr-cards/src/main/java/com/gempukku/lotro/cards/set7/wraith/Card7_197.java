@@ -2,7 +2,6 @@ package com.gempukku.lotro.cards.set7.wraith;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
@@ -57,7 +56,7 @@ public class Card7_197 extends AbstractMinion {
                                 new Condition() {
                                     @Override
                                     public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                        return self.getData() == null;
+                                        return self.getWhileInZoneData() == null;
                                     }
                                 }), self));
     }
@@ -81,7 +80,7 @@ public class Card7_197 extends AbstractMinion {
                                                 new UnrespondableEffect() {
                                                     @Override
                                                     protected void doPlayEffect(LotroGame game) {
-                                                        self.storeData(new Object());
+                                                        self.setWhileInZoneData(new Object());
                                                     }
                                                 });
                                     }
@@ -89,8 +88,6 @@ public class Card7_197 extends AbstractMinion {
                             }));
             return Collections.singletonList(action);
         }
-        if (TriggerConditions.endOfPhase(game, effectResult, Phase.ASSIGNMENT))
-            self.removeData();
         return null;
     }
 

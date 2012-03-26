@@ -27,10 +27,10 @@ public class Card7_334 extends AbstractSite {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (self.getData() == null) {
-            self.storeData(new Object());
+        if (game.getModifiersQuerying().getUntilEndOfTurnLimitCounter(self).getUsedLimit() < 1) {
             game.getModifiersEnvironment().addUntilEndOfTurnModifier(
                     new KeywordModifier(self, Filters.and(Culture.GONDOR, CardType.COMPANION), Keyword.DEFENDER, 1));
+            game.getModifiersQuerying().getUntilEndOfTurnLimitCounter(self).incrementToLimit(1, 1);
         }
         return null;
     }

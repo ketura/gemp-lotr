@@ -2,13 +2,11 @@ package com.gempukku.lotro.cards.set7.wraith;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.modifiers.FreePeoplePlayerMayNotAssignCharacterModifier;
 import com.gempukku.lotro.cards.modifiers.conditions.AndCondition;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
@@ -52,7 +50,7 @@ public class Card7_200 extends AbstractMinion {
                                 new Condition() {
                                     @Override
                                     public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                        return self.getData() == null;
+                                        return self.getWhileInZoneData() == null;
                                     }
                                 }), self));
     }
@@ -74,7 +72,7 @@ public class Card7_200 extends AbstractMinion {
                                                 new UnrespondableEffect() {
                                                     @Override
                                                     protected void doPlayEffect(LotroGame game) {
-                                                        self.storeData(new Object());
+                                                        self.setWhileInZoneData(new Object());
                                                     }
                                                 });
                                     }
@@ -82,8 +80,6 @@ public class Card7_200 extends AbstractMinion {
                             }));
             return Collections.singletonList(action);
         }
-        if (TriggerConditions.endOfPhase(game, effectResult, Phase.ASSIGNMENT))
-            self.removeData();
         return null;
     }
 }
