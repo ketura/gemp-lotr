@@ -2,7 +2,6 @@ package com.gempukku.lotro.cards.set1.sauron;
 
 import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.AttachPermanentAction;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
@@ -13,7 +12,6 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.results.AssignmentResult;
 
 import java.util.Collections;
 import java.util.List;
@@ -53,15 +51,9 @@ public class Card1_279 extends AbstractAttachable {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (TriggerConditions.assignedAgainst(game, effectResult, null, Filters.any, CardType.COMPANION)) {
-            AssignmentResult assignmentResult = (AssignmentResult) effectResult;
-            if (assignmentResult.getAssignedCard() == self.getAttachedTo())
-                self.storeData(true);
-            else if (self.getData() == null)
-                self.storeData(false);
-        }
         if (effectResult.getType() == EffectResult.Type.END_OF_TURN
-                && self.getData() != null && (!((Boolean) self.getData()))) {
+                && !game.getActionsEnvironment().wasAssignedThisTurn(game, self)
+                && game.getActionsEnvironment().wasAssignedThisTurn(game, CardType.COMPANION)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new AddBurdenEffect(self, 1));

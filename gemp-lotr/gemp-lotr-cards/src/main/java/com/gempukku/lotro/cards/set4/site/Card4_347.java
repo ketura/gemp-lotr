@@ -40,7 +40,7 @@ public class Card4_347 extends AbstractSite {
                         new Filter() {
                             @Override
                             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                return gameState.getCurrentSite() == self && (self.getData() == null);
+                                return gameState.getCurrentSite() == self && modifiersQuerying.getUntilEndOfTurnLimitCounter(self).getUsedLimit() < 1;
                             }
                         }), -3);
     }
@@ -49,7 +49,7 @@ public class Card4_347 extends AbstractSite {
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.played(game, effectResult, Race.URUK_HAI)
                 && game.getGameState().getCurrentSite() == self)
-            self.storeData(new Object());
+            game.getModifiersQuerying().getUntilEndOfTurnLimitCounter(self).incrementToLimit(1, 1);
         return null;
     }
 }

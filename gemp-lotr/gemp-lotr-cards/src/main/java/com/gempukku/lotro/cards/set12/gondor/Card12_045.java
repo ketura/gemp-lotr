@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set12.gondor;
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
-import com.gempukku.lotro.cards.effects.CheckLimitEffect;
+import com.gempukku.lotro.cards.effects.CheckPhaseLimitEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -38,7 +38,7 @@ public class Card12_045 extends AbstractPermanent {
             action.appendCost(
                     new AddTwilightEffect(self, 2));
             action.appendEffect(
-                    new CheckLimitEffect(action, self, 1,
+                    new CheckPhaseLimitEffect(action, self, 1,
                             new AddUntilStartOfPhaseModifierEffect(
                                     new StrengthModifier(self, Filters.unboundCompanion, 1), Phase.REGROUP)));
             return Collections.singletonList(action);

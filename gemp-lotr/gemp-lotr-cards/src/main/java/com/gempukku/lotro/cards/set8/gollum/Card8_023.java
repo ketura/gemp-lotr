@@ -5,7 +5,7 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddTokenEffect;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.RemoveTokenEffect;
-import com.gempukku.lotro.cards.modifiers.evaluator.CardLimitEvaluator;
+import com.gempukku.lotro.cards.modifiers.evaluator.CardPhaseLimitEvaluator;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -58,7 +58,7 @@ public class Card8_023 extends AbstractPermanent {
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
                             new StrengthModifier(self, Filters.name("Shelob"), null,
-                                    new CardLimitEvaluator(game, self, Phase.SKIRMISH, 6,
+                                    new CardPhaseLimitEvaluator(game, self, Phase.SKIRMISH, 6,
                                             new ConstantEvaluator(3))), Phase.SKIRMISH));
             return Collections.singletonList(action);
         }

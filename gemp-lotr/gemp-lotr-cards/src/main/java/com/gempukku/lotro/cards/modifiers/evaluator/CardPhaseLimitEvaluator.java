@@ -8,7 +8,7 @@ import com.gempukku.lotro.logic.modifiers.LimitCounter;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 
-public class CardLimitEvaluator implements Evaluator {
+public class CardPhaseLimitEvaluator implements Evaluator {
     private Integer _evaluated;
 
     private Evaluator _evaluator;
@@ -18,7 +18,7 @@ public class CardLimitEvaluator implements Evaluator {
     private Phase _phase;
     private int _limit;
 
-    public CardLimitEvaluator(LotroGame game, PhysicalCard source, Phase phase, int limit, Evaluator evaluator) {
+    public CardPhaseLimitEvaluator(LotroGame game, PhysicalCard source, Phase phase, int limit, Evaluator evaluator) {
         _game = game;
         _source = source;
         _phase = phase;
@@ -27,7 +27,7 @@ public class CardLimitEvaluator implements Evaluator {
     }
 
     private int evaluateOnce(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard cardAffected) {
-        LimitCounter limitCounter = _game.getModifiersEnvironment().getUntilEndOfPhaseLimitCounter(_source, _phase);
+        LimitCounter limitCounter = modifiersQuerying.getUntilEndOfPhaseLimitCounter(_source, _phase);
         int internalResult = _evaluator.evaluateExpression(gameState, modifiersQuerying, cardAffected);
         return limitCounter.incrementToLimit(_limit, internalResult);
     }

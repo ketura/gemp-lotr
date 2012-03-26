@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set5.dwarven;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.CheckLimitEffect;
+import com.gempukku.lotro.cards.effects.CheckPhaseLimitEffect;
 import com.gempukku.lotro.cards.effects.PutCardFromStackedIntoHandEffect;
 import com.gempukku.lotro.cards.effects.StackTopCardsFromDeckEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardStackedCardsEffect;
@@ -41,7 +41,7 @@ public class Card5_009 extends AbstractPermanent {
             {
                 ActivateCardAction action = new ActivateCardAction(self);
                 action.appendEffect(
-                        new CheckLimitEffect(action, self, 1, Phase.MANEUVER,
+                        new CheckPhaseLimitEffect(action, self, 1, Phase.MANEUVER,
                                 new StackTopCardsFromDeckEffect(self, playerId, 1, self)));
                 actions.add(action);
             }

@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set11.elven;
 
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
 import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.CheckLimitEffect;
+import com.gempukku.lotro.cards.effects.CheckPhaseLimitEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -53,7 +53,7 @@ public class Card11_023 extends AbstractAttachableFPPossession {
                 if (playedCard != null && Filters.and(Culture.ELVEN, Filters.or(CardType.CONDITION, CardType.EVENT)).accepts(game.getGameState(), game.getModifiersQuerying(), playedCard)) {
                     OptionalTriggerAction action = new OptionalTriggerAction(self);
                     action.appendEffect(
-                            new CheckLimitEffect(action, self, 1,
+                            new CheckPhaseLimitEffect(action, self, 1,
                                     new HealCharactersEffect(self, self.getAttachedTo())));
                     return Collections.singletonList(action);
                 }

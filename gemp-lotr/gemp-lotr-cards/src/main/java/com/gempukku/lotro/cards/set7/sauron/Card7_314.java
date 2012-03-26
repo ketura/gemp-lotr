@@ -4,7 +4,7 @@ import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.AddTokenEffect;
-import com.gempukku.lotro.cards.effects.CheckLimitEffect;
+import com.gempukku.lotro.cards.effects.CheckPhaseLimitEffect;
 import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -37,7 +37,7 @@ public class Card7_314 extends AbstractPermanent {
         if (TriggerConditions.winsSkirmish(game, effectResult, Filters.owner(playerId), Culture.SAURON, CardType.MINION)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
-                    new CheckLimitEffect(action, self, 1, Phase.REGROUP,
+                    new CheckPhaseLimitEffect(action, self, 1, Phase.REGROUP,
                             new AddTokenEffect(self, self, Token.SAURON)));
             return Collections.singletonList(action);
         }

@@ -5,7 +5,7 @@ import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.ExtraFilters;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.AttachPermanentAction;
-import com.gempukku.lotro.cards.effects.CheckLimitEffect;
+import com.gempukku.lotro.cards.effects.CheckPhaseLimitEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
@@ -57,7 +57,7 @@ public class Card4_365 extends AbstractCompanion {
                                 AttachPermanentAction attachPermanentAction = ((AbstractAttachable) selectedCard.getBlueprint()).getPlayCardAction(playerId, game, selectedCard, additionalAttachmentFilter, 0);
                                 game.getActionsEnvironment().addActionToStack(attachPermanentAction);
                                 action.appendEffect(
-                                        new CheckLimitEffect(action, self, 1, Phase.FELLOWSHIP,
+                                        new CheckPhaseLimitEffect(action, self, 1, Phase.FELLOWSHIP,
                                                 new AppendHealTargetEffect(action, attachPermanentAction)));
                             }
                         }

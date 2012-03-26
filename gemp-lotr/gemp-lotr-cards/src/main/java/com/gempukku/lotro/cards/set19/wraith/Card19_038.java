@@ -46,15 +46,15 @@ public class Card19_038 extends AbstractMinion {
                     @Override
                     public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
                         final Race race = physicalCard.getBlueprint().getRace();
-                        return self.getData() != null && self.getData() == race;
+                        return self.getWhileInZoneData() != null && self.getWhileInZoneData() == race;
                     }
                 }), self);
     }
 
     @Override
     public String getDisplayableInformation(PhysicalCard self) {
-        if (self.getData() != null)
-            return "Chosen race is " + ((Race) self.getData()).getHumanReadable();
+        if (self.getWhileInZoneData() != null)
+            return "Chosen race is " + ((Race) self.getWhileInZoneData()).getHumanReadable();
         return null;
     }
 
@@ -72,7 +72,7 @@ public class Card19_038 extends AbstractMinion {
                             new MultipleChoiceAwaitingDecision(1, "Choose a race", possibleRaces.toArray(new String[possibleRaces.size()])) {
                                 @Override
                                 protected void validDecisionMade(int index, String result) {
-                                    self.storeData(Race.findRaceByHumanReadable(result));
+                                    self.setWhileInZoneData(Race.findRaceByHumanReadable(result));
                                 }
                             }));
             return Collections.singletonList(action);

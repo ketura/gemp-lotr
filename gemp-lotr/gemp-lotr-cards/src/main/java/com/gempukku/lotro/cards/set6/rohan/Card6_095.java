@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set6.rohan;
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
-import com.gempukku.lotro.cards.modifiers.evaluator.CardLimitEvaluator;
+import com.gempukku.lotro.cards.modifiers.evaluator.CardPhaseLimitEvaluator;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
@@ -52,7 +52,7 @@ public class Card6_095 extends AbstractCompanion {
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
                             new StrengthModifier(self, self, null,
-                                    new CardLimitEvaluator(game, self, Phase.SKIRMISH, 3, new ConstantEvaluator(3))), Phase.SKIRMISH));
+                                    new CardPhaseLimitEvaluator(game, self, Phase.SKIRMISH, 3, new ConstantEvaluator(3))), Phase.SKIRMISH));
             return Collections.singletonList(action);
         }
         return null;

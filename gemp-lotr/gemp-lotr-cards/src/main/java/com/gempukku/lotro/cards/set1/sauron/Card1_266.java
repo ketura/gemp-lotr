@@ -1,6 +1,8 @@
 package com.gempukku.lotro.cards.set1.sauron;
 
 import com.gempukku.lotro.cards.AbstractMinion;
+import com.gempukku.lotro.cards.TriggerConditions;
+import com.gempukku.lotro.cards.effects.CheckTurnLimitEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
@@ -9,8 +11,6 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.effects.AddTwilightEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.UnrespondableEffect;
-import com.gempukku.lotro.logic.timing.results.PlayCardResult;
 
 import java.util.Collections;
 import java.util.List;
@@ -33,25 +33,12 @@ public class Card1_266 extends AbstractMinion {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, final PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.PLAY) {
-            PlayCardResult playCardResult = (PlayCardResult) effectResult;
-            PhysicalCard playedCard = playCardResult.getPlayedCard();
-            if (playCardResult.getAttachedTo() == self
-                    && self.getData() == null
-                    && Filters.weapon.accepts(game.getGameState(), game.getModifiersQuerying(), playedCard)
-                    ) {
-                RequiredTriggerAction action = new RequiredTriggerAction(self);
-                action.appendEffect(
-                        new AddTwilightEffect(self, 2));
-                action.appendEffect(
-                        new UnrespondableEffect() {
-                            @Override
-                            public void doPlayEffect(LotroGame game) {
-                                self.storeData(new Object());
-                            }
-                        });
-                return Collections.singletonList(action);
-            }
+        if (TriggerConditions.playedOn(game, effectResult, self, Filters.owner(self.getOwner()), Filters.weapon)) {
+            RequiredTriggerAction action = new RequiredTriggerAction(self);
+            action.appendEffect(
+                    new CheckTurnLimitEffect(action, self, 1,
+                            new AddTwilightEffect(self, 2)));
+            return Collections.singletonList(action);
         }
         return null;
     }

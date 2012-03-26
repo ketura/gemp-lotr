@@ -2,12 +2,14 @@ package com.gempukku.lotro.cards.set1.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.cards.modifiers.MoveLimitModifier;
+import com.gempukku.lotro.cards.modifiers.evaluator.CardTurnLimitEvaluator;
 import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
+import com.gempukku.lotro.logic.modifiers.evaluator.ConstantEvaluator;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.List;
@@ -26,11 +28,11 @@ public class Card1_327 extends AbstractSite {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (self.getData() == null
+        if (game.getModifiersQuerying().getUntilEndOfTurnLimitCounter(self).getUsedLimit() < 1
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Keyword.RANGER)) {
-            self.storeData(new Object());
             game.getModifiersEnvironment().addUntilEndOfTurnModifier(
-                    new MoveLimitModifier(self, 1));
+                    new MoveLimitModifier(self, null,
+                            new CardTurnLimitEvaluator(game, self, 1, new ConstantEvaluator(1))));
         }
         return null;
     }

@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set7.raider;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.CheckLimitEffect;
+import com.gempukku.lotro.cards.effects.CheckPhaseLimitEffect;
 import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -35,7 +35,7 @@ public class Card7_130 extends AbstractPermanent {
             action.appendCost(
                     new RemoveTwilightEffect(3));
             action.appendEffect(
-                    new CheckLimitEffect(action, self, 1, Phase.REGROUP,
+                    new CheckPhaseLimitEffect(action, self, 1, Phase.REGROUP,
                             new AddThreatsEffect(playerId, self, 1)));
             return Collections.singletonList(action);
         }

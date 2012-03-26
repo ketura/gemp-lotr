@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set1.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
+import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.modifiers.conditions.PhaseCondition;
 import com.gempukku.lotro.common.Block;
@@ -42,15 +43,16 @@ public class Card1_350 extends AbstractSite {
                         new Filter() {
                             @Override
                             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                return (self.getData() == null);
+                                return modifiersQuerying.getUntilEndOfPhaseLimitCounter(self, Phase.SHADOW).getUsedLimit() < 1;
                             }
                         }), new PhaseCondition(Phase.SHADOW), -2);
     }
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (TriggerConditions.played(game, effectResult, Filters.and(Culture.MORIA, Race.ORC)))
-            self.storeData(new Object());
+        if (TriggerConditions.played(game, effectResult, Filters.and(Culture.MORIA, Race.ORC))
+                && PlayConditions.isPhase(game, Phase.SHADOW))
+            game.getModifiersQuerying().getUntilEndOfPhaseLimitCounter(self, Phase.SHADOW).incrementToLimit(1, 1);
         return null;
     }
 }

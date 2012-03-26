@@ -4,7 +4,7 @@ import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
-import com.gempukku.lotro.cards.modifiers.evaluator.CardLimitEvaluator;
+import com.gempukku.lotro.cards.modifiers.evaluator.CardPhaseLimitEvaluator;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
@@ -44,7 +44,7 @@ public class Card1_153 extends AbstractMinion {
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
                             new StrengthModifier(self, self, null,
-                                    new CardLimitEvaluator(game, self, Phase.SKIRMISH, 3,
+                                    new CardPhaseLimitEvaluator(game, self, Phase.SKIRMISH, 3,
                                             new ConstantEvaluator(1))), Phase.SKIRMISH));
 
             return Collections.singletonList(action);
