@@ -3,11 +3,11 @@ package com.gempukku.lotro.logic.effects;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filter;
+import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.results.DiscardCardsFromPlayResult;
 
@@ -42,12 +42,9 @@ public class DiscardCardsFromPlayEffect extends AbstractPreventableCardEffect {
 
     @Override
     protected Filter getExtraAffectableFilter() {
-        return new Filter() {
-            @Override
-            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                return (_source == null || modifiersQuerying.canBeDiscardedFromPlay(gameState, physicalCard, _source));
-            }
-        };
+        if (_source == null)
+            return Filters.any;
+        return Filters.canBeDiscarded(_source);
     }
 
     public String getPerformingPlayer() {

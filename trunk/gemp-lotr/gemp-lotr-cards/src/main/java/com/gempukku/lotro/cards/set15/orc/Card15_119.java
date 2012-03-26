@@ -4,7 +4,6 @@ import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.PreventableEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
@@ -14,6 +13,8 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.effects.AddTwilightEffect;
+import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
+import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 
 /**
@@ -38,22 +39,24 @@ public class Card15_119 extends AbstractEvent {
 
     @Override
     public PlayEventAction getPlayCardAction(String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
-        PlayEventAction action = new PlayEventAction(self);
+        final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
-                new PreventableEffect(action,
-                        new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Side.FREE_PEOPLE, CardType.CONDITION) {
-                            @Override
-                            public String getText(LotroGame game) {
-                                return "Discard a Free Peoples condition";
-                            }
-                        }, game.getGameState().getCurrentPlayerId(),
-                        new PreventableEffect.PreventionCost() {
-                            @Override
-                            public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
-                                return new AddTwilightEffect(self, 2 * Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Side.FREE_PEOPLE, CardType.CONDITION));
-                            }
-                        }
-                ));
+                new ChooseActiveCardEffect(self, playerId, "Choose a card to discard", Side.FREE_PEOPLE, CardType.CONDITION, Filters.canBeDiscarded(self)) {
+                    @Override
+                    protected void cardSelected(final LotroGame game, PhysicalCard card) {
+                        action.appendEffect(
+                                new PreventableEffect(action,
+                                        new DiscardCardsFromPlayEffect(self, card),
+                                        game.getGameState().getCurrentPlayerId(),
+                                        new PreventableEffect.PreventionCost() {
+                                            @Override
+                                            public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
+                                                return new AddTwilightEffect(self, 2 * Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Side.FREE_PEOPLE, CardType.CONDITION));
+                                            }
+                                        }
+                                ));
+                    }
+                });
         return action;
     }
 }
