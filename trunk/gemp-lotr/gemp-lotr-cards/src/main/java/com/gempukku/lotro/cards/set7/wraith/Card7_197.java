@@ -70,12 +70,13 @@ public class Card7_197 extends AbstractMinion {
             final int count = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Race.NAZGUL);
             action.appendCost(
                     new PlayoutDecisionEffect(game.getGameState().getCurrentPlayerId(),
-                            new MultipleChoiceAwaitingDecision(1, "Do you wish to exert " + count + " companions to be able to assign this minion?", new String[]{"Yes", "No"}) {
+                            new MultipleChoiceAwaitingDecision(1, "Do you wish to exert a companion for each Nazgul you can spot (" + count + ") to be able to assign this minion?", new String[]{"Yes", "No"}) {
                                 @Override
                                 protected void validDecisionMade(int index, String result) {
                                     if (index == 0) {
-                                        action.appendCost(
-                                                new ChooseAndExertCharactersEffect(action, game.getGameState().getCurrentPlayerId(), count, count, CardType.COMPANION));
+                                        for (int i = 0; i < count; i++)
+                                            action.appendCost(
+                                                    new ChooseAndExertCharactersEffect(action, game.getGameState().getCurrentPlayerId(), 1, 1, CardType.COMPANION));
                                         action.appendEffect(
                                                 new UnrespondableEffect() {
                                                     @Override
