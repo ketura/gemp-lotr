@@ -786,17 +786,26 @@ public class GameState {
         return _fierceSkirmishes;
     }
 
-    public boolean isCardInPlayActive(PhysicalCard card) {
+    private boolean isCardInPlayActive(PhysicalCard card) {
         Side side = card.getBlueprint().getSide();
         // Either it's not attached or attached to active card
         // AND is a site or fp/ring of current player or shadow of any other player
-        return (card.getBlueprint().getCardType() == CardType.SITE && _currentPhase != Phase.PUT_RING_BEARER && _currentPhase != Phase.PLAY_STARTING_FELLOWSHIP)
-                || (
-                card.getAttachedTo() == null &&
-                        ((card.getOwner().equals(_currentPlayerId) && (side == Side.FREE_PEOPLE))
-                                || (!card.getOwner().equals(_currentPlayerId) && (side == Side.SHADOW))))
-                || (
-                card.getAttachedTo() != null && isCardInPlayActive(card.getAttachedTo()));
+        if (card.getBlueprint().getCardType() == CardType.SITE)
+            return _currentPhase != Phase.PUT_RING_BEARER && _currentPhase != Phase.PLAY_STARTING_FELLOWSHIP;
+
+        if (card.getBlueprint().getCardType() == CardType.THE_ONE_RING)
+            return card.getOwner().equals(_currentPlayerId);
+
+        if (card.getOwner().equals(_currentPlayerId) && side == Side.SHADOW)
+            return false;
+
+        if (!card.getOwner().equals(_currentPlayerId) && side == Side.FREE_PEOPLE)
+            return false;
+
+        if (card.getAttachedTo() != null)
+            return isCardInPlayActive(card.getAttachedTo());
+
+        return true;
     }
 
     public void startAffectingCardsForCurrentPlayer(LotroGame game) {
