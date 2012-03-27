@@ -406,7 +406,13 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
             for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierEffect.TWILIGHT_COST_MODIFIER, physicalCard)) {
                 result += modifier.getTwilightCostModifier(gameState, this, physicalCard, ignoreRoamingPenalty);
             }
-            return Math.max(0, result);
+            result = Math.max(0, result);
+
+            if (!ignoreRoamingPenalty && hasKeyword(gameState, physicalCard, Keyword.ROAMING)) {
+                int roamingPenalty = getRoamingPenalty(gameState, physicalCard);
+                result += Math.max(0, roamingPenalty);
+            }
+            return result;
         } finally {
             LoggingThreadLocal.logMethodEnd();
         }
