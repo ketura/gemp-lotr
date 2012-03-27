@@ -6,7 +6,9 @@ import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
-import com.gempukku.lotro.logic.modifiers.*;
+import com.gempukku.lotro.logic.modifiers.KeywordModifier;
+import com.gempukku.lotro.logic.modifiers.ModifiersLogic;
+import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
 public class RoamingRule {
     private ModifiersLogic _modifiersLogic;
@@ -25,24 +27,5 @@ public class RoamingRule {
 
         _modifiersLogic.addAlwaysOnModifier(
                 new KeywordModifier(null, roamingFilter, Keyword.ROAMING));
-
-        _modifiersLogic.addAlwaysOnModifier(
-                new AbstractModifier(null, null, Filters.and(CardType.MINION, Keyword.ROAMING), ModifierEffect.TWILIGHT_COST_MODIFIER) {
-                    @Override
-                    public int getTwilightCostModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, boolean ignoreRoamingPenalty) {
-                        if (ignoreRoamingPenalty)
-                            return 0;
-                        return modifiersQuerying.getRoamingPenalty(gameState, physicalCard);
-                    }
-
-                    @Override
-                    public String getText(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
-                        final int value = modifiersQuerying.getRoamingPenalty(gameState, self);
-                        if (value >= 0)
-                            return "Twilight cost +" + value;
-                        else
-                            return "Twilight cost " + value;
-                    }
-                });
     }
 }
