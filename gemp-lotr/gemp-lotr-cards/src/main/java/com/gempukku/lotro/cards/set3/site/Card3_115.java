@@ -1,9 +1,11 @@
 package com.gempukku.lotro.cards.set3.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
+import com.gempukku.lotro.cards.modifiers.conditions.LocationCondition;
 import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.Assignment;
 import com.gempukku.lotro.game.state.GameState;
@@ -36,7 +38,7 @@ public class Card3_115 extends AbstractSite {
     @Override
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
-                new AbstractModifier(self, "No more than one minion may be assigned to each skirmish", null, ModifierEffect.ASSIGNMENT_MODIFIER) {
+                new AbstractModifier(self, "No more than one minion may be assigned to each skirmish", null, new LocationCondition(Filters.name(getName())), ModifierEffect.ASSIGNMENT_MODIFIER) {
                     @Override
                     public boolean isValidAssignments(GameState gameState, Side side, ModifiersQuerying modifiersQuerying, Map<PhysicalCard, Set<PhysicalCard>> assignments) {
                         for (Map.Entry<PhysicalCard, Set<PhysicalCard>> minionsAssignedToCharacter : assignments.entrySet()) {
