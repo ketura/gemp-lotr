@@ -4,7 +4,6 @@ import com.gempukku.lotro.cards.AbstractAlly;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
@@ -14,7 +13,6 @@ import com.gempukku.lotro.logic.effects.PlaySiteEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -53,11 +51,8 @@ public class Card3_017 extends AbstractAlly {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new SelfExertEffect(self));
-            Collection<PhysicalCard> nextSites = Filters.filter(game.getGameState().getAdventureDeck(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.siteNumber(game.getGameState().getCurrentSiteNumber() + 1));
-            if (nextSites.size() > 0 && game.getModifiersQuerying().hasKeyword(game.getGameState(), nextSites.iterator().next(), Keyword.FOREST)) {
-                action.appendEffect(
-                        new PlaySiteEffect(action, playerId, null, game.getGameState().getCurrentSiteNumber() + 1));
-            }
+            action.appendEffect(
+                    new PlaySiteEffect(action, playerId, null, game.getGameState().getCurrentSiteNumber() + 1, Keyword.FOREST));
             return Collections.singletonList(action);
         }
         return null;
