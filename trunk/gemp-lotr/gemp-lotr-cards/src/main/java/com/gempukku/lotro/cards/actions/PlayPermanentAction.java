@@ -37,6 +37,7 @@ public class PlayPermanentAction extends AbstractCostToEffectAction implements D
 
     public PlayPermanentAction(PhysicalCard card, Zone zone, int twilightModifier, boolean ignoreRoamingPenalty) {
         _permanentPlayed = card;
+        setPerformingPlayer(card.getOwner());
         _zone = zone;
         _twilightModifier = twilightModifier;
         _ignoreRoamingPenalty = ignoreRoamingPenalty;
