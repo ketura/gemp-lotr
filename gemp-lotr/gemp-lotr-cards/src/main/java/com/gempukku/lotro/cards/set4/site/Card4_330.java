@@ -2,7 +2,6 @@ package com.gempukku.lotro.cards.set4.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.cards.modifiers.MoveLimitModifier;
-import com.gempukku.lotro.cards.modifiers.evaluator.CardTurnLimitEvaluator;
 import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
