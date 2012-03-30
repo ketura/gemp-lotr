@@ -70,13 +70,13 @@ public class RuleUtils {
         if (skirmish == null)
             return 0;
 
-        final Evaluator overrideEvaluator = skirmish.getFpStrengthOverrideEvaluator();
-        if (overrideEvaluator != null)
-            return overrideEvaluator.evaluateExpression(game.getGameState(), game.getModifiersQuerying(), null);
-
         PhysicalCard fpChar = skirmish.getFellowshipCharacter();
         if (fpChar == null)
             return 0;
+
+        final Evaluator overrideEvaluator = skirmish.getFpStrengthOverrideEvaluator();
+        if (overrideEvaluator != null)
+            return overrideEvaluator.evaluateExpression(game.getGameState(), game.getModifiersQuerying(), fpChar);
 
         return game.getModifiersQuerying().getStrength(game.getGameState(), fpChar);
     }

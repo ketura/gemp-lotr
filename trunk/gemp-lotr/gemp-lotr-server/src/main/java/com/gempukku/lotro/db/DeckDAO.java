@@ -189,8 +189,10 @@ public class DeckDAO {
             String ringBearer = cardsList.get(0);
             String ring = cardsList.get(1);
             final LotroDeck lotroDeck = new LotroDeck();
-            lotroDeck.setRingBearer(ringBearer);
-            lotroDeck.setRing(ring);
+            if (ringBearer.length() > 0)
+                lotroDeck.setRingBearer(ringBearer);
+            if (ring.length() > 0)
+                lotroDeck.setRing(ring);
             for (String blueprintId : cardsList.subList(2, cardsList.size())) {
                 if (_library.getLotroCardBlueprint(blueprintId).getCardType() == CardType.SITE)
                     lotroDeck.addSite(blueprintId);
