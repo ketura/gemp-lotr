@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set2.dwarven;
 import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfTurnModifierEffect;
+import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseOpponentEffect;
@@ -60,7 +61,8 @@ public class Card2_015 extends AbstractOldEvent {
                                     }
                                 });
                         possibleEffects.add(
-                                new SkipNextShadowPhaseChooseableEffect(self, opponentId) {
+                                new AddUntilStartOfPhaseModifierEffect(
+                                        new ShouldSkipPhaseModifier(self, opponentId, null, Phase.SHADOW), Phase.REGROUP) {
                                     @Override
                                     public String getText(LotroGame game) {
                                         return "Skip next Shadow phase";
