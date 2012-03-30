@@ -33,6 +33,22 @@
         "set":[4,5,6]
     },
     {
+        "name": "Towers block - Part 1",
+        "code": "ttt1_block",
+        "sites": "TWO_TOWERS",
+        "cancelRingBearerSkirmish": true,
+        "set":[4],
+        "hall": false
+    },
+    {
+        "name": "Towers block - Part 2",
+        "code": "ttt2_block",
+        "sites": "TWO_TOWERS",
+        "cancelRingBearerSkirmish": true,
+        "set":[4,5],
+        "hall": false
+    },
+    {
         "name": "Towers standard",
         "code":"towers_standard",
         "sites": "TWO_TOWERS",
