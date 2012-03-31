@@ -29,8 +29,11 @@ public class ReflectionsPackBox implements PackBox {
     @Override
     public List<CardCollection.Item> openPack() {
         List<CardCollection.Item> result = new LinkedList<CardCollection.Item>();
-        result.add(new CardCollection.Item(CardCollection.Item.Type.CARD, 1, getRandomReflectionsCard() + "*"));
-        result.add(new CardCollection.Item(CardCollection.Item.Type.CARD, 1, getRandomReflectionsCard() + "*"));
+        boolean foil;
+        foil = _random.nextInt(15) == 0;
+        result.add(new CardCollection.Item(CardCollection.Item.Type.CARD, 1, getRandomReflectionsCard() + (foil ? "*" : "")));
+        foil = _random.nextInt(15) == 0;
+        result.add(new CardCollection.Item(CardCollection.Item.Type.CARD, 1, getRandomReflectionsCard() + (foil ? "*" : "")));
 
         for (int i = 0; i < 16; i++) {
             final String blueprintId = _previousSetCards.get(_random.nextInt(_previousSetCards.size()));
