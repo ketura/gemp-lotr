@@ -2,7 +2,9 @@ package com.gempukku.lotro.cards.set15.site;
 
 import com.gempukku.lotro.cards.AbstractNewSite;
 import com.gempukku.lotro.cards.modifiers.CantReplaceSiteModifier;
+import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -32,7 +34,7 @@ public class Card15_193 extends AbstractNewSite {
             int region = GameUtils.getRegion(self.getSiteNumber());
             self.setWhileInZoneData(new Object());
             game.getModifiersEnvironment().addAlwaysOnModifier(
-                    new CantReplaceSiteModifier(self, null, Filters.region(region)));
+                    new CantReplaceSiteModifier(self, null, Filters.and(CardType.SITE, Zone.ADVENTURE_PATH, Filters.region(region))));
         }
         return null;
     }
