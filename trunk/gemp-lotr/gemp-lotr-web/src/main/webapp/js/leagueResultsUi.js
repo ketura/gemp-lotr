@@ -67,8 +67,8 @@ var LeagueResultsUI = Class.extend({
                     var serieText = serieName + " - " + this.getDateString(serieStart) + " to " + this.getDateString(serieEnd);
                     tabContent.append("<h2 class='serieName'>" + serieText + "</h2>");
 
-                    tabContent.append("<div>Format: " + ((limited == "true") ? "Limited" : "Constructed") + " " + format + "</div>");
-                    tabContent.append("<div>Collection: " + collection + "</div>");
+                    tabContent.append("<div><b>Format:</b> " + ((limited == "true") ? "Limited" : "Constructed") + " " + format + "</div>");
+                    tabContent.append("<div><b>Collection:</b> " + collection + "</div>");
 
                     tabContent.append("<div>Maximum ranked matches in serie: " + maxMatches + "</div>");
 
