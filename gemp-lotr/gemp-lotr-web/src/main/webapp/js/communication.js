@@ -272,6 +272,7 @@ var GempLotrCommunication = Class.extend({
             type: "POST",
             url: this.url + "/deck",
             cache: false,
+            async: false,
             data: {
                 participantId: getUrlParam("participantId"),
                 deckName: deckName,
