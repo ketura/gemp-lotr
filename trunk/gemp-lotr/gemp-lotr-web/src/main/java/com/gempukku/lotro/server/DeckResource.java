@@ -11,6 +11,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -89,7 +90,8 @@ public class DeckResource extends AbstractResource {
     public String getDeckList(
             @QueryParam("deckName") String deckName,
             @QueryParam("participantId") String participantId,
-            @Context HttpServletRequest request) {
+            @Context HttpServletRequest request,
+            @Context HttpServletResponse response) {
         Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
         LotroDeck deck = _deckDao.getDeckForPlayer(resourceOwner, deckName);
@@ -128,6 +130,8 @@ public class DeckResource extends AbstractResource {
             result.append(item.getCount() + "x " + GameUtils.getFullName(_library.getLotroCardBlueprint(item.getBlueprintId())) + "<br/>");
 
         result.append("</body></html>");
+
+        response.setCharacterEncoding("UTF-8");
 
         return result.toString();
     }

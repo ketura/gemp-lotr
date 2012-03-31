@@ -99,7 +99,7 @@ var GempLotrDeckBuildingUI = Class.extend({
         newDeckBut.click(
                 function() {
                     that.deckName = null;
-                    $("#editingDeck").html("New deck");
+                    $("#editingDeck").text("New deck");
                     that.clearDeck();
                 });
 
@@ -147,7 +147,7 @@ var GempLotrDeckBuildingUI = Class.extend({
         copyDeckBut.click(
                 function() {
                     that.deckName = null;
-                    $("#editingDeck").html("New deck");
+                    $("#editingDeck").text("New deck");
                 });
 
         deckListBut.click(
@@ -342,7 +342,7 @@ var GempLotrDeckBuildingUI = Class.extend({
                                                 function() {
                                                     if (that.deckName == deckName) {
                                                         that.deckName = null;
-                                                        $("#editingDeck").html("New deck");
+                                                        $("#editingDeck").text("New deck");
                                                         that.clearDeck();
                                                     }
 
@@ -538,6 +538,7 @@ var GempLotrDeckBuildingUI = Class.extend({
             alert("Deck must contain at least Ring-bearer, The One Ring and 9 sites");
         else
             this.comm.saveDeck(this.deckName, deckContents, function(xml) {
+                that.deckModified(false);
                 alert("Deck was saved");
             });
     },
@@ -561,6 +562,7 @@ var GempLotrDeckBuildingUI = Class.extend({
             that.showNormalFilter();
             that.layoutSpecialGroups();
             that.deckDirty = true;
+            that.deckModified(true);
         };
     },
 
@@ -584,6 +586,15 @@ var GempLotrDeckBuildingUI = Class.extend({
             div.addClass("cardInDeck");
             that.siteGroup.layoutCards();
         }
+        that.deckModified(true);
+    },
+
+    deckModified: function(value) {
+        var name = (this.deckName == null) ? "New deck" : this.deckName;
+        if (value)
+            $("#editingDeck").text(name + " - modified");
+        else
+            $("#editingDeck").text(name);
     },
 
     addCardToDeck: function(blueprintId, side) {
@@ -663,6 +674,7 @@ var GempLotrDeckBuildingUI = Class.extend({
 
         this.layoutDeck();
         this.deckDirty = true;
+        this.deckModified(true);
     },
 
     clearDeck: function() {
@@ -705,6 +717,7 @@ var GempLotrDeckBuildingUI = Class.extend({
 
             this.cardFilter.getCollection();
         }
+        this.deckModified(false);
     },
 
     clearCollection: function() {
