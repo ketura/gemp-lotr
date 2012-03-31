@@ -25,7 +25,7 @@ import com.gempukku.lotro.logic.modifiers.SpotCondition;
  */
 public class Card17_124 extends AbstractMinion {
     public Card17_124() {
-        super(5, 10, 3, 5, Race.URUK_HAI, Culture.URUK_HAI, "White Hand Destroyer", true);
+        super(5, 10, 3, 5, Race.URUK_HAI, Culture.URUK_HAI, "White Hand Destroyer", null, true);
         addKeyword(Keyword.FIERCE);
     }
 

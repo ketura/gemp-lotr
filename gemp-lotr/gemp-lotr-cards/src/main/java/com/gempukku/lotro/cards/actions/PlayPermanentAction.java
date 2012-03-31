@@ -77,7 +77,7 @@ public class PlayPermanentAction extends AbstractCostToEffectAction implements D
 
     @Override
     public String getText(LotroGame game) {
-        return "Play " + _permanentPlayed.getBlueprint().getName();
+        return "Play " + GameUtils.getFullName(_permanentPlayed);
     }
 
     @Override

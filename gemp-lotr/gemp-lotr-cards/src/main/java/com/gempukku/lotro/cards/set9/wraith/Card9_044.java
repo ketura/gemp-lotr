@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class Card9_044 extends AbstractAttachable {
     public Card9_044() {
-        super(Side.SHADOW, CardType.ARTIFACT, 0, Culture.WRAITH, PossessionClass.RING, "Ring of Rancor", true);
+        super(Side.SHADOW, CardType.ARTIFACT, 0, Culture.WRAITH, PossessionClass.RING, "Ring of Rancor", null, true);
     }
 
     @Override

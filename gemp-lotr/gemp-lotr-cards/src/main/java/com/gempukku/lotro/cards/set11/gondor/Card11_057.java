@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card11_057 extends AbstractCompanion {
     public Card11_057() {
-        super(3, 7, 3, 5, Culture.GONDOR, Race.MAN, null, "Boromir", true);
+        super(3, 7, 3, 5, Culture.GONDOR, Race.MAN, null, "Boromir", "Hero of Osgiliath", true);
         addKeyword(Keyword.KNIGHT);
     }
 

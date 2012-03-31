@@ -24,7 +24,7 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
  */
 public class Card15_030 extends AbstractCompanion {
     public Card15_030() {
-        super(7, 8, 4, 6, Culture.GANDALF, Race.ENT, null, "Leaflock", true);
+        super(7, 8, 4, 6, Culture.GANDALF, Race.ENT, null, "Leaflock", "Finglas", true);
     }
 
     @Override

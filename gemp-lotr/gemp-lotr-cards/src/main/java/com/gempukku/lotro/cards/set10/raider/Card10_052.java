@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card10_052 extends AbstractPermanent {
     public Card10_052() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.RAIDER, Zone.SUPPORT, "Under Foot", true);
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.RAIDER, Zone.SUPPORT, "Under Foot", null, true);
     }
 
     @Override

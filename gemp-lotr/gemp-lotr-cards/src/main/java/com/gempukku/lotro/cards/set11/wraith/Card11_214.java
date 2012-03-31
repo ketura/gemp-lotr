@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card11_214 extends AbstractAttachable {
     public Card11_214() {
-        super(Side.SHADOW, CardType.POSSESSION, 2, Culture.WRAITH, PossessionClass.HAND_WEAPON, "The Pale Blade", true);
+        super(Side.SHADOW, CardType.POSSESSION, 2, Culture.WRAITH, PossessionClass.HAND_WEAPON, "The Pale Blade", "Sword of Flame", true);
     }
 
     @Override

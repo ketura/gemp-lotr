@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card5_081 extends AbstractAlly {
     public Card5_081() {
-        super(1, Block.TWO_TOWERS, 4, 4, 2, Race.MAN, Culture.ROHAN, "Ecglaf", true);
+        super(1, Block.TWO_TOWERS, 4, 4, 2, Race.MAN, Culture.ROHAN, "Ecglaf", "Courageous Farmer", true);
         addKeyword(Keyword.VILLAGER);
     }
 

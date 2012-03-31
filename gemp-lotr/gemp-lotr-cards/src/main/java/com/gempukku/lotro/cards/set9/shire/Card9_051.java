@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class Card9_051 extends AbstractAlly {
     public Card9_051() {
-        super(3, Block.FELLOWSHIP, 2, 4, 6, null, Culture.SHIRE, "Goldberry", true);
+        super(3, Block.FELLOWSHIP, 2, 4, 6, null, Culture.SHIRE, "Goldberry", "River-daughter", true);
     }
 
     @Override

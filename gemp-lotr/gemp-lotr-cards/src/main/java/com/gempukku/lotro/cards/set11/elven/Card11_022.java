@@ -1,21 +1,21 @@
 package com.gempukku.lotro.cards.set11.elven;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
-import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Race;
-import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Race;
+import com.gempukku.lotro.filters.Filters;
+import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.filters.Filters;
 
-import java.util.List;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * Set: Shadows
@@ -30,7 +30,7 @@ import java.util.Collections;
  */
 public class Card11_022 extends AbstractCompanion {
     public Card11_022() {
-        super(2, 6, 3, 7, Culture.ELVEN, Race.ELF, null, "Legolas", true);
+        super(2, 6, 3, 7, Culture.ELVEN, Race.ELF, null, "Legolas", "Woodland Emissary", true);
     }
 
     @Override

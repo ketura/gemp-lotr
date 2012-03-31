@@ -23,7 +23,7 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
  */
 public class Card11_172 extends AbstractCompanion {
     public Card11_172() {
-        super(2, 3, 4, 10, Culture.SHIRE, Race.HOBBIT, null, "Sam", true);
+        super(2, 3, 4, 10, Culture.SHIRE, Race.HOBBIT, null, "Sam", "Steadfast Friend", true);
         addKeyword(Keyword.RING_BOUND);
     }
 

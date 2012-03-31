@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card18_041 extends AbstractPermanent {
     public Card18_041() {
-        super(Side.FREE_PEOPLE, 4, CardType.ARTIFACT, Culture.GONDOR, Zone.SUPPORT, "Crown of Gondor", true);
+        super(Side.FREE_PEOPLE, 4, CardType.ARTIFACT, Culture.GONDOR, Zone.SUPPORT, "Crown of Gondor", null, true);
     }
 
     @Override

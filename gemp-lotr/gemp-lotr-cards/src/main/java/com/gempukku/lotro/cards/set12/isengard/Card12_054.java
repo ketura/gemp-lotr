@@ -38,7 +38,7 @@ import java.util.Set;
  */
 public class Card12_054 extends AbstractMinion {
     public Card12_054() {
-        super(4, 8, 4, 4, Race.WIZARD, Culture.ISENGARD, "Saruman", true);
+        super(4, 8, 4, 4, Race.WIZARD, Culture.ISENGARD, "Saruman", "Of Many Colours", true);
         addKeyword(Keyword.DAMAGE, 1);
         addKeyword(Keyword.FIERCE);
         addKeyword(Keyword.LURKER);

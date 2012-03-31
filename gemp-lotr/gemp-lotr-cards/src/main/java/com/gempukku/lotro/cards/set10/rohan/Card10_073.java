@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class Card10_073 extends AbstractPermanent {
     public Card10_073() {
-        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.ROHAN, Zone.SUPPORT, "Fell Deeds Awake", true);
+        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.ROHAN, Zone.SUPPORT, "Fell Deeds Awake", null, true);
     }
 
     @Override

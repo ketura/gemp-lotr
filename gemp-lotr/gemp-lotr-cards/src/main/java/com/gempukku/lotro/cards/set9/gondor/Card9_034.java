@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class Card9_034 extends AbstractAttachableFPPossession {
     public Card9_034() {
-        super(2, 0, 1, Culture.GONDOR, CardType.ARTIFACT, PossessionClass.HAND_WEAPON, "Narsil", true);
+        super(2, 0, 1, Culture.GONDOR, CardType.ARTIFACT, PossessionClass.HAND_WEAPON, "Narsil", "Blade of the Faithful", true);
     }
 
     @Override

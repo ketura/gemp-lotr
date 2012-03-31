@@ -10,6 +10,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.effects.AssignmentEffect;
 import com.gempukku.lotro.logic.modifiers.Modifier;
@@ -30,7 +31,7 @@ import java.util.List;
  */
 public class Card7_126 extends AbstractAttachable {
     public Card7_126() {
-        super(Side.FREE_PEOPLE, CardType.CONDITION, 2, Culture.GONDOR, null, "Unexpected Visitor", true);
+        super(Side.FREE_PEOPLE, CardType.CONDITION, 2, Culture.GONDOR, null, "Unexpected Visitor", null, true);
     }
 
     @Override
@@ -46,7 +47,7 @@ public class Card7_126 extends AbstractAttachable {
                     protected ActivateCardAction createExtraPhaseAction(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard matchingCard) {
                         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.ASSIGNMENT, matchingCard)) {
                             ActivateCardAction action = new ActivateCardAction(matchingCard);
-                            action.setText("Assign to " + self.getAttachedTo().getBlueprint().getName());
+                            action.setText("Assign to " + GameUtils.getFullName(self.getAttachedTo()));
                             action.appendEffect(
                                     new AssignmentEffect(matchingCard.getOwner(), self.getAttachedTo(), matchingCard));
                             return action;

@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card15_016 extends AbstractPermanent {
     public Card15_016() {
-        super(Side.FREE_PEOPLE, 2, CardType.ARTIFACT, Culture.ELVEN, Zone.SUPPORT, "Gift of the Evenstar", true);
+        super(Side.FREE_PEOPLE, 2, CardType.ARTIFACT, Culture.ELVEN, Zone.SUPPORT, "Gift of the Evenstar", "Blessed Light", true);
     }
 
     @Override

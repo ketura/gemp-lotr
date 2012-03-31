@@ -23,7 +23,7 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
  */
 public class Card13_184 extends AbstractMinion {
     public Card13_184() {
-        super(4, 9, 2, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Nertëa", true);
+        super(4, 9, 2, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Nertëa", "Servant of the Shadow", true);
         addKeyword(Keyword.FIERCE);
     }
 

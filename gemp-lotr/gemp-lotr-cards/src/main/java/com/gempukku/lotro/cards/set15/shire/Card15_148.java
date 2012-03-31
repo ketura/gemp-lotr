@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class Card15_148 extends AbstractPermanent {
     public Card15_148() {
-        super(Side.FREE_PEOPLE, 3, CardType.CONDITION, Culture.SHIRE, Zone.SUPPORT, "Little Golden Flower", true);
+        super(Side.FREE_PEOPLE, 3, CardType.CONDITION, Culture.SHIRE, Zone.SUPPORT, "Little Golden Flower", null, true);
     }
 
     @Override

@@ -34,7 +34,7 @@ import java.util.List;
  */
 public class Card9_037 extends AbstractPermanent {
     public Card9_037() {
-        super(Side.FREE_PEOPLE, 0, CardType.ARTIFACT, Culture.GONDOR, Zone.SUPPORT, "Seeing Stone of Minas Anor", true);
+        super(Side.FREE_PEOPLE, 0, CardType.ARTIFACT, Culture.GONDOR, Zone.SUPPORT, "Seeing Stone of Minas Anor", null, true);
     }
 
     @Override

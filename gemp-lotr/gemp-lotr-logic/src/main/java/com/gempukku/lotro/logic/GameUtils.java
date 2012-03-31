@@ -13,6 +13,17 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import java.util.*;
 
 public class GameUtils {
+    public static String getFullName(PhysicalCard card) {
+        LotroCardBlueprint blueprint = card.getBlueprint();
+        return getFullName(blueprint);
+    }
+
+    public static String getFullName(LotroCardBlueprint blueprint) {
+        if (blueprint.getSubtitle() != null)
+            return blueprint.getName() + ", " + blueprint.getSubtitle();
+        return blueprint.getName();
+    }
+
     public static String[] getOpponents(LotroGame game, String playerId) {
         List<String> shadowPlayers = new LinkedList<String>(game.getGameState().getPlayerOrder().getAllPlayers());
         shadowPlayers.remove(playerId);
@@ -44,13 +55,13 @@ public class GameUtils {
 
     public static String getCardLink(PhysicalCard card) {
         LotroCardBlueprint blueprint = card.getBlueprint();
-        return "<div class='cardHint' value='" + card.getBlueprintId() + "'>" + (blueprint.isUnique() ? "•" : "") + blueprint.getName() + "</div>";
+        return "<div class='cardHint' value='" + card.getBlueprintId() + "'>" + (blueprint.isUnique() ? "•" : "") + GameUtils.getFullName(blueprint) + "</div>";
     }
 
     public static String getAppendedTextNames(Collection<PhysicalCard> cards) {
         StringBuilder sb = new StringBuilder();
         for (PhysicalCard card : cards)
-            sb.append(card.getBlueprint().getName() + ", ");
+            sb.append(GameUtils.getFullName(card) + ", ");
 
         if (sb.length() == 0)
             return "none";

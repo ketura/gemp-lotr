@@ -18,7 +18,7 @@ import com.gempukku.lotro.common.Race;
  */
 public class Card0_065 extends AbstractCompanion {
     public Card0_065() {
-        super(3, 7, 3, 6, Culture.GONDOR, Race.MAN, null, "Boromir", true);
+        super(3, 7, 3, 6, Culture.GONDOR, Race.MAN, null, "Boromir", "Steward's Heir", true);
         addKeyword(Keyword.KNIGHT);
         addKeyword(Keyword.RANGER);
         addKeyword(Keyword.RING_BOUND);

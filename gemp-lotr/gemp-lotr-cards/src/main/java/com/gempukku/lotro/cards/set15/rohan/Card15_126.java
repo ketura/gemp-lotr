@@ -25,7 +25,7 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
  */
 public class Card15_126 extends AbstractCompanion {
     public Card15_126() {
-        super(2, 6, 3, 6, Culture.ROHAN, Race.MAN, null, "Gamling", true);
+        super(2, 6, 3, 6, Culture.ROHAN, Race.MAN, null, "Gamling", "The Old", true);
         addKeyword(Keyword.VALIANT);
         addKeyword(Keyword.HUNTER, 1);
     }

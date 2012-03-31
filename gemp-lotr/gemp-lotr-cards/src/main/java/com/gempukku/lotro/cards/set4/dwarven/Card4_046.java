@@ -33,7 +33,7 @@ import java.util.List;
  */
 public class Card4_046 extends AbstractPermanent {
     public Card4_046() {
-        super(Side.FREE_PEOPLE, 3, CardType.CONDITION, Culture.DWARVEN, Zone.SUPPORT, "Ever My Heart Rises", true);
+        super(Side.FREE_PEOPLE, 3, CardType.CONDITION, Culture.DWARVEN, Zone.SUPPORT, "Ever My Heart Rises", null, true);
         addKeyword(Keyword.TALE);
     }
 

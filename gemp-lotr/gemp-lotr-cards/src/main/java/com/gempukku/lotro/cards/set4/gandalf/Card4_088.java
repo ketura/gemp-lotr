@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card4_088 extends AbstractPermanent {
     public Card4_088() {
-        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.GANDALF, Zone.SUPPORT, "Behold the White Rider", true);
+        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.GANDALF, Zone.SUPPORT, "Behold the White Rider", null, true);
     }
 
     @Override

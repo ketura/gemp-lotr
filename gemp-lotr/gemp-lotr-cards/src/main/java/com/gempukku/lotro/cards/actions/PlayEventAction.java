@@ -44,7 +44,7 @@ public class PlayEventAction extends AbstractCostToEffectAction implements Disco
 
         _playCardEffect = new PlayEventEffect(this, card.getZone(), card, requiresRanger);
 
-        _text = "Play " + _eventPlayed.getBlueprint().getName();
+        _text = "Play " + GameUtils.getFullName(_eventPlayed);
     }
 
     public PhysicalCard getEventPlayed() {

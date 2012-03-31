@@ -35,7 +35,7 @@ import java.util.List;
  */
 public class Card18_116 extends AbstractAttachable {
     public Card18_116() {
-        super(Side.SHADOW, CardType.CONDITION, 0, Culture.URUK_HAI, null, "Fury of the Evil Army", true);
+        super(Side.SHADOW, CardType.CONDITION, 0, Culture.URUK_HAI, null, "Fury of the Evil Army", null, true);
     }
 
     @Override

@@ -10,6 +10,7 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.decisions.MultipleChoiceAwaitingDecision;
 import com.gempukku.lotro.logic.effects.AddTwilightEffect;
 import com.gempukku.lotro.logic.effects.DiscardCardsFromHandEffect;
@@ -57,7 +58,7 @@ public class Card3_033 extends AbstractOldEvent {
                                             final PhysicalCard revealedCard = revealedCards.iterator().next();
                                             action.insertEffect(
                                                     new PlayoutDecisionEffect(playerId,
-                                                            new MultipleChoiceAwaitingDecision(1, "Do you wish to discard " + revealedCard.getBlueprint().getName(), new String[]{"Yes", "No"}) {
+                                                            new MultipleChoiceAwaitingDecision(1, "Do you wish to discard " + GameUtils.getFullName(revealedCard), new String[]{"Yes", "No"}) {
                                                                 @Override
                                                                 protected void validDecisionMade(int index, String result) {
                                                                     if (result.equals("Yes")) {

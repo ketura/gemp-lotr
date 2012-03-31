@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card7_122 extends AbstractPermanent {
     public Card7_122() {
-        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.GONDOR, Zone.SUPPORT, "Strong and Old", true);
+        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.GONDOR, Zone.SUPPORT, "Strong and Old", null, true);
     }
 
     @Override

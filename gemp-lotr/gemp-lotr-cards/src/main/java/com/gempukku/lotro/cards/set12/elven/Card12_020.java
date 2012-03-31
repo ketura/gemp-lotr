@@ -25,7 +25,7 @@ import com.gempukku.lotro.logic.modifiers.SpotCondition;
  */
 public class Card12_020 extends AbstractCompanion {
     public Card12_020() {
-        super(2, 6, 3, 6, Culture.ELVEN, Race.ELF, null, "Orophin", true);
+        super(2, 6, 3, 6, Culture.ELVEN, Race.ELF, null, "Orophin", "Brother of Haldir", true);
     }
 
     @Override

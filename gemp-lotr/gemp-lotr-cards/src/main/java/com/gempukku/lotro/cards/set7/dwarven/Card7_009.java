@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card7_009 extends AbstractAttachableFPPossession {
     public Card7_009() {
-        super(2, 2, 0, Culture.DWARVEN, PossessionClass.HAND_WEAPON, "Gimli's Battle Axe", true);
+        super(2, 2, 0, Culture.DWARVEN, PossessionClass.HAND_WEAPON, "Gimli's Battle Axe", "Trusted Weapon", true);
     }
 
     @Override

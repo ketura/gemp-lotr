@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card5_008 extends AbstractPermanent {
     public Card5_008() {
-        super(Side.FREE_PEOPLE, 2, CardType.POSSESSION, Culture.DWARVEN, Zone.SUPPORT, "Horn of Helm", true);
+        super(Side.FREE_PEOPLE, 2, CardType.POSSESSION, Culture.DWARVEN, Zone.SUPPORT, "Horn of Helm", null, true);
     }
 
     @Override

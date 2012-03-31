@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card3_024 extends AbstractAttachableFPPossession {
     public Card3_024() {
-        super(0, 0, 0, Culture.ELVEN, null, "Phial of Galadriel", true);
+        super(0, 0, 0, Culture.ELVEN, null, "Phial of Galadriel", null, true);
     }
 
     @Override

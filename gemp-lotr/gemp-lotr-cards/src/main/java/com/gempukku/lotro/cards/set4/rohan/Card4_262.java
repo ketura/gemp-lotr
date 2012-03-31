@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card4_262 extends AbstractAlly {
     public Card4_262() {
-        super(1, Block.TWO_TOWERS, new int[]{3, 6}, 3, 2, Race.MAN, Culture.ROHAN, "Aldor", true);
+        super(1, Block.TWO_TOWERS, new int[]{3, 6}, 3, 2, Race.MAN, Culture.ROHAN, "Aldor", "Soldier of Edoras", true);
     }
 
     @Override

@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card4_268 extends AbstractAttachableFPPossession {
     public Card4_268() {
-        super(1, 2, 0, Culture.ROHAN, PossessionClass.HAND_WEAPON, "Eomer's Spear", true);
+        super(1, 2, 0, Culture.ROHAN, PossessionClass.HAND_WEAPON, "Eomer's Spear", null, true);
     }
 
     @Override

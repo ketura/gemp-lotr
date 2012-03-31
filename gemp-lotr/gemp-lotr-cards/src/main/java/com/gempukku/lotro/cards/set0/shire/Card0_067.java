@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card0_067 extends AbstractCompanion {
     public Card0_067() {
-        super(0, 3, 4, 10, Culture.SHIRE, Race.HOBBIT, Signet.GANDALF, "Frodo", true);
+        super(0, 3, 4, 10, Culture.SHIRE, Race.HOBBIT, Signet.GANDALF, "Frodo", "Mr. Underhill", true);
         addKeyword(Keyword.CAN_START_WITH_RING);
     }
 

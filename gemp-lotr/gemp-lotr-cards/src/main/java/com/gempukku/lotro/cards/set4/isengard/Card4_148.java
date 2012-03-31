@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card4_148 extends AbstractPermanent {
     public Card4_148() {
-        super(Side.SHADOW, 2, CardType.CONDITION, Culture.ISENGARD, Zone.SUPPORT, "Down to the Last Child", true);
+        super(Side.SHADOW, 2, CardType.CONDITION, Culture.ISENGARD, Zone.SUPPORT, "Down to the Last Child", null, true);
     }
 
     @Override

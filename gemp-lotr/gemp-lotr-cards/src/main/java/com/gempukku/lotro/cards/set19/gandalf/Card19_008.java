@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class Card19_008 extends AbstractCompanion {
     public Card19_008() {
-        super(4, 8, 4, 7, Culture.GANDALF, Race.WIZARD, null, "Gandalf", true);
+        super(4, 8, 4, 7, Culture.GANDALF, Race.WIZARD, null, "Gandalf", "Wise Guide", true);
         addKeyword(Keyword.FELLOWSHIP);
     }
 

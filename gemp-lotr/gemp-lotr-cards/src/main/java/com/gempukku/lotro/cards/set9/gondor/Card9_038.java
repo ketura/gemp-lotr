@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class Card9_038 extends AbstractPermanent {
     public Card9_038() {
-        super(Side.FREE_PEOPLE, 0, CardType.ARTIFACT, Culture.GONDOR, Zone.SUPPORT, "Seeing Stone of Orthanc", true);
+        super(Side.FREE_PEOPLE, 0, CardType.ARTIFACT, Culture.GONDOR, Zone.SUPPORT, "Seeing Stone of Orthanc", null, true);
     }
 
     @Override

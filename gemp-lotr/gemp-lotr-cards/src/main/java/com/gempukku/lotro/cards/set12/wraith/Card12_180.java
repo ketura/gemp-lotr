@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class Card12_180 extends AbstractMinion {
     public Card12_180() {
-        super(6, 12, 3, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Toldëa", true);
+        super(6, 12, 3, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Toldëa", "Black Shadow", true);
         addKeyword(Keyword.FIERCE);
     }
 

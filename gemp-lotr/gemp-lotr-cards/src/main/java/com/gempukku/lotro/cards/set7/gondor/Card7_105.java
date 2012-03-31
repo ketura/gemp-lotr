@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class Card7_105 extends AbstractAttachable {
     public Card7_105() {
-        super(Side.FREE_PEOPLE, CardType.CONDITION, 3, Culture.GONDOR, null, "I Will Go", true);
+        super(Side.FREE_PEOPLE, CardType.CONDITION, 3, Culture.GONDOR, null, "I Will Go", null, true);
     }
 
     @Override

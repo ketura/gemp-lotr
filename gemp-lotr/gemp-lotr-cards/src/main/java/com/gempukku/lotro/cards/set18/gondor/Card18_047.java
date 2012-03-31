@@ -23,7 +23,7 @@ import com.gempukku.lotro.logic.timing.Effect;
  */
 public class Card18_047 extends AbstractFollower {
     public Card18_047() {
-        super(Side.FREE_PEOPLE, 0, 2, 0, 0, Culture.GONDOR, "Elendil's Army", true);
+        super(Side.FREE_PEOPLE, 0, 2, 0, 0, Culture.GONDOR, "Elendil's Army", null, true);
     }
 
     @Override

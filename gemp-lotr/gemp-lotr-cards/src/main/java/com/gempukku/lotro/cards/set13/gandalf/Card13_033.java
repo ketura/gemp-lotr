@@ -35,7 +35,7 @@ import java.util.List;
  */
 public class Card13_033 extends AbstractCompanion {
     public Card13_033() {
-        super(4, 7, 4, 5, Culture.GANDALF, Race.WIZARD, null, "Gandalf", true);
+        super(4, 7, 4, 5, Culture.GANDALF, Race.WIZARD, null, "Gandalf", "Bearer of Obligation", true);
         addKeyword(Keyword.CAN_START_WITH_RING);
     }
 

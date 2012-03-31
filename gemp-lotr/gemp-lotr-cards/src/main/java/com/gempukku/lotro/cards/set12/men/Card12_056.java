@@ -24,7 +24,7 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
  */
 public class Card12_056 extends AbstractMinion {
     public Card12_056() {
-        super(7, 14, 4, 4, Race.MAN, Culture.MEN, "Castamir of Umbar", true);
+        super(7, 14, 4, 4, Race.MAN, Culture.MEN, "Castamir of Umbar", "Corsair Vandal", true);
         addKeyword(Keyword.FIERCE);
         addKeyword(Keyword.TOIL, 1);
     }

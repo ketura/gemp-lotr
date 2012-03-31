@@ -35,7 +35,7 @@ import java.util.List;
  */
 public class Card4_094 extends AbstractAttachable {
     public Card4_094() {
-        super(Side.FREE_PEOPLE, CardType.CONDITION, 0, Culture.GANDALF, null, "Hearken to Me", true);
+        super(Side.FREE_PEOPLE, CardType.CONDITION, 0, Culture.GANDALF, null, "Hearken to Me", null, true);
         addKeyword(Keyword.SPELL);
     }
 

@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class Card3_042 extends AbstractAttachableFPPossession {
     public Card3_042() {
-        super(0, 0, 0, Culture.GONDOR, null, "Horn of Boromir", true);
+        super(0, 0, 0, Culture.GONDOR, null, "Horn of Boromir", null, true);
     }
 
     @Override

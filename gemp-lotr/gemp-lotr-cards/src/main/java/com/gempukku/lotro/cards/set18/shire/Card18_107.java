@@ -26,7 +26,7 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
  */
 public class Card18_107 extends AbstractCompanion {
     public Card18_107() {
-        super(1, 3, 3, 7, Culture.SHIRE, Race.HOBBIT, null, "Fredegar Bolger", true);
+        super(1, 3, 3, 7, Culture.SHIRE, Race.HOBBIT, null, "Fredegar Bolger", "Fatty", true);
     }
 
     @Override

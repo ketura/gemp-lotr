@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card15_115 extends AbstractAttachable {
     public Card15_115() {
-        super(Side.SHADOW, CardType.CONDITION, 0, Culture.ORC, null, "Pummeling Blow", true);
+        super(Side.SHADOW, CardType.CONDITION, 0, Culture.ORC, null, "Pummeling Blow", null, true);
     }
 
     @Override

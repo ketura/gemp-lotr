@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class Card4_034 extends AbstractPermanent {
     public Card4_034() {
-        super(Side.SHADOW, 2, CardType.CONDITION, Culture.DUNLAND, Zone.SUPPORT, "Secret Folk", true);
+        super(Side.SHADOW, 2, CardType.CONDITION, Culture.DUNLAND, Zone.SUPPORT, "Secret Folk", null, true);
     }
 
     @Override

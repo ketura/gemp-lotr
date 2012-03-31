@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card18_127 extends AbstractMinion {
     public Card18_127() {
-        super(5, 11, 3, 5, Race.URUK_HAI, Culture.URUK_HAI, "White Hand Marshal", true);
+        super(5, 11, 3, 5, Race.URUK_HAI, Culture.URUK_HAI, "White Hand Marshal", null, true);
         addKeyword(Keyword.DAMAGE, 1);
     }
 

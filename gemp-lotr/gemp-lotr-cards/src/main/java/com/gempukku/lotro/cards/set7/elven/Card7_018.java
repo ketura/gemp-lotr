@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card7_018 extends AbstractAttachableFPPossession {
     public Card7_018() {
-        super(1, 1, 0, Culture.ELVEN, PossessionClass.RANGED_WEAPON, "Bow of the Galadhrim", true);
+        super(1, 1, 0, Culture.ELVEN, PossessionClass.RANGED_WEAPON, "Bow of the Galadhrim", "Gift of Galadriel", true);
     }
 
     @Override

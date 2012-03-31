@@ -19,11 +19,11 @@ public abstract class AbstractAttachable extends AbstractLotroCardBlueprint {
     private PossessionClass _possessionClass;
 
     public AbstractAttachable(Side side, CardType cardType, int twilight, Culture culture, PossessionClass possessionClass, String name) {
-        this(side, cardType, twilight, culture, possessionClass, name, false);
+        this(side, cardType, twilight, culture, possessionClass, name, null, false);
     }
 
-    public AbstractAttachable(Side side, CardType cardType, int twilight, Culture culture, PossessionClass possessionClass, String name, boolean unique) {
-        super(side, cardType, culture, name, unique);
+    public AbstractAttachable(Side side, CardType cardType, int twilight, Culture culture, PossessionClass possessionClass, String name, String subTitle, boolean unique) {
+        super(side, cardType, culture, name, subTitle, unique);
         _twilight = twilight;
         _possessionClass = possessionClass;
     }

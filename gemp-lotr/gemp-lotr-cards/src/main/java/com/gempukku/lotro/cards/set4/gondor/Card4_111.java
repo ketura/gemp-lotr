@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class Card4_111 extends AbstractAttachable {
     public Card4_111() {
-        super(Side.FREE_PEOPLE, CardType.CONDITION, 0, Culture.GONDOR, null, "Boromir, My Brother", true);
+        super(Side.FREE_PEOPLE, CardType.CONDITION, 0, Culture.GONDOR, null, "Boromir, My Brother", null, true);
     }
 
     @Override

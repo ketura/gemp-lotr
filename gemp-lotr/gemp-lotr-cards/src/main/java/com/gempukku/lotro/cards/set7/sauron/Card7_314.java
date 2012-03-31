@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card7_314 extends AbstractPermanent {
     public Card7_314() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.SAURON, Zone.SUPPORT, "Stronghold of Cirith Ungol", true);
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.SAURON, Zone.SUPPORT, "Stronghold of Cirith Ungol", null, true);
     }
 
     @Override

@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card19_023 extends AbstractMinion {
     public Card19_023() {
-        super(6, 13, 3, 4, Race.TROLL, Culture.ORC, "Troll of the Deep", true);
+        super(6, 13, 3, 4, Race.TROLL, Culture.ORC, "Troll of the Deep", "Cave Troll", true);
     }
 
     @Override

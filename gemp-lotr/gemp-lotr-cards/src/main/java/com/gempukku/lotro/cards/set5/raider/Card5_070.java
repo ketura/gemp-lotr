@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card5_070 extends AbstractMinion {
     public Card5_070() {
-        super(7, 14, 4, 4, Race.MAN, Culture.RAIDER, "Army of Haradrim", true);
+        super(7, 14, 4, 4, Race.MAN, Culture.RAIDER, "Army of Haradrim", null, true);
         addKeyword(Keyword.SOUTHRON);
     }
 

@@ -26,7 +26,7 @@ import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
  */
 public class Card19_037 extends AbstractMinion {
     public Card19_037() {
-        super(4, 9, 2, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Lemenya", true);
+        super(4, 9, 2, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Lemenya", "Dark Enemy", true);
         addKeyword(Keyword.FIERCE);
     }
 

@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card10_063 extends AbstractMinion {
     public Card10_063() {
-        super(6, 12, 3, 4, Race.ORC, Culture.WRAITH, "Morgul Vanguard", true);
+        super(6, 12, 3, 4, Race.ORC, Culture.WRAITH, "Morgul Vanguard", null, true);
     }
 
     @Override

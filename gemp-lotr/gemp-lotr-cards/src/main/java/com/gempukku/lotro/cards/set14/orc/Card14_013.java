@@ -18,7 +18,7 @@ import com.gempukku.lotro.common.Race;
  */
 public class Card14_013 extends AbstractMinion {
     public Card14_013() {
-        super(4, 9, 3, 4, Race.HALF_TROLL, Culture.ORC, "Horror of Harad", true);
+        super(4, 9, 3, 4, Race.HALF_TROLL, Culture.ORC, "Horror of Harad", null, true);
         addKeyword(Keyword.AMBUSH, 1);
         addKeyword(Keyword.DAMAGE, 1);
         addKeyword(Keyword.FIERCE);

@@ -23,7 +23,7 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
  */
 public class Card7_219 extends AbstractMinion {
     public Card7_219() {
-        super(6, 12, 3, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Toldëa", true);
+        super(6, 12, 3, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Toldëa", "Wraith on Wings", true);
         addKeyword(Keyword.FIERCE);
     }
 

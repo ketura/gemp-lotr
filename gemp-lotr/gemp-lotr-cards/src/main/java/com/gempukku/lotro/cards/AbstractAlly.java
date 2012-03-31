@@ -21,19 +21,19 @@ public class AbstractAlly extends AbstractPermanent {
     private Race _race;
 
     public AbstractAlly(int twilight, Block siteBlock, int siteNumber, int strength, int vitality, Race race, Culture culture, String name) {
-        this(twilight, siteBlock, siteNumber, strength, vitality, race, culture, name, false);
+        this(twilight, siteBlock, siteNumber, strength, vitality, race, culture, name, null, false);
     }
 
-    public AbstractAlly(int twilight, Block siteBlock, int siteNumber, int strength, int vitality, Race race, Culture culture, String name, boolean unique) {
-        this(twilight, siteBlock, new int[]{siteNumber}, strength, vitality, race, culture, name, unique);
+    public AbstractAlly(int twilight, Block siteBlock, int siteNumber, int strength, int vitality, Race race, Culture culture, String name, String subTitle, boolean unique) {
+        this(twilight, siteBlock, new int[]{siteNumber}, strength, vitality, race, culture, name, subTitle, unique);
     }
 
     public AbstractAlly(int twilight, Block siteBlock, int[] siteNumbers, int strength, int vitality, Race race, Culture culture, String name) {
-        this(twilight, siteBlock, siteNumbers, strength, vitality, race, culture, name, false);
+        this(twilight, siteBlock, siteNumbers, strength, vitality, race, culture, name, null, false);
     }
 
-    public AbstractAlly(int twilight, Block siteBlock, int[] siteNumbers, int strength, int vitality, Race race, Culture culture, String name, boolean unique) {
-        super(Side.FREE_PEOPLE, twilight, CardType.ALLY, culture, Zone.SUPPORT, name, unique);
+    public AbstractAlly(int twilight, Block siteBlock, int[] siteNumbers, int strength, int vitality, Race race, Culture culture, String name, String subTitle, boolean unique) {
+        super(Side.FREE_PEOPLE, twilight, CardType.ALLY, culture, Zone.SUPPORT, name, subTitle, unique);
         _siteBlock = siteBlock;
         _siteNumbers = siteNumbers;
         _strength = strength;

@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card9_006 extends AbstractAttachableFPPossession {
     public Card9_006() {
-        super(0, 1, 0, Culture.DWARVEN, CardType.ARTIFACT, PossessionClass.RING, "Ring of Accretion", true);
+        super(0, 1, 0, Culture.DWARVEN, CardType.ARTIFACT, PossessionClass.RING, "Ring of Accretion", null, true);
     }
 
     @Override

@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class Card11_157 extends AbstractPermanent {
     public Card11_157() {
-        super(Side.FREE_PEOPLE, 3, CardType.CONDITION, Culture.ROHAN, Zone.SUPPORT, "Rush of Steeds", true);
+        super(Side.FREE_PEOPLE, 3, CardType.CONDITION, Culture.ROHAN, Zone.SUPPORT, "Rush of Steeds", null, true);
     }
 
     @Override

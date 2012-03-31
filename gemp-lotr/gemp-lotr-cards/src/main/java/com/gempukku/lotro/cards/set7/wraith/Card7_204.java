@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card7_204 extends AbstractPermanent {
     public Card7_204() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.WRAITH, Zone.SUPPORT, "Out of Sight and Shot", true);
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.WRAITH, Zone.SUPPORT, "Out of Sight and Shot", null, true);
     }
 
     @Override

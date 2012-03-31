@@ -34,7 +34,7 @@ import java.util.List;
  */
 public class Card13_028 extends AbstractFollower {
     public Card13_028() {
-        super(Side.FREE_PEOPLE, 2, 0, 0, 0, Culture.GANDALF, "Alatar", true);
+        super(Side.FREE_PEOPLE, 2, 0, 0, 0, Culture.GANDALF, "Alatar", "Final Envoy", true);
     }
 
     @Override

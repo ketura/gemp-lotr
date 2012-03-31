@@ -34,7 +34,7 @@ import java.util.List;
  */
 public class Card2_024 extends AbstractAlly {
     public Card2_024() {
-        super(1, Block.FELLOWSHIP, 3, 4, 2, Race.MAN, Culture.GANDALF, "Hugin", true);
+        super(1, Block.FELLOWSHIP, 3, 4, 2, Race.MAN, Culture.GANDALF, "Hugin", "Emissary from Laketown", true);
     }
 
     @Override

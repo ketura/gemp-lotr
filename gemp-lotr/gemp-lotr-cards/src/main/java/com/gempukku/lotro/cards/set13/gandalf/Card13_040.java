@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class Card13_040 extends AbstractAttachableFPPossession {
     public Card13_040() {
-        super(2, 1, 0, Culture.GANDALF, PossessionClass.MOUNT, "Shadowfax", true);
+        super(2, 1, 0, Culture.GANDALF, PossessionClass.MOUNT, "Shadowfax", "Roaring Wind", true);
     }
 
     @Override

@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card2_105 extends AbstractAttachableFPPossession {
     public Card2_105() {
-        super(2, 0, 0, Culture.SHIRE, CardType.ARTIFACT, PossessionClass.ARMOR, "Mithril-coat", true);
+        super(2, 0, 0, Culture.SHIRE, CardType.ARTIFACT, PossessionClass.ARMOR, "Mithril-coat", null, true);
     }
 
     @Override

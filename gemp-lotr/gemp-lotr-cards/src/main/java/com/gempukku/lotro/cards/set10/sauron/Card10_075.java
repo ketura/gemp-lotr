@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card10_075 extends AbstractMinion {
     public Card10_075() {
-        super(3, 10, 3, 6, Race.ORC, Culture.SAURON, "Advance Captain", true);
+        super(3, 10, 3, 6, Race.ORC, Culture.SAURON, "Advance Captain", null, true);
     }
 
     @Override

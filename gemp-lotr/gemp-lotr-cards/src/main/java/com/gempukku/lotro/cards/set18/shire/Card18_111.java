@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class Card18_111 extends AbstractFollower {
     public Card18_111() {
-        super(Side.FREE_PEOPLE, 2, 0, 0, 1, Culture.SHIRE, "Robin Smallburrow", true);
+        super(Side.FREE_PEOPLE, 2, 0, 0, 1, Culture.SHIRE, "Robin Smallburrow", "Shirriff Cock-Robin", true);
     }
 
     @Override

@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card10_064 extends AbstractPermanent {
     public Card10_064() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.WRAITH, Zone.SUPPORT, "Stooping to the Kill", true);
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.WRAITH, Zone.SUPPORT, "Stooping to the Kill", null, true);
     }
 
     @Override

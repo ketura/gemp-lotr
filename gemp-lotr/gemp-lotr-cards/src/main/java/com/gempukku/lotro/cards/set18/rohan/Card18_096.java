@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class Card18_096 extends AbstractAttachableFPPossession {
     public Card18_096() {
-        super(0, 0, 0, Culture.ROHAN, null, "Erkenbrand's Horn", true);
+        super(0, 0, 0, Culture.ROHAN, null, "Erkenbrand's Horn", null, true);
     }
 
     @Override

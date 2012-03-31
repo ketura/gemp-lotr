@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class Card4_044 extends AbstractPermanent {
     public Card4_044() {
-        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.DWARVEN, Zone.SUPPORT, "Courtesy of My Hall", true);
+        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.DWARVEN, Zone.SUPPORT, "Courtesy of My Hall", null, true);
     }
 
     @Override

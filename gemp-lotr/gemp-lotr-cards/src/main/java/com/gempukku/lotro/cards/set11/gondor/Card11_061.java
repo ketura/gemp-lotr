@@ -33,7 +33,7 @@ import java.util.List;
  */
 public class Card11_061 extends AbstractPermanent {
     public Card11_061() {
-        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.GONDOR, Zone.SUPPORT, "Houses of Healing", true);
+        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.GONDOR, Zone.SUPPORT, "Houses of Healing", null, true);
     }
 
     @Override

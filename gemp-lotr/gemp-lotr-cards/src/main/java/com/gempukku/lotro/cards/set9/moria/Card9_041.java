@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class Card9_041 extends AbstractMinion {
     public Card9_041() {
-        super(7, 15, 3, 4, Race.ORC, Culture.MORIA, "Host of Moria", true);
+        super(7, 15, 3, 4, Race.ORC, Culture.MORIA, "Host of Moria", "Legion of the Underdeeps", true);
     }
 
     @Override

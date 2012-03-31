@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card4_274 extends AbstractAttachableFPPossession {
     public Card4_274() {
-        super(2, 0, 0, Culture.ROHAN, PossessionClass.MOUNT, "Firefoot", true);
+        super(2, 0, 0, Culture.ROHAN, PossessionClass.MOUNT, "Firefoot", null, true);
     }
 
     @Override

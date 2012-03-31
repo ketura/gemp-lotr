@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card3_121 extends AbstractCompanion {
     public Card3_121() {
-        super(2, 6, 3, 6, Culture.ELVEN, Race.ELF, Signet.ARAGORN, "Legolas", true);
+        super(2, 6, 3, 6, Culture.ELVEN, Race.ELF, Signet.ARAGORN, "Legolas", "Son of Thranduil", true);
         addKeyword(Keyword.ARCHER);
     }
 

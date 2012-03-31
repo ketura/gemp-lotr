@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card1_114 extends AbstractAttachable {
     public Card1_114() {
-        super(Side.FREE_PEOPLE, CardType.CONDITION, 1, Culture.GONDOR, null, "The Saga of Elendil", true);
+        super(Side.FREE_PEOPLE, CardType.CONDITION, 1, Culture.GONDOR, null, "The Saga of Elendil", null, true);
         addKeyword(Keyword.TALE);
     }
 

@@ -4,16 +4,16 @@ import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.RemoveBurdenEffect;
 import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.PossessionClass;
 import com.gempukku.lotro.common.Filterable;
-import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.common.PossessionClass;
 import com.gempukku.lotro.filters.Filters;
+import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
-import java.util.List;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * Set: Shadows
@@ -26,7 +26,7 @@ import java.util.Collections;
  */
 public class Card11_035 extends AbstractAttachableFPPossession {
     public Card11_035() {
-        super(2, 2, 0, Culture.GANDALF, PossessionClass.HAND_WEAPON, "Glamdring", true);
+        super(2, 2, 0, Culture.GANDALF, PossessionClass.HAND_WEAPON, "Glamdring", "Foe-hammer", true);
     }
 
     @Override

@@ -33,7 +33,7 @@ import java.util.List;
  */
 public class Card4_150 extends AbstractMinion {
     public Card4_150() {
-        super(7, 9, 3, 5, Race.URUK_HAI, Culture.ISENGARD, "Elite Crossbowmen", true);
+        super(7, 9, 3, 5, Race.URUK_HAI, Culture.ISENGARD, "Elite Crossbowmen", null, true);
         addKeyword(Keyword.ARCHER);
         addKeyword(Keyword.DAMAGE);
     }

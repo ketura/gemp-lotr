@@ -24,7 +24,7 @@ import com.gempukku.lotro.logic.modifiers.SpotCondition;
  */
 public class Card17_093 extends AbstractCompanion {
     public Card17_093() {
-        super(4, 8, 4, 6, Culture.ROHAN, Race.MAN, null, "Aragorn", true);
+        super(4, 8, 4, 6, Culture.ROHAN, Race.MAN, null, "Aragorn", "Defender of Rohan", true);
         addKeyword(Keyword.VALIANT);
     }
 

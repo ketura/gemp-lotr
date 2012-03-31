@@ -34,7 +34,7 @@ import java.util.List;
  */
 public class Card10_096 extends AbstractPermanent {
     public Card10_096() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.SAURON, Zone.SUPPORT, "Rank and File", true);
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.SAURON, Zone.SUPPORT, "Rank and File", null, true);
     }
 
     @Override

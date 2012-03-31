@@ -24,7 +24,7 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
  */
 public class Card18_126 extends AbstractMinion {
     public Card18_126() {
-        super(4, 9, 2, 5, Race.URUK_HAI, Culture.URUK_HAI, "White Hand Marchers", true);
+        super(4, 9, 2, 5, Race.URUK_HAI, Culture.URUK_HAI, "White Hand Marchers", null, true);
         addKeyword(Keyword.DAMAGE, 1);
     }
 

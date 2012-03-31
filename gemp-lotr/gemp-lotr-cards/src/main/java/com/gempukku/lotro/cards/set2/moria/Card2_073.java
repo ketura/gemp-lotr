@@ -34,7 +34,7 @@ import java.util.List;
  */
 public class Card2_073 extends AbstractMinion {
     public Card2_073() {
-        super(4, 11, 4, 4, Race.CREATURE, Culture.MORIA, "Watcher in the Water", true);
+        super(4, 11, 4, 4, Race.CREATURE, Culture.MORIA, "Watcher in the Water", "Keeper of Westgate", true);
         addKeyword(Keyword.DAMAGE);
     }
 

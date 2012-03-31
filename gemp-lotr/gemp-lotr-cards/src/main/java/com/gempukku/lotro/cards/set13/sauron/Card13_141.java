@@ -33,7 +33,7 @@ import java.util.List;
  */
 public class Card13_141 extends AbstractAttachable {
     public Card13_141() {
-        super(Side.SHADOW, CardType.ARTIFACT, 0, Culture.SAURON, PossessionClass.HAND_WEAPON, "Sceptre of the Dark Lord", true);
+        super(Side.SHADOW, CardType.ARTIFACT, 0, Culture.SAURON, PossessionClass.HAND_WEAPON, "Sceptre of the Dark Lord", null, true);
     }
 
     @Override

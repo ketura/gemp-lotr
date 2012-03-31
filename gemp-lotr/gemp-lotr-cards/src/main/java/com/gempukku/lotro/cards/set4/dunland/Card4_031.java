@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card4_031 extends AbstractPermanent {
     public Card4_031() {
-        super(Side.SHADOW, 0, CardType.CONDITION, Culture.DUNLAND, Zone.SUPPORT, "Over the Isen", true);
+        super(Side.SHADOW, 0, CardType.CONDITION, Culture.DUNLAND, Zone.SUPPORT, "Over the Isen", null, true);
     }
 
     @Override

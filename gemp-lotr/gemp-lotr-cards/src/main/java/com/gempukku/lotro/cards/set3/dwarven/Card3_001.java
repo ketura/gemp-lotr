@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class Card3_001 extends AbstractAttachable {
     public Card3_001() {
-        super(Side.FREE_PEOPLE, CardType.POSSESSION, 2, Culture.DWARVEN, null, "Book of Mazarbul", true);
+        super(Side.FREE_PEOPLE, CardType.POSSESSION, 2, Culture.DWARVEN, null, "Book of Mazarbul", null, true);
         addKeyword(Keyword.TALE);
     }
 

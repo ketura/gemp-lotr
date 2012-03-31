@@ -23,7 +23,7 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
  */
 public class Card17_134 extends AbstractMinion {
     public Card17_134() {
-        super(4, 8, 3, 5, Race.URUK_HAI, Culture.URUK_HAI, "White Hand Vanquisher", true);
+        super(4, 8, 3, 5, Race.URUK_HAI, Culture.URUK_HAI, "White Hand Vanquisher", null, true);
         addKeyword(Keyword.FIERCE);
     }
 

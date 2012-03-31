@@ -24,7 +24,7 @@ import com.gempukku.lotro.logic.modifiers.TwilightCostModifier;
  */
 public class Card2_025 extends AbstractAlly {
     public Card2_025() {
-        super(1, Block.FELLOWSHIP, 3, 4, 2, Race.MAN, Culture.GANDALF, "Jarnsmid", true);
+        super(1, Block.FELLOWSHIP, 3, 4, 2, Race.MAN, Culture.GANDALF, "Jarnsmid", "Merchant from Dale", true);
     }
 
     @Override

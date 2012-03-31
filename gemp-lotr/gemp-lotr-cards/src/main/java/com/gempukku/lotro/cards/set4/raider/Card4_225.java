@@ -35,7 +35,7 @@ import java.util.List;
  */
 public class Card4_225 extends AbstractMinion {
     public Card4_225() {
-        super(5, 11, 3, 4, Race.MAN, Culture.RAIDER, "Easterling Captain", true);
+        super(5, 11, 3, 4, Race.MAN, Culture.RAIDER, "Easterling Captain", null, true);
         addKeyword(Keyword.EASTERLING);
         addKeyword(Keyword.FIERCE);
     }

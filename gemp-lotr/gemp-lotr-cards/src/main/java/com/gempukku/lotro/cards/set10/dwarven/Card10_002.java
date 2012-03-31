@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card10_002 extends AbstractPermanent {
     public Card10_002() {
-        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.DWARVEN, Zone.SUPPORT, "Memories of Darkness", true);
+        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.DWARVEN, Zone.SUPPORT, "Memories of Darkness", null, true);
     }
 
     @Override

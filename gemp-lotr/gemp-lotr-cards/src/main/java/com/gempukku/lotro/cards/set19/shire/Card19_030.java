@@ -22,7 +22,7 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
  */
 public class Card19_030 extends AbstractCompanion {
     public Card19_030() {
-        super(1, 3, 4, 8, Culture.SHIRE, Race.HOBBIT, null, "Pippin", true);
+        super(1, 3, 4, 8, Culture.SHIRE, Race.HOBBIT, null, "Pippin", "Steadfast Friend", true);
         addKeyword(Keyword.FELLOWSHIP);
     }
 

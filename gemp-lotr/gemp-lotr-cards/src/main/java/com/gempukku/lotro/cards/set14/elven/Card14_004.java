@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card14_004 extends AbstractCompanion {
     public Card14_004() {
-        super(2, 6, 3, 6, Culture.ELVEN, Race.ELF, null, "Gildor Inglorion", true);
+        super(2, 6, 3, 6, Culture.ELVEN, Race.ELF, null, "Gildor Inglorion", "Of the House of Finrod", true);
     }
 
     @Override

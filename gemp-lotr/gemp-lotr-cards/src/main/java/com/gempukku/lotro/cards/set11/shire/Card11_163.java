@@ -23,7 +23,7 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
  */
 public class Card11_163 extends AbstractCompanion {
     public Card11_163() {
-        super(1, 3, 3, 8, Culture.SHIRE, Race.HOBBIT, null, "Farmer Maggot", true);
+        super(1, 3, 3, 8, Culture.SHIRE, Race.HOBBIT, null, "Farmer Maggot", "Hobbit of the Marish", true);
     }
 
     @Override

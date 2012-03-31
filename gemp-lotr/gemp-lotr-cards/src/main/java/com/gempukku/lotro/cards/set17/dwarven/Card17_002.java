@@ -35,7 +35,7 @@ import java.util.List;
  */
 public class Card17_002 extends AbstractPermanent {
     public Card17_002() {
-        super(Side.FREE_PEOPLE, 4, CardType.CONDITION, Culture.DWARVEN, Zone.SUPPORT, "Balin Avenged", true);
+        super(Side.FREE_PEOPLE, 4, CardType.CONDITION, Culture.DWARVEN, Zone.SUPPORT, "Balin Avenged", null, true);
     }
 
     @Override

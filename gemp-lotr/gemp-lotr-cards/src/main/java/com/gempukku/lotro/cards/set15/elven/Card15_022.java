@@ -36,7 +36,7 @@ import java.util.Set;
  */
 public class Card15_022 extends AbstractPermanent {
     public Card15_022() {
-        super(Side.FREE_PEOPLE, 2, CardType.ARTIFACT, Culture.ELVEN, Zone.SUPPORT, "The Mirror of Galadriel", true);
+        super(Side.FREE_PEOPLE, 2, CardType.ARTIFACT, Culture.ELVEN, Zone.SUPPORT, "The Mirror of Galadriel", "Dangerous Guide", true);
     }
 
     @Override

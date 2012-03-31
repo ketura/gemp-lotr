@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card13_027 extends AbstractPermanent {
     public Card13_027() {
-        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.ELVEN, Zone.SUPPORT, "Wells of Deep Memory", true);
+        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.ELVEN, Zone.SUPPORT, "Wells of Deep Memory", null, true);
     }
 
     @Override

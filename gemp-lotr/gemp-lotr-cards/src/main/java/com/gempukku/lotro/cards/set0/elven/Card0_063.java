@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card0_063 extends AbstractCompanion {
     public Card0_063() {
-        super(2, 6, 3, 6, Culture.ELVEN, Race.ELF, null, "Arwen", true);
+        super(2, 6, 3, 6, Culture.ELVEN, Race.ELF, null, "Arwen", "Maiden of Rivendell", true);
         addKeyword(Keyword.RANGER);
     }
 

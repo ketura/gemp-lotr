@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card4_216 extends AbstractPermanent {
     public Card4_216() {
-        super(Side.SHADOW, 2, CardType.CONDITION, Culture.RAIDER, Zone.SUPPORT, "Arrow From the South", true);
+        super(Side.SHADOW, 2, CardType.CONDITION, Culture.RAIDER, Zone.SUPPORT, "Arrow From the South", null, true);
     }
 
     @Override

@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card7_315 extends AbstractPermanent {
     public Card7_315() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.SAURON, Zone.SUPPORT, "Tower Walkway", true);
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.SAURON, Zone.SUPPORT, "Tower Walkway", null, true);
         addKeyword(Keyword.ENGINE);
     }
 

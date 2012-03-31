@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card10_024 extends AbstractPermanent {
     public Card10_024() {
-        super(Side.SHADOW, 0, CardType.CONDITION, Culture.GOLLUM, Zone.SUPPORT, "Unabated in Malice", true);
+        super(Side.SHADOW, 0, CardType.CONDITION, Culture.GOLLUM, Zone.SUPPORT, "Unabated in Malice", null, true);
     }
 
     @Override

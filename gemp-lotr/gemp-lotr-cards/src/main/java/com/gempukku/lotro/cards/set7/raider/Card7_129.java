@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class Card7_129 extends AbstractPermanent {
     public Card7_129() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.RAIDER, Zone.SUPPORT, "Bold Men and Grim", true);
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.RAIDER, Zone.SUPPORT, "Bold Men and Grim", null, true);
     }
 
     @Override

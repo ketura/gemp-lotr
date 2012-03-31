@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card8_024 extends AbstractPermanent {
     public Card8_024() {
-        super(Side.SHADOW, 4, CardType.CONDITION, Culture.GOLLUM, Zone.SUPPORT, "Promise Keeping", true);
+        super(Side.SHADOW, 4, CardType.CONDITION, Culture.GOLLUM, Zone.SUPPORT, "Promise Keeping", null, true);
     }
 
     @Override

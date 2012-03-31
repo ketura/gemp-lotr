@@ -25,7 +25,7 @@ import java.util.*;
  */
 public class Card6_055 extends AbstractAttachableFPPossession {
     public Card6_055() {
-        super(0, 0, 0, Culture.GONDOR, CardType.ARTIFACT, PossessionClass.RING, "Ring of Barahir", true);
+        super(0, 0, 0, Culture.GONDOR, CardType.ARTIFACT, PossessionClass.RING, "Ring of Barahir", null, true);
     }
 
     @Override

@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card11_146 extends AbstractCompanion {
     public Card11_146() {
-        super(2, 6, 3, 7, Culture.ROHAN, Race.MAN, null, "Eowyn", true);
+        super(2, 6, 3, 7, Culture.ROHAN, Race.MAN, null, "Eowyn", "Shieldmaiden of Rohan", true);
     }
 
     @Override

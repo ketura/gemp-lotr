@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class Card15_074 extends AbstractMinion {
     public Card15_074() {
-        super(5, 11, 3, 4, Race.MAN, Culture.MEN, "Chieftain of Dunland", true);
+        super(5, 11, 3, 4, Race.MAN, Culture.MEN, "Chieftain of Dunland", null, true);
         addKeyword(Keyword.FIERCE);
     }
 

@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card1_279 extends AbstractAttachable {
     public Card1_279() {
-        super(Side.SHADOW, CardType.CONDITION, 0, Culture.SAURON, null, "Thin and Stretched", true);
+        super(Side.SHADOW, CardType.CONDITION, 0, Culture.SAURON, null, "Thin and Stretched", null, true);
     }
 
     @Override

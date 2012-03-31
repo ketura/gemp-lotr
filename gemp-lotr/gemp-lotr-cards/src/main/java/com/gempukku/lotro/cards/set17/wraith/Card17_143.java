@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class Card17_143 extends AbstractAttachable {
     public Card17_143() {
-        super(Side.SHADOW, CardType.ARTIFACT, 0, Culture.WRAITH, PossessionClass.RING, "Ring of Terror", true);
+        super(Side.SHADOW, CardType.ARTIFACT, 0, Culture.WRAITH, PossessionClass.RING, "Ring of Terror", null, true);
     }
 
     @Override

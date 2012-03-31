@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card3_002 extends AbstractAttachable {
     public Card3_002() {
-        super(Side.FREE_PEOPLE, CardType.POSSESSION, 1, Culture.DWARVEN, PossessionClass.PIPE, "Gimli's Pipe", true);
+        super(Side.FREE_PEOPLE, CardType.POSSESSION, 1, Culture.DWARVEN, PossessionClass.PIPE, "Gimli's Pipe", null, true);
     }
 
     @Override

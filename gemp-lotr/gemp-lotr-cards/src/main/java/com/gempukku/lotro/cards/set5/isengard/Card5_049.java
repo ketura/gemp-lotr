@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card5_049 extends AbstractPermanent {
     public Card5_049() {
-        super(Side.SHADOW, 2, CardType.CONDITION, Culture.ISENGARD, Zone.SUPPORT, "Devilry of Orthanc", true);
+        super(Side.SHADOW, 2, CardType.CONDITION, Culture.ISENGARD, Zone.SUPPORT, "Devilry of Orthanc", null, true);
         addKeyword(Keyword.MACHINE);
     }
 

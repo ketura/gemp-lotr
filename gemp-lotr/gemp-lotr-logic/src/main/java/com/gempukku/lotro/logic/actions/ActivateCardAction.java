@@ -22,7 +22,7 @@ public class ActivateCardAction extends AbstractCostToEffectAction {
 
     public ActivateCardAction(PhysicalCard physicalCard) {
         _physicalCard = physicalCard;
-        _text = "Use " + _physicalCard.getBlueprint().getName();
+        _text = "Use " + GameUtils.getFullName(_physicalCard);
         _message = GameUtils.getCardLink(_physicalCard) + " is used";
     }
 

@@ -9,11 +9,11 @@ public class AbstractMinion extends AbstractPermanent {
     private Race _race;
 
     public AbstractMinion(int twilightCost, int strength, int vitality, int site, Race race, Culture culture, String name) {
-        this(twilightCost, strength, vitality, site, race, culture, name, false);
+        this(twilightCost, strength, vitality, site, race, culture, name, null, false);
     }
 
-    public AbstractMinion(int twilightCost, int strength, int vitality, int site, Race race, Culture culture, String name, boolean unique) {
-        super(Side.SHADOW, twilightCost, CardType.MINION, culture, Zone.SHADOW_CHARACTERS, name, unique);
+    public AbstractMinion(int twilightCost, int strength, int vitality, int site, Race race, Culture culture, String name, String subTitle, boolean unique) {
+        super(Side.SHADOW, twilightCost, CardType.MINION, culture, Zone.SHADOW_CHARACTERS, name, subTitle, unique);
         _strength = strength;
         _vitality = vitality;
         _site = site;

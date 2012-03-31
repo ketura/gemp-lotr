@@ -24,7 +24,7 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
  */
 public class Card1_237 extends AbstractMinion {
     public Card1_237() {
-        super(8, 14, 4, 3, Race.NAZGUL, Culture.WRAITH, "The Witch-king", true);
+        super(8, 14, 4, 3, Race.NAZGUL, Culture.WRAITH, "The Witch-king", "Lord of Angmar", true);
         addKeyword(Keyword.FIERCE);
     }
 

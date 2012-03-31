@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class Card3_013 extends AbstractAlly {
     public Card3_013() {
-        super(4, Block.FELLOWSHIP, 3, 8, 4, Race.ELF, Culture.ELVEN, "Elrond", true);
+        super(4, Block.FELLOWSHIP, 3, 8, 4, Race.ELF, Culture.ELVEN, "Elrond", "Herald to Gil-galad", true);
     }
 
     @Override

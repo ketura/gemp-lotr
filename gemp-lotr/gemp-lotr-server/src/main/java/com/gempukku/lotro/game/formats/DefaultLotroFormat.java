@@ -5,6 +5,7 @@ import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.game.*;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 
 import java.util.HashMap;
@@ -75,7 +76,7 @@ public class DefaultLotroFormat implements LotroFormat {
                     || _library.hasAlternateInSet(blueprintId, validSet))
                 return;
 
-        throw new DeckInvalidException("Deck contains card not from valid set: " + _library.getLotroCardBlueprint(blueprintId).getName());
+        throw new DeckInvalidException("Deck contains card not from valid set: " + GameUtils.getFullName(_library.getLotroCardBlueprint(blueprintId)));
     }
 
     @Override
@@ -105,7 +106,7 @@ public class DefaultLotroFormat implements LotroFormat {
                 if (siteBlueprint.getCardType() != CardType.SITE)
                     throw new DeckInvalidException("Card assigned as Site is not really a site");
                 if (siteBlueprint.getSiteBlock() != _siteBlock)
-                    throw new DeckInvalidException("Invalid site: " + siteBlueprint.getName());
+                    throw new DeckInvalidException("Invalid site: " + GameUtils.getFullName(siteBlueprint));
             }
 
             if (_validSets.size() > 0) {

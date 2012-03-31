@@ -18,6 +18,7 @@ import java.util.*;
 
 public abstract class AbstractLotroCardBlueprint implements LotroCardBlueprint {
     private String _name;
+    private String _subTitle;
     private CardType _cardType;
     private Side _side;
     private Culture _culture;
@@ -25,14 +26,15 @@ public abstract class AbstractLotroCardBlueprint implements LotroCardBlueprint {
     private Map<Keyword, Integer> _keywords = new HashMap<Keyword, Integer>();
 
     public AbstractLotroCardBlueprint(Side side, CardType cardType, Culture culture, String name) {
-        this(side, cardType, culture, name, false);
+        this(side, cardType, culture, name, null, false);
     }
 
-    public AbstractLotroCardBlueprint(Side side, CardType cardType, Culture culture, String name, boolean unique) {
+    public AbstractLotroCardBlueprint(Side side, CardType cardType, Culture culture, String name, String subTitle, boolean unique) {
         _side = side;
         _cardType = cardType;
         _culture = culture;
         _name = name;
+        _subTitle = subTitle;
         _unique = unique;
     }
 
@@ -87,6 +89,11 @@ public abstract class AbstractLotroCardBlueprint implements LotroCardBlueprint {
     @Override
     public String getName() {
         return _name;
+    }
+
+    @Override
+    public String getSubtitle() {
+        return _subTitle;
     }
 
     @Override

@@ -8,6 +8,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.Assignment;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.SystemQueueAction;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.decisions.PlayerAssignMinionsDecision;
@@ -62,7 +63,7 @@ public class FreePeoplePlayerAssignsMinionsGameProcess implements GameProcess {
                                             for (PhysicalCard freeCard : assignments.keySet()) {
                                                 Set<PhysicalCard> minionsAssigned = assignments.get(freeCard);
                                                 if (minionsAssigned.size() + getMinionsAssignedBeforeCount(freeCard, gameState) > 1 + game.getModifiersQuerying().getKeywordCount(game.getGameState(), freeCard, Keyword.DEFENDER))
-                                                    throw new DecisionResultInvalidException(freeCard.getBlueprint().getName() + " can't have so many minions assigned");
+                                                    throw new DecisionResultInvalidException(GameUtils.getFullName(freeCard) + " can't have so many minions assigned");
                                                 unassignedMinions.removeAll(minionsAssigned);
                                             }
 

@@ -35,7 +35,7 @@ import java.util.List;
  */
 public class Card1_313 extends AbstractAttachableFPPossession {
     public Card1_313() {
-        super(1, 2, 0, Culture.SHIRE, PossessionClass.HAND_WEAPON, "Sting", true);
+        super(1, 2, 0, Culture.SHIRE, PossessionClass.HAND_WEAPON, "Sting", null, true);
     }
 
     @Override

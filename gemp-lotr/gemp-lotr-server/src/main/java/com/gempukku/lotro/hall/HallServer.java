@@ -9,6 +9,7 @@ import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.gempukku.lotro.league.LeagueSerieData;
 import com.gempukku.lotro.league.LeagueService;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.timing.GameResultListener;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 
@@ -264,7 +265,7 @@ public class HallServer extends AbstractServer {
             for (Map.Entry<String, Integer> cardCount : deckCardCounts.entrySet()) {
                 final int collectionCount = collection.getItemCount(cardCount.getKey());
                 if (collectionCount < cardCount.getValue()) {
-                    String cardName = _library.getLotroCardBlueprint(cardCount.getKey()).getName();
+                    String cardName = GameUtils.getFullName(_library.getLotroCardBlueprint(cardCount.getKey()));
                     throw new HallException("You don't have the required cards in collection: " + cardName + " required " + cardCount.getValue() + ", owned " + collectionCount);
                 }
             }

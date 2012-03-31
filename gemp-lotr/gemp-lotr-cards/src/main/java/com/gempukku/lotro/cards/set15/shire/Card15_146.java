@@ -34,7 +34,7 @@ import java.util.List;
  */
 public class Card15_146 extends AbstractFollower {
     public Card15_146() {
-        super(Side.FREE_PEOPLE, 2, 2, 0, 0, Culture.SHIRE, "Hobbiton Brewer", true);
+        super(Side.FREE_PEOPLE, 2, 2, 0, 0, Culture.SHIRE, "Hobbiton Brewer", "Maker of Fine Ales", true);
     }
 
     @Override

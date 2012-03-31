@@ -9,6 +9,7 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.decisions.MultipleChoiceAwaitingDecision;
 import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
@@ -72,7 +73,7 @@ public class Card1_022 extends AbstractOldEvent {
             }
             if (card != null && _count < 5) {
                 _action.appendEffect(new PlayoutDecisionEffect(_player,
-                        new MultipleChoiceAwaitingDecision(1, "Do you want to put " + _lastCard.getBlueprint().getName() + " in your hand?", new String[]{"Yes", "No"}) {
+                        new MultipleChoiceAwaitingDecision(1, "Do you want to put " + GameUtils.getFullName(_lastCard) + " in your hand?", new String[]{"Yes", "No"}) {
                             @Override
                             protected void validDecisionMade(int index, String result) {
                                 if (result.equals("Yes")) {

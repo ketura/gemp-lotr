@@ -38,7 +38,7 @@ import java.util.List;
  */
 public class Card7_002 extends AbstractAttachable {
     public Card7_002() {
-        super(null, CardType.THE_ONE_RING, 0, null, null, "The One Ring", true);
+        super(null, CardType.THE_ONE_RING, 0, null, null, "The One Ring", "Such a Weight to Carry", true);
     }
 
     @Override

@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card18_048 extends AbstractCompanion {
     public Card18_048() {
-        super(3, 7, 3, 7, Culture.GONDOR, Race.MAN, null, "Faramir", true);
+        super(3, 7, 3, 7, Culture.GONDOR, Race.MAN, null, "Faramir", "Captain of Ithilien", true);
         addKeyword(Keyword.RANGER);
         addKeyword(Keyword.HUNTER, 2);
     }

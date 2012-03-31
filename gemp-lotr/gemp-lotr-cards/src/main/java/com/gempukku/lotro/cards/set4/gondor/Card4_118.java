@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card4_118 extends AbstractAttachableFPPossession {
     public Card4_118() {
-        super(1, 0, 0, Culture.GONDOR, PossessionClass.RANGED_WEAPON, "Faramir's Bow", true);
+        super(1, 0, 0, Culture.GONDOR, PossessionClass.RANGED_WEAPON, "Faramir's Bow", null, true);
     }
 
     @Override

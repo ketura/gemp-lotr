@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card2_038 extends AbstractAttachableFPPossession {
     public Card2_038() {
-        super(1, 0, 0, Culture.GONDOR, PossessionClass.SHIELD, "Shield of Boromir", true);
+        super(1, 0, 0, Culture.GONDOR, PossessionClass.SHIELD, "Shield of Boromir", null, true);
     }
 
     @Override

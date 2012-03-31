@@ -23,7 +23,7 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
  */
 public class Card15_104 extends AbstractMinion {
     public Card15_104() {
-        super(8, 20, 4, 4, Race.ORC, Culture.ORC, "Black Land Shrieker", true);
+        super(8, 20, 4, 4, Race.ORC, Culture.ORC, "Black Land Shrieker", null, true);
     }
 
     @Override

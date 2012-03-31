@@ -28,6 +28,8 @@ public interface LotroCardBlueprint {
 
     public String getName();
 
+    public String getSubtitle();
+
     public Signet getSignet();
 
     public boolean hasKeyword(Keyword keyword);

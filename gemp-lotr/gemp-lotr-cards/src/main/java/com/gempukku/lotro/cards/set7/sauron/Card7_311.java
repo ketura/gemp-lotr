@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class Card7_311 extends AbstractMinion {
     public Card7_311() {
-        super(5, 12, 3, 5, Race.ORC, Culture.SAURON, "Siege Commander", true);
+        super(5, 12, 3, 5, Race.ORC, Culture.SAURON, "Siege Commander", null, true);
         addKeyword(Keyword.BESIEGER);
     }
 

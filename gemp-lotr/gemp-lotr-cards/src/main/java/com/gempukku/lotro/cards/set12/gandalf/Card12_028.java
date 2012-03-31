@@ -34,7 +34,7 @@ import java.util.List;
  */
 public class Card12_028 extends AbstractAttachableFPPossession {
     public Card12_028() {
-        super(0, 0, 0, Culture.GANDALF, null, "Gandalf's Hat", true);
+        super(0, 0, 0, Culture.GANDALF, null, "Gandalf's Hat", null, true);
     }
 
     @Override

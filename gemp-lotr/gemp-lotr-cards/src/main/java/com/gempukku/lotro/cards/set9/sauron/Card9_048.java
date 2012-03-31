@@ -23,7 +23,7 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
  */
 public class Card9_048 extends AbstractMinion {
     public Card9_048() {
-        super(18, 24, 5, 6, Race.MAIA, Culture.SAURON, "Sauron", true);
+        super(18, 24, 5, 6, Race.MAIA, Culture.SAURON, "Sauron", "The Lord of the Rings", true);
         addKeyword(Keyword.DAMAGE, 2);
         addKeyword(Keyword.ENDURING);
         addKeyword(Keyword.FIERCE);

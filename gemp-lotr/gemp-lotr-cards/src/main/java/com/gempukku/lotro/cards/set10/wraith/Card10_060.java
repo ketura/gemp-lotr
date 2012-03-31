@@ -34,7 +34,7 @@ import java.util.List;
  */
 public class Card10_060 extends AbstractAttachable {
     public Card10_060() {
-        super(Side.SHADOW, CardType.POSSESSION, 2, Culture.WRAITH, PossessionClass.HAND_WEAPON, "Gorbag's Sword", true);
+        super(Side.SHADOW, CardType.POSSESSION, 2, Culture.WRAITH, PossessionClass.HAND_WEAPON, "Gorbag's Sword", null, true);
     }
 
     @Override

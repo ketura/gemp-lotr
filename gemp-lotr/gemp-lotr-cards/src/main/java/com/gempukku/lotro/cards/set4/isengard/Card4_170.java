@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card4_170 extends AbstractPermanent {
     public Card4_170() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.ISENGARD, Zone.SUPPORT, "Ranks Without Number", true);
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.ISENGARD, Zone.SUPPORT, "Ranks Without Number", null, true);
     }
 
     @Override

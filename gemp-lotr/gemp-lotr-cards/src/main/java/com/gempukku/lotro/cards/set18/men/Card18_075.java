@@ -35,7 +35,7 @@ import java.util.List;
  */
 public class Card18_075 extends AbstractMinion {
     public Card18_075() {
-        super(1, 3, 4, 2, Race.HOBBIT, Culture.MEN, "Ted Sandyman", true);
+        super(1, 3, 4, 2, Race.HOBBIT, Culture.MEN, "Ted Sandyman", "Chief's Men's Ally", true);
     }
 
     @Override

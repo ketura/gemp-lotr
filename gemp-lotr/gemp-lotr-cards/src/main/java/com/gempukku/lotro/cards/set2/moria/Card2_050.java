@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class Card2_050 extends AbstractAttachable {
     public Card2_050() {
-        super(Side.SHADOW, CardType.ARTIFACT, 1, Culture.MORIA, PossessionClass.HAND_WEAPON, "The Balrog's Sword", true);
+        super(Side.SHADOW, CardType.ARTIFACT, 1, Culture.MORIA, PossessionClass.HAND_WEAPON, "The Balrog's Sword", null, true);
     }
 
     @Override

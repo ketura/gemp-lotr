@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card3_111 extends AbstractAlly {
     public Card3_111() {
-        super(1, Block.FELLOWSHIP, 1, 1, 2, Race.HOBBIT, Culture.SHIRE, "Old Noakes", true);
+        super(1, Block.FELLOWSHIP, 1, 1, 2, Race.HOBBIT, Culture.SHIRE, "Old Noakes", "Purveyor of Wisdoms", true);
     }
 
     @Override

@@ -22,7 +22,7 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
  */
 public class Card0_066 extends AbstractCompanion {
     public Card0_066() {
-        super(2, 7, 3, 6, Culture.ROHAN, Race.MAN, null, "Eomer", true);
+        super(2, 7, 3, 6, Culture.ROHAN, Race.MAN, null, "Eomer", "Forthwith Banished", true);
         addKeyword(Keyword.DAMAGE, 1);
         addKeyword(Keyword.VALIANT);
     }

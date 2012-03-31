@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card1_056 extends AbstractAlly {
     public Card1_056() {
-        super(2, Block.FELLOWSHIP, 6, 3, 3, Race.ELF, Culture.ELVEN, "Orophin", true);
+        super(2, Block.FELLOWSHIP, 6, 3, 3, Race.ELF, Culture.ELVEN, "Orophin", "Lorien Bowman", true);
         addKeyword(Keyword.ARCHER);
     }
 

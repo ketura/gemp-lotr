@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class Card7_059 extends AbstractMinion {
     public Card7_059() {
-        super(2, 5, 4, 3, null, Culture.GOLLUM, "Gollum", true);
+        super(2, 5, 4, 3, null, Culture.GOLLUM, "Gollum", "Vile Creature", true);
     }
 
     @Override

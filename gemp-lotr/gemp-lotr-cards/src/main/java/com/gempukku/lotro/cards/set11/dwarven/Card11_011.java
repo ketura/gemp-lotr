@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card11_011 extends AbstractPermanent {
     public Card11_011() {
-        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.DWARVEN, Zone.SUPPORT, "Hall of Our Fathers", true);
+        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.DWARVEN, Zone.SUPPORT, "Hall of Our Fathers", null, true);
     }
 
     @Override

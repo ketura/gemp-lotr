@@ -19,7 +19,7 @@ import com.gempukku.lotro.common.Race;
  */
 public class Card11_226 extends AbstractMinion {
     public Card11_226() {
-        super(8, 14, 4, 3, Race.NAZGUL, Culture.WRAITH, "The Witch-king", true);
+        super(8, 14, 4, 3, Race.NAZGUL, Culture.WRAITH, "The Witch-king", "Captain of the Nine Riders", true);
         addKeyword(Keyword.FIERCE);
         addKeyword(Keyword.TOIL, 2);
         addKeyword(Keyword.MUSTER);

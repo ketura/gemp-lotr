@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card7_217 extends AbstractMinion {
     public Card7_217() {
-        super(4, 9, 2, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Nertëa", true);
+        super(4, 9, 2, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Nertëa", "Black-Mantled Wraith", true);
     }
 
     @Override

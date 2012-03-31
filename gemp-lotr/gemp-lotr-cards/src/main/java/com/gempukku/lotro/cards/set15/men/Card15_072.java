@@ -19,7 +19,7 @@ import java.util.List;
 
 public class Card15_072 extends AbstractMinion {
     public Card15_072() {
-        super(2, 4, 3, 4, Race.MAN, Culture.MEN, "Bill Ferny", true);
+        super(2, 4, 3, 4, Race.MAN, Culture.MEN, "Bill Ferny", "Agent of Saruman", true);
     }
 
     @Override

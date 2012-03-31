@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class Card15_205 extends AbstractPermanent {
     public Card15_205() {
-        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.ELVEN, Zone.SUPPORT, "Forth the Three Hunters!");
+        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.ELVEN, Zone.SUPPORT, "Forth the Three Hunters!", "Elf Version", false);
     }
 
     @Override

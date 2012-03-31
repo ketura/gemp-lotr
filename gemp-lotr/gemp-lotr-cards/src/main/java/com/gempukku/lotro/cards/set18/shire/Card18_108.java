@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card18_108 extends AbstractPermanent {
     public Card18_108() {
-        super(Side.FREE_PEOPLE, 1, CardType.POSSESSION, Culture.SHIRE, Zone.SUPPORT, "Golden Perch Ale", true);
+        super(Side.FREE_PEOPLE, 1, CardType.POSSESSION, Culture.SHIRE, Zone.SUPPORT, "Golden Perch Ale", null, true);
     }
 
     @Override

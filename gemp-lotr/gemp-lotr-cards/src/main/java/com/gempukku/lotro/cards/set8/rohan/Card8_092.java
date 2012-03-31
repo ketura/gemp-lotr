@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class Card8_092 extends AbstractCompanion {
     public Card8_092() {
-        super(3, 7, 3, 6, Culture.ROHAN, Race.MAN, Signet.ARAGORN, "Theoden", true);
+        super(3, 7, 3, 6, Culture.ROHAN, Race.MAN, Signet.ARAGORN, "Theoden", "Tall and Proud", true);
         addKeyword(Keyword.VALIANT);
     }
 

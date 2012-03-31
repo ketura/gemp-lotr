@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card4_091 extends AbstractAttachableFPPossession {
     public Card4_091() {
-        super(2, 0, 1, Culture.GANDALF, CardType.ARTIFACT, PossessionClass.STAFF, "Gandalf's Staff", true);
+        super(2, 0, 1, Culture.GANDALF, CardType.ARTIFACT, PossessionClass.STAFF, "Gandalf's Staff", "Walking Stick", true);
     }
 
     @Override

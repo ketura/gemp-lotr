@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class Card17_105 extends AbstractPermanent {
     public Card17_105() {
-        super(Side.SHADOW, 2, CardType.ARTIFACT, Culture.SAURON, Zone.SUPPORT, "Throne of the Dark Lord", true);
+        super(Side.SHADOW, 2, CardType.ARTIFACT, Culture.SAURON, Zone.SUPPORT, "Throne of the Dark Lord", null, true);
     }
 
     @Override

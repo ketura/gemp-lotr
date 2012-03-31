@@ -5,12 +5,12 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPutCardFromDiscardIntoHandEffect;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 
-import java.util.List;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * Set: Shadows
@@ -26,7 +26,7 @@ import java.util.Collections;
  */
 public class Card11_030 extends AbstractCompanion {
     public Card11_030() {
-        super(2, 5, 3, 6, Culture.GANDALF, Race.MAN, null, "Erland", true);
+        super(2, 5, 3, 6, Culture.GANDALF, Race.MAN, null, "Erland", "Dale Counselor", true);
     }
 
     @Override

@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class Card2_113 extends AbstractPermanent {
     public Card2_113() {
-        super(Side.FREE_PEOPLE, 2, CardType.POSSESSION, Culture.SHIRE, Zone.SUPPORT, "Red Book of Westmarch", true);
+        super(Side.FREE_PEOPLE, 2, CardType.POSSESSION, Culture.SHIRE, Zone.SUPPORT, "Red Book of Westmarch", null, true);
         addKeyword(Keyword.TALE);
     }
 
