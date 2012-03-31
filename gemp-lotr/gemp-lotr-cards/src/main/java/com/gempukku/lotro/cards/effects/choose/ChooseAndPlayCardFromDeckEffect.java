@@ -59,6 +59,9 @@ public class ChooseAndPlayCardFromDeckEffect implements Effect {
                             if (selectedCards.size() > 0) {
                                 final PhysicalCard selectedCard = selectedCards.get(0);
                                 cardSelectedToPlay(game, selectedCard);
+                            } else {
+                                game.getGameState().sendMessage(_playerId + " shuffles his or her deck");
+                                game.getGameState().shuffleDeck(_playerId);
                             }
                         }
                     });
