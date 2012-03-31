@@ -34,7 +34,7 @@ public class LeagueService {
     private Map<LeagueSerieData, List<LeagueStanding>> _leagueSerieStandings = new ConcurrentHashMap<LeagueSerieData, List<LeagueStanding>>();
 
     private int _activeLeaguesLoadedDate;
-    private Set<League> _activeLeagues;
+    private List<League> _activeLeagues;
 
     public LeagueService(LeagueDAO leagueDao, LeaguePointsDAO leaguePointsDao, LeagueMatchDAO leagueMatchDao,
                          CollectionsManager collectionsManager) {
@@ -65,12 +65,12 @@ public class LeagueService {
         }
     }
 
-    public Set<League> getActiveLeagues() {
+    public List<League> getActiveLeagues() {
         if (DateUtils.getCurrentDate() == _activeLeaguesLoadedDate)
-            return Collections.unmodifiableSet(_activeLeagues);
+            return Collections.unmodifiableList(_activeLeagues);
         else {
             ensureLoadedCurrentLeagues();
-            return Collections.unmodifiableSet(_activeLeagues);
+            return Collections.unmodifiableList(_activeLeagues);
         }
     }
 

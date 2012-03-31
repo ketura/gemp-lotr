@@ -8,8 +8,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LeagueDAO {
     private DbAccess _dbAccess;
@@ -46,7 +46,7 @@ public class LeagueDAO {
         }
     }
 
-    public Set<League> loadActiveLeagues(int currentTime) throws SQLException, IOException {
+    public List<League> loadActiveLeagues(int currentTime) throws SQLException, IOException {
         Connection conn = _dbAccess.getDataSource().getConnection();
         try {
             PreparedStatement statement = conn.prepareStatement("select id, name, type, class, parameters, start, end, status from league where start<=? and end>=? order by start desc");
@@ -55,7 +55,7 @@ public class LeagueDAO {
                 statement.setInt(2, currentTime);
                 ResultSet rs = statement.executeQuery();
                 try {
-                    Set<League> activeLeagues = new HashSet<League>();
+                    List<League> activeLeagues = new ArrayList<League>();
                     while (rs.next()) {
                         int id = rs.getInt(1);
                         String name = rs.getString(2);
