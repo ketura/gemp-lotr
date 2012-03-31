@@ -8,7 +8,7 @@
         "set": [1,2,3]
     },
     {
-        "name": "Fellowship block - Part 1",
+        "name": "Fellowship block - Set 1",
         "code": "fotr1_block",
         "sites": "FELLOWSHIP",
         "cancelRingBearerSkirmish": true,
@@ -17,7 +17,7 @@
         "hall": false
     },
     {
-        "name": "Fellowship block - Part 2",
+        "name": "Fellowship block - Sets 1&2",
         "code": "fotr2_block",
         "sites": "FELLOWSHIP",
         "cancelRingBearerSkirmish": true,
@@ -33,7 +33,7 @@
         "set":[4,5,6]
     },
     {
-        "name": "Towers block - Part 1",
+        "name": "Towers block - Set 4",
         "code": "ttt1_block",
         "sites": "TWO_TOWERS",
         "cancelRingBearerSkirmish": true,
@@ -41,7 +41,7 @@
         "hall": false
     },
     {
-        "name": "Towers block - Part 2",
+        "name": "Towers block - Sets 4&5",
         "code": "ttt2_block",
         "sites": "TWO_TOWERS",
         "cancelRingBearerSkirmish": true,

@@ -60,10 +60,17 @@ var LeagueResultsUI = Class.extend({
                     var serieStart = serie.getAttribute("start");
                     var serieEnd = serie.getAttribute("end");
                     var maxMatches = serie.getAttribute("maxMatches");
+                    var format = serie.getAttribute("format");
+                    var collection = serie.getAttribute("collection");
+                    var limited = serie.getAttribute("limited");
 
                     var serieText = serieName + " - " + this.getDateString(serieStart) + " to " + this.getDateString(serieEnd);
                     tabContent.append("<h2 class='serieName'>" + serieText + "</h2>");
-                    tabContent.append("<sub>Maximum ranked matches in serie: " + maxMatches + "</sub>");
+
+                    tabContent.append("<div>Format: " + ((limited == "true") ? "Limited" : "Constructed") + " " + format + "</div>");
+                    tabContent.append("<div>Collection: " + collection + "</div>");
+
+                    tabContent.append("<div>Maximum ranked matches in serie: " + maxMatches + "</div>");
 
                     var standings = serie.getElementsByTagName("standing");
                     if (standings.length > 0)
