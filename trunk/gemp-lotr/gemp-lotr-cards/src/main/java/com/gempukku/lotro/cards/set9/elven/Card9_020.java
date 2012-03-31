@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card9_020 extends AbstractAttachableFPPossession {
     public Card9_020() {
-        super(0, 0, 1, Culture.ELVEN, CardType.ARTIFACT, PossessionClass.RING, "Nenya", true);
+        super(0, 0, 1, Culture.ELVEN, CardType.ARTIFACT, PossessionClass.RING, "Nenya", "Ring of Adamant", true);
     }
 
     @Override

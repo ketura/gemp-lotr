@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class Card15_118 extends AbstractPermanent {
     public Card15_118() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.ORC, Zone.SUPPORT, "Unmistakable Omen", true);
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.ORC, Zone.SUPPORT, "Unmistakable Omen", null, true);
     }
 
     @Override

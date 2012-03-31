@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class Card4_125 extends AbstractPermanent {
     public Card4_125() {
-        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.GONDOR, Zone.SUPPORT, "Henneth Annun", true);
+        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.GONDOR, Zone.SUPPORT, "Henneth Annun", null, true);
     }
 
     @Override

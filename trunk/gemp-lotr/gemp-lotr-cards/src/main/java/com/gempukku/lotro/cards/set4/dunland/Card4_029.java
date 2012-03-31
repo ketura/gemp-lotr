@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card4_029 extends AbstractPermanent {
     public Card4_029() {
-        super(Side.SHADOW, 0, CardType.CONDITION, Culture.DUNLAND, Zone.SUPPORT, "No Refuge", true);
+        super(Side.SHADOW, 0, CardType.CONDITION, Culture.DUNLAND, Zone.SUPPORT, "No Refuge", null, true);
     }
 
     @Override

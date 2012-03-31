@@ -24,7 +24,7 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
  */
 public class Card19_028 extends AbstractCompanion {
     public Card19_028() {
-        super(0, 3, 4, 10, Culture.SHIRE, Race.HOBBIT, null, "Frodo", true);
+        super(0, 3, 4, 10, Culture.SHIRE, Race.HOBBIT, null, "Frodo", "Little Master", true);
         addKeyword(Keyword.FELLOWSHIP);
         addKeyword(Keyword.RING_BOUND);
         addKeyword(Keyword.CAN_START_WITH_RING);

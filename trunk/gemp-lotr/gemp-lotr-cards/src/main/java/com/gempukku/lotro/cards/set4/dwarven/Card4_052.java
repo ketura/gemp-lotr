@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class Card4_052 extends AbstractPermanent {
     public Card4_052() {
-        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.DWARVEN, Zone.SUPPORT, "My Axe Is Notched", true);
+        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.DWARVEN, Zone.SUPPORT, "My Axe Is Notched", null, true);
     }
 
     @Override

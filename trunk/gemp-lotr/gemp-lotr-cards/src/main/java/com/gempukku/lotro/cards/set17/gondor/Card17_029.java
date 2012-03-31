@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card17_029 extends AbstractAttachableFPPossession {
     public Card17_029() {
-        super(1, 0, 0, Culture.GONDOR, PossessionClass.RANGED_WEAPON, "Faramir's Bow", true);
+        super(1, 0, 0, Culture.GONDOR, PossessionClass.RANGED_WEAPON, "Faramir's Bow", "Ithilien Longbow", true);
     }
 
     @Override

@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card8_084 extends AbstractMinion {
     public Card8_084() {
-        super(8, 14, 4, 3, Race.NAZGUL, Culture.WRAITH, "The Witch-king", true);
+        super(8, 14, 4, 3, Race.NAZGUL, Culture.WRAITH, "The Witch-king", "Black Captain", true);
         addKeyword(Keyword.ENDURING);
     }
 

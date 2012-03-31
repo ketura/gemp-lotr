@@ -2,17 +2,17 @@ package com.gempukku.lotro.cards.set11.gandalf;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.modifiers.conditions.LocationCondition;
+import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
-import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.filters.Filters;
+import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
-import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.filters.Filters;
 
-import java.util.List;
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Set: Shadows
@@ -28,7 +28,7 @@ import java.util.LinkedList;
  */
 public class Card11_033 extends AbstractCompanion {
     public Card11_033() {
-        super(4, 7, 4, 7, Culture.GANDALF, Race.WIZARD, null, "Gandalf", true);
+        super(4, 7, 4, 7, Culture.GANDALF, Race.WIZARD, null, "Gandalf", "Leader of the Company", true);
     }
 
     @Override

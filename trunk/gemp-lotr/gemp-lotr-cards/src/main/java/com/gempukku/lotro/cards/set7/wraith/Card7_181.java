@@ -37,7 +37,7 @@ import java.util.List;
  */
 public class Card7_181 extends AbstractPermanent {
     public Card7_181() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.WRAITH, Zone.SUPPORT, "Held Ground", true);
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.WRAITH, Zone.SUPPORT, "Held Ground", null, true);
     }
 
     @Override

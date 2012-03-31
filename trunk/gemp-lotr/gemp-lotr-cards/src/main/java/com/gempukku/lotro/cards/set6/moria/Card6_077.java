@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card6_077 extends AbstractPermanent {
     public Card6_077() {
-        super(Side.SHADOW, 0, CardType.CONDITION, Culture.MORIA, Zone.SUPPORT, "Durin's Tower", true);
+        super(Side.SHADOW, 0, CardType.CONDITION, Culture.MORIA, Zone.SUPPORT, "Durin's Tower", null, true);
     }
 
     @Override

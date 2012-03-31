@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class Card11_075 extends AbstractMinion {
     public Card11_075() {
-        super(5, 13, 3, 4, Race.MAN, Culture.MEN, "Easterling Host", true);
+        super(5, 13, 3, 4, Race.MAN, Culture.MEN, "Easterling Host", null, true);
         addKeyword(Keyword.LURKER);
     }
 

@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card5_039 extends AbstractPermanent {
     public Card5_039() {
-        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.GONDOR, Zone.SUPPORT, "Stone Tower", true);
+        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.GONDOR, Zone.SUPPORT, "Stone Tower", null, true);
         addKeyword(Keyword.FORTIFICATION);
     }
 

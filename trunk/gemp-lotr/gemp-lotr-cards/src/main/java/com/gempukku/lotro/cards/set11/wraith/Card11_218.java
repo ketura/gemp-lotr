@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card11_218 extends AbstractPermanent {
     public Card11_218() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.WRAITH, Zone.SUPPORT, "Surrounded by Wraiths", true);
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.WRAITH, Zone.SUPPORT, "Surrounded by Wraiths", null, true);
     }
 
     @Override

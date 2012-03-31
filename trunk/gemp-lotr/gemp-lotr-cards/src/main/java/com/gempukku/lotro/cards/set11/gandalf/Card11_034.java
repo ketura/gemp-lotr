@@ -4,17 +4,17 @@ import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.choose.ChooseOpponentEffect;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.KeywordModifier;
-import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
-import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.effects.ChooseAndWoundCharactersEffect;
 import com.gempukku.lotro.filters.Filters;
+import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
+import com.gempukku.lotro.logic.effects.ChooseAndWoundCharactersEffect;
+import com.gempukku.lotro.logic.modifiers.KeywordModifier;
+import com.gempukku.lotro.logic.modifiers.Modifier;
+import com.gempukku.lotro.logic.timing.EffectResult;
 
-import java.util.List;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * Set: Shadows
@@ -27,9 +27,9 @@ import java.util.Collections;
  * may discard a card from hand to draw a card.) Each time bearer wins a skirmish, choose a Shadow player who must wound
  * a minion.
  */
-public class Card11_034 extends AbstractAttachableFPPossession{
+public class Card11_034 extends AbstractAttachableFPPossession {
     public Card11_034() {
-        super(2, 0, 1, Culture.GANDALF, CardType.ARTIFACT, PossessionClass.STAFF, "Gandalf's Staff", true);
+        super(2, 0, 1, Culture.GANDALF, CardType.ARTIFACT, PossessionClass.STAFF, "Gandalf's Staff", "Ash-Staff", true);
     }
 
     @Override

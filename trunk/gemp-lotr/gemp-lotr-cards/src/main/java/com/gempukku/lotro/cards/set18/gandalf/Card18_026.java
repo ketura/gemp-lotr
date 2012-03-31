@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class Card18_026 extends AbstractAttachableFPPossession {
     public Card18_026() {
-        super(1, 0, 1, Culture.GANDALF, null, "Radagast's Herb Bag", true);
+        super(1, 0, 1, Culture.GANDALF, null, "Radagast's Herb Bag", null, true);
     }
 
     @Override

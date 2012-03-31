@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card9_022 extends AbstractPermanent {
     public Card9_022() {
-        super(Side.FREE_PEOPLE, 1, CardType.POSSESSION, Culture.ELVEN, Zone.SUPPORT, "Strands of Elven Hair", true);
+        super(Side.FREE_PEOPLE, 1, CardType.POSSESSION, Culture.ELVEN, Zone.SUPPORT, "Strands of Elven Hair", null, true);
     }
 
     @Override

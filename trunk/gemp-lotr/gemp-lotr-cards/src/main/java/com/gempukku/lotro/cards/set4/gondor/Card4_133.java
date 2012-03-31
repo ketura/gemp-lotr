@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class Card4_133 extends AbstractPermanent {
     public Card4_133() {
-        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.GONDOR, Zone.SUPPORT, "Ruins of Osgiliath", true);
+        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.GONDOR, Zone.SUPPORT, "Ruins of Osgiliath", null, true);
     }
 
     @Override

@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card17_022 extends AbstractFollower {
     public Card17_022() {
-        super(Side.FREE_PEOPLE, 3, 0, 0, 0, Culture.GANDALF, "Meneldor", true);
+        super(Side.FREE_PEOPLE, 3, 0, 0, 0, Culture.GANDALF, "Meneldor", "Misty Mountain Eagle", true);
     }
 
     @Override

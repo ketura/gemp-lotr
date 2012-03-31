@@ -5,6 +5,7 @@ import com.gempukku.lotro.cards.effects.TransferPermanentEffect;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardsEffect;
 import com.gempukku.lotro.logic.modifiers.ModifierFlag;
@@ -45,6 +46,6 @@ public class TransferPermanentAction extends ActivateCardAction {
 
     @Override
     public String getText(LotroGame game) {
-        return "Transfer " + _transferredCard.getBlueprint().getName();
+        return "Transfer " + GameUtils.getFullName(_transferredCard);
     }
 }

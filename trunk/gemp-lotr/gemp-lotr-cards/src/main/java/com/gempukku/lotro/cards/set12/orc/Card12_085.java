@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card12_085 extends AbstractMinion {
     public Card12_085() {
-        super(12, 15, 4, 4, Race.TROLL, Culture.ORC, "Cave Troll of Moria", true);
+        super(12, 15, 4, 4, Race.TROLL, Culture.ORC, "Cave Troll of Moria", "Savage Menace", true);
         addKeyword(Keyword.DAMAGE, 1);
         addKeyword(Keyword.FIERCE);
         addKeyword(Keyword.TOIL, 2);

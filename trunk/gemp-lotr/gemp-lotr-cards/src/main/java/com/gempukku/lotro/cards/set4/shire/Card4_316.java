@@ -34,7 +34,7 @@ import java.util.List;
  */
 public class Card4_316 extends AbstractCompanion {
     public Card4_316() {
-        super(2, 3, 4, 5, Culture.SHIRE, Race.HOBBIT, Signet.GANDALF, "Sam", true);
+        super(2, 3, 4, 5, Culture.SHIRE, Race.HOBBIT, Signet.GANDALF, "Sam", "Samwise the Brave", true);
         addKeyword(Keyword.RING_BOUND);
     }
 

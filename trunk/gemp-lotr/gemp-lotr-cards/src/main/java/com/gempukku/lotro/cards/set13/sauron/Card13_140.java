@@ -27,7 +27,7 @@ import com.gempukku.lotro.logic.GameUtils;
  */
 public class Card13_140 extends AbstractMinion {
     public Card13_140() {
-        super(16, 24, 5, 6, Race.MAIA, Culture.SAURON, "Sauron", true);
+        super(16, 24, 5, 6, Race.MAIA, Culture.SAURON, "Sauron", "Dark Lord of Mordor", true);
         addKeyword(Keyword.DAMAGE, 1);
         addKeyword(Keyword.FIERCE);
     }

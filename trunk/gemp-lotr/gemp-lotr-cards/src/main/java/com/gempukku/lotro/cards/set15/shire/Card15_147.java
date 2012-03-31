@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card15_147 extends AbstractFollower {
     public Card15_147() {
-        super(Side.FREE_PEOPLE, 2, 1, 0, 1, Culture.SHIRE, "Hobbiton Farmer", true);
+        super(Side.FREE_PEOPLE, 2, 1, 0, 1, Culture.SHIRE, "Hobbiton Farmer", "Lover of Pipeweed", true);
     }
 
     @Override

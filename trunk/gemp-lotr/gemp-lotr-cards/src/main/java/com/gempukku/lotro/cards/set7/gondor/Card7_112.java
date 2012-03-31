@@ -36,7 +36,7 @@ import java.util.List;
  */
 public class Card7_112 extends AbstractPermanent {
     public Card7_112() {
-        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.GONDOR, Zone.SUPPORT, "Noble Leaders", true);
+        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.GONDOR, Zone.SUPPORT, "Noble Leaders", null, true);
     }
 
     @Override

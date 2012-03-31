@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class Card4_244 extends AbstractMinion {
     public Card4_244() {
-        super(8, 16, 4, 4, Race.MAN, Culture.RAIDER, "Regiment of Haradrim", true);
+        super(8, 16, 4, 4, Race.MAN, Culture.RAIDER, "Regiment of Haradrim", null, true);
         addKeyword(Keyword.SOUTHRON);
     }
 

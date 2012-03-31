@@ -24,7 +24,7 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
  */
 public class Card12_015 extends AbstractCompanion {
     public Card12_015() {
-        super(3, 7, 3, 6, Culture.DWARVEN, Race.DWARF, null, "Thrarin", true);
+        super(3, 7, 3, 6, Culture.DWARVEN, Race.DWARF, null, "Thrarin", "Smith of Erebor", true);
     }
 
     @Override

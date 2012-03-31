@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class Card0_058 extends AbstractCompanion {
     public Card0_058() {
-        super(3, 7, 3, 6, Culture.GONDOR, Race.MAN, null, "Anarion", true);
+        super(3, 7, 3, 6, Culture.GONDOR, Race.MAN, null, "Anarion", "Lord of Anorien", true);
     }
 
     @Override

@@ -1,19 +1,19 @@
 package com.gempukku.lotro.cards.set11.elven;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
-import com.gempukku.lotro.cards.modifiers.conditions.LocationCondition;
 import com.gempukku.lotro.cards.modifiers.ResistanceModifier;
+import com.gempukku.lotro.cards.modifiers.conditions.LocationCondition;
 import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Race;
+import com.gempukku.lotro.filters.Filters;
+import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
-import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.filters.Filters;
 
-import java.util.List;
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Set: Shadows
@@ -28,7 +28,7 @@ import java.util.LinkedList;
  */
 public class Card11_021 extends AbstractCompanion {
     public Card11_021() {
-        super(2, 6, 3, 7, Culture.ELVEN, Race.ELF, null, "Legolas", true);
+        super(2, 6, 3, 7, Culture.ELVEN, Race.ELF, null, "Legolas", "Companion of the Ring", true);
     }
 
     @Override

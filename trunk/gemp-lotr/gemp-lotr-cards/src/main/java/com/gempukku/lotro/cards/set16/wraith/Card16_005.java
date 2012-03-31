@@ -36,7 +36,7 @@ import java.util.List;
  */
 public class Card16_005 extends AbstractMinion {
     public Card16_005() {
-        super(7, 14, 3, 2, Race.WRAITH, Culture.WRAITH, "Spirit of Dread", true);
+        super(7, 14, 3, 2, Race.WRAITH, Culture.WRAITH, "Spirit of Dread", null, true);
         addKeyword(Keyword.ENDURING);
     }
 

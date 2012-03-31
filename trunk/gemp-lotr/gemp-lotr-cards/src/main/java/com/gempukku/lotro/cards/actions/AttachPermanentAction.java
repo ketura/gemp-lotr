@@ -49,7 +49,7 @@ public class AttachPermanentAction extends AbstractCostToEffectAction implements
         final Zone playedFromZone = card.getZone();
 
         _chooseTargetEffect =
-                new ChooseActiveCardEffect(null, card.getOwner(), "Attach " + card.getBlueprint().getName() + ". Choose target to attach to", filter) {
+                new ChooseActiveCardEffect(null, card.getOwner(), "Attach " + GameUtils.getFullName(card) + ". Choose target to attach to", filter) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard target) {
                         _target = target;
@@ -102,7 +102,7 @@ public class AttachPermanentAction extends AbstractCostToEffectAction implements
 
     @Override
     public String getText(LotroGame game) {
-        return "Attach " + _cardToAttach.getBlueprint().getName();
+        return "Attach " + GameUtils.getFullName(_cardToAttach);
     }
 
     @Override

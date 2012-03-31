@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card4_317 extends AbstractAttachableFPPossession {
     public Card4_317() {
-        super(0, 0, 0, Culture.SHIRE, null, "Sam's Pack", true);
+        super(0, 0, 0, Culture.SHIRE, null, "Sam's Pack", null, true);
     }
 
     @Override

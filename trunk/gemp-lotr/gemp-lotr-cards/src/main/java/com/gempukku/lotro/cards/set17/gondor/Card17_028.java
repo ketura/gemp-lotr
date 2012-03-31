@@ -38,7 +38,7 @@ import java.util.List;
  */
 public class Card17_028 extends AbstractCompanion {
     public Card17_028() {
-        super(3, 7, 3, 6, Culture.GONDOR, Race.MAN, null, "Faramir", true);
+        super(3, 7, 3, 6, Culture.GONDOR, Race.MAN, null, "Faramir", "Bearer of Quality", true);
         addKeyword(Keyword.CAN_START_WITH_RING);
     }
 

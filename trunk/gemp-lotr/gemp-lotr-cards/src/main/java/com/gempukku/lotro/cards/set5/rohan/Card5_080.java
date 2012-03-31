@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card5_080 extends AbstractPermanent {
     public Card5_080() {
-        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.ROHAN, Zone.SUPPORT, "Arrow-slits", true);
+        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.ROHAN, Zone.SUPPORT, "Arrow-slits", null, true);
         addKeyword(Keyword.FORTIFICATION);
     }
 

@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card7_097 extends AbstractAlly {
     public Card7_097() {
-        super(1, Block.TWO_TOWERS, 3, 6, 1, Race.MAN, Culture.GONDOR, "Gondorian Merchant", true);
+        super(1, Block.TWO_TOWERS, 3, 6, 1, Race.MAN, Culture.GONDOR, "Gondorian Merchant", null, true);
     }
 
     @Override

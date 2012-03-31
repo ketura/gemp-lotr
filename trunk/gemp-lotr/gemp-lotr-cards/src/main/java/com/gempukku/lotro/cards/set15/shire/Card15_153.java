@@ -33,7 +33,7 @@ import java.util.List;
  */
 public class Card15_153 extends AbstractCompanion {
     public Card15_153() {
-        super(2, 3, 4, 9, Culture.SHIRE, Race.HOBBIT, null, "Sam", true);
+        super(2, 3, 4, 9, Culture.SHIRE, Race.HOBBIT, null, "Sam", "Innocent Traveler", true);
         addKeyword(Keyword.RING_BOUND);
     }
 

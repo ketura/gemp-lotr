@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card18_123 extends AbstractPermanent {
     public Card18_123() {
-        super(Side.SHADOW, 2, CardType.CONDITION, Culture.URUK_HAI, Zone.SUPPORT, "Tracking the Prize", true);
+        super(Side.SHADOW, 2, CardType.CONDITION, Culture.URUK_HAI, Zone.SUPPORT, "Tracking the Prize", null, true);
     }
 
     @Override

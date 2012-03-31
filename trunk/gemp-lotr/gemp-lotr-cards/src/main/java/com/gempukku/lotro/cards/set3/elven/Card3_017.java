@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class Card3_017 extends AbstractAlly {
     public Card3_017() {
-        super(3, Block.FELLOWSHIP, 6, 3, 3, Race.ELF, Culture.ELVEN, "Galadriel", true);
+        super(3, Block.FELLOWSHIP, 6, 3, 3, Race.ELF, Culture.ELVEN, "Galadriel", "Lady of the Golden Wood", true);
     }
 
     @Override

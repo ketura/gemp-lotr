@@ -23,7 +23,7 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
  */
 public class Card14_007 extends AbstractCompanion {
     public Card14_007() {
-        super(2, 5, 3, 5, Culture.GONDOR, Race.MAN, null, "Duilin", true);
+        super(2, 5, 3, 5, Culture.GONDOR, Race.MAN, null, "Duilin", "Ranger from Blackroot Vale", true);
         addKeyword(Keyword.RANGER);
     }
 

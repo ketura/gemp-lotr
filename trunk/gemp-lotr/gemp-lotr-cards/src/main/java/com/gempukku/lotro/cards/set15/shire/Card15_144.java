@@ -23,7 +23,7 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
  */
 public class Card15_144 extends AbstractCompanion {
     public Card15_144() {
-        super(0, 3, 4, 10, Culture.SHIRE, Race.HOBBIT, null, "Frodo", true);
+        super(0, 3, 4, 10, Culture.SHIRE, Race.HOBBIT, null, "Frodo", "Weary From the Journey", true);
         addKeyword(Keyword.CAN_START_WITH_RING);
         addKeyword(Keyword.RING_BOUND);
     }

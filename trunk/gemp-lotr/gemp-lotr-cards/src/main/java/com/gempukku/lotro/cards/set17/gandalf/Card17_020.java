@@ -36,7 +36,7 @@ import java.util.List;
  */
 public class Card17_020 extends AbstractFollower {
     public Card17_020() {
-        super(Side.FREE_PEOPLE, 1, 1, 0, 1, Culture.GANDALF, "Gwaihir", true);
+        super(Side.FREE_PEOPLE, 1, 1, 0, 1, Culture.GANDALF, "Gwaihir", "The Windlord", true);
     }
 
     @Override

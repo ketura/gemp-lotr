@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class Card12_184 extends AbstractAttachable {
     public Card12_184() {
-        super(Side.SHADOW, CardType.POSSESSION, 2, Culture.WRAITH, PossessionClass.MOUNT, "The Witch-king's Beast", true);
+        super(Side.SHADOW, CardType.POSSESSION, 2, Culture.WRAITH, PossessionClass.MOUNT, "The Witch-king's Beast", "Fell Creature", true);
     }
 
     @Override

@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class Card15_206 extends AbstractPermanent {
     public Card15_206() {
-        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.GONDOR, Zone.SUPPORT, "Forth the Three Hunters!");
+        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.GONDOR, Zone.SUPPORT, "Forth the Three Hunters!", "Gondor Version", false);
     }
 
     @Override

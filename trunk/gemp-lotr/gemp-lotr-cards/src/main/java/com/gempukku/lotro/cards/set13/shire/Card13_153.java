@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card13_153 extends AbstractAttachableFPPossession {
     public Card13_153() {
-        super(2, 0, 0, Culture.SHIRE, CardType.ARTIFACT, PossessionClass.ARMOR, "Mithril-coat", true);
+        super(2, 0, 0, Culture.SHIRE, CardType.ARTIFACT, PossessionClass.ARMOR, "Mithril-coat", "Dwarf-mail", true);
     }
 
     @Override

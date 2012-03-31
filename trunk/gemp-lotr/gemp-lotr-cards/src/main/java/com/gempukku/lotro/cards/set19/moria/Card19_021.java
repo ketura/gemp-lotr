@@ -34,7 +34,7 @@ import java.util.List;
  */
 public class Card19_021 extends AbstractMinion {
     public Card19_021() {
-        super(4, 11, 4, 4, Race.CREATURE, Culture.MORIA, "Watcher in the Water", true);
+        super(4, 11, 4, 4, Race.CREATURE, Culture.MORIA, "Watcher in the Water", "Many-Tentacled Creature", true);
     }
 
     @Override

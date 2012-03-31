@@ -26,7 +26,7 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
  */
 public class Card12_147 extends AbstractMinion {
     public Card12_147() {
-        super(4, 11, 2, 5, Race.URUK_HAI, Culture.URUK_HAI, "Suppressing Uruk", true);
+        super(4, 11, 2, 5, Race.URUK_HAI, Culture.URUK_HAI, "Suppressing Uruk", null, true);
         addKeyword(Keyword.DAMAGE, 1);
     }
 

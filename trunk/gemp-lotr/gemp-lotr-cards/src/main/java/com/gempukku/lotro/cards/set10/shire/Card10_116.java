@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class Card10_116 extends AbstractPermanent {
     public Card10_116() {
-        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.SHIRE, Zone.SUPPORT, "The Tale of the Great Ring", true);
+        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.SHIRE, Zone.SUPPORT, "The Tale of the Great Ring", null, true);
         addKeyword(Keyword.TALE);
     }
 

@@ -26,7 +26,7 @@ import com.gempukku.lotro.logic.modifiers.SpotCondition;
  */
 public class Card15_186 extends AbstractMinion {
     public Card15_186() {
-        super(5, 10, 3, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Nelya", true);
+        super(5, 10, 3, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Nelya", "Fell Rider", true);
         addKeyword(Keyword.FIERCE);
     }
 

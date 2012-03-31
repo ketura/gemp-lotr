@@ -35,7 +35,7 @@ import java.util.List;
  */
 public class Card3_019 extends AbstractAttachable {
     public Card3_019() {
-        super(Side.FREE_PEOPLE, CardType.CONDITION, 1, Culture.ELVEN, null, "Gift of the Evenstar", true);
+        super(Side.FREE_PEOPLE, CardType.CONDITION, 1, Culture.ELVEN, null, "Gift of the Evenstar", null, true);
     }
 
     @Override

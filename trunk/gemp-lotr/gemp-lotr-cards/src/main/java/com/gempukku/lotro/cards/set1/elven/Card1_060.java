@@ -33,7 +33,7 @@ import java.util.List;
  */
 public class Card1_060 extends AbstractAlly {
     public Card1_060() {
-        super(2, Block.FELLOWSHIP, 3, 5, 2, Race.ELF, Culture.ELVEN, "Silinde", true);
+        super(2, Block.FELLOWSHIP, 3, 5, 2, Race.ELF, Culture.ELVEN, "Silinde", "Elf of Mirkwood", true);
     }
 
     private Filter getFilter(PhysicalCard self) {

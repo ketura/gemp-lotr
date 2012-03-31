@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class Card2_108 extends AbstractAttachable {
     public Card2_108() {
-        super(Side.FREE_PEOPLE, CardType.CONDITION, 1, Culture.SHIRE, null, "O Elbereth! Gilthoniel!", true);
+        super(Side.FREE_PEOPLE, CardType.CONDITION, 1, Culture.SHIRE, null, "O Elbereth! Gilthoniel!", null, true);
         addKeyword(Keyword.TALE);
     }
 

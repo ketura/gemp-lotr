@@ -26,7 +26,7 @@ import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
  */
 public class Card19_025 extends AbstractCompanion {
     public Card19_025() {
-        super(3, 7, 3, 7, Culture.ROHAN, Race.MAN, null, "Eomer", true);
+        super(3, 7, 3, 7, Culture.ROHAN, Race.MAN, null, "Eomer", "Eored Captain", true);
         addKeyword(Keyword.VALIANT);
     }
 

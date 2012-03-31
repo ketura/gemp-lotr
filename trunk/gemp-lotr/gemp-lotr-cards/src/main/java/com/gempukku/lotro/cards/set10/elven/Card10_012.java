@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card10_012 extends AbstractPermanent {
     public Card10_012() {
-        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.ELVEN, Zone.SUPPORT, "Glimpse of Fate", true);
+        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.ELVEN, Zone.SUPPORT, "Glimpse of Fate", null, true);
     }
 
     @Override

@@ -34,7 +34,7 @@ import java.util.List;
  */
 public class Card13_049 extends AbstractPermanent {
     public Card13_049() {
-        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.GOLLUM, Zone.SUPPORT, "Gladden Homestead", true);
+        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.GOLLUM, Zone.SUPPORT, "Gladden Homestead", null, true);
     }
 
     @Override

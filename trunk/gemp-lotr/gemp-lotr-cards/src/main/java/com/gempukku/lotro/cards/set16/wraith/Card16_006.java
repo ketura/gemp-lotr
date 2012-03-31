@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class Card16_006 extends AbstractMinion {
     public Card16_006() {
-        super(4, 9, 3, 2, Race.WRAITH, Culture.WRAITH, "Undead of Angmar", true);
+        super(4, 9, 3, 2, Race.WRAITH, Culture.WRAITH, "Undead of Angmar", null, true);
         addKeyword(Keyword.ENDURING);
     }
 

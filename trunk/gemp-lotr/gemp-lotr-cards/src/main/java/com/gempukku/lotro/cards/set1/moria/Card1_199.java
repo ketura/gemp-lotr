@@ -21,7 +21,7 @@ import com.gempukku.lotro.logic.modifiers.TwilightCostModifier;
  */
 public class Card1_199 extends AbstractMinion {
     public Card1_199() {
-        super(3, 8, 3, 4, Race.ORC, Culture.MORIA, "Troll's Keyward", true);
+        super(3, 8, 3, 4, Race.ORC, Culture.MORIA, "Troll's Keyward", null, true);
     }
 
     @Override

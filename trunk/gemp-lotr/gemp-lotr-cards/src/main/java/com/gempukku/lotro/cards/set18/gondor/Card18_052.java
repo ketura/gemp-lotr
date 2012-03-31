@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class Card18_052 extends AbstractFollower {
     public Card18_052() {
-        super(Side.FREE_PEOPLE, 0, 0, 0, 3, Culture.GONDOR, "Gondorian Servant", true);
+        super(Side.FREE_PEOPLE, 0, 0, 0, 3, Culture.GONDOR, "Gondorian Servant", "Denethor's Handman", true);
     }
 
     @Override

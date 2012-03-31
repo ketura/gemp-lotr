@@ -21,7 +21,7 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
  */
 public class Card11_221 extends AbstractMinion {
     public Card11_221() {
-        super(4, 9, 2, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Lemenya", true);
+        super(4, 9, 2, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Lemenya", "Fifth of the Nine Riders", true);
     }
 
     @Override

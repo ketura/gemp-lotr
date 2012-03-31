@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card3_107 extends AbstractAttachableFPPossession {
     public Card3_107() {
-        super(1, 0, 0, Culture.SHIRE, PossessionClass.PIPE, "Frodo's Pipe", true);
+        super(1, 0, 0, Culture.SHIRE, PossessionClass.PIPE, "Frodo's Pipe", null, true);
     }
 
     @Override

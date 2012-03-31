@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class Card17_038 extends AbstractFollower {
     public Card17_038() {
-        super(Side.SHADOW, 1, 2, 0, 0, Culture.ISENGARD, "Saruman", true);
+        super(Side.SHADOW, 1, 2, 0, 0, Culture.ISENGARD, "Saruman", "Servant of Sauron", true);
     }
 
     @Override

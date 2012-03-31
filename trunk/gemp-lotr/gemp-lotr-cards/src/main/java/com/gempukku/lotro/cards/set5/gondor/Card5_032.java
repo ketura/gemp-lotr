@@ -35,7 +35,7 @@ import java.util.List;
  */
 public class Card5_032 extends AbstractPermanent {
     public Card5_032() {
-        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.GONDOR, Zone.SUPPORT, "Citadel of the Stars", true);
+        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.GONDOR, Zone.SUPPORT, "Citadel of the Stars", null, true);
         addKeyword(Keyword.FORTIFICATION);
     }
 

@@ -35,7 +35,7 @@ import java.util.List;
  */
 public class Card9_030 extends AbstractCompanion {
     public Card9_030() {
-        super(0, 3, 4, 7, Culture.GOLLUM, null, null, "Smeagol", true);
+        super(0, 3, 4, 7, Culture.GOLLUM, null, null, "Smeagol", "Bearer of Great Secrets", true);
         addKeyword(Keyword.CAN_START_WITH_RING);
         addKeyword(Keyword.RING_BOUND);
     }

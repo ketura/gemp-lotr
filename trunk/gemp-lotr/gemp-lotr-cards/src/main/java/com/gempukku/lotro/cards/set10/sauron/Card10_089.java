@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card10_089 extends AbstractAttachable {
     public Card10_089() {
-        super(Side.SHADOW, CardType.POSSESSION, 1, Culture.SAURON, PossessionClass.MOUNT, "Gothmog's Warg", true);
+        super(Side.SHADOW, CardType.POSSESSION, 1, Culture.SAURON, PossessionClass.MOUNT, "Gothmog's Warg", null, true);
     }
 
     @Override

@@ -13,6 +13,7 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.effects.KillEffect;
 import com.gempukku.lotro.logic.timing.Effect;
@@ -46,7 +47,7 @@ public class Card8_033 extends AbstractResponseEvent {
                 if (PlayConditions.canExert(self, game, Filters.not(killedWraith), Culture.GONDOR, Race.WRAITH)
                         || PlayConditions.canSpot(game, Filters.not(killedWraith), Culture.GONDOR, Race.WRAITH, Filters.exhausted)) {
                     PlayEventAction action = new PlayEventAction(self);
-                    action.setText("Discard " + killedWraith.getBlueprint().getName());
+                    action.setText("Discard " + GameUtils.getFullName(killedWraith));
                     action.appendCost(
                             new DiscardCardsFromPlayEffect(self, killedWraith));
                     List<Effect> possibleCosts = new LinkedList<Effect>();

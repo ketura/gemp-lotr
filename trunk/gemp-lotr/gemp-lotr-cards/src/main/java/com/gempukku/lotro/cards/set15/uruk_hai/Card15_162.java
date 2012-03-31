@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class Card15_162 extends AbstractMinion {
     public Card15_162() {
-        super(7, 13, 3, 5, Race.URUK_HAI, Culture.URUK_HAI, "Lurtz", true);
+        super(7, 13, 3, 5, Race.URUK_HAI, Culture.URUK_HAI, "Lurtz", "Now Perfected", true);
         addKeyword(Keyword.DAMAGE, 1);
     }
 

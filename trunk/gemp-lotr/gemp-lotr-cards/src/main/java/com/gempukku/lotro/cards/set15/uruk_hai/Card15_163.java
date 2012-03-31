@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class Card15_163 extends AbstractAttachable {
     public Card15_163() {
-        super(Side.SHADOW, CardType.POSSESSION, 3, Culture.URUK_HAI, PossessionClass.HAND_WEAPON, "Lurtz's Sword", true);
+        super(Side.SHADOW, CardType.POSSESSION, 3, Culture.URUK_HAI, PossessionClass.HAND_WEAPON, "Lurtz's Sword", "Mighty Longsword", true);
     }
 
     @Override

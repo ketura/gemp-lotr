@@ -22,15 +22,15 @@ public abstract class AbstractAttachableFPPossession extends AbstractAttachable 
     private int _vitality;
 
     public AbstractAttachableFPPossession(int twilight, int strength, int vitality, Culture culture, PossessionClass possessionClass, String name) {
-        this(twilight, strength, vitality, culture, possessionClass, name, false);
+        this(twilight, strength, vitality, culture, possessionClass, name, null, false);
     }
 
-    public AbstractAttachableFPPossession(int twilight, int strength, int vitality, Culture culture, PossessionClass possessionClass, String name, boolean unique) {
-        this(twilight, strength, vitality, culture, CardType.POSSESSION, possessionClass, name, unique);
+    public AbstractAttachableFPPossession(int twilight, int strength, int vitality, Culture culture, PossessionClass possessionClass, String name, String subTitle, boolean unique) {
+        this(twilight, strength, vitality, culture, CardType.POSSESSION, possessionClass, name, subTitle, unique);
     }
 
-    public AbstractAttachableFPPossession(int twilight, int strength, int vitality, Culture culture, CardType cardType, PossessionClass possessionClass, String name, boolean unique) {
-        super(Side.FREE_PEOPLE, cardType, twilight, culture, possessionClass, name, unique);
+    public AbstractAttachableFPPossession(int twilight, int strength, int vitality, Culture culture, CardType cardType, PossessionClass possessionClass, String name, String subTitle, boolean unique) {
+        super(Side.FREE_PEOPLE, cardType, twilight, culture, possessionClass, name, subTitle, unique);
         _strength = strength;
         _vitality = vitality;
     }

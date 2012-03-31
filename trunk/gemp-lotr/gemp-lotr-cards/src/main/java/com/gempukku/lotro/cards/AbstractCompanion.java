@@ -21,11 +21,11 @@ public abstract class AbstractCompanion extends AbstractPermanent {
     private Signet _signet;
 
     public AbstractCompanion(int twilightCost, int strength, int vitality, int resistance, Culture culture, Race race, Signet signet, String name) {
-        this(twilightCost, strength, vitality, resistance, culture, race, signet, name, false);
+        this(twilightCost, strength, vitality, resistance, culture, race, signet, name, null, false);
     }
 
-    public AbstractCompanion(int twilightCost, int strength, int vitality, int resistance, Culture culture, Race race, Signet signet, String name, boolean unique) {
-        super(Side.FREE_PEOPLE, twilightCost, CardType.COMPANION, culture, Zone.FREE_CHARACTERS, name, unique);
+    public AbstractCompanion(int twilightCost, int strength, int vitality, int resistance, Culture culture, Race race, Signet signet, String name, String subTitle, boolean unique) {
+        super(Side.FREE_PEOPLE, twilightCost, CardType.COMPANION, culture, Zone.FREE_CHARACTERS, name, subTitle, unique);
         _strength = strength;
         _vitality = vitality;
         _resistance = resistance;

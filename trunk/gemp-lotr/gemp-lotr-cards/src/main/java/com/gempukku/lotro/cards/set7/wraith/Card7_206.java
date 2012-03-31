@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card7_206 extends AbstractPermanent {
     public Card7_206() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.WRAITH, Zone.SUPPORT, "Stronghold of Minas Morgul", true);
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.WRAITH, Zone.SUPPORT, "Stronghold of Minas Morgul", null, true);
     }
 
     @Override

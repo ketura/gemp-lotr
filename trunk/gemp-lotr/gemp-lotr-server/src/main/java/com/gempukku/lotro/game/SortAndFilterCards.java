@@ -4,6 +4,7 @@ import com.gempukku.lotro.cards.packs.SetRarity;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.util.MultipleComparator;
 
 import java.util.*;
@@ -174,7 +175,7 @@ public class SortAndFilterCards {
 
     private boolean containsAllWords(LotroCardBlueprint blueprint, List<String> words) {
         for (String word : words) {
-            if (blueprint == null || !blueprint.getName().toLowerCase().contains(word.toLowerCase()))
+            if (blueprint == null || !GameUtils.getFullName(blueprint).toLowerCase().contains(word.toLowerCase()))
                 return false;
         }
         return true;
@@ -265,7 +266,7 @@ public class SortAndFilterCards {
 
         @Override
         public int compare(CardItem o1, CardItem o2) {
-            return _library.getLotroCardBlueprint(o1.getBlueprintId()).getName().compareTo(_library.getLotroCardBlueprint(o2.getBlueprintId()).getName());
+            return GameUtils.getFullName(_library.getLotroCardBlueprint(o1.getBlueprintId())).compareTo(GameUtils.getFullName(_library.getLotroCardBlueprint(o2.getBlueprintId())));
         }
     }
 

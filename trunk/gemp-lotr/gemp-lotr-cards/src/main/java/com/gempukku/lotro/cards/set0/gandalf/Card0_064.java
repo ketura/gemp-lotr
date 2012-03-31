@@ -16,6 +16,6 @@ import com.gempukku.lotro.common.Race;
  */
 public class Card0_064 extends AbstractCompanion {
     public Card0_064() {
-        super(4, 8, 4, 6, Culture.GANDALF, Race.WIZARD, null, "Gandalf", true);
+        super(4, 8, 4, 6, Culture.GANDALF, Race.WIZARD, null, "Gandalf", "Stormcrow", true);
     }
 }

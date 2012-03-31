@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card4_116 extends AbstractCompanion {
     public Card4_116() {
-        super(3, 7, 3, 6, Culture.GONDOR, Race.MAN, Signet.ARAGORN, "Faramir", true);
+        super(3, 7, 3, 6, Culture.GONDOR, Race.MAN, Signet.ARAGORN, "Faramir", "Captain of Gondor", true);
         addKeyword(Keyword.RING_BOUND);
         addKeyword(Keyword.RANGER);
     }

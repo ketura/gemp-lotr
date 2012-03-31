@@ -35,7 +35,7 @@ import java.util.List;
  */
 public class Card4_169 extends AbstractMinion {
     public Card4_169() {
-        super(4, 8, 2, 5, Race.URUK_HAI, Culture.ISENGARD, "Ranged Commander", true);
+        super(4, 8, 2, 5, Race.URUK_HAI, Culture.ISENGARD, "Ranged Commander", null, true);
         addKeyword(Keyword.ARCHER);
     }
 

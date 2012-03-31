@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card18_038 extends AbstractCompanion {
     public Card18_038() {
-        super(4, 8, 4, 8, Culture.GONDOR, Race.MAN, null, "Aragorn", true);
+        super(4, 8, 4, 8, Culture.GONDOR, Race.MAN, null, "Aragorn", "Heir to the Throne of Gondor", true);
         addKeyword(Keyword.HUNTER, 2);
     }
 

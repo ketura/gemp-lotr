@@ -37,7 +37,7 @@ import java.util.List;
  */
 public class Card13_048 extends AbstractAttachableFPPossession {
     public Card13_048() {
-        super(2, 0, 1, Culture.GOLLUM, null, "Fishing Boat", true);
+        super(2, 0, 1, Culture.GOLLUM, null, "Fishing Boat", null, true);
     }
 
     @Override

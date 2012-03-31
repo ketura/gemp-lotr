@@ -39,7 +39,7 @@ import java.util.List;
  */
 public class Card7_283 extends AbstractPermanent {
     public Card7_283() {
-        super(Side.SHADOW, 3, CardType.CONDITION, Culture.SAURON, Zone.SUPPORT, "Legions of Morgul", true);
+        super(Side.SHADOW, 3, CardType.CONDITION, Culture.SAURON, Zone.SUPPORT, "Legions of Morgul", null, true);
     }
 
     @Override

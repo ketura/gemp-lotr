@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class Card12_072 extends AbstractAttachable {
     public Card12_072() {
-        super(Side.SHADOW, CardType.POSSESSION, 2, Culture.MEN, PossessionClass.MOUNT, "Messenger's Mount", true);
+        super(Side.SHADOW, CardType.POSSESSION, 2, Culture.MEN, PossessionClass.MOUNT, "Messenger's Mount", null, true);
     }
 
     @Override

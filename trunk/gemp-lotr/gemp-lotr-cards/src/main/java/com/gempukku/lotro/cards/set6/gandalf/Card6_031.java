@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card6_031 extends AbstractAttachableFPPossession {
     public Card6_031() {
-        super(2, 2, 0, Culture.GANDALF, PossessionClass.HAND_WEAPON, "Glamdring", true);
+        super(2, 2, 0, Culture.GANDALF, PossessionClass.HAND_WEAPON, "Glamdring", "Lightning Brand", true);
     }
 
     @Override

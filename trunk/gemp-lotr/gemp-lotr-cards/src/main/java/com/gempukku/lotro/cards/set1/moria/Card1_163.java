@@ -22,7 +22,7 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
  */
 public class Card1_163 extends AbstractMinion {
     public Card1_163() {
-        super(4, 9, 2, 4, Race.ORC, Culture.MORIA, "Ancient Chieftain", true);
+        super(4, 9, 2, 4, Race.ORC, Culture.MORIA, "Ancient Chieftain", null, true);
     }
 
     @Override

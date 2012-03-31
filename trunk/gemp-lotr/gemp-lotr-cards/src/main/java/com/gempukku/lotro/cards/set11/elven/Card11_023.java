@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card11_023 extends AbstractAttachableFPPossession {
     public Card11_023() {
-        super(2, 0, 0, Culture.ELVEN, PossessionClass.RANGED_WEAPON, "Legolas' Bow", true);
+        super(2, 0, 0, Culture.ELVEN, PossessionClass.RANGED_WEAPON, "Legolas' Bow", null, true);
     }
 
     @Override

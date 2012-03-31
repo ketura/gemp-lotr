@@ -34,7 +34,7 @@ import java.util.List;
  */
 public class Card7_091 extends AbstractCompanion {
     public Card7_091() {
-        super(3, 7, 3, 6, Culture.GONDOR, Race.MAN, Signet.FRODO, "Faramir", true);
+        super(3, 7, 3, 6, Culture.GONDOR, Race.MAN, Signet.FRODO, "Faramir", "Wizard's Pupil", true);
         addKeyword(Keyword.RANGER);
     }
 

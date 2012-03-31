@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card7_022 extends AbstractPermanent {
     public Card7_022() {
-        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.ELVEN, Zone.SUPPORT, "Hope Comes", true);
+        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.ELVEN, Zone.SUPPORT, "Hope Comes", null, true);
     }
 
     @Override

@@ -35,7 +35,7 @@ import java.util.List;
  */
 public class Card13_071 extends AbstractCompanion {
     public Card13_071() {
-        super(3, 7, 3, 1, Culture.GONDOR, Race.MAN, null, "Isildur", true);
+        super(3, 7, 3, 1, Culture.GONDOR, Race.MAN, null, "Isildur", "Heir of Elendil", true);
         addKeyword(Keyword.KNIGHT);
     }
 

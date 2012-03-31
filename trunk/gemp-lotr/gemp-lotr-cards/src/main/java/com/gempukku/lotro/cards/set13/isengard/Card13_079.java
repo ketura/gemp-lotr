@@ -36,7 +36,7 @@ import java.util.Map;
  */
 public class Card13_079 extends AbstractPermanent {
     public Card13_079() {
-        super(Side.SHADOW, 3, CardType.CONDITION, Culture.ISENGARD, Zone.SUPPORT, "Pallando Deceived", true);
+        super(Side.SHADOW, 3, CardType.CONDITION, Culture.ISENGARD, Zone.SUPPORT, "Pallando Deceived", null, true);
     }
 
     @Override

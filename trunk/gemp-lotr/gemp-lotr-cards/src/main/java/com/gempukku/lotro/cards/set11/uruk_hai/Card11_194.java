@@ -26,7 +26,7 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
  */
 public class Card11_194 extends AbstractMinion {
     public Card11_194() {
-        super(7, 13, 3, 5, Race.URUK_HAI, Culture.URUK_HAI, "Lurtz", true);
+        super(7, 13, 3, 5, Race.URUK_HAI, Culture.URUK_HAI, "Lurtz", "Minion of the White Wizard", true);
         addKeyword(Keyword.ARCHER);
         addKeyword(Keyword.DAMAGE, 1);
         addKeyword(Keyword.MUSTER);

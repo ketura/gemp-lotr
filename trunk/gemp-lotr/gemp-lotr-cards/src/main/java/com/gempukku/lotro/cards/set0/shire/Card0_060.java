@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card0_060 extends AbstractPermanent {
     public Card0_060() {
-        super(Side.FREE_PEOPLE, 1, CardType.POSSESSION, Culture.SHIRE, Zone.SUPPORT, "Tom Bombadil's Hat", true);
+        super(Side.FREE_PEOPLE, 1, CardType.POSSESSION, Culture.SHIRE, Zone.SUPPORT, "Tom Bombadil's Hat", null, true);
     }
 
     @Override

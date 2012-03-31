@@ -34,7 +34,7 @@ import java.util.List;
  */
 public class Card11_147 extends AbstractCompanion {
     public Card11_147() {
-        super(2, 6, 3, 6, Culture.ROHAN, Race.MAN, null, "Gamling", true);
+        super(2, 6, 3, 6, Culture.ROHAN, Race.MAN, null, "Gamling", "Defender of the Hornburg", true);
     }
 
     @Override

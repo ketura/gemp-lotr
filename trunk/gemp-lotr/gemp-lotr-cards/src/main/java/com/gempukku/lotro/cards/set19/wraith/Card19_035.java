@@ -26,7 +26,7 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
  */
 public class Card19_035 extends AbstractMinion {
     public Card19_035() {
-        super(6, 12, 3, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Attëa", true);
+        super(6, 12, 3, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Attëa", "Dark Predator", true);
         addKeyword(Keyword.FIERCE);
     }
 

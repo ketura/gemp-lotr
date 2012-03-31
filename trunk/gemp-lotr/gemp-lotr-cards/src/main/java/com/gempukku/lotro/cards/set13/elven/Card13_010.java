@@ -33,7 +33,7 @@ import java.util.List;
  */
 public class Card13_010 extends AbstractAttachableFPPossession {
     public Card13_010() {
-        super(2, 0, 0, Culture.ELVEN, PossessionClass.MOUNT, "Asfaloth", true);
+        super(2, 0, 0, Culture.ELVEN, PossessionClass.MOUNT, "Asfaloth", "Swift Blossom", true);
     }
 
     @Override

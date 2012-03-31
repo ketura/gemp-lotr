@@ -34,7 +34,7 @@ import java.util.List;
  */
 public class Card8_108 extends AbstractMinion {
     public Card8_108() {
-        super(10, 14, 4, 5, Race.TROLL, Culture.SAURON, "Troll of Gorgoroth", true);
+        super(10, 14, 4, 5, Race.TROLL, Culture.SAURON, "Troll of Gorgoroth", "Abomination of Sauron", true);
         addKeyword(Keyword.BESIEGER);
         addKeyword(Keyword.FIERCE);
     }

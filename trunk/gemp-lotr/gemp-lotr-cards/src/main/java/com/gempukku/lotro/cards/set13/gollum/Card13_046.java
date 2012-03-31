@@ -35,7 +35,7 @@ import java.util.List;
  */
 public class Card13_046 extends AbstractFollower {
     public Card13_046() {
-        super(Side.FREE_PEOPLE, 0, 0, 0, 1, Culture.GOLLUM, "Deagol", true);
+        super(Side.FREE_PEOPLE, 0, 0, 0, 1, Culture.GOLLUM, "Deagol", "Fateful Finder", true);
     }
 
     @Override

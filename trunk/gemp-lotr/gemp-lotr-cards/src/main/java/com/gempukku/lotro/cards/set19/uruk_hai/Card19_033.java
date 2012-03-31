@@ -35,7 +35,7 @@ import java.util.List;
  */
 public class Card19_033 extends AbstractMinion {
     public Card19_033() {
-        super(7, 13, 3, 5, Race.URUK_HAI, Culture.URUK_HAI, "Lurtz", true);
+        super(7, 13, 3, 5, Race.URUK_HAI, Culture.URUK_HAI, "Lurtz", "Resilient Captain", true);
         addKeyword(Keyword.ARCHER);
         addKeyword(Keyword.DAMAGE, 1);
     }

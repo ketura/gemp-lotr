@@ -40,7 +40,7 @@ import java.util.List;
  */
 public class Card19_016 extends AbstractMinion {
     public Card19_016() {
-        super(2, 4, 3, 3, Race.MAN, Culture.ISENGARD, "Grima", true);
+        super(2, 4, 3, 3, Race.MAN, Culture.ISENGARD, "Grima", "Servant of Another Master", true);
     }
 
     @Override

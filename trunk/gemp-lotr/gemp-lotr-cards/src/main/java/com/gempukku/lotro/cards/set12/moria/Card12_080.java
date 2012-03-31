@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class Card12_080 extends AbstractAttachable {
     public Card12_080() {
-        super(Side.SHADOW, CardType.ARTIFACT, 1, Culture.MORIA, PossessionClass.HAND_WEAPON, "Whip of Many Thongs", true);
+        super(Side.SHADOW, CardType.ARTIFACT, 1, Culture.MORIA, PossessionClass.HAND_WEAPON, "Whip of Many Thongs", "Weapon of Flame and Shadow", true);
     }
 
     @Override

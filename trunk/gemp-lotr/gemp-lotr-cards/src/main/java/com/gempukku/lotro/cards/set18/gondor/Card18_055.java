@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card18_055 extends AbstractAttachable {
     public Card18_055() {
-        super(Side.FREE_PEOPLE, CardType.CONDITION, 0, Culture.GONDOR, null, "Ranger of the North", true);
+        super(Side.FREE_PEOPLE, CardType.CONDITION, 0, Culture.GONDOR, null, "Ranger of the North", null, true);
     }
 
     @Override

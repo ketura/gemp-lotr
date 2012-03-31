@@ -23,7 +23,7 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
  */
 public class Card11_168 extends AbstractCompanion {
     public Card11_168() {
-        super(1, 3, 4, 9, Culture.SHIRE, Race.HOBBIT, null, "Merry", true);
+        super(1, 3, 4, 9, Culture.SHIRE, Race.HOBBIT, null, "Merry", "Loyal Companion", true);
     }
 
     @Override

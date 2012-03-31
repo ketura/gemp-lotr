@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class Card8_071 extends AbstractPermanent {
     public Card8_071() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.WRAITH, Zone.SUPPORT, "Flung Into the Fray", true);
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.WRAITH, Zone.SUPPORT, "Flung Into the Fray", null, true);
     }
 
     @Override

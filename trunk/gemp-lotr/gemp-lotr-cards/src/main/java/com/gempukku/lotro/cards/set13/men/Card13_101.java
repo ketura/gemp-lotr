@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class Card13_101 extends AbstractMinion {
     public Card13_101() {
-        super(4, 11, 3, 4, Race.MAN, Culture.MEN, "Voice of the Desert", true);
+        super(4, 11, 3, 4, Race.MAN, Culture.MEN, "Voice of the Desert", "Southron Troop", true);
     }
 
     @Override

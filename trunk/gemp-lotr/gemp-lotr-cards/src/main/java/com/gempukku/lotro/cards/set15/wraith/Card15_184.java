@@ -24,7 +24,7 @@ import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
  */
 public class Card15_184 extends AbstractMinion {
     public Card15_184() {
-        super(6, 12, 3, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Attëa", true);
+        super(6, 12, 3, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Attëa", "Desirous of Power", true);
         addKeyword(Keyword.FIERCE);
     }
 

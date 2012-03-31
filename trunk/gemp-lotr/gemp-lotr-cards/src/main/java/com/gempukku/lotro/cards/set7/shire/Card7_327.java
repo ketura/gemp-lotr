@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class Card7_327 extends AbstractCompanion {
     public Card7_327() {
-        super(2, 3, 4, 5, Culture.SHIRE, Race.HOBBIT, Signet.FRODO, "Sam", true);
+        super(2, 3, 4, 5, Culture.SHIRE, Race.HOBBIT, Signet.FRODO, "Sam", "Resolute Halfling", true);
         addKeyword(Keyword.RING_BOUND);
     }
 

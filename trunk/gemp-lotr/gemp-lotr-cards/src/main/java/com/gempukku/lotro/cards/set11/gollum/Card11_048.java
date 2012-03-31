@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card11_048 extends AbstractPermanent {
     public Card11_048() {
-        super(Side.SHADOW, 0, CardType.CONDITION, Culture.GOLLUM, Zone.SUPPORT, "Not Yet Vanquished", true);
+        super(Side.SHADOW, 0, CardType.CONDITION, Culture.GOLLUM, Zone.SUPPORT, "Not Yet Vanquished", null, true);
     }
 
     @Override

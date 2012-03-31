@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card19_018 extends AbstractMinion {
     public Card19_018() {
-        super(14, 17, 5, 4, Race.BALROG, Culture.MORIA, "The Balrog", true);
+        super(14, 17, 5, 4, Race.BALROG, Culture.MORIA, "The Balrog", "Demon of Might", true);
         addKeyword(Keyword.DAMAGE, 2);
         addKeyword(Keyword.FIERCE);
     }

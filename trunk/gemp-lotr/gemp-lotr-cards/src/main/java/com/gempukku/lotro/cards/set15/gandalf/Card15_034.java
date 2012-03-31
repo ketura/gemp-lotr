@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class Card15_034 extends AbstractCompanion {
     public Card15_034() {
-        super(4, 8, 3, 6, Culture.GANDALF, Race.ENT, null, "Quickbeam", true);
+        super(4, 8, 3, 6, Culture.GANDALF, Race.ENT, null, "Quickbeam", "Hastiest of All Ents", true);
     }
 
     @Override

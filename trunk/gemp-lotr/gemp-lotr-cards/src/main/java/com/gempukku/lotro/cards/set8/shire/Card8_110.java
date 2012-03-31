@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class Card8_110 extends AbstractPermanent {
     public Card8_110() {
-        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.SHIRE, Zone.SUPPORT, "Morgai Foothills", true);
+        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.SHIRE, Zone.SUPPORT, "Morgai Foothills", null, true);
     }
 
     @Override

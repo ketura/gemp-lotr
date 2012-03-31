@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card1_188 extends AbstractPermanent {
     public Card1_188() {
-        super(Side.SHADOW, 2, CardType.CONDITION, Culture.MORIA, Zone.SUPPORT, "The Long Dark", true);
+        super(Side.SHADOW, 2, CardType.CONDITION, Culture.MORIA, Zone.SUPPORT, "The Long Dark", null, true);
     }
 
     @Override

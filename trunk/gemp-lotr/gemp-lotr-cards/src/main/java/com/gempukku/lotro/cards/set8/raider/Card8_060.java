@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card8_060 extends AbstractMinion {
     public Card8_060() {
-        super(5, 11, 3, 4, Race.MAN, Culture.RAIDER, "Haradrim Marksman", true);
+        super(5, 11, 3, 4, Race.MAN, Culture.RAIDER, "Haradrim Marksman", null, true);
         addKeyword(Keyword.SOUTHRON);
         addKeyword(Keyword.ARCHER);
     }

@@ -23,7 +23,7 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
  */
 public class Card2_021 extends AbstractAlly {
     public Card2_021() {
-        super(2, Block.FELLOWSHIP, 3, 5, 2, Race.MAN, Culture.GANDALF, "Erland", true);
+        super(2, Block.FELLOWSHIP, 3, 5, 2, Race.MAN, Culture.GANDALF, "Erland", "Advisor to Brand", true);
     }
 
     @Override

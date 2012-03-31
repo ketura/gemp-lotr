@@ -8,6 +8,7 @@ import com.gempukku.lotro.cards.effects.RevealTopCardsOfDrawDeckEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.decisions.MultipleChoiceAwaitingDecision;
 import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
@@ -27,7 +28,7 @@ import java.util.List;
  */
 public class Card4_166 extends AbstractPermanent {
     public Card4_166() {
-        super(Side.SHADOW, 0, CardType.ARTIFACT, Culture.ISENGARD, Zone.SUPPORT, "The Palantir of Orthanc", true);
+        super(Side.SHADOW, 0, CardType.ARTIFACT, Culture.ISENGARD, Zone.SUPPORT, "The Palantir of Orthanc", "Seventh Seeing-stone", true);
     }
 
     @Override
@@ -58,7 +59,7 @@ public class Card4_166 extends AbstractPermanent {
                                                         final PhysicalCard card = cards.get(0);
                                                         action.appendEffect(
                                                                 new PlayoutDecisionEffect(playerId,
-                                                                        new MultipleChoiceAwaitingDecision(1, "Do you want to put " + card.getBlueprint().getName() + " on bottom of deck?", new String[]{"Yes", "No"}) {
+                                                                        new MultipleChoiceAwaitingDecision(1, "Do you want to put " + GameUtils.getFullName(card) + " on bottom of deck?", new String[]{"Yes", "No"}) {
                                                                             @Override
                                                                             protected void validDecisionMade(int index, String result) {
                                                                                 if (result.equals("Yes"))

@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class Card15_180 extends AbstractPermanent {
     public Card15_180() {
-        super(Side.SHADOW, 2, CardType.CONDITION, Culture.URUK_HAI, Zone.SUPPORT, "With All Possible Speed", true);
+        super(Side.SHADOW, 2, CardType.CONDITION, Culture.URUK_HAI, Zone.SUPPORT, "With All Possible Speed", null, true);
     }
 
     @Override

@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class Card13_127 extends AbstractPermanent {
     public Card13_127() {
-        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.ROHAN, Zone.SUPPORT, "Freely Across Our Land", true);
+        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.ROHAN, Zone.SUPPORT, "Freely Across Our Land", null, true);
     }
 
     @Override

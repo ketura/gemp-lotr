@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card4_284 extends AbstractAttachableFPPossession {
     public Card4_284() {
-        super(2, 0, 0, Culture.ROHAN, PossessionClass.ARMOR, "King's Mail", true);
+        super(2, 0, 0, Culture.ROHAN, PossessionClass.ARMOR, "King's Mail", null, true);
     }
 
     @Override

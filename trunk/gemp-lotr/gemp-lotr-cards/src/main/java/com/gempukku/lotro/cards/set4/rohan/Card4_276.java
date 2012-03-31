@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card4_276 extends AbstractPermanent {
     public Card4_276() {
-        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.ROHAN, Zone.SUPPORT, "Fortress Never Fallen", true);
+        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.ROHAN, Zone.SUPPORT, "Fortress Never Fallen", null, true);
     }
 
     @Override

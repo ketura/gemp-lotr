@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card18_082 extends AbstractPermanent {
     public Card18_082() {
-        super(Side.SHADOW, 3, CardType.POSSESSION, Culture.ORC, Zone.SUPPORT, "Grond", true);
+        super(Side.SHADOW, 3, CardType.POSSESSION, Culture.ORC, Zone.SUPPORT, "Grond", "Forged With Black Steel", true);
     }
 
     @Override

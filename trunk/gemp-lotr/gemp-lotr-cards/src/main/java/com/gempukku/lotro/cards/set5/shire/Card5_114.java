@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class Card5_114 extends AbstractAttachable {
     public Card5_114() {
-        super(Side.FREE_PEOPLE, CardType.CONDITION, 1, Culture.SHIRE, null, "Rare Good Balast", true);
+        super(Side.FREE_PEOPLE, CardType.CONDITION, 1, Culture.SHIRE, null, "Rare Good Balast", null, true);
     }
 
     @Override

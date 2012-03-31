@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card11_223 extends AbstractMinion {
     public Card11_223() {
-        super(4, 9, 2, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Nertëa", true);
+        super(4, 9, 2, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Nertëa", "Ninth of the Nine Riders", true);
         addKeyword(Keyword.LURKER);
     }
 

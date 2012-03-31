@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card18_027 extends AbstractPermanent {
     public Card18_027() {
-        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.GANDALF, Zone.SUPPORT, "Ship of Smoke", true);
+        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.GANDALF, Zone.SUPPORT, "Ship of Smoke", null, true);
         addKeyword(Keyword.PIPEWEED);
     }
 

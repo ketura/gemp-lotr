@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class Card8_103 extends AbstractPermanent {
     public Card8_103() {
-        super(Side.SHADOW, 3, CardType.POSSESSION, Culture.SAURON, Zone.SUPPORT, "Grond", true);
+        super(Side.SHADOW, 3, CardType.POSSESSION, Culture.SAURON, Zone.SUPPORT, "Grond", "Hammer of the Underworld", true);
         addKeyword(Keyword.ENGINE);
     }
 

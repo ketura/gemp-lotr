@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card19_007 extends AbstractCompanion {
     public Card19_007() {
-        super(2, 6, 3, 7, Culture.ELVEN, Race.ELF, null, "Legolas", true);
+        super(2, 6, 3, 7, Culture.ELVEN, Race.ELF, null, "Legolas", "Skeptical Guide", true);
         addKeyword(Keyword.ARCHER);
         addKeyword(Keyword.FELLOWSHIP);
     }

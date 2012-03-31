@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class Card5_050 extends AbstractMinion {
     public Card5_050() {
-        super(4, 9, 3, 4, Race.ORC, Culture.ISENGARD, "Foul Horde", true);
+        super(4, 9, 3, 4, Race.ORC, Culture.ISENGARD, "Foul Horde", null, true);
         addKeyword(Keyword.WARG_RIDER);
     }
 

@@ -1,7 +1,9 @@
 package com.gempukku.lotro.cards;
 
+import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.game.LotroCardBlueprint;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
+import com.gempukku.lotro.logic.GameUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,8 +19,8 @@ public class LotroCardBlueprintLibraryTest {
                 try {
                     if (blueprintId.equals(library.getBaseBlueprintId(blueprintId))) {
                         LotroCardBlueprint cardBlueprint = library.getLotroCardBlueprint(blueprintId);
-                        String cardName = cardBlueprint.getName();
-                        if (cardNames.containsKey(cardName) && !cardBlueprint.isUnique())
+                        String cardName = GameUtils.getFullName(cardBlueprint);
+                        if (cardNames.containsKey(cardName) && cardBlueprint.getCardType() != CardType.SITE)
                             System.out.println("Multiple detected - " + cardName + ": " + cardNames.get(cardName) + " and " + blueprintId);
                         else
                             cardNames.put(cardName, blueprintId);

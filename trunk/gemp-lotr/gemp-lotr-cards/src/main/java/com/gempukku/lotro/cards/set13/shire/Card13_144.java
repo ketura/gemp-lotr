@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class Card13_144 extends AbstractFollower {
     public Card13_144() {
-        super(Side.FREE_PEOPLE, 1, 0, 0, 1, Culture.SHIRE, "Daddy Twofoot", true);
+        super(Side.FREE_PEOPLE, 1, 0, 0, 1, Culture.SHIRE, "Daddy Twofoot", "Next-door Neighbor", true);
     }
 
     @Override

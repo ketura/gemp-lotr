@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card15_019 extends AbstractCompanion {
     public Card15_019() {
-        super(2, 6, 3, 6, Culture.ELVEN, Race.ELF, null, "Legolas", true);
+        super(2, 6, 3, 6, Culture.ELVEN, Race.ELF, null, "Legolas", "Of the Woodland Realm", true);
         addKeyword(Keyword.ARCHER);
         addKeyword(Keyword.HUNTER, 1);
     }

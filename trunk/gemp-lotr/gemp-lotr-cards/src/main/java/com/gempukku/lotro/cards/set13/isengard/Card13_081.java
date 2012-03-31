@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class Card13_081 extends AbstractAttachable {
     public Card13_081() {
-        super(Side.SHADOW, CardType.ARTIFACT, 2, Culture.ISENGARD, PossessionClass.STAFF, "Staff of Saruman", true);
+        super(Side.SHADOW, CardType.ARTIFACT, 2, Culture.ISENGARD, PossessionClass.STAFF, "Staff of Saruman", "Fallen Istar's Stave", true);
     }
 
     @Override

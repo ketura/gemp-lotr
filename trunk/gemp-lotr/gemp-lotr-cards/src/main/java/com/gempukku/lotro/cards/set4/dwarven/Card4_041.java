@@ -34,7 +34,7 @@ import java.util.List;
  */
 public class Card4_041 extends AbstractAttachableFPPossession {
     public Card4_041() {
-        super(2, 2, 0, Culture.DWARVEN, PossessionClass.HAND_WEAPON, "Axe of Erebor", true);
+        super(2, 2, 0, Culture.DWARVEN, PossessionClass.HAND_WEAPON, "Axe of Erebor", null, true);
     }
 
     @Override

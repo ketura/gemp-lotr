@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card18_043 extends AbstractAttachableFPPossession {
     public Card18_043() {
-        super(1, 2, 0, Culture.GONDOR, PossessionClass.HAND_WEAPON, "Denethor's Sword", true);
+        super(1, 2, 0, Culture.GONDOR, PossessionClass.HAND_WEAPON, "Denethor's Sword", null, true);
     }
 
     @Override

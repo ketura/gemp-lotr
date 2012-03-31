@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card11_044 extends AbstractPermanent {
     public Card11_044() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.GOLLUM, Zone.SUPPORT, "Incited", true);
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.GOLLUM, Zone.SUPPORT, "Incited", null, true);
     }
 
     @Override

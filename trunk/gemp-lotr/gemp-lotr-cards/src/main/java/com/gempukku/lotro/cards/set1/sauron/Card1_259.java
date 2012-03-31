@@ -22,7 +22,7 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
  */
 public class Card1_259 extends AbstractMinion {
     public Card1_259() {
-        super(3, 9, 3, 6, Race.ORC, Culture.SAURON, "Morgul Warden", true);
+        super(3, 9, 3, 6, Race.ORC, Culture.SAURON, "Morgul Warden", null, true);
     }
 
     @Override

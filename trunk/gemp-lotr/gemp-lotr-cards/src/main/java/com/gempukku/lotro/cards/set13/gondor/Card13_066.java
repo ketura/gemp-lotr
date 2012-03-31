@@ -26,7 +26,7 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
  */
 public class Card13_066 extends AbstractCompanion {
     public Card13_066() {
-        super(3, 7, 3, 7, Culture.GONDOR, Race.MAN, null, "Faramir", true);
+        super(3, 7, 3, 7, Culture.GONDOR, Race.MAN, null, "Faramir", "Prince of Ithilien", true);
     }
 
     @Override

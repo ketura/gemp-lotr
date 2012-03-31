@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class Card15_098 extends AbstractMinion {
     public Card15_098() {
-        super(5, 12, 3, 4, Race.ORC, Culture.ORC, "Black Gate Sentry", true);
+        super(5, 12, 3, 4, Race.ORC, Culture.ORC, "Black Gate Sentry", null, true);
     }
 
     @Override

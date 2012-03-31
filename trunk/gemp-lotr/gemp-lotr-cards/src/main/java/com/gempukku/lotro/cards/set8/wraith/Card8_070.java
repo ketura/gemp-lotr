@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card8_070 extends AbstractAttachable {
     public Card8_070() {
-        super(Side.SHADOW, CardType.POSSESSION, 2, Culture.WRAITH, PossessionClass.HAND_WEAPON, "Black Flail", true);
+        super(Side.SHADOW, CardType.POSSESSION, 2, Culture.WRAITH, PossessionClass.HAND_WEAPON, "Black Flail", null, true);
     }
 
     @Override

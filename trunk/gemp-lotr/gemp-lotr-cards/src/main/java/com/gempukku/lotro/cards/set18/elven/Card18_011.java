@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card18_011 extends AbstractPermanent {
     public Card18_011() {
-        super(Side.FREE_PEOPLE, 2, CardType.ARTIFACT, Culture.ELVEN, Zone.SUPPORT, "Galadriel's Silver Ewer", true);
+        super(Side.FREE_PEOPLE, 2, CardType.ARTIFACT, Culture.ELVEN, Zone.SUPPORT, "Galadriel's Silver Ewer", null, true);
     }
 
     @Override

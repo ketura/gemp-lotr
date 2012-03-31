@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card17_039 extends AbstractPermanent {
     public Card17_039() {
-        super(Side.SHADOW, 2, CardType.ARTIFACT, Culture.ISENGARD, Zone.SUPPORT, "Throne of Isengard", true);
+        super(Side.SHADOW, 2, CardType.ARTIFACT, Culture.ISENGARD, Zone.SUPPORT, "Throne of Isengard", null, true);
     }
 
     @Override

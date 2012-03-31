@@ -33,7 +33,7 @@ import java.util.List;
  */
 public class Card2_053 extends AbstractAttachable {
     public Card2_053() {
-        super(Side.SHADOW, CardType.POSSESSION, 1, Culture.MORIA, null, "Cave Troll's Chain", true);
+        super(Side.SHADOW, CardType.POSSESSION, 1, Culture.MORIA, null, "Cave Troll's Chain", null, true);
     }
 
     @Override

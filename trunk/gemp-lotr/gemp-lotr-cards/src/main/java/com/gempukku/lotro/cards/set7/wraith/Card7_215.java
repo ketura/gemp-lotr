@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card7_215 extends AbstractMinion {
     public Card7_215() {
-        super(5, 10, 3, 4, Race.NAZGUL, Culture.WRAITH, "Úlairë Nelya", true);
+        super(5, 10, 3, 4, Race.NAZGUL, Culture.WRAITH, "Úlairë Nelya", "Assailing Minion", true);
         addKeyword(Keyword.FIERCE);
     }
 

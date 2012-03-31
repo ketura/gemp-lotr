@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card13_155 extends AbstractAttachableFPPossession {
     public Card13_155() {
-        super(0, 0, 0, Culture.SHIRE, CardType.ARTIFACT, PossessionClass.PHIAL, "Phial of Galadriel", true);
+        super(0, 0, 0, Culture.SHIRE, CardType.ARTIFACT, PossessionClass.PHIAL, "Phial of Galadriel", "The Light of Earendil", true);
     }
 
     @Override

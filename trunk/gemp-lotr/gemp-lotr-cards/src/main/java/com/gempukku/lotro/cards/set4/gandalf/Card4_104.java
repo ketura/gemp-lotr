@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card4_104 extends AbstractAlly {
     public Card4_104() {
-        super(4, Block.TWO_TOWERS, new int[]{2, 8}, 12, 4, Race.ENT, Culture.GANDALF, "Treebeard", true);
+        super(4, Block.TWO_TOWERS, new int[]{2, 8}, 12, 4, Race.ENT, Culture.GANDALF, "Treebeard", "Oldest Living Thing", true);
         addKeyword(Keyword.UNHASTY);
     }
 

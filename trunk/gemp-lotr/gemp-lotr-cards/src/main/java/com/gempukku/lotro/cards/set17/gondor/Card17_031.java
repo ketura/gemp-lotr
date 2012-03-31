@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card17_031 extends AbstractAttachableFPPossession {
     public Card17_031() {
-        super(3, 3, 0, Culture.GONDOR, CardType.ARTIFACT, PossessionClass.HAND_WEAPON, "Narsil", true);
+        super(3, 3, 0, Culture.GONDOR, CardType.ARTIFACT, PossessionClass.HAND_WEAPON, "Narsil", "Forged by Telchar", true);
     }
 
     @Override

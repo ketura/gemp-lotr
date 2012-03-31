@@ -24,7 +24,7 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
  */
 public class Card1_165 extends AbstractMinion {
     public Card1_165() {
-        super(10, 15, 4, 4, Race.TROLL, Culture.MORIA, "Cave Troll of Moria", true);
+        super(10, 15, 4, 4, Race.TROLL, Culture.MORIA, "Cave Troll of Moria", "Scourge of the Black Pit", true);
         addKeyword(Keyword.DAMAGE);
         addKeyword(Keyword.FIERCE);
     }

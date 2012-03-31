@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card4_050 extends AbstractPermanent {
     public Card4_050() {
-        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.DWARVEN, Zone.SUPPORT, "Here Is Good Rock", true);
+        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.DWARVEN, Zone.SUPPORT, "Here Is Good Rock", null, true);
         addKeyword(Keyword.TALE);
     }
 

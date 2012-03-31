@@ -35,7 +35,7 @@ import java.util.List;
  */
 public class Card16_001 extends AbstractMinion {
     public Card16_001() {
-        super(5, 11, 4, 2, Race.WRAITH, Culture.WRAITH, "Barrow-wight Stalker", true);
+        super(5, 11, 4, 2, Race.WRAITH, Culture.WRAITH, "Barrow-wight Stalker", null, true);
         addKeyword(Keyword.ENDURING);
     }
 

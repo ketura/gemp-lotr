@@ -34,7 +34,7 @@ import java.util.List;
  */
 public class Card17_012 extends AbstractCompanion {
     public Card17_012() {
-        super(2, 6, 3, 6, Culture.ELVEN, Race.ELF, null, "Rumil", true);
+        super(2, 6, 3, 6, Culture.ELVEN, Race.ELF, null, "Rumil", "Silvan Elf", true);
         addKeyword(Keyword.HUNTER, 1);
     }
 

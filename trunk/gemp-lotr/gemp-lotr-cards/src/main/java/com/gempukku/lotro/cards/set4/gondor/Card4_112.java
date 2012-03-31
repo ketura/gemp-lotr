@@ -34,7 +34,7 @@ import java.util.List;
  */
 public class Card4_112 extends AbstractAttachableFPPossession {
     public Card4_112() {
-        super(1, 0, 0, Culture.GONDOR, PossessionClass.GAUNTLETS, "Boromir's Gauntlets", true);
+        super(1, 0, 0, Culture.GONDOR, PossessionClass.GAUNTLETS, "Boromir's Gauntlets", null, true);
     }
 
     @Override

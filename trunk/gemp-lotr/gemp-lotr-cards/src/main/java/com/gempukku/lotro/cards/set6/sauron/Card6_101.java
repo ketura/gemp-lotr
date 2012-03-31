@@ -35,7 +35,7 @@ import java.util.Set;
  */
 public class Card6_101 extends AbstractMinion {
     public Card6_101() {
-        super(4, 11, 3, 6, Race.ORC, Culture.SAURON, "Gate Picket", true);
+        super(4, 11, 3, 6, Race.ORC, Culture.SAURON, "Gate Picket", null, true);
     }
 
     @Override

@@ -18,7 +18,7 @@ import com.gempukku.lotro.common.Race;
  */
 public class Card15_005 extends AbstractCompanion {
     public Card15_005() {
-        super(2, 6, 3, 6, Culture.DWARVEN, Race.DWARF, null, "Gimli", true);
+        super(2, 6, 3, 6, Culture.DWARVEN, Race.DWARF, null, "Gimli", "Eager Hunter", true);
         addKeyword(Keyword.DAMAGE, 1);
         addKeyword(Keyword.HUNTER, 3);
     }

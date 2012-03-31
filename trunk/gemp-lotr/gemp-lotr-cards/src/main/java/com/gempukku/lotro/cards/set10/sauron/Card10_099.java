@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card10_099 extends AbstractMinion {
     public Card10_099() {
-        super(5, 13, 3, 6, Race.URUK_HAI, Culture.SAURON, "Shagrat", true);
+        super(5, 13, 3, 6, Race.URUK_HAI, Culture.SAURON, "Shagrat", "Captain of Cirith Ungol", true);
         addKeyword(Keyword.DAMAGE, 1);
     }
 

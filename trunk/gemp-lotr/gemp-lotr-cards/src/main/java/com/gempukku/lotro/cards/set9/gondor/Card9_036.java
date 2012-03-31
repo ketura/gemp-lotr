@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card9_036 extends AbstractPermanent {
     public Card9_036() {
-        super(Side.FREE_PEOPLE, 1, CardType.ARTIFACT, Culture.GONDOR, Zone.SUPPORT, "Scroll of Isildur", true);
+        super(Side.FREE_PEOPLE, 1, CardType.ARTIFACT, Culture.GONDOR, Zone.SUPPORT, "Scroll of Isildur", null, true);
         addKeyword(Keyword.TALE);
     }
 
