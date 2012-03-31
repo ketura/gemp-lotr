@@ -4,6 +4,7 @@ import com.gempukku.lotro.cards.packs.SetRarity;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.util.MultipleComparator;
 
@@ -15,6 +16,7 @@ public class SortAndFilterCards {
             filter = "";
         String[] filterParams = filter.split(" ");
 
+        Side side = getSideFilter(filterParams);
         String type = getTypeFilter(filterParams);
         String rarity = getRarityFilter(filterParams);
         String[] sets = getSetFilter(filterParams);
@@ -29,7 +31,7 @@ public class SortAndFilterCards {
         for (T item : items) {
             String blueprintId = item.getBlueprintId();
 
-            if (acceptsFilters(library, rarities, blueprintId, type, rarity, sets, cardTypes, cultures, keywords, words, siteNumber))
+            if (acceptsFilters(library, rarities, blueprintId, side, type, rarity, sets, cardTypes, cultures, keywords, words, siteNumber))
                 result.add(item);
         }
 
@@ -65,7 +67,7 @@ public class SortAndFilterCards {
     }
 
     private boolean acceptsFilters(
-            LotroCardBlueprintLibrary library, Map<String, SetRarity> rarities, String blueprintId, String type, String rarity, String[] sets,
+            LotroCardBlueprintLibrary library, Map<String, SetRarity> rarities, String blueprintId, Side side, String type, String rarity, String[] sets,
             Set<CardType> cardTypes, Set<Culture> cultures, Set<Keyword> keywords, List<String> words, Integer siteNumber) {
         if (isPack(blueprintId)) {
             if (type == null || type.equals("pack"))
@@ -77,17 +79,26 @@ public class SortAndFilterCards {
                     || (type.equals("nonFoil") && !blueprintId.endsWith("*"))
                     || (type.equals("tengwar") && (blueprintId.endsWith("T*") || blueprintId.endsWith("T")))) {
                 final LotroCardBlueprint blueprint = library.getLotroCardBlueprint(blueprintId);
-                if (rarity == null || isRarity(blueprintId, rarity, library, rarities))
-                    if (sets == null || isInSets(blueprintId, sets, library))
-                        if (cardTypes == null || cardTypes.contains(blueprint.getCardType()))
-                            if (cultures == null || cultures.contains(blueprint.getCulture()))
-                                if (containsAllKeywords(blueprint, keywords))
-                                    if (containsAllWords(blueprint, words))
-                                        if (siteNumber == null || blueprint.getSiteNumber() == siteNumber)
-                                            return true;
+                if (side == null || blueprint.getSide() == side)
+                    if (rarity == null || isRarity(blueprintId, rarity, library, rarities))
+                        if (sets == null || isInSets(blueprintId, sets, library))
+                            if (cardTypes == null || cardTypes.contains(blueprint.getCardType()))
+                                if (cultures == null || cultures.contains(blueprint.getCulture()))
+                                    if (containsAllKeywords(blueprint, keywords))
+                                        if (containsAllWords(blueprint, words))
+                                            if (siteNumber == null || blueprint.getSiteNumber() == siteNumber)
+                                                return true;
             }
         }
         return false;
+    }
+
+    private Side getSideFilter(String[] filterParams) {
+        for (String filterParam : filterParams) {
+            if (filterParam.startsWith("side:"))
+                return Side.valueOf(filterParam.substring("side:".length()));
+        }
+        return null;
     }
 
     private String getTypeFilter(String[] filterParams) {

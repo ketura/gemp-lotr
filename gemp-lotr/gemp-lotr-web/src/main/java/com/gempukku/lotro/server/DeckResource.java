@@ -4,6 +4,7 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.db.DeckDAO;
 import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.hall.HallServer;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 import com.sun.jersey.spi.resource.Singleton;
 import org.w3c.dom.Document;
@@ -80,6 +81,55 @@ public class DeckResource extends AbstractResource {
         }
 
         return serializeDeck(deck);
+    }
+
+    @Path("/html")
+    @GET
+    @Produces(MediaType.TEXT_HTML)
+    public String getDeckList(
+            @QueryParam("deckName") String deckName,
+            @QueryParam("participantId") String participantId,
+            @Context HttpServletRequest request) {
+        Player resourceOwner = getResourceOwnerSafely(request, participantId);
+
+        LotroDeck deck = _deckDao.getDeckForPlayer(resourceOwner, deckName);
+
+        if (deck == null)
+            sendError(Response.Status.NOT_FOUND);
+
+        StringBuilder result = new StringBuilder();
+        result.append("<html><body>");
+        String ringBearer = deck.getRingBearer();
+        if (ringBearer != null)
+            result.append("<b>Ring-bearer:</b> " + GameUtils.getFullName(_library.getLotroCardBlueprint(ringBearer)) + "<br/>");
+        String ring = deck.getRing();
+        if (ring != null)
+            result.append("<b>Ring:</b> " + GameUtils.getFullName(_library.getLotroCardBlueprint(ring)) + "<br/>");
+
+        DefaultCardCollection deckCards = new DefaultCardCollection();
+        for (String card : deck.getAdventureCards())
+            deckCards.addItem(_library.getBaseBlueprintId(card), 1);
+        for (String site : deck.getSites())
+            deckCards.addItem(_library.getBaseBlueprintId(site), 1);
+
+        result.append("<br/>");
+        result.append("<b>Adventure deck:</b><br/>");
+        for (CardCollection.Item item : _sortAndFilterCards.process("cardType:SITE sort:siteNumber,twilight", deckCards.getAllItems(), _library, null))
+            result.append(GameUtils.getFullName(_library.getLotroCardBlueprint(item.getBlueprintId())) + "<br/>");
+
+        result.append("<br/>");
+        result.append("<b>Free Peoples Draw Deck:</b><br/>");
+        for (CardCollection.Item item : _sortAndFilterCards.process("side:FREE_PEOPLE sort:cardType,culture,name", deckCards.getAllItems(), _library, null))
+            result.append(item.getCount() + "x " + GameUtils.getFullName(_library.getLotroCardBlueprint(item.getBlueprintId())) + "<br/>");
+
+        result.append("<br/>");
+        result.append("<b>Shadow Draw Deck:</b><br/>");
+        for (CardCollection.Item item : _sortAndFilterCards.process("side:SHADOW sort:cardType,culture,name", deckCards.getAllItems(), _library, null))
+            result.append(item.getCount() + "x " + GameUtils.getFullName(_library.getLotroCardBlueprint(item.getBlueprintId())) + "<br/>");
+
+        result.append("</body></html>");
+
+        return result.toString();
     }
 
     @POST

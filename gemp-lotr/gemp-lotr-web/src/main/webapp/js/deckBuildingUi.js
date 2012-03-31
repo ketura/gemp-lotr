@@ -236,11 +236,11 @@ var GempLotrDeckBuildingUI = Class.extend({
 
         this.infoDialog = $("<div></div>")
                 .dialog({
-                    autoOpen: false,
-                    closeOnEscape: true,
-                    resizable: false,
-                    title: "Card information"
-                });
+            autoOpen: false,
+            closeOnEscape: true,
+            resizable: false,
+            title: "Card information"
+        });
 
         var swipeOptions = {
             threshold: 20,
@@ -288,14 +288,14 @@ var GempLotrDeckBuildingUI = Class.extend({
             if (that.deckListDialog == null) {
                 that.deckListDialog = $("<div></div>")
                         .dialog({
-                            title: "Your stored decks",
-                            autoOpen: false,
-                            closeOnEscape: true,
-                            resizable: true,
-                            width: 400,
-                            height: 400,
-                            modal: true
-                        });
+                    title: "Your stored decks",
+                    autoOpen: false,
+                    closeOnEscape: true,
+                    resizable: true,
+                    width: 400,
+                    height: 400,
+                    modal: true
+                });
             }
             that.deckListDialog.html("");
 
@@ -306,10 +306,12 @@ var GempLotrDeckBuildingUI = Class.extend({
                     var deck = decks[i];
                     var deckName = decks[i].childNodes[0].nodeValue;
                     var openDeckBut = $("<button title='Open deck'><span class='ui-icon ui-icon-folder-open'></span></button>").button();
+                    var deckListBut = $("<button title='Deck list'><span class='ui-icon ui-icon-clipboard'></span></button>").button();
                     var deleteDeckBut = $("<button title='Delete deck'><span class='ui-icon ui-icon-trash'></span></button>").button();
 
                     var deckElem = $("<div class='deckItem'></div>");
                     deckElem.append(openDeckBut);
+                    deckElem.append(deckListBut);
                     deckElem.append(deleteDeckBut);
                     deckElem.append(deckName);
 
@@ -322,6 +324,13 @@ var GempLotrDeckBuildingUI = Class.extend({
                                             function(xml) {
                                                 that.setupDeck(xml, deckName);
                                             });
+                                };
+                            })(deckName));
+
+                    deckListBut.click(
+                            (function(deckName) {
+                                return function() {
+                                    window.open('/gemp-lotr/server/deck/html?deckName=' + encodeURIComponent(deckName), "_blank");
                                 };
                             })(deckName));
 
@@ -393,14 +402,14 @@ var GempLotrDeckBuildingUI = Class.extend({
                             if (this.selectionDialog == null) {
                                 this.selectionDialog = $("<div></div>")
                                         .dialog({
-                                            title: "Choose one",
-                                            autoOpen: false,
-                                            closeOnEscape: true,
-                                            resizable: true,
-                                            width: 400,
-                                            height: 200,
-                                            modal: true
-                                        });
+                                    title: "Choose one",
+                                    autoOpen: false,
+                                    closeOnEscape: true,
+                                    resizable: true,
+                                    width: 400,
+                                    height: 200,
+                                    modal: true
+                                });
 
                                 this.selectionGroup = new NormalCardGroup(this.selectionDialog, function(card) {
                                     return true;
