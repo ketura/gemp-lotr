@@ -87,9 +87,9 @@ public class SealedLeagueData implements LeagueData {
                     if (leaguePrize != null)
                         collectionsManager.addItemsToPlayerCollection(leagueStanding.getPlayerName(), _prizeCollectionType, leaguePrize.getAll());
                 }
-                for (LeagueStanding leagueStanding : leagueStandings) {
-                    collectionsManager.moveCollectionToCollection(leagueStanding.getPlayerName(), _collectionType, _prizeCollectionType);
-                }
+//                for (LeagueStanding leagueStanding : leagueStandings) {
+//                    collectionsManager.moveCollectionToCollection(leagueStanding.getPlayerName(), _collectionType, _prizeCollectionType);
+//                }
                 status++;
             }
         }
