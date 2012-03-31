@@ -2,6 +2,7 @@ package com.gempukku.lotro.server;
 
 import com.gempukku.lotro.db.LeagueDAO;
 import com.gempukku.lotro.db.vo.League;
+import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.gempukku.lotro.league.LeagueSerieData;
 import com.gempukku.lotro.league.LeagueService;
 import com.gempukku.lotro.league.LeagueStanding;
@@ -25,6 +26,8 @@ public class LeagueResource extends AbstractResource {
     private LeagueDAO _leagueDao;
     @Context
     private LeagueService _leagueService;
+    @Context
+    private LotroFormatLibrary _formatLibrary;
 
     @GET
     public Document getLeagueInformation() throws ParserConfigurationException {
@@ -48,6 +51,9 @@ public class LeagueResource extends AbstractResource {
                 serieElem.setAttribute("maxMatches", String.valueOf(serie.getMaxMatches()));
                 serieElem.setAttribute("start", String.valueOf(serie.getStart()));
                 serieElem.setAttribute("end", String.valueOf(serie.getEnd()));
+                serieElem.setAttribute("format", _formatLibrary.getFormat(serie.getFormat()).getName());
+                serieElem.setAttribute("collection", serie.getCollectionType().getFullName());
+                serieElem.setAttribute("limited", String.valueOf(serie.isLimited()));
 
                 final List<LeagueStanding> standings = _leagueService.getLeagueSerieStandings(league, serie);
                 for (LeagueStanding standing : standings) {
