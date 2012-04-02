@@ -8,10 +8,7 @@ import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class DefaultLotroFormat implements LotroFormat {
     private LotroCardBlueprintLibrary _library;
@@ -22,9 +19,9 @@ public class DefaultLotroFormat implements LotroFormat {
     private boolean _mulliganRule;
     private boolean _canCancelRingBearerSkirmish;
     private int _minimumDeckSize = 60;
-    private Set<String> _bannedCards = new HashSet<String>();
-    private Set<String> _restrictedCards = new HashSet<String>();
-    private Set<Integer> _validSets = new HashSet<Integer>();
+    private List<String> _bannedCards = new ArrayList<String>();
+    private List<String> _restrictedCards = new ArrayList<String>();
+    private List<Integer> _validSets = new ArrayList<Integer>();
 
     public DefaultLotroFormat(LotroCardBlueprintLibrary library, String name, Block siteBlock, boolean validateShadowFPCount, int minimumDeckSize, int maximumSameName, boolean mulliganRule, boolean canCancelRingBearerSkirmish) {
         _library = library;
@@ -57,12 +54,48 @@ public class DefaultLotroFormat implements LotroFormat {
         return _canCancelRingBearerSkirmish;
     }
 
+    @Override
+    public List<Integer> getValidSets() {
+        return Collections.unmodifiableList(_validSets);
+    }
+
+    @Override
+    public List<String> getBannedCards() {
+        return Collections.unmodifiableList(_bannedCards);
+    }
+
+    @Override
+    public List<String> getRestrictedCards() {
+        return Collections.unmodifiableList(_restrictedCards);
+    }
+
+    @Override
+    public Block getSiteBlock() {
+        return _siteBlock;
+    }
+
     protected void addBannedCard(String baseBlueprintId) {
-        _bannedCards.add(baseBlueprintId);
+        if (baseBlueprintId.contains("-")) {
+            String[] parts = baseBlueprintId.split("_");
+            String set = parts[0];
+            int from = Integer.parseInt(parts[1].split("-")[0]);
+            int to = Integer.parseInt(parts[1].split("-")[1]);
+            for (int i = from; i <= to; i++)
+                _bannedCards.add(set + "_" + i);
+        } else
+            _bannedCards.add(baseBlueprintId);
     }
 
     protected void addRestrictedCard(String baseBlueprintId) {
-        _restrictedCards.add(baseBlueprintId);
+        if (baseBlueprintId.contains("-")) {
+            String[] parts = baseBlueprintId.split("_");
+            String set = parts[0];
+            int from = Integer.parseInt(parts[1].split("-")[0]);
+            int to = Integer.parseInt(parts[1].split("-")[1]);
+            for (int i = from; i <= to; i++)
+                _restrictedCards.add(set + "_" + i);
+        } else
+            _restrictedCards.add(baseBlueprintId);
     }
 
     protected void addValidSet(int setNo) {

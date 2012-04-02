@@ -1,13 +1,16 @@
 package com.gempukku.lotro.server;
 
 import com.gempukku.lotro.db.vo.League;
+import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.game.LotroFormat;
 import com.gempukku.lotro.game.Player;
+import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.gempukku.lotro.hall.HallException;
 import com.gempukku.lotro.hall.HallInfoVisitor;
 import com.gempukku.lotro.hall.HallServer;
 import com.gempukku.lotro.league.LeagueSerieData;
 import com.gempukku.lotro.league.LeagueService;
+import com.gempukku.lotro.logic.GameUtils;
 import com.sun.jersey.spi.resource.Singleton;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -30,6 +33,50 @@ public class HallResource extends AbstractResource {
     private HallServer _hallServer;
     @Context
     private LeagueService _leagueService;
+    @Context
+    private LotroFormatLibrary _formatLibrary;
+    @Context
+    private LotroCardBlueprintLibrary _library;
+
+    @Path("/formats/html")
+    @GET
+    @Produces(MediaType.TEXT_HTML)
+    public String getFormats(
+            @Context HttpServletResponse response) {
+
+        response.setCharacterEncoding("UTF-8");
+
+        StringBuilder result = new StringBuilder();
+        for (LotroFormat lotroFormat : _formatLibrary.getHallFormats().values()) {
+            result.append("<b>" + lotroFormat.getName() + "</b>");
+            result.append("<ul>");
+            result.append("<li>valid sets: ");
+            for (Integer integer : lotroFormat.getValidSets())
+                result.append(integer + ", ");
+            result.append("</li>");
+            result.append("<li>sites from block: " + lotroFormat.getSiteBlock().getHumanReadable() + "</li>");
+            result.append("<li>Ring-bearer skirmish can be cancelled: " + (lotroFormat.canCancelRingBearerSkirmish() ? "yes" : "no") + "</li>");
+            result.append("<li>X-listed: ");
+            for (String blueprintId : lotroFormat.getBannedCards()) {
+                String fullName = GameUtils.getFullName(_library.getLotroCardBlueprint(blueprintId));
+                result.append("<i>" + fullName + "</i>, ");
+            }
+            if (lotroFormat.getBannedCards().size() == 0)
+                result.append("none,");
+            result.append("</li>");
+            result.append("<li>R-listed: ");
+            for (String blueprintId : lotroFormat.getRestrictedCards()) {
+                String fullName = GameUtils.getFullName(_library.getLotroCardBlueprint(blueprintId));
+                result.append("<i>" + fullName + "</i>, ");
+            }
+            if (lotroFormat.getRestrictedCards().size() == 0)
+                result.append("none,");
+            result.append("</li>");
+            result.append("</ul>");
+        }
+
+        return result.toString();
+    }
 
     @GET
     @Produces(MediaType.APPLICATION_XML)
