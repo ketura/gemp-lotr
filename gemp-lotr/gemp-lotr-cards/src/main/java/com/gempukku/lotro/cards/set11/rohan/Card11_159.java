@@ -2,10 +2,7 @@ package com.gempukku.lotro.cards.set11.rohan;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.modifiers.conditions.LocationCondition;
-import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Race;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -32,7 +29,7 @@ import java.util.List;
  */
 public class Card11_159 extends AbstractCompanion {
     public Card11_159() {
-        super(3, 7, 3, 6, Culture.ROHAN, Race.MAN, null, "Theoden", "King of the Eorlingas", true);
+        super(3, 7, 3, 6, Culture.ROHAN, Race.MAN, null, Names.theoden, "King of the Eorlingas", true);
     }
 
     @Override

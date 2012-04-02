@@ -2,10 +2,7 @@ package com.gempukku.lotro.cards.set11.wraith;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.modifiers.conditions.LocationCondition;
-import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Race;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.Modifier;
@@ -29,7 +26,7 @@ import java.util.List;
  */
 public class Card11_223 extends AbstractMinion {
     public Card11_223() {
-        super(4, 9, 2, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Nertëa", "Ninth of the Nine Riders", true);
+        super(4, 9, 2, 3, Race.NAZGUL, Culture.WRAITH, Names.nertea, "Ninth of the Nine Riders", true);
         addKeyword(Keyword.LURKER);
     }
 

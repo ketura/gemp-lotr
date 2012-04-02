@@ -52,13 +52,13 @@ public class Card7_260 extends AbstractAttachableFPPossession {
     @Override
     protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
-                && self.getAttachedTo().getBlueprint().getName().equals("Eowyn")
-                && PlayConditions.canExert(self, game, 2, Filters.name("Eowyn"))) {
+                && self.getAttachedTo().getBlueprint().getName().equals(Names.eowyn)
+                && PlayConditions.canExert(self, game, 2, Filters.name(Names.eowyn))) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, 2, Filters.name("Eowyn")));
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, 2, Filters.name(Names.eowyn)));
             action.appendEffect(
-                    new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, CardType.MINION, Keyword.FIERCE, Filters.inSkirmishAgainst(Filters.name("Eowyn"))));
+                    new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, CardType.MINION, Keyword.FIERCE, Filters.inSkirmishAgainst(Filters.name(Names.eowyn))));
             return Collections.singletonList(action);
         }
         return null;

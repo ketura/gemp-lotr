@@ -4,10 +4,7 @@ import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.cards.effects.discount.ToilDiscountEffect;
-import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Race;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -33,7 +30,7 @@ import java.util.List;
  */
 public class Card12_175 extends AbstractMinion {
     public Card12_175() {
-        super(6, 11, 4, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Enquëa", "Black Threat", true);
+        super(6, 11, 4, 3, Race.NAZGUL, Culture.WRAITH, Names.enquea, "Black Threat", true);
         addKeyword(Keyword.FIERCE);
         addKeyword(Keyword.TOIL, 1);
     }

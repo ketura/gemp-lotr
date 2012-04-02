@@ -5,10 +5,7 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.SelfExertEffect;
-import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Race;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -35,7 +32,7 @@ import java.util.List;
  */
 public class Card7_212 extends AbstractMinion {
     public Card7_212() {
-        super(6, 11, 4, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Enquëa", "Faster Than Winds", true);
+        super(6, 11, 4, 3, Race.NAZGUL, Culture.WRAITH, Names.enquea, "Faster Than Winds", true);
         addKeyword(Keyword.FIERCE);
     }
 

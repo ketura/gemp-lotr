@@ -2,10 +2,7 @@ package com.gempukku.lotro.cards.set18.rohan;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.modifiers.ResistanceModifier;
-import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Race;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -31,7 +28,7 @@ import java.util.List;
  */
 public class Card18_105 extends AbstractCompanion {
     public Card18_105() {
-        super(3, 7, 3, 6, Culture.ROHAN, Race.MAN, null, "Theoden", "Ednew", true);
+        super(3, 7, 3, 6, Culture.ROHAN, Race.MAN, null, Names.theoden, "Ednew", true);
     }
 
     @Override
@@ -40,7 +37,7 @@ public class Card18_105 extends AbstractCompanion {
         modifiers.add(
                 new ResistanceModifier(self, self, new SpotCondition(Filters.gandalf), 2));
         modifiers.add(
-                new KeywordModifier(self, self, new SpotCondition(Filters.name("Eomer")), Keyword.DAMAGE, 1));
+                new KeywordModifier(self, self, new SpotCondition(Filters.name(Names.eomer)), Keyword.DAMAGE, 1));
         modifiers.add(
                 new StrengthModifier(self, self, new SpotCondition(3, Culture.ROHAN, CardType.COMPANION, Filters.mounted), 2));
         return modifiers;

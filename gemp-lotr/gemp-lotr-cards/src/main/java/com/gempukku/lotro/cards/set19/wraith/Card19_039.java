@@ -5,6 +5,7 @@ import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.modifiers.PreventMinionBeingAssignedToCharacterModifier;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Names;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
@@ -36,7 +37,7 @@ import java.util.Set;
  */
 public class Card19_039 extends AbstractMinion {
     public Card19_039() {
-        super(6, 12, 3, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Toldëa", "Dark Shadow", true);
+        super(6, 12, 3, 3, Race.NAZGUL, Culture.WRAITH, Names.toldea, "Dark Shadow", true);
         addKeyword(Keyword.FIERCE);
     }
 

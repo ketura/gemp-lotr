@@ -32,31 +32,31 @@ public class Card13_131 extends AbstractPermanent {
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)) {
             List<ActivateCardAction> actions = new LinkedList<ActivateCardAction>();
-            if (PlayConditions.canExert(self, game, Filters.name("Eomer"))) {
+            if (PlayConditions.canExert(self, game, Filters.name(Names.eomer))) {
                 ActivateCardAction action = new ActivateCardAction(self);
                 action.setText("Exert Eomer...");
                 action.appendCost(
-                        new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.name("Eomer")));
+                        new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.name(Names.eomer)));
                 action.appendEffect(
-                        new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, 2, Filters.or(Filters.name("Eowyn"), Filters.name("Theoden"))));
+                        new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, 2, Filters.or(Filters.name(Names.eowyn), Filters.name(Names.theoden))));
                 actions.add(action);
             }
-            if (PlayConditions.canExert(self, game, Filters.name("Eomer"))) {
+            if (PlayConditions.canExert(self, game, Filters.name(Names.eomer))) {
                 ActivateCardAction action = new ActivateCardAction(self);
                 action.setText("Exert Eowyn...");
                 action.appendCost(
-                        new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.name("Eowyn")));
+                        new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.name(Names.eowyn)));
                 action.appendEffect(
-                        new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, 2, Filters.or(Filters.name("Eomer"), Filters.name("Theoden"))));
+                        new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, 2, Filters.or(Filters.name(Names.eomer), Filters.name(Names.theoden))));
                 actions.add(action);
             }
-            if (PlayConditions.canExert(self, game, Filters.name("Eomer"))) {
+            if (PlayConditions.canExert(self, game, Filters.name(Names.eomer))) {
                 ActivateCardAction action = new ActivateCardAction(self);
                 action.setText("Exert Theoden...");
                 action.appendCost(
-                        new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.name("Theoden")));
+                        new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.name(Names.theoden)));
                 action.appendEffect(
-                        new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, 2, Filters.or(Filters.name("Eowyn"), Filters.name("Eomer"))));
+                        new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, 2, Filters.or(Filters.name(Names.eowyn), Filters.name(Names.eomer))));
                 actions.add(action);
             }
             return actions;

@@ -5,10 +5,7 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPutCardFromDiscardIntoHandEffect;
-import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Race;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
@@ -31,7 +28,7 @@ import java.util.List;
  */
 public class Card12_180 extends AbstractMinion {
     public Card12_180() {
-        super(6, 12, 3, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Toldëa", "Black Shadow", true);
+        super(6, 12, 3, 3, Race.NAZGUL, Culture.WRAITH, Names.toldea, "Black Shadow", true);
         addKeyword(Keyword.FIERCE);
     }
 

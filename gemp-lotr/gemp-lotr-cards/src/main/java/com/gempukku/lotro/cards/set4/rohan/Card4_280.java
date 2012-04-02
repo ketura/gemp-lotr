@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set4.rohan;
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Names;
 import com.gempukku.lotro.common.PossessionClass;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
@@ -31,7 +32,7 @@ public class Card4_280 extends AbstractAttachableFPPossession {
 
     @Override
     protected Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
-        return Filters.name("Theoden");
+        return Filters.name(Names.theoden);
     }
 
     @Override

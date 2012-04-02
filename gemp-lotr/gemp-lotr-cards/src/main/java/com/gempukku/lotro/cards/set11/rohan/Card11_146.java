@@ -4,6 +4,7 @@ import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
 import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Names;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
@@ -29,7 +30,7 @@ import java.util.List;
  */
 public class Card11_146 extends AbstractCompanion {
     public Card11_146() {
-        super(2, 6, 3, 7, Culture.ROHAN, Race.MAN, null, "Eowyn", "Shieldmaiden of Rohan", true);
+        super(2, 6, 3, 7, Culture.ROHAN, Race.MAN, null, Names.eowyn, "Shieldmaiden of Rohan", true);
     }
 
     @Override

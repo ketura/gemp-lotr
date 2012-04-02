@@ -4,6 +4,7 @@ import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.modifiers.conditions.LocationCondition;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Names;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -28,7 +29,7 @@ import java.util.List;
  */
 public class Card11_220 extends AbstractMinion {
     public Card11_220() {
-        super(5, 10, 3, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Cantëa", "Fourth of the Nine Riders", true);
+        super(5, 10, 3, 3, Race.NAZGUL, Culture.WRAITH, Names.cantea, "Fourth of the Nine Riders", true);
     }
 
     @Override

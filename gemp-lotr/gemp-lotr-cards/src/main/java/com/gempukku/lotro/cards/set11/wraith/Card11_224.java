@@ -7,6 +7,7 @@ import com.gempukku.lotro.cards.effects.PutCardFromDeckIntoHandEffect;
 import com.gempukku.lotro.cards.effects.RevealTopCardsOfDrawDeckEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Names;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -32,7 +33,7 @@ import java.util.List;
  */
 public class Card11_224 extends AbstractMinion {
     public Card11_224() {
-        super(4, 9, 3, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Otsëa", "Seventh of the Nine Riders", true);
+        super(4, 9, 3, 3, Race.NAZGUL, Culture.WRAITH, Names.otsea, "Seventh of the Nine Riders", true);
     }
 
     @Override

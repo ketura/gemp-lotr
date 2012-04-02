@@ -5,6 +5,7 @@ import com.gempukku.lotro.cards.modifiers.conditions.AndCondition;
 import com.gempukku.lotro.cards.modifiers.conditions.CanSpotTwilightCondition;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Names;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -26,7 +27,7 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
  */
 public class Card19_035 extends AbstractMinion {
     public Card19_035() {
-        super(6, 12, 3, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Attëa", "Dark Predator", true);
+        super(6, 12, 3, 3, Race.NAZGUL, Culture.WRAITH, Names.attea, "Dark Predator", true);
         addKeyword(Keyword.FIERCE);
     }
 

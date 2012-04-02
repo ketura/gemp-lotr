@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set1.wraith;
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Names;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -22,7 +23,7 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
  */
 public class Card1_232 extends AbstractMinion {
     public Card1_232() {
-        super(4, 9, 2, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Lemenya", "Lieutenant of Morgul", true);
+        super(4, 9, 2, 3, Race.NAZGUL, Culture.WRAITH, Names.lemenya, "Lieutenant of Morgul", true);
     }
 
     @Override

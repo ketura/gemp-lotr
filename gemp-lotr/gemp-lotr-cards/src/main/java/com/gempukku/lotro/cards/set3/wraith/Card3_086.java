@@ -5,10 +5,7 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.cards.effects.TransferPermanentEffect;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Race;
-import com.gempukku.lotro.common.Zone;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -33,7 +30,7 @@ import java.util.List;
  */
 public class Card3_086 extends AbstractMinion {
     public Card3_086() {
-        super(4, 9, 3, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Otsëa", "Ringwraith in Twilight", true);
+        super(4, 9, 3, 3, Race.NAZGUL, Culture.WRAITH, Names.otsea, "Ringwraith in Twilight", true);
         addKeyword(Keyword.TWILIGHT);
     }
 

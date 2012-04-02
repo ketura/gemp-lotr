@@ -1,10 +1,7 @@
 package com.gempukku.lotro.cards.set12.wraith;
 
 import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.PossessionClass;
-import com.gempukku.lotro.common.Race;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -27,7 +24,7 @@ import java.util.List;
  */
 public class Card12_178 extends AbstractMinion {
     public Card12_178() {
-        super(4, 9, 2, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Nertëa", "Black Horseman", true);
+        super(4, 9, 2, 3, Race.NAZGUL, Culture.WRAITH, Names.nertea, "Black Horseman", true);
     }
 
     @Override

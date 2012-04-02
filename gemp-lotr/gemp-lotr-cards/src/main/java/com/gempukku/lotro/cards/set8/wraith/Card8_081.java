@@ -3,10 +3,7 @@ package com.gempukku.lotro.cards.set8.wraith;
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.common.Race;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
@@ -29,7 +26,7 @@ import java.util.List;
  */
 public class Card8_081 extends AbstractMinion {
     public Card8_081() {
-        super(4, 9, 3, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Otsëa", "Thrall of the One", true);
+        super(4, 9, 3, 3, Race.NAZGUL, Culture.WRAITH, Names.otsea, "Thrall of the One", true);
         addKeyword(Keyword.ENDURING);
         addKeyword(Keyword.FIERCE);
     }

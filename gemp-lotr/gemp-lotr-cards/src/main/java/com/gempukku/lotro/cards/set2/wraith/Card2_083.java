@@ -6,6 +6,7 @@ import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Names;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -31,7 +32,7 @@ import java.util.List;
  */
 public class Card2_083 extends AbstractMinion {
     public Card2_083() {
-        super(6, 11, 4, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Enquëa", "Ringwraith in Twilight", true);
+        super(6, 11, 4, 3, Race.NAZGUL, Culture.WRAITH, Names.enquea, "Ringwraith in Twilight", true);
         addKeyword(Keyword.TWILIGHT);
     }
 

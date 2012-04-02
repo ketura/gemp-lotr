@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set15.wraith;
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Names;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
@@ -24,7 +25,7 @@ import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
  */
 public class Card15_184 extends AbstractMinion {
     public Card15_184() {
-        super(6, 12, 3, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Attëa", "Desirous of Power", true);
+        super(6, 12, 3, 3, Race.NAZGUL, Culture.WRAITH, Names.attea, "Desirous of Power", true);
         addKeyword(Keyword.FIERCE);
     }
 

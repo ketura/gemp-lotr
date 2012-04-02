@@ -6,6 +6,7 @@ import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Names;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -40,7 +41,7 @@ public class Card4_345 extends AbstractSite {
 
             List<Effect> possibleEffects = new LinkedList<Effect>();
             possibleEffects.add(
-                    new ChooseAndExertCharactersEffect(action, fpPlayerId, 1, 1, Filters.name("Theoden")) {
+                    new ChooseAndExertCharactersEffect(action, fpPlayerId, 1, 1, Filters.name(Names.theoden)) {
                         @Override
                         public String getText(LotroGame game) {
                             return "Exert Theoden";

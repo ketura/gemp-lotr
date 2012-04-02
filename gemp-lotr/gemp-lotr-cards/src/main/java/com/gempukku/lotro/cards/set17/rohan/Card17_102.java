@@ -4,10 +4,7 @@ import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.LiberateASiteEffect;
 import com.gempukku.lotro.cards.effects.SelfExertEffect;
-import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.common.Race;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -33,7 +30,7 @@ import java.util.List;
  */
 public class Card17_102 extends AbstractCompanion {
     public Card17_102() {
-        super(3, 7, 3, 7, Culture.ROHAN, Race.MAN, null, "Theoden", "King of Rohan", true);
+        super(3, 7, 3, 7, Culture.ROHAN, Race.MAN, null, Names.theoden, "King of Rohan", true);
     }
 
     @Override

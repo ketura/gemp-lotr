@@ -58,11 +58,11 @@ public class Card7_232 extends AbstractAttachableFPPossession {
     @Override
     protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.REGROUP, self)
-                && self.getAttachedTo().getBlueprint().getName().equals("Eomer")
-                && PlayConditions.canExert(self, game, Filters.name("Eomer"))) {
+                && self.getAttachedTo().getBlueprint().getName().equals(Names.eomer)
+                && PlayConditions.canExert(self, game, Filters.name(Names.eomer))) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.name("Eomer")));
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.name(Names.eomer)));
             action.appendEffect(
                     new PreventableEffect(action, new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, CardType.CONDITION) {
                         @Override

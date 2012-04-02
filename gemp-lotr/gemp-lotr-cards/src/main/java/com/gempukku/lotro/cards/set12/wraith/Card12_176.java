@@ -5,6 +5,7 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromDiscardEffect;
 import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Names;
 import com.gempukku.lotro.common.PossessionClass;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -28,7 +29,7 @@ import java.util.List;
  */
 public class Card12_176 extends AbstractMinion {
     public Card12_176() {
-        super(4, 9, 2, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Lemenya", "Black Enemy", true);
+        super(4, 9, 2, 3, Race.NAZGUL, Culture.WRAITH, Names.lemenya, "Black Enemy", true);
     }
 
     @Override

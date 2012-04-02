@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set4.rohan;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Names;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.common.Signet;
 import com.gempukku.lotro.filters.Filters;
@@ -32,7 +33,7 @@ import java.util.List;
  */
 public class Card4_267 extends AbstractCompanion {
     public Card4_267() {
-        super(3, 7, 3, 6, Culture.ROHAN, Race.MAN, Signet.THÉODEN, "Eomer", "Third Marshal of Riddermark", true);
+        super(3, 7, 3, 6, Culture.ROHAN, Race.MAN, Signet.THÉODEN, Names.eomer, "Third Marshal of Riddermark", true);
     }
 
     @Override

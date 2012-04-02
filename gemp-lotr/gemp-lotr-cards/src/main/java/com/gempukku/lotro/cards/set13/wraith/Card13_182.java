@@ -5,10 +5,7 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Race;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -32,7 +29,7 @@ import java.util.List;
  */
 public class Card13_182 extends AbstractMinion {
     public Card13_182() {
-        super(6, 11, 4, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Enquëa", "Sixth of the Nine Riders", true);
+        super(6, 11, 4, 3, Race.NAZGUL, Culture.WRAITH, Names.enquea, "Sixth of the Nine Riders", true);
         addKeyword(Keyword.FIERCE);
     }
 

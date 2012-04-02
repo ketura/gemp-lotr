@@ -3,10 +3,7 @@ package com.gempukku.lotro.cards.set13.rohan;
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.modifiers.conditions.NotCondition;
 import com.gempukku.lotro.cards.modifiers.evaluator.CountActiveEvaluator;
-import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Race;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -32,7 +29,7 @@ import java.util.List;
  */
 public class Card13_123 extends AbstractCompanion {
     public Card13_123() {
-        super(3, 7, 3, 7, Culture.ROHAN, Race.MAN, null, "Eomer", "Heir to Meduseld", true);
+        super(3, 7, 3, 7, Culture.ROHAN, Race.MAN, null, Names.eomer, "Heir to Meduseld", true);
     }
 
     @Override

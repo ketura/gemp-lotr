@@ -4,6 +4,7 @@ import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.modifiers.MoveLimitModifier;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Names;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -29,16 +30,16 @@ import java.util.List;
  */
 public class Card13_137 extends AbstractCompanion {
     public Card13_137() {
-        super(3, 7, 3, 7, Culture.ROHAN, Race.MAN, null, "Theoden", "The Renowned", true);
+        super(3, 7, 3, 7, Culture.ROHAN, Race.MAN, null, Names.theoden, "The Renowned", true);
     }
 
     @Override
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(
-                new KeywordModifier(self, self, new SpotCondition(Filters.name("Eowyn")), Keyword.DEFENDER, 1));
+                new KeywordModifier(self, self, new SpotCondition(Filters.name(Names.eowyn)), Keyword.DEFENDER, 1));
         modifiers.add(
-                new KeywordModifier(self, self, new SpotCondition(Filters.name("Eomer")), Keyword.DAMAGE, 1));
+                new KeywordModifier(self, self, new SpotCondition(Filters.name(Names.eomer)), Keyword.DAMAGE, 1));
         modifiers.add(
                 new MoveLimitModifier(self, new SpotCondition(Filters.name("Theodred")), 1));
         return modifiers;

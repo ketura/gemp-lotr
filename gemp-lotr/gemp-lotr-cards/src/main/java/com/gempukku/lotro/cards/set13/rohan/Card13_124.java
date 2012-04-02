@@ -35,7 +35,7 @@ import java.util.List;
  */
 public class Card13_124 extends AbstractCompanion {
     public Card13_124() {
-        super(2, 6, 3, 6, Culture.ROHAN, Race.MAN, null, "Eowyn", "Restless Warrior", true);
+        super(2, 6, 3, 6, Culture.ROHAN, Race.MAN, null, Names.eowyn, "Restless Warrior", true);
     }
 
     @Override
@@ -55,7 +55,7 @@ public class Card13_124 extends AbstractCompanion {
         if (TriggerConditions.moves(game, effectResult)
                 && PlayConditions.isPhase(game, Phase.REGROUP)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
-            int count = PlayConditions.canSpot(game, Filters.or(Filters.name("Eomer"), Filters.name("Theoden"))) ? 2 : 1;
+            int count = PlayConditions.canSpot(game, Filters.or(Filters.name(Names.eomer), Filters.name(Names.theoden))) ? 2 : 1;
             action.appendEffect(
                     new ReinforceTokenEffect(self, playerId, Token.ROHAN, count));
             return Collections.singletonList(action);

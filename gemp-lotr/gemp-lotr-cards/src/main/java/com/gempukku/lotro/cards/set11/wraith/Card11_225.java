@@ -4,6 +4,7 @@ import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Names;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -27,7 +28,7 @@ import java.util.List;
  */
 public class Card11_225 extends AbstractMinion {
     public Card11_225() {
-        super(6, 12, 3, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Toldëa", "Eighth of the Nine Riders", true);
+        super(6, 12, 3, 3, Race.NAZGUL, Culture.WRAITH, Names.toldea, "Eighth of the Nine Riders", true);
         addKeyword(Keyword.FIERCE);
     }
 

@@ -3,10 +3,7 @@ package com.gempukku.lotro.cards.set17.wraith;
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Race;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -30,7 +27,7 @@ import java.util.List;
  */
 public class Card17_144 extends AbstractMinion {
     public Card17_144() {
-        super(8, 14, 4, 3, Race.NAZGUL, Culture.WRAITH, "The Witch-king", "Conqueror of Arthedain", true);
+        super(8, 14, 4, 3, Race.NAZGUL, Culture.WRAITH, Names.witchKing, "Conqueror of Arthedain", true);
         addKeyword(Keyword.FIERCE);
     }
 

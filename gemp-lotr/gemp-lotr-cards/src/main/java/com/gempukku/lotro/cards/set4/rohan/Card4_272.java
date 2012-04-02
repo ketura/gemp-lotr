@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set4.rohan;
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Names;
 import com.gempukku.lotro.common.PossessionClass;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
@@ -26,12 +27,12 @@ import java.util.List;
  */
 public class Card4_272 extends AbstractAttachableFPPossession {
     public Card4_272() {
-        super(1, 3, 0, Culture.ROHAN, PossessionClass.HAND_WEAPON, "Eowyn's Sword", null, true);
+        super(1, 3, 0, Culture.ROHAN, PossessionClass.HAND_WEAPON, "Éowyn's Sword", null, true);
     }
 
     @Override
     protected Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
-        return Filters.name("Eowyn");
+        return Filters.name(Names.eowyn);
     }
 
     @Override

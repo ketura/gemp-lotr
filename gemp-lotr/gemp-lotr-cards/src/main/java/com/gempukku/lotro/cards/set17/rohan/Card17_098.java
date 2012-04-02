@@ -36,7 +36,7 @@ public class Card17_098 extends AbstractPermanent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && (PlayConditions.canSpot(game, Filters.name("Theoden"))
+                && (PlayConditions.canSpot(game, Filters.name(Names.theoden))
                 || PlayConditions.canSpot(game, 2, Culture.ROHAN, CardType.COMPANION));
     }
 

@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set6.wraith;
 
 import com.gempukku.lotro.cards.AbstractAttachable;
+import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.common.*;
@@ -44,7 +45,7 @@ public class Card6_085 extends AbstractAttachable {
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.winsSkirmish(game, effectResult, self.getAttachedTo())
-                && self.getAttachedTo().getBlueprint().getName().equals("Úlairë Toldëa")) {
+                && PlayConditions.canSpot(game, Filters.hasAttached(self), Filters.name(Names.toldea))) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new ChooseAndDiscardCardsFromPlayEffect(action, game.getGameState().getCurrentPlayerId(), 1, 1, Side.FREE_PEOPLE, Filters.or(CardType.POSSESSION, CardType.CONDITION)));

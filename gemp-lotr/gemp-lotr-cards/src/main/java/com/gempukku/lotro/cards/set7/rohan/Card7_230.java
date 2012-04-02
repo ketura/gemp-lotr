@@ -27,12 +27,12 @@ import java.util.List;
  */
 public class Card7_230 extends AbstractAttachableFPPossession {
     public Card7_230() {
-        super(1, 3, 0, Culture.ROHAN, PossessionClass.HAND_WEAPON, "Eowyn's Sword", "Dernhelm's Blade", true);
+        super(1, 3, 0, Culture.ROHAN, PossessionClass.HAND_WEAPON, "Éowyn's Sword", "Dernhelm's Blade", true);
     }
 
     @Override
     protected Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
-        return Filters.name("Eowyn");
+        return Filters.name(Names.eowyn);
     }
 
     @Override
@@ -49,7 +49,7 @@ public class Card7_230 extends AbstractAttachableFPPossession {
         if (TriggerConditions.played(game, effectResult, self)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, CardType.MINION, Filters.inSkirmishAgainst(Filters.name("Eowyn"))));
+                    new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, CardType.MINION, Filters.inSkirmishAgainst(Filters.name(Names.eowyn))));
             return Collections.singletonList(action);
         }
         return null;

@@ -61,7 +61,7 @@ public class Card13_136 extends AbstractAttachableFPPossession {
     @Override
     protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
-                && self.getAttachedTo().getBlueprint().getName().equals("Theoden")
+                && self.getAttachedTo().getBlueprint().getName().equals(Names.theoden)
                 && PlayConditions.canRemoveTokens(game, Token.ROHAN, 2, Filters.any)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(

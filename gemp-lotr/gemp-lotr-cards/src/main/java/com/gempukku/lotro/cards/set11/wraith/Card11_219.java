@@ -7,6 +7,7 @@ import com.gempukku.lotro.cards.effects.AddBurdenEffect;
 import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Names;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -31,7 +32,7 @@ import java.util.List;
  */
 public class Card11_219 extends AbstractMinion {
     public Card11_219() {
-        super(6, 12, 3, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Attëa", "Second of the Nine Riders", true);
+        super(6, 12, 3, 3, Race.NAZGUL, Culture.WRAITH, Names.attea, "Second of the Nine Riders", true);
         addKeyword(Keyword.FIERCE);
     }
 

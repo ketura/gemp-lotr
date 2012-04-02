@@ -6,6 +6,7 @@ import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Names;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -33,7 +34,7 @@ import java.util.List;
  */
 public class Card2_085 extends AbstractMinion {
     public Card2_085() {
-        super(8, 14, 4, 3, Race.NAZGUL, Culture.WRAITH, "The Witch-king", "Lord of the Nazgul", true);
+        super(8, 14, 4, 3, Race.NAZGUL, Culture.WRAITH, Names.witchKing, "Lord of the Nazgul", true);
         addKeyword(Keyword.TWILIGHT);
     }
 
