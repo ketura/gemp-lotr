@@ -20,6 +20,12 @@
         opacity: 0.2;
     }
 
+    .cardHint {
+        display: inline;
+        color: #6f6fff;
+        cursor: pointer;
+    }
+
     .pocket {
         background-color: #000000;
         border: 1px solid #ffffff;
@@ -194,6 +200,50 @@
                 });
 
                 resizeHall();
+
+                var infoDialog = $("<div></div>")
+                        .dialog({
+                    autoOpen: false,
+                    closeOnEscape: true,
+                    resizable: false,
+                    title: "Card information"
+                });
+
+                $("body").click(
+                        function (event) {
+                            var tar = $(event.target);
+
+                            if (tar.hasClass("cardHint")) {
+                                var blueprintId = tar.attr("value");
+                                var card = new Card(blueprintId, "SPECIAL", "hint", "");
+
+                                infoDialog.html("");
+                                infoDialog.html("<div style='scroll: auto'></div>");
+                                var floatCardDiv = $("<div style='float: left;'></div>");
+                                floatCardDiv.append(createFullCardDiv(card.imageUrl, card.foil, card.horizontal));
+                                infoDialog.append(floatCardDiv);
+
+                                var windowWidth = $(window).width();
+                                var windowHeight = $(window).height();
+
+                                var horSpace = 30;
+                                var vertSpace = 45;
+
+                                if (card.horizontal) {
+                                    // 500x360
+                                    infoDialog.dialog({width: Math.min(500 + horSpace, windowWidth), height: Math.min(360 + vertSpace, windowHeight)});
+                                } else {
+                                    // 360x500
+                                    infoDialog.dialog({width: Math.min(360 + horSpace, windowWidth), height: Math.min(500 + vertSpace, windowHeight)});
+                                }
+                                infoDialog.dialog("open");
+
+                                event.stopPropagation();
+                                return false;
+                            }
+
+                            return true;
+                        });
             });
 
     function resizeHall() {

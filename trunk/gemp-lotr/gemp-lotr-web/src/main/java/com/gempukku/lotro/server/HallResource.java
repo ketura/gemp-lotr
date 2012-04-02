@@ -57,18 +57,14 @@ public class HallResource extends AbstractResource {
             result.append("<li>sites from block: " + lotroFormat.getSiteBlock().getHumanReadable() + "</li>");
             result.append("<li>Ring-bearer skirmish can be cancelled: " + (lotroFormat.canCancelRingBearerSkirmish() ? "yes" : "no") + "</li>");
             result.append("<li>X-listed: ");
-            for (String blueprintId : lotroFormat.getBannedCards()) {
-                String fullName = GameUtils.getFullName(_library.getLotroCardBlueprint(blueprintId));
-                result.append("<i>" + fullName + "</i>, ");
-            }
+            for (String blueprintId : lotroFormat.getBannedCards())
+                result.append(GameUtils.getCardLink(blueprintId, _library.getLotroCardBlueprint(blueprintId)) + ", ");
             if (lotroFormat.getBannedCards().size() == 0)
                 result.append("none,");
             result.append("</li>");
             result.append("<li>R-listed: ");
-            for (String blueprintId : lotroFormat.getRestrictedCards()) {
-                String fullName = GameUtils.getFullName(_library.getLotroCardBlueprint(blueprintId));
-                result.append("<i>" + fullName + "</i>, ");
-            }
+            for (String blueprintId : lotroFormat.getRestrictedCards())
+                result.append(GameUtils.getCardLink(blueprintId, _library.getLotroCardBlueprint(blueprintId)) + ", ");
             if (lotroFormat.getRestrictedCards().size() == 0)
                 result.append("none,");
             result.append("</li>");
