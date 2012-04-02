@@ -15,6 +15,7 @@ import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.timing.Action;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -50,6 +51,7 @@ public class Card8_069 extends AbstractPermanent {
                                         new DiscardCardsFromPlayEffect(self, PossessionClass.MOUNT, Filters.attachedTo(card)));
                         }
                     });
+            return Collections.singletonList(action);
         }
         return null;
     }
