@@ -47,7 +47,6 @@ public class AdminResource extends AbstractResource {
         _playerDao.clearCache();
         _collectionsManager.clearDBCache();
         _deckDao.clearCache();
-        _leagueDao.clearCache();
         _merchantDao.clearCache();
         _leagueService.clearCache();
 
