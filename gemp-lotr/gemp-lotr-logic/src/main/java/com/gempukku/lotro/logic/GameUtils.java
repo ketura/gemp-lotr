@@ -55,7 +55,11 @@ public class GameUtils {
 
     public static String getCardLink(PhysicalCard card) {
         LotroCardBlueprint blueprint = card.getBlueprint();
-        return "<div class='cardHint' value='" + card.getBlueprintId() + "'>" + (blueprint.isUnique() ? "•" : "") + GameUtils.getFullName(blueprint) + "</div>";
+        return getCardLink(card.getBlueprintId(), blueprint);
+    }
+
+    public static String getCardLink(String blueprintId, LotroCardBlueprint blueprint) {
+        return "<div class='cardHint' value='" + blueprintId + "'>" + (blueprint.isUnique() ? "•" : "") + GameUtils.getFullName(blueprint) + "</div>";
     }
 
     public static String getAppendedTextNames(Collection<PhysicalCard> cards) {
