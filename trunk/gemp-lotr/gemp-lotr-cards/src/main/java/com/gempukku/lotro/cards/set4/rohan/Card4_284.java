@@ -3,10 +3,7 @@ package com.gempukku.lotro.cards.set4.rohan;
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
 import com.gempukku.lotro.cards.modifiers.CantTakeMoreThanXWoundsModifier;
 import com.gempukku.lotro.cards.modifiers.CantTakeWoundsModifier;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.common.PossessionClass;
-import com.gempukku.lotro.common.Race;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -42,7 +39,7 @@ public class Card4_284 extends AbstractAttachableFPPossession {
                 new CantTakeWoundsModifier(self,
                         Filters.and(
                                 Filters.hasAttached(self),
-                                Filters.name("Theoden"),
+                                Filters.name(Names.theoden),
                                 Filters.not(Filters.inSkirmish)
                         )));
         modifiers.add(

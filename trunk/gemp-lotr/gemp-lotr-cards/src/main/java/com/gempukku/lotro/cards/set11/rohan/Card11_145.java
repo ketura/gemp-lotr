@@ -7,6 +7,7 @@ import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndReturnCardsToHandEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Names;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -33,7 +34,7 @@ import java.util.List;
  */
 public class Card11_145 extends AbstractCompanion {
     public Card11_145() {
-        super(3, 7, 3, 7, Culture.ROHAN, Race.MAN, null, "Eomer", "Guardian of the Eastmark", true);
+        super(3, 7, 3, 7, Culture.ROHAN, Race.MAN, null, Names.eomer, "Guardian of the Eastmark", true);
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set0.rohan;
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Names;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -22,7 +23,7 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
  */
 public class Card0_066 extends AbstractCompanion {
     public Card0_066() {
-        super(2, 7, 3, 6, Culture.ROHAN, Race.MAN, null, "Eomer", "Forthwith Banished", true);
+        super(2, 7, 3, 6, Culture.ROHAN, Race.MAN, null, Names.eomer, "Forthwith Banished", true);
         addKeyword(Keyword.DAMAGE, 1);
         addKeyword(Keyword.VALIANT);
     }

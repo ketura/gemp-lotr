@@ -4,6 +4,7 @@ import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromDeckEffect;
 import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.Names;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -32,7 +33,7 @@ public class Card4_341 extends AbstractSite {
         if (PlayConditions.canUseSiteDuringPhase(game, Phase.FELLOWSHIP, self)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
-                    new ChooseAndPlayCardFromDeckEffect(playerId, Filters.name("Theoden")));
+                    new ChooseAndPlayCardFromDeckEffect(playerId, Filters.name(Names.theoden)));
             return Collections.singletonList(action);
         }
         return null;

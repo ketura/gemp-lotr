@@ -5,10 +5,7 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
 import com.gempukku.lotro.cards.modifiers.evaluator.CardPhaseLimitEvaluator;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.common.Race;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
@@ -32,7 +29,7 @@ import java.util.List;
  */
 public class Card1_229 extends AbstractMinion {
     public Card1_229() {
-        super(6, 12, 3, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Attëa", "Keeper of Dol Guldur", true);
+        super(6, 12, 3, 3, Race.NAZGUL, Culture.WRAITH, Names.attea, "Keeper of Dol Guldur", true);
         addKeyword(Keyword.FIERCE);
     }
 

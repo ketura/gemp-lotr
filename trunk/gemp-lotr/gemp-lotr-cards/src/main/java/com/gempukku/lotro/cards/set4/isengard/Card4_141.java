@@ -8,6 +8,7 @@ import com.gempukku.lotro.cards.effects.AddBurdenEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Names;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -48,7 +49,7 @@ public class Card4_141 extends AbstractResponseOldEvent {
             action.setText(GameUtils.getCardLink(killResult.getKilledCard()) + " was killed");
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Culture.ISENGARD, CardType.MINION));
-            boolean hasSpecific = Filters.or(Filters.aragorn, Filters.gandalf, Filters.name("Theoden")).accepts(game.getGameState(), game.getModifiersQuerying(), killResult.getKilledCard());
+            boolean hasSpecific = Filters.or(Filters.aragorn, Filters.gandalf, Filters.name(Names.theoden)).accepts(game.getGameState(), game.getModifiersQuerying(), killResult.getKilledCard());
             action.appendEffect(
                     new AddBurdenEffect(self, hasSpecific ? 2 : 1));
             return Collections.singletonList(action);

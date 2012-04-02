@@ -42,16 +42,16 @@ public class Card15_124 extends AbstractAttachableFPPossession {
     protected List<? extends Modifier> getNonBasicStatsModifiers(PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(
-                new KeywordModifier(self, Filters.and(Filters.hasAttached(self), Filters.name("Eomer"), Filters.unwounded), Keyword.DAMAGE, 1));
+                new KeywordModifier(self, Filters.and(Filters.hasAttached(self), Filters.name(Names.eomer), Filters.unwounded), Keyword.DAMAGE, 1));
         modifiers.add(
-                new ResistanceModifier(self, Filters.and(Filters.hasAttached(self), Filters.name("Eomer"), Filters.unwounded), 1));
+                new ResistanceModifier(self, Filters.and(Filters.hasAttached(self), Filters.name(Names.eomer), Filters.unwounded), 1));
         return modifiers;
     }
 
     @Override
     protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
-                && PlayConditions.canSpot(game, Filters.hasAttached(self), Filters.name("Eomer"))
+                && PlayConditions.canSpot(game, Filters.hasAttached(self), Filters.name(Names.eomer))
                 && PlayConditions.canSelfDiscard(self, game)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(

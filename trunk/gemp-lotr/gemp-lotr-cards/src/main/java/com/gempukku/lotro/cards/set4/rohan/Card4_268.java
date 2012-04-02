@@ -1,10 +1,7 @@
 package com.gempukku.lotro.cards.set4.rohan;
 
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.PossessionClass;
-import com.gempukku.lotro.common.Race;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -37,6 +34,6 @@ public class Card4_268 extends AbstractAttachableFPPossession {
     @Override
     protected List<? extends Modifier> getNonBasicStatsModifiers(PhysicalCard self) {
         return Collections.singletonList(
-                new KeywordModifier(self, Filters.and(Filters.hasAttached(self), Filters.name("Eomer"), Filters.mounted), Keyword.DAMAGE, 2));
+                new KeywordModifier(self, Filters.and(Filters.hasAttached(self), Filters.name(Names.eomer), Filters.mounted), Keyword.DAMAGE, 2));
     }
 }

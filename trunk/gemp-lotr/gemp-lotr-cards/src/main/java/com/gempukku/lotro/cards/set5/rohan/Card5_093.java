@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class Card5_093 extends AbstractCompanion {
     public Card5_093() {
-        super(2, 6, 2, 6, Culture.ROHAN, Race.MAN, Signet.GANDALF, "Theoden", "King of the Golden Hall", true);
+        super(2, 6, 2, 6, Culture.ROHAN, Race.MAN, Signet.GANDALF, Names.theoden, "King of the Golden Hall", true);
         addKeyword(Keyword.VALIANT);
     }
 

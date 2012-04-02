@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card1_231 extends AbstractMinion {
     public Card1_231() {
-        super(6, 11, 4, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Enquëa", "Lieutenant of Morgul", true);
+        super(6, 11, 4, 3, Race.NAZGUL, Culture.WRAITH, Names.enquea, "Lieutenant of Morgul", true);
         addKeyword(Keyword.FIERCE);
     }
 

@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set2.wraith;
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Names;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
@@ -29,7 +30,7 @@ import java.util.List;
  */
 public class Card2_084 extends AbstractMinion {
     public Card2_084() {
-        super(5, 10, 3, 2, Race.NAZGUL, Culture.WRAITH, "Úlairë Nelya", "Ringwraith in Twilight", true);
+        super(5, 10, 3, 2, Race.NAZGUL, Culture.WRAITH, Names.nelya, "Ringwraith in Twilight", true);
         addKeyword(Keyword.TWILIGHT);
     }
 

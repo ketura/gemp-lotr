@@ -33,14 +33,14 @@ public class Card13_134 extends AbstractEvent {
     @Override
     public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self);
-        if (PlayConditions.canExert(self, game, Filters.name("Theoden"))) {
+        if (PlayConditions.canExert(self, game, Filters.name(Names.theoden))) {
             action.appendCost(
                     new PlayoutDecisionEffect(playerId,
                             new YesNoDecision("Do you want to exert Theoden?") {
                                 @Override
                                 protected void yes() {
                                     action.appendCost(
-                                            new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.name("Theoden")));
+                                            new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.name(Names.theoden)));
                                     action.appendEffect(
                                             new ChooseActiveCardEffect(self, playerId, "Choose your ROHAN companion", Filters.owner(playerId), Culture.ROHAN, CardType.COMPANION) {
                                                 @Override

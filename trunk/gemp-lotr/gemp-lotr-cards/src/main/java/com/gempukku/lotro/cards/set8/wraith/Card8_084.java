@@ -4,6 +4,7 @@ import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.modifiers.CancelStrengthBonusTargetModifier;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Names;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -26,7 +27,7 @@ import java.util.List;
  */
 public class Card8_084 extends AbstractMinion {
     public Card8_084() {
-        super(8, 14, 4, 3, Race.NAZGUL, Culture.WRAITH, "The Witch-king", "Black Captain", true);
+        super(8, 14, 4, 3, Race.NAZGUL, Culture.WRAITH, Names.witchKing, "Black Captain", true);
         addKeyword(Keyword.ENDURING);
     }
 

@@ -26,16 +26,16 @@ public class Card5_084 extends AbstractEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && PlayConditions.canExert(self, game, 2, Filters.name("Theoden"));
+                && PlayConditions.canExert(self, game, 2, Filters.name(Names.theoden));
     }
 
     @Override
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, 2, Filters.name("Theoden")));
+                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, 2, Filters.name(Names.theoden)));
         action.appendEffect(
-                new HealCharactersEffect(self, Filters.and(CardType.COMPANION, Filters.not(Filters.name("Theoden")), Signet.THÉODEN)));
+                new HealCharactersEffect(self, Filters.and(CardType.COMPANION, Filters.not(Filters.name(Names.theoden)), Signet.THÉODEN)));
         return action;
     }
 }

@@ -3,10 +3,7 @@ package com.gempukku.lotro.cards.set15.rohan;
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.common.Race;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
@@ -34,7 +31,7 @@ import java.util.List;
  */
 public class Card15_123 extends AbstractCompanion {
     public Card15_123() {
-        super(3, 7, 3, 7, Culture.ROHAN, Race.MAN, null, "Eomer", "Horsemaster", true);
+        super(3, 7, 3, 7, Culture.ROHAN, Race.MAN, null, Names.eomer, "Horsemaster", true);
         addKeyword(Keyword.VALIANT);
         addKeyword(Keyword.HUNTER, 2);
     }

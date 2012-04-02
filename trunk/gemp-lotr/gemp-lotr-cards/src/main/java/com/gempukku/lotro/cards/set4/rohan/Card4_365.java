@@ -35,7 +35,7 @@ import java.util.List;
  */
 public class Card4_365 extends AbstractCompanion {
     public Card4_365() {
-        super(2, 6, 2, 6, Culture.ROHAN, Race.MAN, Signet.THÉODEN, "Theoden", "Lord of the Mark", true);
+        super(2, 6, 2, 6, Culture.ROHAN, Race.MAN, Signet.THÉODEN, Names.theoden, "Lord of the Mark", true);
     }
 
     @Override

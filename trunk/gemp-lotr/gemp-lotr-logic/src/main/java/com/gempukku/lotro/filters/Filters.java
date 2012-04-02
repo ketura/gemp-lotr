@@ -338,7 +338,7 @@ public class Filters {
     }
 
     public static final Filter saruman = Filters.name("Saruman");
-    public static final Filter witchKing = Filters.name("The Witch-king");
+    public static final Filter witchKing = Filters.name(Names.witchKing);
     public static final Filter balrog = Filters.name("The Balrog");
 
     public static final Filter gollum = Filters.name("Gollum");

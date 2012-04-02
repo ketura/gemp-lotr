@@ -4,10 +4,7 @@ import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.PreventCardEffect;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Filterable;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.PossessionClass;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -40,7 +37,7 @@ public class Card7_236 extends AbstractAttachableFPPossession {
 
     @Override
     protected Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
-        return Filters.name("Theoden");
+        return Filters.name(Names.theoden);
     }
 
     @Override
@@ -51,11 +48,11 @@ public class Card7_236 extends AbstractAttachableFPPossession {
 
     @Override
     public List<? extends Action> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
-        if (TriggerConditions.isGettingWounded(effect, game, Filters.name("Theoden"))
+        if (TriggerConditions.isGettingWounded(effect, game, Filters.name(Names.theoden))
                 && !PlayConditions.canSpotThreat(game, 3)
                 && PlayConditions.canAddThreat(game, self, 2)) {
 
-            PhysicalCard theoden = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name("Theoden"));
+            PhysicalCard theoden = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name(Names.theoden));
             WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
 
             ActivateCardAction action = new ActivateCardAction(self);

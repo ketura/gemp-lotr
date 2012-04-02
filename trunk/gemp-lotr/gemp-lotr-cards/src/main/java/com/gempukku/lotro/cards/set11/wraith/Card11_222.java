@@ -3,10 +3,7 @@ package com.gempukku.lotro.cards.set11.wraith;
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.SelfExertEffect;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.common.Race;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
@@ -30,7 +27,7 @@ import java.util.List;
  */
 public class Card11_222 extends AbstractMinion {
     public Card11_222() {
-        super(5, 10, 3, 2, Race.NAZGUL, Culture.WRAITH, "Úlairë Nelya", "Third of the Nine Riders", true);
+        super(5, 10, 3, 2, Race.NAZGUL, Culture.WRAITH, Names.nelya, "Third of the Nine Riders", true);
         addKeyword(Keyword.FIERCE);
     }
 

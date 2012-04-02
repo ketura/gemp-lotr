@@ -5,10 +5,7 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPreventCardEffect;
-import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Race;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -34,7 +31,7 @@ import java.util.List;
  */
 public class Card15_125 extends AbstractCompanion {
     public Card15_125() {
-        super(2, 6, 3, 6, Culture.ROHAN, Race.MAN, null, "Eowyn", "Willing Fighter", true);
+        super(2, 6, 3, 6, Culture.ROHAN, Race.MAN, null, Names.eowyn, "Willing Fighter", true);
         addKeyword(Keyword.VALIANT);
     }
 

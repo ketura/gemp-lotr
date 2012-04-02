@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card13_183 extends AbstractMinion {
     public Card13_183() {
-        super(4, 9, 2, 3, Race.NAZGUL, Culture.WRAITH, "Úlairë Lemenya", "Servant of the Shadow", true);
+        super(4, 9, 2, 3, Race.NAZGUL, Culture.WRAITH, Names.lemenya, "Servant of the Shadow", true);
         addKeyword(Keyword.FIERCE);
     }
 
