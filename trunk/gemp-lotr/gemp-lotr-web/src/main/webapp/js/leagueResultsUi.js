@@ -30,11 +30,18 @@ var LeagueResultsUI = Class.extend({
             for (var i = 0; i < leagues.length; i++) {
                 var league = leagues[i];
                 var leagueName = league.getAttribute("name");
+                var cost = parseInt(league.getAttribute("cost"));
                 var start = league.getAttribute("start");
                 var end = league.getAttribute("end");
 
                 var leagueText = leagueName;
                 $("#leagueResults").append("<h1 class='leagueName'>" + leagueText + "</h1>");
+
+                var costStr = Math.floor(cost / 100) + "G " + cost % 100 + "S";
+                $("#leagueResults").append("<div class='leagueCost'>Cost: " + costStr + "</div>");
+
+                var duration = this.getDateString(start) + " to " + this.getDateString(end);
+                $("#leagueResults").append("<div class='leagueDuration'>Duration (GMT+0): " + duration + "</div>");
 
                 var tabDiv = $("<div width='100%'></div>");
                 var tabNavigation = $("<ul></ul>");

@@ -2,7 +2,9 @@ package com.gempukku.lotro.server;
 
 import com.gempukku.lotro.db.LeagueDAO;
 import com.gempukku.lotro.db.vo.League;
+import com.gempukku.lotro.game.Player;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
+import com.gempukku.lotro.league.LeagueData;
 import com.gempukku.lotro.league.LeagueSerieData;
 import com.gempukku.lotro.league.LeagueService;
 import com.gempukku.lotro.league.LeagueStanding;
@@ -10,8 +12,11 @@ import com.sun.jersey.spi.resource.Singleton;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -30,21 +35,29 @@ public class LeagueResource extends AbstractResource {
     private LotroFormatLibrary _formatLibrary;
 
     @GET
-    public Document getLeagueInformation() throws ParserConfigurationException {
+    public Document getLeagueInformation(
+            @QueryParam("participantId") String participantId,
+            @Context HttpServletRequest request,
+            @Context HttpServletResponse response) throws ParserConfigurationException {
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+
+        Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
         Document doc = documentBuilder.newDocument();
         Element leagues = doc.createElement("leagues");
 
         for (League league : _leagueService.getActiveLeagues()) {
+            final LeagueData leagueData = league.getLeagueData();
+            final List<LeagueSerieData> series = leagueData.getSeries();
+
             Element leagueElem = doc.createElement("league");
             leagueElem.setAttribute("type", league.getType());
             leagueElem.setAttribute("name", league.getName());
-            leagueElem.setAttribute("start", String.valueOf(league.getStart()));
-            leagueElem.setAttribute("end", String.valueOf(league.getEnd()));
+            leagueElem.setAttribute("cost", String.valueOf(leagueData.getLeagueCost()));
+            leagueElem.setAttribute("start", String.valueOf(series.get(0).getStart()));
+            leagueElem.setAttribute("end", String.valueOf(series.get(series.size() - 1).getEnd()));
 
-            List<LeagueSerieData> series = league.getLeagueData().getSeries();
             for (LeagueSerieData serie : series) {
                 Element serieElem = doc.createElement("serie");
                 serieElem.setAttribute("type", serie.getName());

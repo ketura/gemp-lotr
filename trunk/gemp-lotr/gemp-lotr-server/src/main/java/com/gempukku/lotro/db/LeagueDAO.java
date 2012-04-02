@@ -1,6 +1,5 @@
 package com.gempukku.lotro.db;
 
-import com.gempukku.lotro.collection.CollectionSerializer;
 import com.gempukku.lotro.db.vo.League;
 
 import java.io.IOException;
@@ -14,17 +13,8 @@ import java.util.List;
 public class LeagueDAO {
     private DbAccess _dbAccess;
 
-    private CollectionSerializer _serializer;
-
-    private int _dateLoaded;
-
-    public LeagueDAO(DbAccess dbAccess, CollectionSerializer serializer) {
+    public LeagueDAO(DbAccess dbAccess) {
         _dbAccess = dbAccess;
-        _serializer = serializer;
-    }
-
-    public void clearCache() {
-        _dateLoaded = 0;
     }
 
     public void addLeague(String name, String type, int startTime, int endTime) throws SQLException, IOException {
@@ -37,7 +27,6 @@ public class LeagueDAO {
                 statement.setInt(3, startTime);
                 statement.setInt(4, endTime);
                 statement.execute();
-                _dateLoaded = 0;
             } finally {
                 statement.close();
             }
