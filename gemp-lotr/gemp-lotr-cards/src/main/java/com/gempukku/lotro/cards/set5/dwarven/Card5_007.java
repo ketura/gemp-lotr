@@ -37,7 +37,7 @@ public class Card5_007 extends AbstractCompanion {
         if (TriggerConditions.winsSkirmish(game, effectResult, self)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, CardType.MINION, Filters.assignedAgainst(Filters.unboundCompanion)));
+                    new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, CardType.MINION, Filters.assignedToSkirmishAgainst(Filters.unboundCompanion)));
             return Collections.singletonList(action);
         }
         return null;

@@ -458,6 +458,10 @@ public class Filters {
 
     public static final Filter assignedToSkirmish = Filters.not(Filters.notAssignedToSkirmish);
 
+    public static final Filter assignedToSkirmishAgainst(final Filterable... againstFilters) {
+        return Filters.or(Filters.assignedAgainst(againstFilters), Filters.inSkirmishAgainst(againstFilters));
+    }
+
     public static final Filter assignedAgainst(final Filterable... againstFilters) {
         return new Filter() {
             @Override
