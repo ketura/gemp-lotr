@@ -5,7 +5,10 @@ import com.gempukku.lotro.db.DeckDAO;
 import com.gempukku.lotro.db.LeagueDAO;
 import com.gempukku.lotro.db.MerchantDAO;
 import com.gempukku.lotro.db.vo.CollectionType;
-import com.gempukku.lotro.game.*;
+import com.gempukku.lotro.game.DefaultCardCollection;
+import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
+import com.gempukku.lotro.game.LotroServer;
+import com.gempukku.lotro.game.Player;
 import com.gempukku.lotro.hall.HallServer;
 import com.gempukku.lotro.league.LeagueService;
 import com.sun.jersey.spi.resource.Singleton;
@@ -53,16 +56,16 @@ public class AdminResource extends AbstractResource {
         return "OK";
     }
 
-    @Path("/migrate")
-    @GET
-    public String migrate(
-            @Context HttpServletRequest request) throws Exception {
-        validateAdmin(request);
-
-        _lotroServer.migrateReplays();
-
-        return "OK";
-    }
+//    @Path("/migrate")
+//    @GET
+//    public String migrate(
+//            @Context HttpServletRequest request) throws Exception {
+//        validateAdmin(request);
+//
+//        _lotroServer.migrateReplays();
+//
+//        return "OK";
+//    }
 
     @Path("/shutdown")
     @GET
@@ -129,24 +132,24 @@ public class AdminResource extends AbstractResource {
         return "OK";
     }
 
-    @Path("/moveCollections")
-    @POST
-    public String moveCollections(
-            @FormParam("collectionFrom") String collectionFrom,
-            @FormParam("collectionTo") String collectionTo,
-            @Context HttpServletRequest request) throws Exception {
-        validateAdmin(request);
-
-        Map<Player, CardCollection> playerCollections = _collectionsManager.getPlayersCollection(collectionFrom);
-        for (Map.Entry<Player, CardCollection> playerCollection : playerCollections.entrySet()) {
-            Player player = playerCollection.getKey();
-
-            _collectionsManager.moveCollectionToCollection(player, createCollectionType(collectionFrom), createCollectionType(collectionTo));
-        }
-
-        return "OK";
-    }
-
+    //    @Path("/moveCollections")
+//    @POST
+//    public String moveCollections(
+//            @FormParam("collectionFrom") String collectionFrom,
+//            @FormParam("collectionTo") String collectionTo,
+//            @Context HttpServletRequest request) throws Exception {
+//        validateAdmin(request);
+//
+//        Map<Player, CardCollection> playerCollections = _collectionsManager.getPlayersCollection(collectionFrom);
+//        for (Map.Entry<Player, CardCollection> playerCollection : playerCollections.entrySet()) {
+//            Player player = playerCollection.getKey();
+//
+//            _collectionsManager.moveCollectionToCollection(player, createCollectionType(collectionFrom), createCollectionType(collectionTo));
+//        }
+//
+//        return "OK";
+//    }
+//
     private List<String> getItems(String values) {
         List<String> result = new LinkedList<String>();
         for (String pack : values.split("\n")) {
