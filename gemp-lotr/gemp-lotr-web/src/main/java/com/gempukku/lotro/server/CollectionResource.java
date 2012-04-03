@@ -4,7 +4,6 @@ import com.gempukku.lotro.cards.packs.RarityReader;
 import com.gempukku.lotro.cards.packs.SetRarity;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.db.LeagueDAO;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.db.vo.League;
 import com.gempukku.lotro.game.*;
@@ -38,8 +37,6 @@ public class CollectionResource extends AbstractResource {
     private LotroServer _lotroServer;
     @Context
     private CollectionsManager _collectionsManager;
-    @Context
-    private LeagueDAO _leagueDao;
     @Context
     private LotroCardBlueprintLibrary _library;
     @Context
