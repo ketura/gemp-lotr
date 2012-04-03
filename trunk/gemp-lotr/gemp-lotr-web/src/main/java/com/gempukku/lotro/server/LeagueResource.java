@@ -1,6 +1,5 @@
 package com.gempukku.lotro.server;
 
-import com.gempukku.lotro.db.LeagueDAO;
 import com.gempukku.lotro.db.vo.League;
 import com.gempukku.lotro.game.Player;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
@@ -26,8 +25,6 @@ import java.util.List;
 @Singleton
 @Path("/league")
 public class LeagueResource extends AbstractResource {
-    @Context
-    private LeagueDAO _leagueDao;
     @Context
     private LeagueService _leagueService;
     @Context
