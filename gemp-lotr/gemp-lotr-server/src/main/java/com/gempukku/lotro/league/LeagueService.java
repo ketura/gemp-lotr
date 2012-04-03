@@ -4,6 +4,7 @@ import com.gempukku.lotro.DateUtils;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.db.LeagueDAO;
 import com.gempukku.lotro.db.LeagueMatchDAO;
+import com.gempukku.lotro.db.LeagueParticipationDAO;
 import com.gempukku.lotro.db.LeaguePointsDAO;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.db.vo.League;
@@ -28,19 +29,24 @@ public class LeagueService {
     private LeagueDAO _leagueDao;
     private LeaguePointsDAO _leaguePointsDao;
     private LeagueMatchDAO _leagueMatchDao;
+    private LeagueParticipationDAO _leagueParticipationDAO;
     private CollectionsManager _collectionsManager;
 
     private Map<League, List<LeagueStanding>> _leagueStandings = new ConcurrentHashMap<League, List<LeagueStanding>>();
     private Map<LeagueSerieData, List<LeagueStanding>> _leagueSerieStandings = new ConcurrentHashMap<LeagueSerieData, List<LeagueStanding>>();
 
+    private Map<League, Set<String>> _playersParticipating = new ConcurrentHashMap<League, Set<String>>();
+    private Map<League, Set<String>> _playersNotParticipating = new ConcurrentHashMap<League, Set<String>>();
+
     private int _activeLeaguesLoadedDate;
     private List<League> _activeLeagues;
 
     public LeagueService(LeagueDAO leagueDao, LeaguePointsDAO leaguePointsDao, LeagueMatchDAO leagueMatchDao,
-                         CollectionsManager collectionsManager) {
+                         LeagueParticipationDAO leagueParticipationDAO, CollectionsManager collectionsManager) {
         _leagueDao = leagueDao;
         _leaguePointsDao = leaguePointsDao;
         _leagueMatchDao = leagueMatchDao;
+        _leagueParticipationDAO = leagueParticipationDAO;
         _collectionsManager = collectionsManager;
     }
 
@@ -80,6 +86,49 @@ public class LeagueService {
             int newStatus = activeLeague.getLeagueData().process(_collectionsManager, getLeagueStandings(activeLeague), oldStatus, currentDate);
             if (newStatus != oldStatus)
                 _leagueDao.setStatus(activeLeague, newStatus);
+        }
+    }
+
+    public synchronized boolean isPlayerInLeague(League league, Player player) {
+        Set<String> playersParticipating = _playersParticipating.get(league);
+        if (playersParticipating != null && playersParticipating.contains(player.getName()))
+            return true;
+
+        Set<String> playersNotParticipating = _playersNotParticipating.get(league);
+        if (playersNotParticipating != null && playersNotParticipating.contains(player.getName()))
+            return false;
+
+        try {
+            final boolean userParticipating = _leagueParticipationDAO.isUserParticipating(league, player);
+            if (userParticipating) {
+                if (playersParticipating == null) {
+                    playersParticipating = new HashSet<String>();
+                    _playersParticipating.put(league, playersParticipating);
+                }
+                playersParticipating.add(player.getName());
+            } else {
+                if (playersNotParticipating == null) {
+                    playersNotParticipating = new HashSet<String>();
+                    _playersNotParticipating.put(league, playersNotParticipating);
+                }
+                playersNotParticipating.add(player.getName());
+            }
+
+            return userParticipating;
+        } catch (SQLException e) {
+            throw new RuntimeException("Unable to retrieve information if user is part of the league");
+        }
+    }
+
+    public synchronized boolean playerJoinsLeague(League league, Player player) {
+        if (isPlayerInLeague(league, player))
+            return false;
+        int cost = league.getLeagueData().getLeagueCost();
+        if (_collectionsManager.removeCurrencyFromPlayerCollection(player, new CollectionType("permanent", "My cards"), cost)) {
+            league.getLeagueData().joinLeague(_collectionsManager, player, DateUtils.getCurrentDate());
+            return true;
+        } else {
+            return false;
         }
     }
 

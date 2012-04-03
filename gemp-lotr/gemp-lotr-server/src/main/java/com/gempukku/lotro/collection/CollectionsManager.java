@@ -183,6 +183,23 @@ public class CollectionsManager {
         }
     }
 
+    public boolean removeCurrencyFromPlayerCollection(Player player, CollectionType collectionType, int currency) {
+        _readWriteLock.writeLock().lock();
+        try {
+            final CardCollection playerCollection = getPlayerCollection(player, collectionType.getCode());
+            if (playerCollection != null) {
+                MutableCardCollection mutableCardCollection = new DefaultCardCollection(playerCollection);
+                if (mutableCardCollection.removeCurrency(currency)) {
+                    _collectionDAO.setCollectionForPlayer(player.getId(), collectionType.getCode(), mutableCardCollection);
+                    return true;
+                }
+            }
+            return false;
+        } finally {
+            _readWriteLock.writeLock().unlock();
+        }
+    }
+
     public void moveCollectionToCollection(String player, CollectionType collectionFrom, CollectionType collectionTo) {
         moveCollectionToCollection(_playerDAO.getPlayer(player), collectionFrom, collectionTo);
     }
