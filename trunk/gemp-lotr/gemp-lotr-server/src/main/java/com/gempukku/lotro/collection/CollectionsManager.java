@@ -9,12 +9,16 @@ import com.gempukku.lotro.game.MutableCardCollection;
 import com.gempukku.lotro.game.Player;
 import com.gempukku.lotro.packs.PacksStorage;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class CollectionsManager {
     private ReentrantReadWriteLock _readWriteLock = new ReentrantReadWriteLock();
+    private Map<String, Map<String, CardCollection>> _collections = new ConcurrentHashMap<String, Map<String, CardCollection>>();
 
     private PlayerDAO _playerDAO;
     private CollectionDAO _collectionDAO;
@@ -27,25 +31,60 @@ public class CollectionsManager {
     }
 
     public void clearDBCache() {
-        _collectionDAO.clearCache();
+        _collections.clear();
     }
 
     public CardCollection getPlayerCollection(Player player, String collectionType) {
         _readWriteLock.readLock().lock();
         try {
-            final CardCollection collection = _collectionDAO.getCollectionForPlayer(player.getId(), collectionType);
+            Map<String, CardCollection> playerCollections = _collections.get(player.getName());
+            if (playerCollections != null) {
+                final CardCollection cardCollection = playerCollections.get(collectionType);
+                if (cardCollection != null)
+                    return cardCollection;
+            }
+
+            final CardCollection collection = _collectionDAO.getPlayerCollection(player.getId(), collectionType);
+            if (collection != null) {
+                if (playerCollections == null) {
+                    playerCollections = new ConcurrentHashMap<String, CardCollection>();
+                    _collections.put(player.getName(), playerCollections);
+                }
+                playerCollections.put(collectionType, collection);
+            }
+
             if (collection == null && collectionType.equals("permanent"))
                 return new DefaultCardCollection();
             return collection;
+        } catch (SQLException exp) {
+            throw new RuntimeException("Unable to get player collection", exp);
+        } catch (IOException exp) {
+            throw new RuntimeException("Unable to get player collection", exp);
         } finally {
             _readWriteLock.readLock().unlock();
+        }
+    }
+
+    private void setPlayerCollection(Player player, String collectionType, CardCollection cardCollection) {
+        try {
+            _collectionDAO.setPlayerCollection(player.getId(), collectionType, cardCollection);
+            Map<String, CardCollection> playerCollections = _collections.get(player.getName());
+            if (playerCollections == null) {
+                playerCollections = new ConcurrentHashMap<String, CardCollection>();
+                _collections.put(player.getName(), playerCollections);
+            }
+            playerCollections.put(collectionType, cardCollection);
+        } catch (SQLException exp) {
+            throw new RuntimeException("Unable to store player collection", exp);
+        } catch (IOException exp) {
+            throw new RuntimeException("Unable to store player collection", exp);
         }
     }
 
     public void addPlayerCollection(Player player, CollectionType collectionType, CardCollection cardCollection) {
         _readWriteLock.writeLock().lock();
         try {
-            _collectionDAO.setCollectionForPlayer(player.getId(), collectionType.getCode(), cardCollection);
+            setPlayerCollection(player, collectionType.getCode(), cardCollection);
             addPackage(player, collectionType, cardCollection);
         } finally {
             _readWriteLock.writeLock().unlock();
@@ -62,6 +101,10 @@ public class CollectionsManager {
                 result.put(_playerDAO.getPlayer(playerCollection.getKey()), playerCollection.getValue());
 
             return result;
+        } catch (SQLException exp) {
+            throw new RuntimeException("Unable to get players collection", exp);
+        } catch (IOException exp) {
+            throw new RuntimeException("Unable to get players collection", exp);
         } finally {
             _readWriteLock.readLock().unlock();
         }
@@ -76,7 +119,7 @@ public class CollectionsManager {
             MutableCardCollection mutableCardCollection = new DefaultCardCollection(playerCollection);
             final CardCollection packContents = mutableCardCollection.openPack(packId, selection, packsStorage);
             if (packContents != null) {
-                _collectionDAO.setCollectionForPlayer(player.getId(), collectionType.getCode(), mutableCardCollection);
+                setPlayerCollection(player, collectionType.getCode(), mutableCardCollection);
                 addPackage(player, collectionType, packContents);
             }
             return packContents;
@@ -97,7 +140,7 @@ public class CollectionsManager {
                     addedCards.addItem(item.getKey(), item.getValue());
                 }
 
-                _collectionDAO.setCollectionForPlayer(player.getId(), collectionType.getCode(), mutableCardCollection);
+                setPlayerCollection(player, collectionType.getCode(), mutableCardCollection);
                 addPackage(player, collectionType, addedCards);
             }
         } finally {
@@ -121,7 +164,7 @@ public class CollectionsManager {
                     return false;
                 mutableCardCollection.addItem(blueprintId2, count2);
 
-                _collectionDAO.setCollectionForPlayer(player.getId(), collectionType.getCode(), mutableCardCollection);
+                setPlayerCollection(player, collectionType.getCode(), mutableCardCollection);
                 return true;
             }
             return false;
@@ -140,7 +183,7 @@ public class CollectionsManager {
                     return false;
                 mutableCardCollection.addItem(blueprintId, 1);
 
-                _collectionDAO.setCollectionForPlayer(player.getId(), collectionType.getCode(), mutableCardCollection);
+                setPlayerCollection(player, collectionType.getCode(), mutableCardCollection);
                 return true;
             }
             return false;
@@ -159,7 +202,7 @@ public class CollectionsManager {
                     return false;
                 mutableCardCollection.addCurrency(currency);
 
-                _collectionDAO.setCollectionForPlayer(player.getId(), collectionType.getCode(), mutableCardCollection);
+                setPlayerCollection(player, collectionType.getCode(), mutableCardCollection);
                 return true;
             }
             return false;
@@ -176,7 +219,7 @@ public class CollectionsManager {
                 MutableCardCollection mutableCardCollection = new DefaultCardCollection(playerCollection);
                 mutableCardCollection.addCurrency(currency);
 
-                _collectionDAO.setCollectionForPlayer(player.getId(), collectionType.getCode(), mutableCardCollection);
+                setPlayerCollection(player, collectionType.getCode(), mutableCardCollection);
             }
         } finally {
             _readWriteLock.writeLock().unlock();
@@ -190,7 +233,7 @@ public class CollectionsManager {
             if (playerCollection != null) {
                 MutableCardCollection mutableCardCollection = new DefaultCardCollection(playerCollection);
                 if (mutableCardCollection.removeCurrency(currency)) {
-                    _collectionDAO.setCollectionForPlayer(player.getId(), collectionType.getCode(), mutableCardCollection);
+                    setPlayerCollection(player, collectionType.getCode(), mutableCardCollection);
                     return true;
                 }
             }
@@ -199,80 +242,6 @@ public class CollectionsManager {
             _readWriteLock.writeLock().unlock();
         }
     }
-
-//    public void moveCollectionToCollection(String player, CollectionType collectionFrom, CollectionType collectionTo) {
-//        moveCollectionToCollection(_playerDAO.getPlayer(player), collectionFrom, collectionTo);
-//    }
-//
-//    public void moveCollectionToCollection(Player player, CollectionType collectionFrom, CollectionType collectionTo) {
-//        _readWriteLock.writeLock().lock();
-//        try {
-//            final CardCollection oldCollection = getPlayerCollection(player, collectionFrom.getCode());
-//            if (oldCollection != null) {
-//                final CardCollection newCollection = getPlayerCollection(player, collectionTo.getCode());
-//                if (newCollection != null) {
-//                    MutableCardCollection mutableCardCollection = new DefaultCardCollection(newCollection);
-//                    for (Map.Entry<String, Integer> item : oldCollection.getAll().entrySet())
-//                        mutableCardCollection.addItem(item.getKey(), item.getValue());
-//
-//                    _collectionDAO.setCollectionForPlayer(player.getId(), collectionTo.getCode(), mutableCardCollection);
-//                    addPackage(player, collectionTo, oldCollection);
-//                }
-//            }
-//        } finally {
-//            _readWriteLock.writeLock().unlock();
-//        }
-//    }
-//
-//    public boolean commitTrade(CollectionType collectionType, Player playerOne, Player playerTwo, Map<String, Integer> itemsOfPlayerOne, Map<String, Integer> itemsOfPlayerTwo) {
-//        _readWriteLock.writeLock().lock();
-//        try {
-//            CardCollection collectionOne = getPlayerCollection(playerOne, collectionType.getCode());
-//            CardCollection collectionTwo = getPlayerCollection(playerTwo, collectionType.getCode());
-//
-//            if (collectionOne == null || collectionTwo == null)
-//                return false;
-//
-//            MutableCardCollection playerOneCollection = new DefaultCardCollection(collectionOne);
-//            MutableCardCollection playerTwoCollection = new DefaultCardCollection(collectionTwo);
-//
-//            if (!removeItems(playerOneCollection, itemsOfPlayerOne))
-//                return false;
-//
-//            if (!removeItems(playerTwoCollection, itemsOfPlayerTwo))
-//                return false;
-//
-//            MutableCardCollection addedCardsPlayerOne = new DefaultCardCollection();
-//            MutableCardCollection addedCardsPlayerTwo = new DefaultCardCollection();
-//
-//            addItems(playerOneCollection, addedCardsPlayerOne, itemsOfPlayerTwo);
-//            addItems(playerTwoCollection, addedCardsPlayerTwo, itemsOfPlayerOne);
-//
-//            _collectionDAO.setCollectionForPlayer(playerOne.getId(), collectionType.getCode(), playerOneCollection);
-//            _collectionDAO.setCollectionForPlayer(playerTwo.getId(), collectionType.getCode(), playerTwoCollection);
-//
-//            addPackage(playerOne, collectionType, addedCardsPlayerOne);
-//            addPackage(playerTwo, collectionType, addedCardsPlayerTwo);
-//
-//            return true;
-//        } finally {
-//            _readWriteLock.writeLock().unlock();
-//        }
-//    }
-//
-//    private boolean removeItems(MutableCardCollection collection, Map<String, Integer> items) {
-//        for (Map.Entry<String, Integer> item : items.entrySet())
-//            if (!collection.removeItem(item.getKey(), item.getValue()))
-//                return false;
-//        return true;
-//    }
-//
-//    private void addItems(MutableCardCollection collection, MutableCardCollection addedCards, Map<String, Integer> items) {
-//        for (Map.Entry<String, Integer> item : items.entrySet()) {
-//            collection.addItem(item.getKey(), item.getValue());
-//            addedCards.addItem(item.getKey(), item.getValue());
-//        }
-//    }
 
     private void addPackage(Player player, CollectionType collectionType, CardCollection cards) {
         _deliveryService.addPackage(player, collectionType.getFullName(), cards);
