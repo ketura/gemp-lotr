@@ -56,17 +56,6 @@ public class AdminResource extends AbstractResource {
         return "OK";
     }
 
-//    @Path("/migrate")
-//    @GET
-//    public String migrate(
-//            @Context HttpServletRequest request) throws Exception {
-//        validateAdmin(request);
-//
-//        _lotroServer.migrateReplays();
-//
-//        return "OK";
-//    }
-
     @Path("/shutdown")
     @GET
     public String shutdown(
@@ -96,12 +85,14 @@ public class AdminResource extends AbstractResource {
     public String addLeague(
             @FormParam("name") String name,
             @FormParam("type") String type,
+            @FormParam("class") String clazz,
+            @FormParam("parameters") String parameters,
             @FormParam("start") int start,
             @FormParam("end") int end,
             @Context HttpServletRequest request) throws Exception {
         validateAdmin(request);
 
-        _leagueDao.addLeague(name, type, start, end);
+        _leagueDao.addLeague(name, type, clazz, parameters, start, end);
 
         return "OK";
     }
@@ -132,24 +123,6 @@ public class AdminResource extends AbstractResource {
         return "OK";
     }
 
-    //    @Path("/moveCollections")
-//    @POST
-//    public String moveCollections(
-//            @FormParam("collectionFrom") String collectionFrom,
-//            @FormParam("collectionTo") String collectionTo,
-//            @Context HttpServletRequest request) throws Exception {
-//        validateAdmin(request);
-//
-//        Map<Player, CardCollection> playerCollections = _collectionsManager.getPlayersCollection(collectionFrom);
-//        for (Map.Entry<Player, CardCollection> playerCollection : playerCollections.entrySet()) {
-//            Player player = playerCollection.getKey();
-//
-//            _collectionsManager.moveCollectionToCollection(player, createCollectionType(collectionFrom), createCollectionType(collectionTo));
-//        }
-//
-//        return "OK";
-//    }
-//
     private List<String> getItems(String values) {
         List<String> result = new LinkedList<String>();
         for (String pack : values.split("\n")) {

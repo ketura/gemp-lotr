@@ -119,24 +119,24 @@ public class DeckDAO {
             throw new RuntimeException("Unable to store player deck to DB", exp);
         }
     }
-
-    private void appendList(StringBuilder sb, List<String> cards) {
-        for (String card : cards)
-            sb.append("," + card);
-    }
-
-    private LotroDeck getDeckFromDB(int playerId, String name) {
-        try {
-            String contents = getDeckContentsFromDB(playerId, name);
-            if (contents != null) {
-                return buildDeckFromContents(contents);
-            } else {
-                return null;
-            }
-        } catch (SQLException exp) {
-            throw new RuntimeException("Unable to get player deck from DB", exp);
-        }
-    }
+//
+//    private void appendList(StringBuilder sb, List<String> cards) {
+//        for (String card : cards)
+//            sb.append("," + card);
+//    }
+//
+//    private LotroDeck getDeckFromDB(int playerId, String name) {
+//        try {
+//            String contents = getDeckContentsFromDB(playerId, name);
+//            if (contents != null) {
+//                return buildDeckFromContents(contents);
+//            } else {
+//                return null;
+//            }
+//        } catch (SQLException exp) {
+//            throw new RuntimeException("Unable to get player deck from DB", exp);
+//        }
+//    }
 
     private String buildContentsFromDeck(LotroDeck deck) {
         StringBuilder sb = new StringBuilder();
@@ -253,29 +253,29 @@ public class DeckDAO {
             connection.close();
         }
     }
-
-    private String getDeckContentsFromDB(int playerId, String name) throws SQLException {
-        Connection connection = _dbAccess.getDataSource().getConnection();
-        try {
-            PreparedStatement statement = connection.prepareStatement("select contents from deck where player_id=? and name=?");
-            try {
-                statement.setInt(1, playerId);
-                statement.setString(2, name);
-                ResultSet rs = statement.executeQuery();
-                try {
-                    if (rs.next()) {
-                        return rs.getString(1);
-                    } else {
-                        return null;
-                    }
-                } finally {
-                    rs.close();
-                }
-            } finally {
-                statement.close();
-            }
-        } finally {
-            connection.close();
-        }
-    }
+//
+//    private String getDeckContentsFromDB(int playerId, String name) throws SQLException {
+//        Connection connection = _dbAccess.getDataSource().getConnection();
+//        try {
+//            PreparedStatement statement = connection.prepareStatement("select contents from deck where player_id=? and name=?");
+//            try {
+//                statement.setInt(1, playerId);
+//                statement.setString(2, name);
+//                ResultSet rs = statement.executeQuery();
+//                try {
+//                    if (rs.next()) {
+//                        return rs.getString(1);
+//                    } else {
+//                        return null;
+//                    }
+//                } finally {
+//                    rs.close();
+//                }
+//            } finally {
+//                statement.close();
+//            }
+//        } finally {
+//            connection.close();
+//        }
+//    }
 }
