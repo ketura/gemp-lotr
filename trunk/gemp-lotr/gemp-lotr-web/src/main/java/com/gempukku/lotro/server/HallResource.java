@@ -102,7 +102,7 @@ public class HallResource extends AbstractResource {
         }
         for (League league : _leagueService.getActiveLeagues()) {
             final LeagueSerieData currentLeagueSerie = _leagueService.getCurrentLeagueSerie(league);
-            if (currentLeagueSerie != null) {
+            if (currentLeagueSerie != null && _leagueService.isPlayerInLeague(league, resourceOwner)) {
                 Element formatElem = doc.createElement("format");
                 formatElem.setAttribute("type", league.getType());
                 formatElem.appendChild(doc.createTextNode(league.getName()));

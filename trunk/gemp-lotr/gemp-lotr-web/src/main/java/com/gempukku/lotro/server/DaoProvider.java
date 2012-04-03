@@ -23,6 +23,7 @@ public class DaoProvider implements InjectableProvider<Context, Type> {
     private Injectable<LeagueDAO> _leagueDaoInjectable;
     private Injectable<LeagueMatchDAO> _leagueMatchDAOInjectable;
     private Injectable<LeaguePointsDAO> _leaguePointsDAOInjectable;
+    private Injectable<LeagueParticipationDAO> _leagueParticipationDAOInjectable;
 
     private DbAccess _dbAccess;
     private CollectionSerializer _collectionSerializer;
@@ -52,9 +53,24 @@ public class DaoProvider implements InjectableProvider<Context, Type> {
             return getLeagueMatchDaoSafely();
         else if (type.equals(LeaguePointsDAO.class))
             return getLeaguePointsDaoSafely();
+        else if (type.equals(LeagueParticipationDAO.class))
+            return getLeagueParticipationDaoSafely();
         else if (type.equals(MerchantDAO.class))
             return getMerchantDaoSafely();
         return null;
+    }
+
+    private synchronized Injectable<LeagueParticipationDAO> getLeagueParticipationDaoSafely() {
+        if (_leagueParticipationDAOInjectable == null) {
+            final LeagueParticipationDAO leagueParticipationDAO = new LeagueParticipationDAO(_dbAccess);
+            _leagueParticipationDAOInjectable = new Injectable<LeagueParticipationDAO>() {
+                @Override
+                public LeagueParticipationDAO getValue() {
+                    return leagueParticipationDAO;
+                }
+            };
+        }
+        return _leagueParticipationDAOInjectable;
     }
 
     private synchronized Injectable<LeaguePointsDAO> getLeaguePointsDaoSafely() {

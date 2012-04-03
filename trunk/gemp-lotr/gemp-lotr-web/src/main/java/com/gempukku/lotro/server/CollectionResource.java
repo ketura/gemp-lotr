@@ -89,8 +89,6 @@ public class CollectionResource extends AbstractResource {
         Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
         CardCollection collection = getCollection(resourceOwner, collectionType);
-        if (collection == null && !collectionType.equals("default") && !collectionType.equals("permanent"))
-            collection = _leagueService.ensurePlayerHasCollection(resourceOwner, collectionType);
 
         if (collection == null)
             sendError(Response.Status.NOT_FOUND);
@@ -158,7 +156,7 @@ public class CollectionResource extends AbstractResource {
 
         for (League league : _leagueService.getActiveLeagues()) {
             LeagueSerieData serie = _leagueService.getCurrentLeagueSerie(league);
-            if (serie != null && serie.isLimited()) {
+            if (serie != null && serie.isLimited() && _leagueService.isPlayerInLeague(league, resourceOwner)) {
                 CollectionType collectionType = serie.getCollectionType();
                 Element collectionElem = doc.createElement("collection");
                 collectionElem.setAttribute("type", collectionType.getCode());

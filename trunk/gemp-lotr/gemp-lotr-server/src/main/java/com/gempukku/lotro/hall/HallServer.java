@@ -105,6 +105,9 @@ public class HallServer extends AbstractServer {
                 // Maybe it's a league format?
                 league = _leagueService.getLeagueByType(type);
                 if (league != null) {
+                    if (!_leagueService.isPlayerInLeague(league, player))
+                        throw new HallException("You're not in that league");
+
                     leagueSerie = _leagueService.getCurrentLeagueSerie(league);
                     if (leagueSerie == null)
                         throw new HallException("There is no ongoing serie for that league");
@@ -140,6 +143,9 @@ public class HallServer extends AbstractServer {
             AwaitingTable awaitingTable = _awaitingTables.get(tableId);
             if (awaitingTable == null)
                 throw new HallException("Table is already taken or was removed");
+
+            if (awaitingTable.getLeague() != null && !_leagueService.isPlayerInLeague(awaitingTable.getLeague(), player))
+                throw new HallException("You're not in that league");
 
             LotroDeck lotroDeck = validateUserAndDeck(awaitingTable.getLotroFormat(), player, deckName, awaitingTable.getCollectionType());
 

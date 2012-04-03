@@ -14,10 +14,9 @@ import org.w3c.dom.Element;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.QueryParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.Response;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -33,6 +32,22 @@ public class LeagueResource extends AbstractResource {
     private LeagueService _leagueService;
     @Context
     private LotroFormatLibrary _formatLibrary;
+
+    @Path("/{leagueType}")
+    @POST
+    public void joinLeague(
+            @PathParam("leagueType") String leagueType,
+            @FormParam("participantId") String participantId,
+            @Context HttpServletRequest request) throws ParserConfigurationException {
+        Player resourceOwner = getResourceOwnerSafely(request, participantId);
+
+        League league = _leagueService.getLeagueByType(leagueType);
+        if (league == null)
+            sendError(Response.Status.NOT_FOUND);
+
+        if (!_leagueService.playerJoinsLeague(league, resourceOwner))
+            sendError(Response.Status.CONFLICT);
+    }
 
     @GET
     public Document getLeagueInformation(
