@@ -16,32 +16,15 @@
 
 <form method="POST" action="server/admin/addLeague">
     Name: <input type="text" name="name"><br/>
-    Type: <input type="text" name="type"><br/>
+    Code: <input type="text" name="type"><br/>
+    Type: <select name="class">
+    <option value="com.gempukku.lotro.league.ConstructedLeagueData">Constructed</option>
+    <option value="com.gempukku.lotro.league.SealedLeagueData">Sealed</option>
+</select><br/>
+    Parameters: <input type="text" name="parameters"><br/>
     Start: <input type="text" name="start"><br/>
     End: <input type="text" name="end"><br/>
     <input type="submit" value="Add league">
-</form>
-
-<h2>Add season</h2>
-
-<form method="POST" action="server/admin/addLeagueSeason">
-    League type: <input type="text" name="leagueType"><br/>
-    Season type: <input type="text" name="type"><br/>
-    Format: <input type="text" name="format"><br/>
-    Product: <textarea rows="5" cols="20" name="product"></textarea><br/>
-    Start: <input type="text" name="start"><br/>
-    End: <input type="text" name="end"><br/>
-    Max matches: <input type="text" name="maxMatches"><br/>
-    <input type="submit" value="Add season">
-</form>
-
-<h2>Add league product</h2>
-
-<form method="POST" action="server/admin/addLeagueProduct">
-    Type: <input type="text" name="leagueType"><br/>
-    Product: <textarea rows="5" cols="20" name="product"></textarea><br/>
-    Skip base collection: <input type="checkbox" name="skipBaseCollection" value="true"/><br/>
-    <input type="submit" value="Add product">
 </form>
 
 <h1>Collections</h1>
@@ -52,14 +35,6 @@
     Type: <input type="text" name="collectionType"><br/>
     Product: <textarea rows="5" cols="20" name="product"></textarea><br/>
     Players: <textarea rows="5" cols="20" name="players"></textarea><br/>
-    <input type="submit" value="Add items">
-</form>
-
-<h2>Move cards in collections</h2>
-
-<form method="POST" action="server/admin/moveCollections">
-    Collection from: <input type="text" name="collectionFrom"><br/>
-    Collection to: <input type="text" name="collectionTo"><br/>
     <input type="submit" value="Add items">
 </form>
 

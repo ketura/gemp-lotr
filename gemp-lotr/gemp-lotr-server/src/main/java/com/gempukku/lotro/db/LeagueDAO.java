@@ -17,15 +17,18 @@ public class LeagueDAO {
         _dbAccess = dbAccess;
     }
 
-    public void addLeague(String name, String type, int startTime, int endTime) throws SQLException, IOException {
+    public void addLeague(String name, String type, String clazz, String parameters, int startTime, int endTime) throws SQLException, IOException {
         Connection conn = _dbAccess.getDataSource().getConnection();
         try {
-            PreparedStatement statement = conn.prepareStatement("insert into league (name, type, start, end) values (?, ?, ?, ?)");
+            PreparedStatement statement = conn.prepareStatement("insert into league (name, type, class, parameters, start, end, status) values (?, ?, ?, ?, ?, ?, ?)");
             try {
                 statement.setString(1, name);
                 statement.setString(2, type);
-                statement.setInt(3, startTime);
-                statement.setInt(4, endTime);
+                statement.setString(3, clazz);
+                statement.setString(4, parameters);
+                statement.setInt(5, startTime);
+                statement.setInt(6, endTime);
+                statement.setInt(7, 0);
                 statement.execute();
             } finally {
                 statement.close();
