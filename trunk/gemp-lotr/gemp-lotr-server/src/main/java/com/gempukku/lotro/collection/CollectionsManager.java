@@ -200,79 +200,79 @@ public class CollectionsManager {
         }
     }
 
-    public void moveCollectionToCollection(String player, CollectionType collectionFrom, CollectionType collectionTo) {
-        moveCollectionToCollection(_playerDAO.getPlayer(player), collectionFrom, collectionTo);
-    }
-
-    public void moveCollectionToCollection(Player player, CollectionType collectionFrom, CollectionType collectionTo) {
-        _readWriteLock.writeLock().lock();
-        try {
-            final CardCollection oldCollection = getPlayerCollection(player, collectionFrom.getCode());
-            if (oldCollection != null) {
-                final CardCollection newCollection = getPlayerCollection(player, collectionTo.getCode());
-                if (newCollection != null) {
-                    MutableCardCollection mutableCardCollection = new DefaultCardCollection(newCollection);
-                    for (Map.Entry<String, Integer> item : oldCollection.getAll().entrySet())
-                        mutableCardCollection.addItem(item.getKey(), item.getValue());
-
-                    _collectionDAO.setCollectionForPlayer(player.getId(), collectionTo.getCode(), mutableCardCollection);
-                    addPackage(player, collectionTo, oldCollection);
-                }
-            }
-        } finally {
-            _readWriteLock.writeLock().unlock();
-        }
-    }
-
-    public boolean commitTrade(CollectionType collectionType, Player playerOne, Player playerTwo, Map<String, Integer> itemsOfPlayerOne, Map<String, Integer> itemsOfPlayerTwo) {
-        _readWriteLock.writeLock().lock();
-        try {
-            CardCollection collectionOne = getPlayerCollection(playerOne, collectionType.getCode());
-            CardCollection collectionTwo = getPlayerCollection(playerTwo, collectionType.getCode());
-
-            if (collectionOne == null || collectionTwo == null)
-                return false;
-
-            MutableCardCollection playerOneCollection = new DefaultCardCollection(collectionOne);
-            MutableCardCollection playerTwoCollection = new DefaultCardCollection(collectionTwo);
-
-            if (!removeItems(playerOneCollection, itemsOfPlayerOne))
-                return false;
-
-            if (!removeItems(playerTwoCollection, itemsOfPlayerTwo))
-                return false;
-
-            MutableCardCollection addedCardsPlayerOne = new DefaultCardCollection();
-            MutableCardCollection addedCardsPlayerTwo = new DefaultCardCollection();
-
-            addItems(playerOneCollection, addedCardsPlayerOne, itemsOfPlayerTwo);
-            addItems(playerTwoCollection, addedCardsPlayerTwo, itemsOfPlayerOne);
-
-            _collectionDAO.setCollectionForPlayer(playerOne.getId(), collectionType.getCode(), playerOneCollection);
-            _collectionDAO.setCollectionForPlayer(playerTwo.getId(), collectionType.getCode(), playerTwoCollection);
-
-            addPackage(playerOne, collectionType, addedCardsPlayerOne);
-            addPackage(playerTwo, collectionType, addedCardsPlayerTwo);
-
-            return true;
-        } finally {
-            _readWriteLock.writeLock().unlock();
-        }
-    }
-
-    private boolean removeItems(MutableCardCollection collection, Map<String, Integer> items) {
-        for (Map.Entry<String, Integer> item : items.entrySet())
-            if (!collection.removeItem(item.getKey(), item.getValue()))
-                return false;
-        return true;
-    }
-
-    private void addItems(MutableCardCollection collection, MutableCardCollection addedCards, Map<String, Integer> items) {
-        for (Map.Entry<String, Integer> item : items.entrySet()) {
-            collection.addItem(item.getKey(), item.getValue());
-            addedCards.addItem(item.getKey(), item.getValue());
-        }
-    }
+//    public void moveCollectionToCollection(String player, CollectionType collectionFrom, CollectionType collectionTo) {
+//        moveCollectionToCollection(_playerDAO.getPlayer(player), collectionFrom, collectionTo);
+//    }
+//
+//    public void moveCollectionToCollection(Player player, CollectionType collectionFrom, CollectionType collectionTo) {
+//        _readWriteLock.writeLock().lock();
+//        try {
+//            final CardCollection oldCollection = getPlayerCollection(player, collectionFrom.getCode());
+//            if (oldCollection != null) {
+//                final CardCollection newCollection = getPlayerCollection(player, collectionTo.getCode());
+//                if (newCollection != null) {
+//                    MutableCardCollection mutableCardCollection = new DefaultCardCollection(newCollection);
+//                    for (Map.Entry<String, Integer> item : oldCollection.getAll().entrySet())
+//                        mutableCardCollection.addItem(item.getKey(), item.getValue());
+//
+//                    _collectionDAO.setCollectionForPlayer(player.getId(), collectionTo.getCode(), mutableCardCollection);
+//                    addPackage(player, collectionTo, oldCollection);
+//                }
+//            }
+//        } finally {
+//            _readWriteLock.writeLock().unlock();
+//        }
+//    }
+//
+//    public boolean commitTrade(CollectionType collectionType, Player playerOne, Player playerTwo, Map<String, Integer> itemsOfPlayerOne, Map<String, Integer> itemsOfPlayerTwo) {
+//        _readWriteLock.writeLock().lock();
+//        try {
+//            CardCollection collectionOne = getPlayerCollection(playerOne, collectionType.getCode());
+//            CardCollection collectionTwo = getPlayerCollection(playerTwo, collectionType.getCode());
+//
+//            if (collectionOne == null || collectionTwo == null)
+//                return false;
+//
+//            MutableCardCollection playerOneCollection = new DefaultCardCollection(collectionOne);
+//            MutableCardCollection playerTwoCollection = new DefaultCardCollection(collectionTwo);
+//
+//            if (!removeItems(playerOneCollection, itemsOfPlayerOne))
+//                return false;
+//
+//            if (!removeItems(playerTwoCollection, itemsOfPlayerTwo))
+//                return false;
+//
+//            MutableCardCollection addedCardsPlayerOne = new DefaultCardCollection();
+//            MutableCardCollection addedCardsPlayerTwo = new DefaultCardCollection();
+//
+//            addItems(playerOneCollection, addedCardsPlayerOne, itemsOfPlayerTwo);
+//            addItems(playerTwoCollection, addedCardsPlayerTwo, itemsOfPlayerOne);
+//
+//            _collectionDAO.setCollectionForPlayer(playerOne.getId(), collectionType.getCode(), playerOneCollection);
+//            _collectionDAO.setCollectionForPlayer(playerTwo.getId(), collectionType.getCode(), playerTwoCollection);
+//
+//            addPackage(playerOne, collectionType, addedCardsPlayerOne);
+//            addPackage(playerTwo, collectionType, addedCardsPlayerTwo);
+//
+//            return true;
+//        } finally {
+//            _readWriteLock.writeLock().unlock();
+//        }
+//    }
+//
+//    private boolean removeItems(MutableCardCollection collection, Map<String, Integer> items) {
+//        for (Map.Entry<String, Integer> item : items.entrySet())
+//            if (!collection.removeItem(item.getKey(), item.getValue()))
+//                return false;
+//        return true;
+//    }
+//
+//    private void addItems(MutableCardCollection collection, MutableCardCollection addedCards, Map<String, Integer> items) {
+//        for (Map.Entry<String, Integer> item : items.entrySet()) {
+//            collection.addItem(item.getKey(), item.getValue());
+//            addedCards.addItem(item.getKey(), item.getValue());
+//        }
+//    }
 
     private void addPackage(Player player, CollectionType collectionType, CardCollection cards) {
         _deliveryService.addPackage(player, collectionType.getFullName(), cards);

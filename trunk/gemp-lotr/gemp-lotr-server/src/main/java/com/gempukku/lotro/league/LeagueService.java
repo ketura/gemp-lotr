@@ -132,19 +132,6 @@ public class LeagueService {
         }
     }
 
-    public synchronized CardCollection ensurePlayerHasCollection(Player player, String collectionType) {
-        for (League league : getActiveLeagues()) {
-            LeagueData leagueData = league.getLeagueData();
-            for (LeagueSerieData leagueSerieData : leagueData.getSeries()) {
-                CollectionType serieCollectionType = leagueSerieData.getCollectionType();
-                if (serieCollectionType != null && serieCollectionType.getCode().equals(collectionType)) {
-                    return leagueData.joinLeague(_collectionsManager, player, DateUtils.getCurrentDate());
-                }
-            }
-        }
-        return null;
-    }
-
     public League getLeagueByType(String type) {
         for (League league : getActiveLeagues()) {
             if (league.getType().equals(type))
