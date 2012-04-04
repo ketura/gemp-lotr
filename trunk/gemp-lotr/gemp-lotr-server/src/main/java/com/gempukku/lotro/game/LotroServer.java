@@ -24,8 +24,8 @@ public class LotroServer extends AbstractServer {
     private Set<String> _gameDeathWarningsSent = new HashSet<String>();
 
     private final Map<String, Date> _finishedGamesTime = new LinkedHashMap<String, Date>();
-    private final long _timeToGameDeath = 1000 * 60 * 10; // 10 minutes
-    private final long _timeToGameDeathWarning = 1000 * 60 * 9; // 9 minutes
+    private final long _timeToGameDeath = 1000 * 60 * 5; // 5 minutes
+    private final long _timeToGameDeathWarning = 1000 * 60 * 4; // 4 minutes
 
     private int _nextGameId = 1;
 
