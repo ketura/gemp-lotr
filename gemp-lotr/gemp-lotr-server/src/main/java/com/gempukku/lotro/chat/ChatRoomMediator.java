@@ -2,10 +2,7 @@ package com.gempukku.lotro.chat;
 
 import com.gempukku.lotro.game.GatheringChatRoomListener;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class ChatRoomMediator {
     private ChatRoom _chatRoom = new ChatRoom();
@@ -70,7 +67,7 @@ public class ChatRoomMediator {
         }
     }
 
-    public synchronized Set<String> getUsersInRoom() {
+    public synchronized Collection<String> getUsersInRoom() {
         return _chatRoom.getUsersInRoom();
     }
 }
