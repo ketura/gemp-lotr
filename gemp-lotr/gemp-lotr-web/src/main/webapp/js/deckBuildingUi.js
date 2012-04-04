@@ -54,6 +54,10 @@ var GempLotrDeckBuildingUI = Class.extend({
                 function(filter, start, count, callback) {
                     that.comm.getCollection(that.collectionType, filter, start, count, function(xml) {
                         callback(xml);
+                    }, {
+                        "404": function() {
+                            alert("You don't have collection of that type.");
+                        }
                     });
                 },
                 function() {
@@ -140,7 +144,11 @@ var GempLotrDeckBuildingUI = Class.extend({
                                 function() {
                                     if (confirm("Do you wish to save this deck?"))
                                         that.saveDeck(false);
-                                });
+                                }, {
+                            "404": function() {
+                                alert("Couldn't find the deck to rename on the server.");
+                            }
+                        });
                     }
                 });
 
@@ -385,11 +393,19 @@ var GempLotrDeckBuildingUI = Class.extend({
                             if (confirm("Would you like to open this pack?")) {
                                 this.comm.openPack(this.getCollectionType(), selectedCardElem.data("card").blueprintId, function() {
                                     that.cardFilter.getCollection();
+                                }, {
+                                    "404": function() {
+                                        alert("You have no pack of this type in your collection.");
+                                    }
                                 });
                             }
                         } else if (selectedCardElem.hasClass("cardToSelect")) {
                             this.comm.openSelectionPack(this.getCollectionType(), this.packSelectionId, selectedCardElem.data("card").blueprintId, function() {
                                 that.cardFilter.getCollection();
+                            }, {
+                                "404": function() {
+                                    alert("You have no pack of this type in your collection or that selection is not available for this pack.");
+                                }
                             });
                             this.selectionDialog.dialog("close");
                         } else if (selectedCardElem.hasClass("selectionInCollection")) {
@@ -540,6 +556,10 @@ var GempLotrDeckBuildingUI = Class.extend({
             this.comm.saveDeck(this.deckName, deckContents, function(xml) {
                 that.deckModified(false);
                 alert("Deck was saved");
+            }, {
+                "400": function() {
+                    alert("Invalid deck format.");
+                }
             });
     },
 
@@ -641,7 +661,11 @@ var GempLotrDeckBuildingUI = Class.extend({
                                 function() {
                                     that.checkDeckStatsDirty();
                                 }, that.checkDirtyInterval);
-                    });
+                    }, {
+                "400": function() {
+                    alert("Invalid deck for getting stats.");
+                }
+            });
         } else {
             $("#deckStats").html("Deck has no Ring, Ring-bearer or all 9 sites");
             setTimeout(
