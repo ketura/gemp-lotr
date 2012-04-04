@@ -1,10 +1,21 @@
 var LeagueResultsUI = Class.extend({
     communication: null,
+    questionDialog: null,
 
     init: function(url) {
         this.communication = new GempLotrCommunication(url,
                 function(xhr, ajaxOptions, thrownError) {
                 });
+
+        this.questionDialog = $("<div></div>")
+                .dialog({
+                    autoOpen: false,
+                    closeOnEscape: true,
+                    resizable: false,
+                    modal: true,
+                    title: "League operation"
+                });
+
         this.loadResults();
     },
 
@@ -21,6 +32,7 @@ var LeagueResultsUI = Class.extend({
     },
 
     loadedLeagueResults: function(xml) {
+        var that = this;
         log(xml);
         var root = xml.documentElement;
         if (root.tagName == 'leagues') {
@@ -30,9 +42,12 @@ var LeagueResultsUI = Class.extend({
             for (var i = 0; i < leagues.length; i++) {
                 var league = leagues[i];
                 var leagueName = league.getAttribute("name");
+                var leagueType = league.getAttribute("type");
                 var cost = parseInt(league.getAttribute("cost"));
                 var start = league.getAttribute("start");
                 var end = league.getAttribute("end");
+                var member = league.getAttribute("member");
+                var joinable = league.getAttribute("joinable");
 
                 var leagueText = leagueName;
                 $("#leagueResults").append("<h1 class='leagueName'>" + leagueText + "</h1>");
@@ -42,6 +57,23 @@ var LeagueResultsUI = Class.extend({
 
                 var duration = this.getDateString(start) + " to " + this.getDateString(end);
                 $("#leagueResults").append("<div class='leagueDuration'>Duration (GMT+0): " + duration + "</div>");
+                if (member == "true")
+                    $("#leagueResults").append("<div class='leagueMembership'>You are already a member of this league.</div>");
+                else if (joinable == "true") {
+                    var joinBut = $("<button>Join league</button>").button();
+                    joinBut.click(
+                            function() {
+                                that.displayBuyAction("Do you want to join the league buy paying " + costStr + "?",
+                                        function() {
+                                            that.communication.joinLeague(leagueType, function() {
+                                                that.loadResults();
+                                            });
+                                        });
+                            });
+                    var joinDiv = $("<div class='leagueMembership'></div>");
+                    joinDiv.append(joinBut);
+                    $("#leagueResults").append(joinDiv);
+                }
 
                 var tabDiv = $("<div width='100%'></div>");
                 var tabNavigation = $("<ul></ul>");
@@ -92,6 +124,33 @@ var LeagueResultsUI = Class.extend({
                 $("#leagueResults").append(tabDiv);
             }
         }
+    },
+
+    displayBuyAction: function(text, yesFunc) {
+        var that = this;
+        this.questionDialog.html("");
+        this.questionDialog.html("<div style='scroll: auto'></div>");
+        var questionDiv = $("<div>" + text + "</div>");
+        questionDiv.append("<br/>");
+        questionDiv.append($("<button>Yes</button>").button().click(
+                function() {
+                    that.questionDialog.dialog("close");
+                    yesFunc();
+                }));
+        questionDiv.append($("<button>No</button>").button().click(
+                function() {
+                    that.questionDialog.dialog("close");
+                }));
+        this.questionDialog.append(questionDiv);
+
+        var windowWidth = $(window).width();
+        var windowHeight = $(window).height();
+
+        var horSpace = 230;
+        var vertSpace = 45;
+
+        this.questionDialog.dialog({width: Math.min(horSpace, windowWidth), height: Math.min(vertSpace, windowHeight)});
+        this.questionDialog.dialog("open");
     },
 
     createStandingsTable: function(standings) {

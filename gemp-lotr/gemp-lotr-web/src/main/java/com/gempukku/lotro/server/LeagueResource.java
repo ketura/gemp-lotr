@@ -1,5 +1,6 @@
 package com.gempukku.lotro.server;
 
+import com.gempukku.lotro.DateUtils;
 import com.gempukku.lotro.db.vo.League;
 import com.gempukku.lotro.game.Player;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
@@ -63,12 +64,18 @@ public class LeagueResource extends AbstractResource {
             final LeagueData leagueData = league.getLeagueData();
             final List<LeagueSerieData> series = leagueData.getSeries();
 
+            int end = series.get(series.size() - 1).getEnd();
+
             Element leagueElem = doc.createElement("league");
+            boolean inLeague = _leagueService.isPlayerInLeague(league, resourceOwner);
+
+            leagueElem.setAttribute("member", String.valueOf(inLeague));
+            leagueElem.setAttribute("joinable", String.valueOf(!inLeague && end >= DateUtils.getCurrentDate()));
             leagueElem.setAttribute("type", league.getType());
             leagueElem.setAttribute("name", league.getName());
             leagueElem.setAttribute("cost", String.valueOf(leagueData.getLeagueCost()));
             leagueElem.setAttribute("start", String.valueOf(series.get(0).getStart()));
-            leagueElem.setAttribute("end", String.valueOf(series.get(series.size() - 1).getEnd()));
+            leagueElem.setAttribute("end", String.valueOf(end));
 
             for (LeagueSerieData serie : series) {
                 Element serieElem = doc.createElement("serie");
