@@ -17,10 +17,10 @@ public class LeagueDAO {
         _dbAccess = dbAccess;
     }
 
-    public void addLeague(String name, String type, String clazz, String parameters, int startTime, int endTime) throws SQLException, IOException {
+    public void addLeague(int cost, String name, String type, String clazz, String parameters, int startTime, int endTime) throws SQLException, IOException {
         Connection conn = _dbAccess.getDataSource().getConnection();
         try {
-            PreparedStatement statement = conn.prepareStatement("insert into league (name, type, class, parameters, start, end, status) values (?, ?, ?, ?, ?, ?, ?)");
+            PreparedStatement statement = conn.prepareStatement("insert into league (name, type, class, parameters, start, end, status, cost) values (?, ?, ?, ?, ?, ?, ?)");
             try {
                 statement.setString(1, name);
                 statement.setString(2, type);
@@ -29,6 +29,7 @@ public class LeagueDAO {
                 statement.setInt(5, startTime);
                 statement.setInt(6, endTime);
                 statement.setInt(7, 0);
+                statement.setInt(8, cost);
                 statement.execute();
             } finally {
                 statement.close();
@@ -41,7 +42,7 @@ public class LeagueDAO {
     public List<League> loadActiveLeagues(int currentTime) throws SQLException, IOException {
         Connection conn = _dbAccess.getDataSource().getConnection();
         try {
-            PreparedStatement statement = conn.prepareStatement("select id, name, type, class, parameters, start, end, status from league where start<=? and end>=? order by start desc");
+            PreparedStatement statement = conn.prepareStatement("select id, name, type, class, parameters, start, end, status, cost from league where start<=? and end>=? order by start desc");
             try {
                 statement.setInt(1, currentTime);
                 statement.setInt(2, currentTime);
@@ -57,7 +58,8 @@ public class LeagueDAO {
                         int start = rs.getInt(6);
                         int end = rs.getInt(7);
                         int status = rs.getInt(8);
-                        activeLeagues.add(new League(id, name, type, clazz, parameters, start, end, status));
+                        int cost = rs.getInt(9);
+                        activeLeagues.add(new League(id, cost, name, type, clazz, parameters, start, end, status));
                     }
                     return activeLeagues;
                 } finally {

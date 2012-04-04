@@ -42,11 +42,6 @@ public class ConstructedLeagueData implements LeagueData {
     }
 
     @Override
-    public int getLeagueCost() {
-        return 5000;
-    }
-
-    @Override
     public List<LeagueSerieData> getSeries() {
         return _series;
     }

@@ -83,6 +83,7 @@ public class AdminResource extends AbstractResource {
     @Path("/addLeague")
     @POST
     public String addLeague(
+            @FormParam("cost") int cost,
             @FormParam("name") String name,
             @FormParam("type") String type,
             @FormParam("class") String clazz,
@@ -92,7 +93,7 @@ public class AdminResource extends AbstractResource {
             @Context HttpServletRequest request) throws Exception {
         validateAdmin(request);
 
-        _leagueDao.addLeague(name, type, clazz, parameters, start, end);
+        _leagueDao.addLeague(cost, name, type, clazz, parameters, start, end);
 
         return "OK";
     }

@@ -61,7 +61,7 @@ var GempLotrCommunication = Class.extend({
     joinLeague: function(code, callback) {
         $.ajax({
             type: "POST",
-            url: this.url + "/league/code",
+            url: this.url + "/league/" + code,
             cache: false,
             data: {
                 participanId: getUrlParam("participantId") },

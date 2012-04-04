@@ -73,7 +73,7 @@ public class LeagueResource extends AbstractResource {
             leagueElem.setAttribute("joinable", String.valueOf(!inLeague && end >= DateUtils.getCurrentDate()));
             leagueElem.setAttribute("type", league.getType());
             leagueElem.setAttribute("name", league.getName());
-            leagueElem.setAttribute("cost", String.valueOf(leagueData.getLeagueCost()));
+            leagueElem.setAttribute("cost", String.valueOf(league.getCost()));
             leagueElem.setAttribute("start", String.valueOf(series.get(0).getStart()));
             leagueElem.setAttribute("end", String.valueOf(end));
 
