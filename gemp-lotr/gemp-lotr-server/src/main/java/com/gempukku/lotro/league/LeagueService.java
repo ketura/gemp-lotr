@@ -123,10 +123,21 @@ public class LeagueService {
     public synchronized boolean playerJoinsLeague(League league, Player player) {
         if (isPlayerInLeague(league, player))
             return false;
-        int cost = league.getLeagueData().getLeagueCost();
+        int cost = league.getCost();
         if (_collectionsManager.removeCurrencyFromPlayerCollection(player, new CollectionType("permanent", "My cards"), cost)) {
-            league.getLeagueData().joinLeague(_collectionsManager, player, DateUtils.getCurrentDate());
-            return true;
+            try {
+                _leagueParticipationDAO.userJoinsLeague(league, player);
+                Set<String> notParticipating = _playersNotParticipating.get(league);
+                if (notParticipating != null)
+                    notParticipating.remove(player.getName());
+                Set<String> participating = _playersParticipating.get(league);
+                if (participating != null)
+                    participating.add(player.getName());
+                league.getLeagueData().joinLeague(_collectionsManager, player, DateUtils.getCurrentDate());
+                return true;
+            } catch (SQLException exp) {
+                throw new RuntimeException("Unable to add user to league");
+            }
         } else {
             return false;
         }

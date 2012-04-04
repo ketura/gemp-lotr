@@ -6,6 +6,7 @@ import java.lang.reflect.Constructor;
 
 public class League {
     private int _id;
+    private int _cost;
     private String _name;
     private String _type;
     private String _clazz;
@@ -14,8 +15,9 @@ public class League {
     private int _end;
     private int _status;
 
-    public League(int id, String name, String type, String clazz, String parameters, int start, int end, int status) {
+    public League(int id, int cost, String name, String type, String clazz, String parameters, int start, int end, int status) {
         _id = id;
+        _cost = cost;
         _name = name;
         _type = type;
         _clazz = clazz;
@@ -27,6 +29,10 @@ public class League {
 
     public int getId() {
         return _id;
+    }
+
+    public int getCost() {
+        return _cost;
     }
 
     public String getName() {

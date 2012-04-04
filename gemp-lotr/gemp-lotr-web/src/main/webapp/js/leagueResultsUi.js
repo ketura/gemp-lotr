@@ -9,12 +9,12 @@ var LeagueResultsUI = Class.extend({
 
         this.questionDialog = $("<div></div>")
                 .dialog({
-                    autoOpen: false,
-                    closeOnEscape: true,
-                    resizable: false,
-                    modal: true,
-                    title: "League operation"
-                });
+            autoOpen: false,
+            closeOnEscape: true,
+            resizable: false,
+            modal: true,
+            title: "League operation"
+        });
 
         this.loadResults();
     },
@@ -53,24 +53,24 @@ var LeagueResultsUI = Class.extend({
                 $("#leagueResults").append("<h1 class='leagueName'>" + leagueText + "</h1>");
 
                 var costStr = Math.floor(cost / 100) + "G " + cost % 100 + "S";
-                $("#leagueResults").append("<div class='leagueCost'>Cost: " + costStr + "</div>");
+                $("#leagueResults").append("<div class='leagueCost'><b>Cost:</b> " + costStr + "</div>");
 
                 var duration = this.getDateString(start) + " to " + this.getDateString(end);
-                $("#leagueResults").append("<div class='leagueDuration'>Duration (GMT+0): " + duration + "</div>");
+                $("#leagueResults").append("<div class='leagueDuration'><b>Duration (GMT+0):</b> " + duration + "</div>");
                 if (member == "true")
                     $("#leagueResults").append("<div class='leagueMembership'>You are already a member of this league.</div>");
                 else if (joinable == "true") {
                     var joinBut = $("<button>Join league</button>").button();
                     joinBut.click(
                             function() {
-                                that.displayBuyAction("Do you want to join the league buy paying " + costStr + "?",
+                                that.displayBuyAction("Do you want to join the league by paying " + costStr + "?",
                                         function() {
                                             that.communication.joinLeague(leagueType, function() {
                                                 that.loadResults();
                                             });
                                         });
                             });
-                    var joinDiv = $("<div class='leagueMembership'></div>");
+                    var joinDiv = $("<div class='leagueMembership'>You're not a member of this league. </div>");
                     joinDiv.append(joinBut);
                     $("#leagueResults").append(joinDiv);
                 }
@@ -147,7 +147,7 @@ var LeagueResultsUI = Class.extend({
         var windowHeight = $(window).height();
 
         var horSpace = 230;
-        var vertSpace = 45;
+        var vertSpace = 100;
 
         this.questionDialog.dialog({width: Math.min(horSpace, windowWidth), height: Math.min(vertSpace, windowHeight)});
         this.questionDialog.dialog("open");

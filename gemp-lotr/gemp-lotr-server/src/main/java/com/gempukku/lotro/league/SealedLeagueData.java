@@ -43,11 +43,6 @@ public class SealedLeagueData implements LeagueData {
     }
 
     @Override
-    public int getLeagueCost() {
-        return 5000;
-    }
-
-    @Override
     public List<LeagueSerieData> getSeries() {
         return Collections.unmodifiableList(_series);
     }
