@@ -1,4 +1,4 @@
-package com.gempukku.lotro.server;
+package com.gempukku.lotro.server.provider;
 
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.sun.jersey.core.spi.component.ComponentContext;

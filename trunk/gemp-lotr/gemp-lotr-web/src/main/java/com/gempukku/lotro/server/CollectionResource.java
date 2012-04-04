@@ -102,7 +102,6 @@ public class CollectionResource extends AbstractResource {
         collectionElem.setAttribute("count", String.valueOf(filteredResult.size()));
         doc.appendChild(collectionElem);
 
-        int index = 0;
         for (int i = start; i < start + count; i++) {
             if (i >= 0 && i < filteredResult.size()) {
                 CardCollection.Item item = filteredResult.get(i);

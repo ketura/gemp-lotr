@@ -24,27 +24,16 @@ var ChatBoxUI = Class.extend({
         this.communication = new GempLotrCommunication(url, function(xhr, ajaxOptions, thrownError) {
             if (thrownError != "abort") {
                 if (xhr != null) {
-                    if (xhr.status == 401) {
-                        that.appendMessage("You're not logged in, go to the <a href='index.html'>main page</a> to log in", "warningMessage");
-                        return;
-                    } else if (xhr.status == 404) {
-                        that.appendMessage("Chat room was closed, or you were inactive for too long, please go to the Game Hall.", "warningMessage");
-                        return;
-                    } else if (xhr.status == 503) {
-                        that.appendMessage("Server is being restarted, please wait for the restart to finish and try again later.", "warningMessage");
-                        return;
+                    that.retryCount++;
+                    if (that.retryCount <= that.maxRetryCount) {
+                        that.appendMessage("Chat had a problem communicating with the server (error " + xhr.status + "). Retrying (" + that.retryCount + " of " + that.maxRetryCount + ")...", "systemMessage");
+                        setTimeout(function() {
+                            that.updateChatMessages();
+                        }, that.chatUpdateInterval);
                     } else {
-                        that.retryCount++;
-                        if (that.retryCount <= that.maxRetryCount) {
-                            that.appendMessage("Chat had a problem communicating with the server (error " + xhr.status + "). Retrying (" + that.retryCount + " of " + that.maxRetryCount + ")...", "systemMessage");
-                            setTimeout(function() {
-                                that.updateChatMessages();
-                            }, that.chatUpdateInterval);
-                        } else {
-                            that.appendMessage("Chat has given up on connection retry (tried " + that.maxRetryCount + "), make sure your connection with the Internet is working.", "warningMessage");
-                        }
-                        return;
+                        that.appendMessage("Chat has given up on connection retry (tried " + that.maxRetryCount + "), make sure your connection with the Internet is working.", "warningMessage");
                     }
+                    return;
                 }
                 that.retryCount++;
                 if (that.retryCount <= that.maxRetryCount) {
@@ -61,8 +50,6 @@ var ChatBoxUI = Class.extend({
         this.chatMessagesDiv = $("<div class='chatMessages'></div>");
         this.div.append(this.chatMessagesDiv);
 
-        var that = this;
-
         if (this.name != null) {
             this.chatTalkDiv = $("<input class='chatTalk'>");
             if (showList) {
@@ -71,8 +58,19 @@ var ChatBoxUI = Class.extend({
             }
             this.div.append(this.chatTalkDiv);
 
-            this.communication.startChat(this.name, function(xml) {
-                that.processMessages(xml, true);
+            this.communication.startChat(this.name,
+                    function(xml) {
+                        that.processMessages(xml, true);
+                    }, {
+                "401": function() {
+                    that.appendMessage("You are not logged in, go to the main page to log in.", "warningMessage");
+                },
+                "403": function() {
+                    that.appendMessage("You have no permission to join this chat.", "warningMessage");
+                },
+                "404": function() {
+                    that.appendMessage("Chat room was closed, please go to the Game Hall.");
+                }
             });
 
             this.chatTalkDiv.bind("keypress", function(e) {
@@ -188,16 +186,46 @@ var ChatBoxUI = Class.extend({
         if (this.processingMessages != null) {
             this.communication.sendChatMessage(this.name, this.processingMessages, function(xml) {
                 that.processMessages(xml, true);
+            }, {
+                "401": function() {
+                    that.appendMessage("You are not logged in, go to the main page to log in.", "warningMessage");
+                },
+                "403": function() {
+                    that.appendMessage("You have no permission to send messages to this chat.", "warningMessage");
+                },
+                "404": function() {
+                    that.appendMessage("Chat room was closed, or you were inactive for too long, please go to the Game Hall.");
+                }
             });
         } else if (this.unsentMessages.length > 0) {
             this.communication.sendChatMessage(this.name, this.unsentMessages, function(xml) {
                 that.processMessages(xml, true);
+            }, {
+                "401": function() {
+                    that.appendMessage("You are not logged in, go to the main page to log in.", "warningMessage");
+                },
+                "403": function() {
+                    that.appendMessage("You have no permission to send messages to this chat.", "warningMessage");
+                },
+                "404": function() {
+                    that.appendMessage("Chat room was closed, or you were inactive for too long, please go to the Game Hall.");
+                }
             });
             this.processingMessages = this.unsentMessages;
             this.unsentMessages = new Array();
         } else {
             this.communication.updateChat(this.name, function(xml) {
                 that.processMessages(xml, true);
+            }, {
+                "401": function() {
+                    that.appendMessage("You are not logged in, go to the main page to log in.", "warningMessage");
+                },
+                "403": function() {
+                    that.appendMessage("You have no permission to get message from this chat.", "warningMessage");
+                },
+                "404": function() {
+                    that.appendMessage("Chat room was closed, or you were inactive for too long, please go to the Game Hall.");
+                }
             });
         }
     },

@@ -7,6 +7,17 @@ var GempLotrCommunication = Class.extend({
         this.failure = failure;
     },
 
+    errorCheck: function(errorMap) {
+        var that = this;
+        return function(xhr, status, request) {
+            var errorStatus = "" + xhr.status;
+            if (errorMap != null && errorMap[errorStatus] != null)
+                errorMap[errorStatus](xhr, status, request);
+            else
+                that.failure(xhr, status, request);
+        };
+    },
+
     getDelivery: function(callback) {
         $.ajax({
             type: "GET",
@@ -30,7 +41,7 @@ var GempLotrCommunication = Class.extend({
         };
     },
 
-    getGameHistory: function(start, count, callback) {
+    getGameHistory: function(start, count, callback, errorMap) {
         $.ajax({
             type: "GET",
             url: this.url + "/gameHistory",
@@ -40,12 +51,12 @@ var GempLotrCommunication = Class.extend({
                 count: count,
                 participantId: getUrlParam("participantId") },
             success: this.deliveryCheck(callback),
-            error: this.failure,
+            error: this.errorCheck(errorMap),
             dataType: "xml"
         });
     },
 
-    getLeagues: function(callback) {
+    getLeagues: function(callback, errorMap) {
         $.ajax({
             type: "GET",
             url: this.url + "/league",
@@ -53,12 +64,12 @@ var GempLotrCommunication = Class.extend({
             data: {
                 participanId: getUrlParam("participantId") },
             success: this.deliveryCheck(callback),
-            error: this.failure,
+            error: this.errorCheck(errorMap),
             dataType: "xml"
         });
     },
 
-    joinLeague: function(code, callback) {
+    joinLeague: function(code, callback, errorMap) {
         $.ajax({
             type: "POST",
             url: this.url + "/league/" + code,
@@ -66,44 +77,44 @@ var GempLotrCommunication = Class.extend({
             data: {
                 participanId: getUrlParam("participantId") },
             success: this.deliveryCheck(callback),
-            error: this.failure,
+            error: this.errorCheck(errorMap),
             dataType: "xml"
         });
     },
 
-    getReplay: function(replayId, callback) {
+    getReplay: function(replayId, callback, errorMap) {
         $.ajax({
             type: "GET",
             url: this.url + "/replay/" + replayId,
             cache: false,
             success: this.deliveryCheck(callback),
-            error: this.failure,
+            error: this.errorCheck(errorMap),
             dataType: "xml"
         });
     },
-    startGameSession: function(callback) {
+    startGameSession: function(callback, errorMap) {
         $.ajax({
             type: "GET",
             url: this.url + "/game/" + getUrlParam("gameId"),
             cache: false,
             data: { participantId: getUrlParam("participantId") },
             success: this.deliveryCheck(callback),
-            error: this.failure,
+            error: this.errorCheck(errorMap),
             dataType: "xml"
         });
     },
-    updateGameState: function(callback) {
+    updateGameState: function(callback, errorMap) {
         $.ajax({
             type: "POST",
             url: this.url + "/game/" + getUrlParam("gameId"),
             cache: false,
             data: { participantId: getUrlParam("participantId") },
             success: this.deliveryCheck(callback),
-            error: this.failure,
+            error: this.errorCheck(errorMap),
             dataType: "xml"
         });
     },
-    getGameCardModifiers: function(cardId, callback) {
+    getGameCardModifiers: function(cardId, callback, errorMap) {
         $.ajax({
             type: "GET",
             url: this.url + "/game/" + getUrlParam("gameId") + "/cardInfo",
@@ -111,11 +122,11 @@ var GempLotrCommunication = Class.extend({
             data: { cardId: cardId,
                 participantId: getUrlParam("participantId") },
             success: this.deliveryCheck(callback),
-            error: this.failure,
+            error: this.errorCheck(errorMap),
             dataType: "html"
         });
     },
-    gameDecisionMade: function(decisionId, response, callback) {
+    gameDecisionMade: function(decisionId, response, callback, errorMap) {
         $.ajax({
             type: "POST",
             url: this.url + "/game/" + getUrlParam("gameId"),
@@ -125,22 +136,22 @@ var GempLotrCommunication = Class.extend({
                 decisionId: decisionId,
                 decisionValue: response},
             success: this.deliveryCheck(callback),
-            error: this.failure,
+            error: this.errorCheck(errorMap),
             dataType: "xml"
         });
     },
-    concede: function() {
+    concede: function(errorMap) {
         $.ajax({
             type: "POST",
             url: this.url + "/game/" + getUrlParam("gameId") + "/concede",
             cache: false,
             data: {
                 participantId: getUrlParam("participantId")},
-            error: this.failure,
+            error: this.errorCheck(errorMap),
             dataType: "xml"
         });
     },
-    getDeck: function(deckName, callback) {
+    getDeck: function(deckName, callback, errorMap) {
         $.ajax({
             type: "GET",
             url: this.url + "/deck",
@@ -149,11 +160,11 @@ var GempLotrCommunication = Class.extend({
                 participantId: getUrlParam("participantId"),
                 deckName: deckName},
             success: this.deliveryCheck(callback),
-            error: this.failure,
+            error: this.errorCheck(errorMap),
             dataType: "xml"
         });
     },
-    getDecks: function(callback) {
+    getDecks: function(callback, errorMap) {
         $.ajax({
             type: "GET",
             url: this.url + "/deck/list",
@@ -161,11 +172,11 @@ var GempLotrCommunication = Class.extend({
             data: {
                 participantId: getUrlParam("participantId")},
             success: this.deliveryCheck(callback),
-            error: this.failure,
+            error: this.errorCheck(errorMap),
             dataType: "xml"
         });
     },
-    getCollectionTypes: function(callback) {
+    getCollectionTypes: function(callback, errorMap) {
         $.ajax({
             type: "GET",
             url: this.url + "/collection",
@@ -173,11 +184,11 @@ var GempLotrCommunication = Class.extend({
             data: {
                 participantId: getUrlParam("participantId")},
             success: this.deliveryCheck(callback),
-            error: this.failure,
+            error: this.errorCheck(errorMap),
             dataType: "xml"
         });
     },
-    getMerchant: function(filter, ownedMin, start, count, callback) {
+    getMerchant: function(filter, ownedMin, start, count, callback, errorMap) {
         $.ajax({
             type: "GET",
             url: this.url + "/merchant",
@@ -189,11 +200,11 @@ var GempLotrCommunication = Class.extend({
                 start: start,
                 count: count},
             success: this.deliveryCheck(callback),
-            error: this.failure,
+            error: this.errorCheck(errorMap),
             dataType: "xml"
         });
     },
-    buyItem: function(blueprintId, price, callback) {
+    buyItem: function(blueprintId, price, callback, errorMap) {
         $.ajax({
             type: "POST",
             url: this.url + "/merchant/buy",
@@ -203,11 +214,11 @@ var GempLotrCommunication = Class.extend({
                 blueprintId: blueprintId,
                 price: price},
             success: this.deliveryCheck(callback),
-            error: this.failure,
+            error: this.errorCheck(errorMap),
             dataType: "xml"
         });
     },
-    sellItem: function(blueprintId, price, callback) {
+    sellItem: function(blueprintId, price, callback, errorMap) {
         $.ajax({
             type: "POST",
             url: this.url + "/merchant/sell",
@@ -217,11 +228,11 @@ var GempLotrCommunication = Class.extend({
                 blueprintId: blueprintId,
                 price: price},
             success: this.deliveryCheck(callback),
-            error: this.failure,
+            error: this.errorCheck(errorMap),
             dataType: "xml"
         });
     },
-    tradeInFoil: function(blueprintId, callback) {
+    tradeInFoil: function(blueprintId, callback, errorMap) {
         $.ajax({
             type: "POST",
             url: this.url + "/merchant/tradeFoil",
@@ -230,11 +241,11 @@ var GempLotrCommunication = Class.extend({
                 participantId: getUrlParam("participantId"),
                 blueprintId: blueprintId},
             success: this.deliveryCheck(callback),
-            error: this.failure,
+            error: this.errorCheck(errorMap),
             dataType: "xml"
         });
     },
-    getCollection: function(collectionType, filter, start, count, callback) {
+    getCollection: function(collectionType, filter, start, count, callback, errorMap) {
         $.ajax({
             type: "GET",
             url: this.url + "/collection/" + collectionType,
@@ -245,11 +256,11 @@ var GempLotrCommunication = Class.extend({
                 start: start,
                 count: count},
             success: this.deliveryCheck(callback),
-            error: this.failure,
+            error: this.errorCheck(errorMap),
             dataType: "xml"
         });
     },
-    openPack: function(collectionType, pack, callback) {
+    openPack: function(collectionType, pack, callback, errorMap) {
         $.ajax({
             type: "POST",
             url: this.url + "/collection/" + collectionType,
@@ -257,14 +268,12 @@ var GempLotrCommunication = Class.extend({
             data: {
                 participantId: getUrlParam("participantId"),
                 pack: pack},
-            success: function(xml, status, request) {
-                callback(xml);
-            },
-            error: this.failure,
+            success: this.deliveryCheck(callback),
+            error: this.errorCheck(errorMap),
             dataType: "xml"
         });
     },
-    openSelectionPack: function(collectionType, pack, selection, callback) {
+    openSelectionPack: function(collectionType, pack, selection, callback, errorMap) {
         $.ajax({
             type: "POST",
             url: this.url + "/collection/" + collectionType,
@@ -273,14 +282,12 @@ var GempLotrCommunication = Class.extend({
                 participantId: getUrlParam("participantId"),
                 pack: pack,
                 selection: selection},
-            success: function(xml, status, request) {
-                callback(xml);
-            },
-            error: this.failure,
+            success: this.deliveryCheck(callback),
+            error: this.errorCheck(errorMap),
             dataType: "xml"
         });
     },
-    saveDeck: function(deckName, contents, callback) {
+    saveDeck: function(deckName, contents, callback, errorMap) {
         $.ajax({
             type: "POST",
             url: this.url + "/deck",
@@ -291,11 +298,11 @@ var GempLotrCommunication = Class.extend({
                 deckName: deckName,
                 deckContents: contents},
             success: this.deliveryCheck(callback),
-            error: this.failure,
+            error: this.errorCheck(errorMap),
             dataType: "xml"
         });
     },
-    renameDeck: function(oldDeckName, deckName, callback) {
+    renameDeck: function(oldDeckName, deckName, callback, errorMap) {
         $.ajax({
             type: "POST",
             url: this.url + "/deck/rename",
@@ -305,11 +312,11 @@ var GempLotrCommunication = Class.extend({
                 oldDeckName: oldDeckName,
                 deckName: deckName},
             success: this.deliveryCheck(callback),
-            error: this.failure,
+            error: this.errorCheck(errorMap),
             dataType: "xml"
         });
     },
-    deleteDeck: function(deckName, callback) {
+    deleteDeck: function(deckName, callback, errorMap) {
         $.ajax({
             type: "POST",
             url: this.url + "/deck/delete",
@@ -318,11 +325,11 @@ var GempLotrCommunication = Class.extend({
                 participantId: getUrlParam("participantId"),
                 deckName: deckName},
             success: this.deliveryCheck(callback),
-            error: this.failure,
+            error: this.errorCheck(errorMap),
             dataType: "xml"
         });
     },
-    getDeckStats: function(contents, callback) {
+    getDeckStats: function(contents, callback, errorMap) {
         $.ajax({
             type: "POST",
             url: this.url + "/deck/stats",
@@ -331,11 +338,11 @@ var GempLotrCommunication = Class.extend({
                 participantId: getUrlParam("participantId"),
                 deckContents: contents},
             success: this.deliveryCheck(callback),
-            error: this.failure,
+            error: this.errorCheck(errorMap),
             dataType: "html"
         });
     },
-    startChat: function(room, callback) {
+    startChat: function(room, callback, errorMap) {
         $.ajax({
             type: "GET",
             url: this.url + "/chat/" + room,
@@ -343,11 +350,11 @@ var GempLotrCommunication = Class.extend({
             data: {
                 participantId: getUrlParam("participantId")},
             success: this.deliveryCheck(callback),
-            error: this.failure,
+            error: this.errorCheck(errorMap),
             dataType: "xml"
         });
     },
-    updateChat: function(room, callback) {
+    updateChat: function(room, callback, errorMap) {
         $.ajax({
             type: "POST",
             url: this.url + "/chat/" + room,
@@ -355,11 +362,11 @@ var GempLotrCommunication = Class.extend({
             data: {
                 participantId: getUrlParam("participantId")},
             success: this.deliveryCheck(callback),
-            error: this.failure,
+            error: this.errorCheck(errorMap),
             dataType: "xml"
         });
     },
-    sendChatMessage: function(room, messages, callback) {
+    sendChatMessage: function(room, messages, callback, errorMap) {
         $.ajax({
             type: "POST",
             url: this.url + "/chat/" + room,
@@ -369,11 +376,11 @@ var GempLotrCommunication = Class.extend({
                 message: messages},
             success: this.deliveryCheck(callback),
             traditional: true,
-            error: this.failure,
+            error: this.errorCheck(errorMap),
             dataType: "xml"
         });
     },
-    getHall: function(callback) {
+    getHall: function(callback, errorMap) {
         $.ajax({
             type: "GET",
             url: this.url + "/hall",
@@ -381,11 +388,11 @@ var GempLotrCommunication = Class.extend({
             data: {
                 participantId: getUrlParam("participantId")},
             success: this.deliveryCheck(callback),
-            error: this.failure,
+            error: this.errorCheck(errorMap),
             dataType: "xml"
         });
     },
-    joinTable: function(tableId, deckName, callback) {
+    joinTable: function(tableId, deckName, callback, errorMap) {
         $.ajax({
             type: "POST",
             url: this.url + "/hall/" + tableId,
@@ -394,11 +401,11 @@ var GempLotrCommunication = Class.extend({
                 deckName: deckName,
                 participantId: getUrlParam("participantId")},
             success: this.deliveryCheck(callback),
-            error: this.failure,
+            error: this.errorCheck(errorMap),
             dataType: "xml"
         });
     },
-    createTable: function(format, deckName, callback) {
+    createTable: function(format, deckName, callback, errorMap) {
         $.ajax({
             type: "POST",
             url: this.url + "/hall",
@@ -408,22 +415,22 @@ var GempLotrCommunication = Class.extend({
                 deckName: deckName,
                 participantId: getUrlParam("participantId")},
             success: this.deliveryCheck(callback),
-            error: this.failure,
+            error: this.errorCheck(errorMap),
             dataType: "xml"
         });
     },
-    leaveTable: function() {
+    leaveTable: function(errorMap) {
         $.ajax({
             type: "POST",
             url: this.url + "/hall/leave",
             cache: false,
             data: {
                 participantId: getUrlParam("participantId")},
-            error: this.failure,
+            error: this.errorCheck(errorMap),
             dataType: "xml"
         });
     },
-    getStatus: function(callback) {
+    getStatus: function(callback, errorMap) {
         $.ajax({
             type: "GET",
             url: this.url + "/",
@@ -431,11 +438,11 @@ var GempLotrCommunication = Class.extend({
             data: {
                 participantId: getUrlParam("participantId")},
             success: this.deliveryCheck(callback),
-            error: this.failure,
+            error: this.errorCheck(errorMap),
             dataType: "html"
         });
     },
-    login: function(login, password, callback) {
+    login: function(login, password, callback, errorMap) {
         $.ajax({
             type: "POST",
             url: this.url + "/login",
@@ -445,11 +452,11 @@ var GempLotrCommunication = Class.extend({
                 password: password,
                 participantId: getUrlParam("participantId")},
             success: this.deliveryCheck(callback),
-            error: this.failure,
+            error: this.errorCheck(errorMap),
             dataType: "html"
         });
     },
-    register: function(login, password, callback) {
+    register: function(login, password, callback, errorMap) {
         $.ajax({
             type: "POST",
             url: this.url + "/register",
@@ -459,11 +466,11 @@ var GempLotrCommunication = Class.extend({
                 password: password,
                 participantId: getUrlParam("participantId")},
             success: this.deliveryCheck(callback),
-            error: this.failure,
+            error: this.errorCheck(errorMap),
             dataType: "html"
         });
     },
-    getRegistrationForm: function(callback) {
+    getRegistrationForm: function(callback, errorMap) {
         $.ajax({
             type: "POST",
             url: "/gemp-lotr/includes/registrationForm.html",
@@ -471,7 +478,7 @@ var GempLotrCommunication = Class.extend({
             data: {
                 participantId: getUrlParam("participantId")},
             success: this.deliveryCheck(callback),
-            error: this.failure,
+            error: this.errorCheck(errorMap),
             dataType: "html"
         });
     }
