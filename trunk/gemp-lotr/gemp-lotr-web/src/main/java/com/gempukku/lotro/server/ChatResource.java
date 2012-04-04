@@ -17,8 +17,8 @@ import javax.ws.rs.core.Response;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 @Singleton
 @Path("/chat")
@@ -42,7 +42,7 @@ public class ChatResource extends AbstractResource {
         List<ChatMessage> chatMessages = chatRoom.joinUser(resourceOwner.getName());
         if (chatMessages == null)
             sendError(Response.Status.FORBIDDEN);
-        Set<String> usersInRoom = chatRoom.getUsersInRoom();
+        Collection<String> usersInRoom = chatRoom.getUsersInRoom();
 
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
@@ -80,7 +80,7 @@ public class ChatResource extends AbstractResource {
         if (chatMessages == null)
             sendError(Response.Status.FORBIDDEN);
 
-        Set<String> usersInRoom = chatRoom.getUsersInRoom();
+        Collection<String> usersInRoom = chatRoom.getUsersInRoom();
 
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
@@ -92,7 +92,7 @@ public class ChatResource extends AbstractResource {
         return doc;
     }
 
-    private void serializeChatRoomData(String room, List<ChatMessage> chatMessages, Set<String> usersInRoom, Document doc) {
+    private void serializeChatRoomData(String room, List<ChatMessage> chatMessages, Collection<String> usersInRoom, Document doc) {
         Element chatElem = doc.createElement("chat");
         chatElem.setAttribute("roomName", room);
         doc.appendChild(chatElem);

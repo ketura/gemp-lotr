@@ -5,7 +5,13 @@ import java.util.*;
 public class ChatRoom {
     private int _maxMessageHistoryCount = 150;
     private LinkedList<ChatMessage> _lastMessages = new LinkedList<ChatMessage>();
-    private Map<String, ChatRoomListener> _chatRoomListeners = new HashMap<String, ChatRoomListener>();
+    private Map<String, ChatRoomListener> _chatRoomListeners = new TreeMap<String, ChatRoomListener>(
+            new Comparator<String>() {
+                @Override
+                public int compare(String o1, String o2) {
+                    return o1.compareToIgnoreCase(o2);
+                }
+            });
 
     public ChatRoom() {
     }
@@ -40,8 +46,8 @@ public class ChatRoom {
             postMessage("System", playerId + " left the room", false);
     }
 
-    public Set<String> getUsersInRoom() {
-        return new TreeSet<String>(_chatRoomListeners.keySet());
+    public Collection<String> getUsersInRoom() {
+        return new ArrayList<String>(_chatRoomListeners.keySet());
     }
 
     private void shrinkLastMessages() {
