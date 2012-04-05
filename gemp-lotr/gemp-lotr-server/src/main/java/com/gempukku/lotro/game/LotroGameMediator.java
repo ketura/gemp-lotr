@@ -259,27 +259,32 @@ public class LotroGameMediator {
         }
     }
 
-    public void playerAnswered(Player player, int decisionId, String answer) {
+    public void playerAnswered(Player player, int channelNumber, int decisionId, String answer) {
         String playerName = player.getName();
         _writeLock.lock();
         try {
-            AwaitingDecision awaitingDecision = _userFeedback.getAwaitingDecision(playerName);
-            if (awaitingDecision != null) {
-                if (awaitingDecision.getAwaitingDecisionId() == decisionId) {
-                    try {
-                        _userFeedback.participantDecided(playerName);
-                        awaitingDecision.decisionMade(answer);
+            GatheringParticipantCommunicationChannel communicationChannel = _communicationChannels.get(playerName);
+            if (communicationChannel != null) {
+                if (communicationChannel.getChannelNumber() == channelNumber) {
+                    AwaitingDecision awaitingDecision = _userFeedback.getAwaitingDecision(playerName);
+                    if (awaitingDecision != null) {
+                        if (awaitingDecision.getAwaitingDecisionId() == decisionId) {
+                            try {
+                                _userFeedback.participantDecided(playerName);
+                                awaitingDecision.decisionMade(answer);
 
-                        // Decision successfully made, add the time to user clock
-                        addTimeSpentOnDecisionToUserClock(playerName);
+                                // Decision successfully made, add the time to user clock
+                                addTimeSpentOnDecisionToUserClock(playerName);
 
-                        _lotroGame.carryOutPendingActionsUntilDecisionNeeded();
-                        startClocksForUsersPendingDecision();
+                                _lotroGame.carryOutPendingActionsUntilDecisionNeeded();
+                                startClocksForUsersPendingDecision();
 
-                    } catch (DecisionResultInvalidException decisionResultInvalidException) {
-                        // Participant provided wrong answer - send a warning message, and ask again for the same decision
-                        _userFeedback.sendWarning(playerName, decisionResultInvalidException.getWarningMessage());
-                        _userFeedback.sendAwaitingDecision(playerName, awaitingDecision);
+                            } catch (DecisionResultInvalidException decisionResultInvalidException) {
+                                // Participant provided wrong answer - send a warning message, and ask again for the same decision
+                                _userFeedback.sendWarning(playerName, decisionResultInvalidException.getWarningMessage());
+                                _userFeedback.sendAwaitingDecision(playerName, awaitingDecision);
+                            }
+                        }
                     }
                 }
             }

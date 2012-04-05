@@ -146,7 +146,7 @@ public class GameResource extends AbstractResource {
 
             if (decisionId != null) {
                 try {
-                    gameMediator.playerAnswered(resourceOwner, decisionId, decisionValue);
+                    gameMediator.playerAnswered(resourceOwner, channelNumber, decisionId, decisionValue);
                 } catch (RuntimeException exp) {
                     _logger.error("Error while sending decision", exp);
                     throw exp;
