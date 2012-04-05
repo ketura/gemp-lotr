@@ -32,6 +32,7 @@ public class LotroGameMediator {
     private ReentrantReadWriteLock _lock = new ReentrantReadWriteLock(true);
     private ReentrantReadWriteLock.ReadLock _readLock = _lock.readLock();
     private ReentrantReadWriteLock.WriteLock _writeLock = _lock.writeLock();
+    private int _channelNextIndex = 0;
 
     public LotroGameMediator(LotroFormat lotroFormat, LotroGameParticipant[] participants, LotroCardBlueprintLibrary library, int maxSecondsForGamePerPlayer,
                              boolean noSpectators) {
@@ -287,7 +288,7 @@ public class LotroGameMediator {
         }
     }
 
-    public boolean processCommunicationChannel(Player player, ParticipantCommunicationVisitor visitor) {
+    public boolean processCommunicationChannel(Player player, int channelNumber, ParticipantCommunicationVisitor visitor) {
         String playerName = player.getName();
         if (_noSpectators && !_playersPlaying.contains(playerName))
             return false;
@@ -296,19 +297,24 @@ public class LotroGameMediator {
         try {
             GatheringParticipantCommunicationChannel communicationChannel = _communicationChannels.get(playerName);
             if (communicationChannel != null) {
-                for (GameEvent gameEvent : communicationChannel.consumeGameEvents())
-                    visitor.visitGameEvent(gameEvent);
+                if (communicationChannel.getChannelNumber() == channelNumber) {
+                    visitor.visitChannelNumber(channelNumber);
+                    for (GameEvent gameEvent : communicationChannel.consumeGameEvents())
+                        visitor.visitGameEvent(gameEvent);
 
-                String warning = _userFeedback.consumeWarning(playerName);
-                if (warning != null)
-                    visitor.visitGameEvent(new GameEvent(GameEvent.Type.W).message(warning));
+                    String warning = _userFeedback.consumeWarning(playerName);
+                    if (warning != null)
+                        visitor.visitGameEvent(new GameEvent(GameEvent.Type.W).message(warning));
 
-                Map<String, Integer> secondsLeft = new HashMap<String, Integer>();
-                for (Map.Entry<String, Integer> playerClock : _playerClocks.entrySet()) {
-                    String playerClockName = playerClock.getKey();
-                    secondsLeft.put(playerClockName, _maxSecondsForGamePerPlayer - playerClock.getValue() - getCurrentUserPendingTime(playerClockName));
+                    Map<String, Integer> secondsLeft = new HashMap<String, Integer>();
+                    for (Map.Entry<String, Integer> playerClock : _playerClocks.entrySet()) {
+                        String playerClockName = playerClock.getKey();
+                        secondsLeft.put(playerClockName, _maxSecondsForGamePerPlayer - playerClock.getValue() - getCurrentUserPendingTime(playerClockName));
+                    }
+                    visitor.visitClock(secondsLeft);
+                } else {
+                    visitor.visitGameEvent(new GameEvent(GameEvent.Type.W).message("You have joined this game in another window, please refresh your browser window (press F5) if you wish to continue playing in this window"));
                 }
-                visitor.visitClock(secondsLeft);
             } else {
                 visitor.visitGameEvent(new GameEvent(GameEvent.Type.W).message("Your browser was inactive for too long, please refresh your browser window to continue playing"));
             }
@@ -325,10 +331,15 @@ public class LotroGameMediator {
 
         _readLock.lock();
         try {
-            GatheringParticipantCommunicationChannel participantCommunicationChannel = new GatheringParticipantCommunicationChannel(playerName);
+            int number = _channelNextIndex;
+            _channelNextIndex++;
+
+            GatheringParticipantCommunicationChannel participantCommunicationChannel = new GatheringParticipantCommunicationChannel(playerName, number);
             _communicationChannels.put(playerName, participantCommunicationChannel);
 
             _lotroGame.addGameStateListener(playerName, participantCommunicationChannel);
+
+            visitor.visitChannelNumber(number);
 
             for (GameEvent gameEvent : participantCommunicationChannel.consumeGameEvents())
                 visitor.visitGameEvent(gameEvent);

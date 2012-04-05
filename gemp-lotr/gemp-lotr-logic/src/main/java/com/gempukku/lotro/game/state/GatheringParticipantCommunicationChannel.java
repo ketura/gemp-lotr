@@ -3,19 +3,26 @@ package com.gempukku.lotro.game.state;
 import com.gempukku.lotro.common.Token;
 import com.gempukku.lotro.communication.GameStateListener;
 import com.gempukku.lotro.game.PhysicalCard;
-import static com.gempukku.lotro.game.state.GameEvent.Type.*;
 import com.gempukku.lotro.logic.decisions.AwaitingDecision;
 import com.gempukku.lotro.logic.timing.GameStats;
 
 import java.util.*;
 
+import static com.gempukku.lotro.game.state.GameEvent.Type.*;
+
 public class GatheringParticipantCommunicationChannel implements GameStateListener {
     private List<GameEvent> _events = new LinkedList<GameEvent>();
     private String _self;
     private Date _lastConsumed = new Date();
+    private int _channelNumber;
 
-    public GatheringParticipantCommunicationChannel(String self) {
+    public GatheringParticipantCommunicationChannel(String self, int channelNumber) {
         _self = self;
+        _channelNumber = channelNumber;
+    }
+
+    public int getChannelNumber() {
+        return _channelNumber;
     }
 
     @Override

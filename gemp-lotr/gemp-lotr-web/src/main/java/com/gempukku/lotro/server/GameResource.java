@@ -131,6 +131,7 @@ public class GameResource extends AbstractResource {
             @FormParam("participantId") String participantId,
             @FormParam("decisionId") Integer decisionId,
             @FormParam("decisionValue") String decisionValue,
+            @FormParam("channelNumber") int channelNumber,
             @Context HttpServletRequest request,
             @Context HttpServletResponse response) throws ParserConfigurationException {
         Player resourceOwner = getResourceOwnerSafely(request, participantId);
@@ -158,7 +159,7 @@ public class GameResource extends AbstractResource {
             Document doc = documentBuilder.newDocument();
             Element update = doc.createElement("update");
 
-            if (!gameMediator.processCommunicationChannel(resourceOwner, new SerializationVisitor(doc, update)))
+            if (!gameMediator.processCommunicationChannel(resourceOwner, channelNumber, new SerializationVisitor(doc, update)))
                 sendError(Response.Status.FORBIDDEN);
 
             doc.appendChild(update);
@@ -180,6 +181,11 @@ public class GameResource extends AbstractResource {
         private SerializationVisitor(Document doc, Element element) {
             _doc = doc;
             _element = element;
+        }
+
+        @Override
+        public void visitChannelNumber(int channelNumber) {
+            _element.setAttribute("cn", String.valueOf(channelNumber));
         }
 
         @Override

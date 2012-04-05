@@ -103,12 +103,14 @@ var GempLotrCommunication = Class.extend({
             dataType: "xml"
         });
     },
-    updateGameState: function(callback, errorMap) {
+    updateGameState: function(channelNumber, callback, errorMap) {
         $.ajax({
             type: "POST",
             url: this.url + "/game/" + getUrlParam("gameId"),
             cache: false,
-            data: { participantId: getUrlParam("participantId") },
+            data: {
+                channelNumber: channelNumber,
+                participantId: getUrlParam("participantId") },
             success: this.deliveryCheck(callback),
             error: this.errorCheck(errorMap),
             dataType: "xml"
@@ -119,22 +121,24 @@ var GempLotrCommunication = Class.extend({
             type: "GET",
             url: this.url + "/game/" + getUrlParam("gameId") + "/cardInfo",
             cache: false,
-            data: { cardId: cardId,
+            data: {
+                cardId: cardId,
                 participantId: getUrlParam("participantId") },
             success: this.deliveryCheck(callback),
             error: this.errorCheck(errorMap),
             dataType: "html"
         });
     },
-    gameDecisionMade: function(decisionId, response, callback, errorMap) {
+    gameDecisionMade: function(decisionId, response, channelNumber, callback, errorMap) {
         $.ajax({
             type: "POST",
             url: this.url + "/game/" + getUrlParam("gameId"),
             cache: false,
             data: {
+                channelNumber: channelNumber,
                 participantId: getUrlParam("participantId"),
                 decisionId: decisionId,
-                decisionValue: response},
+                decisionValue: response },
             success: this.deliveryCheck(callback),
             error: this.errorCheck(errorMap),
             dataType: "xml"
@@ -158,7 +162,7 @@ var GempLotrCommunication = Class.extend({
             cache: false,
             data: {
                 participantId: getUrlParam("participantId"),
-                deckName: deckName},
+                deckName: deckName },
             success: this.deliveryCheck(callback),
             error: this.errorCheck(errorMap),
             dataType: "xml"
