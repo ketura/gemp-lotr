@@ -155,17 +155,13 @@ var GempLotrHallUI = Class.extend({
         }
     },
 
-    formatPrice: function(price) {
-        return Math.floor(price / 100) + "G " + price % 100 + "S";
-    },
-
     processHall: function(xml) {
         var root = xml.documentElement;
         if (root.tagName == "hall") {
             this.tablesDiv.html("");
 
             var currency = root.getAttribute("currency");
-            this.pocketDiv.html(this.formatPrice(currency));
+            this.pocketDiv.html(formatPrice(currency));
 
             var motd = root.getAttribute("motd");
             if (motd != null)

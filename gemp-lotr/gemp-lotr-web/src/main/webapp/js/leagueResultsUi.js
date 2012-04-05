@@ -52,7 +52,7 @@ var LeagueResultsUI = Class.extend({
                 var leagueText = leagueName;
                 $("#leagueResults").append("<h1 class='leagueName'>" + leagueText + "</h1>");
 
-                var costStr = Math.floor(cost / 100) + "G " + cost % 100 + "S";
+                var costStr = formatPrice(cost);
                 $("#leagueResults").append("<div class='leagueCost'><b>Cost:</b> " + costStr + "</div>");
 
                 var duration = this.getDateString(start) + " to " + this.getDateString(end);
