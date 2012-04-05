@@ -93,7 +93,7 @@ public class GameRecorder {
         final Date startData = new Date();
         final Map<String, GatheringParticipantCommunicationChannel> recordingChannels = new HashMap<String, GatheringParticipantCommunicationChannel>();
         for (String playerId : lotroGame.getPlayersPlaying()) {
-            GatheringParticipantCommunicationChannel recordChannel = new GatheringParticipantCommunicationChannel(playerId);
+            GatheringParticipantCommunicationChannel recordChannel = new GatheringParticipantCommunicationChannel(playerId, 0);
             lotroGame.addGameStateListener(playerId, recordChannel);
             recordingChannels.put(playerId, recordChannel);
         }

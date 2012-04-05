@@ -200,7 +200,7 @@ var GempLotrMerchantUI = Class.extend({
     clearList: function(rootElem) {
         $(".card", this.cardsDiv).remove();
         this.currencyCount = rootElem.getAttribute("currency");
-        this.pocketDiv.html(this.formatPrice(this.currencyCount));
+        this.pocketDiv.html(formatPrice(this.currencyCount));
     },
 
     addCardToList: function(elem, type, blueprintId, count) {
@@ -240,7 +240,7 @@ var GempLotrMerchantUI = Class.extend({
             cardDiv.append("<div class='owned'>" + count + "</div>");
             if (!this.hideMerchant) {
                 if (buyPrice != null) {
-                    var formattedBuyPrice = this.formatPrice(buyPrice);
+                    var formattedBuyPrice = formatPrice(buyPrice);
                     var buyBut = $("<div class='buyPrice'>Sell for<br/>" + formattedBuyPrice + "</div>").button();
                     buyBut.click(
                             function() {
@@ -254,8 +254,8 @@ var GempLotrMerchantUI = Class.extend({
                     cardDiv.append(buyBut);
                 }
                 if (sellPrice != null) {
-                    var formattedSellPrice = this.formatPrice(sellPrice);
-                    var sellBut = $("<div class='sellPrice'>Buy for<br/>" + this.formatPrice(sellPrice) + "</div>").button();
+                    var formattedSellPrice = formatPrice(sellPrice);
+                    var sellBut = $("<div class='sellPrice'>Buy for<br/>" + formattedSellPrice + "</div>").button();
                     sellBut.click(
                             function() {
                                 that.displayMerchantAction(card, "Do you want to buy this item for " + formattedSellPrice + "?",
@@ -322,10 +322,6 @@ var GempLotrMerchantUI = Class.extend({
             this.questionDialog.dialog({width: Math.min(360 + horSpace, windowWidth), height: Math.min(500 + vertSpace, windowHeight)});
         }
         this.questionDialog.dialog("open");
-    },
-
-    formatPrice: function(price) {
-        return Math.floor(price / 100) + "G " + price % 100 + "S";
     },
 
     finishList: function() {

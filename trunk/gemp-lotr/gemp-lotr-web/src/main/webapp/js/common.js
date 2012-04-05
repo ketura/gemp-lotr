@@ -10,3 +10,8 @@ function formatToTwoDigits(no) {
 function formatDate(date) {
     return monthNames[date.getMonth()] + " " + date.getDate() + " " + formatToTwoDigits(date.getHours()) + ":" + formatToTwoDigits(date.getMinutes()) + ":" + formatToTwoDigits(date.getSeconds());
 }
+
+function formatPrice(price) {
+    var silver = (price % 100);
+    return Math.floor(price / 100) + "<img src='images/gold.png'/> " + ((silver < 10) ? ("0" + silver) : silver) + "<img src='images/silver.png'/>";
+}
