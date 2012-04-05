@@ -52,7 +52,7 @@ public class Card1_279 extends AbstractAttachable {
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.END_OF_TURN
-                && !game.getActionsEnvironment().wasAssignedThisTurn(game, self)
+                && !game.getActionsEnvironment().wasAssignedThisTurn(game, self.getAttachedTo())
                 && game.getActionsEnvironment().wasAssignedThisTurn(game, CardType.COMPANION)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
