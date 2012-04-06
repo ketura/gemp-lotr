@@ -68,6 +68,10 @@ var LeagueResultsUI = Class.extend({
                                     function() {
                                         that.communication.joinLeague(leagueCode, function() {
                                             that.loadResults();
+                                        }, {
+                                            "409": function() {
+                                                alert("You don't have enough funds to join this league.");
+                                            }
                                         });
                                     });
                         };
