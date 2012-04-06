@@ -44,7 +44,7 @@ public class Card8_105 extends AbstractMinion {
         int count = 0;
         final Collection<PhysicalCard> sites = Filters.filterActive(gameState, modifiersQuerying, CardType.SITE);
         for (PhysicalCard site : sites)
-            count += Filters.filter(gameState.getStackedCards(site), gameState, modifiersQuerying, Culture.SAURON, CardType.MINION).size();
+            count += Filters.filter(gameState.getStackedCards(site), gameState, modifiersQuerying, Filters.activeSide, Culture.SAURON, CardType.MINION).size();
 
         return -2 * count;
     }

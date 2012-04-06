@@ -49,12 +49,8 @@ public class Card7_316 extends AbstractPermanent {
                             @Override
                             public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard cardAffected) {
                                 int counter = 0;
-                                for (PhysicalCard site : Filters.filterActive(gameState, modifiersQuerying, CardType.SITE)) {
-                                    for (PhysicalCard physicalCard : gameState.getStackedCards(site)) {
-                                        if (modifiersQuerying.hasKeyword(gameState, physicalCard, Keyword.BESIEGER))
-                                            counter++;
-                                    }
-                                }
+                                for (PhysicalCard site : Filters.filterActive(gameState, modifiersQuerying, CardType.SITE))
+                                    counter += Filters.filter(gameState.getStackedCards(site), gameState, modifiersQuerying, Filters.activeSide, Keyword.BESIEGER).size();
 
                                 return counter;
                             }
