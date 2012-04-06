@@ -85,7 +85,8 @@ public class CollectionsManager {
         _readWriteLock.writeLock().lock();
         try {
             setPlayerCollection(player, collectionType.getCode(), cardCollection);
-            addPackage(player, collectionType, cardCollection);
+            if (cardCollection.getAll().size() > 0)
+                addPackage(player, collectionType, cardCollection);
         } finally {
             _readWriteLock.writeLock().unlock();
         }
