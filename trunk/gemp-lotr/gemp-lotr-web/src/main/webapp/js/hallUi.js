@@ -165,7 +165,7 @@ var GempLotrHallUI = Class.extend({
 
             var motd = root.getAttribute("motd");
             if (motd != null)
-                $("#motd").html(motd);
+                $("#motd").html("<b>MOTD:</b> " + motd);
 
             var waiting = root.getAttribute("waiting") == "true";
 
