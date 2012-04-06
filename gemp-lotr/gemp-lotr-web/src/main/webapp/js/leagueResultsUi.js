@@ -61,15 +61,19 @@ var LeagueResultsUI = Class.extend({
                     $("#leagueResults").append("<div class='leagueMembership'>You are already a member of this league.</div>");
                 else if (joinable == "true") {
                     var joinBut = $("<button>Join league</button>").button();
-                    joinBut.click(
-                            function() {
-                                that.displayBuyAction("Do you want to join the league by paying " + costStr + "?",
-                                        function() {
-                                            that.communication.joinLeague(leagueType, function() {
-                                                that.loadResults();
-                                            });
+
+                    var joinFunc = (function(leagueCode, costString) {
+                        return function() {
+                            that.displayBuyAction("Do you want to join the league by paying " + costString + "?",
+                                    function() {
+                                        that.communication.joinLeague(leagueCode, function() {
+                                            that.loadResults();
                                         });
-                            });
+                                    });
+                        };
+                    })(leagueType, costStr);
+
+                    joinBut.click(joinFunc);
                     var joinDiv = $("<div class='leagueMembership'>You're not a member of this league. </div>");
                     joinDiv.append(joinBut);
                     $("#leagueResults").append(joinDiv);
