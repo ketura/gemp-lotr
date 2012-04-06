@@ -11,19 +11,15 @@ public class League {
     private String _type;
     private String _clazz;
     private String _parameters;
-    private int _start;
-    private int _end;
     private int _status;
 
-    public League(int id, int cost, String name, String type, String clazz, String parameters, int start, int end, int status) {
+    public League(int id, int cost, String name, String type, String clazz, String parameters, int status) {
         _id = id;
         _cost = cost;
         _name = name;
         _type = type;
         _clazz = clazz;
         _parameters = parameters;
-        _start = start;
-        _end = end;
         _status = status;
     }
 
@@ -51,14 +47,6 @@ public class League {
         } catch (Exception exp) {
             throw new RuntimeException("Unable to create LeagueData", exp);
         }
-    }
-
-    public int getStart() {
-        return _start;
-    }
-
-    public int getEnd() {
-        return _end;
     }
 
     public int getStatus() {
