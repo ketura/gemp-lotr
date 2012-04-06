@@ -41,7 +41,7 @@ public class Card4_167 extends AbstractAttachable {
                         new Condition() {
                             @Override
                             public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return Filters.filter(gameState.getStackedCards(self.getAttachedTo()), gameState, modifiersQuerying, Race.URUK_HAI).size() > 0;
+                                return Filters.filter(gameState.getStackedCards(self.getAttachedTo()), gameState, modifiersQuerying, Filters.activeSide, Race.URUK_HAI).size() > 0;
                             }
                         }, Side.FREE_PEOPLE, Phase.SKIRMISH));
     }

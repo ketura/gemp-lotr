@@ -637,7 +637,7 @@ public class Filters {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
                 List<PhysicalCard> physicalCardList = gameState.getStackedCards(physicalCard);
-                return (Filters.filter(physicalCardList, gameState, modifiersQuerying, filter).size() > 0);
+                return (Filters.filter(physicalCardList, gameState, modifiersQuerying, Filters.and(filter, activeSide)).size() > 0);
             }
         };
     }
@@ -829,6 +829,17 @@ public class Filters {
         else
             throw new IllegalArgumentException("Unknown type of filterable: " + filter);
     }
+
+    public static Filter activeSide = new Filter() {
+        @Override
+        public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+            boolean shadow = physicalCard.getBlueprint().getSide() == Side.SHADOW;
+            if (shadow)
+                return !physicalCard.getOwner().equals(gameState.getCurrentPlayerId());
+            else
+                return physicalCard.getOwner().equals(gameState.getCurrentPlayerId());
+        }
+    };
 
     private static Filter andInternal(final Filter... filters) {
         return new Filter() {
