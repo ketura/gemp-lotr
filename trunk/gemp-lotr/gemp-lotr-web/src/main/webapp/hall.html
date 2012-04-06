@@ -277,7 +277,9 @@
         <li><a href="#gameHall">Game Hall</a></li>
         <li><a href="includes/gameHistory.html">Game History</a></li>
         <li><a href="includes/leagueResults.html">Leagues</a></li>
-        <li><a href="includes/leagueRules.html">League Rules (updated)</a></li>
+        <script type="text/javascript">
+            document.write('<li><a href="includes/leagueRules.html?_=' + (new Date().getTime()) + '">League Rules (updated)</a></li>');
+        </script>
         <li><a href="includes/instruction.html">Manual</a></li>
         <li><a href="/gemp-lotr/server/hall/formats/html">Format Rules</a></li>
         <li><a href="includes/contribute.html">Contribute</a></li>
