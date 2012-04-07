@@ -10,7 +10,7 @@ import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -29,11 +29,11 @@ public class Card15_190 extends AbstractNewSite {
     }
 
     @Override
-    public List<ActivateCardAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.startOfPhase(game, effectResult, Phase.FELLOWSHIP)
                 && game.getGameState().getCurrentPlayerId().equals(playerId)
                 && PlayConditions.canExert(self, game, 1, 2, CardType.COMPANION, Keyword.HUNTER)) {
-            ActivateCardAction action = new ActivateCardAction(self);
+            OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 2, 2, CardType.COMPANION, Keyword.HUNTER));
             action.appendEffect(
