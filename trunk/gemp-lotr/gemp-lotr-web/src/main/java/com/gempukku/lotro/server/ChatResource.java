@@ -40,8 +40,6 @@ public class ChatResource extends AbstractResource {
             sendError(Response.Status.NOT_FOUND);
 
         List<ChatMessage> chatMessages = chatRoom.joinUser(resourceOwner.getName());
-        if (chatMessages == null)
-            sendError(Response.Status.FORBIDDEN);
         Collection<String> usersInRoom = chatRoom.getUsersInRoom();
 
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -71,14 +69,11 @@ public class ChatResource extends AbstractResource {
         if (messages != null) {
             for (String message : messages) {
                 if (message != null && message.trim().length() > 0)
-                    if (!chatRoom.sendMessage(resourceOwner.getName(), StringEscapeUtils.escapeHtml(message)))
-                        sendError(Response.Status.FORBIDDEN);
+                    chatRoom.sendMessage(resourceOwner.getName(), StringEscapeUtils.escapeHtml(message));
             }
         }
 
         List<ChatMessage> chatMessages = chatRoom.getPendingMessages(resourceOwner.getName());
-        if (chatMessages == null)
-            sendError(Response.Status.FORBIDDEN);
 
         Collection<String> usersInRoom = chatRoom.getUsersInRoom();
 

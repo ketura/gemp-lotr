@@ -12,6 +12,8 @@ import com.gempukku.lotro.logic.timing.DefaultLotroGame;
 import com.gempukku.lotro.logic.timing.GameResultListener;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Response;
 import java.util.*;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
@@ -293,10 +295,10 @@ public class LotroGameMediator {
         }
     }
 
-    public boolean processCommunicationChannel(Player player, int channelNumber, ParticipantCommunicationVisitor visitor) {
+    public void processCommunicationChannel(Player player, int channelNumber, ParticipantCommunicationVisitor visitor) {
         String playerName = player.getName();
         if (_noSpectators && !_playersPlaying.contains(playerName))
-            return false;
+            throw new WebApplicationException(Response.Status.FORBIDDEN);
 
         _readLock.lock();
         try {
@@ -326,13 +328,12 @@ public class LotroGameMediator {
         } finally {
             _readLock.unlock();
         }
-        return true;
     }
 
-    public boolean singupUserForGame(Player player, ParticipantCommunicationVisitor visitor) {
+    public void singupUserForGame(Player player, ParticipantCommunicationVisitor visitor) {
         String playerName = player.getName();
         if (_noSpectators && !_playersPlaying.contains(playerName))
-            return false;
+            throw new WebApplicationException(Response.Status.FORBIDDEN);
 
         _readLock.lock();
         try {
@@ -358,7 +359,6 @@ public class LotroGameMediator {
         } finally {
             _readLock.unlock();
         }
-        return true;
     }
 
     private void startClocksForUsersPendingDecision() {

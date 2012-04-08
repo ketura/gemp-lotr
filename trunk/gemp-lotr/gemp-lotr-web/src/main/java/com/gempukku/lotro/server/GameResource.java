@@ -67,8 +67,7 @@ public class GameResource extends AbstractResource {
         Document doc = documentBuilder.newDocument();
         Element gameState = doc.createElement("gameState");
 
-        if (!gameMediator.singupUserForGame(resourceOwner, new SerializationVisitor(doc, gameState)))
-            sendError(Response.Status.FORBIDDEN);
+        gameMediator.singupUserForGame(resourceOwner, new SerializationVisitor(doc, gameState));
 
         doc.appendChild(gameState);
         return doc;
@@ -159,8 +158,7 @@ public class GameResource extends AbstractResource {
             Document doc = documentBuilder.newDocument();
             Element update = doc.createElement("update");
 
-            if (!gameMediator.processCommunicationChannel(resourceOwner, channelNumber, new SerializationVisitor(doc, update)))
-                sendError(Response.Status.FORBIDDEN);
+            gameMediator.processCommunicationChannel(resourceOwner, channelNumber, new SerializationVisitor(doc, update));
 
             doc.appendChild(update);
 
