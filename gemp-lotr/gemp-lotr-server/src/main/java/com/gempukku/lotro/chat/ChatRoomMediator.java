@@ -2,6 +2,8 @@ package com.gempukku.lotro.chat;
 
 import com.gempukku.lotro.game.GatheringChatRoomListener;
 
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Response;
 import java.util.*;
 
 public class ChatRoomMediator {
@@ -23,7 +25,7 @@ public class ChatRoomMediator {
 
     public synchronized List<ChatMessage> joinUser(String playerId) {
         if (_allowedPlayers != null && !_allowedPlayers.contains(playerId))
-            return null;
+            throw new WebApplicationException(Response.Status.FORBIDDEN);
 
         GatheringChatRoomListener value = new GatheringChatRoomListener();
         _listeners.put(playerId, value);
@@ -33,11 +35,11 @@ public class ChatRoomMediator {
 
     public synchronized List<ChatMessage> getPendingMessages(String playerId) {
         if (_allowedPlayers != null && !_allowedPlayers.contains(playerId))
-            return null;
+            throw new WebApplicationException(Response.Status.FORBIDDEN);
 
         GatheringChatRoomListener gatheringChatRoomListener = _listeners.get(playerId);
         if (gatheringChatRoomListener == null)
-            return null;
+            throw new WebApplicationException(Response.Status.NOT_FOUND);
         return gatheringChatRoomListener.consumeMessages();
     }
 
@@ -46,12 +48,11 @@ public class ChatRoomMediator {
         _listeners.remove(playerId);
     }
 
-    public synchronized boolean sendMessage(String playerId, String message) {
+    public synchronized void sendMessage(String playerId, String message) {
         if (_allowedPlayers != null && !_allowedPlayers.contains(playerId))
-            return false;
+            throw new WebApplicationException(Response.Status.FORBIDDEN);
 
         _chatRoom.postMessage(playerId, message);
-        return true;
     }
 
     public synchronized void cleanup() {
