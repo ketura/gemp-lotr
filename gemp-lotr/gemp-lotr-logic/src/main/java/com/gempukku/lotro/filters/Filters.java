@@ -31,14 +31,14 @@ public class Filters {
             _sideFilterMap.put(side, side(side));
         for (Zone zone : Zone.values())
             _zoneFilterMap.put(zone, zone(zone));
+        for (CardType cardType : CardType.values())
+            _typeFilterMap.put(cardType, type(cardType));
         for (Race race : Race.values())
             _raceFilterMap.put(race, race(race));
         for (Signet signet : Signet.values())
             _signetFilterMap.put(signet, signet(signet));
         for (PossessionClass possessionClass : PossessionClass.values())
             _possessionClassFilterMap.put(possessionClass, possessionClass(possessionClass));
-        for (CardType cardType : CardType.values())
-            _typeFilterMap.put(cardType, type(cardType));
         for (Keyword keyword : Keyword.values())
             _keywordFilterMap.put(keyword, keyword(keyword));
 
@@ -537,15 +537,15 @@ public class Filters {
     }
 
     private static Filter race(final Race race) {
-        return new Filter() {
-            @Override
-            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                LotroCardBlueprint blueprint = physicalCard.getBlueprint();
-                CardType cardType = blueprint.getCardType();
-                return (cardType == CardType.COMPANION || cardType == CardType.ALLY || cardType == CardType.MINION)
-                        && blueprint.getRace() == race;
-            }
-        };
+        return Filters.and(
+                Filters.or(CardType.COMPANION, CardType.ALLY, CardType.MINION),
+                new Filter() {
+                    @Override
+                    public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                        LotroCardBlueprint blueprint = physicalCard.getBlueprint();
+                        return blueprint.getRace() == race;
+                    }
+                });
     }
 
 
