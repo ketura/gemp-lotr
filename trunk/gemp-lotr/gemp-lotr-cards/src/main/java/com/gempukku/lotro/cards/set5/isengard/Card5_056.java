@@ -17,7 +17,7 @@ import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
-import com.gempukku.lotro.logic.effects.ChooseAndHealCharactersEffect;
+import com.gempukku.lotro.logic.effects.HealCharactersEffect;
 import com.gempukku.lotro.logic.modifiers.Condition;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.ModifierFlag;
@@ -77,7 +77,9 @@ public class Card5_056 extends AbstractMinion {
         if (effectResult.getType() == EffectResult.Type.WHEN_FELLOWSHIP_MOVES) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new ChooseAndHealCharactersEffect(action, playerId, 1, 1, 2, Culture.ISENGARD, Race.ORC));
+                    new HealCharactersEffect(self, Culture.ISENGARD, Race.ORC));
+            action.appendEffect(
+                    new HealCharactersEffect(self, Culture.ISENGARD, Race.ORC));
             return Collections.singletonList(action);
         }
         return null;
