@@ -203,13 +203,33 @@ var Card = Class.extend({
         var setNo = parseInt(blueprintId.substr(0, separator));
         var cardNo = parseInt(blueprintId.substr(separator + 1));
 
+        var errata = this.getErrata(setNo, cardNo);
+        if (errata != null)
+            return errata;
+
         var mainLocation = this.getMainLocation(setNo, cardNo);
 
+        var cardStr;
+
+        if (this.isMasterworks(setNo, cardNo))
+            cardStr = this.formatSetNo(setNo) + "O0" + (cardNo - this.getMasterworksOffset(setNo));
+        else
+            cardStr = this.formatCardNo(setNo, cardNo);
+
+        return mainLocation + "LOTR" + cardStr + (this.isTengwar() ? "T" : "") + ".jpg";
+    },
+
+    formatSetNo: function(setNo) {
         var setNoStr;
         if (setNo < 10)
             setNoStr = "0" + setNo;
         else
             setNoStr = setNo;
+        return setNoStr;
+    },
+
+    formatCardNo: function(setNo, cardNo) {
+        var setNoStr = this.formatSetNo(setNo);
 
         var cardStr;
         if (cardNo < 10)
@@ -219,17 +239,11 @@ var Card = Class.extend({
         else
             cardStr = setNoStr + "" + cardNo;
 
-        if (this.isMasterworks(setNo, cardNo))
-            cardStr = setNoStr + "O0" + (cardNo - this.getMasterworksOffset(setNo));
-
-        return mainLocation + "LOTR" + cardStr + (this.isTengwar() ? "T" : "") + ".jpg";
+        return cardStr;
     },
 
     getMainLocation: function(setNo, cardNo) {
-        if (this.isErrata(setNo, cardNo))
-            return "/gemp-lotr/images/erratas/";
-        else
-            return "http://lotrtcgdb.com/images/";
+        return "http://lotrtcgdb.com/images/";
     },
 
     getMasterworksOffset: function(setNo) {
@@ -254,13 +268,22 @@ var Card = Class.extend({
         return false;
     },
 
-    isErrata: function(setNo, cardNo) {
-        if (setNo == 0)
-            return cardNo == 7;
-        else if (setNo == 1)
-            return cardNo == 12 || cardNo == 43 || cardNo == 46;
-        else
-            return false;
+    pngErratas: {
+        "1":[3,55,113,235,318],
+        "3":[48],
+        "4":[236,237],
+        "18":[8,12,25,35,48,50,77,78,79,80,94,97]
+    },
+
+    getErrata: function(setNo, cardNo) {
+        if (setNo == 0 && cardNo == 7)
+            return "/gemp-lotr/images/erratas/LOTR00007.jpg";
+        if (setNo == 1 && (cardNo == 12 || cardNo == 43 || cardNo == 46))
+            return "/gemp-lotr/images/erratas/LOTR010" + cardNo + ".jpg";
+
+        if (this.pngErratas["" + setNo] != null && $.inArray(cardNo, this.pngErratas["" + setNo]) != -1)
+            return "/gemp-lotr/images/erratas/LOTR" + this.formatCardNo(setNo, cardNo) + ".png";
+        return null;
     },
 
     getHeightForWidth: function(width) {
