@@ -44,7 +44,6 @@ public class LeagueDAO {
             PreparedStatement statement = conn.prepareStatement("select id, name, type, class, parameters, status, cost from league where end>=? order by start desc");
             try {
                 statement.setInt(1, currentTime);
-                statement.setInt(2, currentTime);
                 ResultSet rs = statement.executeQuery();
                 try {
                     List<League> activeLeagues = new ArrayList<League>();
