@@ -18,6 +18,18 @@ var GempLotrCommunication = Class.extend({
         };
     },
 
+    logout: function(callback, errorMap) {
+        $.ajax({
+            type: "POST",
+            url: this.url + "/logout",
+            cache: false,
+            data: {
+                participantId: getUrlParam("participantId")},
+            success: this.deliveryCheck(callback),
+            error: this.errorCheck(errorMap)
+        });
+    },
+
     getDelivery: function(callback) {
         $.ajax({
             type: "GET",
