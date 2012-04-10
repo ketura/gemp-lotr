@@ -128,7 +128,7 @@ var AdvPathCardGroup = CardGroup.extend({
                 function(first, second) {
                     return (first.data("card").siteNumber - second.data("card").siteNumber);
                 }
-                );
+        );
 
         var cardCount = cardsToLayout.length;
         var totalHeight = 0;

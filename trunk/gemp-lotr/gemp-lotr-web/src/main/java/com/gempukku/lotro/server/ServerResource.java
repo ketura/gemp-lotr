@@ -67,6 +67,13 @@ public class ServerResource extends AbstractResource {
         }
     }
 
+    @Path("/logout")
+    @POST
+    public void logout(
+            @Context HttpServletRequest request) throws Exception {
+        logoutUser(request);
+    }
+
     @Path("/register")
     @POST
     @Produces("text/html")
@@ -200,6 +207,10 @@ public class ServerResource extends AbstractResource {
 
     private void logUser(HttpServletRequest request, String login) {
         request.getSession().setAttribute("logged", login);
+    }
+
+    private void logoutUser(HttpServletRequest request) {
+        request.getSession().removeAttribute("logged");
     }
 
     private String getUserNameIfLogged(HttpServletRequest request) {

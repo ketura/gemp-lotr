@@ -62,16 +62,16 @@ var ChatBoxUI = Class.extend({
                     function(xml) {
                         that.processMessages(xml, true);
                     }, {
-                "401": function() {
-                    that.appendMessage("You are not logged in, go to the main page to log in.", "warningMessage");
-                },
-                "403": function() {
-                    that.appendMessage("You have no permission to join this chat.", "warningMessage");
-                },
-                "404": function() {
-                    that.appendMessage("Chat room was closed, please go to the Game Hall.");
-                }
-            });
+                        "401": function() {
+                            that.appendMessage("You are not logged in, go to the main page to log in.", "warningMessage");
+                        },
+                        "403": function() {
+                            that.appendMessage("You have no permission to join this chat.", "warningMessage");
+                        },
+                        "404": function() {
+                            that.appendMessage("Chat room was closed, please go to the Game Hall.");
+                        }
+                    });
 
             this.chatTalkDiv.bind("keypress", function(e) {
                 var code = (e.keyCode ? e.keyCode : e.which);
