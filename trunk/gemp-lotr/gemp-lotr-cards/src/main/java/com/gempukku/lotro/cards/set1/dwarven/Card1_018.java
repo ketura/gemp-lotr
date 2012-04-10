@@ -80,6 +80,8 @@ public class Card1_018 extends AbstractOldEvent {
                                                                             game.getGameState().removeCardsFromZone(playerId, topDeckCards);
                                                                     }
                                                                 });
+                                                    } else {
+                                                        game.getGameState().removeCardsFromZone(playerId, topDeckCards);
                                                     }
 
                                                     action.appendEffect(new ChooseCardToPutOnTop(action, playerId, topDeckCards));
