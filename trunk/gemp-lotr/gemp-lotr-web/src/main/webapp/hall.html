@@ -5,6 +5,8 @@
 <title>Gemp-LotR</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta http-equiv="pragma" content="no-cache"/>
+<meta http-equiv="Cache-Control" content="no-cache"/>
+<meta http-equiv="Expires" content="-1">
 
 <style type="text/css">
     body {
@@ -150,19 +152,19 @@
 <script type="text/javascript" src="js/jquery/jquery-1.6.2.js"></script>
 <script type="text/javascript" src="js/jquery/jquery-ui-1.8.16.custom.min.js"></script>
 
-<script type="text/javascript" src="js/gemp-001/inheritance.js"></script>
-<script type="text/javascript" src="js/gemp-001/common.js"></script>
-<script type="text/javascript" src="js/gemp-001/logging.js"></script>
-<script type="text/javascript" src="js/gemp-001/chat.js"></script>
-<script type="text/javascript" src="js/gemp-001/commonUi.js"></script>
-<script type="text/javascript" src="js/gemp-001/hallUi.js"></script>
-<script type="text/javascript" src="js/gemp-001/leagueResultsUi.js"></script>
-<script type="text/javascript" src="js/gemp-001/gameHistoryUi.js"></script>
-<script type="text/javascript" src="js/gemp-001/communication.js"></script>
+<script type="text/javascript" src="js/gemp-002/inheritance.js"></script>
+<script type="text/javascript" src="js/gemp-002/common.js"></script>
+<script type="text/javascript" src="js/gemp-002/logging.js"></script>
+<script type="text/javascript" src="js/gemp-002/chat.js"></script>
+<script type="text/javascript" src="js/gemp-002/commonUi.js"></script>
+<script type="text/javascript" src="js/gemp-002/hallUi.js"></script>
+<script type="text/javascript" src="js/gemp-002/leagueResultsUi.js"></script>
+<script type="text/javascript" src="js/gemp-002/gameHistoryUi.js"></script>
+<script type="text/javascript" src="js/gemp-002/communication.js"></script>
 <!-- This is needed for delivery -->
-<script type="text/javascript" src="js/gemp-001/deliveryService.js"></script>
-<script type="text/javascript" src="js/gemp-001/jCardGroup.js"></script>
-<script type="text/javascript" src="js/gemp-001/jCards.js"></script>
+<script type="text/javascript" src="js/gemp-002/deliveryService.js"></script>
+<script type="text/javascript" src="js/gemp-002/jCardGroup.js"></script>
+<script type="text/javascript" src="js/gemp-002/jCards.js"></script>
 
 <script type="text/javascript">
     var chat;
@@ -204,11 +206,11 @@
 
                 var infoDialog = $("<div></div>")
                         .dialog({
-                            autoOpen: false,
-                            closeOnEscape: true,
-                            resizable: false,
-                            title: "Card information"
-                        });
+                    autoOpen: false,
+                    closeOnEscape: true,
+                    resizable: false,
+                    title: "Card information"
+                });
 
                 $("body").click(
                         function (event) {
