@@ -13,6 +13,7 @@
     <modules>
         <module>gemp-lotr-server</module>
         <module>gemp-lotr-web</module>
+        <module>gemp-lotr-web-server</module>
         <module>gemp-lotr-logic</module>
         <module>gemp-lotr-common</module>
         <module>gemp-lotr-cards</module>

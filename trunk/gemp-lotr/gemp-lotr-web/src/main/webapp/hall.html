@@ -190,11 +190,11 @@
                 $("#latestNews").append("<b>All sets are available to play.</b> "
                         + "If you find any problems with specific card or rules in general, please report it <a href='http://lotrtcgdb.com/forums/index.php/topic,7592.0.html'>at the TLHH forums</a>.");
 
-                chat = new ChatBoxUI("Game Hall", $("#chat"), "/gemp-lotr/server", true, null, true);
+                chat = new ChatBoxUI("Game Hall", $("#chat"), "/gemp-lotr-server", true, null, true);
                 chat.setBounds(2, 2, 780 - 4, 200 - 4);
                 chat.showTimestamps = true;
 
-                hall = new GempLotrHallUI($("#hall"), "/gemp-lotr/server", chat);
+                hall = new GempLotrHallUI($("#hall"), "/gemp-lotr-server", chat);
 
                 $("#tabs").tabs();
 
@@ -284,7 +284,7 @@
             document.write('<li><a href="includes/leagueRules.html?_=' + (new Date().getTime()) + '">League Rules (updated)</a></li>');
         </script>
         <li><a href="includes/instruction.html">Manual</a></li>
-        <li><a href="/gemp-lotr/server/hall/formats/html">Format Rules</a></li>
+        <li><a href="/gemp-lotr-server/hall/formats/html">Format Rules</a></li>
         <li><a href="includes/contribute.html">Contribute</a></li>
         <script type="text/javascript">
             document.write('<li><a href="includes/changeLog.html?_=' + (new Date().getTime()) + '">Change Log</a></li>');

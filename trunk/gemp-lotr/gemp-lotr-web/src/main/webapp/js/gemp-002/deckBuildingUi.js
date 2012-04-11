@@ -48,7 +48,7 @@ var GempLotrDeckBuildingUI = Class.extend({
     init: function() {
         var that = this;
 
-        this.comm = new GempLotrCommunication("/gemp-lotr/server", that.processError);
+        this.comm = new GempLotrCommunication("/gemp-lotr-server", that.processError);
 
         this.cardFilter = new CardFilter($("#collectionDiv"),
                 function(filter, start, count, callback) {
@@ -145,10 +145,10 @@ var GempLotrDeckBuildingUI = Class.extend({
                                     if (confirm("Do you wish to save this deck?"))
                                         that.saveDeck(false);
                                 }, {
-                                    "404": function() {
-                                        alert("Couldn't find the deck to rename on the server.");
-                                    }
-                                });
+                            "404": function() {
+                                alert("Couldn't find the deck to rename on the server.");
+                            }
+                        });
                     }
                 });
 
@@ -244,11 +244,11 @@ var GempLotrDeckBuildingUI = Class.extend({
 
         this.infoDialog = $("<div></div>")
                 .dialog({
-                    autoOpen: false,
-                    closeOnEscape: true,
-                    resizable: false,
-                    title: "Card information"
-                });
+            autoOpen: false,
+            closeOnEscape: true,
+            resizable: false,
+            title: "Card information"
+        });
 
         var swipeOptions = {
             threshold: 20,
@@ -296,14 +296,14 @@ var GempLotrDeckBuildingUI = Class.extend({
             if (that.deckListDialog == null) {
                 that.deckListDialog = $("<div></div>")
                         .dialog({
-                            title: "Your stored decks",
-                            autoOpen: false,
-                            closeOnEscape: true,
-                            resizable: true,
-                            width: 400,
-                            height: 400,
-                            modal: true
-                        });
+                    title: "Your stored decks",
+                    autoOpen: false,
+                    closeOnEscape: true,
+                    resizable: true,
+                    width: 400,
+                    height: 400,
+                    modal: true
+                });
             }
             that.deckListDialog.html("");
 
@@ -338,7 +338,7 @@ var GempLotrDeckBuildingUI = Class.extend({
                     deckListBut.click(
                             (function(deckName) {
                                 return function() {
-                                    window.open('/gemp-lotr/server/deck/html?deckName=' + encodeURIComponent(deckName), "_blank");
+                                    window.open('/gemp-lotr-server/deck/html?deckName=' + encodeURIComponent(deckName), "_blank");
                                 };
                             })(deckName));
 
@@ -418,14 +418,14 @@ var GempLotrDeckBuildingUI = Class.extend({
                             if (this.selectionDialog == null) {
                                 this.selectionDialog = $("<div></div>")
                                         .dialog({
-                                            title: "Choose one",
-                                            autoOpen: false,
-                                            closeOnEscape: true,
-                                            resizable: true,
-                                            width: 400,
-                                            height: 200,
-                                            modal: true
-                                        });
+                                    title: "Choose one",
+                                    autoOpen: false,
+                                    closeOnEscape: true,
+                                    resizable: true,
+                                    width: 400,
+                                    height: 200,
+                                    modal: true
+                                });
 
                                 this.selectionGroup = new NormalCardGroup(this.selectionDialog, function(card) {
                                     return true;
@@ -662,10 +662,10 @@ var GempLotrDeckBuildingUI = Class.extend({
                                     that.checkDeckStatsDirty();
                                 }, that.checkDirtyInterval);
                     }, {
-                        "400": function() {
-                            alert("Invalid deck for getting stats.");
-                        }
-                    });
+                "400": function() {
+                    alert("Invalid deck for getting stats.");
+                }
+            });
         } else {
             $("#deckStats").html("Deck has no Ring, Ring-bearer or all 9 sites");
             setTimeout(
