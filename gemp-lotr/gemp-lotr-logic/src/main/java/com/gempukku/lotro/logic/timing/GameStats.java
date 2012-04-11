@@ -1,6 +1,7 @@
 package com.gempukku.lotro.logic.timing;
 
 import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Signet;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filters;
@@ -15,8 +16,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class GameStats {
-    private int _fellowshipArchery;
-    private int _shadowArchery;
+    private Integer _fellowshipArchery;
+    private Integer _shadowArchery;
 
     private int _moveLimit;
     private int _moveCount;
@@ -42,16 +43,24 @@ public class GameStats {
     public boolean updateGameStats(LotroGame game) {
         boolean changed = false;
 
-        int newFellowshipArcheryTotal = RuleUtils.calculateFellowshipArcheryTotal(game);
-        if (newFellowshipArcheryTotal != _fellowshipArchery) {
-            changed = true;
-            _fellowshipArchery = newFellowshipArcheryTotal;
-        }
+        if (game.getGameState().getCurrentPhase() == Phase.ARCHERY) {
+            int newFellowshipArcheryTotal = RuleUtils.calculateFellowshipArcheryTotal(game);
+            if (newFellowshipArcheryTotal != _fellowshipArchery) {
+                changed = true;
+                _fellowshipArchery = newFellowshipArcheryTotal;
+            }
 
-        int newShadowArcheryTotal = RuleUtils.calculateShadowArcheryTotal(game);
-        if (newShadowArcheryTotal != _shadowArchery) {
-            changed = true;
-            _shadowArchery = newShadowArcheryTotal;
+            int newShadowArcheryTotal = RuleUtils.calculateShadowArcheryTotal(game);
+            if (newShadowArcheryTotal != _shadowArchery) {
+                changed = true;
+                _shadowArchery = newShadowArcheryTotal;
+            }
+        } else {
+            if (_fellowshipArchery != null || _shadowArchery != null) {
+                changed = true;
+                _fellowshipArchery = null;
+                _shadowArchery = null;
+            }
         }
 
         int newMoveLimit = RuleUtils.calculateMoveLimit(game);
@@ -190,11 +199,11 @@ public class GameStats {
         return changed;
     }
 
-    public int getFellowshipArchery() {
+    public Integer getFellowshipArchery() {
         return _fellowshipArchery;
     }
 
-    public int getShadowArchery() {
+    public Integer getShadowArchery() {
         return _shadowArchery;
     }
 
