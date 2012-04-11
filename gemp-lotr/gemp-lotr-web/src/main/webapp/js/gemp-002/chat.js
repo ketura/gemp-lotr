@@ -15,8 +15,10 @@ var ChatBoxUI = Class.extend({
     playerListener: null,
     hiddenClasses: null,
     hideSystemButton: null,
+    lockButton: null,
+    lockChat: false,
 
-    init: function(name, div, url, showList, playerListener, showHideSystemButton) {
+    init: function(name, div, url, showList, playerListener, showHideSystemButton, showLockButton) {
         var that = this;
         this.hiddenClasses = new Array();
         this.playerListener = playerListener;
@@ -64,21 +66,41 @@ var ChatBoxUI = Class.extend({
                 this.hideSystemButton.click(
                         function() {
                             if (that.isShowingMessageClass("systemMessage")) {
-                                $('#showSystemMessages').button("option", "icons", {primary:'ui-icon-zoomin'})
+                                $('#showSystemMessages').button("option", "icons", {primary:'ui-icon-zoomin'});
                                 that.hideMessageClass("systemMessage");
                             } else {
-                                $('#showSystemMessages').button("option", "icons", {primary:'ui-icon-zoomout'})
+                                $('#showSystemMessages').button("option", "icons", {primary:'ui-icon-zoomout'});
                                 that.showMessageClass("systemMessage");
                             }
                         });
                 this.hideMessageClass("systemMessage");
             }
 
+            if (showLockButton) {
+                this.lockButton = $("<button id='lockChatButton'>Toggle lock chat</button>").button(
+                {icons: {
+                    primary: "ui-icon-locked"
+                }, text: false});
+                this.lockButton.click(
+                        function() {
+                            if (that.lockChat) {
+                                $('#lockChatButton').button("option", "icons", {primary:'ui-icon-locked'});
+                                that.lockChat = false;
+                            } else {
+                                $('#lockChatButton').button("option", "icons", {primary:'ui-icon-unlocked'});
+                                that.lockChat = true;
+                            }
+                        });
+            }
+
             if (showList) {
                 this.chatListDiv = $("<div class='userList'></div>");
                 this.div.append(this.chatListDiv);
             }
-            this.div.append(this.hideSystemButton);
+            if (this.hideSystemButton != null)
+                this.div.append(this.hideSystemButton);
+            if (this.lockButton != null)
+                this.div.append(this.lockButton);
             this.div.append(this.chatTalkDiv);
 
             this.communication.startChat(this.name,
@@ -145,12 +167,18 @@ var ChatBoxUI = Class.extend({
             this.chatListDiv.css({ position: "absolute", left: x + width - userListWidth + "px", top: y + "px", width: userListWidth, height: height - this.talkBoxHeight - 3 * talkBoxPadding, overflow: "auto" });
         this.chatMessagesDiv.css({ position: "absolute", left: x + "px", top: y + "px", width: width - userListWidth, height: height - this.talkBoxHeight - 3 * talkBoxPadding, overflow: "auto" });
         if (this.chatTalkDiv != null) {
+            var leftTextBoxPadding = 0;
+
             if (this.hideSystemButton != null) {
                 this.hideSystemButton.css({position: "absolute", left: x + width - talkBoxPadding - this.talkBoxHeight + "px", top: y - 2 * talkBoxPadding + (height - this.talkBoxHeight) + "px", width: this.talkBoxHeight, height: this.talkBoxHeight});
-                this.chatTalkDiv.css({ position: "absolute", left: x + talkBoxPadding + "px", top: y - 2 * talkBoxPadding + (height - this.talkBoxHeight) + "px", width: width - 4 * talkBoxPadding - this.talkBoxHeight, height: this.talkBoxHeight });
-            } else {
-                this.chatTalkDiv.css({ position: "absolute", left: x + talkBoxPadding + "px", top: y - 2 * talkBoxPadding + (height - this.talkBoxHeight) + "px", width: width - 3 * talkBoxPadding , height: this.talkBoxHeight });
+                leftTextBoxPadding += this.talkBoxHeight + talkBoxPadding;
             }
+            if (this.lockButton != null) {
+                this.lockButton.css({position: "absolute", left: x + width - talkBoxPadding - this.talkBoxHeight - leftTextBoxPadding + "px", top: y - 2 * talkBoxPadding + (height - this.talkBoxHeight) + "px", width: this.talkBoxHeight, height: this.talkBoxHeight});
+                leftTextBoxPadding += this.talkBoxHeight + talkBoxPadding;
+            }
+
+            this.chatTalkDiv.css({ position: "absolute", left: x + talkBoxPadding + "px", top: y - 2 * talkBoxPadding + (height - this.talkBoxHeight) + "px", width: width - 3 * talkBoxPadding - leftTextBoxPadding, height: this.talkBoxHeight });
         }
     },
 
@@ -168,7 +196,8 @@ var ChatBoxUI = Class.extend({
         if ($("div.message", this.chatMessagesDiv).length > 150) {
             $("div.message", this.chatMessagesDiv).first().remove();
         }
-        this.chatMessagesDiv.prop({ scrollTop: this.chatMessagesDiv.prop("scrollHeight") });
+        if (!this.lockChat)
+            this.chatMessagesDiv.prop({ scrollTop: this.chatMessagesDiv.prop("scrollHeight") });
     },
 
     monthNames: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
