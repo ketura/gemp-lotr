@@ -54,16 +54,22 @@ var ChatBoxUI = Class.extend({
         this.div.append(this.chatMessagesDiv);
 
         if (this.name != null) {
-            this.chatTalkDiv = $("<input class='chatTalk'>");
+            this.chatTalkDiv = $("<input type='text' class='chatTalk'>");
 
             if (showHideSystemButton) {
-                this.hideSystemButton = $("<input type='checkbox' id='showSystemMessages' /><label for='showSystemMessages'><span class='ui-icon ui-icon-info'></span></label>").button();
+                this.hideSystemButton = $("<button id='showSystemMessages'>Toggle system messages</button>").button(
+                {icons: {
+                    primary: "ui-icon-zoomin"
+                }, text: false});
                 this.hideSystemButton.click(
                         function() {
-                            if (that.hideSystemButton.checked)
-                                that.showMessageClass("systemMessage");
-                            else
+                            if (that.isShowingMessageClass("systemMessage")) {
+                                $('#showSystemMessages').button("option", "icons", {primary:'ui-icon-zoomin'})
                                 that.hideMessageClass("systemMessage");
+                            } else {
+                                $('#showSystemMessages').button("option", "icons", {primary:'ui-icon-zoomout'})
+                                that.showMessageClass("systemMessage");
+                            }
                         });
                 this.hideMessageClass("systemMessage");
             }
@@ -79,16 +85,16 @@ var ChatBoxUI = Class.extend({
                     function(xml) {
                         that.processMessages(xml, true);
                     }, {
-                        "401": function() {
-                            that.appendMessage("You are not logged in, go to the main page to log in.", "warningMessage");
-                        },
-                        "403": function() {
-                            that.appendMessage("You have no permission to join this chat.", "warningMessage");
-                        },
-                        "404": function() {
-                            that.appendMessage("Chat room was closed, please go to the Game Hall.", "warningMessage");
-                        }
-                    });
+                "401": function() {
+                    that.appendMessage("You are not logged in, go to the main page to log in.", "warningMessage");
+                },
+                "403": function() {
+                    that.appendMessage("You have no permission to join this chat.", "warningMessage");
+                },
+                "404": function() {
+                    that.appendMessage("Chat room was closed, please go to the Game Hall.", "warningMessage");
+                }
+            });
 
             this.chatTalkDiv.bind("keypress", function(e) {
                 var code = (e.keyCode ? e.keyCode : e.which);
@@ -109,6 +115,11 @@ var ChatBoxUI = Class.extend({
     hideMessageClass: function(msgClass) {
         this.hiddenClasses.push(msgClass);
         $("div.message." + msgClass, this.chatMessagesDiv).hide();
+    },
+
+    isShowingMessageClass: function(msgClass) {
+        var index = $.inArray(msgClass, this.hiddenClasses);
+        return index == -1;
     },
 
     showMessageClass: function(msgClass) {
@@ -135,8 +146,8 @@ var ChatBoxUI = Class.extend({
         this.chatMessagesDiv.css({ position: "absolute", left: x + "px", top: y + "px", width: width - userListWidth, height: height - this.talkBoxHeight - 3 * talkBoxPadding, overflow: "auto" });
         if (this.chatTalkDiv != null) {
             if (this.hideSystemButton != null) {
-                this.hideSystemButton.css({position: "absolute", left: x + width - 2 * talkBoxPadding - this.talkBoxHeight + "px", top: y - 2 * talkBoxPadding + (height - this.talkBoxHeight) + "px", width: this.talkBoxHeight, height: this.talkBoxHeight});
-                this.chatTalkDiv.css({ position: "absolute", left: x + talkBoxPadding + "px", top: y - 2 * talkBoxPadding + (height - this.talkBoxHeight) + "px", width: width - 3 * talkBoxPadding , height: this.talkBoxHeight });
+                this.hideSystemButton.css({position: "absolute", left: x + width - talkBoxPadding - this.talkBoxHeight + "px", top: y - 2 * talkBoxPadding + (height - this.talkBoxHeight) + "px", width: this.talkBoxHeight, height: this.talkBoxHeight});
+                this.chatTalkDiv.css({ position: "absolute", left: x + talkBoxPadding + "px", top: y - 2 * talkBoxPadding + (height - this.talkBoxHeight) + "px", width: width - 4 * talkBoxPadding - this.talkBoxHeight, height: this.talkBoxHeight });
             } else {
                 this.chatTalkDiv.css({ position: "absolute", left: x + talkBoxPadding + "px", top: y - 2 * talkBoxPadding + (height - this.talkBoxHeight) + "px", width: width - 3 * talkBoxPadding , height: this.talkBoxHeight });
             }
@@ -150,7 +161,7 @@ var ChatBoxUI = Class.extend({
 
         this.chatMessagesDiv.append(messageDiv);
         var index = $.inArray(msgClass, this.hiddenClasses);
-        if (index > -1) {
+        if (!this.isShowingMessageClass(msgClass)) {
             messageDiv.hide();
         }
 
