@@ -188,7 +188,7 @@
                 $("#latestNews").append("<b>All sets are available to play.</b> "
                         + "If you find any problems with specific card or rules in general, please report it <a href='http://lotrtcgdb.com/forums/index.php/topic,7592.0.html'>at the TLHH forums</a>.");
 
-                chat = new ChatBoxUI("Game Hall", $("#chat"), "/gemp-lotr/server", true);
+                chat = new ChatBoxUI("Game Hall", $("#chat"), "/gemp-lotr/server", true, null, true);
                 chat.setBounds(2, 2, 780 - 4, 200 - 4);
                 chat.showTimestamps = true;
 
@@ -204,11 +204,11 @@
 
                 var infoDialog = $("<div></div>")
                         .dialog({
-                    autoOpen: false,
-                    closeOnEscape: true,
-                    resizable: false,
-                    title: "Card information"
-                });
+                            autoOpen: false,
+                            closeOnEscape: true,
+                            resizable: false,
+                            title: "Card information"
+                        });
 
                 $("body").click(
                         function (event) {
