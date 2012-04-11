@@ -13,9 +13,12 @@ var ChatBoxUI = Class.extend({
     retryCount: null,
     maxRetryCount: 5,
     playerListener: null,
+    hiddenClasses: null,
+    hideSystemButton: null,
 
-    init: function(name, div, url, showList, playerListener) {
+    init: function(name, div, url, showList, playerListener, showHideSystemButton) {
         var that = this;
+        this.hiddenClasses = new Array();
         this.playerListener = playerListener;
         this.retryCount = 0;
         this.name = name;
@@ -52,10 +55,24 @@ var ChatBoxUI = Class.extend({
 
         if (this.name != null) {
             this.chatTalkDiv = $("<input class='chatTalk'>");
+
+            if (showHideSystemButton) {
+                this.hideSystemButton = $("<input type='checkbox' id='showSystemMessages' /><label for='showSystemMessages'><span class='ui-icon ui-icon-info'></span></label>").button();
+                this.hideSystemButton.click(
+                        function() {
+                            if (that.hideSystemButton.checked)
+                                that.showMessageClass("systemMessage");
+                            else
+                                that.hideMessageClass("systemMessage");
+                        });
+                this.hideMessageClass("systemMessage");
+            }
+
             if (showList) {
                 this.chatListDiv = $("<div class='userList'></div>");
                 this.div.append(this.chatListDiv);
             }
+            this.div.append(this.hideSystemButton);
             this.div.append(this.chatTalkDiv);
 
             this.communication.startChat(this.name,
@@ -89,6 +106,19 @@ var ChatBoxUI = Class.extend({
         }
     },
 
+    hideMessageClass: function(msgClass) {
+        this.hiddenClasses.push(msgClass);
+        $("div.message." + msgClass, this.chatMessagesDiv).hide();
+    },
+
+    showMessageClass: function(msgClass) {
+        var index = $.inArray(msgClass, this.hiddenClasses);
+        if (index > -1) {
+            this.hiddenClasses.splice(index, 1);
+            $("div.message." + msgClass, this.chatMessagesDiv).show();
+        }
+    },
+
     escapeHtml: function(text) {
         return $('<div/>').text(text).html();
     },
@@ -103,14 +133,27 @@ var ChatBoxUI = Class.extend({
         if (this.chatListDiv != null)
             this.chatListDiv.css({ position: "absolute", left: x + width - userListWidth + "px", top: y + "px", width: userListWidth, height: height - this.talkBoxHeight - 3 * talkBoxPadding, overflow: "auto" });
         this.chatMessagesDiv.css({ position: "absolute", left: x + "px", top: y + "px", width: width - userListWidth, height: height - this.talkBoxHeight - 3 * talkBoxPadding, overflow: "auto" });
-        if (this.chatTalkDiv != null)
-            this.chatTalkDiv.css({ position: "absolute", left: x + talkBoxPadding + "px", top: y - 2 * talkBoxPadding + (height - this.talkBoxHeight) + "px", width: width - 3 * talkBoxPadding , height: this.talkBoxHeight });
+        if (this.chatTalkDiv != null) {
+            if (this.hideSystemButton != null) {
+                this.hideSystemButton.css({position: "absolute", left: x + width - 2 * talkBoxPadding - this.talkBoxHeight + "px", top: y - 2 * talkBoxPadding + (height - this.talkBoxHeight) + "px", width: this.talkBoxHeight, height: this.talkBoxHeight});
+                this.chatTalkDiv.css({ position: "absolute", left: x + talkBoxPadding + "px", top: y - 2 * talkBoxPadding + (height - this.talkBoxHeight) + "px", width: width - 3 * talkBoxPadding , height: this.talkBoxHeight });
+            } else {
+                this.chatTalkDiv.css({ position: "absolute", left: x + talkBoxPadding + "px", top: y - 2 * talkBoxPadding + (height - this.talkBoxHeight) + "px", width: width - 3 * talkBoxPadding , height: this.talkBoxHeight });
+            }
+        }
     },
 
     appendMessage: function(message, msgClass) {
         if (msgClass == undefined)
             msgClass = "chatMessage";
-        this.chatMessagesDiv.append("<div class='message " + msgClass + "'>" + message + "</div>");
+        var messageDiv = $("<div class='message " + msgClass + "'>" + message + "</div>");
+
+        this.chatMessagesDiv.append(messageDiv);
+        var index = $.inArray(msgClass, this.hiddenClasses);
+        if (index > -1) {
+            messageDiv.hide();
+        }
+
         if ($("div.message", this.chatMessagesDiv).length > 150) {
             $("div.message", this.chatMessagesDiv).first().remove();
         }
