@@ -48,6 +48,10 @@ var CardFilter = Class.extend({
         this.getCollection();
     },
 
+    setType: function(typeValue) {
+        $("#type").val(typeValue);
+    },
+
     buildUi: function(elem) {
         var that = this;
 
