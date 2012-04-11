@@ -55,26 +55,40 @@ public class MerchantService {
             }
         }
 
-        addBooster("FotR - Booster", 1000);
-        addBooster("MoM - Booster", 1000);
-        addBooster("RotEL - Booster", 1000);
-        addBooster("TTT - Booster", 1000);
-        addBooster("BoHD - Booster", 1000);
-        addBooster("EoF - Booster", 1000);
-        addBooster("RotK - Booster", 1000);
-        addBooster("SoG - Booster", 1000);
-        addBooster("MD - Booster", 1000);
-        addBooster("SH - Booster", 1000);
-        addBooster("BR - Booster", 1000);
-        addBooster("BL - Booster", 1000);
-        addBooster("HU - Booster", 1000);
-        addBooster("RoS - Booster", 1000);
-        addBooster("TaD - Booster", 1000);
+        addFixedItem("FotR - Booster", 1000);
+        addFixedItem("MoM - Booster", 1000);
+        addFixedItem("RotEL - Booster", 1000);
+        addFixedItem("TTT - Booster", 1000);
+        addFixedItem("BoHD - Booster", 1000);
+        addFixedItem("EoF - Booster", 1000);
+        addFixedItem("RotK - Booster", 1000);
+        addFixedItem("SoG - Booster", 1000);
+        addFixedItem("MD - Booster", 1000);
+        addFixedItem("SH - Booster", 1000);
+        addFixedItem("BR - Booster", 1000);
+        addFixedItem("BL - Booster", 1000);
+        addFixedItem("HU - Booster", 1000);
+        addFixedItem("RoS - Booster", 1000);
+        addFixedItem("TaD - Booster", 1000);
 
-        addBooster("REF - Booster", 2000);
+        addFixedItem("REF - Booster", 2000);
+
+        addFixedItem("FotR - Gandalf Starter", 2500);
+        addFixedItem("FotR - Aragorn Starter", 2500);
+        addFixedItem("MoM - Gandalf Starter", 2500);
+        addFixedItem("MoM - Gimli Starter", 2500);
+        addFixedItem("RotEL - Boromir Starter", 2500);
+        addFixedItem("RotEL - Legolas Starter", 2500);
+        addFixedItem("TTT - Aragorn Starter", 2500);
+        addFixedItem("TTT - Theoden Starter", 2500);
+
+        addFixedItem("BoHD - Eowyn Starter", 3500);
+        addFixedItem("BoHD - Legolas Starter", 3500);
+        addFixedItem("EoF - Faramir Starter", 3500);
+        addFixedItem("EoF - Witch-king Starter", 3500);
     }
 
-    private void addBooster(String blueprintId, int price) {
+    private void addFixedItem(String blueprintId, int price) {
         _fixedPriceItems.put(blueprintId, price);
         _merchantableItems.add(new BasicCardItem(blueprintId));
         _merchantableStrings.add(blueprintId);
