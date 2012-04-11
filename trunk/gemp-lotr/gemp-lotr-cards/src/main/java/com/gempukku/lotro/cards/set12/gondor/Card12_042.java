@@ -50,7 +50,7 @@ public class Card12_042 extends AbstractAttachableFPPossession {
             action.appendCost(
                     new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Culture.GONDOR, Filters.attachedTo(Filters.hasAttached(self))));
             action.appendEffect(
-                    new ReplaceInSkirmishEffect(self, Filters.unboundCompanion, Race.HOBBIT));
+                    new ReplaceInSkirmishEffect(self.getAttachedTo(), Filters.unboundCompanion, Race.HOBBIT));
             return Collections.singletonList(action);
         }
         return null;
