@@ -45,13 +45,13 @@ public class GameStats {
 
         if (game.getGameState().getCurrentPhase() == Phase.ARCHERY) {
             int newFellowshipArcheryTotal = RuleUtils.calculateFellowshipArcheryTotal(game);
-            if (newFellowshipArcheryTotal != _fellowshipArchery) {
+            if (_fellowshipArchery == null || newFellowshipArcheryTotal != _fellowshipArchery) {
                 changed = true;
                 _fellowshipArchery = newFellowshipArcheryTotal;
             }
 
             int newShadowArcheryTotal = RuleUtils.calculateShadowArcheryTotal(game);
-            if (newShadowArcheryTotal != _shadowArchery) {
+            if (_shadowArchery == null || newShadowArcheryTotal != _shadowArchery) {
                 changed = true;
                 _shadowArchery = newShadowArcheryTotal;
             }
