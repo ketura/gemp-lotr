@@ -157,6 +157,7 @@
 <script type="text/javascript" src="js/gemp-001/commonUi.js"></script>
 <script type="text/javascript" src="js/gemp-001/hallUi.js"></script>
 <script type="text/javascript" src="js/gemp-001/leagueResultsUi.js"></script>
+<script type="text/javascript" src="js/gemp-001/gameHistoryUi.js"></script>
 <script type="text/javascript" src="js/gemp-001/communication.js"></script>
 <!-- This is needed for delivery -->
 <script type="text/javascript" src="js/gemp-001/deliveryService.js"></script>
@@ -203,11 +204,11 @@
 
                 var infoDialog = $("<div></div>")
                         .dialog({
-                            autoOpen: false,
-                            closeOnEscape: true,
-                            resizable: false,
-                            title: "Card information"
-                        });
+                    autoOpen: false,
+                    closeOnEscape: true,
+                    resizable: false,
+                    title: "Card information"
+                });
 
                 $("body").click(
                         function (event) {
