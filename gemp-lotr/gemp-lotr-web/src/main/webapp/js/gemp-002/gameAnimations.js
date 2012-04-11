@@ -777,11 +777,11 @@ var GameAnimations = Class.extend({
 
                     if (fellowshipArchery == "null")
                         $(".fpArchery").html("");
-                    else
+                    else if (fellowshipArchery != null)
                         $(".fpArchery").html(fellowshipArchery);
                     if (shadowArchery == "null")
                         $(".shadowArchery").html("");
-                    else
+                    else if (shadowArchery != null)
                         $(".shadowArchery").html(shadowArchery);
 
                     $(".move").html(moveCount + "/" + moveLimit);
