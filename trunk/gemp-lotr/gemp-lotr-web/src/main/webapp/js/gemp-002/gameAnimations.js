@@ -775,8 +775,15 @@ var GameAnimations = Class.extend({
                     var moveCount = element.getAttribute("moveCount");
                     var moveLimit = element.getAttribute("moveLimit");
 
-                    $(".fpArchery").html(fellowshipArchery);
-                    $(".shadowArchery").html(shadowArchery);
+                    if (fellowshipArchery == "null")
+                        $(".fpArchery").html("");
+                    else
+                        $(".fpArchery").html(fellowshipArchery);
+                    if (shadowArchery == "null")
+                        $(".shadowArchery").html("");
+                    else
+                        $(".shadowArchery").html(shadowArchery);
+
                     $(".move").html(moveCount + "/" + moveLimit);
 
                     var playerZones = element.getElementsByTagName("playerZones");
