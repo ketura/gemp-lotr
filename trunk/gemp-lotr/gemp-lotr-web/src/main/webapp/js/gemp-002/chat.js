@@ -69,7 +69,7 @@ var ChatBoxUI = Class.extend({
                             that.appendMessage("You have no permission to join this chat.", "warningMessage");
                         },
                         "404": function() {
-                            that.appendMessage("Chat room was closed, please go to the Game Hall.");
+                            that.appendMessage("Chat room was closed, please go to the Game Hall.", "warningMessage");
                         }
                     });
 
@@ -194,7 +194,7 @@ var ChatBoxUI = Class.extend({
                     that.appendMessage("You have no permission to send messages to this chat.", "warningMessage");
                 },
                 "404": function() {
-                    that.appendMessage("Chat room was closed, or you were inactive for too long, please go to the Game Hall.");
+                    that.appendMessage("Chat room was closed, or you were inactive for too long, please go to the Game Hall.", "warningMessage");
                 }
             });
         } else if (this.unsentMessages.length > 0) {
@@ -208,7 +208,7 @@ var ChatBoxUI = Class.extend({
                     that.appendMessage("You have no permission to send messages to this chat.", "warningMessage");
                 },
                 "404": function() {
-                    that.appendMessage("Chat room was closed, or you were inactive for too long, please go to the Game Hall.");
+                    that.appendMessage("Chat room was closed, or you were inactive for too long, please go to the Game Hall.", "warningMessage");
                 }
             });
             this.processingMessages = this.unsentMessages;
@@ -224,7 +224,7 @@ var ChatBoxUI = Class.extend({
                     that.appendMessage("You have no permission to get message from this chat.", "warningMessage");
                 },
                 "404": function() {
-                    that.appendMessage("Chat room was closed, or you were inactive for too long, please go to the Game Hall.");
+                    that.appendMessage("Chat room was closed, or you were inactive for too long, please go to the Game Hall.", "warningMessage");
                 }
             });
         }
