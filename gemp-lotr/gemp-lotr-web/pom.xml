@@ -11,4 +11,7 @@
     <artifactId>gemp-lotr-web</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
+    <build>
+        <finalName>gemp-lotr</finalName>
+    </build>
 </project>
