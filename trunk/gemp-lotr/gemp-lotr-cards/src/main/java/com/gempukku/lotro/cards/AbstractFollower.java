@@ -78,7 +78,7 @@ public abstract class AbstractFollower extends AbstractPermanent {
             action.appendCost(
                     getAidCost(game, action, self));
             action.appendCost(
-                    new ChooseActiveCardEffect(self, playerId, "Choose character to transfer follower to", getFollowerTarget(game, self)) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose character to transfer follower to", getFollowerTarget(game, self), Filters.not(Filters.hasAttached(self))) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.appendEffect(
