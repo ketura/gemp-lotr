@@ -7,7 +7,9 @@ import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.results.CardTransferredResult;
 
-import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class TransferToSupportEffect extends AbstractEffect {
     private PhysicalCard _card;
@@ -35,8 +37,16 @@ public class TransferToSupportEffect extends AbstractEffect {
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
         if (isPlayableInFull(game)) {
             PhysicalCard transferredFrom = _card.getAttachedTo();
-            game.getGameState().removeCardsFromZone(_card.getOwner(), Collections.singleton(_card));
+
+            Set<PhysicalCard> transferredCards = new HashSet<PhysicalCard>();
+            transferredCards.add(_card);
+            final List<PhysicalCard> attachedCards = game.getGameState().getAttachedCards(_card);
+            transferredCards.addAll(attachedCards);
+
+            game.getGameState().removeCardsFromZone(_card.getOwner(), transferredCards);
             game.getGameState().addCardToZone(game, _card, Zone.SUPPORT);
+            for (PhysicalCard attachedCard : attachedCards)
+                game.getGameState().attachCard(game, attachedCard, _card);
 
             game.getActionsEnvironment().emitEffectResult(
                     new CardTransferredResult(_card, transferredFrom, null));

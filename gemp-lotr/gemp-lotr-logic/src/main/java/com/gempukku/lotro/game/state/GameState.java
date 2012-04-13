@@ -166,16 +166,29 @@ public class GameState {
             for (Map.Entry<String, Integer> stringIntegerEntry : _playerPosition.entrySet())
                 listener.setPlayerPosition(stringIntegerEntry.getKey(), stringIntegerEntry.getValue());
 
+            Set<PhysicalCard> sentCardsFromPlay = new HashSet<PhysicalCard>();
+            Set<PhysicalCard> attachedCardsToSend = new HashSet<PhysicalCard>();
+
             // First non-attached cards
             for (PhysicalCardImpl physicalCard : _inPlay) {
-                if (physicalCard.getZone() != Zone.ATTACHED)
+                if (physicalCard.getZone() != Zone.ATTACHED) {
                     listener.cardCreated(physicalCard);
+                    sentCardsFromPlay.add(physicalCard);
+                } else
+                    attachedCardsToSend.add(physicalCard);
             }
 
             // Now the attached ones
-            for (PhysicalCardImpl physicalCard : _inPlay) {
-                if (physicalCard.getZone() == Zone.ATTACHED)
-                    listener.cardCreated(physicalCard);
+            while (!attachedCardsToSend.isEmpty()) {
+                Iterator<PhysicalCard> iter = attachedCardsToSend.iterator();
+                while (iter.hasNext()) {
+                    PhysicalCard attachedCard = iter.next();
+                    if (sentCardsFromPlay.contains(attachedCard.getAttachedTo())) {
+                        listener.cardCreated(attachedCard);
+                        sentCardsFromPlay.add(attachedCard);
+                        iter.remove();
+                    }
+                }
             }
 
             // Finally the stacked ones
