@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class Card4_237 extends AbstractPermanent {
     public Card4_237() {
-        super(Side.SHADOW, 0, CardType.CONDITION, Culture.RAIDER, Zone.SUPPORT, "Itilien Wilderness", null, true);
+        super(Side.SHADOW, 0, CardType.CONDITION, Culture.RAIDER, Zone.SUPPORT, "Ithilien Wilderness", null, true);
     }
 
     @Override
