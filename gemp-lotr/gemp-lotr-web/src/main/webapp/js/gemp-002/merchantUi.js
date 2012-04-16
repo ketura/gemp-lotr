@@ -70,20 +70,20 @@ var GempLotrMerchantUI = Class.extend({
 
         this.infoDialog = $("<div></div>")
                 .dialog({
-            autoOpen: false,
-            closeOnEscape: true,
-            resizable: false,
-            title: "Card information"
-        });
+                    autoOpen: false,
+                    closeOnEscape: true,
+                    resizable: false,
+                    title: "Card information"
+                });
 
         this.questionDialog = $("<div></div>")
                 .dialog({
-            autoOpen: false,
-            closeOnEscape: true,
-            resizable: false,
-            modal: true,
-            title: "Merchant operation"
-        });
+                    autoOpen: false,
+                    closeOnEscape: true,
+                    resizable: false,
+                    modal: true,
+                    title: "Merchant operation"
+                });
 
         var swipeOptions = {
             threshold: 20,
@@ -225,13 +225,13 @@ var GempLotrMerchantUI = Class.extend({
 
         if (type == "pack") {
             card = new Card(blueprintId, "merchant", "collection", "player");
-            cardDiv = createCardDiv(card.imageUrl, null, false, true, true);
+            cardDiv = createCardDiv(card.imageUrl, null, false, true, true, false);
             cardDiv.data("card", card);
             cardDiv.data("sizeListeners", sizeListeners);
             this.cardsDiv.append(cardDiv);
         } else if (type == "card") {
             card = new Card(blueprintId, "merchant", "collection", "player");
-            cardDiv = createCardDiv(card.imageUrl, null, card.isFoil());
+            cardDiv = createCardDiv(card.imageUrl, null, card.isFoil(), true, false, card.hasErrata());
             cardDiv.data("card", card);
             cardDiv.data("sizeListeners", sizeListeners);
             this.cardsDiv.append(cardDiv);

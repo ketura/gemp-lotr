@@ -145,10 +145,10 @@ var GempLotrDeckBuildingUI = Class.extend({
                                     if (confirm("Do you wish to save this deck?"))
                                         that.saveDeck(false);
                                 }, {
-                            "404": function() {
-                                alert("Couldn't find the deck to rename on the server.");
-                            }
-                        });
+                                    "404": function() {
+                                        alert("Couldn't find the deck to rename on the server.");
+                                    }
+                                });
                     }
                 });
 
@@ -244,11 +244,11 @@ var GempLotrDeckBuildingUI = Class.extend({
 
         this.infoDialog = $("<div></div>")
                 .dialog({
-            autoOpen: false,
-            closeOnEscape: true,
-            resizable: false,
-            title: "Card information"
-        });
+                    autoOpen: false,
+                    closeOnEscape: true,
+                    resizable: false,
+                    title: "Card information"
+                });
 
         var swipeOptions = {
             threshold: 20,
@@ -296,14 +296,14 @@ var GempLotrDeckBuildingUI = Class.extend({
             if (that.deckListDialog == null) {
                 that.deckListDialog = $("<div></div>")
                         .dialog({
-                    title: "Your stored decks",
-                    autoOpen: false,
-                    closeOnEscape: true,
-                    resizable: true,
-                    width: 400,
-                    height: 400,
-                    modal: true
-                });
+                            title: "Your stored decks",
+                            autoOpen: false,
+                            closeOnEscape: true,
+                            resizable: true,
+                            width: 400,
+                            height: 400,
+                            modal: true
+                        });
             }
             that.deckListDialog.html("");
 
@@ -418,14 +418,14 @@ var GempLotrDeckBuildingUI = Class.extend({
                             if (this.selectionDialog == null) {
                                 this.selectionDialog = $("<div></div>")
                                         .dialog({
-                                    title: "Choose one",
-                                    autoOpen: false,
-                                    closeOnEscape: true,
-                                    resizable: true,
-                                    width: 400,
-                                    height: 200,
-                                    modal: true
-                                });
+                                            title: "Choose one",
+                                            autoOpen: false,
+                                            closeOnEscape: true,
+                                            resizable: true,
+                                            width: 400,
+                                            height: 200,
+                                            modal: true
+                                        });
 
                                 this.selectionGroup = new NormalCardGroup(this.selectionDialog, function(card) {
                                     return true;
@@ -440,7 +440,7 @@ var GempLotrDeckBuildingUI = Class.extend({
                             var blueprintIds = selection.split("|");
                             for (var i = 0; i < blueprintIds.length; i++) {
                                 var card = new Card(blueprintIds[i], "selection", "selection" + i, "player");
-                                var cardDiv = createCardDiv(card.imageUrl, null, card.isFoil(), false, card.isPack());
+                                var cardDiv = createCardDiv(card.imageUrl, null, card.isFoil(), false, card.isPack(), card.hasErrata());
                                 cardDiv.data("card", card);
                                 cardDiv.addClass("cardToSelect");
                                 this.selectionDialog.append(cardDiv);
@@ -565,7 +565,7 @@ var GempLotrDeckBuildingUI = Class.extend({
 
     addCardToContainer: function(blueprintId, zone, container, tokens) {
         var card = new Card(blueprintId, zone, "deck", "player");
-        var cardDiv = createCardDiv(card.imageUrl, null, card.isFoil(), tokens, card.isPack());
+        var cardDiv = createCardDiv(card.imageUrl, null, card.isFoil(), tokens, card.isPack(), card.hasErrata());
         cardDiv.data("card", card);
         container.append(cardDiv);
         return cardDiv;
@@ -662,10 +662,10 @@ var GempLotrDeckBuildingUI = Class.extend({
                                     that.checkDeckStatsDirty();
                                 }, that.checkDirtyInterval);
                     }, {
-                "400": function() {
-                    alert("Invalid deck for getting stats.");
-                }
-            });
+                        "400": function() {
+                            alert("Invalid deck for getting stats.");
+                        }
+                    });
         } else {
             $("#deckStats").html("Deck has no Ring, Ring-bearer or all 9 sites");
             setTimeout(
@@ -753,14 +753,14 @@ var GempLotrDeckBuildingUI = Class.extend({
             if (blueprintId.substr(0, 3) == "(S)") {
                 var card = new Card(blueprintId, "pack", "collection", "player");
                 card.tokens = {"count":count};
-                var cardDiv = createCardDiv(card.imageUrl, null, false, true, true);
+                var cardDiv = createCardDiv(card.imageUrl, null, false, true, true, false);
                 cardDiv.data("card", card);
                 cardDiv.data("selection", contents);
                 cardDiv.addClass("selectionInCollection");
             } else {
                 var card = new Card(blueprintId, "pack", "collection", "player");
                 card.tokens = {"count":count};
-                var cardDiv = createCardDiv(card.imageUrl, null, false, true, true);
+                var cardDiv = createCardDiv(card.imageUrl, null, false, true, true, false);
                 cardDiv.data("card", card);
                 cardDiv.addClass("packInCollection");
             }
@@ -775,7 +775,7 @@ var GempLotrDeckBuildingUI = Class.extend({
                             countInDeck++;
                     });
             card.tokens = {"count":count - countInDeck};
-            var cardDiv = createCardDiv(card.imageUrl, null, card.isFoil());
+            var cardDiv = createCardDiv(card.imageUrl, null, card.isFoil(), true, false, card.hasErrata());
             cardDiv.data("card", card);
             cardDiv.addClass("cardInCollection");
             this.normalCollectionDiv.append(cardDiv);

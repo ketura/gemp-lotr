@@ -659,21 +659,21 @@ var GempLotrGameUI = Class.extend({
     initializeDialogs: function() {
         this.smallDialog = $("<div></div>")
                 .dialog({
-            autoOpen: false,
-            closeOnEscape: false,
-            resizable: false,
-            width: 400,
-            height: 200
-        });
+                    autoOpen: false,
+                    closeOnEscape: false,
+                    resizable: false,
+                    width: 400,
+                    height: 200
+                });
 
         this.cardActionDialog = $("<div></div>")
                 .dialog({
-            autoOpen: false,
-            closeOnEscape: false,
-            resizable: true,
-            width: 600,
-            height: 300
-        });
+                    autoOpen: false,
+                    closeOnEscape: false,
+                    resizable: true,
+                    width: 600,
+                    height: 300
+                });
 
         var that = this;
 
@@ -688,11 +688,11 @@ var GempLotrGameUI = Class.extend({
 
         this.infoDialog = $("<div></div>")
                 .dialog({
-            autoOpen: false,
-            closeOnEscape: true,
-            resizable: false,
-            title: "Card information"
-        });
+                    autoOpen: false,
+                    closeOnEscape: true,
+                    resizable: false,
+                    title: "Card information"
+                });
 
         var swipeOptions = {
             threshold: 20,
@@ -1203,12 +1203,12 @@ var GempLotrGameUI = Class.extend({
 
         if (!this.replayMode) {
             this.smallDialog.dialog("option", "buttons",
-            {
-                "OK": function() {
-                    $(this).dialog("close");
-                    that.decisionFunction(id, $("#integerDecision").val());
-                }
-            });
+                    {
+                        "OK": function() {
+                            $(this).dialog("close");
+                            that.decisionFunction(id, $("#integerDecision").val());
+                        }
+                    });
         }
 
         $("#integerDecision").SpinnerControl({ type: 'range',
@@ -1246,12 +1246,12 @@ var GempLotrGameUI = Class.extend({
 
             if (!this.replayMode) {
                 this.smallDialog.dialog("option", "buttons",
-                {
-                    "OK": function() {
-                        that.smallDialog.dialog("close");
-                        that.decisionFunction(id, $("#multipleChoiceDecision").val());
-                    }
-                });
+                        {
+                            "OK": function() {
+                                that.smallDialog.dialog("close");
+                                that.decisionFunction(id, $("#multipleChoiceDecision").val());
+                            }
+                        });
             }
         } else {
             this.smallDialog.append("<br />");
@@ -1355,8 +1355,8 @@ var GempLotrGameUI = Class.extend({
         }
     },
 
-    createCardDiv: function(card, text, foil) {
-        var cardDiv = createCardDiv(card.imageUrl, text, foil);
+    createCardDiv: function(card, text) {
+        var cardDiv = createCardDiv(card.imageUrl, text, card.isFoil(), true, false, card.hasErrata());
 
         cardDiv.data("card", card);
 
@@ -1419,7 +1419,7 @@ var GempLotrGameUI = Class.extend({
             if (selectable[i] == "true")
                 selectableCardIds.push(cardId);
 
-            var card = new Card(blueprintId, "SPECIAL", cardId, this.selfParticipantId);
+            var card = new Card(blueprintId, "SPECIAL", cardId, null);
 
             var cardDiv = this.createCardDiv(card);
 
@@ -1568,7 +1568,7 @@ var GempLotrGameUI = Class.extend({
                 } else {
                     hasVirtual = true;
                     cardIds[i] = "extra" + cardId;
-                    var card = new Card(blueprintId, "EXTRA", "extra" + cardId, this.selfParticipantId);
+                    var card = new Card(blueprintId, "EXTRA", "extra" + cardId, null);
 
                     var cardDiv = that.createCardDiv(card);
                     $(cardDiv).css({opacity: "0.8"});
@@ -1644,8 +1644,8 @@ var GempLotrGameUI = Class.extend({
                     $(div).find('LI.hover').removeClass('hover');
                     $(this).parent().addClass('hover');
                 }).mouseout(function() {
-            $(div).find('LI.hover').removeClass('hover');
-        });
+                    $(div).find('LI.hover').removeClass('hover');
+                });
 
         var getRidOfContextMenu = function() {
             $(div).remove();
@@ -1693,7 +1693,7 @@ var GempLotrGameUI = Class.extend({
             var blueprintId = blueprintIds[i];
 
             cardIds.push("temp" + i);
-            var card = new Card(blueprintId, "SPECIAL", "temp" + i, this.selfParticipantId);
+            var card = new Card(blueprintId, "SPECIAL", "temp" + i, null);
 
             var cardDiv = this.createCardDiv(card, actionTexts[i]);
 

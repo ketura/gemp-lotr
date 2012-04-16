@@ -353,6 +353,7 @@ function layoutCardElem(cardElem, x, y, width, height, index) {
     if (tokenOverlay.length > 0)
         tokenOverlay.css({position: "absolute", left: 0 + "px", top: 0 + "px", width: width, height: height});
 
+    $(".errataOverlay", cardElem).css({position: "absolute", left: 0 + "px", top: 0 + "px", width: width, height: height});
     $(".foilOverlay", cardElem).css({position: "absolute", left: 0 + "px", top: 0 + "px", width: width, height: height});
 
     var maxDimension = Math.max(width, height);

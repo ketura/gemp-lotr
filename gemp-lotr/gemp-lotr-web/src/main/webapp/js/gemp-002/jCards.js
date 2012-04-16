@@ -103,6 +103,7 @@ var Card = Class.extend({
     owner: null,
     siteNumber: null,
     attachedCards: null,
+    errata: null,
 
     init: function(blueprintId, zone, cardId, owner, siteNumber) {
         this.blueprintId = blueprintId;
@@ -129,12 +130,15 @@ var Card = Class.extend({
                 var cardFromCache = cardCache[this.blueprintId];
                 this.horizontal = cardFromCache.horizontal;
                 this.imageUrl = cardFromCache.imageUrl;
+                this.errata = cardFromCache.errata;
             } else {
                 this.imageUrl = this.getUrlByBlueprintId(this.blueprintId);
                 this.horizontal = this.isHorizontal(this.blueprintId);
+                this.errata = this.getErrata(this.blueprintId) != null;
                 cardCache[this.blueprintId] = {
                     imageUrl: this.imageUrl,
-                    horizontal: this.horizontal
+                    horizontal: this.horizontal,
+                    errata: this.errata
                 };
             }
         }
@@ -146,6 +150,10 @@ var Card = Class.extend({
 
     isFoil: function() {
         return this.foil;
+    },
+
+    hasErrata: function() {
+        return this.errata;
     },
 
     isPack: function() {
@@ -308,8 +316,14 @@ var Card = Class.extend({
     }
 });
 
-function createCardDiv(image, text, foil, tokens, noBorder) {
+function createCardDiv(image, text, foil, tokens, noBorder, errata) {
     var cardDiv = $("<div class='card'><img src='" + image + "' width='100%' height='100%'>" + ((text != null) ? text : "") + "</div>");
+
+    if (errata) {
+        var errataDiv = $("<div class='errataOverlay'><img src='/gemp-lotr/images/errata-vertical.png' width='100%' height='100%'></div>");
+        cardDiv.append(errataDiv);
+    }
+
     if (foil) {
         var foilDiv = $("<div class='foilOverlay'><img src='/gemp-lotr/images/foil.gif' width='100%' height='100%'></div>");
         cardDiv.append(foilDiv);
