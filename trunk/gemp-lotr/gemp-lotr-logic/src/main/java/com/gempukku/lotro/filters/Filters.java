@@ -637,6 +637,8 @@ public class Filters {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
                 List<PhysicalCard> physicalCardList = gameState.getStackedCards(physicalCard);
+                if (filter.length == 1 && filter[0] == Filters.any)
+                    return physicalCardList.size() > 0;
                 return (Filters.filter(physicalCardList, gameState, modifiersQuerying, Filters.and(filter, activeSide)).size() > 0);
             }
         };
