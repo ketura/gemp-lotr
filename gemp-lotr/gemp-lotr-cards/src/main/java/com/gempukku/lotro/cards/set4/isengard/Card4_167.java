@@ -6,11 +6,9 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.modifiers.Condition;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.logic.modifiers.SpotCondition;
 
 import java.util.Collections;
 import java.util.List;
@@ -38,11 +36,6 @@ public class Card4_167 extends AbstractAttachable {
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, final PhysicalCard self) {
         return Collections.singletonList(
                 new SidePlayerCantPlayPhaseEventsOrSpecialAbilitiesModifier(self,
-                        new Condition() {
-                            @Override
-                            public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return Filters.filter(gameState.getStackedCards(self.getAttachedTo()), gameState, modifiersQuerying, Filters.activeSide, Race.URUK_HAI).size() > 0;
-                            }
-                        }, Side.FREE_PEOPLE, Phase.SKIRMISH));
+                        new SpotCondition(self, Filters.hasStacked(Race.URUK_HAI)), Side.FREE_PEOPLE, Phase.SKIRMISH));
     }
 }

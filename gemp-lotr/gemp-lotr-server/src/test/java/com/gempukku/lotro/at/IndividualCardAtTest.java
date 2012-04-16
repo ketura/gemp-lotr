@@ -8,13 +8,14 @@ import com.gempukku.lotro.logic.decisions.AwaitingDecision;
 import com.gempukku.lotro.logic.decisions.AwaitingDecisionType;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.vo.LotroDeck;
-import static junit.framework.Assert.assertEquals;
 import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+
+import static junit.framework.Assert.assertEquals;
 
 public class IndividualCardAtTest extends AbstractAtTest {
     @Test
@@ -483,5 +484,35 @@ public class IndividualCardAtTest extends AbstractAtTest {
         playerDecided(P2, "");
 
         assertEquals(8, _game.getModifiersQuerying().getTwilightCost(_game.getGameState(), attea, false));
+    }
+
+    @Test
+    public void sentBackAllowsPlayingCardInDeadPile() throws DecisionResultInvalidException {
+        initializeSimplestGame();
+
+        PhysicalCardImpl sentBack = new PhysicalCardImpl(100, "9_27", P1, _library.getLotroCardBlueprint("9_27"));
+        _game.getGameState().addCardToZone(_game, sentBack, Zone.SUPPORT);
+
+        PhysicalCardImpl radagast1 = new PhysicalCardImpl(101, "9_26", P1, _library.getLotroCardBlueprint("9_26"));
+        _game.getGameState().addCardToZone(_game, radagast1, Zone.DEAD);
+
+        PhysicalCardImpl radagast2 = new PhysicalCardImpl(101, "9_26", P1, _library.getLotroCardBlueprint("9_26"));
+        _game.getGameState().addCardToZone(_game, radagast2, Zone.HAND);
+
+        skipMulligans();
+
+        // End fellowship
+        AwaitingDecision playFellowshipAction = _userFeedback.getAwaitingDecision(P1);
+        assertEquals(AwaitingDecisionType.CARD_ACTION_CHOICE, playFellowshipAction.getDecisionType());
+        validateContents(new String[]{"" + sentBack.getCardId()}, ((String[]) playFellowshipAction.getDecisionParameters().get("cardId")));
+        playerDecided(P1, "0");
+
+        AwaitingDecision chooseRadagast = _userFeedback.getAwaitingDecision(P1);
+        assertEquals(AwaitingDecisionType.CARD_SELECTION, chooseRadagast.getDecisionType());
+        validateContents(new String[]{"" + radagast2.getCardId()}, ((String[]) chooseRadagast.getDecisionParameters().get("cardId")));
+        playerDecided(P1, String.valueOf(radagast2.getCardId()));
+
+        assertEquals(Zone.FREE_CHARACTERS, radagast2.getZone());
+        assertEquals(4, _game.getGameState().getTwilightPool());
     }
 }
