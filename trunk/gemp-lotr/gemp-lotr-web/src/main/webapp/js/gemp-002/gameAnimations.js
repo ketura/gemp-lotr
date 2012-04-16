@@ -218,7 +218,7 @@ var GameAnimations = Class.extend({
                     else
                         card = new Card(blueprintId, zone, cardId, participantId);
 
-                    var cardDiv = that.game.createCardDiv(card, null, card.isFoil());
+                    var cardDiv = that.game.createCardDiv(card, null, card.isFoil(), card.hasErrata());
                     if (zone == "DISCARD")
                         that.game.discardPileDialogs[participantId].append(cardDiv);
                     else if (zone == "DEAD")

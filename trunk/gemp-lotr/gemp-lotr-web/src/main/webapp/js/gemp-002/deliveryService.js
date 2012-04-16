@@ -48,7 +48,7 @@ function deliveryService(xml) {
                 var count = packElem.getAttribute("count");
                 var card = new Card(blueprintId, "delivery", "deliveryPack" + i, "player");
                 card.tokens = {"count":count};
-                var cardDiv = createCardDiv(card.imageUrl, null, card.isFoil(), true, true);
+                var cardDiv = createCardDiv(card.imageUrl, null, card.isFoil(), true, true, false);
                 cardDiv.data("card", card);
                 deliveryDialogs[collectionName].append(cardDiv);
             }
@@ -60,7 +60,7 @@ function deliveryService(xml) {
                 var count = cardElem.getAttribute("count");
                 var card = new Card(blueprintId, "delivery", "deliveryCard" + i, "player");
                 card.tokens = {"count":count};
-                var cardDiv = createCardDiv(card.imageUrl, null, card.isFoil());
+                var cardDiv = createCardDiv(card.imageUrl, null, card.isFoil(), true, false, card.hasErrata());
                 cardDiv.data("card", card);
                 deliveryDialogs[collectionName].append(cardDiv);
             }
