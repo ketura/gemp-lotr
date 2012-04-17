@@ -134,7 +134,12 @@ var Card = Class.extend({
             } else {
                 this.imageUrl = this.getUrlByBlueprintId(this.blueprintId);
                 this.horizontal = this.isHorizontal(this.blueprintId);
-                this.errata = this.getErrata(this.blueprintId) != null;
+
+                var separator = blueprintId.indexOf("_");
+                var setNo = parseInt(blueprintId.substr(0, separator));
+                var cardNo = parseInt(blueprintId.substr(separator + 1));
+
+                this.errata = this.getErrata(setNo, cardNo) != null;
                 cardCache[this.blueprintId] = {
                     imageUrl: this.imageUrl,
                     horizontal: this.horizontal,
