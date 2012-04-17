@@ -50,7 +50,7 @@ var LeagueResultsUI = Class.extend({
                 var joinable = league.getAttribute("joinable");
 
                 var leagueText = leagueName;
-                $("#leagueResults").append("<h1 class='leagueName'>" + leagueText + "</h1>");
+                $("#leagueResults").append("<div class='leagueName'>" + leagueText + "</div>");
 
                 var costStr = formatPrice(cost);
                 $("#leagueResults").append("<div class='leagueCost'><b>Cost:</b> " + costStr + "</div>");
@@ -112,10 +112,10 @@ var LeagueResultsUI = Class.extend({
                     var limited = serie.getAttribute("limited");
 
                     var serieText = serieName + " - " + this.getDateString(serieStart) + " to " + this.getDateString(serieEnd);
-                    tabContent.append("<h2 class='serieName'>" + serieText + "</h2>");
+                    $("#leagueResults").append("<div class='serieName'>" + serieText + "</div>");
 
-                    tabContent.append("<div><b>Format:</b> " + ((limited == "true") ? "Limited" : "Constructed") + " " + format + "</div>");
-                    tabContent.append("<div><b>Collection:</b> " + collection + "</div>");
+                    $("#leagueResults").append("<div><b>Format:</b> " + ((limited == "true") ? "Limited" : "Constructed") + " " + format + "</div>");
+                    $("#leagueResults").append("<div><b>Collection:</b> " + collection + "</div>");
 
                     tabContent.append("<div>Maximum ranked matches in serie: " + maxMatches + "</div>");
 
