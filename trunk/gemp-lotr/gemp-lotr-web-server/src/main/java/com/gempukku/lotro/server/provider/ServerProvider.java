@@ -4,6 +4,7 @@ import com.gempukku.lotro.chat.ChatServer;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.collection.DeliveryService;
 import com.gempukku.lotro.db.*;
+import com.gempukku.lotro.game.GameHistoryService;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.game.LotroServer;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
@@ -24,10 +25,10 @@ import java.lang.reflect.Type;
 public class ServerProvider implements InjectableProvider<Context, Type> {
     private Injectable<ChatServer> _chatServerInjectable;
     private Injectable<LeagueService> _leagueServiceInjectable;
+    private Injectable<GameHistoryService> _gameHistoryServiceInjectable;
     private Injectable<MerchantService> _merchantServiceInjectable;
     private Injectable<HallServer> _hallServerInjectable;
     private Injectable<LotroServer> _lotroServerInjectable;
-    //    private Injectable<TradeServer> _tradeServerInjectable;
     private Injectable<CollectionsManager> _collectionsManagerInjectable;
     private Injectable<DeliveryService> _deliveryServiceInjectable;
     private Injectable<LotroFormatLibrary> _lotroFormatLibraryInjectable;
@@ -63,10 +64,10 @@ public class ServerProvider implements InjectableProvider<Context, Type> {
             return getHallServerInjectable();
         if (type.equals(LeagueService.class))
             return getLeagueServiceInjectable();
+        if (type.equals(GameHistoryService.class))
+            return getGameHistoryServiceInjectable();
         if (type.equals(CollectionsManager.class))
             return getCollectionsManagerInjectable();
-//        if (type.equals(TradeServer.class))
-//            return getTradeServerInjectable();
         if (type.equals(DeliveryService.class))
             return getDeliveryServiceInjectable();
         if (type.equals(LotroFormatLibrary.class))
@@ -108,6 +109,19 @@ public class ServerProvider implements InjectableProvider<Context, Type> {
             };
         }
         return _leagueServiceInjectable;
+    }
+
+    private synchronized Injectable<GameHistoryService> getGameHistoryServiceInjectable() {
+        if (_gameHistoryServiceInjectable == null) {
+            final GameHistoryService gameHistoryServiceleagueService = new GameHistoryService(_gameHistoryDao);
+            _gameHistoryServiceInjectable = new Injectable<GameHistoryService>() {
+                @Override
+                public GameHistoryService getValue() {
+                    return gameHistoryServiceleagueService;
+                }
+            };
+        }
+        return _gameHistoryServiceInjectable;
     }
 
     private synchronized Injectable<MerchantService> getMerchantServiceInjectable() {
@@ -166,9 +180,10 @@ public class ServerProvider implements InjectableProvider<Context, Type> {
 //    }
 
     //
+
     private synchronized Injectable<LotroServer> getLotroServerInjectable() {
         if (_lotroServerInjectable == null) {
-            final LotroServer lotroServer = new LotroServer(_deckDao, _gameHistoryDao, _library, getChatServerInjectable().getValue(), false);
+            final LotroServer lotroServer = new LotroServer(_deckDao, getGameHistoryServiceInjectable().getValue(), _library, getChatServerInjectable().getValue(), false);
             lotroServer.startServer();
             _lotroServerInjectable = new Injectable<LotroServer>() {
                 @Override

@@ -4,7 +4,6 @@ import com.gempukku.lotro.AbstractServer;
 import com.gempukku.lotro.chat.ChatServer;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.db.DeckDAO;
-import com.gempukku.lotro.db.GameHistoryDAO;
 import com.gempukku.lotro.logic.timing.GameResultListener;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 import org.apache.log4j.Logger;
@@ -30,7 +29,7 @@ public class LotroServer extends AbstractServer {
     private int _nextGameId = 1;
 
     private DeckDAO _deckDao;
-    private GameHistoryDAO _gameHistoryDao;
+    private GameHistoryService _gameHistoryService;
 
     private DefaultCardCollection _defaultCollection;
     private CountDownLatch _collectionReadyLatch = new CountDownLatch(1);
@@ -39,9 +38,9 @@ public class LotroServer extends AbstractServer {
     private boolean _test;
     private GameRecorder _gameRecorder;
 
-    public LotroServer(DeckDAO deckDao, GameHistoryDAO gameHistoryDao, LotroCardBlueprintLibrary library, ChatServer chatServer, boolean test) {
+    public LotroServer(DeckDAO deckDao, GameHistoryService gameHistoryService, LotroCardBlueprintLibrary library, ChatServer chatServer, boolean test) {
         _deckDao = deckDao;
-        _gameHistoryDao = gameHistoryDao;
+        _gameHistoryService = gameHistoryService;
         _lotroCardBlueprintLibrary = library;
         _chatServer = chatServer;
         _test = test;
@@ -78,7 +77,7 @@ public class LotroServer extends AbstractServer {
 //        );
 //        thr.start();
 
-        _gameRecorder = new GameRecorder(_gameHistoryDao);
+        _gameRecorder = new GameRecorder(_gameHistoryService);
     }
 
     public void migrateReplays() {
