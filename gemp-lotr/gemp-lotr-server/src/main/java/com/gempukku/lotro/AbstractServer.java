@@ -5,14 +5,14 @@ public abstract class AbstractServer {
 
     private boolean _started;
 
-    public final synchronized void startServer() {
+    public void startServer() {
         if (!_started) {
             _cleaningTask.addServer(this);
             _started = true;
         }
     }
 
-    public final synchronized void stopServer() {
+    public void stopServer() {
         if (_started) {
             _cleaningTask.removeServer(this);
             _started = false;

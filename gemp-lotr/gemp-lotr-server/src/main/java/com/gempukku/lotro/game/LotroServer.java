@@ -51,31 +51,32 @@ public class LotroServer extends AbstractServer {
 
         final int[] cardCounts = new int[]{129, 365, 122, 122, 365, 128, 128, 365, 122, 52, 122, 266, 203, 203, 15, 207, 6, 157, 149, 40};
 
-        Thread thr = new Thread(
-                new Runnable() {
-                    public void run() {
-                        for (int i = 0; i <= 19; i++) {
-                            for (int j = 1; j <= cardCounts[i]; j++) {
-                                String blueprintId = i + "_" + j;
-                                try {
-                                    if (_lotroCardBlueprintLibrary.getBaseBlueprintId(blueprintId).equals(blueprintId)) {
-                                        LotroCardBlueprint cardBlueprint = _lotroCardBlueprintLibrary.getLotroCardBlueprint(blueprintId);
-                                        CardType cardType = cardBlueprint.getCardType();
-                                        if (cardType == CardType.SITE || cardType == CardType.THE_ONE_RING)
-                                            _defaultCollection.addItem(blueprintId, 1);
-                                        else
-                                            _defaultCollection.addItem(blueprintId, 4);
-                                    }
-                                } catch (IllegalArgumentException exp) {
-
-                                }
-                            }
-                        }
-                        _collectionReadyLatch.countDown();
+//        Thread thr = new Thread(
+//                new Runnable() {
+//                    public void run() {
+        for (int i = 0; i <= 19; i++) {
+            System.out.println("Loading set " + i);
+            for (int j = 1; j <= cardCounts[i]; j++) {
+                String blueprintId = i + "_" + j;
+                try {
+                    if (_lotroCardBlueprintLibrary.getBaseBlueprintId(blueprintId).equals(blueprintId)) {
+                        LotroCardBlueprint cardBlueprint = _lotroCardBlueprintLibrary.getLotroCardBlueprint(blueprintId);
+                        CardType cardType = cardBlueprint.getCardType();
+                        if (cardType == CardType.SITE || cardType == CardType.THE_ONE_RING)
+                            _defaultCollection.addItem(blueprintId, 1);
+                        else
+                            _defaultCollection.addItem(blueprintId, 4);
                     }
+                } catch (IllegalArgumentException exp) {
+
                 }
-        );
-        thr.start();
+            }
+        }
+        _collectionReadyLatch.countDown();
+//                    }
+//                }
+//        );
+//        thr.start();
 
         _gameRecorder = new GameRecorder(_gameHistoryDao);
     }

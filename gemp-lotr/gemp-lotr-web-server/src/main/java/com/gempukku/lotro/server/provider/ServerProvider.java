@@ -10,7 +10,6 @@ import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.gempukku.lotro.hall.HallServer;
 import com.gempukku.lotro.league.LeagueService;
 import com.gempukku.lotro.merchant.MerchantService;
-import com.gempukku.lotro.trade.TradeServer;
 import com.sun.jersey.core.spi.component.ComponentContext;
 import com.sun.jersey.core.spi.component.ComponentScope;
 import com.sun.jersey.spi.inject.Injectable;
@@ -28,7 +27,7 @@ public class ServerProvider implements InjectableProvider<Context, Type> {
     private Injectable<MerchantService> _merchantServiceInjectable;
     private Injectable<HallServer> _hallServerInjectable;
     private Injectable<LotroServer> _lotroServerInjectable;
-    private Injectable<TradeServer> _tradeServerInjectable;
+    //    private Injectable<TradeServer> _tradeServerInjectable;
     private Injectable<CollectionsManager> _collectionsManagerInjectable;
     private Injectable<DeliveryService> _deliveryServiceInjectable;
     private Injectable<LotroFormatLibrary> _lotroFormatLibraryInjectable;
@@ -66,8 +65,8 @@ public class ServerProvider implements InjectableProvider<Context, Type> {
             return getLeagueServiceInjectable();
         if (type.equals(CollectionsManager.class))
             return getCollectionsManagerInjectable();
-        if (type.equals(TradeServer.class))
-            return getTradeServerInjectable();
+//        if (type.equals(TradeServer.class))
+//            return getTradeServerInjectable();
         if (type.equals(DeliveryService.class))
             return getDeliveryServiceInjectable();
         if (type.equals(LotroFormatLibrary.class))
@@ -80,7 +79,7 @@ public class ServerProvider implements InjectableProvider<Context, Type> {
     @PreDestroy
     public void destroyResources() {
         getHallServerInjectable().getValue().stopServer();
-        getTradeServerInjectable().getValue().stopServer();
+//        getTradeServerInjectable().getValue().stopServer();
         getLotroServerInjectable().getValue().stopServer();
         getChatServerInjectable().getValue().stopServer();
     }
@@ -152,20 +151,21 @@ public class ServerProvider implements InjectableProvider<Context, Type> {
         return _hallServerInjectable;
     }
 
-    private synchronized Injectable<TradeServer> getTradeServerInjectable() {
-        if (_tradeServerInjectable == null) {
-            final TradeServer tradeServer = new TradeServer(getChatServerInjectable().getValue());
-            tradeServer.startServer();
-            _tradeServerInjectable = new Injectable<TradeServer>() {
-                @Override
-                public TradeServer getValue() {
-                    return tradeServer;
-                }
-            };
-        }
-        return _tradeServerInjectable;
-    }
+//    private synchronized Injectable<TradeServer> getTradeServerInjectable() {
+//        if (_tradeServerInjectable == null) {
+//            final TradeServer tradeServer = new TradeServer(getChatServerInjectable().getValue());
+//            tradeServer.startServer();
+//            _tradeServerInjectable = new Injectable<TradeServer>() {
+//                @Override
+//                public TradeServer getValue() {
+//                    return tradeServer;
+//                }
+//            };
+//        }
+//        return _tradeServerInjectable;
+//    }
 
+    //
     private synchronized Injectable<LotroServer> getLotroServerInjectable() {
         if (_lotroServerInjectable == null) {
             final LotroServer lotroServer = new LotroServer(_deckDao, _gameHistoryDao, _library, getChatServerInjectable().getValue(), false);
