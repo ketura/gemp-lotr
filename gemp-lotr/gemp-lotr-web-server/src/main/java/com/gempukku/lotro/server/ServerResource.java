@@ -2,8 +2,8 @@ package com.gempukku.lotro.server;
 
 import com.gempukku.lotro.chat.ChatServer;
 import com.gempukku.lotro.common.ApplicationRoot;
-import com.gempukku.lotro.db.GameHistoryDAO;
 import com.gempukku.lotro.db.vo.GameHistoryEntry;
+import com.gempukku.lotro.game.GameHistoryService;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.game.LotroServer;
 import com.gempukku.lotro.game.Player;
@@ -43,7 +43,7 @@ public class ServerResource extends AbstractResource {
     @Context
     private ChatServer _chatServer;
     @Context
-    private GameHistoryDAO _gameHistoryDao;
+    private GameHistoryService _gameHistoryService;
 
     public ServerResource() {
         if (!_test)
@@ -146,8 +146,8 @@ public class ServerResource extends AbstractResource {
 
         Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
-        final List<GameHistoryEntry> playerGameHistory = _gameHistoryDao.getGameHistoryForPlayer(resourceOwner, start, count);
-        int recordCount = _gameHistoryDao.getGameHistoryForPlayerCount(resourceOwner);
+        final List<GameHistoryEntry> playerGameHistory = _gameHistoryService.getGameHistoryForPlayer(resourceOwner, start, count);
+        int recordCount = _gameHistoryService.getGameHistoryForPlayerCount(resourceOwner);
 
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
@@ -196,8 +196,8 @@ public class ServerResource extends AbstractResource {
         } else {
             sb.append("You are not logged in, log in below or <button id='clickToRegister'>register</button>.");
             sb.append("<div class='status'>Tables count: ").append(_hallServer.getTablesCount()).append(", players in hall: ").append(_chatServer.getChatRoom("Game Hall").getUsersInRoom().size())
-                    .append(", games played in last 24 hours: unknown")//.append(_gameHistoryDao.getGamesPlayedCountInLastMs(1000 * 60 * 60 * 24))
-                    .append(",<br/> active players in last week: unknown")//.append(_gameHistoryDao.getActivePlayersInLastMs(1000 * 60 * 60 * 24 * 7))
+                    .append(", games played in last 24 hours: unknown").append(_gameHistoryService.getGamesPlayedCountInLastMs(1000 * 60 * 60 * 24))
+                    .append(",<br/> active players in last week: unknown").append(_gameHistoryService.getActivePlayersInLastMs(1000 * 60 * 60 * 24 * 7))
                     .append("</div>");
             sb.append(getLoginHTML());
         }

@@ -1,7 +1,6 @@
 package com.gempukku.lotro.game;
 
 import com.gempukku.lotro.common.ApplicationRoot;
-import com.gempukku.lotro.db.GameHistoryDAO;
 import com.gempukku.lotro.game.state.EventSerializer;
 import com.gempukku.lotro.game.state.GameEvent;
 import com.gempukku.lotro.game.state.GatheringParticipantCommunicationChannel;
@@ -26,10 +25,10 @@ public class GameRecorder {
     private static String _possibleChars = "abcdefghijklmnopqrstuvwxyz0123456789";
     private static int _charsCount = _possibleChars.length();
 
-    private GameHistoryDAO _gameHistoryDao;
+    private GameHistoryService _gameHistoryService;
 
-    public GameRecorder(GameHistoryDAO gameHistoryDao) {
-        _gameHistoryDao = gameHistoryDao;
+    public GameRecorder(GameHistoryService gameHistoryService) {
+        _gameHistoryService = gameHistoryService;
     }
 
     public void migrateReplays() {
@@ -102,7 +101,7 @@ public class GameRecorder {
             @Override
             public void finishRecording(String winner, String winReason, String loser, String loseReason) {
                 Map<String, String> playerRecordingId = saveRecordedChannels(recordingChannels);
-                _gameHistoryDao.addGameHistory(winner, loser, winReason, loseReason, playerRecordingId.get(winner), playerRecordingId.get(loser), formatName, deckNames.get(winner), deckNames.get(loser), startData, new Date());
+                _gameHistoryService.addGameHistory(winner, loser, winReason, loseReason, playerRecordingId.get(winner), playerRecordingId.get(loser), formatName, deckNames.get(winner), deckNames.get(loser), startData, new Date());
             }
         };
     }

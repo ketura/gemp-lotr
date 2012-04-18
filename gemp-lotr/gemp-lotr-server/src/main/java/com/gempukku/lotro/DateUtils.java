@@ -13,6 +13,11 @@ public class DateUtils {
         return date.get(Calendar.YEAR) * 10000 + (date.get(Calendar.MONTH) + 1) * 100 + date.get(Calendar.DAY_OF_MONTH);
     }
 
+    public static int getCurrentMinute() {
+        Calendar date = new GregorianCalendar(TimeZone.getTimeZone("GMT"));
+        return date.get(Calendar.YEAR) * 100000000 + (date.get(Calendar.MONTH) + 1) * 1000000 + date.get(Calendar.DAY_OF_MONTH) * 10000 + date.get(Calendar.HOUR_OF_DAY) * 100 + date.get(Calendar.MINUTE);
+    }
+
     public static int offsetDate(int start, int dayOffset) {
         try {
             SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
