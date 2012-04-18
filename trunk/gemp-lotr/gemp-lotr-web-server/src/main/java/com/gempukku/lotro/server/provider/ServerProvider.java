@@ -16,6 +16,7 @@ import com.sun.jersey.core.spi.component.ComponentScope;
 import com.sun.jersey.spi.inject.Injectable;
 import com.sun.jersey.spi.inject.InjectableProvider;
 
+import javax.annotation.PreDestroy;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.ext.Provider;
 import java.lang.reflect.Type;
@@ -74,6 +75,14 @@ public class ServerProvider implements InjectableProvider<Context, Type> {
         if (type.equals(MerchantService.class))
             return getMerchantServiceInjectable();
         return null;
+    }
+
+    @PreDestroy
+    public void destroyResources() {
+        getHallServerInjectable().getValue().stopServer();
+        getTradeServerInjectable().getValue().stopServer();
+        getLotroServerInjectable().getValue().stopServer();
+        getChatServerInjectable().getValue().stopServer();
     }
 
     private synchronized Injectable<LotroFormatLibrary> getLotroFormatLibraryInjectable() {
