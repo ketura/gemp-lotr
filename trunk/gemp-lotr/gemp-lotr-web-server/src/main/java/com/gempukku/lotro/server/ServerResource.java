@@ -196,8 +196,8 @@ public class ServerResource extends AbstractResource {
         } else {
             sb.append("You are not logged in, log in below or <button id='clickToRegister'>register</button>.");
             sb.append("<div class='status'>Tables count: ").append(_hallServer.getTablesCount()).append(", players in hall: ").append(_chatServer.getChatRoom("Game Hall").getUsersInRoom().size())
-                    .append(", games played in last 24 hours: ").append(_gameHistoryDao.getGamesPlayedCountInLastMs(1000 * 60 * 60 * 24))
-                    .append(",<br/> active players in last week: ").append(_gameHistoryDao.getActivePlayersInLastMs(1000 * 60 * 60 * 24 * 7))
+                    .append(", games played in last 24 hours: unknown")//.append(_gameHistoryDao.getGamesPlayedCountInLastMs(1000 * 60 * 60 * 24))
+                    .append(",<br/> active players in last week: unknown")//.append(_gameHistoryDao.getActivePlayersInLastMs(1000 * 60 * 60 * 24 * 7))
                     .append("</div>");
             sb.append(getLoginHTML());
         }

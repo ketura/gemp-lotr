@@ -9,6 +9,7 @@ public class ServerCleaner {
     private CleaningThread _thr;
 
     public synchronized void addServer(AbstractServer server) {
+        System.out.println("Adding server: " + server.getClass());
         _servers.add(server);
         if (_thr == null) {
             _thr = new CleaningThread();
@@ -38,8 +39,8 @@ public class ServerCleaner {
                                 // We can't do much about it
                             }
                         }
-                        Thread.sleep(1000);
                     }
+                    Thread.sleep(1000);
                 }
             } catch (InterruptedException exp) {
                 // Thread interrupted - get lost
