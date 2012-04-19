@@ -48,8 +48,7 @@ var LeagueResultsUI = Class.extend({
             var member = league.getAttribute("member");
             var joinable = league.getAttribute("joinable");
 
-            var leagueText = leagueName;
-            $("#leagueExtraInfo").append("<div class='leagueName'>" + leagueText + "</div>");
+            $("#leagueExtraInfo").append("<div class='leagueName'>" + leagueName + "</div>");
 
             var costStr = formatPrice(cost);
             $("#leagueExtraInfo").append("<div class='leagueCost'><b>Cost:</b> " + costStr + "</div>");
