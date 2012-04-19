@@ -115,5 +115,10 @@ public class LeaguePointsDAO {
         public int getPoints() {
             return _points;
         }
+
+        public void addPointsForMatch(int points) {
+            _points += points;
+            _gamesPlayed++;
+        }
     }
 }
