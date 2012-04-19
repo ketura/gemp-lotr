@@ -64,6 +64,11 @@ public class LeagueService {
         _leagueSerieStandings.clear();
         _leagueStandings.clear();
         _activeLeaguesLoadedDate = 0;
+
+        _cachedLeagueMatches.clearCache();
+        _cachedLeaguePoints.clearCache();
+        _cachedSerieMatches.clearCache();
+        _cachedSeriePoints.clearCache();
     }
 
     private synchronized void ensureLoadedCurrentLeagues() {
