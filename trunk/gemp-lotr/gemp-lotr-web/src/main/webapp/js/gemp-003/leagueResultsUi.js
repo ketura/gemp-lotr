@@ -36,6 +36,8 @@ var LeagueResultsUI = Class.extend({
         log(xml);
         var root = xml.documentElement;
         if (root.tagName == 'league') {
+            $("#leagueExtraInfo").html("");
+
             var league = root;
 
             var leagueName = league.getAttribute("name");
