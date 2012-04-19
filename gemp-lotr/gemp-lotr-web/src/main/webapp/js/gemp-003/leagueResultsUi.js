@@ -31,6 +31,103 @@ var LeagueResultsUI = Class.extend({
         return date.substring(0, 4) + "-" + date.substring(4, 6) + "-" + date.substring(6, 8);
     },
 
+    loadedLeague: function(xml) {
+        var that = this;
+        log(xml);
+        var root = xml.documentElement;
+        if (root.tagName == 'league') {
+            var league = root;
+
+            var leagueName = league.getAttribute("name");
+            var leagueType = league.getAttribute("type");
+            var cost = parseInt(league.getAttribute("cost"));
+            var start = league.getAttribute("start");
+            var end = league.getAttribute("end");
+            var member = league.getAttribute("member");
+            var joinable = league.getAttribute("joinable");
+
+            var leagueText = leagueName;
+            $("#leagueExtraInfo").append("<div class='leagueName'>" + leagueText + "</div>");
+
+            var costStr = formatPrice(cost);
+            $("#leagueExtraInfo").append("<div class='leagueCost'><b>Cost:</b> " + costStr + "</div>");
+
+            if (member == "true")
+                $("#leagueExtraInfo").append("<div class='leagueMembership'>You are already a member of this league.</div>");
+            else if (joinable == "true") {
+                var joinBut = $("<button>Join league</button>").button();
+
+                var joinFunc = (function(leagueCode, costString) {
+                    return function() {
+                        that.displayBuyAction("Do you want to join the league by paying " + costString + "?",
+                                function() {
+                                    that.communication.joinLeague(leagueCode, function() {
+                                        that.loadResults();
+                                    }, {
+                                        "409": function() {
+                                            alert("You don't have enough funds to join this league.");
+                                        }
+                                    });
+                                });
+                    };
+                })(leagueType, costStr);
+
+                joinBut.click(joinFunc);
+                var joinDiv = $("<div class='leagueMembership'>You're not a member of this league. </div>");
+                joinDiv.append(joinBut);
+                $("#leagueExtraInfo").append(joinDiv);
+            }
+
+            var tabDiv = $("<div width='100%'></div>");
+            var tabNavigation = $("<ul></ul>");
+            tabDiv.append(tabNavigation);
+
+            // Overall tab
+            var tabContent = $("<div id='league" + i + "overall'></div>");
+
+            var standings = league.getElementsByTagName("leagueStanding");
+            if (standings.length > 0)
+                tabContent.append(this.createStandingsTable(standings));
+            tabDiv.append(tabContent);
+
+            tabNavigation.append("<li><a href='#league" + i + "overall'>Overall results</a></li>");
+
+            var series = league.getElementsByTagName("serie");
+            for (var j = 0; j < series.length; j++) {
+
+                var tabContent = $("<div id='league" + i + "serie" + j + "'></div>");
+
+                var serie = series[j];
+                var serieName = serie.getAttribute("type");
+                var serieStart = serie.getAttribute("start");
+                var serieEnd = serie.getAttribute("end");
+                var maxMatches = serie.getAttribute("maxMatches");
+                var format = serie.getAttribute("format");
+                var collection = serie.getAttribute("collection");
+                var limited = serie.getAttribute("limited");
+
+                var serieText = serieName + " - " + this.getDateString(serieStart) + " to " + this.getDateString(serieEnd);
+                $("#leagueExtraInfo").append("<div class='serieName'>" + serieText + "</div>");
+
+                $("#leagueExtraInfo").append("<div><b>Format:</b> " + ((limited == "true") ? "Limited" : "Constructed") + " " + format + "</div>");
+                $("#leagueExtraInfo").append("<div><b>Collection:</b> " + collection + "</div>");
+
+                tabContent.append("<div>Maximum ranked matches in serie: " + maxMatches + "</div>");
+
+                var standings = serie.getElementsByTagName("standing");
+                if (standings.length > 0)
+                    tabContent.append(this.createStandingsTable(standings));
+                tabDiv.append(tabContent);
+
+                tabNavigation.append("<li><a href='#league" + i + "serie" + j + "'>Serie " + (j + 1) + "</a></li>");
+            }
+
+            tabDiv.tabs();
+
+            $("#leagueExtraInfo").append(tabDiv);
+        }
+    },
+
     loadedLeagueResults: function(xml) {
         var that = this;
         log(xml);
@@ -43,94 +140,28 @@ var LeagueResultsUI = Class.extend({
                 var league = leagues[i];
                 var leagueName = league.getAttribute("name");
                 var leagueType = league.getAttribute("type");
-                var cost = parseInt(league.getAttribute("cost"));
                 var start = league.getAttribute("start");
                 var end = league.getAttribute("end");
-                var member = league.getAttribute("member");
-                var joinable = league.getAttribute("joinable");
 
-                var leagueText = leagueName;
-                $("#leagueResults").append("<div class='leagueName'>" + leagueText + "</div>");
-
-                var costStr = formatPrice(cost);
-                $("#leagueResults").append("<div class='leagueCost'><b>Cost:</b> " + costStr + "</div>");
+                $("#leagueResults").append("<div class='leagueName'>" + leagueName + "</div>");
 
                 var duration = this.getDateString(start) + " to " + this.getDateString(end);
                 $("#leagueResults").append("<div class='leagueDuration'><b>Duration (GMT+0):</b> " + duration + "</div>");
-                if (member == "true")
-                    $("#leagueResults").append("<div class='leagueMembership'>You are already a member of this league.</div>");
-                else if (joinable == "true") {
-                    var joinBut = $("<button>Join league</button>").button();
 
-                    var joinFunc = (function(leagueCode, costString) {
-                        return function() {
-                            that.displayBuyAction("Do you want to join the league by paying " + costString + "?",
-                                    function() {
-                                        that.communication.joinLeague(leagueCode, function() {
-                                            that.loadResults();
-                                        }, {
-                                            "409": function() {
-                                                alert("You don't have enough funds to join this league.");
-                                            }
+                var detailsBut = $("<button>See details</button>").button();
+                detailsBut.click(
+                        (function(type) {
+                            return function() {
+                                that.communication.getLeague(type,
+                                        function(xml) {
+                                            that.loadedLeague(xml);
                                         });
-                                    });
-                        };
-                    })(leagueType, costStr);
-
-                    joinBut.click(joinFunc);
-                    var joinDiv = $("<div class='leagueMembership'>You're not a member of this league. </div>");
-                    joinDiv.append(joinBut);
-                    $("#leagueResults").append(joinDiv);
-                }
-
-                var tabDiv = $("<div width='100%'></div>");
-                var tabNavigation = $("<ul></ul>");
-                tabDiv.append(tabNavigation);
-
-                // Overall tab
-                var tabContent = $("<div id='league" + i + "overall'></div>");
-
-                var standings = league.getElementsByTagName("leagueStanding");
-                if (standings.length > 0)
-                    tabContent.append(this.createStandingsTable(standings));
-                tabDiv.append(tabContent);
-
-                tabNavigation.append("<li><a href='#league" + i + "overall'>Overall results</a></li>");
-
-                var series = league.getElementsByTagName("serie");
-                for (var j = 0; j < series.length; j++) {
-
-                    var tabContent = $("<div id='league" + i + "serie" + j + "'></div>");
-
-                    var serie = series[j];
-                    var serieName = serie.getAttribute("type");
-                    var serieStart = serie.getAttribute("start");
-                    var serieEnd = serie.getAttribute("end");
-                    var maxMatches = serie.getAttribute("maxMatches");
-                    var format = serie.getAttribute("format");
-                    var collection = serie.getAttribute("collection");
-                    var limited = serie.getAttribute("limited");
-
-                    var serieText = serieName + " - " + this.getDateString(serieStart) + " to " + this.getDateString(serieEnd);
-                    $("#leagueResults").append("<div class='serieName'>" + serieText + "</div>");
-
-                    $("#leagueResults").append("<div><b>Format:</b> " + ((limited == "true") ? "Limited" : "Constructed") + " " + format + "</div>");
-                    $("#leagueResults").append("<div><b>Collection:</b> " + collection + "</div>");
-
-                    tabContent.append("<div>Maximum ranked matches in serie: " + maxMatches + "</div>");
-
-                    var standings = serie.getElementsByTagName("standing");
-                    if (standings.length > 0)
-                        tabContent.append(this.createStandingsTable(standings));
-                    tabDiv.append(tabContent);
-
-                    tabNavigation.append("<li><a href='#league" + i + "serie" + j + "'>Serie " + (j + 1) + "</a></li>");
-                }
-
-                tabDiv.tabs();
-
-                $("#leagueResults").append(tabDiv);
+                            };
+                        })(leagueType));
+                $("#leagueResults").append(detailsBut);
             }
+
+            $("#leagueResults").append("<div id='leagueExtraInfo'></div>");
         }
     },
 
