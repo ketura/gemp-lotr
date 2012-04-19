@@ -70,6 +70,9 @@ public class LeagueService {
         int currentDate = DateUtils.getCurrentDate();
         if (currentDate != _activeLeaguesLoadedDate) {
             _cachedLeagueMatches.clearCache();
+            _cachedLeaguePoints.clearCache();
+            _cachedSerieMatches.clearCache();
+            _cachedSeriePoints.clearCache();
 
             try {
                 _activeLeagues = _leagueDao.loadActiveLeagues(currentDate);
