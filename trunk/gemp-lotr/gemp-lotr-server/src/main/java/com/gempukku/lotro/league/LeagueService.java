@@ -1,6 +1,8 @@
 package com.gempukku.lotro.league;
 
 import com.gempukku.lotro.DateUtils;
+import com.gempukku.lotro.cache.ExpireObjectCache;
+import com.gempukku.lotro.cache.Producable;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.db.LeagueDAO;
 import com.gempukku.lotro.db.LeagueMatchDAO;
@@ -18,6 +20,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 public class LeagueService {
     private Comparator<LeagueStanding> LEAGUE_STANDING_COMPARATOR =
@@ -37,6 +40,9 @@ public class LeagueService {
 
     private Map<League, Set<String>> _playersParticipating = new ConcurrentHashMap<League, Set<String>>();
     private Map<League, Set<String>> _playersNotParticipating = new ConcurrentHashMap<League, Set<String>>();
+
+    private ExpireObjectCache<League, Collection<LeagueMatch>> _cachedLeagueMatches = new ExpireObjectCache<League, Collection<LeagueMatch>>();
+    private ExpireObjectCache<LeagueSerieData, Collection<LeagueMatch>> _cachedSerieMatches = new ExpireObjectCache<LeagueSerieData, Collection<LeagueMatch>>();
 
     private int _activeLeaguesLoadedDate;
     private List<League> _activeLeagues;
@@ -59,6 +65,8 @@ public class LeagueService {
     private synchronized void ensureLoadedCurrentLeagues() {
         int currentDate = DateUtils.getCurrentDate();
         if (currentDate != _activeLeaguesLoadedDate) {
+            _cachedLeagueMatches.clearCache();
+
             try {
                 _activeLeagues = _leagueDao.loadActiveLeagues(currentDate);
                 _activeLeaguesLoadedDate = currentDate;
@@ -69,6 +77,26 @@ public class LeagueService {
                 throw new RuntimeException("Unable to load Leagues", e);
             }
         }
+    }
+
+    private Collection<LeagueMatch> getLeagueMatches(final League league) {
+        return _cachedLeagueMatches.getCachedObject(league,
+                new Producable<League, Collection<LeagueMatch>>() {
+                    @Override
+                    public Collection<LeagueMatch> produce(League key) {
+                        return new CopyOnWriteArraySet<LeagueMatch>(_leagueMatchDao.getLeagueMatches(league));
+                    }
+                });
+    }
+
+    private Collection<LeagueMatch> getLeagueSerieMatches(final League league, final LeagueSerieData serie) {
+        return _cachedSerieMatches.getCachedObject(serie,
+                new Producable<LeagueSerieData, Collection<LeagueMatch>>() {
+                    @Override
+                    public Collection<LeagueMatch> produce(LeagueSerieData key) {
+                        return new CopyOnWriteArraySet<LeagueMatch>(_leagueMatchDao.getLeagueSerieMatches(league, serie));
+                    }
+                });
     }
 
     public List<League> getActiveLeagues() {
@@ -174,7 +202,8 @@ public class LeagueService {
     }
 
     public void reportLeagueGameResult(League league, LeagueSerieData serie, String winner, String loser) {
-        _leagueMatchDao.addPlayedMatch(league, serie, winner, loser);
+        addMatch(league, serie, winner, loser);
+
         _leaguePointsDao.addPoints(league, serie, winner, 2);
         _leaguePointsDao.addPoints(league, serie, loser, 1);
         _leagueStandings.remove(league);
@@ -184,9 +213,16 @@ public class LeagueService {
         awardPrizesToPlayer(league, serie, loser, false);
     }
 
+    private void addMatch(League league, LeagueSerieData serie, String winner, String loser) {
+        LeagueMatch match = new LeagueMatch(winner, loser);
+        _leagueMatchDao.addPlayedMatch(league, serie, match);
+        getLeagueMatches(league).add(match);
+        getLeagueSerieMatches(league, serie).add(match);
+    }
+
     private void awardPrizesToPlayer(League league, LeagueSerieData serie, String player, boolean winner) {
         int count = 0;
-        Collection<LeagueMatch> playerMatchesPlayedOn = _leagueMatchDao.getPlayerMatchesPlayedOn(league, serie, player);
+        Collection<LeagueMatch> playerMatchesPlayedOn = getPlayerMatchesInSerie(league, serie, player);
         for (LeagueMatch leagueMatch : playerMatchesPlayedOn) {
             if (leagueMatch.getWinner().equals(player))
                 count++;
@@ -199,6 +235,16 @@ public class LeagueService {
             prize = serie.getPrizeForLeagueMatchLoser(count, playerMatchesPlayedOn.size());
         if (prize != null)
             _collectionsManager.addItemsToPlayerCollection(player, new CollectionType("permanent", "My cards"), prize.getAll());
+    }
+
+    private Collection<LeagueMatch> getPlayerMatchesInSerie(League league, LeagueSerieData serie, String player) {
+        final Collection<LeagueMatch> allMatches = getLeagueSerieMatches(league, serie);
+        Set<LeagueMatch> result = new HashSet<LeagueMatch>();
+        for (LeagueMatch match : allMatches) {
+            if (match.getWinner().equals(player) || match.getLoser().equals(player))
+                result.add(match);
+        }
+        return result;
     }
 
     public List<LeagueStanding> getLeagueStandings(League league) {
@@ -225,14 +271,14 @@ public class LeagueService {
 
     private List<LeagueStanding> createLeagueSerieStandings(League league, LeagueSerieData leagueSerie) {
         final Map<String, LeaguePointsDAO.Points> points = _leaguePointsDao.getLeagueSeriePoints(league, leagueSerie);
-        final Collection<LeagueMatch> matches = _leagueMatchDao.getLeagueSerieMatches(league, leagueSerie);
+        final Collection<LeagueMatch> matches = getLeagueSerieMatches(league, leagueSerie);
 
         return createStandingsForMatchesAndPoints(points, matches);
     }
 
     private List<LeagueStanding> createLeagueStandings(League league) {
         final Map<String, LeaguePointsDAO.Points> points = _leaguePointsDao.getLeaguePoints(league);
-        final Collection<LeagueMatch> matches = _leagueMatchDao.getLeagueMatches(league);
+        final Collection<LeagueMatch> matches = getLeagueMatches(league);
 
         return createStandingsForMatchesAndPoints(points, matches);
     }
@@ -304,14 +350,14 @@ public class LeagueService {
 
     public boolean canPlayRankedGame(League league, LeagueSerieData season, String player) {
         int maxMatches = season.getMaxMatches();
-        Collection<LeagueMatch> playedInSeason = _leagueMatchDao.getPlayerMatchesPlayedOn(league, season, player);
+        Collection<LeagueMatch> playedInSeason = getPlayerMatchesInSerie(league, season, player);
         if (playedInSeason.size() >= maxMatches)
             return false;
         return true;
     }
 
     public boolean canPlayRankedGame(League league, LeagueSerieData season, String playerOne, String playerTwo) {
-        Collection<LeagueMatch> playedInSeason = _leagueMatchDao.getPlayerMatchesPlayedOn(league, season, playerOne);
+        Collection<LeagueMatch> playedInSeason = getPlayerMatchesInSerie(league, season, playerOne);
         for (LeagueMatch leagueMatch : playedInSeason) {
             if (playerTwo.equals(leagueMatch.getWinner()) || playerTwo.equals(leagueMatch.getLoser()))
                 return false;
