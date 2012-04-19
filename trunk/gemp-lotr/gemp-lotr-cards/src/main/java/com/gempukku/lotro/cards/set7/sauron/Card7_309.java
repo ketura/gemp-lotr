@@ -54,7 +54,7 @@ public class Card7_309 extends AbstractEvent {
                                         int diff = shadowDiscardCount - fpDiscardCount;
                                         if (diff > 0) {
                                             action.appendEffect(
-                                                    new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, diff, Culture.SAURON, Race.ORC));
+                                                    new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, 2 * diff, Culture.SAURON, Race.ORC));
                                         }
                                     }
                                 });
