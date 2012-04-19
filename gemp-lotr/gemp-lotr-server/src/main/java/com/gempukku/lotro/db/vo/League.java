@@ -5,7 +5,6 @@ import com.gempukku.lotro.league.LeagueData;
 import java.lang.reflect.Constructor;
 
 public class League {
-    private int _id;
     private int _cost;
     private String _name;
     private String _type;
@@ -13,18 +12,13 @@ public class League {
     private String _parameters;
     private int _status;
 
-    public League(int id, int cost, String name, String type, String clazz, String parameters, int status) {
-        _id = id;
+    public League(int cost, String name, String type, String clazz, String parameters, int status) {
         _cost = cost;
         _name = name;
         _type = type;
         _clazz = clazz;
         _parameters = parameters;
         _status = status;
-    }
-
-    public int getId() {
-        return _id;
     }
 
     public int getCost() {
@@ -60,13 +54,13 @@ public class League {
 
         League league = (League) o;
 
-        if (_id != league._id) return false;
+        if (_type != null ? !_type.equals(league._type) : league._type != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        return _id;
+        return _type != null ? _type.hashCode() : 0;
     }
 }
