@@ -65,6 +65,6 @@ public class AddThreatsEffect extends AbstractEffect {
 
             return new FullEffectResult(toAdd == count, toAdd == count);
         }
-        return new FullEffectResult(false, false);
+        return new FullEffectResult(count == 0, count == 0);
     }
 }
