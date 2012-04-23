@@ -24,10 +24,16 @@ public class ChooseAndTransferAttachableEffect extends AbstractEffect {
     private Filterable _attachedTo;
     private Filterable _attachedCard;
     private Filterable _transferTo;
+    private boolean _skipOriginalTargetCheck;
 
     public ChooseAndTransferAttachableEffect(Action action, String playerId, Filterable attachedCard, Filterable attachedTo, Filterable transferTo) {
+        this(action, playerId, false, attachedCard, attachedTo, transferTo);
+    }
+
+    public ChooseAndTransferAttachableEffect(Action action, String playerId, boolean skipOriginalTargetCheck, Filterable attachedCard, Filterable attachedTo, Filterable transferTo) {
         _action = action;
         _playerId = playerId;
+        _skipOriginalTargetCheck = skipOriginalTargetCheck;
         _attachedCard = attachedCard;
         _attachedTo = attachedTo;
         _transferTo = transferTo;
@@ -44,16 +50,28 @@ public class ChooseAndTransferAttachableEffect extends AbstractEffect {
     }
 
     protected Filterable getValidTargetFilter(LotroGame game, final PhysicalCard attachment, AbstractAttachable attachable) {
-        return Filters.and(
-                _transferTo,
-                attachable.getFullValidTargetFilter(attachment.getOwner(), game, attachment),
-                Filters.not(attachment.getAttachedTo()),
-                new Filter() {
-                    @Override
-                    public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard target) {
-                        return modifiersQuerying.canHaveTransferredOn(gameState, attachment, target);
-                    }
-                });
+        if (_skipOriginalTargetCheck) {
+            return Filters.and(
+                    _transferTo,
+                    Filters.not(attachment.getAttachedTo()),
+                    new Filter() {
+                        @Override
+                        public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard target) {
+                            return modifiersQuerying.canHaveTransferredOn(gameState, attachment, target);
+                        }
+                    });
+        } else {
+            return Filters.and(
+                    _transferTo,
+                    attachable.getFullValidTargetFilter(attachment.getOwner(), game, attachment),
+                    Filters.not(attachment.getAttachedTo()),
+                    new Filter() {
+                        @Override
+                        public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard target) {
+                            return modifiersQuerying.canHaveTransferredOn(gameState, attachment, target);
+                        }
+                    });
+        }
     }
 
     protected Collection<PhysicalCard> getPossibleAttachmentsToTransfer(final LotroGame game) {
