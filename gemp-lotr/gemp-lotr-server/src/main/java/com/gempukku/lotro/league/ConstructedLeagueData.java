@@ -14,7 +14,7 @@ public class ConstructedLeagueData implements LeagueData {
     private String _leaguePrizePool;
     private CollectionType _prizeCollectionType = new CollectionType("permanent", "My cards");
     private float _prizeMultiplier;
-    private LeaguePrizes _leaguePrizes = new LeaguePrizes();
+    private LeaguePrizes _leaguePrizes = new OldLeaguePrizes();
 
     // Example params - 20120312,fotr_block,0.7,default,All cards,7,10,3,fotr1_block,fotr_block,fotr2_block,fotr_block,fotr_block,fotr_block
     // Which means - start date,league prize pool,prizes multiplier,collection type,collection name,serie length,serie match count,series count,

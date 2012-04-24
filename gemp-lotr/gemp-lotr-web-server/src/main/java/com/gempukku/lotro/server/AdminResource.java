@@ -1,5 +1,6 @@
 package com.gempukku.lotro.server;
 
+import com.gempukku.lotro.DateUtils;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.db.DeckDAO;
 import com.gempukku.lotro.db.LeagueDAO;
@@ -10,7 +11,9 @@ import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.game.LotroServer;
 import com.gempukku.lotro.game.Player;
 import com.gempukku.lotro.hall.HallServer;
+import com.gempukku.lotro.league.LeagueSerieData;
 import com.gempukku.lotro.league.LeagueService;
+import com.gempukku.lotro.league.NewSealedLeagueData;
 import com.sun.jersey.spi.resource.Singleton;
 
 import javax.servlet.http.HttpServletRequest;
@@ -80,19 +83,28 @@ public class AdminResource extends AbstractResource {
         return "OK";
     }
 
-    @Path("/addLeague")
+    @Path("/addSealedLeague")
     @POST
-    public String addLeague(
+    public String addSealedLeague(
             @FormParam("cost") int cost,
+            @FormParam("format") String format,
             @FormParam("name") String name,
-            @FormParam("type") String type,
-            @FormParam("class") String clazz,
-            @FormParam("parameters") String parameters,
-            @FormParam("end") int end,
+            @FormParam("start") String start,
+            @FormParam("serieDuration") int serieDuration,
+            @FormParam("maxMatches") int maxMatches,
             @Context HttpServletRequest request) throws Exception {
-        validateAdmin(request);
+        validateLeagueAdmin(request);
 
-        _leagueDao.addLeague(cost, name, type, clazz, parameters, end);
+        String code = String.valueOf(System.currentTimeMillis());
+
+        String parameters = format + "," + start + "," + serieDuration + "," + maxMatches + "," + code + "," + name;
+        NewSealedLeagueData leagueData = new NewSealedLeagueData(parameters);
+        List<LeagueSerieData> series = leagueData.getSeries();
+        int displayEnd = DateUtils.offsetDate(series.get(series.size() - 1).getEnd(), 2);
+
+        _leagueDao.addLeague(cost, name, String.valueOf(System.currentTimeMillis()), NewSealedLeagueData.class.getName(), parameters, DateUtils.getCurrentDate(), displayEnd);
+
+        _leagueService.clearCache();
 
         return "OK";
     }
@@ -150,7 +162,14 @@ public class AdminResource extends AbstractResource {
     private void validateAdmin(HttpServletRequest request) {
         Player player = getResourceOwnerSafely(request, null);
 
-        if (!player.getType().equals("a"))
+        if (!player.getType().contains("a"))
+            sendError(Response.Status.FORBIDDEN);
+    }
+
+    private void validateLeagueAdmin(HttpServletRequest request) {
+        Player player = getResourceOwnerSafely(request, null);
+
+        if (!player.getType().contains("l"))
             sendError(Response.Status.FORBIDDEN);
     }
 

@@ -13,24 +13,24 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-public class SealedLeagueData implements LeagueData {
+public class NewSealedLeagueData implements LeagueData {
     private String _format;
     private List<LeagueSerieData> _series;
     private CollectionType _collectionType;
     private CollectionType _prizeCollectionType = new CollectionType("permanent", "My cards");
-    private LeaguePrizes _leaguePrizes;
+    private NewLeaguePrizes _leaguePrizes;
     private SealedLeagueProduct _leagueProduct;
 
-    public SealedLeagueData(String parameters) {
+    public NewSealedLeagueData(String parameters) {
         String[] params = parameters.split(",");
         _format = params[0];
         int start = Integer.parseInt(params[1]);
-        _collectionType = new CollectionType(params[2], params[3]);
+        int serieDuration = Integer.parseInt(params[2]);
+        int maxMatches = Integer.parseInt(params[3]);
 
-        int serieDuration = 7;
-        int maxMatches = 10;
+        _collectionType = new CollectionType(params[4], params[5]);
 
-        _leaguePrizes = new OldLeaguePrizes();
+        _leaguePrizes = new NewLeaguePrizes();
         _leagueProduct = new SealedLeagueProduct();
 
         _series = new LinkedList<LeagueSerieData>();

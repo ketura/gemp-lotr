@@ -40,3 +40,4 @@ HU - Booster
 RoS - Booster
 TaD - Booster
 REF - Booster
+(S)Tengwar
