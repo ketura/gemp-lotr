@@ -299,7 +299,7 @@ public class HallServer extends AbstractServer {
         LotroGameParticipant[] participants = players.toArray(new LotroGameParticipant[players.size()]);
         final League league = awaitingTable.getLeague();
         final LeagueSerieData leagueSerie = awaitingTable.getLeagueSerie();
-        String gameId = _lotroServer.createNewGame(awaitingTable.getLotroFormat(), participants, league != null);
+        String gameId = _lotroServer.createNewGame(awaitingTable.getLotroFormat(), getTournamentName(awaitingTable), participants, league != null);
         LotroGameMediator lotroGameMediator = _lotroServer.getGameById(gameId);
         if (league != null) {
             lotroGameMediator.addGameResultListener(

@@ -70,20 +70,20 @@ var GempLotrMerchantUI = Class.extend({
 
         this.infoDialog = $("<div></div>")
                 .dialog({
-                    autoOpen: false,
-                    closeOnEscape: true,
-                    resizable: false,
-                    title: "Card information"
-                });
+            autoOpen: false,
+            closeOnEscape: true,
+            resizable: false,
+            title: "Card information"
+        });
 
         this.questionDialog = $("<div></div>")
                 .dialog({
-                    autoOpen: false,
-                    closeOnEscape: true,
-                    resizable: false,
-                    modal: true,
-                    title: "Merchant operation"
-                });
+            autoOpen: false,
+            closeOnEscape: true,
+            resizable: false,
+            modal: true,
+            title: "Merchant operation"
+        });
 
         var swipeOptions = {
             threshold: 20,
@@ -155,6 +155,9 @@ var GempLotrMerchantUI = Class.extend({
         var that = this;
 
         var tar = $(event.target);
+        if (tar.length == 1 && tar[0].tagName == "A")
+            return true;
+
         if (!this.successfulDrag && this.infoDialog.dialog("isOpen")) {
             this.infoDialog.dialog("close");
             event.stopPropagation();
@@ -193,10 +196,10 @@ var GempLotrMerchantUI = Class.extend({
 
         if (card.horizontal) {
             // 500x360
-            this.infoDialog.dialog({width: Math.min(500 + horSpace, windowWidth), height: Math.min(360 + vertSpace, windowHeight)});
+            this.infoDialog.dialog({width: Math.min(500 + horSpace, windowWidth), height: Math.min(380 + vertSpace, windowHeight)});
         } else {
             // 360x500
-            this.infoDialog.dialog({width: Math.min(360 + horSpace, windowWidth), height: Math.min(500 + vertSpace, windowHeight)});
+            this.infoDialog.dialog({width: Math.min(360 + horSpace, windowWidth), height: Math.min(520 + vertSpace, windowHeight)});
         }
         this.infoDialog.dialog("open");
     },
@@ -322,10 +325,10 @@ var GempLotrMerchantUI = Class.extend({
 
         if (card.horizontal) {
             // 500x360
-            this.questionDialog.dialog({width: Math.min(500 + horSpace, windowWidth), height: Math.min(360 + vertSpace, windowHeight)});
+            this.questionDialog.dialog({width: Math.min(500 + horSpace, windowWidth), height: Math.min(380 + vertSpace, windowHeight)});
         } else {
             // 360x500
-            this.questionDialog.dialog({width: Math.min(360 + horSpace, windowWidth), height: Math.min(500 + vertSpace, windowHeight)});
+            this.questionDialog.dialog({width: Math.min(360 + horSpace, windowWidth), height: Math.min(520 + vertSpace, windowHeight)});
         }
         this.questionDialog.dialog("open");
     },

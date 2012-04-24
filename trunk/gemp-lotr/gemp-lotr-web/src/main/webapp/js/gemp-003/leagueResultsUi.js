@@ -9,12 +9,12 @@ var LeagueResultsUI = Class.extend({
 
         this.questionDialog = $("<div></div>")
                 .dialog({
-                    autoOpen: false,
-                    closeOnEscape: true,
-                    resizable: false,
-                    modal: true,
-                    title: "League operation"
-                });
+            autoOpen: false,
+            closeOnEscape: true,
+            resizable: false,
+            modal: true,
+            title: "League operation"
+        });
 
         this.loadResults();
     },
@@ -84,19 +84,19 @@ var LeagueResultsUI = Class.extend({
             tabDiv.append(tabNavigation);
 
             // Overall tab
-            var tabContent = $("<div id='league" + i + "overall'></div>");
+            var tabContent = $("<div id='leagueoverall'></div>");
 
             var standings = league.getElementsByTagName("leagueStanding");
             if (standings.length > 0)
                 tabContent.append(this.createStandingsTable(standings));
             tabDiv.append(tabContent);
 
-            tabNavigation.append("<li><a href='#league" + i + "overall'>Overall results</a></li>");
+            tabNavigation.append("<li><a href='#leagueoverall'>Overall results</a></li>");
 
             var series = league.getElementsByTagName("serie");
             for (var j = 0; j < series.length; j++) {
 
-                var tabContent = $("<div id='league" + i + "serie" + j + "'></div>");
+                var tabContent = $("<div id='leagueserie" + j + "'></div>");
 
                 var serie = series[j];
                 var serieName = serie.getAttribute("type");
@@ -120,7 +120,7 @@ var LeagueResultsUI = Class.extend({
                     tabContent.append(this.createStandingsTable(standings));
                 tabDiv.append(tabContent);
 
-                tabNavigation.append("<li><a href='#league" + i + "serie" + j + "'>Serie " + (j + 1) + "</a></li>");
+                tabNavigation.append("<li><a href='#leagueserie" + j + "'>Serie " + (j + 1) + "</a></li>");
             }
 
             tabDiv.tabs();
@@ -162,6 +162,7 @@ var LeagueResultsUI = Class.extend({
                 $("#leagueResults").append(detailsBut);
             }
 
+            $("#leagueResults").append("<hr />");
             $("#leagueResults").append("<div id='leagueExtraInfo'></div>");
         }
     },
