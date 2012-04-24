@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card6_117 extends AbstractSite {
     public Card6_117() {
-        super("Mudeseld", Block.TWO_TOWERS, 3, 0, Direction.RIGHT);
+        super("Meduseld", Block.TWO_TOWERS, 3, 0, Direction.RIGHT);
 
     }
 
