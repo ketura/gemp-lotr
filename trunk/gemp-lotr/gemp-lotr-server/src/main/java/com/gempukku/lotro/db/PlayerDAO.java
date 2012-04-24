@@ -14,64 +14,42 @@ public class PlayerDAO {
     private final String validLoginChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_";
 
     private DbAccess _dbAccess;
-    private Map<String, Player> _players = new ConcurrentHashMap<String, Player>();
+    private Map<String, Player> _playersByName = new ConcurrentHashMap<String, Player>();
+    private Map<Integer, Player> _playersById = new ConcurrentHashMap<Integer, Player>();
 
     public PlayerDAO(DbAccess dbAccess) {
         _dbAccess = dbAccess;
     }
 
     public void clearCache() {
-        _players.clear();
+        _playersByName.clear();
+        _playersById.clear();
     }
 
     public Player getPlayer(int id) {
-        try {
-            Connection conn = _dbAccess.getDataSource().getConnection();
-            try {
-                PreparedStatement statement = conn.prepareStatement("select id, name, type, last_login_reward from player where id=?");
-                try {
-                    statement.setInt(1, id);
-                    ResultSet rs = statement.executeQuery();
-                    try {
-                        if (rs.next()) {
-                            String name = rs.getString(2);
-                            String type = rs.getString(3);
-                            Integer lastLoginReward = rs.getInt(4);
-                            if (rs.wasNull())
-                                lastLoginReward = null;
+        if (_playersById.containsKey(id))
+            return _playersById.get(id);
 
-                            return new Player(id, name, type, lastLoginReward);
-                        } else {
-                            return null;
-                        }
-                    } finally {
-                        rs.close();
-                    }
-                } finally {
-                    statement.close();
-                }
-            } finally {
-                conn.close();
-            }
+        try {
+            final Player player = getPlayerFromDBById(id);
+            if (player != null)
+                _playersById.put(id, player);
+            return player;
         } catch (SQLException exp) {
             throw new RuntimeException("Error while retrieving player", exp);
         }
     }
 
     public Player getPlayer(String playerName) {
-        if (_players.containsKey(playerName))
-            return _players.get(playerName);
-        else {
-            try {
-                Player player = getPlayerFromDB(playerName);
-                if (player != null) {
-                    _players.put(playerName, player);
-                    return player;
-                } else
-                    return null;
-            } catch (SQLException exp) {
-                throw new RuntimeException("Unable to get player from DB", exp);
-            }
+        if (_playersByName.containsKey(playerName))
+            return _playersByName.get(playerName);
+        try {
+            Player player = getPlayerFromDBByName(playerName);
+            if (player != null)
+                _playersByName.put(playerName, player);
+            return player;
+        } catch (SQLException exp) {
+            throw new RuntimeException("Unable to get player from DB", exp);
         }
     }
 
@@ -222,7 +200,37 @@ public class PlayerDAO {
         return hexString.toString();
     }
 
-    private Player getPlayerFromDB(String playerName) throws SQLException {
+    private Player getPlayerFromDBById(int id) throws SQLException {
+        Connection conn = _dbAccess.getDataSource().getConnection();
+        try {
+            PreparedStatement statement = conn.prepareStatement("select id, name, type, last_login_reward from player where id=?");
+            try {
+                statement.setInt(1, id);
+                ResultSet rs = statement.executeQuery();
+                try {
+                    if (rs.next()) {
+                        String name = rs.getString(2);
+                        String type = rs.getString(3);
+                        Integer lastLoginReward = rs.getInt(4);
+                        if (rs.wasNull())
+                            lastLoginReward = null;
+
+                        return new Player(id, name, type, lastLoginReward);
+                    } else {
+                        return null;
+                    }
+                } finally {
+                    rs.close();
+                }
+            } finally {
+                statement.close();
+            }
+        } finally {
+            conn.close();
+        }
+    }
+
+    private Player getPlayerFromDBByName(String playerName) throws SQLException {
         Connection conn = _dbAccess.getDataSource().getConnection();
         try {
             PreparedStatement statement = conn.prepareStatement("select id, name, type, last_login_reward from player where name=?");

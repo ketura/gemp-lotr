@@ -32,6 +32,13 @@ public class MovementGameProcess implements GameProcess {
                 new UnrespondableEffect() {
                     @Override
                     protected void doPlayEffect(LotroGame game) {
+                        game.getGameState().setMoving(true);
+                    }
+                });
+        action.appendEffect(
+                new UnrespondableEffect() {
+                    @Override
+                    protected void doPlayEffect(LotroGame game) {
                         GameState gameState = game.getGameState();
 
                         final int nextSiteNumber = gameState.getCurrentSiteNumber() + 1;
@@ -88,6 +95,13 @@ public class MovementGameProcess implements GameProcess {
                         AddTwilightEffect effect = new AddTwilightEffect(null, siteTwilightCost + companionCount);
                         effect.setSourceText("Moving");
                         action.insertEffect(effect);
+                    }
+                });
+        action.appendEffect(
+                new UnrespondableEffect() {
+                    @Override
+                    protected void doPlayEffect(LotroGame game) {
+                        game.getGameState().setMoving(false);
                     }
                 });
 
