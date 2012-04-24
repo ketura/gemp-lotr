@@ -22,12 +22,6 @@ public class RarityReader {
                     if (line.endsWith("T")) {
                         if (!line.substring(0, setNo.length()).equals(setNo))
                             throw new IllegalStateException("Seems the rarity is for some other set");
-                        String rarity = line.substring(setNo.length(), setNo.length() + 1);
-                        List<String> cards = cardsByRarity.get(rarity);
-                        if (cards == null) {
-                            cards = new LinkedList<String>();
-                            cardsByRarity.put(rarity, cards);
-                        }
                         String blueprintId = setNo + "_" + line.substring(setNo.length() + 1);
                         tengwar.add(blueprintId);
                     } else {

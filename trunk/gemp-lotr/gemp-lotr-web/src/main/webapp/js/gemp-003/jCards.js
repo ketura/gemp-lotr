@@ -22,6 +22,7 @@ var packBlueprints = {
     "(S)TTT - Tengwar": "/gemp-lotr/images/boosters/ttt_tengwar_selection.png",
     "(S)RotK - Tengwar": "/gemp-lotr/images/boosters/rotk_tengwar_selection.png",
     "(S)SH - Tengwar": "/gemp-lotr/images/boosters/sh_tengwar_selection.png",
+    "(S)Tengwar": "/gemp-lotr/images/boosters/tengwar_selection.png",
 
     "(S)Booster Choice": "/gemp-lotr/images/boosters/booster_selection.png",
 
