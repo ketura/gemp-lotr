@@ -31,46 +31,6 @@ public class GameRecorder {
         _gameHistoryService = gameHistoryService;
     }
 
-    public void migrateReplays() {
-        System.out.println("Migrating replays");
-        try {
-            File gameReplayFolder = new File(ApplicationRoot.getRoot(), "replay");
-            for (File file : gameReplayFolder.listFiles()) {
-                System.out.println("Migrating user: " + file.getName());
-                for (File replayFile : file.listFiles()) {
-                    if (replayFile.getName().endsWith(".xml")) {
-                        if (replayFile.length() > 0)
-                            zipFile(replayFile);
-                        replayFile.delete();
-                    }
-                }
-            }
-        } catch (IOException exp) {
-            System.out.println("Exception: " + exp.getMessage());
-            exp.printStackTrace();
-        }
-    }
-
-    private void zipFile(File replayFile) throws IOException {
-        OutputStream out = getRecordingWriteStream(replayFile.getParentFile().getName(), replayFile.getName().substring(0, replayFile.getName().length() - 4));
-        try {
-            // Associate a file input stream for the current file
-            FileInputStream in = new FileInputStream(replayFile);
-            try {
-                // Transfer bytes from the current file to the ZIP file
-
-                byte[] buffer = new byte[1024];
-                int len;
-                while ((len = in.read(buffer)) > 0)
-                    out.write(buffer, 0, len);
-            } finally {
-                in.close();
-            }
-        } finally {
-            out.close();
-        }
-    }
-
     private String randomUid() {
         int length = 16;
         char[] chars = new char[length];
