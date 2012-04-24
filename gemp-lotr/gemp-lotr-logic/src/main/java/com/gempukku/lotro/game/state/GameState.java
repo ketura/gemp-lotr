@@ -33,6 +33,7 @@ public class GameState {
     private int _twilightPool;
 
     private int _moveCount;
+    private boolean _moving;
     private boolean _fierceSkirmishes;
     private boolean _extraSkirmishes;
 
@@ -88,6 +89,14 @@ public class GameState {
 
         for (GameStateListener listener : getAllGameStateListeners())
             listener.setPlayerOrder(playerOrder.getAllPlayers());
+    }
+
+    public boolean isMoving() {
+        return _moving;
+    }
+
+    public void setMoving(boolean moving) {
+        _moving = moving;
     }
 
     private void addPlayerCards(String playerId, List<String> cards, LotroCardBlueprintLibrary library) {
