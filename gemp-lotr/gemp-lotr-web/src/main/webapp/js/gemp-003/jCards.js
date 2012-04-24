@@ -205,7 +205,7 @@ var Card = Class.extend({
         return false;
     },
 
-    getUrlByBlueprintId: function(blueprintId) {
+    getUrlByBlueprintId: function(blueprintId, ignoreErrata) {
         if (fixedImages[blueprintId] != null)
             return fixedImages[blueprintId];
 
@@ -217,7 +217,7 @@ var Card = Class.extend({
         var cardNo = parseInt(blueprintId.substr(separator + 1));
 
         var errata = this.getErrata(setNo, cardNo);
-        if (errata != null)
+        if (errata != null && (ignoreErrata === undefined || !ignoreErrata))
             return errata;
 
         var mainLocation = this.getMainLocation(setNo, cardNo);
@@ -230,6 +230,11 @@ var Card = Class.extend({
             cardStr = this.formatCardNo(setNo, cardNo);
 
         return mainLocation + "LOTR" + cardStr + (this.isTengwar() ? "T" : "") + ".jpg";
+    },
+
+    getWikiLink: function() {
+        var imageUrl = this.getUrlByBlueprintId(this.blueprintId, true);
+        return imageUrl.substr(0, imageUrl.length - 3) + "html";
     },
 
     formatSetNo: function(setNo) {
