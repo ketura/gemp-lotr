@@ -48,7 +48,7 @@ public class GameRecorder {
         return new InflaterInputStream(new FileInputStream(file));
     }
 
-    public GameRecordingInProgress recordGame(LotroGameMediator lotroGame, final String formatName, final Map<String, String> deckNames) {
+    public GameRecordingInProgress recordGame(LotroGameMediator lotroGame, final String formatName, final String tournament, final Map<String, String> deckNames) {
         final Date startData = new Date();
         final Map<String, GatheringParticipantCommunicationChannel> recordingChannels = new HashMap<String, GatheringParticipantCommunicationChannel>();
         for (String playerId : lotroGame.getPlayersPlaying()) {
@@ -61,7 +61,7 @@ public class GameRecorder {
             @Override
             public void finishRecording(String winner, String winReason, String loser, String loseReason) {
                 Map<String, String> playerRecordingId = saveRecordedChannels(recordingChannels);
-                _gameHistoryService.addGameHistory(winner, loser, winReason, loseReason, playerRecordingId.get(winner), playerRecordingId.get(loser), formatName, deckNames.get(winner), deckNames.get(loser), startData, new Date());
+                _gameHistoryService.addGameHistory(winner, loser, winReason, loseReason, playerRecordingId.get(winner), playerRecordingId.get(loser), formatName, tournament, deckNames.get(winner), deckNames.get(loser), startData, new Date());
             }
         };
     }

@@ -234,7 +234,9 @@ var Card = Class.extend({
 
     getWikiLink: function() {
         var imageUrl = this.getUrlByBlueprintId(this.blueprintId, true);
-        return imageUrl.substr(0, imageUrl.length - 3) + "html";
+        var afterLastSlash = imageUrl.lastIndexOf("/") + 1;
+        var countAfterLastSlash = imageUrl.length - 3 - afterLastSlash;
+        return "http://lotrtcgdb.com/pages/" + imageUrl.substr(afterLastSlash, countAfterLastSlash) + "html";
     },
 
     formatSetNo: function(setNo) {

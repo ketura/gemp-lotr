@@ -165,6 +165,9 @@ public class ServerResource extends AbstractResource {
             historyEntry.setAttribute("loseReason", gameHistoryEntry.getLoseReason());
 
             historyEntry.setAttribute("formatName", gameHistoryEntry.getFormatName());
+            String tournament = gameHistoryEntry.getTournament();
+            if (tournament != null)
+                historyEntry.setAttribute("tournament", tournament);
 
             if (gameHistoryEntry.getWinner().equals(resourceOwner.getName()) && gameHistoryEntry.getWinnerRecording() != null) {
                 historyEntry.setAttribute("gameRecordingId", gameHistoryEntry.getWinnerRecording());
@@ -196,8 +199,8 @@ public class ServerResource extends AbstractResource {
         } else {
             sb.append("You are not logged in, log in below or <button id='clickToRegister'>register</button>.");
             sb.append("<div class='status'>Tables count: ").append(_hallServer.getTablesCount()).append(", players in hall: ").append(_chatServer.getChatRoom("Game Hall").getUsersInRoom().size())
-                    .append(", games played in last 24 hours: unknown").append(_gameHistoryService.getGamesPlayedCountInLastMs(1000 * 60 * 60 * 24))
-                    .append(",<br/> active players in last week: unknown").append(_gameHistoryService.getActivePlayersInLastMs(1000 * 60 * 60 * 24 * 7))
+                    .append(", games played in last 24 hours: ").append(_gameHistoryService.getGamesPlayedCountInLastMs(1000 * 60 * 60 * 24))
+                    .append(",<br/> active players in last week: ").append(_gameHistoryService.getActivePlayersInLastMs(1000 * 60 * 60 * 24 * 7))
                     .append("</div>");
             sb.append(getLoginHTML());
         }

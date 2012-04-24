@@ -23,8 +23,8 @@ public class GameHistoryService {
         _gameHistoryDAO = gameHistoryDAO;
     }
 
-    public void addGameHistory(String winner, String loser, String winReason, String loseReason, String winRecordingId, String loseRecordingId, String formatName, String winnerDeckName, String loserDeckName, Date startDate, Date endDate) {
-        _gameHistoryDAO.addGameHistory(winner, loser, winReason, loseReason, winRecordingId, loseRecordingId, formatName, winnerDeckName, loserDeckName, startDate, endDate);
+    public void addGameHistory(String winner, String loser, String winReason, String loseReason, String winRecordingId, String loseRecordingId, String formatName, String tournament, String winnerDeckName, String loserDeckName, Date startDate, Date endDate) {
+        _gameHistoryDAO.addGameHistory(winner, loser, winReason, loseReason, winRecordingId, loseRecordingId, formatName, tournament, winnerDeckName, loserDeckName, startDate, endDate);
         Integer winnerCount = _playerGameCount.get(winner);
         Integer loserCount = _playerGameCount.get(loser);
         if (winnerCount != null)

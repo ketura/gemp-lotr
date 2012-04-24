@@ -13,13 +13,14 @@ public class GameHistoryEntry {
     private String _loserRecording;
 
     private String _formatName;
+    private String _tournament;
     private String _winnerDeckName;
     private String _loserDeckName;
 
     private Date _startTime;
     private Date _endTime;
 
-    public GameHistoryEntry(String winner, String winReason, String winnerRecording, String loser, String loseReason, String loserRecording, String formatName, String winnerDeckName, String loserDeckName, Date startTime, Date endTime) {
+    public GameHistoryEntry(String winner, String winReason, String winnerRecording, String loser, String loseReason, String loserRecording, String formatName, String tournament, String winnerDeckName, String loserDeckName, Date startTime, Date endTime) {
         _winner = winner;
         _winReason = winReason;
         _winnerRecording = winnerRecording;
@@ -27,6 +28,7 @@ public class GameHistoryEntry {
         _loseReason = loseReason;
         _loserRecording = loserRecording;
         _formatName = formatName;
+        _tournament = tournament;
         _winnerDeckName = winnerDeckName;
         _loserDeckName = loserDeckName;
         _startTime = startTime;
@@ -59,6 +61,10 @@ public class GameHistoryEntry {
 
     public String getFormatName() {
         return _formatName;
+    }
+
+    public String getTournament() {
+        return _tournament;
     }
 
     public String getWinnerDeckName() {
