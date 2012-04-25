@@ -4,6 +4,7 @@ import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
 import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
+import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.cards.modifiers.AddActionToCardModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -64,6 +65,8 @@ public class Card7_126 extends AbstractAttachable {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new SelfDiscardEffect(self));
+            action.appendEffect(
+                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, CardType.MINION));
             action.appendEffect(
                     new RemoveTwilightEffect(4));
             return Collections.singletonList(action);
