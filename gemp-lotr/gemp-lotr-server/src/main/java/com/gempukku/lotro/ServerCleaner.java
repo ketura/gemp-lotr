@@ -1,10 +1,13 @@
 package com.gempukku.lotro;
 
+import org.apache.log4j.Logger;
+
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
 public class ServerCleaner {
+    private static final Logger LOG = Logger.getLogger(ServerCleaner.class);
     private final Set<AbstractServer> _servers = Collections.synchronizedSet(new HashSet<AbstractServer>());
     private CleaningThread _thr;
 
@@ -37,6 +40,7 @@ public class ServerCleaner {
                                 server.cleanup();
                             } catch (Exception exp) {
                                 // We can't do much about it
+                                LOG.error("Error while cleaning up a server", exp);
                             }
                         }
                     }
