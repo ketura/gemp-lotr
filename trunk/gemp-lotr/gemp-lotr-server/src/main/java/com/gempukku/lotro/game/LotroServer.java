@@ -50,9 +50,6 @@ public class LotroServer extends AbstractServer {
 
         final int[] cardCounts = new int[]{129, 365, 122, 122, 365, 128, 128, 365, 122, 52, 122, 266, 203, 203, 15, 207, 6, 157, 149, 40};
 
-//        Thread thr = new Thread(
-//                new Runnable() {
-//                    public void run() {
         for (int i = 0; i <= 19; i++) {
             System.out.println("Loading set " + i);
             for (int j = 1; j <= cardCounts[i]; j++) {
@@ -70,12 +67,14 @@ public class LotroServer extends AbstractServer {
 
                 }
             }
+            try {
+                // Slow it down, as it chockes the poor Amazon
+                Thread.sleep(100);
+            } catch (InterruptedException exp) {
+
+            }
         }
         _collectionReadyLatch.countDown();
-//                    }
-//                }
-//        );
-//        thr.start();
 
         _gameRecorder = new GameRecorder(_gameHistoryService);
     }
