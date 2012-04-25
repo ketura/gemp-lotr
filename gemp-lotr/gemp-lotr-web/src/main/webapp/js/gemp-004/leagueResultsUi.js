@@ -9,12 +9,12 @@ var LeagueResultsUI = Class.extend({
 
         this.questionDialog = $("<div></div>")
                 .dialog({
-            autoOpen: false,
-            closeOnEscape: true,
-            resizable: false,
-            modal: true,
-            title: "League operation"
-        });
+                    autoOpen: false,
+                    closeOnEscape: true,
+                    resizable: false,
+                    modal: true,
+                    title: "League operation"
+                });
 
         this.loadResults();
     },
