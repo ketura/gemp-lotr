@@ -15,3 +15,7 @@ function formatPrice(price) {
     var silver = (price % 100);
     return Math.floor(price / 100) + "<img src='images/gold.png'/> " + ((silver < 10) ? ("0" + silver) : silver) + "<img src='images/silver.png'/>";
 }
+
+function getDateString(date) {
+    return date.substring(0, 4) + "-" + date.substring(4, 6) + "-" + date.substring(6, 8);
+}

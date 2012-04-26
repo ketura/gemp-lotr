@@ -178,16 +178,16 @@ public class AdminResource extends AbstractResource {
             @FormParam("start") String start,
             @FormParam("prizeMultiplier") float prizeMultiplier,
             @FormParam("collectionType") String collectionType,
-            @FormParam("format") String[] formats,
-            @FormParam("serieDuration") int[] serieDurations,
-            @FormParam("maxMatches") int[] maxMatches,
+            @FormParam("format") List<String> formats,
+            @FormParam("serieDuration") List<Integer> serieDurations,
+            @FormParam("maxMatches") List<Integer> maxMatches,
             @Context HttpServletRequest request) throws Exception {
         validateLeagueAdmin(request);
 
         StringBuilder sb = new StringBuilder();
-        sb.append(start + "," + collectionType + "," + prizeMultiplier + "," + formats.length);
-        for (int i = 0; i < formats.length; i++)
-            sb.append("," + formats[i] + "," + serieDurations[i] + "," + maxMatches[i]);
+        sb.append(start + "," + collectionType + "," + prizeMultiplier + "," + formats.size());
+        for (int i = 0; i < formats.size(); i++)
+            sb.append("," + formats.get(i) + "," + serieDurations.get(i) + "," + maxMatches.get(i));
 
         String parameters = sb.toString();
         LeagueData leagueData = new NewConstructedLeagueData(parameters);
@@ -234,18 +234,18 @@ public class AdminResource extends AbstractResource {
             @FormParam("start") String start,
             @FormParam("prizeMultiplier") float prizeMultiplier,
             @FormParam("collectionType") String collectionType,
-            @FormParam("format") String[] formats,
-            @FormParam("serieDuration") int[] serieDurations,
-            @FormParam("maxMatches") int[] maxMatches,
+            @FormParam("format") List<String> formats,
+            @FormParam("serieDuration") List<Integer> serieDurations,
+            @FormParam("maxMatches") List<Integer> maxMatches,
             @Context HttpServletRequest request) throws Exception {
         validateLeagueAdmin(request);
 
         String code = String.valueOf(System.currentTimeMillis());
 
         StringBuilder sb = new StringBuilder();
-        sb.append(start + "," + collectionType + "," + prizeMultiplier + "," + formats.length);
-        for (int i = 0; i < formats.length; i++)
-            sb.append("," + formats[i] + "," + serieDurations[i] + "," + maxMatches[i]);
+        sb.append(start + "," + collectionType + "," + prizeMultiplier + "," + formats.size());
+        for (int i = 0; i < formats.size(); i++)
+            sb.append("," + formats.get(i) + "," + serieDurations.get(i) + "," + maxMatches.get(i));
 
         String parameters = sb.toString();
         LeagueData leagueData = new NewConstructedLeagueData(parameters);
