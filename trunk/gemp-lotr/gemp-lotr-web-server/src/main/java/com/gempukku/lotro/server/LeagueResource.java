@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -81,6 +82,7 @@ public class LeagueResource extends AbstractResource {
 
     @Path("/{leagueType}")
     @GET
+    @Produces(MediaType.APPLICATION_XML)
     public Document getLeagueInformation(
             @PathParam("leagueType") String leagueType,
             @QueryParam("participantId") String participantId,
