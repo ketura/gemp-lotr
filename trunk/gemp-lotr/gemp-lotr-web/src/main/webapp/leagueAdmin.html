@@ -25,8 +25,100 @@
     <script type="text/javascript" src="js/gemp-004/jCards.js"></script>
     <script type="text/javascript" src="js/gemp-004/logging.js"></script>
     <script type="text/javascript">
+        function submitFormToAddress(url, formElem, success, error) {
+            var data = {};
+
+            var inputs = $("input[type='text'], option:selected", formElem);
+            var input;
+            for (input in inputs) {
+                var name = null;
+                var value = null;
+                if (input.tagName == "INPUT") {
+                    name = input.getAttribute("name");
+                    value = input.val();
+
+                } else if (input.tagName == "OPTION") {
+                    name = input.parents("select").eq(0).getAttribute("name");
+                    value = input.prop("value");
+                }
+                if (name != null && value != null) {
+                    if (data[name] == null)
+                        data[name] = new Array();
+                    data[name].push(value);
+                }
+            }
+
+            $.ajax({
+                type: "POST",
+                url: url,
+                cache: false,
+                data: data,
+                success: success,
+                error: error,
+                dataType: "xml"
+            });
+        }
+
         $(document).ready(
                 function () {
+                    var previewDialog = $("<div></div>")
+                            .dialog({
+                                autoOpen: false,
+                                closeOnEscape: true,
+                                resizable: true,
+                                modal: true,
+                                title: "Preview window"
+                            });
+
+                    $("#previewSealed").click(
+                            function() {
+                                submitFormToAddress("/gemp-lotr-server/admin/previewSealedLeague", $("#addSealedForm").eq(0),
+                                        function(xml) {
+                                            var root = xml.documentElement;
+                                            if (root.tagName == 'league') {
+                                                var league = root;
+
+                                                var leagueName = league.getAttribute("name");
+                                                var cost = parseInt(league.getAttribute("cost"));
+                                                var start = league.getAttribute("start");
+                                                var end = league.getAttribute("end");
+
+                                                previewDialog.append("<div class='leagueName'>" + leagueName + "</div>");
+
+                                                var costStr = formatPrice(cost);
+                                                previewDialog.append("<div class='leagueCost'><b>Cost:</b> " + costStr + "</div>");
+
+                                                var series = league.getElementsByTagName("serie");
+                                                for (var j = 0; j < series.length; j++) {
+
+                                                    var tabContent = $("<div id='leagueserie" + j + "'></div>");
+
+                                                    var serie = series[j];
+                                                    var serieName = serie.getAttribute("type");
+                                                    var serieStart = serie.getAttribute("start");
+                                                    var serieEnd = serie.getAttribute("end");
+                                                    var maxMatches = serie.getAttribute("maxMatches");
+                                                    var format = serie.getAttribute("format");
+                                                    var collection = serie.getAttribute("collection");
+                                                    var limited = serie.getAttribute("limited");
+
+                                                    var serieText = serieName + " - " + this.getDateString(serieStart) + " to " + this.getDateString(serieEnd);
+                                                    previewDialog.append("<div class='serieName'>" + serieText + "</div>");
+
+                                                    previewDialog.append("<div><b>Format:</b> " + ((limited == "true") ? "Limited" : "Constructed") + " " + format + "</div>");
+                                                    previewDialog.append("<div><b>Collection:</b> " + collection + "</div>");
+
+                                                    previewDialog.append("<div>Maximum ranked matches in serie: " + maxMatches + "</div>");
+                                                }
+                                            }
+                                        },
+                                        function() {
+                                            previewDialog.dialog("close");
+                                            alert("Invalid parameters specified");
+                                        });
+                                previewDialog.html("");
+                                previewDialog.dialog("open");
+                            });
                 });
     </script>
 </head>
@@ -35,7 +127,7 @@
 
 <h2>Add sealed league</h2>
 
-<form method="POST" action="/gemp-lotr-server/admin/addSealedLeague">
+<form id="addSealedForm" method="POST" action="/gemp-lotr-server/admin/addSealedLeague">
     Name: <input type="text" name="name"><br/>
     Cost (in silver): <input type="text" name="cost"><br/>
     Format:
@@ -46,6 +138,7 @@
     Start (YYYYMMDD): <input type="text" name="start"><br/>
     Serie duration in days: <input type="text" name="serieDuration"><br/>
     Maximum matches in serie: <input type="text" name="maxMatches"><br/>
+    <input id="previewSealed" type="button" value="Preview sealed league">
     <input type="submit" value="Add sealed league">
 </form>
 
