@@ -10,16 +10,20 @@ import com.gempukku.lotro.game.DefaultCardCollection;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.game.LotroServer;
 import com.gempukku.lotro.game.Player;
+import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.gempukku.lotro.hall.HallServer;
-import com.gempukku.lotro.league.LeagueSerieData;
-import com.gempukku.lotro.league.LeagueService;
-import com.gempukku.lotro.league.NewSealedLeagueData;
+import com.gempukku.lotro.league.*;
 import com.sun.jersey.spi.resource.Singleton;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -44,6 +48,9 @@ public class AdminResource extends AbstractResource {
     private HallServer _hallServer;
     @Context
     private LotroServer _lotroServer;
+
+    @Context
+    private LotroFormatLibrary _formatLibrary;
 
     @Path("/clearCache")
     @GET
@@ -83,6 +90,58 @@ public class AdminResource extends AbstractResource {
         return "OK";
     }
 
+    @Path("/previewSealedLeague")
+    @POST
+    @Produces(MediaType.APPLICATION_XML)
+    public Document previewSealedLeague(
+            @FormParam("cost") int cost,
+            @FormParam("format") String format,
+            @FormParam("name") String name,
+            @FormParam("start") String start,
+            @FormParam("serieDuration") int serieDuration,
+            @FormParam("maxMatches") int maxMatches,
+            @Context HttpServletRequest request) throws Exception {
+        validateLeagueAdmin(request);
+
+        String code = String.valueOf(System.currentTimeMillis());
+
+        String parameters = format + "," + start + "," + serieDuration + "," + maxMatches + "," + code + "," + name;
+        LeagueData leagueData = new NewSealedLeagueData(parameters);
+
+        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+
+        Document doc = documentBuilder.newDocument();
+
+        final List<LeagueSerieData> series = leagueData.getSeries();
+
+        int end = series.get(series.size() - 1).getEnd();
+
+        Element leagueElem = doc.createElement("league");
+
+        leagueElem.setAttribute("name", name);
+        leagueElem.setAttribute("cost", String.valueOf(cost));
+        leagueElem.setAttribute("start", String.valueOf(series.get(0).getStart()));
+        leagueElem.setAttribute("end", String.valueOf(end));
+
+        for (LeagueSerieData serie : series) {
+            Element serieElem = doc.createElement("serie");
+            serieElem.setAttribute("type", serie.getName());
+            serieElem.setAttribute("maxMatches", String.valueOf(serie.getMaxMatches()));
+            serieElem.setAttribute("start", String.valueOf(serie.getStart()));
+            serieElem.setAttribute("end", String.valueOf(serie.getEnd()));
+            serieElem.setAttribute("format", _formatLibrary.getFormat(serie.getFormat()).getName());
+            serieElem.setAttribute("collection", serie.getCollectionType().getFullName());
+            serieElem.setAttribute("limited", String.valueOf(serie.isLimited()));
+
+            leagueElem.appendChild(serieElem);
+        }
+
+        doc.appendChild(leagueElem);
+
+        return doc;
+    }
+
     @Path("/addSealedLeague")
     @POST
     public String addSealedLeague(
@@ -98,11 +157,103 @@ public class AdminResource extends AbstractResource {
         String code = String.valueOf(System.currentTimeMillis());
 
         String parameters = format + "," + start + "," + serieDuration + "," + maxMatches + "," + code + "," + name;
-        NewSealedLeagueData leagueData = new NewSealedLeagueData(parameters);
+        LeagueData leagueData = new NewSealedLeagueData(parameters);
         List<LeagueSerieData> series = leagueData.getSeries();
+        int leagueStart = series.get(0).getStart();
         int displayEnd = DateUtils.offsetDate(series.get(series.size() - 1).getEnd(), 2);
 
-        _leagueDao.addLeague(cost, name, String.valueOf(System.currentTimeMillis()), NewSealedLeagueData.class.getName(), parameters, DateUtils.getCurrentDate(), displayEnd);
+        _leagueDao.addLeague(cost, name, code, leagueData.getClass().getName(), parameters, leagueStart, displayEnd);
+
+        _leagueService.clearCache();
+
+        return "OK";
+    }
+
+    @Path("/previewConstructedLeague")
+    @POST
+    @Produces(MediaType.APPLICATION_XML)
+    public Document previewConstructedLeague(
+            @FormParam("cost") int cost,
+            @FormParam("name") String name,
+            @FormParam("start") String start,
+            @FormParam("prizeMultiplier") float prizeMultiplier,
+            @FormParam("collectionType") String collectionType,
+            @FormParam("format") String[] formats,
+            @FormParam("serieDuration") int[] serieDurations,
+            @FormParam("maxMatches") int[] maxMatches,
+            @Context HttpServletRequest request) throws Exception {
+        validateLeagueAdmin(request);
+
+        StringBuilder sb = new StringBuilder();
+        sb.append(start + "," + collectionType + "," + prizeMultiplier + "," + formats.length);
+        for (int i = 0; i < formats.length; i++)
+            sb.append("," + formats[i] + "," + serieDurations[i] + "," + maxMatches[i]);
+
+        String parameters = sb.toString();
+        LeagueData leagueData = new NewConstructedLeagueData(parameters);
+
+        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+
+        Document doc = documentBuilder.newDocument();
+
+        final List<LeagueSerieData> series = leagueData.getSeries();
+
+        int end = series.get(series.size() - 1).getEnd();
+
+        Element leagueElem = doc.createElement("league");
+
+        leagueElem.setAttribute("name", name);
+        leagueElem.setAttribute("cost", String.valueOf(cost));
+        leagueElem.setAttribute("start", String.valueOf(series.get(0).getStart()));
+        leagueElem.setAttribute("end", String.valueOf(end));
+
+        for (LeagueSerieData serie : series) {
+            Element serieElem = doc.createElement("serie");
+            serieElem.setAttribute("type", serie.getName());
+            serieElem.setAttribute("maxMatches", String.valueOf(serie.getMaxMatches()));
+            serieElem.setAttribute("start", String.valueOf(serie.getStart()));
+            serieElem.setAttribute("end", String.valueOf(serie.getEnd()));
+            serieElem.setAttribute("format", _formatLibrary.getFormat(serie.getFormat()).getName());
+            serieElem.setAttribute("collection", serie.getCollectionType().getFullName());
+            serieElem.setAttribute("limited", String.valueOf(serie.isLimited()));
+
+            leagueElem.appendChild(serieElem);
+        }
+
+        doc.appendChild(leagueElem);
+
+        return doc;
+    }
+
+    @Path("/addConstructedLeague")
+    @POST
+    public String addConstructedLeague(
+            @FormParam("cost") int cost,
+            @FormParam("name") String name,
+            @FormParam("start") String start,
+            @FormParam("prizeMultiplier") float prizeMultiplier,
+            @FormParam("collectionType") String collectionType,
+            @FormParam("format") String[] formats,
+            @FormParam("serieDuration") int[] serieDurations,
+            @FormParam("maxMatches") int[] maxMatches,
+            @Context HttpServletRequest request) throws Exception {
+        validateLeagueAdmin(request);
+
+        String code = String.valueOf(System.currentTimeMillis());
+
+        StringBuilder sb = new StringBuilder();
+        sb.append(start + "," + collectionType + "," + prizeMultiplier + "," + formats.length);
+        for (int i = 0; i < formats.length; i++)
+            sb.append("," + formats[i] + "," + serieDurations[i] + "," + maxMatches[i]);
+
+        String parameters = sb.toString();
+        LeagueData leagueData = new NewConstructedLeagueData(parameters);
+        List<LeagueSerieData> series = leagueData.getSeries();
+        int leagueStart = series.get(0).getStart();
+        int displayEnd = DateUtils.offsetDate(series.get(series.size() - 1).getEnd(), 2);
+
+        _leagueDao.addLeague(cost, name, code, leagueData.getClass().getName(), parameters, leagueStart, displayEnd);
 
         _leagueService.clearCache();
 
