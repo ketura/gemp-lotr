@@ -46,6 +46,9 @@ public class Card13_190 extends AbstractNewSite {
     }
 
     private boolean isRaceMostCommonRaceAmongCompanions(GameState gameState, ModifiersQuerying modifiersQuerying, Race race) {
+        if (race == null)
+            return false;
+
         Map<Race, Integer> counts = new HashMap<Race, Integer>();
         for (PhysicalCard companion : Filters.filterActive(gameState, modifiersQuerying, CardType.COMPANION)) {
             final Race companionRace = companion.getBlueprint().getRace();
