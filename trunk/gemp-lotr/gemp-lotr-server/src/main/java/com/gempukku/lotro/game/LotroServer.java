@@ -48,33 +48,32 @@ public class LotroServer extends AbstractServer {
 
         // Hunters have 1-194 normal cards, 9 "O" cards, and 3 extra to cover the different culture versions of 15_60
 
-        final int[] cardCounts = new int[]{129, 365, 122, 122, 365, 128, 128, 365, 122, 52, 122, 266, 203, 203, 15, 207, 6, 157, 149, 40};
+        Thread thr = new Thread() {
+            public void run() {
+                final int[] cardCounts = new int[]{129, 365, 122, 122, 365, 128, 128, 365, 122, 52, 122, 266, 203, 203, 15, 207, 6, 157, 149, 40};
 
-        for (int i = 0; i <= 19; i++) {
-            System.out.println("Loading set " + i);
-            for (int j = 1; j <= cardCounts[i]; j++) {
-                String blueprintId = i + "_" + j;
-                try {
-                    if (_lotroCardBlueprintLibrary.getBaseBlueprintId(blueprintId).equals(blueprintId)) {
-                        LotroCardBlueprint cardBlueprint = _lotroCardBlueprintLibrary.getLotroCardBlueprint(blueprintId);
-                        CardType cardType = cardBlueprint.getCardType();
-                        if (cardType == CardType.SITE || cardType == CardType.THE_ONE_RING)
-                            _defaultCollection.addItem(blueprintId, 1);
-                        else
-                            _defaultCollection.addItem(blueprintId, 4);
+                for (int i = 0; i <= 19; i++) {
+                    System.out.println("Loading set " + i);
+                    for (int j = 1; j <= cardCounts[i]; j++) {
+                        String blueprintId = i + "_" + j;
+                        try {
+                            if (_lotroCardBlueprintLibrary.getBaseBlueprintId(blueprintId).equals(blueprintId)) {
+                                LotroCardBlueprint cardBlueprint = _lotroCardBlueprintLibrary.getLotroCardBlueprint(blueprintId);
+                                CardType cardType = cardBlueprint.getCardType();
+                                if (cardType == CardType.SITE || cardType == CardType.THE_ONE_RING)
+                                    _defaultCollection.addItem(blueprintId, 1);
+                                else
+                                    _defaultCollection.addItem(blueprintId, 4);
+                            }
+                        } catch (IllegalArgumentException exp) {
+
+                        }
                     }
-                } catch (IllegalArgumentException exp) {
-
                 }
+                _collectionReadyLatch.countDown();
             }
-            try {
-                // Slow it down, as it chockes the poor Amazon
-                Thread.sleep(100);
-            } catch (InterruptedException exp) {
-
-            }
-        }
-        _collectionReadyLatch.countDown();
+        };
+        thr.start();
 
         _gameRecorder = new GameRecorder(_gameHistoryService);
     }

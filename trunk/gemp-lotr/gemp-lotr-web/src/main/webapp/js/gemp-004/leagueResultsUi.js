@@ -9,12 +9,12 @@ var LeagueResultsUI = Class.extend({
 
         this.questionDialog = $("<div></div>")
                 .dialog({
-                    autoOpen: false,
-                    closeOnEscape: true,
-                    resizable: false,
-                    modal: true,
-                    title: "League operation"
-                });
+            autoOpen: false,
+            closeOnEscape: true,
+            resizable: false,
+            modal: true,
+            title: "League operation"
+        });
 
         this.loadResults();
     },
@@ -25,10 +25,6 @@ var LeagueResultsUI = Class.extend({
                 function(xml) {
                     that.loadedLeagueResults(xml);
                 });
-    },
-
-    getDateString: function(date) {
-        return date.substring(0, 4) + "-" + date.substring(4, 6) + "-" + date.substring(6, 8);
     },
 
     loadedLeague: function(xml) {
@@ -107,7 +103,7 @@ var LeagueResultsUI = Class.extend({
                 var collection = serie.getAttribute("collection");
                 var limited = serie.getAttribute("limited");
 
-                var serieText = serieName + " - " + this.getDateString(serieStart) + " to " + this.getDateString(serieEnd);
+                var serieText = serieName + " - " + getDateString(serieStart) + " to " + getDateString(serieEnd);
                 $("#leagueExtraInfo").append("<div class='serieName'>" + serieText + "</div>");
 
                 $("#leagueExtraInfo").append("<div><b>Format:</b> " + ((limited == "true") ? "Limited" : "Constructed") + " " + format + "</div>");
@@ -146,7 +142,7 @@ var LeagueResultsUI = Class.extend({
 
                 $("#leagueResults").append("<div class='leagueName'>" + leagueName + "</div>");
 
-                var duration = this.getDateString(start) + " to " + this.getDateString(end);
+                var duration = getDateString(start) + " to " + getDateString(end);
                 $("#leagueResults").append("<div class='leagueDuration'><b>Duration (GMT+0):</b> " + duration + "</div>");
 
                 var detailsBut = $("<button>See details</button>").button();
