@@ -60,9 +60,9 @@ var ChatBoxUI = Class.extend({
 
             if (showHideSystemButton) {
                 this.hideSystemButton = $("<button id='showSystemMessages'>Toggle system messages</button>").button(
-                        {icons: {
-                            primary: "ui-icon-zoomin"
-                        }, text: false});
+                {icons: {
+                    primary: "ui-icon-zoomin"
+                }, text: false});
                 this.hideSystemButton.click(
                         function() {
                             if (that.isShowingMessageClass("systemMessage")) {
@@ -78,9 +78,9 @@ var ChatBoxUI = Class.extend({
 
             if (showLockButton) {
                 this.lockButton = $("<button id='lockChatButton'>Toggle lock chat</button>").button(
-                        {icons: {
-                            primary: "ui-icon-locked"
-                        }, text: false});
+                {icons: {
+                    primary: "ui-icon-locked"
+                }, text: false});
                 this.lockButton.click(
                         function() {
                             if (that.lockChat) {
@@ -107,16 +107,16 @@ var ChatBoxUI = Class.extend({
                     function(xml) {
                         that.processMessages(xml, true);
                     }, {
-                        "401": function() {
-                            that.appendMessage("You are not logged in, go to the main page to log in.", "warningMessage");
-                        },
-                        "403": function() {
-                            that.appendMessage("You have no permission to join this chat.", "warningMessage");
-                        },
-                        "404": function() {
-                            that.appendMessage("Chat room was closed, please go to the Game Hall.", "warningMessage");
-                        }
-                    });
+                "401": function() {
+                    that.appendMessage("You are not logged in, go to the main page to log in.", "warningMessage");
+                },
+                "403": function() {
+                    that.appendMessage("You have no permission to join this chat.", "warningMessage");
+                },
+                "404": function() {
+                    that.appendMessage("Chat room was closed, please go to the Game Hall.", "warningMessage");
+                }
+            });
 
             this.chatTalkDiv.bind("keypress", function(e) {
                 var code = (e.keyCode ? e.keyCode : e.which);
