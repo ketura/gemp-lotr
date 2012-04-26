@@ -246,39 +246,41 @@ public class LeagueService {
         awardPrizesToPlayer(league, serie, loser, false);
     }
 
-    private void addPoints(League league, LeagueSerieData serie, String winner, int points) {
-        _leaguePointsDao.addPoints(league, serie, winner, points);
-        storeNewLeaguePoints(league, winner, points);
-        storeNewLeagueSeriePoints(league, serie, winner, points);
+    private void addPoints(League league, LeagueSerieData serie, String player, int points) {
+        Map<String, LeaguePointsDAO.Points> leaguePoints = getLeaguePoints(league);
+        Map<String, LeaguePointsDAO.Points> leagueSeriePoints = getLeagueSeriePoints(league, serie);
+        _leaguePointsDao.addPoints(league, serie, player, points);
+        storeNewLeaguePoints(leaguePoints, player, points);
+        storeNewLeagueSeriePoints(leagueSeriePoints, player, points);
     }
 
-    private void storeNewLeagueSeriePoints(League league, LeagueSerieData serie, String winner, int points) {
-        final Map<String, LeaguePointsDAO.Points> leagueSeriePoints = getLeagueSeriePoints(league, serie);
-        final LeaguePointsDAO.Points playerPoints = leagueSeriePoints.get(winner);
+    private void storeNewLeagueSeriePoints(Map<String, LeaguePointsDAO.Points> leagueSeriePoints, String player, int points) {
+        final LeaguePointsDAO.Points playerPoints = leagueSeriePoints.get(player);
         if (playerPoints != null)
             playerPoints.addPointsForMatch(points);
         else {
             LeaguePointsDAO.Points newPoints = new LeaguePointsDAO.Points(points, 1);
-            leagueSeriePoints.put(winner, newPoints);
+            leagueSeriePoints.put(player, newPoints);
         }
     }
 
-    private void storeNewLeaguePoints(League league, String winner, int points) {
-        final Map<String, LeaguePointsDAO.Points> leaguePoints = getLeaguePoints(league);
-        final LeaguePointsDAO.Points playerPoints = leaguePoints.get(winner);
+    private void storeNewLeaguePoints(Map<String, LeaguePointsDAO.Points> leaguePoints, String player, int points) {
+        final LeaguePointsDAO.Points playerPoints = leaguePoints.get(player);
         if (playerPoints != null)
             playerPoints.addPointsForMatch(points);
         else {
             LeaguePointsDAO.Points newPoints = new LeaguePointsDAO.Points(points, 1);
-            leaguePoints.put(winner, newPoints);
+            leaguePoints.put(player, newPoints);
         }
     }
 
     private void addMatch(League league, LeagueSerieData serie, String winner, String loser) {
+        Collection<LeagueMatch> leagueMatches = getLeagueMatches(league);
+        Collection<LeagueMatch> leagueSerieMatches = getLeagueSerieMatches(league, serie);
         LeagueMatch match = new LeagueMatch(winner, loser);
         _leagueMatchDao.addPlayedMatch(league, serie, match);
-        getLeagueMatches(league).add(match);
-        getLeagueSerieMatches(league, serie).add(match);
+        leagueMatches.add(match);
+        leagueSerieMatches.add(match);
     }
 
     private void awardPrizesToPlayer(League league, LeagueSerieData serie, String player, boolean winner) {
