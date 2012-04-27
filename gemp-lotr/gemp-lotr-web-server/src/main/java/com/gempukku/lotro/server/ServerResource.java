@@ -59,9 +59,14 @@ public class ServerResource extends AbstractResource {
             @FormParam("login") String login,
             @FormParam("password") String password,
             @Context HttpServletRequest request) throws Exception {
-        if (_playerDao.loginUser(login, password) != null) {
-            logUser(request, login);
-            return "<script>location.href='hall.html';</script>";
+        Player player = _playerDao.loginUser(login, password);
+        if (player != null) {
+            if (player.getType().contains("u")) {
+                logUser(request, login);
+                return "<script>location.href='hall.html';</script>";
+            } else {
+                return "You were banned. If you think it was a mistake, please write an e-mail to marcins78@gmail.com";
+            }
         } else {
             return "Invalid login or password. Please try again.<br/>" + getLoginHTML();
         }
