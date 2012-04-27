@@ -37,14 +37,14 @@ public class Card7_243 extends AbstractEvent {
         action.appendEffect(
                 new ChooseActiveCardEffect(self, playerId, "Choose ROHAN Man", Culture.ROHAN, Race.MAN) {
                     @Override
-                    protected void cardSelected(LotroGame game, final PhysicalCard card) {
+                    protected void cardSelected(LotroGame game, final PhysicalCard rohanMan) {
                         action.appendEffect(
                                 new PreventableEffect(action,
                                         new AddUntilEndOfPhaseModifierEffect(
-                                                new StrengthModifier(self, card, 4), Phase.SKIRMISH) {
+                                                new StrengthModifier(self, rohanMan, 4), Phase.SKIRMISH) {
                                             @Override
                                             public String getText(LotroGame game) {
-                                                return "Make " + GameUtils.getCardLink(card) + " strength +4";
+                                                return "Make " + GameUtils.getCardLink(rohanMan) + " strength +4";
                                             }
                                         }, GameUtils.getOpponents(game, playerId),
                                         new PreventableEffect.PreventionCost() {
@@ -60,7 +60,7 @@ public class Card7_243 extends AbstractEvent {
                                                     protected void putCardFromHandOnBottomOfDeckCallback(PhysicalCard card) {
                                                         action.appendEffect(
                                                                 new AddUntilEndOfPhaseModifierEffect(
-                                                                        new StrengthModifier(self, card, 2), Phase.SKIRMISH));
+                                                                        new StrengthModifier(self, rohanMan, 2), Phase.SKIRMISH));
                                                     }
                                                 };
                                             }
