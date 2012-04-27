@@ -3,7 +3,7 @@ package com.gempukku.lotro.chat;
 import java.util.*;
 
 public class ChatRoom {
-    private int _maxMessageHistoryCount = 150;
+    private int _maxMessageHistoryCount = 500;
     private LinkedList<ChatMessage> _lastMessages = new LinkedList<ChatMessage>();
     private Map<String, ChatRoomListener> _chatRoomListeners = new TreeMap<String, ChatRoomListener>(
             new Comparator<String>() {
