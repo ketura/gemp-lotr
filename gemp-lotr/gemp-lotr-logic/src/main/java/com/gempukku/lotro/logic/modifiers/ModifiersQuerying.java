@@ -15,6 +15,8 @@ import java.util.Set;
 public interface ModifiersQuerying {
     public LimitCounter getUntilEndOfPhaseLimitCounter(PhysicalCard card, Phase phase);
 
+    public LimitCounter getUntilEndOfPhaseLimitCounter(PhysicalCard card, String prefix, Phase phase);
+
     public LimitCounter getUntilEndOfTurnLimitCounter(PhysicalCard card);
 
     public Collection<Modifier> getModifiersAffecting(GameState gameState, PhysicalCard card);
