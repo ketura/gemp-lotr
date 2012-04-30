@@ -52,7 +52,7 @@ public class Card12_001 extends AbstractEvent {
                     @Override
                     protected void opponentChosen(String opponentId) {
                         action.insertEffect(
-                                new ChooseActiveCardEffect(self, playerId, "Choose character with a race you wish to spare", Filters.character, hasRace) {
+                                new ChooseActiveCardEffect(self, opponentId, "Choose character with a race you wish to spare", Filters.character, hasRace) {
                                     @Override
                                     protected void cardSelected(LotroGame game, PhysicalCard card) {
                                         action.insertEffect(
