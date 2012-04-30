@@ -8,7 +8,7 @@ import java.util.Set;
 
 public class Skirmish {
     private PhysicalCard _fellowshipCharacter;
-    private Set<PhysicalCard> _shadowCharacters;
+    private final Set<PhysicalCard> _shadowCharacters;
     private boolean _cancelled;
 
     private Evaluator _fpStrengthOverrideEvaluator;
