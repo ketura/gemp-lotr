@@ -1001,7 +1001,7 @@ public class GameState {
     }
 
     public void startSkirmish(PhysicalCard fellowshipCharacter, Set<PhysicalCard> shadowCharacters) {
-        _skirmish = new Skirmish(fellowshipCharacter, shadowCharacters);
+        _skirmish = new Skirmish(fellowshipCharacter, new HashSet<PhysicalCard>(shadowCharacters));
         for (GameStateListener listener : getAllGameStateListeners())
             listener.startSkirmish(_skirmish.getFellowshipCharacter(), _skirmish.getShadowCharacters());
     }
