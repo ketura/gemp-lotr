@@ -18,7 +18,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
 
     private Set<Modifier> _skipSet = new HashSet<Modifier>();
 
-    private Map<Phase, Map<Integer, LimitCounter>> _phaseLimitCounters = new HashMap<Phase, Map<Integer, LimitCounter>>();
+    private Map<Phase, Map<String, LimitCounter>> _phaseLimitCounters = new HashMap<Phase, Map<String, LimitCounter>>();
     private Map<Integer, LimitCounter> _turnLimitCounters = new HashMap<Integer, LimitCounter>();
 
     private int _drawnThisPhaseCount = 0;
@@ -26,15 +26,20 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
 
     @Override
     public LimitCounter getUntilEndOfPhaseLimitCounter(PhysicalCard card, Phase phase) {
-        Map<Integer, LimitCounter> limitCounterMap = _phaseLimitCounters.get(phase);
+        return getUntilEndOfPhaseLimitCounter(card, "", phase);
+    }
+
+    @Override
+    public LimitCounter getUntilEndOfPhaseLimitCounter(PhysicalCard card, String prefix, Phase phase) {
+        Map<String, LimitCounter> limitCounterMap = _phaseLimitCounters.get(phase);
         if (limitCounterMap == null) {
-            limitCounterMap = new HashMap<Integer, LimitCounter>();
+            limitCounterMap = new HashMap<String, LimitCounter>();
             _phaseLimitCounters.put(phase, limitCounterMap);
         }
-        LimitCounter limitCounter = limitCounterMap.get(card.getCardId());
+        LimitCounter limitCounter = limitCounterMap.get(prefix + card.getCardId());
         if (limitCounter == null) {
             limitCounter = new DefaultLimitCounter();
-            limitCounterMap.put(card.getCardId(), limitCounter);
+            limitCounterMap.put(prefix + card.getCardId(), limitCounter);
         }
         return limitCounter;
     }
@@ -128,7 +133,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
             removeModifiers(list);
             list.clear();
         }
-        Map<Integer, LimitCounter> counterMap = _phaseLimitCounters.get(phase);
+        Map<String, LimitCounter> counterMap = _phaseLimitCounters.get(phase);
         if (counterMap != null)
             counterMap.clear();
 

@@ -44,12 +44,12 @@ public class Card2_012 extends AbstractPermanent {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard dwarf) {
                             action.appendEffect(
-                                    new CheckPhaseLimitEffect(action, self, 3, Phase.SKIRMISH,
+                                    new CheckPhaseLimitEffect(action, self, "str", 3, Phase.SKIRMISH,
                                             new AddUntilEndOfPhaseModifierEffect(
                                                     new StrengthModifier(self, Filters.sameCard(dwarf), 1), Phase.SKIRMISH)));
                             if (PlayConditions.location(game, Keyword.UNDERGROUND))
                                 action.appendEffect(
-                                        new CheckPhaseLimitEffect(action, self, 3, Phase.SKIRMISH,
+                                        new CheckPhaseLimitEffect(action, self, "dmg", 3, Phase.SKIRMISH,
                                                 new AddUntilEndOfPhaseModifierEffect(
                                                         new KeywordModifier(self, Filters.sameCard(dwarf), Keyword.DAMAGE), Phase.SKIRMISH)));
                         }
