@@ -36,6 +36,6 @@ public class Card4_167 extends AbstractAttachable {
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, final PhysicalCard self) {
         return Collections.singletonList(
                 new SidePlayerCantPlayPhaseEventsOrSpecialAbilitiesModifier(self,
-                        new SpotCondition(self, Filters.hasStacked(Race.URUK_HAI)), Side.FREE_PEOPLE, Phase.SKIRMISH));
+                        new SpotCondition(Filters.hasAttached(self), Filters.hasStacked(Race.URUK_HAI)), Side.FREE_PEOPLE, Phase.SKIRMISH));
     }
 }
