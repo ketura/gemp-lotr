@@ -247,26 +247,22 @@ public class Filters {
                 new Filter() {
                     @Override
                     public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                        Map<PhysicalCard, Set<PhysicalCard>> currentAssignments = new HashMap<PhysicalCard, Set<PhysicalCard>>();
-                        for (Assignment assignment : gameState.getAssignments())
-                            currentAssignments.put(assignment.getFellowshipCharacter(), assignment.getShadowCharacters());
-
                         for (PhysicalCard card : Filters.filterActive(gameState, modifiersQuerying, againstFilter)) {
                             if (card.getBlueprint().getSide() != physicalCard.getBlueprint().getSide()
                                     && Filters.assignableToSkirmish(assignedBySide, ignoreUnassigned, allowAllyToSkirmish).accepts(gameState, modifiersQuerying, card)) {
-                                Map<PhysicalCard, Set<PhysicalCard>> afterThatAssignment = new HashMap<PhysicalCard, Set<PhysicalCard>>(currentAssignments);
+                                Map<PhysicalCard, Set<PhysicalCard>> thisAssignment = new HashMap<PhysicalCard, Set<PhysicalCard>>();
                                 if (card.getBlueprint().getSide() == Side.FREE_PEOPLE) {
-                                    if (afterThatAssignment.containsKey(card))
-                                        afterThatAssignment.get(card).add(physicalCard);
+                                    if (thisAssignment.containsKey(card))
+                                        thisAssignment.get(card).add(physicalCard);
                                     else
-                                        afterThatAssignment.put(card, Collections.singleton(physicalCard));
+                                        thisAssignment.put(card, Collections.singleton(physicalCard));
                                 } else {
-                                    if (afterThatAssignment.containsKey(physicalCard))
-                                        afterThatAssignment.get(physicalCard).add(card);
+                                    if (thisAssignment.containsKey(physicalCard))
+                                        thisAssignment.get(physicalCard).add(card);
                                     else
-                                        afterThatAssignment.put(physicalCard, Collections.singleton(card));
+                                        thisAssignment.put(physicalCard, Collections.singleton(card));
                                 }
-                                if (modifiersQuerying.isValidAssignments(gameState, assignedBySide, afterThatAssignment))
+                                if (modifiersQuerying.isValidAssignments(gameState, assignedBySide, thisAssignment))
                                     return true;
                             }
                         }

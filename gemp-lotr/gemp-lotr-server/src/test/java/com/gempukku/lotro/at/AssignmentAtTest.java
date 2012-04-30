@@ -11,12 +11,13 @@ import com.gempukku.lotro.logic.decisions.AwaitingDecisionType;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.vo.LotroDeck;
-import static junit.framework.Assert.*;
 import org.junit.Test;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static junit.framework.Assert.*;
 
 public class AssignmentAtTest extends AbstractAtTest {
     @Test
@@ -437,5 +438,74 @@ public class AssignmentAtTest extends AbstractAtTest {
         assertEquals(elrond, assignmentsAfterFreePlayer.get(0).getFellowshipCharacter());
         assertEquals(1, assignmentsAfterFreePlayer.get(0).getShadowCharacters().size());
         assertTrue(assignmentsAfterFreePlayer.get(0).getShadowCharacters().contains(dunlendingWarrior));
+    }
+
+    @Test
+    public void twoOrcAssassinsAtCarasGaladhon() throws DecisionResultInvalidException {
+        initializeSimplestGame();
+
+        skipMulligans();
+
+        PhysicalCardImpl merry = new PhysicalCardImpl(100, "1_303", P1, _library.getLotroCardBlueprint("1_303"));
+        PhysicalCardImpl carasGaladhon = new PhysicalCardImpl(100, "3_115", P1, _library.getLotroCardBlueprint("3_115"));
+        PhysicalCardImpl orcAssassin1 = new PhysicalCardImpl(101, "1_262", P2, _library.getLotroCardBlueprint("1_262"));
+        PhysicalCardImpl orcAssassin2 = new PhysicalCardImpl(102, "1_262", P2, _library.getLotroCardBlueprint("1_262"));
+
+        _game.getGameState().addCardToZone(_game, merry, Zone.FREE_CHARACTERS);
+
+        carasGaladhon.setSiteNumber(2);
+        _game.getGameState().addCardToZone(_game, carasGaladhon, Zone.ADVENTURE_PATH);
+
+        // End fellowship phase
+        playerDecided(P1, "");
+
+        _game.getGameState().addCardToZone(_game, orcAssassin1, Zone.SHADOW_CHARACTERS);
+        _game.getGameState().addCardToZone(_game, orcAssassin2, Zone.SHADOW_CHARACTERS);
+
+        // End shadow phase
+        playerDecided(P2, "");
+
+        // End maneuvers phase
+        playerDecided(P1, "");
+        playerDecided(P2, "");
+
+        // End arhcery phase
+        playerDecided(P1, "");
+        playerDecided(P2, "");
+
+        // Assignment phase
+        playerDecided(P1, "");
+
+        AwaitingDecision assignmentActions = _userFeedback.getAwaitingDecision(P2);
+        assertEquals(AwaitingDecisionType.CARD_ACTION_CHOICE, assignmentActions.getDecisionType());
+        validateContents(toCardIdArray(orcAssassin1, orcAssassin2), (String[]) assignmentActions.getDecisionParameters().get("cardId"));
+
+        playerDecided(P2, "0");
+
+        AwaitingDecision fpFirstAssassinDecision = _userFeedback.getAwaitingDecision(P1);
+        assertEquals(AwaitingDecisionType.CARD_SELECTION, fpFirstAssassinDecision.getDecisionType());
+        validateContents(toCardIdArray(merry, _game.getGameState().getRingBearer(P1)), (String[]) fpFirstAssassinDecision.getDecisionParameters().get("cardId"));
+
+        playerDecided(P1, String.valueOf(merry.getCardId()));
+
+        assertEquals(1, _game.getGameState().getAssignments().size());
+        final Assignment firstAssignment = _game.getGameState().getAssignments().get(0);
+        assertEquals(merry, firstAssignment.getFellowshipCharacter());
+        assertEquals(1, firstAssignment.getShadowCharacters().size());
+        assertTrue(firstAssignment.getShadowCharacters().contains(orcAssassin1));
+
+        playerDecided(P1, "");
+
+        assignmentActions = _userFeedback.getAwaitingDecision(P2);
+        assertEquals(AwaitingDecisionType.CARD_ACTION_CHOICE, assignmentActions.getDecisionType());
+        validateContents(toCardIdArray(orcAssassin1, orcAssassin2), (String[]) assignmentActions.getDecisionParameters().get("cardId"));
+
+        playerDecided(P2, "1");
+
+        assertEquals(2, _game.getGameState().getAssignments().size());
+        final Assignment secondAssignment = _game.getGameState().getAssignments().get(1);
+        assertEquals(_game.getGameState().getRingBearer(P1), secondAssignment.getFellowshipCharacter());
+        assertEquals(1, secondAssignment.getShadowCharacters().size());
+        assertTrue(secondAssignment.getShadowCharacters().contains(orcAssassin2));
     }
 }
