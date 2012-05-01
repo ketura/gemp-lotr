@@ -155,6 +155,10 @@
         border: 1px solid white;
     }
 
+    .userList {
+        border-left: 1px solid #FFFFFF;
+    }
+
 </style>
 <link rel="stylesheet" type="text/css" href="css/dark-hive/jquery-ui-1.8.16.custom.css">
 <link rel="stylesheet" type="text/css" href="js/jquery/styles/jquery.spinnercontrol.css">
@@ -216,11 +220,11 @@
 
                 var infoDialog = $("<div></div>")
                         .dialog({
-                    autoOpen: false,
-                    closeOnEscape: true,
-                    resizable: false,
-                    title: "Card information"
-                });
+                            autoOpen: false,
+                            closeOnEscape: true,
+                            resizable: false,
+                            title: "Card information"
+                        });
 
                 $("body").click(
                         function (event) {
