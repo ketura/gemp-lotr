@@ -1,6 +1,7 @@
 package com.gempukku.lotro.league;
 
 import com.gempukku.lotro.DateUtils;
+import com.gempukku.lotro.PlayerStanding;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.game.CardCollection;
@@ -64,7 +65,7 @@ public class NewSealedLeagueData implements LeagueData {
     }
 
     @Override
-    public int process(CollectionsManager collectionsManager, List<LeagueStanding> leagueStandings, int oldStatus, int currentTime) {
+    public int process(CollectionsManager collectionsManager, List<PlayerStanding> leagueStandings, int oldStatus, int currentTime) {
         int status = oldStatus;
 
         for (int i = status; i < _series.size(); i++) {
@@ -82,12 +83,12 @@ public class NewSealedLeagueData implements LeagueData {
         if (status == _series.size()) {
             LeagueSerieData lastSerie = _series.get(_series.size() - 1);
             if (currentTime > DateUtils.offsetDate(lastSerie.getEnd(), 1)) {
-                for (LeagueStanding leagueStanding : leagueStandings) {
+                for (PlayerStanding leagueStanding : leagueStandings) {
                     CardCollection leaguePrize = _leaguePrizes.getPrizeForLeague(leagueStanding.getStanding(), leagueStandings.size(), 1f, _format);
                     if (leaguePrize != null)
                         collectionsManager.addItemsToPlayerCollection(leagueStanding.getPlayerName(), _prizeCollectionType, leaguePrize.getAll());
                 }
-//                for (LeagueStanding leagueStanding : leagueStandings) {
+//                for (PlayerStanding leagueStanding : leagueStandings) {
 //                    collectionsManager.moveCollectionToCollection(leagueStanding.getPlayerName(), _collectionType, _prizeCollectionType);
 //                }
                 status++;

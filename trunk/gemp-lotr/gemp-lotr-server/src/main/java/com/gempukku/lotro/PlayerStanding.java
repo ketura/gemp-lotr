@@ -1,13 +1,13 @@
-package com.gempukku.lotro.league;
+package com.gempukku.lotro;
 
-public class LeagueStanding {
+public class PlayerStanding {
     private String _playerName;
     private int _points;
     private int _gamesPlayed;
     private float _opponentWin;
     private int _standing;
 
-    public LeagueStanding(String playerName, int points, int gamesPlayed) {
+    public PlayerStanding(String playerName, int points, int gamesPlayed) {
         _playerName = playerName;
         _points = points;
         _gamesPlayed = gamesPlayed;
