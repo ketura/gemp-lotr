@@ -19,9 +19,9 @@ public class ParametrizedMerchant implements Merchant {
     private final long _priceRevertTimeMs = 5 * DAY;
     private final long _easingTimeMs = 30 * DAY;
     private final float _profitMargin = 0.7f;
-    private final double _returnPrizeSlope = 0.3;
+    private final double _returnPriceSlope = 0.3;
     private final double _decreasePrizeSlope = 4;
-    private final long _decreaseHalfedMs = 30 * DAY;
+    private final long _decreaseHalfedMs = 90 * DAY;
 
     private MerchantDAO _merchantDao;
     private Map<Integer, SetRarity> _rarity = new HashMap<Integer, SetRarity>();
@@ -86,9 +86,9 @@ public class ParametrizedMerchant implements Merchant {
         }
         if (lastTrans.getDate().getTime() + _priceRevertTimeMs > currentTime.getTime()) {
             if (lastTrans.getTransactionType() == MerchantDAO.TransactionType.SELL) {
-                return (1 + _fluctuationValue) * lastTrans.getPrice() / (1 + (_fluctuationValue * Math.pow(1f * (currentTime.getTime() - lastTrans.getDate().getTime()) / _priceRevertTimeMs, _returnPrizeSlope)));
+                return (1 + _fluctuationValue) * lastTrans.getPrice() / (1 + (_fluctuationValue * Math.pow(1f * (currentTime.getTime() - lastTrans.getDate().getTime()) / _priceRevertTimeMs, _returnPriceSlope)));
             } else {
-                return (1 - _fluctuationValue) * lastTrans.getPrice() / (1 - (_fluctuationValue * Math.pow(1f * (currentTime.getTime() - lastTrans.getDate().getTime()) / _priceRevertTimeMs, _returnPrizeSlope)));
+                return (1 - _fluctuationValue) * lastTrans.getPrice() / (1 - (_fluctuationValue * Math.pow(1f * (currentTime.getTime() - lastTrans.getDate().getTime()) / _priceRevertTimeMs, _returnPriceSlope)));
             }
         }
         long timeSinceRevertMs = currentTime.getTime() - lastTrans.getDate().getTime() - _priceRevertTimeMs;
