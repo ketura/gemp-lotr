@@ -6,4 +6,6 @@ import java.util.Map;
 
 public interface TournamentCallback {
     public void createGames(Map<String, String> pairings, Map<String, LotroDeck> playerDecks);
+
+    public void broadcastMessage(String message);
 }
