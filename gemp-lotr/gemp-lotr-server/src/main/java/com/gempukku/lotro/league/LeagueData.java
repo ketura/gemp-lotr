@@ -1,5 +1,6 @@
 package com.gempukku.lotro.league;
 
+import com.gempukku.lotro.PlayerStanding;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.game.CardCollection;
 import com.gempukku.lotro.game.Player;
@@ -11,5 +12,5 @@ public interface LeagueData {
 
     public CardCollection joinLeague(CollectionsManager collecionsManager, Player player, int currentTime);
 
-    public int process(CollectionsManager collectionsManager, List<LeagueStanding> leagueStandings, int oldStatus, int currentTime);
+    public int process(CollectionsManager collectionsManager, List<PlayerStanding> leagueStandings, int oldStatus, int currentTime);
 }

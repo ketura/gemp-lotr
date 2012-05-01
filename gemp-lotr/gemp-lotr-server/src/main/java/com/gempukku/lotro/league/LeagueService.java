@@ -1,6 +1,7 @@
 package com.gempukku.lotro.league;
 
 import com.gempukku.lotro.DateUtils;
+import com.gempukku.lotro.PlayerStanding;
 import com.gempukku.lotro.cache.ExpireObjectCache;
 import com.gempukku.lotro.cache.Producable;
 import com.gempukku.lotro.collection.CollectionsManager;
@@ -23,11 +24,11 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArraySet;
 
 public class LeagueService {
-    private Comparator<LeagueStanding> LEAGUE_STANDING_COMPARATOR =
-            new MultipleComparator<LeagueStanding>(
-                    new DescComparator<LeagueStanding>(new PointsComparator()),
+    private Comparator<PlayerStanding> LEAGUE_STANDING_COMPARATOR =
+            new MultipleComparator<PlayerStanding>(
+                    new DescComparator<PlayerStanding>(new PointsComparator()),
                     new GamesPlayedComparator(),
-                    new DescComparator<LeagueStanding>(new OpponentsWinComparator()));
+                    new DescComparator<PlayerStanding>(new OpponentsWinComparator()));
 
     private LeagueDAO _leagueDao;
     private LeaguePointsDAO _leaguePointsDao;
@@ -36,8 +37,8 @@ public class LeagueService {
     private LeagueParticipationDAO _leagueParticipationDAO;
     private CollectionsManager _collectionsManager;
 
-    private Map<League, List<LeagueStanding>> _leagueStandings = new ConcurrentHashMap<League, List<LeagueStanding>>();
-    private Map<LeagueSerieData, List<LeagueStanding>> _leagueSerieStandings = new ConcurrentHashMap<LeagueSerieData, List<LeagueStanding>>();
+    private Map<League, List<PlayerStanding>> _leagueStandings = new ConcurrentHashMap<League, List<PlayerStanding>>();
+    private Map<LeagueSerieData, List<PlayerStanding>> _leagueSerieStandings = new ConcurrentHashMap<LeagueSerieData, List<PlayerStanding>>();
 
     private Map<League, Set<String>> _playersParticipating = new ConcurrentHashMap<League, Set<String>>();
     private Map<League, Set<String>> _playersNotParticipating = new ConcurrentHashMap<League, Set<String>>();
@@ -310,8 +311,8 @@ public class LeagueService {
         return result;
     }
 
-    public List<LeagueStanding> getLeagueStandings(League league) {
-        List<LeagueStanding> leagueStandings = _leagueStandings.get(league);
+    public List<PlayerStanding> getLeagueStandings(League league) {
+        List<PlayerStanding> leagueStandings = _leagueStandings.get(league);
         if (leagueStandings == null) {
             synchronized (this) {
                 leagueStandings = createLeagueStandings(league);
@@ -321,8 +322,8 @@ public class LeagueService {
         return leagueStandings;
     }
 
-    public List<LeagueStanding> getLeagueSerieStandings(League league, LeagueSerieData leagueSerie) {
-        List<LeagueStanding> serieStandings = _leagueSerieStandings.get(leagueSerie);
+    public List<PlayerStanding> getLeagueSerieStandings(League league, LeagueSerieData leagueSerie) {
+        List<PlayerStanding> serieStandings = _leagueSerieStandings.get(leagueSerie);
         if (serieStandings == null) {
             synchronized (this) {
                 serieStandings = createLeagueSerieStandings(league, leagueSerie);
@@ -332,21 +333,21 @@ public class LeagueService {
         return serieStandings;
     }
 
-    private List<LeagueStanding> createLeagueSerieStandings(League league, LeagueSerieData leagueSerie) {
+    private List<PlayerStanding> createLeagueSerieStandings(League league, LeagueSerieData leagueSerie) {
         final Map<String, LeaguePointsDAO.Points> points = getLeagueSeriePoints(league, leagueSerie);
         final Collection<LeagueMatch> matches = getLeagueSerieMatches(league, leagueSerie);
 
         return createStandingsForMatchesAndPoints(points, matches);
     }
 
-    private List<LeagueStanding> createLeagueStandings(League league) {
+    private List<PlayerStanding> createLeagueStandings(League league) {
         final Map<String, LeaguePointsDAO.Points> points = getLeaguePoints(league);
         final Collection<LeagueMatch> matches = getLeagueMatches(league);
 
         return createStandingsForMatchesAndPoints(points, matches);
     }
 
-    private List<LeagueStanding> createStandingsForMatchesAndPoints(Map<String, LeaguePointsDAO.Points> points, Collection<LeagueMatch> matches) {
+    private List<PlayerStanding> createStandingsForMatchesAndPoints(Map<String, LeaguePointsDAO.Points> points, Collection<LeagueMatch> matches) {
         Map<String, List<String>> playerOpponents = new HashMap<String, List<String>>();
         Map<String, Integer> playerWins = new HashMap<String, Integer>();
         Map<String, Integer> playerLoss = new HashMap<String, Integer>();
@@ -356,9 +357,9 @@ public class LeagueService {
             appendMatch(playerWins, playerLoss, leagueMatch.getWinner(), leagueMatch.getLoser());
         }
 
-        List<LeagueStanding> leagueStandings = new LinkedList<LeagueStanding>();
+        List<PlayerStanding> leagueStandings = new LinkedList<PlayerStanding>();
         for (Map.Entry<String, LeaguePointsDAO.Points> playerPoints : points.entrySet()) {
-            LeagueStanding standing = new LeagueStanding(playerPoints.getKey(), playerPoints.getValue().getPoints(), playerPoints.getValue().getGamesPlayed());
+            PlayerStanding standing = new PlayerStanding(playerPoints.getKey(), playerPoints.getValue().getPoints(), playerPoints.getValue().getGamesPlayed());
             List<String> opponents = playerOpponents.get(playerPoints.getKey());
             int opponentWins = 0;
             int opponentGames = 0;
@@ -374,8 +375,8 @@ public class LeagueService {
 
         int standing = 0;
         int position = 1;
-        LeagueStanding lastStanding = null;
-        for (LeagueStanding leagueStanding : leagueStandings) {
+        PlayerStanding lastStanding = null;
+        for (PlayerStanding leagueStanding : leagueStandings) {
             if (lastStanding == null || LEAGUE_STANDING_COMPARATOR.compare(leagueStanding, lastStanding) != 0)
                 standing = position;
             leagueStanding.setStanding(standing);
@@ -428,23 +429,23 @@ public class LeagueService {
         return true;
     }
 
-    private class PointsComparator implements Comparator<LeagueStanding> {
+    private class PointsComparator implements Comparator<PlayerStanding> {
         @Override
-        public int compare(LeagueStanding o1, LeagueStanding o2) {
+        public int compare(PlayerStanding o1, PlayerStanding o2) {
             return o1.getPoints() - o2.getPoints();
         }
     }
 
-    private class GamesPlayedComparator implements Comparator<LeagueStanding> {
+    private class GamesPlayedComparator implements Comparator<PlayerStanding> {
         @Override
-        public int compare(LeagueStanding o1, LeagueStanding o2) {
+        public int compare(PlayerStanding o1, PlayerStanding o2) {
             return o1.getGamesPlayed() - o2.getGamesPlayed();
         }
     }
 
-    private class OpponentsWinComparator implements Comparator<LeagueStanding> {
+    private class OpponentsWinComparator implements Comparator<PlayerStanding> {
         @Override
-        public int compare(LeagueStanding o1, LeagueStanding o2) {
+        public int compare(PlayerStanding o1, PlayerStanding o2) {
             final float diff = o1.getOpponentWin() - o2.getOpponentWin();
             if (diff < 0)
                 return -1;

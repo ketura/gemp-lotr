@@ -1,13 +1,13 @@
 package com.gempukku.lotro.server;
 
 import com.gempukku.lotro.DateUtils;
+import com.gempukku.lotro.PlayerStanding;
 import com.gempukku.lotro.db.vo.League;
 import com.gempukku.lotro.game.Player;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.gempukku.lotro.league.LeagueData;
 import com.gempukku.lotro.league.LeagueSerieData;
 import com.gempukku.lotro.league.LeagueService;
-import com.gempukku.lotro.league.LeagueStanding;
 import com.sun.jersey.spi.resource.Singleton;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -126,8 +126,8 @@ public class LeagueResource extends AbstractResource {
             serieElem.setAttribute("collection", serie.getCollectionType().getFullName());
             serieElem.setAttribute("limited", String.valueOf(serie.isLimited()));
 
-            final List<LeagueStanding> standings = _leagueService.getLeagueSerieStandings(league, serie);
-            for (LeagueStanding standing : standings) {
+            final List<PlayerStanding> standings = _leagueService.getLeagueSerieStandings(league, serie);
+            for (PlayerStanding standing : standings) {
                 Element standingElem = doc.createElement("standing");
                 setStandingAttributes(standing, standingElem);
                 serieElem.appendChild(standingElem);
@@ -136,8 +136,8 @@ public class LeagueResource extends AbstractResource {
             leagueElem.appendChild(serieElem);
         }
 
-        List<LeagueStanding> leagueStandings = _leagueService.getLeagueStandings(league);
-        for (LeagueStanding standing : leagueStandings) {
+        List<PlayerStanding> leagueStandings = _leagueService.getLeagueStandings(league);
+        for (PlayerStanding standing : leagueStandings) {
             Element standingElem = doc.createElement("leagueStanding");
             setStandingAttributes(standing, standingElem);
             leagueElem.appendChild(standingElem);
@@ -156,7 +156,7 @@ public class LeagueResource extends AbstractResource {
         return null;
     }
 
-    private void setStandingAttributes(LeagueStanding standing, Element standingElem) {
+    private void setStandingAttributes(PlayerStanding standing, Element standingElem) {
         standingElem.setAttribute("player", standing.getPlayerName());
         standingElem.setAttribute("standing", String.valueOf(standing.getStanding()));
         standingElem.setAttribute("points", String.valueOf(standing.getPoints()));
