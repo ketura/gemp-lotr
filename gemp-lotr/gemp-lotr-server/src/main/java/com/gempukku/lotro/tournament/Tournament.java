@@ -11,7 +11,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArraySet;
 
 public class Tournament {
-    private Comparator<PlayerStanding> LEAGUE_STANDING_COMPARATOR =
+    private Comparator<PlayerStanding> STANDING_COMPARATOR =
             new MultipleComparator<PlayerStanding>(
                     new DescComparator<PlayerStanding>(new PointsComparator()),
                     new GamesPlayedComparator(),
@@ -195,13 +195,13 @@ public class Tournament {
 
         List<PlayerStanding> result = new ArrayList<PlayerStanding>(playersStandings.values());
 
-        Collections.sort(result, LEAGUE_STANDING_COMPARATOR);
+        Collections.sort(result, STANDING_COMPARATOR);
 
         int standing = 0;
         int position = 1;
         PlayerStanding lastStanding = null;
         for (PlayerStanding playerStanding : result) {
-            if (lastStanding == null || LEAGUE_STANDING_COMPARATOR.compare(playerStanding, lastStanding) != 0)
+            if (lastStanding == null || STANDING_COMPARATOR.compare(playerStanding, lastStanding) != 0)
                 standing = position;
             playerStanding.setStanding(standing);
             position++;
