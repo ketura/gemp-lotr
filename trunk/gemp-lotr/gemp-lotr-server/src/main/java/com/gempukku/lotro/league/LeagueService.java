@@ -32,8 +32,8 @@ public class LeagueService {
 
     private CollectionsManager _collectionsManager;
 
-    private Map<League, List<PlayerStanding>> _leagueStandings = new ConcurrentHashMap<League, List<PlayerStanding>>();
-    private Map<LeagueSerieData, List<PlayerStanding>> _leagueSerieStandings = new ConcurrentHashMap<LeagueSerieData, List<PlayerStanding>>();
+    private Map<String, List<PlayerStanding>> _leagueStandings = new ConcurrentHashMap<String, List<PlayerStanding>>();
+    private Map<String, List<PlayerStanding>> _leagueSerieStandings = new ConcurrentHashMap<String, List<PlayerStanding>>();
 
     private int _activeLeaguesLoadedDate;
     private List<League> _activeLeagues;
@@ -147,8 +147,8 @@ public class LeagueService {
         addPoints(league, serie, winner, 2);
         addPoints(league, serie, loser, 1);
 
-        _leagueStandings.remove(league);
-        _leagueSerieStandings.remove(serie);
+        _leagueStandings.remove(getLeagueMapKey(league));
+        _leagueSerieStandings.remove(getLeagueSerieMapKey(league, serie));
 
         awardPrizesToPlayer(league, serie, winner, true);
         awardPrizesToPlayer(league, serie, loser, false);
@@ -190,23 +190,32 @@ public class LeagueService {
         return result;
     }
 
+    private String getLeagueMapKey(League league) {
+        return league.getType();
+    }
+
+    private String getLeagueSerieMapKey(League league, LeagueSerieData leagueSerie) {
+        int serieIndex = league.getLeagueData().getSeries().indexOf(leagueSerie);
+        return league.getType() + "-serieIndex:" + serieIndex;
+    }
+
     public List<PlayerStanding> getLeagueStandings(League league) {
-        List<PlayerStanding> leagueStandings = _leagueStandings.get(league);
+        List<PlayerStanding> leagueStandings = _leagueStandings.get(getLeagueMapKey(league));
         if (leagueStandings == null) {
             synchronized (this) {
                 leagueStandings = createLeagueStandings(league);
-                _leagueStandings.put(league, leagueStandings);
+                _leagueStandings.put(getLeagueMapKey(league), leagueStandings);
             }
         }
         return leagueStandings;
     }
 
     public List<PlayerStanding> getLeagueSerieStandings(League league, LeagueSerieData leagueSerie) {
-        List<PlayerStanding> serieStandings = _leagueSerieStandings.get(leagueSerie);
+        List<PlayerStanding> serieStandings = _leagueSerieStandings.get(getLeagueSerieMapKey(league, leagueSerie));
         if (serieStandings == null) {
             synchronized (this) {
                 serieStandings = createLeagueSerieStandings(league, leagueSerie);
-                _leagueSerieStandings.put(leagueSerie, serieStandings);
+                _leagueSerieStandings.put(getLeagueSerieMapKey(league, leagueSerie), serieStandings);
             }
         }
         return serieStandings;
