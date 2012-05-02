@@ -25,8 +25,9 @@ public class LeagueService {
                     new DescComparator<PlayerStanding>(new OpponentsWinComparator()));
 
     private LeagueDAO _leagueDao;
-    private CachedLeaguePointsDAO _leaguePointsDao;
+
     // Cached on this layer
+    private CachedLeaguePointsDAO _leaguePointsDao;
     private CachedLeagueMatchDAO _leagueMatchDao;
     private CachedLeagueParticipationDAO _leagueParticipationDAO;
 
