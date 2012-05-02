@@ -75,7 +75,7 @@ public class DaoProvider implements InjectableProvider<Context, Type> {
 
     private synchronized Injectable<LeaguePointsDAO> getLeaguePointsDaoSafely() {
         if (_leaguePointsDAOInjectable == null) {
-            final LeaguePointsDAO leaguePointsDAO = new LeaguePointsDAO(_dbAccess);
+            final LeaguePointsDAO leaguePointsDAO = new DbLeaguePointsDAO(_dbAccess);
             _leaguePointsDAOInjectable = new Injectable<LeaguePointsDAO>() {
                 @Override
                 public LeaguePointsDAO getValue() {

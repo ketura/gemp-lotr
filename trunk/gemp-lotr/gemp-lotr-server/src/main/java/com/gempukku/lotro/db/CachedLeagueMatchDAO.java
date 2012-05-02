@@ -8,6 +8,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
@@ -76,7 +77,7 @@ public class CachedLeagueMatchDAO implements LeagueMatchDAO {
         Collection<LeagueMatch> leagueMatches;
         leagueMatches = _cachedMatches.get(getLeagueCacheKey(league));
         if (leagueMatches == null) {
-            leagueMatches = _leagueMatchDAO.getLeagueMatches(league);
+            leagueMatches = new CopyOnWriteArraySet<LeagueMatch>(_leagueMatchDAO.getLeagueMatches(league));
             _cachedMatches.put(getLeagueCacheKey(league), leagueMatches);
         }
         return leagueMatches;
@@ -86,7 +87,7 @@ public class CachedLeagueMatchDAO implements LeagueMatchDAO {
         Collection<LeagueMatch> leagueSerieMatches;
         leagueSerieMatches = _cachedMatches.get(getLeagueSerieCacheKey(league, leagueSerie));
         if (leagueSerieMatches == null) {
-            leagueSerieMatches = _leagueMatchDAO.getLeagueSerieMatches(league, leagueSerie);
+            leagueSerieMatches = new CopyOnWriteArraySet<LeagueMatch>(_leagueMatchDAO.getLeagueSerieMatches(league, leagueSerie));
             _cachedMatches.put(getLeagueSerieCacheKey(league, leagueSerie), leagueSerieMatches);
         }
         return leagueSerieMatches;

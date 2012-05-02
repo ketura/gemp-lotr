@@ -2,8 +2,6 @@ package com.gempukku.lotro.league;
 
 import com.gempukku.lotro.DateUtils;
 import com.gempukku.lotro.PlayerStanding;
-import com.gempukku.lotro.cache.ExpireObjectCache;
-import com.gempukku.lotro.cache.Producable;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.db.*;
 import com.gempukku.lotro.db.vo.CollectionType;
@@ -27,7 +25,7 @@ public class LeagueService {
                     new DescComparator<PlayerStanding>(new OpponentsWinComparator()));
 
     private LeagueDAO _leagueDao;
-    private LeaguePointsDAO _leaguePointsDao;
+    private CachedLeaguePointsDAO _leaguePointsDao;
     // Cached on this layer
     private CachedLeagueMatchDAO _leagueMatchDao;
     private LeagueParticipationDAO _leagueParticipationDAO;
@@ -39,16 +37,13 @@ public class LeagueService {
     private Map<League, Set<String>> _playersParticipating = new ConcurrentHashMap<League, Set<String>>();
     private Map<League, Set<String>> _playersNotParticipating = new ConcurrentHashMap<League, Set<String>>();
 
-    private ExpireObjectCache<League, Map<String, LeaguePointsDAO.Points>> _cachedLeaguePoints = new ExpireObjectCache<League, Map<String, LeaguePointsDAO.Points>>();
-    private ExpireObjectCache<LeagueSerieData, Map<String, LeaguePointsDAO.Points>> _cachedSeriePoints = new ExpireObjectCache<LeagueSerieData, Map<String, LeaguePointsDAO.Points>>();
-
     private int _activeLeaguesLoadedDate;
     private List<League> _activeLeagues;
 
     public LeagueService(LeagueDAO leagueDao, LeaguePointsDAO leaguePointsDao, LeagueMatchDAO leagueMatchDao,
                          LeagueParticipationDAO leagueParticipationDAO, CollectionsManager collectionsManager) {
         _leagueDao = leagueDao;
-        _leaguePointsDao = leaguePointsDao;
+        _leaguePointsDao = new CachedLeaguePointsDAO(leaguePointsDao);
         _leagueMatchDao = new CachedLeagueMatchDAO(leagueMatchDao);
         _leagueParticipationDAO = leagueParticipationDAO;
         _collectionsManager = collectionsManager;
@@ -60,16 +55,14 @@ public class LeagueService {
         _activeLeaguesLoadedDate = 0;
 
         _leagueMatchDao.clearCache();
-        _cachedLeaguePoints.clearCache();
-        _cachedSeriePoints.clearCache();
+        _leaguePointsDao.clearCache();
     }
 
     private synchronized void ensureLoadedCurrentLeagues() {
         int currentDate = DateUtils.getCurrentDate();
         if (currentDate != _activeLeaguesLoadedDate) {
             _leagueMatchDao.clearCache();
-            _cachedLeaguePoints.clearCache();
-            _cachedSeriePoints.clearCache();
+            _leaguePointsDao.clearCache();
 
             try {
                 _activeLeagues = _leagueDao.loadActiveLeagues(currentDate);
@@ -81,26 +74,6 @@ public class LeagueService {
                 throw new RuntimeException("Unable to load Leagues", e);
             }
         }
-    }
-
-    private Map<String, LeaguePointsDAO.Points> getLeaguePoints(final League league) {
-        return _cachedLeaguePoints.getCachedObject(league,
-                new Producable<League, Map<String, LeaguePointsDAO.Points>>() {
-                    @Override
-                    public Map<String, LeaguePointsDAO.Points> produce(League key) {
-                        return new ConcurrentHashMap<String, LeaguePointsDAO.Points>(_leaguePointsDao.getLeaguePoints(league));
-                    }
-                });
-    }
-
-    private Map<String, LeaguePointsDAO.Points> getLeagueSeriePoints(final League league, final LeagueSerieData serie) {
-        return _cachedSeriePoints.getCachedObject(serie,
-                new Producable<LeagueSerieData, Map<String, LeaguePointsDAO.Points>>() {
-                    @Override
-                    public Map<String, LeaguePointsDAO.Points> produce(LeagueSerieData key) {
-                        return new ConcurrentHashMap<String, LeaguePointsDAO.Points>(_leaguePointsDao.getLeagueSeriePoints(league, serie));
-                    }
-                });
     }
 
     public List<League> getActiveLeagues() {
@@ -219,31 +192,7 @@ public class LeagueService {
     }
 
     private void addPoints(League league, LeagueSerieData serie, String player, int points) {
-        Map<String, LeaguePointsDAO.Points> leaguePoints = getLeaguePoints(league);
-        Map<String, LeaguePointsDAO.Points> leagueSeriePoints = getLeagueSeriePoints(league, serie);
         _leaguePointsDao.addPoints(league, serie, player, points);
-        storeNewLeaguePoints(leaguePoints, player, points);
-        storeNewLeagueSeriePoints(leagueSeriePoints, player, points);
-    }
-
-    private void storeNewLeagueSeriePoints(Map<String, LeaguePointsDAO.Points> leagueSeriePoints, String player, int points) {
-        final LeaguePointsDAO.Points playerPoints = leagueSeriePoints.get(player);
-        if (playerPoints != null)
-            playerPoints.addPointsForMatch(points);
-        else {
-            LeaguePointsDAO.Points newPoints = new LeaguePointsDAO.Points(points, 1);
-            leagueSeriePoints.put(player, newPoints);
-        }
-    }
-
-    private void storeNewLeaguePoints(Map<String, LeaguePointsDAO.Points> leaguePoints, String player, int points) {
-        final LeaguePointsDAO.Points playerPoints = leaguePoints.get(player);
-        if (playerPoints != null)
-            playerPoints.addPointsForMatch(points);
-        else {
-            LeaguePointsDAO.Points newPoints = new LeaguePointsDAO.Points(points, 1);
-            leaguePoints.put(player, newPoints);
-        }
     }
 
     private void addMatch(League league, LeagueSerieData serie, String winner, String loser) {
@@ -301,14 +250,14 @@ public class LeagueService {
     }
 
     private List<PlayerStanding> createLeagueSerieStandings(League league, LeagueSerieData leagueSerie) {
-        final Map<String, LeaguePointsDAO.Points> points = getLeagueSeriePoints(league, leagueSerie);
+        final Map<String, LeaguePointsDAO.Points> points = _leaguePointsDao.getLeagueSeriePoints(league, leagueSerie);
         final Collection<LeagueMatch> matches = _leagueMatchDao.getLeagueSerieMatches(league, leagueSerie);
 
         return createStandingsForMatchesAndPoints(points, matches);
     }
 
     private List<PlayerStanding> createLeagueStandings(League league) {
-        final Map<String, LeaguePointsDAO.Points> points = getLeaguePoints(league);
+        final Map<String, LeaguePointsDAO.Points> points = _leaguePointsDao.getLeaguePoints(league);
         final Collection<LeagueMatch> matches = _leagueMatchDao.getLeagueMatches(league);
 
         return createStandingsForMatchesAndPoints(points, matches);
