@@ -94,12 +94,14 @@ public class CachedLeagueMatchDAO implements LeagueMatchDAO {
     }
 
     @Override
-    public void addPlayedMatch(League league, LeagueSerieData leagueSeason, LeagueMatch match) {
+    public void addPlayedMatch(League league, LeagueSerieData leagueSeason, String winner, String loser) {
         _readWriteLock.writeLock().lock();
         try {
+            LeagueMatch match = new LeagueMatch(winner, loser);
+
             getLeagueMatchesInWriteLock(league).add(match);
             getLeagueSerieMatchesInWriteLock(league, leagueSeason).add(match);
-            _leagueMatchDAO.addPlayedMatch(league, leagueSeason, match);
+            _leagueMatchDAO.addPlayedMatch(league, leagueSeason, winner, loser);
         } finally {
             _readWriteLock.writeLock().unlock();
         }

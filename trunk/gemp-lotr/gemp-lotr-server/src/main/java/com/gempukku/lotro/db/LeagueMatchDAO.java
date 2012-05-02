@@ -11,5 +11,5 @@ public interface LeagueMatchDAO {
 
     public Collection<LeagueMatch> getLeagueSerieMatches(League league, LeagueSerieData leagueSerie);
 
-    public void addPlayedMatch(League league, LeagueSerieData leagueSeason, LeagueMatch match);
+    public void addPlayedMatch(League league, LeagueSerieData leagueSeason, String winner, String loser);
 }

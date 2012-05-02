@@ -85,7 +85,7 @@ public class DbLeagueMatchDAO implements LeagueMatchDAO {
     }
 
     @Override
-    public void addPlayedMatch(League league, LeagueSerieData leagueSeason, LeagueMatch match) {
+    public void addPlayedMatch(League league, LeagueSerieData leagueSeason, String winner, String loser) {
         try {
             Connection conn = _dbAccess.getDataSource().getConnection();
             try {
@@ -93,8 +93,8 @@ public class DbLeagueMatchDAO implements LeagueMatchDAO {
                 try {
                     statement.setString(1, league.getType());
                     statement.setString(2, leagueSeason.getName());
-                    statement.setString(3, match.getWinner());
-                    statement.setString(4, match.getLoser());
+                    statement.setString(3, winner);
+                    statement.setString(4, loser);
                     statement.execute();
                 } finally {
                     statement.close();
