@@ -143,25 +143,16 @@ public class LeagueService {
     }
 
     public void reportLeagueGameResult(League league, LeagueSerieData serie, String winner, String loser) {
-        addMatch(league, serie, winner, loser);
+        _leagueMatchDao.addPlayedMatch(league, serie, winner, loser);
 
-        addPoints(league, serie, winner, 2);
-        addPoints(league, serie, loser, 1);
+        _leaguePointsDao.addPoints(league, serie, winner, 2);
+        _leaguePointsDao.addPoints(league, serie, loser, 1);
 
         _leagueStandings.remove(getLeagueMapKey(league));
         _leagueSerieStandings.remove(getLeagueSerieMapKey(league, serie));
 
         awardPrizesToPlayer(league, serie, winner, true);
         awardPrizesToPlayer(league, serie, loser, false);
-    }
-
-    private void addPoints(League league, LeagueSerieData serie, String player, int points) {
-        _leaguePointsDao.addPoints(league, serie, player, points);
-    }
-
-    private void addMatch(League league, LeagueSerieData serie, String winner, String loser) {
-        LeagueMatch match = new LeagueMatch(winner, loser);
-        _leagueMatchDao.addPlayedMatch(league, serie, match);
     }
 
     private void awardPrizesToPlayer(League league, LeagueSerieData serie, String player, boolean winner) {
