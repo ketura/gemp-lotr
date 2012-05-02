@@ -420,7 +420,7 @@ public class LeagueService {
         return true;
     }
 
-    public boolean canPlayRankedGame(League league, LeagueSerieData season, String playerOne, String playerTwo) {
+    public boolean canPlayRankedGameAgainst(League league, LeagueSerieData season, String playerOne, String playerTwo) {
         Collection<LeagueMatch> playedInSeason = getPlayerMatchesInSerie(league, season, playerOne);
         for (LeagueMatch leagueMatch : playedInSeason) {
             if (playerTwo.equals(leagueMatch.getWinner()) || playerTwo.equals(leagueMatch.getLoser()))

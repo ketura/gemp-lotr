@@ -315,16 +315,16 @@ public class HallServer extends AbstractServer {
         _awaitingTables.remove(tableId);
     }
 
-    private void joinTableInternal(String tableId, String playerId, AwaitingTable awaitingTable, String deckName, LotroDeck lotroDeck) throws HallException {
+    private void joinTableInternal(String tableId, String player, AwaitingTable awaitingTable, String deckName, LotroDeck lotroDeck) throws HallException {
         League league = awaitingTable.getLeague();
         if (league != null) {
             LeagueSerieData leagueSerie = awaitingTable.getLeagueSerie();
-            if (!_leagueService.canPlayRankedGame(league, leagueSerie, playerId))
+            if (!_leagueService.canPlayRankedGame(league, leagueSerie, player))
                 throw new HallException("You have already played max games in league");
-            if (awaitingTable.getPlayerNames().size() != 0 && !_leagueService.canPlayRankedGame(league, leagueSerie, awaitingTable.getPlayerNames().iterator().next(), playerId))
+            if (awaitingTable.getPlayerNames().size() != 0 && !_leagueService.canPlayRankedGameAgainst(league, leagueSerie, awaitingTable.getPlayerNames().iterator().next(), player))
                 throw new HallException("You have already played ranked league game against this player in that series");
         }
-        boolean tableFull = awaitingTable.addPlayer(new LotroGameParticipant(playerId, deckName, lotroDeck));
+        boolean tableFull = awaitingTable.addPlayer(new LotroGameParticipant(player, deckName, lotroDeck));
         if (tableFull)
             createGame(tableId, awaitingTable);
     }
