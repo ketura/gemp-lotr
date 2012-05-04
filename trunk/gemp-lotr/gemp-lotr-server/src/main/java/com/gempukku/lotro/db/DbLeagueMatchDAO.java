@@ -24,7 +24,7 @@ public class DbLeagueMatchDAO implements LeagueMatchDAO {
         try {
             Connection conn = _dbAccess.getDataSource().getConnection();
             try {
-                PreparedStatement statement = conn.prepareStatement("select winner, loser from league_match where league_type=?");
+                PreparedStatement statement = conn.prepareStatement("select winner, loser, season_type from league_match where league_type=?");
                 try {
                     statement.setString(1, league.getType());
                     ResultSet rs = statement.executeQuery();
@@ -33,8 +33,9 @@ public class DbLeagueMatchDAO implements LeagueMatchDAO {
                         while (rs.next()) {
                             String winner = rs.getString(1);
                             String loser = rs.getString(2);
+                            String serie = rs.getString(3);
 
-                            result.add(new LeagueMatch(winner, loser));
+                            result.add(new LeagueMatch(serie, winner, loser));
                         }
                         return result;
                     } finally {
@@ -67,7 +68,7 @@ public class DbLeagueMatchDAO implements LeagueMatchDAO {
                             String winner = rs.getString(1);
                             String loser = rs.getString(2);
 
-                            result.add(new LeagueMatch(winner, loser));
+                            result.add(new LeagueMatch(leagueSerie.getName(), winner, loser));
                         }
                         return result;
                     } finally {

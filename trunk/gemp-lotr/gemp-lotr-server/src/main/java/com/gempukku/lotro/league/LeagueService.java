@@ -3,7 +3,10 @@ package com.gempukku.lotro.league;
 import com.gempukku.lotro.DateUtils;
 import com.gempukku.lotro.PlayerStanding;
 import com.gempukku.lotro.collection.CollectionsManager;
-import com.gempukku.lotro.db.*;
+import com.gempukku.lotro.db.LeagueDAO;
+import com.gempukku.lotro.db.LeagueMatchDAO;
+import com.gempukku.lotro.db.LeagueParticipationDAO;
+import com.gempukku.lotro.db.LeaguePointsDAO;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.db.vo.League;
 import com.gempukku.lotro.db.vo.LeagueMatch;
@@ -148,8 +151,8 @@ public class LeagueService {
         _leaguePointsDao.addPoints(league, serie, winner, 2);
         _leaguePointsDao.addPoints(league, serie, loser, 1);
 
-        _leagueStandings.remove(getLeagueMapKey(league));
-        _leagueSerieStandings.remove(getLeagueSerieMapKey(league, serie));
+        _leagueStandings.remove(LeagueMapKeys.getLeagueMapKey(league));
+        _leagueSerieStandings.remove(LeagueMapKeys.getLeagueSerieMapKey(league, serie));
 
         awardPrizesToPlayer(league, serie, winner, true);
         awardPrizesToPlayer(league, serie, loser, false);
@@ -182,32 +185,23 @@ public class LeagueService {
         return result;
     }
 
-    private String getLeagueMapKey(League league) {
-        return league.getType();
-    }
-
-    private String getLeagueSerieMapKey(League league, LeagueSerieData leagueSerie) {
-        int serieIndex = league.getLeagueData().getSeries().indexOf(leagueSerie);
-        return league.getType() + "-serieIndex:" + serieIndex;
-    }
-
     public List<PlayerStanding> getLeagueStandings(League league) {
-        List<PlayerStanding> leagueStandings = _leagueStandings.get(getLeagueMapKey(league));
+        List<PlayerStanding> leagueStandings = _leagueStandings.get(LeagueMapKeys.getLeagueMapKey(league));
         if (leagueStandings == null) {
             synchronized (this) {
                 leagueStandings = createLeagueStandings(league);
-                _leagueStandings.put(getLeagueMapKey(league), leagueStandings);
+                _leagueStandings.put(LeagueMapKeys.getLeagueMapKey(league), leagueStandings);
             }
         }
         return leagueStandings;
     }
 
     public List<PlayerStanding> getLeagueSerieStandings(League league, LeagueSerieData leagueSerie) {
-        List<PlayerStanding> serieStandings = _leagueSerieStandings.get(getLeagueSerieMapKey(league, leagueSerie));
+        List<PlayerStanding> serieStandings = _leagueSerieStandings.get(LeagueMapKeys.getLeagueSerieMapKey(league, leagueSerie));
         if (serieStandings == null) {
             synchronized (this) {
                 serieStandings = createLeagueSerieStandings(league, leagueSerie);
-                _leagueSerieStandings.put(getLeagueSerieMapKey(league, leagueSerie), serieStandings);
+                _leagueSerieStandings.put(LeagueMapKeys.getLeagueSerieMapKey(league, leagueSerie), serieStandings);
             }
         }
         return serieStandings;

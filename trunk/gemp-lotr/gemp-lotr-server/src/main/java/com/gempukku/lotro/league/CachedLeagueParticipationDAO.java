@@ -1,5 +1,6 @@
-package com.gempukku.lotro.db;
+package com.gempukku.lotro.league;
 
+import com.gempukku.lotro.db.LeagueParticipationDAO;
 import com.gempukku.lotro.db.vo.League;
 import com.gempukku.lotro.game.Player;
 
@@ -22,10 +23,6 @@ public class CachedLeagueParticipationDAO implements LeagueParticipationDAO {
         _leagueParticipationDAO = leagueParticipationDAO;
     }
 
-    private String getLeagueCacheKey(League league) {
-        return league.getType();
-    }
-
     @Override
     public void userJoinsLeague(League league, Player player) {
         _readWriteLock.writeLock().lock();
@@ -41,7 +38,7 @@ public class CachedLeagueParticipationDAO implements LeagueParticipationDAO {
     public Collection<String> getUsersParticipating(League league) {
         _readWriteLock.readLock().lock();
         try {
-            Collection<String> leagueParticipants = _cachedParticipants.get(getLeagueCacheKey(league));
+            Collection<String> leagueParticipants = _cachedParticipants.get(LeagueMapKeys.getLeagueMapKey(league));
             if (leagueParticipants == null) {
                 _readWriteLock.readLock().unlock();
                 _readWriteLock.writeLock().lock();
@@ -60,10 +57,10 @@ public class CachedLeagueParticipationDAO implements LeagueParticipationDAO {
 
     private Collection<String> getLeagueParticipantsInWriteLock(League league) {
         Set<String> leagueParticipants;
-        leagueParticipants = _cachedParticipants.get(getLeagueCacheKey(league));
+        leagueParticipants = _cachedParticipants.get(LeagueMapKeys.getLeagueMapKey(league));
         if (leagueParticipants == null) {
             leagueParticipants = new CopyOnWriteArraySet<String>(_leagueParticipationDAO.getUsersParticipating(league));
-            _cachedParticipants.put(getLeagueCacheKey(league), leagueParticipants);
+            _cachedParticipants.put(LeagueMapKeys.getLeagueMapKey(league), leagueParticipants);
         }
         return leagueParticipants;
     }
