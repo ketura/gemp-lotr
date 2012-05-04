@@ -176,10 +176,10 @@ public class LeagueService {
     }
 
     private Collection<LeagueMatch> getPlayerMatchesInSerie(League league, LeagueSerieData serie, String player) {
-        final Collection<LeagueMatch> allMatches = _leagueMatchDao.getLeagueSerieMatches(league, serie);
+        final Collection<LeagueMatch> allMatches = _leagueMatchDao.getLeagueMatches(league);
         Set<LeagueMatch> result = new HashSet<LeagueMatch>();
         for (LeagueMatch match : allMatches) {
-            if (match.getWinner().equals(player) || match.getLoser().equals(player))
+            if (match.getSerieName().equals(serie.getName()) && (match.getWinner().equals(player) || match.getLoser().equals(player)))
                 result.add(match);
         }
         return result;
@@ -209,9 +209,15 @@ public class LeagueService {
 
     private List<PlayerStanding> createLeagueSerieStandings(League league, LeagueSerieData leagueSerie) {
         final Map<String, LeaguePointsDAO.Points> points = _leaguePointsDao.getLeagueSeriePoints(league, leagueSerie);
-        final Collection<LeagueMatch> matches = _leagueMatchDao.getLeagueSerieMatches(league, leagueSerie);
+        final Collection<LeagueMatch> matches = _leagueMatchDao.getLeagueMatches(league);
 
-        return createStandingsForMatchesAndPoints(points, matches);
+        Set<LeagueMatch> matchesInSerie = new HashSet<LeagueMatch>();
+        for (LeagueMatch match : matches) {
+            if (match.getSerieName().equals(leagueSerie.getName()))
+                matchesInSerie.add(match);
+        }
+
+        return createStandingsForMatchesAndPoints(points, matchesInSerie);
     }
 
     private List<PlayerStanding> createLeagueStandings(League league) {
