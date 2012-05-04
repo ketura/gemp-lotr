@@ -1,32 +1,24 @@
 package com.gempukku.lotro.league;
 
 import com.gempukku.lotro.DateUtils;
-import com.gempukku.lotro.PlayerStanding;
 import com.gempukku.lotro.collection.CollectionsManager;
+import com.gempukku.lotro.competitive.PlayerStanding;
+import com.gempukku.lotro.competitive.StandingsProducer;
 import com.gempukku.lotro.db.LeagueDAO;
 import com.gempukku.lotro.db.LeagueMatchDAO;
 import com.gempukku.lotro.db.LeagueParticipationDAO;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.db.vo.League;
-import com.gempukku.lotro.db.vo.LeagueMatch;
+import com.gempukku.lotro.db.vo.LeagueMatchResult;
 import com.gempukku.lotro.game.CardCollection;
 import com.gempukku.lotro.game.Player;
-import com.gempukku.util.DescComparator;
-import com.gempukku.util.MultipleComparator;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class LeagueService {
-    private Comparator<PlayerStanding> LEAGUE_STANDING_COMPARATOR =
-            new MultipleComparator<PlayerStanding>(
-                    new DescComparator<PlayerStanding>(new PointsComparator()),
-                    new GamesPlayedComparator(),
-                    new DescComparator<PlayerStanding>(new OpponentsWinComparator()));
-
     private LeagueDAO _leagueDao;
 
     // Cached on this layer
@@ -156,8 +148,8 @@ public class LeagueService {
 
     private void awardPrizesToPlayer(League league, LeagueSerieData serie, String player, boolean winner) {
         int count = 0;
-        Collection<LeagueMatch> playerMatchesPlayedOn = getPlayerMatchesInSerie(league, serie, player);
-        for (LeagueMatch leagueMatch : playerMatchesPlayedOn) {
+        Collection<LeagueMatchResult> playerMatchesPlayedOn = getPlayerMatchesInSerie(league, serie, player);
+        for (LeagueMatchResult leagueMatch : playerMatchesPlayedOn) {
             if (leagueMatch.getWinner().equals(player))
                 count++;
         }
@@ -171,10 +163,10 @@ public class LeagueService {
             _collectionsManager.addItemsToPlayerCollection(player, new CollectionType("permanent", "My cards"), prize.getAll());
     }
 
-    private Collection<LeagueMatch> getPlayerMatchesInSerie(League league, LeagueSerieData serie, String player) {
-        final Collection<LeagueMatch> allMatches = _leagueMatchDao.getLeagueMatches(league);
-        Set<LeagueMatch> result = new HashSet<LeagueMatch>();
-        for (LeagueMatch match : allMatches) {
+    private Collection<LeagueMatchResult> getPlayerMatchesInSerie(League league, LeagueSerieData serie, String player) {
+        final Collection<LeagueMatchResult> allMatches = _leagueMatchDao.getLeagueMatches(league);
+        Set<LeagueMatchResult> result = new HashSet<LeagueMatchResult>();
+        for (LeagueMatchResult match : allMatches) {
             if (match.getSerieName().equals(serie.getName()) && (match.getWinner().equals(player) || match.getLoser().equals(player)))
                 result.add(match);
         }
@@ -205,10 +197,10 @@ public class LeagueService {
 
     private List<PlayerStanding> createLeagueSerieStandings(League league, LeagueSerieData leagueSerie) {
         final Collection<String> playersParticipating = _leagueParticipationDAO.getUsersParticipating(league);
-        final Collection<LeagueMatch> matches = _leagueMatchDao.getLeagueMatches(league);
+        final Collection<LeagueMatchResult> matches = _leagueMatchDao.getLeagueMatches(league);
 
-        Set<LeagueMatch> matchesInSerie = new HashSet<LeagueMatch>();
-        for (LeagueMatch match : matches) {
+        Set<LeagueMatchResult> matchesInSerie = new HashSet<LeagueMatchResult>();
+        for (LeagueMatchResult match : matches) {
             if (match.getSerieName().equals(leagueSerie.getName()))
                 matchesInSerie.add(match);
         }
@@ -218,104 +210,29 @@ public class LeagueService {
 
     private List<PlayerStanding> createLeagueStandings(League league) {
         final Collection<String> playersParticipating = _leagueParticipationDAO.getUsersParticipating(league);
-        final Collection<LeagueMatch> matches = _leagueMatchDao.getLeagueMatches(league);
+        final Collection<LeagueMatchResult> matches = _leagueMatchDao.getLeagueMatches(league);
 
         return createStandingsForMatchesAndPoints(playersParticipating, matches);
     }
 
-    private List<PlayerStanding> createStandingsForMatchesAndPoints(Collection<String> playersParticipating, Collection<LeagueMatch> matches) {
-        Map<String, List<String>> playerOpponents = new HashMap<String, List<String>>();
-        Map<String, AtomicInteger> playerWinCounts = new HashMap<String, AtomicInteger>();
-        Map<String, AtomicInteger> playerLossCounts = new HashMap<String, AtomicInteger>();
-
-        // Initialize the list
-        for (String playerName : playersParticipating) {
-            playerOpponents.put(playerName, new ArrayList<String>());
-            playerWinCounts.put(playerName, new AtomicInteger(0));
-            playerLossCounts.put(playerName, new AtomicInteger(0));
-        }
-
-        for (LeagueMatch leagueMatch : matches) {
-            playerOpponents.get(leagueMatch.getWinner()).add(leagueMatch.getLoser());
-            playerOpponents.get(leagueMatch.getLoser()).add(leagueMatch.getWinner());
-            playerWinCounts.get(leagueMatch.getWinner()).incrementAndGet();
-            playerLossCounts.get(leagueMatch.getLoser()).incrementAndGet();
-        }
-
-        List<PlayerStanding> leagueStandings = new LinkedList<PlayerStanding>();
-        for (String playerName : playersParticipating) {
-            int points = playerWinCounts.get(playerName).intValue() * 2 + playerLossCounts.get(playerName).intValue();
-            int gamesPlayed = playerWinCounts.get(playerName).intValue() + playerLossCounts.get(playerName).intValue();
-            PlayerStanding standing = new PlayerStanding(playerName, points, gamesPlayed);
-            List<String> opponents = playerOpponents.get(playerName);
-            int opponentWins = 0;
-            int opponentGames = 0;
-            for (String opponent : opponents) {
-                opponentWins += playerWinCounts.get(opponent).intValue();
-                opponentGames += playerWinCounts.get(opponent).intValue() + playerLossCounts.get(opponent).intValue();
-            }
-            if (opponentGames != 0)
-                standing.setOpponentWin(opponentWins * 1f / opponentGames);
-            else
-                standing.setOpponentWin(0f);
-            leagueStandings.add(standing);
-        }
-
-        Collections.sort(leagueStandings, LEAGUE_STANDING_COMPARATOR);
-
-        int standing = 0;
-        int position = 1;
-        PlayerStanding lastStanding = null;
-        for (PlayerStanding leagueStanding : leagueStandings) {
-            if (lastStanding == null || LEAGUE_STANDING_COMPARATOR.compare(leagueStanding, lastStanding) != 0)
-                standing = position;
-            leagueStanding.setStanding(standing);
-            position++;
-            lastStanding = leagueStanding;
-        }
-        return leagueStandings;
+    private List<PlayerStanding> createStandingsForMatchesAndPoints(Collection<String> playersParticipating, Collection<LeagueMatchResult> matches) {
+        return StandingsProducer.produceStandings(playersParticipating, matches, 2, 1, Collections.<String>emptySet());
     }
 
     public boolean canPlayRankedGame(League league, LeagueSerieData season, String player) {
         int maxMatches = season.getMaxMatches();
-        Collection<LeagueMatch> playedInSeason = getPlayerMatchesInSerie(league, season, player);
+        Collection<LeagueMatchResult> playedInSeason = getPlayerMatchesInSerie(league, season, player);
         if (playedInSeason.size() >= maxMatches)
             return false;
         return true;
     }
 
     public boolean canPlayRankedGameAgainst(League league, LeagueSerieData season, String playerOne, String playerTwo) {
-        Collection<LeagueMatch> playedInSeason = getPlayerMatchesInSerie(league, season, playerOne);
-        for (LeagueMatch leagueMatch : playedInSeason) {
+        Collection<LeagueMatchResult> playedInSeason = getPlayerMatchesInSerie(league, season, playerOne);
+        for (LeagueMatchResult leagueMatch : playedInSeason) {
             if (playerTwo.equals(leagueMatch.getWinner()) || playerTwo.equals(leagueMatch.getLoser()))
                 return false;
         }
         return true;
-    }
-
-    private class PointsComparator implements Comparator<PlayerStanding> {
-        @Override
-        public int compare(PlayerStanding o1, PlayerStanding o2) {
-            return o1.getPoints() - o2.getPoints();
-        }
-    }
-
-    private class GamesPlayedComparator implements Comparator<PlayerStanding> {
-        @Override
-        public int compare(PlayerStanding o1, PlayerStanding o2) {
-            return o1.getGamesPlayed() - o2.getGamesPlayed();
-        }
-    }
-
-    private class OpponentsWinComparator implements Comparator<PlayerStanding> {
-        @Override
-        public int compare(PlayerStanding o1, PlayerStanding o2) {
-            final float diff = o1.getOpponentWin() - o2.getOpponentWin();
-            if (diff < 0)
-                return -1;
-            if (diff > 0)
-                return 1;
-            return 0;
-        }
     }
 }

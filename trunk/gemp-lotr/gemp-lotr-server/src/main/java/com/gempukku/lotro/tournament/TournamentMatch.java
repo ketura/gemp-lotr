@@ -1,6 +1,8 @@
 package com.gempukku.lotro.tournament;
 
-public class TournamentMatch {
+import com.gempukku.lotro.competitive.CompetitiveMatchResult;
+
+public class TournamentMatch implements CompetitiveMatchResult {
     private String _playerOne;
     private String _playerTwo;
     private String _winner;
@@ -21,8 +23,17 @@ public class TournamentMatch {
         return _playerTwo;
     }
 
+    @Override
     public String getWinner() {
         return _winner;
+    }
+
+    @Override
+    public String getLoser() {
+        if (_playerOne.equals(_winner))
+            return _playerTwo;
+        else
+            return _playerOne;
     }
 
     public int getRound() {

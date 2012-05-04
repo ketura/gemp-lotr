@@ -1,11 +1,13 @@
 package com.gempukku.lotro.db.vo;
 
-public class LeagueMatch {
+import com.gempukku.lotro.competitive.CompetitiveMatchResult;
+
+public class LeagueMatchResult implements CompetitiveMatchResult {
     private String _winner;
     private String _loser;
     private String _serieName;
 
-    public LeagueMatch(String serieName, String winner, String loser) {
+    public LeagueMatchResult(String serieName, String winner, String loser) {
         _serieName = serieName;
         _winner = winner;
         _loser = loser;

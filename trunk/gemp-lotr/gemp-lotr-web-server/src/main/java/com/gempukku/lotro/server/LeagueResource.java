@@ -1,7 +1,7 @@
 package com.gempukku.lotro.server;
 
 import com.gempukku.lotro.DateUtils;
-import com.gempukku.lotro.PlayerStanding;
+import com.gempukku.lotro.competitive.PlayerStanding;
 import com.gempukku.lotro.db.vo.League;
 import com.gempukku.lotro.game.Player;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
