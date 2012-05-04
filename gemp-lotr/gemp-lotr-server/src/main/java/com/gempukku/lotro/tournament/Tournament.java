@@ -1,22 +1,18 @@
 package com.gempukku.lotro.tournament;
 
-import com.gempukku.lotro.PlayerStanding;
+import com.gempukku.lotro.competitive.PlayerStanding;
+import com.gempukku.lotro.competitive.StandingsProducer;
 import com.gempukku.lotro.game.LotroFormat;
 import com.gempukku.lotro.logic.vo.LotroDeck;
-import com.gempukku.util.DescComparator;
-import com.gempukku.util.MultipleComparator;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArraySet;
 
 public class Tournament {
-    private Comparator<PlayerStanding> STANDING_COMPARATOR =
-            new MultipleComparator<PlayerStanding>(
-                    new DescComparator<PlayerStanding>(new PointsComparator()),
-                    new GamesPlayedComparator(),
-                    new DescComparator<PlayerStanding>(new OpponentsWinComparator()));
-
     private TournamentMatchDao _tournamentMatchDao;
 
     private Map<String, LotroDeck> _players;
@@ -146,78 +142,13 @@ public class Tournament {
     }
 
     private void calculateCurrentStandings() {
-        Map<String, PlayerStanding> playersStandings = new HashMap<String, PlayerStanding>();
-        for (String player : _players.keySet()) {
-            int points = 0;
-            int gamesPlayed = 0;
-            for (int i = 0; i < _currentRound; i++) {
-                if (_droppedPlayers[i] != null && _droppedPlayers[i].contains(player))
-                    break;
-
-                TournamentMatch match = getPlayerMatch(i, player);
-                if (match != null) {
-                    gamesPlayed++;
-                    if (match.getWinner().equals(player))
-                        points++;
-                } else if (_currentRoundPairings.containsKey(player) || _currentRoundPairings.containsValue(player)) {
-                    // Do nothing
-                } else {
-                    // Bye
-                    points++;
-                    gamesPlayed++;
-                }
-            }
-
-            playersStandings.put(player, new PlayerStanding(player, points, gamesPlayed));
+        Set<TournamentMatch> standingMatches = new HashSet<TournamentMatch>();
+        for (Set<TournamentMatch> finishedMatchesInRound : _finishedMatches) {
+            if (finishedMatchesInRound != null)
+                standingMatches.addAll(finishedMatchesInRound);
         }
 
-        for (String player : _players.keySet()) {
-            int opponentPoints = 0;
-            int opponentGamesPlayed = 0;
-            for (int i = 0; i < _currentRound; i++) {
-                if (_droppedPlayers[i] != null && _droppedPlayers[i].contains(player))
-                    break;
-                TournamentMatch match = getPlayerMatch(i, player);
-                if (match != null) {
-                    String opponent;
-                    if (match.getPlayerOne().equals(player))
-                        opponent = match.getPlayerTwo();
-                    else
-                        opponent = match.getPlayerOne();
-                    PlayerStanding opponentStanding = playersStandings.get(opponent);
-                    opponentPoints += opponentStanding.getPoints();
-                    opponentGamesPlayed += opponentStanding.getGamesPlayed();
-                }
-            }
-            float opponentWinPerc = opponentPoints * 1f / opponentGamesPlayed;
-            playersStandings.get(player).setOpponentWin(opponentWinPerc);
-        }
-
-        List<PlayerStanding> result = new ArrayList<PlayerStanding>(playersStandings.values());
-
-        Collections.sort(result, STANDING_COMPARATOR);
-
-        int standing = 0;
-        int position = 1;
-        PlayerStanding lastStanding = null;
-        for (PlayerStanding playerStanding : result) {
-            if (lastStanding == null || STANDING_COMPARATOR.compare(playerStanding, lastStanding) != 0)
-                standing = position;
-            playerStanding.setStanding(standing);
-            position++;
-            lastStanding = playerStanding;
-        }
-
-        _currentStandings = Collections.unmodifiableList(result);
-    }
-
-    private TournamentMatch getPlayerMatch(int roundIndex, String player) {
-        for (TournamentMatch tournamentMatch : _finishedMatches[roundIndex]) {
-            if (tournamentMatch.getPlayerOne().equals(player)
-                    || tournamentMatch.getPlayerTwo().equals(player))
-                return tournamentMatch;
-        }
-        return null;
+        _currentStandings = StandingsProducer.produceStandings(_players.keySet(), standingMatches, 1, 0, _playersWithByes);
     }
 
     private interface TournamentTask {
@@ -236,33 +167,6 @@ public class Tournament {
         @Override
         public final long getExecuteAfter() {
             return _time + 1000 * 60 * 2;
-        }
-    }
-
-
-    private class PointsComparator implements Comparator<PlayerStanding> {
-        @Override
-        public int compare(PlayerStanding o1, PlayerStanding o2) {
-            return o1.getPoints() - o2.getPoints();
-        }
-    }
-
-    private class GamesPlayedComparator implements Comparator<PlayerStanding> {
-        @Override
-        public int compare(PlayerStanding o1, PlayerStanding o2) {
-            return o1.getGamesPlayed() - o2.getGamesPlayed();
-        }
-    }
-
-    private class OpponentsWinComparator implements Comparator<PlayerStanding> {
-        @Override
-        public int compare(PlayerStanding o1, PlayerStanding o2) {
-            final float diff = o1.getOpponentWin() - o2.getOpponentWin();
-            if (diff < 0)
-                return -1;
-            if (diff > 0)
-                return 1;
-            return 0;
         }
     }
 }

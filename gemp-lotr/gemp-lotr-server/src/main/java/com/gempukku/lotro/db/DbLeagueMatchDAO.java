@@ -1,7 +1,7 @@
 package com.gempukku.lotro.db;
 
 import com.gempukku.lotro.db.vo.League;
-import com.gempukku.lotro.db.vo.LeagueMatch;
+import com.gempukku.lotro.db.vo.LeagueMatchResult;
 import com.gempukku.lotro.league.LeagueSerieData;
 
 import java.sql.Connection;
@@ -20,7 +20,7 @@ public class DbLeagueMatchDAO implements LeagueMatchDAO {
     }
 
     @Override
-    public Collection<LeagueMatch> getLeagueMatches(League league) {
+    public Collection<LeagueMatchResult> getLeagueMatches(League league) {
         try {
             Connection conn = _dbAccess.getDataSource().getConnection();
             try {
@@ -29,13 +29,13 @@ public class DbLeagueMatchDAO implements LeagueMatchDAO {
                     statement.setString(1, league.getType());
                     ResultSet rs = statement.executeQuery();
                     try {
-                        Set<LeagueMatch> result = new HashSet<LeagueMatch>();
+                        Set<LeagueMatchResult> result = new HashSet<LeagueMatchResult>();
                         while (rs.next()) {
                             String winner = rs.getString(1);
                             String loser = rs.getString(2);
                             String serie = rs.getString(3);
 
-                            result.add(new LeagueMatch(serie, winner, loser));
+                            result.add(new LeagueMatchResult(serie, winner, loser));
                         }
                         return result;
                     } finally {

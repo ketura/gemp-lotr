@@ -2,7 +2,7 @@ package com.gempukku.lotro.league;
 
 import com.gempukku.lotro.db.LeagueMatchDAO;
 import com.gempukku.lotro.db.vo.League;
-import com.gempukku.lotro.db.vo.LeagueMatch;
+import com.gempukku.lotro.db.vo.LeagueMatchResult;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -16,17 +16,17 @@ public class CachedLeagueMatchDAO implements LeagueMatchDAO {
     private LeagueMatchDAO _leagueMatchDAO;
     private ReadWriteLock _readWriteLock = new ReentrantReadWriteLock();
 
-    private Map<String, Collection<LeagueMatch>> _cachedMatches = new ConcurrentHashMap<String, Collection<LeagueMatch>>();
+    private Map<String, Collection<LeagueMatchResult>> _cachedMatches = new ConcurrentHashMap<String, Collection<LeagueMatchResult>>();
 
     public CachedLeagueMatchDAO(LeagueMatchDAO leagueMatchDAO) {
         _leagueMatchDAO = leagueMatchDAO;
     }
 
     @Override
-    public Collection<LeagueMatch> getLeagueMatches(League league) {
+    public Collection<LeagueMatchResult> getLeagueMatches(League league) {
         _readWriteLock.readLock().lock();
         try {
-            Collection<LeagueMatch> leagueMatches = _cachedMatches.get(LeagueMapKeys.getLeagueMapKey(league));
+            Collection<LeagueMatchResult> leagueMatches = _cachedMatches.get(LeagueMapKeys.getLeagueMapKey(league));
             if (leagueMatches == null) {
                 _readWriteLock.readLock().unlock();
                 _readWriteLock.writeLock().lock();
@@ -43,11 +43,11 @@ public class CachedLeagueMatchDAO implements LeagueMatchDAO {
         }
     }
 
-    private Collection<LeagueMatch> getLeagueMatchesInWriteLock(League league) {
-        Collection<LeagueMatch> leagueMatches;
+    private Collection<LeagueMatchResult> getLeagueMatchesInWriteLock(League league) {
+        Collection<LeagueMatchResult> leagueMatches;
         leagueMatches = _cachedMatches.get(LeagueMapKeys.getLeagueMapKey(league));
         if (leagueMatches == null) {
-            leagueMatches = new CopyOnWriteArraySet<LeagueMatch>(_leagueMatchDAO.getLeagueMatches(league));
+            leagueMatches = new CopyOnWriteArraySet<LeagueMatchResult>(_leagueMatchDAO.getLeagueMatches(league));
             _cachedMatches.put(LeagueMapKeys.getLeagueMapKey(league), leagueMatches);
         }
         return leagueMatches;
@@ -57,7 +57,7 @@ public class CachedLeagueMatchDAO implements LeagueMatchDAO {
     public void addPlayedMatch(League league, LeagueSerieData leagueSerie, String winner, String loser) {
         _readWriteLock.writeLock().lock();
         try {
-            LeagueMatch match = new LeagueMatch(leagueSerie.getName(), winner, loser);
+            LeagueMatchResult match = new LeagueMatchResult(leagueSerie.getName(), winner, loser);
 
             getLeagueMatchesInWriteLock(league).add(match);
             _leagueMatchDAO.addPlayedMatch(league, leagueSerie, winner, loser);

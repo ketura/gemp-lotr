@@ -1,4 +1,4 @@
-package com.gempukku.lotro;
+package com.gempukku.lotro.competitive;
 
 public class PlayerStanding {
     private String _playerName;
