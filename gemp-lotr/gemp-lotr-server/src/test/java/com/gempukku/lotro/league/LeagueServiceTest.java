@@ -97,7 +97,7 @@ public class LeagueServiceTest {
         LeagueMatchDAO leagueMatchDAO = Mockito.mock(LeagueMatchDAO.class);
 
         Set<LeagueMatch> matches = new HashSet<LeagueMatch>();
-        matches.add(new LeagueMatch("player1", "player2"));
+        matches.add(new LeagueMatch(leagueSerie.getName(), "player1", "player2"));
 
         Mockito.when(leagueMatchDAO.getLeagueMatches(league)).thenReturn(new HashSet<LeagueMatch>(matches));
         Mockito.when(leagueMatchDAO.getLeagueSerieMatches(league, leagueSerie)).thenReturn(new HashSet<LeagueMatch>(matches));

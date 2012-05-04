@@ -1,7 +1,7 @@
-package com.gempukku.lotro.db;
+package com.gempukku.lotro.league;
 
+import com.gempukku.lotro.db.LeaguePointsDAO;
 import com.gempukku.lotro.db.vo.League;
-import com.gempukku.lotro.league.LeagueSerieData;
 
 import java.util.Collections;
 import java.util.Map;
@@ -17,15 +17,6 @@ public class CachedLeaguePointsDAO implements LeaguePointsDAO {
 
     public CachedLeaguePointsDAO(LeaguePointsDAO leaguePointsDAO) {
         _leaguePointsDAO = leaguePointsDAO;
-    }
-
-    private String getLeagueCacheKey(League league) {
-        return league.getType();
-    }
-
-    private String getLeagueSerieCacheKey(League league, LeagueSerieData leagueSerie) {
-        int serieIndex = league.getLeagueData().getSeries().indexOf(leagueSerie);
-        return league.getType() + "-serieIndex:" + serieIndex;
     }
 
     @Override
@@ -56,7 +47,7 @@ public class CachedLeaguePointsDAO implements LeaguePointsDAO {
     public Map<String, Points> getLeaguePoints(League league) {
         _readWriteLock.readLock().lock();
         try {
-            Map<String, Points> leaguePoints = _cachedPoints.get(getLeagueCacheKey(league));
+            Map<String, Points> leaguePoints = _cachedPoints.get(LeagueMapKeys.getLeagueMapKey(league));
             if (leaguePoints == null) {
                 _readWriteLock.readLock().unlock();
                 _readWriteLock.writeLock().lock();
@@ -77,7 +68,7 @@ public class CachedLeaguePointsDAO implements LeaguePointsDAO {
     public Map<String, Points> getLeagueSeriePoints(League league, LeagueSerieData serie) {
         _readWriteLock.readLock().lock();
         try {
-            Map<String, Points> leagueMatches = _cachedPoints.get(getLeagueCacheKey(league));
+            Map<String, Points> leagueMatches = _cachedPoints.get(LeagueMapKeys.getLeagueMapKey(league));
             if (leagueMatches == null) {
                 _readWriteLock.readLock().unlock();
                 _readWriteLock.writeLock().lock();
@@ -96,20 +87,20 @@ public class CachedLeaguePointsDAO implements LeaguePointsDAO {
 
     private Map<String, Points> getLeaguePointsInWriteLock(League league) {
         Map<String, Points> leaguePoints;
-        leaguePoints = _cachedPoints.get(getLeagueCacheKey(league));
+        leaguePoints = _cachedPoints.get(LeagueMapKeys.getLeagueMapKey(league));
         if (leaguePoints == null) {
             leaguePoints = new ConcurrentHashMap<String, Points>(_leaguePointsDAO.getLeaguePoints(league));
-            _cachedPoints.put(getLeagueCacheKey(league), leaguePoints);
+            _cachedPoints.put(LeagueMapKeys.getLeagueMapKey(league), leaguePoints);
         }
         return leaguePoints;
     }
 
     private Map<String, Points> getLeagueSeriePointsInWriteLock(League league, LeagueSerieData leagueSerie) {
         Map<String, Points> leagueSeriePoints;
-        leagueSeriePoints = _cachedPoints.get(getLeagueSerieCacheKey(league, leagueSerie));
+        leagueSeriePoints = _cachedPoints.get(LeagueMapKeys.getLeagueSerieMapKey(league, leagueSerie));
         if (leagueSeriePoints == null) {
             leagueSeriePoints = new ConcurrentHashMap<String, Points>(_leaguePointsDAO.getLeagueSeriePoints(league, leagueSerie));
-            _cachedPoints.put(getLeagueSerieCacheKey(league, leagueSerie), leagueSeriePoints);
+            _cachedPoints.put(LeagueMapKeys.getLeagueSerieMapKey(league, leagueSerie), leagueSeriePoints);
         }
         return leagueSeriePoints;
     }
