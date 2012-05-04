@@ -6,7 +6,6 @@ import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.db.LeagueDAO;
 import com.gempukku.lotro.db.LeagueMatchDAO;
 import com.gempukku.lotro.db.LeagueParticipationDAO;
-import com.gempukku.lotro.db.LeaguePointsDAO;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.db.vo.League;
 import com.gempukku.lotro.db.vo.LeagueMatch;
@@ -19,6 +18,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class LeagueService {
     private Comparator<PlayerStanding> LEAGUE_STANDING_COMPARATOR =
@@ -30,7 +30,6 @@ public class LeagueService {
     private LeagueDAO _leagueDao;
 
     // Cached on this layer
-    private CachedLeaguePointsDAO _leaguePointsDao;
     private CachedLeagueMatchDAO _leagueMatchDao;
     private CachedLeagueParticipationDAO _leagueParticipationDAO;
 
@@ -42,10 +41,9 @@ public class LeagueService {
     private int _activeLeaguesLoadedDate;
     private List<League> _activeLeagues;
 
-    public LeagueService(LeagueDAO leagueDao, LeaguePointsDAO leaguePointsDao, LeagueMatchDAO leagueMatchDao,
+    public LeagueService(LeagueDAO leagueDao, LeagueMatchDAO leagueMatchDao,
                          LeagueParticipationDAO leagueParticipationDAO, CollectionsManager collectionsManager) {
         _leagueDao = leagueDao;
-        _leaguePointsDao = new CachedLeaguePointsDAO(leaguePointsDao);
         _leagueMatchDao = new CachedLeagueMatchDAO(leagueMatchDao);
         _leagueParticipationDAO = new CachedLeagueParticipationDAO(leagueParticipationDAO);
         _collectionsManager = collectionsManager;
@@ -57,7 +55,6 @@ public class LeagueService {
         _activeLeaguesLoadedDate = 0;
 
         _leagueMatchDao.clearCache();
-        _leaguePointsDao.clearCache();
         _leagueParticipationDAO.clearCache();
     }
 
@@ -65,7 +62,6 @@ public class LeagueService {
         int currentDate = DateUtils.getCurrentDate();
         if (currentDate != _activeLeaguesLoadedDate) {
             _leagueMatchDao.clearCache();
-            _leaguePointsDao.clearCache();
             _leagueParticipationDAO.clearCache();
 
             try {
@@ -148,9 +144,6 @@ public class LeagueService {
     public void reportLeagueGameResult(League league, LeagueSerieData serie, String winner, String loser) {
         _leagueMatchDao.addPlayedMatch(league, serie, winner, loser);
 
-        _leaguePointsDao.addPoints(league, serie, winner, 2);
-        _leaguePointsDao.addPoints(league, serie, loser, 1);
-
         _leagueStandings.remove(LeagueMapKeys.getLeagueMapKey(league));
         _leagueSerieStandings.remove(LeagueMapKeys.getLeagueSerieMapKey(league, serie));
 
@@ -208,7 +201,7 @@ public class LeagueService {
     }
 
     private List<PlayerStanding> createLeagueSerieStandings(League league, LeagueSerieData leagueSerie) {
-        final Map<String, LeaguePointsDAO.Points> points = _leaguePointsDao.getLeagueSeriePoints(league, leagueSerie);
+        final Collection<String> playersParticipating = _leagueParticipationDAO.getUsersParticipating(league);
         final Collection<LeagueMatch> matches = _leagueMatchDao.getLeagueMatches(league);
 
         Set<LeagueMatch> matchesInSerie = new HashSet<LeagueMatch>();
@@ -217,37 +210,51 @@ public class LeagueService {
                 matchesInSerie.add(match);
         }
 
-        return createStandingsForMatchesAndPoints(points, matchesInSerie);
+        return createStandingsForMatchesAndPoints(playersParticipating, matchesInSerie);
     }
 
     private List<PlayerStanding> createLeagueStandings(League league) {
-        final Map<String, LeaguePointsDAO.Points> points = _leaguePointsDao.getLeaguePoints(league);
+        final Collection<String> playersParticipating = _leagueParticipationDAO.getUsersParticipating(league);
         final Collection<LeagueMatch> matches = _leagueMatchDao.getLeagueMatches(league);
 
-        return createStandingsForMatchesAndPoints(points, matches);
+        return createStandingsForMatchesAndPoints(playersParticipating, matches);
     }
 
-    private List<PlayerStanding> createStandingsForMatchesAndPoints(Map<String, LeaguePointsDAO.Points> points, Collection<LeagueMatch> matches) {
+    private List<PlayerStanding> createStandingsForMatchesAndPoints(Collection<String> playersParticipating, Collection<LeagueMatch> matches) {
         Map<String, List<String>> playerOpponents = new HashMap<String, List<String>>();
-        Map<String, Integer> playerWins = new HashMap<String, Integer>();
-        Map<String, Integer> playerLoss = new HashMap<String, Integer>();
+        Map<String, AtomicInteger> playerWinCounts = new HashMap<String, AtomicInteger>();
+        Map<String, AtomicInteger> playerLossCounts = new HashMap<String, AtomicInteger>();
+
+        // Initialize the list
+        for (String playerName : playersParticipating) {
+            playerOpponents.put(playerName, new ArrayList<String>());
+            playerWinCounts.put(playerName, new AtomicInteger(0));
+            playerLossCounts.put(playerName, new AtomicInteger(0));
+        }
+
         for (LeagueMatch leagueMatch : matches) {
-            appendPlayer(playerOpponents, leagueMatch.getWinner(), leagueMatch.getLoser());
-            appendPlayer(playerOpponents, leagueMatch.getLoser(), leagueMatch.getWinner());
-            appendMatch(playerWins, playerLoss, leagueMatch.getWinner(), leagueMatch.getLoser());
+            playerOpponents.get(leagueMatch.getWinner()).add(leagueMatch.getLoser());
+            playerOpponents.get(leagueMatch.getLoser()).add(leagueMatch.getWinner());
+            playerWinCounts.get(leagueMatch.getWinner()).incrementAndGet();
+            playerLossCounts.get(leagueMatch.getLoser()).incrementAndGet();
         }
 
         List<PlayerStanding> leagueStandings = new LinkedList<PlayerStanding>();
-        for (Map.Entry<String, LeaguePointsDAO.Points> playerPoints : points.entrySet()) {
-            PlayerStanding standing = new PlayerStanding(playerPoints.getKey(), playerPoints.getValue().getPoints(), playerPoints.getValue().getGamesPlayed());
-            List<String> opponents = playerOpponents.get(playerPoints.getKey());
+        for (String playerName : playersParticipating) {
+            int points = playerWinCounts.get(playerName).intValue() * 2 + playerLossCounts.get(playerName).intValue();
+            int gamesPlayed = playerWinCounts.get(playerName).intValue() + playerLossCounts.get(playerName).intValue();
+            PlayerStanding standing = new PlayerStanding(playerName, points, gamesPlayed);
+            List<String> opponents = playerOpponents.get(playerName);
             int opponentWins = 0;
             int opponentGames = 0;
             for (String opponent : opponents) {
-                opponentWins += playerWins.get(opponent);
-                opponentGames += playerWins.get(opponent) + playerLoss.get(opponent);
+                opponentWins += playerWinCounts.get(opponent).intValue();
+                opponentGames += playerWinCounts.get(opponent).intValue() + playerLossCounts.get(opponent).intValue();
             }
-            standing.setOpponentWin(opponentWins * 1f / opponentGames);
+            if (opponentGames != 0)
+                standing.setOpponentWin(opponentWins * 1f / opponentGames);
+            else
+                standing.setOpponentWin(0f);
             leagueStandings.add(standing);
         }
 
@@ -264,32 +271,6 @@ public class LeagueService {
             lastStanding = leagueStanding;
         }
         return leagueStandings;
-    }
-
-    private void appendMatch(Map<String, Integer> playerWins, Map<String, Integer> playerLoss, String winner, String loser) {
-        append(playerWins, winner);
-        append(playerLoss, loser);
-        if (!playerWins.containsKey(loser))
-            playerWins.put(loser, 0);
-        if (!playerLoss.containsKey(winner))
-            playerLoss.put(winner, 0);
-    }
-
-    private void append(Map<String, Integer> playerCounts, String player) {
-        Integer count = playerCounts.get(player);
-        if (count == null)
-            count = 0;
-        count++;
-        playerCounts.put(player, count);
-    }
-
-    private void appendPlayer(Map<String, List<String>> playerOpponents, String player, String opponent) {
-        List<String> opponents = playerOpponents.get(player);
-        if (opponents == null) {
-            opponents = new LinkedList<String>();
-            playerOpponents.put(player, opponents);
-        }
-        opponents.add(opponent);
     }
 
     public boolean canPlayRankedGame(League league, LeagueSerieData season, String player) {
