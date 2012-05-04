@@ -105,6 +105,9 @@ public class LeagueService {
         if (_collectionsManager.removeCurrencyFromPlayerCollection(player, new CollectionType("permanent", "My cards"), cost)) {
             _leagueParticipationDAO.userJoinsLeague(league, player);
             league.getLeagueData().joinLeague(_collectionsManager, player, DateUtils.getCurrentDate());
+
+            _leagueStandings.remove(LeagueMapKeys.getLeagueMapKey(league));
+
             return true;
         } else {
             return false;
