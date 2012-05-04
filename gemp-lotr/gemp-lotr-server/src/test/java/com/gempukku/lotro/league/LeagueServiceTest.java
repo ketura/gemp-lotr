@@ -43,7 +43,6 @@ public class LeagueServiceTest {
         Set<LeagueMatch> matches = new HashSet<LeagueMatch>();
 
         Mockito.when(leagueMatchDAO.getLeagueMatches(league)).thenReturn(new HashSet<LeagueMatch>(matches));
-        Mockito.when(leagueMatchDAO.getLeagueSerieMatches(league, leagueSerie)).thenReturn(new HashSet<LeagueMatch>(matches));
 
         LeagueParticipationDAO leagueParticipationDAO = Mockito.mock(LeagueParticipationDAO.class);
         CollectionsManager collectionsManager = Mockito.mock(CollectionsManager.class);
@@ -60,7 +59,6 @@ public class LeagueServiceTest {
         assertTrue(leagueService.canPlayRankedGameAgainst(league, leagueSerie, "player1", "player3"));
 
         Mockito.verify(leagueMatchDAO).getLeagueMatches(league);
-        Mockito.verify(leagueMatchDAO).getLeagueSerieMatches(league, leagueSerie);
 
         Mockito.verify(leagueMatchDAO).addPlayedMatch(league, leagueSerie, "player1", "player2");
         Mockito.verifyNoMoreInteractions(leagueMatchDAO);
@@ -100,7 +98,6 @@ public class LeagueServiceTest {
         matches.add(new LeagueMatch(leagueSerie.getName(), "player1", "player2"));
 
         Mockito.when(leagueMatchDAO.getLeagueMatches(league)).thenReturn(new HashSet<LeagueMatch>(matches));
-        Mockito.when(leagueMatchDAO.getLeagueSerieMatches(league, leagueSerie)).thenReturn(new HashSet<LeagueMatch>(matches));
 
         LeagueParticipationDAO leagueParticipationDAO = Mockito.mock(LeagueParticipationDAO.class);
         CollectionsManager collectionsManager = Mockito.mock(CollectionsManager.class);
@@ -114,7 +111,6 @@ public class LeagueServiceTest {
         leagueService.reportLeagueGameResult(league, leagueSerie, "player1", "player3");
 
         Mockito.verify(leagueMatchDAO).getLeagueMatches(league);
-        Mockito.verify(leagueMatchDAO).getLeagueSerieMatches(league, leagueSerie);
 
         Mockito.verify(leagueMatchDAO).addPlayedMatch(league, leagueSerie, "player1", "player3");
         Mockito.verifyNoMoreInteractions(leagueMatchDAO);
@@ -148,7 +144,6 @@ public class LeagueServiceTest {
         Set<LeagueMatch> matches = new HashSet<LeagueMatch>();
 
         Mockito.when(leagueMatchDAO.getLeagueMatches(league)).thenReturn(new HashSet<LeagueMatch>(matches));
-        Mockito.when(leagueMatchDAO.getLeagueSerieMatches(league, leagueSerie)).thenReturn(new HashSet<LeagueMatch>(matches));
 
         LeagueParticipationDAO leagueParticipationDAO = Mockito.mock(LeagueParticipationDAO.class);
         CollectionsManager collectionsManager = Mockito.mock(CollectionsManager.class);

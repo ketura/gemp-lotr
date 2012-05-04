@@ -3,16 +3,16 @@ package com.gempukku.lotro.db.vo;
 public class LeagueMatch {
     private String _winner;
     private String _loser;
-    private String _serie;
+    private String _serieName;
 
-    public LeagueMatch(String serie, String winner, String loser) {
-        _serie = serie;
+    public LeagueMatch(String serieName, String winner, String loser) {
+        _serieName = serieName;
         _winner = winner;
         _loser = loser;
     }
 
-    public String getSerie() {
-        return _serie;
+    public String getSerieName() {
+        return _serieName;
     }
 
     public String getLoser() {

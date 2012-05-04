@@ -43,27 +43,6 @@ public class CachedLeagueMatchDAO implements LeagueMatchDAO {
         }
     }
 
-    @Override
-    public Collection<LeagueMatch> getLeagueSerieMatches(League league, LeagueSerieData leagueSerie) {
-        _readWriteLock.readLock().lock();
-        try {
-            Collection<LeagueMatch> leagueSerieMatches = _cachedMatches.get(LeagueMapKeys.getLeagueSerieMapKey(league, leagueSerie));
-            if (leagueSerieMatches == null) {
-                _readWriteLock.readLock().unlock();
-                _readWriteLock.writeLock().lock();
-                try {
-                    leagueSerieMatches = getLeagueSerieMatchesInWriteLock(league, leagueSerie);
-                } finally {
-                    _readWriteLock.readLock().lock();
-                    _readWriteLock.writeLock().unlock();
-                }
-            }
-            return Collections.unmodifiableCollection(leagueSerieMatches);
-        } finally {
-            _readWriteLock.readLock().unlock();
-        }
-    }
-
     private Collection<LeagueMatch> getLeagueMatchesInWriteLock(League league) {
         Collection<LeagueMatch> leagueMatches;
         leagueMatches = _cachedMatches.get(LeagueMapKeys.getLeagueMapKey(league));
@@ -74,16 +53,6 @@ public class CachedLeagueMatchDAO implements LeagueMatchDAO {
         return leagueMatches;
     }
 
-    private Collection<LeagueMatch> getLeagueSerieMatchesInWriteLock(League league, LeagueSerieData leagueSerie) {
-        Collection<LeagueMatch> leagueSerieMatches;
-        leagueSerieMatches = _cachedMatches.get(LeagueMapKeys.getLeagueSerieMapKey(league, leagueSerie));
-        if (leagueSerieMatches == null) {
-            leagueSerieMatches = new CopyOnWriteArraySet<LeagueMatch>(_leagueMatchDAO.getLeagueSerieMatches(league, leagueSerie));
-            _cachedMatches.put(LeagueMapKeys.getLeagueSerieMapKey(league, leagueSerie), leagueSerieMatches);
-        }
-        return leagueSerieMatches;
-    }
-
     @Override
     public void addPlayedMatch(League league, LeagueSerieData leagueSerie, String winner, String loser) {
         _readWriteLock.writeLock().lock();
@@ -91,7 +60,6 @@ public class CachedLeagueMatchDAO implements LeagueMatchDAO {
             LeagueMatch match = new LeagueMatch(leagueSerie.getName(), winner, loser);
 
             getLeagueMatchesInWriteLock(league).add(match);
-            getLeagueSerieMatchesInWriteLock(league, leagueSerie).add(match);
             _leagueMatchDAO.addPlayedMatch(league, leagueSerie, winner, loser);
         } finally {
             _readWriteLock.writeLock().unlock();
