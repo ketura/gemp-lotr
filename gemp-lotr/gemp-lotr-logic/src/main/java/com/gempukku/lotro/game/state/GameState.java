@@ -376,18 +376,20 @@ public class GameState {
     }
 
     private void removeFromSkirmish(PhysicalCard card, boolean notify) {
-        if (_skirmish.getFellowshipCharacter() == card) {
-            _skirmish.setFellowshipCharacter(null);
-            _skirmish.addRemovedFromSkirmish(card);
-            if (notify)
-                for (GameStateListener listener : getAllGameStateListeners())
-                    listener.removeFromSkirmish(card);
-        }
-        if (_skirmish.getShadowCharacters().remove(card)) {
-            _skirmish.addRemovedFromSkirmish(card);
-            if (notify)
-                for (GameStateListener listener : getAllGameStateListeners())
-                    listener.removeFromSkirmish(card);
+        if (_skirmish != null) {
+            if (_skirmish.getFellowshipCharacter() == card) {
+                _skirmish.setFellowshipCharacter(null);
+                _skirmish.addRemovedFromSkirmish(card);
+                if (notify)
+                    for (GameStateListener listener : getAllGameStateListeners())
+                        listener.removeFromSkirmish(card);
+            }
+            if (_skirmish.getShadowCharacters().remove(card)) {
+                _skirmish.addRemovedFromSkirmish(card);
+                if (notify)
+                    for (GameStateListener listener : getAllGameStateListeners())
+                        listener.removeFromSkirmish(card);
+            }
         }
     }
 
@@ -973,6 +975,17 @@ public class GameState {
     }
 
     public void assignToSkirmishes(PhysicalCard fp, Set<PhysicalCard> minions) {
+        removeFromSkirmish(fp);
+        for (PhysicalCard minion : minions) {
+            removeFromSkirmish(minion);
+
+            for (Assignment assignment : new LinkedList<Assignment>(_assignments)) {
+                if (assignment.getShadowCharacters().remove(minion))
+                    if (assignment.getShadowCharacters().size() == 0)
+                        removeAssignment(assignment);
+            }
+        }
+
         Assignment assignment = findAssignment(fp);
         if (assignment != null)
             assignment.getShadowCharacters().addAll(minions);
