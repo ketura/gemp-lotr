@@ -43,7 +43,8 @@ public class Card4_261 extends AbstractPermanent {
                         final PhysicalCard actionSource = action.getActionSource();
 
                         if (actionSource != null
-                                && actionSource.getBlueprint().getCardType() == CardType.EVENT) {
+                                && actionSource.getBlueprint().getCardType() == CardType.EVENT
+                                && action instanceof PlayEventAction) {
                             PlayEventAction playEventAction = (PlayEventAction) action;
                             if (Filters.canSpot(gameState, modifiersQuerying, Culture.RAIDER, Race.MAN)
                                     && playEventAction.isRequiresRanger())
