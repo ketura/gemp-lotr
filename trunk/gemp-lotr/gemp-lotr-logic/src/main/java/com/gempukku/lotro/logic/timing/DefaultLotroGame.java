@@ -30,6 +30,8 @@ public class DefaultLotroGame implements LotroGame {
     private UserFeedback _userFeedback;
     private TurnProcedure _turnProcedure;
     private ActionStack _actionStack;
+    private boolean _cancelled;
+    private boolean _finished;
 
     private LotroFormat _format;
 
@@ -105,11 +107,13 @@ public class DefaultLotroGame implements LotroGame {
     }
 
     public void startGame() {
-        _turnProcedure.carryOutPendingActionsUntilDecisionNeeded();
+        if (!_cancelled)
+            _turnProcedure.carryOutPendingActionsUntilDecisionNeeded();
     }
 
     public void carryOutPendingActionsUntilDecisionNeeded() {
-        _turnProcedure.carryOutPendingActionsUntilDecisionNeeded();
+        if (!_cancelled)
+            _turnProcedure.carryOutPendingActionsUntilDecisionNeeded();
     }
 
     @Override
@@ -117,17 +121,37 @@ public class DefaultLotroGame implements LotroGame {
         return _winnerPlayerId;
     }
 
+    public boolean isFinished() {
+        return _finished;
+    }
+
+    public void cancelGame() {
+        if (!_finished) {
+            _cancelled = true;
+            for (GameResultListener gameResultListener : _gameResultListeners)
+                gameResultListener.gameCancelled();
+
+            _finished = true;
+        }
+    }
+
+    public boolean isCancelled() {
+        return _cancelled;
+    }
+
     @Override
     public void playerWon(String playerId, String reason) {
-        // Any remaining players have lost
-        Set<String> losers = new HashSet<String>(_allPlayers);
-        losers.removeAll(_losers.keySet());
-        losers.remove(playerId);
+        if (!_finished) {
+            // Any remaining players have lost
+            Set<String> losers = new HashSet<String>(_allPlayers);
+            losers.removeAll(_losers.keySet());
+            losers.remove(playerId);
 
-        for (String loser : losers)
-            _losers.put(loser, "Other player won");
+            for (String loser : losers)
+                _losers.put(loser, "Other player won");
 
-        gameWon(playerId, reason);
+            gameWon(playerId, reason);
+        }
     }
 
     private void gameWon(String winner, String reason) {
@@ -138,20 +162,24 @@ public class DefaultLotroGame implements LotroGame {
 
         for (GameResultListener gameResultListener : _gameResultListeners)
             gameResultListener.gameFinished(_winnerPlayerId, reason, _losers);
+
+        _finished = true;
     }
 
     @Override
     public void playerLost(String playerId, String reason) {
-        if (_losers.get(playerId) == null) {
-            log.debug("Player " + playerId + " lost due to: " + reason);
-            _losers.put(playerId, reason);
-            if (_gameState != null)
-                _gameState.sendMessage(playerId + " lost due to: " + reason);
+        if (!_finished) {
+            if (_losers.get(playerId) == null) {
+                log.debug("Player " + playerId + " lost due to: " + reason);
+                _losers.put(playerId, reason);
+                if (_gameState != null)
+                    _gameState.sendMessage(playerId + " lost due to: " + reason);
 
-            if (_losers.size() + 1 == _allPlayers.size()) {
-                List<String> allPlayers = new LinkedList<String>(_allPlayers);
-                allPlayers.removeAll(_losers.keySet());
-                gameWon(allPlayers.get(0), "Last remaining player in game");
+                if (_losers.size() + 1 == _allPlayers.size()) {
+                    List<String> allPlayers = new LinkedList<String>(_allPlayers);
+                    allPlayers.removeAll(_losers.keySet());
+                    gameWon(allPlayers.get(0), "Last remaining player in game");
+                }
             }
         }
     }
