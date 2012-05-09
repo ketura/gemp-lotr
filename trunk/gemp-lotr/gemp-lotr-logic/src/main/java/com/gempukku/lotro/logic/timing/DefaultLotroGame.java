@@ -128,6 +128,12 @@ public class DefaultLotroGame implements LotroGame {
     public void cancelGame() {
         if (!_finished) {
             _cancelled = true;
+
+            if (_gameState != null) {
+                _gameState.sendMessage("Game was cancelled do to an error, the error was logged and will be fixed soon.");
+                _gameState.sendMessage("Please post the replay game link and description of what happened on the TLHH forum.");
+            }
+
             for (GameResultListener gameResultListener : _gameResultListeners)
                 gameResultListener.gameCancelled();
 
