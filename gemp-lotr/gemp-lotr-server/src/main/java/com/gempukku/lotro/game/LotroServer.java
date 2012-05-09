@@ -123,7 +123,7 @@ public class LotroServer extends AbstractServer {
         return "Game" + gameId;
     }
 
-    public synchronized String createNewGame(LotroFormat lotroFormat, String tournament, LotroGameParticipant[] participants, boolean competetive) {
+    public synchronized String createNewGame(LotroFormat lotroFormat, String tournament, final LotroGameParticipant[] participants, boolean competetive) {
         if (participants.length < 2)
             throw new IllegalArgumentException("There has to be at least two players");
         final String gameId = String.valueOf(_nextGameId);
@@ -145,6 +145,13 @@ public class LotroServer extends AbstractServer {
                     @Override
                     public void gameFinished(String winnerPlayerId, String winReason, Map<String, String> loserPlayerIdsWithReasons) {
                         log.debug("Game finished, winner is - " + winnerPlayerId + " due to: " + winReason);
+                        synchronized (_finishedGamesTime) {
+                            _finishedGamesTime.put(gameId, new Date());
+                        }
+                    }
+
+                    @Override
+                    public void gameCancelled() {
                         synchronized (_finishedGamesTime) {
                             _finishedGamesTime.put(gameId, new Date());
                         }
@@ -171,6 +178,11 @@ public class LotroServer extends AbstractServer {
                         final Map.Entry<String, String> loserEntry = loserPlayerIdsWithReasons.entrySet().iterator().next();
 
                         gameRecordingInProgress.finishRecording(winnerPlayerId, winReason, loserEntry.getKey(), loserEntry.getValue());
+                    }
+
+                    @Override
+                    public void gameCancelled() {
+                        gameRecordingInProgress.finishRecording(participants[0].getPlayerId(), "Game cancelled due to error", participants[1].getPlayerId(), "Game cancelled due to error");
                     }
                 }
         );

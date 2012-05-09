@@ -308,6 +308,11 @@ public class HallServer extends AbstractServer {
                         public void gameFinished(String winnerPlayerId, String winReason, Map<String, String> loserPlayerIdsWithReasons) {
                             _leagueService.reportLeagueGameResult(league, leagueSerie, winnerPlayerId, loserPlayerIdsWithReasons.keySet().iterator().next());
                         }
+
+                        @Override
+                        public void gameCancelled() {
+                            // Do nothing...
+                        }
                     });
         }
         lotroGameMediator.startGame();

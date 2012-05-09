@@ -11,6 +11,7 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.timing.DefaultLotroGame;
 import com.gempukku.lotro.logic.timing.GameResultListener;
 import com.gempukku.lotro.logic.vo.LotroDeck;
+import org.apache.log4j.Logger;
 
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
@@ -18,6 +19,8 @@ import java.util.*;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class LotroGameMediator {
+    private static final Logger LOG = Logger.getLogger(LotroGameMediator.class);
+
     private Map<String, GatheringParticipantCommunicationChannel> _communicationChannels = new HashMap<String, GatheringParticipantCommunicationChannel>();
     private DefaultUserFeedback _userFeedback;
     private DefaultLotroGame _lotroGame;
@@ -96,7 +99,9 @@ public class LotroGameMediator {
     }
 
     public String getGameStatus() {
-        if (_lotroGame.getWinnerPlayerId() != null)
+        if (_lotroGame.isCancelled())
+            return "Cancelled";
+        if (_lotroGame.isFinished())
             return "Finished";
         final Phase currentPhase = _lotroGame.getGameState().getCurrentPhase();
         if (currentPhase == Phase.PLAY_STARTING_FELLOWSHIP || currentPhase == Phase.PUT_RING_BEARER)
@@ -270,7 +275,7 @@ public class LotroGameMediator {
                 if (communicationChannel.getChannelNumber() == channelNumber) {
                     AwaitingDecision awaitingDecision = _userFeedback.getAwaitingDecision(playerName);
                     if (awaitingDecision != null) {
-                        if (awaitingDecision.getAwaitingDecisionId() == decisionId) {
+                        if (awaitingDecision.getAwaitingDecisionId() == decisionId && !_lotroGame.isFinished()) {
                             try {
                                 _userFeedback.participantDecided(playerName);
                                 awaitingDecision.decisionMade(answer);
@@ -285,6 +290,9 @@ public class LotroGameMediator {
                                 // Participant provided wrong answer - send a warning message, and ask again for the same decision
                                 _userFeedback.sendWarning(playerName, decisionResultInvalidException.getWarningMessage());
                                 _userFeedback.sendAwaitingDecision(playerName, awaitingDecision);
+                            } catch (RuntimeException runtimeException) {
+                                LOG.error("Error processing game decision", runtimeException);
+                                _lotroGame.cancelGame();
                             }
                         }
                     }

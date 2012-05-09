@@ -9,7 +9,6 @@ import com.gempukku.lotro.game.state.EventSerializer;
 import com.gempukku.lotro.game.state.GameEvent;
 import com.gempukku.lotro.logic.modifiers.LoggingThreadLocal;
 import com.sun.jersey.spi.resource.Singleton;
-import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -32,7 +31,6 @@ import java.util.Set;
 @Singleton
 @Path("/game")
 public class GameResource extends AbstractResource {
-    private static final Logger _logger = Logger.getLogger(GameResource.class);
     @Context
     private LotroServer _lotroServer;
 
@@ -143,14 +141,8 @@ public class GameResource extends AbstractResource {
 
             gameMediator.setPlayerAutoPassSettings(resourceOwner.getName(), getAutoPassPhases(request));
 
-            if (decisionId != null) {
-                try {
-                    gameMediator.playerAnswered(resourceOwner, channelNumber, decisionId, decisionValue);
-                } catch (RuntimeException exp) {
-                    _logger.error("Error while sending decision", exp);
-                    throw exp;
-                }
-            }
+            if (decisionId != null)
+                gameMediator.playerAnswered(resourceOwner, channelNumber, decisionId, decisionValue);
 
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
