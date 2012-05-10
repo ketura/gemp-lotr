@@ -104,7 +104,6 @@ public class LotroServer extends AbstractServer {
                     _gameDeathWarningsSent.add(gameId);
                 }
                 if (currentTime > finishedGame.getValue().getTime() + _timeToGameDeath) {
-                    log.debug("Removing stale game: " + gameId);
                     _gameDeathWarningsSent.remove(gameId);
                     _runningGames.remove(gameId);
                     _chatServer.destroyChatRoom(getChatRoomName(gameId));
@@ -144,7 +143,6 @@ public class LotroServer extends AbstractServer {
                 new GameResultListener() {
                     @Override
                     public void gameFinished(String winnerPlayerId, String winReason, Map<String, String> loserPlayerIdsWithReasons) {
-                        log.debug("Game finished, winner is - " + winnerPlayerId + " due to: " + winReason);
                         synchronized (_finishedGamesTime) {
                             _finishedGamesTime.put(gameId, new Date());
                         }

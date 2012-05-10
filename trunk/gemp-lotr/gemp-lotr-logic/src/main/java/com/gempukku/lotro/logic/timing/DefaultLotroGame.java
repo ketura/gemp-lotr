@@ -176,7 +176,6 @@ public class DefaultLotroGame implements LotroGame {
     public void playerLost(String playerId, String reason) {
         if (!_finished) {
             if (_losers.get(playerId) == null) {
-                log.debug("Player " + playerId + " lost due to: " + reason);
                 _losers.put(playerId, reason);
                 if (_gameState != null)
                     _gameState.sendMessage(playerId + " lost due to: " + reason);
