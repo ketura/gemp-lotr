@@ -74,6 +74,42 @@ public class HallResource extends AbstractResource {
         return result.toString();
     }
 
+    @Path("/format/{format}")
+    @GET
+    @Produces(MediaType.TEXT_HTML)
+    public String getFormat(
+            @PathParam("format") String format,
+            @Context HttpServletResponse response) {
+
+        response.setCharacterEncoding("UTF-8");
+
+        StringBuilder result = new StringBuilder();
+        LotroFormat lotroFormat = _formatLibrary.getFormat(format);
+        result.append("<b>" + lotroFormat.getName() + "</b>");
+        result.append("<ul>");
+        result.append("<li>valid sets: ");
+        for (Integer integer : lotroFormat.getValidSets())
+            result.append(integer + ", ");
+        result.append("</li>");
+        result.append("<li>sites from block: " + lotroFormat.getSiteBlock().getHumanReadable() + "</li>");
+        result.append("<li>Ring-bearer skirmish can be cancelled: " + (lotroFormat.canCancelRingBearerSkirmish() ? "yes" : "no") + "</li>");
+        result.append("<li>X-listed: ");
+        for (String blueprintId : lotroFormat.getBannedCards())
+            result.append(GameUtils.getCardLink(blueprintId, _library.getLotroCardBlueprint(blueprintId)) + ", ");
+        if (lotroFormat.getBannedCards().size() == 0)
+            result.append("none,");
+        result.append("</li>");
+        result.append("<li>R-listed: ");
+        for (String blueprintId : lotroFormat.getRestrictedCards())
+            result.append(GameUtils.getCardLink(blueprintId, _library.getLotroCardBlueprint(blueprintId)) + ", ");
+        if (lotroFormat.getRestrictedCards().size() == 0)
+            result.append("none,");
+        result.append("</li>");
+        result.append("</ul>");
+
+        return result.toString();
+    }
+
     @GET
     @Produces(MediaType.APPLICATION_XML)
     public Document getHall(
