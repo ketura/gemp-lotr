@@ -44,6 +44,10 @@ public class PacksStorageProvider implements Injectable<PacksStorage>, Injectabl
             packStorage.addPackBox("(S)BoHD - Starter", new FixedPackBox("(S)BoHD - Starter"));
             packStorage.addPackBox("(S)EoF - Starter", new FixedPackBox("(S)EoF - Starter"));
 
+            packStorage.addPackBox("(S)RotK - Starter", new FixedPackBox("(S)RotK - Starter"));
+            packStorage.addPackBox("(S)SoG - Starter", new FixedPackBox("(S)SoG - Starter"));
+            packStorage.addPackBox("(S)MD - Starter", new FixedPackBox("(S)MD - Starter"));
+
             packStorage.addPackBox("(S)FotR - Tengwar", new TengwarPackBox(new int[]{1, 2, 3}));
             packStorage.addPackBox("(S)TTT - Tengwar", new TengwarPackBox(new int[]{4, 5, 6}));
             packStorage.addPackBox("(S)RotK - Tengwar", new TengwarPackBox(new int[]{7, 8, 10}));
@@ -69,6 +73,15 @@ public class PacksStorageProvider implements Injectable<PacksStorage>, Injectabl
 
             packStorage.addPackBox("EoF - Faramir Starter", new FixedPackBox("EoF - Faramir Starter"));
             packStorage.addPackBox("EoF - Witch-king Starter", new FixedPackBox("EoF - Witch-king Starter"));
+
+            packStorage.addPackBox("RotK - Aragorn Starter", new FixedPackBox("RotK - Aragorn Starter"));
+            packStorage.addPackBox("RotK - Eomer Starter", new FixedPackBox("RotK - Eomer Starter"));
+
+            packStorage.addPackBox("SoG - Merry Starter", new FixedPackBox("SoG - Merry Starter"));
+            packStorage.addPackBox("SoG - Pippin Starter", new FixedPackBox("SoG - Pippin Starter"));
+
+            packStorage.addPackBox("MD - Frodo Starter", new FixedPackBox("MD - Frodo Starter"));
+            packStorage.addPackBox("MD - Sam Starter", new FixedPackBox("MD - Sam Starter"));
 
             packStorage.addPackBox("FotR - Booster", new RarityPackBox(1));
             packStorage.addPackBox("MoM - Booster", new RarityPackBox(2));
