@@ -18,6 +18,10 @@ var packBlueprints = {
     "(S)BoHD - Starter": "/gemp-lotr/images/boosters/bohd_starter_selection.png",
     "(S)EoF - Starter": "/gemp-lotr/images/boosters/eof_starter_selection.png",
 
+    "(S)RotK - Starter": "/gemp-lotr/images/boosters/rotk_starter_selection.png",
+    "(S)SoG - Starter": "/gemp-lotr/images/boosters/sog_starter_selection.png",
+    "(S)MD - Starter": "/gemp-lotr/images/boosters/md_starter_selection.png",
+
     "(S)FotR - Tengwar": "/gemp-lotr/images/boosters/fotr_tengwar_selection.png",
     "(S)TTT - Tengwar": "/gemp-lotr/images/boosters/ttt_tengwar_selection.png",
     "(S)RotK - Tengwar": "/gemp-lotr/images/boosters/rotk_tengwar_selection.png",
@@ -54,16 +58,16 @@ var packBlueprints = {
     "EoF - Witch-king Starter": "/gemp-lotr/images/boosters/eof_witch_king_starter.png",
     "EoF - Booster": "/gemp-lotr/images/boosters/eof_booster.png",
 
-    "RotK - Aragorn Starter": "/gemp-lotr/images/boosters/ttt_aragorn_starter.png",
-    "RotK - Eomer Starter": "/gemp-lotr/images/boosters/ttt_theoden_starter.png",
+    "RotK - Aragorn Starter": "/gemp-lotr/images/boosters/rotk_aragorn_starter.png",
+    "RotK - Eomer Starter": "/gemp-lotr/images/boosters/rotk_eomer_starter.png",
     "RotK - Booster": "/gemp-lotr/images/boosters/rotk_booster.png",
 
-    "SoG - Merry Starter": "/gemp-lotr/images/boosters/bohd_eowyn_starter.png",
-    "SoG - Pippin Starter": "/gemp-lotr/images/boosters/bohd_legolas_starter.png",
+    "SoG - Merry Starter": "/gemp-lotr/images/boosters/sog_merry_starter.png",
+    "SoG - Pippin Starter": "/gemp-lotr/images/boosters/sog_pippin_starter.png",
     "SoG - Booster": "/gemp-lotr/images/boosters/sog_booster.png",
 
-    "MD - Frodo Starter": "/gemp-lotr/images/boosters/eof_faramir_starter.png",
-    "MD - Sam Starter": "/gemp-lotr/images/boosters/eof_witch_king_starter.png",
+    "MD - Frodo Starter": "/gemp-lotr/images/boosters/md_frodo_starter.png",
+    "MD - Sam Starter": "/gemp-lotr/images/boosters/md_sam_starter.png",
     "MD - Booster": "/gemp-lotr/images/boosters/md_booster.png",
 
     "SH - Faramir Starter": "/gemp-lotr/images/boosters/eof_faramir_starter.png",
