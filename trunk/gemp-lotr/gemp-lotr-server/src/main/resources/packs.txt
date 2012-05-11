@@ -41,3 +41,12 @@ RoS - Booster
 TaD - Booster
 REF - Booster
 (S)Tengwar
+(S)RotK - Starter
+RotK - Aragorn Starter
+RotK - Eomer Starter
+(S)SoG - Starter
+SoG - Merry Starter
+SoG - Pippin Starter
+(S)MD - Starter
+MD - Frodo Starter
+MD - Sam Starter
