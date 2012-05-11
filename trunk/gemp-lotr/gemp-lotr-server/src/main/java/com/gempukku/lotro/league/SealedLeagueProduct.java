@@ -15,6 +15,7 @@ public class SealedLeagueProduct {
     public SealedLeagueProduct() {
         createFellowshipBlock();
         createTowersBlock();
+        createKingBlock();
     }
 
     private void createFellowshipBlock() {
@@ -73,6 +74,39 @@ public class SealedLeagueProduct {
         tttBlock.add(fourthWeek);
 
         _collections.put("ttt_block", tttBlock);
+    }
+
+    private void createKingBlock() {
+        List<CardCollection> kingBlock = new ArrayList<CardCollection>();
+
+        MutableCardCollection firstWeek = new DefaultCardCollection();
+        firstWeek.addItem("(S)RotK - Starter", 1);
+        firstWeek.addItem("RotK - Booster", 6);
+        firstWeek.addItem("7_212", 1);
+        firstWeek.addItem("1_231", 1);
+        firstWeek.addItem("7_355", 1);
+        firstWeek.addItem("7_358", 1);
+        kingBlock.add(firstWeek);
+
+        MutableCardCollection secondWeek = new DefaultCardCollection();
+        secondWeek.addItem("(S)SoG - Starter", 1);
+        secondWeek.addItem("SoG - Booster", 3);
+        secondWeek.addItem("8_120", 1);
+        kingBlock.add(secondWeek);
+
+        MutableCardCollection thirdWeek = new DefaultCardCollection();
+        thirdWeek.addItem("(S)MD - Starter", 1);
+        thirdWeek.addItem("MD - Booster", 3);
+        thirdWeek.addItem("7_326", 2);
+        kingBlock.add(thirdWeek);
+
+        MutableCardCollection fourthWeek = new DefaultCardCollection();
+        fourthWeek.addItem("RotK - Booster", 2);
+        fourthWeek.addItem("SoG - Booster", 2);
+        fourthWeek.addItem("MD - Booster", 2);
+        kingBlock.add(fourthWeek);
+
+        _collections.put("king_block", kingBlock);
     }
 
     public CardCollection getCollectionForSerie(String format, int serieIndex) {

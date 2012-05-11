@@ -55,15 +55,15 @@ var packBlueprints = {
     "EoF - Booster": "/gemp-lotr/images/boosters/eof_booster.png",
 
     "RotK - Aragorn Starter": "/gemp-lotr/images/boosters/ttt_aragorn_starter.png",
-    "RotK - Theoden Starter": "/gemp-lotr/images/boosters/ttt_theoden_starter.png",
+    "RotK - Eomer Starter": "/gemp-lotr/images/boosters/ttt_theoden_starter.png",
     "RotK - Booster": "/gemp-lotr/images/boosters/rotk_booster.png",
 
-    "SoG - Eowyn Starter": "/gemp-lotr/images/boosters/bohd_eowyn_starter.png",
-    "SoG - Legolas Starter": "/gemp-lotr/images/boosters/bohd_legolas_starter.png",
+    "SoG - Merry Starter": "/gemp-lotr/images/boosters/bohd_eowyn_starter.png",
+    "SoG - Pippin Starter": "/gemp-lotr/images/boosters/bohd_legolas_starter.png",
     "SoG - Booster": "/gemp-lotr/images/boosters/sog_booster.png",
 
-    "MD - Faramir Starter": "/gemp-lotr/images/boosters/eof_faramir_starter.png",
-    "MD - Witch-king Starter": "/gemp-lotr/images/boosters/eof_witch_king_starter.png",
+    "MD - Frodo Starter": "/gemp-lotr/images/boosters/eof_faramir_starter.png",
+    "MD - Sam Starter": "/gemp-lotr/images/boosters/eof_witch_king_starter.png",
     "MD - Booster": "/gemp-lotr/images/boosters/md_booster.png",
 
     "SH - Faramir Starter": "/gemp-lotr/images/boosters/eof_faramir_starter.png",
