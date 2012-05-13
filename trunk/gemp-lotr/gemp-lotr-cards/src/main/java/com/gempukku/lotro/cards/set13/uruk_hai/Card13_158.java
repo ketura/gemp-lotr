@@ -6,6 +6,7 @@ import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.cards.modifiers.ResistanceModifier;
 import com.gempukku.lotro.cards.modifiers.evaluator.CountActiveEvaluator;
+import com.gempukku.lotro.cards.modifiers.evaluator.MultiplyEvaluator;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -54,7 +55,7 @@ public class Card13_158 extends AbstractMinion {
                                             action.appendEffect(
                                                     new AddUntilEndOfPhaseModifierEffect(
                                                             new ResistanceModifier(self, companion, null,
-                                                                    new CountActiveEvaluator(Filters.name(condition.getBlueprint().getName()))),
+                                                                    new MultiplyEvaluator(-1, new CountActiveEvaluator(Filters.name(condition.getBlueprint().getName())))),
                                                             Phase.SHADOW));
                                         }
                                     });

@@ -30,7 +30,7 @@ public class Card15_192 extends AbstractNewSite {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        final PlayOrder playOrder = game.getGameState().getPlayerOrder().getCounterClockwisePlayOrder(playerId, false);
+        final PlayOrder playOrder = game.getGameState().getPlayerOrder().getCounterClockwisePlayOrder(game.getGameState().getCurrentPlayerId(), false);
         playOrder.getNextPlayer();
         final String firstShadowPlayer = playOrder.getNextPlayer();
         if (TriggerConditions.transferredCard(game, effectResult, CardType.FOLLOWER, null, Filters.character)
