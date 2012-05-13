@@ -180,6 +180,17 @@ var GempLotrCommunication = Class.extend({
             dataType: "xml"
         });
     },
+    cancel: function(errorMap) {
+        $.ajax({
+            type: "POST",
+            url: this.url + "/game/" + getUrlParam("gameId") + "/cancel",
+            cache: false,
+            data: {
+                participantId: getUrlParam("participantId")},
+            error: this.errorCheck(errorMap),
+            dataType: "xml"
+        });
+    },
     getDeck: function(deckName, callback, errorMap) {
         $.ajax({
             type: "GET",

@@ -463,10 +463,15 @@ var GempLotrGameUI = Class.extend({
         this.chatBox.chatUpdateInterval = 3000;
 
         if (!this.spectatorMode && !this.replayMode) {
-            $("#gameOptionsBox").append("<button id='concedeGame'>Concede game</button>");
+            $("#gameOptionsBox").append("<button id='concedeGame'>Concede game</button><br/>");
             $("#concedeGame").button().click(
                     function() {
                         that.communication.concede();
+                    });
+            $("#gameOptionsBox").append("<button id='cancelGame'>Request game cancel</button>");
+            $("#cancelGame").button().click(
+                    function() {
+                        that.communication.cancel();
                     });
         }
     },
