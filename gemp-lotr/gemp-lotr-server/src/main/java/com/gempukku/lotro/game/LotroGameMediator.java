@@ -266,6 +266,17 @@ public class LotroGameMediator {
         }
     }
 
+    public void cancel(Player player) {
+        String playerId = player.getName();
+        _writeLock.lock();
+        try {
+            if (_playersPlaying.contains(playerId))
+                _lotroGame.requestCancel(playerId);
+        } finally {
+            _writeLock.unlock();
+        }
+    }
+
     public void playerAnswered(Player player, int channelNumber, int decisionId, String answer) {
         String playerName = player.getName();
         _writeLock.lock();

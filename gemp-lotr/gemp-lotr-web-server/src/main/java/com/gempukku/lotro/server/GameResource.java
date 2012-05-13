@@ -120,6 +120,21 @@ public class GameResource extends AbstractResource {
         gameMediator.concede(resourceOwner);
     }
 
+    @Path("/{gameId}/cancel")
+    @POST
+    public void cancel(
+            @PathParam("gameId") String gameId,
+            @FormParam("participantId") String participantId,
+            @Context HttpServletRequest request) throws ParserConfigurationException {
+        Player resourceOwner = getResourceOwnerSafely(request, participantId);
+
+        LotroGameMediator gameMediator = _lotroServer.getGameById(gameId);
+        if (gameMediator == null)
+            sendError(Response.Status.NOT_FOUND);
+
+        gameMediator.cancel(resourceOwner);
+    }
+
     @Path("/{gameId}")
     @POST
     @Produces(MediaType.APPLICATION_XML)

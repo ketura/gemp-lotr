@@ -43,6 +43,8 @@ public class DefaultLotroGame implements LotroGame {
 
     private Set<GameResultListener> _gameResultListeners = new HashSet<GameResultListener>();
 
+    private Set<String> _requestedCancel = new HashSet<String>();
+
     public DefaultLotroGame(LotroFormat format, Map<String, LotroDeck> decks, UserFeedback userFeedback, final LotroCardBlueprintLibrary library) {
         _format = format;
         _actionStack = new ActionStack();
@@ -130,9 +132,23 @@ public class DefaultLotroGame implements LotroGame {
             _cancelled = true;
 
             if (_gameState != null) {
-                _gameState.sendMessage("Game was cancelled do to an error, the error was logged and will be fixed soon.");
+                _gameState.sendMessage("Game was cancelled due to an error, the error was logged and will be fixed soon.");
                 _gameState.sendMessage("Please post the replay game link and description of what happened on the TLHH forum.");
             }
+
+            for (GameResultListener gameResultListener : _gameResultListeners)
+                gameResultListener.gameCancelled();
+
+            _finished = true;
+        }
+    }
+
+    public void cancelGameRequested() {
+        if (!_finished) {
+            _cancelled = true;
+
+            if (_gameState != null)
+                _gameState.sendMessage("Game was cancelled, as requested by all parties.");
 
             for (GameResultListener gameResultListener : _gameResultListeners)
                 gameResultListener.gameCancelled();
@@ -187,6 +203,12 @@ public class DefaultLotroGame implements LotroGame {
                 }
             }
         }
+    }
+
+    public void requestCancel(String playerId) {
+        _requestedCancel.add(playerId);
+        if (_requestedCancel.size() == _allPlayers.size())
+            cancelGameRequested();
     }
 
     @Override
