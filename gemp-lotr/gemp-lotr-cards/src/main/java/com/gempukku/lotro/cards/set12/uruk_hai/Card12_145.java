@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set12.uruk_hai;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDoAssignmentEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -40,6 +41,7 @@ public class Card12_145 extends AbstractPermanent {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.ASSIGNMENT, self, 0)
                 && PlayConditions.canSelfDiscard(self, game)) {
             final ActivateCardAction action = new ActivateCardAction(self);
+            action.appendCost(new SelfDiscardEffect(self));
             action.appendEffect(
                     new ChooseAndDoAssignmentEffect(action, playerId, Culture.URUK_HAI, Filters.and(CardType.COMPANION, Filters.maxResistance(2))));
             return Collections.singletonList(action);

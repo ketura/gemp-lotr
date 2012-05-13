@@ -65,7 +65,7 @@ public class Card1_216 extends AbstractAttachable {
             List<Effect> possibleEffects = new LinkedList<Effect>();
             if (bladeTipInSupport != null) {
                 possibleEffects.add(
-                        new ChooseActiveCardEffect(self, playerId, "Choose a companion", CardType.COMPANION, Filters.inSkirmishAgainst(self.getAttachedTo())) {
+                        new ChooseActiveCardEffect(self, playerId, "Choose a companion", CardType.COMPANION, Filters.inSkirmishAgainst(self.getAttachedTo()), Filters.not(Filters.hasAttached(Filters.name("Blade Tip")))) {
                             @Override
                             protected void cardSelected(LotroGame game, PhysicalCard card) {
                                 action.insertEffect(
