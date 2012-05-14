@@ -15,6 +15,7 @@ import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -41,7 +42,8 @@ public class Card7_083 extends AbstractEvent {
                     protected void cardSelected(LotroGame game, final PhysicalCard card) {
                         game.getModifiersEnvironment().addUntilEndOfPhaseModifier(
                                 new StrengthModifier(self, card, 2), Phase.SKIRMISH);
-                        if (Filters.inSkirmishAgainst(Culture.SAURON, CardType.MINION).accepts(game.getGameState(), game.getModifiersQuerying(), card)) {
+                        final Collection<PhysicalCard> sauronMinions = Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Culture.SAURON, CardType.MINION, Filters.inSkirmishAgainst(card));
+                        if (sauronMinions.size() > 0) {
                             action.appendEffect(
                                     new AddUntilEndOfPhaseActionProxyEffect(
                                             new AbstractActionProxy() {
@@ -50,7 +52,7 @@ public class Card7_083 extends AbstractEvent {
                                                     if (TriggerConditions.endOfPhase(game, effectResult, Phase.SKIRMISH)) {
                                                         RequiredTriggerAction action = new RequiredTriggerAction(self);
                                                         action.appendEffect(
-                                                                new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Culture.SAURON, CardType.MINION, Filters.inSkirmishAgainst(card)));
+                                                                new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.in(sauronMinions)));
                                                         return Collections.singletonList(action);
                                                     }
                                                     return null;
