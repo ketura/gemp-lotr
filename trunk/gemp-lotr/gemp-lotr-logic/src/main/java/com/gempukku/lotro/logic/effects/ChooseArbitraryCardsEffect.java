@@ -11,11 +11,12 @@ import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 
 public abstract class ChooseArbitraryCardsEffect extends AbstractEffect {
     private String _playerId;
     private String _choiceText;
-    private Collection<? extends PhysicalCard> _cards;
+    private Collection<PhysicalCard> _cards;
     private Filterable _filter;
     private int _minimum;
     private int _maximum;
@@ -27,7 +28,7 @@ public abstract class ChooseArbitraryCardsEffect extends AbstractEffect {
     public ChooseArbitraryCardsEffect(String playerId, String choiceText, Collection<? extends PhysicalCard> cards, Filterable filter, int minimum, int maximum) {
         _playerId = playerId;
         _choiceText = choiceText;
-        _cards = cards;
+        _cards = new HashSet<PhysicalCard>(cards);
         _filter = filter;
         _minimum = minimum;
         _maximum = maximum;
@@ -65,7 +66,7 @@ public abstract class ChooseArbitraryCardsEffect extends AbstractEffect {
             cardsSelected(game, possibleCards);
         } else {
             game.getUserFeedback().sendAwaitingDecision(_playerId,
-                    new ArbitraryCardsSelectionDecision(1, _choiceText, possibleCards, _minimum, _maximum) {
+                    new ArbitraryCardsSelectionDecision(1, _choiceText, _cards, possibleCards, _minimum, _maximum) {
                         @Override
                         public void decisionMade(String result) throws DecisionResultInvalidException {
                             cardsSelected(game, getSelectedCardsByResponse(result));
