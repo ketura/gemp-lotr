@@ -1,7 +1,6 @@
 package com.gempukku.lotro.league;
 
 import com.gempukku.lotro.db.LeagueParticipationDAO;
-import com.gempukku.lotro.db.vo.League;
 import com.gempukku.lotro.game.Player;
 
 import java.util.Collection;
@@ -24,26 +23,26 @@ public class CachedLeagueParticipationDAO implements LeagueParticipationDAO {
     }
 
     @Override
-    public void userJoinsLeague(League league, Player player) {
+    public void userJoinsLeague(String leagueId, Player player) {
         _readWriteLock.writeLock().lock();
         try {
-            getLeagueParticipantsInWriteLock(league).add(player.getName());
-            _leagueParticipationDAO.userJoinsLeague(league, player);
+            getLeagueParticipantsInWriteLock(leagueId).add(player.getName());
+            _leagueParticipationDAO.userJoinsLeague(leagueId, player);
         } finally {
             _readWriteLock.writeLock().unlock();
         }
     }
 
     @Override
-    public Collection<String> getUsersParticipating(League league) {
+    public Collection<String> getUsersParticipating(String leagueId) {
         _readWriteLock.readLock().lock();
         try {
-            Collection<String> leagueParticipants = _cachedParticipants.get(LeagueMapKeys.getLeagueMapKey(league));
+            Collection<String> leagueParticipants = _cachedParticipants.get(leagueId);
             if (leagueParticipants == null) {
                 _readWriteLock.readLock().unlock();
                 _readWriteLock.writeLock().lock();
                 try {
-                    leagueParticipants = getLeagueParticipantsInWriteLock(league);
+                    leagueParticipants = getLeagueParticipantsInWriteLock(leagueId);
                 } finally {
                     _readWriteLock.readLock().lock();
                     _readWriteLock.writeLock().unlock();
@@ -55,12 +54,12 @@ public class CachedLeagueParticipationDAO implements LeagueParticipationDAO {
         }
     }
 
-    private Collection<String> getLeagueParticipantsInWriteLock(League league) {
+    private Collection<String> getLeagueParticipantsInWriteLock(String leagueId) {
         Set<String> leagueParticipants;
-        leagueParticipants = _cachedParticipants.get(LeagueMapKeys.getLeagueMapKey(league));
+        leagueParticipants = _cachedParticipants.get(leagueId);
         if (leagueParticipants == null) {
-            leagueParticipants = new CopyOnWriteArraySet<String>(_leagueParticipationDAO.getUsersParticipating(league));
-            _cachedParticipants.put(LeagueMapKeys.getLeagueMapKey(league), leagueParticipants);
+            leagueParticipants = new CopyOnWriteArraySet<String>(_leagueParticipationDAO.getUsersParticipating(leagueId));
+            _cachedParticipants.put(leagueId, leagueParticipants);
         }
         return leagueParticipants;
     }

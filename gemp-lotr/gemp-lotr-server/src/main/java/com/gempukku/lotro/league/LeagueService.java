@@ -87,7 +87,7 @@ public class LeagueService {
     }
 
     public boolean isPlayerInLeague(League league, Player player) {
-        return _leagueParticipationDAO.getUsersParticipating(league).contains(player.getName());
+        return _leagueParticipationDAO.getUsersParticipating(league.getType()).contains(player.getName());
     }
 
     public boolean playerJoinsLeague(League league, Player player) {
@@ -95,7 +95,7 @@ public class LeagueService {
             return false;
         int cost = league.getCost();
         if (_collectionsManager.removeCurrencyFromPlayerCollection(player, new CollectionType("permanent", "My cards"), cost)) {
-            _leagueParticipationDAO.userJoinsLeague(league, player);
+            _leagueParticipationDAO.userJoinsLeague(league.getType(), player);
             league.getLeagueData().joinLeague(_collectionsManager, player, DateUtils.getCurrentDate());
 
             _leagueStandings.remove(LeagueMapKeys.getLeagueMapKey(league));
@@ -137,7 +137,7 @@ public class LeagueService {
     }
 
     public void reportLeagueGameResult(League league, LeagueSerieData serie, String winner, String loser) {
-        _leagueMatchDao.addPlayedMatch(league, serie, winner, loser);
+        _leagueMatchDao.addPlayedMatch(league.getType(), serie.getName(), winner, loser);
 
         _leagueStandings.remove(LeagueMapKeys.getLeagueMapKey(league));
         _leagueSerieStandings.remove(LeagueMapKeys.getLeagueSerieMapKey(league, serie));
@@ -164,7 +164,7 @@ public class LeagueService {
     }
 
     private Collection<LeagueMatchResult> getPlayerMatchesInSerie(League league, LeagueSerieData serie, String player) {
-        final Collection<LeagueMatchResult> allMatches = _leagueMatchDao.getLeagueMatches(league);
+        final Collection<LeagueMatchResult> allMatches = _leagueMatchDao.getLeagueMatches(league.getType());
         Set<LeagueMatchResult> result = new HashSet<LeagueMatchResult>();
         for (LeagueMatchResult match : allMatches) {
             if (match.getSerieName().equals(serie.getName()) && (match.getWinner().equals(player) || match.getLoser().equals(player)))
@@ -196,8 +196,8 @@ public class LeagueService {
     }
 
     private List<PlayerStanding> createLeagueSerieStandings(League league, LeagueSerieData leagueSerie) {
-        final Collection<String> playersParticipating = _leagueParticipationDAO.getUsersParticipating(league);
-        final Collection<LeagueMatchResult> matches = _leagueMatchDao.getLeagueMatches(league);
+        final Collection<String> playersParticipating = _leagueParticipationDAO.getUsersParticipating(league.getType());
+        final Collection<LeagueMatchResult> matches = _leagueMatchDao.getLeagueMatches(league.getType());
 
         Set<LeagueMatchResult> matchesInSerie = new HashSet<LeagueMatchResult>();
         for (LeagueMatchResult match : matches) {
@@ -209,8 +209,8 @@ public class LeagueService {
     }
 
     private List<PlayerStanding> createLeagueStandings(League league) {
-        final Collection<String> playersParticipating = _leagueParticipationDAO.getUsersParticipating(league);
-        final Collection<LeagueMatchResult> matches = _leagueMatchDao.getLeagueMatches(league);
+        final Collection<String> playersParticipating = _leagueParticipationDAO.getUsersParticipating(league.getType());
+        final Collection<LeagueMatchResult> matches = _leagueMatchDao.getLeagueMatches(league.getType());
 
         return createStandingsForMatchesAndPoints(playersParticipating, matches);
     }

@@ -1,8 +1,6 @@
 package com.gempukku.lotro.db;
 
-import com.gempukku.lotro.db.vo.League;
 import com.gempukku.lotro.db.vo.LeagueMatchResult;
-import com.gempukku.lotro.league.LeagueSerieData;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,13 +18,13 @@ public class DbLeagueMatchDAO implements LeagueMatchDAO {
     }
 
     @Override
-    public Collection<LeagueMatchResult> getLeagueMatches(League league) {
+    public Collection<LeagueMatchResult> getLeagueMatches(String leagueId) {
         try {
             Connection conn = _dbAccess.getDataSource().getConnection();
             try {
                 PreparedStatement statement = conn.prepareStatement("select winner, loser, season_type from league_match where league_type=?");
                 try {
-                    statement.setString(1, league.getType());
+                    statement.setString(1, leagueId);
                     ResultSet rs = statement.executeQuery();
                     try {
                         Set<LeagueMatchResult> result = new HashSet<LeagueMatchResult>();
@@ -53,14 +51,14 @@ public class DbLeagueMatchDAO implements LeagueMatchDAO {
     }
 
     @Override
-    public void addPlayedMatch(League league, LeagueSerieData leagueSeason, String winner, String loser) {
+    public void addPlayedMatch(String leagueId, String serieId, String winner, String loser) {
         try {
             Connection conn = _dbAccess.getDataSource().getConnection();
             try {
                 PreparedStatement statement = conn.prepareStatement("insert into league_match (league_type, season_type, winner, loser) values (?, ?, ?, ?)");
                 try {
-                    statement.setString(1, league.getType());
-                    statement.setString(2, leagueSeason.getName());
+                    statement.setString(1, leagueId);
+                    statement.setString(2, serieId);
                     statement.setString(3, winner);
                     statement.setString(4, loser);
                     statement.execute();

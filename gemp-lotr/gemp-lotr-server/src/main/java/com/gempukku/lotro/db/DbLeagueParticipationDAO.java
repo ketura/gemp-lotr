@@ -1,6 +1,5 @@
 package com.gempukku.lotro.db;
 
-import com.gempukku.lotro.db.vo.League;
 import com.gempukku.lotro.game.Player;
 
 import java.sql.Connection;
@@ -18,13 +17,13 @@ public class DbLeagueParticipationDAO implements LeagueParticipationDAO {
         _dbAccess = dbAccess;
     }
 
-    public void userJoinsLeague(League league, Player player) {
+    public void userJoinsLeague(String leagueId, Player player) {
         try {
             Connection conn = _dbAccess.getDataSource().getConnection();
             try {
                 PreparedStatement statement = conn.prepareStatement("insert into league_participation (league_type, player_name) values (?,?)");
                 try {
-                    statement.setString(1, league.getType());
+                    statement.setString(1, leagueId);
                     statement.setString(2, player.getName());
                     statement.execute();
                 } finally {
@@ -38,13 +37,13 @@ public class DbLeagueParticipationDAO implements LeagueParticipationDAO {
         }
     }
 
-    public Collection<String> getUsersParticipating(League league) {
+    public Collection<String> getUsersParticipating(String leagueId) {
         try {
             Connection conn = _dbAccess.getDataSource().getConnection();
             try {
                 PreparedStatement statement = conn.prepareStatement("select player_name from league_participation where league_type=?");
                 try {
-                    statement.setString(1, league.getType());
+                    statement.setString(1, leagueId);
                     final ResultSet rs = statement.executeQuery();
                     try {
                         Set<String> result = new HashSet<String>();
