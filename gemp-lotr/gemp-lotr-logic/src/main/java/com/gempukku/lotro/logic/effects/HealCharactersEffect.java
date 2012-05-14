@@ -40,7 +40,7 @@ public class HealCharactersEffect extends AbstractPreventableCardEffect {
 
     @Override
     public Effect.Type getType() {
-        return null;
+        return Type.BEFORE_HEALED;
     }
 
     @Override
