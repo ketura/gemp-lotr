@@ -15,7 +15,7 @@ public class SealedLeagueProduct {
     public SealedLeagueProduct() {
         createFellowshipBlock();
         createTowersBlock();
-        createKingBlock();
+        createMovieBlock();
     }
 
     private void createFellowshipBlock() {
@@ -76,7 +76,7 @@ public class SealedLeagueProduct {
         _collections.put("ttt_block", tttBlock);
     }
 
-    private void createKingBlock() {
+    private void createMovieBlock() {
         List<CardCollection> kingBlock = new ArrayList<CardCollection>();
 
         MutableCardCollection firstWeek = new DefaultCardCollection();
@@ -106,7 +106,7 @@ public class SealedLeagueProduct {
         fourthWeek.addItem("MD - Booster", 2);
         kingBlock.add(fourthWeek);
 
-        _collections.put("king_block", kingBlock);
+        _collections.put("movie", kingBlock);
     }
 
     public CardCollection getCollectionForSerie(String format, int serieIndex) {
