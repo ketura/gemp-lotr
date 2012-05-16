@@ -45,8 +45,10 @@ public class Card3_086 extends AbstractMinion {
                     new ChooseActiveCardEffect(self, playerId, "Choose Blade Tip", Filters.name("Blade Tip"), Zone.SUPPORT, Filters.owner(playerId)) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
-                            action.insertEffect(
-                                    new TransferPermanentEffect(card, Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.ringBearer, Filters.not(Filters.hasAttached(Filters.name("Blade Tip"))))));
+                            final PhysicalCard ringBearer = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.ringBearer, Filters.not(Filters.hasAttached(Filters.name("Blade Tip"))));
+                            if (ringBearer != null)
+                                action.insertEffect(
+                                        new TransferPermanentEffect(card, ringBearer));
                         }
                     });
             return Collections.singletonList(action);
