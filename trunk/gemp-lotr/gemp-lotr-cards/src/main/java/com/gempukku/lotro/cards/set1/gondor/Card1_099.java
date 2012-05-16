@@ -36,7 +36,7 @@ public class Card1_099 extends AbstractOldEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, final LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayCardAction(final String playerId, final LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self, true);
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Keyword.RANGER));
@@ -45,8 +45,10 @@ public class Card1_099 extends AbstractOldEvent {
                     @Override
                     protected void opponentChosen(String opponentId) {
                         List<PhysicalCard> hand = new LinkedList<PhysicalCard>(game.getGameState().getHand(opponentId));
-                        for (PhysicalCard physicalCard : hand)
+                        game.getGameState().removeCardsFromZone(playerId, hand);
+                        for (PhysicalCard physicalCard : hand) {
                             game.getGameState().putCardOnBottomOfDeck(physicalCard);
+                        }
                         game.getGameState().shuffleDeck(opponentId);
 
                         action.appendEffect(new DrawCardsEffect(action, opponentId, 8));
