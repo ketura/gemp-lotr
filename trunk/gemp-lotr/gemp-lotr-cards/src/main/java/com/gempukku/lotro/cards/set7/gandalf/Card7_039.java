@@ -57,7 +57,7 @@ public class Card7_039 extends AbstractAttachableFPPossession {
                         @Override
                         protected void opponentChosen(String opponentId) {
                             action.insertEffect(
-                                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, CardType.MINION));
+                                    new ChooseAndExertCharactersEffect(action, opponentId, 1, 1, CardType.MINION));
                         }
                     });
             return Collections.singletonList(action);
