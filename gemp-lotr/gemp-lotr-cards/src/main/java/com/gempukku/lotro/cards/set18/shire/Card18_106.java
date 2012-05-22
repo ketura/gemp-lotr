@@ -48,7 +48,7 @@ public class Card18_106 extends AbstractPermanent {
                         @Override
                         protected void opponentChosen(String opponentId) {
                             action.appendEffect(
-                                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.owner(playerId), CardType.MINION));
+                                    new ChooseAndExertCharactersEffect(action, opponentId, 1, 1, Filters.owner(opponentId), CardType.MINION));
                         }
                     });
             return Collections.singletonList(action);
