@@ -507,11 +507,6 @@ public class IndividualCardAtTest extends AbstractAtTest {
         validateContents(new String[]{"" + sentBack.getCardId()}, ((String[]) playFellowshipAction.getDecisionParameters().get("cardId")));
         playerDecided(P1, "0");
 
-        AwaitingDecision chooseRadagast = _userFeedback.getAwaitingDecision(P1);
-        assertEquals(AwaitingDecisionType.CARD_SELECTION, chooseRadagast.getDecisionType());
-        validateContents(new String[]{"" + radagast2.getCardId()}, ((String[]) chooseRadagast.getDecisionParameters().get("cardId")));
-        playerDecided(P1, String.valueOf(radagast2.getCardId()));
-
         assertEquals(Zone.FREE_CHARACTERS, radagast2.getZone());
         assertEquals(4, _game.getGameState().getTwilightPool());
     }
