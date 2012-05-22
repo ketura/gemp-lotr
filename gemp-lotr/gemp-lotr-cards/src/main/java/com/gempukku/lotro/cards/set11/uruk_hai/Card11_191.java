@@ -36,9 +36,9 @@ public class Card11_191 extends AbstractAttachable {
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(
-                new VitalityModifier(self, self, 1));
+                new VitalityModifier(self, Filters.hasAttached(self), 1));
         modifiers.add(
-                new KeywordModifier(self, self, new LocationCondition(Keyword.BATTLEGROUND), Keyword.ARCHER, 1));
+                new KeywordModifier(self, Filters.hasAttached(self), new LocationCondition(Keyword.BATTLEGROUND), Keyword.ARCHER, 1));
         return modifiers;
     }
 }
