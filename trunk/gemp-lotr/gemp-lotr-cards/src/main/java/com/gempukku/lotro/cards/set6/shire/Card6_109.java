@@ -56,7 +56,8 @@ public class Card6_109 extends AbstractAttachable {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (TriggerConditions.movesTo(game, effectResult, Filters.siteNumber(9))) {
+        if (TriggerConditions.movesTo(game, effectResult, Filters.siteNumber(9))
+                && PlayConditions.canSpot(game, Filters.ringBearer, Filters.hasAttached(self))) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new CorruptRingBearerEffect());
