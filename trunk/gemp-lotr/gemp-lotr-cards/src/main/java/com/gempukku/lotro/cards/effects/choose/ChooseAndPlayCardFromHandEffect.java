@@ -66,24 +66,30 @@ public class ChooseAndPlayCardFromHandEffect implements Effect {
     @Override
     public void playEffect(final LotroGame game) {
         Collection<PhysicalCard> playableInHand = getPlayableInHandCards(game);
-        if (playableInHand.size() > 0) {
+        if (playableInHand.size() == 1)
+            playCard(game, playableInHand.iterator().next());
+        else if (playableInHand.size() > 1) {
             game.getUserFeedback().sendAwaitingDecision(_playerId,
                     new CardsSelectionDecision(1, "Choose a card to play", playableInHand, 1, 1) {
                         @Override
                         public void decisionMade(String result) throws DecisionResultInvalidException {
                             final PhysicalCard selectedCard = getSelectedCardsByResponse(result).iterator().next();
-                            _playCardAction = selectedCard.getBlueprint().getPlayCardAction(_playerId, game, selectedCard, _twilightModifier, _ignoreRoamingPenalty);
-                            _playCardAction.appendEffect(
-                                    new UnrespondableEffect() {
-                                        @Override
-                                        protected void doPlayEffect(LotroGame game) {
-                                            afterCardPlayed(selectedCard);
-                                        }
-                                    });
-                            game.getActionsEnvironment().addActionToStack(_playCardAction);
+                            playCard(game, selectedCard);
                         }
                     });
         }
+    }
+
+    private void playCard(LotroGame game, final PhysicalCard selectedCard) {
+        _playCardAction = selectedCard.getBlueprint().getPlayCardAction(_playerId, game, selectedCard, _twilightModifier, _ignoreRoamingPenalty);
+        _playCardAction.appendEffect(
+                new UnrespondableEffect() {
+                    @Override
+                    protected void doPlayEffect(LotroGame game) {
+                        afterCardPlayed(selectedCard);
+                    }
+                });
+        game.getActionsEnvironment().addActionToStack(_playCardAction);
     }
 
     protected void afterCardPlayed(PhysicalCard cardPlayed) {

@@ -46,7 +46,7 @@ public class AbstractPermanent extends AbstractLotroCardBlueprint {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         twilightModifier -= getPotentialExtraPaymentDiscount(playerId, game, self);
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, false, false)
+        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
                 && PlayConditions.checkUniqueness(game.getGameState(), game.getModifiersQuerying(), self, ignoreCheckingDeadPile);
     }
 
