@@ -52,7 +52,7 @@ public class Card8_121 extends AbstractCompanion {
                         protected void spottedCards(int spotCount) {
                             action.insertEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
-                                            new StrengthModifier(self, self, spotCount), Phase.SKIRMISH));
+                                            new StrengthModifier(self, self, 2 * spotCount), Phase.SKIRMISH));
                         }
                     });
             return Collections.singletonList(action);
