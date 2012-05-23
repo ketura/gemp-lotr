@@ -7,6 +7,7 @@ import com.gempukku.lotro.cards.modifiers.conditions.InitiativeCondition;
 import com.gempukku.lotro.cards.modifiers.evaluator.ConditionEvaluator;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -29,7 +30,7 @@ public class Card7_154 extends AbstractEvent {
         PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new ChooseAndAddUntilEOPStrengthBonusEffect(
-                        action, self, playerId, new ConditionEvaluator(3, 6, new InitiativeCondition(Side.SHADOW))));
+                        action, self, playerId, new ConditionEvaluator(3, 6, new InitiativeCondition(Side.SHADOW)), Culture.RAIDER, Race.MAN));
         return action;
     }
 }
