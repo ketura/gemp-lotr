@@ -12,10 +12,9 @@ import java.util.List;
 
 public class ConstructedLeagueData implements LeagueData {
     private List<LeagueSerieData> _series = new ArrayList<LeagueSerieData>();
-    private String _leaguePrizePool;
     private CollectionType _prizeCollectionType = new CollectionType("permanent", "My cards");
     private float _prizeMultiplier;
-    private LeaguePrizes _leaguePrizes = new OldLeaguePrizes();
+    private LeaguePrizes _leaguePrizes = new NewLeaguePrizes();
 
     // Example params - 20120312,fotr_block,0.7,default,All cards,7,10,3,fotr1_block,fotr_block,fotr2_block,fotr_block,fotr_block,fotr_block
     // Which means - start date,league prize pool,prizes multiplier,collection type,collection name,serie length,serie match count,series count,
@@ -25,7 +24,6 @@ public class ConstructedLeagueData implements LeagueData {
     public ConstructedLeagueData(String parameters) {
         String[] params = parameters.split(",");
         final int start = Integer.parseInt(params[0]);
-        _leaguePrizePool = params[1];
         _prizeMultiplier = Float.parseFloat(params[2]);
         CollectionType collectionType = new CollectionType(params[3], params[4]);
         int days = Integer.parseInt(params[5]);
@@ -37,7 +35,7 @@ public class ConstructedLeagueData implements LeagueData {
 
             DefaultLeagueSerieData data = new DefaultLeagueSerieData(_leaguePrizes, false, "Week " + (i + 1),
                     DateUtils.offsetDate(start, i * days), DateUtils.offsetDate(start, ((i + 1) * days) - 1),
-                    matchCount, format, seriePrizePool, collectionType);
+                    matchCount, format, collectionType);
             _series.add(data);
         }
     }
@@ -59,7 +57,7 @@ public class ConstructedLeagueData implements LeagueData {
             LeagueSerieData lastSerie = _series.get(_series.size() - 1);
             if (currentTime > DateUtils.offsetDate(lastSerie.getEnd(), 1)) {
                 for (PlayerStanding leagueStanding : leagueStandings) {
-                    CardCollection leaguePrize = _leaguePrizes.getPrizeForLeague(leagueStanding.getStanding(), leagueStandings.size(), _prizeMultiplier, _leaguePrizePool);
+                    CardCollection leaguePrize = _leaguePrizes.getPrizeForLeague(leagueStanding.getStanding(), leagueStandings.size(), _prizeMultiplier);
                     if (leaguePrize != null)
                         collectionsManager.addItemsToPlayerCollection(leagueStanding.getPlayerName(), _prizeCollectionType, leaguePrize.getAll());
                 }

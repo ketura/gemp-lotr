@@ -38,7 +38,7 @@ public class NewConstructedLeagueData implements LeagueData {
             int maxMatches = Integer.parseInt(params[6 + i * 3]);
             _series.add(new DefaultLeagueSerieData(_leaguePrizes, false, "Serie " + (i + 1),
                     serieStart, DateUtils.offsetDate(serieStart, duration - 1),
-                    maxMatches, format, null, collectionType));
+                    maxMatches, format, collectionType));
 
             serieStart = DateUtils.offsetDate(serieStart, duration);
         }
@@ -61,7 +61,7 @@ public class NewConstructedLeagueData implements LeagueData {
             LeagueSerieData lastSerie = _series.get(_series.size() - 1);
             if (currentTime > DateUtils.offsetDate(lastSerie.getEnd(), 1)) {
                 for (PlayerStanding leagueStanding : leagueStandings) {
-                    CardCollection leaguePrize = _leaguePrizes.getPrizeForLeague(leagueStanding.getStanding(), leagueStandings.size(), _prizeMultiplier, null);
+                    CardCollection leaguePrize = _leaguePrizes.getPrizeForLeague(leagueStanding.getStanding(), leagueStandings.size(), _prizeMultiplier);
                     if (leaguePrize != null)
                         collectionsManager.addItemsToPlayerCollection(leagueStanding.getPlayerName(), _prizeCollectionType, leaguePrize.getAll());
                 }

@@ -23,7 +23,7 @@ public class NewLeaguePrizes implements LeaguePrizes {
         }
     }
 
-    public CardCollection getPrizeForLeagueMatchWinner(int winCountThisSerie, int totalGamesPlayedThisSerie, String format) {
+    public CardCollection getPrizeForLeagueMatchWinner(int winCountThisSerie, int totalGamesPlayedThisSerie) {
         DefaultCardCollection winnerPrize = new DefaultCardCollection();
         if (winCountThisSerie == 1 || winCountThisSerie == 3 || winCountThisSerie == 5 || winCountThisSerie == 8 || winCountThisSerie == 10)
             winnerPrize.addItem("(S)Booster Choice", 1);
@@ -44,11 +44,11 @@ public class NewLeaguePrizes implements LeaguePrizes {
         return winnerPrize;
     }
 
-    public CardCollection getPrizeForLeagueMatchLoser(int winCountThisSerie, int totalGamesPlayedThisSerie, String format) {
+    public CardCollection getPrizeForLeagueMatchLoser(int winCountThisSerie, int totalGamesPlayedThisSerie) {
         return null;
     }
 
-    public CardCollection getPrizeForLeague(int position, int playersCount, float multiplier, String format) {
+    public CardCollection getPrizeForLeague(int position, int playersCount, float multiplier) {
         DefaultCardCollection leaguePrize = new DefaultCardCollection();
         int count = (int) Math.floor((2 * playersCount + 24) / (position + 9) - 2.4);
         if (count > 0) {

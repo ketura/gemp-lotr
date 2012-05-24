@@ -44,7 +44,7 @@ public class SealedLeagueProduct {
         fourthWeek.addItem("RotEL - Booster", 2);
         fotrBlock.add(fourthWeek);
 
-        _collections.put("fotr_block", fotrBlock);
+        _collections.put(SealedLeagueType.FOTR_BLOCK.getSealedCode(), fotrBlock);
     }
 
     private void createTowersBlock() {
@@ -73,7 +73,7 @@ public class SealedLeagueProduct {
         fourthWeek.addItem("EoF - Booster", 2);
         tttBlock.add(fourthWeek);
 
-        _collections.put("ttt_block", tttBlock);
+        _collections.put(SealedLeagueType.TTT_BLOCK.getSealedCode(), tttBlock);
     }
 
     private void createMovieBlock() {
@@ -106,10 +106,10 @@ public class SealedLeagueProduct {
         fourthWeek.addItem("MD - Booster", 2);
         kingBlock.add(fourthWeek);
 
-        _collections.put("movie", kingBlock);
+        _collections.put(SealedLeagueType.MOVIE_BLOCK.getSealedCode(), kingBlock);
     }
 
-    public CardCollection getCollectionForSerie(String format, int serieIndex) {
-        return _collections.get(format).get(serieIndex);
+    public CardCollection getCollectionForSerie(String leagueCode, int serieIndex) {
+        return _collections.get(leagueCode).get(serieIndex);
     }
 }

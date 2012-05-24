@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 public class NewSealedLeagueData implements LeagueData {
-    private String _format;
+    private SealedLeagueType _leagueType;
     private List<LeagueSerieData> _series;
     private CollectionType _collectionType;
     private CollectionType _prizeCollectionType = new CollectionType("permanent", "My cards");
@@ -24,7 +24,7 @@ public class NewSealedLeagueData implements LeagueData {
 
     public NewSealedLeagueData(String parameters) {
         String[] params = parameters.split(",");
-        _format = params[0];
+        _leagueType = SealedLeagueType.getLeagueType(params[0]);
         int start = Integer.parseInt(params[1]);
         int serieDuration = Integer.parseInt(params[2]);
         int maxMatches = Integer.parseInt(params[3]);
@@ -39,7 +39,7 @@ public class NewSealedLeagueData implements LeagueData {
             _series.add(
                     new DefaultLeagueSerieData(_leaguePrizes, true, "Serie " + (i + 1),
                             DateUtils.offsetDate(start, i * serieDuration), DateUtils.offsetDate(start, (i + 1) * serieDuration - 1), maxMatches,
-                            _format, _format, _collectionType));
+                            _leagueType.getFormat(), _collectionType));
         }
     }
 
@@ -54,7 +54,7 @@ public class NewSealedLeagueData implements LeagueData {
         for (int i = 0; i < _series.size(); i++) {
             LeagueSerieData serie = _series.get(i);
             if (currentTime >= serie.getStart()) {
-                CardCollection leagueProduct = _leagueProduct.getCollectionForSerie(_format, i);
+                CardCollection leagueProduct = _leagueProduct.getCollectionForSerie(_leagueType.getSealedCode(), i);
 
                 for (Map.Entry<String, Integer> serieCollectionItem : leagueProduct.getAll().entrySet())
                     startingCollection.addItem(serieCollectionItem.getKey(), serieCollectionItem.getValue());
@@ -71,7 +71,7 @@ public class NewSealedLeagueData implements LeagueData {
         for (int i = status; i < _series.size(); i++) {
             LeagueSerieData serie = _series.get(i);
             if (currentTime >= serie.getStart()) {
-                CardCollection leagueProduct = _leagueProduct.getCollectionForSerie(_format, i);
+                CardCollection leagueProduct = _leagueProduct.getCollectionForSerie(_leagueType.getSealedCode(), i);
                 Map<Player, CardCollection> map = collectionsManager.getPlayersCollection(_collectionType.getCode());
                 for (Map.Entry<Player, CardCollection> playerCardCollectionEntry : map.entrySet()) {
                     collectionsManager.addItemsToPlayerCollection(playerCardCollectionEntry.getKey(), _collectionType, leagueProduct.getAll());
@@ -84,13 +84,10 @@ public class NewSealedLeagueData implements LeagueData {
             LeagueSerieData lastSerie = _series.get(_series.size() - 1);
             if (currentTime > DateUtils.offsetDate(lastSerie.getEnd(), 1)) {
                 for (PlayerStanding leagueStanding : leagueStandings) {
-                    CardCollection leaguePrize = _leaguePrizes.getPrizeForLeague(leagueStanding.getStanding(), leagueStandings.size(), 1f, _format);
+                    CardCollection leaguePrize = _leaguePrizes.getPrizeForLeague(leagueStanding.getStanding(), leagueStandings.size(), 1f);
                     if (leaguePrize != null)
                         collectionsManager.addItemsToPlayerCollection(leagueStanding.getPlayerName(), _prizeCollectionType, leaguePrize.getAll());
                 }
-//                for (PlayerStanding leagueStanding : leagueStandings) {
-//                    collectionsManager.moveCollectionToCollection(leagueStanding.getPlayerName(), _collectionType, _prizeCollectionType);
-//                }
                 status++;
             }
         }

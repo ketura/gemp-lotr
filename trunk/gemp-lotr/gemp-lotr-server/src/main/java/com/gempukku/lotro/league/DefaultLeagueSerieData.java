@@ -11,10 +11,9 @@ public class DefaultLeagueSerieData implements LeagueSerieData {
     private int _end;
     private int _maxMatches;
     private String _format;
-    private String _prizePool;
     private CollectionType _collectionType;
 
-    public DefaultLeagueSerieData(LeaguePrizes leaguePrizes, boolean limited, String name, int start, int end, int maxMatches, String format, String prizePool, CollectionType collectionType) {
+    public DefaultLeagueSerieData(LeaguePrizes leaguePrizes, boolean limited, String name, int start, int end, int maxMatches, String format, CollectionType collectionType) {
         _leaguePrizes = leaguePrizes;
         _limited = limited;
         _name = name;
@@ -22,7 +21,6 @@ public class DefaultLeagueSerieData implements LeagueSerieData {
         _end = end;
         _maxMatches = maxMatches;
         _format = format;
-        _prizePool = prizePool;
         _collectionType = collectionType;
     }
 
@@ -63,11 +61,11 @@ public class DefaultLeagueSerieData implements LeagueSerieData {
 
     @Override
     public CardCollection getPrizeForLeagueMatchWinner(int winCountThisSerie, int totalGamesPlayedThisSerie) {
-        return _leaguePrizes.getPrizeForLeagueMatchWinner(winCountThisSerie, totalGamesPlayedThisSerie, _prizePool);
+        return _leaguePrizes.getPrizeForLeagueMatchWinner(winCountThisSerie, totalGamesPlayedThisSerie);
     }
 
     @Override
     public CardCollection getPrizeForLeagueMatchLoser(int winCountThisSerie, int totalGamesPlayedThisSerie) {
-        return _leaguePrizes.getPrizeForLeagueMatchLoser(winCountThisSerie, totalGamesPlayedThisSerie, _prizePool);
+        return _leaguePrizes.getPrizeForLeagueMatchLoser(winCountThisSerie, totalGamesPlayedThisSerie);
     }
 }
