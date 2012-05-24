@@ -55,11 +55,11 @@ public class Card7_218 extends AbstractMinion {
                     new ChooseAndReturnCardsToHandEffect(action, game.getGameState().getCurrentPlayerId(), 1, 1, Filters.unboundCompanion) {
                         @Override
                         public String getText(LotroGame game) {
-                            return "Return an unbound companion to his or her hand";
+                            return "Return an unbound companion to your hand";
                         }
                     });
             action.appendEffect(
-                    new ChoiceEffect(action, playerId, possibleEffects));
+                    new ChoiceEffect(action, game.getGameState().getCurrentPlayerId(), possibleEffects));
             return Collections.singletonList(action);
         }
         return null;
