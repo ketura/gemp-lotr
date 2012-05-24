@@ -11,6 +11,7 @@ public class League {
     private String _clazz;
     private String _parameters;
     private int _status;
+    private LeagueData _leagueData;
 
     public League(int cost, String name, String type, String clazz, String parameters, int status) {
         _cost = cost;
@@ -33,14 +34,17 @@ public class League {
         return _type;
     }
 
-    public LeagueData getLeagueData() {
-        try {
-            Class<?> aClass = Class.forName(_clazz);
-            Constructor<?> constructor = aClass.getConstructor(String.class);
-            return (LeagueData) constructor.newInstance(_parameters);
-        } catch (Exception exp) {
-            throw new RuntimeException("Unable to create LeagueData", exp);
+    public synchronized LeagueData getLeagueData() {
+        if (_leagueData == null) {
+            try {
+                Class<?> aClass = Class.forName(_clazz);
+                Constructor<?> constructor = aClass.getConstructor(String.class);
+                _leagueData = (LeagueData) constructor.newInstance(_parameters);
+            } catch (Exception exp) {
+                throw new RuntimeException("Unable to create LeagueData", exp);
+            }
         }
+        return _leagueData;
     }
 
     public int getStatus() {

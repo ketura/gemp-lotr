@@ -31,7 +31,7 @@ public class SealedLeagueData implements LeagueData {
         int serieDuration = 7;
         int maxMatches = 10;
 
-        _leaguePrizes = new OldLeaguePrizes();
+        _leaguePrizes = new NewLeaguePrizes();
         _leagueProduct = new SealedLeagueProduct();
 
         _series = new LinkedList<LeagueSerieData>();
@@ -39,7 +39,7 @@ public class SealedLeagueData implements LeagueData {
             _series.add(
                     new DefaultLeagueSerieData(_leaguePrizes, true, "Week " + (i + 1),
                             DateUtils.offsetDate(start, i * serieDuration), DateUtils.offsetDate(start, (i + 1) * serieDuration - 1), maxMatches,
-                            _format, _format, _collectionType));
+                            _format, _collectionType));
         }
     }
 
@@ -84,13 +84,10 @@ public class SealedLeagueData implements LeagueData {
             LeagueSerieData lastSerie = _series.get(_series.size() - 1);
             if (currentTime > DateUtils.offsetDate(lastSerie.getEnd(), 1)) {
                 for (PlayerStanding leagueStanding : leagueStandings) {
-                    CardCollection leaguePrize = _leaguePrizes.getPrizeForLeague(leagueStanding.getStanding(), leagueStandings.size(), 1f, _format);
+                    CardCollection leaguePrize = _leaguePrizes.getPrizeForLeague(leagueStanding.getStanding(), leagueStandings.size(), 1f);
                     if (leaguePrize != null)
                         collectionsManager.addItemsToPlayerCollection(leagueStanding.getPlayerName(), _prizeCollectionType, leaguePrize.getAll());
                 }
-//                for (PlayerStanding leagueStanding : leagueStandings) {
-//                    collectionsManager.moveCollectionToCollection(leagueStanding.getPlayerName(), _collectionType, _prizeCollectionType);
-//                }
                 status++;
             }
         }
