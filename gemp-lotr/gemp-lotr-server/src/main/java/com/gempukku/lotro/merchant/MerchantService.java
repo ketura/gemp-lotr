@@ -79,13 +79,20 @@ public class MerchantService {
         addFixedItem("MoM - Gimli Starter", 2500);
         addFixedItem("RotEL - Boromir Starter", 2500);
         addFixedItem("RotEL - Legolas Starter", 2500);
+
         addFixedItem("TTT - Aragorn Starter", 2500);
         addFixedItem("TTT - Theoden Starter", 2500);
-
         addFixedItem("BoHD - Eowyn Starter", 3500);
         addFixedItem("BoHD - Legolas Starter", 3500);
         addFixedItem("EoF - Faramir Starter", 3500);
         addFixedItem("EoF - Witch-king Starter", 3500);
+
+        addFixedItem("RotK - Aragorn Starter", 2500);
+        addFixedItem("RotK - Eomer Starter", 2500);
+        addFixedItem("SoG - Merry Starter", 2500);
+        addFixedItem("SoG - Pippin Starter", 2500);
+        addFixedItem("MD - Frodo Starter", 2500);
+        addFixedItem("MD - Sam Starter", 2500);
     }
 
     private void addFixedItem(String blueprintId, int price) {
