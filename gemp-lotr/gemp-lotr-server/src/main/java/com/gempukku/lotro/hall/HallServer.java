@@ -193,9 +193,8 @@ public class HallServer extends AbstractServer {
                 final RunningTable runningTable = runningGame.getValue();
                 LotroGameMediator lotroGameMediator = _lotroServer.getGameById(runningTable.getGameId());
                 if (lotroGameMediator != null) {
-                    String gameStatus = lotroGameMediator.getGameStatus();
-                    if (!gameStatus.equals("Finished"))
-                        visitor.visitTable(runningGame.getKey(), runningTable.getGameId(), lotroGameMediator.isNoSpectators(), gameStatus, runningTable.getFormatName(), runningTable.getTournamentName(), lotroGameMediator.getPlayersPlaying(), lotroGameMediator.getWinner());
+                    if (!lotroGameMediator.isFinished())
+                        visitor.visitTable(runningGame.getKey(), runningTable.getGameId(), lotroGameMediator.isNoSpectators(), lotroGameMediator.getGameStatus(), runningTable.getFormatName(), runningTable.getTournamentName(), lotroGameMediator.getPlayersPlaying(), lotroGameMediator.getWinner());
                     else
                         finishedTables.put(runningGame.getKey(), runningTable);
                 }
@@ -345,9 +344,8 @@ public class HallServer extends AbstractServer {
         for (Map.Entry<String, RunningTable> runningTable : _runningTables.entrySet()) {
             String gameId = runningTable.getValue().getGameId();
             LotroGameMediator lotroGameMediator = _lotroServer.getGameById(gameId);
-            if (lotroGameMediator != null && !lotroGameMediator.getGameStatus().equals("Finished"))
-                if (lotroGameMediator.getPlayersPlaying().contains(playerId))
-                    return gameId;
+            if (lotroGameMediator != null && !lotroGameMediator.isFinished() && lotroGameMediator.getPlayersPlaying().contains(playerId))
+                return gameId;
         }
 
         return null;
@@ -361,7 +359,7 @@ public class HallServer extends AbstractServer {
         for (RunningTable runningTable : _runningTables.values()) {
             String gameId = runningTable.getGameId();
             LotroGameMediator lotroGameMediator = _lotroServer.getGameById(gameId);
-            if (lotroGameMediator != null && !lotroGameMediator.getGameStatus().equals("Finished") && lotroGameMediator.getPlayersPlaying().contains(playerId))
+            if (lotroGameMediator != null && !lotroGameMediator.isFinished() && lotroGameMediator.getPlayersPlaying().contains(playerId))
                 return true;
         }
 

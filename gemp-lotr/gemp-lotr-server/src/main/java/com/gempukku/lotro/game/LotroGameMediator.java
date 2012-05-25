@@ -109,6 +109,10 @@ public class LotroGameMediator {
         return "Playing";
     }
 
+    public boolean isFinished() {
+        return _lotroGame.isFinished();
+    }
+
     public String produceCardInfo(Player player, int cardId) {
         _readLock.lock();
         try {
