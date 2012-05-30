@@ -44,6 +44,10 @@ public class PacksStorageProvider implements Injectable<PacksStorage>, Injectabl
             packStorage.addPackBox("(S)BoHD - Starter", new FixedPackBox("(S)BoHD - Starter"));
             packStorage.addPackBox("(S)EoF - Starter", new FixedPackBox("(S)EoF - Starter"));
 
+            packStorage.addPackBox("(S)SH - Starter", new FixedPackBox("(S)SH - Starter"));
+            packStorage.addPackBox("(S)BR - Starter", new FixedPackBox("(S)BR - Starter"));
+            packStorage.addPackBox("(S)BL - Starter", new FixedPackBox("(S)BL - Starter"));
+
             packStorage.addPackBox("(S)RotK - Starter", new FixedPackBox("(S)RotK - Starter"));
             packStorage.addPackBox("(S)SoG - Starter", new FixedPackBox("(S)SoG - Starter"));
             packStorage.addPackBox("(S)MD - Starter", new FixedPackBox("(S)MD - Starter"));
@@ -82,6 +86,17 @@ public class PacksStorageProvider implements Injectable<PacksStorage>, Injectabl
 
             packStorage.addPackBox("MD - Frodo Starter", new FixedPackBox("MD - Frodo Starter"));
             packStorage.addPackBox("MD - Sam Starter", new FixedPackBox("MD - Sam Starter"));
+
+            packStorage.addPackBox("SH - Aragorn Starter", new FixedPackBox("SH - Aragorn Starter"));
+            packStorage.addPackBox("SH - Eowyn Starter", new FixedPackBox("SH - Eowyn Starter"));
+            packStorage.addPackBox("SH - Gandalf Starter", new FixedPackBox("SH - Gandalf Starter"));
+            packStorage.addPackBox("SH - Legolas Starter", new FixedPackBox("SH - Legolas Starter"));
+
+            packStorage.addPackBox("BR - Mouth Starter", new FixedPackBox("BR - Mouth Starter"));
+            packStorage.addPackBox("BR - Saruman Starter", new FixedPackBox("BR - Saruman Starter"));
+
+            packStorage.addPackBox("BL - Arwen Starter", new FixedPackBox("BL - Arwen Starter"));
+            packStorage.addPackBox("BL - Boromir Starter", new FixedPackBox("BL - Boromir Starter"));
 
             packStorage.addPackBox("FotR - Booster", new RarityPackBox(1));
             packStorage.addPackBox("MoM - Booster", new RarityPackBox(2));

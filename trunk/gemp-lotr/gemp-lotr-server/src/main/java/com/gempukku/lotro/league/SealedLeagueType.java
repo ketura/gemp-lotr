@@ -3,7 +3,8 @@ package com.gempukku.lotro.league;
 public enum SealedLeagueType {
     FOTR_BLOCK("fotr_block", "limited_fotr"),
     TTT_BLOCK("ttt_block", "limited_ttt"),
-    MOVIE_BLOCK("movie", "limited_king");
+    MOVIE_BLOCK("movie", "limited_king"),
+    WAR_BLOCK("war_block", "limited_shadows");
 
     public static SealedLeagueType getLeagueType(String sealedCode) {
         for (SealedLeagueType sealedLeagueType : SealedLeagueType.values()) {
