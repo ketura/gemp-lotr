@@ -114,30 +114,28 @@ public class SealedLeagueProduct {
         List<CardCollection> warOfTheRingBlock = new ArrayList<CardCollection>();
 
         MutableCardCollection firstWeek = new DefaultCardCollection();
-        firstWeek.addItem("(S)RotK - Starter", 1);
-        firstWeek.addItem("RotK - Booster", 6);
-        firstWeek.addItem("7_212", 1);
-        firstWeek.addItem("1_231", 1);
-        firstWeek.addItem("7_355", 1);
-        firstWeek.addItem("7_358", 1);
+        firstWeek.addItem("(S)SH - Starter", 1);
+        firstWeek.addItem("SH - Booster", 6);
+        firstWeek.addItem("12_145", 1);
+        firstWeek.addItem("12_181", 1);
+        firstWeek.addItem("12_88", 1);
+        firstWeek.addItem("12_70", 1);
         warOfTheRingBlock.add(firstWeek);
 
         MutableCardCollection secondWeek = new DefaultCardCollection();
-        secondWeek.addItem("(S)SoG - Starter", 1);
-        secondWeek.addItem("SoG - Booster", 3);
-        secondWeek.addItem("8_120", 1);
+        secondWeek.addItem("(S)BR - Starter", 1);
+        secondWeek.addItem("BR - Booster", 3);
         warOfTheRingBlock.add(secondWeek);
 
         MutableCardCollection thirdWeek = new DefaultCardCollection();
-        thirdWeek.addItem("(S)MD - Starter", 1);
-        thirdWeek.addItem("MD - Booster", 3);
-        thirdWeek.addItem("7_326", 2);
+        thirdWeek.addItem("(S)BL - Starter", 1);
+        thirdWeek.addItem("BL - Booster", 3);
         warOfTheRingBlock.add(thirdWeek);
 
         MutableCardCollection fourthWeek = new DefaultCardCollection();
-        fourthWeek.addItem("RotK - Booster", 2);
-        fourthWeek.addItem("SoG - Booster", 2);
-        fourthWeek.addItem("MD - Booster", 2);
+        fourthWeek.addItem("SH - Booster", 2);
+        fourthWeek.addItem("BR - Booster", 2);
+        fourthWeek.addItem("BL - Booster", 2);
         warOfTheRingBlock.add(fourthWeek);
 
         _collections.put(SealedLeagueType.WAR_BLOCK.getSealedCode(), warOfTheRingBlock);
