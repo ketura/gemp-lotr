@@ -47,7 +47,7 @@
             var data = {};
 
             var inputs = $("input[type='text'], option:selected", formElem).each(
-                    function() {
+                    function () {
                         var input = $(this);
                         var name = null;
                         var value = null;
@@ -66,14 +66,14 @@
                     });
 
             $.ajax({
-                type: "POST",
-                url: url,
-                cache: false,
-                data: data,
-                traditional: true,
-                success: success,
-                error: error,
-                dataType: "xml"
+                type:"POST",
+                url:url,
+                cache:false,
+                data:data,
+                traditional:true,
+                success:success,
+                error:error,
+                dataType:"xml"
             });
         }
 
@@ -81,14 +81,14 @@
                 function () {
                     var previewDialog = $("<div></div>")
                             .dialog({
-                                autoOpen: false,
-                                closeOnEscape: true,
-                                resizable: true,
-                                modal: true,
-                                title: "Preview window"
+                                autoOpen:false,
+                                closeOnEscape:true,
+                                resizable:true,
+                                modal:true,
+                                title:"Preview window"
                             });
 
-                    var displayPreview = function(xml) {
+                    var displayPreview = function (xml) {
                         var root = xml.documentElement;
                         if (root.tagName == 'league') {
                             var league = root;
@@ -128,27 +128,27 @@
                         }
                     };
 
-                    var previewError = function() {
+                    var previewError = function () {
                         previewDialog.dialog("close");
                         alert("Invalid parameters specified");
                     };
 
                     $("#previewSealed").click(
-                            function() {
+                            function () {
                                 submitFormToAddress("/gemp-lotr-server/admin/previewSealedLeague", $("#addSealedForm").eq(0), displayPreview, previewError);
                                 previewDialog.html("");
                                 previewDialog.dialog("open");
                             });
 
                     $("#previewConstructed").click(
-                            function() {
+                            function () {
                                 submitFormToAddress("/gemp-lotr-server/admin/previewConstructedLeague", $("#addConstructedForm").eq(0), displayPreview, previewError);
                                 previewDialog.html("");
                                 previewDialog.dialog("open");
                             });
 
                     $("#addConstructedSerie").click(
-                            function() {
+                            function () {
                                 $(".serieData").last().clone().appendTo(".series");
                             });
                 });
@@ -209,6 +209,9 @@
                 <option value="movie8">Movie block - Sets 1-8</option>
                 <option value="movie9">Movie block - Sets 1-9</option>
                 <option value="war_block">War of the Ring block</option>
+                <option value="war_block11">War of the Ring block - Set 11</option>
+                <option value="war_block12">War of the Ring block - Sets 11-12</option>
+                <option value="war_block14">War of the Ring block - Sets 10-14</option>
                 <option value="war_standard">War of the Ring standard</option>
                 <option value="standard">Standard</option>
                 <option value="open">Open</option>

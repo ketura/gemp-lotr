@@ -17,7 +17,7 @@
         "hall":false
     },
     {
-        "name":"Fellowship block - Sets 1&2",
+        "name":"Fellowship block - Sets 1-2",
         "code":"fotr2_block",
         "sites":"FELLOWSHIP",
         "cancelRingBearerSkirmish":true,
@@ -41,7 +41,7 @@
         "hall":false
     },
     {
-        "name":"Towers block - Sets 4&5",
+        "name":"Towers block - Sets 4-5",
         "code":"ttt2_block",
         "sites":"TWO_TOWERS",
         "cancelRingBearerSkirmish":true,
@@ -75,7 +75,7 @@
         "hall":false
     },
     {
-        "name":"Towers standard - Sets 1-6,9,14&16",
+        "name":"Towers standard - Sets 1-6,9,14,16",
         "code":"ts_reflections",
         "sites":"TWO_TOWERS",
         "cancelRingBearerSkirmish":false,
@@ -188,6 +188,30 @@
         "sites":"SHADOWS",
         "cancelRingBearerSkirmish":true,
         "set":[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
+        "hall":false
+    },
+    {
+        "name":"War of the Ring block - Set 11",
+        "code":"war_block11",
+        "sites":"SHADOWS",
+        "restricted":["11_132", "11_100"],
+        "set":[11],
+        "hall":false
+    },
+    {
+        "name":"War of the Ring block - Sets 11-12",
+        "code":"war_block12",
+        "sites":"SHADOWS",
+        "restricted":["11_132", "11_100"],
+        "set":[11, 12],
+        "hall":false
+    },
+    {
+        "name":"War of the Ring block - Sets 10-14",
+        "code":"war_block14",
+        "sites":"SHADOWS",
+        "restricted":["11_132", "11_100"],
+        "set":[10, 11, 12, 13, 14],
         "hall":false
     }
 ]
