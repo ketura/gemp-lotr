@@ -108,7 +108,7 @@ public interface ModifiersQuerying {
     public List<? extends Effect> getExtraCostsToPlay(GameState gameState, Action action, PhysicalCard target);
 
     // Others
-    public boolean canBeDiscardedFromPlay(GameState gameState, PhysicalCard card, PhysicalCard source);
+    public boolean canBeDiscardedFromPlay(GameState gameState, String performingPlayer, PhysicalCard card, PhysicalCard source);
 
     public boolean canBeReturnedToHand(GameState gameState, PhysicalCard card, PhysicalCard source);
 

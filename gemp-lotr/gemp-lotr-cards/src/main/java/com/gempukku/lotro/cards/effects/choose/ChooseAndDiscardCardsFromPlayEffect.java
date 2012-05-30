@@ -14,24 +14,26 @@ import java.util.Collection;
 
 public class ChooseAndDiscardCardsFromPlayEffect extends ChooseActiveCardsEffect {
     private Action _action;
+    private String _playerId;
     private SubAction _resultSubAction;
 
     public ChooseAndDiscardCardsFromPlayEffect(Action action, String playerId, int minimum, int maximum, Filterable... filters) {
         super(action.getActionSource(), playerId, "Choose cards to discard", minimum, maximum, filters);
         _action = action;
+        _playerId = playerId;
     }
 
     @Override
     protected Filter getExtraFilterForPlaying(LotroGame game) {
         if (_action.getActionSource() == null)
             return Filters.any;
-        return Filters.canBeDiscarded(_action.getActionSource());
+        return Filters.canBeDiscarded(_playerId, _action.getActionSource());
     }
 
     @Override
     protected void cardsSelected(LotroGame game, Collection<PhysicalCard> cards) {
         _resultSubAction = new SubAction(_action);
-        _resultSubAction.appendEffect(new DiscardCardsFromPlayEffect(_action.getPerformingPlayer(), _action.getActionSource(), Filters.in(cards)));
+        _resultSubAction.appendEffect(new DiscardCardsFromPlayEffect(_playerId, _action.getActionSource(), Filters.in(cards)));
         game.getActionsEnvironment().addActionToStack(_resultSubAction);
         cardsToBeDiscardedCallback(cards);
     }

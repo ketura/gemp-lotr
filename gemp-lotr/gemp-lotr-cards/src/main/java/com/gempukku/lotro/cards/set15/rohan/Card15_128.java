@@ -35,8 +35,8 @@ public class Card15_128 extends AbstractCompanion {
         modifiers.add(
                 new KeywordModifier(self, self, new SpotCondition(3, PossessionClass.MOUNT), Keyword.DAMAGE, 1));
         modifiers.add(
-                new CantDiscardFromPlayModifier(self, "Can't be discarded by a Shadow player", new SpotCondition(4, Side.FREE_PEOPLE, PossessionClass.MOUNT),
-                        Filters.and(Side.FREE_PEOPLE, PossessionClass.MOUNT), Side.SHADOW));
+                new CantDiscardFromPlayByPlayerModifier(self, "Can't be discarded by a Shadow player", new SpotCondition(4, Side.FREE_PEOPLE, PossessionClass.MOUNT),
+                        Filters.and(Side.FREE_PEOPLE, PossessionClass.MOUNT), self.getOwner()));
         return modifiers;
     }
 }

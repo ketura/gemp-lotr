@@ -60,8 +60,7 @@ public class Card5_060 extends AbstractPermanent {
     public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
         if (TriggerConditions.isGettingDiscarded(effect, game, Keyword.MACHINE)) {
             DiscardCardsFromPlayEffect discardEffect = (DiscardCardsFromPlayEffect) effect;
-            if (discardEffect.getSource() != null
-                    && discardEffect.getSource().getOwner().equals(game.getGameState().getCurrentPlayerId())) {
+            if (!discardEffect.getPerformingPlayer().equals(self.getOwner())) {
                 ActivateCardAction action = new ActivateCardAction(self);
                 action.appendCost(
                         new SelfDiscardEffect(self));

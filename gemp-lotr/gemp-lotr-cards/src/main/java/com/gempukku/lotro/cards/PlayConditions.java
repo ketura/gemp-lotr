@@ -319,7 +319,7 @@ public class PlayConditions {
     }
 
     public static boolean canDiscardFromPlay(final PhysicalCard source, LotroGame game, final PhysicalCard card) {
-        return game.getModifiersQuerying().canBeDiscardedFromPlay(game.getGameState(), card, source);
+        return game.getModifiersQuerying().canBeDiscardedFromPlay(game.getGameState(), source.getOwner(), card, source);
     }
 
     public static boolean canSelfDiscard(PhysicalCard source, LotroGame game) {
@@ -331,7 +331,7 @@ public class PlayConditions {
                 new Filter() {
                     @Override
                     public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                        return modifiersQuerying.canBeDiscardedFromPlay(gameState, physicalCard, source);
+                        return modifiersQuerying.canBeDiscardedFromPlay(gameState, source.getOwner(), physicalCard, source);
                     }
                 })) >= count;
     }

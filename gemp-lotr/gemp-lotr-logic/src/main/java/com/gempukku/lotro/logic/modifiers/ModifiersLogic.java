@@ -743,11 +743,11 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     }
 
     @Override
-    public boolean canBeDiscardedFromPlay(GameState gameState, PhysicalCard card, PhysicalCard source) {
+    public boolean canBeDiscardedFromPlay(GameState gameState, String performingPlayer, PhysicalCard card, PhysicalCard source) {
         LoggingThreadLocal.logMethodStart(card, "canBeDiscardedFromPlay");
         try {
             for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierEffect.DISCARD_FROM_PLAY_MODIFIER, card))
-                if (!modifier.canBeDiscardedFromPlay(gameState, this, card, source))
+                if (!modifier.canBeDiscardedFromPlay(gameState, this, performingPlayer, card, source))
                     return false;
             return true;
         } finally {

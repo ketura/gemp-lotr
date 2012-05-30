@@ -7,7 +7,7 @@ import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.common.Signet;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.logic.modifiers.CantDiscardFromPlayModifier;
+import com.gempukku.lotro.logic.modifiers.CantDiscardFromPlayByPlayerModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 
 /**
@@ -29,6 +29,6 @@ public class Card1_306 extends AbstractCompanion {
 
     @Override
     public Modifier getAlwaysOnModifier(PhysicalCard self) {
-        return new CantDiscardFromPlayModifier(self, "Can't be discarded by opponent", Filters.and(Culture.SHIRE, Keyword.TALE), Filters.not(Filters.owner(self.getOwner())));
+        return new CantDiscardFromPlayByPlayerModifier(self, "Can't be discarded by opponent", Filters.and(Culture.SHIRE, Keyword.TALE), self.getOwner());
     }
 }
