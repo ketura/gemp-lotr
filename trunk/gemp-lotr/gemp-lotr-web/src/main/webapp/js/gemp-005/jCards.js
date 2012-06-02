@@ -22,6 +22,10 @@ var packBlueprints = {
     "(S)SoG - Starter": "/gemp-lotr/images/boosters/sog_starter_selection.png",
     "(S)MD - Starter": "/gemp-lotr/images/boosters/md_starter_selection.png",
 
+    "(S)SH - Starter": "/gemp-lotr/images/boosters/sh_starter_selection.png",
+    "(S)BR - Starter": "/gemp-lotr/images/boosters/br_starter_selection.png",
+    "(S)BL - Starter": "/gemp-lotr/images/boosters/bl_starter_selection.png",
+
     "(S)FotR - Tengwar": "/gemp-lotr/images/boosters/fotr_tengwar_selection.png",
     "(S)TTT - Tengwar": "/gemp-lotr/images/boosters/ttt_tengwar_selection.png",
     "(S)RotK - Tengwar": "/gemp-lotr/images/boosters/rotk_tengwar_selection.png",
