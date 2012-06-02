@@ -63,10 +63,12 @@ public class Card13_001 extends AbstractAttachableFPPossession {
     public List<? extends Action> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
         if (TriggerConditions.isGettingWounded(effect, game, self.getAttachedTo())
                 && PlayConditions.isPhase(game, Phase.SKIRMISH)
-                && PlayConditions.canRemoveTokens(game, Token.DWARVEN, 2, Filters.any)) {
+                && PlayConditions.canRemoveTokensFromAnything(game, Token.DWARVEN, 2)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseAndRemoveCultureTokensFromCardEffect(self, playerId, Token.DWARVEN, 2, Filters.any));
+                    new ChooseAndRemoveCultureTokensFromCardEffect(self, playerId, Token.DWARVEN, 1, Filters.any));
+            action.appendCost(
+                    new ChooseAndRemoveCultureTokensFromCardEffect(self, playerId, Token.DWARVEN, 1, Filters.any));
             action.appendEffect(
                     new PreventCardEffect((AbstractPreventableCardEffect) effect, self.getAttachedTo()));
             return Collections.singletonList(action);

@@ -12,6 +12,7 @@ import com.gempukku.lotro.logic.modifiers.ModifierFlag;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
 import java.util.Collection;
+import java.util.Map;
 
 public class PlayConditions {
     public static boolean canPayForShadowCard(LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty) {
@@ -361,5 +362,27 @@ public class PlayConditions {
     public static boolean canRemoveTokens(LotroGame game, Token token, int count, Filterable... fromFilters) {
         return !game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.CANT_TOUCH_CULTURE_TOKENS)
                 && Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Filters.and(fromFilters, Filters.hasToken(token, count))).size() > 0;
+    }
+
+    public static boolean canRemoveTokensFromAnything(LotroGame game, Token token, int count) {
+        if (count <= 0)
+            return true;
+
+        GameState gameState = game.getGameState();
+        if (game.getModifiersQuerying().hasFlagActive(gameState, ModifierFlag.CANT_TOUCH_CULTURE_TOKENS))
+            return false;
+
+        int total = 0;
+        for (PhysicalCard physicalCard : Filters.filterActive(gameState, game.getModifiersQuerying(), Filters.hasAnyCultureTokens(1))) {
+            for (Map.Entry<Token, Integer> tokenCountEntry : gameState.getTokens(physicalCard).entrySet()) {
+                if (tokenCountEntry.getKey() == token) {
+                    total += tokenCountEntry.getValue();
+                    if (total >= count)
+                        return true;
+                }
+            }
+        }
+
+        return false;
     }
 }

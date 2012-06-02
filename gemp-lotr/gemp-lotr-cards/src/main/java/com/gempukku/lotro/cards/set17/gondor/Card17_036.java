@@ -55,10 +55,14 @@ public class Card17_036 extends AbstractPermanent {
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
-                && PlayConditions.canRemoveTokens(game, Token.GONDOR, 3, Filters.any)) {
+                && PlayConditions.canRemoveTokensFromAnything(game, Token.GONDOR, 3)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseAndRemoveCultureTokensFromCardEffect(self, playerId, Token.GONDOR, 3, Filters.any));
+                    new ChooseAndRemoveCultureTokensFromCardEffect(self, playerId, Token.GONDOR, 1, Filters.any));
+            action.appendCost(
+                    new ChooseAndRemoveCultureTokensFromCardEffect(self, playerId, Token.GONDOR, 1, Filters.any));
+            action.appendCost(
+                    new ChooseAndRemoveCultureTokensFromCardEffect(self, playerId, Token.GONDOR, 1, Filters.any));
             action.appendEffect(
                     new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, CardType.POSSESSION));
             return Collections.singletonList(action);

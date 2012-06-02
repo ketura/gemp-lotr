@@ -61,10 +61,12 @@ public class Card13_010 extends AbstractAttachableFPPossession {
     @Override
     protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
-                && PlayConditions.canRemoveTokens(game, Token.ELVEN, 2, Filters.any)) {
+                && PlayConditions.canRemoveTokensFromAnything(game, Token.ELVEN, 2)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseAndRemoveCultureTokensFromCardEffect(self, playerId, Token.ELVEN, 2, Filters.any));
+                    new ChooseAndRemoveCultureTokensFromCardEffect(self, playerId, Token.ELVEN, 1, Filters.any));
+            action.appendCost(
+                    new ChooseAndRemoveCultureTokensFromCardEffect(self, playerId, Token.ELVEN, 1, Filters.any));
             action.appendEffect(
                     new HealCharactersEffect(self, self.getAttachedTo()));
             if (PlayConditions.canSpot(game, self.getAttachedTo(), Filters.inSkirmish)

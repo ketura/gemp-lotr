@@ -62,10 +62,12 @@ public class Card13_048 extends AbstractAttachableFPPossession {
             ResolveSkirmishEffect resolveEffect = (ResolveSkirmishEffect) effect;
             if (resolveEffect.getUpcomingResult(game) == ResolveSkirmishEffect.Result.FELLOWSHIP_OVERWHELMED
                     && game.getGameState().getSkirmish().getFellowshipCharacter() == self.getAttachedTo()) {
-                if (PlayConditions.canRemoveTokens(game, Token.GOLLUM, 2, Filters.any)) {
+                if (PlayConditions.canRemoveTokensFromAnything(game, Token.GOLLUM, 2)) {
                     ActivateCardAction action = new ActivateCardAction(self);
                     action.appendCost(
-                            new ChooseAndRemoveCultureTokensFromCardEffect(self, playerId, Token.GOLLUM, 2, Filters.any));
+                            new ChooseAndRemoveCultureTokensFromCardEffect(self, playerId, Token.GOLLUM, 1, Filters.any));
+                    action.appendCost(
+                            new ChooseAndRemoveCultureTokensFromCardEffect(self, playerId, Token.GOLLUM, 1, Filters.any));
                     action.appendEffect(
                             new AddUntilEndOfPhaseModifierEffect(
                                     new StrengthModifier(self, Filters.hasAttached(self), 2), Phase.SKIRMISH));
