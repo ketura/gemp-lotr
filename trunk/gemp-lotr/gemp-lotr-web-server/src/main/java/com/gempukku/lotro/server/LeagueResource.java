@@ -122,6 +122,7 @@ public class LeagueResource extends AbstractResource {
             serieElem.setAttribute("maxMatches", String.valueOf(serie.getMaxMatches()));
             serieElem.setAttribute("start", String.valueOf(serie.getStart()));
             serieElem.setAttribute("end", String.valueOf(serie.getEnd()));
+            serieElem.setAttribute("formatType", serie.getFormat());
             serieElem.setAttribute("format", _formatLibrary.getFormat(serie.getFormat()).getName());
             serieElem.setAttribute("collection", serie.getCollectionType().getFullName());
             serieElem.setAttribute("limited", String.valueOf(serie.isLimited()));

@@ -38,6 +38,11 @@
         cursor: pointer;
     }
 
+    .clickableFormat {
+        cursor: pointer;
+        color: #6f6fff;
+    }
+
     .pocket {
         background-color: #000000;
         border: 1px solid #ffffff;
@@ -220,11 +225,11 @@
 
                 var infoDialog = $("<div></div>")
                         .dialog({
-                            autoOpen: false,
-                            closeOnEscape: true,
-                            resizable: false,
-                            title: "Card information"
-                        });
+                    autoOpen: false,
+                    closeOnEscape: true,
+                    resizable: false,
+                    title: "Card information"
+                });
 
                 $("body").click(
                         function (event) {
