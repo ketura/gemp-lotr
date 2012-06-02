@@ -470,6 +470,18 @@ var GempLotrCommunication = Class.extend({
             dataType: "xml"
         });
     },
+    getFormat: function(formatCode, callback, errorMap) {
+        $.ajax({
+            type: "GET",
+            url: this.url + "/hall/format/" + formatCode,
+            cache: false,
+            data: {
+                participantId: getUrlParam("participantId")},
+            success: this.deliveryCheck(callback),
+            error: this.errorCheck(errorMap),
+            dataType: "html"
+        });
+    },
     getStatus: function(callback, errorMap) {
         $.ajax({
             type: "GET",

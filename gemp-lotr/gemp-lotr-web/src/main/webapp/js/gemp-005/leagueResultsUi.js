@@ -1,6 +1,7 @@
 var LeagueResultsUI = Class.extend({
     communication: null,
     questionDialog: null,
+    formatDialog: null,
 
     init: function(url) {
         this.communication = new GempLotrCommunication(url,
@@ -14,6 +15,15 @@ var LeagueResultsUI = Class.extend({
             resizable: false,
             modal: true,
             title: "League operation"
+        });
+
+        this.formatDialog = $("<div></div>")
+                .dialog({
+            autoOpen: false,
+            closeOnEscape: true,
+            resizable: false,
+            modal: true,
+            title: "Format description"
         });
 
         this.loadResults();
@@ -99,6 +109,7 @@ var LeagueResultsUI = Class.extend({
                 var serieStart = serie.getAttribute("start");
                 var serieEnd = serie.getAttribute("end");
                 var maxMatches = serie.getAttribute("maxMatches");
+                var formatType = serie.getAttribute("formatType");
                 var format = serie.getAttribute("format");
                 var collection = serie.getAttribute("collection");
                 var limited = serie.getAttribute("limited");
@@ -106,7 +117,21 @@ var LeagueResultsUI = Class.extend({
                 var serieText = serieName + " - " + getDateString(serieStart) + " to " + getDateString(serieEnd);
                 $("#leagueExtraInfo").append("<div class='serieName'>" + serieText + "</div>");
 
-                $("#leagueExtraInfo").append("<div><b>Format:</b> " + ((limited == "true") ? "Limited" : "Constructed") + " " + format + "</div>");
+                var formatName = $("<span class='clickableFormat'>" + ((limited == "true") ? "" : "Constructed ") + format + "</span>");
+                var formatDiv = $("<div><b>Format:</b> </div>");
+                formatDiv.append(formatName);
+                formatName.click(
+                        (function(ft) {
+                            return function() {
+                                that.formatDialog.html("");
+                                that.formatDialog.dialog("open");
+                                that.communication.getFormat(ft,
+                                        function(html) {
+                                            that.formatDialog.html(html);
+                                        });
+                            };
+                        })(formatType));
+                $("#leagueExtraInfo").append(formatDiv);
                 $("#leagueExtraInfo").append("<div><b>Collection:</b> " + collection + "</div>");
 
                 tabContent.append("<div>Maximum ranked matches in serie: " + maxMatches + "</div>");
