@@ -47,7 +47,7 @@ public class Card8_013 extends AbstractPermanent {
             return Collections.singletonList(action);
         }
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.ARCHERY, self)
-                && PlayConditions.canRemoveTokens(game, Token.ELVEN, 1, self)) {
+                && PlayConditions.canRemoveTokens(game, self, Token.ELVEN, 1)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new RemoveTokenEffect(self, self, Token.ELVEN));

@@ -51,7 +51,7 @@ public class Card8_023 extends AbstractPermanent {
             return Collections.singletonList(action);
         }
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SKIRMISH, self, 0)
-                && PlayConditions.canRemoveTokens(game, Token.GOLLUM, 1, self)) {
+                && PlayConditions.canRemoveTokens(game, self, Token.GOLLUM, 1)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new RemoveTokenEffect(self, self, Token.GOLLUM));

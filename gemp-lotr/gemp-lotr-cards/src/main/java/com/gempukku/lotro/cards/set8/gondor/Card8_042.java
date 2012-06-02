@@ -45,7 +45,7 @@ public class Card8_042 extends AbstractPermanent {
             return Collections.singletonList(action);
         }
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.REGROUP, self)
-                && PlayConditions.canRemoveTokens(game, Token.GONDOR, 1, self)) {
+                && PlayConditions.canRemoveTokens(game, self, Token.GONDOR, 1)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new RemoveTokenEffect(self, self, Token.GONDOR));

@@ -45,7 +45,7 @@ public class Card8_018 extends AbstractPermanent {
             return Collections.singletonList(action);
         }
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
-                && PlayConditions.canRemoveTokens(game, Token.GANDALF, 1, self)) {
+                && PlayConditions.canRemoveTokens(game, self, Token.GANDALF, 1)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new RemoveTokenEffect(self, self, Token.GANDALF));
