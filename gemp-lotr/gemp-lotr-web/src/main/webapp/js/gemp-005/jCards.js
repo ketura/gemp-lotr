@@ -70,16 +70,18 @@ var packBlueprints = {
     "MD - Sam Starter": "/gemp-lotr/images/boosters/md_sam_starter.png",
     "MD - Booster": "/gemp-lotr/images/boosters/md_booster.png",
 
-    "SH - Faramir Starter": "/gemp-lotr/images/boosters/eof_faramir_starter.png",
-    "SH - Witch-king Starter": "/gemp-lotr/images/boosters/eof_witch_king_starter.png",
+    "SH - Aragorn Starter": "/gemp-lotr/images/boosters/sh_aragorn_starter.png",
+    "SH - Eowyn Starter": "/gemp-lotr/images/boosters/sh_eowyn_starter.png",
+    "SH - Gandalf Starter": "/gemp-lotr/images/boosters/sh_gandalf_starter.png",
+    "SH - Legolas Starter": "/gemp-lotr/images/boosters/sh_legolas_starter.png",
     "SH - Booster": "/gemp-lotr/images/boosters/sh_booster.png",
 
-    "BR - Faramir Starter": "/gemp-lotr/images/boosters/eof_faramir_starter.png",
-    "BR - Witch-king Starter": "/gemp-lotr/images/boosters/eof_witch_king_starter.png",
+    "BR - Mouth Starter": "/gemp-lotr/images/boosters/br_mouth_starter.png",
+    "BR - Saruman Starter": "/gemp-lotr/images/boosters/br_saruman_starter.png",
     "BR - Booster": "/gemp-lotr/images/boosters/br_booster.png",
 
-    "BL - Faramir Starter": "/gemp-lotr/images/boosters/eof_faramir_starter.png",
-    "BL - Witch-king Starter": "/gemp-lotr/images/boosters/eof_witch_king_starter.png",
+    "BL - Arwen Starter": "/gemp-lotr/images/boosters/bl_arwen_starter.png",
+    "BL - Boromir Starter": "/gemp-lotr/images/boosters/bl_boromir_starter.png",
     "BL - Booster": "/gemp-lotr/images/boosters/bl_booster.png",
 
     "HU - Faramir Starter": "/gemp-lotr/images/boosters/eof_faramir_starter.png",
