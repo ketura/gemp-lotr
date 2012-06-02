@@ -53,12 +53,14 @@ public class Card13_063 extends AbstractAttachableFPPossession {
     protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.MANEUVER, self)
                 && PlayConditions.canExert(self, game, self.getAttachedTo())
-                && PlayConditions.canRemoveTokens(game, Token.GONDOR, 2, Filters.any)) {
+                && PlayConditions.canRemoveTokensFromAnything(game, Token.GONDOR, 2)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.hasAttached(self)));
             action.appendCost(
-                    new ChooseAndRemoveCultureTokensFromCardEffect(self, playerId, Token.GONDOR, 2, Filters.any));
+                    new ChooseAndRemoveCultureTokensFromCardEffect(self, playerId, Token.GONDOR, 1, Filters.any));
+            action.appendCost(
+                    new ChooseAndRemoveCultureTokensFromCardEffect(self, playerId, Token.GONDOR, 1, Filters.any));
             action.appendEffect(
                     new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, CardType.MINION));
             return Collections.singletonList(action);

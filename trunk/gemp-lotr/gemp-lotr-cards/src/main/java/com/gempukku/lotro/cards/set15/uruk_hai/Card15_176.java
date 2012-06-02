@@ -41,10 +41,14 @@ public class Card15_176 extends AbstractMinion {
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.startOfPhase(game, effectResult, Phase.MANEUVER)
                 && PlayConditions.canSpot(game, Filters.not(self), Culture.URUK_HAI, CardType.MINION)
-                && PlayConditions.canRemoveTokens(game, Token.URUK_HAI, 3, Filters.any)) {
+                && PlayConditions.canRemoveTokensFromAnything(game, Token.URUK_HAI, 3)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(
-                    new ChooseAndRemoveCultureTokensFromCardEffect(self, playerId, Token.URUK_HAI, 3, Filters.any));
+                    new ChooseAndRemoveCultureTokensFromCardEffect(self, playerId, Token.URUK_HAI, 1, Filters.any));
+            action.appendCost(
+                    new ChooseAndRemoveCultureTokensFromCardEffect(self, playerId, Token.URUK_HAI, 1, Filters.any));
+            action.appendCost(
+                    new ChooseAndRemoveCultureTokensFromCardEffect(self, playerId, Token.URUK_HAI, 1, Filters.any));
             List<Effect> possibleEffects = new LinkedList<Effect>();
             possibleEffects.add(
                     new TakeControlOfASiteEffect(self, playerId));

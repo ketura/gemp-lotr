@@ -49,10 +49,12 @@ public class Card13_126 extends AbstractAttachableFPPossession {
         }
         if (TriggerConditions.startOfPhase(game, effectResult, Phase.MANEUVER)
                 && self.getAttachedTo().getBlueprint().getName().equals(Names.eomer)
-                && PlayConditions.canRemoveTokens(game, Token.ROHAN, 2, Filters.any)) {
+                && PlayConditions.canRemoveTokensFromAnything(game, Token.ROHAN, 2)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(
-                    new ChooseAndRemoveCultureTokensFromCardEffect(self, playerId, Token.ROHAN, 2, Filters.any));
+                    new ChooseAndRemoveCultureTokensFromCardEffect(self, playerId, Token.ROHAN, 1, Filters.any));
+            action.appendCost(
+                    new ChooseAndRemoveCultureTokensFromCardEffect(self, playerId, Token.ROHAN, 1, Filters.any));
             action.appendEffect(
                     new AddUntilStartOfPhaseModifierEffect(
                             new KeywordModifier(self, self.getAttachedTo(), Keyword.DEFENDER, 1), Phase.REGROUP));
