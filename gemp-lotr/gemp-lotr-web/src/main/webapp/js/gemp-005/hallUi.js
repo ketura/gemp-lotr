@@ -214,11 +214,15 @@ var GempLotrHallUI = Class.extend({
                 this.supportedFormatsSelect.hide();
                 this.decksSelect.hide();
                 this.createTableButton.hide();
-                this.leaveTableButton.css("display", "");
+                if (this.leaveTableButton.css("display") == "none")
+                    this.leaveTableButton.css("display", "");
             } else {
-                this.supportedFormatsSelect.css("display", "");
-                this.decksSelect.css("display", "");
-                this.createTableButton.css("display", "");
+                if (this.supportedFormatsSelect.css("display") == "none")
+                    this.supportedFormatsSelect.css("display", "");
+                if (this.decksSelect.css("display") == "none")
+                    this.decksSelect.css("display", "");
+                if (this.createTableButton.css("display") == "none")
+                    this.createTableButton.css("display", "");
                 this.leaveTableButton.hide();
             }
 
