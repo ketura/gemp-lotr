@@ -48,7 +48,7 @@ public class Card8_112 extends AbstractPermanent {
             return Collections.singletonList(action);
         }
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
-                && PlayConditions.canRemoveTokens(game, Token.SHIRE, 1, self)) {
+                && PlayConditions.canRemoveTokens(game, self, Token.SHIRE, 1)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new RemoveTokenEffect(self, self, Token.SHIRE));

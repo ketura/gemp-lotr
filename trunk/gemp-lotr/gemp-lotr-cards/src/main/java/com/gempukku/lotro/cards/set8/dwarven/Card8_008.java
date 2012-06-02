@@ -52,7 +52,7 @@ public class Card8_008 extends AbstractPermanent {
             return Collections.singletonList(action);
         }
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
-                && PlayConditions.canRemoveTokens(game, Token.DWARVEN, 1, self)) {
+                && PlayConditions.canRemoveTokens(game, self, Token.DWARVEN, 1)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new RemoveTokenEffect(self, self, Token.DWARVEN));

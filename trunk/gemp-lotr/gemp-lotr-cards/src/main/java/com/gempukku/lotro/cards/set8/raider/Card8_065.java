@@ -61,7 +61,7 @@ public class Card8_065 extends AbstractPermanent {
             return Collections.singletonList(action);
         }
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.REGROUP, self, 0)
-                && PlayConditions.canRemoveTokens(game, Token.RAIDER, 2, self)) {
+                && PlayConditions.canRemoveTokens(game, self, Token.RAIDER, 2)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new RemoveTokenEffect(self, self, Token.RAIDER, 2));
