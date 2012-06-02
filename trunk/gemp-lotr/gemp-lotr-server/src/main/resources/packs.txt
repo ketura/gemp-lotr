@@ -50,3 +50,14 @@ SoG - Pippin Starter
 (S)MD - Starter
 MD - Frodo Starter
 MD - Sam Starter
+(S)SH - Starter
+SH - Aragorn Starter
+SH - Eowyn Starter
+SH - Gandalf Starter
+SH - Legolas Starter
+(S)BR - Starter
+BR - Mouth Starter
+BR - Saruman Starter
+(S)BL - Starter
+BL - Arwen Starter
+BL - Boromir Starter
