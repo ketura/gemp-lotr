@@ -128,9 +128,9 @@
                         }
                     };
 
-                    var previewError = function () {
+                    var previewError = function (xhr) {
                         previewDialog.dialog("close");
-                        alert("Invalid parameters specified");
+                        alert("Invalid parameters specified - error code: " + xhr.status);
                     };
 
                     $("#previewSealed").click(
