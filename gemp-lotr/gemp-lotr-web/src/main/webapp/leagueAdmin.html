@@ -95,8 +95,6 @@
 
                             var leagueName = league.getAttribute("name");
                             var cost = parseInt(league.getAttribute("cost"));
-                            var start = league.getAttribute("start");
-                            var end = league.getAttribute("end");
 
                             previewDialog.append("<div class='leagueName'>" + leagueName + "</div>");
 
@@ -105,8 +103,6 @@
 
                             var series = league.getElementsByTagName("serie");
                             for (var j = 0; j < series.length; j++) {
-
-                                var tabContent = $("<div id='leagueserie" + j + "'></div>");
 
                                 var serie = series[j];
                                 var serieName = serie.getAttribute("type");
