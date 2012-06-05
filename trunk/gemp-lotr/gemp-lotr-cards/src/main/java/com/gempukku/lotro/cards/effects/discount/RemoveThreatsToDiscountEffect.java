@@ -49,11 +49,13 @@ public class RemoveThreatsToDiscountEffect extends AbstractSubActionEffect imple
                     @Override
                     public void decisionMade(String result) throws DecisionResultInvalidException {
                         int threats = getValidatedResult(result);
-                        SubAction subAction = new SubAction(_action);
-                        subAction.appendEffect(
-                                new RemoveThreatsEffect(_action.getActionSource(), threats));
-                        processSubAction(game, subAction);
-                        _threatsRemoved = _minimalThreatsToRemove;
+                        if (threats > 0) {
+                            SubAction subAction = new SubAction(_action);
+                            subAction.appendEffect(
+                                    new RemoveThreatsEffect(_action.getActionSource(), threats));
+                            processSubAction(game, subAction);
+                            _threatsRemoved = threats;
+                        }
                     }
                 }
                 );
