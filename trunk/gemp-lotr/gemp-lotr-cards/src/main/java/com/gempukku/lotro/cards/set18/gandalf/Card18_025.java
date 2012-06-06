@@ -8,6 +8,7 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.effects.AddThreatsEffect;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.timing.Action;
 
@@ -34,6 +35,8 @@ public class Card18_025 extends AbstractPermanent {
                 && PlayConditions.canAddThreat(game, self, 2)
                 && PlayConditions.canSpot(game, Race.WIZARD)) {
             final ActivateCardAction action = new ActivateCardAction(self);
+            action.appendCost(
+                    new AddThreatsEffect(playerId, self, 2));
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose a minion", CardType.MINION) {
                         @Override
