@@ -41,8 +41,9 @@ public class Card11_106 extends AbstractEvent {
         List<Effect> possibleEffects = new LinkedList<Effect>();
         possibleEffects.add(
                 new ChooseAndPlayCardFromDiscardEffect(playerId, game, Culture.ORC, CardType.POSSESSION));
-        possibleEffects.add(
-                new ChooseAndPlayCardFromDeckEffect(playerId, Culture.ORC, CardType.POSSESSION));
+        if (PlayConditions.location(game, Keyword.BATTLEGROUND))
+            possibleEffects.add(
+                    new ChooseAndPlayCardFromDeckEffect(playerId, Culture.ORC, CardType.POSSESSION));
         action.appendEffect(
                 new ChoiceEffect(action, playerId, possibleEffects));
         return action;
