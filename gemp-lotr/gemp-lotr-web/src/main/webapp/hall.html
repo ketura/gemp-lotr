@@ -171,19 +171,19 @@
 <script type="text/javascript" src="js/jquery/jquery-1.6.2.js"></script>
 <script type="text/javascript" src="js/jquery/jquery-ui-1.8.16.custom.min.js"></script>
 
-<script type="text/javascript" src="js/gemp-006/inheritance.js"></script>
-<script type="text/javascript" src="js/gemp-006/common.js"></script>
-<script type="text/javascript" src="js/gemp-006/logging.js"></script>
-<script type="text/javascript" src="js/gemp-006/chat.js"></script>
-<script type="text/javascript" src="js/gemp-006/commonUi.js"></script>
-<script type="text/javascript" src="js/gemp-006/hallUi.js"></script>
-<script type="text/javascript" src="js/gemp-006/leagueResultsUi.js"></script>
-<script type="text/javascript" src="js/gemp-006/gameHistoryUi.js"></script>
-<script type="text/javascript" src="js/gemp-006/communication.js"></script>
+<script type="text/javascript" src="js/gemp-007/inheritance.js"></script>
+<script type="text/javascript" src="js/gemp-007/common.js"></script>
+<script type="text/javascript" src="js/gemp-007/logging.js"></script>
+<script type="text/javascript" src="js/gemp-007/chat.js"></script>
+<script type="text/javascript" src="js/gemp-007/commonUi.js"></script>
+<script type="text/javascript" src="js/gemp-007/hallUi.js"></script>
+<script type="text/javascript" src="js/gemp-007/leagueResultsUi.js"></script>
+<script type="text/javascript" src="js/gemp-007/gameHistoryUi.js"></script>
+<script type="text/javascript" src="js/gemp-007/communication.js"></script>
 <!-- This is needed for delivery -->
-<script type="text/javascript" src="js/gemp-006/deliveryService.js"></script>
-<script type="text/javascript" src="js/gemp-006/jCardGroup.js"></script>
-<script type="text/javascript" src="js/gemp-006/jCards.js"></script>
+<script type="text/javascript" src="js/gemp-007/deliveryService.js"></script>
+<script type="text/javascript" src="js/gemp-007/jCardGroup.js"></script>
+<script type="text/javascript" src="js/gemp-007/jCards.js"></script>
 
 <script type="text/javascript">
     var chat;
@@ -205,7 +205,7 @@
     }
 
     $(document).ready(
-            function() {
+            function () {
                 $("#latestNews").append("<b>All sets are available to play.</b> "
                         + "If you find any problems with specific card or rules in general, please report it <a href='http://lotrtcgdb.com/forums/index.php/topic,7592.0.html'>at the TLHH forums</a>.");
 
@@ -217,7 +217,7 @@
 
                 $("#tabs").tabs();
 
-                $(window).resize(function() {
+                $(window).resize(function () {
                     resizeHall();
                 });
 
@@ -225,11 +225,11 @@
 
                 var infoDialog = $("<div></div>")
                         .dialog({
-                    autoOpen: false,
-                    closeOnEscape: true,
-                    resizable: false,
-                    title: "Card information"
-                });
+                            autoOpen:false,
+                            closeOnEscape:true,
+                            resizable:false,
+                            title:"Card information"
+                        });
 
                 $("body").click(
                         function (event) {
@@ -253,10 +253,10 @@
 
                                 if (card.horizontal) {
                                     // 500x360
-                                    infoDialog.dialog({width: Math.min(500 + horSpace, windowWidth), height: Math.min(360 + vertSpace, windowHeight)});
+                                    infoDialog.dialog({width:Math.min(500 + horSpace, windowWidth), height:Math.min(360 + vertSpace, windowHeight)});
                                 } else {
                                     // 360x500
-                                    infoDialog.dialog({width: Math.min(360 + horSpace, windowWidth), height: Math.min(500 + vertSpace, windowHeight)});
+                                    infoDialog.dialog({width:Math.min(360 + horSpace, windowWidth), height:Math.min(500 + vertSpace, windowHeight)});
                                 }
                                 infoDialog.dialog("open");
 
@@ -282,10 +282,10 @@
 
         var middleHeight = (innerHeight - 60) / 2;
 
-        $("#latestNews").css({width: innerWidth + "px", height: 30 + "px"});
-        $("#motd").css({width: innerWidth + "px", height: 30 + "px"});
-        $("#hall").css({width: innerWidth + "px", height: middleHeight + "px"});
-        $("#chat").css({width: innerWidth + "px", height: middleHeight + "px"});
+        $("#latestNews").css({width:innerWidth + "px", height:30 + "px"});
+        $("#motd").css({width:innerWidth + "px", height:30 + "px"});
+        $("#hall").css({width:innerWidth + "px", height:middleHeight + "px"});
+        $("#chat").css({width:innerWidth + "px", height:middleHeight + "px"});
 
         chat.setBounds(2, 2, innerWidth - 4, middleHeight - 4);
         hall.hallResized(innerWidth, middleHeight);

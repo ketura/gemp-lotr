@@ -23,9 +23,9 @@
     <script type="text/javascript" src="js/jquery/jquery-1.6.2.js"></script>
     <script type="text/javascript" src="js/jquery/jquery-ui-1.8.16.custom.min.js"></script>
 
-    <script type="text/javascript" src="js/gemp-006/inheritance.js"></script>
-    <script type="text/javascript" src="js/gemp-006/logging.js"></script>
-    <script type="text/javascript" src="js/gemp-006/communication.js"></script>
+    <script type="text/javascript" src="js/gemp-007/inheritance.js"></script>
+    <script type="text/javascript" src="js/gemp-007/logging.js"></script>
+    <script type="text/javascript" src="js/gemp-007/communication.js"></script>
 
     <script type="text/javascript">
         function getUrlParam(param) {
@@ -50,7 +50,7 @@
             return this;
         };
 
-        var comm = new GempLotrCommunication("/gemp-lotr-server", function() {
+        var comm = new GempLotrCommunication("/gemp-lotr-server", function () {
             alert("Unable to contact the server");
         });
 
@@ -60,7 +60,7 @@
         }
 
         $(document).ready(
-                function() {
+                function () {
                     comm.getStatus(processResponse);
                 });
 
@@ -68,7 +68,7 @@
             var loginButton = $("#loginButton");
             if (loginButton != null) {
                 loginButton.button().click(
-                        function() {
+                        function () {
                             var login = $("#login").val();
                             var password = $("#password").val();
                             $("#message").html("");
@@ -79,7 +79,7 @@
             var registerButton = $("#registerButton");
             if (registerButton != null) {
                 registerButton.button().click(
-                        function() {
+                        function () {
                             var login = $("#login").val();
                             var password = $("#password").val();
                             var password2 = $("#password2").val();
@@ -95,7 +95,7 @@
             var clickToRegisterButton = $("#clickToRegister");
             if (clickToRegisterButton != null) {
                 clickToRegisterButton.button().click(
-                        function() {
+                        function () {
                             $("#message").html("");
                             comm.getRegistrationForm(processResponse);
                         });
