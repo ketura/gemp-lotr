@@ -95,16 +95,16 @@
     <script type="text/javascript" src="js/jquery/jquery.layout.js"></script>
     <script type="text/javascript" src="js/jquery/jquery.touchSwipe.js"></script>
 
-    <script type="text/javascript" src="js/gemp-006/inheritance.js"></script>
-    <script type="text/javascript" src="js/gemp-006/common.js"></script>
-    <script type="text/javascript" src="js/gemp-006/communication.js"></script>
-    <script type="text/javascript" src="js/gemp-006/deliveryService.js"></script>
-    <script type="text/javascript" src="js/gemp-006/jCardGroup.js"></script>
-    <script type="text/javascript" src="js/gemp-006/jCards.js"></script>
-    <script type="text/javascript" src="js/gemp-006/logging.js"></script>
-    <script type="text/javascript" src="js/gemp-006/commonUi.js"></script>
-    <script type="text/javascript" src="js/gemp-006/deckBuildingUi.js"></script>
-    <script type="text/javascript" src="js/gemp-006/cardFilter.js"></script>
+    <script type="text/javascript" src="js/gemp-007/inheritance.js"></script>
+    <script type="text/javascript" src="js/gemp-007/common.js"></script>
+    <script type="text/javascript" src="js/gemp-007/communication.js"></script>
+    <script type="text/javascript" src="js/gemp-007/deliveryService.js"></script>
+    <script type="text/javascript" src="js/gemp-007/jCardGroup.js"></script>
+    <script type="text/javascript" src="js/gemp-007/jCards.js"></script>
+    <script type="text/javascript" src="js/gemp-007/logging.js"></script>
+    <script type="text/javascript" src="js/gemp-007/commonUi.js"></script>
+    <script type="text/javascript" src="js/gemp-007/deckBuildingUi.js"></script>
+    <script type="text/javascript" src="js/gemp-007/cardFilter.js"></script>
 
     <script type="text/javascript">
 
@@ -132,20 +132,20 @@
         }
 
         $(document).ready(
-                function() {
+                function () {
                     var ui = new GempLotrDeckBuildingUI();
 
                     $('body').layout({
-                        applyDefaultStyles: true,
-                        onresize: function() {
+                        applyDefaultStyles:true,
+                        onresize:function () {
                             ui.layoutUI(true);
                         },
-                        east__minSize: "30%"
+                        east__minSize:"30%"
                     });
 
-                    $(".ui-layout-pane").css({"background-color": "#000000"});
+                    $(".ui-layout-pane").css({"background-color":"#000000"});
 
-                    $(window).resize(function() {
+                    $(window).resize(function () {
                         ui.layoutUI(true);
                     });
 
