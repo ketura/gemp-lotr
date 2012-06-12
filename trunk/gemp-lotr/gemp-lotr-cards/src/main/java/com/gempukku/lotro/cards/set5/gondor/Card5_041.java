@@ -11,7 +11,6 @@ import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.effects.ChooseArbitraryCardsEffect;
 import com.gempukku.lotro.logic.timing.AbstractSuccessfulEffect;
 import com.gempukku.lotro.logic.timing.Effect;
@@ -44,37 +43,18 @@ public class Card5_041 extends AbstractEvent {
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, 2, Filters.aragorn));
 
-        final SubAction subAction = new SubAction(action);
-        subAction.appendEffect(
-                new PlayAnyNumberOfPossessionsOnCharacters(subAction, playerId));
         action.appendEffect(
-                new AbstractSuccessfulEffect() {
-                    @Override
-                    public String getText(LotroGame game) {
-                        return null;
-                    }
-
-                    @Override
-                    public Effect.Type getType() {
-                        return null;
-                    }
-
-                    @Override
-                    public void playEffect(LotroGame game) {
-                        game.getActionsEnvironment().addActionToStack(subAction);
-                    }
-                }
-        );
+                new PlayAnyNumberOfPossessionsOnCharacters(action, playerId));
 
         return action;
     }
 
     private class PlayAnyNumberOfPossessionsOnCharacters extends AbstractSuccessfulEffect {
-        private SubAction _subAction;
+        private PlayEventAction _action;
         private String _playerId;
 
-        private PlayAnyNumberOfPossessionsOnCharacters(SubAction subAction, String playerId) {
-            _subAction = subAction;
+        private PlayAnyNumberOfPossessionsOnCharacters(PlayEventAction action, String playerId) {
+            _action = action;
             _playerId = playerId;
         }
 
@@ -92,7 +72,7 @@ public class Card5_041 extends AbstractEvent {
         public void playEffect(final LotroGame game) {
             final Filter additionalAttachmentFilter = Filters.and(CardType.COMPANION, Signet.ARAGORN);
 
-            _subAction.appendEffect(
+            _action.appendEffect(
                     new ChooseArbitraryCardsEffect(_playerId, "Choose card to play", game.getGameState().getDiscard(_playerId),
                             Filters.and(
                                     CardType.POSSESSION,
@@ -102,7 +82,7 @@ public class Card5_041 extends AbstractEvent {
                             if (selectedCards.size() > 0) {
                                 PhysicalCard selectedCard = selectedCards.iterator().next();
                                 game.getActionsEnvironment().addActionToStack(((AbstractAttachable) selectedCard.getBlueprint()).getPlayCardAction(_playerId, game, selectedCard, additionalAttachmentFilter, 0));
-                                _subAction.appendEffect(new PlayAnyNumberOfPossessionsOnCharacters(_subAction, _playerId));
+                                _action.appendEffect(new PlayAnyNumberOfPossessionsOnCharacters(_action, _playerId));
                             }
                         }
                     });
