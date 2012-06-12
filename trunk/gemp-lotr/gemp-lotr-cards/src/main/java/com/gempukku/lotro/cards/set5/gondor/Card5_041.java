@@ -96,7 +96,7 @@ public class Card5_041 extends AbstractEvent {
                     new ChooseArbitraryCardsEffect(_playerId, "Choose card to play", game.getGameState().getDiscard(_playerId),
                             Filters.and(
                                     CardType.POSSESSION,
-                                    ExtraFilters.attachableTo(game, additionalAttachmentFilter)), 1, 1) {
+                                    ExtraFilters.attachableTo(game, additionalAttachmentFilter)), 0, 1) {
                         @Override
                         protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
                             if (selectedCards.size() > 0) {
