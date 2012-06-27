@@ -52,7 +52,7 @@ public class Card1_225 extends AbstractAttachable {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SKIRMISH, self, 0)
                 && PlayConditions.canExert(self, game, self.getAttachedTo())) {
             final ActivateCardAction action = new ActivateCardAction(self);
-            action.appendCost(new ExertCharactersEffect(self, self.getAttachedTo()));
+            action.appendCost(new ExertCharactersEffect(action, self, self.getAttachedTo()));
             action.appendEffect(
                     new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, CardType.POSSESSION, Filters.attachedTo(Filters.character, Filters.inSkirmishAgainst(self))));
             return Collections.singletonList(action);

@@ -15,17 +15,12 @@ import com.gempukku.lotro.logic.timing.results.ExertResult;
 import java.util.Collection;
 
 public class ExertCharactersEffect extends AbstractPreventableCardEffect {
-    private String _playerId;
     private Action _action;
     private PhysicalCard _source;
 
-    public ExertCharactersEffect(PhysicalCard source, PhysicalCard... cards) {
-        super(cards);
-        _source = source;
-    }
-
-    public ExertCharactersEffect(PhysicalCard source, Filterable... filter) {
+    public ExertCharactersEffect(Action action, PhysicalCard source, Filterable... filter) {
         super(filter);
+        _action = action;
         _source = source;
     }
 

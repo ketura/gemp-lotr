@@ -40,7 +40,7 @@ public class Card13_182 extends AbstractMinion {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             if (PlayConditions.canSpot(game, 6, CardType.COMPANION)) {
                 action.appendEffect(
-                        new ExertCharactersEffect(self, CardType.COMPANION));
+                        new ExertCharactersEffect(action, self, CardType.COMPANION));
             } else {
                 action.appendEffect(
                         new ChooseAndExertCharactersEffect(action, playerId, 2, 2, Filters.unboundCompanion));

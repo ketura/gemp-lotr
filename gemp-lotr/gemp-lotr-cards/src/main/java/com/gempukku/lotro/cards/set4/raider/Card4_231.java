@@ -37,9 +37,9 @@ public class Card4_231 extends AbstractPermanent {
         if (TriggerConditions.movesFrom(game, effectResult, Filters.siteBlock(Block.TWO_TOWERS), Filters.siteNumber(2))) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new ExertCharactersEffect(self, Filters.and(CardType.COMPANION, Keyword.RING_BOUND)));
+                    new ExertCharactersEffect(action, self, Filters.and(CardType.COMPANION, Keyword.RING_BOUND)));
             action.appendEffect(
-                    new ExertCharactersEffect(self, Filters.and(CardType.COMPANION, Keyword.RING_BOUND)));
+                    new ExertCharactersEffect(action, self, Filters.and(CardType.COMPANION, Keyword.RING_BOUND)));
             return Collections.singletonList(action);
         }
         return null;

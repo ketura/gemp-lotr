@@ -57,7 +57,7 @@ public class Card15_025 extends AbstractAttachableFPPossession {
                 && PlayConditions.canExert(self, game, self.getAttachedTo())) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ExertCharactersEffect(self, self.getAttachedTo()));
+                    new ExertCharactersEffect(action, self, self.getAttachedTo()));
             action.appendEffect(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, CardType.MINION, Filters.inSkirmishAgainst(self.getAttachedTo())));
             return Collections.singletonList(action);

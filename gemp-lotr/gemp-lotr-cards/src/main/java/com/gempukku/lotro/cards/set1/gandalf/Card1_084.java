@@ -34,7 +34,7 @@ public class Card1_084 extends AbstractOldEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         PlayEventAction action = new PlayEventAction(self);
         PhysicalCard gandalf = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.gandalf);
-        action.appendCost(new ExertCharactersEffect(self, gandalf));
+        action.appendCost(new ExertCharactersEffect(action, self, gandalf));
         action.appendEffect(
                 new DiscardCardsFromPlayEffect(self, CardType.CONDITION));
         return action;

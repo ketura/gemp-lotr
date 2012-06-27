@@ -48,7 +48,7 @@ public class Card1_090 extends AbstractAttachableFPPossession {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.ARCHERY, self)
                 && PlayConditions.canExert(self, game, self.getAttachedTo())) {
             final ActivateCardAction action = new ActivateCardAction(self);
-            action.appendCost(new ExertCharactersEffect(self, self.getAttachedTo()));
+            action.appendCost(new ExertCharactersEffect(action, self, self.getAttachedTo()));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
                             new DoesNotAddToArcheryTotalModifier(self, Filters.sameCard(self.getAttachedTo())), Phase.ARCHERY));

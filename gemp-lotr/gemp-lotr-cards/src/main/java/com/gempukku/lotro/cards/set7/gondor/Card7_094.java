@@ -47,7 +47,7 @@ public class Card7_094 extends AbstractAttachableFPPossession {
                 && PlayConditions.canExert(self, game, Filters.hasAttached(self))) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ExertCharactersEffect(self, self.getAttachedTo()));
+                    new ExertCharactersEffect(action, self, self.getAttachedTo()));
             action.appendEffect(
                     new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, CardType.MINION, Filters.inSkirmishAgainst(Filters.hasAttached(self)), Filters.hasAttached(Keyword.FORTIFICATION)));
             return Collections.singletonList(action);

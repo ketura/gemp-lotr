@@ -48,7 +48,7 @@ public class Card18_095 extends AbstractAttachableFPPossession {
                 && PlayConditions.canExert(self, game, self.getAttachedTo(), Filters.name(Names.eomer))) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ExertCharactersEffect(self, self.getAttachedTo()));
+                    new ExertCharactersEffect(action, self, self.getAttachedTo()));
             action.appendEffect(
                     new ChooseOpponentEffect(playerId) {
                         @Override

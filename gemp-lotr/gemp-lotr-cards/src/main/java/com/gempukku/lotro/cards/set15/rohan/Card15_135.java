@@ -49,9 +49,9 @@ public class Card15_135 extends AbstractFollower {
         if (TriggerConditions.transferredCard(game, effectResult, self, null, Filters.and(CardType.COMPANION, Filters.not(Culture.ROHAN)))) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new ExertCharactersEffect(self, Filters.hasAttached(self)));
+                    new ExertCharactersEffect(action, self, Filters.hasAttached(self)));
             action.appendEffect(
-                    new ExertCharactersEffect(self, Filters.hasAttached(self)));
+                    new ExertCharactersEffect(action, self, Filters.hasAttached(self)));
             return Collections.singletonList(action);
         }
         return null;

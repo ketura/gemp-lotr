@@ -41,7 +41,7 @@ public class Card7_017 extends AbstractAttachableFPPossession {
                 && PlayConditions.canExert(self, game, Filters.arwen, Filters.hasAttached(self))) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ExertCharactersEffect(self, self.getAttachedTo()));
+                    new ExertCharactersEffect(action, self, self.getAttachedTo()));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
                             new StrengthModifier(self, Filters.and(CardType.MINION, Filters.inSkirmishAgainst(Filters.hasAttached(self))), -2), Phase.SKIRMISH));

@@ -46,7 +46,7 @@ public class Card5_049 extends AbstractPermanent {
                 && game.getGameState().getTokenCount(self, Token.ISENGARD) >= 8) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
-                    new ExertCharactersEffect(self, Filters.or(CardType.COMPANION, CardType.ALLY, CardType.MINION)));
+                    new ExertCharactersEffect(action, self, Filters.or(CardType.COMPANION, CardType.ALLY, CardType.MINION)));
             action.appendEffect(
                     new SelfDiscardEffect(self));
             return Collections.singletonList(action);

@@ -56,7 +56,7 @@ public class Card2_097 extends AbstractAttachable {
             ActivateCardAction action = new ActivateCardAction(self);
             List<Effect> possibleCosts = new LinkedList<Effect>();
             possibleCosts.add(
-                    new ExertCharactersEffect(self, self.getAttachedTo()) {
+                    new ExertCharactersEffect(action, self, self.getAttachedTo()) {
                         @Override
                         public String getText(LotroGame game) {
                             return "Exert Bilbo";

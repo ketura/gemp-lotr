@@ -50,7 +50,7 @@ public class Card7_212 extends AbstractMinion {
             action.appendCost(
                     new SelfExertEffect(action, self));
             action.appendEffect(
-                    new ExertCharactersEffect(self, Filters.ringBearer));
+                    new ExertCharactersEffect(action, self, Filters.ringBearer));
             return Collections.singletonList(action);
         }
         return null;

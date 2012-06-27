@@ -55,7 +55,7 @@ public class AttachPermanentAction extends AbstractCostToEffectAction implements
                         _target = target;
                         if (_exertTarget) {
                             appendCost(
-                                    new ExertCharactersEffect(target, target));
+                                    new ExertCharactersEffect(AttachPermanentAction.this, target, target));
                         }
 
                         int modifier = twilightModifier;

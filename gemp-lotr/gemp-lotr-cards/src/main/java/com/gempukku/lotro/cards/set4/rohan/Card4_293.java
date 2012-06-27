@@ -36,7 +36,7 @@ public class Card4_293 extends AbstractPermanent {
             PlayCardResult result = (PlayCardResult) effectResult;
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new ExertCharactersEffect(self, result.getPlayedCard()));
+                    new ExertCharactersEffect(action, self, result.getPlayedCard()));
             return Collections.singletonList(action);
         }
         return null;

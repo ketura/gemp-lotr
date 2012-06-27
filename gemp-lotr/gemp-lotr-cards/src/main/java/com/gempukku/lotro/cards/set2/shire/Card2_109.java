@@ -55,7 +55,7 @@ public class Card2_109 extends AbstractOldEvent {
                                                 final int exertionCount = getValidatedResult(result);
                                                 for (int i = 0; i < exertionCount; i++) {
                                                     action.insertCost(
-                                                            new ExertCharactersEffect(self, bearer));
+                                                            new ExertCharactersEffect(action, self, bearer));
                                                 }
                                                 action.appendEffect(
                                                         new PlayoutDecisionEffect(playerId,

@@ -41,9 +41,9 @@ public class Card2_029 extends AbstractAttachableFPPossession {
                 && PlayConditions.canExert(self, game, 2, Filters.sameCard(self.getAttachedTo()))) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ExertCharactersEffect(self, self.getAttachedTo()));
+                    new ExertCharactersEffect(action, self, self.getAttachedTo()));
             action.appendCost(
-                    new ExertCharactersEffect(self, self.getAttachedTo()));
+                    new ExertCharactersEffect(action, self, self.getAttachedTo()));
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose minion", CardType.MINION) {
                         @Override

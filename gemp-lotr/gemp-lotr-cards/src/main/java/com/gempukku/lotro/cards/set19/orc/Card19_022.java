@@ -48,7 +48,7 @@ public class Card19_022 extends AbstractMinion {
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(final LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         if (TriggerConditions.played(game, effectResult, self)) {
-            RequiredTriggerAction action = new RequiredTriggerAction(self);
+            final RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new PreventableEffect(action,
                             new AddThreatsEffect(self.getOwner(), self, 2), game.getGameState().getCurrentPlayerId(),
@@ -56,7 +56,7 @@ public class Card19_022 extends AbstractMinion {
                                 @Override
                                 public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
                                     final PhysicalCard ringBearer = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.ringBearer);
-                                    return new ExertCharactersEffect(self, ringBearer);
+                                    return new ExertCharactersEffect(action, self, ringBearer);
                                 }
                             }));
             return Collections.singletonList(action);

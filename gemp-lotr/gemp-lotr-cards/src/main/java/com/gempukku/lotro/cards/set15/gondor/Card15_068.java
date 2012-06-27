@@ -70,7 +70,7 @@ public class Card15_068 extends AbstractAttachableFPPossession {
             possibleCosts.add(
                     new AddThreatsEffect(playerId, self, 1));
             possibleCosts.add(
-                    new ExertCharactersEffect(self, self.getAttachedTo()));
+                    new ExertCharactersEffect(action, self, self.getAttachedTo()));
             action.appendCost(
                     new ChoiceEffect(action, playerId, possibleCosts));
             action.appendEffect(

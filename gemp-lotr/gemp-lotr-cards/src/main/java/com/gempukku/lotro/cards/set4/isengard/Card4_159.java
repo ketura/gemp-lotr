@@ -81,7 +81,7 @@ public class Card4_159 extends AbstractAttachable {
                                             new PreventableEffect.PreventionCost() {
                                                 @Override
                                                 public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
-                                                    return new ExertCharactersEffect(self, self.getAttachedTo());
+                                                    return new ExertCharactersEffect(action, self, self.getAttachedTo());
                                                 }
                                             }
                                     ));

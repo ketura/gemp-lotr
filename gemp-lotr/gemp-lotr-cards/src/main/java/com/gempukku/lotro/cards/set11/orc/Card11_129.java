@@ -37,7 +37,7 @@ public class Card11_129 extends AbstractMinion {
         if (TriggerConditions.assignedAgainst(game, effectResult, null, Filters.and(CardType.COMPANION, Filters.maxResistance(5)), self)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new ExertCharactersEffect(self, Filters.assignedAgainst(self)));
+                    new ExertCharactersEffect(action, self, Filters.assignedAgainst(self)));
             return Collections.singletonList(action);
         }
         return null;

@@ -42,7 +42,7 @@ public class Card15_129 extends AbstractAttachableFPPossession {
                 && Filters.inSkirmish.accepts(game.getGameState(), game.getModifiersQuerying(), self.getAttachedTo())) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new ExertCharactersEffect(self, Filters.and(CardType.MINION, Filters.inSkirmishAgainst(Filters.hasAttached(self)))));
+                    new ExertCharactersEffect(action, self, Filters.and(CardType.MINION, Filters.inSkirmishAgainst(Filters.hasAttached(self)))));
             return Collections.singletonList(action);
         }
         return null;
@@ -54,7 +54,7 @@ public class Card15_129 extends AbstractAttachableFPPossession {
                 && PlayConditions.canExert(self, game, Filters.hasAttached(self))) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ExertCharactersEffect(self, self.getAttachedTo()));
+                    new ExertCharactersEffect(action, self, self.getAttachedTo()));
             action.appendEffect(
                     new ChooseAndAddUntilEOPStrengthBonusEffect(
                             action, self, playerId, 1, Culture.ROHAN, Race.MAN));

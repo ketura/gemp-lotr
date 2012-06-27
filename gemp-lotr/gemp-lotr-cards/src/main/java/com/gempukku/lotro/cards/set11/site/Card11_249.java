@@ -35,7 +35,7 @@ public class Card11_249 extends AbstractNewSite {
             action.appendEffect(
                     new HealCharactersEffect(self, Filters.or(CardType.COMPANION, CardType.ALLY), Filters.minResistance(5)));
             action.appendEffect(
-                    new ExertCharactersEffect(self, Filters.or(CardType.COMPANION, CardType.ALLY), Filters.maxResistance(4)));
+                    new ExertCharactersEffect(action, self, Filters.or(CardType.COMPANION, CardType.ALLY), Filters.maxResistance(4)));
             return Collections.singletonList(action);
         }
         return null;

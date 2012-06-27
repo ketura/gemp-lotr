@@ -56,7 +56,7 @@ public class ExhaustCharacterEffect extends AbstractSubActionEffect {
         private SubAction _subAction;
 
         private InfiniteExertionEffect(PhysicalCard source, SubAction subAction, Filterable[] filters) {
-            super(source, filters);
+            super(_action, source, filters);
             _subAction = subAction;
         }
 

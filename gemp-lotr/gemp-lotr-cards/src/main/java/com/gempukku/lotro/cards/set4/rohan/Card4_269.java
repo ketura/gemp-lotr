@@ -36,7 +36,7 @@ public class Card4_269 extends AbstractCompanion {
                 && game.getModifiersQuerying().hasKeyword(game.getGameState(), game.getGameState().getCurrentSite(), Keyword.PLAINS)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new ExertCharactersEffect(self, CardType.MINION));
+                    new ExertCharactersEffect(action, self, CardType.MINION));
             return Collections.singletonList(action);
         }
         return null;

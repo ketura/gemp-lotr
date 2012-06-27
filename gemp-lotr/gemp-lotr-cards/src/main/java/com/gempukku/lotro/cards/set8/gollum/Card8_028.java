@@ -73,7 +73,7 @@ public class Card8_028 extends AbstractPermanent {
         if (TriggerConditions.assignedAgainst(game, effectResult, null, Filters.any, Filters.hasAttached(self))) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new ExertCharactersEffect(self, Filters.hasAttached(self)));
+                    new ExertCharactersEffect(action, self, Filters.hasAttached(self)));
             return Collections.singletonList(action);
         }
         return null;

@@ -47,7 +47,7 @@ public class Card4_079 extends AbstractResponseOldEvent {
             if (PlayConditions.canExert(self, game, winner)) {
                 PlayEventAction action = new PlayEventAction(self);
                 action.appendCost(
-                        new ExertCharactersEffect(self, winner));
+                        new ExertCharactersEffect(action, self, winner));
 
                 List<Effect> possibleEffects = new LinkedList<Effect>();
                 possibleEffects.add(

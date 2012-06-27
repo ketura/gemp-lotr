@@ -51,7 +51,7 @@ public class Card1_075 extends AbstractAttachableFPPossession {
                 || PlayConditions.canUseFPCardDuringPhase(game, Phase.REGROUP, self))
                 && PlayConditions.canExert(self, game, self.getAttachedTo())) {
             final ActivateCardAction action = new ActivateCardAction(self);
-            action.appendCost(new ExertCharactersEffect(self, self.getAttachedTo()));
+            action.appendCost(new ExertCharactersEffect(action, self, self.getAttachedTo()));
             action.appendEffect(
                     new ChooseOpponentEffect(playerId) {
                         @Override

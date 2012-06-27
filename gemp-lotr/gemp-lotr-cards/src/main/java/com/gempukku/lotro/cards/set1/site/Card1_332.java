@@ -34,7 +34,7 @@ public class Card1_332 extends AbstractSite {
         if (TriggerConditions.movesTo(game, effectResult, self)) {
             if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Race.HOBBIT, CardType.COMPANION)) {
                 RequiredTriggerAction action = new RequiredTriggerAction(self);
-                action.appendEffect(new ExertCharactersEffect(self, Filters.and(Race.HOBBIT, CardType.COMPANION)));
+                action.appendEffect(new ExertCharactersEffect(action, self, Filters.and(Race.HOBBIT, CardType.COMPANION)));
                 return Collections.singletonList(action);
             }
         }

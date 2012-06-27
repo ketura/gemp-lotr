@@ -68,7 +68,7 @@ public class Card18_118 extends AbstractMinion {
                                                 public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
                                                     List<Effect> possibleCosts = new LinkedList<Effect>();
                                                     possibleCosts.add(
-                                                            new ExertCharactersEffect(self, companion));
+                                                            new ExertCharactersEffect(action, self, companion));
                                                     possibleCosts.add(
                                                             new AddBurdenEffect(self, 1));
                                                     return new ChoiceEffect(subAction, playerId, possibleCosts) {

@@ -45,7 +45,7 @@ public class Card11_128 extends AbstractAttachable {
         if (TriggerConditions.assignedAgainst(game, effectResult, null, CardType.COMPANION, Filters.hasAttached(self))) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new ExertCharactersEffect(self, Filters.assignedAgainst(Filters.hasAttached(self))));
+                    new ExertCharactersEffect(action, self, Filters.assignedAgainst(Filters.hasAttached(self))));
             return Collections.singletonList(action);
         }
         return null;

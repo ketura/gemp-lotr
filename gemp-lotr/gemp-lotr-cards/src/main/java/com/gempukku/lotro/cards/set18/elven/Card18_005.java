@@ -45,7 +45,7 @@ public class Card18_005 extends AbstractAttachableFPPossession {
                 && PlayConditions.canExert(self, game, Filters.hasAttached(self), Filters.arwen)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ExertCharactersEffect(self, self.getAttachedTo()));
+                    new ExertCharactersEffect(action, self, self.getAttachedTo()));
             action.appendEffect(
                     new DrawCardsEffect(action, playerId, 2));
             return Collections.singletonList(action);

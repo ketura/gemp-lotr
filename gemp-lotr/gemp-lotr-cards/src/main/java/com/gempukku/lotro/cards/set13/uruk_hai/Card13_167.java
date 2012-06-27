@@ -35,7 +35,7 @@ public class Card13_167 extends AbstractPermanent {
                 && PlayConditions.canSpot(game, 3, Culture.URUK_HAI, CardType.MINION, Keyword.LURKER)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new ExertCharactersEffect(self, CardType.COMPANION, Filters.inSkirmish));
+                    new ExertCharactersEffect(action, self, CardType.COMPANION, Filters.inSkirmish));
             return Collections.singletonList(action);
         }
         return null;

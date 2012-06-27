@@ -39,7 +39,7 @@ public class Card7_216 extends AbstractMinion {
             action.appendCost(
                     new SelfDiscardEffect(self));
             action.appendEffect(
-                    new ExertCharactersEffect(self, Keyword.RING_BOUND, CardType.COMPANION));
+                    new ExertCharactersEffect(action, self, Keyword.RING_BOUND, CardType.COMPANION));
             return Collections.singletonList(action);
         }
         return null;

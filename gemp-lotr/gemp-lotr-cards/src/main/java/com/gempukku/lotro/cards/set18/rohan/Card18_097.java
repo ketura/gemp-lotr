@@ -69,7 +69,7 @@ public class Card18_097 extends AbstractAttachableFPPossession {
                 && PlayConditions.canExert(self, game, self.getAttachedTo())) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ExertCharactersEffect(self, self.getAttachedTo()));
+                    new ExertCharactersEffect(action, self, self.getAttachedTo()));
             action.appendEffect(
                     new ChooseAndPreventCardEffect(self, (WoundCharactersEffect) effect, playerId, "Choose a ROHAN Man to prevent wound to", Culture.ROHAN, Race.MAN));
             return Collections.singletonList(action);

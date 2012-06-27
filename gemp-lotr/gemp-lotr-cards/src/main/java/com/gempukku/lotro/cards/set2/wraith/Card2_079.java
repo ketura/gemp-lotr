@@ -51,7 +51,7 @@ public class Card2_079 extends AbstractOldEvent {
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.NAZGUL, Keyword.TWILIGHT));
         action.appendEffect(
-                new ExertCharactersEffect(self, Filters.ringBearer));
+                new ExertCharactersEffect(action, self, Filters.ringBearer));
         action.appendEffect(
                 new UnrespondableEffect() {
                     @Override

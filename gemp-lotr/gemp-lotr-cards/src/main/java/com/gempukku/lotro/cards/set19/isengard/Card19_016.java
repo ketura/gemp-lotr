@@ -82,7 +82,7 @@ public class Card19_016 extends AbstractMinion {
                                             new PreventableEffect.PreventionCost() {
                                                 @Override
                                                 public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
-                                                    return new ExertCharactersEffect(self, companion);
+                                                    return new ExertCharactersEffect(action, self, companion);
                                                 }
                                             }));
                         }

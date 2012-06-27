@@ -40,7 +40,7 @@ public class Card3_002 extends AbstractAttachable {
                 && PlayConditions.canExert(self, game, self.getAttachedTo())) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ExertCharactersEffect(self, self.getAttachedTo()));
+                    new ExertCharactersEffect(action, self, self.getAttachedTo()));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
                             new PossessionClassSpotModifier(self, PossessionClass.PIPE), Phase.FELLOWSHIP));

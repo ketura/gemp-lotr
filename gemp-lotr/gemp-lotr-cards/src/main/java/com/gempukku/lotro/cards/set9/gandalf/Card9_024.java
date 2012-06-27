@@ -56,7 +56,7 @@ public class Card9_024 extends AbstractAttachable {
                 && PlayConditions.canExert(self, game, Filters.hasAttached(self))) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ExertCharactersEffect(self, self.getAttachedTo()));
+                    new ExertCharactersEffect(action, self, self.getAttachedTo()));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
                             new KeywordModifier(self, self.getAttachedTo(), Keyword.DAMAGE, 1), Phase.SKIRMISH));

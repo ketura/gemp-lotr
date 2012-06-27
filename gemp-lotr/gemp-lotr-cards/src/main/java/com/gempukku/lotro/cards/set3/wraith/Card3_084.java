@@ -54,7 +54,7 @@ public class Card3_084 extends AbstractOldEvent {
                                             protected void cardSelected(LotroGame game, PhysicalCard card) {
                                                 for (int i = 0; i < twilightCost; i++)
                                                     action.appendEffect(
-                                                            new ExertCharactersEffect(self, card));
+                                                            new ExertCharactersEffect(action, self, card));
                                             }
                                         });
                             }

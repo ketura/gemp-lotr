@@ -44,7 +44,7 @@ public class Card18_096 extends AbstractAttachableFPPossession {
                 && PlayConditions.canExert(self, game, self.getAttachedTo())) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ExertCharactersEffect(self, self.getAttachedTo()));
+                    new ExertCharactersEffect(action, self, self.getAttachedTo()));
             action.appendEffect(
                     new ChooseAndPlayCardFromDeckEffect(playerId, Side.FREE_PEOPLE, CardType.FOLLOWER));
             return Collections.singletonList(action);

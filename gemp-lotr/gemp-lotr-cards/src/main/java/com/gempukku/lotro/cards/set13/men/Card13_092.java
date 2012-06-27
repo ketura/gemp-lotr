@@ -38,7 +38,7 @@ public class Card13_092 extends AbstractMinion {
                 && PlayConditions.canSpot(game, Filters.not(self), Culture.MEN, CardType.MINION)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new ExertCharactersEffect(self, CardType.COMPANION));
+                    new ExertCharactersEffect(action, self, CardType.COMPANION));
             return Collections.singletonList(action);
         }
         return null;

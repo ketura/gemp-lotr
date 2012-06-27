@@ -46,7 +46,7 @@ public class Card11_109 extends AbstractAttachable {
                 && PlayConditions.canExert(self, game, self.getAttachedTo())) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ExertCharactersEffect(self, self.getAttachedTo()));
+                    new ExertCharactersEffect(action, self, self.getAttachedTo()));
             action.appendEffect(
                     new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, 2, Culture.ORC, CardType.MINION));
             return Collections.singletonList(action);

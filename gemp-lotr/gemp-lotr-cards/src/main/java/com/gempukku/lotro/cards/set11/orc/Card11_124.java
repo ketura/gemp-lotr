@@ -36,7 +36,7 @@ public class Card11_124 extends AbstractMinion {
         if (TriggerConditions.winsSkirmish(game, effectResult, self)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new ExertCharactersEffect(self, CardType.COMPANION, Filters.maxResistance(4)));
+                    new ExertCharactersEffect(action, self, CardType.COMPANION, Filters.maxResistance(4)));
             return Collections.singletonList(action);
         }
         return null;

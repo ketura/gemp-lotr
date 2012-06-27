@@ -51,7 +51,7 @@ public class Card1_124 extends AbstractOldEvent {
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Culture.ISENGARD, CardType.MINION));
 
         List<Effect> possibleEffects = new LinkedList<Effect>();
-        possibleEffects.add(new ExertCharactersEffect(self, game.getGameState().getRingBearer(fpPlayer)) {
+        possibleEffects.add(new ExertCharactersEffect(action, self, game.getGameState().getRingBearer(fpPlayer)) {
             @Override
             public String getText(LotroGame game) {
                 return "Exert Ring-bearer";

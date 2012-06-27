@@ -44,7 +44,7 @@ public class Card9_009 extends AbstractAttachableFPPossession {
             action.appendCost(
                     new SelfDiscardEffect(self));
             action.appendEffect(
-                    new ExertCharactersEffect(self, Race.ORC));
+                    new ExertCharactersEffect(action, self, Race.ORC));
             return Collections.singletonList(action);
         }
         return null;

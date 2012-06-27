@@ -44,7 +44,7 @@ public class Card1_346 extends AbstractSite {
 
                 PhysicalCard frodo = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.frodo);
                 List<Effect> possibleEffects = new LinkedList<Effect>();
-                possibleEffects.add(new ExertCharactersEffect(self, frodo) {
+                possibleEffects.add(new ExertCharactersEffect(action, self, frodo) {
                     @Override
                     public String getText(LotroGame game) {
                         return "Exert Frodo";
@@ -64,7 +64,7 @@ public class Card1_346 extends AbstractSite {
             if (frodoCanExert) {
                 RequiredTriggerAction action = new RequiredTriggerAction(self);
                 PhysicalCard frodo = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.frodo);
-                action.appendEffect(new ExertCharactersEffect(self, frodo));
+                action.appendEffect(new ExertCharactersEffect(action, self, frodo));
                 return Collections.singletonList(action);
             }
             if (twoOtherCanExert) {

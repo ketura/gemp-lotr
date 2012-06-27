@@ -68,7 +68,7 @@ public class Card11_144 extends AbstractPermanent {
             action.appendCost(
                     new ChoiceEffect(action, playerId, possibleCosts));
             action.appendEffect(
-                    new ExertCharactersEffect(self, ((PlayCardResult) effectResult).getPlayedCard()));
+                    new ExertCharactersEffect(action, self, ((PlayCardResult) effectResult).getPlayedCard()));
             return Collections.singletonList(action);
         }
         return null;

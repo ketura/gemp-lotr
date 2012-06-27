@@ -64,7 +64,7 @@ public class Card19_005 extends AbstractAttachable {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             List<Effect> possibleEffects = new LinkedList<Effect>();
             possibleEffects.add(
-                    new ExertCharactersEffect(self, self.getAttachedTo()));
+                    new ExertCharactersEffect(action, self, self.getAttachedTo()));
             possibleEffects.add(
                     new ReturnCardsToHandEffect(self, self));
             action.appendEffect(
