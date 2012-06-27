@@ -56,7 +56,7 @@ public class Card8_108 extends AbstractMinion {
                 && PlayConditions.canSelfExert(self, game)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose a site you control", Filters.siteControlled(playerId)) {
                         @Override

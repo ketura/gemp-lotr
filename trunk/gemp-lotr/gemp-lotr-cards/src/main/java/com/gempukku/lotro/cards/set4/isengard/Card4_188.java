@@ -52,9 +52,9 @@ public class Card4_188 extends AbstractMinion {
                 && PlayConditions.canExert(self, game, 2, self)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose a companion", CardType.COMPANION, Filters.canExert(self)) {
                         @Override

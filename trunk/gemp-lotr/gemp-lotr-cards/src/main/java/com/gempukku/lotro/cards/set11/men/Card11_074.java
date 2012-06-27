@@ -39,7 +39,7 @@ public class Card11_074 extends AbstractMinion {
                 && PlayConditions.canSelfExert(self, game)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             int count = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION, Filters.maxResistance(5));
             action.appendEffect(
                     new AddTwilightEffect(self, count));

@@ -46,7 +46,7 @@ public class Card13_097 extends AbstractMinion {
                 && PlayConditions.canSpot(game, Side.FREE_PEOPLE, CardType.CONDITION)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendCost(
                     new ChooseActiveCardEffect(self, playerId, "Choose a Free Peoples condition", Side.FREE_PEOPLE, CardType.CONDITION) {
                         @Override

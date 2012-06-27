@@ -40,7 +40,7 @@ public class Card11_100 extends AbstractMinion {
                 && PlayConditions.canSelfExert(self, game)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new ChooseAndTransferAttachableEffect(action, playerId, Filters.or(CardType.POSSESSION, CardType.CONDITION), Filters.character, Filters.any));
             return Collections.singletonList(action);

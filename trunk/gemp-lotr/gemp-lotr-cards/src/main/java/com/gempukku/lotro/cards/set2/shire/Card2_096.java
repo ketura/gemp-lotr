@@ -37,7 +37,7 @@ public class Card2_096 extends AbstractAlly {
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Keyword.TALE)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendCost(
                     new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Keyword.TALE));
             action.appendEffect(

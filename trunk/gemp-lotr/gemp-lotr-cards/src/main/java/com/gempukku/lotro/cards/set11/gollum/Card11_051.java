@@ -64,7 +64,7 @@ public class Card11_051 extends AbstractCompanion {
                 && PlayConditions.location(game, Keyword.MARSH)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new CancelSkirmishEffect(self));
             return Collections.singletonList(action);

@@ -41,7 +41,7 @@ public class Card1_286 extends AbstractAlly {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
                 && PlayConditions.canExert(self, game, self)) {
             final ActivateCardAction action = new ActivateCardAction(self);
-            action.appendCost(new SelfExertEffect(self));
+            action.appendCost(new SelfExertEffect(action, self));
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose a Hobbit", Race.HOBBIT) {
                         @Override

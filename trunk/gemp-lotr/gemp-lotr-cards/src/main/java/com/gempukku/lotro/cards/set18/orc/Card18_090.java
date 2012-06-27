@@ -38,9 +38,9 @@ public class Card18_090 extends AbstractMinion {
                 && PlayConditions.canSelfExert(self, 2, game)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, CardType.COMPANION));
             return Collections.singletonList(action);

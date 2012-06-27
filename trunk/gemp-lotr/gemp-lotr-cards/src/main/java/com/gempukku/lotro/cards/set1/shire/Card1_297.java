@@ -40,7 +40,7 @@ public class Card1_297 extends AbstractAlly {
                 && PlayConditions.canExert(self, game, self)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new ChooseAndHealCharactersEffect(action, playerId, CardType.ALLY, Race.HOBBIT, Filters.not(self), Filters.isAllyHome(1, Block.FELLOWSHIP)));
             return Collections.singletonList(action);

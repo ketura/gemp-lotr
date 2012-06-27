@@ -39,7 +39,7 @@ public class Card2_104 extends AbstractCompanion {
                 && PlayConditions.canExert(self, game, self)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new ChooseAndPlayCardFromDeckEffect(playerId, Filters.name("Farmer Maggot")));
             return Collections.singletonList(action);

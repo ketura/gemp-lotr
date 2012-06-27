@@ -38,7 +38,7 @@ public class Card12_180 extends AbstractMinion {
                 && PlayConditions.canSelfExert(self, game)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new ChooseAndPutCardFromDiscardIntoHandEffect(action, playerId, 1, 1, Culture.WRAITH, CardType.EVENT));
             return Collections.singletonList(action);

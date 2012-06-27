@@ -45,7 +45,7 @@ public class Card18_067 extends AbstractMinion {
                 ActivateCardAction action = new ActivateCardAction(self);
                 action.setText("Exert Grima to add (2)");
                 action.appendCost(
-                        new SelfExertEffect(self));
+                        new SelfExertEffect(action, self));
                 action.appendEffect(
                         new AddTwilightEffect(self, 2));
                 actions.add(action);

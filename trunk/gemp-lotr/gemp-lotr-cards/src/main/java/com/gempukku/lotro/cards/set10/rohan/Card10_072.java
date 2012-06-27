@@ -38,7 +38,7 @@ public class Card10_072 extends AbstractCompanion {
                 && PlayConditions.canSelfExert(self, game)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new ChooseOpponentEffect(playerId) {
                         @Override

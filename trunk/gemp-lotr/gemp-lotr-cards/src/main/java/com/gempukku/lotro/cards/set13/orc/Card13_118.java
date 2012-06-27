@@ -43,7 +43,7 @@ public class Card13_118 extends AbstractMinion {
                 && PlayConditions.canSelfExert(self, game)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new ChooseAndPreventCardEffect(self, (WoundCharactersEffect) effect, playerId, "Choose and ORC minion", Culture.ORC, CardType.MINION));
             return Collections.singletonList(action);

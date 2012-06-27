@@ -37,7 +37,7 @@ public class Card1_097 extends AbstractCompanion {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
                 && PlayConditions.canExert(self, game, self)) {
             final ActivateCardAction action = new ActivateCardAction(self);
-            action.appendCost(new SelfExertEffect(self));
+            action.appendCost(new SelfExertEffect(action, self));
             action.appendEffect(
                     new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, 3, Race.HOBBIT));
             return Collections.singletonList(action);

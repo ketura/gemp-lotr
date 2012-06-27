@@ -510,4 +510,37 @@ public class IndividualCardAtTest extends AbstractAtTest {
         assertEquals(Zone.FREE_CHARACTERS, radagast2.getZone());
         assertEquals(4, _game.getGameState().getTwilightPool());
     }
+
+    @Test
+    public void rushOfSteeds() throws DecisionResultInvalidException {
+        initializeSimplestGame();
+
+        PhysicalCardImpl rushOfSteeds = new PhysicalCardImpl(100, "11_157", P1, _library.getLotroCardBlueprint("11_157"));
+        _game.getGameState().addCardToZone(_game, rushOfSteeds, Zone.SUPPORT);
+
+        PhysicalCardImpl nelya = new PhysicalCardImpl(100, "1_233", P2, _library.getLotroCardBlueprint("1_233"));
+        _game.getGameState().addCardToZone(_game, nelya, Zone.SHADOW_CHARACTERS);
+
+        skipMulligans();
+
+        // End fellowship
+        playerDecided(P1, "");
+
+        AwaitingDecision playShadowEffect = _userFeedback.getAwaitingDecision(P2);
+        assertEquals(AwaitingDecisionType.CARD_ACTION_CHOICE, playShadowEffect.getDecisionType());
+        playerDecided(P2, getCardActionId(playShadowEffect, "Use Úlairë "));
+
+        AwaitingDecision rushOfSteedsOptional = _userFeedback.getAwaitingDecision(P1);
+        assertEquals(AwaitingDecisionType.CARD_ACTION_CHOICE, rushOfSteedsOptional.getDecisionType());
+        validateContents(new String[]{"" + rushOfSteeds.getCardId()}, ((String[]) rushOfSteedsOptional.getDecisionParameters().get("cardId")));
+
+        playerDecided(P1, "0");
+
+        assertEquals(P1, _game.getGameState().getSite(1).getOwner());
+        assertEquals(Zone.HAND, nelya.getZone());
+
+        playShadowEffect = _userFeedback.getAwaitingDecision(P2);
+        assertEquals(AwaitingDecisionType.CARD_ACTION_CHOICE, playShadowEffect.getDecisionType());
+        validateContents(new String[0], (String[]) playShadowEffect.getDecisionParameters().get("cardId"));
+    }
 }

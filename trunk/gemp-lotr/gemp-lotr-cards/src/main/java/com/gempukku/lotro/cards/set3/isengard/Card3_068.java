@@ -77,7 +77,7 @@ public class Card3_068 extends AbstractMinion {
                 && PlayConditions.canExert(self, game, self)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             final WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose an Uruk-hai", Filters.in(woundEffect.getAffectedCardsMinusPrevented(game)), Race.URUK_HAI) {

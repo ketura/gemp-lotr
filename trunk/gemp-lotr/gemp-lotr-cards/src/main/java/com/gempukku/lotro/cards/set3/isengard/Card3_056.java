@@ -37,7 +37,7 @@ public class Card3_056 extends AbstractMinion {
                 && PlayConditions.canExert(self, game, self)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new AddTwilightEffect(self, 1));
             return Collections.singletonList(action);

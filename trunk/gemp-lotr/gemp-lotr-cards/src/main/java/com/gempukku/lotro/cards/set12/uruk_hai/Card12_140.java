@@ -44,7 +44,7 @@ public class Card12_140 extends AbstractMinion {
             PhysicalCard loser = ((CharacterLostSkirmishResult) effectResult).getLoser();
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, CardType.POSSESSION, Filters.attachedTo(loser)));
             return Collections.singletonList(action);

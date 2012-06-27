@@ -42,7 +42,7 @@ public class Card2_083 extends AbstractMinion {
                 && PlayConditions.canExert(self, game, self)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new WoundCharactersEffect(self, Filters.ringBearer));
             if (game.getGameState().getBurdens() >= 5) {

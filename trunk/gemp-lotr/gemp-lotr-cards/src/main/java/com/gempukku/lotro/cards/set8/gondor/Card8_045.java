@@ -56,7 +56,7 @@ public class Card8_045 extends AbstractCompanion {
                 && PlayConditions.canSelfExert(self, game)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, CardType.MINION, Filters.inSkirmishAgainst(self)));
             return Collections.singletonList(action);

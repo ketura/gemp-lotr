@@ -40,7 +40,7 @@ public class Card4_250 extends AbstractMinion {
                 && PlayConditions.canExert(self, game, self)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendCost(
                     new RemoveTwilightEffect(5));
             action.appendEffect(

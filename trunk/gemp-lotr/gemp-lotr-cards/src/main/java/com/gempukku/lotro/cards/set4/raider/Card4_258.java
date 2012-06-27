@@ -44,7 +44,7 @@ public class Card4_258 extends AbstractMinion {
                 && PlayConditions.canSpot(game, 5, CardType.COMPANION)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new PreventableEffect(action,
                             new AssignmentEffect(playerId, Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.ringBearer), self),

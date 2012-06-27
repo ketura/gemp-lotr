@@ -38,7 +38,7 @@ public class Card5_098 extends AbstractMinion {
                 && game.getGameState().getBurdens() >= 5) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new DrawCardsEffect(action, playerId, 1));
             return Collections.singletonList(action);

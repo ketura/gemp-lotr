@@ -41,7 +41,7 @@ public class Card11_097 extends AbstractMinion {
                 && PlayConditions.canSelfExert(self, game)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new AddUntilStartOfPhaseModifierEffect(
                             new KeywordModifier(self, self, Keyword.FIERCE), Phase.REGROUP));

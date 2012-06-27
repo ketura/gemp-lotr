@@ -64,9 +64,9 @@ public class Card15_174 extends AbstractMinion {
                         }
                     });
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             return Collections.singletonList(action);
         }
         return null;

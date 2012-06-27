@@ -35,7 +35,7 @@ public class Card1_034 extends AbstractAlly {
                 && PlayConditions.canExert(self, game, self)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new ChooseAndHealCharactersEffect(action, playerId, Culture.ELVEN, CardType.ALLY));
 

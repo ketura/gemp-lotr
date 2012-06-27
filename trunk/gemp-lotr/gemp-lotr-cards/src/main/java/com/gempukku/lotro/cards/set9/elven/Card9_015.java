@@ -44,7 +44,7 @@ public class Card9_015 extends AbstractCompanion {
                 && PlayConditions.canSelfExert(self, game)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new WoundCharactersEffect(self, CardType.MINION, Filters.wounded));
             return Collections.singletonList(action);

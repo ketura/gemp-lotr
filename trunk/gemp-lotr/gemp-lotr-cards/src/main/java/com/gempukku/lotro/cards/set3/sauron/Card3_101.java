@@ -42,7 +42,7 @@ public class Card3_101 extends AbstractMinion {
                 && Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.owner(playerId), Culture.SAURON, CardType.CONDITION) > 0) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendCost(
                     new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.owner(playerId), Culture.SAURON, CardType.CONDITION));
             action.appendEffect(

@@ -40,7 +40,7 @@ public class Card4_228 extends AbstractMinion {
                 && PlayConditions.canExert(self, game, self)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new AddBurdenEffect(self, 1));
             return Collections.singletonList(action);

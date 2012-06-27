@@ -42,9 +42,9 @@ public class Card2_114 extends AbstractCompanion {
                 && PlayConditions.canExert(self, game, 2, self)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new AddUntilStartOfPhaseModifierEffect(
                             new KeywordModifier(self, self, Keyword.DEFENDER), Phase.REGROUP));

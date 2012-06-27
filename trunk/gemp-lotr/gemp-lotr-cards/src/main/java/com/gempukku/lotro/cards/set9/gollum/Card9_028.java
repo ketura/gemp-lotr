@@ -44,9 +44,9 @@ public class Card9_028 extends AbstractMinion {
                 ActivateCardAction action = new ActivateCardAction(self);
                 action.setText("Exert the Ring-bearer");
                 action.appendCost(
-                        new SelfExertEffect(self));
+                        new SelfExertEffect(action, self));
                 action.appendCost(
-                        new SelfExertEffect(self));
+                        new SelfExertEffect(action, self));
                 action.appendEffect(
                         new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.ringBearer));
                 actions.add(action);
@@ -86,9 +86,9 @@ public class Card9_028 extends AbstractMinion {
                 ActivateCardAction action = new ActivateCardAction(self);
                 action.setText("Wound the Ring-bearer");
                 action.appendCost(
-                        new SelfExertEffect(self));
+                        new SelfExertEffect(action, self));
                 action.appendCost(
-                        new SelfExertEffect(self));
+                        new SelfExertEffect(action, self));
                 action.appendEffect(
                         new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, Filters.ringBearer));
                 actions.add(action);

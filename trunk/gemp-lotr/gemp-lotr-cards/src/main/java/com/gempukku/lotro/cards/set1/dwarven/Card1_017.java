@@ -38,7 +38,7 @@ public class Card1_017 extends AbstractAlly {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.FELLOWSHIP, self)
                 && PlayConditions.canExert(self, game, self)) {
             final ActivateCardAction action = new ActivateCardAction(self);
-            action.appendCost(new SelfExertEffect(self));
+            action.appendCost(new SelfExertEffect(action, self));
 
             Collection<PhysicalCard> discardedDwarvenEvents = Filters.filter(game.getGameState().getDiscard(playerId), game.getGameState(), game.getModifiersQuerying(), Culture.DWARVEN, CardType.EVENT);
 

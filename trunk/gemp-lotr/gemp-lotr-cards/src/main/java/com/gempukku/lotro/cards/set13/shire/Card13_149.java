@@ -56,7 +56,7 @@ public class Card13_149 extends AbstractCompanion {
                 && PlayConditions.canSelfExert(self, game)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new ReplaceInSkirmishEffect(self, CardType.COMPANION, Keyword.RING_BOUND));
             return Collections.singletonList(action);

@@ -44,7 +44,7 @@ public class Card2_046 extends AbstractMinion {
             action.appendCost(
                     new RemoveTwilightEffect(1));
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new ChooseAndPlayCardFromDiscardEffect(playerId, game, Race.URUK_HAI));
             return Collections.singletonList(action);

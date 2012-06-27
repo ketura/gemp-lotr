@@ -39,7 +39,7 @@ public class Card1_147 extends AbstractMinion {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.ASSIGNMENT, self, 0)
                 && PlayConditions.canExert(self, game, self)) {
             final ActivateCardAction action = new ActivateCardAction(self);
-            action.appendCost(new SelfExertEffect(self));
+            action.appendCost(new SelfExertEffect(action, self));
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose a companion", CardType.COMPANION) {
                         @Override

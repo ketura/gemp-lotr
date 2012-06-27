@@ -40,7 +40,7 @@ public class Card1_233 extends AbstractMinion {
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), CardType.SITE, Filters.not(Filters.owner(playerId)))) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose opponent's site", CardType.SITE, Filters.not(Filters.owner(playerId))) {
                         @Override

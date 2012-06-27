@@ -49,7 +49,7 @@ public class Card15_153 extends AbstractCompanion {
                 && PlayConditions.canSelfExert(self, game)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new ChooseAndHealCharactersEffect(action, playerId, Filters.not(self), Race.HOBBIT));
             return Collections.singletonList(action);

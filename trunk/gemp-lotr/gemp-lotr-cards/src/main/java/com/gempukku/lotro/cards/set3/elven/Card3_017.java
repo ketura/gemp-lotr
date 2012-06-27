@@ -50,7 +50,7 @@ public class Card3_017 extends AbstractAlly {
                 && PlayConditions.canExert(self, game, self)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new PlaySiteEffect(action, playerId, null, game.getGameState().getCurrentSiteNumber() + 1, Keyword.FOREST));
             return Collections.singletonList(action);

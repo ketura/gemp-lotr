@@ -37,7 +37,7 @@ public class Card1_364 extends AbstractCompanion {
                 && PlayConditions.canExert(self, game, self)
                 && Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION, Signet.GANDALF, Filters.playable(game, -2)).size() > 0) {
             ActivateCardAction action = new ActivateCardAction(self);
-            action.appendCost(new SelfExertEffect(self));
+            action.appendCost(new SelfExertEffect(action, self));
             action.appendEffect(
                     new ChooseAndPlayCardFromHandEffect(playerId, game, -2, CardType.COMPANION, Signet.GANDALF));
             return Collections.singletonList(action);

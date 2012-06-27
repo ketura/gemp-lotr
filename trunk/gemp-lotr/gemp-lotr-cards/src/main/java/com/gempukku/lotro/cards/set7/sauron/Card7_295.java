@@ -40,7 +40,7 @@ public class Card7_295 extends AbstractMinion {
                 && PlayConditions.canSpot(game, 6, CardType.COMPANION)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, 6, Filters.not(self), Culture.SAURON, Race.ORC));
             return Collections.singletonList(action);

@@ -54,7 +54,7 @@ public class Card2_047 extends AbstractMinion {
             if (playEffect.isRequiresRanger()) {
                 ActivateCardAction action = new ActivateCardAction(self);
                 action.appendCost(
-                        new SelfExertEffect(self));
+                        new SelfExertEffect(action, self));
                 action.appendEffect(
                         new CancelEventEffect(self, playEffect));
                 return Collections.singletonList(action);

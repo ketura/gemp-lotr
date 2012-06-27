@@ -63,9 +63,9 @@ public class Card5_045 extends AbstractMinion {
             action.appendCost(
                     new ChooseAndRemoveCultureTokensFromCardEffect(self, playerId, Token.ISENGARD, 3, Keyword.MACHINE));
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new WoundCharactersEffect(self, CardType.ALLY));
             action.appendEffect(

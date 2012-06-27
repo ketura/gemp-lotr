@@ -56,7 +56,7 @@ public class Card2_089 extends AbstractMinion {
                 ActivateCardAction action = new ActivateCardAction(self);
                 List<Effect> possibleCosts = new LinkedList<Effect>();
                 possibleCosts.add(
-                        new SelfExertEffect(self) {
+                        new SelfExertEffect(action, self) {
                             @Override
                             public String getText(LotroGame game) {
                                 return "Exert this minion";

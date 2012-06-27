@@ -58,9 +58,9 @@ public class Card14_006 extends AbstractCompanion {
                 && PlayConditions.canDiscardFromHand(game, playerId, 1, CardType.MINION)) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendCost(
                     new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 1, CardType.MINION) {
                         @Override

@@ -42,7 +42,7 @@ public class Card12_133 extends AbstractCompanion {
                 && PlayConditions.canSelfExert(self, game)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new PreventEffect((AddBurdenEffect) effect));
             return Collections.singletonList(action);

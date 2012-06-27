@@ -41,7 +41,7 @@ public class Card11_148 extends AbstractCompanion {
                 && PlayConditions.canSelfExert(self, game)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new ChooseAndPreventCardEffect(self, (WoundCharactersEffect) effect, playerId, "Choose a companion", Culture.ROHAN, CardType.COMPANION, Filters.minResistance(4)));
             return Collections.singletonList(action);

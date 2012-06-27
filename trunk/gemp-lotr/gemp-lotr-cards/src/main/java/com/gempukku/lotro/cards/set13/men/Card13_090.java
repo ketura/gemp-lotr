@@ -40,7 +40,7 @@ public class Card13_090 extends AbstractMinion {
                 && PlayConditions.canRemoveAnyCultureTokens(game, 1, Filters.any)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendCost(
                     new ChooseAndRemoveCultureTokensFromCardEffect(self, playerId, null, 1, Filters.any));
             action.appendEffect(

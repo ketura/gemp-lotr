@@ -53,7 +53,7 @@ public class Card2_052 extends AbstractMinion {
                 && PlayConditions.canPlayFromDiscard(playerId, game, 2, 0, Culture.MORIA, Race.ORC)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendCost(
                     new RemoveTwilightEffect(2));
             action.appendEffect(

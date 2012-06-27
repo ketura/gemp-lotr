@@ -42,7 +42,7 @@ public class Card1_311 extends AbstractCompanion {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.FELLOWSHIP, self)
                 && PlayConditions.canExert(self, game, self)) {
             ActivateCardAction action = new ActivateCardAction(self);
-            action.appendCost(new SelfExertEffect(self));
+            action.appendCost(new SelfExertEffect(action, self));
             action.appendEffect(new RemoveBurdenEffect(playerId, self));
             return Collections.singletonList(action);
         }

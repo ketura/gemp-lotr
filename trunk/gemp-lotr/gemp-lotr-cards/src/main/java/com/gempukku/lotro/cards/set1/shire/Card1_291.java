@@ -39,7 +39,7 @@ public class Card1_291 extends AbstractAlly {
                 && PlayConditions.canExert(self, game, self)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new ChooseAndHealCharactersEffect(action, playerId, Filters.or(Filters.frodo, Filters.sam)));
             return Collections.singletonList(action);

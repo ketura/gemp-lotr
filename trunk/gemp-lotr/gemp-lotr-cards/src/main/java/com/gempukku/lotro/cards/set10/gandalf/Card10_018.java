@@ -48,9 +48,9 @@ public class Card10_018 extends AbstractCompanion {
                 && PlayConditions.canPlayFromDiscard(playerId, game, Culture.GANDALF, CardType.CONDITION)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new ChooseAndPlayCardFromDiscardEffect(playerId, game, Culture.GANDALF, CardType.CONDITION));
             action.appendEffect(

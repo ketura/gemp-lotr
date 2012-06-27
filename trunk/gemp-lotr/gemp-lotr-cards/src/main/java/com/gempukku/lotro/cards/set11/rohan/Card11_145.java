@@ -50,7 +50,7 @@ public class Card11_145 extends AbstractCompanion {
                 && PlayConditions.canSelfExert(self, game)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new ChooseAndReturnCardsToHandEffect(action, playerId, 1, 1, CardType.MINION));
             return Collections.singletonList(action);

@@ -46,7 +46,7 @@ public class Card4_067 extends AbstractCompanion {
                 && Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.owner(playerId), CardType.CONDITION, Filters.hasToken(Token.ELVEN)) > 0) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendCost(
                     new ChooseActiveCardEffect(self, playerId, "Choose condition", Filters.owner(playerId), CardType.CONDITION, Filters.hasToken(Token.ELVEN)) {
                         @Override

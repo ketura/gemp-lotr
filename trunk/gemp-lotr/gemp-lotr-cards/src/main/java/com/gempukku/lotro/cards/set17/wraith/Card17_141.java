@@ -56,7 +56,7 @@ public class Card17_141 extends AbstractMinion {
                 && PlayConditions.canDiscardFromHand(game, playerId, 1, Culture.WRAITH)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendCost(
                     new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 1, Culture.WRAITH));
             action.appendEffect(

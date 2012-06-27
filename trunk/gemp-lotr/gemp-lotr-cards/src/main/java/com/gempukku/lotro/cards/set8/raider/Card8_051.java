@@ -43,7 +43,7 @@ public class Card8_051 extends AbstractMinion {
                 && PlayConditions.canPlayFromHand(playerId, game, Keyword.CORSAIR)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendCost(
                     new ChooseAndPlayCardFromHandEffect(playerId, game, Keyword.CORSAIR));
             action.appendEffect(

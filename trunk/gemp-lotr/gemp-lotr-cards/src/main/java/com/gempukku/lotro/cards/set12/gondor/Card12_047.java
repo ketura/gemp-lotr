@@ -39,7 +39,7 @@ public class Card12_047 extends AbstractCompanion {
                 && PlayConditions.canSelfExert(self, game)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             int wounds = game.getGameState().getWounds(game.getGameState().getRingBearer(playerId));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(

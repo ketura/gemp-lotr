@@ -48,7 +48,7 @@ public class Card13_005 extends AbstractCompanion {
                 && PlayConditions.canSpot(game, CardType.MINION, Keyword.LURKER)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose a lurker minion", CardType.MINION, Keyword.LURKER) {
                         @Override

@@ -44,7 +44,7 @@ public class Card5_072 extends AbstractMinion {
             if (visitor.getCultureCount() >= 4) {
                 final ActivateCardAction action = new ActivateCardAction(self);
                 action.appendCost(
-                        new SelfExertEffect(self));
+                        new SelfExertEffect(action, self));
                 action.appendEffect(
                         new ExertCharactersEffect(self, CardType.COMPANION));
                 return Collections.singletonList(action);

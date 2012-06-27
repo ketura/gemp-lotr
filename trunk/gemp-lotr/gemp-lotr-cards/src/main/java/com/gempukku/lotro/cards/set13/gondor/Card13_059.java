@@ -52,7 +52,7 @@ public class Card13_059 extends AbstractCompanion {
                 && PlayConditions.canSelfExert(self, game)) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose an unbound companion", Filters.unboundCompanion, Filters.minResistance(7)) {
                         @Override

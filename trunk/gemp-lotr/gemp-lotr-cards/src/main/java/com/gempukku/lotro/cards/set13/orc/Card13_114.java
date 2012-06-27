@@ -48,7 +48,7 @@ public class Card13_114 extends AbstractMinion {
                     && Filters.and(Keyword.UNDERGROUND).accepts(game.getGameState(), game.getModifiersQuerying(), nextSite)
                     && PlayConditions.canSelfExert(self, game))
                 possibleCosts.add(
-                        new SelfExertEffect(self));
+                        new SelfExertEffect(action, self));
             action.appendCost(
                     new ChoiceEffect(action, playerId, possibleCosts));
             action.appendCost(

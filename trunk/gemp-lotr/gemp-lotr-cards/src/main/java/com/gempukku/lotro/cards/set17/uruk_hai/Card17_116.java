@@ -57,7 +57,7 @@ public class Card17_116 extends AbstractMinion {
                 && PlayConditions.canSelfExert(self, game)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, CardType.CONDITION,
                             Filters.attachedTo(CardType.COMPANION, Filters.inSkirmishAgainst(CardType.MINION, Culture.URUK_HAI))));

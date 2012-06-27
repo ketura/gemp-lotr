@@ -41,7 +41,7 @@ public class Card15_111 extends AbstractMinion {
                 && PlayConditions.canSelfExert(self, game)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new ShuffleDeckEffect(game.getGameState().getCurrentPlayerId()));
             action.appendEffect(

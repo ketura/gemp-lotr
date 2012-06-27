@@ -44,7 +44,7 @@ public class Card7_160 extends AbstractMinion {
                 && PlayConditions.canSelfExert(self, game)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new PreventableEffect(action,
                             new AddTwilightEffect(self, 5) {

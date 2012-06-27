@@ -48,9 +48,9 @@ public class Card8_096 extends AbstractMinion {
                 ActivateCardAction action = new ActivateCardAction(self);
                 action.setText("If you have initiative, exert this minion twice to take control of a site");
                 action.appendCost(
-                        new SelfExertEffect(self));
+                        new SelfExertEffect(action, self));
                 action.appendCost(
-                        new SelfExertEffect(self));
+                        new SelfExertEffect(action, self));
                 action.appendEffect(
                         new TakeControlOfASiteEffect(self, playerId));
                 actions.add(action);
@@ -62,9 +62,9 @@ public class Card8_096 extends AbstractMinion {
                 action.appendCost(
                         new RemoveThreatsEffect(self, 1));
                 action.appendCost(
-                        new SelfExertEffect(self));
+                        new SelfExertEffect(action, self));
                 action.appendCost(
-                        new SelfExertEffect(self));
+                        new SelfExertEffect(action, self));
                 action.appendEffect(
                         new TakeControlOfASiteEffect(self, playerId));
                 actions.add(action);

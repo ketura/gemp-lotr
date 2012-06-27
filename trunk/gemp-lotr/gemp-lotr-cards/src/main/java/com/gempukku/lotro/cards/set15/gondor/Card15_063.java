@@ -38,7 +38,7 @@ public class Card15_063 extends AbstractCompanion {
                 && PlayConditions.canSelfExert(self, game)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, CardType.MINION, Keyword.ROAMING, Filters.inSkirmishAgainst(self)));
             return Collections.singletonList(action);

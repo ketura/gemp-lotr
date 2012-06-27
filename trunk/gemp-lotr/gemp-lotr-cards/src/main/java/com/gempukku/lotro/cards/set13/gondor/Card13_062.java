@@ -46,7 +46,7 @@ public class Card13_062 extends AbstractCompanion {
                 && PlayConditions.canSelfExert(self, game)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             int bonus = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.POSSESSION, Filters.attachedTo(self));
             if (bonus > 0)
                 action.appendEffect(

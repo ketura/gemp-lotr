@@ -50,7 +50,7 @@ public class Card3_014 extends AbstractAlly {
             Collection<PhysicalCard> woundedCharacters = woundEffect.getAffectedCardsMinusPrevented(game);
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose an Elf to preventAll wound to", Filters.in(woundedCharacters), Race.ELF) {
                         @Override

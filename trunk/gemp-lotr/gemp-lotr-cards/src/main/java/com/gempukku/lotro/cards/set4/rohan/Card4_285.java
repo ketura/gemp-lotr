@@ -41,7 +41,7 @@ public class Card4_285 extends AbstractAlly {
                 && PlayConditions.canSelfExert(self, game)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, 2, Filters.mounted, CardType.COMPANION));
             return Collections.singletonList(action);
