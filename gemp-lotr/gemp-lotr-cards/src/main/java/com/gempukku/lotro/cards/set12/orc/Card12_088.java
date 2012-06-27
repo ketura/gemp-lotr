@@ -4,6 +4,7 @@ import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.PutCardFromHandOnTopOfDeckEffect;
+import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseCardsFromHandEffect;
 import com.gempukku.lotro.common.*;
@@ -53,8 +54,9 @@ public class Card12_088 extends AbstractPermanent {
                 && PlayConditions.canSelfDiscard(self, game)
                 && PlayConditions.canSpot(game, Culture.ORC, CardType.MINION)) {
             final ActivateCardAction action = new ActivateCardAction(self);
+            action.appendCost(new SelfDiscardEffect(self));
             action.appendEffect(
-                    new ChooseCardsFromHandEffect(playerId, 1, 1, Filters.any) {
+                    new ChooseCardsFromHandEffect(game.getGameState().getCurrentPlayerId(), 1, 1, Filters.any) {
                         @Override
                         protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
                             for (PhysicalCard selectedCard : selectedCards) {
