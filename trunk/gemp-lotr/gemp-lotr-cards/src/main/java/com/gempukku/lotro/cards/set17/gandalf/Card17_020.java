@@ -66,7 +66,7 @@ public class Card17_020 extends AbstractFollower {
                                         new WoundCharactersEffect(self, card));
                             else
                                 action.appendEffect(
-                                        new ExertCharactersEffect(self, card));
+                                        new ExertCharactersEffect(action, self, card));
                         }
                     });
             return Collections.singletonList(action);

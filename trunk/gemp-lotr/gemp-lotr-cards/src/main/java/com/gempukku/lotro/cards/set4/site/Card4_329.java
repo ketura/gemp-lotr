@@ -30,7 +30,7 @@ public class Card4_329 extends AbstractSite {
         if (TriggerConditions.movesFrom(game, effectResult, self)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new ExertCharactersEffect(self, CardType.COMPANION, Keyword.RING_BOUND));
+                    new ExertCharactersEffect(action, self, CardType.COMPANION, Keyword.RING_BOUND));
             return Collections.singletonList(action);
         }
         return null;

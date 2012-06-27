@@ -53,7 +53,7 @@ public class Card11_060 extends AbstractEvent {
                                     throw new DecisionResultInvalidException("These characters have only " + resistanceTotal + " resistance total");
 
                                 action.insertCost(
-                                        new ExertCharactersEffect(self, characters.toArray(new PhysicalCard[characters.size()])));
+                                        new ExertCharactersEffect(action, self, characters.toArray(new PhysicalCard[characters.size()])));
                                 action.appendEffect(
                                         new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, -3 * characters.size(), CardType.MINION, Filters.inSkirmishAgainst(Culture.GONDOR, CardType.COMPANION)));
                             }

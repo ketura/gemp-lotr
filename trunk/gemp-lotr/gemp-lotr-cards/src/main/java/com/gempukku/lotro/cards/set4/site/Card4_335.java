@@ -35,7 +35,7 @@ public class Card4_335 extends AbstractSite {
             PlayCardResult playCardResult = (PlayCardResult) effectResult;
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new ExertCharactersEffect(self, playCardResult.getPlayedCard()));
+                    new ExertCharactersEffect(action, self, playCardResult.getPlayedCard()));
             return Collections.singletonList(action);
         }
         return null;

@@ -48,7 +48,7 @@ public class Card13_138 extends AbstractCompanion {
                 && Filters.inSkirmish.accepts(game.getGameState(), game.getModifiersQuerying(), self)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new ExertCharactersEffect(self, CardType.MINION, Filters.inSkirmishAgainst(self)));
+                    new ExertCharactersEffect(action, self, CardType.MINION, Filters.inSkirmishAgainst(self)));
             return Collections.singletonList(action);
         }
         return null;

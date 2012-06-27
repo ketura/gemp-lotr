@@ -48,7 +48,7 @@ public class Card10_114 extends AbstractPermanent {
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.HOBBIT, CardType.COMPANION));
             action.appendEffect(
                     new CheckTurnLimitEffect(action, self, 1,
-                            new ExertCharactersEffect(self, playedCard)));
+                            new ExertCharactersEffect(action, self, playedCard)));
             return Collections.singletonList(action);
         }
         return null;

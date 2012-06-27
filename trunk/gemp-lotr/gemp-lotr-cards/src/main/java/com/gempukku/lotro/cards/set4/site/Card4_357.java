@@ -33,7 +33,7 @@ public class Card4_357 extends AbstractSite {
                 && Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Culture.ROHAN, CardType.COMPANION) == 0) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new ExertCharactersEffect(self, Filters.unboundCompanion));
+                    new ExertCharactersEffect(action, self, Filters.unboundCompanion));
             return Collections.singletonList(action);
         }
         return null;

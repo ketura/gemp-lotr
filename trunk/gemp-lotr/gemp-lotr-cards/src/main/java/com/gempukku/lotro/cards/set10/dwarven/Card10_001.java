@@ -47,7 +47,7 @@ public class Card10_001 extends AbstractResponseEvent {
                             int damageCount = game.getModifiersQuerying().getKeywordCount(game.getGameState(), character, Keyword.DAMAGE);
                             for (int i = 0; i < damageCount; i++)
                                 action.appendEffect(
-                                        new ExertCharactersEffect(self, playedMinion));
+                                        new ExertCharactersEffect(action, self, playedMinion));
                         }
                     });
             return Collections.singletonList(action);

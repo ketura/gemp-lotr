@@ -47,7 +47,7 @@ public class Card7_156 extends AbstractAttachable {
                 && PlayConditions.canExert(self, game, Filters.hasAttached(self))) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ExertCharactersEffect(self, self.getAttachedTo()));
+                    new ExertCharactersEffect(action, self, self.getAttachedTo()));
             action.appendEffect(
                     new AddTwilightEffect(self, 2));
             return Collections.singletonList(action);

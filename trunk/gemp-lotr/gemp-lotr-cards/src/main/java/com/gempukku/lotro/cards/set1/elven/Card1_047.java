@@ -54,7 +54,7 @@ public class Card1_047 extends AbstractAttachableFPPossession {
 
             List<Effect> possibleCosts = new LinkedList<Effect>();
             possibleCosts.add(
-                    new ExertCharactersEffect(self, self.getAttachedTo()) {
+                    new ExertCharactersEffect(action, self, self.getAttachedTo()) {
                         @Override
                         public String getText(LotroGame game) {
                             return "Exert Arwen";

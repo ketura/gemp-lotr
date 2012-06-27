@@ -42,9 +42,9 @@ public class Card3_027 extends AbstractAttachableFPPossession {
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Side.SHADOW, CardType.CONDITION)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ExertCharactersEffect(self, self.getAttachedTo()));
+                    new ExertCharactersEffect(action, self, self.getAttachedTo()));
             action.appendCost(
-                    new ExertCharactersEffect(self, self.getAttachedTo()));
+                    new ExertCharactersEffect(action, self, self.getAttachedTo()));
             action.appendEffect(
                     new ChooseAndReturnCardsToHandEffect(action, playerId, 1, 1, Side.SHADOW, CardType.CONDITION));
             return Collections.singletonList(action);

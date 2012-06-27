@@ -48,7 +48,7 @@ public class Card4_172 extends AbstractAttachable {
         if (TriggerConditions.assignedAgainst(game, effectResult, Side.FREE_PEOPLE, Filters.any, Filters.hasAttached(self))) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new ExertCharactersEffect(self, CardType.ALLY));
+                    new ExertCharactersEffect(action, self, CardType.ALLY));
             return Collections.singletonList(action);
         }
         return null;

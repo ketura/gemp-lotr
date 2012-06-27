@@ -43,7 +43,7 @@ public class Card10_079 extends AbstractPermanent {
         if (TriggerConditions.movesTo(game, effectResult, Filters.or(Filters.siteNumber(8), Filters.siteNumber(9)))) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new ExertCharactersEffect(self, CardType.COMPANION, Keyword.RING_BOUND));
+                    new ExertCharactersEffect(action, self, CardType.COMPANION, Keyword.RING_BOUND));
             return Collections.singletonList(action);
         }
         return null;

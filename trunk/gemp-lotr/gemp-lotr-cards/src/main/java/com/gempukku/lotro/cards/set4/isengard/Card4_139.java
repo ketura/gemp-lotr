@@ -58,7 +58,7 @@ public class Card4_139 extends AbstractAttachable {
                         Filters.or(CardType.ALLY, CardType.COMPANION)))) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new ExertCharactersEffect(self, Filters.hasAttached(self)));
+                    new ExertCharactersEffect(action, self, Filters.hasAttached(self)));
             return Collections.singletonList(action);
         }
         return null;

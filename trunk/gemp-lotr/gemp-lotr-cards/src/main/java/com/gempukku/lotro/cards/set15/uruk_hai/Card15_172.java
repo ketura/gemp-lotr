@@ -42,7 +42,7 @@ public class Card15_172 extends AbstractMinion {
                 && PlayConditions.canSpot(game, self, Filters.inSkirmish)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new ExertCharactersEffect(self, Filters.character, Filters.not(Keyword.HUNTER), Filters.inSkirmishAgainst(self)));
+                    new ExertCharactersEffect(action, self, Filters.character, Filters.not(Keyword.HUNTER), Filters.inSkirmishAgainst(self)));
             return Collections.singletonList(action);
         }
         return null;

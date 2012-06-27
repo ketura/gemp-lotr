@@ -51,7 +51,7 @@ public class Card4_255 extends AbstractAttachable {
             action.appendCost(
                     new RemoveTwilightEffect(4));
             action.appendCost(
-                    new ExertCharactersEffect(self, self.getAttachedTo()));
+                    new ExertCharactersEffect(action, self, self.getAttachedTo()));
             action.appendEffect(
                     new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, Filters.inSkirmishAgainst(Filters.hasAttached(self))));
             return Collections.singletonList(action);

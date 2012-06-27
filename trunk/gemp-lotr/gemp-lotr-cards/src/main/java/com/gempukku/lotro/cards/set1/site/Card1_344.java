@@ -44,7 +44,7 @@ public class Card1_344 extends AbstractSite {
 
                 PhysicalCard gimli = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.gimli);
                 List<Effect> possibleEffects = new LinkedList<Effect>();
-                possibleEffects.add(new ExertCharactersEffect(self, gimli) {
+                possibleEffects.add(new ExertCharactersEffect(action, self, gimli) {
                     @Override
                     public String getText(LotroGame game) {
                         return "Exert Gimli";
@@ -64,7 +64,7 @@ public class Card1_344 extends AbstractSite {
             if (gimliCanExert) {
                 RequiredTriggerAction action = new RequiredTriggerAction(self);
                 PhysicalCard gimli = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.gimli);
-                action.appendEffect(new ExertCharactersEffect(self, gimli));
+                action.appendEffect(new ExertCharactersEffect(action, self, gimli));
                 return Collections.singletonList(action);
             }
             if (twoOtherCanExert) {

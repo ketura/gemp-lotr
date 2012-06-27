@@ -54,7 +54,7 @@ public class Card18_053 extends AbstractAttachableFPPossession {
                 && PlayConditions.canDiscardFromPlay(self, game, CardType.FOLLOWER)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ExertCharactersEffect(self, self.getAttachedTo()));
+                    new ExertCharactersEffect(action, self, self.getAttachedTo()));
             action.appendCost(
                     new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, CardType.FOLLOWER));
             action.appendEffect(

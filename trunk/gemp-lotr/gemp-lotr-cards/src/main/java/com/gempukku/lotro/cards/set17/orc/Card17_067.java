@@ -59,7 +59,7 @@ public class Card17_067 extends AbstractPermanent {
             action.setText("Assigned " + GameUtils.getCardLink(assignResult.getAssignedCard()) + " to " + GameUtils.getCardLink(companion));
             List<Effect> possibleEffects = new LinkedList<Effect>();
             possibleEffects.add(
-                    new ExertCharactersEffect(self, companion));
+                    new ExertCharactersEffect(action, self, companion));
             possibleEffects.add(
                     new AddTwilightEffect(self, 2));
             action.appendEffect(

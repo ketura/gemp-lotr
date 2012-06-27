@@ -52,9 +52,9 @@ public class Card2_022 extends AbstractAttachableFPPossession {
                 && PlayConditions.canExert(self, game, 2, Filters.sameCard(self.getAttachedTo()))) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ExertCharactersEffect(self, self.getAttachedTo()));
+                    new ExertCharactersEffect(action, self, self.getAttachedTo()));
             action.appendCost(
-                    new ExertCharactersEffect(self, self.getAttachedTo()));
+                    new ExertCharactersEffect(action, self, self.getAttachedTo()));
 
             if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.sameCard(self.getAttachedTo()), Filters.inSkirmish))
                 action.appendEffect(

@@ -59,7 +59,7 @@ public class Card4_100 extends AbstractAttachableFPPossession {
             if (skirmish != null && skirmish.getFellowshipCharacter() != null && skirmish.getFellowshipCharacter().getBlueprint().getName().equals("Gandalf")) {
                 RequiredTriggerAction action = new RequiredTriggerAction(self);
                 action.appendEffect(
-                        new ExertCharactersEffect(self, Filters.inSkirmishAgainst(Filters.gandalf)));
+                        new ExertCharactersEffect(action, self, Filters.inSkirmishAgainst(Filters.gandalf)));
                 return Collections.singletonList(action);
             }
         }

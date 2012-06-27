@@ -57,7 +57,7 @@ public class Card4_215 extends AbstractAttachable {
         if (TriggerConditions.played(game, effectResult, self)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new ExertCharactersEffect(self, self.getAttachedTo()));
+                    new ExertCharactersEffect(action, self, self.getAttachedTo()));
             return Collections.singletonList(action);
         }
         return null;

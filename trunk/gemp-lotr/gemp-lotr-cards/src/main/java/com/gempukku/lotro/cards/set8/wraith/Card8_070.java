@@ -49,7 +49,7 @@ public class Card8_070 extends AbstractAttachable {
                 && PlayConditions.canSpot(game, CardType.POSSESSION, Filters.attachedTo(Filters.inSkirmishAgainst(Filters.hasAttached(self))))) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ExertCharactersEffect(self, self.getAttachedTo()));
+                    new ExertCharactersEffect(action, self, self.getAttachedTo()));
             action.appendEffect(
                     new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, CardType.POSSESSION, Filters.attachedTo(Filters.inSkirmishAgainst(Filters.hasAttached(self)))));
             return Collections.singletonList(action);

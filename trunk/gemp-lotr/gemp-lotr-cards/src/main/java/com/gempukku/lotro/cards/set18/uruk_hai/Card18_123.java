@@ -35,7 +35,7 @@ public class Card18_123 extends AbstractPermanent {
                 && PlayConditions.canSpot(game, Culture.URUK_HAI, Keyword.HUNTER, Filters.inSkirmish)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new ExertCharactersEffect(self, CardType.COMPANION, Filters.inSkirmish));
+                    new ExertCharactersEffect(action, self, CardType.COMPANION, Filters.inSkirmish));
             return Collections.singletonList(action);
         }
         return null;

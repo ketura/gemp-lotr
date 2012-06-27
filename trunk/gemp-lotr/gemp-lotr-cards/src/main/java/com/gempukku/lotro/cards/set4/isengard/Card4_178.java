@@ -42,7 +42,7 @@ public class Card4_178 extends AbstractMinion {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.setText("Exert " + GameUtils.getCardLink(assignmentResult.getAssignedCard()));
             action.appendEffect(
-                    new ExertCharactersEffect(self, assignmentResult.getAssignedCard()));
+                    new ExertCharactersEffect(action, self, assignmentResult.getAssignedCard()));
             return Collections.singletonList(action);
         }
         return null;

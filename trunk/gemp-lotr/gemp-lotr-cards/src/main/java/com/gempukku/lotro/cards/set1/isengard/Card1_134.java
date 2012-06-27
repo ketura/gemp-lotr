@@ -57,7 +57,7 @@ public class Card1_134 extends AbstractAttachable {
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.movesFrom(game, effectResult, Filters.hasAttached(self))) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
-            action.appendEffect(new ExertCharactersEffect(self, Filters.and(CardType.COMPANION, Race.HOBBIT)));
+            action.appendEffect(new ExertCharactersEffect(action, self, Filters.and(CardType.COMPANION, Race.HOBBIT)));
 
             return Collections.singletonList(action);
         }
