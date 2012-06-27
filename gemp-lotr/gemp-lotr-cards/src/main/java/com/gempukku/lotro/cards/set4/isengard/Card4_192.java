@@ -42,7 +42,7 @@ public class Card4_192 extends AbstractMinion {
                 && PlayConditions.canPlayFromHand(playerId, game, -Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Race.URUK_HAI, Filters.not(self)), Race.URUK_HAI)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new ChooseAndPlayCardFromHandEffect(playerId, game, -Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Race.URUK_HAI, Filters.not(self)), Race.URUK_HAI
                     ));

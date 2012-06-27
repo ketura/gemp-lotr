@@ -91,7 +91,7 @@ public class Card4_173 extends AbstractMinion {
                 && PlayConditions.canPlayFromDiscard(playerId, game, Filters.name("Saruman's Staff"))) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new ChooseAndPlayCardFromDiscardEffect(playerId, game, Filters.name("Saruman's Staff")));
             return Collections.singletonList(action);

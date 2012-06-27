@@ -45,7 +45,7 @@ public class Card6_078 extends AbstractMinion {
                 ActivateCardAction action = new ActivateCardAction(self);
                 action.setText("Make an Easterling Str +1");
                 action.appendCost(
-                        new SelfExertEffect(self));
+                        new SelfExertEffect(action, self));
                 action.appendEffect(
                         new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, 1, Keyword.EASTERLING));
                 actions.add(action);
@@ -54,7 +54,7 @@ public class Card6_078 extends AbstractMinion {
                 ActivateCardAction action = new ActivateCardAction(self);
                 action.setText("Make an Easterling Str +2");
                 action.appendCost(
-                        new SelfExertEffect(self));
+                        new SelfExertEffect(action, self));
                 action.appendEffect(
                         new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, 2, Keyword.EASTERLING));
                 actions.add(action);
@@ -63,7 +63,7 @@ public class Card6_078 extends AbstractMinion {
                 ActivateCardAction action = new ActivateCardAction(self);
                 action.setText("Make an Easterling Str +3");
                 action.appendCost(
-                        new SelfExertEffect(self));
+                        new SelfExertEffect(action, self));
                 action.appendEffect(
                         new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, 3, Keyword.EASTERLING));
                 actions.add(action);

@@ -49,7 +49,7 @@ public class Card11_108 extends AbstractMinion {
                 && PlayConditions.canSelfExert(self, game)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new PreventableEffect(action,
                             new ChooseAndAssignCharacterToMinionEffect(action, playerId, self, CardType.COMPANION, Filters.hasAttached(CardType.ARTIFACT)) {
@@ -68,7 +68,8 @@ public class Card11_108 extends AbstractMinion {
                                         }
                                     };
                                 }
-                            }));
+                            }
+                    ));
             return Collections.singletonList(action);
         }
         return null;

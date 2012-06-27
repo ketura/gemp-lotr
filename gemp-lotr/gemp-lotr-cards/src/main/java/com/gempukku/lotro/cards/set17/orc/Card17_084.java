@@ -37,7 +37,7 @@ public class Card17_084 extends AbstractMinion {
                 && PlayConditions.canSelfExert(self, game)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             int number = game.getModifiersQuerying().getTwilightCost(game.getGameState(), game.getGameState().getCurrentSite(), false);
             action.appendEffect(
                     new AddTwilightEffect(self, number));

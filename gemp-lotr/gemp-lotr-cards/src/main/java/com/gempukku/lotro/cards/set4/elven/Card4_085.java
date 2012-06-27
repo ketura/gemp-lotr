@@ -45,7 +45,7 @@ public class Card4_085 extends AbstractCompanion {
                 && PlayConditions.canExert(self, game, self)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new ChooseAndDiscardStackedCardsEffect(action, playerId, 1, 1,
                             Filters.or(CardType.CONDITION, CardType.SITE),

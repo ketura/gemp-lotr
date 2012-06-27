@@ -56,7 +56,7 @@ public class Card16_005 extends AbstractMinion {
                 && PlayConditions.canSelfExert(self, game)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new ChooseAndAddUntilEOPStrengthBonusEffect(
                             action, self, playerId, 1, Filters.not(self), Culture.WRAITH, Race.WRAITH));

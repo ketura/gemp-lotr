@@ -41,7 +41,7 @@ public class Card18_087 extends AbstractMinion {
                 && PlayConditions.canPlayFromHand(playerId, game, -2, Culture.URUK_HAI, Keyword.HUNTER)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new ChooseAndPlayCardFromHandEffect(playerId, game, -2, Culture.URUK_HAI, Keyword.HUNTER));
             return Collections.singletonList(action);

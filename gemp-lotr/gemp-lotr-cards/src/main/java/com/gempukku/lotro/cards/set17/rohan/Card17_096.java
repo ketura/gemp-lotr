@@ -52,7 +52,7 @@ public class Card17_096 extends AbstractCompanion {
                 && PlayConditions.canSpot(game, CardType.MINION, Filters.assignableToSkirmishAgainst(Side.FREE_PEOPLE, Filters.ringBearer))) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendCost(
                     new ChooseAndAssignMinionToCompanionEffect(action, playerId, game.getGameState().getRingBearer(playerId), CardType.MINION) {
                         @Override

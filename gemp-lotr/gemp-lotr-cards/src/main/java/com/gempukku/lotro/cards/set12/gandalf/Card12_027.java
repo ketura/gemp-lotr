@@ -44,7 +44,7 @@ public class Card12_027 extends AbstractCompanion {
                 && PlayConditions.canExert(self, game, Filters.unboundCompanion, Filters.inSkirmishAgainst(CardType.MINION))) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.unboundCompanion, Filters.inSkirmishAgainst(CardType.MINION)));
             action.appendEffect(

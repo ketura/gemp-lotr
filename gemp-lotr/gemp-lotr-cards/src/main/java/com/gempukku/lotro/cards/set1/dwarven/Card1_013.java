@@ -37,7 +37,7 @@ public class Card1_013 extends AbstractCompanion {
                 && PlayConditions.canExert(self, game, self)) {
             ActivateCardAction action = new ActivateCardAction(self);
 
-            action.appendCost(new SelfExertEffect(self));
+            action.appendCost(new SelfExertEffect(action, self));
             action.appendEffect(new AddUntilEndOfPhaseModifierEffect(new StrengthModifier(self, self, 2), Phase.SKIRMISH));
 
             return Collections.singletonList(action);

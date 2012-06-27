@@ -59,7 +59,7 @@ public class Card17_033 extends AbstractCompanion {
                 && PlayConditions.canSpot(game, CardType.MINION, Keyword.ROAMING)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new AddUntilStartOfPhaseModifierEffect(
                             new KeywordModifier(self, self, Keyword.DEFENDER, 1), Phase.REGROUP));

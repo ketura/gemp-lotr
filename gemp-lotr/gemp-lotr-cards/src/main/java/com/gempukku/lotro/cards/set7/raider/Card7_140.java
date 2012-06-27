@@ -41,7 +41,7 @@ public class Card7_140 extends AbstractMinion {
             action.appendCost(
                     new RemoveBurdenEffect(playerId, self));
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             boolean hasInitiative = PlayConditions.hasInitiative(game, Side.SHADOW);
             int healCount = hasInitiative ? 2 : 1;
             action.appendEffect(

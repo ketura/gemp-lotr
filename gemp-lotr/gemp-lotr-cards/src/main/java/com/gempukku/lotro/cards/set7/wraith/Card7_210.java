@@ -40,7 +40,7 @@ public class Card7_210 extends AbstractMinion {
                 && PlayConditions.canSpot(game, Filters.not(self), Culture.WRAITH, CardType.MINION)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new AddBurdenEffect(self, 1));
             return Collections.singletonList(action);

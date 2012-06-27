@@ -49,7 +49,7 @@ public class Card13_156 extends AbstractCompanion {
                 && PlayConditions.canSpot(game, self, Filters.hasAttached(CardType.FOLLOWER))) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendCost(
                     new ChooseActiveCardEffect(self, playerId, "Choose a follower", CardType.FOLLOWER, Filters.attachedTo(self)) {
                         @Override

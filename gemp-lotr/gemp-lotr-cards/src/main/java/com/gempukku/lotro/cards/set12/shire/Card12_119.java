@@ -40,7 +40,7 @@ public class Card12_119 extends AbstractCompanion {
                 && Filters.inSkirmish.accepts(game.getGameState(), game.getModifiersQuerying(), self)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new ChooseAndPutCardFromDiscardIntoHandEffect(action, playerId, 1, 1, Culture.SHIRE, CardType.EVENT, Keyword.SKIRMISH));
             return Collections.singletonList(action);

@@ -51,7 +51,7 @@ public class Card5_109 extends AbstractMinion {
                 && game.getGameState().getHand(playerId).size() >= 2) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendCost(
                     new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 2));
             action.appendEffect(

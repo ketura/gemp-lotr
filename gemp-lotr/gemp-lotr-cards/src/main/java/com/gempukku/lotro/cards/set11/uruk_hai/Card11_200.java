@@ -45,7 +45,7 @@ public class Card11_200 extends AbstractMinion {
 
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, CardType.POSSESSION, Filters.attachedTo(Filters.in(assignedAgainst))));
             return Collections.singletonList(action);

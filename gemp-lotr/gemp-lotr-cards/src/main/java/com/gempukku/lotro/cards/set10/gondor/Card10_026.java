@@ -60,9 +60,9 @@ public class Card10_026 extends AbstractCompanion {
         if (TriggerConditions.played(game, effectResult, self)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             return Collections.singletonList(action);
         }
         return null;

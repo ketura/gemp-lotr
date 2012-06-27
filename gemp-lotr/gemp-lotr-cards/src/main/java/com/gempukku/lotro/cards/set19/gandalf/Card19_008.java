@@ -41,9 +41,9 @@ public class Card19_008 extends AbstractCompanion {
                 && PlayConditions.canSelfExert(self, 2, game)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new CancelEventEffect(self, (PlayEventResult) effectResult));
             return Collections.singletonList(action);

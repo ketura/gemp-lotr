@@ -48,7 +48,7 @@ public class Card7_167 extends AbstractMinion {
                 && PlayConditions.canRemoveThreat(game, self, 1)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendCost(
                     new RemoveThreatsEffect(self, 1));
             action.appendEffect(

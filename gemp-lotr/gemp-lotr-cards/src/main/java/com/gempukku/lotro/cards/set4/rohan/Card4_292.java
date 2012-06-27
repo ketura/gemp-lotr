@@ -36,7 +36,7 @@ public class Card4_292 extends AbstractCompanion {
                 && PlayConditions.canSpot(game, Culture.ROHAN, CardType.ALLY)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new LiberateASiteEffect(self));
             return Collections.singletonList(action);

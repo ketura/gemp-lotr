@@ -42,7 +42,7 @@ public class Card15_164 extends AbstractMinion {
                 && PlayConditions.canSelfExert(self, game)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new ChooseAndAssignCharacterToMinionEffect(action, playerId, self, Filters.character, Filters.not(Keyword.HUNTER), Filters.not(Filters.ringBearer)));
             return Collections.singletonList(action);

@@ -36,7 +36,7 @@ public class Card12_117 extends AbstractCompanion {
                 && Filters.inSkirmish.accepts(game.getGameState(), game.getModifiersQuerying(), self)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new ChooseAndPlayCardFromDeckEffect(playerId, Culture.ROHAN, CardType.EVENT, Keyword.SKIRMISH));
             return Collections.singletonList(action);

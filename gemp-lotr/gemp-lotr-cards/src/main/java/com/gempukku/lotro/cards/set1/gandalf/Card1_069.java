@@ -42,7 +42,7 @@ public class Card1_069 extends AbstractAlly {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.MANEUVER, self)
                 && PlayConditions.canExert(self, game, self)) {
             final ActivateCardAction action = new ActivateCardAction(self);
-            action.appendCost(new SelfExertEffect(self));
+            action.appendCost(new SelfExertEffect(action, self));
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose ISENGARD or MORIA condition", Filters.or(Culture.ISENGARD, Culture.MORIA), CardType.CONDITION) {
                         @Override

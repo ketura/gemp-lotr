@@ -39,7 +39,7 @@ public class Card1_027 extends AbstractAlly {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.MANEUVER, self)
                 && PlayConditions.canExert(self, game, self)) {
             ActivateCardAction action = new ActivateCardAction(self);
-            action.appendCost(new SelfExertEffect(self));
+            action.appendCost(new SelfExertEffect(action, self));
             action.appendEffect(
                     new AddUntilStartOfPhaseModifierEffect(
                             new AllyParticipatesInArcheryFireAndSkirmishesModifier(self, self), Phase.REGROUP));

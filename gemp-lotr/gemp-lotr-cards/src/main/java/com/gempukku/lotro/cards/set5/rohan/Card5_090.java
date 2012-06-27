@@ -36,7 +36,7 @@ public class Card5_090 extends AbstractCompanion {
                 && PlayConditions.canSpot(game, Culture.ROHAN, CardType.POSSESSION)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new ChooseAndReturnCardsToHandEffect(action, playerId, 1, 1, Culture.ROHAN, CardType.POSSESSION));
             return Collections.singletonList(action);

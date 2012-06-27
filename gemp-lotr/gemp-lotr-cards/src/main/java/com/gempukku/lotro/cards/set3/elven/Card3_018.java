@@ -43,7 +43,7 @@ public class Card3_018 extends AbstractAlly {
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), CardType.MINION)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new ChooseAndReturnCardsToHandEffect(action, playerId, 1, 1, CardType.MINION));
             return Collections.singletonList(action);

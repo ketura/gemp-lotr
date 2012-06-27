@@ -51,7 +51,7 @@ public class Card5_108 extends AbstractMinion {
                 && game.getGameState().getTwilightPool() >= 2) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendCost(
                     new RemoveTwilightEffect(2));
             action.appendEffect(

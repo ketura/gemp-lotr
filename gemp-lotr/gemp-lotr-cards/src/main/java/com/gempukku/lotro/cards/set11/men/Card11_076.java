@@ -44,7 +44,7 @@ public class Card11_076 extends AbstractMinion {
             action.appendCost(
                     new RemoveTwilightEffect(1));
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new ChooseAndPreventCardEffect(self, (AbstractPreventableCardEffect) effect, playerId, "Choose a minion", Culture.MEN, CardType.MINION));
             return Collections.singletonList(action);

@@ -43,7 +43,7 @@ public class Card4_184 extends AbstractMinion {
                 && game.getModifiersQuerying().hasKeyword(game.getGameState(), game.getGameState().getCurrentSite(), Keyword.BATTLEGROUND)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose nother Uruk-hai", Race.URUK_HAI, Filters.not(self)) {
                         @Override

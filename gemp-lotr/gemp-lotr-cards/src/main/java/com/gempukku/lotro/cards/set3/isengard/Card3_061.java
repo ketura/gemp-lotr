@@ -50,7 +50,7 @@ public class Card3_061 extends AbstractMinion {
                 && game.getGameState().getWounds(Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.ringBearer)) >= 3) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new ExertCharactersEffect(self, CardType.COMPANION));
             return Collections.singletonList(action);

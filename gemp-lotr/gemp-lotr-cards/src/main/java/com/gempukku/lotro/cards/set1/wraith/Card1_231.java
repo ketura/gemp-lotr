@@ -39,7 +39,7 @@ public class Card1_231 extends AbstractMinion {
                 && (PlayConditions.canSpotBurdens(game, 5) || PlayConditions.canSpot(game, 6, CardType.COMPANION))) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, CardType.COMPANION, Filters.not(Filters.ringBearer)));
             return Collections.singletonList(action);

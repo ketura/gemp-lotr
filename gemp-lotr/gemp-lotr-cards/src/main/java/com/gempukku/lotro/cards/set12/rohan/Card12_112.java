@@ -46,7 +46,7 @@ public class Card12_112 extends AbstractCompanion {
                 && Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.MINION) > Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new ChooseAndPlayCardFromDeckEffect(playerId, Culture.ROHAN, CardType.COMPANION));
             return Collections.singletonList(action);

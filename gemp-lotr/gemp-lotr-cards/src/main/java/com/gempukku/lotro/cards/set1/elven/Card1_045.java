@@ -40,7 +40,7 @@ public class Card1_045 extends AbstractAlly {
                 && PlayConditions.canExert(self, game, self)
                 && Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Race.ELF, Filters.playable(game, -1000)).size() > 0) {
             ActivateCardAction action = new ActivateCardAction(self);
-            action.appendCost(new SelfExertEffect(self));
+            action.appendCost(new SelfExertEffect(action, self));
             action.appendEffect(
                     new ChooseAndPlayCardFromHandEffect(playerId, game, -1000, Race.ELF));
             return Collections.singletonList(action);

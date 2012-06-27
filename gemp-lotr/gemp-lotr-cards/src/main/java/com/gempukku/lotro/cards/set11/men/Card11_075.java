@@ -40,7 +40,7 @@ public class Card11_075 extends AbstractMinion {
                 && PlayConditions.canSelfExert(self, game)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendCost(
                     new AddUntilStartOfPhaseModifierEffect(
                             new StrengthModifier(self, self, -2), Phase.REGROUP));

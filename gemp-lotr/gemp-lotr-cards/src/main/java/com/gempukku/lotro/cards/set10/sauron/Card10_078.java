@@ -45,7 +45,7 @@ public class Card10_078 extends AbstractMinion {
             final ActivateCardAction action = new ActivateCardAction(self);
             List<Effect> possibleCosts = new LinkedList<Effect>();
             possibleCosts.add(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             possibleCosts.add(
                     new SelfDiscardEffect(self));
             action.appendCost(

@@ -41,9 +41,9 @@ public class Card13_174 extends AbstractMinion {
                 && !PlayConditions.canSpot(game, Filters.not(self), CardType.MINION, Filters.assignedToSkirmish)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new AddUntilStartOfPhaseModifierEffect(
                             new StrengthModifier(self, self, 4), Phase.REGROUP));

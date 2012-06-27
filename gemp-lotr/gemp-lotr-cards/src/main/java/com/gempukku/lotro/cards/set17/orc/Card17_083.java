@@ -42,7 +42,7 @@ public class Card17_083 extends AbstractMinion {
                 && PlayConditions.canSpot(game, Filters.not(self), Culture.ORC, CardType.MINION)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             int region = GameUtils.getRegion(game.getGameState());
             action.appendEffect(
                     new AddTwilightEffect(self, region));

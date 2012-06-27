@@ -39,7 +39,7 @@ public class Card7_289 extends AbstractMinion {
                 && PlayConditions.canSelfExert(self, game)
                 && PlayConditions.canSpot(game, Filters.not(self), Culture.SAURON, CardType.MINION)) {
             ActivateCardAction action = new ActivateCardAction(self);
-            action.appendCost(new SelfExertEffect(self));
+            action.appendCost(new SelfExertEffect(action, self));
             action.appendEffect(
                     new AddThreatsEffect(playerId, self, 1));
             return Collections.singletonList(action);

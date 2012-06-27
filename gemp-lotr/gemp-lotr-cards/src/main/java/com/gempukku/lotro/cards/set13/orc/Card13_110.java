@@ -38,7 +38,7 @@ public class Card13_110 extends AbstractMinion {
                 && PlayConditions.canPlayFromDiscard(playerId, game, Culture.ORC, Race.TROLL)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new ChooseAndPlayCardFromDiscardEffect(playerId, game, Culture.ORC, Race.TROLL));
             return Collections.singletonList(action);

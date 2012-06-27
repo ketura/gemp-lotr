@@ -38,7 +38,7 @@ public class Card9_011 extends AbstractCompanion {
                 && PlayConditions.canSelfExert(self, game)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             int damageCount = game.getModifiersQuerying().getKeywordCount(game.getGameState(), self, Keyword.DAMAGE);
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(

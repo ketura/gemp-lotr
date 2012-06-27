@@ -45,7 +45,7 @@ public class Card10_092 extends AbstractMinion {
                 && PlayConditions.canSpot(game, Filters.not(self), Culture.SAURON, CardType.MINION)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             int cultures = GameUtils.getSpottableCulturesCount(game.getGameState(), game.getModifiersQuerying(), Side.FREE_PEOPLE);
             if (cultures < 3)
                 action.appendEffect(

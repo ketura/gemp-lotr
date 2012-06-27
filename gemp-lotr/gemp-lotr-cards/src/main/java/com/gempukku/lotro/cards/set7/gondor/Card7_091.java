@@ -56,7 +56,7 @@ public class Card7_091 extends AbstractCompanion {
                 ActivateCardAction action = new ActivateCardAction(self);
                 action.setText("Make an unbound Hobbit strength +2");
                 action.appendCost(
-                        new SelfExertEffect(self));
+                        new SelfExertEffect(action, self));
                 action.appendEffect(
                         new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, 2, Race.HOBBIT, Filters.unboundCompanion));
                 actions.add(action);

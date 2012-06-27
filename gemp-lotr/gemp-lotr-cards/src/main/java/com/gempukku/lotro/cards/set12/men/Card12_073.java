@@ -39,7 +39,7 @@ public class Card12_073 extends AbstractMinion {
                 && PlayConditions.canSelfExert(self, game)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new ChooseAndPlayCardFromDeckEffect(playerId, Culture.MEN, Filters.or(CardType.CONDITION, CardType.POSSESSION)));
             return Collections.singletonList(action);

@@ -48,7 +48,7 @@ public class Card15_014 extends AbstractCompanion {
                 && PlayConditions.canSelfExert(self, game)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new ChooseCardsFromDiscardEffect(playerId, 1, 1, Culture.ELVEN) {
                         @Override

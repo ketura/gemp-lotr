@@ -44,7 +44,7 @@ public class Card18_014 extends AbstractCompanion {
             ActivateCardAction action = new ActivateCardAction(self);
             List<Effect> possibleCosts = new LinkedList<Effect>();
             possibleCosts.add(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             possibleCosts.add(
                     new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 1, Culture.ELVEN) {
                         @Override

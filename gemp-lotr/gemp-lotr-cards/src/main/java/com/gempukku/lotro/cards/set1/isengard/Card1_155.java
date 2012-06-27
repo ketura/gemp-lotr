@@ -41,7 +41,7 @@ public class Card1_155 extends AbstractMinion {
         if (effectResult.getType() == EffectResult.Type.PUT_ON_THE_ONE_RING
                 && PlayConditions.canExert(self, game, self)) {
             final ActivateCardAction action = new ActivateCardAction(self);
-            action.appendCost(new SelfExertEffect(self));
+            action.appendCost(new SelfExertEffect(action, self));
             // TODO this should give option to player to spot less
             int isengardMinionCount = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Culture.ISENGARD, CardType.MINION);
             for (int i = 0; i < isengardMinionCount; i++) {

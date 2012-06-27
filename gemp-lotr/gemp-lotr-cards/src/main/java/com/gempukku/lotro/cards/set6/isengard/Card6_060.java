@@ -65,9 +65,9 @@ public class Card6_060 extends AbstractMinion {
             action.appendCost(
                     new ChooseAndRemoveCultureTokensFromCardEffect(self, playerId, Token.ISENGARD, 1, Keyword.MACHINE));
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new AddUntilStartOfPhaseActionProxyEffect(
                             new PreventAllWoundsActionProxy(self, Race.URUK_HAI), Phase.ASSIGNMENT));

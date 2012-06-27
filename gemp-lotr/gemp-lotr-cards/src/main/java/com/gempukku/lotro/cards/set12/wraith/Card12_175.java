@@ -44,7 +44,7 @@ public class Card12_175 extends AbstractMinion {
             if (Filters.and(Filters.owner(playerId), Culture.WRAITH, CardType.EVENT).accepts(game.getGameState(), game.getModifiersQuerying(), payingFor)) {
                 ActivateCardAction action = new ActivateCardAction(self);
                 action.appendCost(
-                        new SelfExertEffect(self));
+                        new SelfExertEffect(action, self));
                 action.appendEffect(
                         new UnrespondableEffect() {
                             @Override

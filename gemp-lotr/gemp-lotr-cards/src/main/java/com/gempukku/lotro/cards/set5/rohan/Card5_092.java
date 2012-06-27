@@ -37,7 +37,7 @@ public class Card5_092 extends AbstractAlly {
                 && PlayConditions.canSpot(game, 5, Race.MAN, Keyword.VALIANT)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, CardType.MINION));
             return Collections.singletonList(action);

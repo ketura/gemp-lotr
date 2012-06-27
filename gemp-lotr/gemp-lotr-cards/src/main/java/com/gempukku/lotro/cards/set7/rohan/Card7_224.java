@@ -41,7 +41,7 @@ public class Card7_224 extends AbstractCompanion {
                 && PlayConditions.canSelfExert(self, game)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
                             new StrengthModifier(self, self, null, new CountActiveEvaluator(Filters.uncontrolledSite, Keyword.PLAINS)), Phase.SKIRMISH));

@@ -45,7 +45,7 @@ public class Card17_107 extends AbstractCompanion {
                 && PlayConditions.canSelfExert(self, game)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new ChooseAndPutCardFromDiscardOnBottomOfDeckEffect(action, playerId, 1, 1, Keyword.PIPEWEED));
             return Collections.singletonList(action);

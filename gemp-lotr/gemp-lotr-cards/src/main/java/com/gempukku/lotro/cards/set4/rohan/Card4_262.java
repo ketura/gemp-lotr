@@ -37,7 +37,7 @@ public class Card4_262 extends AbstractAlly {
                 && PlayConditions.canSpot(game, Keyword.VILLAGER)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
                             new ArcheryTotalModifier(self, Side.FREE_PEOPLE, 1), Phase.ARCHERY));

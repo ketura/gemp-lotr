@@ -42,7 +42,7 @@ public class Card17_055 extends AbstractMinion {
                 && PlayConditions.canPlayFromStacked(playerId, game, Filters.and(Culture.MEN, CardType.POSSESSION), Culture.MEN, CardType.MINION)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new ChooseAndPlayCardFromStackedEffect(playerId, Filters.and(Culture.MEN, CardType.POSSESSION), Culture.MEN, CardType.MINION));
             if (PlayConditions.canSpot(game, 6, CardType.COMPANION))

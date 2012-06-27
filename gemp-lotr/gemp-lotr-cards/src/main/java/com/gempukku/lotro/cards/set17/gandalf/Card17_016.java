@@ -44,7 +44,7 @@ public class Card17_016 extends AbstractCompanion {
                 && PlayConditions.canSelfExert(self, game)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new RevealTopCardsOfDrawDeckEffect(self, playerId, 2) {
                         @Override

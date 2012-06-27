@@ -42,7 +42,7 @@ public class Card17_063 extends AbstractMinion {
                 && PlayConditions.canSelfExert(self, game)) {
             final RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new AddThreatsEffect(self.getOwner(), self, 1));
             action.appendEffect(

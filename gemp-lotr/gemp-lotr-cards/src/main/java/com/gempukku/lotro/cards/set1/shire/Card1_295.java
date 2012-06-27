@@ -93,7 +93,7 @@ public class Card1_295 extends AbstractAlly {
                 && !game.getGameState().getSite(1).getOwner().equals(playerId)
                 && PlayConditions.canExert(self, game, self)) {
             ActivateCardAction action = new ActivateCardAction(self);
-            action.appendCost(new SelfExertEffect(self));
+            action.appendCost(new SelfExertEffect(action, self));
             action.appendEffect(new PlaySiteEffect(action, playerId, Block.FELLOWSHIP, 1));
             actions.add(action);
         }

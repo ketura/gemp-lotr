@@ -39,7 +39,7 @@ public class Card4_286 extends AbstractCompanion {
                 && Filters.mounted.accepts(game.getGameState(), game.getModifiersQuerying(), self)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, CardType.MINION, Filters.inSkirmishAgainst(Filters.unboundCompanion)));
             return Collections.singletonList(action);

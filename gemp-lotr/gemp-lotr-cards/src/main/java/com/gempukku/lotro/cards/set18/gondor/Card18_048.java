@@ -47,7 +47,7 @@ public class Card18_048 extends AbstractCompanion {
                 && PlayConditions.canSelfExert(self, game)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(self));
+                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new ChooseAndHealCharactersEffect(action, playerId, 1, 1, Filters.not(self), CardType.COMPANION, Filters.minResistance(5)));
             return Collections.singletonList(action);
