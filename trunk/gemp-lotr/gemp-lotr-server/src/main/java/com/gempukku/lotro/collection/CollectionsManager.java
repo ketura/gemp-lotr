@@ -3,17 +3,12 @@ package com.gempukku.lotro.collection;
 import com.gempukku.lotro.db.CollectionDAO;
 import com.gempukku.lotro.db.PlayerDAO;
 import com.gempukku.lotro.db.vo.CollectionType;
-import com.gempukku.lotro.game.CardCollection;
-import com.gempukku.lotro.game.DefaultCardCollection;
-import com.gempukku.lotro.game.MutableCardCollection;
-import com.gempukku.lotro.game.Player;
+import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.packs.PacksStorage;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
@@ -38,6 +33,9 @@ public class CollectionsManager {
     public CardCollection getPlayerCollection(Player player, String collectionType) {
         _readWriteLock.readLock().lock();
         try {
+            if (collectionType.contains("+"))
+                return createSumCollection(player, collectionType.split("\\+"));
+
             Map<String, CardCollection> playerCollections = _collections.get(player.getName());
             if (playerCollections != null) {
                 final CardCollection cardCollection = playerCollections.get(collectionType);
@@ -66,7 +64,17 @@ public class CollectionsManager {
         }
     }
 
+    private CardCollection createSumCollection(Player player, String[] collectionTypes) {
+        List<CardCollection> collections = new LinkedList<CardCollection>();
+        for (String collectionType : collectionTypes)
+            collections.add(getPlayerCollection(player, collectionType));
+
+        return new SumCardCollection(collections);
+    }
+
     private void setPlayerCollection(Player player, String collectionType, CardCollection cardCollection) {
+        if (collectionType.contains("+"))
+            throw new IllegalArgumentException("Invalid collection type: " + collectionType);
         try {
             _collectionDAO.setPlayerCollection(player.getId(), collectionType, cardCollection);
             Map<String, CardCollection> playerCollections = _collections.get(player.getName());
@@ -83,6 +91,8 @@ public class CollectionsManager {
     }
 
     public void addPlayerCollection(Player player, CollectionType collectionType, CardCollection cardCollection) {
+        if (collectionType.getCode().contains("+"))
+            throw new IllegalArgumentException("Invalid collection type: " + collectionType);
         _readWriteLock.writeLock().lock();
         try {
             setPlayerCollection(player, collectionType.getCode(), cardCollection);
@@ -94,6 +104,9 @@ public class CollectionsManager {
     }
 
     public Map<Player, CardCollection> getPlayersCollection(String collectionType) {
+        if (collectionType.contains("+"))
+            throw new IllegalArgumentException("Invalid collection type: " + collectionType);
+
         _readWriteLock.readLock().lock();
         try {
             final Map<Integer, CardCollection> playerCollectionsByType = _collectionDAO.getPlayerCollectionsByType(collectionType);
