@@ -11,6 +11,7 @@ import com.gempukku.lotro.packs.PacksStorage;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -129,16 +130,16 @@ public class CollectionsManager {
         }
     }
 
-    public void addItemsToPlayerCollection(Player player, CollectionType collectionType, Map<String, Integer> items) {
+    public void addItemsToPlayerCollection(Player player, CollectionType collectionType, Collection<CardCollection.Item> items) {
         _readWriteLock.writeLock().lock();
         try {
             final CardCollection playerCollection = getPlayerCollection(player, collectionType.getCode());
             if (playerCollection != null) {
                 MutableCardCollection mutableCardCollection = new DefaultCardCollection(playerCollection);
                 MutableCardCollection addedCards = new DefaultCardCollection();
-                for (Map.Entry<String, Integer> item : items.entrySet()) {
-                    mutableCardCollection.addItem(item.getKey(), item.getValue());
-                    addedCards.addItem(item.getKey(), item.getValue());
+                for (CardCollection.Item item : items) {
+                    mutableCardCollection.addItem(item.getBlueprintId(), item.getCount());
+                    addedCards.addItem(item.getBlueprintId(), item.getCount());
                 }
 
                 setPlayerCollection(player, collectionType.getCode(), mutableCardCollection);
@@ -149,7 +150,7 @@ public class CollectionsManager {
         }
     }
 
-    public void addItemsToPlayerCollection(String player, CollectionType collectionType, Map<String, Integer> items) {
+    public void addItemsToPlayerCollection(String player, CollectionType collectionType, Collection<CardCollection.Item> items) {
         addItemsToPlayerCollection(_playerDAO.getPlayer(player), collectionType, items);
     }
 

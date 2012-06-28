@@ -5,7 +5,7 @@ import com.gempukku.lotro.packs.PacksStorage;
 import java.util.*;
 
 public class DefaultCardCollection implements MutableCardCollection {
-    private Map<String, Integer> _counts = new LinkedHashMap<String, Integer>();
+    private Map<String, Item> _counts = new LinkedHashMap<String, Item>();
     private int _currency;
 
     public DefaultCardCollection() {
@@ -34,23 +34,23 @@ public class DefaultCardCollection implements MutableCardCollection {
     }
 
     @Override
-    public void addItem(String itemId, int count) {
-        Integer oldCount = _counts.get(itemId);
+    public void addItem(String itemId, int toAdd) {
+        Item oldCount = _counts.get(itemId);
         if (oldCount == null)
-            oldCount = 0;
-        _counts.put(itemId, oldCount + count);
+            _counts.put(itemId, Item.createItem(itemId, toAdd));
+        else
+            _counts.put(itemId, Item.createItem(itemId, toAdd + oldCount.getCount()));
     }
 
     @Override
-    public boolean removeItem(String itemId, int count) {
-        Integer oldCount = _counts.get(itemId);
-        if (oldCount == null || oldCount < count)
+    public boolean removeItem(String itemId, int toRemove) {
+        Item oldCount = _counts.get(itemId);
+        if (oldCount == null || oldCount.getCount() < toRemove)
             return false;
-        final int newCount = oldCount - count;
-        if (newCount == 0)
+        if (oldCount.getCount() == toRemove)
             _counts.remove(itemId);
         else
-            _counts.put(itemId, newCount);
+            _counts.put(itemId, Item.createItem(itemId, oldCount.getCount() - toRemove));
         return true;
     }
 
@@ -64,16 +64,15 @@ public class DefaultCardCollection implements MutableCardCollection {
 
     @Override
     public synchronized CardCollection openPack(String packId, String selection, PacksStorage packsStorage) {
-        Integer count = _counts.get(packId);
+        Item count = _counts.get(packId);
         if (count == null)
             return null;
-        if (count > 0) {
+        if (count.getCount() > 0) {
             List<Item> packContents = null;
             if (selection != null && packId.startsWith("(S)")) {
                 if (hasSelection(packId, selection, packsStorage)) {
                     packContents = new LinkedList<Item>();
-                    Item.Type type = selection.contains("_") ? Item.Type.CARD : Item.Type.PACK;
-                    packContents.add(new Item(type, 1, selection));
+                    packContents.add(Item.createItem(selection, 1));
                 }
             } else {
                 packContents = packsStorage.openPack(packId);
@@ -89,10 +88,7 @@ public class DefaultCardCollection implements MutableCardCollection {
                 packCollection.addItem(itemFromPack.getBlueprintId(), itemFromPack.getCount());
             }
 
-            if (count == 1)
-                _counts.remove(packId);
-            else
-                _counts.put(packId, count - 1);
+            removeItem(packId, 1);
 
             return packCollection;
         }
@@ -100,33 +96,15 @@ public class DefaultCardCollection implements MutableCardCollection {
     }
 
     @Override
-    public Map<String, Integer> getAll() {
+    public Map<String, Item> getAll() {
         return Collections.unmodifiableMap(_counts);
     }
 
     @Override
     public int getItemCount(String blueprintId) {
-        Integer count = _counts.get(blueprintId);
+        Item count = _counts.get(blueprintId);
         if (count == null)
             return 0;
-        return count;
+        return count.getCount();
     }
-
-    @Override
-    public List<Item> getAllItems() {
-        List<Item> result = new ArrayList<Item>();
-
-        for (Map.Entry<String, Integer> itemCount : _counts.entrySet()) {
-            String blueprintId = itemCount.getKey();
-            int count = itemCount.getValue();
-            if (!blueprintId.contains("_"))
-                result.add(new Item(Item.Type.PACK, count, blueprintId));
-            else
-                result.add(new Item(Item.Type.CARD, count, blueprintId));
-        }
-
-        return result;
-    }
-
-
 }

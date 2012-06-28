@@ -64,6 +64,6 @@ public class RarityPackBox implements PackBox {
 
     private void addCards(List<CardCollection.Item> result, Collection<String> cards, boolean foil) {
         for (String card : cards)
-            result.add(new CardCollection.Item(CardCollection.Item.Type.CARD, 1, card + (foil ? "*" : "")));
+            result.add(CardCollection.Item.createItem(card + (foil ? "*" : ""), 1));
     }
 }

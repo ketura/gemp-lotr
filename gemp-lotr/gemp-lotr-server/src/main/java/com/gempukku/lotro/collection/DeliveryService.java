@@ -28,9 +28,9 @@ public class DeliveryService {
                 deliverablesInCollection = new DefaultCardCollection();
                 playerDeliverables.put(packageName, deliverablesInCollection);
             }
-            for (Map.Entry<String, Integer> itemToAdd : itemCollection.getAll().entrySet()) {
+            for (Map.Entry<String, CardCollection.Item> itemToAdd : itemCollection.getAll().entrySet()) {
                 String blueprintId = itemToAdd.getKey();
-                int count = itemToAdd.getValue();
+                int count = itemToAdd.getValue().getCount();
                 deliverablesInCollection.addItem(blueprintId, count);
             }
         } finally {
