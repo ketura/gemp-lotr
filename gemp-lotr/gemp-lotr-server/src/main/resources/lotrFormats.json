@@ -75,6 +75,15 @@
         "hall":false
     },
     {
+        "name":"Towers standard - Sets 2-6",
+        "code":"ts_no_fotr",
+        "sites":"TWO_TOWERS",
+        "cancelRingBearerSkirmish":true,
+        "banned":["1_40", "1_45", "1_80", "1_108", "1_139", "1_234", "1_248", "1_313", "2_32", "2_101", "2_108", "3_38", "3_42", "3_68", "4_192"],
+        "set":[2, 3, 4, 5, 6],
+        "hall":false
+    },
+    {
         "name":"Towers standard - Sets 1-6,9,14,16",
         "code":"ts_reflections",
         "sites":"TWO_TOWERS",
