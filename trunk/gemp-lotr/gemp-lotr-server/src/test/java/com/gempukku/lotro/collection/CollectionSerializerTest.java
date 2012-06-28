@@ -2,13 +2,14 @@ package com.gempukku.lotro.collection;
 
 import com.gempukku.lotro.game.CardCollection;
 import com.gempukku.lotro.game.DefaultCardCollection;
-import static junit.framework.Assert.assertEquals;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Map;
+
+import static junit.framework.Assert.assertEquals;
 
 public class CollectionSerializerTest {
     @Test
@@ -30,14 +31,14 @@ public class CollectionSerializerTest {
         ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
         CardCollection resultCollection = serializer.deserializeCollection(bais);
 
-        final Map<String, Integer> result = resultCollection.getAll();
+        final Map<String, CardCollection.Item> result = resultCollection.getAll();
         assertEquals(5, result.size());
         assertEquals(256 * 256 * 250, resultCollection.getCurrency());
-        assertEquals(2, (int) result.get("1_1"));
-        assertEquals(3, (int) result.get("1_231T"));
-        assertEquals(3, (int) result.get("1_23*"));
-        assertEquals(3, (int) result.get("1_237T*"));
-        assertEquals(2, (int) result.get("FotR - Booster"));
+        assertEquals(2, (int) result.get("1_1").getCount());
+        assertEquals(3, (int) result.get("1_231T").getCount());
+        assertEquals(3, (int) result.get("1_23*").getCount());
+        assertEquals(3, (int) result.get("1_237T*").getCount());
+        assertEquals(2, (int) result.get("FotR - Booster").getCount());
     }
 
     @Test
@@ -54,8 +55,8 @@ public class CollectionSerializerTest {
         ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
         CardCollection resultCollection = serializer.deserializeCollection(bais);
 
-        final Map<String, Integer> result = resultCollection.getAll();
+        final Map<String, CardCollection.Item> result = resultCollection.getAll();
         assertEquals(1, result.size());
-        assertEquals(8, (int) result.get("FotR - Booster"));
+        assertEquals(8, (int) result.get("FotR - Booster").getCount());
     }
 }

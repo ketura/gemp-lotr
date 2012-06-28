@@ -33,8 +33,7 @@ public class FixedPackBox implements PackBox {
         List<CardCollection.Item> result = new LinkedList<CardCollection.Item>();
         for (Map.Entry<String, Integer> contentsEntry : _contents.entrySet()) {
             String blueprintId = contentsEntry.getKey();
-            CardCollection.Item.Type type = blueprintId.contains("_") ? CardCollection.Item.Type.CARD : CardCollection.Item.Type.PACK;
-            result.add(new CardCollection.Item(type, contentsEntry.getValue(), blueprintId));
+            result.add(CardCollection.Item.createItem(blueprintId, contentsEntry.getValue()));
         }
         return result;
     }

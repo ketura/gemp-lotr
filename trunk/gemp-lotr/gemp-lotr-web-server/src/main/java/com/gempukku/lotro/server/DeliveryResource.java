@@ -45,16 +45,16 @@ public class DeliveryResource extends AbstractResource {
 
             Element collectionTypeElem = doc.createElement("collectionType");
             collectionTypeElem.setAttribute("name", collectionType);
-            for (Map.Entry<String, Integer> itemCount : items.getAll().entrySet()) {
-                String blueprintId = itemCount.getKey();
-                if (blueprintId.contains("_")) {
+            for (CardCollection.Item item : items.getAll().values()) {
+                String blueprintId = item.getBlueprintId();
+                if (item.getType() == CardCollection.Item.Type.CARD) {
                     Element card = doc.createElement("card");
-                    card.setAttribute("count", String.valueOf(itemCount.getValue()));
+                    card.setAttribute("count", String.valueOf(item.getCount()));
                     card.setAttribute("blueprintId", blueprintId);
                     collectionTypeElem.appendChild(card);
                 } else {
                     Element pack = doc.createElement("pack");
-                    pack.setAttribute("count", String.valueOf(itemCount.getValue()));
+                    pack.setAttribute("count", String.valueOf(item.getCount()));
                     pack.setAttribute("blueprintId", blueprintId);
                     collectionTypeElem.appendChild(pack);
                 }

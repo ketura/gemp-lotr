@@ -14,39 +14,39 @@ public class LeagueStarterBox implements PackBox {
         List<CardCollection.Item> result = new LinkedList<CardCollection.Item>();
         int starter = _random.nextInt(6);
         if (starter == 0) {
-            result.add(new CardCollection.Item(CardCollection.Item.Type.PACK, 1, "FotR - Gandalf Starter"));
+            result.add(CardCollection.Item.createItem("FotR - Gandalf Starter", 1));
         } else if (starter == 1) {
-            result.add(new CardCollection.Item(CardCollection.Item.Type.PACK, 1, "FotR - Aragorn Starter"));
+            result.add(CardCollection.Item.createItem("FotR - Aragorn Starter", 1));
         } else if (starter == 2) {
-            result.add(new CardCollection.Item(CardCollection.Item.Type.PACK, 1, "MoM - Gandalf Starter"));
+            result.add(CardCollection.Item.createItem("MoM - Gandalf Starter", 1));
         } else if (starter == 3) {
-            result.add(new CardCollection.Item(CardCollection.Item.Type.PACK, 1, "MoM - Gimli Starter"));
+            result.add(CardCollection.Item.createItem("MoM - Gimli Starter", 1));
         } else if (starter == 4) {
-            result.add(new CardCollection.Item(CardCollection.Item.Type.PACK, 1, "RotEL - Boromir Starter"));
+            result.add(CardCollection.Item.createItem("RotEL - Boromir Starter", 1));
         } else if (starter == 5) {
-            result.add(new CardCollection.Item(CardCollection.Item.Type.PACK, 1, "RotEL - Legolas Starter"));
+            result.add(CardCollection.Item.createItem("RotEL - Legolas Starter", 1));
         }
-        result.add(new CardCollection.Item(CardCollection.Item.Type.PACK, 2, "FotR - Booster"));
-        result.add(new CardCollection.Item(CardCollection.Item.Type.PACK, 2, "MoM - Booster"));
-        result.add(new CardCollection.Item(CardCollection.Item.Type.PACK, 2, "RotEL - Booster"));
+        result.add(CardCollection.Item.createItem("FotR - Booster", 2));
+        result.add(CardCollection.Item.createItem("MoM - Booster", 2));
+        result.add(CardCollection.Item.createItem("RotEL - Booster", 2));
 
         // Arwen
-        result.add(new CardCollection.Item(CardCollection.Item.Type.CARD, 1, "3_7"));
+        result.add(CardCollection.Item.createItem("3_7", 1));
         // Boromir
-        result.add(new CardCollection.Item(CardCollection.Item.Type.CARD, 1, "1_97"));
+        result.add(CardCollection.Item.createItem("1_97", 1));
         // Gimli
-        result.add(new CardCollection.Item(CardCollection.Item.Type.CARD, 1, "1_12"));
+        result.add(CardCollection.Item.createItem("1_12", 1));
         // Legolas
-        result.add(new CardCollection.Item(CardCollection.Item.Type.CARD, 1, "1_51"));
+        result.add(CardCollection.Item.createItem("1_51", 1));
         // Merry
-        result.add(new CardCollection.Item(CardCollection.Item.Type.CARD, 1, "1_303"));
+        result.add(CardCollection.Item.createItem("1_303", 1));
         // Pippin
-        result.add(new CardCollection.Item(CardCollection.Item.Type.CARD, 1, "1_306"));
+        result.add(CardCollection.Item.createItem("1_306", 1));
         // Sam
-        result.add(new CardCollection.Item(CardCollection.Item.Type.CARD, 1, "1_311"));
+        result.add(CardCollection.Item.createItem("1_311", 1));
 
         // The Balrog
-        result.add(new CardCollection.Item(CardCollection.Item.Type.CARD, 1, "0_10"));
+        result.add(CardCollection.Item.createItem("0_10", 1));
 
         return result;
     }

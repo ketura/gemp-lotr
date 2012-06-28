@@ -24,8 +24,7 @@ public class RandomFoilPack implements PackBox {
     public List<CardCollection.Item> openPack() {
         List<CardCollection.Item> result = new LinkedList<CardCollection.Item>();
         final String cardBlueprintId = _availableCards.get(new Random().nextInt(_availableCards.size())) + "*";
-        result.add(
-                new CardCollection.Item(CardCollection.Item.Type.CARD, 1, cardBlueprintId));
+        result.add(CardCollection.Item.createItem(cardBlueprintId, 1));
         return result;
     }
 }

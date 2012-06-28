@@ -96,13 +96,13 @@ public class CollectionSerializer {
         byte packBytes = (byte) _packIds.size();
         outputStream.write(packBytes);
 
-        final Map<String, Integer> collectionCounts = collection.getAll();
+        final Map<String, CardCollection.Item> collectionCounts = collection.getAll();
         for (String packId : _packIds) {
-            final Integer count = collectionCounts.get(packId);
+            final CardCollection.Item count = collectionCounts.get(packId);
             if (count == null)
                 outputStream.write(0);
             else
-                outputStream.write(count);
+                outputStream.write(count.getCount());
         }
 
         int cardBytes = _cardIds.size();
@@ -110,11 +110,11 @@ public class CollectionSerializer {
         outputStream.write(cardBytes & 0x000000ff);
 
         for (String cardId : _cardIds) {
-            final Integer count = collectionCounts.get(cardId);
+            final CardCollection.Item count = collectionCounts.get(cardId);
             if (count == null)
                 outputStream.write(0);
             else
-                outputStream.write(count);
+                outputStream.write(count.getCount());
         }
     }
 

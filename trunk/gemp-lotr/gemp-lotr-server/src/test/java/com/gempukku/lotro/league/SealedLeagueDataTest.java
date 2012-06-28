@@ -7,13 +7,14 @@ import com.gempukku.lotro.game.DefaultCardCollection;
 import com.gempukku.lotro.game.Player;
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
-import static org.junit.Assert.assertEquals;
 import org.junit.Test;
+import org.mockito.ArgumentMatcher;
 import org.mockito.Mockito;
 import org.mockito.internal.verification.Times;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+
+import static org.junit.Assert.assertEquals;
 
 public class SealedLeagueDataTest {
     @Test
@@ -34,14 +35,14 @@ public class SealedLeagueDataTest {
                         @Override
                         public boolean matches(Object o) {
                             CardCollection cards = (CardCollection) o;
-                            Map<String, Integer> cardMap = cards.getAll();
+                            Map<String, CardCollection.Item> cardMap = cards.getAll();
                             if (cardMap.size() != 3)
                                 return false;
-                            if (cardMap.get("(S)FotR - Starter") != 1)
+                            if (cardMap.get("(S)FotR - Starter").getCount() != 1)
                                 return false;
-                            if (cardMap.get("FotR - Booster") != 6)
+                            if (cardMap.get("FotR - Booster").getCount() != 6)
                                 return false;
-                            if (cardMap.get("1_231") != 2)
+                            if (cardMap.get("1_231").getCount() != 2)
                                 return false;
                             return true;
                         }
@@ -69,20 +70,20 @@ public class SealedLeagueDataTest {
                         @Override
                         public boolean matches(Object o) {
                             CardCollection cards = (CardCollection) o;
-                            Map<String, Integer> cardMap = cards.getAll();
+                            Map<String, CardCollection.Item> cardMap = cards.getAll();
                             if (cardMap.size() != 6)
                                 return false;
-                            if (cardMap.get("(S)FotR - Starter") != 1)
+                            if (cardMap.get("(S)FotR - Starter").getCount() != 1)
                                 return false;
-                            if (cardMap.get("FotR - Booster") != 6)
+                            if (cardMap.get("FotR - Booster").getCount() != 6)
                                 return false;
-                            if (cardMap.get("1_231") != 2)
+                            if (cardMap.get("1_231").getCount() != 2)
                                 return false;
-                            if (cardMap.get("(S)MoM - Starter") != 1)
+                            if (cardMap.get("(S)MoM - Starter").getCount() != 1)
                                 return false;
-                            if (cardMap.get("MoM - Booster") != 3)
+                            if (cardMap.get("MoM - Booster").getCount() != 3)
                                 return false;
-                            if (cardMap.get("2_51") != 1)
+                            if (cardMap.get("2_51").getCount() != 1)
                                 return false;
                             return true;
                         }
@@ -129,12 +130,26 @@ public class SealedLeagueDataTest {
             Mockito.when(collectionsManager.getPlayersCollection("test")).thenReturn(playersInLeague);
             int result = data.process(collectionsManager, null, 1, i);
             assertEquals(2, result);
-            Map<String, Integer> expectedToAdd = new HashMap<String, Integer>();
-            expectedToAdd.put("(S)MoM - Starter", 1);
-            expectedToAdd.put("MoM - Booster", 3);
-            expectedToAdd.put("2_51", 1);
+            final List<CardCollection.Item> expectedToAdd = new ArrayList<CardCollection.Item>();
+            expectedToAdd.add(CardCollection.Item.createItem("(S)MoM - Starter", 1));
+            expectedToAdd.add(CardCollection.Item.createItem("MoM - Booster", 3));
+            expectedToAdd.add(CardCollection.Item.createItem("2_51", 1));
             Mockito.verify(collectionsManager, new Times(1)).getPlayersCollection("test");
-            Mockito.verify(collectionsManager, new Times(1)).addItemsToPlayerCollection(Mockito.eq(player), Mockito.eq(collectionType), Mockito.eq(expectedToAdd));
+            Mockito.verify(collectionsManager, new Times(1)).addItemsToPlayerCollection(Mockito.eq(player), Mockito.eq(collectionType),
+                    Mockito.argThat(
+                            new ArgumentMatcher<Collection<CardCollection.Item>>() {
+                                @Override
+                                public boolean matches(Object o) {
+                                    Collection<CardCollection.Item> argument = (Collection<CardCollection.Item>) o;
+                                    if (argument.size() != expectedToAdd.size())
+                                        return false;
+                                    for (CardCollection.Item item : expectedToAdd) {
+                                        if (!argument.contains(item))
+                                            return false;
+                                    }
+                                    return true;
+                                }
+                            }));
             Mockito.verifyNoMoreInteractions(collectionsManager);
         }
     }

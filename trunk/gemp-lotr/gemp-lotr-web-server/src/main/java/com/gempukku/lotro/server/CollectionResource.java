@@ -24,6 +24,7 @@ import javax.ws.rs.core.Response;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -90,7 +91,7 @@ public class CollectionResource extends AbstractResource {
         if (collection == null)
             sendError(Response.Status.NOT_FOUND);
 
-        List<CardCollection.Item> items = collection.getAllItems();
+        Collection<CardCollection.Item> items = collection.getAll().values();
         List<CardCollection.Item> filteredResult = _sortAndFilterCards.process(filter, items, _library, _rarities);
 
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -118,7 +119,7 @@ public class CollectionResource extends AbstractResource {
                     Element pack = doc.createElement("pack");
                     pack.setAttribute("count", String.valueOf(item.getCount()));
                     pack.setAttribute("blueprintId", blueprintId);
-                    if (blueprintId.startsWith("(S)")) {
+                    if (item.getType() == CardCollection.Item.Type.SELECTION) {
                         List<CardCollection.Item> contents = _packStorage.openPack(blueprintId);
                         StringBuilder contentsStr = new StringBuilder();
                         for (CardCollection.Item content : contents)
@@ -198,11 +199,11 @@ public class CollectionResource extends AbstractResource {
         Element collectionElem = doc.createElement("pack");
         doc.appendChild(collectionElem);
 
-        for (Map.Entry<String, Integer> itemCount : packContents.getAll().entrySet()) {
-            String blueprintId = itemCount.getKey();
-            if (blueprintId.contains("_")) {
+        for (CardCollection.Item item : packContents.getAll().values()) {
+            String blueprintId = item.getBlueprintId();
+            if (item.getType() == CardCollection.Item.Type.CARD) {
                 Element card = doc.createElement("card");
-                card.setAttribute("count", String.valueOf(itemCount.getValue()));
+                card.setAttribute("count", String.valueOf(item.getCount()));
                 card.setAttribute("blueprintId", blueprintId);
                 Side side = _library.getLotroCardBlueprint(blueprintId).getSide();
                 if (side != null)
@@ -210,7 +211,7 @@ public class CollectionResource extends AbstractResource {
                 collectionElem.appendChild(card);
             } else {
                 Element pack = doc.createElement("pack");
-                pack.setAttribute("count", String.valueOf(itemCount.getValue()));
+                pack.setAttribute("count", String.valueOf(item.getCount()));
                 pack.setAttribute("blueprintId", blueprintId);
                 collectionElem.appendChild(pack);
             }

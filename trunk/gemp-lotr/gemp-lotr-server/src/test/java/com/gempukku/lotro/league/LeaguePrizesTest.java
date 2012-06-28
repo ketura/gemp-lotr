@@ -10,8 +10,8 @@ public class LeaguePrizesTest {
     public void test() {
         LeaguePrizes leaguePrizes = new NewLeaguePrizes();
         CardCollection prize = leaguePrizes.getPrizeForLeagueMatchWinner(2, 2);
-        for (Map.Entry<String, Integer> stringIntegerEntry : prize.getAll().entrySet()) {
-            System.out.println(stringIntegerEntry.getKey() + ": " + stringIntegerEntry.getValue());
+        for (Map.Entry<String, CardCollection.Item> stringIntegerEntry : prize.getAll().entrySet()) {
+            System.out.println(stringIntegerEntry.getKey() + ": " + stringIntegerEntry.getValue().getCount());
         }
     }
 
@@ -19,8 +19,8 @@ public class LeaguePrizesTest {
     public void testLeaguePrize() {
         LeaguePrizes leaguePrizes = new NewLeaguePrizes();
         CardCollection prize = leaguePrizes.getPrizeForLeague(1, 100, 2f);
-        for (Map.Entry<String, Integer> stringIntegerEntry : prize.getAll().entrySet()) {
-            System.out.println(stringIntegerEntry.getKey() + ": " + stringIntegerEntry.getValue());
+        for (Map.Entry<String, CardCollection.Item> stringIntegerEntry : prize.getAll().entrySet()) {
+            System.out.println(stringIntegerEntry.getKey() + ": " + stringIntegerEntry.getValue().getCount());
         }
     }
 }

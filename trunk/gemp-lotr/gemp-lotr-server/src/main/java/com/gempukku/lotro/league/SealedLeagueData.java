@@ -56,8 +56,8 @@ public class SealedLeagueData implements LeagueData {
             if (currentTime >= serie.getStart()) {
                 CardCollection leagueProduct = _leagueProduct.getCollectionForSerie(_format, i);
 
-                for (Map.Entry<String, Integer> serieCollectionItem : leagueProduct.getAll().entrySet())
-                    startingCollection.addItem(serieCollectionItem.getKey(), serieCollectionItem.getValue());
+                for (Map.Entry<String, CardCollection.Item> serieCollectionItem : leagueProduct.getAll().entrySet())
+                    startingCollection.addItem(serieCollectionItem.getKey(), serieCollectionItem.getValue().getCount());
             }
         }
         collectionManager.addPlayerCollection(player, _collectionType, startingCollection);
@@ -74,7 +74,7 @@ public class SealedLeagueData implements LeagueData {
                 CardCollection leagueProduct = _leagueProduct.getCollectionForSerie(_format, i);
                 Map<Player, CardCollection> map = collectionsManager.getPlayersCollection(_collectionType.getCode());
                 for (Map.Entry<Player, CardCollection> playerCardCollectionEntry : map.entrySet()) {
-                    collectionsManager.addItemsToPlayerCollection(playerCardCollectionEntry.getKey(), _collectionType, leagueProduct.getAll());
+                    collectionsManager.addItemsToPlayerCollection(playerCardCollectionEntry.getKey(), _collectionType, leagueProduct.getAll().values());
                 }
                 status = i + 1;
             }
@@ -86,7 +86,7 @@ public class SealedLeagueData implements LeagueData {
                 for (PlayerStanding leagueStanding : leagueStandings) {
                     CardCollection leaguePrize = _leaguePrizes.getPrizeForLeague(leagueStanding.getStanding(), leagueStandings.size(), 1f);
                     if (leaguePrize != null)
-                        collectionsManager.addItemsToPlayerCollection(leagueStanding.getPlayerName(), _prizeCollectionType, leaguePrize.getAll());
+                        collectionsManager.addItemsToPlayerCollection(leagueStanding.getPlayerName(), _prizeCollectionType, leaguePrize.getAll().values());
                 }
                 status++;
             }

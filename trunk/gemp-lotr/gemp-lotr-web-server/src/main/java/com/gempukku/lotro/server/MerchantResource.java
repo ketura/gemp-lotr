@@ -73,7 +73,7 @@ public class MerchantResource extends AbstractResource {
         CardCollection collection = _collectionsManager.getPlayerCollection(resourceOwner, "permanent");
 
         Set<CardItem> cardItems = new HashSet<CardItem>();
-        final List<CardCollection.Item> allItems = collection.getAllItems();
+        final Collection<CardCollection.Item> allItems = collection.getAll().values();
         for (CardCollection.Item item : allItems) {
             if (item.getCount() >= ownedMin)
                 cardItems.add(item);

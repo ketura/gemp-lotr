@@ -6,7 +6,7 @@ import com.gempukku.lotro.db.DeckDAO;
 import com.gempukku.lotro.db.LeagueDAO;
 import com.gempukku.lotro.db.MerchantDAO;
 import com.gempukku.lotro.db.vo.CollectionType;
-import com.gempukku.lotro.game.DefaultCardCollection;
+import com.gempukku.lotro.game.CardCollection;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.game.LotroServer;
 import com.gempukku.lotro.game.Player;
@@ -24,10 +24,9 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import java.util.HashMap;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 @Singleton
 @Path("/admin")
@@ -269,11 +268,7 @@ public class AdminResource extends AbstractResource {
             @Context HttpServletRequest request) throws Exception {
         validateAdmin(request);
 
-        DefaultCardCollection items = new DefaultCardCollection();
-
-        Map<String, Integer> productItems = getProductItems(product);
-        for (Map.Entry<String, Integer> productItem : productItems.entrySet())
-            items.addItem(productItem.getKey(), productItem.getValue());
+        Collection<CardCollection.Item> productItems = getProductItems(product);
 
         List<String> playerNames = getItems(players);
 
@@ -296,15 +291,15 @@ public class AdminResource extends AbstractResource {
         return result;
     }
 
-    private Map<String, Integer> getProductItems(String values) {
-        Map<String, Integer> result = new HashMap<String, Integer>();
+    private Collection<CardCollection.Item> getProductItems(String values) {
+        List<CardCollection.Item> result = new LinkedList<CardCollection.Item>();
         for (String item : values.split("\n")) {
             item = item.trim();
             if (item.length() > 0) {
                 final String[] itemSplit = item.split("x", 2);
                 if (itemSplit.length != 2)
                     throw new RuntimeException("Unable to parse the items");
-                result.put(itemSplit[1].trim(), Integer.parseInt(itemSplit[0].trim()));
+                result.add(CardCollection.Item.createItem(itemSplit[1].trim(), Integer.parseInt(itemSplit[0].trim())));
             }
         }
         return result;

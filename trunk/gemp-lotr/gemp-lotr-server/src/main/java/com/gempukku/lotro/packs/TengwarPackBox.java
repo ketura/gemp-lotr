@@ -14,7 +14,7 @@ public class TengwarPackBox implements PackBox {
         RarityReader rarityReader = new RarityReader();
         for (int set : sets)
             for (String tengwarCard : rarityReader.getSetRarity(String.valueOf(set)).getTengwarCards())
-                _cards.add(new CardCollection.Item(CardCollection.Item.Type.CARD, 1, tengwarCard));
+                _cards.add(CardCollection.Item.createItem(tengwarCard, 1));
     }
 
     @Override
