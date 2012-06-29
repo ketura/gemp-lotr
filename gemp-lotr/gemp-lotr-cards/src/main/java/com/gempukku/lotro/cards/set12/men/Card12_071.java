@@ -32,8 +32,7 @@ public class Card12_071 extends AbstractPermanent {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
-        if ((TriggerConditions.forEachKilled(game, effectResult, CardType.MINION, Culture.MEN)
-                || TriggerConditions.forEachDiscardedFromPlay(game, effectResult, CardType.MINION, Culture.MEN))
+        if (TriggerConditions.forEachDiscardedFromPlay(game, effectResult, CardType.MINION, Culture.MEN)
                 && !PlayConditions.isPhase(game, Phase.REGROUP)
                 && PlayConditions.canPlayFromHand(playerId, game, -2, Culture.MEN, CardType.MINION)) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
