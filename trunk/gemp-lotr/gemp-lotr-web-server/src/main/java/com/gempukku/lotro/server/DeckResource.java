@@ -145,7 +145,7 @@ public class DeckResource extends AbstractResource {
             @Context HttpServletRequest request) throws ParserConfigurationException {
         Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
-        LotroDeck lotroDeck = _lotroServer.createDeckWithValidate(contents);
+        LotroDeck lotroDeck = _lotroServer.createDeckWithValidate(deckName, contents);
         if (lotroDeck == null)
             sendError(Response.Status.BAD_REQUEST);
 
@@ -198,7 +198,7 @@ public class DeckResource extends AbstractResource {
             @Context HttpServletRequest request) {
         Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
-        LotroDeck deck = _lotroServer.createDeckWithValidate(contents);
+        LotroDeck deck = _lotroServer.createDeckWithValidate("tempDeck", contents);
         if (deck == null)
             sendError(Response.Status.BAD_REQUEST);
 

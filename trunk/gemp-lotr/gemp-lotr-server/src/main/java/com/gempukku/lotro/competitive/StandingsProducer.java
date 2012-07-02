@@ -15,7 +15,7 @@ public class StandingsProducer {
 
 
     public static List<PlayerStanding> produceStandings(Collection<String> participants, Collection<? extends CompetitiveMatchResult> matches,
-                                                        int pointsForWin, int pointsForLoss, Set<String> playersWithByes) {
+                                                        int pointsForWin, int pointsForLoss, Map<String, Integer> playersWithByes) {
         Map<String, List<String>> playerOpponents = new HashMap<String, List<String>>();
         Map<String, AtomicInteger> playerWinCounts = new HashMap<String, AtomicInteger>();
         Map<String, AtomicInteger> playerLossCounts = new HashMap<String, AtomicInteger>();
@@ -39,8 +39,8 @@ public class StandingsProducer {
             int points = playerWinCounts.get(playerName).intValue() * pointsForWin + playerLossCounts.get(playerName).intValue() * pointsForLoss;
             int gamesPlayed = playerWinCounts.get(playerName).intValue() + playerLossCounts.get(playerName).intValue();
 
-            if (playersWithByes.contains(playerName))
-                points += pointsForWin;
+            if (playersWithByes.containsKey(playerName))
+                points += pointsForWin * playersWithByes.get(playerName);
 
             PlayerStanding standing = new PlayerStanding(playerName, points, gamesPlayed);
             List<String> opponents = playerOpponents.get(playerName);

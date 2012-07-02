@@ -216,7 +216,7 @@ public class LeagueService {
     }
 
     private List<PlayerStanding> createStandingsForMatchesAndPoints(Collection<String> playersParticipating, Collection<LeagueMatchResult> matches) {
-        return StandingsProducer.produceStandings(playersParticipating, matches, 2, 1, Collections.<String>emptySet());
+        return StandingsProducer.produceStandings(playersParticipating, matches, 2, 1, Collections.<String, Integer>emptyMap());
     }
 
     public boolean canPlayRankedGame(League league, LeagueSerieData season, String player) {

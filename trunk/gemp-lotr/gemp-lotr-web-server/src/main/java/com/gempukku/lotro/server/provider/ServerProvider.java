@@ -11,6 +11,9 @@ import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.gempukku.lotro.hall.HallServer;
 import com.gempukku.lotro.league.LeagueService;
 import com.gempukku.lotro.merchant.MerchantService;
+import com.gempukku.lotro.tournament.TournamentMatchDAO;
+import com.gempukku.lotro.tournament.TournamentPlayerDAO;
+import com.gempukku.lotro.tournament.TournamentService;
 import com.sun.jersey.core.spi.component.ComponentContext;
 import com.sun.jersey.core.spi.component.ComponentScope;
 import com.sun.jersey.spi.inject.Injectable;
@@ -27,6 +30,7 @@ public class ServerProvider implements InjectableProvider<Context, Type> {
     private Injectable<LeagueService> _leagueServiceInjectable;
     private Injectable<GameHistoryService> _gameHistoryServiceInjectable;
     private Injectable<MerchantService> _merchantServiceInjectable;
+    private Injectable<TournamentService> _tournamentServiceInjectable;
     private Injectable<HallServer> _hallServerInjectable;
     private Injectable<LotroServer> _lotroServerInjectable;
     private Injectable<CollectionsManager> _collectionsManagerInjectable;
@@ -50,6 +54,10 @@ public class ServerProvider implements InjectableProvider<Context, Type> {
     @Context
     private GameHistoryDAO _gameHistoryDao;
     @Context
+    private TournamentPlayerDAO _tournamentPlayerDao;
+    @Context
+    private TournamentMatchDAO _tournamentMatchDao;
+    @Context
     private LotroCardBlueprintLibrary _library;
 
     @Override
@@ -72,6 +80,8 @@ public class ServerProvider implements InjectableProvider<Context, Type> {
             return getLotroFormatLibraryInjectable();
         if (type.equals(MerchantService.class))
             return getMerchantServiceInjectable();
+        if (type.equals(TournamentService.class))
+            return getTournamentServiceInjectable();
         return null;
     }
 
@@ -135,6 +145,19 @@ public class ServerProvider implements InjectableProvider<Context, Type> {
         return _merchantServiceInjectable;
     }
 
+    private synchronized Injectable<TournamentService> getTournamentServiceInjectable() {
+        if (_tournamentServiceInjectable == null) {
+            final TournamentService tournamentService = new TournamentService(_tournamentPlayerDao, _tournamentMatchDao);
+            _tournamentServiceInjectable = new Injectable<TournamentService>() {
+                @Override
+                public TournamentService getValue() {
+                    return tournamentService;
+                }
+            };
+        }
+        return _tournamentServiceInjectable;
+    }
+
     private synchronized Injectable<DeliveryService> getDeliveryServiceInjectable() {
         if (_deliveryServiceInjectable == null) {
             final DeliveryService deliveryService = new DeliveryService();
@@ -150,7 +173,8 @@ public class ServerProvider implements InjectableProvider<Context, Type> {
 
     private synchronized Injectable<HallServer> getHallServerInjectable() {
         if (_hallServerInjectable == null) {
-            final HallServer hallServer = new HallServer(getLotroServerInjectable().getValue(), getChatServerInjectable().getValue(), getLeagueServiceInjectable().getValue(), _library,
+            final HallServer hallServer = new HallServer(getLotroServerInjectable().getValue(), getChatServerInjectable().getValue(), getLeagueServiceInjectable().getValue(),
+                    getTournamentServiceInjectable().getValue(), _library,
                     getLotroFormatLibraryInjectable().getValue(), getCollectionsManagerInjectable().getValue(), false);
             hallServer.startServer();
             _hallServerInjectable = new Injectable<HallServer>() {

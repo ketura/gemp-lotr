@@ -9,6 +9,15 @@ public class LotroDeck {
     private String _ring;
     private List<String> _siteCards = new ArrayList<String>();
     private List<String> _nonSiteCards = new ArrayList<String>();
+    private String _deckName;
+
+    public LotroDeck(String deckName) {
+        _deckName = deckName;
+    }
+
+    public String getDeckName() {
+        return _deckName;
+    }
 
     public void setRingBearer(String ringBearer) {
         _ringBearer = ringBearer;

@@ -3,11 +3,14 @@ package com.gempukku.lotro.tournament;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 
 import java.util.Map;
+import java.util.Set;
 
-public interface TournamentPlayerDao {
+public interface TournamentPlayerDAO {
     public void addPlayer(String tournamentId, String playerName, LotroDeck deck);
 
-    public void removePlayer(String tournamentId, String playerName);
+    public void dropPlayer(String tournamentId, String playerName);
 
     public Map<String, LotroDeck> getPlayers(String tournamentId);
+
+    public Set<String> getDroppedPlayers(String tournamentId);
 }

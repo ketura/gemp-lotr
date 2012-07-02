@@ -3,6 +3,8 @@ package com.gempukku.lotro.server.provider;
 import com.gempukku.lotro.collection.CollectionSerializer;
 import com.gempukku.lotro.db.*;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
+import com.gempukku.lotro.tournament.TournamentMatchDAO;
+import com.gempukku.lotro.tournament.TournamentPlayerDAO;
 import com.sun.jersey.core.spi.component.ComponentContext;
 import com.sun.jersey.core.spi.component.ComponentScope;
 import com.sun.jersey.spi.inject.Injectable;
@@ -23,6 +25,9 @@ public class DaoProvider implements InjectableProvider<Context, Type> {
     private Injectable<LeagueDAO> _leagueDaoInjectable;
     private Injectable<LeagueMatchDAO> _leagueMatchDAOInjectable;
     private Injectable<LeagueParticipationDAO> _leagueParticipationDAOInjectable;
+
+    private Injectable<TournamentPlayerDAO> _tournamentPlayerDAOInjectable;
+    private Injectable<TournamentMatchDAO> _tournamentMatchDAOInjectable;
 
     private DbAccess _dbAccess;
     private CollectionSerializer _collectionSerializer;
@@ -54,6 +59,10 @@ public class DaoProvider implements InjectableProvider<Context, Type> {
             return getLeagueParticipationDaoSafely();
         else if (type.equals(MerchantDAO.class))
             return getMerchantDaoSafely();
+        else if (type.equals(TournamentPlayerDAO.class))
+            return getTournamentPlayerDaoSafely();
+        else if (type.equals(TournamentMatchDAO.class))
+            return getTournamentMatchDaoSafely();
         return null;
     }
 
@@ -81,6 +90,32 @@ public class DaoProvider implements InjectableProvider<Context, Type> {
             };
         }
         return _leagueMatchDAOInjectable;
+    }
+
+    private synchronized Injectable<TournamentPlayerDAO> getTournamentPlayerDaoSafely() {
+        if (_tournamentPlayerDAOInjectable == null) {
+            final DbTournamentPlayerDAO tournamentPlayerDAO = new DbTournamentPlayerDAO(_dbAccess);
+            _tournamentPlayerDAOInjectable = new Injectable<TournamentPlayerDAO>() {
+                @Override
+                public TournamentPlayerDAO getValue() {
+                    return tournamentPlayerDAO;
+                }
+            };
+        }
+        return _tournamentPlayerDAOInjectable;
+    }
+
+    private synchronized Injectable<TournamentMatchDAO> getTournamentMatchDaoSafely() {
+        if (_tournamentMatchDAOInjectable == null) {
+            final DbTournamentMatchDAO tournamentMatchDAO = new DbTournamentMatchDAO(_dbAccess);
+            _tournamentMatchDAOInjectable = new Injectable<TournamentMatchDAO>() {
+                @Override
+                public TournamentMatchDAO getValue() {
+                    return tournamentMatchDAO;
+                }
+            };
+        }
+        return _tournamentMatchDAOInjectable;
     }
 
     private synchronized Injectable<MerchantDAO> getMerchantDaoSafely() {

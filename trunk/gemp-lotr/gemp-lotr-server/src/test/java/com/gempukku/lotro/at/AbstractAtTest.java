@@ -156,7 +156,7 @@ public abstract class AbstractAtTest {
     }
 
     protected LotroDeck createSimplestDeck() {
-        LotroDeck lotroDeck = new LotroDeck();
+        LotroDeck lotroDeck = new LotroDeck("Some deck");
         // 10_121,1_2
         lotroDeck.setRingBearer("10_121");
         lotroDeck.setRing("1_2");
