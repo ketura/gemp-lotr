@@ -154,7 +154,7 @@ public class PlayerDAO {
         }
 
         String lowerCase = login.toLowerCase();
-        if (lowerCase.startsWith("admin") || lowerCase.startsWith("guest") || lowerCase.startsWith("system"))
+        if (lowerCase.startsWith("admin") || lowerCase.startsWith("guest") || lowerCase.startsWith("system") || lowerCase.startsWith("bye"))
             return false;
 
         Connection conn = _dbAccess.getDataSource().getConnection();

@@ -1,11 +1,9 @@
 package com.gempukku.lotro.tournament;
 
-import com.gempukku.lotro.logic.vo.LotroDeck;
-
-import java.util.Map;
+import com.gempukku.lotro.game.LotroGameParticipant;
 
 public interface TournamentCallback {
-    public void createGames(Map<String, String> pairings, Map<String, LotroDeck> playerDecks);
+    public void createGame(LotroGameParticipant playerOne, LotroGameParticipant playerTwo);
 
     public void broadcastMessage(String message);
 }

@@ -93,7 +93,7 @@ public class DeckDAO {
                         String name = rs.getString(1);
                         String contents = rs.getString(2);
 
-                        result.put(name, buildDeckFromContents(contents));
+                        result.put(name, buildDeckFromContents(name, contents));
                     }
                     return result;
                 } finally {
@@ -105,11 +105,10 @@ public class DeckDAO {
         } finally {
             connection.close();
         }
-
     }
 
     private void storeDeckToDB(int playerId, String name, LotroDeck deck, boolean newDeck) {
-        String contents = buildContentsFromDeck(deck);
+        String contents = DeckSerialization.buildContentsFromDeck(deck);
         try {
             if (newDeck)
                 storeDeckInDB(playerId, name, contents);
@@ -138,57 +137,15 @@ public class DeckDAO {
 //        }
 //    }
 
-    private String buildContentsFromDeck(LotroDeck deck) {
-        StringBuilder sb = new StringBuilder();
-        if (deck.getRingBearer() != null)
-            sb.append(deck.getRingBearer());
-        sb.append("|");
-        if (deck.getRing() != null)
-            sb.append(deck.getRing());
-        sb.append("|");
-        for (int i = 0; i < deck.getSites().size(); i++) {
-            if (i > 0)
-                sb.append(",");
-            sb.append(deck.getSites().get(i));
-        }
-        sb.append("|");
-        for (int i = 0; i < deck.getAdventureCards().size(); i++) {
-            if (i > 0)
-                sb.append(",");
-            sb.append(deck.getAdventureCards().get(i));
-        }
-
-        return sb.toString();
-    }
-
-    public LotroDeck buildDeckFromContents(String contents) {
+    public LotroDeck buildDeckFromContents(String deckName, String contents) {
         if (contents.contains("|")) {
-            // New format
-            String[] parts = contents.split("\\|");
-
-            LotroDeck deck = new LotroDeck();
-            if (parts.length > 0 && !parts[0].equals(""))
-                deck.setRingBearer(parts[0]);
-            if (parts.length > 1 && !parts[1].equals(""))
-                deck.setRing(parts[1]);
-            if (parts.length > 2)
-                for (String site : parts[2].split(",")) {
-                    if (!site.equals(""))
-                        deck.addSite(site);
-                }
-            if (parts.length > 3)
-                for (String card : parts[3].split(",")) {
-                    if (!card.equals(""))
-                        deck.addCard(card);
-                }
-
-            return deck;
+            return DeckSerialization.buildDeckFromContents(deckName, contents);
         } else {
             // Old format
             List<String> cardsList = Arrays.asList(contents.split(","));
             String ringBearer = cardsList.get(0);
             String ring = cardsList.get(1);
-            final LotroDeck lotroDeck = new LotroDeck();
+            final LotroDeck lotroDeck = new LotroDeck(deckName);
             if (ringBearer.length() > 0)
                 lotroDeck.setRingBearer(ringBearer);
             if (ring.length() > 0)

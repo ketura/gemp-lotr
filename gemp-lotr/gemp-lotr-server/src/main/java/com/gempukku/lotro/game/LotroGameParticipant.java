@@ -4,12 +4,10 @@ import com.gempukku.lotro.logic.vo.LotroDeck;
 
 public class LotroGameParticipant {
     private String _playerId;
-    private String _deckName;
     private LotroDeck _deck;
 
-    public LotroGameParticipant(String playerId, String deckName, LotroDeck deck) {
+    public LotroGameParticipant(String playerId, LotroDeck deck) {
         _playerId = playerId;
-        _deckName = deckName;
         _deck = deck;
     }
 
@@ -19,9 +17,5 @@ public class LotroGameParticipant {
 
     public LotroDeck getDeck() {
         return _deck;
-    }
-
-    public String getDeckName() {
-        return _deckName;
     }
 }

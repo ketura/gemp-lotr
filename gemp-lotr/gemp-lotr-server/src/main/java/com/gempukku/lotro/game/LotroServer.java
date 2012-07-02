@@ -160,7 +160,7 @@ public class LotroServer extends AbstractServer {
         StringBuffer players = new StringBuffer();
         Map<String, String> deckNames = new HashMap<String, String>();
         for (LotroGameParticipant participant : participants) {
-            deckNames.put(participant.getPlayerId(), participant.getDeckName());
+            deckNames.put(participant.getPlayerId(), participant.getDeck().getDeckName());
             if (players.length() > 0)
                 players.append(", ");
             players.append(participant.getPlayerId());
@@ -194,7 +194,7 @@ public class LotroServer extends AbstractServer {
         return _deckDao.getDeckForPlayer(player, deckName);
     }
 
-    public LotroDeck createDeckWithValidate(String contents) {
+    public LotroDeck createDeckWithValidate(String deckName, String contents) {
         if (contents.contains("|")) {
             // New format
             int cnt = 0;
@@ -206,14 +206,14 @@ public class LotroServer extends AbstractServer {
             if (cnt != 3)
                 return null;
 
-            return _deckDao.buildDeckFromContents(contents);
+            return _deckDao.buildDeckFromContents(deckName, contents);
         } else {
             // Old format
             List<String> cards = Arrays.asList(contents.split(","));
             if (cards.size() < 2)
                 return null;
 
-            return _deckDao.buildDeckFromContents(contents);
+            return _deckDao.buildDeckFromContents(deckName, contents);
         }
     }
 

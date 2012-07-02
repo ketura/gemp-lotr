@@ -36,6 +36,10 @@ public class TournamentMatch implements CompetitiveMatchResult {
             return _playerOne;
     }
 
+    public boolean isBye() {
+        return getLoser().equals("Bye");
+    }
+
     public int getRound() {
         return _round;
     }
