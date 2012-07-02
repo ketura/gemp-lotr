@@ -38,7 +38,7 @@ public class Card8_007 extends AbstractResponseEvent {
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             int count = game.getModifiersQuerying().getKeywordCount(game.getGameState(), card, Keyword.DAMAGE);
                             action.insertEffect(
-                                    new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, count, CardType.MINION, Filters.not(Filters.inSkirmish)));
+                                    new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, count, CardType.MINION, Filters.notAssignedToSkirmish));
                         }
                     });
             return Collections.singletonList(action);
