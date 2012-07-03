@@ -54,9 +54,9 @@ public class TournamentService {
         return _tournamentMatchDao.getMatches(tournamentId, round);
     }
 
-    public Tournament addTournament(int cost, String tournamentId, String tournamentClass, String parameters, Date start) {
-        _tournamentDao.addTournament(cost, tournamentId, tournamentClass, parameters, start);
-        return createTournamentAndStoreInCache(tournamentId, new TournamentInfo(cost, tournamentId, tournamentClass, parameters, start));
+    public Tournament addTournament(String tournamentId, String tournamentClass, String parameters, Date start) {
+        _tournamentDao.addTournament(tournamentId, tournamentClass, parameters, start);
+        return createTournamentAndStoreInCache(tournamentId, new TournamentInfo(tournamentId, tournamentClass, parameters, start));
     }
 
     public void markTournamentFinished(String tournamentId) {

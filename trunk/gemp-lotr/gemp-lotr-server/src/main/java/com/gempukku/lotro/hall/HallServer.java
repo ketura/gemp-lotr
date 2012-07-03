@@ -63,7 +63,7 @@ public class HallServer extends AbstractServer {
         _runningTournaments.addAll(tournamentService.getLiveTournaments());
 
         _tournamentQueues.put("fotr_queue", new SingleEliminationRecurringQueue(0, _formatLibrary.getFormat("fotr_block"),
-                new CollectionType("default", "All cards"), "fotrQueue-", "Fellowship Block", 4,
+                new CollectionType("default", "All cards"), "fotrQueue-", "Fellowship Block", 2,
                 tournamentService));
     }
 
@@ -246,7 +246,7 @@ public class HallServer extends AbstractServer {
         _hallDataAccessLock.readLock().lock();
         try {
             _lastVisitedPlayers.put(player, System.currentTimeMillis());
-            visitor.playerIsWaiting(isPlayerWaiting(player.getName()));
+            visitor.playerIsWaiting(isPlayerBusy(player.getName()));
 
             // First waiting
             for (Map.Entry<String, AwaitingTable> tableInformation : _awaitingTables.entrySet()) {
@@ -413,13 +413,6 @@ public class HallServer extends AbstractServer {
         boolean tableFull = awaitingTable.addPlayer(new LotroGameParticipant(player, lotroDeck));
         if (tableFull)
             createGameFromAwaitingTable(tableId, awaitingTable);
-    }
-
-    private boolean isPlayerWaiting(String playerId) {
-        for (AwaitingTable awaitingTable : _awaitingTables.values())
-            if (awaitingTable.hasPlayer(playerId))
-                return true;
-        return false;
     }
 
     private String getPlayingPlayerGameId(String playerId) {

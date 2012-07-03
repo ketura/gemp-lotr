@@ -3,37 +3,31 @@ package com.gempukku.lotro.tournament;
 import java.util.Date;
 
 public class TournamentInfo {
-    private int cost;
-    private String tournamentId;
-    private String tournamentClass;
-    private String parameters;
-    private Date start;
+    private String _tournamentId;
+    private String _tournamentClass;
+    private String _parameters;
+    private Date _start;
 
-    public TournamentInfo(int cost, String tournamentId, String tournamentClass, String parameters, Date start) {
-        this.cost = cost;
-        this.tournamentId = tournamentId;
-        this.tournamentClass = tournamentClass;
-        this.parameters = parameters;
-        this.start = start;
-    }
-
-    public int getCost() {
-        return cost;
+    public TournamentInfo(String tournamentId, String tournamentClass, String parameters, Date start) {
+        this._tournamentId = tournamentId;
+        this._tournamentClass = tournamentClass;
+        this._parameters = parameters;
+        this._start = start;
     }
 
     public String getTournamentId() {
-        return tournamentId;
+        return _tournamentId;
     }
 
     public String getTournamentClass() {
-        return tournamentClass;
+        return _tournamentClass;
     }
 
     public String getParameters() {
-        return parameters;
+        return _parameters;
     }
 
     public Date getStart() {
-        return start;
+        return _start;
     }
 }

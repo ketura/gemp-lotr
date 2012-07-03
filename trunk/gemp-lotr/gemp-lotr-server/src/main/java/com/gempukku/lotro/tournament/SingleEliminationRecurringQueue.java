@@ -62,7 +62,7 @@ public class SingleEliminationRecurringQueue implements TournamentQueue {
             for (Map.Entry<String, LotroDeck> playerDeck : _playerDecks.entrySet())
                 _tournamentService.addPlayer(tournamentId, playerDeck.getKey(), playerDeck.getValue());
 
-            Tournament tournament = _tournamentService.addTournament(_cost, tournamentId, SingleEliminationTournament.class.getName(), parameters, new Date());
+            Tournament tournament = _tournamentService.addTournament(tournamentId, SingleEliminationTournament.class.getName(), parameters, new Date());
 
             tournamentQueueCallback.createTournament(tournament);
 
