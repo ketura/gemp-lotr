@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 public interface TournamentDAO {
-    public void addTournament(int cost, String tournamentId, String className, String type, Date start);
+    public void addTournament(String tournamentId, String className, String parameters, Date start);
 
     public void markTournamentFinished(String tournamentId);
 
