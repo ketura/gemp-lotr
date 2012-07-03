@@ -13,6 +13,7 @@ import com.gempukku.lotro.game.Player;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.gempukku.lotro.hall.HallServer;
 import com.gempukku.lotro.league.*;
+import com.gempukku.lotro.tournament.TournamentService;
 import com.sun.jersey.spi.resource.Singleton;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -35,6 +36,8 @@ public class AdminResource extends AbstractResource {
     private CollectionsManager _collectionsManager;
     @Context
     private LeagueService _leagueService;
+    @Context
+    private TournamentService _tournamentService;
     @Context
     private DeckDAO _deckDao;
     @Context
@@ -61,6 +64,7 @@ public class AdminResource extends AbstractResource {
         _deckDao.clearCache();
         _merchantDao.clearCache();
         _leagueService.clearCache();
+        _tournamentService.clearCache();
 
         return "OK";
     }
