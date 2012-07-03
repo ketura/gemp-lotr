@@ -11,7 +11,6 @@ import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class SingleEliminationTournament implements Tournament {
-    private int _cost;
     private CollectionType _collectionType;
     private String _lotroFormat;
     private String _tournamentName;
@@ -40,10 +39,9 @@ public class SingleEliminationTournament implements Tournament {
         _tournamentService = tournamentService;
 
         String[] params = parameters.split(",");
-        _cost = Integer.parseInt(params[0]);
-        _lotroFormat = params[1];
-        _collectionType = new CollectionType(params[2], params[3]);
-        _tournamentName = params[4];
+        _lotroFormat = params[0];
+        _collectionType = new CollectionType(params[1], params[2]);
+        _tournamentName = params[3];
 
         _tournamentId = tournamentId;
         _playerDecks = new HashMap<String, LotroDeck>(_tournamentService.getPlayers(tournamentId));
