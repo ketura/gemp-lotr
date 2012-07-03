@@ -124,4 +124,33 @@ public class DbTournamentPlayerDAO implements TournamentPlayerDAO {
             throw new RuntimeException(exp);
         }
     }
+
+    @Override
+    public LotroDeck getPlayerDeck(String tournamentId, String playerName) {
+        try {
+            Connection connection = _dbAccess.getDataSource().getConnection();
+            try {
+                PreparedStatement statement = connection.prepareStatement("select deck_name, deck from tournament_player where tournament_id=? and player=?");
+                try {
+                    statement.setString(1, tournamentId);
+                    statement.setString(2, tournamentId);
+                    ResultSet rs = statement.executeQuery();
+                    try {
+                        if (rs.next())
+                            return DeckSerialization.buildDeckFromContents(rs.getString(1), rs.getString(2));
+                        else
+                            return null;
+                    } finally {
+                        rs.close();
+                    }
+                } finally {
+                    statement.close();
+                }
+            } finally {
+                connection.close();
+            }
+        } catch (SQLException exp) {
+            throw new RuntimeException(exp);
+        }
+    }
 }

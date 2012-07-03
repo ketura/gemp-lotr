@@ -49,7 +49,7 @@ public abstract class AbstractTournament implements Tournament {
         _playersInContention.removeAll(_tournamentService.getDroppedPlayers(tournamentId));
 
         int round = 1;
-        while (true) {
+        while (!isFinished()) {
             List<TournamentMatch> matches = _tournamentService.getMatches(tournamentId, round);
             if (matches.size() > 0) {
                 Map<String, String> gamesToCreate = new HashMap<String, String>();

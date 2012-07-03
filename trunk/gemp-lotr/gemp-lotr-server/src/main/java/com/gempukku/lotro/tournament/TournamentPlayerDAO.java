@@ -13,4 +13,6 @@ public interface TournamentPlayerDAO {
     public Map<String, LotroDeck> getPlayers(String tournamentId);
 
     public Set<String> getDroppedPlayers(String tournamentId);
+
+    public LotroDeck getPlayerDeck(String tournamentId, String playerName);
 }
