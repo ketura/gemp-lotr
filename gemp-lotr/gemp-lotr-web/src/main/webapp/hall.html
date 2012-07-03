@@ -19,6 +19,11 @@
         font-weight: bolder;
     }
 
+    .tournamentName {
+        font-size: 200%;
+        font-weight: bolder;
+    }
+
     .serieName {
         font-size: 150%;
         font-weight: bolder;
@@ -226,11 +231,11 @@
 
                 var infoDialog = $("<div></div>")
                         .dialog({
-                            autoOpen:false,
-                            closeOnEscape:true,
-                            resizable:false,
-                            title:"Card information"
-                        });
+                    autoOpen:false,
+                    closeOnEscape:true,
+                    resizable:false,
+                    title:"Card information"
+                });
 
                 $("body").click(
                         function (event) {

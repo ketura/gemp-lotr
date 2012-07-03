@@ -63,12 +63,23 @@ public class TournamentService {
         _tournamentDao.markTournamentFinished(tournamentId);
     }
 
+    public List<Tournament> getOldTournaments(long since) {
+        List<Tournament> result = new ArrayList<Tournament>();
+        for (TournamentInfo tournamentInfo : _tournamentDao.getFinishedTournamentsSince(since)) {
+            Tournament tournament = _tournamentById.get(tournamentInfo.getTournamentId());
+            if (tournament == null)
+                tournament = createTournamentAndStoreInCache(tournamentInfo.getTournamentId(), tournamentInfo);
+            result.add(tournament);
+        }
+        return result;
+    }
+
     public List<Tournament> getLiveTournaments() {
         List<Tournament> result = new ArrayList<Tournament>();
         for (TournamentInfo tournamentInfo : _tournamentDao.getUnfinishedTournaments()) {
             Tournament tournament = _tournamentById.get(tournamentInfo.getTournamentId());
             if (tournament == null)
-                tournament = createTournamentAndStoreInCache(tournament.getTournamentId(), tournamentInfo);
+                tournament = createTournamentAndStoreInCache(tournamentInfo.getTournamentId(), tournamentInfo);
             result.add(tournament);
         }
         return result;

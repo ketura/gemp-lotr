@@ -3,7 +3,6 @@ package com.gempukku.lotro.tournament;
 import com.gempukku.lotro.DateUtils;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.db.vo.CollectionType;
-import com.gempukku.lotro.game.LotroFormat;
 import com.gempukku.lotro.game.Player;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 
@@ -13,7 +12,7 @@ import java.util.Map;
 
 public class SingleEliminationRecurringQueue implements TournamentQueue {
     private int _cost;
-    private LotroFormat _lotroFormat;
+    private String _format;
     private CollectionType _collectionType;
     private String _tournamentQueueName;
     private CollectionType _currencyCollection = new CollectionType("permanent", "My cards");
@@ -25,9 +24,9 @@ public class SingleEliminationRecurringQueue implements TournamentQueue {
     private TournamentService _tournamentService;
     private String _tournamentIdPrefix;
 
-    public SingleEliminationRecurringQueue(int cost, LotroFormat lotroFormat, CollectionType collectionType, String tournamentIdPrefix, String tournamentQueueName, int playerCap, TournamentService tournamentService) {
+    public SingleEliminationRecurringQueue(int cost, String format, CollectionType collectionType, String tournamentIdPrefix, String tournamentQueueName, int playerCap, TournamentService tournamentService) {
         _cost = cost;
-        _lotroFormat = lotroFormat;
+        _format = format;
         _collectionType = collectionType;
         _tournamentQueueName = tournamentQueueName;
         _playerCap = playerCap;
@@ -36,8 +35,8 @@ public class SingleEliminationRecurringQueue implements TournamentQueue {
     }
 
     @Override
-    public LotroFormat getLotroFormat() {
-        return _lotroFormat;
+    public String getFormat() {
+        return _format;
     }
 
     @Override
@@ -57,7 +56,7 @@ public class SingleEliminationRecurringQueue implements TournamentQueue {
 
             String tournamentName = _tournamentQueueName + " - " + DateUtils.getStringDateWithHour();
 
-            String parameters = _lotroFormat.getName() + "," + _collectionType.getCode() + "," + _collectionType.getFullName() + "," + tournamentName;
+            String parameters = _format + "," + _collectionType.getCode() + "," + _collectionType.getFullName() + "," + tournamentName;
 
             for (Map.Entry<String, LotroDeck> playerDeck : _playerDecks.entrySet())
                 _tournamentService.addPlayer(tournamentId, playerDeck.getKey(), playerDeck.getValue());

@@ -53,6 +53,37 @@ public class TournamentResource extends AbstractResource {
         for (Tournament tournament : _tournamentService.getLiveTournaments()) {
             Element tournamentElem = doc.createElement("tournament");
 
+            tournamentElem.setAttribute("id", tournament.getTournamentId());
+            tournamentElem.setAttribute("name", tournament.getTournamentName());
+            tournamentElem.setAttribute("format", _lotroFormatLibrary.getFormat(tournament.getFormat()).getName());
+            tournamentElem.setAttribute("collection", tournament.getCollectionType().getFullName());
+            tournamentElem.setAttribute("round", String.valueOf(tournament.getCurrentRound()));
+            tournamentElem.setAttribute("finished", String.valueOf(tournament.isFinished()));
+
+            tournaments.appendChild(tournamentElem);
+        }
+
+        doc.appendChild(tournaments);
+
+        return doc;
+    }
+
+    @Path("/history")
+    @GET
+    public Document getHistoryTournaments(
+            @QueryParam("participantId") String participantId,
+            @Context HttpServletRequest request,
+            @Context HttpServletResponse response) throws ParserConfigurationException {
+        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+
+        Document doc = documentBuilder.newDocument();
+        Element tournaments = doc.createElement("tournaments");
+
+        for (Tournament tournament : _tournamentService.getOldTournaments(System.currentTimeMillis() - (1000 * 60 * 24 * 7))) {
+            Element tournamentElem = doc.createElement("tournament");
+
+            tournamentElem.setAttribute("id", tournament.getTournamentId());
             tournamentElem.setAttribute("name", tournament.getTournamentName());
             tournamentElem.setAttribute("format", _lotroFormatLibrary.getFormat(tournament.getFormat()).getName());
             tournamentElem.setAttribute("collection", tournament.getCollectionType().getFullName());
@@ -86,6 +117,7 @@ public class TournamentResource extends AbstractResource {
 
         Element tournamentElem = doc.createElement("tournament");
 
+        tournamentElem.setAttribute("id", tournament.getTournamentId());
         tournamentElem.setAttribute("name", tournament.getTournamentName());
         tournamentElem.setAttribute("format", _lotroFormatLibrary.getFormat(tournament.getFormat()).getName());
         tournamentElem.setAttribute("collection", tournament.getCollectionType().getFullName());
@@ -118,7 +150,7 @@ public class TournamentResource extends AbstractResource {
         if (tournament == null)
             sendError(Response.Status.NOT_FOUND);
 
-        if (tournament.isFinished())
+        if (!tournament.isFinished())
             sendError(Response.Status.FORBIDDEN);
 
         LotroDeck deck = _tournamentService.getPlayerDeck(tournamentId, playerName);

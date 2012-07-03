@@ -4,17 +4,17 @@ var TournamentResultsUI = Class.extend({
 
     init:function (url) {
         this.communication = new GempLotrCommunication(url,
-            function (xhr, ajaxOptions, thrownError) {
-            });
+                function (xhr, ajaxOptions, thrownError) {
+                });
 
         this.formatDialog = $("<div></div>")
-            .dialog({
-                autoOpen:false,
-                closeOnEscape:true,
-                resizable:false,
-                modal:true,
-                title:"Format description"
-            });
+                .dialog({
+            autoOpen:false,
+            closeOnEscape:true,
+            resizable:false,
+            modal:true,
+            title:"Format description"
+        });
 
         this.loadLiveTournaments();
     },
@@ -22,9 +22,17 @@ var TournamentResultsUI = Class.extend({
     loadLiveTournaments:function () {
         var that = this;
         this.communication.getLiveTournaments(
-            function (xml) {
-                that.loadedLiveTournaments(xml);
-            });
+                function (xml) {
+                    that.loadedTournaments(xml);
+                });
+    },
+
+    loadHistoryTournaments: function() {
+        var that = this;
+        this.communication.getHistoryTournaments(
+                function (xml) {
+                    that.loadedTournaments(xml);
+                });
     },
 
     loadedTournament:function (xml) {
@@ -36,6 +44,7 @@ var TournamentResultsUI = Class.extend({
 
             var tournament = root;
 
+            var tournamentId = tournament.getAttribute("id");
             var tournamentName = tournament.getAttribute("name");
             var tournamentFormat = tournament.getAttribute("format");
             var tournamentCollection = tournament.getAttribute("collection");
@@ -50,11 +59,11 @@ var TournamentResultsUI = Class.extend({
 
             var standings = tournament.getElementsByTagName("tournamentStanding");
             if (standings.length > 0)
-                $("#tournamentExtraInfo").append(this.createStandingsTable(standings));
+                $("#tournamentExtraInfo").append(this.createStandingsTable(standings, tournamentId, tournamentFinished));
         }
     },
 
-    loadedLiveTournaments:function (xml) {
+    loadedTournaments:function (xml) {
         var that = this;
         log(xml);
         var root = xml.documentElement;
@@ -64,6 +73,7 @@ var TournamentResultsUI = Class.extend({
             var tournaments = root.getElementsByTagName("tournament");
             for (var i = 0; i < tournaments.length; i++) {
                 var tournament = tournaments[i];
+                var tournamentId = tournament.getAttribute("id");
                 var tournamentName = tournament.getAttribute("name");
                 var tournamentFormat = tournament.getAttribute("format");
                 var tournamentCollection = tournament.getAttribute("collection");
@@ -71,18 +81,18 @@ var TournamentResultsUI = Class.extend({
                 var tournamentFinished = tournament.getAttribute("finished");
 
                 $("#tournamentResults").append("<div class='tournamentName'>" + tournamentName + "</div>");
-                $("#tournamentResults").append("<div class='tournamentRound'>" + tournamentRound + "</div>");
+                $("#tournamentResults").append("<div class='tournamentRound'><b>Round:</b> " + tournamentRound + "</div>");
 
                 var detailsBut = $("<button>See details</button>").button();
                 detailsBut.click(
-                    (function (type) {
-                        return function () {
-                            that.communication.getTournament(type,
-                                function (xml) {
-                                    that.loadedTournament(xml);
-                                });
-                        };
-                    })(tournamentFormat));
+                        (function (id) {
+                            return function () {
+                                that.communication.getTournament(id,
+                                        function (xml) {
+                                            that.loadedTournament(xml);
+                                        });
+                            };
+                        })(tournamentId));
                 $("#tournamentResults").append(detailsBut);
             }
             if (tournaments.length == 0)
@@ -93,7 +103,7 @@ var TournamentResultsUI = Class.extend({
         }
     },
 
-    createStandingsTable:function (standings) {
+    createStandingsTable:function (standings, tournamentId, tournamentFinished) {
         var standingsTable = $("<table class='standings'></table>");
 
         standingsTable.append("<tr><th>Standing</th><th>Player</th><th>Points</th><th>Games played</th><th>Opp. Win %</th><th></th><th>Standing</th><th>Player</th><th>Points</th><th>Games played</th><th>Opp. Win %</th></tr>");
@@ -108,7 +118,13 @@ var TournamentResultsUI = Class.extend({
             var gamesPlayed = parseInt(standing.getAttribute("gamesPlayed"));
             var opponentWinPerc = standing.getAttribute("opponentWin");
 
-            standingsTable.append("<tr><td>" + currentStanding + "</td><td>" + player + "</td><td>" + points + "</td><td>" + gamesPlayed + "</td><td>" + opponentWinPerc + "</td></tr>");
+            var playerStr;
+            if (tournamentFinished == "true")
+                playerStr = "<a target='_blank' href='/gemp-lotr-server/tournament/" + tournamentId + "/deck/" + player + "/html'>" + player + "</a>";
+            else
+                playerStr = player;
+
+            standingsTable.append("<tr><td>" + currentStanding + "</td><td>" + playerStr + "</td><td>" + points + "</td><td>" + gamesPlayed + "</td><td>" + opponentWinPerc + "</td></tr>");
         }
 
         for (var k = secondColumnBaseIndex; k < standings.length; k++) {
@@ -119,7 +135,13 @@ var TournamentResultsUI = Class.extend({
             var gamesPlayed = parseInt(standing.getAttribute("gamesPlayed"));
             var opponentWinPerc = standing.getAttribute("opponentWin");
 
-            $("tr:eq(" + (k - secondColumnBaseIndex + 1) + ")", standingsTable).append("<td></td><td>" + currentStanding + "</td><td>" + player + "</td><td>" + points + "</td><td>" + gamesPlayed + "</td><td>" + opponentWinPerc + "</td>");
+            var playerStr;
+            if (tournamentFinished == "true")
+                playerStr = "<a target='_blank' href='/gemp-lotr-server/tournament/" + tournamentId + "/deck/" + player + "/html'>" + player + "</a>";
+            else
+                playerStr = player;
+
+            $("tr:eq(" + (k - secondColumnBaseIndex + 1) + ")", standingsTable).append("<td></td><td>" + currentStanding + "</td><td>" + playerStr + "</td><td>" + points + "</td><td>" + gamesPlayed + "</td><td>" + opponentWinPerc + "</td>");
         }
 
         return standingsTable;

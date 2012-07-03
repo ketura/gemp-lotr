@@ -133,7 +133,7 @@ public class DbTournamentPlayerDAO implements TournamentPlayerDAO {
                 PreparedStatement statement = connection.prepareStatement("select deck_name, deck from tournament_player where tournament_id=? and player=?");
                 try {
                     statement.setString(1, tournamentId);
-                    statement.setString(2, tournamentId);
+                    statement.setString(2, playerName);
                     ResultSet rs = statement.executeQuery();
                     try {
                         if (rs.next())
