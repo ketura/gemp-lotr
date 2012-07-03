@@ -49,7 +49,7 @@ public abstract class AbstractTournament implements Tournament {
         _playersInContention.removeAll(_tournamentService.getDroppedPlayers(tournamentId));
 
         int round = 1;
-        while (!isFinished()) {
+        while (true) {
             List<TournamentMatch> matches = _tournamentService.getMatches(tournamentId, round);
             if (matches.size() > 0) {
                 Map<String, String> gamesToCreate = new HashMap<String, String>();
@@ -71,9 +71,16 @@ public abstract class AbstractTournament implements Tournament {
                     break;
                 }
             } else {
-                _nextTask = new PairPlayers();
+                if (isFinished())
+                    break;
+
+                if (round == 1)
+                    _nextTask = new StartTournament();
+                else
+                    _nextTask = new PairPlayers();
                 break;
             }
+            round++;
         }
     }
 
@@ -207,6 +214,27 @@ public abstract class AbstractTournament implements Tournament {
     private void createNewGame(TournamentCallback tournamentCallback, String playerOne, String playerTwo) {
         tournamentCallback.createGame(new LotroGameParticipant(playerOne, _playerDecks.get(playerOne)),
                 new LotroGameParticipant(playerTwo, _playerDecks.get(playerTwo)));
+    }
+
+    private class StartTournament implements TournamentTask {
+        @Override
+        public void executeTask(TournamentCallback tournamentCallback) {
+            tournamentCallback.broadcastMessage("Tournament " + getTournamentName() + " is starting");
+            _playersInContention.removeAll(_droppedPlayers);
+            _droppedPlayers.clear();
+
+            if (isFinished()) {
+                finishTournament(tournamentCallback);
+            } else {
+                _currentRound++;
+                pairPlayers(tournamentCallback);
+            }
+        }
+
+        @Override
+        public long getExecuteAfter() {
+            return 0;
+        }
     }
 
     private class PairPlayers implements TournamentTask {

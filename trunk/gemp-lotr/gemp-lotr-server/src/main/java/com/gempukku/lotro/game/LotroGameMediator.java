@@ -30,6 +30,7 @@ public class LotroGameMediator {
 
     private int _maxSecondsForGamePerPlayer = 60 * 80; // 80 minutes
     private boolean _noSpectators;
+    private boolean _cancellable;
     //    private final int _maxSecondsForGamePerPlayer = 60 * 40; // 40 minutes
     private final int _channelInactivityTimeoutPeriod = 1000 * 60 * 5; // 5 minutes
     private final int _playerDecisionTimeoutPeriod = 1000 * 60 * 10; // 10 minutes
@@ -40,9 +41,10 @@ public class LotroGameMediator {
     private int _channelNextIndex = 0;
 
     public LotroGameMediator(LotroFormat lotroFormat, LotroGameParticipant[] participants, LotroCardBlueprintLibrary library, int maxSecondsForGamePerPlayer,
-                             boolean noSpectators) {
+                             boolean noSpectators, boolean cancellable) {
         _maxSecondsForGamePerPlayer = maxSecondsForGamePerPlayer;
         _noSpectators = noSpectators;
+        _cancellable = cancellable;
         if (participants.length < 1)
             throw new IllegalArgumentException("Game can't have less than one participant");
 
@@ -271,6 +273,9 @@ public class LotroGameMediator {
     }
 
     public void cancel(Player player) {
+        if (!_cancellable)
+            _userFeedback.sendWarning(player.getName(), "You can't cancel this game");
+
         String playerId = player.getName();
         _writeLock.lock();
         try {

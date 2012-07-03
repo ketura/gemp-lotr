@@ -10,5 +10,7 @@ public interface TournamentDAO {
 
     public List<TournamentInfo> getUnfinishedTournaments();
 
+    public List<TournamentInfo> getFinishedTournamentsSince(long time);
+
     public TournamentInfo getTournamentById(String tournamentId);
 }

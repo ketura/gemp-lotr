@@ -97,6 +97,34 @@ public class DbTournamentDAO implements TournamentDAO {
     }
 
     @Override
+    public List<TournamentInfo> getFinishedTournamentsSince(long time) {
+        try {
+            Connection connection = _dbAccess.getDataSource().getConnection();
+            try {
+                PreparedStatement statement = connection.prepareStatement("select tournament_id, class, parameters, start from tournament where finished=true and start>?");
+                try {
+                    statement.setLong(1, time);
+                    ResultSet rs = statement.executeQuery();
+                    try {
+                        List<TournamentInfo> result = new ArrayList<TournamentInfo>();
+                        while (rs.next())
+                            result.add(new TournamentInfo(rs.getString(1), rs.getString(2), rs.getString(3), new Date(rs.getLong(4))));
+                        return result;
+                    } finally {
+                        rs.close();
+                    }
+                } finally {
+                    statement.close();
+                }
+            } finally {
+                connection.close();
+            }
+        } catch (SQLException exp) {
+            throw new RuntimeException(exp);
+        }
+    }
+
+    @Override
     public void markTournamentFinished(String tournamentId) {
         try {
             Connection conn = _dbAccess.getDataSource().getConnection();

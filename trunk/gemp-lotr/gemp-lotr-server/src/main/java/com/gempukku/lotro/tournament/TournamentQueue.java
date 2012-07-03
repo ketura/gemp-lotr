@@ -2,12 +2,11 @@ package com.gempukku.lotro.tournament;
 
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.db.vo.CollectionType;
-import com.gempukku.lotro.game.LotroFormat;
 import com.gempukku.lotro.game.Player;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 
 public interface TournamentQueue {
-    public LotroFormat getLotroFormat();
+    public String getFormat();
 
     public CollectionType getCollectionType();
 

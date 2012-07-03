@@ -62,7 +62,7 @@ public class HallServer extends AbstractServer {
 
         _runningTournaments.addAll(tournamentService.getLiveTournaments());
 
-        _tournamentQueues.put("fotr_queue", new SingleEliminationRecurringQueue(0, _formatLibrary.getFormat("fotr_block"),
+        _tournamentQueues.put("fotr_queue", new SingleEliminationRecurringQueue(0, "fotr_block",
                 new CollectionType("default", "All cards"), "fotrQueue-", "Fellowship Block", 2,
                 tournamentService));
     }
@@ -175,7 +175,7 @@ public class HallServer extends AbstractServer {
             if (tournamentQueue.isPlayerSignedUp(player.getName()))
                 throw new HallException("You have already joined that queue");
 
-            LotroDeck lotroDeck = validateUserAndDeck(tournamentQueue.getLotroFormat(), player, deckName, tournamentQueue.getCollectionType());
+            LotroDeck lotroDeck = validateUserAndDeck(_formatLibrary.getFormat(tournamentQueue.getFormat()), player, deckName, tournamentQueue.getCollectionType());
 
             tournamentQueue.joinPlayer(_collectionsManager, player, lotroDeck);
 
@@ -281,7 +281,7 @@ public class HallServer extends AbstractServer {
                 String tournamentQueueKey = tournamentQueueEntry.getKey();
                 TournamentQueue tournamentQueue = tournamentQueueEntry.getValue();
                 visitor.visitTournamentQueue(tournamentQueueKey, tournamentQueue.getCollectionType().getFullName(),
-                        tournamentQueue.getLotroFormat().getName(), tournamentQueue.getTournamentQueueName(),
+                        tournamentQueue.getFormat(), tournamentQueue.getTournamentQueueName(),
                         tournamentQueue.getPlayerCount(), tournamentQueue.isPlayerSignedUp(player.getName()));
             }
 
