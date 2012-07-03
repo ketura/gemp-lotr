@@ -11,6 +11,7 @@ import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.gempukku.lotro.hall.HallServer;
 import com.gempukku.lotro.league.LeagueService;
 import com.gempukku.lotro.merchant.MerchantService;
+import com.gempukku.lotro.tournament.TournamentDAO;
 import com.gempukku.lotro.tournament.TournamentMatchDAO;
 import com.gempukku.lotro.tournament.TournamentPlayerDAO;
 import com.gempukku.lotro.tournament.TournamentService;
@@ -53,6 +54,8 @@ public class ServerProvider implements InjectableProvider<Context, Type> {
     private LeagueParticipationDAO _leagueParticipationDao;
     @Context
     private GameHistoryDAO _gameHistoryDao;
+    @Context
+    private TournamentDAO _tournamentDao;
     @Context
     private TournamentPlayerDAO _tournamentPlayerDao;
     @Context
@@ -147,7 +150,7 @@ public class ServerProvider implements InjectableProvider<Context, Type> {
 
     private synchronized Injectable<TournamentService> getTournamentServiceInjectable() {
         if (_tournamentServiceInjectable == null) {
-            final TournamentService tournamentService = new TournamentService(_tournamentPlayerDao, _tournamentMatchDao);
+            final TournamentService tournamentService = new TournamentService(_tournamentDao, _tournamentPlayerDao, _tournamentMatchDao);
             _tournamentServiceInjectable = new Injectable<TournamentService>() {
                 @Override
                 public TournamentService getValue() {

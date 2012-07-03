@@ -22,6 +22,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 public class HallServer extends AbstractServer {
     private ChatServer _chatServer;
     private LeagueService _leagueService;
+    private TournamentService _tournamentService;
     private LotroCardBlueprintLibrary _library;
     private LotroFormatLibrary _formatLibrary;
     private CollectionsManager _collectionsManager;
@@ -54,12 +55,15 @@ public class HallServer extends AbstractServer {
         _lotroServer = lotroServer;
         _chatServer = chatServer;
         _leagueService = leagueService;
+        _tournamentService = tournamentService;
         _library = library;
         _formatLibrary = formatLibrary;
         _collectionsManager = collectionsManager;
         _hallChat = _chatServer.createChatRoom("Game Hall", 10);
 
-        _tournamentQueues.put("fotr_queue", new SingleEliminationTournamentQueue(_formatLibrary.getFormat("fotr_block"),
+        _runningTournaments.addAll(tournamentService.getLiveTournaments());
+
+        _tournamentQueues.put("fotr_queue", new SingleEliminationTournamentQueue(0, _formatLibrary.getFormat("fotr_block"),
                 new CollectionType("default", "All cards"), "fotrQueue-", 1, "Fellowship Block On-Demand", 4,
                 tournamentService));
     }
@@ -483,8 +487,10 @@ public class HallServer extends AbstractServer {
 
             for (Tournament runningTournament : new ArrayList<Tournament>(_runningTournaments)) {
                 runningTournament.advanceTournament(new HallTournamentCallback(runningTournament));
-                if (runningTournament.isFinished())
+                if (runningTournament.isFinished()) {
+                    _tournamentService.markTournamentFinished(runningTournament.getTournamentId());
                     _runningTournaments.remove(runningTournament);
+                }
             }
 
         } finally {
@@ -539,7 +545,7 @@ public class HallServer extends AbstractServer {
                             public void gameCancelled() {
                                 createGameInternal(participants);
                             }
-                        }, _tournament.getLotroFormat(), _tournament.getTournamentName(), true);
+                        }, _formatLibrary.getFormat(_tournament.getFormat()), _tournament.getTournamentName(), true);
             } finally {
                 _hallDataAccessLock.writeLock().unlock();
             }
