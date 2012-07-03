@@ -10,10 +10,16 @@ public class TournamentService {
     private TournamentPlayerDAO _tournamentPlayerDao;
     private TournamentMatchDAO _tournamentMatchDao;
 
+    private Map<String, Tournament> _tournamentById = new HashMap<String, Tournament>();
+
     public TournamentService(TournamentDAO tournamentDao, TournamentPlayerDAO tournamentPlayerDao, TournamentMatchDAO tournamentMatchDao) {
         _tournamentDao = tournamentDao;
         _tournamentPlayerDao = tournamentPlayerDao;
         _tournamentMatchDao = tournamentMatchDao;
+    }
+
+    public void clearCache() {
+        _tournamentById.clear();
     }
 
     public void addPlayer(String tournamentId, String playerName, LotroDeck deck) {
@@ -48,8 +54,9 @@ public class TournamentService {
         return _tournamentMatchDao.getMatches(tournamentId, round);
     }
 
-    public void addTournament(int cost, String tournamentId, String tournamentClass, String parameters, Date start) {
+    public Tournament addTournament(int cost, String tournamentId, String tournamentClass, String parameters, Date start) {
         _tournamentDao.addTournament(cost, tournamentId, tournamentClass, parameters, start);
+        return createTournamentAndStoreInCache(tournamentId, new TournamentInfo(cost, tournamentId, tournamentClass, parameters, start));
     }
 
     public void markTournamentFinished(String tournamentId) {
@@ -59,33 +66,38 @@ public class TournamentService {
     public List<Tournament> getLiveTournaments() {
         List<Tournament> result = new ArrayList<Tournament>();
         for (TournamentInfo tournamentInfo : _tournamentDao.getUnfinishedTournaments()) {
-            String clazz = tournamentInfo.getTournamentClass();
-            try {
-                Class<?> aClass = Class.forName(clazz);
-                Constructor<?> constructor = aClass.getConstructor(TournamentService.class, String.class, String.class);
-                Tournament tournament = (Tournament) constructor.newInstance(this, tournamentInfo.getTournamentId(), tournamentInfo.getParameters());
-
-                result.add(tournament);
-            } catch (Exception exp) {
-                throw new RuntimeException("Unable to create Tournament", exp);
-            }
+            Tournament tournament = _tournamentById.get(tournamentInfo.getTournamentId());
+            if (tournament == null)
+                tournament = createTournamentAndStoreInCache(tournament.getTournamentId(), tournamentInfo);
+            result.add(tournament);
         }
         return result;
     }
 
     public Tournament getTournamentById(String tournamentId) {
-        TournamentInfo tournamentInfo = _tournamentDao.getTournamentById(tournamentId);
-        if (tournamentInfo == null)
-            return null;
+        Tournament tournament = _tournamentById.get(tournamentId);
+        if (tournament == null) {
+            TournamentInfo tournamentInfo = _tournamentDao.getTournamentById(tournamentId);
+            if (tournamentInfo == null)
+                return null;
+
+            tournament = createTournamentAndStoreInCache(tournamentId, tournamentInfo);
+        }
+        return tournament;
+    }
+
+    private Tournament createTournamentAndStoreInCache(String tournamentId, TournamentInfo tournamentInfo) {
+        Tournament tournament;
         String clazz = tournamentInfo.getTournamentClass();
         try {
             Class<?> aClass = Class.forName(clazz);
             Constructor<?> constructor = aClass.getConstructor(TournamentService.class, String.class, String.class);
-            Tournament tournament = (Tournament) constructor.newInstance(this, tournamentInfo.getTournamentId(), tournamentInfo.getParameters());
+            tournament = (Tournament) constructor.newInstance(this, tournamentInfo.getTournamentId(), tournamentInfo.getParameters());
 
-            return tournament;
         } catch (Exception exp) {
             throw new RuntimeException("Unable to create Tournament", exp);
         }
+        _tournamentById.put(tournamentId, tournament);
+        return tournament;
     }
 }
