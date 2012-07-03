@@ -19,6 +19,8 @@ public interface TournamentQueue {
 
     public void leavePlayer(CollectionsManager collectionsManager, Player player);
 
+    public void leaveAllPlayers(CollectionsManager collectionsManager);
+
     public int getPlayerCount();
 
     public boolean isPlayerSignedUp(String player);
