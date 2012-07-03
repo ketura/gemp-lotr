@@ -45,7 +45,7 @@ public class Card7_274 extends AbstractMinion {
                 && PlayConditions.canPlayFromStacked(playerId, game, Filters.siteControlled(playerId), Culture.SAURON, Race.ORC)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 2, Culture.SAURON, Race.ORC));
+                    new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 2));
             action.appendEffect(
                     new ChooseAndPlayCardFromStackedEffect(playerId, Filters.siteControlled(playerId), Culture.SAURON, Race.ORC) {
                         @Override
