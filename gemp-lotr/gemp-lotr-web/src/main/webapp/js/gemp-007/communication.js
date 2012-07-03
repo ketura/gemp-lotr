@@ -68,6 +68,19 @@ var GempLotrCommunication = Class.extend({
         });
     },
 
+    getLiveTournaments:function (callback, errorMap) {
+        $.ajax({
+            type:"GET",
+            url:this.url + "/tournament",
+            cache:false,
+            data:{
+                participanId:getUrlParam("participantId") },
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"xml"
+        });
+    },
+
     getLeagues:function (callback, errorMap) {
         $.ajax({
             type:"GET",
