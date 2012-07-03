@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SingleEliminationTournamentQueue implements TournamentQueue {
+public class SingleEliminationRecurringQueue implements TournamentQueue {
     private int _cost;
     private LotroFormat _lotroFormat;
     private CollectionType _collectionType;
@@ -25,7 +25,7 @@ public class SingleEliminationTournamentQueue implements TournamentQueue {
     private String _tournamentIdPrefix;
     private int _tournamentIteration;
 
-    public SingleEliminationTournamentQueue(int cost, LotroFormat lotroFormat, CollectionType collectionType, String tournamentIdPrefix, int tournamentIteration, String tournamentQueueName, int playerCap, TournamentService tournamentService) {
+    public SingleEliminationRecurringQueue(int cost, LotroFormat lotroFormat, CollectionType collectionType, String tournamentIdPrefix, int tournamentIteration, String tournamentQueueName, int playerCap, TournamentService tournamentService) {
         _cost = cost;
         _lotroFormat = lotroFormat;
         _collectionType = collectionType;
@@ -55,7 +55,9 @@ public class SingleEliminationTournamentQueue implements TournamentQueue {
     public synchronized boolean process(TournamentQueueCallback tournamentQueueCallback) {
         if (_playerDecks.size() == _playerCap) {
             String tournamentId = _tournamentIdPrefix + System.currentTimeMillis();
+
             String tournamentName = _tournamentQueueName + " - " + _tournamentIteration;
+            _tournamentIteration++;
 
             String parameters = _lotroFormat.getName() + "," + _collectionType.getCode() + "," + _collectionType.getFullName() + "," + tournamentName;
 
