@@ -7,6 +7,7 @@ import com.gempukku.lotro.hall.HallServer;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 import com.sun.jersey.spi.resource.Singleton;
+import org.apache.commons.lang.StringEscapeUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -101,6 +102,7 @@ public class DeckResource extends AbstractResource {
 
         StringBuilder result = new StringBuilder();
         result.append("<html><body>");
+        result.append("<h1>" + StringEscapeUtils.escapeHtml(deck.getDeckName()) + "</h1>");
         String ringBearer = deck.getRingBearer();
         if (ringBearer != null)
             result.append("<b>Ring-bearer:</b> " + GameUtils.getFullName(_library.getLotroCardBlueprint(ringBearer)) + "<br/>");
