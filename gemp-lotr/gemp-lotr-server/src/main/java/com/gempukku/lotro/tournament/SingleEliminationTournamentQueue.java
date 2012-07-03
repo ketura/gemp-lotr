@@ -1,7 +1,9 @@
 package com.gempukku.lotro.tournament;
 
+import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.game.LotroFormat;
+import com.gempukku.lotro.game.Player;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 
 import java.util.Date;
@@ -13,6 +15,7 @@ public class SingleEliminationTournamentQueue implements TournamentQueue {
     private LotroFormat _lotroFormat;
     private CollectionType _collectionType;
     private String _tournamentQueueName;
+    private CollectionType _currencyCollection = new CollectionType("permanent", "My cards");
 
     private Map<String, LotroDeck> _playerDecks = new HashMap<String, LotroDeck>();
 
@@ -54,7 +57,7 @@ public class SingleEliminationTournamentQueue implements TournamentQueue {
             String tournamentId = _tournamentIdPrefix + System.currentTimeMillis();
             String tournamentName = _tournamentQueueName + " - " + _tournamentIteration;
 
-            String parameters = _cost + "," + _lotroFormat.getName() + "," + _collectionType.getCode() + "," + _collectionType.getFullName() + "," + tournamentName;
+            String parameters = _lotroFormat.getName() + "," + _collectionType.getCode() + "," + _collectionType.getFullName() + "," + tournamentName;
 
             _tournamentService.addTournament(_cost, tournamentId, SingleEliminationTournament.class.getName(), parameters, new Date());
 
@@ -63,18 +66,18 @@ public class SingleEliminationTournamentQueue implements TournamentQueue {
 
             tournamentQueueCallback.createTournament(
                     new SingleEliminationTournament(_tournamentService, tournamentId, parameters));
-            tournamentQueueCallback.createTournamentQueue(
-                    new SingleEliminationTournamentQueue(_cost, _lotroFormat, _collectionType, _tournamentIdPrefix, _tournamentIteration + 1,
-                            _tournamentQueueName, _playerCap, _tournamentService));
-            return true;
+
+            _playerDecks.clear();
         }
         return false;
     }
 
     @Override
-    public synchronized void joinPlayer(String player, LotroDeck deck) {
-        if (!_playerDecks.containsKey(player) && _playerDecks.size() < _playerCap)
-            _playerDecks.put(player, deck);
+    public synchronized void joinPlayer(CollectionsManager collectionsManager, Player player, LotroDeck deck) {
+        if (!_playerDecks.containsKey(player.getName()) && _playerDecks.size() < _playerCap) {
+            if (collectionsManager.removeCurrencyFromPlayerCollection(player, _currencyCollection, _cost))
+                _playerDecks.put(player.getName(), deck);
+        }
     }
 
     @Override
@@ -83,8 +86,11 @@ public class SingleEliminationTournamentQueue implements TournamentQueue {
     }
 
     @Override
-    public synchronized void leavePlayer(String player) {
-        _playerDecks.remove(player);
+    public synchronized void leavePlayer(CollectionsManager collectionsManager, Player player) {
+        if (_playerDecks.containsKey(player.getName())) {
+            collectionsManager.addCurrencyToPlayerCollection(player, _currencyCollection, _cost);
+            _playerDecks.remove(player.getName());
+        }
     }
 
     @Override
