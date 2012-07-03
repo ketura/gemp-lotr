@@ -18,6 +18,12 @@ public class DateUtils {
         return date.get(Calendar.YEAR) * 100000000 + (date.get(Calendar.MONTH) + 1) * 1000000 + date.get(Calendar.DAY_OF_MONTH) * 10000 + date.get(Calendar.HOUR_OF_DAY) * 100 + date.get(Calendar.MINUTE);
     }
 
+    public static String getStringDateWithHour() {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        format.setTimeZone(TimeZone.getTimeZone("GMT"));
+        return format.format(new Date());
+    }
+
     public static int offsetDate(int start, int dayOffset) {
         try {
             SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");

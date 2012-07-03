@@ -1,5 +1,6 @@
 package com.gempukku.lotro.tournament;
 
+import com.gempukku.lotro.DateUtils;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.game.LotroFormat;
@@ -23,16 +24,14 @@ public class SingleEliminationRecurringQueue implements TournamentQueue {
 
     private TournamentService _tournamentService;
     private String _tournamentIdPrefix;
-    private int _tournamentIteration;
 
-    public SingleEliminationRecurringQueue(int cost, LotroFormat lotroFormat, CollectionType collectionType, String tournamentIdPrefix, int tournamentIteration, String tournamentQueueName, int playerCap, TournamentService tournamentService) {
+    public SingleEliminationRecurringQueue(int cost, LotroFormat lotroFormat, CollectionType collectionType, String tournamentIdPrefix, String tournamentQueueName, int playerCap, TournamentService tournamentService) {
         _cost = cost;
         _lotroFormat = lotroFormat;
         _collectionType = collectionType;
         _tournamentQueueName = tournamentQueueName;
         _playerCap = playerCap;
         _tournamentIdPrefix = tournamentIdPrefix;
-        _tournamentIteration = tournamentIteration;
         _tournamentService = tournamentService;
     }
 
@@ -56,8 +55,7 @@ public class SingleEliminationRecurringQueue implements TournamentQueue {
         if (_playerDecks.size() == _playerCap) {
             String tournamentId = _tournamentIdPrefix + System.currentTimeMillis();
 
-            String tournamentName = _tournamentQueueName + " - " + _tournamentIteration;
-            _tournamentIteration++;
+            String tournamentName = _tournamentQueueName + " - " + DateUtils.getStringDateWithHour();
 
             String parameters = _lotroFormat.getName() + "," + _collectionType.getCode() + "," + _collectionType.getFullName() + "," + tournamentName;
 
