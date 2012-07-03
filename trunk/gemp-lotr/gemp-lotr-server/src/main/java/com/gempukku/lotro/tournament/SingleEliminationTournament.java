@@ -3,7 +3,6 @@ package com.gempukku.lotro.tournament;
 import com.gempukku.lotro.competitive.PlayerStanding;
 import com.gempukku.lotro.competitive.StandingsProducer;
 import com.gempukku.lotro.db.vo.CollectionType;
-import com.gempukku.lotro.game.LotroFormat;
 import com.gempukku.lotro.game.LotroGameParticipant;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 
@@ -12,8 +11,9 @@ import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class SingleEliminationTournament implements Tournament {
+    private int _cost;
     private CollectionType _collectionType;
-    private LotroFormat _lotroFormat;
+    private String _lotroFormat;
     private String _tournamentName;
     private Map<String, LotroDeck> _playerDecks;
     private TournamentService _tournamentService;
@@ -36,8 +36,14 @@ public class SingleEliminationTournament implements Tournament {
 
     private List<TournamentMatch> _tournamentMatches = new ArrayList<TournamentMatch>();
 
-    public SingleEliminationTournament(TournamentService tournamentService, String tournamentId, String tournamentName, CollectionType collectionType, LotroFormat lotroFormat) {
+    public SingleEliminationTournament(TournamentService tournamentService, String tournamentId, String parameters) {
         _tournamentService = tournamentService;
+
+        String[] params = parameters.split(",");
+        _cost = Integer.parseInt(params[0]);
+        _lotroFormat = params[1];
+        _collectionType = new CollectionType(params[2], params[3]);
+        _tournamentName = params[4];
 
         _tournamentId = tournamentId;
         _playerDecks = new HashMap<String, LotroDeck>(_tournamentService.getPlayers(tournamentId));
@@ -46,10 +52,6 @@ public class SingleEliminationTournament implements Tournament {
 
         _playersInContention = new HashSet<String>(_playerDecks.keySet());
         _playersInContention.removeAll(_tournamentService.getDroppedPlayers(tournamentId));
-
-        _tournamentName = tournamentName;
-        _collectionType = collectionType;
-        _lotroFormat = lotroFormat;
 
         int round = 1;
         while (true) {
@@ -81,12 +83,17 @@ public class SingleEliminationTournament implements Tournament {
     }
 
     @Override
+    public String getTournamentId() {
+        return _tournamentId;
+    }
+
+    @Override
     public CollectionType getCollectionType() {
         return _collectionType;
     }
 
     @Override
-    public LotroFormat getLotroFormat() {
+    public String getFormat() {
         return _lotroFormat;
     }
 

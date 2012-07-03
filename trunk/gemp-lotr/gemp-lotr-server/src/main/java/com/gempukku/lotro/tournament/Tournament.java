@@ -2,14 +2,15 @@ package com.gempukku.lotro.tournament;
 
 import com.gempukku.lotro.competitive.PlayerStanding;
 import com.gempukku.lotro.db.vo.CollectionType;
-import com.gempukku.lotro.game.LotroFormat;
 
 import java.util.List;
 
 public interface Tournament {
+    public String getTournamentId();
+
     public CollectionType getCollectionType();
 
-    public LotroFormat getLotroFormat();
+    public String getFormat();
 
     public String getTournamentName();
 

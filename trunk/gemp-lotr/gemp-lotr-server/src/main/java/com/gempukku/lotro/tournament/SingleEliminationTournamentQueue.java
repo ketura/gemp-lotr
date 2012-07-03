@@ -4,10 +4,12 @@ import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.game.LotroFormat;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 public class SingleEliminationTournamentQueue implements TournamentQueue {
+    private int _cost;
     private LotroFormat _lotroFormat;
     private CollectionType _collectionType;
     private String _tournamentQueueName;
@@ -20,7 +22,8 @@ public class SingleEliminationTournamentQueue implements TournamentQueue {
     private String _tournamentIdPrefix;
     private int _tournamentIteration;
 
-    public SingleEliminationTournamentQueue(LotroFormat lotroFormat, CollectionType collectionType, String tournamentIdPrefix, int tournamentIteration, String tournamentQueueName, int playerCap, TournamentService tournamentService) {
+    public SingleEliminationTournamentQueue(int cost, LotroFormat lotroFormat, CollectionType collectionType, String tournamentIdPrefix, int tournamentIteration, String tournamentQueueName, int playerCap, TournamentService tournamentService) {
+        _cost = cost;
         _lotroFormat = lotroFormat;
         _collectionType = collectionType;
         _tournamentQueueName = tournamentQueueName;
@@ -49,15 +52,19 @@ public class SingleEliminationTournamentQueue implements TournamentQueue {
     public synchronized boolean process(TournamentQueueCallback tournamentQueueCallback) {
         if (_playerDecks.size() == _playerCap) {
             String tournamentId = _tournamentIdPrefix + System.currentTimeMillis();
+            String tournamentName = _tournamentQueueName + " - " + _tournamentIteration;
+
+            String parameters = _cost + "," + _lotroFormat.getName() + "," + _collectionType.getCode() + "," + _collectionType.getFullName() + "," + tournamentName;
+
+            _tournamentService.addTournament(_cost, tournamentId, SingleEliminationTournament.class.getName(), parameters, new Date());
 
             for (Map.Entry<String, LotroDeck> playerDeck : _playerDecks.entrySet())
                 _tournamentService.addPlayer(tournamentId, playerDeck.getKey(), playerDeck.getValue());
 
             tournamentQueueCallback.createTournament(
-                    new SingleEliminationTournament(_tournamentService, tournamentId,
-                            _tournamentQueueName + " - " + _tournamentIteration, _collectionType, _lotroFormat));
+                    new SingleEliminationTournament(_tournamentService, tournamentId, parameters));
             tournamentQueueCallback.createTournamentQueue(
-                    new SingleEliminationTournamentQueue(_lotroFormat, _collectionType, _tournamentIdPrefix, _tournamentIteration + 1,
+                    new SingleEliminationTournamentQueue(_cost, _lotroFormat, _collectionType, _tournamentIdPrefix, _tournamentIteration + 1,
                             _tournamentQueueName, _playerCap, _tournamentService));
             return true;
         }

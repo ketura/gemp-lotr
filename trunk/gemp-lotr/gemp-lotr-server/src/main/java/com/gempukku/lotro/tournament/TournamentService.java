@@ -2,15 +2,16 @@ package com.gempukku.lotro.tournament;
 
 import com.gempukku.lotro.logic.vo.LotroDeck;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.lang.reflect.Constructor;
+import java.util.*;
 
 public class TournamentService {
+    private TournamentDAO _tournamentDao;
     private TournamentPlayerDAO _tournamentPlayerDao;
     private TournamentMatchDAO _tournamentMatchDao;
 
-    public TournamentService(TournamentPlayerDAO tournamentPlayerDao, TournamentMatchDAO tournamentMatchDao) {
+    public TournamentService(TournamentDAO tournamentDao, TournamentPlayerDAO tournamentPlayerDao, TournamentMatchDAO tournamentMatchDao) {
+        _tournamentDao = tournamentDao;
         _tournamentPlayerDao = tournamentPlayerDao;
         _tournamentMatchDao = tournamentMatchDao;
     }
@@ -41,5 +42,30 @@ public class TournamentService {
 
     public List<TournamentMatch> getMatches(String tournamentId, int round) {
         return _tournamentMatchDao.getMatches(tournamentId, round);
+    }
+
+    public void addTournament(int cost, String tournamentId, String tournamentClass, String parameters, Date start) {
+        _tournamentDao.addTournament(cost, tournamentId, tournamentClass, parameters, start);
+    }
+
+    public void markTournamentFinished(String tournamentId) {
+        _tournamentDao.markTournamentFinished(tournamentId);
+    }
+
+    public List<Tournament> getLiveTournaments() {
+        List<Tournament> result = new ArrayList<Tournament>();
+        for (TournamentInfo tournamentInfo : _tournamentDao.getUnfinishedTournaments()) {
+            String clazz = tournamentInfo.getTournamentClass();
+            try {
+                Class<?> aClass = Class.forName(clazz);
+                Constructor<?> constructor = aClass.getConstructor(TournamentService.class, String.class, String.class);
+                Tournament tournament = (Tournament) constructor.newInstance(this, tournamentInfo.getTournamentId(), tournamentInfo.getParameters());
+
+                result.add(tournament);
+            } catch (Exception exp) {
+                throw new RuntimeException("Unable to create Tournament", exp);
+            }
+        }
+        return result;
     }
 }
