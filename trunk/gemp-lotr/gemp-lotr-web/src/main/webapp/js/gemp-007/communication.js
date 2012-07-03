@@ -432,10 +432,10 @@ var GempLotrCommunication = Class.extend({
             dataType:"xml"
         });
     },
-    joinTable:function (tableId, deckName, callback, errorMap) {
+    joinQueue:function (queueId, deckName, callback, errorMap) {
         $.ajax({
             type:"POST",
-            url:this.url + "/hall/" + tableId,
+            url:this.url + "/hall/queue/" + queueId,
             cache:false,
             data:{
                 deckName:deckName,
@@ -445,13 +445,23 @@ var GempLotrCommunication = Class.extend({
             dataType:"xml"
         });
     },
-    createTable:function (format, deckName, callback, errorMap) {
+    leaveQueue:function (errorMap) {
         $.ajax({
             type:"POST",
-            url:this.url + "/hall",
+            url:this.url + "/hall/queue/leave",
             cache:false,
             data:{
-                format:format,
+                participantId:getUrlParam("participantId")},
+            error:this.errorCheck(errorMap),
+            dataType:"xml"
+        });
+    },
+    joinTable:function (tableId, deckName, callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/hall/" + tableId,
+            cache:false,
+            data:{
                 deckName:deckName,
                 participantId:getUrlParam("participantId")},
             success:this.deliveryCheck(callback),
@@ -466,6 +476,20 @@ var GempLotrCommunication = Class.extend({
             cache:false,
             data:{
                 participantId:getUrlParam("participantId")},
+            error:this.errorCheck(errorMap),
+            dataType:"xml"
+        });
+    },
+    createTable:function (format, deckName, callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/hall",
+            cache:false,
+            data:{
+                format:format,
+                deckName:deckName,
+                participantId:getUrlParam("participantId")},
+            success:this.deliveryCheck(callback),
             error:this.errorCheck(errorMap),
             dataType:"xml"
         });

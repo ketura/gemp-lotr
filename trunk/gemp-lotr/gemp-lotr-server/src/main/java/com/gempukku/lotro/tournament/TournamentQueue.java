@@ -17,5 +17,7 @@ public interface TournamentQueue {
 
     public void leavePlayer(String player);
 
+    public int getPlayerCount();
+
     public boolean isPlayerSignedUp(String player);
 }

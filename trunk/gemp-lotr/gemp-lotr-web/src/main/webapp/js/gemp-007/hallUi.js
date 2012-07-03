@@ -11,6 +11,8 @@ var GempLotrHallUI = Class.extend({
     tablesDiv:null,
     buttonsDiv:null,
 
+    showEmptyTableQueues:null,
+
     pocketDiv:null,
 
     init:function (div, url, chat) {
@@ -88,9 +90,12 @@ var GempLotrHallUI = Class.extend({
         this.decksSelect = $("<select style='width: 220px'></select>");
         this.decksSelect.hide();
 
+        var showQueuesCheck = $("<label for='showEmptyTableQueuesCheck'>Show all queues</label><input type='checkbox' id='showEmptyTableQueuesCheck' value='showQueues'/>");
+
         this.buttonsDiv.append(this.supportedFormatsSelect);
         this.buttonsDiv.append(this.decksSelect);
         this.buttonsDiv.append(this.createTableButton);
+        this.buttonsDiv.append(showQueuesCheck);
 
         this.leaveTableButton = $("<button>Leave table</button>");
         $(this.leaveTableButton).button().click(
@@ -169,10 +174,22 @@ var GempLotrHallUI = Class.extend({
 
             var waiting = root.getAttribute("waiting") == "true";
 
-            var tables = root.getElementsByTagName("table");
             var tablesTable = $("<table class='tables'></table>");
             tablesTable.append("<tr><th width='20%'>Format</th><th width='30%'>Tournament</th><th width='10%'>Status</th><th width='20%'>Players</th><th width='20%'>Actions</th></tr>");
 
+            var tournamentQueues = root.getElementsByTagName("tournamentQueue");
+            for (var i = 0; i < tournamentQueues.length; i++) {
+                var tournamentQueue = tournamentQueues[i];
+                var id = tournamentQueue.getAttribute("id");
+                var tournamentName = tournamentQueue.getAttribute("tournament");
+                var players = parseInt(table.getAttribute("players"));
+                var formatName = table.getAttribute("format");
+                var joined = table.getAttribute("joined");
+                if (players > 0 || $("#showEmptyTableQueuesCheck").prop("checked"))
+                    this.appendTournamentQueue(tablesTable, id, formatName, tournamentName, players, joined);
+            }
+
+            var tables = root.getElementsByTagName("table");
             for (var i = 0; i < tables.length; i++) {
                 var table = tables[i];
                 var id = table.getAttribute("id");
@@ -232,6 +249,49 @@ var GempLotrHallUI = Class.extend({
                 that.updateHall();
             }, 1000);
         }
+    },
+
+    appendTournamentQueue:function (container, id, formatName, tournamentName, players, joined) {
+        var row = $("<tr></tr>");
+
+        row.append("<td>" + formatName + "</td>");
+        row.append("<td>" + tournamentName + "</td>");
+        row.append("<td>" + "Accepting players" + "</td>");
+        row.append("<td>" + players + "</td>");
+
+        var actionsField = $("<td></td>");
+        if (players.length < 2) {
+            var that = this;
+
+            if (!joined) {
+                var but = $("<button>Join queue</button>");
+                $(but).button().click(
+                    function (event) {
+                        var deck = that.decksSelect.val();
+                        if (deck != null)
+                            that.comm.joinQueue(id, deck, function (xml) {
+                                that.processResponse(xml);
+                            });
+                    });
+                actionsField.append(but);
+            } else {
+                var but = $("<button>Leave queue</button>");
+                $(but).button().click(
+                    function (event) {
+                        var deck = that.decksSelect.val();
+                        if (deck != null)
+                            that.comm.leaveQueue(id, deck, function (xml) {
+                                that.processResponse(xml);
+                            });
+                    });
+                actionsField.append(but);
+            }
+        }
+
+        row.append(actionsField);
+
+        container.append(row);
+
     },
 
     appendTable:function (container, id, gameId, status, formatName, tournamentName, players, waiting, winner) {

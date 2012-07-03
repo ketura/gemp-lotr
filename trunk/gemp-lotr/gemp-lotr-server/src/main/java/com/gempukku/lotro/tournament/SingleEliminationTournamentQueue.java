@@ -71,6 +71,11 @@ public class SingleEliminationTournamentQueue implements TournamentQueue {
     }
 
     @Override
+    public synchronized int getPlayerCount() {
+        return _playerDecks.size();
+    }
+
+    @Override
     public synchronized void leavePlayer(String player) {
         _playerDecks.remove(player);
     }

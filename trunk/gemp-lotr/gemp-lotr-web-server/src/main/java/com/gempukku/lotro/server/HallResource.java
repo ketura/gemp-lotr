@@ -129,7 +129,7 @@ public class HallResource extends AbstractResource {
         if (motd != null)
             hall.setAttribute("motd", motd);
 
-        _hallServer.processTables(resourceOwner, new SerializeHallInfoVisitor(doc, hall));
+        _hallServer.processHall(resourceOwner, new SerializeHallInfoVisitor(doc, hall));
         for (Map.Entry<String, LotroFormat> format : _hallServer.getSupportedFormats().entrySet()) {
             Element formatElem = doc.createElement("format");
             formatElem.setAttribute("type", format.getKey());
@@ -154,6 +154,33 @@ public class HallResource extends AbstractResource {
         return doc;
     }
 
+    @Path("/queue/{queue}")
+    @POST
+    public Document joinQueue(
+            @PathParam("queue") String queueId,
+            @FormParam("deckName") String deckName,
+            @FormParam("participantId") String participantId,
+            @Context HttpServletRequest request) throws ParserConfigurationException {
+        Player resourceOwner = getResourceOwnerSafely(request, participantId);
+
+        try {
+            _hallServer.joinQueue(queueId, resourceOwner, deckName);
+            return null;
+        } catch (HallException e) {
+            return marshalException(e);
+        }
+    }
+
+    @Path("/queue/leave")
+    @POST
+    public void leaveQueue(
+            @FormParam("participantId") String participantId,
+            @Context HttpServletRequest request) throws ParserConfigurationException {
+        Player resourceOwner = getResourceOwnerSafely(request, participantId);
+
+        _hallServer.leaveQueues(resourceOwner);
+    }
+
     @Path("/{table}")
     @POST
     public Document joinTable(
@@ -171,6 +198,16 @@ public class HallResource extends AbstractResource {
         }
     }
 
+    @Path("/leave")
+    @POST
+    public void leaveTable(
+            @FormParam("participantId") String participantId,
+            @Context HttpServletRequest request) throws ParserConfigurationException {
+        Player resourceOwner = getResourceOwnerSafely(request, participantId);
+
+        _hallServer.leaveAwaitingTables(resourceOwner);
+    }
+
     @POST
     public Document createTable(
             @FormParam("format") String format,
@@ -185,16 +222,6 @@ public class HallResource extends AbstractResource {
         } catch (HallException e) {
             return marshalException(e);
         }
-    }
-
-    @Path("/leave")
-    @POST
-    public void leaveTable(
-            @FormParam("participantId") String participantId,
-            @Context HttpServletRequest request) throws ParserConfigurationException {
-        Player resourceOwner = getResourceOwnerSafely(request, participantId);
-
-        _hallServer.leaveAwaitingTables(resourceOwner);
     }
 
     private Document marshalException(HallException e) throws ParserConfigurationException {
@@ -237,6 +264,18 @@ public class HallResource extends AbstractResource {
             if (winner != null)
                 table.setAttribute("winner", winner);
             _hall.appendChild(table);
+        }
+
+        @Override
+        public void visitTournamentQueue(String tournamentQueueKey, String collectionName, String formatName,
+                                         String tournamentQueueName, int playerCount, boolean playerSignedUp) {
+            Element tournamentQueue = _doc.createElement("tournamentQueue");
+            tournamentQueue.setAttribute("id", tournamentQueueKey);
+            tournamentQueue.setAttribute("tournament", tournamentQueueName);
+            tournamentQueue.setAttribute("players", String.valueOf(playerCount));
+            tournamentQueue.setAttribute("format", formatName);
+            tournamentQueue.setAttribute("joined", String.valueOf(playerSignedUp));
+            _hall.appendChild(tournamentQueue);
         }
 
         @Override
