@@ -33,7 +33,6 @@ public class HallServer extends AbstractServer {
     private final int _playerInactivityPeriod = 1000 * 20; // 10 seconds
 
     private int _nextTableId = 1;
-    private int _nextQueueId = 1;
 
     private String _motd;
 
