@@ -35,17 +35,17 @@ public class SingleEliminationTournamentQueue implements TournamentQueue {
 
     @Override
     public LotroFormat getLotroFormat() {
-        return _lotroFormat;  //To change body of implemented methods use File | Settings | File Templates.
+        return _lotroFormat;
     }
 
     @Override
     public CollectionType getCollectionType() {
-        return _collectionType;  //To change body of implemented methods use File | Settings | File Templates.
+        return _collectionType;
     }
 
     @Override
     public String getTournamentQueueName() {
-        return _tournamentQueueName;  //To change body of implemented methods use File | Settings | File Templates.
+        return _tournamentQueueName;
     }
 
     @Override
