@@ -75,7 +75,7 @@ public class SingleEliminationTournamentQueue implements TournamentQueue {
     @Override
     public synchronized void joinPlayer(CollectionsManager collectionsManager, Player player, LotroDeck deck) {
         if (!_playerDecks.containsKey(player.getName()) && _playerDecks.size() < _playerCap) {
-            if (collectionsManager.removeCurrencyFromPlayerCollection(player, _currencyCollection, _cost))
+            if (_cost <= 0 || collectionsManager.removeCurrencyFromPlayerCollection(player, _currencyCollection, _cost))
                 _playerDecks.put(player.getName(), deck);
         }
     }
@@ -88,7 +88,8 @@ public class SingleEliminationTournamentQueue implements TournamentQueue {
     @Override
     public synchronized void leavePlayer(CollectionsManager collectionsManager, Player player) {
         if (_playerDecks.containsKey(player.getName())) {
-            collectionsManager.addCurrencyToPlayerCollection(player, _currencyCollection, _cost);
+            if (_cost > 0)
+                collectionsManager.addCurrencyToPlayerCollection(player, _currencyCollection, _cost);
             _playerDecks.remove(player.getName());
         }
     }
