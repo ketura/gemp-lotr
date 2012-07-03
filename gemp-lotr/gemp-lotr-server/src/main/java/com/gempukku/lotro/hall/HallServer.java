@@ -452,8 +452,13 @@ public class HallServer extends AbstractServer {
             for (Map.Entry<String, TournamentQueue> runningTournamentQueue : new HashMap<String, TournamentQueue>(_tournamentQueues).entrySet()) {
                 String tournamentQueueKey = runningTournamentQueue.getKey();
                 TournamentQueue tournamentQueue = runningTournamentQueue.getValue();
-                if (tournamentQueue.process(new HallTournamentQueueCallback()))
+                HallTournamentQueueCallback queueCallback = new HallTournamentQueueCallback();
+                // If it's finished, remove it
+                if (tournamentQueue.process(queueCallback))
                     _tournamentQueues.remove(tournamentQueueKey);
+                // If something was created to replace it, then add it
+                if (queueCallback.getTournamentQueue() != null)
+                    _tournamentQueues.put(tournamentQueueKey, queueCallback.getTournamentQueue());
             }
 
             for (Tournament runningTournament : new ArrayList<Tournament>(_runningTournaments)) {
@@ -468,6 +473,8 @@ public class HallServer extends AbstractServer {
     }
 
     private class HallTournamentQueueCallback implements TournamentQueueCallback {
+        private TournamentQueue _tournamentQueue;
+
         @Override
         public void createTournament(Tournament tournament) {
             _runningTournaments.add(tournament);
@@ -475,7 +482,11 @@ public class HallServer extends AbstractServer {
 
         @Override
         public void createTournamentQueue(TournamentQueue tournamentQueue) {
-            _tournamentQueues.put(String.valueOf(_nextQueueId++), tournamentQueue);
+            _tournamentQueue = tournamentQueue;
+        }
+
+        public TournamentQueue getTournamentQueue() {
+            return _tournamentQueue;
         }
     }
 
