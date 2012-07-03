@@ -57,6 +57,7 @@ public class TournamentResource extends AbstractResource {
             tournamentElem.setAttribute("format", _lotroFormatLibrary.getFormat(tournament.getFormat()).getName());
             tournamentElem.setAttribute("collection", tournament.getCollectionType().getFullName());
             tournamentElem.setAttribute("round", String.valueOf(tournament.getCurrentRound()));
+            tournamentElem.setAttribute("finished", String.valueOf(tournament.isFinished()));
 
             tournaments.appendChild(tournamentElem);
         }
@@ -93,7 +94,7 @@ public class TournamentResource extends AbstractResource {
 
         List<PlayerStanding> leagueStandings = tournament.getCurrentStandings();
         for (PlayerStanding standing : leagueStandings) {
-            Element standingElem = doc.createElement("leagueStanding");
+            Element standingElem = doc.createElement("tournamentStanding");
             setStandingAttributes(standing, standingElem);
             tournamentElem.appendChild(standingElem);
         }
