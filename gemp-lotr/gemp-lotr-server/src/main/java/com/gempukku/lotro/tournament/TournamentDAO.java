@@ -9,4 +9,6 @@ public interface TournamentDAO {
     public void markTournamentFinished(String tournamentId);
 
     public List<TournamentInfo> getUnfinishedTournaments();
+
+    public TournamentInfo getTournamentById(String tournamentId);
 }

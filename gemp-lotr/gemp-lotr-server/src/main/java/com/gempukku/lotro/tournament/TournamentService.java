@@ -32,6 +32,10 @@ public class TournamentService {
         return _tournamentPlayerDao.getDroppedPlayers(tournamentId);
     }
 
+    public LotroDeck getPlayerDeck(String tournamentId, String player) {
+        return _tournamentPlayerDao.getPlayerDeck(tournamentId, player);
+    }
+
     public void addMatch(String tournamentId, int round, String playerOne, String playerTwo) {
         _tournamentMatchDao.addMatch(tournamentId, round, playerOne, playerTwo);
     }
@@ -67,5 +71,21 @@ public class TournamentService {
             }
         }
         return result;
+    }
+
+    public Tournament getTournamentById(String tournamentId) {
+        TournamentInfo tournamentInfo = _tournamentDao.getTournamentById(tournamentId);
+        if (tournamentInfo == null)
+            return null;
+        String clazz = tournamentInfo.getTournamentClass();
+        try {
+            Class<?> aClass = Class.forName(clazz);
+            Constructor<?> constructor = aClass.getConstructor(TournamentService.class, String.class, String.class);
+            Tournament tournament = (Tournament) constructor.newInstance(this, tournamentInfo.getTournamentId(), tournamentInfo.getParameters());
+
+            return tournament;
+        } catch (Exception exp) {
+            throw new RuntimeException("Unable to create Tournament", exp);
+        }
     }
 }
