@@ -59,7 +59,7 @@ public class HallServer extends AbstractServer {
         _collectionsManager = collectionsManager;
         _hallChat = _chatServer.createChatRoom("Game Hall", 10);
 
-        _tournamentQueues.put("queue-1", new SingleEliminationTournamentQueue(_formatLibrary.getFormat("fotr_block"),
+        _tournamentQueues.put("fotr_queue", new SingleEliminationTournamentQueue(_formatLibrary.getFormat("fotr_block"),
                 new CollectionType("default", "All cards"), "fotrQueue-", 1, "Fellowship Block On-Demand", 4,
                 tournamentService));
     }
@@ -204,6 +204,18 @@ public class HallServer extends AbstractServer {
         }
     }
 
+    public void leaveQueues(Player player) {
+        _hallDataAccessLock.writeLock().lock();
+        try {
+            for (TournamentQueue tournamentQueue : _tournamentQueues.values()) {
+                if (tournamentQueue.isPlayerSignedUp(player.getName()))
+                    tournamentQueue.leavePlayer(player.getName());
+            }
+        } finally {
+            _hallDataAccessLock.writeLock().unlock();
+        }
+    }
+
     public void leaveAwaitingTables(Player player) {
         _hallDataAccessLock.writeLock().lock();
         try {
@@ -220,7 +232,7 @@ public class HallServer extends AbstractServer {
         }
     }
 
-    public void processTables(Player player, HallInfoVisitor visitor) {
+    public void processHall(Player player, HallInfoVisitor visitor) {
         _hallDataAccessLock.readLock().lock();
         try {
             _lastVisitedPlayers.put(player, System.currentTimeMillis());
@@ -253,6 +265,14 @@ public class HallServer extends AbstractServer {
                 LotroGameMediator lotroGameMediator = _lotroServer.getGameById(runningTable.getGameId());
                 if (lotroGameMediator != null)
                     visitor.visitTable(nonPlayingGame.getKey(), runningTable.getGameId(), lotroGameMediator.isNoSpectators(), lotroGameMediator.getGameStatus(), runningTable.getFormatName(), runningTable.getTournamentName(), lotroGameMediator.getPlayersPlaying(), lotroGameMediator.getWinner());
+            }
+
+            for (Map.Entry<String, TournamentQueue> tournamentQueueEntry : _tournamentQueues.entrySet()) {
+                String tournamentQueueKey = tournamentQueueEntry.getKey();
+                TournamentQueue tournamentQueue = tournamentQueueEntry.getValue();
+                visitor.visitTournamentQueue(tournamentQueueKey, tournamentQueue.getCollectionType().getFullName(),
+                        tournamentQueue.getLotroFormat().getName(), tournamentQueue.getTournamentQueueName(),
+                        tournamentQueue.getPlayerCount(), tournamentQueue.isPlayerSignedUp(player.getName()));
             }
 
             String gameId = getPlayingPlayerGameId(player.getName());
