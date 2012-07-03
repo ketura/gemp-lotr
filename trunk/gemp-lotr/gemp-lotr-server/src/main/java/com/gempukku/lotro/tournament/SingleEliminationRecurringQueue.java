@@ -95,6 +95,15 @@ public class SingleEliminationRecurringQueue implements TournamentQueue {
     }
 
     @Override
+    public void leaveAllPlayers(CollectionsManager collectionsManager) {
+        if (_cost > 0) {
+            for (String player : _playerDecks.keySet())
+                collectionsManager.addCurrencyToPlayerCollection(player, _currencyCollection, _cost);
+        }
+        _playerDecks.clear();
+    }
+
+    @Override
     public synchronized boolean isPlayerSignedUp(String player) {
         return _playerDecks.containsKey(player);
     }

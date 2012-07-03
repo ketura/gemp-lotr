@@ -106,7 +106,8 @@ public class HallServer extends AbstractServer {
     }
 
     private void cancelTournamentQueues() {
-
+        for (TournamentQueue tournamentQueue : _tournamentQueues.values())
+            tournamentQueue.leaveAllPlayers(_collectionsManager);
     }
 
     /**
@@ -160,6 +161,9 @@ public class HallServer extends AbstractServer {
     }
 
     public boolean joinQueue(String queueId, Player player, String deckName) throws HallException {
+        if (_shutdown)
+            throw new HallException("Server is in shutdown mode. Server will be restarted after all running games are finished.");
+
         _hallDataAccessLock.writeLock().lock();
         try {
             if (isPlayerBusy(player.getName()))
@@ -185,6 +189,9 @@ public class HallServer extends AbstractServer {
      * @return If table joined, otherwise <code>false</code> (if the user already is sitting at a table or playing).
      */
     public boolean joinTableAsPlayer(String tableId, Player player, String deckName) throws HallException {
+        if (_shutdown)
+            throw new HallException("Server is in shutdown mode. Server will be restarted after all running games are finished.");
+
         _hallDataAccessLock.writeLock().lock();
         try {
             if (isPlayerBusy(player.getName()))

@@ -226,6 +226,10 @@ public class CollectionsManager {
         }
     }
 
+    public void addCurrencyToPlayerCollection(String player, CollectionType collectionType, int currency) {
+        addCurrencyToPlayerCollection(_playerDAO.getPlayer(player), collectionType, currency);
+    }
+
     public void addCurrencyToPlayerCollection(Player player, CollectionType collectionType, int currency) {
         _readWriteLock.writeLock().lock();
         try {
