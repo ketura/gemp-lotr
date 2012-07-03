@@ -63,7 +63,7 @@ public class HallServer extends AbstractServer {
         _runningTournaments.addAll(tournamentService.getLiveTournaments());
 
         _tournamentQueues.put("fotr_queue", new SingleEliminationRecurringQueue(0, _formatLibrary.getFormat("fotr_block"),
-                new CollectionType("default", "All cards"), "fotrQueue-", 1, "Fellowship Block On-Demand", 4,
+                new CollectionType("default", "All cards"), "fotrQueue-", "Fellowship Block", 4,
                 tournamentService));
     }
 
