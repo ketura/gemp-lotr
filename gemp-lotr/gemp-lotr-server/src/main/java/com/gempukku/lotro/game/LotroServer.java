@@ -122,13 +122,13 @@ public class LotroServer extends AbstractServer {
         return "Game" + gameId;
     }
 
-    public synchronized String createNewGame(LotroFormat lotroFormat, String tournament, final LotroGameParticipant[] participants, boolean competetive) {
+    public synchronized String createNewGame(LotroFormat lotroFormat, String tournamentName, final LotroGameParticipant[] participants, boolean competetive, boolean tournament) {
         if (participants.length < 2)
             throw new IllegalArgumentException("There has to be at least two players");
         final String gameId = String.valueOf(_nextGameId);
 
-        boolean noSpectators = competetive;
-        boolean cancellable = !competetive;
+        boolean noSpectators = tournament;
+        boolean cancellable = !tournament;
 
         if (noSpectators) {
             Set<String> allowedUsers = new HashSet<String>();
@@ -169,7 +169,7 @@ public class LotroServer extends AbstractServer {
 
         lotroGameMediator.sendMessageToPlayers("Players in the game are: " + players.toString());
 
-        final GameRecorder.GameRecordingInProgress gameRecordingInProgress = _gameRecorder.recordGame(lotroGameMediator, lotroFormat.getName(), tournament, deckNames);
+        final GameRecorder.GameRecordingInProgress gameRecordingInProgress = _gameRecorder.recordGame(lotroGameMediator, lotroFormat.getName(), tournamentName, deckNames);
         lotroGameMediator.addGameResultListener(
                 new GameResultListener() {
                     @Override

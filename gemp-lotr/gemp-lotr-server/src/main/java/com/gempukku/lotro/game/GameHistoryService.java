@@ -69,4 +69,14 @@ public class GameHistoryService {
         _gamesPlayedCountCachedTimes.put(ms, minute);
         return result;
     }
+
+    public long getOldestGameHistoryEntry() {
+        return _gameHistoryDAO.getOldestGameHistoryEntry();
+    }
+
+    public GameHistoryStatistics getGameHistoryStatistics(long from, long duration) {
+        GameHistoryStatistics stats = new GameHistoryStatistics(from, duration);
+        stats.init(_gameHistoryDAO);
+        return stats;
+    }
 }
