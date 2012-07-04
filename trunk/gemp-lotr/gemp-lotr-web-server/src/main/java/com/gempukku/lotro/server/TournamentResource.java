@@ -80,7 +80,7 @@ public class TournamentResource extends AbstractResource {
         Document doc = documentBuilder.newDocument();
         Element tournaments = doc.createElement("tournaments");
 
-        for (Tournament tournament : _tournamentService.getOldTournaments(System.currentTimeMillis() - (1000 * 60 * 24 * 7))) {
+        for (Tournament tournament : _tournamentService.getOldTournaments(System.currentTimeMillis() - (1000 * 60 * 60 * 24 * 7))) {
             Element tournamentElem = doc.createElement("tournament");
 
             tournamentElem.setAttribute("id", tournament.getTournamentId());

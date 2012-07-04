@@ -108,7 +108,7 @@ public class LotroGameMediator {
         final Phase currentPhase = _lotroGame.getGameState().getCurrentPhase();
         if (currentPhase == Phase.PLAY_STARTING_FELLOWSHIP || currentPhase == Phase.PUT_RING_BEARER)
             return "Preparation";
-        return "Playing";
+        return "Playing at sites: " + getPlayerPositions();
     }
 
     public boolean isFinished() {
@@ -411,5 +411,16 @@ public class LotroGameMediator {
         long queryTime = _decisionQuerySentTimes.get(participantId);
         long currentTime = System.currentTimeMillis();
         return (int) ((currentTime - queryTime) / 1000);
+    }
+
+    public String getPlayerPositions() {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (String player : _playersPlaying) {
+            stringBuilder.append(_lotroGame.getGameState().getPlayerPosition(player) + ", ");
+        }
+        if (stringBuilder.length() > 0)
+            stringBuilder.delete(stringBuilder.length() - 2, stringBuilder.length());
+
+        return stringBuilder.toString();
     }
 }

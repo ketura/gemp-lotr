@@ -197,6 +197,7 @@ var GempLotrHallUI = Class.extend({
                 var id = table.getAttribute("id");
                 var gameId = table.getAttribute("gameId");
                 var status = table.getAttribute("status");
+                var watchable = table.getAttribute("watchable");
                 var playersAttr = table.getAttribute("players");
                 var formatName = table.getAttribute("format");
                 var tournamentName = table.getAttribute("tournament");
@@ -205,7 +206,7 @@ var GempLotrHallUI = Class.extend({
                     players = playersAttr.split(",");
                 var winner = table.getAttribute("winner");
 
-                var tableDiv = this.appendTable(tablesTable, id, gameId, status, formatName, tournamentName, players, waiting, winner);
+                var tableDiv = this.appendTable(tablesTable, id, gameId, watchable, status, formatName, tournamentName, players, waiting, winner);
             }
             this.tablesDiv.append(tablesTable);
 
@@ -294,7 +295,7 @@ var GempLotrHallUI = Class.extend({
 
     },
 
-    appendTable:function (container, id, gameId, status, formatName, tournamentName, players, waiting, winner) {
+    appendTable:function (container, id, gameId, watchable, status, formatName, tournamentName, players, waiting, winner) {
         var row = $("<tr></tr>");
 
         row.append("<td>" + formatName + "</td>");

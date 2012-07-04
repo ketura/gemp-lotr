@@ -7,7 +7,7 @@ public interface HallInfoVisitor {
 
     public void playerIsWaiting(boolean waiting);
 
-    public void visitTable(String tableId, String gameId, boolean noSpectators, String tableStatus, String formatName, String tournamentName, Set<String> playerIds, String winner);
+    public void visitTable(String tableId, String gameId, boolean watchable, String tableStatus, String formatName, String tournamentName, Set<String> playerIds, String winner);
 
     public void runningPlayerGame(String gameId);
 
