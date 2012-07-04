@@ -5,26 +5,26 @@ var LeagueResultsUI = Class.extend({
 
     init:function (url) {
         this.communication = new GempLotrCommunication(url,
-            function (xhr, ajaxOptions, thrownError) {
-            });
+                function (xhr, ajaxOptions, thrownError) {
+                });
 
         this.questionDialog = $("<div></div>")
-            .dialog({
-                autoOpen:false,
-                closeOnEscape:true,
-                resizable:false,
-                modal:true,
-                title:"League operation"
-            });
+                .dialog({
+            autoOpen:false,
+            closeOnEscape:true,
+            resizable:false,
+            modal:true,
+            title:"League operation"
+        });
 
         this.formatDialog = $("<div></div>")
-            .dialog({
-                autoOpen:false,
-                closeOnEscape:true,
-                resizable:false,
-                modal:true,
-                title:"Format description"
-            });
+                .dialog({
+            autoOpen:false,
+            closeOnEscape:true,
+            resizable:false,
+            modal:true,
+            title:"Format description"
+        });
 
         this.loadResults();
     },
@@ -32,9 +32,9 @@ var LeagueResultsUI = Class.extend({
     loadResults:function () {
         var that = this;
         this.communication.getLeagues(
-            function (xml) {
-                that.loadedLeagueResults(xml);
-            });
+                function (xml) {
+                    that.loadedLeagueResults(xml);
+                });
     },
 
     loadedLeague:function (xml) {
@@ -67,15 +67,15 @@ var LeagueResultsUI = Class.extend({
                 var joinFunc = (function (leagueCode, costString) {
                     return function () {
                         that.displayBuyAction("Do you want to join the league by paying " + costString + "?",
-                            function () {
-                                that.communication.joinLeague(leagueCode, function () {
-                                    that.loadResults();
-                                }, {
-                                    "409":function () {
-                                        alert("You don't have enough funds to join this league.");
-                                    }
+                                function () {
+                                    that.communication.joinLeague(leagueCode, function () {
+                                        that.loadResults();
+                                    }, {
+                                        "409":function () {
+                                            alert("You don't have enough funds to join this league.");
+                                        }
+                                    });
                                 });
-                            });
                     };
                 })(leagueType, costStr);
 
@@ -121,16 +121,16 @@ var LeagueResultsUI = Class.extend({
                 var formatDiv = $("<div><b>Format:</b> </div>");
                 formatDiv.append(formatName);
                 formatName.click(
-                    (function (ft) {
-                        return function () {
-                            that.formatDialog.html("");
-                            that.formatDialog.dialog("open");
-                            that.communication.getFormat(ft,
-                                function (html) {
-                                    that.formatDialog.html(html);
-                                });
-                        };
-                    })(formatType));
+                        (function (ft) {
+                            return function () {
+                                that.formatDialog.html("");
+                                that.formatDialog.dialog("open");
+                                that.communication.getFormat(ft,
+                                        function (html) {
+                                            that.formatDialog.html(html);
+                                        });
+                            };
+                        })(formatType));
                 $("#leagueExtraInfo").append(formatDiv);
                 $("#leagueExtraInfo").append("<div><b>Collection:</b> " + collection + "</div>");
 
@@ -172,14 +172,14 @@ var LeagueResultsUI = Class.extend({
 
                 var detailsBut = $("<button>See details</button>").button();
                 detailsBut.click(
-                    (function (type) {
-                        return function () {
-                            that.communication.getLeague(type,
-                                function (xml) {
-                                    that.loadedLeague(xml);
-                                });
-                        };
-                    })(leagueType));
+                        (function (type) {
+                            return function () {
+                                that.communication.getLeague(type,
+                                        function (xml) {
+                                            that.loadedLeague(xml);
+                                        });
+                            };
+                        })(leagueType));
                 $("#leagueResults").append(detailsBut);
             }
 
@@ -195,14 +195,14 @@ var LeagueResultsUI = Class.extend({
         var questionDiv = $("<div>" + text + "</div>");
         questionDiv.append("<br/>");
         questionDiv.append($("<button>Yes</button>").button().click(
-            function () {
-                that.questionDialog.dialog("close");
-                yesFunc();
-            }));
+                function () {
+                    that.questionDialog.dialog("close");
+                    yesFunc();
+                }));
         questionDiv.append($("<button>No</button>").button().click(
-            function () {
-                that.questionDialog.dialog("close");
-            }));
+                function () {
+                    that.questionDialog.dialog("close");
+                }));
         this.questionDialog.append(questionDiv);
 
         var windowWidth = $(window).width();

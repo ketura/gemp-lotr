@@ -5,17 +5,17 @@ var GameHistoryUI = Class.extend({
 
     init:function (url) {
         this.communication = new GempLotrCommunication(url,
-            function (xhr, ajaxOptions, thrownError) {
-            });
+                function (xhr, ajaxOptions, thrownError) {
+                });
         this.loadHistory();
     },
 
     loadHistory:function () {
         var that = this;
         this.communication.getGameHistory(this.itemStart, this.pageSize,
-            function (xml) {
-                that.loadedGameHistory(xml);
-            });
+                function (xml) {
+                    that.loadedGameHistory(xml);
+                });
     },
 
     loadedGameHistory:function (xml) {
