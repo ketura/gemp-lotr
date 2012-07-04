@@ -63,7 +63,7 @@ public class HallServer extends AbstractServer {
         _runningTournaments.addAll(tournamentService.getLiveTournaments());
 
         _tournamentQueues.put("fotr_queue", new SingleEliminationRecurringQueue(0, "fotr_block",
-                new CollectionType("default", "All cards"), "fotrQueue-", "Fellowship Block 4-man", 2,
+                new CollectionType("default", "All cards"), "fotrQueue-", "Test Fellowship Block 4-man", 4,
                 tournamentService));
     }
 
@@ -280,7 +280,7 @@ public class HallServer extends AbstractServer {
             for (Map.Entry<String, TournamentQueue> tournamentQueueEntry : _tournamentQueues.entrySet()) {
                 String tournamentQueueKey = tournamentQueueEntry.getKey();
                 TournamentQueue tournamentQueue = tournamentQueueEntry.getValue();
-                visitor.visitTournamentQueue(tournamentQueueKey, tournamentQueue.getCollectionType().getFullName(),
+                visitor.visitTournamentQueue(tournamentQueueKey, tournamentQueue.getCost(), tournamentQueue.getCollectionType().getFullName(),
                         tournamentQueue.getFormat(), tournamentQueue.getTournamentQueueName(),
                         tournamentQueue.getPlayerCount(), tournamentQueue.isPlayerSignedUp(player.getName()));
             }
@@ -538,7 +538,7 @@ public class HallServer extends AbstractServer {
 
         @Override
         public void broadcastMessage(String message) {
-            _hallChat.sendMessage("System", message);
+            _hallChat.sendMessage("TournamentSystem", message);
         }
     }
 }
