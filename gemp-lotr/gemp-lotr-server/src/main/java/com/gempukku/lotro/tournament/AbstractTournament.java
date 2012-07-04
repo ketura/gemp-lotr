@@ -117,8 +117,10 @@ public abstract class AbstractTournament implements Tournament {
                 if (_ongoingGamesCount == 0) {
                     if (isFinished())
                         finishTournament(tournamentCallback);
-                    else
+                    else {
+                        tournamentCallback.broadcastMessage("Tournament " + _tournamentName + " round has finished, next round will start in 2 minutes");
                         _nextTask = new PairPlayers();
+                    }
                 }
             }
             if (_nextTask != null && _nextTask.getExecuteAfter() <= System.currentTimeMillis()) {
@@ -166,19 +168,8 @@ public abstract class AbstractTournament implements Tournament {
 
             _tournamentMatches.add(new TournamentMatch(winner, loser, winner, _currentRound));
             _playerStandings = null;
-            if (_ongoingGamesCount == 0)
-                processToNextTournamentRoundOrFinish(tournamentCallback);
         } finally {
             _lock.writeLock().unlock();
-        }
-    }
-
-    private void processToNextTournamentRoundOrFinish(TournamentCallback tournamentCallback) {
-        if (isFinished()) {
-            finishTournament(tournamentCallback);
-        } else {
-            tournamentCallback.broadcastMessage("Tournament " + _tournamentName + " round has finished, next round will start in 2 minutes");
-            _nextTask = new PairPlayers();
         }
     }
 
