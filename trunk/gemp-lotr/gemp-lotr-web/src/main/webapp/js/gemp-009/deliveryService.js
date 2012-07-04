@@ -36,9 +36,9 @@ function deliveryService(xml) {
 
                 deliveryDialogs[collectionName].bind("dialogresize", deliveryDialogResize);
                 deliveryDialogs[collectionName].bind("dialogclose",
-                    function () {
-                        deliveryDialogs[collectionName].html("");
-                    });
+                        function () {
+                            deliveryDialogs[collectionName].html("");
+                        });
             }
 
             var packs = collection.getElementsByTagName("pack");
