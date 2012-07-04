@@ -331,7 +331,7 @@ var GempLotrHallUI = Class.extend({
             }
         }
 
-        if (status == "Playing" || status == "Preparation") {
+        if (watchable == "true") {
             var but = $("<button>Watch game</button>");
             $(but).button().click(
                 function (event) {
