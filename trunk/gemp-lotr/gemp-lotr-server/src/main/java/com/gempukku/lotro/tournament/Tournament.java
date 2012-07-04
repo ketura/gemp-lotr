@@ -26,5 +26,5 @@ public interface Tournament {
 
     public boolean isFinished();
 
-    public boolean isPlayerCompeting(String player);
+    public boolean isPlayerInCompetition(String player);
 }

@@ -22,9 +22,9 @@ public abstract class AbstractTournament implements Tournament {
 
     private TournamentTask _nextTask;
 
-    private HashSet<String> _allPlayers;
-    private HashMap<String, LotroDeck> _playerDecks;
-    protected HashSet<String> _playersInContention;
+    private Set<String> _allPlayers;
+    private Map<String, LotroDeck> _playerDecks;
+    protected Set<String> _playersInContention;
     private Set<String> _droppedPlayers = new HashSet<String>();
 
     private Map<String, Integer> _playerByes = new HashMap<String, Integer>();
@@ -33,6 +33,7 @@ public abstract class AbstractTournament implements Tournament {
     private List<PlayerStanding> _playerStandings;
 
     protected ReadWriteLock _lock = new ReentrantReadWriteLock();
+    private long _waitForPairingsTime = 1000 * 60 * 2;
 
     public AbstractTournament(TournamentService tournamentService, String tournamentId, String format,
                               CollectionType collectionType, String tournamentName) {
@@ -84,6 +85,10 @@ public abstract class AbstractTournament implements Tournament {
         }
     }
 
+    public void setWaitForPairingsTime(long waitForPairingsTime) {
+        _waitForPairingsTime = waitForPairingsTime;
+    }
+
     @Override
     public String getTournamentId() {
         return _tournamentId;
@@ -116,7 +121,7 @@ public abstract class AbstractTournament implements Tournament {
                         _nextTask = new PairPlayers();
                 }
             }
-            if (_nextTask != null && _nextTask.getExecuteAfter() < System.currentTimeMillis()) {
+            if (_nextTask != null && _nextTask.getExecuteAfter() <= System.currentTimeMillis()) {
                 TournamentTask task = _nextTask;
                 _nextTask = null;
                 task.executeTask(tournamentCallback);
@@ -187,10 +192,10 @@ public abstract class AbstractTournament implements Tournament {
     }
 
     @Override
-    public boolean isPlayerCompeting(String player) {
+    public boolean isPlayerInCompetition(String player) {
         _lock.readLock().lock();
         try {
-            return _playersInContention.contains(player);
+            return _playersInContention.contains(player) && !_droppedPlayers.contains(player) && !isFinished();
         } finally {
             _lock.readLock().unlock();
         }
@@ -220,15 +225,7 @@ public abstract class AbstractTournament implements Tournament {
         @Override
         public void executeTask(TournamentCallback tournamentCallback) {
             tournamentCallback.broadcastMessage("Tournament " + getTournamentName() + " is starting");
-            _playersInContention.removeAll(_droppedPlayers);
-            _droppedPlayers.clear();
-
-            if (isFinished()) {
-                finishTournament(tournamentCallback);
-            } else {
-                _currentRound++;
-                pairPlayers(tournamentCallback);
-            }
+            doPairing(tournamentCallback);
         }
 
         @Override
@@ -238,24 +235,28 @@ public abstract class AbstractTournament implements Tournament {
     }
 
     private class PairPlayers implements TournamentTask {
-        private long _taskStart = System.currentTimeMillis() + 1000 * 60 * 2;
+        private long _taskStart = System.currentTimeMillis() + _waitForPairingsTime;
 
         @Override
         public void executeTask(TournamentCallback tournamentCallback) {
-            _playersInContention.removeAll(_droppedPlayers);
-            _droppedPlayers.clear();
-
-            if (isFinished()) {
-                finishTournament(tournamentCallback);
-            } else {
-                _currentRound++;
-                pairPlayers(tournamentCallback);
-            }
+            doPairing(tournamentCallback);
         }
 
         @Override
         public long getExecuteAfter() {
             return _taskStart;
+        }
+    }
+
+    private void doPairing(TournamentCallback tournamentCallback) {
+        _playersInContention.removeAll(_droppedPlayers);
+        _droppedPlayers.clear();
+
+        if (isFinished()) {
+            finishTournament(tournamentCallback);
+        } else {
+            _currentRound++;
+            pairPlayers(tournamentCallback);
         }
     }
 

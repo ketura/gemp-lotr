@@ -63,7 +63,7 @@ public class HallServer extends AbstractServer {
         _runningTournaments.addAll(tournamentService.getLiveTournaments());
 
         _tournamentQueues.put("fotr_queue", new SingleEliminationRecurringQueue(0, "fotr_block",
-                new CollectionType("default", "All cards"), "fotrQueue-", "Fellowship Block", 2,
+                new CollectionType("default", "All cards"), "fotrQueue-", "Fellowship Block 4-man", 2,
                 tournamentService));
     }
 
@@ -444,7 +444,7 @@ public class HallServer extends AbstractServer {
         }
 
         for (Tournament runningTournament : _runningTournaments) {
-            if (runningTournament.isPlayerCompeting(playerId))
+            if (runningTournament.isPlayerInCompetition(playerId))
                 return true;
         }
 
