@@ -160,6 +160,7 @@ public class TournamentResource extends AbstractResource {
         StringBuilder result = new StringBuilder();
         result.append("<html><body>");
         result.append("<h1>" + StringEscapeUtils.escapeHtml(deck.getDeckName()) + "</h1>");
+        result.append("<h2>by " + playerName + "</h2>");
         String ringBearer = deck.getRingBearer();
         if (ringBearer != null)
             result.append("<b>Ring-bearer:</b> " + GameUtils.getFullName(_library.getLotroCardBlueprint(ringBearer)) + "<br/>");
