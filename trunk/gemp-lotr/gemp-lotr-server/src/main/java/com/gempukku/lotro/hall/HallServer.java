@@ -471,6 +471,7 @@ public class HallServer extends AbstractServer {
                     Player player = lastVisitedPlayer.getKey();
                     _lastVisitedPlayers.remove(player);
                     leaveAwaitingTables(player);
+                    leaveQueues(player);
                 }
             }
 
