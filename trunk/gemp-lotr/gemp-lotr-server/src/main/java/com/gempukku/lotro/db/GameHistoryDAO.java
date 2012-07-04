@@ -7,9 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class GameHistoryDAO {
     private DbAccess _dbAccess;
@@ -170,6 +168,61 @@ public class GameHistoryDAO {
                     } finally {
                         rs.close();
                     }
+                } finally {
+                    statement.close();
+                }
+            } finally {
+                connection.close();
+            }
+        } catch (SQLException exp) {
+            throw new RuntimeException("Unable to get count of games played", exp);
+        }
+    }
+
+    public long getOldestGameHistoryEntry() {
+        try {
+            Connection connection = _dbAccess.getDataSource().getConnection();
+            try {
+                PreparedStatement statement = connection.prepareStatement("select min(end_date) from game_history where (tournament is null or tournament = 'Casual')");
+                try {
+                    ResultSet rs = statement.executeQuery();
+                    try {
+                        if (rs.next())
+                            return rs.getLong(1);
+                        else
+                            return -1;
+                    } finally {
+                        rs.close();
+                    }
+                } finally {
+                    statement.close();
+                }
+            } finally {
+                connection.close();
+            }
+        } catch (SQLException exp) {
+            throw new RuntimeException("Unable to get count of games played", exp);
+        }
+    }
+
+    public Map<String, Integer> getCasualGamesPlayedPerFormat(long from, long duration) {
+        try {
+            Connection connection = _dbAccess.getDataSource().getConnection();
+            try {
+                PreparedStatement statement = connection.prepareStatement("select count(*), format_name from game_history where (tournament is null or tournament = 'Casual') and end_date>=? and end_date<? group by format_name");
+                try {
+                    statement.setLong(1, from);
+                    statement.setLong(2, from + duration);
+                    ResultSet rs = statement.executeQuery();
+                    Map<String, Integer> result = new HashMap<String, Integer>();
+                    try {
+                        while (rs.next()) {
+                            result.put(rs.getString(2), rs.getInt(1));
+                        }
+                    } finally {
+                        rs.close();
+                    }
+                    return result;
                 } finally {
                     statement.close();
                 }

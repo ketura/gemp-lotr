@@ -390,12 +390,12 @@ public class HallServer extends AbstractServer {
             };
         }
 
-        createGame(tableId, participants, listener, awaitingTable.getLotroFormat(), getTournamentName(awaitingTable), league != null);
+        createGame(tableId, participants, listener, awaitingTable.getLotroFormat(), getTournamentName(awaitingTable), league != null, false);
         _awaitingTables.remove(tableId);
     }
 
-    private void createGame(String tableId, LotroGameParticipant[] participants, GameResultListener listener, LotroFormat lotroFormat, String tournamentName, boolean competetive) {
-        String gameId = _lotroServer.createNewGame(lotroFormat, tournamentName, participants, competetive);
+    private void createGame(String tableId, LotroGameParticipant[] participants, GameResultListener listener, LotroFormat lotroFormat, String tournamentName, boolean competetive, boolean tournament) {
+        String gameId = _lotroServer.createNewGame(lotroFormat, tournamentName, participants, competetive, tournament);
         LotroGameMediator lotroGameMediator = _lotroServer.getGameById(gameId);
         if (listener != null)
             lotroGameMediator.addGameResultListener(listener);
@@ -533,7 +533,7 @@ public class HallServer extends AbstractServer {
                             public void gameCancelled() {
                                 createGameInternal(participants);
                             }
-                        }, _formatLibrary.getFormat(_tournament.getFormat()), _tournament.getTournamentName(), true);
+                        }, _formatLibrary.getFormat(_tournament.getFormat()), _tournament.getTournamentName(), true, true);
             } finally {
                 _hallDataAccessLock.writeLock().unlock();
             }
