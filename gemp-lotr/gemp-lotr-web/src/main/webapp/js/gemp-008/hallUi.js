@@ -90,7 +90,7 @@ var GempLotrHallUI = Class.extend({
         this.decksSelect = $("<select style='width: 220px'></select>");
         this.decksSelect.hide();
 
-        var showQueuesCheck = $("<input type='checkbox' id='showEmptyTableQueuesCheck' value='showQueues'/><label for='showEmptyTableQueuesCheck'>Show all queues</label>");
+        var showQueuesCheck = $("<input type='checkbox' id='showEmptyTableQueuesCheck' value='showQueues'/><label for='showEmptyTableQueuesCheck'>Show empty queues</label>");
 
         this.buttonsDiv.append(this.supportedFormatsSelect);
         this.buttonsDiv.append(this.decksSelect);
