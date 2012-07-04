@@ -49,15 +49,15 @@ var GempLotrHallUI = Class.extend({
 
         var editDeck = $("<button>Deck builder</button>");
         editDeck.button().click(
-                function () {
-                    location.href = 'deckBuild.html';
-                });
+            function () {
+                location.href = 'deckBuild.html';
+            });
 
         var merchant = $("<button>Merchant</button>");
         merchant.button().click(
-                function () {
-                    location.href = 'merchant.html';
-                });
+            function () {
+                location.href = 'merchant.html';
+            });
 
         this.buttonsDiv.append(editDeck);
         this.buttonsDiv.append(" | ");
@@ -74,17 +74,17 @@ var GempLotrHallUI = Class.extend({
 
         this.createTableButton = $("<button>Create table</button>");
         $(this.createTableButton).button().click(
-                function () {
-                    that.supportedFormatsSelect.hide();
-                    that.decksSelect.hide();
-                    that.createTableButton.hide();
-                    var format = that.supportedFormatsSelect.val();
-                    var deck = that.decksSelect.val();
-                    if (deck != null)
-                        that.comm.createTable(format, deck, function (xml) {
-                            that.processResponse(xml);
-                        });
-                });
+            function () {
+                that.supportedFormatsSelect.hide();
+                that.decksSelect.hide();
+                that.createTableButton.hide();
+                var format = that.supportedFormatsSelect.val();
+                var deck = that.decksSelect.val();
+                if (deck != null)
+                    that.comm.createTable(format, deck, function (xml) {
+                        that.processResponse(xml);
+                    });
+            });
         this.createTableButton.hide();
 
         this.decksSelect = $("<select style='width: 220px'></select>");
@@ -98,10 +98,10 @@ var GempLotrHallUI = Class.extend({
 
         this.leaveTableButton = $("<button>Leave table</button>");
         $(this.leaveTableButton).button().click(
-                function () {
-                    that.leaveTableButton.hide();
-                    that.comm.leaveTable();
-                });
+            function () {
+                that.leaveTableButton.hide();
+                that.comm.leaveTable();
+            });
         this.leaveTableButton.hide();
 
         this.buttonsDiv.append(this.leaveTableButton);
@@ -267,24 +267,24 @@ var GempLotrHallUI = Class.extend({
         if (joined != "true") {
             var but = $("<button>Join queue</button>");
             $(but).button().click(
-                    function (event) {
-                        var deck = that.decksSelect.val();
-                        if (deck != null)
-                            that.comm.joinQueue(id, deck, function (xml) {
-                                that.processResponse(xml);
-                            });
-                    });
+                function (event) {
+                    var deck = that.decksSelect.val();
+                    if (deck != null)
+                        that.comm.joinQueue(id, deck, function (xml) {
+                            that.processResponse(xml);
+                        });
+                });
             actionsField.append(but);
         } else {
             var but = $("<button>Leave queue</button>");
             $(but).button().click(
-                    function (event) {
-                        var deck = that.decksSelect.val();
-                        if (deck != null)
-                            that.comm.leaveQueue(id, deck, function (xml) {
-                                that.processResponse(xml);
-                            });
-                    });
+                function (event) {
+                    var deck = that.decksSelect.val();
+                    if (deck != null)
+                        that.comm.leaveQueue(id, deck, function (xml) {
+                            that.processResponse(xml);
+                        });
+                });
             actionsField.append(but);
         }
 
@@ -319,13 +319,13 @@ var GempLotrHallUI = Class.extend({
             if (!waiting) {
                 var but = $("<button>Join table</button>");
                 $(but).button().click(
-                        function (event) {
-                            var deck = that.decksSelect.val();
-                            if (deck != null)
-                                that.comm.joinTable(id, deck, function (xml) {
-                                    that.processResponse(xml);
-                                });
-                        });
+                    function (event) {
+                        var deck = that.decksSelect.val();
+                        if (deck != null)
+                            that.comm.joinTable(id, deck, function (xml) {
+                                that.processResponse(xml);
+                            });
+                    });
                 actionsField.append(but);
             }
         }
@@ -333,13 +333,13 @@ var GempLotrHallUI = Class.extend({
         if (status == "Playing" || status == "Preparation") {
             var but = $("<button>Watch game</button>");
             $(but).button().click(
-                    function (event) {
-                        var participantId = getUrlParam("participantId");
-                        var participantIdAppend = "";
-                        if (participantId != null)
-                            participantIdAppend = "&participantId=" + participantId;
-                        location.href = "/gemp-lotr/game.html?gameId=" + gameId + participantIdAppend;
-                    });
+                function (event) {
+                    var participantId = getUrlParam("participantId");
+                    var participantIdAppend = "";
+                    if (participantId != null)
+                        participantIdAppend = "&participantId=" + participantId;
+                    location.href = "/gemp-lotr/game.html?gameId=" + gameId + participantIdAppend;
+                });
             actionsField.append(but);
         }
 
