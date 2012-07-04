@@ -283,7 +283,7 @@ public class HallServer extends AbstractServer {
                 String tournamentQueueKey = tournamentQueueEntry.getKey();
                 TournamentQueue tournamentQueue = tournamentQueueEntry.getValue();
                 visitor.visitTournamentQueue(tournamentQueueKey, tournamentQueue.getCost(), tournamentQueue.getCollectionType().getFullName(),
-                        tournamentQueue.getFormat(), tournamentQueue.getTournamentQueueName(),
+                        _formatLibrary.getFormat(tournamentQueue.getFormat()).getName(), tournamentQueue.getTournamentQueueName(),
                         tournamentQueue.getPlayerCount(), tournamentQueue.isPlayerSignedUp(player.getName()));
             }
 
