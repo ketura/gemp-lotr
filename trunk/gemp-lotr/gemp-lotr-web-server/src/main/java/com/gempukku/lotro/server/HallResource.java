@@ -246,6 +246,11 @@ public class HallResource extends AbstractResource {
         }
 
         @Override
+        public void serverTime(String time) {
+            _hall.setAttribute("serverTime", time);
+        }
+
+        @Override
         public void playerIsWaiting(boolean waiting) {
             _hall.setAttribute("waiting", String.valueOf(waiting));
         }
