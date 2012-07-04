@@ -267,10 +267,11 @@ public class HallResource extends AbstractResource {
         }
 
         @Override
-        public void visitTournamentQueue(String tournamentQueueKey, String collectionName, String formatName,
+        public void visitTournamentQueue(String tournamentQueueKey, int cost, String collectionName, String formatName,
                                          String tournamentQueueName, int playerCount, boolean playerSignedUp) {
             Element tournamentQueue = _doc.createElement("tournamentQueue");
             tournamentQueue.setAttribute("id", tournamentQueueKey);
+            tournamentQueue.setAttribute("cost", String.valueOf(cost));
             tournamentQueue.setAttribute("tournament", tournamentQueueName);
             tournamentQueue.setAttribute("players", String.valueOf(playerCount));
             tournamentQueue.setAttribute("format", formatName);

@@ -9,5 +9,5 @@ public interface HallInfoVisitor {
 
     public void runningPlayerGame(String gameId);
 
-    public void visitTournamentQueue(String tournamentQueueKey, String collectionName, String formatName, String tournamentQueueName, int playerCount, boolean playerSignedUp);
+    public void visitTournamentQueue(String tournamentQueueKey, int cost, String collectionName, String formatName, String tournamentQueueName, int playerCount, boolean playerSignedUp);
 }

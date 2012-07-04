@@ -6,6 +6,8 @@ import com.gempukku.lotro.game.Player;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 
 public interface TournamentQueue {
+    public int getCost();
+
     public String getFormat();
 
     public CollectionType getCollectionType();

@@ -35,6 +35,11 @@ public class SingleEliminationRecurringQueue implements TournamentQueue {
     }
 
     @Override
+    public int getCost() {
+        return _cost;
+    }
+
+    @Override
     public String getFormat() {
         return _format;
     }
