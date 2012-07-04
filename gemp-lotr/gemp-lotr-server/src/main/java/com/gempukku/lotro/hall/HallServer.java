@@ -1,6 +1,7 @@
 package com.gempukku.lotro.hall;
 
 import com.gempukku.lotro.AbstractServer;
+import com.gempukku.lotro.DateUtils;
 import com.gempukku.lotro.chat.ChatRoomMediator;
 import com.gempukku.lotro.chat.ChatServer;
 import com.gempukku.lotro.collection.CollectionsManager;
@@ -247,6 +248,7 @@ public class HallServer extends AbstractServer {
         try {
             _lastVisitedPlayers.put(player, System.currentTimeMillis());
             visitor.playerIsWaiting(isPlayerBusy(player.getName()));
+            visitor.serverTime(DateUtils.getStringDateWithHour());
 
             // First waiting
             for (Map.Entry<String, AwaitingTable> tableInformation : _awaitingTables.entrySet()) {
