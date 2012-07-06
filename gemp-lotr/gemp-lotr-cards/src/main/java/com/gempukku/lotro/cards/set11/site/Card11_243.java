@@ -69,7 +69,7 @@ public class Card11_243 extends AbstractNewSite {
                         }
                     }, Phase.REGROUP);
 
-            game.getModifiersQuerying().getUntilEndOfTurnLimitCounter(self).incrementToLimit(1, 1);
+            game.getModifiersQuerying().getUntilStartOfPhaseLimitCounter(self, Phase.REGROUP).incrementToLimit(1, 1);
         }
         return null;
     }
