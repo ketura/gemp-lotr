@@ -255,6 +255,8 @@ public class ServerResource extends AbstractResource {
             Element stats = doc.createElement("stats");
             stats.setAttribute("activePlayers", String.valueOf(activePlayers));
             stats.setAttribute("gamesCount", String.valueOf(gamesCount));
+            stats.setAttribute("start", format.format(new Date(from)));
+            stats.setAttribute("end", format.format(new Date(from + duration - 1)));
             for (GameHistoryStatistics.FormatStat formatStat : gameHistoryStatistics.getFormatStats()) {
                 Element formatStatElem = doc.createElement("formatStat");
                 formatStatElem.setAttribute("format", formatStat.getFormat());
