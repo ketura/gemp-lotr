@@ -3,10 +3,7 @@ package com.gempukku.lotro.server;
 import com.gempukku.lotro.chat.ChatServer;
 import com.gempukku.lotro.common.ApplicationRoot;
 import com.gempukku.lotro.db.vo.GameHistoryEntry;
-import com.gempukku.lotro.game.GameHistoryService;
-import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
-import com.gempukku.lotro.game.LotroServer;
-import com.gempukku.lotro.game.Player;
+import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.hall.HallServer;
 import com.sun.jersey.spi.resource.Singleton;
 import org.apache.log4j.Logger;
@@ -26,7 +23,12 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 @Singleton
 @Path("/")
@@ -203,14 +205,70 @@ public class ServerResource extends AbstractResource {
             sb.append("<script>location.href='hall.html';</script>");
         } else {
             sb.append("You are not logged in, log in below or <button id='clickToRegister'>register</button>.");
+            int day = 1000 * 60 * 60 * 24;
+            int week = 1000 * 60 * 60 * 24 * 7;
             sb.append("<div class='status'>Tables count: ").append(_hallServer.getTablesCount()).append(", players in hall: ").append(_chatServer.getChatRoom("Game Hall").getUsersInRoom().size())
-                    .append(", games played in last 24 hours: ").append(_gameHistoryService.getGamesPlayedCountInLastMs(1000 * 60 * 60 * 24))
-                    .append(",<br/> active players in last week: ").append(_gameHistoryService.getActivePlayersInLastMs(1000 * 60 * 60 * 24 * 7))
+                    .append(", games played in last 24 hours: ").append(_gameHistoryService.getGamesPlayedCount(System.currentTimeMillis() - day, day))
+                    .append(",<br/> active players in last week: ").append(_gameHistoryService.getActivePlayersCount(System.currentTimeMillis() - week, week))
                     .append("</div>");
             sb.append(getLoginHTML());
         }
 
         return sb.toString();
+    }
+
+    @Path("/stats")
+    @GET
+    @Produces(MediaType.APPLICATION_XML)
+    public Document getGameState(
+            @QueryParam("startDay") String startDay,
+            @QueryParam("length") String length,
+            @QueryParam("participantId") String participantId,
+            @Context HttpServletRequest request) throws ParserConfigurationException {
+        Player resourceOwner = getResourceOwnerSafely(request, participantId);
+
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            format.setTimeZone(TimeZone.getTimeZone("GMT"));
+            long from = format.parse(startDay).getTime();
+            Date to = format.parse(startDay);
+            if (length.equals("month"))
+                to.setMonth(to.getMonth() + 1);
+            else if (length.equals("week"))
+                to.setDate(to.getDate() + 7);
+            else if (length.equals("day"))
+                to.setDate(to.getDate() + 1);
+            else
+                sendError(Response.Status.BAD_REQUEST);
+            long duration = to.getTime() - from;
+
+            int activePlayers = _gameHistoryService.getActivePlayersCount(from, duration);
+            int gamesCount = _gameHistoryService.getGamesPlayedCount(from, duration);
+
+            GameHistoryStatistics gameHistoryStatistics = _gameHistoryService.getGameHistoryStatistics(from, duration);
+
+            DecimalFormat percFormat = new DecimalFormat("#0.0%");
+
+            DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+            Document doc = documentBuilder.newDocument();
+            Element stats = doc.createElement("stats");
+            stats.setAttribute("activePlayers", String.valueOf(activePlayers));
+            stats.setAttribute("gamesCount", String.valueOf(gamesCount));
+            for (GameHistoryStatistics.FormatStat formatStat : gameHistoryStatistics.getFormatStats()) {
+                Element formatStatElem = doc.createElement("formatStat");
+                formatStatElem.setAttribute("format", formatStat.getFormat());
+                formatStatElem.setAttribute("count", String.valueOf(formatStat.getCount()));
+                formatStatElem.setAttribute("perc", percFormat.format(formatStat.getPercentage()));
+                stats.appendChild(formatStatElem);
+            }
+
+            doc.appendChild(stats);
+            return doc;
+        } catch (ParseException exp) {
+            sendError(Response.Status.BAD_REQUEST);
+            return null;
+        }
     }
 
     private void logUser(HttpServletRequest request, String login) {

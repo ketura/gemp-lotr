@@ -1,6 +1,5 @@
 package com.gempukku.lotro.game;
 
-import com.gempukku.lotro.DateUtils;
 import com.gempukku.lotro.db.GameHistoryDAO;
 import com.gempukku.lotro.db.vo.GameHistoryEntry;
 
@@ -12,12 +11,6 @@ import java.util.concurrent.ConcurrentHashMap;
 public class GameHistoryService {
     private GameHistoryDAO _gameHistoryDAO;
     private Map<String, Integer> _playerGameCount = new ConcurrentHashMap<String, Integer>();
-
-    private Map<Long, Integer> _activeCountCachedTimes = new ConcurrentHashMap<Long, Integer>();
-    private Map<Long, Integer> _activeCountCachedValues = new ConcurrentHashMap<Long, Integer>();
-
-    private Map<Long, Integer> _gamesPlayedCountCachedTimes = new ConcurrentHashMap<Long, Integer>();
-    private Map<Long, Integer> _gamesPlayedCountCachedValues = new ConcurrentHashMap<Long, Integer>();
 
     public GameHistoryService(GameHistoryDAO gameHistoryDAO) {
         _gameHistoryDAO = gameHistoryDAO;
@@ -46,28 +39,12 @@ public class GameHistoryService {
         return _gameHistoryDAO.getGameHistoryForPlayer(player, start, count);
     }
 
-    public int getActivePlayersInLastMs(long ms) {
-        Integer cachedOn = _activeCountCachedTimes.get(ms);
-        int minute = DateUtils.getCurrentMinute();
-        if (cachedOn != null && minute == cachedOn)
-            return _activeCountCachedValues.get(ms);
-
-        int result = _gameHistoryDAO.getActivePlayersInLastMs(ms);
-        _activeCountCachedValues.put(ms, result);
-        _activeCountCachedTimes.put(ms, minute);
-        return result;
+    public int getActivePlayersCount(long from, long duration) {
+        return _gameHistoryDAO.getActivePlayersCount(from, duration);
     }
 
-    public int getGamesPlayedCountInLastMs(long ms) {
-        Integer cachedOn = _gamesPlayedCountCachedTimes.get(ms);
-        int minute = DateUtils.getCurrentMinute();
-        if (cachedOn != null && minute == cachedOn)
-            return _gamesPlayedCountCachedValues.get(ms);
-
-        int result = _gameHistoryDAO.getGamesPlayedCountInLastMs(ms);
-        _gamesPlayedCountCachedValues.put(ms, result);
-        _gamesPlayedCountCachedTimes.put(ms, minute);
-        return result;
+    public int getGamesPlayedCount(long from, long duration) {
+        return _gameHistoryDAO.getGamesPlayedCount(from, duration);
     }
 
     public long getOldestGameHistoryEntry() {
