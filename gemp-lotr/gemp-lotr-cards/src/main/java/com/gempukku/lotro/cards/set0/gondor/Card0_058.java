@@ -4,6 +4,7 @@ import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromHandEffect;
+import com.gempukku.lotro.cards.modifiers.evaluator.SingleMemoryEvaluator;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -43,13 +44,14 @@ public class Card0_058 extends AbstractCompanion {
                     new ChooseAndPlayCardFromHandEffect(playerId, game, Culture.GONDOR, CardType.EVENT, Keyword.SKIRMISH));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new StrengthModifier(self, Filters.and(CardType.MINION, Filters.inSkirmishAgainst(self)), null,
-                                    new Evaluator() {
-                                        @Override
-                                        public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard cardAffected) {
-                                            return -modifiersQuerying.getVitality(game.getGameState(), self);
-                                        }
-                                    }), Phase.SKIRMISH));
+                            new StrengthModifier(self, Filters.in(Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Filters.and(CardType.MINION, Filters.inSkirmishAgainst(self)))), null,
+                                    new SingleMemoryEvaluator(
+                                            new Evaluator() {
+                                                @Override
+                                                public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard cardAffected) {
+                                                    return -modifiersQuerying.getVitality(game.getGameState(), self);
+                                                }
+                                            })), Phase.SKIRMISH));
             return Collections.singletonList(action);
         }
         return null;
