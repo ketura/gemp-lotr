@@ -120,16 +120,17 @@ public class GameHistoryDAO {
         }
     }
 
-    public int getActivePlayersInLastMs(long ms) {
+    public int getActivePlayersCount(long from, long duration) {
         try {
             Connection connection = _dbAccess.getDataSource().getConnection();
             try {
                 PreparedStatement statement = connection.prepareStatement(
-                        "select count(*) from (SELECT winner FROM game_history where end_date>=? union select loser from game_history where end_date>=?) as u");
+                        "select count(*) from (SELECT winner FROM game_history where end_date>=? and end_date<? union select loser from game_history where end_date>=? and end_date<?) as u");
                 try {
-                    long time = System.currentTimeMillis() - ms;
-                    statement.setLong(1, time);
-                    statement.setLong(2, time);
+                    statement.setLong(1, from);
+                    statement.setLong(2, from + duration);
+                    statement.setLong(3, from);
+                    statement.setLong(4, from + duration);
                     ResultSet rs = statement.executeQuery();
                     try {
                         if (rs.next())
@@ -150,15 +151,16 @@ public class GameHistoryDAO {
         }
     }
 
-    public int getGamesPlayedCountInLastMs(long ms) {
+    public int getGamesPlayedCount(long from, long duration) {
         try {
             Connection connection = _dbAccess.getDataSource().getConnection();
             try {
                 // 5 minutes minimum game
                 long minTime = 1000 * 60 * 5;
-                PreparedStatement statement = connection.prepareStatement("select count(*) from game_history where end_date>=? and end_date-start_date>" + minTime);
+                PreparedStatement statement = connection.prepareStatement("select count(*) from game_history where end_date>=? and end_date<? and end_date-start_date>" + minTime);
                 try {
-                    statement.setLong(1, System.currentTimeMillis() - ms);
+                    statement.setLong(1, from);
+                    statement.setLong(2, from + duration);
                     ResultSet rs = statement.executeQuery();
                     try {
                         if (rs.next())
