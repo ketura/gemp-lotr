@@ -325,7 +325,7 @@ public class LotroGameMediator {
 
     public void processCommunicationChannel(Player player, int channelNumber, ParticipantCommunicationVisitor visitor) {
         String playerName = player.getName();
-        if (_noSpectators && !_playersPlaying.contains(playerName))
+        if (!player.getType().contains("a") && _noSpectators && !_playersPlaying.contains(playerName))
             throw new WebApplicationException(Response.Status.FORBIDDEN);
 
         _readLock.lock();
@@ -360,7 +360,7 @@ public class LotroGameMediator {
 
     public void singupUserForGame(Player player, ParticipantCommunicationVisitor visitor) {
         String playerName = player.getName();
-        if (_noSpectators && !_playersPlaying.contains(playerName))
+        if (!player.getType().contains("a") && _noSpectators && !_playersPlaying.contains(playerName))
             throw new WebApplicationException(Response.Status.FORBIDDEN);
 
         _readLock.lock();

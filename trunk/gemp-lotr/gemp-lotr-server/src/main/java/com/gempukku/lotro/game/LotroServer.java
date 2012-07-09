@@ -100,7 +100,7 @@ public class LotroServer extends AbstractServer {
                 String gameId = finishedGame.getKey();
                 if (currentTime > finishedGame.getValue().getTime() + _timeToGameDeathWarning
                         && !_gameDeathWarningsSent.contains(gameId)) {
-                    _chatServer.getChatRoom(getChatRoomName(gameId)).sendMessage("System", "This game is already finished and will be shortly removed, please move to the Game Hall");
+                    _chatServer.getChatRoom(getChatRoomName(gameId)).sendMessage("System", "This game is already finished and will be shortly removed, please move to the Game Hall", true);
                     _gameDeathWarningsSent.add(gameId);
                 }
                 if (currentTime > finishedGame.getValue().getTime() + _timeToGameDeath) {

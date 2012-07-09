@@ -39,7 +39,7 @@ public class ChatResource extends AbstractResource {
         if (chatRoom == null)
             sendError(Response.Status.NOT_FOUND);
 
-        List<ChatMessage> chatMessages = chatRoom.joinUser(resourceOwner.getName());
+        List<ChatMessage> chatMessages = chatRoom.joinUser(resourceOwner.getName(), resourceOwner.getType().contains("a"));
         Collection<String> usersInRoom = chatRoom.getUsersInRoom();
 
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -69,11 +69,11 @@ public class ChatResource extends AbstractResource {
         if (messages != null) {
             for (String message : messages) {
                 if (message != null && message.trim().length() > 0)
-                    chatRoom.sendMessage(resourceOwner.getName(), StringEscapeUtils.escapeHtml(message));
+                    chatRoom.sendMessage(resourceOwner.getName(), StringEscapeUtils.escapeHtml(message), resourceOwner.getType().contains("a"));
             }
         }
 
-        List<ChatMessage> chatMessages = chatRoom.getPendingMessages(resourceOwner.getName());
+        List<ChatMessage> chatMessages = chatRoom.getPendingMessages(resourceOwner.getName(), resourceOwner.getType().contains("a"));
 
         Collection<String> usersInRoom = chatRoom.getUsersInRoom();
 
