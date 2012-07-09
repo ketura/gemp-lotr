@@ -108,7 +108,7 @@ public class LotroGameMediator {
         final Phase currentPhase = _lotroGame.getGameState().getCurrentPhase();
         if (currentPhase == Phase.PLAY_STARTING_FELLOWSHIP || currentPhase == Phase.PUT_RING_BEARER)
             return "Preparation";
-        return "Playing at sites: " + getPlayerPositions();
+        return "At sites: " + getPlayerPositions();
     }
 
     public boolean isFinished() {
