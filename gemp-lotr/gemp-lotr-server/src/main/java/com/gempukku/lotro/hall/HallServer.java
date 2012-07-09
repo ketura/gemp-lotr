@@ -522,18 +522,20 @@ public class HallServer extends AbstractServer {
         private void createGameInternal(final LotroGameParticipant[] participants) {
             _hallDataAccessLock.writeLock().lock();
             try {
-                HallServer.this.createGame(String.valueOf(_nextTableId++), participants,
-                        new GameResultListener() {
-                            @Override
-                            public void gameFinished(String winnerPlayerId, String winReason, Map<String, String> loserPlayerIdsWithReasons) {
-                                _tournament.reportGameFinished(HallTournamentCallback.this, winnerPlayerId, loserPlayerIdsWithReasons.keySet().iterator().next());
-                            }
+                if (!_shutdown) {
+                    HallServer.this.createGame(String.valueOf(_nextTableId++), participants,
+                            new GameResultListener() {
+                                @Override
+                                public void gameFinished(String winnerPlayerId, String winReason, Map<String, String> loserPlayerIdsWithReasons) {
+                                    _tournament.reportGameFinished(HallTournamentCallback.this, winnerPlayerId, loserPlayerIdsWithReasons.keySet().iterator().next());
+                                }
 
-                            @Override
-                            public void gameCancelled() {
-                                createGameInternal(participants);
-                            }
-                        }, _formatLibrary.getFormat(_tournament.getFormat()), _tournament.getTournamentName(), true, true);
+                                @Override
+                                public void gameCancelled() {
+                                    createGameInternal(participants);
+                                }
+                            }, _formatLibrary.getFormat(_tournament.getFormat()), _tournament.getTournamentName(), true, true);
+                }
             } finally {
                 _hallDataAccessLock.writeLock().unlock();
             }
