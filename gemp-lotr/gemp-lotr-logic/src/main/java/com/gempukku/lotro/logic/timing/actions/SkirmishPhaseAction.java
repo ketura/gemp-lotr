@@ -50,6 +50,9 @@ public class SkirmishPhaseAction extends SystemQueueAction {
                         }
                     }
                 });
+
+        appendEffect(
+                new TriggeringResultEffect(null, new EndOfPhaseResult(Phase.SKIRMISH), "End of skirmish phase"));
         appendEffect(
                 new UnrespondableEffect() {
                     @Override
@@ -58,8 +61,6 @@ public class SkirmishPhaseAction extends SystemQueueAction {
                     }
                 });
 
-        appendEffect(
-                new TriggeringResultEffect(null, new EndOfPhaseResult(Phase.SKIRMISH), "End of skirmish phase"));
         appendEffect(
                 new UnrespondableEffect() {
                     @Override
