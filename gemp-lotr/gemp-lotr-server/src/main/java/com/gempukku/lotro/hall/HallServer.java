@@ -265,7 +265,7 @@ public class HallServer extends AbstractServer {
                 LotroGameMediator lotroGameMediator = _lotroServer.getGameById(runningTable.getGameId());
                 if (lotroGameMediator != null) {
                     if (!lotroGameMediator.isFinished())
-                        visitor.visitTable(runningGame.getKey(), runningTable.getGameId(), !lotroGameMediator.isNoSpectators(), lotroGameMediator.getGameStatus(), runningTable.getFormatName(), runningTable.getTournamentName(), lotroGameMediator.getPlayersPlaying(), lotroGameMediator.getWinner());
+                        visitor.visitTable(runningGame.getKey(), runningTable.getGameId(), player.getType().contains("a") || !lotroGameMediator.isNoSpectators(), lotroGameMediator.getGameStatus(), runningTable.getFormatName(), runningTable.getTournamentName(), lotroGameMediator.getPlayersPlaying(), lotroGameMediator.getWinner());
                     else
                         finishedTables.put(runningGame.getKey(), runningTable);
                 }
@@ -543,7 +543,7 @@ public class HallServer extends AbstractServer {
 
         @Override
         public void broadcastMessage(String message) {
-            _hallChat.sendMessage("TournamentSystem", message);
+            _hallChat.sendMessage("TournamentSystem", message, true);
         }
     }
 }

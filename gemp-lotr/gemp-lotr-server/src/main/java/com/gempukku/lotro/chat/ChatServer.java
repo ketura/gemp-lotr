@@ -2,7 +2,6 @@ package com.gempukku.lotro.chat;
 
 import com.gempukku.lotro.AbstractServer;
 
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -12,16 +11,14 @@ public class ChatServer extends AbstractServer {
 
     public ChatRoomMediator createChatRoom(String name, int secondsTimeoutPeriod) {
         ChatRoomMediator chatRoom = new ChatRoomMediator(secondsTimeoutPeriod);
-        chatRoom.sendMessage("System", "Welcome to room: " + name);
+        chatRoom.sendMessage("System", "Welcome to room: " + name, true);
         _chatRooms.put(name, chatRoom);
         return chatRoom;
     }
 
     public ChatRoomMediator createPrivateChatRoom(String name, Set<String> allowedUsers, int secondsTimeoutPeriod) {
-        Set<String> allowed = new HashSet<String>(allowedUsers);
-        allowed.add("System");
-        ChatRoomMediator chatRoom = new ChatRoomMediator(secondsTimeoutPeriod, allowed);
-        chatRoom.sendMessage("System", "Welcome to private room: " + name);
+        ChatRoomMediator chatRoom = new ChatRoomMediator(secondsTimeoutPeriod, allowedUsers);
+        chatRoom.sendMessage("System", "Welcome to private room: " + name, true);
         _chatRooms.put(name, chatRoom);
         return chatRoom;
     }
