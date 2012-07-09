@@ -50,6 +50,8 @@ public class GameHistoryStatistics {
     }
 
     private String getMainFormat(String format) {
+        if (format == null)
+            return "Fellowship block";
         if (format.equals("Community Fellowship block"))
             return "Fellowship block";
         if (format.equals("Community Two Towers block"))
@@ -64,6 +66,8 @@ public class GameHistoryStatistics {
     }
 
     private boolean isIgnorable(String format) {
+        if (format == null)
+            return false;
         if (format.startsWith("Fellowship block - "))
             return true;
         if (format.equals("Format for testing"))
