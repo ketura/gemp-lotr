@@ -4,30 +4,30 @@ var StatsUI = Class.extend({
 
     init:function (url) {
         this.communication = new GempLotrCommunication(url,
-            function (xhr, ajaxOptions, thrownError) {
-            });
+                function (xhr, ajaxOptions, thrownError) {
+                });
 
 
         var now = new Date();
         var nowStr = now.getFullYear() + "-" + (1 + now.getMonth()) + "-" + now.getDate();
 
-        $(".statsParameters").append("Start date: <input class='startDay' type='text' value='" + nowStr + "'>");
-        $(".statsParameters").append(" period: <select class='period'><option value='month'>month</option><option value='week'>week</option><option value='day'>day</option></select>");
-        $(".statsParameters").append(" <input class='getStats' type='button' value='Display stats'>");
+        $("#statsParameters").append("Start date: <input class='startDay' type='text' value='" + nowStr + "'>");
+        $("#statsParameters").append(" period: <select class='period'><option value='month'>month</option><option value='week'>week</option><option value='day'>day</option></select>");
+        $("#statsParameters").append(" <input class='getStats' type='button' value='Display stats'>");
 
         var that = this;
 
-        $(".getStats", $(".statsParameters")).click(
-            function () {
-                var startDay = $(".startDay", $(".statsParameters")).prop("value");
-                var period = $("option:selected", $(".period", $(".statsParameters"))).prop("value");
+        $(".getStats", $("#statsParameters")).click(
+                function () {
+                    var startDay = $(".startDay", $("#statsParameters")).prop("value");
+                    var period = $("option:selected", $(".period", $("#statsParameters"))).prop("value");
 
-                that.communication.getStats(startDay, period, that.loadedStats, {
-                    "400":function () {
-                        alert("Invalid parameter entered");
-                    }
-                })
-            });
+                    that.communication.getStats(startDay, period, that.loadedStats, {
+                        "400":function () {
+                            alert("Invalid parameter entered");
+                        }
+                    })
+                });
     },
 
     loadedStats:function (xml) {
@@ -52,7 +52,7 @@ var StatsUI = Class.extend({
             if (formatStats.length > 0) {
                 $("#stats").append("<div class='tableHeader'>Casual games per format</div>");
 
-                var table = $("<table></table>");
+                var table = $("<table class='tables'></table>");
                 table.append("<tr><th>Format name</th><th># of games</th><th>% of casual</th></tr>");
                 for (var i = 0; i < formatStats.length; i++) {
                     var formatStat = formatStats[i];
