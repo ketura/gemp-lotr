@@ -1,6 +1,8 @@
 package com.gempukku.lotro.cards.set13.men;
 
 import com.gempukku.lotro.cards.AbstractMinion;
+import com.gempukku.lotro.cards.actions.PlayPermanentAction;
+import com.gempukku.lotro.cards.effects.DiscountEffect;
 import com.gempukku.lotro.cards.modifiers.conditions.NotCondition;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
@@ -9,9 +11,9 @@ import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
+import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.SpotCondition;
 
 /**
@@ -32,10 +34,22 @@ public class Card13_088 extends AbstractMinion {
     }
 
     @Override
-    public int getTwilightCostModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
-        if (Filters.canSpot(gameState, modifiersQuerying, Filters.not(self), Culture.MEN, CardType.MINION))
+    protected int getPotentialExtraPaymentDiscount(String playerId, LotroGame game, PhysicalCard self) {
+        GameState gameState = game.getGameState();
+        if (Filters.canSpot(gameState, game.getModifiersQuerying(), Filters.not(self), Culture.MEN, CardType.MINION))
             return -gameState.getWounds(gameState.getRingBearer(gameState.getCurrentPlayerId()));
         return 0;
+    }
+
+    @Override
+    protected DiscountEffect getDiscountEffect(PlayPermanentAction action, String playerId, LotroGame game, PhysicalCard self) {
+        GameState gameState = game.getGameState();
+        if (Filters.canSpot(gameState, game.getModifiersQuerying(), Filters.not(self), Culture.MEN, CardType.MINION)) {
+            int wounds = gameState.getWounds(gameState.getRingBearer(gameState.getCurrentPlayerId()));
+            if (wounds > 0)
+                return new DiscountChoiceEffect(playerId, wounds);
+        }
+        return null;
     }
 
     @Override
