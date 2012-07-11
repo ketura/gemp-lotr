@@ -10,11 +10,14 @@ var PlayerStatsUI = Class.extend({
     },
 
     loadPlayerStats:function () {
-        this.communication.getPlayerStats(this.loadedPlayerStats);
+        var that = this;
+        this.communication.getPlayerStats(
+            function (xml) {
+                that.loadedPlayerStats(xml);
+            });
     },
 
     loadedPlayerStats:function (xml) {
-        var that = this;
         log(xml);
         var root = xml.documentElement;
         if (root.tagName == 'playerStats') {
