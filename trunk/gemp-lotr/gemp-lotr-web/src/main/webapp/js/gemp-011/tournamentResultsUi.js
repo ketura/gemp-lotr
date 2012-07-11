@@ -4,17 +4,17 @@ var TournamentResultsUI = Class.extend({
 
     init:function (url) {
         this.communication = new GempLotrCommunication(url,
-                function (xhr, ajaxOptions, thrownError) {
-                });
+            function (xhr, ajaxOptions, thrownError) {
+            });
 
         this.formatDialog = $("<div></div>")
-                .dialog({
-            autoOpen:false,
-            closeOnEscape:true,
-            resizable:false,
-            modal:true,
-            title:"Format description"
-        });
+            .dialog({
+                autoOpen:false,
+                closeOnEscape:true,
+                resizable:false,
+                modal:true,
+                title:"Format description"
+            });
 
         this.loadLiveTournaments();
     },
@@ -22,17 +22,17 @@ var TournamentResultsUI = Class.extend({
     loadLiveTournaments:function () {
         var that = this;
         this.communication.getLiveTournaments(
-                function (xml) {
-                    that.loadedTournaments(xml);
-                });
+            function (xml) {
+                that.loadedTournaments(xml);
+            });
     },
 
     loadHistoryTournaments:function () {
         var that = this;
         this.communication.getHistoryTournaments(
-                function (xml) {
-                    that.loadedTournaments(xml);
-                });
+            function (xml) {
+                that.loadedTournaments(xml);
+            });
     },
 
     loadedTournament:function (xml) {
@@ -85,14 +85,14 @@ var TournamentResultsUI = Class.extend({
 
                 var detailsBut = $("<button>See details</button>").button();
                 detailsBut.click(
-                        (function (id) {
-                            return function () {
-                                that.communication.getTournament(id,
-                                        function (xml) {
-                                            that.loadedTournament(xml);
-                                        });
-                            };
-                        })(tournamentId));
+                    (function (id) {
+                        return function () {
+                            that.communication.getTournament(id,
+                                function (xml) {
+                                    that.loadedTournament(xml);
+                                });
+                        };
+                    })(tournamentId));
                 $("#tournamentResults").append(detailsBut);
             }
             if (tournaments.length == 0)

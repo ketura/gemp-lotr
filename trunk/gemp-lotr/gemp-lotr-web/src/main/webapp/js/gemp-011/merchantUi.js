@@ -24,18 +24,18 @@ var GempLotrMerchantUI = Class.extend({
         this.comm = new GempLotrCommunication("/gemp-lotr-server", that.processError);
 
         this.cardFilter = new CardFilter(cardFilterElem,
-                function (filter, start, count, callback) {
-                    that.comm.getMerchant(filter, that.ownedMin, start, count, callback);
-                },
-                function (rootElem) {
-                    that.clearList(rootElem);
-                },
-                function (elem, type, blueprintId, count) {
-                    that.addCardToList(elem, type, blueprintId, count);
-                },
-                function () {
-                    that.finishList();
-                });
+            function (filter, start, count, callback) {
+                that.comm.getMerchant(filter, that.ownedMin, start, count, callback);
+            },
+            function (rootElem) {
+                that.clearList(rootElem);
+            },
+            function (elem, type, blueprintId, count) {
+                that.addCardToList(elem, type, blueprintId, count);
+            },
+            function () {
+                that.finishList();
+            });
         this.cardFilter.setType("card");
         this.cardFilter.setFilter("type:card");
 
@@ -57,33 +57,33 @@ var GempLotrMerchantUI = Class.extend({
         this.filterDiv.append(this.countDiv);
 
         $("#ownedMin").change(
-                function () {
-                    that.ownedMin = $("#ownedMin option:selected").prop("value");
-                    that.cardFilter.getCollection();
-                });
+            function () {
+                that.ownedMin = $("#ownedMin option:selected").prop("value");
+                that.cardFilter.getCollection();
+            });
 
         $("#hideMerchantCheck").change(
-                function () {
-                    that.hideMerchant = $("#hideMerchantCheck").prop("checked");
-                    that.cardFilter.getCollection();
-                });
+            function () {
+                that.hideMerchant = $("#hideMerchantCheck").prop("checked");
+                that.cardFilter.getCollection();
+            });
 
         this.infoDialog = $("<div></div>")
-                .dialog({
-            autoOpen:false,
-            closeOnEscape:true,
-            resizable:false,
-            title:"Card information"
-        });
+            .dialog({
+                autoOpen:false,
+                closeOnEscape:true,
+                resizable:false,
+                title:"Card information"
+            });
 
         this.questionDialog = $("<div></div>")
-                .dialog({
-            autoOpen:false,
-            closeOnEscape:true,
-            resizable:false,
-            modal:true,
-            title:"Merchant operation"
-        });
+            .dialog({
+                autoOpen:false,
+                closeOnEscape:true,
+                resizable:false,
+                modal:true,
+                title:"Merchant operation"
+            });
 
         var swipeOptions = {
             threshold:20,
@@ -99,17 +99,17 @@ var GempLotrMerchantUI = Class.extend({
         this.infoDialog.swipe(swipeOptions);
 
         $("body").click(
-                function (event) {
-                    return that.clickCardFunction(event);
-                });
+            function (event) {
+                return that.clickCardFunction(event);
+            });
         $("body").mousedown(
-                function (event) {
-                    return that.dragStartCardFunction(event);
-                });
+            function (event) {
+                return that.dragStartCardFunction(event);
+            });
         $("body").mouseup(
-                function (event) {
-                    return that.dragStopCardFunction(event);
-                });
+            function (event) {
+                return that.dragStopCardFunction(event);
+            });
 
         this.cardFilter.getCollection();
     },
@@ -250,28 +250,28 @@ var GempLotrMerchantUI = Class.extend({
                     var formattedBuyPrice = formatPrice(buyPrice);
                     var buyBut = $("<div class='buyPrice'>Sell for<br/>" + formattedBuyPrice + "</div>").button();
                     buyBut.click(
-                            function () {
-                                that.displayMerchantAction(card, "Do you want to sell this item for " + formattedBuyPrice + "?",
-                                        function () {
-                                            that.comm.sellItem(blueprintId, buyPrice, function () {
-                                                that.cardFilter.getCollection();
-                                            });
-                                        });
-                            });
+                        function () {
+                            that.displayMerchantAction(card, "Do you want to sell this item for " + formattedBuyPrice + "?",
+                                function () {
+                                    that.comm.sellItem(blueprintId, buyPrice, function () {
+                                        that.cardFilter.getCollection();
+                                    });
+                                });
+                        });
                     cardDiv.append(buyBut);
                 }
                 if (sellPrice != null) {
                     var formattedSellPrice = formatPrice(sellPrice);
                     var sellBut = $("<div class='sellPrice'>Buy for<br/>" + formattedSellPrice + "</div>").button();
                     sellBut.click(
-                            function () {
-                                that.displayMerchantAction(card, "Do you want to buy this item for " + formattedSellPrice + "?",
-                                        function () {
-                                            that.comm.buyItem(blueprintId, sellPrice, function () {
-                                                that.cardFilter.getCollection();
-                                            });
-                                        });
-                            });
+                        function () {
+                            that.displayMerchantAction(card, "Do you want to buy this item for " + formattedSellPrice + "?",
+                                function () {
+                                    that.comm.buyItem(blueprintId, sellPrice, function () {
+                                        that.cardFilter.getCollection();
+                                    });
+                                });
+                        });
                     if (parseInt(sellPrice) > parseInt(this.currencyCount)) {
                         sellBut.button({disabled:true});
                         sellBut.css({color:"#ff0000"});
@@ -281,14 +281,14 @@ var GempLotrMerchantUI = Class.extend({
                 if (tradeFoil == "true") {
                     var tradeFoilBut = $("<div class='tradeFoil'>Trade 4 for foil</div>").button();
                     tradeFoilBut.click(
-                            function () {
-                                that.displayMerchantAction(card, "Do you want to trade 4 of this card and 4G in currency for a foil version of the card?",
-                                        function () {
-                                            that.comm.tradeInFoil(blueprintId, function () {
-                                                that.cardFilter.getCollection();
-                                            });
-                                        });
-                            });
+                        function () {
+                            that.displayMerchantAction(card, "Do you want to trade 4 of this card and 4G in currency for a foil version of the card?",
+                                function () {
+                                    that.comm.tradeInFoil(blueprintId, function () {
+                                        that.cardFilter.getCollection();
+                                    });
+                                });
+                        });
                     cardDiv.append(tradeFoilBut);
                 }
             }
@@ -307,14 +307,14 @@ var GempLotrMerchantUI = Class.extend({
         var questionDiv = $("<div id='cardEffects'>" + text + "</div>");
         questionDiv.append("<br/>");
         questionDiv.append($("<button>Yes</button>").button().click(
-                function () {
-                    that.questionDialog.dialog("close");
-                    yesFunc();
-                }));
+            function () {
+                that.questionDialog.dialog("close");
+                yesFunc();
+            }));
         questionDiv.append($("<button>No</button>").button().click(
-                function () {
-                    that.questionDialog.dialog("close");
-                }));
+            function () {
+                that.questionDialog.dialog("close");
+            }));
         this.questionDialog.append(questionDiv);
 
         var windowWidth = $(window).width();
