@@ -1,6 +1,7 @@
 package com.gempukku.lotro.game;
 
 import com.gempukku.lotro.db.GameHistoryDAO;
+import com.gempukku.lotro.db.PlayerStatistic;
 import com.gempukku.lotro.db.vo.GameHistoryEntry;
 
 import java.util.Date;
@@ -55,5 +56,13 @@ public class GameHistoryService {
         GameHistoryStatistics stats = new GameHistoryStatistics(from, duration);
         stats.init(_gameHistoryDAO);
         return stats;
+    }
+
+    public List<PlayerStatistic> getCasualPlayerStatistics(Player player) {
+        return _gameHistoryDAO.getCasualPlayerStatistics(player);
+    }
+
+    public List<PlayerStatistic> getCompetetivePlayerStatistics(Player player) {
+        return _gameHistoryDAO.getCompetetivePlayerStatistics(player);
     }
 }

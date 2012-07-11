@@ -2,6 +2,7 @@ package com.gempukku.lotro.server;
 
 import com.gempukku.lotro.chat.ChatServer;
 import com.gempukku.lotro.common.ApplicationRoot;
+import com.gempukku.lotro.db.PlayerStatistic;
 import com.gempukku.lotro.db.vo.GameHistoryEntry;
 import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.hall.HallServer;
@@ -220,7 +221,7 @@ public class ServerResource extends AbstractResource {
     @Path("/stats")
     @GET
     @Produces(MediaType.APPLICATION_XML)
-    public Document getGameState(
+    public Document getServerStats(
             @QueryParam("startDay") String startDay,
             @QueryParam("length") String length,
             @QueryParam("participantId") String participantId,
@@ -270,6 +271,48 @@ public class ServerResource extends AbstractResource {
         } catch (ParseException exp) {
             sendError(Response.Status.BAD_REQUEST);
             return null;
+        }
+    }
+
+    @Path("/playerStats")
+    @GET
+    @Produces(MediaType.APPLICATION_XML)
+    public Document getServerStats(
+            @QueryParam("participantId") String participantId,
+            @Context HttpServletRequest request) throws ParserConfigurationException {
+        Player resourceOwner = getResourceOwnerSafely(request, participantId);
+
+        List<PlayerStatistic> casualStatistics = _gameHistoryService.getCasualPlayerStatistics(resourceOwner);
+        List<PlayerStatistic> competetiveStatistics = _gameHistoryService.getCompetetivePlayerStatistics(resourceOwner);
+
+        DecimalFormat percFormat = new DecimalFormat("#0.0%");
+
+        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+        Document doc = documentBuilder.newDocument();
+        Element stats = doc.createElement("playerStats");
+
+        Element casual = doc.createElement("casual");
+        appendStatistics(casualStatistics, percFormat, doc, casual);
+        stats.appendChild(casual);
+
+        Element competetive = doc.createElement("competetive");
+        appendStatistics(competetiveStatistics, percFormat, doc, competetive);
+        stats.appendChild(competetive);
+
+        doc.appendChild(stats);
+        return doc;
+    }
+
+    private void appendStatistics(List<PlayerStatistic> statistics, DecimalFormat percFormat, Document doc, Element type) {
+        for (PlayerStatistic casualStatistic : statistics) {
+            Element entry = doc.createElement("entry");
+            entry.setAttribute("deckName", casualStatistic.getDeckName());
+            entry.setAttribute("format", casualStatistic.getFormatName());
+            entry.setAttribute("wins", String.valueOf(casualStatistic.getWins()));
+            entry.setAttribute("losses", String.valueOf(casualStatistic.getLosses()));
+            entry.setAttribute("perc", percFormat.format(1f * casualStatistic.getWins() / casualStatistic.getLosses()));
+            type.appendChild(entry);
         }
     }
 

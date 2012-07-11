@@ -236,8 +236,67 @@ public class GameHistoryDAO {
         }
     }
 
-    // Statistics
-    // select deck_name, format_name, sum(win), sum(lose) from
-    // (select winner_deck_name as deck_name, format_name, 1 as win, 0 as lose from game_history where winner='hsiale' union all select loser_deck_name as deck_name, format_name, 0 as win, 1 as lose from game_history where loser='hsiale') as u
-    // group by deck_name, format_name order by format_name
+    public List<PlayerStatistic> getCasualPlayerStatistics(Player player) {
+        try {
+            Connection connection = _dbAccess.getDataSource().getConnection();
+            try {
+                PreparedStatement statement = connection.prepareStatement(
+                        "select deck_name, format_name, sum(win), sum(lose) from" +
+                                " (select winner_deck_name as deck_name, format_name, 1 as win, 0 as lose from game_history where winner=? and (tournament is null or tournament = 'Casual')" +
+                                " union all select loser_deck_name as deck_name, format_name, 0 as win, 1 as lose from game_history where loser=? and (tournament is null or tournament = 'Casual')) as u" +
+                                " group by deck_name, format_name order by format_name, deck_name");
+                try {
+                    statement.setString(1, player.getName());
+                    statement.setString(2, player.getName());
+                    ResultSet rs = statement.executeQuery();
+                    List<PlayerStatistic> result = new LinkedList<PlayerStatistic>();
+                    try {
+                        while (rs.next())
+                            result.add(new PlayerStatistic(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getInt(4)));
+                    } finally {
+                        rs.close();
+                    }
+                    return result;
+                } finally {
+                    statement.close();
+                }
+            } finally {
+                connection.close();
+            }
+        } catch (SQLException exp) {
+            throw new RuntimeException("Unable to get count of games played", exp);
+        }
+    }
+
+    public List<PlayerStatistic> getCompetetivePlayerStatistics(Player player) {
+        try {
+            Connection connection = _dbAccess.getDataSource().getConnection();
+            try {
+                PreparedStatement statement = connection.prepareStatement(
+                        "select deck_name, format_name, sum(win), sum(lose) from" +
+                                " (select winner_deck_name as deck_name, format_name, 1 as win, 0 as lose from game_history where winner=? and (tournament is not null and tournament <> 'Casual')" +
+                                " union all select loser_deck_name as deck_name, format_name, 0 as win, 1 as lose from game_history where loser=? and (tournament is not null and tournament <> 'Casual')) as u" +
+                                " group by deck_name, format_name order by format_name, deck_name");
+                try {
+                    statement.setString(1, player.getName());
+                    statement.setString(2, player.getName());
+                    ResultSet rs = statement.executeQuery();
+                    List<PlayerStatistic> result = new LinkedList<PlayerStatistic>();
+                    try {
+                        while (rs.next())
+                            result.add(new PlayerStatistic(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getInt(4)));
+                    } finally {
+                        rs.close();
+                    }
+                    return result;
+                } finally {
+                    statement.close();
+                }
+            } finally {
+                connection.close();
+            }
+        } catch (SQLException exp) {
+            throw new RuntimeException("Unable to get count of games played", exp);
+        }
+    }
 }
