@@ -311,7 +311,7 @@ public class ServerResource extends AbstractResource {
             entry.setAttribute("format", casualStatistic.getFormatName());
             entry.setAttribute("wins", String.valueOf(casualStatistic.getWins()));
             entry.setAttribute("losses", String.valueOf(casualStatistic.getLosses()));
-            entry.setAttribute("perc", percFormat.format(1f * casualStatistic.getWins() / casualStatistic.getLosses()));
+            entry.setAttribute("perc", percFormat.format(1f * casualStatistic.getWins() / (casualStatistic.getLosses() + casualStatistic.getWins())));
             type.appendChild(entry);
         }
     }
