@@ -108,9 +108,9 @@ var AdvPathCardGroup = CardGroup.extend({
 
     init:function (container) {
         this._super(container,
-                function (card) {
-                    return (card.zone == "ADVENTURE_PATH");
-                });
+            function (card) {
+                return (card.zone == "ADVENTURE_PATH");
+            });
     },
 
     setPositions:function (positions) {
@@ -125,10 +125,10 @@ var AdvPathCardGroup = CardGroup.extend({
         var cardsToLayout = this.getCardElems();
 
         cardsToLayout.sort(
-                function (first, second) {
-                    return (first.data("card").siteNumber - second.data("card").siteNumber);
-                }
-                );
+            function (first, second) {
+                return (first.data("card").siteNumber - second.data("card").siteNumber);
+            }
+        );
 
         var cardCount = cardsToLayout.length;
         var totalHeight = 0;
@@ -352,8 +352,8 @@ function layoutCardElem(cardElem, x, y, width, height, index) {
     width = Math.floor(width);
     height = Math.floor(height);
     if (cardElem.css("left") == (x + "px") && cardElem.css("top") == (y + "px")
-            && cardElem.css("width") == (width + "px") && cardElem.css("height") == (height + "px")
-            && cardElem.css("zIndex") == index)
+        && cardElem.css("width") == (width + "px") && cardElem.css("height") == (height + "px")
+        && cardElem.css("zIndex") == index)
         return;
     cardElem.css({position:"absolute", left:x + "px", top:y + "px", width:width, height:height, zIndex:index });
 

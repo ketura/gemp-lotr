@@ -61,37 +61,37 @@ var ChatBoxUI = Class.extend({
 
             if (showHideSystemButton) {
                 this.hideSystemButton = $("<button id='showSystemMessages'>Toggle system messages</button>").button(
-                {icons:{
-                    primary:"ui-icon-zoomin"
-                }, text:false});
+                    {icons:{
+                        primary:"ui-icon-zoomin"
+                    }, text:false});
                 this.hideSystemButton.click(
-                        function () {
-                            if (that.isShowingMessageClass("systemMessage")) {
-                                $('#showSystemMessages').button("option", "icons", {primary:'ui-icon-zoomin'});
-                                that.hideMessageClass("systemMessage");
-                            } else {
-                                $('#showSystemMessages').button("option", "icons", {primary:'ui-icon-zoomout'});
-                                that.showMessageClass("systemMessage");
-                            }
-                        });
+                    function () {
+                        if (that.isShowingMessageClass("systemMessage")) {
+                            $('#showSystemMessages').button("option", "icons", {primary:'ui-icon-zoomin'});
+                            that.hideMessageClass("systemMessage");
+                        } else {
+                            $('#showSystemMessages').button("option", "icons", {primary:'ui-icon-zoomout'});
+                            that.showMessageClass("systemMessage");
+                        }
+                    });
                 this.hideMessageClass("systemMessage");
             }
 
             if (showLockButton) {
                 this.lockButton = $("<button id='lockChatButton'>Toggle lock chat</button>").button(
-                {icons:{
-                    primary:"ui-icon-locked"
-                }, text:false});
+                    {icons:{
+                        primary:"ui-icon-locked"
+                    }, text:false});
                 this.lockButton.click(
-                        function () {
-                            if (that.lockChat) {
-                                $('#lockChatButton').button("option", "icons", {primary:'ui-icon-locked'});
-                                that.lockChat = false;
-                            } else {
-                                $('#lockChatButton').button("option", "icons", {primary:'ui-icon-unlocked'});
-                                that.lockChat = true;
-                            }
-                        });
+                    function () {
+                        if (that.lockChat) {
+                            $('#lockChatButton').button("option", "icons", {primary:'ui-icon-locked'});
+                            that.lockChat = false;
+                        } else {
+                            $('#lockChatButton').button("option", "icons", {primary:'ui-icon-unlocked'});
+                            that.lockChat = true;
+                        }
+                    });
             }
 
             if (showList) {
@@ -105,19 +105,19 @@ var ChatBoxUI = Class.extend({
             this.div.append(this.chatTalkDiv);
 
             this.communication.startChat(this.name,
-                    function (xml) {
-                        that.processMessages(xml, true);
-                    }, {
-                "401":function () {
-                    that.appendMessage("You are not logged in, go to the main page to log in.", "warningMessage");
-                },
-                "403":function () {
-                    that.appendMessage("You have no permission to join this chat.", "warningMessage");
-                },
-                "404":function () {
-                    that.appendMessage("Chat room was closed, please go to the Game Hall.", "warningMessage");
-                }
-            });
+                function (xml) {
+                    that.processMessages(xml, true);
+                }, {
+                    "401":function () {
+                        that.appendMessage("You are not logged in, go to the main page to log in.", "warningMessage");
+                    },
+                    "403":function () {
+                        that.appendMessage("You have no permission to join this chat.", "warningMessage");
+                    },
+                    "404":function () {
+                        that.appendMessage("Chat room was closed, please go to the Game Hall.", "warningMessage");
+                    }
+                });
 
             this.chatTalkDiv.bind("keypress", function (e) {
                 var code = (e.keyCode ? e.keyCode : e.which);
