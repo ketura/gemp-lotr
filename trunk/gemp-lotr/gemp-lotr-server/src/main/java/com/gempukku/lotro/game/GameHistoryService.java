@@ -62,7 +62,7 @@ public class GameHistoryService {
         return _gameHistoryDAO.getCasualPlayerStatistics(player);
     }
 
-    public List<PlayerStatistic> getCompetetivePlayerStatistics(Player player) {
-        return _gameHistoryDAO.getCompetetivePlayerStatistics(player);
+    public List<PlayerStatistic> getCompetitivePlayerStatistics(Player player) {
+        return _gameHistoryDAO.getCompetitivePlayerStatistics(player);
     }
 }

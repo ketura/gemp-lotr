@@ -394,8 +394,8 @@ public class HallServer extends AbstractServer {
         _awaitingTables.remove(tableId);
     }
 
-    private void createGame(String tableId, LotroGameParticipant[] participants, GameResultListener listener, LotroFormat lotroFormat, String tournamentName, boolean competetive, boolean tournament) {
-        String gameId = _lotroServer.createNewGame(lotroFormat, tournamentName, participants, competetive, tournament);
+    private void createGame(String tableId, LotroGameParticipant[] participants, GameResultListener listener, LotroFormat lotroFormat, String tournamentName, boolean competitive, boolean tournament) {
+        String gameId = _lotroServer.createNewGame(lotroFormat, tournamentName, participants, competitive, tournament);
         LotroGameMediator lotroGameMediator = _lotroServer.getGameById(gameId);
         if (listener != null)
             lotroGameMediator.addGameResultListener(listener);
