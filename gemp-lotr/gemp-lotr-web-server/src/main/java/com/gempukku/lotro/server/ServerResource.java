@@ -283,7 +283,7 @@ public class ServerResource extends AbstractResource {
         Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
         List<PlayerStatistic> casualStatistics = _gameHistoryService.getCasualPlayerStatistics(resourceOwner);
-        List<PlayerStatistic> competetiveStatistics = _gameHistoryService.getCompetetivePlayerStatistics(resourceOwner);
+        List<PlayerStatistic> competitiveStatistics = _gameHistoryService.getCompetitivePlayerStatistics(resourceOwner);
 
         DecimalFormat percFormat = new DecimalFormat("#0.0%");
 
@@ -296,9 +296,9 @@ public class ServerResource extends AbstractResource {
         appendStatistics(casualStatistics, percFormat, doc, casual);
         stats.appendChild(casual);
 
-        Element competetive = doc.createElement("competetive");
-        appendStatistics(competetiveStatistics, percFormat, doc, competetive);
-        stats.appendChild(competetive);
+        Element competitive = doc.createElement("competitive");
+        appendStatistics(competitiveStatistics, percFormat, doc, competitive);
+        stats.appendChild(competitive);
 
         doc.appendChild(stats);
         return doc;

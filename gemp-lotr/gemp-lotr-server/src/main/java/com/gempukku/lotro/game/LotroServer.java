@@ -122,7 +122,7 @@ public class LotroServer extends AbstractServer {
         return "Game" + gameId;
     }
 
-    public synchronized String createNewGame(LotroFormat lotroFormat, String tournamentName, final LotroGameParticipant[] participants, boolean competetive, boolean tournament) {
+    public synchronized String createNewGame(LotroFormat lotroFormat, String tournamentName, final LotroGameParticipant[] participants, boolean competitive, boolean tournament) {
         if (participants.length < 2)
             throw new IllegalArgumentException("There has to be at least two players");
         final String gameId = String.valueOf(_nextGameId);
@@ -139,7 +139,7 @@ public class LotroServer extends AbstractServer {
             _chatServer.createChatRoom(getChatRoomName(gameId), 30);
 
         LotroGameMediator lotroGameMediator = new LotroGameMediator(lotroFormat, participants, _lotroCardBlueprintLibrary,
-                competetive ? 60 * 40 : 60 * 80, noSpectators, cancellable);
+                competitive ? 60 * 40 : 60 * 80, noSpectators, cancellable);
         lotroGameMediator.addGameResultListener(
                 new GameResultListener() {
                     @Override

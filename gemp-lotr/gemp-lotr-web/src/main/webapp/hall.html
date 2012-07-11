@@ -190,6 +190,7 @@
 <script type="text/javascript" src="js/gemp-010/leagueResultsUi.js"></script>
 <script type="text/javascript" src="js/gemp-010/tournamentResultsUi.js"></script>
 <script type="text/javascript" src="js/gemp-010/statsUi.js"></script>
+<script type="text/javascript" src="js/gemp-010/playerStatsUi.js"></script>
 <script type="text/javascript" src="js/gemp-010/gameHistoryUi.js"></script>
 <script type="text/javascript" src="js/gemp-010/communication.js"></script>
 <!-- This is needed for delivery -->
@@ -237,11 +238,11 @@
 
                 var infoDialog = $("<div></div>")
                         .dialog({
-                    autoOpen:false,
-                    closeOnEscape:true,
-                    resizable:false,
-                    title:"Card information"
-                });
+                            autoOpen:false,
+                            closeOnEscape:true,
+                            resizable:false,
+                            title:"Card information"
+                        });
 
                 $("body").click(
                         function (event) {
@@ -318,7 +319,8 @@
         <li><a href="includes/instruction.html">Manual</a></li>
         <li><a href="/gemp-lotr-server/hall/formats/html">Format Rules</a></li>
         <li><a href="includes/contribute.html">Contribute</a></li>
-        <li><a href="includes/stats.html">Stats</a></li>
+        <li><a href="includes/yourStats.html">Your stats</a></li>
+        <li><a href="includes/stats.html">Server stats</a></li>
         <script type="text/javascript">
             document.write('<li><a href="includes/changeLog.html?_=' + (new Date().getTime()) + '">Change Log</a></li>');
         </script>

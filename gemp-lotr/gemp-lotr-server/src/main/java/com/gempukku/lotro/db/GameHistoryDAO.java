@@ -268,7 +268,7 @@ public class GameHistoryDAO {
         }
     }
 
-    public List<PlayerStatistic> getCompetetivePlayerStatistics(Player player) {
+    public List<PlayerStatistic> getCompetitivePlayerStatistics(Player player) {
         try {
             Connection connection = _dbAccess.getDataSource().getConnection();
             try {

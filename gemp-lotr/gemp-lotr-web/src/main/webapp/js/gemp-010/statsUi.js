@@ -1,11 +1,10 @@
 var StatsUI = Class.extend({
     communication:null,
-    formatDialog:null,
 
     init:function (url) {
         this.communication = new GempLotrCommunication(url,
-                function (xhr, ajaxOptions, thrownError) {
-                });
+            function (xhr, ajaxOptions, thrownError) {
+            });
 
 
         var now = new Date();
@@ -18,16 +17,16 @@ var StatsUI = Class.extend({
         var that = this;
 
         $(".getStats", $("#statsParameters")).click(
-                function () {
-                    var startDay = $(".startDay", $("#statsParameters")).prop("value");
-                    var period = $("option:selected", $(".period", $("#statsParameters"))).prop("value");
+            function () {
+                var startDay = $(".startDay", $("#statsParameters")).prop("value");
+                var period = $("option:selected", $(".period", $("#statsParameters"))).prop("value");
 
-                    that.communication.getStats(startDay, period, that.loadedStats, {
-                        "400":function () {
-                            alert("Invalid parameter entered");
-                        }
-                    })
-                });
+                that.communication.getStats(startDay, period, that.loadedStats, {
+                    "400":function () {
+                        alert("Invalid parameter entered");
+                    }
+                })
+            });
     },
 
     loadedStats:function (xml) {
