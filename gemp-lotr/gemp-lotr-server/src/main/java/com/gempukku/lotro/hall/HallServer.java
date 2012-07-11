@@ -75,6 +75,7 @@ public class HallServer extends AbstractServer {
             if (shutdown) {
                 cancelWaitingTables();
                 cancelTournamentQueues();
+                _chatServer.sendSystemMessageToAllChatRooms("System is entering shutdown mode and will be restarted when all games are finished");
             }
         } finally {
             _hallDataAccessLock.writeLock().unlock();

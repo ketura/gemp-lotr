@@ -23,6 +23,11 @@ public class ChatServer extends AbstractServer {
         return chatRoom;
     }
 
+    public void sendSystemMessageToAllChatRooms(String message) {
+        for (ChatRoomMediator chatRoomMediator : _chatRooms.values())
+            chatRoomMediator.sendMessage("System", message, true);
+    }
+
     public ChatRoomMediator getChatRoom(String name) {
         return _chatRooms.get(name);
     }
