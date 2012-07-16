@@ -16,7 +16,7 @@ public class ChatServer extends AbstractServer {
         return chatRoom;
     }
 
-    public ChatRoomMediator createPrivateChatRoom(String name, Set<String> allowedUsers, int secondsTimeoutPeriod) {
+    public ChatRoomMediator createVoicedChatRoom(String name, Set<String> allowedUsers, int secondsTimeoutPeriod) {
         ChatRoomMediator chatRoom = new ChatRoomMediator(secondsTimeoutPeriod, allowedUsers);
         chatRoom.sendMessage("System", "Welcome to private room: " + name, true);
         _chatRooms.put(name, chatRoom);

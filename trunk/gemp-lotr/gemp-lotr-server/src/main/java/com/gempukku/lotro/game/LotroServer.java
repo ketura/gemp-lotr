@@ -122,24 +122,22 @@ public class LotroServer extends AbstractServer {
         return "Game" + gameId;
     }
 
-    public synchronized String createNewGame(LotroFormat lotroFormat, String tournamentName, final LotroGameParticipant[] participants, boolean competitive, boolean tournament) {
+    public synchronized String createNewGame(LotroFormat lotroFormat, String tournamentName, final LotroGameParticipant[] participants, boolean allowSpectators, boolean allowCancelling, boolean muteSpectators, boolean competitiveTime
+    ) {
         if (participants.length < 2)
             throw new IllegalArgumentException("There has to be at least two players");
         final String gameId = String.valueOf(_nextGameId);
 
-        boolean noSpectators = tournament;
-        boolean cancellable = !tournament;
-
-        if (noSpectators) {
+        if (muteSpectators) {
             Set<String> allowedUsers = new HashSet<String>();
             for (LotroGameParticipant participant : participants)
                 allowedUsers.add(participant.getPlayerId());
-            _chatServer.createPrivateChatRoom(getChatRoomName(gameId), allowedUsers, 30);
+            _chatServer.createVoicedChatRoom(getChatRoomName(gameId), allowedUsers, 30);
         } else
             _chatServer.createChatRoom(getChatRoomName(gameId), 30);
 
         LotroGameMediator lotroGameMediator = new LotroGameMediator(lotroFormat, participants, _lotroCardBlueprintLibrary,
-                competitive ? 60 * 40 : 60 * 80, noSpectators, cancellable);
+                competitiveTime ? 60 * 40 : 60 * 80, !allowSpectators, allowCancelling);
         lotroGameMediator.addGameResultListener(
                 new GameResultListener() {
                     @Override

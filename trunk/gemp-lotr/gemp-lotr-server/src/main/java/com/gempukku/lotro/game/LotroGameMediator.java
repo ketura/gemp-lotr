@@ -29,7 +29,7 @@ public class LotroGameMediator {
     private Set<String> _playersPlaying = new HashSet<String>();
 
     private int _maxSecondsForGamePerPlayer = 60 * 80; // 80 minutes
-    private boolean _noSpectators;
+    private boolean _allowSpectators;
     private boolean _cancellable;
     //    private final int _maxSecondsForGamePerPlayer = 60 * 40; // 40 minutes
     private final int _channelInactivityTimeoutPeriod = 1000 * 60 * 5; // 5 minutes
@@ -41,9 +41,9 @@ public class LotroGameMediator {
     private int _channelNextIndex = 0;
 
     public LotroGameMediator(LotroFormat lotroFormat, LotroGameParticipant[] participants, LotroCardBlueprintLibrary library, int maxSecondsForGamePerPlayer,
-                             boolean noSpectators, boolean cancellable) {
+                             boolean allowSpectators, boolean cancellable) {
         _maxSecondsForGamePerPlayer = maxSecondsForGamePerPlayer;
-        _noSpectators = noSpectators;
+        _allowSpectators = allowSpectators;
         _cancellable = cancellable;
         if (participants.length < 1)
             throw new IllegalArgumentException("Game can't have less than one participant");
@@ -62,8 +62,8 @@ public class LotroGameMediator {
         _userFeedback.setGame(_lotroGame);
     }
 
-    public boolean isNoSpectators() {
-        return _noSpectators;
+    public boolean isAllowSpectators() {
+        return _allowSpectators;
     }
 
     public void setPlayerAutoPassSettings(String playerId, Set<Phase> phases) {
@@ -325,7 +325,7 @@ public class LotroGameMediator {
 
     public void processCommunicationChannel(Player player, int channelNumber, ParticipantCommunicationVisitor visitor) {
         String playerName = player.getName();
-        if (!player.getType().contains("a") && _noSpectators && !_playersPlaying.contains(playerName))
+        if (!player.getType().contains("a") && !_allowSpectators && !_playersPlaying.contains(playerName))
             throw new WebApplicationException(Response.Status.FORBIDDEN);
 
         _readLock.lock();
@@ -360,7 +360,7 @@ public class LotroGameMediator {
 
     public void singupUserForGame(Player player, ParticipantCommunicationVisitor visitor) {
         String playerName = player.getName();
-        if (!player.getType().contains("a") && _noSpectators && !_playersPlaying.contains(playerName))
+        if (!player.getType().contains("a") && !_allowSpectators && !_playersPlaying.contains(playerName))
             throw new WebApplicationException(Response.Status.FORBIDDEN);
 
         _readLock.lock();

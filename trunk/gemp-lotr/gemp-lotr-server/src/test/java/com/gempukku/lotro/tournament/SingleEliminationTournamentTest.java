@@ -39,7 +39,7 @@ public class SingleEliminationTournamentTest {
         TournamentCallback tournamentCallback = Mockito.mock(TournamentCallback.class);
         tournament.advanceTournament(tournamentCallback);
 
-        Mockito.verify(tournamentCallback, new Times(1)).createGame(Mockito.<LotroGameParticipant>any(), Mockito.<LotroGameParticipant>any());
+        Mockito.verify(tournamentCallback, new Times(1)).createGame(Mockito.<LotroGameParticipant>any(), Mockito.<LotroGameParticipant>any(), Mockito.anyBoolean());
 
         assertTrue(tournament.isPlayerInCompetition("p1"));
         assertTrue(tournament.isPlayerInCompetition("p2"));
@@ -78,7 +78,7 @@ public class SingleEliminationTournamentTest {
 
         ArgumentCaptor<LotroGameParticipant> playerOne = ArgumentCaptor.forClass(LotroGameParticipant.class);
         ArgumentCaptor<LotroGameParticipant> playerTwo = ArgumentCaptor.forClass(LotroGameParticipant.class);
-        Mockito.verify(tournamentCallback, new Times(2)).createGame(playerOne.capture(), playerTwo.capture());
+        Mockito.verify(tournamentCallback, new Times(2)).createGame(playerOne.capture(), playerTwo.capture(), Mockito.anyBoolean());
 
         List<LotroGameParticipant> playerOnes = playerOne.getAllValues();
         List<LotroGameParticipant> playerTwos = playerTwo.getAllValues();
@@ -118,7 +118,7 @@ public class SingleEliminationTournamentTest {
 
         ArgumentCaptor<LotroGameParticipant> playerOne2 = ArgumentCaptor.forClass(LotroGameParticipant.class);
         ArgumentCaptor<LotroGameParticipant> playerTwo2 = ArgumentCaptor.forClass(LotroGameParticipant.class);
-        Mockito.verify(tournamentCallback, new Times(1)).createGame(playerOne2.capture(), playerTwo2.capture());
+        Mockito.verify(tournamentCallback, new Times(1)).createGame(playerOne2.capture(), playerTwo2.capture(), Mockito.anyBoolean());
 
         assertTrue(oneNames.contains("p1") || twoNames.contains("p1"));
         assertTrue(oneNames.contains(secondWinner) || twoNames.contains(secondWinner));

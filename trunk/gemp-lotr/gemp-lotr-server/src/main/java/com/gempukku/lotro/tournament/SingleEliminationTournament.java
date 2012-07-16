@@ -29,7 +29,7 @@ public class SingleEliminationTournament extends AbstractTournament {
             String playerOne = playerIterator.next();
             if (playerIterator.hasNext()) {
                 String playerTwo = playerIterator.next();
-                pairNewGame(tournamentCallback, playerOne, playerTwo);
+                pairNewGame(tournamentCallback, playerOne, playerTwo, playersRandomized.size() == 2);
             } else {
                 awardNewBye(tournamentCallback, playerOne);
             }
