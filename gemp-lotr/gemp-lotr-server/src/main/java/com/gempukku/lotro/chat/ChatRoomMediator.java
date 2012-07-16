@@ -23,20 +23,14 @@ public class ChatRoomMediator {
         _channelInactivityTimeoutPeriod = 1000 * secondsTimeoutPeriod;
     }
 
-    public synchronized List<ChatMessage> joinUser(String playerId, boolean admin) {
-        if (!admin && _allowedPlayers != null && !_allowedPlayers.contains(playerId))
-            throw new WebApplicationException(Response.Status.FORBIDDEN);
-
+    public synchronized List<ChatMessage> joinUser(String playerId) {
         GatheringChatRoomListener value = new GatheringChatRoomListener();
         _listeners.put(playerId, value);
         _chatRoom.joinChatRoom(playerId, value);
         return value.consumeMessages();
     }
 
-    public synchronized List<ChatMessage> getPendingMessages(String playerId, boolean admin) {
-        if (!admin && _allowedPlayers != null && !_allowedPlayers.contains(playerId))
-            throw new WebApplicationException(Response.Status.FORBIDDEN);
-
+    public synchronized List<ChatMessage> getPendingMessages(String playerId) {
         GatheringChatRoomListener gatheringChatRoomListener = _listeners.get(playerId);
         if (gatheringChatRoomListener == null)
             throw new WebApplicationException(Response.Status.NOT_FOUND);

@@ -266,7 +266,7 @@ public class HallServer extends AbstractServer {
                 LotroGameMediator lotroGameMediator = _lotroServer.getGameById(runningTable.getGameId());
                 if (lotroGameMediator != null) {
                     if (!lotroGameMediator.isFinished())
-                        visitor.visitTable(runningGame.getKey(), runningTable.getGameId(), player.getType().contains("a") || !lotroGameMediator.isNoSpectators(), lotroGameMediator.getGameStatus(), runningTable.getFormatName(), runningTable.getTournamentName(), lotroGameMediator.getPlayersPlaying(), lotroGameMediator.getWinner());
+                        visitor.visitTable(runningGame.getKey(), runningTable.getGameId(), player.getType().contains("a") || lotroGameMediator.isAllowSpectators(), lotroGameMediator.getGameStatus(), runningTable.getFormatName(), runningTable.getTournamentName(), lotroGameMediator.getPlayersPlaying(), lotroGameMediator.getWinner());
                     else
                         finishedTables.put(runningGame.getKey(), runningTable);
                 }
@@ -391,12 +391,12 @@ public class HallServer extends AbstractServer {
             };
         }
 
-        createGame(tableId, participants, listener, awaitingTable.getLotroFormat(), getTournamentName(awaitingTable), league != null, false);
+        createGame(tableId, participants, listener, awaitingTable.getLotroFormat(), getTournamentName(awaitingTable), true, league == null, false, false);
         _awaitingTables.remove(tableId);
     }
 
-    private void createGame(String tableId, LotroGameParticipant[] participants, GameResultListener listener, LotroFormat lotroFormat, String tournamentName, boolean competitive, boolean tournament) {
-        String gameId = _lotroServer.createNewGame(lotroFormat, tournamentName, participants, competitive, tournament);
+    private void createGame(String tableId, LotroGameParticipant[] participants, GameResultListener listener, LotroFormat lotroFormat, String tournamentName, boolean allowSpectators, boolean allowCancelling, boolean muteSpectators, boolean competitiveTime) {
+        String gameId = _lotroServer.createNewGame(lotroFormat, tournamentName, participants, allowSpectators, allowCancelling, muteSpectators, competitiveTime);
         LotroGameMediator lotroGameMediator = _lotroServer.getGameById(gameId);
         if (listener != null)
             lotroGameMediator.addGameResultListener(listener);
@@ -513,14 +513,14 @@ public class HallServer extends AbstractServer {
         }
 
         @Override
-        public void createGame(LotroGameParticipant playerOne, LotroGameParticipant playerTwo) {
+        public void createGame(LotroGameParticipant playerOne, LotroGameParticipant playerTwo, boolean allowSpectators) {
             final LotroGameParticipant[] participants = new LotroGameParticipant[2];
             participants[0] = playerOne;
             participants[1] = playerTwo;
-            createGameInternal(participants);
+            createGameInternal(participants, allowSpectators);
         }
 
-        private void createGameInternal(final LotroGameParticipant[] participants) {
+        private void createGameInternal(final LotroGameParticipant[] participants, final boolean allowSpectators) {
             _hallDataAccessLock.writeLock().lock();
             try {
                 if (!_shutdown) {
@@ -533,9 +533,9 @@ public class HallServer extends AbstractServer {
 
                                 @Override
                                 public void gameCancelled() {
-                                    createGameInternal(participants);
+                                    createGameInternal(participants, allowSpectators);
                                 }
-                            }, _formatLibrary.getFormat(_tournament.getFormat()), _tournament.getTournamentName(), true, true);
+                            }, _formatLibrary.getFormat(_tournament.getFormat()), _tournament.getTournamentName(), allowSpectators, false, true, true);
                 }
             } finally {
                 _hallDataAccessLock.writeLock().unlock();

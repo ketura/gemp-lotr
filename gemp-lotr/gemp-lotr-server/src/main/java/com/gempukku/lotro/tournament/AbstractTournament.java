@@ -207,9 +207,9 @@ public abstract class AbstractTournament implements Tournament {
         }
     }
 
-    private void createNewGame(TournamentCallback tournamentCallback, String playerOne, String playerTwo) {
+    private void createNewGame(TournamentCallback tournamentCallback, String playerOne, String playerTwo, boolean allowSpectators) {
         tournamentCallback.createGame(new LotroGameParticipant(playerOne, _playerDecks.get(playerOne)),
-                new LotroGameParticipant(playerTwo, _playerDecks.get(playerTwo)));
+                new LotroGameParticipant(playerTwo, _playerDecks.get(playerTwo)), allowSpectators);
     }
 
     private class StartTournament implements TournamentTask {
@@ -253,10 +253,10 @@ public abstract class AbstractTournament implements Tournament {
 
     protected abstract void pairPlayers(TournamentCallback tournamentCallback);
 
-    protected void pairNewGame(TournamentCallback tournamentCallback, String playerOne, String playerTwo) {
+    protected void pairNewGame(TournamentCallback tournamentCallback, String playerOne, String playerTwo, boolean allowSpectators) {
         _ongoingGamesCount++;
         _tournamentService.addMatch(_tournamentId, _currentRound, playerOne, playerTwo);
-        createNewGame(tournamentCallback, playerOne, playerTwo);
+        createNewGame(tournamentCallback, playerOne, playerTwo, allowSpectators);
     }
 
     protected void awardNewBye(TournamentCallback tournamentCallback, String player) {
@@ -279,7 +279,7 @@ public abstract class AbstractTournament implements Tournament {
                 String playerOne = pairings.getKey();
                 String playerTwo = pairings.getValue();
                 _ongoingGamesCount++;
-                createNewGame(tournamentCallback, playerOne, playerTwo);
+                createNewGame(tournamentCallback, playerOne, playerTwo, false);
             }
         }
 
