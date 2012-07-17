@@ -99,10 +99,6 @@ public class HallServer extends AbstractServer {
         }
     }
 
-    public Map<String, LotroFormat> getSupportedFormats() {
-        return _formatLibrary.getHallFormats();
-    }
-
     private void cancelWaitingTables() {
         _awaitingTables.clear();
     }

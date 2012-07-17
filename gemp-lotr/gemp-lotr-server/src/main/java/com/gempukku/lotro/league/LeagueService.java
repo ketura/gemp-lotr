@@ -41,7 +41,7 @@ public class LeagueService {
         _collectionsManager = collectionsManager;
     }
 
-    public void clearCache() {
+    public synchronized void clearCache() {
         _leagueSerieStandings.clear();
         _leagueStandings.clear();
         _activeLeaguesLoadedDate = 0;
@@ -68,7 +68,7 @@ public class LeagueService {
         }
     }
 
-    public List<League> getActiveLeagues() {
+    public synchronized List<League> getActiveLeagues() {
         if (DateUtils.getCurrentDate() == _activeLeaguesLoadedDate)
             return Collections.unmodifiableList(_activeLeagues);
         else {
@@ -86,11 +86,11 @@ public class LeagueService {
         }
     }
 
-    public boolean isPlayerInLeague(League league, Player player) {
+    public synchronized boolean isPlayerInLeague(League league, Player player) {
         return _leagueParticipationDAO.getUsersParticipating(league.getType()).contains(player.getName());
     }
 
-    public boolean playerJoinsLeague(League league, Player player) {
+    public synchronized boolean playerJoinsLeague(League league, Player player) {
         if (isPlayerInLeague(league, player))
             return false;
         int cost = league.getCost();
@@ -106,7 +106,7 @@ public class LeagueService {
         }
     }
 
-    public League getLeagueByType(String type) {
+    public synchronized League getLeagueByType(String type) {
         for (League league : getActiveLeagues()) {
             if (league.getType().equals(type))
                 return league;
@@ -114,7 +114,7 @@ public class LeagueService {
         return null;
     }
 
-    public CollectionType getCollectionTypeByCode(String collectionTypeCode) {
+    public synchronized CollectionType getCollectionTypeByCode(String collectionTypeCode) {
         for (League league : getActiveLeagues()) {
             for (LeagueSerieData leagueSerieData : league.getLeagueData().getSeries()) {
                 CollectionType collectionType = leagueSerieData.getCollectionType();
@@ -125,7 +125,7 @@ public class LeagueService {
         return null;
     }
 
-    public LeagueSerieData getCurrentLeagueSerie(League league) {
+    public synchronized LeagueSerieData getCurrentLeagueSerie(League league) {
         final int currentDate = DateUtils.getCurrentDate();
 
         for (LeagueSerieData leagueSerieData : league.getLeagueData().getSeries()) {
@@ -136,7 +136,7 @@ public class LeagueService {
         return null;
     }
 
-    public void reportLeagueGameResult(League league, LeagueSerieData serie, String winner, String loser) {
+    public synchronized void reportLeagueGameResult(League league, LeagueSerieData serie, String winner, String loser) {
         _leagueMatchDao.addPlayedMatch(league.getType(), serie.getName(), winner, loser);
 
         _leagueStandings.remove(LeagueMapKeys.getLeagueMapKey(league));
@@ -173,7 +173,7 @@ public class LeagueService {
         return result;
     }
 
-    public List<PlayerStanding> getLeagueStandings(League league) {
+    public synchronized List<PlayerStanding> getLeagueStandings(League league) {
         List<PlayerStanding> leagueStandings = _leagueStandings.get(LeagueMapKeys.getLeagueMapKey(league));
         if (leagueStandings == null) {
             synchronized (this) {
@@ -184,7 +184,7 @@ public class LeagueService {
         return leagueStandings;
     }
 
-    public List<PlayerStanding> getLeagueSerieStandings(League league, LeagueSerieData leagueSerie) {
+    public synchronized List<PlayerStanding> getLeagueSerieStandings(League league, LeagueSerieData leagueSerie) {
         List<PlayerStanding> serieStandings = _leagueSerieStandings.get(LeagueMapKeys.getLeagueSerieMapKey(league, leagueSerie));
         if (serieStandings == null) {
             synchronized (this) {
@@ -219,7 +219,7 @@ public class LeagueService {
         return StandingsProducer.produceStandings(playersParticipating, matches, 2, 1, Collections.<String, Integer>emptyMap());
     }
 
-    public boolean canPlayRankedGame(League league, LeagueSerieData season, String player) {
+    public synchronized boolean canPlayRankedGame(League league, LeagueSerieData season, String player) {
         int maxMatches = season.getMaxMatches();
         Collection<LeagueMatchResult> playedInSeason = getPlayerMatchesInSerie(league, season, player);
         if (playedInSeason.size() >= maxMatches)
@@ -227,7 +227,7 @@ public class LeagueService {
         return true;
     }
 
-    public boolean canPlayRankedGameAgainst(League league, LeagueSerieData season, String playerOne, String playerTwo) {
+    public synchronized boolean canPlayRankedGameAgainst(League league, LeagueSerieData season, String playerOne, String playerTwo) {
         Collection<LeagueMatchResult> playedInSeason = getPlayerMatchesInSerie(league, season, playerOne);
         for (LeagueMatchResult leagueMatch : playedInSeason) {
             if (playerTwo.equals(leagueMatch.getWinner()) || playerTwo.equals(leagueMatch.getLoser()))

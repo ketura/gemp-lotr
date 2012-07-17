@@ -3,6 +3,7 @@ package com.gempukku.lotro.server;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.db.DeckDAO;
 import com.gempukku.lotro.game.*;
+import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.gempukku.lotro.hall.HallServer;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.vo.LotroDeck;
@@ -36,6 +37,8 @@ public class DeckResource extends AbstractResource {
     private LotroCardBlueprintLibrary _library;
     @Context
     private DeckDAO _deckDao;
+    @Context
+    private LotroFormatLibrary _formatLibrary;
 
     private SortAndFilterCards _sortAndFilterCards = new SortAndFilterCards();
 
@@ -217,7 +220,7 @@ public class DeckResource extends AbstractResource {
         StringBuilder sb = new StringBuilder();
         sb.append("<b>Free People</b>: " + fpCount + ", <b>Shadow</b>: " + shadowCount + "<br/>");
 
-        for (LotroFormat format : _hallServer.getSupportedFormats().values()) {
+        for (LotroFormat format : _formatLibrary.getHallFormats().values()) {
             try {
                 format.validateDeck(resourceOwner, deck);
                 sb.append("<b>" + format.getName() + "</b>: <font color='green'>valid</font><br/>");

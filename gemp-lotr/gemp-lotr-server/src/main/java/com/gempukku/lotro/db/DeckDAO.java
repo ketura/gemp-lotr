@@ -23,11 +23,11 @@ public class DeckDAO {
         _library = library;
     }
 
-    public void clearCache() {
+    public synchronized void clearCache() {
         _decks.clear();
     }
 
-    public LotroDeck getDeckForPlayer(Player player, String name) {
+    public synchronized LotroDeck getDeckForPlayer(Player player, String name) {
         Map<String, LotroDeck> deckMap = getPlayerDecks(player);
         return deckMap.get(name);
     }
@@ -59,7 +59,7 @@ public class DeckDAO {
         return deck;
     }
 
-    public Set<String> getPlayerDeckNames(Player player) {
+    public synchronized Set<String> getPlayerDeckNames(Player player) {
         return Collections.unmodifiableSet(getPlayerDecks(player).keySet());
     }
 
@@ -137,7 +137,7 @@ public class DeckDAO {
 //        }
 //    }
 
-    public LotroDeck buildDeckFromContents(String deckName, String contents) {
+    public synchronized LotroDeck buildDeckFromContents(String deckName, String contents) {
         if (contents.contains("|")) {
             return DeckSerialization.buildDeckFromContents(deckName, contents);
         } else {

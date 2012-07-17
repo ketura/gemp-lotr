@@ -5,6 +5,8 @@ import com.gempukku.lotro.game.GatheringChatRoomListener;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 import java.util.*;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class ChatRoomMediator {
     private ChatRoom _chatRoom = new ChatRoom();
@@ -13,6 +15,8 @@ public class ChatRoomMediator {
 
     private int _channelInactivityTimeoutPeriod = 1000 * 10; // 10 seconds
     private Set<String> _allowedPlayers;
+
+    private ReadWriteLock _lock = new ReentrantReadWriteLock();
 
     public ChatRoomMediator(int secondsTimeoutPeriod) {
         this(secondsTimeoutPeriod, null);
@@ -23,46 +27,76 @@ public class ChatRoomMediator {
         _channelInactivityTimeoutPeriod = 1000 * secondsTimeoutPeriod;
     }
 
-    public synchronized List<ChatMessage> joinUser(String playerId) {
-        GatheringChatRoomListener value = new GatheringChatRoomListener();
-        _listeners.put(playerId, value);
-        _chatRoom.joinChatRoom(playerId, value);
-        return value.consumeMessages();
-    }
-
-    public synchronized List<ChatMessage> getPendingMessages(String playerId) {
-        GatheringChatRoomListener gatheringChatRoomListener = _listeners.get(playerId);
-        if (gatheringChatRoomListener == null)
-            throw new WebApplicationException(Response.Status.NOT_FOUND);
-        return gatheringChatRoomListener.consumeMessages();
-    }
-
-    public synchronized void partUser(String playerId) {
-        _chatRoom.partChatRoom(playerId);
-        _listeners.remove(playerId);
-    }
-
-    public synchronized void sendMessage(String playerId, String message, boolean admin) {
-        if (!admin && _allowedPlayers != null && !_allowedPlayers.contains(playerId))
-            throw new WebApplicationException(Response.Status.FORBIDDEN);
-
-        _chatRoom.postMessage(playerId, message);
-    }
-
-    public synchronized void cleanup() {
-        long currentTime = System.currentTimeMillis();
-        Map<String, GatheringChatRoomListener> copy = new HashMap<String, GatheringChatRoomListener>(_listeners);
-        for (Map.Entry<String, GatheringChatRoomListener> playerListener : copy.entrySet()) {
-            String playerId = playerListener.getKey();
-            GatheringChatRoomListener listener = playerListener.getValue();
-            if (currentTime > listener.getLastConsumed().getTime() + _channelInactivityTimeoutPeriod) {
-                _chatRoom.partChatRoom(playerId);
-                _listeners.remove(playerId);
-            }
+    public List<ChatMessage> joinUser(String playerId) {
+        _lock.writeLock();
+        try {
+            GatheringChatRoomListener value = new GatheringChatRoomListener();
+            _listeners.put(playerId, value);
+            _chatRoom.joinChatRoom(playerId, value);
+            return value.consumeMessages();
+        } finally {
+            _lock.writeLock().unlock();
         }
     }
 
-    public synchronized Collection<String> getUsersInRoom() {
-        return _chatRoom.getUsersInRoom();
+    public List<ChatMessage> getPendingMessages(String playerId) {
+        _lock.readLock().lock();
+        try {
+            GatheringChatRoomListener gatheringChatRoomListener = _listeners.get(playerId);
+            if (gatheringChatRoomListener == null)
+                throw new WebApplicationException(Response.Status.NOT_FOUND);
+            return gatheringChatRoomListener.consumeMessages();
+        } finally {
+            _lock.readLock().unlock();
+        }
+    }
+
+    public void partUser(String playerId) {
+        _lock.writeLock().lock();
+        try {
+            _chatRoom.partChatRoom(playerId);
+            _listeners.remove(playerId);
+        } finally {
+            _lock.writeLock().unlock();
+        }
+    }
+
+    public void sendMessage(String playerId, String message, boolean admin) {
+        _lock.writeLock().lock();
+        try {
+            if (!admin && _allowedPlayers != null && !_allowedPlayers.contains(playerId))
+                throw new WebApplicationException(Response.Status.FORBIDDEN);
+
+            _chatRoom.postMessage(playerId, message);
+        } finally {
+            _lock.writeLock().unlock();
+        }
+    }
+
+    public void cleanup() {
+        _lock.writeLock().lock();
+        try {
+            long currentTime = System.currentTimeMillis();
+            Map<String, GatheringChatRoomListener> copy = new HashMap<String, GatheringChatRoomListener>(_listeners);
+            for (Map.Entry<String, GatheringChatRoomListener> playerListener : copy.entrySet()) {
+                String playerId = playerListener.getKey();
+                GatheringChatRoomListener listener = playerListener.getValue();
+                if (currentTime > listener.getLastConsumed().getTime() + _channelInactivityTimeoutPeriod) {
+                    _chatRoom.partChatRoom(playerId);
+                    _listeners.remove(playerId);
+                }
+            }
+        } finally {
+            _lock.writeLock().unlock();
+        }
+    }
+
+    public Collection<String> getUsersInRoom() {
+        _lock.readLock().lock();
+        try {
+            return _chatRoom.getUsersInRoom();
+        } finally {
+            _lock.readLock().unlock();
+        }
     }
 }

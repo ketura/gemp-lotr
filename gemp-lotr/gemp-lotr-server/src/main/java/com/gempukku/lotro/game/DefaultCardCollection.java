@@ -17,11 +17,13 @@ public class DefaultCardCollection implements MutableCardCollection {
         _currency = cardCollection.getCurrency();
     }
 
-    public void addCurrency(int currency) {
+    @Override
+    public synchronized void addCurrency(int currency) {
         _currency += currency;
     }
 
-    public boolean removeCurrency(int currency) {
+    @Override
+    public synchronized boolean removeCurrency(int currency) {
         if (_currency < currency)
             return false;
         _currency -= currency;
@@ -29,12 +31,12 @@ public class DefaultCardCollection implements MutableCardCollection {
     }
 
     @Override
-    public int getCurrency() {
+    public synchronized int getCurrency() {
         return _currency;
     }
 
     @Override
-    public void addItem(String itemId, int toAdd) {
+    public synchronized void addItem(String itemId, int toAdd) {
         Item oldCount = _counts.get(itemId);
         if (oldCount == null)
             _counts.put(itemId, Item.createItem(itemId, toAdd));
@@ -43,7 +45,7 @@ public class DefaultCardCollection implements MutableCardCollection {
     }
 
     @Override
-    public boolean removeItem(String itemId, int toRemove) {
+    public synchronized boolean removeItem(String itemId, int toRemove) {
         Item oldCount = _counts.get(itemId);
         if (oldCount == null || oldCount.getCount() < toRemove)
             return false;
@@ -52,14 +54,6 @@ public class DefaultCardCollection implements MutableCardCollection {
         else
             _counts.put(itemId, Item.createItem(itemId, oldCount.getCount() - toRemove));
         return true;
-    }
-
-    private boolean hasSelection(String packId, String selection, PacksStorage packsStorage) {
-        for (Item item : packsStorage.openPack(packId)) {
-            if (item.getBlueprintId().equals(selection))
-                return true;
-        }
-        return false;
     }
 
     @Override
@@ -96,15 +90,23 @@ public class DefaultCardCollection implements MutableCardCollection {
     }
 
     @Override
-    public Map<String, Item> getAll() {
+    public synchronized Map<String, Item> getAll() {
         return Collections.unmodifiableMap(_counts);
     }
 
     @Override
-    public int getItemCount(String blueprintId) {
+    public synchronized int getItemCount(String blueprintId) {
         Item count = _counts.get(blueprintId);
         if (count == null)
             return 0;
         return count.getCount();
+    }
+
+    private boolean hasSelection(String packId, String selection, PacksStorage packsStorage) {
+        for (Item item : packsStorage.openPack(packId)) {
+            if (item.getBlueprintId().equals(selection))
+                return true;
+        }
+        return false;
     }
 }
