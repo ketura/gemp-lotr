@@ -1,5 +1,6 @@
 package com.gempukku.lotro.collection;
 
+import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.db.CollectionDAO;
 import com.gempukku.lotro.db.PlayerDAO;
 import com.gempukku.lotro.db.vo.CollectionType;
@@ -10,6 +11,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class CollectionsManager {
@@ -20,10 +22,53 @@ public class CollectionsManager {
     private CollectionDAO _collectionDAO;
     private DeliveryService _deliveryService;
 
-    public CollectionsManager(PlayerDAO playerDAO, CollectionDAO collectionDAO, DeliveryService deliveryService) {
+    private CountDownLatch _collectionReadyLatch = new CountDownLatch(1);
+    private DefaultCardCollection _defaultCollection;
+
+    public CollectionsManager(PlayerDAO playerDAO, CollectionDAO collectionDAO, DeliveryService deliveryService, final LotroCardBlueprintLibrary lotroCardBlueprintLibrary) {
         _playerDAO = playerDAO;
         _collectionDAO = collectionDAO;
         _deliveryService = deliveryService;
+
+        _defaultCollection = new DefaultCardCollection();
+
+        // Hunters have 1-194 normal cards, 9 "O" cards, and 3 extra to cover the different culture versions of 15_60
+
+        Thread thr = new Thread() {
+            public void run() {
+                final int[] cardCounts = new int[]{129, 365, 122, 122, 365, 128, 128, 365, 122, 52, 122, 266, 203, 203, 15, 207, 6, 157, 149, 40};
+
+                for (int i = 0; i <= 19; i++) {
+                    System.out.println("Loading set " + i);
+                    for (int j = 1; j <= cardCounts[i]; j++) {
+                        String blueprintId = i + "_" + j;
+                        try {
+                            if (lotroCardBlueprintLibrary.getBaseBlueprintId(blueprintId).equals(blueprintId)) {
+                                LotroCardBlueprint cardBlueprint = lotroCardBlueprintLibrary.getLotroCardBlueprint(blueprintId);
+                                CardType cardType = cardBlueprint.getCardType();
+                                if (cardType == CardType.SITE || cardType == CardType.THE_ONE_RING)
+                                    _defaultCollection.addItem(blueprintId, 1);
+                                else
+                                    _defaultCollection.addItem(blueprintId, 4);
+                            }
+                        } catch (IllegalArgumentException exp) {
+
+                        }
+                    }
+                }
+                _collectionReadyLatch.countDown();
+            }
+        };
+        thr.start();
+    }
+
+    public CardCollection getDefaultCollection() {
+        try {
+            _collectionReadyLatch.await();
+        } catch (InterruptedException exp) {
+            throw new RuntimeException("Error while awaiting loading a default colleciton", exp);
+        }
+        return _defaultCollection;
     }
 
     public void clearDBCache() {
@@ -35,6 +80,9 @@ public class CollectionsManager {
         try {
             if (collectionType.contains("+"))
                 return createSumCollection(player, collectionType.split("\\+"));
+
+            if (collectionType.equals("default"))
+                return getDefaultCollection();
 
             Map<String, CardCollection> playerCollections = _collections.get(player.getName());
             if (playerCollections != null) {

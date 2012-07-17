@@ -47,6 +47,8 @@ public class ServerResource extends AbstractResource {
     private ChatServer _chatServer;
     @Context
     private GameHistoryService _gameHistoryService;
+    @Context
+    private GameRecorder _gameRecorder;
 
     public ServerResource() {
         if (!_test)
@@ -126,7 +128,7 @@ public class ServerResource extends AbstractResource {
         return new StreamingOutput() {
             @Override
             public void write(OutputStream outputStream) throws IOException, WebApplicationException {
-                final InputStream recordedGame = _lotroServer.getGameRecording(split[0], split[1]);
+                final InputStream recordedGame = _gameRecorder.getRecordedGame(split[0], split[1]);
                 if (recordedGame == null)
                     throw new WebApplicationException(Response.Status.NOT_FOUND);
                 try {

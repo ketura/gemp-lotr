@@ -5,6 +5,7 @@ import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.collection.DeliveryService;
 import com.gempukku.lotro.db.*;
 import com.gempukku.lotro.game.GameHistoryService;
+import com.gempukku.lotro.game.GameRecorder;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.game.LotroServer;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
@@ -37,6 +38,7 @@ public class ServerProvider implements InjectableProvider<Context, Type> {
     private Injectable<CollectionsManager> _collectionsManagerInjectable;
     private Injectable<DeliveryService> _deliveryServiceInjectable;
     private Injectable<LotroFormatLibrary> _lotroFormatLibraryInjectable;
+    private Injectable<GameRecorder> _gameRecorderInjectable;
 
     @Context
     private PlayerDAO _playerDao;
@@ -85,6 +87,8 @@ public class ServerProvider implements InjectableProvider<Context, Type> {
             return getMerchantServiceInjectable();
         if (type.equals(TournamentService.class))
             return getTournamentServiceInjectable();
+        if (type.equals(GameRecorder.class))
+            return getGameRecorderInjectable();
         return null;
     }
 
@@ -133,6 +137,19 @@ public class ServerProvider implements InjectableProvider<Context, Type> {
             };
         }
         return _gameHistoryServiceInjectable;
+    }
+
+    private synchronized Injectable<GameRecorder> getGameRecorderInjectable() {
+        if (_gameRecorderInjectable == null) {
+            final GameRecorder gameRecorder = new GameRecorder(getGameHistoryServiceInjectable().getValue());
+            _gameRecorderInjectable = new Injectable<GameRecorder>() {
+                @Override
+                public GameRecorder getValue() {
+                    return gameRecorder;
+                }
+            };
+        }
+        return _gameRecorderInjectable;
     }
 
     private synchronized Injectable<MerchantService> getMerchantServiceInjectable() {
@@ -208,7 +225,7 @@ public class ServerProvider implements InjectableProvider<Context, Type> {
 
     private synchronized Injectable<LotroServer> getLotroServerInjectable() {
         if (_lotroServerInjectable == null) {
-            final LotroServer lotroServer = new LotroServer(_deckDao, getGameHistoryServiceInjectable().getValue(), _library, getChatServerInjectable().getValue(), false);
+            final LotroServer lotroServer = new LotroServer(_deckDao, _library, getChatServerInjectable().getValue(), getGameRecorderInjectable().getValue());
             lotroServer.startServer();
             _lotroServerInjectable = new Injectable<LotroServer>() {
                 @Override
@@ -236,7 +253,7 @@ public class ServerProvider implements InjectableProvider<Context, Type> {
 
     private synchronized Injectable<CollectionsManager> getCollectionsManagerInjectable() {
         if (_collectionsManagerInjectable == null) {
-            final CollectionsManager collectionsManager = new CollectionsManager(_playerDao, _collectionDao, getDeliveryServiceInjectable().getValue());
+            final CollectionsManager collectionsManager = new CollectionsManager(_playerDao, _collectionDao, getDeliveryServiceInjectable().getValue(), _library);
             _collectionsManagerInjectable = new Injectable<CollectionsManager>() {
                 @Override
                 public CollectionsManager getValue() {

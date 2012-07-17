@@ -21,12 +21,12 @@ public class PlayerDAO {
         _dbAccess = dbAccess;
     }
 
-    public void clearCache() {
+    public synchronized void clearCache() {
         _playersByName.clear();
         _playersById.clear();
     }
 
-    public Player getPlayer(int id) {
+    public synchronized Player getPlayer(int id) {
         if (_playersById.containsKey(id))
             return _playersById.get(id);
 
@@ -40,7 +40,7 @@ public class PlayerDAO {
         }
     }
 
-    public Player getPlayer(String playerName) {
+    public synchronized Player getPlayer(String playerName) {
         if (_playersByName.containsKey(playerName))
             return _playersByName.get(playerName);
         try {
@@ -53,7 +53,7 @@ public class PlayerDAO {
         }
     }
 
-    public Player loginUser(String login, String password) throws SQLException {
+    public synchronized Player loginUser(String login, String password) throws SQLException {
         Connection conn = _dbAccess.getDataSource().getConnection();
         try {
             PreparedStatement statement = conn.prepareStatement("select id, name, type, last_login_reward from player where name=? and password=?");
@@ -84,7 +84,7 @@ public class PlayerDAO {
         }
     }
 
-    public void setLastReward(Player player, int currentReward) throws SQLException {
+    public synchronized void setLastReward(Player player, int currentReward) throws SQLException {
         Connection conn = _dbAccess.getDataSource().getConnection();
         try {
             PreparedStatement statement = conn.prepareStatement("update player set last_login_reward =? where id=?");
@@ -101,7 +101,7 @@ public class PlayerDAO {
         }
     }
 
-    public boolean updateLastReward(Player player, int previousReward, int currentReward) throws SQLException {
+    public synchronized boolean updateLastReward(Player player, int previousReward, int currentReward) throws SQLException {
         Connection conn = _dbAccess.getDataSource().getConnection();
         try {
             PreparedStatement statement = conn.prepareStatement("update player set last_login_reward =? where id=? and last_login_reward=?");

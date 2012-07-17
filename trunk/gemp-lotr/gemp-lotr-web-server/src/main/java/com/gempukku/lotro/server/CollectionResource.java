@@ -167,10 +167,7 @@ public class CollectionResource extends AbstractResource {
     }
 
     private CardCollection getCollection(Player player, String collectionType) {
-        if (collectionType.equals("default"))
-            return _lotroServer.getDefaultCollection();
-        else
-            return _collectionsManager.getPlayerCollection(player, collectionType);
+        return _collectionsManager.getPlayerCollection(player, collectionType);
     }
 
     @Path("/{collectionType}")

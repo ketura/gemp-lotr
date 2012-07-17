@@ -130,7 +130,7 @@ public class HallResource extends AbstractResource {
             hall.setAttribute("motd", motd);
 
         _hallServer.processHall(resourceOwner, new SerializeHallInfoVisitor(doc, hall));
-        for (Map.Entry<String, LotroFormat> format : _hallServer.getSupportedFormats().entrySet()) {
+        for (Map.Entry<String, LotroFormat> format : _formatLibrary.getHallFormats().entrySet()) {
             Element formatElem = doc.createElement("format");
             formatElem.setAttribute("type", format.getKey());
             formatElem.appendChild(doc.createTextNode(format.getValue().getName()));

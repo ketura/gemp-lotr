@@ -12,18 +12,18 @@ public class GatheringChatRoomListener implements ChatRoomListener {
     private Date _lastConsumed = new Date();
 
     @Override
-    public void messageReceived(ChatMessage message) {
+    public synchronized void messageReceived(ChatMessage message) {
         _messages.add(message);
     }
 
-    public List<ChatMessage> consumeMessages() {
+    public synchronized List<ChatMessage> consumeMessages() {
         List<ChatMessage> messages = _messages;
         _messages = new LinkedList<ChatMessage>();
         _lastConsumed = new Date();
         return messages;
     }
 
-    public Date getLastConsumed() {
+    public synchronized Date getLastConsumed() {
         return _lastConsumed;
     }
 }
