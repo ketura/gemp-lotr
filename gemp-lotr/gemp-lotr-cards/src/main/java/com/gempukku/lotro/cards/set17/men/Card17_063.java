@@ -9,6 +9,7 @@ import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
+import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
@@ -38,7 +39,7 @@ public class Card17_063 extends AbstractMinion {
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         if (TriggerConditions.startOfPhase(game, effectResult, Phase.MANEUVER)
-                && PlayConditions.canSpot(game, Culture.MEN, Race.MAN)
+                && PlayConditions.canSpot(game, Filters.not(self), Culture.MEN, Race.MAN)
                 && PlayConditions.canSelfExert(self, game)) {
             final RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendCost(
