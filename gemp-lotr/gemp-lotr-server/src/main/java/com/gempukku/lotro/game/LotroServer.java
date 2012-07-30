@@ -20,7 +20,7 @@ public class LotroServer extends AbstractServer {
     private Map<String, LotroGameMediator> _runningGames = new ConcurrentHashMap<String, LotroGameMediator>();
     private Set<String> _gameDeathWarningsSent = new HashSet<String>();
 
-    private final Map<String, Date> _finishedGamesTime = new LinkedHashMap<String, Date>();
+    private final Map<String, Date> _finishedGamesTime = Collections.synchronizedMap(new LinkedHashMap<String, Date>());
     private final long _timeToGameDeath = 1000 * 60 * 5; // 5 minutes
     private final long _timeToGameDeathWarning = 1000 * 60 * 4; // 4 minutes
 
@@ -95,22 +95,12 @@ public class LotroServer extends AbstractServer {
                     new GameResultListener() {
                         @Override
                         public void gameFinished(String winnerPlayerId, String winReason, Map<String, String> loserPlayerIdsWithReasons) {
-                            _lock.writeLock().lock();
-                            try {
-                                _finishedGamesTime.put(gameId, new Date());
-                            } finally {
-                                _lock.writeLock().unlock();
-                            }
+                            _finishedGamesTime.put(gameId, new Date());
                         }
 
                         @Override
                         public void gameCancelled() {
-                            _lock.writeLock().lock();
-                            try {
-                                _finishedGamesTime.put(gameId, new Date());
-                            } finally {
-                                _lock.writeLock().unlock();
-                            }
+                            _finishedGamesTime.put(gameId, new Date());
                         }
                     });
             lotroGameMediator.sendMessageToPlayers("You're starting a game of " + lotroFormat.getName());
