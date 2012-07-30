@@ -180,7 +180,7 @@ public class GameState {
 
             // First non-attached cards
             for (PhysicalCardImpl physicalCard : _inPlay) {
-                if (physicalCard.getAttachedTo() != null) {
+                if (physicalCard.getAttachedTo() == null) {
                     listener.cardCreated(physicalCard);
                     sentCardsFromPlay.add(physicalCard);
                 } else
