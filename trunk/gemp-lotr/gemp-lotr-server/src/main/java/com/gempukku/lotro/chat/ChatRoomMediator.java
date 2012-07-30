@@ -28,7 +28,7 @@ public class ChatRoomMediator {
     }
 
     public List<ChatMessage> joinUser(String playerId) {
-        _lock.writeLock();
+        _lock.writeLock().lock();
         try {
             GatheringChatRoomListener value = new GatheringChatRoomListener();
             _listeners.put(playerId, value);

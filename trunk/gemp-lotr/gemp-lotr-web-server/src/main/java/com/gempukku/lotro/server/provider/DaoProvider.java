@@ -34,8 +34,7 @@ public class DaoProvider implements InjectableProvider<Context, Type> {
     private DbAccess _dbAccess;
     private CollectionSerializer _collectionSerializer;
 
-    @Context
-    private LotroCardBlueprintLibrary _library;
+    private LotroCardBlueprintLibrary _library = new LotroCardBlueprintLibrary();
 
     public DaoProvider() {
         _dbAccess = new DbAccess();
