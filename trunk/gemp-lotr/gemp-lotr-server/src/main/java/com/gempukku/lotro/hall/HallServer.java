@@ -7,6 +7,7 @@ import com.gempukku.lotro.chat.ChatServer;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.db.vo.League;
+import com.gempukku.lotro.draft.Draft;
 import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.gempukku.lotro.league.LeagueSerieData;
@@ -47,6 +48,7 @@ public class HallServer extends AbstractServer {
     private Map<Player, Long> _lastVisitedPlayers = new HashMap<Player, Long>();
 
     private List<Tournament> _runningTournaments = new ArrayList<Tournament>();
+    private List<Draft> _running = new ArrayList<Draft>();
     private Map<String, TournamentQueue> _tournamentQueues = new HashMap<String, TournamentQueue>();
     private final ChatRoomMediator _hallChat;
 
@@ -298,7 +300,7 @@ public class HallServer extends AbstractServer {
             throw new HallException("You don't have a deck registered yet");
 
         try {
-            format.validateDeck(player, lotroDeck);
+            format.validateDeck(lotroDeck);
         } catch (DeckInvalidException e) {
             throw new HallException("Your selected deck is not valid for this format: " + e.getMessage());
         }
