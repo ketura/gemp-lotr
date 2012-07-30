@@ -222,7 +222,7 @@ public class DeckResource extends AbstractResource {
 
         for (LotroFormat format : _formatLibrary.getHallFormats().values()) {
             try {
-                format.validateDeck(resourceOwner, deck);
+                format.validateDeck(deck);
                 sb.append("<b>" + format.getName() + "</b>: <font color='green'>valid</font><br/>");
             } catch (DeckInvalidException exp) {
                 sb.append("<b>" + format.getName() + "</b>: <font color='red'>" + exp.getMessage() + "</font><br/>");
