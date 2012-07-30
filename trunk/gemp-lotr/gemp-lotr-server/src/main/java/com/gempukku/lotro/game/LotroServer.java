@@ -90,7 +90,7 @@ public class LotroServer extends AbstractServer {
                 _chatServer.createChatRoom(getChatRoomName(gameId), 30);
 
             LotroGameMediator lotroGameMediator = new LotroGameMediator(lotroFormat, participants, _lotroCardBlueprintLibrary,
-                    competitiveTime ? 60 * 40 : 60 * 80, !allowSpectators, allowCancelling);
+                    competitiveTime ? 60 * 40 : 60 * 80, allowSpectators, allowCancelling);
             lotroGameMediator.addGameResultListener(
                     new GameResultListener() {
                         @Override
