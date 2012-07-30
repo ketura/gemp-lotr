@@ -131,24 +131,14 @@ public class LotroServer extends AbstractServer {
                     new GameResultListener() {
                         @Override
                         public void gameFinished(String winnerPlayerId, String winReason, Map<String, String> loserPlayerIdsWithReasons) {
-                            _lock.writeLock().lock();
-                            try {
-                                final Map.Entry<String, String> loserEntry = loserPlayerIdsWithReasons.entrySet().iterator().next();
+                            final Map.Entry<String, String> loserEntry = loserPlayerIdsWithReasons.entrySet().iterator().next();
 
-                                gameRecordingInProgress.finishRecording(winnerPlayerId, winReason, loserEntry.getKey(), loserEntry.getValue());
-                            } finally {
-                                _lock.writeLock().unlock();
-                            }
+                            gameRecordingInProgress.finishRecording(winnerPlayerId, winReason, loserEntry.getKey(), loserEntry.getValue());
                         }
 
                         @Override
                         public void gameCancelled() {
-                            _lock.writeLock().lock();
-                            try {
-                                gameRecordingInProgress.finishRecording(participants[0].getPlayerId(), "Game cancelled due to error", participants[1].getPlayerId(), "Game cancelled due to error");
-                            } finally {
-                                _lock.writeLock().unlock();
-                            }
+                            gameRecordingInProgress.finishRecording(participants[0].getPlayerId(), "Game cancelled due to error", participants[1].getPlayerId(), "Game cancelled due to error");
                         }
                     }
             );
