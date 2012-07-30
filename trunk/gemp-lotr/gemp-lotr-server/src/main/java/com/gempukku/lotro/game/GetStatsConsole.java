@@ -4,49 +4,40 @@ import com.gempukku.lotro.db.DbAccess;
 import com.gempukku.lotro.db.GameHistoryDAO;
 
 import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
+import java.util.TimeZone;
 
 public class GetStatsConsole {
     private static final SimpleDateFormat monthFormat = new SimpleDateFormat("MMM yyyy");
+    private static final SimpleDateFormat timeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private static final SimpleDateFormat dayFormat = new SimpleDateFormat("yyyy-MM-dd");
     private static final DecimalFormat percFormat = new DecimalFormat("#0.0%");
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParseException {
         DbAccess dbAccess = new DbAccess();
         GameHistoryDAO gameHistoryDAO = new GameHistoryDAO(dbAccess);
         GameHistoryService gameHistoryService = new GameHistoryService(gameHistoryDAO);
-        long startTime = gameHistoryService.getOldestGameHistoryEntry();
 
-        createMonthlyStats(startTime, gameHistoryService);
-//        createWeeklyStats(startTime, gameHistoryService);
+        createGameActiveGamesStats(gameHistoryService);
     }
 
-    private static void createMonthlyStats(long startTime, GameHistoryService gameHistoryService) {
-        Date startOfMonth = new Date(startTime);
-        startOfMonth.setDate(1);
-        startOfMonth.setHours(0);
-        startOfMonth.setMinutes(0);
-        startOfMonth.setSeconds(0);
+    private static void createGameActiveGamesStats(GameHistoryService gameHistoryService) throws ParseException {
+        timeFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date date = timeFormat.parse("2012-01-01 00:00:00");
+        Date nextDay = timeFormat.parse("2012-01-02 00:00:00");
+        Date nextWeek = timeFormat.parse("2012-01-08 00:00:00");
 
-        long currentTime = System.currentTimeMillis();
+        while (nextDay.getTime() < System.currentTimeMillis()) {
+            int gamesCount = gameHistoryService.getGamesPlayedCount(date.getTime(), nextDay.getTime() - date.getTime());
+            int playersCount = gameHistoryService.getActivePlayersCount(date.getTime(), nextWeek.getTime() - date.getTime());
 
-        System.out.println("Monthly statistics:");
-        startOfMonth.setTime(startOfMonth.getTime() / 1000L * 1000L);
-        long periodStart = startOfMonth.getTime();
-        while (periodStart < currentTime) {
-            startOfMonth.setMonth(startOfMonth.getMonth() + 1);
-            long periodEnd = startOfMonth.getTime();
+            System.out.println(dayFormat.format(date) + "," + gamesCount + "," + playersCount);
 
-            System.out.println(monthFormat.format(new Date(periodStart)) + ":");
-            GameHistoryStatistics historyStatistics = gameHistoryService.getGameHistoryStatistics(periodStart, periodEnd - periodStart);
-            List<GameHistoryStatistics.FormatStat> stats = historyStatistics.getFormatStats();
-            for (GameHistoryStatistics.FormatStat stat : stats) {
-                System.out.println(stat.getFormat() + ": " + stat.getCount() + " (" + percFormat.format(stat.getPercentage()) + ")");
-            }
-            System.out.println();
-
-            periodStart = periodEnd;
+            date.setDate(date.getDate() + 1);
+            nextDay.setDate(nextDay.getDate() + 1);
+            nextWeek.setDate(nextWeek.getDate() + 1);
         }
     }
 }
