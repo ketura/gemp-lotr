@@ -175,29 +175,24 @@ public class GameState {
             for (Map.Entry<String, Integer> stringIntegerEntry : _playerPosition.entrySet())
                 listener.setPlayerPosition(stringIntegerEntry.getKey(), stringIntegerEntry.getValue());
 
+            Set<PhysicalCard> cardsLeftToSent = new HashSet<PhysicalCard>(_inPlay);
             Set<PhysicalCard> sentCardsFromPlay = new HashSet<PhysicalCard>();
-            Set<PhysicalCard> attachedCardsToSend = new HashSet<PhysicalCard>();
 
-            // First non-attached cards
-            for (PhysicalCardImpl physicalCard : _inPlay) {
-                if (physicalCard.getAttachedTo() == null) {
-                    listener.cardCreated(physicalCard);
-                    sentCardsFromPlay.add(physicalCard);
-                } else
-                    attachedCardsToSend.add(physicalCard);
-            }
+            int passes = 4;
 
-            // Now the attached ones
-            while (!attachedCardsToSend.isEmpty()) {
-                Iterator<PhysicalCard> iter = attachedCardsToSend.iterator();
-                while (iter.hasNext()) {
-                    PhysicalCard attachedCard = iter.next();
-                    if (sentCardsFromPlay.contains(attachedCard.getAttachedTo())) {
-                        listener.cardCreated(attachedCard);
-                        sentCardsFromPlay.add(attachedCard);
-                        iter.remove();
+            while (cardsLeftToSent.size() > 0 && passes > 0) {
+                Set<PhysicalCard> newCardsLeft = new HashSet<PhysicalCard>();
+                for (PhysicalCard physicalCard : cardsLeftToSent) {
+                    PhysicalCard attachedTo = physicalCard.getAttachedTo();
+                    if (attachedTo == null || sentCardsFromPlay.contains(attachedTo)) {
+                        listener.cardCreated(physicalCard);
+                        sentCardsFromPlay.add(physicalCard);
+                    } else {
+                        newCardsLeft.add(physicalCard);
                     }
                 }
+                passes--;
+                cardsLeftToSent = newCardsLeft;
             }
 
             // Finally the stacked ones
