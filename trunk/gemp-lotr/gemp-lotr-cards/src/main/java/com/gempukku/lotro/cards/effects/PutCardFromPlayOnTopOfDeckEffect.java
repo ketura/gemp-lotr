@@ -5,11 +5,12 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
+import com.gempukku.lotro.logic.effects.DiscardUtils;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.results.DiscardCardsFromPlayResult;
 
+import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class PutCardFromPlayOnTopOfDeckEffect extends AbstractEffect {
@@ -27,27 +28,25 @@ public class PutCardFromPlayOnTopOfDeckEffect extends AbstractEffect {
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
         if (isPlayableInFull(game)) {
-            final List<PhysicalCard> attachedCards = game.getGameState().getAttachedCards(_physicalCard);
-            final List<PhysicalCard> stackedCards = game.getGameState().getStackedCards(_physicalCard);
+            Set<PhysicalCard> discardedCards = new HashSet<PhysicalCard>();
+            Set<PhysicalCard> toGoToDiscardCards = new HashSet<PhysicalCard>();
 
-            Set<PhysicalCard> removedFromZone = new HashSet<PhysicalCard>();
-
-            removedFromZone.add(_physicalCard);
-            removedFromZone.addAll(attachedCards);
-            removedFromZone.addAll(stackedCards);
+            DiscardUtils.cardsToChangeZones(game.getGameState(), Collections.singleton(_physicalCard), discardedCards, toGoToDiscardCards);
 
             GameState gameState = game.getGameState();
 
-            gameState.removeCardsFromZone(_physicalCard.getOwner(), removedFromZone);
+            Set<PhysicalCard> removeFromPlay = new HashSet<PhysicalCard>(toGoToDiscardCards);
+            removeFromPlay.add(_physicalCard);
+
+            gameState.removeCardsFromZone(_physicalCard.getOwner(), removeFromPlay);
 
             gameState.putCardOnTopOfDeck(_physicalCard);
-            for (PhysicalCard attachedCard : attachedCards) {
-                gameState.addCardToZone(game, attachedCard, Zone.DISCARD);
+            for (PhysicalCard discardedCard : discardedCards) {
                 game.getActionsEnvironment().emitEffectResult(
-                        new DiscardCardsFromPlayResult(attachedCard));
+                        new DiscardCardsFromPlayResult(discardedCard));
             }
-            for (PhysicalCard stackedCard : stackedCards)
-                gameState.addCardToZone(game, stackedCard, Zone.DISCARD);
+            for (PhysicalCard toGoToDiscardCard : toGoToDiscardCards)
+                gameState.addCardToZone(game, toGoToDiscardCard, Zone.DISCARD);
 
             gameState.sendMessage(_physicalCard.getOwner() + " puts " + GameUtils.getCardLink(_physicalCard) + " from play on the top of deck");
 

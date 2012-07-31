@@ -85,16 +85,10 @@ public class KillEffect extends AbstractSuccessfulEffect {
                 discardedCards.add(card);
                 toAddToDiscard.add(card);
             }
-
-            List<PhysicalCard> attachedCards = gameState.getAttachedCards(card);
-            discardedCards.addAll(attachedCards);
-            toRemoveFromZone.addAll(attachedCards);
-            toAddToDiscard.addAll(attachedCards);
-
-            List<PhysicalCard> stackedCards = gameState.getStackedCards(card);
-            toRemoveFromZone.addAll(stackedCards);
-            toAddToDiscard.addAll(stackedCards);
         }
+
+        DiscardUtils.cardsToChangeZones(gameState, toBeKilled, discardedCards, toAddToDiscard);
+        toRemoveFromZone.addAll(toAddToDiscard);
 
         gameState.removeCardsFromZone(null, toRemoveFromZone);
 
@@ -104,21 +98,12 @@ public class KillEffect extends AbstractSuccessfulEffect {
         for (PhysicalCard discardedCard : toAddToDiscard)
             gameState.addCardToZone(game, discardedCard, Zone.DISCARD);
 
-        if (killedCards.size() > 0 && discardedCards.size() > 0) {
+        if (killedCards.size() > 0)
             game.getActionsEnvironment().emitEffectResult(new KilledResult(killedCards, _cause));
-            for (PhysicalCard killedCard : killedCards)
-                game.getActionsEnvironment().emitEffectResult(new ForEachKilledResult(killedCard, _cause));
-            for (PhysicalCard discardedCard : discardedCards)
-                game.getActionsEnvironment().emitEffectResult(new DiscardCardsFromPlayResult(discardedCard));
+        for (PhysicalCard killedCard : killedCards)
+            game.getActionsEnvironment().emitEffectResult(new ForEachKilledResult(killedCard, _cause));
+        for (PhysicalCard discardedCard : discardedCards)
+            game.getActionsEnvironment().emitEffectResult(new DiscardCardsFromPlayResult(discardedCard));
 
-        } else if (killedCards.size() > 0) {
-            game.getActionsEnvironment().emitEffectResult(new KilledResult(killedCards, _cause));
-            for (PhysicalCard killedCard : killedCards)
-                game.getActionsEnvironment().emitEffectResult(new ForEachKilledResult(killedCard, _cause));
-        } else if (discardedCards.size() > 0) {
-            for (PhysicalCard discardedCard : discardedCards)
-                game.getActionsEnvironment().emitEffectResult(new DiscardCardsFromPlayResult(discardedCard));
-
-        }
     }
 }

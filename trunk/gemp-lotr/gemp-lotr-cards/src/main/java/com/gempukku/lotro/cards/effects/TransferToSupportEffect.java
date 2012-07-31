@@ -40,6 +40,7 @@ public class TransferToSupportEffect extends AbstractEffect {
 
             Set<PhysicalCard> transferredCards = new HashSet<PhysicalCard>();
             transferredCards.add(_card);
+
             final List<PhysicalCard> attachedCards = game.getGameState().getAttachedCards(_card);
             transferredCards.addAll(attachedCards);
 
