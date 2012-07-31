@@ -10,8 +10,6 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 
-import java.util.List;
-
 /**
  * Set: Mines of Moria
  * Side: Free
@@ -29,16 +27,9 @@ public class Card2_027 extends AbstractOldEvent {
 
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        if (!super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile))
-            return false;
-
-        PhysicalCard gandalf = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.gandalf);
-        List<PhysicalCard> attachedToGandalf = game.getGameState().getAttachedCards(gandalf);
-        if (gandalf != null
-                && PlayConditions.canExert(self, game, 2, Filters.sameCard(gandalf))
-                && Filters.filter(attachedToGandalf, game.getGameState(), game.getModifiersQuerying(), PossessionClass.STAFF).size() > 0)
-            return true;
-        return false;
+        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
+                && PlayConditions.canDiscardFromPlay(self, game, PossessionClass.STAFF, Filters.attachedTo(Filters.gandalf))
+                && PlayConditions.canExert(self, game, 2, Filters.gandalf);
     }
 
     @Override

@@ -13,7 +13,6 @@ import com.gempukku.lotro.logic.timing.results.DiscardCardsFromPlayResult;
 
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class DiscardCardsFromPlayEffect extends AbstractPreventableCardEffect {
@@ -74,17 +73,10 @@ public class DiscardCardsFromPlayEffect extends AbstractPreventableCardEffect {
 
         GameState gameState = game.getGameState();
 
-        for (PhysicalCard card : cards) {
-            discardedCards.add(card);
-            toMoveFromZoneToDiscard.add(card);
+        DiscardUtils.cardsToChangeZones(gameState, cards, discardedCards, toMoveFromZoneToDiscard);
 
-            List<PhysicalCard> attachedCards = gameState.getAttachedCards(card);
-            discardedCards.addAll(attachedCards);
-            toMoveFromZoneToDiscard.addAll(attachedCards);
-
-            List<PhysicalCard> stackedCards = gameState.getStackedCards(card);
-            toMoveFromZoneToDiscard.addAll(stackedCards);
-        }
+        discardedCards.addAll(cards);
+        toMoveFromZoneToDiscard.addAll(cards);
 
         String sourcePlayer = null;
         if (_source != null)
