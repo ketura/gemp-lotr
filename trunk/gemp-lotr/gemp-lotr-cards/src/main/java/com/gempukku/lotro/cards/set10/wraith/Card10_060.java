@@ -61,7 +61,7 @@ public class Card10_060 extends AbstractAttachable {
                         @Override
                         protected void cardSelected(LotroGame game, final PhysicalCard card) {
                             action.appendEffect(
-                                    new PlayoutDecisionEffect(playerId,
+                                    new PlayoutDecisionEffect(card.getOwner(),
                                             new YesNoDecision("Do you want to put " + GameUtils.getCardLink(card) + " on top of deck instead?") {
                                                 @Override
                                                 protected void yes() {
