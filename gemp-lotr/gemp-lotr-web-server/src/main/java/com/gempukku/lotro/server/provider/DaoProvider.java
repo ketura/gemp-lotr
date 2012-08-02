@@ -30,11 +30,10 @@ public class DaoProvider implements InjectableProvider<Context, Type> {
     private Injectable<TournamentDAO> _tournamentDAOInjectable;
     private Injectable<TournamentPlayerDAO> _tournamentPlayerDAOInjectable;
     private Injectable<TournamentMatchDAO> _tournamentMatchDAOInjectable;
+    private Injectable<LotroCardBlueprintLibrary> _lotroCardBlueprintLibraryInjectable;
 
     private DbAccess _dbAccess;
     private CollectionSerializer _collectionSerializer;
-
-    private LotroCardBlueprintLibrary _library = new LotroCardBlueprintLibrary();
 
     public DaoProvider() {
         _dbAccess = new DbAccess();
@@ -65,6 +64,8 @@ public class DaoProvider implements InjectableProvider<Context, Type> {
             return getTournamentPlayerDaoSafely();
         else if (type.equals(TournamentMatchDAO.class))
             return getTournamentMatchDaoSafely();
+        else if (type.equals(LotroCardBlueprintLibrary.class))
+            return getLotroCardBlueprintLibrarySafely();
         return null;
     }
 
@@ -79,6 +80,19 @@ public class DaoProvider implements InjectableProvider<Context, Type> {
             };
         }
         return _leagueParticipationDAOInjectable;
+    }
+
+    private synchronized Injectable<LotroCardBlueprintLibrary> getLotroCardBlueprintLibrarySafely() {
+        if (_lotroCardBlueprintLibraryInjectable == null) {
+            final LotroCardBlueprintLibrary library = new LotroCardBlueprintLibrary();
+            _lotroCardBlueprintLibraryInjectable = new Injectable<LotroCardBlueprintLibrary>() {
+                @Override
+                public LotroCardBlueprintLibrary getValue() {
+                    return library;
+                }
+            };
+        }
+        return _lotroCardBlueprintLibraryInjectable;
     }
 
     private synchronized Injectable<LeagueMatchDAO> getLeagueMatchDaoSafely() {
@@ -174,7 +188,7 @@ public class DaoProvider implements InjectableProvider<Context, Type> {
 
     private synchronized Injectable<DeckDAO> getDeckDaoSafely() {
         if (_deckDaoInjectable == null) {
-            final DeckDAO deckDao = new DeckDAO(_dbAccess, _library);
+            final DeckDAO deckDao = new DeckDAO(_dbAccess, getLotroCardBlueprintLibrarySafely().getValue());
             _deckDaoInjectable = new Injectable<DeckDAO>() {
                 @Override
                 public DeckDAO getValue() {
