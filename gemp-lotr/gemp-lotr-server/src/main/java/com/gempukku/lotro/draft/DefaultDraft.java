@@ -38,6 +38,7 @@ public class DefaultDraft implements Draft {
 
     private int _playerCount;
     private boolean _deckBuildingStarted;
+    private boolean _tournamentStarted;
 
     private long _lastPickStart;
     private long _deckBuildStart;
@@ -156,6 +157,11 @@ public class DefaultDraft implements Draft {
         return false;
     }
 
+    @Override
+    public boolean isFinished() {
+        return _tournamentStarted;
+    }
+
     private void startTournament(DraftCallback draftCallback) {
         String parameters = _format + "," + _collectionType.getCode() + "," + _collectionType.getFullName() + "," + _tournamentName;
 
@@ -164,7 +170,9 @@ public class DefaultDraft implements Draft {
 
         Tournament tournament = _tournamentService.addTournament(_tournamentId, SingleEliminationTournament.class.getName(), parameters, new Date());
 
-        draftCallback.convertToTournament(tournament);
+        draftCallback.createTournament(tournament);
+
+        _tournamentStarted = true;
     }
 
     private boolean haveAllPlayersSubmittedDecks() {
