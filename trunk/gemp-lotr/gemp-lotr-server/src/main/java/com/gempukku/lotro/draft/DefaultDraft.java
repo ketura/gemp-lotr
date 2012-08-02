@@ -15,10 +15,10 @@ import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class DefaultDraft implements Draft {
-    // 45 seconds
-    public static final int PICK_TIME = 45 * 1000;
-    // 20 minutes
-    public static final int DECK_BUILD_TIME = 20 * 60 * 1000;
+    // 35 seconds
+    public static final int PICK_TIME = 35 * 1000;
+    // 10 minutes
+    public static final int DECK_BUILD_TIME = 10 * 60 * 1000;
 
     private String _tournamentIdPrefix;
     private String _tournamentNamePrefix;
@@ -108,16 +108,14 @@ public class DefaultDraft implements Draft {
     }
 
     @Override
-    public CardCollection getCardChoice(String playerName) {
+    public DraftCardChoice getCardChoice(String playerName) {
         _lock.readLock().lock();
         try {
             if (_deckBuildingStarted)
                 return null;
             MutableCardCollection cardChoice = _cardChoice.get(playerName);
-            if (cardChoice == null)
-                cardChoice = new DefaultCardCollection();
 
-            return cardChoice;
+            return new DefaultDraftCardChoice(cardChoice, _lastPickStart + PICK_TIME);
         } finally {
             _lock.readLock().unlock();
         }
@@ -146,6 +144,16 @@ public class DefaultDraft implements Draft {
         } finally {
             _lock.writeLock().unlock();
         }
+    }
+
+    @Override
+    public boolean isPlayerInDraft(String player) {
+        for (Player playerInDraft : _players) {
+            if (playerInDraft.getName().equals(player))
+                return true;
+        }
+
+        return false;
     }
 
     private void startTournament(DraftCallback draftCallback) {
