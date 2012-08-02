@@ -4,6 +4,7 @@ import com.gempukku.lotro.chat.ChatServer;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.collection.DeliveryService;
 import com.gempukku.lotro.db.*;
+import com.gempukku.lotro.draft.DraftServer;
 import com.gempukku.lotro.game.GameHistoryService;
 import com.gempukku.lotro.game.GameRecorder;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
@@ -35,6 +36,7 @@ public class ServerProvider implements InjectableProvider<Context, Type> {
     private Injectable<TournamentService> _tournamentServiceInjectable;
     private Injectable<HallServer> _hallServerInjectable;
     private Injectable<LotroServer> _lotroServerInjectable;
+    private Injectable<DraftServer> _draftServerInjectable;
     private Injectable<CollectionsManager> _collectionsManagerInjectable;
     private Injectable<DeliveryService> _deliveryServiceInjectable;
     private Injectable<LotroFormatLibrary> _lotroFormatLibraryInjectable;
@@ -71,6 +73,8 @@ public class ServerProvider implements InjectableProvider<Context, Type> {
             return getChatServerInjectable();
         if (type.equals(LotroServer.class))
             return getLotroServerInjectable();
+        if (type.equals(DraftServer.class))
+            return getDraftServerInjectable();
         if (type.equals(HallServer.class))
             return getHallServerInjectable();
         if (type.equals(LeagueService.class))
@@ -193,7 +197,10 @@ public class ServerProvider implements InjectableProvider<Context, Type> {
 
     private synchronized Injectable<HallServer> getHallServerInjectable() {
         if (_hallServerInjectable == null) {
-            final HallServer hallServer = new HallServer(getLotroServerInjectable().getValue(), getChatServerInjectable().getValue(), getLeagueServiceInjectable().getValue(),
+            final HallServer hallServer = new HallServer(
+                    getLotroServerInjectable().getValue(),
+                    getDraftServerInjectable().getValue(),
+                    getChatServerInjectable().getValue(), getLeagueServiceInjectable().getValue(),
                     getTournamentServiceInjectable().getValue(), _library,
                     getLotroFormatLibraryInjectable().getValue(), getCollectionsManagerInjectable().getValue(), false);
             hallServer.startServer();
@@ -235,6 +242,20 @@ public class ServerProvider implements InjectableProvider<Context, Type> {
             };
         }
         return _lotroServerInjectable;
+    }
+
+    private synchronized Injectable<DraftServer> getDraftServerInjectable() {
+        if (_lotroServerInjectable == null) {
+            final DraftServer draftServer = new DraftServer();
+            draftServer.startServer();
+            _draftServerInjectable = new Injectable<DraftServer>() {
+                @Override
+                public DraftServer getValue() {
+                    return draftServer;
+                }
+            };
+        }
+        return _draftServerInjectable;
     }
 
     private synchronized Injectable<ChatServer> getChatServerInjectable() {

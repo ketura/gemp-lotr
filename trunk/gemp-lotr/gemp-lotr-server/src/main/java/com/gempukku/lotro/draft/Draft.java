@@ -14,4 +14,6 @@ public interface Draft {
     public boolean isPlayerInDraft(String player);
 
     public DraftCardChoice getCardChoice(String playerName);
+
+    public boolean isFinished();
 }

@@ -9,6 +9,7 @@ import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.db.vo.League;
 import com.gempukku.lotro.draft.Draft;
 import com.gempukku.lotro.draft.DraftCallback;
+import com.gempukku.lotro.draft.DraftServer;
 import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.gempukku.lotro.league.LeagueSerieData;
@@ -30,6 +31,7 @@ public class HallServer extends AbstractServer {
     private LotroFormatLibrary _formatLibrary;
     private CollectionsManager _collectionsManager;
     private LotroServer _lotroServer;
+    private DraftServer _draftServer;
 
     private CollectionType _allCardsCollectionType = new CollectionType("default", "All cards");
 
@@ -49,13 +51,13 @@ public class HallServer extends AbstractServer {
     private Map<Player, Long> _lastVisitedPlayers = new HashMap<Player, Long>();
 
     private List<Tournament> _runningTournaments = new ArrayList<Tournament>();
-    private List<Draft> _runningDrafts = new ArrayList<Draft>();
     private Map<String, TournamentQueue> _tournamentQueues = new HashMap<String, TournamentQueue>();
     private final ChatRoomMediator _hallChat;
 
-    public HallServer(LotroServer lotroServer, ChatServer chatServer, LeagueService leagueService, TournamentService tournamentService, LotroCardBlueprintLibrary library,
+    public HallServer(LotroServer lotroServer, DraftServer draftServer, ChatServer chatServer, LeagueService leagueService, TournamentService tournamentService, LotroCardBlueprintLibrary library,
                       LotroFormatLibrary formatLibrary, CollectionsManager collectionsManager, boolean test) {
         _lotroServer = lotroServer;
+        _draftServer = draftServer;
         _chatServer = chatServer;
         _leagueService = leagueService;
         _tournamentService = tournamentService;
@@ -450,10 +452,8 @@ public class HallServer extends AbstractServer {
                 return true;
         }
 
-        for (Draft runningDraft : _runningDrafts) {
-            if (runningDraft.isPlayerInDraft(playerId))
-                return true;
-        }
+        if (_draftServer.isPlayerDrafting(playerId))
+            return true;
 
         return false;
     }
@@ -497,27 +497,20 @@ public class HallServer extends AbstractServer {
                 }
             }
 
-            List<Draft> runningDrafts = new ArrayList<Draft>(_runningDrafts);
-            for (Draft runningDraft : runningDrafts) {
-                runningDraft.advanceDraft(new HallDraftCallback(runningDraft));
-            }
-
         } finally {
             _hallDataAccessLock.writeLock().unlock();
         }
     }
 
     private class HallDraftCallback implements DraftCallback {
-        private Draft _draft;
-
-        private HallDraftCallback(Draft draft) {
-            _draft = draft;
-        }
-
         @Override
-        public void convertToTournament(Tournament tournament) {
-            _runningTournaments.add(tournament);
-            _runningDrafts.remove(_draft);
+        public void createTournament(Tournament tournament) {
+            _hallDataAccessLock.writeLock().lock();
+            try {
+                _runningTournaments.add(tournament);
+            } finally {
+                _hallDataAccessLock.writeLock().unlock();
+            }
         }
     }
 
@@ -525,6 +518,11 @@ public class HallServer extends AbstractServer {
         @Override
         public void createTournament(Tournament tournament) {
             _runningTournaments.add(tournament);
+        }
+
+        @Override
+        public void createDraft(Draft draft) {
+            _draftServer.addDraft(draft, new HallDraftCallback());
         }
     }
 
