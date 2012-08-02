@@ -8,6 +8,7 @@ import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.db.vo.League;
 import com.gempukku.lotro.draft.Draft;
+import com.gempukku.lotro.draft.DraftCallback;
 import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.gempukku.lotro.league.LeagueSerieData;
@@ -48,7 +49,7 @@ public class HallServer extends AbstractServer {
     private Map<Player, Long> _lastVisitedPlayers = new HashMap<Player, Long>();
 
     private List<Tournament> _runningTournaments = new ArrayList<Tournament>();
-    private List<Draft> _running = new ArrayList<Draft>();
+    private List<Draft> _runningDrafts = new ArrayList<Draft>();
     private Map<String, TournamentQueue> _tournamentQueues = new HashMap<String, TournamentQueue>();
     private final ChatRoomMediator _hallChat;
 
@@ -449,6 +450,11 @@ public class HallServer extends AbstractServer {
                 return true;
         }
 
+        for (Draft runningDraft : _runningDrafts) {
+            if (runningDraft.isPlayerInDraft(playerId))
+                return true;
+        }
+
         return false;
     }
 
@@ -491,8 +497,27 @@ public class HallServer extends AbstractServer {
                 }
             }
 
+            List<Draft> runningDrafts = new ArrayList<Draft>(_runningDrafts);
+            for (Draft runningDraft : runningDrafts) {
+                runningDraft.advanceDraft(new HallDraftCallback(runningDraft));
+            }
+
         } finally {
             _hallDataAccessLock.writeLock().unlock();
+        }
+    }
+
+    private class HallDraftCallback implements DraftCallback {
+        private Draft _draft;
+
+        private HallDraftCallback(Draft draft) {
+            _draft = draft;
+        }
+
+        @Override
+        public void convertToTournament(Tournament tournament) {
+            _runningTournaments.add(tournament);
+            _runningDrafts.remove(_draft);
         }
     }
 
