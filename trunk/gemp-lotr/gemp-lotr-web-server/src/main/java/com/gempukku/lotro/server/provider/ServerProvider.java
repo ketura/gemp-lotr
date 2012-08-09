@@ -245,7 +245,7 @@ public class ServerProvider implements InjectableProvider<Context, Type> {
     }
 
     private synchronized Injectable<DraftServer> getDraftServerInjectable() {
-        if (_lotroServerInjectable == null) {
+        if (_draftServerInjectable == null) {
             final DraftServer draftServer = new DraftServer();
             draftServer.startServer();
             _draftServerInjectable = new Injectable<DraftServer>() {
