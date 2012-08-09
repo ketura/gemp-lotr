@@ -178,22 +178,21 @@ public class GameState {
             Set<PhysicalCard> cardsLeftToSent = new HashSet<PhysicalCard>(_inPlay);
             Set<PhysicalCard> sentCardsFromPlay = new HashSet<PhysicalCard>();
 
-            int passes = 4;
-
-            while (cardsLeftToSent.size() > 0 && passes > 0) {
-                Set<PhysicalCard> newCardsLeft = new HashSet<PhysicalCard>();
-                for (PhysicalCard physicalCard : cardsLeftToSent) {
+            int cardsToSendAtLoopStart;
+            do {
+                cardsToSendAtLoopStart = cardsLeftToSent.size();
+                Iterator<PhysicalCard> cardIterator = cardsLeftToSent.iterator();
+                while (cardIterator.hasNext()) {
+                    PhysicalCard physicalCard = cardIterator.next();
                     PhysicalCard attachedTo = physicalCard.getAttachedTo();
                     if (attachedTo == null || sentCardsFromPlay.contains(attachedTo)) {
                         listener.cardCreated(physicalCard);
                         sentCardsFromPlay.add(physicalCard);
-                    } else {
-                        newCardsLeft.add(physicalCard);
+
+                        cardIterator.remove();
                     }
                 }
-                passes--;
-                cardsLeftToSent = newCardsLeft;
-            }
+            } while (cardsToSendAtLoopStart != cardsLeftToSent.size() && cardsLeftToSent.size() > 0);
 
             // Finally the stacked ones
             for (List<PhysicalCardImpl> physicalCards : _stacked.values())
