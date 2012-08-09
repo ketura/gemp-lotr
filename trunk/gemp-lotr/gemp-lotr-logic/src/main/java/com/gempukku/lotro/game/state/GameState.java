@@ -175,7 +175,7 @@ public class GameState {
             for (Map.Entry<String, Integer> stringIntegerEntry : _playerPosition.entrySet())
                 listener.setPlayerPosition(stringIntegerEntry.getKey(), stringIntegerEntry.getValue());
 
-            Set<PhysicalCard> cardsLeftToSent = new HashSet<PhysicalCard>(_inPlay);
+            Set<PhysicalCard> cardsLeftToSent = new LinkedHashSet<PhysicalCard>(_inPlay);
             Set<PhysicalCard> sentCardsFromPlay = new HashSet<PhysicalCard>();
 
             int cardsToSendAtLoopStart;
