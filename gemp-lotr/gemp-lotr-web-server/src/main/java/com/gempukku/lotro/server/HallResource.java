@@ -272,6 +272,11 @@ public class HallResource extends AbstractResource {
         }
 
         @Override
+        public void runningPlayerDraft(String draftId) {
+            //To change body of implemented methods use File | Settings | File Templates.
+        }
+
+        @Override
         public void visitTournamentQueue(String tournamentQueueKey, int cost, String collectionName, String formatName,
                                          String tournamentQueueName, int playerCount, boolean playerSignedUp) {
             Element tournamentQueue = _doc.createElement("tournamentQueue");
