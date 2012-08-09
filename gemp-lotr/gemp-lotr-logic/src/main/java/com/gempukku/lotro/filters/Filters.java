@@ -11,6 +11,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.game.state.Skirmish;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 
 import java.util.*;
 
@@ -149,6 +150,15 @@ public class Filters {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
                 return modifiersQuerying.getVitality(gameState, physicalCard) >= vitality;
+            }
+        };
+    }
+
+    public static Filter strengthEqual(final Evaluator evaluator) {
+        return new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                return modifiersQuerying.getStrength(gameState, physicalCard) == evaluator.evaluateExpression(gameState, modifiersQuerying, null);
             }
         };
     }
