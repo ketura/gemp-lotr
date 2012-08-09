@@ -207,12 +207,14 @@ public class DefaultLotroFormat implements LotroFormat {
             // Card count in deck and Ring-bearer
             Map<String, Integer> cardCountByName = new HashMap<String, Integer>();
             Map<String, Integer> cardCountByBaseBlueprintId = new HashMap<String, Integer>();
-            cardCountByName.put(ringBearer.getName(), 1);
-            for (String blueprintId : deck.getAdventureCards()) {
-                LotroCardBlueprint cardBlueprint = _library.getLotroCardBlueprint(blueprintId);
-                increateCount(cardCountByName, cardBlueprint.getName());
-                increateCount(cardCountByBaseBlueprintId, _library.getBaseBlueprintId(blueprintId));
-            }
+
+            processCardCounts(deck.getRing(), cardCountByName, cardCountByBaseBlueprintId);
+            processCardCounts(deck.getRingBearer(), cardCountByName, cardCountByBaseBlueprintId);
+            for (String blueprintId : deck.getAdventureCards())
+                processCardCounts(blueprintId, cardCountByName, cardCountByBaseBlueprintId);
+            for (String blueprintId : deck.getSites())
+                processCardCounts(blueprintId, cardCountByName, cardCountByBaseBlueprintId);
+
             for (Map.Entry<String, Integer> count : cardCountByName.entrySet()) {
                 if (count.getValue() > _maximumSameName)
                     throw new DeckInvalidException("Deck contains more of the same card than allowed: " + count.getKey());
@@ -237,7 +239,13 @@ public class DefaultLotroFormat implements LotroFormat {
         }
     }
 
-    private void increateCount(Map<String, Integer> counts, String name) {
+    private void processCardCounts(String blueprintId, Map<String, Integer> cardCountByName, Map<String, Integer> cardCountByBaseBlueprintId) {
+        LotroCardBlueprint cardBlueprint = _library.getLotroCardBlueprint(blueprintId);
+        increaseCount(cardCountByName, cardBlueprint.getName());
+        increaseCount(cardCountByBaseBlueprintId, _library.getBaseBlueprintId(blueprintId));
+    }
+
+    private void increaseCount(Map<String, Integer> counts, String name) {
         Integer count = counts.get(name);
         if (count == null) {
             counts.put(name, 1);
