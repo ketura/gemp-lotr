@@ -53,9 +53,6 @@ public class Card13_080 extends AbstractPermanent {
                                             new KeywordModifier(self, self, Keyword.FIERCE), Phase.REGROUP));
                             action.appendEffect(
                                     new AddUntilStartOfPhaseModifierEffect(
-                                            new KeywordModifier(self, self, Keyword.DAMAGE, 1), Phase.REGROUP));
-                            action.appendEffect(
-                                    new AddUntilStartOfPhaseModifierEffect(
                                             new MayNotBearModifier(self, self, Filters.any), Phase.REGROUP));
                             action.appendEffect(
                                     new AddUntilStartOfPhaseModifierEffect(
