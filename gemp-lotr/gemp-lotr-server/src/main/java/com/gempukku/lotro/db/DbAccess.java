@@ -1,5 +1,6 @@
 package com.gempukku.lotro.db;
 
+import com.gempukku.lotro.common.ApplicationConfiguration;
 import org.apache.commons.dbcp.ConnectionFactory;
 import org.apache.commons.dbcp.DriverManagerConnectionFactory;
 import org.apache.commons.dbcp.PoolableConnectionFactory;
@@ -13,12 +14,12 @@ public class DbAccess {
 
     public DbAccess() {
         try {
-            Class.forName("org.gjt.mm.mysql.Driver");
+            Class.forName(ApplicationConfiguration.getProperty("db.connection.class"));
         } catch (ClassNotFoundException e) {
             throw new RuntimeException("Couldn't find the DB driver", e);
         }
 
-        _dataSource = setupDataSource("jdbc:mysql://localhost/gemp-lotr");
+        _dataSource = setupDataSource(ApplicationConfiguration.getProperty("db.connection.url"));
     }
 
     public DataSource getDataSource() {
@@ -34,7 +35,8 @@ public class DbAccess {
         // arguments.
         //
         ConnectionFactory connectionFactory =
-                new DriverManagerConnectionFactory(connectURI, "gemp-lotr", "gemp-lotr");
+                new DriverManagerConnectionFactory(connectURI, ApplicationConfiguration.getProperty("db.connection.username"),
+                        ApplicationConfiguration.getProperty("db.connection.password"));
 
         //
         // Now we'll need a ObjectPool that serves as the
@@ -53,7 +55,7 @@ public class DbAccess {
         // the classes that implement the pooling functionality.
         //
         PoolableConnectionFactory poolableConnectionFactory =
-                new PoolableConnectionFactory(connectionFactory, connectionPool, null, "/* ping */ select 1", false, true);
+                new PoolableConnectionFactory(connectionFactory, connectionPool, null, ApplicationConfiguration.getProperty("db.connection.validateQuery"), false, true);
 
         connectionPool.setFactory(poolableConnectionFactory);
 
