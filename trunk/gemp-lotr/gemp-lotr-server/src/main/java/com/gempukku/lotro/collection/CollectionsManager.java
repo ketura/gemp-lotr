@@ -6,6 +6,7 @@ import com.gempukku.lotro.db.PlayerDAO;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.packs.PacksStorage;
+import org.apache.log4j.Logger;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -15,6 +16,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class CollectionsManager {
+    private static Logger _logger = Logger.getLogger(CollectionsManager.class);
     private ReentrantReadWriteLock _readWriteLock = new ReentrantReadWriteLock();
     private Map<String, Map<String, CardCollection>> _collections = new ConcurrentHashMap<String, Map<String, CardCollection>>();
 
@@ -39,7 +41,7 @@ public class CollectionsManager {
                 final int[] cardCounts = new int[]{129, 365, 122, 122, 365, 128, 128, 365, 122, 52, 122, 266, 203, 203, 15, 207, 6, 157, 149, 40};
 
                 for (int i = 0; i <= 19; i++) {
-                    System.out.println("Loading set " + i);
+                    _logger.debug("Loading set " + i);
                     for (int j = 1; j <= cardCounts[i]; j++) {
                         String blueprintId = i + "_" + j;
                         try {
