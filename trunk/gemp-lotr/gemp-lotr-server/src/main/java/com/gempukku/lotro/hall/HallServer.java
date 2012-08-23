@@ -50,7 +50,7 @@ public class HallServer extends AbstractServer {
 
     private Map<Player, Long> _lastVisitedPlayers = new HashMap<Player, Long>();
 
-    private List<Tournament> _runningTournaments = new ArrayList<Tournament>();
+    private Map<String, Tournament> _runningTournaments = new LinkedHashMap<String, Tournament>();
     private Map<String, TournamentQueue> _tournamentQueues = new HashMap<String, TournamentQueue>();
     private final ChatRoomMediator _hallChat;
 
@@ -73,7 +73,8 @@ public class HallServer extends AbstractServer {
 
     @Override
     protected void doAfterStartup() {
-        _runningTournaments.addAll(_tournamentService.getLiveTournaments());
+        for (Tournament tournament : _tournamentService.getLiveTournaments())
+            _runningTournaments.put(tournament.getTournamentId(), tournament);
     }
 
     public void setShutdown(boolean shutdown) {
@@ -245,6 +246,19 @@ public class HallServer extends AbstractServer {
             }
         } finally {
             _hallDataAccessLock.writeLock().unlock();
+        }
+    }
+
+    public boolean processTournament(String tournamentId, Player player, TournamentVisitor tournamentVisitor) {
+        _hallDataAccessLock.readLock().lock();
+        try {
+            Tournament tournament = _runningTournaments.get(tournamentId);
+            if (tournament == null)
+                return false;
+
+            return true;
+        } finally {
+            _hallDataAccessLock.readLock().unlock();
         }
     }
 
@@ -450,7 +464,7 @@ public class HallServer extends AbstractServer {
                 return true;
         }
 
-        for (Tournament runningTournament : _runningTournaments) {
+        for (Tournament runningTournament : _runningTournaments.values()) {
             if (runningTournament.isPlayerInCompetition(playerId))
                 return true;
         }
@@ -492,11 +506,11 @@ public class HallServer extends AbstractServer {
                     _tournamentQueues.remove(tournamentQueueKey);
             }
 
-            for (Tournament runningTournament : new ArrayList<Tournament>(_runningTournaments)) {
+            for (Tournament runningTournament : new ArrayList<Tournament>(_runningTournaments.values())) {
                 runningTournament.advanceTournament(new HallTournamentCallback(runningTournament));
                 if (runningTournament.isFinished()) {
                     _tournamentService.markTournamentFinished(runningTournament.getTournamentId());
-                    _runningTournaments.remove(runningTournament);
+                    _runningTournaments.remove(runningTournament.getTournamentId());
                 }
             }
 
@@ -510,7 +524,7 @@ public class HallServer extends AbstractServer {
         public void createTournament(Tournament tournament) {
             _hallDataAccessLock.writeLock().lock();
             try {
-                _runningTournaments.add(tournament);
+                _runningTournaments.put(tournament.getTournamentId(), tournament);
             } finally {
                 _hallDataAccessLock.writeLock().unlock();
             }
@@ -520,7 +534,7 @@ public class HallServer extends AbstractServer {
     private class HallTournamentQueueCallback implements TournamentQueueCallback {
         @Override
         public void createTournament(Tournament tournament) {
-            _runningTournaments.add(tournament);
+            _runningTournaments.put(tournament.getTournamentId(), tournament);
         }
 
         @Override
