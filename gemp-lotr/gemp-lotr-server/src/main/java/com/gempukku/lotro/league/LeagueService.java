@@ -90,12 +90,12 @@ public class LeagueService {
         return _leagueParticipationDAO.getUsersParticipating(league.getType()).contains(player.getName());
     }
 
-    public synchronized boolean playerJoinsLeague(League league, Player player) {
+    public synchronized boolean playerJoinsLeague(League league, Player player, String remoteAddr) {
         if (isPlayerInLeague(league, player))
             return false;
         int cost = league.getCost();
         if (_collectionsManager.removeCurrencyFromPlayerCollection(player, new CollectionType("permanent", "My cards"), cost)) {
-            _leagueParticipationDAO.userJoinsLeague(league.getType(), player);
+            _leagueParticipationDAO.userJoinsLeague(league.getType(), player, remoteAddr);
             league.getLeagueData().joinLeague(_collectionsManager, player, DateUtils.getCurrentDate());
 
             _leagueStandings.remove(LeagueMapKeys.getLeagueMapKey(league));
