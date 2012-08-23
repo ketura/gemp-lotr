@@ -122,18 +122,19 @@ public class PlayerDAO {
         }
     }
 
-    public synchronized boolean registerUser(String login, String password) throws SQLException {
+    public synchronized boolean registerUser(String login, String password, String remoteAddr) throws SQLException {
         boolean result = validateLogin(login);
         if (!result)
             return false;
 
         Connection conn = _dbAccess.getDataSource().getConnection();
         try {
-            PreparedStatement statement = conn.prepareStatement("insert into player (name, password, type) values (?, ?, ?)");
+            PreparedStatement statement = conn.prepareStatement("insert into player (name, password, type, create_ip) values (?, ?, ?, ?)");
             try {
                 statement.setString(1, login);
                 statement.setString(2, encodePassword(password));
                 statement.setString(3, "u");
+                statement.setString(4, remoteAddr);
                 statement.execute();
                 return true;
             } finally {
@@ -253,6 +254,22 @@ public class PlayerDAO {
                 } finally {
                     rs.close();
                 }
+            } finally {
+                statement.close();
+            }
+        } finally {
+            conn.close();
+        }
+    }
+
+    public void updateLastLoginIp(String login, String remoteAddr) throws SQLException {
+        Connection conn = _dbAccess.getDataSource().getConnection();
+        try {
+            PreparedStatement statement = conn.prepareStatement("update player set last_ip=? where name=?");
+            try {
+                statement.setString(1, remoteAddr);
+                statement.setString(2, login);
+                statement.execute();
             } finally {
                 statement.close();
             }

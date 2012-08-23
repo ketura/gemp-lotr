@@ -22,6 +22,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -82,7 +83,7 @@ public class ServerResource extends AbstractResource {
             @FormParam("login") String login,
             @FormParam("password") String password,
             @Context HttpServletRequest request) throws Exception {
-        if (_playerDao.registerUser(login, password)) {
+        if (_playerDao.registerUser(login, password, request.getRemoteAddr())) {
             logUser(request, login);
             return "<script>location.href='hall.html';</script>";
         } else {
@@ -309,7 +310,8 @@ public class ServerResource extends AbstractResource {
         }
     }
 
-    private void logUser(HttpServletRequest request, String login) {
+    private void logUser(HttpServletRequest request, String login) throws SQLException {
+        _playerDao.updateLastLoginIp(login, request.getRemoteAddr());
         request.getSession().setAttribute("logged", login);
     }
 

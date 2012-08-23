@@ -44,7 +44,7 @@ public class LeagueResource extends AbstractResource {
         if (league == null)
             sendError(Response.Status.NOT_FOUND);
 
-        if (!_leagueService.playerJoinsLeague(league, resourceOwner))
+        if (!_leagueService.playerJoinsLeague(league, resourceOwner, request.getRemoteAddr()))
             sendError(Response.Status.CONFLICT);
     }
 
