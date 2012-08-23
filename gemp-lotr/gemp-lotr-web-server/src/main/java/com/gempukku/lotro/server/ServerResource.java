@@ -1,7 +1,6 @@
 package com.gempukku.lotro.server;
 
 import com.gempukku.lotro.chat.ChatServer;
-import com.gempukku.lotro.common.ApplicationRoot;
 import com.gempukku.lotro.db.PlayerStatistic;
 import com.gempukku.lotro.db.vo.GameHistoryEntry;
 import com.gempukku.lotro.game.*;
@@ -20,7 +19,6 @@ import javax.ws.rs.core.StreamingOutput;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -49,13 +47,6 @@ public class ServerResource extends AbstractResource {
     private GameHistoryService _gameHistoryService;
     @Context
     private GameRecorder _gameRecorder;
-
-    public ServerResource() {
-        if (!_test)
-            ApplicationRoot.setRoot(new File("/etc/gemp-lotr"));
-        else
-            ApplicationRoot.setRoot(new File("i:\\gemp-lotr"));
-    }
 
     @Path("/login")
     @POST

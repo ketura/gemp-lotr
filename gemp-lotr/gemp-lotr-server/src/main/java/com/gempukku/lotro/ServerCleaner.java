@@ -12,7 +12,7 @@ public class ServerCleaner {
     private CleaningThread _thr;
 
     public synchronized void addServer(AbstractServer server) {
-        System.out.println("Adding server: " + server.getClass());
+        LOG.debug("Adding server: " + server.getClass());
         _servers.add(server);
         if (_thr == null) {
             _thr = new CleaningThread();

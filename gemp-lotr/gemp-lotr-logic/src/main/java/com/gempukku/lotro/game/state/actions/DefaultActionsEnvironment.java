@@ -18,10 +18,12 @@ import com.gempukku.lotro.logic.timing.results.CharacterLostSkirmishResult;
 import com.gempukku.lotro.logic.timing.results.CharacterWonSkirmishResult;
 import com.gempukku.lotro.logic.timing.results.PlayCardResult;
 import com.gempukku.lotro.logic.timing.rules.CharacterDeathRule;
+import org.apache.log4j.Logger;
 
 import java.util.*;
 
 public class DefaultActionsEnvironment implements ActionsEnvironment {
+    private static Logger LOG = Logger.getLogger(DefaultActionsEnvironment.class);
     private LotroGame _lotroGame;
     private CharacterDeathRule _characterDeathRule;
     private ActionStack _actionStack;
@@ -526,7 +528,7 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
                         if (action != null)
                             _actions.add(action);
                         else
-                            System.out.println("Null action from: " + physicalCard.getBlueprint().getName());
+                            LOG.error("Null action from: " + physicalCard.getBlueprint().getName());
                     }
                 }
                 final List<? extends ActivateCardAction> extraActions = _game.getModifiersQuerying().getExtraPhaseActions(_game.getGameState(), physicalCard);
@@ -535,7 +537,7 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
                         if (action != null)
                             _actions.add(action);
                         else
-                            System.out.println("Null action from: " + physicalCard.getBlueprint().getName());
+                            LOG.debug("Null action from: " + physicalCard.getBlueprint().getName());
                     }
                 }
             }
@@ -568,7 +570,7 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
                     if (action != null)
                         _actions.add(action);
                     else
-                        System.out.println("Null action from: " + physicalCard.getBlueprint().getName());
+                        LOG.debug("Null action from: " + physicalCard.getBlueprint().getName());
                 }
             }
         }
