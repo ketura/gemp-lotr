@@ -1,0 +1,124 @@
+package com.gempukku.lotro.server.provider;
+
+import com.gempukku.lotro.chat.ChatServer;
+import com.gempukku.lotro.collection.CollectionsManager;
+import com.gempukku.lotro.collection.DeliveryService;
+import com.gempukku.lotro.db.*;
+import com.gempukku.lotro.draft.DraftServer;
+import com.gempukku.lotro.game.GameHistoryService;
+import com.gempukku.lotro.game.GameRecorder;
+import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
+import com.gempukku.lotro.game.LotroServer;
+import com.gempukku.lotro.game.formats.LotroFormatLibrary;
+import com.gempukku.lotro.hall.HallServer;
+import com.gempukku.lotro.league.LeagueService;
+import com.gempukku.lotro.merchant.MerchantService;
+import com.gempukku.lotro.tournament.TournamentDAO;
+import com.gempukku.lotro.tournament.TournamentMatchDAO;
+import com.gempukku.lotro.tournament.TournamentPlayerDAO;
+import com.gempukku.lotro.tournament.TournamentService;
+import com.sun.jersey.spi.inject.Injectable;
+
+import java.lang.reflect.Type;
+import java.util.Map;
+
+public class ServerBuilder {
+    private Injectable<ChatServer> _chatServerInjectable;
+    private Injectable<LeagueService> _leagueServiceInjectable;
+    private Injectable<GameHistoryService> _gameHistoryServiceInjectable;
+    private Injectable<MerchantService> _merchantServiceInjectable;
+    private Injectable<TournamentService> _tournamentServiceInjectable;
+    private Injectable<HallServer> _hallServerInjectable;
+    private Injectable<LotroServer> _lotroServerInjectable;
+    private Injectable<DraftServer> _draftServerInjectable;
+    private Injectable<CollectionsManager> _collectionsManagerInjectable;
+    private Injectable<DeliveryService> _deliveryServiceInjectable;
+    private Injectable<LotroFormatLibrary> _lotroFormatLibraryInjectable;
+    private Injectable<GameRecorder> _gameRecorderInjectable;
+
+    public static void fillObjectMap(Map<Type, Object> objectMap) {
+        objectMap.put(LotroFormatLibrary.class,
+                new LotroFormatLibrary(
+                        extract(objectMap, LotroCardBlueprintLibrary.class)));
+
+        objectMap.put(GameHistoryService.class,
+                new GameHistoryService(
+                        extract(objectMap, GameHistoryDAO.class)));
+        objectMap.put(GameRecorder.class,
+                new GameRecorder(
+                        extract(objectMap, GameHistoryService.class)));
+
+        objectMap.put(DeliveryService.class,
+                new DeliveryService());
+
+        objectMap.put(CollectionsManager.class,
+                new CollectionsManager(
+                        extract(objectMap, PlayerDAO.class),
+                        extract(objectMap, CollectionDAO.class),
+                        extract(objectMap, DeliveryService.class),
+                        extract(objectMap, LotroCardBlueprintLibrary.class)));
+
+        objectMap.put(LeagueService.class,
+                new LeagueService(
+                        extract(objectMap, LeagueDAO.class),
+                        extract(objectMap, LeagueMatchDAO.class),
+                        extract(objectMap, LeagueParticipationDAO.class),
+                        extract(objectMap, CollectionsManager.class)));
+
+        objectMap.put(TournamentService.class,
+                new TournamentService(
+                        extract(objectMap, TournamentDAO.class),
+                        extract(objectMap, TournamentPlayerDAO.class),
+                        extract(objectMap, TournamentMatchDAO.class)));
+
+        objectMap.put(MerchantService.class,
+                new MerchantService(
+                        extract(objectMap, LotroCardBlueprintLibrary.class),
+                        extract(objectMap, CollectionsManager.class),
+                        extract(objectMap, MerchantDAO.class)));
+
+        objectMap.put(ChatServer.class, new ChatServer());
+
+        objectMap.put(LotroServer.class,
+                new LotroServer(
+                        extract(objectMap, DeckDAO.class),
+                        extract(objectMap, LotroCardBlueprintLibrary.class),
+                        extract(objectMap, ChatServer.class),
+                        extract(objectMap, GameRecorder.class)));
+
+        objectMap.put(DraftServer.class,
+                new DraftServer());
+        objectMap.put(HallServer.class,
+                new HallServer(
+                        extract(objectMap, LotroServer.class),
+                        extract(objectMap, DraftServer.class),
+                        extract(objectMap, ChatServer.class),
+                        extract(objectMap, LeagueService.class),
+                        extract(objectMap, TournamentService.class),
+                        extract(objectMap, LotroCardBlueprintLibrary.class),
+                        extract(objectMap, LotroFormatLibrary.class),
+                        extract(objectMap, CollectionsManager.class),
+                        false));
+    }
+
+    private static <T> T extract(Map<Type, Object> objectMap, Class<T> clazz) {
+        T result = (T) objectMap.get(clazz);
+        if (result == null)
+            throw new RuntimeException("Unable to find class " + clazz.getName());
+        return result;
+    }
+
+    public static void constructObjects(Map<Type, Object> objectMap) {
+        extract(objectMap, HallServer.class).startServer();
+        extract(objectMap, DraftServer.class).startServer();
+        extract(objectMap, LotroServer.class).startServer();
+        extract(objectMap, ChatServer.class).startServer();
+    }
+
+    public static void destroyObjects(Map<Type, Object> objectMap) {
+        extract(objectMap, HallServer.class).stopServer();
+        extract(objectMap, DraftServer.class).stopServer();
+        extract(objectMap, LotroServer.class).stopServer();
+        extract(objectMap, ChatServer.class).stopServer();
+    }
+}
