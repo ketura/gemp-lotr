@@ -66,11 +66,14 @@ public class HallServer extends AbstractServer {
         _collectionsManager = collectionsManager;
         _hallChat = _chatServer.createChatRoom("Game Hall", 10);
 
-        _runningTournaments.addAll(tournamentService.getLiveTournaments());
-
         _tournamentQueues.put("fotr_queue", new SingleEliminationRecurringQueue(0, "fotr_block",
                 new CollectionType("default", "All cards"), "fotrQueue-", "Test Fellowship Block 4-man", 4,
                 tournamentService));
+    }
+
+    @Override
+    protected void doAfterStartup() {
+        _runningTournaments.addAll(_tournamentService.getLiveTournaments());
     }
 
     public void setShutdown(boolean shutdown) {

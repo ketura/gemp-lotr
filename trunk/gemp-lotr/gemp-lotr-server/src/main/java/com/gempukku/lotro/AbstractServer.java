@@ -9,7 +9,12 @@ public abstract class AbstractServer {
         if (!_started) {
             _cleaningTask.addServer(this);
             _started = true;
+            doAfterStartup();
         }
+    }
+
+    protected void doAfterStartup() {
+
     }
 
     public void stopServer() {
