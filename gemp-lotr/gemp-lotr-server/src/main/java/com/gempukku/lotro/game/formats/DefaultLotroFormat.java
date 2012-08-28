@@ -24,6 +24,7 @@ public class DefaultLotroFormat implements LotroFormat {
     private int _minimumDeckSize = 60;
     private List<String> _bannedCards = new ArrayList<String>();
     private List<String> _restrictedCards = new ArrayList<String>();
+    private List<String> _validCards = new ArrayList<String>();
     private List<Integer> _validSets = new ArrayList<Integer>();
 
     public DefaultLotroFormat(LotroCardBlueprintLibrary library, String name, Block siteBlock, boolean validateShadowFPCount, int minimumDeckSize, int maximumSameName, boolean mulliganRule, boolean canCancelRingBearerSkirmish) {
@@ -73,6 +74,11 @@ public class DefaultLotroFormat implements LotroFormat {
     }
 
     @Override
+    public List<String> getValidCards() {
+        return Collections.unmodifiableList(_validCards);
+    }
+
+    @Override
     public Block getSiteBlock() {
         return _siteBlock;
     }
@@ -101,12 +107,26 @@ public class DefaultLotroFormat implements LotroFormat {
             _restrictedCards.add(baseBlueprintId);
     }
 
+    protected void addValidCard(String baseBlueprintId) {
+        if (baseBlueprintId.contains("-")) {
+            String[] parts = baseBlueprintId.split("_");
+            String set = parts[0];
+            int from = Integer.parseInt(parts[1].split("-")[0]);
+            int to = Integer.parseInt(parts[1].split("-")[1]);
+            for (int i = from; i <= to; i++)
+                _validCards.add(set + "_" + i);
+        } else
+            _validCards.add(baseBlueprintId);
+    }
+
     protected void addValidSet(int setNo) {
         _validSets.add(setNo);
     }
 
     private void validateSet(String blueprintId) throws DeckInvalidException {
         blueprintId = _library.getBaseBlueprintId(blueprintId);
+        if (_validCards.contains(blueprintId))
+            return;
         for (int validSet : _validSets)
             if (blueprintId.startsWith(validSet + "_")
                     || _library.hasAlternateInSet(blueprintId, validSet))
@@ -141,8 +161,21 @@ public class DefaultLotroFormat implements LotroFormat {
                 LotroCardBlueprint siteBlueprint = _library.getLotroCardBlueprint(site);
                 if (siteBlueprint.getCardType() != CardType.SITE)
                     throw new DeckInvalidException("Card assigned as Site is not really a site");
-                if (siteBlueprint.getSiteBlock() != _siteBlock)
+                if (siteBlueprint.getSiteBlock() != _siteBlock && _siteBlock != Block.SPECIAL)
                     throw new DeckInvalidException("Invalid site: " + GameUtils.getFullName(siteBlueprint));
+                if (_siteBlock == Block.SPECIAL && siteBlueprint.getSiteBlock() == Block.SHADOWS)
+                    throw new DeckInvalidException("Invalid site: " + GameUtils.getFullName(siteBlueprint));
+            }
+            if (_siteBlock == Block.SPECIAL) {
+                Block usedBlock = null;
+                for (String site : deck.getSites()) {
+                    LotroCardBlueprint siteBlueprint = _library.getLotroCardBlueprint(site);
+                    Block block = siteBlueprint.getSiteBlock();
+                    if (usedBlock == null)
+                        usedBlock = block;
+                    else if (usedBlock != block)
+                        throw new DeckInvalidException("All your sites have to be from the same block");
+                }
             }
 
             if (_validSets.size() > 0) {

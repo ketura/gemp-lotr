@@ -68,6 +68,12 @@ public class HallResource extends AbstractResource {
             if (lotroFormat.getRestrictedCards().size() == 0)
                 result.append("none,");
             result.append("</li>");
+            result.append("<li>Additional valid: ");
+            for (String blueprintId : lotroFormat.getValidCards())
+                result.append(GameUtils.getCardLink(blueprintId, _library.getLotroCardBlueprint(blueprintId)) + ", ");
+            if (lotroFormat.getValidCards().size() == 0)
+                result.append("none,");
+            result.append("</li>");
             result.append("</ul>");
         }
 
@@ -103,6 +109,12 @@ public class HallResource extends AbstractResource {
         for (String blueprintId : lotroFormat.getRestrictedCards())
             result.append(GameUtils.getCardLink(blueprintId, _library.getLotroCardBlueprint(blueprintId)) + ", ");
         if (lotroFormat.getRestrictedCards().size() == 0)
+            result.append("none,");
+        result.append("</li>");
+        result.append("<li>Additional valid: ");
+        for (String blueprintId : lotroFormat.getValidCards())
+            result.append(GameUtils.getCardLink(blueprintId, _library.getLotroCardBlueprint(blueprintId)) + ", ");
+        if (lotroFormat.getValidCards().size() == 0)
             result.append("none,");
         result.append("</li>");
         result.append("</ul>");

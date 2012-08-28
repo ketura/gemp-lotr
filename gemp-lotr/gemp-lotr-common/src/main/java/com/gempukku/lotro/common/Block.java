@@ -1,7 +1,7 @@
 package com.gempukku.lotro.common;
 
 public enum Block {
-    FELLOWSHIP("Fellowship"), TWO_TOWERS("Towers"), KING("King"), SHADOWS("Shadows and onwards");
+    FELLOWSHIP("Fellowship"), TWO_TOWERS("Towers"), KING("King"), SHADOWS("Shadows and onwards"), SPECIAL("Special");
 
     private String _humanReadable;
 
