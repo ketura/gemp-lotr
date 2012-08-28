@@ -52,6 +52,12 @@ public class LotroFormatLibrary {
                             format.addRestrictedCard((String) restricted);
                         }
 
+                    JSONArray validCards = (JSONArray) formatDef.get("valid");
+                    if (validCards != null)
+                        for (Object valid : validCards) {
+                            format.addValidCard((String) valid);
+                        }
+
                     _allFormats.put(formatCode, format);
 
                     Boolean hallFormat = (Boolean) formatDef.get("hall");

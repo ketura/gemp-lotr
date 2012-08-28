@@ -22,5 +22,7 @@ public interface LotroFormat {
 
     public List<String> getRestrictedCards();
 
+    public List<String> getValidCards();
+
     public Block getSiteBlock();
 }
