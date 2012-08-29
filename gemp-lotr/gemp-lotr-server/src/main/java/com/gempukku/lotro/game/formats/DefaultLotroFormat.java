@@ -257,14 +257,14 @@ public class DefaultLotroFormat implements LotroFormat {
             for (String blueprintId : _restrictedCards) {
                 Integer count = cardCountByBaseBlueprintId.get(blueprintId);
                 if (count != null && count > 1)
-                    throw new DeckInvalidException("Deck contains more than one copy of an R-listed card: " + blueprintId);
+                    throw new DeckInvalidException("Deck contains more than one copy of an R-listed card: " + GameUtils.getFullName(_library.getLotroCardBlueprint(blueprintId)));
             }
 
             // Banned cards
             for (String blueprintId : _bannedCards) {
                 Integer count = cardCountByBaseBlueprintId.get(blueprintId);
                 if (count != null && count > 0)
-                    throw new DeckInvalidException("Deck contains a copy of an X-listed card: " + blueprintId);
+                    throw new DeckInvalidException("Deck contains a copy of an X-listed card: " + GameUtils.getFullName(_library.getLotroCardBlueprint(blueprintId)));
             }
 
         } catch (IllegalArgumentException exp) {
