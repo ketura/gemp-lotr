@@ -32,7 +32,7 @@ public class ResolveSkirmishDamageAction extends RequiredTriggerAction {
 
     @Override
     public String getText(LotroGame game) {
-        return "Resolving skirmish";
+        return "Resolve skirmish damage";
     }
 
     @Override
