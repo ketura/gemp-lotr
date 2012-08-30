@@ -14,6 +14,8 @@ public interface TournamentQueue {
 
     public String getTournamentQueueName();
 
+    public boolean isRequiresDeck();
+
     public boolean process(TournamentQueueCallback tournamentQueueCallback);
 
     public void joinPlayer(CollectionsManager collectionsManager, Player player, LotroDeck deck);

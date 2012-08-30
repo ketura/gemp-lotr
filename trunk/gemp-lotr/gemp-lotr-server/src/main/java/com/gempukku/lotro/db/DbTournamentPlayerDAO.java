@@ -43,6 +43,29 @@ public class DbTournamentPlayerDAO implements TournamentPlayerDAO {
     }
 
     @Override
+    public void updatePlayerDeck(String tournamentId, String playerName, LotroDeck deck) {
+        try {
+            Connection conn = _dbAccess.getDataSource().getConnection();
+            try {
+                PreparedStatement statement = conn.prepareStatement("update tournament_player set deck_name = ?, deck = ? where tournament_id=? and player=?");
+                try {
+                    statement.setString(1, deck.getDeckName());
+                    statement.setString(2, DeckSerialization.buildContentsFromDeck(deck));
+                    statement.setString(3, tournamentId);
+                    statement.setString(4, playerName);
+                    statement.execute();
+                } finally {
+                    statement.close();
+                }
+            } finally {
+                conn.close();
+            }
+        } catch (SQLException exp) {
+            throw new RuntimeException(exp);
+        }
+    }
+
+    @Override
     public void dropPlayer(String tournamentId, String playerName) {
         try {
             Connection conn = _dbAccess.getDataSource().getConnection();
@@ -64,11 +87,41 @@ public class DbTournamentPlayerDAO implements TournamentPlayerDAO {
     }
 
     @Override
-    public Map<String, LotroDeck> getPlayers(String tournamentId) {
+    public Set<String> getPlayers(String tournamentId) {
         try {
             Connection connection = _dbAccess.getDataSource().getConnection();
             try {
-                PreparedStatement statement = connection.prepareStatement("select player, deck_name, deck from tournament_player where tournament_id=?");
+                PreparedStatement statement = connection.prepareStatement("select player from tournament_player where tournament_id=?");
+                try {
+                    statement.setString(1, tournamentId);
+                    ResultSet rs = statement.executeQuery();
+                    try {
+                        Set<String> result = new HashSet<String>();
+                        while (rs.next()) {
+                            String player = rs.getString(1);
+                            result.add(player);
+                        }
+                        return result;
+                    } finally {
+                        rs.close();
+                    }
+                } finally {
+                    statement.close();
+                }
+            } finally {
+                connection.close();
+            }
+        } catch (SQLException exp) {
+            throw new RuntimeException(exp);
+        }
+    }
+
+    @Override
+    public Map<String, LotroDeck> getPlayerDecks(String tournamentId) {
+        try {
+            Connection connection = _dbAccess.getDataSource().getConnection();
+            try {
+                PreparedStatement statement = connection.prepareStatement("select player, deck_name, deck from tournament_player where tournament_id=? and deck_name is not null");
                 try {
                     statement.setString(1, tournamentId);
                     ResultSet rs = statement.executeQuery();

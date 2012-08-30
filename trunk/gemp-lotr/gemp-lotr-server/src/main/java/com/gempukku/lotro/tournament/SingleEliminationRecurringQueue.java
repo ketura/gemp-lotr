@@ -6,9 +6,7 @@ import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.game.Player;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class SingleEliminationRecurringQueue implements TournamentQueue {
     private int _cost;
@@ -17,6 +15,7 @@ public class SingleEliminationRecurringQueue implements TournamentQueue {
     private String _tournamentQueueName;
     private CollectionType _currencyCollection = new CollectionType("permanent", "My cards");
 
+    private Set<String> _players = new HashSet<String>();
     private Map<String, LotroDeck> _playerDecks = new HashMap<String, LotroDeck>();
 
     private int _playerCap;
@@ -24,13 +23,16 @@ public class SingleEliminationRecurringQueue implements TournamentQueue {
     private TournamentService _tournamentService;
     private String _tournamentIdPrefix;
 
-    public SingleEliminationRecurringQueue(int cost, String format, CollectionType collectionType, String tournamentIdPrefix, String tournamentQueueName, int playerCap, TournamentService tournamentService) {
+    private boolean _requiresDeck;
+
+    public SingleEliminationRecurringQueue(int cost, String format, CollectionType collectionType, String tournamentIdPrefix, String tournamentQueueName, int playerCap, boolean requiresDeck, TournamentService tournamentService) {
         _cost = cost;
         _format = format;
         _collectionType = collectionType;
         _tournamentQueueName = tournamentQueueName;
         _playerCap = playerCap;
         _tournamentIdPrefix = tournamentIdPrefix;
+        _requiresDeck = requiresDeck;
         _tournamentService = tournamentService;
     }
 
@@ -55,21 +57,25 @@ public class SingleEliminationRecurringQueue implements TournamentQueue {
     }
 
     @Override
+    public boolean isRequiresDeck() {
+        return _requiresDeck;
+    }
+
+    @Override
     public synchronized boolean process(TournamentQueueCallback tournamentQueueCallback) {
-        if (_playerDecks.size() == _playerCap) {
+        if (_players.size() == _playerCap) {
             String tournamentId = _tournamentIdPrefix + System.currentTimeMillis();
 
             String tournamentName = _tournamentQueueName + " - " + DateUtils.getStringDateWithHour();
 
-            String parameters = _format + "," + _collectionType.getCode() + "," + _collectionType.getFullName() + "," + tournamentName;
+            for (String player : _players)
+                _tournamentService.addPlayer(tournamentId, player, _playerDecks.get(player));
 
-            for (Map.Entry<String, LotroDeck> playerDeck : _playerDecks.entrySet())
-                _tournamentService.addPlayer(tournamentId, playerDeck.getKey(), playerDeck.getValue());
-
-            Tournament tournament = _tournamentService.addTournament(tournamentId, SingleEliminationTournament.class.getName(), parameters, new Date());
+            Tournament tournament = _tournamentService.addTournament(tournamentId, null, tournamentName, _format, _collectionType, Tournament.Stage.PLAYING_GAMES, "singleElimination", new Date());
 
             tournamentQueueCallback.createTournament(tournament);
 
+            _players.clear();
             _playerDecks.clear();
         }
         return false;
@@ -77,22 +83,26 @@ public class SingleEliminationRecurringQueue implements TournamentQueue {
 
     @Override
     public synchronized void joinPlayer(CollectionsManager collectionsManager, Player player, LotroDeck deck) {
-        if (!_playerDecks.containsKey(player.getName()) && _playerDecks.size() < _playerCap) {
-            if (_cost <= 0 || collectionsManager.removeCurrencyFromPlayerCollection(player, _currencyCollection, _cost))
-                _playerDecks.put(player.getName(), deck);
+        if (!_players.contains(player.getName()) && _players.size() < _playerCap) {
+            if (_cost <= 0 || collectionsManager.removeCurrencyFromPlayerCollection(player, _currencyCollection, _cost)) {
+                _players.add(player.getName());
+                if (_requiresDeck)
+                    _playerDecks.put(player.getName(), deck);
+            }
         }
     }
 
     @Override
     public synchronized int getPlayerCount() {
-        return _playerDecks.size();
+        return _players.size();
     }
 
     @Override
     public synchronized void leavePlayer(CollectionsManager collectionsManager, Player player) {
-        if (_playerDecks.containsKey(player.getName())) {
+        if (_players.contains(player.getName())) {
             if (_cost > 0)
                 collectionsManager.addCurrencyToPlayerCollection(player, _currencyCollection, _cost);
+            _players.remove(player.getName());
             _playerDecks.remove(player.getName());
         }
     }
@@ -100,14 +110,15 @@ public class SingleEliminationRecurringQueue implements TournamentQueue {
     @Override
     public synchronized void leaveAllPlayers(CollectionsManager collectionsManager) {
         if (_cost > 0) {
-            for (String player : _playerDecks.keySet())
+            for (String player : _players)
                 collectionsManager.addCurrencyToPlayerCollection(player, _currencyCollection, _cost);
         }
+        _players.clear();
         _playerDecks.clear();
     }
 
     @Override
     public synchronized boolean isPlayerSignedUp(String player) {
-        return _playerDecks.containsKey(player);
+        return _players.contains(player);
     }
 }

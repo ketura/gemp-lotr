@@ -58,7 +58,7 @@ public class TournamentResource extends AbstractResource {
             tournamentElem.setAttribute("format", _lotroFormatLibrary.getFormat(tournament.getFormat()).getName());
             tournamentElem.setAttribute("collection", tournament.getCollectionType().getFullName());
             tournamentElem.setAttribute("round", String.valueOf(tournament.getCurrentRound()));
-            tournamentElem.setAttribute("finished", String.valueOf(tournament.isFinished()));
+            tournamentElem.setAttribute("stage", tournament.getTournamentStage().getHumanReadable());
 
             tournaments.appendChild(tournamentElem);
         }
@@ -88,7 +88,7 @@ public class TournamentResource extends AbstractResource {
             tournamentElem.setAttribute("format", _lotroFormatLibrary.getFormat(tournament.getFormat()).getName());
             tournamentElem.setAttribute("collection", tournament.getCollectionType().getFullName());
             tournamentElem.setAttribute("round", String.valueOf(tournament.getCurrentRound()));
-            tournamentElem.setAttribute("finished", String.valueOf(tournament.isFinished()));
+            tournamentElem.setAttribute("stage", tournament.getTournamentStage().getHumanReadable());
 
             tournaments.appendChild(tournamentElem);
         }
@@ -122,7 +122,7 @@ public class TournamentResource extends AbstractResource {
         tournamentElem.setAttribute("format", _lotroFormatLibrary.getFormat(tournament.getFormat()).getName());
         tournamentElem.setAttribute("collection", tournament.getCollectionType().getFullName());
         tournamentElem.setAttribute("round", String.valueOf(tournament.getCurrentRound()));
-        tournamentElem.setAttribute("finished", String.valueOf(tournament.isFinished()));
+        tournamentElem.setAttribute("stage", tournament.getTournamentStage().getHumanReadable());
 
         List<PlayerStanding> leagueStandings = tournament.getCurrentStandings();
         for (PlayerStanding standing : leagueStandings) {
@@ -150,7 +150,7 @@ public class TournamentResource extends AbstractResource {
         if (tournament == null)
             sendError(Response.Status.NOT_FOUND);
 
-        if (!tournament.isFinished())
+        if (tournament.getTournamentStage() != Tournament.Stage.FINISHED)
             sendError(Response.Status.FORBIDDEN);
 
         LotroDeck deck = _tournamentService.getPlayerDeck(tournamentId, playerName);
