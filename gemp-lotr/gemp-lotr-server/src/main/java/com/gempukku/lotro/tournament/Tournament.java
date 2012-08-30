@@ -2,29 +2,45 @@ package com.gempukku.lotro.tournament;
 
 import com.gempukku.lotro.competitive.PlayerStanding;
 import com.gempukku.lotro.db.vo.CollectionType;
+import com.gempukku.lotro.draft.DraftCardChoice;
+import com.gempukku.lotro.game.DeckInvalidException;
+import com.gempukku.lotro.logic.vo.LotroDeck;
 
 import java.util.List;
 
 public interface Tournament {
+    public enum Stage {
+        DRAFT("Drafting"), DECK_BUILDING("Deck building"), PLAYING_GAMES("Playing games"), FINISHED("Finished");
+
+        private String _humanReadable;
+
+        Stage(String humanReadable) {
+            _humanReadable = humanReadable;
+        }
+
+        public String getHumanReadable() {
+            return _humanReadable;
+        }
+    }
+
     public String getTournamentId();
-
-    public CollectionType getCollectionType();
-
     public String getFormat();
-
+    public CollectionType getCollectionType();
     public String getTournamentName();
 
-    public List<PlayerStanding> getCurrentStandings();
-
+    public Stage getTournamentStage();
     public int getCurrentRound();
 
     public void advanceTournament(TournamentCallback tournamentCallback);
 
     public void reportGameFinished(TournamentCallback tournamentCallback, String winner, String loser);
 
-    public void dropPlayer(String player);
+    public void playerChosenCard(String playerName, String cardId);
+    public void playerSummittedDeck(String player, LotroDeck deck) throws DeckInvalidException;
+    public boolean dropPlayer(String player);
 
-    public boolean isFinished();
+    public DraftCardChoice getCardChoice(String playerName);
+    public List<PlayerStanding> getCurrentStandings();
 
     public boolean isPlayerInCompetition(String player);
 }

@@ -23,6 +23,10 @@ public class TournamentMatch implements CompetitiveMatchResult {
         return _playerTwo;
     }
 
+    public boolean isFinished() {
+        return _winner != null;
+    }
+
     @Override
     public String getWinner() {
         return _winner;
@@ -34,10 +38,6 @@ public class TournamentMatch implements CompetitiveMatchResult {
             return _playerTwo;
         else
             return _playerOne;
-    }
-
-    public boolean isBye() {
-        return getLoser().equals("Bye");
     }
 
     public int getRound() {

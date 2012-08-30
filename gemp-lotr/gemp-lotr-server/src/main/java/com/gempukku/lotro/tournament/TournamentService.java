@@ -1,18 +1,33 @@
 package com.gempukku.lotro.tournament;
 
+import com.gempukku.lotro.collection.CollectionsManager;
+import com.gempukku.lotro.db.vo.CollectionType;
+import com.gempukku.lotro.draft.DraftPack;
 import com.gempukku.lotro.logic.vo.LotroDeck;
+import com.gempukku.lotro.packs.DraftPackStorage;
+import com.gempukku.lotro.packs.PacksStorage;
 
-import java.lang.reflect.Constructor;
 import java.util.*;
 
 public class TournamentService {
+    private PacksStorage _packsStorage;
+    private DraftPackStorage _draftPackStorage;
+    private PairingMechanismRegistry _pairingMechanismRegistry;
     private TournamentDAO _tournamentDao;
     private TournamentPlayerDAO _tournamentPlayerDao;
     private TournamentMatchDAO _tournamentMatchDao;
 
+    private CollectionsManager _collectionsManager;
+
     private Map<String, Tournament> _tournamentById = new HashMap<String, Tournament>();
 
-    public TournamentService(TournamentDAO tournamentDao, TournamentPlayerDAO tournamentPlayerDao, TournamentMatchDAO tournamentMatchDao) {
+    public TournamentService(CollectionsManager collectionsManager, PacksStorage packsStorage, DraftPackStorage draftPackStorage,
+                             PairingMechanismRegistry pairingMechanismRegistry,
+                             TournamentDAO tournamentDao, TournamentPlayerDAO tournamentPlayerDao, TournamentMatchDAO tournamentMatchDao) {
+        _collectionsManager = collectionsManager;
+        _packsStorage = packsStorage;
+        _draftPackStorage = draftPackStorage;
+        _pairingMechanismRegistry = pairingMechanismRegistry;
         _tournamentDao = tournamentDao;
         _tournamentPlayerDao = tournamentPlayerDao;
         _tournamentMatchDao = tournamentMatchDao;
@@ -30,8 +45,12 @@ public class TournamentService {
         _tournamentPlayerDao.dropPlayer(tournamentId, playerName);
     }
 
-    public Map<String, LotroDeck> getPlayers(String tournamentId) {
+    public Set<String> getPlayers(String tournamentId) {
         return _tournamentPlayerDao.getPlayers(tournamentId);
+    }
+
+    public Map<String, LotroDeck> getPlayerDecks(String tournamentId) {
+        return _tournamentPlayerDao.getPlayerDecks(tournamentId);
     }
 
     public Set<String> getDroppedPlayers(String tournamentId) {
@@ -50,17 +69,25 @@ public class TournamentService {
         _tournamentMatchDao.setMatchResult(tournamentId, round, winner);
     }
 
-    public List<TournamentMatch> getMatches(String tournamentId, int round) {
-        return _tournamentMatchDao.getMatches(tournamentId, round);
+    public void setPlayerDeck(String tournamentId, String player, LotroDeck deck) {
+        _tournamentPlayerDao.updatePlayerDeck(tournamentId, player, deck);
     }
 
-    public Tournament addTournament(String tournamentId, String tournamentClass, String parameters, Date start) {
-        _tournamentDao.addTournament(tournamentId, tournamentClass, parameters, start);
-        return createTournamentAndStoreInCache(tournamentId, new TournamentInfo(tournamentId, tournamentClass, parameters, start));
+    public List<TournamentMatch> getMatches(String tournamentId) {
+        return _tournamentMatchDao.getMatches(tournamentId);
     }
 
-    public void markTournamentFinished(String tournamentId) {
-        _tournamentDao.markTournamentFinished(tournamentId);
+    public Tournament addTournament(String tournamentId, String draftType, String tournamentName, String format, CollectionType collectionType, Tournament.Stage stage, String pairingMechanism, Date start) {
+        _tournamentDao.addTournament(tournamentId, draftType, tournamentName, format, collectionType, stage, pairingMechanism, start);
+        return createTournamentAndStoreInCache(tournamentId, new TournamentInfo(tournamentId, draftType, tournamentName, format, collectionType, stage, pairingMechanism, 0));
+    }
+
+    public void updateTournamentStage(String tournamentId, Tournament.Stage stage) {
+        _tournamentDao.updateTournamentStage(tournamentId, stage);
+    }
+
+    public void updateTournamentRound(String tournamentId, int round) {
+        _tournamentDao.updateTournamentRound(tournamentId, round);
     }
 
     public List<Tournament> getOldTournaments(long since) {
@@ -99,16 +126,29 @@ public class TournamentService {
 
     private Tournament createTournamentAndStoreInCache(String tournamentId, TournamentInfo tournamentInfo) {
         Tournament tournament;
-        String clazz = tournamentInfo.getTournamentClass();
         try {
-            Class<?> aClass = Class.forName(clazz);
-            Constructor<?> constructor = aClass.getConstructor(TournamentService.class, String.class, String.class);
-            tournament = (Tournament) constructor.newInstance(this, tournamentInfo.getTournamentId(), tournamentInfo.getParameters());
+            DraftPack draftPack = null;
+            String draftType = tournamentInfo.getDraftType();
+            if (draftType != null)
+                _draftPackStorage.getDraftPack(draftType);
+
+            tournament = new DefaultTournament(_collectionsManager, this, _packsStorage, draftPack,
+                    tournamentId,  tournamentInfo.getTournamentName(), tournamentInfo.getTournamentFormat(),
+                    tournamentInfo.getCollectionType(), tournamentInfo.getTournamentRound(), tournamentInfo.getTournamentStage(), 
+                    _pairingMechanismRegistry.getPairingMechanism(tournamentInfo.getPairingMechanism()));
 
         } catch (Exception exp) {
             throw new RuntimeException("Unable to create Tournament", exp);
         }
         _tournamentById.put(tournamentId, tournament);
         return tournament;
+    }
+
+    public void addRoundBye(String tournamentId, String player, int round) {
+        _tournamentMatchDao.addBye(tournamentId, player, round);
+    }
+
+    public Map<String, Integer> getPlayerByes(String tournamentId) {
+        return _tournamentMatchDao.getPlayerByes(tournamentId);
     }
 }

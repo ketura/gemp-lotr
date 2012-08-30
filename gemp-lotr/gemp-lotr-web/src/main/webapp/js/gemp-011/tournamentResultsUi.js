@@ -49,17 +49,17 @@ var TournamentResultsUI = Class.extend({
             var tournamentFormat = tournament.getAttribute("format");
             var tournamentCollection = tournament.getAttribute("collection");
             var tournamentRound = tournament.getAttribute("round");
-            var tournamentFinished = tournament.getAttribute("finished");
+            var tournamentStage = tournament.getAttribute("stage");
 
             $("#tournamentExtraInfo").append("<div class='tournamentName'>" + tournamentName + "</div>");
             $("#tournamentExtraInfo").append("<div class='tournamentFormat'><b>Format:</b> " + tournamentFormat + "</div>");
             $("#tournamentExtraInfo").append("<div class='tournamentCollection'><b>Collection:</b> " + tournamentCollection + "</div>");
-            if (tournamentFinished == "false")
+            if (tournamentStage == "Playing games")
                 $("#tournamentExtraInfo").append("<div class='tournamentRound'><b>Round:</b> " + tournamentRound + "</div>");
 
             var standings = tournament.getElementsByTagName("tournamentStanding");
             if (standings.length > 0)
-                $("#tournamentExtraInfo").append(this.createStandingsTable(standings, tournamentId, tournamentFinished));
+                $("#tournamentExtraInfo").append(this.createStandingsTable(standings, tournamentId, tournamentStage));
         }
     },
 
@@ -78,7 +78,7 @@ var TournamentResultsUI = Class.extend({
                 var tournamentFormat = tournament.getAttribute("format");
                 var tournamentCollection = tournament.getAttribute("collection");
                 var tournamentRound = tournament.getAttribute("round");
-                var tournamentFinished = tournament.getAttribute("finished");
+                var tournamentStage = tournament.getAttribute("stage");
 
                 $("#tournamentResults").append("<div class='tournamentName'>" + tournamentName + "</div>");
                 $("#tournamentResults").append("<div class='tournamentRound'><b>Round:</b> " + tournamentRound + "</div>");
@@ -103,7 +103,7 @@ var TournamentResultsUI = Class.extend({
         }
     },
 
-    createStandingsTable:function (standings, tournamentId, tournamentFinished) {
+    createStandingsTable:function (standings, tournamentId, tournamentStage) {
         var standingsTable = $("<table class='standings'></table>");
 
         standingsTable.append("<tr><th>Standing</th><th>Player</th><th>Points</th><th>Games played</th><th>Opp. Win %</th><th></th><th>Standing</th><th>Player</th><th>Points</th><th>Games played</th><th>Opp. Win %</th></tr>");
@@ -119,7 +119,7 @@ var TournamentResultsUI = Class.extend({
             var opponentWinPerc = standing.getAttribute("opponentWin");
 
             var playerStr;
-            if (tournamentFinished == "true")
+            if (tournamentStage == "Finished")
                 playerStr = "<a target='_blank' href='/gemp-lotr-server/tournament/" + tournamentId + "/deck/" + player + "/html'>" + player + "</a>";
             else
                 playerStr = player;
@@ -136,7 +136,7 @@ var TournamentResultsUI = Class.extend({
             var opponentWinPerc = standing.getAttribute("opponentWin");
 
             var playerStr;
-            if (tournamentFinished == "true")
+            if (tournamentStage == "Finished")
                 playerStr = "<a target='_blank' href='/gemp-lotr-server/tournament/" + tournamentId + "/deck/" + player + "/html'>" + player + "</a>";
             else
                 playerStr = player;

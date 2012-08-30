@@ -7,9 +7,6 @@ import com.gempukku.lotro.chat.ChatServer;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.db.vo.League;
-import com.gempukku.lotro.draft.Draft;
-import com.gempukku.lotro.draft.DraftCallback;
-import com.gempukku.lotro.draft.DraftServer;
 import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.gempukku.lotro.league.LeagueSerieData;
@@ -31,7 +28,6 @@ public class HallServer extends AbstractServer {
     private LotroFormatLibrary _formatLibrary;
     private CollectionsManager _collectionsManager;
     private LotroServer _lotroServer;
-    private DraftServer _draftServer;
 
     private CollectionType _allCardsCollectionType = new CollectionType("default", "All cards");
 
@@ -54,10 +50,9 @@ public class HallServer extends AbstractServer {
     private Map<String, TournamentQueue> _tournamentQueues = new HashMap<String, TournamentQueue>();
     private final ChatRoomMediator _hallChat;
 
-    public HallServer(LotroServer lotroServer, DraftServer draftServer, ChatServer chatServer, LeagueService leagueService, TournamentService tournamentService, LotroCardBlueprintLibrary library,
+    public HallServer(LotroServer lotroServer, ChatServer chatServer, LeagueService leagueService, TournamentService tournamentService, LotroCardBlueprintLibrary library,
                       LotroFormatLibrary formatLibrary, CollectionsManager collectionsManager, boolean test) {
         _lotroServer = lotroServer;
-        _draftServer = draftServer;
         _chatServer = chatServer;
         _leagueService = leagueService;
         _tournamentService = tournamentService;
@@ -68,7 +63,7 @@ public class HallServer extends AbstractServer {
 
         _tournamentQueues.put("fotr_queue", new SingleEliminationRecurringQueue(0, "fotr_block",
                 new CollectionType("default", "All cards"), "fotrQueue-", "Test Fellowship Block 4-man", 4,
-                tournamentService));
+                true, tournamentService));
     }
 
     @Override
@@ -161,7 +156,7 @@ public class HallServer extends AbstractServer {
             AwaitingTable table = new AwaitingTable(format, collectionType, league, leagueSerie);
             _awaitingTables.put(tableId, table);
 
-            joinTableInternal(tableId, player.getName(), table, deckName, lotroDeck);
+            joinTableInternal(tableId, player.getName(), table, lotroDeck);
         } finally {
             _hallDataAccessLock.writeLock().unlock();
         }
@@ -182,7 +177,9 @@ public class HallServer extends AbstractServer {
             if (tournamentQueue.isPlayerSignedUp(player.getName()))
                 throw new HallException("You have already joined that queue");
 
-            LotroDeck lotroDeck = validateUserAndDeck(_formatLibrary.getFormat(tournamentQueue.getFormat()), player, deckName, tournamentQueue.getCollectionType());
+            LotroDeck lotroDeck = null;
+            if (tournamentQueue.isRequiresDeck())
+                lotroDeck = validateUserAndDeck(_formatLibrary.getFormat(tournamentQueue.getFormat()), player, deckName, tournamentQueue.getCollectionType());
 
             tournamentQueue.joinPlayer(_collectionsManager, player, lotroDeck);
 
@@ -213,7 +210,7 @@ public class HallServer extends AbstractServer {
 
             LotroDeck lotroDeck = validateUserAndDeck(awaitingTable.getLotroFormat(), player, deckName, awaitingTable.getCollectionType());
 
-            joinTableInternal(tableId, player.getName(), awaitingTable, deckName, lotroDeck);
+            joinTableInternal(tableId, player.getName(), awaitingTable, lotroDeck);
 
             return true;
         } finally {
@@ -422,7 +419,7 @@ public class HallServer extends AbstractServer {
         _runningTables.put(tableId, new RunningTable(gameId, lotroFormat.getName(), tournamentName));
     }
 
-    private void joinTableInternal(String tableId, String player, AwaitingTable awaitingTable, String deckName, LotroDeck lotroDeck) throws HallException {
+    private void joinTableInternal(String tableId, String player, AwaitingTable awaitingTable, LotroDeck lotroDeck) throws HallException {
         League league = awaitingTable.getLeague();
         if (league != null) {
             LeagueSerieData leagueSerie = awaitingTable.getLeagueSerie();
@@ -469,9 +466,6 @@ public class HallServer extends AbstractServer {
                 return true;
         }
 
-        if (_draftServer.isPlayerDrafting(playerId))
-            return true;
-
         return false;
     }
 
@@ -508,10 +502,8 @@ public class HallServer extends AbstractServer {
 
             for (Tournament runningTournament : new ArrayList<Tournament>(_runningTournaments.values())) {
                 runningTournament.advanceTournament(new HallTournamentCallback(runningTournament));
-                if (runningTournament.isFinished()) {
-                    _tournamentService.markTournamentFinished(runningTournament.getTournamentId());
-                    _runningTournaments.remove(runningTournament.getTournamentId());
-                }
+                if (runningTournament.getTournamentStage() == Tournament.Stage.FINISHED)
+                    _runningTournaments.remove(runningTournament);
             }
 
         } finally {
@@ -519,27 +511,10 @@ public class HallServer extends AbstractServer {
         }
     }
 
-    private class HallDraftCallback implements DraftCallback {
-        @Override
-        public void createTournament(Tournament tournament) {
-            _hallDataAccessLock.writeLock().lock();
-            try {
-                _runningTournaments.put(tournament.getTournamentId(), tournament);
-            } finally {
-                _hallDataAccessLock.writeLock().unlock();
-            }
-        }
-    }
-
     private class HallTournamentQueueCallback implements TournamentQueueCallback {
         @Override
         public void createTournament(Tournament tournament) {
             _runningTournaments.put(tournament.getTournamentId(), tournament);
-        }
-
-        @Override
-        public void createDraft(Draft draft) {
-            _draftServer.addDraft(draft, new HallDraftCallback());
         }
     }
 

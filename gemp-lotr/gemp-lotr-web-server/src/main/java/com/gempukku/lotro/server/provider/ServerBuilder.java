@@ -4,7 +4,6 @@ import com.gempukku.lotro.chat.ChatServer;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.collection.DeliveryService;
 import com.gempukku.lotro.db.*;
-import com.gempukku.lotro.draft.DraftServer;
 import com.gempukku.lotro.game.GameHistoryService;
 import com.gempukku.lotro.game.GameRecorder;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
@@ -13,29 +12,14 @@ import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.gempukku.lotro.hall.HallServer;
 import com.gempukku.lotro.league.LeagueService;
 import com.gempukku.lotro.merchant.MerchantService;
-import com.gempukku.lotro.tournament.TournamentDAO;
-import com.gempukku.lotro.tournament.TournamentMatchDAO;
-import com.gempukku.lotro.tournament.TournamentPlayerDAO;
-import com.gempukku.lotro.tournament.TournamentService;
-import com.sun.jersey.spi.inject.Injectable;
+import com.gempukku.lotro.packs.DraftPackStorage;
+import com.gempukku.lotro.packs.PacksStorage;
+import com.gempukku.lotro.tournament.*;
 
 import java.lang.reflect.Type;
 import java.util.Map;
 
 public class ServerBuilder {
-    private Injectable<ChatServer> _chatServerInjectable;
-    private Injectable<LeagueService> _leagueServiceInjectable;
-    private Injectable<GameHistoryService> _gameHistoryServiceInjectable;
-    private Injectable<MerchantService> _merchantServiceInjectable;
-    private Injectable<TournamentService> _tournamentServiceInjectable;
-    private Injectable<HallServer> _hallServerInjectable;
-    private Injectable<LotroServer> _lotroServerInjectable;
-    private Injectable<DraftServer> _draftServerInjectable;
-    private Injectable<CollectionsManager> _collectionsManagerInjectable;
-    private Injectable<DeliveryService> _deliveryServiceInjectable;
-    private Injectable<LotroFormatLibrary> _lotroFormatLibraryInjectable;
-    private Injectable<GameRecorder> _gameRecorderInjectable;
-
     public static void fillObjectMap(Map<Type, Object> objectMap) {
         objectMap.put(LotroFormatLibrary.class,
                 new LotroFormatLibrary(
@@ -67,6 +51,10 @@ public class ServerBuilder {
 
         objectMap.put(TournamentService.class,
                 new TournamentService(
+                        extract(objectMap, CollectionsManager.class),
+                        extract(objectMap, PacksStorage.class),
+                        new DraftPackStorage(),
+                        new PairingMechanismRegistry(),
                         extract(objectMap, TournamentDAO.class),
                         extract(objectMap, TournamentPlayerDAO.class),
                         extract(objectMap, TournamentMatchDAO.class)));
@@ -86,12 +74,9 @@ public class ServerBuilder {
                         extract(objectMap, ChatServer.class),
                         extract(objectMap, GameRecorder.class)));
 
-        objectMap.put(DraftServer.class,
-                new DraftServer());
         objectMap.put(HallServer.class,
                 new HallServer(
                         extract(objectMap, LotroServer.class),
-                        extract(objectMap, DraftServer.class),
                         extract(objectMap, ChatServer.class),
                         extract(objectMap, LeagueService.class),
                         extract(objectMap, TournamentService.class),
@@ -110,14 +95,12 @@ public class ServerBuilder {
 
     public static void constructObjects(Map<Type, Object> objectMap) {
         extract(objectMap, HallServer.class).startServer();
-        extract(objectMap, DraftServer.class).startServer();
         extract(objectMap, LotroServer.class).startServer();
         extract(objectMap, ChatServer.class).startServer();
     }
 
     public static void destroyObjects(Map<Type, Object> objectMap) {
         extract(objectMap, HallServer.class).stopServer();
-        extract(objectMap, DraftServer.class).stopServer();
         extract(objectMap, LotroServer.class).stopServer();
         extract(objectMap, ChatServer.class).stopServer();
     }
