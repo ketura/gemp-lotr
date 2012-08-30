@@ -39,7 +39,7 @@ public class ResolveSkirmishRule {
                             Set<PhysicalCard> losers = new HashSet<PhysicalCard>(skirmishResult.getInSkirmishLosers());
 
                             RequiredTriggerAction action = new RequiredTriggerAction(null);
-                            action.setText("Resolving skirmish");
+                            action.setText("Resolve skirmish overwhelm");
                             action.appendEffect(new KillEffect(losers, KillEffect.Cause.OVERWHELM));
 
                             return Collections.singletonList(action);
