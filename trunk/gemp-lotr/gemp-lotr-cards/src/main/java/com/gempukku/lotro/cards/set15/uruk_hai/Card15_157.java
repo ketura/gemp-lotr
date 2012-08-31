@@ -4,7 +4,6 @@ import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.TakeControlOfASiteEffect;
-import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
@@ -38,7 +37,7 @@ public class Card15_157 extends AbstractMinion {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (TriggerConditions.winsSkirmish(game, effectResult, CardType.MINION)
+        if (TriggerConditions.winsSkirmish(game, effectResult, self)
                 && (PlayConditions.canSpot(game, 4, Keyword.HUNTER)
                 || PlayConditions.canSpot(game, Filters.name("Ugluk")))) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
