@@ -54,7 +54,7 @@ public class Card7_109 extends AbstractPermanent {
                 && PlayConditions.canExert(self, game, Culture.GONDOR, Race.MAN)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Culture.GOLLUM, Race.MAN) {
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Culture.GONDOR, Race.MAN) {
                         @Override
                         protected void forEachCardExertedCallback(PhysicalCard character) {
                             action.appendEffect(
