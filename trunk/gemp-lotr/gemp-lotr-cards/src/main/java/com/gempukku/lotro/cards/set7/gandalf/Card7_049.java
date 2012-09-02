@@ -45,7 +45,7 @@ public class Card7_049 extends AbstractAttachable {
                 new AddActionToCardModifier(self, null, CardType.MINION) {
                     @Override
                     protected ActivateCardAction createExtraPhaseAction(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard matchingCard) {
-                        if (PlayConditions.canUseFPCardDuringPhase(game, Phase.ASSIGNMENT, matchingCard)) {
+                        if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.ASSIGNMENT, matchingCard, 0)) {
                             ActivateCardAction action = new ActivateCardAction(matchingCard);
                             action.setText("Assign to Gandalf");
                             action.appendEffect(
