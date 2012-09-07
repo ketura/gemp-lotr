@@ -160,7 +160,7 @@ public class PlayConditions {
     public static boolean canExert(final PhysicalCard source, LotroGame game, final int times, final int count, Filterable... filters) {
         final GameState gameState = game.getGameState();
         final ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
-        final Filter filter = Filters.and(filters);
+        final Filter filter = Filters.and(filters, Filters.character);
         return gameState.iterateActiveCards(
                 new PhysicalCardVisitor() {
                     private int _exertableCount;
@@ -211,7 +211,7 @@ public class PlayConditions {
     public static boolean canWound(PhysicalCard source, final LotroGame game, final int times, final int count, Filterable... filters) {
         final GameState gameState = game.getGameState();
         final ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
-        final Filter filter = Filters.and(filters);
+        final Filter filter = Filters.and(filters, Filters.character);
         return gameState.iterateActiveCards(
                 new PhysicalCardVisitor() {
                     private int _woundableCount;
