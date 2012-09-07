@@ -543,4 +543,30 @@ public class IndividualCardAtTest extends AbstractAtTest {
         assertEquals(AwaitingDecisionType.CARD_ACTION_CHOICE, playShadowEffect.getDecisionType());
         validateContents(new String[0], (String[]) playShadowEffect.getDecisionParameters().get("cardId"));
     }
+
+    @Test
+    public void hisFirstSeriousCheck() throws DecisionResultInvalidException {
+        initializeSimplestGame();
+
+        PhysicalCardImpl gandalf = new PhysicalCardImpl(100, "1_72", P1, _library.getLotroCardBlueprint("1_72"));
+        _game.getGameState().addCardToZone(_game, gandalf, Zone.FREE_CHARACTERS);
+
+        PhysicalCardImpl hisFirstSeriousCheck = new PhysicalCardImpl(100, "3_33", P1, _library.getLotroCardBlueprint("3_33"));
+        _game.getGameState().addCardToZone(_game, hisFirstSeriousCheck, Zone.HAND);
+
+        skipMulligans();
+
+        // End fellowship
+        playerDecided(P1, "");
+
+        PhysicalCardImpl urukHaiRaidingParty = new PhysicalCardImpl(102, "1_158", P2, _library.getLotroCardBlueprint("1_158"));
+        _game.getGameState().addCardToZone(_game, urukHaiRaidingParty, Zone.SHADOW_CHARACTERS);
+
+        // End shadow
+        playerDecided(P2, "");
+
+        AwaitingDecision playManeuverAction = _userFeedback.getAwaitingDecision(P1);
+        assertEquals(AwaitingDecisionType.CARD_ACTION_CHOICE, playManeuverAction.getDecisionType());
+        validateContents(new String[]{hisFirstSeriousCheck.getCardId() + ""}, (String[]) playManeuverAction.getDecisionParameters().get("cardId"));
+    }
 }
