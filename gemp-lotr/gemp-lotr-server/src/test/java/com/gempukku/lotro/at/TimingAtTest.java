@@ -4,6 +4,7 @@ import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Token;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.LotroCardBlueprint;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -17,14 +18,15 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.ModifierFlag;
 import com.gempukku.lotro.logic.modifiers.SpecialFlagModifier;
 import com.gempukku.lotro.logic.timing.EffectResult;
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.fail;
 import org.junit.Test;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
+
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.fail;
 
 public class TimingAtTest extends AbstractAtTest {
     @Test
@@ -310,5 +312,38 @@ public class TimingAtTest extends AbstractAtTest {
 
         assertFalse(_game.getModifiersQuerying().hasFlagActive(_game.getGameState(), ModifierFlag.RING_TEXT_INACTIVE));
         assertTrue(_game.getModifiersQuerying().hasFlagActive(_game.getGameState(), ModifierFlag.CANT_PREVENT_WOUNDS));
+    }
+
+    @Test
+    public void extraCostToPlay() throws DecisionResultInvalidException {
+        initializeSimplestGame();
+
+        skipMulligans();
+
+        PhysicalCardImpl balinAvenged = new PhysicalCardImpl(100, "17_2", P1, _library.getLotroCardBlueprint("17_2"));
+        PhysicalCardImpl prowlingOrc = new PhysicalCardImpl(101, "11_136", P2, _library.getLotroCardBlueprint("11_136"));
+        PhysicalCardImpl dwarvenGuard1 = new PhysicalCardImpl(102, "1_7", P1, _library.getLotroCardBlueprint("1_7"));
+        PhysicalCardImpl dwarvenGuard2 = new PhysicalCardImpl(103, "1_7", P1, _library.getLotroCardBlueprint("1_7"));
+        PhysicalCardImpl prowlingOrcInDiscard = new PhysicalCardImpl(104, "11_136", P2, _library.getLotroCardBlueprint("11_136"));
+
+        _game.getGameState().addCardToZone(_game, balinAvenged, Zone.SUPPORT);
+        _game.getGameState().addTokens(balinAvenged, Token.DWARVEN, 4);
+        _game.getGameState().addCardToZone(_game, dwarvenGuard1, Zone.FREE_CHARACTERS);
+        _game.getGameState().addCardToZone(_game, dwarvenGuard2, Zone.FREE_CHARACTERS);
+        _game.getGameState().addCardToZone(_game, prowlingOrc, Zone.HAND);
+        _game.getGameState().addCardToZone(_game, prowlingOrcInDiscard, Zone.DISCARD);
+        _game.getGameState().addTwilight(10);
+
+        // End fellowship phase
+        playerDecided(P1, "");
+
+        AwaitingDecision shadowDecision = _userFeedback.getAwaitingDecision(P2);
+        assertEquals(AwaitingDecisionType.CARD_ACTION_CHOICE, shadowDecision.getDecisionType());
+        validateContents(new String[]{"" + prowlingOrc.getCardId()}, (String[]) shadowDecision.getDecisionParameters().get("cardId"));
+
+        playerDecided(P2, "0");
+
+        assertEquals(Zone.REMOVED, prowlingOrcInDiscard.getZone());
+        assertEquals(Zone.SHADOW_CHARACTERS, prowlingOrc.getZone());
     }
 }
