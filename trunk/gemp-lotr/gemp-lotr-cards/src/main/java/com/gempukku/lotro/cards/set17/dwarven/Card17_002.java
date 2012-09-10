@@ -51,7 +51,8 @@ public class Card17_002 extends AbstractPermanent {
 
     @Override
     public Modifier getAlwaysOnModifier(final PhysicalCard self) {
-        return new AbstractExtraPlayCostModifier(self, "To play, remove an ORC card from your discard pile from the game.", Filters.and(Culture.ORC, Race.ORC),
+        return new AbstractExtraPlayCostModifier(self, "To play, remove an ORC card from your discard pile from the game.",
+                Filters.and(Culture.ORC, Race.ORC),
                 new AndCondition(
                         new CanSpotCultureTokensCondition(4, Token.DWARVEN),
                         new SpotCondition(2, Race.DWARF))) {
@@ -63,7 +64,7 @@ public class Card17_002 extends AbstractPermanent {
             @Override
             public List<? extends Effect> getExtraCostsToPlay(GameState gameState, ModifiersQuerying modifiersQueirying, Action action, PhysicalCard card) {
                 return Collections.singletonList(
-                        new ChooseAndRemoveFromTheGameCardsInDiscardEffect(action, self, self.getOwner(), 1, 1, Culture.ORC));
+                        new ChooseAndRemoveFromTheGameCardsInDiscardEffect(action, card, card.getOwner(), 1, 1, Culture.ORC));
             }
         };
     }
