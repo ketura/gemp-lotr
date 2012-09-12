@@ -804,6 +804,10 @@ public class GameState {
         return _fierceSkirmishes;
     }
 
+    public boolean isNormalSkirmishes() {
+        return !_fierceSkirmishes && !_extraSkirmishes;
+    }
+
     private boolean isCardInPlayActive(PhysicalCard card) {
         Side side = card.getBlueprint().getSide();
         // Either it's not attached or attached to active card

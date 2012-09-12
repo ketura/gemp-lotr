@@ -7,10 +7,7 @@ import com.gempukku.lotro.cards.effects.choose.ChooseAndAddUntilEOPStrengthBonus
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.modifiers.FreePeoplePlayerMayNotAssignCharacterModifier;
 import com.gempukku.lotro.cards.modifiers.conditions.AndCondition;
-import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.common.Race;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
@@ -63,19 +60,21 @@ public class Card7_197 extends AbstractMinion {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(final LotroGame game, EffectResult effectResult, final PhysicalCard self) {
+        final GameState gameState = game.getGameState();
         if (effectResult.getType() == EffectResult.Type.FREE_PEOPLE_PLAYER_STARTS_ASSIGNING
+                && (gameState.isNormalSkirmishes() || (gameState.isFierceSkirmishes() && game.getModifiersQuerying().hasKeyword(gameState, self, Keyword.FIERCE)))
                 && PlayConditions.canSpot(game, Race.NAZGUL)) {
             final RequiredTriggerAction action = new RequiredTriggerAction(self);
-            final int count = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Race.NAZGUL);
+            final int count = Filters.countActive(gameState, game.getModifiersQuerying(), Race.NAZGUL);
             action.appendCost(
-                    new PlayoutDecisionEffect(game.getGameState().getCurrentPlayerId(),
+                    new PlayoutDecisionEffect(gameState.getCurrentPlayerId(),
                             new MultipleChoiceAwaitingDecision(1, "Do you wish to exert a companion for each Nazgul you can spot (" + count + ") to be able to assign this minion?", new String[]{"Yes", "No"}) {
                                 @Override
                                 protected void validDecisionMade(int index, String result) {
                                     if (index == 0) {
                                         for (int i = 0; i < count; i++)
                                             action.appendCost(
-                                                    new ChooseAndExertCharactersEffect(action, game.getGameState().getCurrentPlayerId(), 1, 1, CardType.COMPANION));
+                                                    new ChooseAndExertCharactersEffect(action, gameState.getCurrentPlayerId(), 1, 1, CardType.COMPANION));
                                         action.appendEffect(
                                                 new UnrespondableEffect() {
                                                     @Override
