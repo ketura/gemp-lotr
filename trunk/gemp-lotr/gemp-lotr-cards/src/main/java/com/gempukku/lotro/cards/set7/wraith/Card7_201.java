@@ -7,6 +7,7 @@ import com.gempukku.lotro.cards.modifiers.FreePeoplePlayerMayNotAssignCharacterM
 import com.gempukku.lotro.cards.modifiers.conditions.AndCondition;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
@@ -57,17 +58,19 @@ public class Card7_201 extends AbstractMinion {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(final LotroGame game, EffectResult effectResult, final PhysicalCard self) {
+        final GameState gameState = game.getGameState();
         if (effectResult.getType() == EffectResult.Type.FREE_PEOPLE_PLAYER_STARTS_ASSIGNING
+                && (gameState.isNormalSkirmishes() || (gameState.isFierceSkirmishes() && game.getModifiersQuerying().hasKeyword(gameState, self, Keyword.FIERCE)))
                 && PlayConditions.canSpot(game, Race.NAZGUL)) {
             final RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendCost(
-                    new PlayoutDecisionEffect(game.getGameState().getCurrentPlayerId(),
+                    new PlayoutDecisionEffect(gameState.getCurrentPlayerId(),
                             new MultipleChoiceAwaitingDecision(1, "Do you wish to exert a companion to be able to assign this minion?", new String[]{"Yes", "No"}) {
                                 @Override
                                 protected void validDecisionMade(int index, String result) {
                                     if (index == 0) {
                                         action.appendCost(
-                                                new ChooseAndExertCharactersEffect(action, game.getGameState().getCurrentPlayerId(), 1, 1, CardType.COMPANION));
+                                                new ChooseAndExertCharactersEffect(action, gameState.getCurrentPlayerId(), 1, 1, CardType.COMPANION));
                                         action.appendEffect(
                                                 new UnrespondableEffect() {
                                                     @Override
