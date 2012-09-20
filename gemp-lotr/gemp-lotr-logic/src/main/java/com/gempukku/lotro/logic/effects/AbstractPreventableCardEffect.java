@@ -54,6 +54,7 @@ public abstract class AbstractPreventableCardEffect extends AbstractEffect {
 
     public void preventEffect(LotroGame game, PhysicalCard card) {
         _preventedTargets.add(card);
+        _prevented = true;
     }
 
     public void incrementInstead() {
