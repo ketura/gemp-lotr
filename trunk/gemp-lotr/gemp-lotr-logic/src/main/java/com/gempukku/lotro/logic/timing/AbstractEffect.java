@@ -9,6 +9,7 @@ import java.util.Collection;
 public abstract class AbstractEffect implements Effect {
     private Boolean _carriedOut;
     private Boolean _successful;
+    protected boolean _prevented;
 
     protected abstract FullEffectResult playEffectReturningResult(LotroGame game);
 
@@ -23,7 +24,7 @@ public abstract class AbstractEffect implements Effect {
     public boolean wasCarriedOut() {
         if (_carriedOut == null)
             throw new IllegalStateException("Effect has to be played first");
-        return _carriedOut;
+        return _carriedOut && !_prevented;
     }
 
     @Override
