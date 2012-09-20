@@ -58,7 +58,12 @@ public class Card13_065 extends AbstractCompanion {
                     }
                 });
         possibleCosts.add(
-                new ChooseAndExertCharactersEffect(playCardAction, playerId, 2, 2, Culture.GONDOR, Race.MAN));
+                new ChooseAndExertCharactersEffect(playCardAction, playerId, 2, 2, Culture.GONDOR, Race.MAN) {
+                    @Override
+                    public String getText(LotroGame game) {
+                        return "Exert 2 GONDOR Men";
+                    }
+                });
         playCardAction.appendCost(
                 new ChoiceEffect(playCardAction, playerId, possibleCosts));
         return playCardAction;
