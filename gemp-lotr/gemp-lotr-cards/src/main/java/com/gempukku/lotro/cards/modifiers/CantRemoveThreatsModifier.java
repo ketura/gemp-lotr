@@ -13,7 +13,7 @@ public class CantRemoveThreatsModifier extends AbstractModifier {
     private Filterable[] _sourceFilters;
 
     public CantRemoveThreatsModifier(PhysicalCard source, Condition condition, Filterable... sourceFilters) {
-        super(source, "Can't remove threats", null, condition, ModifierEffect.BURDEN_MODIFIER);
+        super(source, "Can't remove threats", null, condition, ModifierEffect.THREAT_MODIFIER);
         _sourceFilters = sourceFilters;
     }
 
