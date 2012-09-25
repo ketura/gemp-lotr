@@ -43,7 +43,7 @@ public class KillEffect extends AbstractSuccessfulEffect {
     public List<PhysicalCard> getCharactersToBeKilled() {
         List<PhysicalCard> result = new LinkedList<PhysicalCard>();
         for (PhysicalCard card : _cards) {
-            if (card.getZone().isInPlay())
+            if (card.getZone() != null && card.getZone().isInPlay())
                 result.add(card);
         }
 
