@@ -34,7 +34,7 @@ public class Card13_121 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(final String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final AtomicInteger bonus = new AtomicInteger(2);
         final PlayEventAction action = new PlayEventAction(self);
-        action.appendCost(
+        action.appendEffect(
                 new OptionalEffect(action, playerId,
                         new RemoveBurdenEffect(playerId, self, 2) {
                             @Override
