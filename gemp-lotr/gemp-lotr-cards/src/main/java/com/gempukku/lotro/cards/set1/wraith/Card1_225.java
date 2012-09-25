@@ -54,7 +54,7 @@ public class Card1_225 extends AbstractAttachable {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(new ExertCharactersEffect(action, self, self.getAttachedTo()));
             action.appendEffect(
-                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, CardType.POSSESSION, Filters.attachedTo(Filters.character, Filters.inSkirmishAgainst(self))));
+                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, CardType.POSSESSION, Filters.attachedTo(Filters.character, Filters.inSkirmishAgainst(self.getAttachedTo()))));
             return Collections.singletonList(action);
         }
         return null;
