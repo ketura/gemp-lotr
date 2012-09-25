@@ -31,7 +31,7 @@ public class RemoveThreatsEffect extends AbstractEffect {
 
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
-        if (game.getModifiersQuerying().canRemoveThreat(game.getGameState(), _source)) {
+        if (_source == null || game.getModifiersQuerying().canRemoveThreat(game.getGameState(), _source)) {
             int toRemove = Math.min(game.getGameState().getThreats(), _count);
 
             if (toRemove > 0) {
