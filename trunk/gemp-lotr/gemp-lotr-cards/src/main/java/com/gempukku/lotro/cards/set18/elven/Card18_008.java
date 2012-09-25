@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set18.elven;
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
 import com.gempukku.lotro.cards.modifiers.ArcheryTotalModifier;
 import com.gempukku.lotro.cards.modifiers.MayNotBearModifier;
-import com.gempukku.lotro.cards.modifiers.PlayersCantUsePhaseSpecialAbilitiesModifier;
+import com.gempukku.lotro.cards.modifiers.PlayerCantUsePhaseSpecialAbilitiesModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -52,7 +52,7 @@ public class Card18_008 extends AbstractAttachableFPPossession {
         modifiers.add(
                 new MayNotBearModifier(self, Filters.hasAttached(self), Filters.not(self), CardType.POSSESSION));
         modifiers.add(
-                new PlayersCantUsePhaseSpecialAbilitiesModifier(self, new SpotCondition(Filters.hasAttached(self), Filters.unique, CardType.COMPANION), Phase.ARCHERY));
+                new PlayerCantUsePhaseSpecialAbilitiesModifier(self, new SpotCondition(Filters.hasAttached(self), Filters.unique, CardType.COMPANION), self.getOwner(), Phase.ARCHERY));
         modifiers.add(
                 new ArcheryTotalModifier(self, Side.SHADOW, new SpotCondition(Filters.hasAttached(self), Filters.unique, CardType.COMPANION), -1));
         return modifiers;
