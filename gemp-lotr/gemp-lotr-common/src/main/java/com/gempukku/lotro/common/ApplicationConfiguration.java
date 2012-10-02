@@ -15,6 +15,9 @@ public class ApplicationConfiguration {
             Properties props = new Properties();
             try {
                 props.load(ApplicationConfiguration.class.getResourceAsStream("/gemp-lotr.properties"));
+                String gempPropertiesOverride = System.getProperty("gemp-lotr.override");
+                if (gempPropertiesOverride != null)
+                    props.load(ApplicationConfiguration.class.getResourceAsStream(gempPropertiesOverride));
                 _properties = props;
             } catch (Exception exp) {
                 LOGGER.error("Can't load application configuration", exp);
