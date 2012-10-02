@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set15.uruk_hai;
 
 import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.modifiers.CantTakeWoundsModifier;
+import com.gempukku.lotro.cards.modifiers.conditions.AndCondition;
 import com.gempukku.lotro.cards.modifiers.conditions.NotCondition;
 import com.gempukku.lotro.cards.modifiers.conditions.PhaseCondition;
 import com.gempukku.lotro.common.*;
@@ -10,6 +11,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
+import com.gempukku.lotro.logic.modifiers.SpotCondition;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 
 import java.util.LinkedList;
@@ -41,7 +43,11 @@ public class Card15_173 extends AbstractAttachable {
         modifiers.add(
                 new StrengthModifier(self, Filters.hasAttached(self), 1));
         modifiers.add(
-                new CantTakeWoundsModifier(self, new NotCondition(new PhaseCondition(Phase.SKIRMISH)), Filters.hasAttached(self)));
+                new CantTakeWoundsModifier(self,
+                        new AndCondition(
+                                new NotCondition(new PhaseCondition(Phase.SKIRMISH)),
+                                new SpotCondition(2, Filters.siteControlled(self.getOwner()))),
+                        Filters.hasAttached(self)));
         modifiers.add(
                 new KeywordModifier(self, Filters.and(Filters.hasAttached(self), Filters.name("Ugluk")), Keyword.DAMAGE, 1));
         return modifiers;
