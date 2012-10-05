@@ -34,7 +34,8 @@ public class Card8_093 extends AbstractPermanent {
     protected List<? extends Action> getExtraPhaseActions(final String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.REGROUP, self, 0)
                 && PlayConditions.canDiscardFromPlay(self, game, Culture.SAURON, CardType.MINION)
-                && PlayConditions.canSpot(game, CardType.COMPANION, Filters.not(Filters.ringBearer), Filters.lessVitalityThan(game.getGameState().getBurdens() + 1))) {
+                && PlayConditions.canSpot(game, CardType.COMPANION, Filters.not(Filters.ringBearer), Filters.lessVitalityThan(game.getGameState().getBurdens() + 1))
+                && PlayConditions.canRemoveBurdens(game, self, 1)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Culture.SAURON, CardType.MINION));
