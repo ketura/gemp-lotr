@@ -117,8 +117,6 @@ var Card = Class.extend({
     errata:null,
 
     init:function (blueprintId, zone, cardId, owner, siteNumber) {
-        this.blueprintId = blueprintId;
-
         var len = blueprintId.length;
         this.foil = blueprintId.substring(len - 1, len) == "*";
         if (this.foil)
@@ -127,6 +125,8 @@ var Card = Class.extend({
         this.tengwar = blueprintId.substring(len - 1, len) == "T";
         if (this.tengwar)
             blueprintId = blueprintId.substring(0, len - 1);
+
+        this.blueprintId = blueprintId;
 
         this.zone = zone;
         this.cardId = cardId;
