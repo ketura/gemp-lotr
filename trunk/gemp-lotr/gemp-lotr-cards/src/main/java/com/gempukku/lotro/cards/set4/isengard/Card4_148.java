@@ -7,6 +7,7 @@ import com.gempukku.lotro.cards.effects.AddTokenEffect;
 import com.gempukku.lotro.cards.effects.RemoveTokenEffect;
 import com.gempukku.lotro.cards.effects.TakeControlOfASiteEffect;
 import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
@@ -33,7 +34,7 @@ public class Card4_148 extends AbstractPermanent {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (TriggerConditions.winsSkirmish(game, effectResult, Race.URUK_HAI)) {
+        if (TriggerConditions.losesSkirmishInvolving(game, effectResult, Filters.or(CardType.COMPANION, CardType.ALLY), Race.URUK_HAI)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new AddTokenEffect(self, self, Token.ISENGARD));
