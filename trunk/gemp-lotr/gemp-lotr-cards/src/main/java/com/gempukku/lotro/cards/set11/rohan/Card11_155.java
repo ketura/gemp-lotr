@@ -9,9 +9,10 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.SpotCondition;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
+import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -45,10 +46,20 @@ public class Card11_155 extends AbstractPermanent {
     }
 
     @Override
+    public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
+        if (game.getModifiersQuerying().getUntilEndOfTurnLimitCounter(self).getUsedLimit() < 1
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), 2, Culture.ROHAN, PossessionClass.MOUNT)) {
+            game.getModifiersEnvironment().addUntilEndOfTurnModifier(
+                    new MoveLimitModifier(self,1));
+            game.getModifiersQuerying().getUntilEndOfTurnLimitCounter(self).incrementToLimit(1, 1);
+        }
+        return null;
+
+    }
+
+    @Override
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(
-                new MoveLimitModifier(self, new SpotCondition(2, Culture.ROHAN, PossessionClass.MOUNT), 1));
         modifiers.add(
                 new StrengthModifier(self, Filters.and(Filters.owner(self.getOwner()), CardType.COMPANION, Filters.not(Filters.mounted)), -1));
         return modifiers;

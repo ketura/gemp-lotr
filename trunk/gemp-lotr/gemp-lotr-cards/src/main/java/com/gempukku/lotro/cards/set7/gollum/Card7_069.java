@@ -14,7 +14,6 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.effects.AddThreatsEffect;
-import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -50,13 +49,13 @@ public class Card7_069 extends AbstractPermanent {
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
-        return Collections.singletonList(
-                new MoveLimitModifier(self, 1));
-    }
-
-    @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
+        if (game.getModifiersQuerying().getUntilEndOfTurnLimitCounter(self).getUsedLimit() < 1) {
+                game.getModifiersEnvironment().addUntilEndOfTurnModifier(
+                        new MoveLimitModifier(self,1));
+                game.getModifiersQuerying().getUntilEndOfTurnLimitCounter(self).incrementToLimit(1, 1);
+        }
+
         if (effectResult.getType() == EffectResult.Type.END_OF_TURN) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(

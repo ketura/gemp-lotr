@@ -8,11 +8,11 @@ import com.gempukku.lotro.cards.modifiers.MoveLimitModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.modifiers.Condition;
-import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
+import com.gempukku.lotro.logic.timing.EffectResult;
+
+import java.util.List;
 
 /**
  * Set: The Fellowship of the Ring
@@ -43,14 +43,13 @@ public class Card1_274 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
-        return new MoveLimitModifier(self,
-                new Condition() {
-                    @Override
-                    public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                        return Filters.filter(gameState.getDeadPile(gameState.getCurrentPlayerId()), gameState, modifiersQuerying, CardType.COMPANION).size() >= 3;
-                    }
-                },
-                -1);
+    public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
+        if (game.getModifiersQuerying().getUntilEndOfTurnLimitCounter(self).getUsedLimit() < 1
+                && Filters.filter(game.getGameState().getDeadPile(game.getGameState().getCurrentPlayerId()), game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION).size() >= 3) {
+            game.getModifiersEnvironment().addUntilEndOfTurnModifier(
+                    new MoveLimitModifier(self,-1));
+            game.getModifiersQuerying().getUntilEndOfTurnLimitCounter(self).incrementToLimit(1, 1);
+        }
+        return null;
     }
 }
