@@ -2,6 +2,7 @@ package com.gempukku.lotro.game;
 
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.communication.GameStateListener;
+import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.state.GameEvent;
 import com.gempukku.lotro.game.state.GatheringParticipantCommunicationChannel;
 import com.gempukku.lotro.logic.GameUtils;
@@ -124,6 +125,11 @@ public class LotroGameMediator {
 
             if (card.getZone().isInPlay() || card.getZone() == Zone.HAND) {
                 StringBuilder sb = new StringBuilder();
+
+                if (card.getZone() == Zone.HAND)
+                    sb.append("<b>Card is in hand - stats are only provisional</b><br><br>");
+                else if (Filters.filterActive(_lotroGame.getGameState(), _lotroGame.getModifiersQuerying(), card).size() == 0)
+                    sb.append("<b>Card is inactive - current stats may be inaccurate</b><br><br>");
 
                 sb.append("<b>Affecting card:</b>");
                 Collection<Modifier> modifiers = _lotroGame.getModifiersQuerying().getModifiersAffecting(_lotroGame.getGameState(), card);
