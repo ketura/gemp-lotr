@@ -227,8 +227,10 @@ public class IndividualCardAtTest extends AbstractAtTest {
         skipMulligans();
 
         PhysicalCardImpl mumakChieftain = new PhysicalCardImpl(100, "10_45", P1, _library.getLotroCardBlueprint("10_45"));
+        PhysicalCardImpl mumakChieftain2 = new PhysicalCardImpl(101, "10_45", P1, _library.getLotroCardBlueprint("10_45"));
 
         _game.getGameState().addCardToZone(_game, mumakChieftain, Zone.HAND);
+        _game.getGameState().addCardToZone(_game, mumakChieftain2, Zone.DECK);
 
         // End fellowship phase
         playerDecided(P1, "");
@@ -241,9 +243,20 @@ public class IndividualCardAtTest extends AbstractAtTest {
         assertEquals(1, _game.getGameState().getWounds(_game.getGameState().getRingBearer(P1)));
         assertEquals(1, _game.getGameState().getHand(P1).size());
 
+        final AwaitingDecision musterUseDecision = _userFeedback.getAwaitingDecision(P1);
+        assertEquals(AwaitingDecisionType.CARD_ACTION_CHOICE, musterUseDecision.getDecisionType());
+        validateContents(new String[]{"" + _game.getGameState().getRingBearer(P1).getCardId()}, ((String[]) musterUseDecision.getDecisionParameters().get("cardId")));
         playerDecided(P1, "0");
 
-        assertEquals(0, _game.getGameState().getHand(P1).size());
+        final AwaitingDecision musterDiscardDecision = _userFeedback.getAwaitingDecision(P1);
+        assertEquals(AwaitingDecisionType.CARD_SELECTION, musterDiscardDecision.getDecisionType());
+        validateContents(new String[]{"" + mumakChieftain.getCardId()}, ((String[]) musterDiscardDecision.getDecisionParameters().get("cardId")));
+        playerDecided(P1, ((String[]) musterDiscardDecision.getDecisionParameters().get("cardId"))[0]);
+
+        assertEquals(1, _game.getGameState().getHand(P1).size());
+
+        assertEquals(Zone.HAND, mumakChieftain2.getZone());
+        assertEquals(Phase.REGROUP, _game.getGameState().getCurrentPhase());
     }
 
     @Test
