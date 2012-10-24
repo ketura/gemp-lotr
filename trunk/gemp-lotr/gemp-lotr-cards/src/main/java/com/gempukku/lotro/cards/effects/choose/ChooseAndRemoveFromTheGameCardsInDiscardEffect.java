@@ -77,11 +77,6 @@ public class ChooseAndRemoveFromTheGameCardsInDiscardEffect extends AbstractSubA
     }
 
     @Override
-    public boolean wasSuccessful() {
-        return super.wasSuccessful() && _success;
-    }
-
-    @Override
     public boolean wasCarriedOut() {
         return super.wasCarriedOut() && _success;
     }

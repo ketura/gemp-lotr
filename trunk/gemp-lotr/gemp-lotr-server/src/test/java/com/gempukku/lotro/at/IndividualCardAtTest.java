@@ -623,6 +623,6 @@ public class IndividualCardAtTest extends AbstractAtTest {
 
         assertEquals(1, _game.getGameState().getTokenCount(scourgeOfTheShire, Token.SHIRE));
         assertEquals(Zone.ATTACHED, hobbitSword.getZone());
-        assertEquals(3, _game.getGameState().getTokenCount(corsairWarGalley, Token.RAIDER));
+        assertEquals(1, _game.getGameState().getTokenCount(corsairWarGalley, Token.RAIDER));
     }
 }

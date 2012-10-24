@@ -55,7 +55,6 @@ public class WoundEffectAtTest extends AbstractAtTest {
         carryOutEffectInPhaseActionByPlayer(P1, woundEffect);
 
         assertEquals(1, _game.getGameState().getWounds(merry));
-        assertTrue(woundEffect.wasSuccessful());
         assertTrue(woundEffect.wasCarriedOut());
 
         assertEquals(1, triggerCount.get());
@@ -92,7 +91,6 @@ public class WoundEffectAtTest extends AbstractAtTest {
         carryOutEffectInPhaseActionByPlayer(P1, woundEffect);
 
         assertEquals(0, _game.getGameState().getWounds(merry));
-        assertFalse(woundEffect.wasSuccessful());
         assertFalse(woundEffect.wasCarriedOut());
 
         assertEquals(0, triggerCount.get());
@@ -146,7 +144,6 @@ public class WoundEffectAtTest extends AbstractAtTest {
 
         assertEquals(0, _game.getGameState().getWounds(merry));
         assertEquals(1, _game.getGameState().getWounds(pippin));
-        assertTrue(woundEffect.wasSuccessful());
         assertFalse(woundEffect.wasCarriedOut());
 
         assertEquals(0, triggerCount.get());
@@ -201,7 +198,6 @@ public class WoundEffectAtTest extends AbstractAtTest {
         carryOutEffectInPhaseActionByPlayer(P1, woundEffect);
 
         assertEquals(0, _game.getGameState().getWounds(merry));
-        assertTrue(woundEffect.wasSuccessful());
         assertFalse(woundEffect.wasCarriedOut());
 
         assertEquals(0, triggerCount.get());
@@ -256,7 +252,6 @@ public class WoundEffectAtTest extends AbstractAtTest {
         carryOutEffectInPhaseActionByPlayer(P1, woundEffect);
 
         assertEquals(1, _game.getGameState().getWounds(merry));
-        assertTrue(woundEffect.wasSuccessful());
         assertTrue(woundEffect.wasCarriedOut());
 
         assertEquals(1, triggerCount.get());

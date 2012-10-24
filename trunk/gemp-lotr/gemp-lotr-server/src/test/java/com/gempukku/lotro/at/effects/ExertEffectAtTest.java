@@ -8,9 +8,10 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
+import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import org.junit.Test;
 
 public class ExertEffectAtTest extends AbstractAtTest {
     @Test
@@ -32,7 +33,6 @@ public class ExertEffectAtTest extends AbstractAtTest {
         carryOutEffectInPhaseActionByPlayer(P1, action);
 
         assertEquals(3, _game.getGameState().getWounds(merry));
-        assertFalse(exertEffect.wasSuccessful());
         assertFalse(exertEffect.wasCarriedOut());
     }
 }

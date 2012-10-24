@@ -44,11 +44,6 @@ public abstract class ForEachBurdenYouSpotEffect implements Effect {
     }
 
     @Override
-    public boolean wasSuccessful() {
-        return true;
-    }
-
-    @Override
     public boolean wasCarriedOut() {
         return true;
     }
