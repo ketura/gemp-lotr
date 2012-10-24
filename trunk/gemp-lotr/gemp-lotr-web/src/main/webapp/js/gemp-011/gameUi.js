@@ -102,11 +102,27 @@ var GempLotrGameUI = Class.extend({
         };
 
         if (this.replayMode) {
-            var replayDiv = $("<div class='replay'></div>");
-            replayDiv.append("<input type='checkbox' id='replayButton' /><label for='replayButton'><img src='images/play.png' width='50' height='50'/></label>");
+            var replayDiv = $("<div class='replay' style='position:absolute'></div>");
+            var slowerBut = $( "<button id='slowerButton'></button>" ).button({ icons: {primary:'ui-icon-triangle-1-w'}});
+            var fasterBut = $( "<button id='fasterButton'></button>" ).button({ icons: {primary:'ui-icon-triangle-1-e'}});
+            slowerBut.click(
+                function() {
+                    that.animations.replaySpeed = Math.min(2, that.animations.replaySpeed+0.2);
+                });
+            fasterBut.click(
+                function() {
+                    that.animations.replaySpeed = Math.max(0.2, that.animations.replaySpeed-0.2);
+                });
+            replayDiv.append(slowerBut);
+            replayDiv.append(fasterBut);
+            replayDiv.append("<input type='checkbox' id='replayButton' /><label id='replayBut' for='replayButton'><img src='images/play.png' width='50' height='50'/></label>");
             $("#main").append(replayDiv);
             replayDiv.css({"z-index":1000});
             $("#replayButton").button();
+            $("#slowerButton").css({position:"absolute", left: "0px", top: "0px", width: "25px", height: "25px", margin: "0px"});
+            $("#fasterButton").css({position:"absolute", left: "25px", top: "0px", width: "25px", height: "25px", margin: "0px"});
+            $("#replayButton").css({position:"absolute", left: "0px", top: "25px", width: "50px", height: "50px", margin: "0px"});
+            $("#replayBut").css({position:"absolute", left: "0px", top: "25px", width: "50px", height: "50px", margin: "0px"});
         }
 
         this.shadowAssignGroups = {};
@@ -841,7 +857,7 @@ var GempLotrGameUI = Class.extend({
         this.chatBox.setBounds(4, 4 + 25, specialUiWidth + advPathWidth - 8, chatHeight - 8 - 25);
 
         if (this.replayMode) {
-            $(".replay").css({position:"absolute", left:width - 50 - 4 - padding, top:height - 50 - 2 - padding, width:50, height:50, "z-index":1000});
+            $(".replay").css({position:"absolute", left:width - 50 - 4 - padding, top:height - 75 - 2 - padding, width:50, height:75, "z-index":1000});
         }
     },
 

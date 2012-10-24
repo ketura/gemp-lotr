@@ -1,5 +1,6 @@
 var GameAnimations = Class.extend({
     game:null,
+    replaySpeed:1,
     playEventDuration:1500,
     putCardIntoPlayDuration:1500,
     cardAffectsCardDuration:1200,
@@ -13,7 +14,7 @@ var GameAnimations = Class.extend({
 
     getAnimationLength:function (origValue) {
         if (this.game.replayMode)
-            return origValue * 1;
+            return origValue * this.replaySpeed;
         return origValue;
     },
 
