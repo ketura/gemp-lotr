@@ -32,7 +32,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
 
     @Override
     public LimitCounter getUntilStartOfPhaseLimitCounter(PhysicalCard card, Phase phase) {
-        return getUntilEndOfPhaseLimitCounter(card, "", phase);
+        return getUntilStartOfPhaseLimitCounter(card, "", phase);
     }
 
     @Override
@@ -177,7 +177,18 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     public void removeEndOfTurn() {
         removeModifiers(_untilEndOfTurnModifiers);
         _untilEndOfTurnModifiers.clear();
+
+        for (List<Modifier> modifiers : _untilStartOfPhaseModifiers.values())
+            removeModifiers(modifiers);
+        _untilStartOfPhaseModifiers.clear();
+
+        for (List<Modifier> modifiers : _untilEndOfPhaseModifiers.values())
+            removeModifiers(modifiers);
+        _untilEndOfPhaseModifiers.clear();
+
         _turnLimitCounters.clear();
+        _startOfPhaseLimitCounters.clear();
+        _endOfPhaseLimitCounters.clear();
     }
 
     @Override

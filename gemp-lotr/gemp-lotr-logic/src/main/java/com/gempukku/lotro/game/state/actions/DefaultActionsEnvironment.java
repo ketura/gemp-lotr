@@ -91,6 +91,10 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
         );
     }
 
+    public List<ActionProxy> getUntilStartOfPhaseActionProxies(Phase phase) {
+        return _untilStartOfPhaseActionProxies.get(phase);
+    }
+
     @Override
     public void emitEffectResult(EffectResult effectResult) {
         _effectResults.add(effectResult);
