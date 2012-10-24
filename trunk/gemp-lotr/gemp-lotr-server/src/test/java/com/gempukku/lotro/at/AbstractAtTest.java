@@ -111,6 +111,14 @@ public abstract class AbstractAtTest {
         return null;
     }
 
+    protected String getCardActionIdContains(AwaitingDecision awaitingDecision, String actionTextContains) {
+        String[] actionTexts = (String[]) awaitingDecision.getDecisionParameters().get("actionText");
+        for (int i = 0; i < actionTexts.length; i++)
+            if (actionTexts[i].contains(actionTextContains))
+                return ((String[]) awaitingDecision.getDecisionParameters().get("actionId"))[i];
+        return null;
+    }
+
     protected String getMultipleDecisionIndex(AwaitingDecision awaitingDecision, String result) {
         String[] actionTexts = (String[]) awaitingDecision.getDecisionParameters().get("results");
         for (int i = 0; i < actionTexts.length; i++)
