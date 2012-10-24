@@ -98,13 +98,26 @@ var LeagueResultsUI = Class.extend({
             tabDiv.append(tabContent);
 
             tabNavigation.append("<li><a href='#leagueoverall'>Overall results</a></li>");
+            tabNavigation.append("<li><a href='#leaguematches'>Your league matches</a></li>");
+
+            var matchResults = $("<div id='leaguematches'></div>");
+            tabDiv.append(matchResults);
 
             var series = league.getElementsByTagName("serie");
             for (var j = 0; j < series.length; j++) {
+                var serie = series[j];
+                matchResults.append("<div>Serie " + (j + 1) + "</div>");
+                var matchGroup = $("<table class='standings'><tr><th>Winner</th><th>Loser</th></tr></table>");
+                var matches = serie.getElementsByTagName("match");
+                for (var k = 0; k<matches.length; k++) {
+                    var match = matches[k];
+                    matchGroup.append("<tr><td>"+match.getAttribute("winner")+"</td><td>"+match.getAttribute("loser")+"</td></tr>");
+                }
+
+                matchResults.append(matchGroup);
 
                 var tabContent = $("<div id='leagueserie" + j + "'></div>");
 
-                var serie = series[j];
                 var serieName = serie.getAttribute("type");
                 var serieStart = serie.getAttribute("start");
                 var serieEnd = serie.getAttribute("end");
