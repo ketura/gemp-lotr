@@ -53,7 +53,7 @@ public class MusterRule {
                                                     new DrawCardsEffect(action, playerId, cardsBeingDiscarded.size()));
                                     }
                                 };
-                                effect.setText("Choose cards to discard to Muster");
+                                effect.setText("Choose cards to discard to Muster (all at once)");
                                 action.appendEffect(effect);
 
                                 return Collections.singletonList(action);
