@@ -1,6 +1,7 @@
 package com.gempukku.lotro.at;
 
 import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Token;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.PhysicalCardImpl;
@@ -581,5 +582,47 @@ public class IndividualCardAtTest extends AbstractAtTest {
         AwaitingDecision playManeuverAction = _userFeedback.getAwaitingDecision(P1);
         assertEquals(AwaitingDecisionType.CARD_ACTION_CHOICE, playManeuverAction.getDecisionType());
         validateContents(new String[]{hisFirstSeriousCheck.getCardId() + ""}, (String[]) playManeuverAction.getDecisionParameters().get("cardId"));
+    }
+
+    @Test
+    public void scouringOfTheShireAndCorsairMarauder() throws DecisionResultInvalidException {
+        initializeSimplestGame();
+
+        PhysicalCardImpl corsairWarGalley = new PhysicalCardImpl(100, "8_59", P2, _library.getLotroCardBlueprint("8_59"));
+        PhysicalCardImpl corsairMarauder = new PhysicalCardImpl(101, "8_57", P2, _library.getLotroCardBlueprint("8_57"));
+        PhysicalCardImpl corsairMarauder2 = new PhysicalCardImpl(101, "8_57", P2, _library.getLotroCardBlueprint("8_57"));
+        PhysicalCardImpl scourgeOfTheShire = new PhysicalCardImpl(102, "18_112", P1, _library.getLotroCardBlueprint("18_112"));
+        PhysicalCardImpl hobbitSword = new PhysicalCardImpl(102, "1_299", P1, _library.getLotroCardBlueprint("1_299"));
+
+        _game.getGameState().addCardToZone(_game, scourgeOfTheShire, Zone.SUPPORT);
+        _game.getGameState().attachCard(_game, hobbitSword, _game.getGameState().getRingBearer(P1));
+        _game.getGameState().addCardToZone(_game, corsairWarGalley, Zone.SUPPORT);
+        _game.getGameState().addCardToZone(_game, corsairMarauder, Zone.HAND);
+        _game.getGameState().addCardToZone(_game, corsairMarauder2, Zone.SHADOW_CHARACTERS);
+
+        skipMulligans();
+        _game.getGameState().addTwilight(10);
+
+        // End fellowship
+        playerDecided(P1, "");
+
+        _game.getGameState().addTokens(corsairWarGalley, Token.RAIDER, 1);
+
+        AwaitingDecision playShadowAction = _userFeedback.getAwaitingDecision(P2);
+        assertEquals(AwaitingDecisionType.CARD_ACTION_CHOICE, playShadowAction.getDecisionType());
+        playerDecided(P2, getCardActionId(playShadowAction, "Play Cor"));
+
+        // Use Corsair Marauder's trigger
+        playerDecided(P2, "0");
+
+        // Choose Hobbit Sword to discard
+        playerDecided(P2, ""+hobbitSword.getCardId());
+
+        // Use Scourge of the Shire
+        playerDecided(P1, "0");
+
+        assertEquals(1, _game.getGameState().getTokenCount(scourgeOfTheShire, Token.SHIRE));
+        assertEquals(Zone.ATTACHED, hobbitSword.getZone());
+        assertEquals(3, _game.getGameState().getTokenCount(corsairWarGalley, Token.RAIDER));
     }
 }
