@@ -35,8 +35,9 @@ public class Card11_243 extends AbstractNewSite {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, final PhysicalCard self) {
-        if (game.getModifiersQuerying().getUntilEndOfPhaseLimitCounter(self, Phase.REGROUP).getUsedLimit() < 1) {
-            game.getActionsEnvironment().addUntilEndOfPhaseActionProxy(
+        if (game.getModifiersQuerying().getUntilStartOfPhaseLimitCounter(self, Phase.REGROUP).getUsedLimit() < 1
+                && !game.getGameState().getCurrentPhase().equals(Phase.REGROUP)) {
+            game.getActionsEnvironment().addUntilStartOfPhaseActionProxy(
                     new AbstractActionProxy() {
                         private Set<Integer> _minionsMarked = new HashSet<Integer>();
 
