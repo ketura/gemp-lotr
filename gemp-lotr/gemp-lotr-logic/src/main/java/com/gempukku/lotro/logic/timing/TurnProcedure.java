@@ -104,9 +104,7 @@ public class TurnProcedure {
         public Effect nextEffect(LotroGame game) {
             if (!_initialized) {
                 _initialized = true;
-                List<Action> requiredIsAboutToResponses = _game.getActionsEnvironment().getRequiredBeforeTriggers(_effect);
-                if (requiredIsAboutToResponses.size() > 0)
-                    appendEffect(new PlayoutAllActionsIfEffectNotCancelledEffect(this, requiredIsAboutToResponses));
+                appendEffect(new PlayoutRequiredBeforeResponsesEffect(this, new HashSet<PhysicalCard>(), _effect));
                 appendEffect(new PlayoutOptionalBeforeResponsesEffect(this, new HashSet<PhysicalCard>(), _game.getGameState().getPlayerOrder().getCounterClockwisePlayOrder(_game.getGameState().getCurrentPlayerId(), true), 0, _effect));
                 appendEffect(new PlayEffect(_effect));
             }
@@ -177,6 +175,47 @@ public class TurnProcedure {
                 }
             }
             return false;
+        }
+    }
+
+    private class PlayoutRequiredBeforeResponsesEffect extends UnrespondableEffect {
+        private SystemQueueAction _action;
+        private Set<PhysicalCard> _cardTriggersUsed;
+        private Effect _effect;
+
+        private PlayoutRequiredBeforeResponsesEffect(SystemQueueAction action, Set<PhysicalCard> cardTriggersUsed, Effect effect) {
+            _action = action;
+            _cardTriggersUsed = cardTriggersUsed;
+            _effect = effect;
+        }
+
+        @Override
+        protected void doPlayEffect(LotroGame game) {
+            final List<Action> requiredBeforeTriggers = game.getActionsEnvironment().getRequiredBeforeTriggers(_effect);
+            // Remove triggers already resolved
+            final Iterator<Action> triggersIterator = requiredBeforeTriggers.iterator();
+            while (triggersIterator.hasNext())
+                if (_cardTriggersUsed.contains(triggersIterator.next().getActionSource()))
+                    triggersIterator.remove();
+            
+            if (requiredBeforeTriggers.size() == 1) {
+                _game.getActionsEnvironment().addActionToStack(requiredBeforeTriggers.get(0));
+            } else if (requiredBeforeTriggers.size() > 1) {
+                _game.getUserFeedback().sendAwaitingDecision(_game.getGameState().getCurrentPlayerId(),
+                        new ActionSelectionDecision(game, 1, _effect.getText(game) + " - Required \"is about to\" responses", requiredBeforeTriggers) {
+                            @Override
+                            public void decisionMade(String result) throws DecisionResultInvalidException {
+                                Action action = getSelectedAction(result);
+                                if (action != null) {
+                                    _game.getActionsEnvironment().addActionToStack(action);
+                                    if (requiredBeforeTriggers.contains(action))
+                                        _cardTriggersUsed.add(action.getActionSource());
+                                    _game.getActionsEnvironment().addActionToStack(action);
+                                    _action.insertEffect(new PlayoutRequiredBeforeResponsesEffect(_action, _cardTriggersUsed, _effect));
+                                }
+                            }
+                        });
+            }
         }
     }
 
@@ -271,6 +310,7 @@ public class TurnProcedure {
                                     _game.getActionsEnvironment().addActionToStack(action);
                                     if (optionalAfterTriggers.containsKey(action))
                                         optionalAfterTriggers.get(action).optionalTriggerUsed((OptionalTriggerAction) action);
+
                                     _action.insertEffect(new PlayoutOptionalAfterResponsesEffect(_action, _playOrder, 0, _effectResults));
                                 } else {
                                     if ((_passCount + 1) < _playOrder.getPlayerCount()) {

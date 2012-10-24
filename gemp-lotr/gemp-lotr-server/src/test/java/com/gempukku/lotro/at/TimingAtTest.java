@@ -18,6 +18,7 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.ModifierFlag;
 import com.gempukku.lotro.logic.modifiers.SpecialFlagModifier;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.vo.LotroDeck;
 import org.junit.Test;
 
 import java.util.*;
@@ -345,5 +346,72 @@ public class TimingAtTest extends AbstractAtTest {
 
         assertEquals(Zone.REMOVED, prowlingOrcInDiscard.getZone());
         assertEquals(Zone.SHADOW_CHARACTERS, prowlingOrc.getZone());
+    }
+
+    @Test
+    public void twoBeforeRequiredEffectsPreventing() throws DecisionResultInvalidException {
+        Map<String, LotroDeck> decks = new HashMap<String, LotroDeck>();
+        LotroDeck p1Deck = createSimplestDeck();
+        p1Deck.setRingBearer("9_4");
+        p1Deck.setRing("4_1");
+        decks.put(P1, p1Deck);
+        decks.put(P2, createSimplestDeck());
+
+        initializeGameWithDecks(decks);
+
+        skipMulligans();
+
+        PhysicalCardImpl gimlisHelm = new PhysicalCardImpl(100, "1_15", P1, _library.getLotroCardBlueprint("1_15"));
+        _game.getGameState().attachCard(_game, gimlisHelm, _game.getGameState().getRingBearer(P1));
+
+        PhysicalCardImpl urukHaiRaidingParty = new PhysicalCardImpl(103, "1_158", P2, _library.getLotroCardBlueprint("1_158"));
+        _game.getGameState().addCardToZone(_game, urukHaiRaidingParty, Zone.SHADOW_CHARACTERS);
+
+        // End fellowship phase
+        playerDecided(P1, "");
+
+        // End shadow phase
+        playerDecided(P2, "");
+
+        // End maneuver phase
+        playerDecided(P1, "");
+        playerDecided(P2, "");
+
+        // End archery phase
+        playerDecided(P1, "");
+        playerDecided(P2, "");
+
+        // End assignment phase
+        playerDecided(P1, "");
+        playerDecided(P2, "");
+
+        playerDecided(P1, _game.getGameState().getRingBearer(P1).getCardId()+" "+urukHaiRaidingParty.getCardId());
+
+        // Choose Gimli's skirmish
+        playerDecided(P1, ""+_game.getGameState().getRingBearer(P1).getCardId());
+
+        assertEquals(3, _game.getGameState().getBurdens());
+        _game.getGameState().removeBurdens(3);
+        
+        AwaitingDecision skirmishDecision = _userFeedback.getAwaitingDecision(P1);
+        playerDecided(P1, getCardActionId(skirmishDecision, "Use The One"));
+        assertEquals(1, _game.getGameState().getBurdens());
+
+        playerDecided(P2, "");
+
+        AwaitingDecision skirmishSecondDecision = _userFeedback.getAwaitingDecision(P1);
+        playerDecided(P1, getCardActionId(skirmishSecondDecision, "Use Gimli's"));
+        assertEquals(Zone.DISCARD, gimlisHelm.getZone());
+
+        playerDecided(P2, "");
+        playerDecided(P1, "");
+
+        // Prevent both wounds with Helm
+        AwaitingDecision beforeRequiredChoice = _userFeedback.getAwaitingDecision(P1);
+        playerDecided(P1, getCardActionIdContains(beforeRequiredChoice, "Gimli's Helm"));
+        AwaitingDecision beforeRequiredSecondChoice = _userFeedback.getAwaitingDecision(P1);
+        playerDecided(P1, getCardActionIdContains(beforeRequiredSecondChoice, "Gimli's Helm"));
+
+        assertEquals(1, _game.getGameState().getBurdens());
     }
 }
