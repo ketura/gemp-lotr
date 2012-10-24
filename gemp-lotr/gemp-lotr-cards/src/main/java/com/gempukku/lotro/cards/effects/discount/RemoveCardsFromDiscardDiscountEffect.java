@@ -100,12 +100,7 @@ public class RemoveCardsFromDiscardDiscountEffect implements DiscountEffect {
     }
 
     @Override
-    public boolean wasSuccessful() {
-        return !_required || _paid;
-    }
-
-    @Override
     public boolean wasCarriedOut() {
-        return _paid;
+        return !_required || _paid;
     }
 }

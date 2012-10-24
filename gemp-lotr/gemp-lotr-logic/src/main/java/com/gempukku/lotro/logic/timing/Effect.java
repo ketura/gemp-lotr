@@ -48,14 +48,6 @@ public interface Effect {
     public void playEffect(LotroGame game);
 
     /**
-     * Returns if the effect playing called earlier was successful or not. This is
-     * required for checking if cost was paid and effects can be carried out.
-     *
-     * @return
-     */
-    public boolean wasSuccessful();
-
-    /**
      * Returns if the effect was carried out (not prevented) in full. This is required
      * for checking if effect that player can prevent by paying some cost should be
      * played anyway. If it was prevented, the original event has to be played.

@@ -27,13 +27,6 @@ public abstract class AbstractEffect implements Effect {
         return _carriedOut && !_prevented;
     }
 
-    @Override
-    public boolean wasSuccessful() {
-        if (_successful == null)
-            throw new IllegalStateException("Effect has to be played first");
-        return _successful;
-    }
-
     protected final String getAppendedTextNames(Collection<PhysicalCard> cards) {
         return GameUtils.getAppendedTextNames(cards);
     }

@@ -54,7 +54,6 @@ public class DiscardEffectAtTest extends AbstractAtTest {
 
         carryOutEffectInPhaseActionByPlayer(P1, discardEffect);
 
-        assertTrue(discardEffect.wasSuccessful());
         assertTrue(discardEffect.wasCarriedOut());
 
         assertEquals(2, discardedFromPlay.size());
@@ -98,7 +97,6 @@ public class DiscardEffectAtTest extends AbstractAtTest {
 
         carryOutEffectInPhaseActionByPlayer(P1, discardEffect);
 
-        assertTrue(discardEffect.wasSuccessful());
         assertTrue(discardEffect.wasCarriedOut());
 
         assertEquals(3, discardedFromPlay.size());
@@ -142,7 +140,6 @@ public class DiscardEffectAtTest extends AbstractAtTest {
 
         carryOutEffectInPhaseActionByPlayer(P1, discardEffect);
 
-        assertTrue(discardEffect.wasSuccessful());
         assertTrue(discardEffect.wasCarriedOut());
 
         assertEquals(1, discardedFromPlay.size());

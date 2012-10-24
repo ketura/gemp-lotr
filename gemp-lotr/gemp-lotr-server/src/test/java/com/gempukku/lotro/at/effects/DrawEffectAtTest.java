@@ -54,7 +54,6 @@ public class DrawEffectAtTest extends AbstractAtTest {
         assertEquals(1, _game.getGameState().getHand(P1).size());
         assertEquals(0, _game.getGameState().getDeck(P1).size());
         assertTrue(_game.getGameState().getHand(P1).contains(merry));
-        assertTrue(drawEffect.wasSuccessful());
         assertTrue(drawEffect.wasCarriedOut());
 
         assertEquals(1, triggerCount.get());
@@ -93,7 +92,6 @@ public class DrawEffectAtTest extends AbstractAtTest {
         assertEquals(1, _game.getGameState().getHand(P1).size());
         assertEquals(0, _game.getGameState().getDeck(P1).size());
         assertTrue(_game.getGameState().getHand(P1).contains(merry));
-        assertFalse(drawEffect.wasSuccessful());
         assertFalse(drawEffect.wasCarriedOut());
 
         assertEquals(1, triggerCount.get());
@@ -135,7 +133,6 @@ public class DrawEffectAtTest extends AbstractAtTest {
         assertEquals(0, _game.getGameState().getDeck(P1).size());
         assertTrue(_game.getGameState().getHand(P1).contains(merry));
         assertTrue(_game.getGameState().getHand(P1).contains(merry2));
-        assertTrue(drawEffect.wasSuccessful());
         assertTrue(drawEffect.wasCarriedOut());
 
         assertEquals(2, triggerCount.get());
@@ -187,7 +184,6 @@ public class DrawEffectAtTest extends AbstractAtTest {
 
         assertEquals(0, _game.getGameState().getHand(P1).size());
         assertEquals(1, _game.getGameState().getDeck(P1).size());
-        assertTrue(drawEffect.wasSuccessful());
         assertFalse(drawEffect.wasCarriedOut());
 
         assertEquals(0, triggerCount.get());

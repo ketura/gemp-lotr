@@ -43,11 +43,6 @@ public class ChooseAndDiscardCardsFromPlayEffect extends ChooseActiveCardsEffect
     }
 
     @Override
-    public boolean wasSuccessful() {
-        return super.wasSuccessful() && _resultSubAction != null && _resultSubAction.wasSuccessful();
-    }
-
-    @Override
     public boolean wasCarriedOut() {
         return super.wasCarriedOut() && _resultSubAction != null && _resultSubAction.wasCarriedOut();
     }

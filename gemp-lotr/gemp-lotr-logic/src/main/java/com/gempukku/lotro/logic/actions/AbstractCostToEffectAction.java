@@ -69,7 +69,7 @@ public abstract class AbstractCostToEffectAction implements CostToEffectAction {
 
     protected boolean isCostFailed() {
         for (Effect processedCost : _processedCosts) {
-            if (!processedCost.wasSuccessful())
+            if (!processedCost.wasCarriedOut())
                 return true;
         }
         return false;

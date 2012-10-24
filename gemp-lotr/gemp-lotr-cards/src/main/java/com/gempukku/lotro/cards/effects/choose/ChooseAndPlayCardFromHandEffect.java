@@ -96,15 +96,6 @@ public class ChooseAndPlayCardFromHandEffect implements Effect {
     }
 
     @Override
-    public boolean wasSuccessful() {
-        if (_playCardAction == null)
-            return false;
-        if (_playCardAction instanceof PlayPermanentAction)
-            return ((PlayPermanentAction) _playCardAction).wasSuccessful();
-        return true;
-    }
-
-    @Override
     public boolean wasCarriedOut() {
         if (_playCardAction == null)
             return false;

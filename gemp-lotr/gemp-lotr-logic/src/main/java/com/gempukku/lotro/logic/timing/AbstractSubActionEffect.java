@@ -12,11 +12,6 @@ public abstract class AbstractSubActionEffect implements Effect {
     }
 
     @Override
-    public boolean wasSuccessful() {
-        return _subAction != null && _subAction.wasSuccessful();
-    }
-
-    @Override
     public boolean wasCarriedOut() {
         return _subAction != null && _subAction.wasCarriedOut();
     }

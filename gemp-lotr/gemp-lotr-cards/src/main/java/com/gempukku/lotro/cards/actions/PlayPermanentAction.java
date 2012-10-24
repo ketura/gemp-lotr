@@ -146,10 +146,6 @@ public class PlayPermanentAction extends AbstractCostToEffectAction implements D
         return null;
     }
 
-    public boolean wasSuccessful() {
-        return _cardPlayed && _playCardEffect.wasSuccessful();
-    }
-
     public boolean wasCarriedOut() {
         return _cardPlayed && _playCardEffect.wasCarriedOut();
     }

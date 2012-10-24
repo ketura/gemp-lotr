@@ -82,17 +82,6 @@ public class SubAction implements Action {
         return effect;
     }
 
-    public boolean wasSuccessful() {
-        if (!_effects.isEmpty())
-            return false;
-        for (Effect effect : _processedEffects) {
-            if (!effect.wasSuccessful())
-                return false;
-        }
-
-        return true;
-    }
-
     public boolean wasCarriedOut() {
         if (!_effects.isEmpty())
             return false;
