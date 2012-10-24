@@ -3,6 +3,7 @@ package com.gempukku.lotro.server;
 import com.gempukku.lotro.DateUtils;
 import com.gempukku.lotro.competitive.PlayerStanding;
 import com.gempukku.lotro.db.vo.League;
+import com.gempukku.lotro.db.vo.LeagueMatchResult;
 import com.gempukku.lotro.game.Player;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.gempukku.lotro.league.LeagueData;
@@ -22,6 +23,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.text.DecimalFormat;
+import java.util.Collection;
 import java.util.List;
 
 @Singleton
@@ -126,6 +128,16 @@ public class LeagueResource extends AbstractResource {
             serieElem.setAttribute("format", _formatLibrary.getFormat(serie.getFormat()).getName());
             serieElem.setAttribute("collection", serie.getCollectionType().getFullName());
             serieElem.setAttribute("limited", String.valueOf(serie.isLimited()));
+
+            Element matchesElem = doc.createElement("matches");
+            Collection<LeagueMatchResult> playerMatches = _leagueService.getPlayerMatchesInSerie(league, serie, resourceOwner.getName());
+            for (LeagueMatchResult playerMatch : playerMatches) {
+                Element matchElem = doc.createElement("match");
+                matchElem.setAttribute("winner", playerMatch.getWinner());
+                matchElem.setAttribute("loser", playerMatch.getLoser());
+                matchesElem.appendChild(matchElem);
+            }
+            serieElem.appendChild(matchesElem);
 
             final List<PlayerStanding> standings = _leagueService.getLeagueSerieStandings(league, serie);
             for (PlayerStanding standing : standings) {

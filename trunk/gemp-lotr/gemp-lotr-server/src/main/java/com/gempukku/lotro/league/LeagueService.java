@@ -163,7 +163,7 @@ public class LeagueService {
             _collectionsManager.addItemsToPlayerCollection(player, new CollectionType("permanent", "My cards"), prize.getAll().values());
     }
 
-    private Collection<LeagueMatchResult> getPlayerMatchesInSerie(League league, LeagueSerieData serie, String player) {
+    public synchronized Collection<LeagueMatchResult> getPlayerMatchesInSerie(League league, LeagueSerieData serie, String player) {
         final Collection<LeagueMatchResult> allMatches = _leagueMatchDao.getLeagueMatches(league.getType());
         Set<LeagueMatchResult> result = new HashSet<LeagueMatchResult>();
         for (LeagueMatchResult match : allMatches) {

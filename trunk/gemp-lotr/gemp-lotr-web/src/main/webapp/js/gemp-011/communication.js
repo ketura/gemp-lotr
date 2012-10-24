@@ -102,7 +102,7 @@ var GempLotrCommunication = Class.extend({
             url:this.url + "/tournament",
             cache:false,
             data:{
-                participanId:getUrlParam("participantId") },
+                participantId:getUrlParam("participantId") },
             success:this.deliveryCheck(callback),
             error:this.errorCheck(errorMap),
             dataType:"xml"
@@ -115,7 +115,7 @@ var GempLotrCommunication = Class.extend({
             url:this.url + "/tournament/history",
             cache:false,
             data:{
-                participanId:getUrlParam("participantId") },
+                participantId:getUrlParam("participantId") },
             success:this.deliveryCheck(callback),
             error:this.errorCheck(errorMap),
             dataType:"xml"
@@ -128,7 +128,7 @@ var GempLotrCommunication = Class.extend({
             url:this.url + "/tournament/" + tournamentId,
             cache:false,
             data:{
-                participanId:getUrlParam("participantId") },
+                participantId:getUrlParam("participantId") },
             success:this.deliveryCheck(callback),
             error:this.errorCheck(errorMap),
             dataType:"xml"
@@ -141,7 +141,7 @@ var GempLotrCommunication = Class.extend({
             url:this.url + "/league",
             cache:false,
             data:{
-                participanId:getUrlParam("participantId") },
+                participantId:getUrlParam("participantId") },
             success:this.deliveryCheck(callback),
             error:this.errorCheck(errorMap),
             dataType:"xml"
@@ -154,7 +154,7 @@ var GempLotrCommunication = Class.extend({
             url:this.url + "/league/" + type,
             cache:false,
             data:{
-                participanId:getUrlParam("participantId") },
+                participantId:getUrlParam("participantId") },
             success:this.deliveryCheck(callback),
             error:this.errorCheck(errorMap),
             dataType:"xml"
@@ -167,7 +167,7 @@ var GempLotrCommunication = Class.extend({
             url:this.url + "/league/" + code,
             cache:false,
             data:{
-                participanId:getUrlParam("participantId") },
+                participantId:getUrlParam("participantId") },
             success:this.deliveryCheck(callback),
             error:this.errorCheck(errorMap),
             dataType:"xml"
