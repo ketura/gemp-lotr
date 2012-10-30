@@ -117,6 +117,8 @@ var Card = Class.extend({
     errata:null,
 
     init:function (blueprintId, zone, cardId, owner, siteNumber) {
+        this.blueprintId = blueprintId;
+
         var len = blueprintId.length;
         this.foil = blueprintId.substring(len - 1, len) == "*";
         if (this.foil)
@@ -125,8 +127,6 @@ var Card = Class.extend({
         this.tengwar = blueprintId.substring(len - 1, len) == "T";
         if (this.tengwar)
             blueprintId = blueprintId.substring(0, len - 1);
-
-        this.blueprintId = blueprintId;
 
         this.zone = zone;
         this.cardId = cardId;
@@ -137,21 +137,21 @@ var Card = Class.extend({
         if (blueprintId == "rules") {
             this.imageUrl = "/gemp-lotr/images/rules.png";
         } else {
-            if (cardCache[this.blueprintId] != null) {
-                var cardFromCache = cardCache[this.blueprintId];
+            if (cardCache[blueprintId] != null) {
+                var cardFromCache = cardCache[blueprintId];
                 this.horizontal = cardFromCache.horizontal;
                 this.imageUrl = cardFromCache.imageUrl;
                 this.errata = cardFromCache.errata;
             } else {
-                this.imageUrl = this.getUrlByBlueprintId(this.blueprintId);
-                this.horizontal = this.isHorizontal(this.blueprintId);
+                this.imageUrl = this.getUrlByBlueprintId(blueprintId);
+                this.horizontal = this.isHorizontal(blueprintId);
 
                 var separator = blueprintId.indexOf("_");
                 var setNo = parseInt(blueprintId.substr(0, separator));
                 var cardNo = parseInt(blueprintId.substr(separator + 1));
 
                 this.errata = this.getErrata(setNo, cardNo) != null;
-                cardCache[this.blueprintId] = {
+                cardCache[blueprintId] = {
                     imageUrl:this.imageUrl,
                     horizontal:this.horizontal,
                     errata:this.errata
