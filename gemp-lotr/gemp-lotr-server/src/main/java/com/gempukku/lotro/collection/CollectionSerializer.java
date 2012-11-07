@@ -85,29 +85,27 @@ public class CollectionSerializer {
     }
 
     public void serializeCollection(CardCollection collection, OutputStream outputStream) throws IOException {
-        byte version = 1;
+        byte version = 2;
         outputStream.write(version);
 
         int currency = collection.getCurrency();
-        outputStream.write((currency >> 16) & 0x000000ff);
-        outputStream.write((currency >> 8) & 0x000000ff);
-        outputStream.write(currency & 0x000000ff);
+        printInt(outputStream, currency, 3);
 
-        byte packBytes = (byte) _packIds.size();
-        outputStream.write(packBytes);
+        byte packTypes = (byte) _packIds.size();
+        outputStream.write(packTypes);
 
         final Map<String, CardCollection.Item> collectionCounts = collection.getAll();
         for (String packId : _packIds) {
             final CardCollection.Item count = collectionCounts.get(packId);
-            if (count == null)
-                outputStream.write(0);
-            else
-                outputStream.write(count.getCount());
+            if (count == null) {
+                printInt(outputStream, 0, 2);
+            } else {
+                printInt(outputStream, count.getCount(), 2);
+            }
         }
 
         int cardBytes = _cardIds.size();
-        outputStream.write((cardBytes >> 8) & 0x000000ff);
-        outputStream.write(cardBytes & 0x000000ff);
+        printInt(outputStream, cardBytes, 2);
 
         for (String cardId : _cardIds) {
             final CardCollection.Item count = collectionCounts.get(cardId);
@@ -124,25 +122,27 @@ public class CollectionSerializer {
             return deserializeCollectionVer0(new BufferedInputStream(inputStream));
         } else if (version == 1) {
             return deserializeCollectionVer1(new BufferedInputStream(inputStream));
+        } else if (version == 2) {
+            return deserializeCollectionVer2(new BufferedInputStream(inputStream));
         } else {
             throw new IllegalStateException("Unkown version of serialized collection: " + version);
         }
     }
 
     private MutableCardCollection deserializeCollectionVer0(BufferedInputStream inputStream) throws IOException {
-        int packBytes = inputStream.read();
+        int packTypes = inputStream.read();
 
         DefaultCardCollection collection = new DefaultCardCollection();
 
-        byte[] packs = new byte[packBytes];
+        byte[] packs = new byte[packTypes];
         int read = inputStream.read(packs);
-        if (read != packBytes)
+        if (read != packTypes)
             throw new IllegalStateException("Under-read the packs information");
         for (int i = 0; i < packs.length; i++)
             if (packs[i] > 0)
                 collection.addItem(_packIds.get(i), packs[i]);
 
-        int cardBytes = (inputStream.read() << 8) + inputStream.read();
+        int cardBytes = convertToInt(inputStream.read(), inputStream.read());
         byte[] cards = new byte[cardBytes];
         read = inputStream.read(cards);
         if (read != cardBytes)
@@ -161,22 +161,22 @@ public class CollectionSerializer {
         int byte2 = inputStream.read();
         int byte3 = inputStream.read();
 
-        int currency = (byte1 << 16) + (byte2 << 8) + byte3;
+        int currency = convertToInt(byte1, byte2, byte3);
 
-        int packBytes = inputStream.read();
+        int packTypes = inputStream.read();
 
         DefaultCardCollection collection = new DefaultCardCollection();
         collection.addCurrency(currency);
 
-        byte[] packs = new byte[packBytes];
+        byte[] packs = new byte[packTypes];
         int read = inputStream.read(packs);
-        if (read != packBytes)
+        if (read != packTypes)
             throw new IllegalStateException("Under-read the packs information");
         for (int i = 0; i < packs.length; i++)
             if (packs[i] > 0)
                 collection.addItem(_packIds.get(i), packs[i]);
 
-        int cardBytes = (inputStream.read() << 8) + inputStream.read();
+        int cardBytes = convertToInt(inputStream.read(), inputStream.read());
         byte[] cards = new byte[cardBytes];
         read = inputStream.read(cards);
         if (read != cardBytes)
@@ -188,5 +188,54 @@ public class CollectionSerializer {
             }
 
         return collection;
+    }
+
+    private MutableCardCollection deserializeCollectionVer2(BufferedInputStream inputStream) throws IOException {
+        int byte1 = inputStream.read();
+        int byte2 = inputStream.read();
+        int byte3 = inputStream.read();
+
+        int currency = convertToInt(byte1, byte2, byte3);
+
+        int packTypes = inputStream.read();
+
+        DefaultCardCollection collection = new DefaultCardCollection();
+        collection.addCurrency(currency);
+
+        byte[] packs = new byte[packTypes * 2];
+
+        int read = inputStream.read(packs);
+        if (read != packTypes * 2)
+            throw new IllegalStateException("Under-read the packs information");
+        for (int i = 0; i < packTypes; i++) {
+            int count = convertToInt(packs[i * 2], packs[i * 2 + 1]);
+            if (count > 0)
+                collection.addItem(_packIds.get(i), count);
+        }
+
+        int cardBytes = convertToInt(inputStream.read(), inputStream.read());
+        byte[] cards = new byte[cardBytes];
+        read = inputStream.read(cards);
+        if (read != cardBytes)
+            throw new IllegalArgumentException("Under-read the cards information");
+        for (int i = 0; i < cards.length; i++)
+            if (cards[i] > 0) {
+                final String blueprintId = _cardIds.get(i);
+                collection.addItem(blueprintId, cards[i]);
+            }
+
+        return collection;
+    }
+
+    private int convertToInt(int... bytes) {
+        int result = 0;
+        for (int i = 0; i < bytes.length; i++)
+            result += (bytes[i] << ((bytes.length - i - 1) * 8));
+        return result;
+    }
+
+    private void printInt(OutputStream outputStream, int value, int byteCount) throws IOException {
+        for (int i = 0; i < byteCount; i++)
+            outputStream.write((value >> (8 * (byteCount - i - 1))) & 0x000000ff);
     }
 }
