@@ -4,9 +4,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class LotroCardBlueprintLibrary {
     private String[] _packageNames =
@@ -17,7 +17,7 @@ public class LotroCardBlueprintLibrary {
     private Map<String, LotroCardBlueprint> _blueprintMap = new HashMap<String, LotroCardBlueprint>();
 
     private Map<String, String> _blueprintMapping = new HashMap<String, String>();
-    private Map<String, List<String>> _fullBlueprintMapping = new HashMap<String, List<String>>();
+    private Map<String, Set<String>> _fullBlueprintMapping = new HashMap<String, Set<String>>();
 
     public LotroCardBlueprintLibrary() {
         try {
@@ -49,7 +49,7 @@ public class LotroCardBlueprintLibrary {
     }
 
     private void addAlternatives(String newBlueprint, String existingBlueprint) {
-        List<String> existingAlternates = _fullBlueprintMapping.get(existingBlueprint);
+        Set<String> existingAlternates = _fullBlueprintMapping.get(existingBlueprint);
         if (existingAlternates != null) {
             for (String existingAlternate : existingAlternates) {
                 addAlternative(newBlueprint, existingAlternate);
@@ -61,16 +61,20 @@ public class LotroCardBlueprintLibrary {
     }
 
     private void addAlternative(String from, String to) {
-        List<String> list = _fullBlueprintMapping.get(from);
+        Set<String> list = _fullBlueprintMapping.get(from);
         if (list == null) {
-            list = new LinkedList<String>();
+            list = new HashSet<String>();
             _fullBlueprintMapping.put(from, list);
         }
         list.add(to);
     }
 
+    public Set<String> getAllAlternates(String blueprintId) {
+        return _fullBlueprintMapping.get(blueprintId);
+    }
+
     public boolean hasAlternateInSet(String blueprintId, int setNo) {
-        List<String> alternatives = _fullBlueprintMapping.get(blueprintId);
+        Set<String> alternatives = _fullBlueprintMapping.get(blueprintId);
         if (alternatives != null)
             for (String alternative : alternatives)
                 if (alternative.startsWith(setNo + "_"))

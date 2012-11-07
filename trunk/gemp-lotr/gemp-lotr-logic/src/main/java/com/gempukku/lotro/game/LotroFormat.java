@@ -14,6 +14,8 @@ public interface LotroFormat {
 
     public String getName();
 
+    public void validateCard(String cardId) throws DeckInvalidException;
+
     public void validateDeck(LotroDeck deck) throws DeckInvalidException;
 
     public List<Integer> getValidSets();

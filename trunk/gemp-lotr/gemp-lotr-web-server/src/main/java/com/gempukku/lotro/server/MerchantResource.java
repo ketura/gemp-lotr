@@ -4,6 +4,7 @@ import com.gempukku.lotro.cards.packs.RarityReader;
 import com.gempukku.lotro.cards.packs.SetRarity;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.game.*;
+import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.gempukku.lotro.merchant.MerchantException;
 import com.gempukku.lotro.merchant.MerchantService;
 import com.sun.jersey.spi.resource.Singleton;
@@ -29,6 +30,8 @@ public class MerchantResource extends AbstractResource {
     private MerchantService _merchantService;
     @Context
     private LotroCardBlueprintLibrary _library;
+    @Context
+    private LotroFormatLibrary _formatLibrary;
 
     private Map<String, SetRarity> _rarities;
     private SortAndFilterCards _sortAndFilterCards = new SortAndFilterCards();
@@ -86,7 +89,7 @@ public class MerchantResource extends AbstractResource {
                     cardItems.add(item);
             }
         }
-        List<CardItem> filteredResult = _sortAndFilterCards.process(filter, cardItems, _library, _rarities);
+        List<CardItem> filteredResult = _sortAndFilterCards.process(filter, cardItems, _library, _formatLibrary, _rarities);
 
         List<CardItem> pageToDisplay = new ArrayList<CardItem>();
         for (int i = start; i < start + count; i++) {
