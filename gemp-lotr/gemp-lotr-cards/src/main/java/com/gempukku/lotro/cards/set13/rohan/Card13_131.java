@@ -41,7 +41,7 @@ public class Card13_131 extends AbstractPermanent {
                         new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, 2, Filters.or(Filters.name(Names.eowyn), Filters.name(Names.theoden))));
                 actions.add(action);
             }
-            if (PlayConditions.canExert(self, game, Filters.name(Names.eomer))) {
+            if (PlayConditions.canExert(self, game, Filters.name(Names.eowyn))) {
                 ActivateCardAction action = new ActivateCardAction(self);
                 action.setText("Exert Eowyn...");
                 action.appendCost(
@@ -50,7 +50,7 @@ public class Card13_131 extends AbstractPermanent {
                         new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, 2, Filters.or(Filters.name(Names.eomer), Filters.name(Names.theoden))));
                 actions.add(action);
             }
-            if (PlayConditions.canExert(self, game, Filters.name(Names.eomer))) {
+            if (PlayConditions.canExert(self, game, Filters.name(Names.theoden))) {
                 ActivateCardAction action = new ActivateCardAction(self);
                 action.setText("Exert Theoden...");
                 action.appendCost(
