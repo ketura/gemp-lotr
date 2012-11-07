@@ -29,6 +29,10 @@ public class OptionalTriggerAction extends AbstractCostToEffectAction {
         _triggerIdentifier = String.valueOf(physicalCard.getCardId());
     }
 
+    public void setTriggerIdentifier(String triggerIdentifier) {
+        _triggerIdentifier = triggerIdentifier;
+    }
+
     public String getTriggerIdentifier() {
         return _triggerIdentifier;
     }

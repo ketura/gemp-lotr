@@ -37,7 +37,9 @@ public class MusterRule {
                                 && game.getGameState().getHand(playerId).size() > 0) {
                             PhysicalCard firstMuster = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.owner(playerId), Keyword.MUSTER);
                             if (firstMuster != null) {
-                                final OptionalTriggerAction action = new OptionalTriggerAction("muster", firstMuster);
+                                final OptionalTriggerAction action = new OptionalTriggerAction(firstMuster);
+                                action.setTriggerIdentifier("muster");
+                                action.setVirtualCardAction(true);
                                 action.setText("Use Muster");
                                 ChooseAndDiscardCardsFromHandEffect effect = new ChooseAndDiscardCardsFromHandEffect(action, playerId, false,
                                         new ConstantEvaluator(0), new Evaluator() {
