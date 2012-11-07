@@ -7,6 +7,7 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.db.vo.League;
 import com.gempukku.lotro.game.*;
+import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.gempukku.lotro.league.LeagueSerieData;
 import com.gempukku.lotro.league.LeagueService;
 import com.gempukku.lotro.packs.PacksStorage;
@@ -40,6 +41,8 @@ public class CollectionResource extends AbstractResource {
     private CollectionsManager _collectionsManager;
     @Context
     private LotroCardBlueprintLibrary _library;
+    @Context
+    private LotroFormatLibrary _formatLibrary;
     @Context
     private LeagueService _leagueService;
     @Context
@@ -92,7 +95,7 @@ public class CollectionResource extends AbstractResource {
             sendError(Response.Status.NOT_FOUND);
 
         Collection<CardCollection.Item> items = collection.getAll().values();
-        List<CardCollection.Item> filteredResult = _sortAndFilterCards.process(filter, items, _library, _rarities);
+        List<CardCollection.Item> filteredResult = _sortAndFilterCards.process(filter, items, _library, _formatLibrary, _rarities);
 
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();

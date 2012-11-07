@@ -33,7 +33,7 @@ public class TournamentResource extends AbstractResource {
     @Context
     private TournamentService _tournamentService;
     @Context
-    private LotroFormatLibrary _lotroFormatLibrary;
+    private LotroFormatLibrary _formatLibrary;
     @Context
     private LotroCardBlueprintLibrary _library;
 
@@ -55,7 +55,7 @@ public class TournamentResource extends AbstractResource {
 
             tournamentElem.setAttribute("id", tournament.getTournamentId());
             tournamentElem.setAttribute("name", tournament.getTournamentName());
-            tournamentElem.setAttribute("format", _lotroFormatLibrary.getFormat(tournament.getFormat()).getName());
+            tournamentElem.setAttribute("format", _formatLibrary.getFormat(tournament.getFormat()).getName());
             tournamentElem.setAttribute("collection", tournament.getCollectionType().getFullName());
             tournamentElem.setAttribute("round", String.valueOf(tournament.getCurrentRound()));
             tournamentElem.setAttribute("stage", tournament.getTournamentStage().getHumanReadable());
@@ -85,7 +85,7 @@ public class TournamentResource extends AbstractResource {
 
             tournamentElem.setAttribute("id", tournament.getTournamentId());
             tournamentElem.setAttribute("name", tournament.getTournamentName());
-            tournamentElem.setAttribute("format", _lotroFormatLibrary.getFormat(tournament.getFormat()).getName());
+            tournamentElem.setAttribute("format", _formatLibrary.getFormat(tournament.getFormat()).getName());
             tournamentElem.setAttribute("collection", tournament.getCollectionType().getFullName());
             tournamentElem.setAttribute("round", String.valueOf(tournament.getCurrentRound()));
             tournamentElem.setAttribute("stage", tournament.getTournamentStage().getHumanReadable());
@@ -119,7 +119,7 @@ public class TournamentResource extends AbstractResource {
 
         tournamentElem.setAttribute("id", tournament.getTournamentId());
         tournamentElem.setAttribute("name", tournament.getTournamentName());
-        tournamentElem.setAttribute("format", _lotroFormatLibrary.getFormat(tournament.getFormat()).getName());
+        tournamentElem.setAttribute("format", _formatLibrary.getFormat(tournament.getFormat()).getName());
         tournamentElem.setAttribute("collection", tournament.getCollectionType().getFullName());
         tournamentElem.setAttribute("round", String.valueOf(tournament.getCurrentRound()));
         tournamentElem.setAttribute("stage", tournament.getTournamentStage().getHumanReadable());
@@ -176,17 +176,17 @@ public class TournamentResource extends AbstractResource {
 
         result.append("<br/>");
         result.append("<b>Adventure deck:</b><br/>");
-        for (CardCollection.Item item : _sortAndFilterCards.process("cardType:SITE sort:siteNumber,twilight", deckCards.getAll().values(), _library, null))
+        for (CardCollection.Item item : _sortAndFilterCards.process("cardType:SITE sort:siteNumber,twilight", deckCards.getAll().values(), _library, _formatLibrary, null))
             result.append(GameUtils.getFullName(_library.getLotroCardBlueprint(item.getBlueprintId())) + "<br/>");
 
         result.append("<br/>");
         result.append("<b>Free Peoples Draw Deck:</b><br/>");
-        for (CardCollection.Item item : _sortAndFilterCards.process("side:FREE_PEOPLE sort:cardType,culture,name", deckCards.getAll().values(), _library, null))
+        for (CardCollection.Item item : _sortAndFilterCards.process("side:FREE_PEOPLE sort:cardType,culture,name", deckCards.getAll().values(), _library, _formatLibrary, null))
             result.append(item.getCount() + "x " + GameUtils.getFullName(_library.getLotroCardBlueprint(item.getBlueprintId())) + "<br/>");
 
         result.append("<br/>");
         result.append("<b>Shadow Draw Deck:</b><br/>");
-        for (CardCollection.Item item : _sortAndFilterCards.process("side:SHADOW sort:cardType,culture,name", deckCards.getAll().values(), _library, null))
+        for (CardCollection.Item item : _sortAndFilterCards.process("side:SHADOW sort:cardType,culture,name", deckCards.getAll().values(), _library, _formatLibrary, null))
             result.append(item.getCount() + "x " + GameUtils.getFullName(_library.getLotroCardBlueprint(item.getBlueprintId())) + "<br/>");
 
         result.append("</body></html>");

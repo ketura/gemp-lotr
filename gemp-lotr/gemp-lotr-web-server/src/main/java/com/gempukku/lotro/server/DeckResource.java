@@ -121,17 +121,17 @@ public class DeckResource extends AbstractResource {
 
         result.append("<br/>");
         result.append("<b>Adventure deck:</b><br/>");
-        for (CardCollection.Item item : _sortAndFilterCards.process("cardType:SITE sort:siteNumber,twilight", deckCards.getAll().values(), _library, null))
+        for (CardCollection.Item item : _sortAndFilterCards.process("cardType:SITE sort:siteNumber,twilight", deckCards.getAll().values(), _library, _formatLibrary, null))
             result.append(GameUtils.getFullName(_library.getLotroCardBlueprint(item.getBlueprintId())) + "<br/>");
 
         result.append("<br/>");
         result.append("<b>Free Peoples Draw Deck:</b><br/>");
-        for (CardCollection.Item item : _sortAndFilterCards.process("side:FREE_PEOPLE sort:cardType,culture,name", deckCards.getAll().values(), _library, null))
+        for (CardCollection.Item item : _sortAndFilterCards.process("side:FREE_PEOPLE sort:cardType,culture,name", deckCards.getAll().values(), _library, _formatLibrary, null))
             result.append(item.getCount() + "x " + GameUtils.getFullName(_library.getLotroCardBlueprint(item.getBlueprintId())) + "<br/>");
 
         result.append("<br/>");
         result.append("<b>Shadow Draw Deck:</b><br/>");
-        for (CardCollection.Item item : _sortAndFilterCards.process("side:SHADOW sort:cardType,culture,name", deckCards.getAll().values(), _library, null))
+        for (CardCollection.Item item : _sortAndFilterCards.process("side:SHADOW sort:cardType,culture,name", deckCards.getAll().values(), _library, _formatLibrary, null))
             result.append(item.getCount() + "x " + GameUtils.getFullName(_library.getLotroCardBlueprint(item.getBlueprintId())) + "<br/>");
 
         result.append("</body></html>");
@@ -252,13 +252,13 @@ public class DeckResource extends AbstractResource {
             deckElem.appendChild(ring);
         }
 
-        for (CardItem cardItem : _sortAndFilterCards.process("sort:siteNumber,twilight", createCardItems(deck.getSites()), _library, null)) {
+        for (CardItem cardItem : _sortAndFilterCards.process("sort:siteNumber,twilight", createCardItems(deck.getSites()), _library, _formatLibrary, null)) {
             Element site = doc.createElement("site");
             site.setAttribute("blueprintId", cardItem.getBlueprintId());
             deckElem.appendChild(site);
         }
 
-        for (CardItem cardItem : _sortAndFilterCards.process("sort:cardType,culture,name", createCardItems(deck.getAdventureCards()), _library, null)) {
+        for (CardItem cardItem : _sortAndFilterCards.process("sort:cardType,culture,name", createCardItems(deck.getAdventureCards()), _library, _formatLibrary, null)) {
             Element card = doc.createElement("card");
             card.setAttribute("side", _library.getLotroCardBlueprint(cardItem.getBlueprintId()).getSide().toString());
             card.setAttribute("blueprintId", cardItem.getBlueprintId());

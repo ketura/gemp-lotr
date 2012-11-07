@@ -123,16 +123,24 @@ public class DefaultLotroFormat implements LotroFormat {
         _validSets.add(setNo);
     }
 
-    private void validateSet(String blueprintId) throws DeckInvalidException {
+    @Override
+    public void validateCard(String blueprintId) throws DeckInvalidException {
         blueprintId = _library.getBaseBlueprintId(blueprintId);
+
         if (_validCards.contains(blueprintId))
             return;
-        for (int validSet : _validSets)
-            if (blueprintId.startsWith(validSet + "_")
-                    || _library.hasAlternateInSet(blueprintId, validSet))
-                return;
 
-        throw new DeckInvalidException("Deck contains card not from valid set: " + GameUtils.getFullName(_library.getLotroCardBlueprint(blueprintId)));
+        for (int validSet : _validSets)
+            if (!blueprintId.startsWith(validSet + "_")
+                    &&  !_library.hasAlternateInSet(blueprintId, validSet))
+                throw new DeckInvalidException("Deck contains card not from valid set: " + GameUtils.getFullName(_library.getLotroCardBlueprint(blueprintId)));
+
+        // Banned cards
+        Set<String> allAlternates = _library.getAllAlternates(blueprintId);
+        for (String bannedBlueprintId : _bannedCards) {
+            if (bannedBlueprintId.equals(blueprintId) || allAlternates.contains(bannedBlueprintId))
+                throw new DeckInvalidException("Deck contains a copy of an X-listed card: " + GameUtils.getFullName(_library.getLotroCardBlueprint(bannedBlueprintId)));
+        }
     }
 
     @Override
@@ -179,12 +187,12 @@ public class DefaultLotroFormat implements LotroFormat {
             }
 
             if (_validSets.size() > 0) {
-                validateSet(deck.getRingBearer());
-                validateSet(deck.getRing());
+                validateCard(deck.getRingBearer());
+                validateCard(deck.getRing());
                 for (String site : deck.getSites())
-                    validateSet(site);
+                    validateCard(site);
                 for (String card : deck.getAdventureCards())
-                    validateSet(card);
+                    validateCard(card);
             }
 
             if (isOrderedSites()) {
@@ -258,13 +266,6 @@ public class DefaultLotroFormat implements LotroFormat {
                 Integer count = cardCountByBaseBlueprintId.get(blueprintId);
                 if (count != null && count > 1)
                     throw new DeckInvalidException("Deck contains more than one copy of an R-listed card: " + GameUtils.getFullName(_library.getLotroCardBlueprint(blueprintId)));
-            }
-
-            // Banned cards
-            for (String blueprintId : _bannedCards) {
-                Integer count = cardCountByBaseBlueprintId.get(blueprintId);
-                if (count != null && count > 0)
-                    throw new DeckInvalidException("Deck contains a copy of an X-listed card: " + GameUtils.getFullName(_library.getLotroCardBlueprint(blueprintId)));
             }
 
         } catch (IllegalArgumentException exp) {

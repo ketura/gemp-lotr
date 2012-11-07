@@ -5,13 +5,14 @@ import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.util.MultipleComparator;
 
 import java.util.*;
 
 public class SortAndFilterCards {
-    public <T extends CardItem> List<T> process(String filter, Collection<T> items, LotroCardBlueprintLibrary library, Map<String, SetRarity> rarities) {
+    public <T extends CardItem> List<T> process(String filter, Collection<T> items, LotroCardBlueprintLibrary cardLibrary, LotroFormatLibrary formatLibrary, Map<String, SetRarity> rarities) {
         if (filter == null)
             filter = "";
         String[] filterParams = filter.split(" ");
@@ -31,7 +32,7 @@ public class SortAndFilterCards {
         for (T item : items) {
             String blueprintId = item.getBlueprintId();
 
-            if (acceptsFilters(library, rarities, blueprintId, side, type, rarity, sets, cardTypes, cultures, keywords, words, siteNumber))
+            if (acceptsFilters(cardLibrary, formatLibrary, rarities, blueprintId, side, type, rarity, sets, cardTypes, cultures, keywords, words, siteNumber))
                 result.add(item);
         }
 
@@ -44,21 +45,21 @@ public class SortAndFilterCards {
         MultipleComparator<CardItem> comparators = new MultipleComparator<CardItem>();
         for (String oneSort : sortSplit) {
             if (oneSort.equals("twilight"))
-                comparators.addComparator(new PacksFirstComparator(new TwilightComparator(library)));
+                comparators.addComparator(new PacksFirstComparator(new TwilightComparator(cardLibrary)));
             else if (oneSort.equals("siteNumber"))
-                comparators.addComparator(new PacksFirstComparator(new SiteNumberComparator(library)));
+                comparators.addComparator(new PacksFirstComparator(new SiteNumberComparator(cardLibrary)));
             else if (oneSort.equals("strength"))
-                comparators.addComparator(new PacksFirstComparator(new StrengthComparator(library)));
+                comparators.addComparator(new PacksFirstComparator(new StrengthComparator(cardLibrary)));
             else if (oneSort.equals("vitality"))
-                comparators.addComparator(new PacksFirstComparator(new VitalityComparator(library)));
+                comparators.addComparator(new PacksFirstComparator(new VitalityComparator(cardLibrary)));
             else if (oneSort.equals("collectorInfo"))
                 comparators.addComparator(new PacksFirstComparator(new CardBlueprintIdComparator()));
             else if (oneSort.equals("cardType"))
-                comparators.addComparator(new PacksFirstComparator(new CardTypeComparator(library)));
+                comparators.addComparator(new PacksFirstComparator(new CardTypeComparator(cardLibrary)));
             else if (oneSort.equals("culture"))
-                comparators.addComparator(new PacksFirstComparator(new CultureComparator(library)));
+                comparators.addComparator(new PacksFirstComparator(new CultureComparator(cardLibrary)));
             else if (oneSort.equals("name"))
-                comparators.addComparator(new PacksFirstComparator(new NameComparator(library)));
+                comparators.addComparator(new PacksFirstComparator(new NameComparator(cardLibrary)));
         }
 
         Collections.sort(result, comparators);
@@ -67,7 +68,7 @@ public class SortAndFilterCards {
     }
 
     private boolean acceptsFilters(
-            LotroCardBlueprintLibrary library, Map<String, SetRarity> rarities, String blueprintId, Side side, String type, String rarity, String[] sets,
+            LotroCardBlueprintLibrary library, LotroFormatLibrary formatLibrary, Map<String, SetRarity> rarities, String blueprintId, Side side, String type, String rarity, String[] sets,
             Set<CardType> cardTypes, Set<Culture> cultures, Set<Keyword> keywords, List<String> words, Integer siteNumber) {
         if (isPack(blueprintId)) {
             if (type == null || type.equals("pack"))
@@ -81,7 +82,7 @@ public class SortAndFilterCards {
                 final LotroCardBlueprint blueprint = library.getLotroCardBlueprint(blueprintId);
                 if (side == null || blueprint.getSide() == side)
                     if (rarity == null || isRarity(blueprintId, rarity, library, rarities))
-                        if (sets == null || isInSets(blueprintId, sets, library))
+                        if (sets == null || isInSets(blueprintId, sets, library, formatLibrary))
                             if (cardTypes == null || cardTypes.contains(blueprint.getCardType()))
                                 if (cultures == null || cultures.contains(blueprint.getCulture()))
                                     if (containsAllKeywords(blueprint, keywords))
@@ -135,10 +136,21 @@ public class SortAndFilterCards {
         return true;
     }
 
-    private boolean isInSets(String blueprintId, String[] sets, LotroCardBlueprintLibrary library) {
-        for (String set : sets)
-            if (blueprintId.startsWith(set + "_") || library.hasAlternateInSet(blueprintId, Integer.parseInt(set)))
-                return true;
+    private boolean isInSets(String blueprintId, String[] sets, LotroCardBlueprintLibrary library, LotroFormatLibrary formatLibrary) {
+        for (String set : sets) {
+            LotroFormat format = formatLibrary.getFormat(set);
+            if (format != null) {
+                try {
+                    format.validateCard(blueprintId);
+                    return true;
+                } catch (DeckInvalidException exp) {
+                    return false;
+                }
+            } else {
+                if (blueprintId.startsWith(set + "_") || library.hasAlternateInSet(blueprintId, Integer.parseInt(set)))
+                    return true;
+            }
+        }
 
         return false;
     }
