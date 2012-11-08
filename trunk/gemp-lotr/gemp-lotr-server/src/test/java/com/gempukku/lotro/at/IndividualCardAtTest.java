@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertTrue;
 
 public class IndividualCardAtTest extends AbstractAtTest {
     @Test
@@ -624,5 +625,90 @@ public class IndividualCardAtTest extends AbstractAtTest {
         assertEquals(1, _game.getGameState().getTokenCount(scourgeOfTheShire, Token.SHIRE));
         assertEquals(Zone.ATTACHED, hobbitSword.getZone());
         assertEquals(1, _game.getGameState().getTokenCount(corsairWarGalley, Token.RAIDER));
+    }
+
+    @Test
+    public void returnToItsMaster() throws DecisionResultInvalidException {
+        LotroDeck p1Deck = createSimplestDeck();
+        p1Deck.setRing("4_1");
+        LotroDeck p2Deck = createSimplestDeck();
+
+        Map<String, LotroDeck> decks = new HashMap<String, LotroDeck>();
+        decks.put(P1, p1Deck);
+        decks.put(P2, p2Deck);
+
+        initializeGameWithDecks(decks);
+
+        skipMulligans();
+
+        PhysicalCardImpl returnToItsMaster = new PhysicalCardImpl(102, "1_224", P2, _library.getLotroCardBlueprint("1_224"));
+        _game.getGameState().addCardToZone(_game, returnToItsMaster, Zone.HAND);
+
+        PhysicalCardImpl nelya = new PhysicalCardImpl(102, "1_233", P2, _library.getLotroCardBlueprint("1_233"));
+        _game.getGameState().addCardToZone(_game, nelya, Zone.SHADOW_CHARACTERS);
+
+        PhysicalCardImpl hobbitSword = new PhysicalCardImpl(102, "1_299", P1, _library.getLotroCardBlueprint("1_299"));
+        _game.getGameState().attachCard(_game, hobbitSword, _game.getGameState().getRingBearer(P1));
+
+        // End fellowship
+        playerDecided(P1, "");
+
+        // End shadow
+        playerDecided(P2, "");
+
+        // End maneuvers phase
+        playerDecided(P1, "");
+        playerDecided(P2, "");
+
+        // End archery phase
+        playerDecided(P1, "");
+        playerDecided(P2, "");
+
+        // End assignment phase
+        playerDecided(P1, "");
+        playerDecided(P2, "");
+
+        // Assign
+        playerDecided(P1, _game.getGameState().getRingBearer(P1).getCardId() + " " + nelya.getCardId());
+
+        // Choose skirmish to resolve
+        playerDecided(P1, ""+_game.getGameState().getRingBearer(P1).getCardId());
+
+        // Skirmish phase
+        AwaitingDecision skirmishAction = _userFeedback.getAwaitingDecision(P1);
+        playerDecided(P1, getCardActionId(skirmishAction, "Use The One"));
+
+        assertTrue(_game.getGameState().isWearingRing());
+
+        // End skirmish phase
+        playerDecided(P2, "");
+        playerDecided(P1, "");
+
+        // Don't use Return to Its Master
+        playerDecided(P2, "");
+
+        // End assignment phase
+        playerDecided(P1, "");
+        playerDecided(P2, "");
+
+        // Assign
+        playerDecided(P1, _game.getGameState().getRingBearer(P1).getCardId() + " " + nelya.getCardId());
+
+        // Choose skirmish to resolve
+        playerDecided(P1, ""+_game.getGameState().getRingBearer(P1).getCardId());
+
+        // End fierce skirmish phase
+        playerDecided(P1, "");
+        playerDecided(P2, "");
+
+        AwaitingDecision playeReturnDecision = _userFeedback.getAwaitingDecision(P2);
+        playerDecided(P2, getCardActionId(playeReturnDecision, "Play Return"));
+
+        // Choose skirmish to resolve
+        playerDecided(P1, ""+_game.getGameState().getRingBearer(P1).getCardId());
+
+        assertEquals(_game.getGameState().getRingBearer(P1), _game.getGameState().getSkirmish().getFellowshipCharacter());
+        assertEquals(1, _game.getGameState().getSkirmish().getShadowCharacters().size());
+        assertEquals(nelya, _game.getGameState().getSkirmish().getShadowCharacters().iterator().next());
     }
 }
