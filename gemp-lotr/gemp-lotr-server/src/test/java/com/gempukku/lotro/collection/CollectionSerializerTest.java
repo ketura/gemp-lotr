@@ -33,11 +33,11 @@ public class CollectionSerializerTest {
         final Map<String, CardCollection.Item> result = resultCollection.getAll();
         assertEquals(5, result.size());
         assertEquals(256 * 256 * 250, resultCollection.getCurrency());
-        assertEquals(2, (int) result.get("1_1").getCount());
-        assertEquals(3, (int) result.get("1_231T").getCount());
-        assertEquals(3, (int) result.get("1_23*").getCount());
-        assertEquals(3, (int) result.get("1_237T*").getCount());
-        assertEquals(2, (int) result.get("FotR - Booster").getCount());
+        assertEquals(2, result.get("1_1").getCount());
+        assertEquals(3, result.get("1_231T").getCount());
+        assertEquals(3, result.get("1_23*").getCount());
+        assertEquals(3, result.get("1_237T*").getCount());
+        assertEquals(2, result.get("FotR - Booster").getCount());
     }
 
     @Test
@@ -56,7 +56,7 @@ public class CollectionSerializerTest {
 
         final Map<String, CardCollection.Item> result = resultCollection.getAll();
         assertEquals(1, result.size());
-        assertEquals(8, (int) result.get("FotR - Booster").getCount());
+        assertEquals(8, result.get("FotR - Booster").getCount());
     }
 
     @Test
@@ -75,7 +75,7 @@ public class CollectionSerializerTest {
 
         final Map<String, CardCollection.Item> result = resultCollection.getAll();
         assertEquals(1, result.size());
-        assertEquals(500, (int) result.get("FotR - Booster").getCount());
+        assertEquals(500, result.get("FotR - Booster").getCount());
     }
     
     @Test
