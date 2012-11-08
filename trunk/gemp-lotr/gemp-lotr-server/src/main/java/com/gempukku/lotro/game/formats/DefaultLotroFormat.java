@@ -130,17 +130,23 @@ public class DefaultLotroFormat implements LotroFormat {
         if (_validCards.contains(blueprintId))
             return;
 
-        for (int validSet : _validSets)
-            if (!blueprintId.startsWith(validSet + "_")
-                    &&  !_library.hasAlternateInSet(blueprintId, validSet))
-                throw new DeckInvalidException("Deck contains card not from valid set: " + GameUtils.getFullName(_library.getLotroCardBlueprint(blueprintId)));
+        if (_validSets.size() > 0 && !isValidInSets(blueprintId))
+            throw new DeckInvalidException("Deck contains card not from valid set: " + GameUtils.getFullName(_library.getLotroCardBlueprint(blueprintId)));
 
         // Banned cards
         Set<String> allAlternates = _library.getAllAlternates(blueprintId);
         for (String bannedBlueprintId : _bannedCards) {
-            if (bannedBlueprintId.equals(blueprintId) || allAlternates.contains(bannedBlueprintId))
+            if (bannedBlueprintId.equals(blueprintId) || (allAlternates != null && allAlternates.contains(bannedBlueprintId)))
                 throw new DeckInvalidException("Deck contains a copy of an X-listed card: " + GameUtils.getFullName(_library.getLotroCardBlueprint(bannedBlueprintId)));
         }
+    }
+
+    private boolean isValidInSets(String blueprintId) throws DeckInvalidException {
+        for (int validSet : _validSets)
+            if (blueprintId.startsWith(validSet + "_")
+                    || _library.hasAlternateInSet(blueprintId, validSet))
+                return true;
+        return false;
     }
 
     @Override
@@ -186,14 +192,12 @@ public class DefaultLotroFormat implements LotroFormat {
                 }
             }
 
-            if (_validSets.size() > 0) {
-                validateCard(deck.getRingBearer());
-                validateCard(deck.getRing());
-                for (String site : deck.getSites())
-                    validateCard(site);
-                for (String card : deck.getAdventureCards())
-                    validateCard(card);
-            }
+            validateCard(deck.getRingBearer());
+            validateCard(deck.getRing());
+            for (String site : deck.getSites())
+                validateCard(site);
+            for (String card : deck.getAdventureCards())
+                validateCard(card);
 
             if (isOrderedSites()) {
                 boolean[] sites = new boolean[9];

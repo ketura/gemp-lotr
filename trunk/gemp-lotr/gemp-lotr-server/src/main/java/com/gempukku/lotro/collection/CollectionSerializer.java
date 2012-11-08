@@ -229,8 +229,12 @@ public class CollectionSerializer {
 
     private int convertToInt(int... bytes) {
         int result = 0;
-        for (int i = 0; i < bytes.length; i++)
-            result += (bytes[i] << ((bytes.length - i - 1) * 8));
+        for (int i = 0; i < bytes.length; i++) {
+            int value = bytes[i] << ((bytes.length - i - 1) * 8);
+            if (value < 0)
+                value +=256;
+            result += value;
+        }
         return result;
     }
 

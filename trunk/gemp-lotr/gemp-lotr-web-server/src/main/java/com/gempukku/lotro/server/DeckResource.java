@@ -220,14 +220,18 @@ public class DeckResource extends AbstractResource {
         StringBuilder sb = new StringBuilder();
         sb.append("<b>Free People</b>: " + fpCount + ", <b>Shadow</b>: " + shadowCount + "<br/>");
 
+        StringBuilder valid = new StringBuilder();
+        StringBuilder invalid = new StringBuilder();
         for (LotroFormat format : _formatLibrary.getHallFormats().values()) {
             try {
                 format.validateDeck(deck);
-                sb.append("<b>" + format.getName() + "</b>: <font color='green'>valid</font><br/>");
+                valid.append("<b>" + format.getName() + "</b>: <font color='green'>valid</font><br/>");
             } catch (DeckInvalidException exp) {
-                sb.append("<b>" + format.getName() + "</b>: <font color='red'>" + exp.getMessage() + "</font><br/>");
+                invalid.append("<b>" + format.getName() + "</b>: <font color='red'>" + exp.getMessage() + "</font><br/>");
             }
         }
+        sb.append(valid);
+        sb.append(invalid);
 
         return sb.toString();
     }
