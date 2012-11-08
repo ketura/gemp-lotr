@@ -53,6 +53,7 @@ public class Card1_224 extends AbstractResponseOldEvent {
                             List<Assignment> assignments = new LinkedList<Assignment>(game.getGameState().getAssignments());
                             for (Assignment assignment : assignments)
                                 game.getGameState().removeAssignment(assignment);
+                            game.getGameState().finishSkirmish();
 
                             PhysicalCard ringBearer = game.getGameState().getRingBearer(game.getGameState().getCurrentPlayerId());
 

@@ -1028,9 +1028,11 @@ public class GameState {
     }
 
     public void finishSkirmish() {
-        _skirmish = null;
-        for (GameStateListener listener : getAllGameStateListeners())
-            listener.finishSkirmish();
+        if (_skirmish != null) {
+            _skirmish = null;
+            for (GameStateListener listener : getAllGameStateListeners())
+                listener.finishSkirmish();
+        }
     }
 
     public PhysicalCard removeTopDeckCard(String player) {
