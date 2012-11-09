@@ -5,7 +5,7 @@ import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseActionProxyEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndAssignMinionToCompanionEffect;
+import com.gempukku.lotro.cards.effects.AdditionalSkirmishPhaseEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
@@ -53,17 +53,12 @@ public class Card1_224 extends AbstractResponseOldEvent {
                             List<Assignment> assignments = new LinkedList<Assignment>(game.getGameState().getAssignments());
                             for (Assignment assignment : assignments)
                                 game.getGameState().removeAssignment(assignment);
-                            game.getGameState().finishSkirmish();
 
-                            PhysicalCard ringBearer = game.getGameState().getRingBearer(game.getGameState().getCurrentPlayerId());
-
+                            final PhysicalCard ringBearer = game.getGameState().getRingBearer(game.getGameState().getCurrentPlayerId());
                             action.appendEffect(
-                                    new ChooseActiveCardEffect(self, playerId, "Choose a Nazgul to skirmish the Ring-Bearer", Race.NAZGUL, Filters.assignableToSkirmishAgainst(Side.SHADOW, ringBearer)) {
+                                    new ChooseActiveCardEffect(self, playerId, "Choose a Nazgul to skirmish the Ring-Bearer", Race.NAZGUL, Filters.notPreventedByEffectToAssign(Side.SHADOW, ringBearer)) {
                                         @Override
                                         protected void cardSelected(LotroGame game, PhysicalCard nazgul) {
-                                            PhysicalCard ringBearer = game.getGameState().getRingBearer(game.getGameState().getCurrentPlayerId());
-                                            action.appendEffect(
-                                                    new ChooseAndAssignMinionToCompanionEffect(action, playerId, ringBearer, Race.NAZGUL));
                                             action.appendEffect(
                                                     new AddUntilStartOfPhaseActionProxyEffect(
                                                             new AbstractActionProxy() {
@@ -79,6 +74,8 @@ public class Card1_224 extends AbstractResponseOldEvent {
                                                                     return null;
                                                                 }
                                                             }, Phase.SKIRMISH));
+                                            action.appendEffect(
+                                                    new AdditionalSkirmishPhaseEffect(ringBearer, Collections.singleton(nazgul)));
                                         }
                                     });
                         }
