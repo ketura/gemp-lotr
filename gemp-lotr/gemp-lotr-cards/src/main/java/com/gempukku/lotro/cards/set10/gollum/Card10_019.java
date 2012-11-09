@@ -4,21 +4,18 @@ import com.gempukku.lotro.cards.AbstractResponseEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
+import com.gempukku.lotro.cards.effects.AdditionalSkirmishPhaseEffect;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromDiscardEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromHandEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.game.state.Skirmish;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.UnrespondableEffect;
-import com.gempukku.lotro.logic.timing.actions.SkirmishPhaseAction;
 import com.gempukku.lotro.logic.timing.results.PlayCardResult;
 
 import java.util.Collections;
@@ -49,20 +46,22 @@ public class Card10_019 extends AbstractResponseEvent {
             if (playResult.getPlayedCard().getOwner().equals(game.getGameState().getCurrentPlayerId())) {
                 final PhysicalCard playedOn = playResult.getAttachedTo();
                 if (playedOn != null && playedOn.getBlueprint().getCardType() == CardType.COMPANION) {
-                    PlayEventAction action = new PlayEventAction(self);
+                    final PlayEventAction action = new PlayEventAction(self);
                     List<Effect> possibleEffects = new LinkedList<Effect>();
                     possibleEffects.add(
                             new ChooseAndPlayCardFromDiscardEffect(playerId, game, -2, Filters.gollum) {
                                 @Override
                                 protected void afterCardPlayed(PhysicalCard cardPlayed) {
-                                    gollumPlayed(game, playedOn, cardPlayed);
+                                    action.appendEffect(
+                                            new AdditionalSkirmishPhaseEffect(playedOn, Collections.singleton(cardPlayed)));
                                 }
                             });
                     possibleEffects.add(
                             new ChooseAndPlayCardFromHandEffect(playerId, game, -2, Filters.gollum) {
                                 @Override
                                 protected void afterCardPlayed(PhysicalCard cardPlayed) {
-                                    gollumPlayed(game, playedOn, cardPlayed);
+                                    action.appendEffect(
+                                            new AdditionalSkirmishPhaseEffect(playedOn, Collections.singleton(cardPlayed)));
                                 }
                             });
                     action.appendEffect(
@@ -72,35 +71,5 @@ public class Card10_019 extends AbstractResponseEvent {
             }
         }
         return null;
-    }
-
-    private void gollumPlayed(LotroGame game, PhysicalCard character, PhysicalCard gollum) {
-        final Phase currentPhase = game.getGameState().getCurrentPhase();
-        final Skirmish skirmish = game.getGameState().getSkirmish();
-        if (skirmish != null)
-            game.getGameState().finishSkirmish();
-
-        final SkirmishPhaseAction skirmishPhaseAction = new SkirmishPhaseAction(character, Collections.singleton(gollum));
-        // We might have to restart the skirmish, if the possession was played during it
-        if (skirmish != null) {
-            skirmishPhaseAction.appendEffect(
-                    new UnrespondableEffect() {
-                        @Override
-                        protected void doPlayEffect(LotroGame game) {
-                            game.getGameState().restartSkirmish(skirmish);
-                        }
-                    });
-        }
-        // We have to reset the phase, to whatever it was before
-        skirmishPhaseAction.appendEffect(
-                new UnrespondableEffect() {
-                    @Override
-                    protected void doPlayEffect(LotroGame game) {
-                        game.getGameState().setCurrentPhase(currentPhase);
-                    }
-                });
-
-        game.getActionsEnvironment().addActionToStack(
-                skirmishPhaseAction);
     }
 }

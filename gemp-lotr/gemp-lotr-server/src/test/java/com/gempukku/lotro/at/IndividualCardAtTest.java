@@ -704,9 +704,6 @@ public class IndividualCardAtTest extends AbstractAtTest {
         AwaitingDecision playeReturnDecision = _userFeedback.getAwaitingDecision(P2);
         playerDecided(P2, getCardActionId(playeReturnDecision, "Play Return"));
 
-        // Choose skirmish to resolve
-        playerDecided(P1, ""+_game.getGameState().getRingBearer(P1).getCardId());
-
         assertEquals(_game.getGameState().getRingBearer(P1), _game.getGameState().getSkirmish().getFellowshipCharacter());
         assertEquals(1, _game.getGameState().getSkirmish().getShadowCharacters().size());
         assertEquals(nelya, _game.getGameState().getSkirmish().getShadowCharacters().iterator().next());

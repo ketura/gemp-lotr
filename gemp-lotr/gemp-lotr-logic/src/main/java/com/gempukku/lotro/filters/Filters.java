@@ -251,6 +251,23 @@ public class Filters {
         return assignableToSkirmishAgainst(assignedBySide, againstFilter, false, false);
     }
 
+    public static Filter notPreventedByEffectToAssign(final Side assignedBySide, final PhysicalCard againstCard) {
+        return new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                if (againstCard.getBlueprint().getSide() == Side.FREE_PEOPLE) {
+                    Map<PhysicalCard, Set<PhysicalCard>> assignment = new HashMap<PhysicalCard, Set<PhysicalCard>>();
+                    assignment.put(againstCard, Collections.singleton(physicalCard));
+                    return modifiersQuerying.isValidAssignments(gameState, assignedBySide, assignment);
+                } else {
+                    Map<PhysicalCard, Set<PhysicalCard>> assignment = new HashMap<PhysicalCard, Set<PhysicalCard>>();
+                    assignment.put(physicalCard, Collections.singleton(againstCard));
+                    return modifiersQuerying.isValidAssignments(gameState, assignedBySide, assignment);
+                }
+            }
+        };
+    }
+
     public static Filter assignableToSkirmishAgainst(final Side assignedBySide, final Filterable againstFilter, final boolean ignoreUnassigned, final boolean allowAllyToSkirmish) {
         return Filters.and(
                 assignableToSkirmish(assignedBySide, ignoreUnassigned, allowAllyToSkirmish),
