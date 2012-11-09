@@ -109,6 +109,7 @@ var CardFilter = Class.extend({
             + "<option value='ttt_block'>Towers Block</option>"
             + "<option value='king_block'>King Block</option>"
             + "<option value='war_block'>War of the Ring Block</option>"
+            + "<option value='hunter_block'>Hunters Block</option>"
             + "<option value='towers_standard'>Towers Standard</option>"
             + "<option value='movie'>Movie Block</option>"
             + "<option value='war_standard'>War of the Ring standard</option>"

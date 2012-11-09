@@ -139,6 +139,12 @@
         "set":[11, 12, 13]
     },
     {
+        "name":"War of the Ring block",
+        "code":"hunter_block",
+        "sites":"SHADOWS",
+        "set":[15, 17, 18]
+    },
+    {
         "name":"War of the Ring standard",
         "code":"war_standard",
         "sites":"SHADOWS",
