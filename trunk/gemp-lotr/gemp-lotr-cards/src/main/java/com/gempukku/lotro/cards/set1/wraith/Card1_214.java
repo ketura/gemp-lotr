@@ -51,12 +51,7 @@ public class Card1_214 extends AbstractResponseOldEvent {
                         }
                     });
             possibleEffects.add(
-                    new AddBurdenEffect(self, 1) {
-                        @Override
-                        public String getText(LotroGame game) {
-                            return "Add a burden";
-                        }
-                    });
+                    new AddBurdenEffect(self, 1));
             action.appendEffect(
                     new ChoiceEffect(action, game.getGameState().getCurrentPlayerId(), possibleEffects));
             return Collections.singletonList(action);

@@ -57,12 +57,8 @@ public class Card1_124 extends AbstractOldEvent {
                 return "Exert Ring-bearer";
             }
         });
-        possibleEffects.add(new AddBurdenEffect(self, 1) {
-            @Override
-            public String getText(LotroGame game) {
-                return "Add a burden";
-            }
-        });
+        possibleEffects.add(
+                new AddBurdenEffect(self, 1));
 
         action.appendEffect(
                 new ChoiceEffect(action, fpPlayer, possibleEffects));
