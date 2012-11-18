@@ -34,7 +34,7 @@ public class Card18_029 extends AbstractPermanent {
 
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
-        if (TriggerConditions.isGettingDiscardedBy(effect, game, Side.FREE_PEOPLE, Filters.not(self), Culture.GOLLUM, CardType.CONDITION)
+        if (TriggerConditions.isGettingDiscardedBy(effect, game, Side.FREE_PEOPLE, Filters.not(self), Filters.owner(self.getOwner()), Culture.GOLLUM, CardType.CONDITION)
                 && game.getGameState().getTwilightPool() >= 1) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
