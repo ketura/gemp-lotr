@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set3.wraith;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -8,7 +9,6 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.results.AddBurdenResult;
 
 import java.util.Collections;
 import java.util.List;
@@ -35,14 +35,11 @@ public class Card3_081 extends AbstractPermanent {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.ADD_BURDEN) {
-            AddBurdenResult addBurdenResult = (AddBurdenResult) effectResult;
-            if (addBurdenResult.getSource().getBlueprint().getCulture() == Culture.WRAITH) {
-                RequiredTriggerAction action = new RequiredTriggerAction(self);
-                action.appendEffect(
-                        new ChooseAndExertCharactersEffect(action, game.getGameState().getCurrentPlayerId(), 1, 1, CardType.COMPANION));
-                return Collections.singletonList(action);
-            }
+        if (TriggerConditions.addedBurden(game, effectResult, Culture.WRAITH)) {
+            RequiredTriggerAction action = new RequiredTriggerAction(self);
+            action.appendEffect(
+                    new ChooseAndExertCharactersEffect(action, game.getGameState().getCurrentPlayerId(), 1, 1, CardType.COMPANION));
+            return Collections.singletonList(action);
         }
         return null;
     }
