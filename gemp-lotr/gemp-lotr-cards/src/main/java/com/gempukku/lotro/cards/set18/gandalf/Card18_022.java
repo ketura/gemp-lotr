@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set18.gandalf;
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
+import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPutCardFromDiscardIntoHandEffect;
 import com.gempukku.lotro.cards.modifiers.conditions.CanSpotCultureTokensCondition;
 import com.gempukku.lotro.common.*;
@@ -48,7 +48,7 @@ public class Card18_022 extends AbstractCompanion {
                 && PlayConditions.canDiscardFromPlay(self, game, CardType.FOLLOWER)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, CardType.FOLLOWER));
+                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, CardType.FOLLOWER));
             List<Effect> possibleEffects = new LinkedList<Effect>();
             possibleEffects.add(
                     new DrawCardsEffect(action, playerId, 1));
