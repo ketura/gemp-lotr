@@ -44,7 +44,7 @@ public class Card12_129 extends AbstractCompanion {
         if (TriggerConditions.assignedAgainst(game, effectResult, Side.FREE_PEOPLE, Filters.any, self)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new AddBurdenEffect(self, 2));
+                    new AddBurdenEffect(self.getOwner(), self, 2));
             return Collections.singletonList(action);
         }
         return null;

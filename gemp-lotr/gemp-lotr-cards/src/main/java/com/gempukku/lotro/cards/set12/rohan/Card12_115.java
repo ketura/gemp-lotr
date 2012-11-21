@@ -38,7 +38,7 @@ public class Card12_115 extends AbstractPermanent {
                 && PlayConditions.canSpot(game, Culture.ROHAN, CardType.COMPANION)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new AddBurdenEffect(self, 2));
+                    new AddBurdenEffect(playerId, self, 2));
             action.appendEffect(
                     new ChooseAndPreventCardEffect(self, (AbstractPreventableCardEffect) effect, playerId, "Choose companion to prevent wound to", CardType.COMPANION));
             return Collections.singletonList(action);

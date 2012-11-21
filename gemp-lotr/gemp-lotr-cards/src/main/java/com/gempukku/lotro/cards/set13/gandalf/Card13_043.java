@@ -44,7 +44,7 @@ public class Card13_043 extends AbstractPermanent {
                         }
                     });
             action.appendCost(
-                    new AddBurdenEffect(self, 1));
+                    new AddBurdenEffect(self.getOwner(), self, 1));
             return Collections.singletonList(action);
         }
         return null;

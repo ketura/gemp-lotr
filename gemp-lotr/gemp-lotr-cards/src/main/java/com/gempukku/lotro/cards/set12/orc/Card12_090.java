@@ -43,7 +43,7 @@ public class Card12_090 extends AbstractMinion {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             List<Effect> possibleEffects = new LinkedList<Effect>();
             possibleEffects.add(
-                    new AddBurdenEffect(self, 1));
+                    new AddBurdenEffect(game.getGameState().getCurrentPlayerId(), self, 1));
             possibleEffects.add(
                     new ChooseAndDiscardCardsFromHandEffect(action, game.getGameState().getCurrentPlayerId(), false, 1) {
                         @Override

@@ -38,7 +38,7 @@ public class Card11_049 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayCardAction(final String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new PlayNextSiteEffect(action, playerId));
@@ -49,7 +49,7 @@ public class Card11_049 extends AbstractEvent {
                             protected void yes() {
                                 SubCostToEffectAction subAction = new SubCostToEffectAction(action);
                                 subAction.appendCost(
-                                        new AddBurdenEffect(self, 1));
+                                        new AddBurdenEffect(playerId, self, 1));
                                 subAction.appendEffect(
                                         new PutPlayedEventIntoHandEffect(action));
                                 game.getActionsEnvironment().addActionToStack(subAction);

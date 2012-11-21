@@ -50,7 +50,7 @@ public class Card1_182 extends AbstractAttachable {
             int burdens = (killedRace == Race.HOBBIT) ? 2 : 1;
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new AddBurdenEffect(self, burdens));
+                    new AddBurdenEffect(self.getOwner(), self, burdens));
             return Collections.singletonList(action);
         }
         return null;

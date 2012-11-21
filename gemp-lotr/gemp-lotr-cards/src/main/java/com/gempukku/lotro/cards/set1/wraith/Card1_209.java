@@ -52,7 +52,7 @@ public class Card1_209 extends AbstractPermanent {
             boolean ringBearer = game.getGameState().getRingBearer(game.getGameState().getCurrentPlayerId()) == self.getAttachedTo();
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             if (ringBearer) {
-                action.appendEffect(new AddBurdenEffect(self, 1));
+                action.appendEffect(new AddBurdenEffect(self.getOwner(), self, 1));
             } else {
                 action.appendEffect(new WoundCharactersEffect(self, self.getAttachedTo()));
             }

@@ -45,7 +45,7 @@ public class Card9_049 extends AbstractCompanion {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             List<Effect> possibleEffects = new LinkedList<Effect>();
             possibleEffects.add(
-                    new AddBurdenEffect(self, 2));
+                    new AddBurdenEffect(self.getOwner(), self, 2));
             possibleEffects.add(
                     new AddTwilightEffect(self, 3));
             action.appendEffect(
@@ -61,7 +61,7 @@ public class Card9_049 extends AbstractCompanion {
                 && PlayConditions.canPlayFromHand(playerId, game, Culture.SHIRE, Keyword.TALE)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new AddBurdenEffect(self, 1));
+                    new AddBurdenEffect(self.getOwner(), self, 1));
             action.appendEffect(
                     new ChooseAndPlayCardFromHandEffect(playerId, game, Culture.SHIRE, Keyword.TALE,
                             Filters.or(Filters.not(CardType.EVENT),

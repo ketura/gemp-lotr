@@ -35,7 +35,7 @@ public class Card6_038 extends AbstractResponseEvent {
                 && checkPlayRequirements(playerId, game, self, 0, 0, false, false)) {
             PlayEventAction action = new PlayEventAction(self);
             action.appendCost(
-                    new AddBurdenEffect(self, 1));
+                    new AddBurdenEffect(self.getOwner(), self, 1));
             action.appendEffect(
                     new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, CardType.MINION));
             return Collections.singletonList(action);

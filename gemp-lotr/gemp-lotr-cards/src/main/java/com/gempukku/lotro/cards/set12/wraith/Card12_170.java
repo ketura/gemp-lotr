@@ -48,7 +48,7 @@ public class Card12_170 extends AbstractAttachable {
                 && PlayConditions.canSpot(game, CardType.COMPANION, Filters.assignedToSkirmish, Filters.not(Filters.hasAttached(Culture.WRAITH, CardType.CONDITION)))) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new AddBurdenEffect(self, 1));
+                    new AddBurdenEffect(self.getOwner(), self, 1));
             return Collections.singletonList(action);
         }
         return null;

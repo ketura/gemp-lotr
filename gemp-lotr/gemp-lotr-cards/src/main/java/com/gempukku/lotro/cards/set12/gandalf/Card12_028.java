@@ -47,7 +47,7 @@ public class Card12_028 extends AbstractAttachableFPPossession {
         if (TriggerConditions.movesFrom(game, effectResult, Keyword.BATTLEGROUND)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new AddBurdenEffect(self, 1));
+                    new AddBurdenEffect(self.getOwner(), self, 1));
             return Collections.singletonList(action);
         }
         return null;
@@ -58,7 +58,7 @@ public class Card12_028 extends AbstractAttachableFPPossession {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.REGROUP, self)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new AddBurdenEffect(self, 2));
+                    new AddBurdenEffect(playerId, self, 2));
             action.appendEffect(
                     new RemoveTwilightEffect(
                             new Evaluator() {

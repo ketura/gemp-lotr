@@ -49,7 +49,7 @@ public class Card13_178 extends AbstractEvent {
                         action.appendCost(
                                 new HealCharactersEffect(self, companion));
                         action.appendEffect(
-                                new AddBurdenEffect(self, 1));
+                                new AddBurdenEffect(self.getOwner(), self, 1));
 
                         if (!PlayConditions.location(game, Filters.region(1))) {
                             int wounds = game.getGameState().getWounds(companion) - 1;
@@ -58,7 +58,7 @@ public class Card13_178 extends AbstractEvent {
                                 subAction.appendCost(
                                         new HealCharactersEffect(self, companion));
                                 subAction.appendEffect(
-                                        new AddBurdenEffect(self, 1));
+                                        new AddBurdenEffect(self.getOwner(), self, 1));
                                 action.appendEffect(
                                         new OptionalEffect(action, playerId,
                                                 new StackActionEffect(subAction) {

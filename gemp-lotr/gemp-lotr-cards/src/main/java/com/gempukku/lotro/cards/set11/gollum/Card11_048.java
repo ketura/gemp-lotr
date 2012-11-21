@@ -40,7 +40,7 @@ public class Card11_048 extends AbstractPermanent {
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.gollum));
             action.appendEffect(
-                    new AddBurdenEffect(self, 1));
+                    new AddBurdenEffect(playerId, self, 1));
             return Collections.singletonList(action);
         }
         return null;

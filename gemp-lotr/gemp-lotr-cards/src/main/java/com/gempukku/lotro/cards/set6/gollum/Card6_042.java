@@ -33,7 +33,7 @@ public class Card6_042 extends AbstractResponseEvent {
                 && checkPlayRequirements(playerId, game, self, 0, 0, false, false)) {
             PlayEventAction action = new PlayEventAction(self);
             action.appendEffect(
-                    new AddBurdenEffect(self, 1));
+                    new AddBurdenEffect(self.getOwner(), self, 1));
             return Collections.singletonList(action);
         }
         return null;

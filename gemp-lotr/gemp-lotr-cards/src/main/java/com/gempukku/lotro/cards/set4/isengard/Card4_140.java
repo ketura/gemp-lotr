@@ -42,7 +42,7 @@ public class Card4_140 extends AbstractOldEvent {
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 2, 2, Race.URUK_HAI));
         action.appendEffect(
-                new AddBurdenEffect(self, game.getGameState().getDeadPile(game.getGameState().getCurrentPlayerId()).size()));
+                new AddBurdenEffect(self.getOwner(), self, game.getGameState().getDeadPile(game.getGameState().getCurrentPlayerId()).size()));
         return action;
     }
 }

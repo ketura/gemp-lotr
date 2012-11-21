@@ -49,7 +49,7 @@ public class Card11_040 extends AbstractAttachableFPPossession {
         if (TriggerConditions.isGettingWounded(effect, game, Filters.gandalf)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(
-                    new AddBurdenEffect(self, 1));
+                    new AddBurdenEffect(playerId, self, 1));
             action.appendEffect(
                     new ChooseAndPreventCardEffect(self, (AbstractPreventableCardEffect) effect, playerId, "Choose Gandalf", Filters.gandalf));
             return Collections.singletonList(action);

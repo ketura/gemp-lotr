@@ -49,7 +49,7 @@ public class Card3_050 extends AbstractOldEvent {
         action.appendEffect(
                 new ChooseActiveCardEffect(self, playerId, "Choose Aragorn", Filters.aragorn) {
                     @Override
-                    protected void cardSelected(LotroGame game, PhysicalCard aragorn) {
+                    protected void cardSelected(final LotroGame game, PhysicalCard aragorn) {
                         action.appendEffect(
                                 new PreventableEffect(action,
                                         new ExhaustCharacterEffect(self, action, aragorn),
@@ -57,7 +57,7 @@ public class Card3_050 extends AbstractOldEvent {
                                         new PreventableEffect.PreventionCost() {
                                             @Override
                                             public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
-                                                return new AddBurdenEffect(self, 2);
+                                                return new AddBurdenEffect(game.getGameState().getCurrentPlayerId(), self, 2);
                                             }
                                         }
                                 ));

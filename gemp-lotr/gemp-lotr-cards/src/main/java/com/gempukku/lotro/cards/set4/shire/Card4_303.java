@@ -47,7 +47,7 @@ public class Card4_303 extends AbstractAttachableFPPossession {
             ActivateCardAction action = new ActivateCardAction(self);
             if (firstOption) {
                 action.appendCost(
-                        new AddBurdenEffect(self, 1));
+                        new AddBurdenEffect(self.getOwner(), self, 1));
                 action.appendCost(
                         new SelfDiscardEffect(self));
                 action.appendEffect(

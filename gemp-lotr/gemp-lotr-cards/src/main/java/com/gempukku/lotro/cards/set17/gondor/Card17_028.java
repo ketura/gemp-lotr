@@ -49,7 +49,7 @@ public class Card17_028 extends AbstractCompanion {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             List<Effect> possibleEffects = new LinkedList<Effect>();
             possibleEffects.add(
-                    new AddBurdenEffect(self, 2));
+                    new AddBurdenEffect(self.getOwner(), self, 2));
             possibleEffects.add(
                     new AddThreatsEffect(self.getOwner(), self, 2));
             action.appendEffect(

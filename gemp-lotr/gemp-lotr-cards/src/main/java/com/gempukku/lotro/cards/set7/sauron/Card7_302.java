@@ -39,7 +39,7 @@ public class Card7_302 extends AbstractMinion {
             if (lostResult.getSkirmishType() == CharacterLostSkirmishResult.SkirmishType.OVERWHELM) {
                 RequiredTriggerAction action = new RequiredTriggerAction(self);
                 action.appendEffect(
-                        new AddBurdenEffect(self, 3));
+                        new AddBurdenEffect(self.getOwner(), self, 3));
                 return Collections.singletonList(action);
             }
         }

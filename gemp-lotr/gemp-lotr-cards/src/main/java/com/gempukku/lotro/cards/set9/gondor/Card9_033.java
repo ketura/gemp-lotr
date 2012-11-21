@@ -51,7 +51,7 @@ public class Card9_033 extends AbstractCompanion {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             List<Effect> possibleEffects = new LinkedList<Effect>();
             possibleEffects.add(
-                    new AddBurdenEffect(self, 2));
+                    new AddBurdenEffect(self.getOwner(), self, 2));
             possibleEffects.add(
                     new ChooseAndExertCharactersEffect(action, self.getOwner(), 3, 3, CardType.COMPANION) {
                         @Override

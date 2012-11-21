@@ -56,7 +56,7 @@ public class Card5_096 extends AbstractEvent {
                     && checkPlayRequirements(playerId, game, self, 0, 0, false, false)) {
                 PlayEventAction action = new PlayEventAction(self);
                 action.appendEffect(
-                        new AddBurdenEffect(self, 2));
+                        new AddBurdenEffect(self.getOwner(), self, 2));
                 return Collections.singletonList(action);
             }
         }

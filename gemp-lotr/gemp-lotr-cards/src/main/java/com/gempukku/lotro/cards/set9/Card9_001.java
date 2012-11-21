@@ -57,7 +57,7 @@ public class Card9_001 extends AbstractAttachable {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.FELLOWSHIP, self)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new AddBurdenEffect(self, 2));
+                    new AddBurdenEffect(self.getOwner(), self, 2));
             action.appendEffect(
                     new ChooseAndPlayCardFromDeckEffect(playerId, PossessionClass.RING));
             return Collections.singletonList(action);
@@ -90,7 +90,7 @@ public class Card9_001 extends AbstractAttachable {
                 && !game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.RING_TEXT_INACTIVE)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(new NegateWoundEffect((WoundCharactersEffect) effect, self.getAttachedTo()));
-            action.appendEffect(new AddBurdenEffect(self, 1));
+            action.appendEffect(new AddBurdenEffect(self.getOwner(), self, 1));
             return Collections.singletonList(action);
         }
         return null;

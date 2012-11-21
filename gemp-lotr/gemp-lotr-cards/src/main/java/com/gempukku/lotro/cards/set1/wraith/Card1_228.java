@@ -42,7 +42,7 @@ public class Card1_228 extends AbstractResponseOldEvent {
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.NAZGUL));
             action.appendEffect(
-                    new AddBurdenEffect(self, 2));
+                    new AddBurdenEffect(self.getOwner(), self, 2));
             return Collections.singletonList(action);
         }
         return null;

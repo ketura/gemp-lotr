@@ -45,7 +45,7 @@ public class Card7_146 extends AbstractMinion {
             action.appendCost(
                     new SelfExertEffect(action, self));
             action.appendEffect(
-                    new AddBurdenEffect(self, 1));
+                    new AddBurdenEffect(self.getOwner(), self, 1));
             return Collections.singletonList(action);
         }
         return null;

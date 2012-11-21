@@ -48,7 +48,7 @@ public class Card7_188 extends AbstractMinion {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
                     new PreventableEffect(action,
-                            new AddBurdenEffect(self, 1),
+                            new AddBurdenEffect(self.getOwner(), self, 1),
                             game.getGameState().getCurrentPlayerId(),
                             new PreventableEffect.PreventionCost() {
                                 @Override

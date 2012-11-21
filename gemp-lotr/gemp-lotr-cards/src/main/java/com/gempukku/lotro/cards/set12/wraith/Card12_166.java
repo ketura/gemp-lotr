@@ -50,7 +50,7 @@ public class Card12_166 extends AbstractPermanent {
         if (TriggerConditions.forEachHealed(game, effectResult, Filters.hasAttached(self))) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new AddBurdenEffect(self, 1));
+                    new AddBurdenEffect(self.getOwner(), self, 1));
             return Collections.singletonList(action);
         }
         return null;

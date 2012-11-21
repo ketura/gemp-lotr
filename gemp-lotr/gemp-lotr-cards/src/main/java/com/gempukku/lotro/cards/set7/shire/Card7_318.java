@@ -40,7 +40,7 @@ public class Card7_318 extends AbstractCompanion {
                 .accepts(game.getGameState(), game.getModifiersQuerying(), game.getGameState().getCurrentSite())) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new AddBurdenEffect(self, 4));
+                    new AddBurdenEffect(self.getOwner(), self, 4));
             action.appendEffect(
                     new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, CardType.MINION, Filters.inSkirmishAgainst(self)));
             return Collections.singletonList(action);

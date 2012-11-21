@@ -48,7 +48,7 @@ public class Card5_100 extends AbstractMinion {
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
+    protected List<? extends Action> getExtraPhaseActions(String playerId, final LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SHADOW, self, 0)
                 && PlayConditions.canSelfExert(self, 2, game)
                 && PlayConditions.canSpot(game, Culture.SAURON, Race.ORC, Filters.not(self))) {
@@ -64,7 +64,7 @@ public class Card5_100 extends AbstractMinion {
                             new PreventableEffect.PreventionCost() {
                                 @Override
                                 public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
-                                    return new AddBurdenEffect(self, 2);
+                                    return new AddBurdenEffect(game.getGameState().getCurrentPlayerId(), self, 2);
                                 }
                             }
                     ));

@@ -31,7 +31,7 @@ public class Card1_211 extends AbstractPermanent {
         if (TriggerConditions.forEachKilledInASkirmish(game, effectResult, Race.NAZGUL, CardType.COMPANION)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new AddBurdenEffect(self, 1));
+                    new AddBurdenEffect(self.getOwner(), self, 1));
             return Collections.singletonList(action);
         }
         return null;

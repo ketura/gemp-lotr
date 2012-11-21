@@ -50,7 +50,7 @@ public class Card11_214 extends AbstractAttachable {
             action.appendCost(
                     new ExertCharactersEffect(action, self, self.getAttachedTo()));
             action.appendEffect(
-                    new AddBurdenEffect(self, 1));
+                    new AddBurdenEffect(playerId, self, 1));
             return Collections.singletonList(action);
         }
         return null;

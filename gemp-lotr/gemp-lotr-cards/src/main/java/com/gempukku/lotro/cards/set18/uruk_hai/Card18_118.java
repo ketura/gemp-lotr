@@ -59,7 +59,7 @@ public class Card18_118 extends AbstractMinion {
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose an unbound companion to assign to", Filters.unboundCompanion, Filters.assignableToSkirmishAgainst(Side.SHADOW, self)) {
                         @Override
-                        protected void cardSelected(LotroGame game, final PhysicalCard companion) {
+                        protected void cardSelected(final LotroGame game, final PhysicalCard companion) {
                             action.appendEffect(
                                     new PreventableEffect(action,
                                             new AssignmentEffect(playerId, companion, self), game.getGameState().getCurrentPlayerId(),
@@ -70,7 +70,7 @@ public class Card18_118 extends AbstractMinion {
                                                     possibleCosts.add(
                                                             new ExertCharactersEffect(action, self, companion));
                                                     possibleCosts.add(
-                                                            new AddBurdenEffect(self, 1));
+                                                            new AddBurdenEffect(game.getGameState().getCurrentPlayerId(), self, 1));
                                                     return new ChoiceEffect(subAction, playerId, possibleCosts) {
                                                         @Override
                                                         public String getText(LotroGame game) {

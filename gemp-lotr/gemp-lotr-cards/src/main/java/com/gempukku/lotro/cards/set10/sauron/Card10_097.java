@@ -36,7 +36,7 @@ public class Card10_097 extends AbstractResponseEvent {
                 && PlayConditions.canSpot(game, Culture.SAURON, CardType.MINION)) {
             PlayEventAction action = new PlayEventAction(self);
             action.appendEffect(
-                    new AddBurdenEffect(self, 1));
+                    new AddBurdenEffect(playerId, self, 1));
             return Collections.singletonList(action);
         }
         return null;

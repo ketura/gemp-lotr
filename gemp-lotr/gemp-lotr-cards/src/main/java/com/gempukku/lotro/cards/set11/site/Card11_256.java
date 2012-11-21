@@ -32,7 +32,7 @@ public class Card11_256 extends AbstractNewSite {
                 && playerId.equals(game.getGameState().getCurrentPlayerId())) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(
-                    new AddBurdenEffect(self, 1));
+                    new AddBurdenEffect(playerId, self, 1));
             action.appendEffect(
                     new ChooseAndPlayCardFromDeckEffect(playerId, Keyword.RANGER));
             return Collections.singletonList(action);

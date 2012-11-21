@@ -53,7 +53,7 @@ public class Card18_091 extends AbstractMinion {
             String fpPlayer = game.getGameState().getCurrentPlayerId();
             List<Effect> possibleCosts = new LinkedList<Effect>();
             possibleCosts.add(
-                    new AddBurdenEffect(self, 1));
+                    new AddBurdenEffect(fpPlayer, self, 1));
             possibleCosts.add(
                     new ChooseAndExertCharactersEffect(action, fpPlayer, 1, 1, 2, Filters.ringBearer));
             SubCostToEffectAction subAction = new SubCostToEffectAction(action);

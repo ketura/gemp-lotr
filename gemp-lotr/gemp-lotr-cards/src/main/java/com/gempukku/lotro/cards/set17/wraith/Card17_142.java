@@ -53,7 +53,7 @@ public class Card17_142 extends AbstractAttachable {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             List<Effect> possibleEffects = new LinkedList<Effect>();
             possibleEffects.add(
-                    new AddBurdenEffect(self, 1));
+                    new AddBurdenEffect(game.getGameState().getCurrentPlayerId(), self, 1));
             possibleEffects.add(
                     new ChooseAndExertCharactersEffect(action, game.getGameState().getCurrentPlayerId(), 1, 1, CardType.COMPANION) {
                         @Override

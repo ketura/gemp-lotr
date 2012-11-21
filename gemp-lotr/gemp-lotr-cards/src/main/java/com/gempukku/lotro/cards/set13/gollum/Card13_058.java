@@ -42,7 +42,7 @@ public class Card13_058 extends AbstractEvent {
         PlayEventAction action = new PlayEventAction(self);
         List<Effect> possibleEffects = new LinkedList<Effect>();
         possibleEffects.add(
-                new AddBurdenEffect(self, 1));
+                new AddBurdenEffect(game.getGameState().getCurrentPlayerId(), self, 1));
         possibleEffects.add(
                 new ChooseAndExertCharactersEffect(action, game.getGameState().getCurrentPlayerId(), 1, 1, CardType.COMPANION) {
                     @Override

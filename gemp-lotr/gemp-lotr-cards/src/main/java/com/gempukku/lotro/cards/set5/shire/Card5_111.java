@@ -37,7 +37,7 @@ public class Card5_111 extends AbstractCompanion {
                 && PlayConditions.canPlayFromDiscard(playerId, game, Filters.smeagol)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new AddBurdenEffect(self, 1));
+                    new AddBurdenEffect(self.getOwner(), self, 1));
             action.appendEffect(
                     new ChooseAndPlayCardFromDiscardEffect(playerId, game, Filters.smeagol));
             return Collections.singletonList(action);

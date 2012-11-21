@@ -43,7 +43,7 @@ public class Card9_031 extends AbstractCompanion {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             List<Effect> possibleEffects = new LinkedList<Effect>();
             possibleEffects.add(
-                    new AddBurdenEffect(self, 3));
+                    new AddBurdenEffect(self.getOwner(), self, 3));
             possibleEffects.add(
                     new ChooseAndWoundCharactersEffect(action, self.getOwner(), 1, 1, 2, self) {
                         @Override

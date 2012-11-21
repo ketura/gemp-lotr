@@ -37,7 +37,7 @@ public class Card4_259 extends AbstractOldEvent {
         action.appendEffect(
                 new ChooseActiveCardEffect(self, playerId, "Choose Easterling", Keyword.EASTERLING, Filters.assignableToSkirmishAgainst(Side.SHADOW, ringBearer)) {
                     @Override
-                    protected void cardSelected(LotroGame game, PhysicalCard minion) {
+                    protected void cardSelected(final LotroGame game, PhysicalCard minion) {
                         action.insertEffect(
                                 new PreventableEffect(action,
                                         new AssignmentEffect(playerId, ringBearer, minion),
@@ -45,7 +45,7 @@ public class Card4_259 extends AbstractOldEvent {
                                         new PreventableEffect.PreventionCost() {
                                             @Override
                                             public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
-                                                return new AddBurdenEffect(self, 1);
+                                                return new AddBurdenEffect(game.getGameState().getCurrentPlayerId(), self, 1);
                                             }
                                         }
                                 ));
