@@ -119,14 +119,17 @@ var Card = Class.extend({
     init:function (blueprintId, zone, cardId, owner, siteNumber) {
         this.blueprintId = blueprintId;
 
-        var len = blueprintId.length;
-        this.foil = blueprintId.substring(len - 1, len) == "*";
+        var imageBlueprint = blueprintId;
+        var len = imageBlueprint.length;
+        this.foil = imageBlueprint.substring(len - 1, len) == "*";
         if (this.foil)
-            blueprintId = blueprintId.substring(0, len - 1);
-        len = blueprintId.length;
-        this.tengwar = blueprintId.substring(len - 1, len) == "T";
+            imageBlueprint = imageBlueprint.substring(0, len - 1);
+
+        var bareBlueprint = imageBlueprint;
+        len = bareBlueprint.length;
+        this.tengwar = bareBlueprint.substring(len - 1, len) == "T";
         if (this.tengwar)
-            blueprintId = blueprintId.substring(0, len - 1);
+            bareBlueprint = bareBlueprint.substring(0, len - 1);
 
         this.zone = zone;
         this.cardId = cardId;
@@ -134,24 +137,24 @@ var Card = Class.extend({
         if (siteNumber)
             this.siteNumber = parseInt(siteNumber);
         this.attachedCards = new Array();
-        if (blueprintId == "rules") {
+        if (imageBlueprint == "rules") {
             this.imageUrl = "/gemp-lotr/images/rules.png";
         } else {
-            if (cardCache[blueprintId] != null) {
-                var cardFromCache = cardCache[blueprintId];
+            if (cardCache[imageBlueprint] != null) {
+                var cardFromCache = cardCache[imageBlueprint];
                 this.horizontal = cardFromCache.horizontal;
                 this.imageUrl = cardFromCache.imageUrl;
                 this.errata = cardFromCache.errata;
             } else {
-                this.imageUrl = this.getUrlByBlueprintId(blueprintId);
-                this.horizontal = this.isHorizontal(blueprintId);
+                this.imageUrl = this.getUrlByBlueprintId(bareBlueprint);
+                this.horizontal = this.isHorizontal(bareBlueprint);
 
-                var separator = blueprintId.indexOf("_");
-                var setNo = parseInt(blueprintId.substr(0, separator));
-                var cardNo = parseInt(blueprintId.substr(separator + 1));
+                var separator = bareBlueprint.indexOf("_");
+                var setNo = parseInt(bareBlueprint.substr(0, separator));
+                var cardNo = parseInt(bareBlueprint.substr(separator + 1));
 
                 this.errata = this.getErrata(setNo, cardNo) != null;
-                cardCache[blueprintId] = {
+                cardCache[imageBlueprint] = {
                     imageUrl:this.imageUrl,
                     horizontal:this.horizontal,
                     errata:this.errata
