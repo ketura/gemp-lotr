@@ -242,8 +242,8 @@ public class GameHistoryDAO {
             try {
                 PreparedStatement statement = connection.prepareStatement(
                         "select deck_name, format_name, sum(win), sum(lose) from" +
-                                " (select winner_deck_name as deck_name, format_name, 1 as win, 0 as lose from game_history where winner=? and (tournament is null or tournament = 'Casual')" +
-                                " union all select loser_deck_name as deck_name, format_name, 0 as win, 1 as lose from game_history where loser=? and (tournament is null or tournament = 'Casual')) as u" +
+                                " (select winner_deck_name as deck_name, format_name, 1 as win, 0 as lose from game_history where winner=? and (tournament is null or tournament = 'Casual') and (win_reason <> 'Game cancelled due to error')" +
+                                " union all select loser_deck_name as deck_name, format_name, 0 as win, 1 as lose from game_history where loser=? and (tournament is null or tournament = 'Casual') and (win_reason <> 'Game cancelled due to error')) as u" +
                                 " group by deck_name, format_name order by format_name, deck_name");
                 try {
                     statement.setString(1, player.getName());
@@ -274,8 +274,8 @@ public class GameHistoryDAO {
             try {
                 PreparedStatement statement = connection.prepareStatement(
                         "select deck_name, format_name, sum(win), sum(lose) from" +
-                                " (select winner_deck_name as deck_name, format_name, 1 as win, 0 as lose from game_history where winner=? and (tournament is not null and tournament <> 'Casual')" +
-                                " union all select loser_deck_name as deck_name, format_name, 0 as win, 1 as lose from game_history where loser=? and (tournament is not null and tournament <> 'Casual')) as u" +
+                                " (select winner_deck_name as deck_name, format_name, 1 as win, 0 as lose from game_history where winner=? and (tournament is not null and tournament <> 'Casual') and (win_reason <> 'Game cancelled due to error')" +
+                                " union all select loser_deck_name as deck_name, format_name, 0 as win, 1 as lose from game_history where loser=? and (tournament is not null and tournament <> 'Casual') and (win_reason <> 'Game cancelled due to error')) as u" +
                                 " group by deck_name, format_name order by format_name, deck_name");
                 try {
                     statement.setString(1, player.getName());
