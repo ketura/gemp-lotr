@@ -6,6 +6,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
 
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -30,16 +31,18 @@ public class ExchangeCardsInHandWithStackedOnEffect extends AbstractEffect {
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
         if (isPlayableInFull(game)) {
-            final List<PhysicalCard> stackedCards = game.getGameState().getStackedCards(_stackedOn);
-            final List<? extends PhysicalCard> hand = game.getGameState().getHand(_playerHand);
+            final List<PhysicalCard> stackedCards = new LinkedList<PhysicalCard>(game.getGameState().getStackedCards(_stackedOn));
+            final List<PhysicalCard> hand = new LinkedList<PhysicalCard>(game.getGameState().getHand(_playerHand));
 
             Set<PhysicalCard> toRemove = new HashSet<PhysicalCard>();
             toRemove.addAll(stackedCards);
             toRemove.addAll(hand);
 
             game.getGameState().removeCardsFromZone(_performingPlayer, toRemove);
+            
             for (PhysicalCard cardInHand : hand)
                 game.getGameState().stackCard(game, cardInHand, _stackedOn);
+
             for (PhysicalCard stackedCard : stackedCards)
                 game.getGameState().addCardToZone(game, stackedCard, Zone.HAND);
 
