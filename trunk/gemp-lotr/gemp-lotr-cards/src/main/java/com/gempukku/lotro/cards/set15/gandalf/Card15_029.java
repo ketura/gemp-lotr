@@ -45,7 +45,7 @@ public class Card15_029 extends AbstractCompanion {
         if (TriggerConditions.played(game, effectResult, Filters.owner(playerId), Keyword.SPELL)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(
-                    new AddBurdenEffect(self, 1));
+                    new AddBurdenEffect(self.getOwner(), self, 1));
             action.appendEffect(
                     new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, CardType.MINION));
             return Collections.singletonList(action);

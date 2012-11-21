@@ -58,7 +58,7 @@ public class Card1_124 extends AbstractOldEvent {
             }
         });
         possibleEffects.add(
-                new AddBurdenEffect(self, 1));
+                new AddBurdenEffect(fpPlayer, self, 1));
 
         action.appendEffect(
                 new ChoiceEffect(action, fpPlayer, possibleEffects));

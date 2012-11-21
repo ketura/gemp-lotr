@@ -30,7 +30,7 @@ public class Card11_258 extends AbstractNewSite {
         if (TriggerConditions.forEachKilled(game, effectResult, CardType.COMPANION)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new AddBurdenEffect(self, 1));
+                    new AddBurdenEffect(self.getOwner(), self, 1));
             return Collections.singletonList(action);
         }
         return null;

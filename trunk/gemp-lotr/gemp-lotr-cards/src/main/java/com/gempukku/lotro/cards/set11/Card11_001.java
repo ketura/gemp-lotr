@@ -60,7 +60,7 @@ public class Card11_001 extends AbstractAttachable {
                 && !game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.RING_TEXT_INACTIVE)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(new NegateWoundEffect((WoundCharactersEffect) effect, self.getAttachedTo()));
-            action.appendEffect(new AddBurdenEffect(self, 1));
+            action.appendEffect(new AddBurdenEffect(playerId, self, 1));
             action.appendEffect(new PutOnTheOneRingEffect());
 
             return Collections.singletonList(action);
@@ -75,7 +75,7 @@ public class Card11_001 extends AbstractAttachable {
                 && !game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.RING_TEXT_INACTIVE)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(new NegateWoundEffect((WoundCharactersEffect) effect, self.getAttachedTo()));
-            action.appendEffect(new AddBurdenEffect(self, 1));
+            action.appendEffect(new AddBurdenEffect(self.getOwner(), self, 1));
             return Collections.singletonList(action);
         }
         return null;

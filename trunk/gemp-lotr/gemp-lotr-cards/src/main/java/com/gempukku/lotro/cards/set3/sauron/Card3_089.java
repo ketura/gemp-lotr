@@ -41,7 +41,7 @@ public class Card3_089 extends AbstractOldEvent {
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Culture.SAURON, Race.ORC));
         action.appendEffect(
-                new AddBurdenEffect(self, 1));
+                new AddBurdenEffect(self.getOwner(), self, 1));
         return action;
     }
 }

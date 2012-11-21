@@ -51,7 +51,7 @@ public class Card1_214 extends AbstractResponseOldEvent {
                         }
                     });
             possibleEffects.add(
-                    new AddBurdenEffect(self, 1));
+                    new AddBurdenEffect(game.getGameState().getCurrentPlayerId(), self, 1));
             action.appendEffect(
                     new ChoiceEffect(action, game.getGameState().getCurrentPlayerId(), possibleEffects));
             return Collections.singletonList(action);

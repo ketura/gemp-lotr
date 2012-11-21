@@ -47,7 +47,7 @@ public class Card13_057 extends AbstractEvent {
         action.appendCost(
                 new ChooseAndHealCharactersEffect(action, playerId, Filters.ringBearer));
         action.appendEffect(
-                new AddBurdenEffect(self, 1));
+                new AddBurdenEffect(self.getOwner(), self, 1));
         action.appendEffect(
                 new RepeatEffect(action, playerId, self));
         return action;
@@ -75,7 +75,7 @@ public class Card13_057 extends AbstractEvent {
                                 _action.appendCost(
                                         new ChooseAndHealCharactersEffect(_action, _playerId, Filters.ringBearer));
                                 _action.appendEffect(
-                                        new AddBurdenEffect(_self, 1));
+                                        new AddBurdenEffect(_self.getOwner(), _self, 1));
                                 _action.appendEffect(
                                         new RepeatEffect(_action, _playerId, _self));
                             }

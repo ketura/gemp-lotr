@@ -43,7 +43,7 @@ public class Card17_034 extends AbstractAttachable {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (TriggerConditions.addedBurden(game, effectResult, Side.SHADOW)) {
+        if (TriggerConditions.sidePlayerAddedBurden(game, effectResult, Side.SHADOW)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new SelfDiscardEffect(self));

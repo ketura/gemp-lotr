@@ -38,7 +38,7 @@ public class Card10_041 extends AbstractMinion {
     }
 
     @Override
-    public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
+    public List<OptionalTriggerAction> getOptionalAfterTriggers(final String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         if (TriggerConditions.played(game, effectResult, self)
                 && PlayConditions.canSpot(game, Filters.not(self), Keyword.EASTERLING)) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
@@ -48,7 +48,7 @@ public class Card10_041 extends AbstractMinion {
                         protected void spottedCards(int spotCount) {
                             if (spotCount > 5)
                                 action.appendEffect(
-                                        new AddBurdenEffect(self, spotCount - 5));
+                                        new AddBurdenEffect(playerId, self, spotCount - 5));
                         }
                     });
             return Collections.singletonList(action);

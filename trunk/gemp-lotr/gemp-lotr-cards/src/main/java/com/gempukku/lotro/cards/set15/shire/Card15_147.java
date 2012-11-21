@@ -39,7 +39,7 @@ public class Card15_147 extends AbstractFollower {
 
     @Override
     protected Effect getAidCost(LotroGame game, Action action, PhysicalCard self) {
-        return new AddBurdenEffect(self, 1);
+        return new AddBurdenEffect(self.getOwner(), self, 1);
     }
 
     @Override

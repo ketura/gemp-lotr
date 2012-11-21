@@ -44,7 +44,7 @@ public class Card11_254 extends AbstractNewSite {
                         }
                     });
             possibleEffects.add(
-                    new AddBurdenEffect(self, 1));
+                    new AddBurdenEffect(fpPlayerId, self, 1));
             action.appendEffect(
                     new ChoiceEffect(action, fpPlayerId, possibleEffects));
             return Collections.singletonList(action);

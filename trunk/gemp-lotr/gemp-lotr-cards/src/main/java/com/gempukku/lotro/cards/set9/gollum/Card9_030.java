@@ -44,7 +44,7 @@ public class Card9_030 extends AbstractCompanion {
     public PlayPermanentAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         PlayPermanentAction permanentAction = super.getPlayCardAction(playerId, game, self, twilightModifier, ignoreRoamingPenalty);
         permanentAction.appendCost(
-                new AddBurdenEffect(self, 1));
+                new AddBurdenEffect(self.getOwner(), self, 1));
         return permanentAction;
     }
 
@@ -71,7 +71,7 @@ public class Card9_030 extends AbstractCompanion {
                 && game.getGameState().getRingBearer(playerId) == self) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new AddBurdenEffect(self, 2));
+                    new AddBurdenEffect(self.getOwner(), self, 2));
             action.appendEffect(
                     new DiscardCardsFromPlayEffect(self, CardType.MINION));
             return Collections.singletonList(action);

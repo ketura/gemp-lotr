@@ -28,7 +28,7 @@ public class Card4_304 extends AbstractEvent {
         int siteNumber = game.getGameState().getCurrentSiteNumber();
         PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new AddBurdenEffect(self, 2));
+                new AddBurdenEffect(self.getOwner(), self, 2));
         action.appendEffect(
                 new PlaySiteEffect(action, playerId, null, siteNumber + 1));
         if (siteNumber < 8)

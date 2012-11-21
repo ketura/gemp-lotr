@@ -36,7 +36,7 @@ public class Card12_163 extends AbstractPermanent {
             action.appendCost(
                     new ChooseAndHealCharactersEffect(action, playerId, 1, 1, 2, Filters.ringBearer));
             action.appendEffect(
-                    new AddBurdenEffect(self, 1));
+                    new AddBurdenEffect(playerId, self, 1));
             return Collections.singletonList(action);
         }
         return null;

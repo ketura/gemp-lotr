@@ -46,7 +46,7 @@ public class Card13_033 extends AbstractCompanion {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             List<Effect> possibleEffects = new LinkedList<Effect>();
             possibleEffects.add(
-                    new AddBurdenEffect(self, 3));
+                    new AddBurdenEffect(self.getOwner(), self, 3));
             if (PlayConditions.canSpot(game, 2, Filters.not(self), CardType.COMPANION))
                 possibleEffects.add(
                         new ChooseAndDiscardCardsFromHandEffect(action, game.getGameState().getCurrentPlayerId(), false, 2, Culture.GANDALF) {

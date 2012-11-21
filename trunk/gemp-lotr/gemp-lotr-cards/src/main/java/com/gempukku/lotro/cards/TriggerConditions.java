@@ -81,6 +81,19 @@ public class TriggerConditions {
         return false;
     }
 
+    public static boolean sidePlayerAddedBurden(LotroGame game, EffectResult effectResult, Side side) {
+        if (effectResult.getType() == EffectResult.Type.ADD_BURDEN) {
+            AddBurdenResult burdenResult = (AddBurdenResult) effectResult;
+            String fpPlayer = game.getGameState().getCurrentPlayerId();
+            if ((side == Side.FREE_PEOPLE && fpPlayer.equals(burdenResult.getPerformingPlayer()))
+                || (side == Side.SHADOW && !fpPlayer.equals(burdenResult.getPerformingPlayer())))
+                return true;
+            else
+                return false;
+        }
+        return false;
+    }
+
     public static boolean addedBurden(LotroGame game, EffectResult effectResult, Filterable... sourceFilters) {
         if (effectResult.getType() == EffectResult.Type.ADD_BURDEN) {
             AddBurdenResult burdenResult = (AddBurdenResult) effectResult;

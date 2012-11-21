@@ -51,7 +51,7 @@ public class Card4_141 extends AbstractResponseOldEvent {
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Culture.ISENGARD, CardType.MINION));
             boolean hasSpecific = Filters.or(Filters.aragorn, Filters.gandalf, Filters.name(Names.theoden)).accepts(game.getGameState(), game.getModifiersQuerying(), killResult.getKilledCard());
             action.appendEffect(
-                    new AddBurdenEffect(self, hasSpecific ? 2 : 1));
+                    new AddBurdenEffect(self.getOwner(), self, hasSpecific ? 2 : 1));
             return Collections.singletonList(action);
         }
         return null;

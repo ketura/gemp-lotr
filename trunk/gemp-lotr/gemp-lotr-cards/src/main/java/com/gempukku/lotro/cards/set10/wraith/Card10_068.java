@@ -50,7 +50,7 @@ public class Card10_068 extends AbstractMinion {
             action.appendCost(
                     new HealCharactersEffect(self, self));
             action.appendEffect(
-                    new AddBurdenEffect(self, 1));
+                    new AddBurdenEffect(playerId, self, 1));
             return Collections.singletonList(action);
         }
         return null;

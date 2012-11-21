@@ -51,7 +51,7 @@ public class Card1_155 extends AbstractMinion {
                             public void doPlayEffect(LotroGame game) {
                                 List<? extends PhysicalCard> deck = game.getGameState().getDeck(playerId);
                                 if (deck.size() > 0 && deck.get(0).getBlueprint().getSide() == Side.SHADOW)
-                                    action.appendEffect(new AddBurdenEffect(self, 1));
+                                    action.appendEffect(new AddBurdenEffect(self.getOwner(), self, 1));
                             }
                         });
                 action.appendEffect(new DiscardTopCardFromDeckEffect(self, playerId, false));

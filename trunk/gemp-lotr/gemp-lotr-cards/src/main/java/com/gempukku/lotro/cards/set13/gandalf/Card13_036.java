@@ -67,7 +67,7 @@ public class Card13_036 extends AbstractAttachableFPPossession {
         if (TriggerConditions.startOfPhase(game, effectResult, Phase.FELLOWSHIP)) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(
-                    new AddBurdenEffect(self, 1));
+                    new AddBurdenEffect(self.getOwner(), self, 1));
             action.appendEffect(
                     new ChooseOpponentEffect(playerId) {
                         @Override

@@ -65,7 +65,7 @@ public class Card15_085 extends AbstractEvent {
                             }
                         }) {
                     @Override
-                    protected void cardSelected(LotroGame game, final PhysicalCard card) {
+                    protected void cardSelected(final LotroGame game, final PhysicalCard card) {
                         action.appendEffect(
                                 new PreventableEffect(action,
                                         new ReturnCardsToHandEffect(self, Filters.and(Side.FREE_PEOPLE, Filters.attachedTo(card))) {
@@ -77,7 +77,7 @@ public class Card15_085 extends AbstractEvent {
                                         new PreventableEffect.PreventionCost() {
                                             @Override
                                             public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
-                                                return new AddBurdenEffect(self, 1);
+                                                return new AddBurdenEffect(game.getGameState().getCurrentPlayerId(), self, 1);
                                             }
                                         }, new DiscardCardsFromPlayEffect(self, Side.FREE_PEOPLE, Filters.attachedTo(card))
                                 ));

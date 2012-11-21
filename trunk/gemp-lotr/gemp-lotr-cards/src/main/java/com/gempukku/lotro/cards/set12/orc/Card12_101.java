@@ -37,7 +37,7 @@ public class Card12_101 extends AbstractPermanent {
         if (TriggerConditions.winsSkirmish(game, effectResult, Culture.ORC, CardType.MINION, Filters.hasAttached(Filters.weapon))) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new AddBurdenEffect(self, 1));
+                    new AddBurdenEffect(self.getOwner(), self, 1));
             return Collections.singletonList(action);
         }
         return null;

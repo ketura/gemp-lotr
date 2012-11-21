@@ -42,7 +42,7 @@ public class Card7_270 extends AbstractMinion {
                 RequiredTriggerAction action = new RequiredTriggerAction(self);
                 int controlledSites = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.siteControlled(self.getOwner()));
                 action.appendEffect(
-                        new AddBurdenEffect(self, controlledSites));
+                        new AddBurdenEffect(self.getOwner(), self, controlledSites));
                 return Collections.singletonList(action);
             }
         }

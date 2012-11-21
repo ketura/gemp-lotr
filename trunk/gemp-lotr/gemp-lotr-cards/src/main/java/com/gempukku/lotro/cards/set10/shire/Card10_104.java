@@ -34,7 +34,7 @@ public class Card10_104 extends AbstractPermanent {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.FELLOWSHIP, self)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new AddBurdenEffect(self, 1));
+                    new AddBurdenEffect(playerId, self, 1));
             Collection<PhysicalCard> shireEvents = Filters.filter(game.getGameState().getDiscard(playerId), game.getGameState(), game.getModifiersQuerying(), Culture.SHIRE, CardType.EVENT);
             action.appendEffect(
                     new ChooseArbitraryCardsEffect(playerId, "Choose events", filterUniqueNames(shireEvents), 2, 2) {

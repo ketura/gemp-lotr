@@ -35,7 +35,7 @@ public class Card7_169 extends AbstractPermanent {
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
+    protected List<? extends Action> getExtraPhaseActions(String playerId, final LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.REGROUP, self, 0)
                 && PlayConditions.canExert(self, game, Keyword.EASTERLING)
                 && PlayConditions.canSelfDiscard(self, game)) {
@@ -56,7 +56,7 @@ public class Card7_169 extends AbstractPermanent {
                             new PreventableEffect.PreventionCost() {
                                 @Override
                                 public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
-                                    return new AddBurdenEffect(self, 2);
+                                    return new AddBurdenEffect(game.getGameState().getCurrentPlayerId(), self, 2);
                                 }
                             }));
             return Collections.singletonList(action);

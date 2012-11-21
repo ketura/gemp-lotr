@@ -42,7 +42,7 @@ public class Card17_140 extends AbstractMinion {
         if (TriggerConditions.forEachHealed(game, effectResult, CardType.COMPANION)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new AddBurdenEffect(self, 1));
+                    new AddBurdenEffect(self.getOwner(), self, 1));
             return Collections.singletonList(action);
         }
         return null;

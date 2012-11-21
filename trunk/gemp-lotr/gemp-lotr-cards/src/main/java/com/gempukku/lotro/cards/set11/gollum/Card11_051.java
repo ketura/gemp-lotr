@@ -42,7 +42,7 @@ public class Card11_051 extends AbstractCompanion {
     public PlayPermanentAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         PlayPermanentAction permanentAction = super.getPlayCardAction(playerId, game, self, twilightModifier, ignoreRoamingPenalty);
         permanentAction.appendCost(
-                new AddBurdenEffect(self, 1));
+                new AddBurdenEffect(playerId, self, 1));
         return permanentAction;
     }
 

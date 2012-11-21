@@ -47,14 +47,14 @@ public class Card10_022 extends AbstractPermanent {
                             action.appendEffect(
                                     new ChooseActiveCardEffect(self, playerId, "Choose companion", CardType.COMPANION, Filters.hasAttached(CardType.ARTIFACT), Filters.assignableToSkirmishAgainst(Side.SHADOW, gollum)) {
                                         @Override
-                                        protected void cardSelected(LotroGame game, PhysicalCard companion) {
+                                        protected void cardSelected(final LotroGame game, PhysicalCard companion) {
                                             action.appendEffect(
                                                     new PreventableEffect(action,
                                                             new AssignmentEffect(playerId, companion, gollum), game.getGameState().getCurrentPlayerId(),
                                                             new PreventableEffect.PreventionCost() {
                                                                 @Override
                                                                 public Effect createPreventionCostForPlayer(final SubAction subAction, final String playerId) {
-                                                                    return new AddBurdenEffect(self, 1) {
+                                                                    return new AddBurdenEffect(game.getGameState().getCurrentPlayerId(), self, 1) {
                                                                         @Override
                                                                         public String getText(LotroGame game) {
                                                                             return "Add a burden and assign Gollum";

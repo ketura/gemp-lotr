@@ -26,7 +26,7 @@ public class Card5_113 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new AddBurdenEffect(self, 3));
+                new AddBurdenEffect(self.getOwner(), self, 3));
         action.appendEffect(
                 new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, 2, CardType.MINION, Filters.inSkirmishAgainst(CardType.COMPANION, Signet.FRODO)));
         return action;

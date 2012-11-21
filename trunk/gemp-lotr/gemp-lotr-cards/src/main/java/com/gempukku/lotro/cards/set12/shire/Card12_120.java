@@ -40,7 +40,7 @@ public class Card12_120 extends AbstractEvent {
         PlayEventAction action = new PlayEventAction(self);
         if (PlayConditions.isPhase(game, Phase.SKIRMISH))
             action.appendCost(
-                    new AddBurdenEffect(self, 2));
+                    new AddBurdenEffect(playerId, self, 2));
         action.appendCost(
                 new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Race.HOBBIT, Filters.notAssignedToSkirmish));
         action.appendEffect(

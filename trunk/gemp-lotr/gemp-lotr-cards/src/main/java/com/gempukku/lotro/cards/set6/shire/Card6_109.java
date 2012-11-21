@@ -48,7 +48,7 @@ public class Card6_109 extends AbstractAttachable {
             action.appendEffect(
                     new PreventCardEffect((WoundCharactersEffect) effect, self.getAttachedTo()));
             action.appendEffect(
-                    new AddBurdenEffect(self, 1));
+                    new AddBurdenEffect(self.getOwner(), self, 1));
             return Collections.singletonList(action);
         }
         return null;

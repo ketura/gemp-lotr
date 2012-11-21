@@ -42,7 +42,7 @@ public class Card4_314 extends AbstractCompanion {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new AddBurdenEffect(self, 1));
+                    new AddBurdenEffect(self.getOwner(), self, 1));
             action.appendEffect(
                     new PreventableEffect(action,
                             new SelfDiscardEffect(self),
