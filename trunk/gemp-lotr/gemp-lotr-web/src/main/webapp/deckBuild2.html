@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Gemp-LotR</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="pragma" content="no-cache"/>
+    <meta http-equiv="Cache-Control" content="no-cache"/>
+    <meta http-equiv="Expires" content="-1">
+
+    <style type="text/css">
+        body {
+            font-size: 12px;
+        }
+
+        .borderOverlay {
+            border: 0px solid #000000;
+        }
+
+        .foilOverlay {
+            opacity: 0.2;
+        }
+
+        .selectableCard > .borderOverlay {
+            border: 2px solid #00ff00;
+            cursor: pointer;
+        }
+
+        .selectedCard > .borderOverlay {
+            border: 2px solid #00cccc;
+        }
+
+        .cardCount {
+            width: 20px;
+            height: 18px;
+            background-color: #000000;
+            color: #ffffff;
+            font-size: 120%;
+            font-weight: bolder;
+            display: table-cell;
+            text-align: center;
+            vertical-align: middle;
+            opacity: 0.7;
+        }
+
+        .ui-layout-east {
+            width: 350px;
+        }
+
+        #manageDecks {
+            color: #ffffff;
+            font-size: 180%;
+        }
+
+        #editingDeck {
+            vertical-align: top;
+            padding-left: 3px;
+        }
+
+        #deckStats {
+            color: #ffffff;
+        }
+
+        .ui-button-text-only .ui-button-text {
+            font-size: 70%;
+        }
+
+        #set {
+            width: 120px;
+        }
+
+        #cardType {
+            width: 100px;
+        }
+
+        #fullFiltering select {
+            font-size: 80%;
+        }
+
+        #fullFiltering input {
+            font-size: 80%;
+        }
+
+        #filtering select {
+            font-size: 80%;
+        }
+
+    </style>
+    <link rel="stylesheet" type="text/css" href="css/dark-hive/jquery-ui-1.8.16.custom.css">
+    <link rel="stylesheet" type="text/css" href="js/jquery/styles/jquery.spinnercontrol.css">
+
+    <script type="text/javascript" src="js/jquery/jquery-1.6.2.js"></script>
+    <script type="text/javascript" src="js/jquery/jquery-ui-1.8.16.custom.min.js"></script>
+    <script type="text/javascript" src="js/jquery/jquery.cookie.js"></script>
+    <script type="text/javascript" src="js/jquery/jquery.layout.js"></script>
+    <script type="text/javascript" src="js/jquery/jquery.touchSwipe.js"></script>
+
+    <script type="text/javascript" src="js/gemp-011/inheritance.js"></script>
+    <script type="text/javascript" src="js/gemp-011/common.js"></script>
+    <script type="text/javascript" src="js/gemp-011/communication.js"></script>
+    <script type="text/javascript" src="js/gemp-011/logging.js"></script>
+    <script type="text/javascript" src="js/gemp-011/commonUi.js"></script>
+    <script type="text/javascript" src="js/gemp-011/cardFilter.js"></script>
+    <script type="text/javascript" src="js/gemp-011/deckBuildingUi2.js"></script>
+
+    <script type="text/javascript">
+
+        // TODO: delete - Only for debugging
+        function getUrlParam(param) {
+            var search = window.location.search.substring(1);
+            if (search.indexOf('&') > -1) {
+                var params = search.split('&');
+                for (var i = 0; i < params.length; i++) {
+                    var key_value = params[i].split('=');
+                    if (key_value[0] == param) return key_value[1];
+                }
+            } else {
+                var params = search.split('=');
+                if (params[0] == param) return params[1];
+            }
+            return null;
+        }
+
+        function getMapSize(map) {
+            var size = 0, key;
+            for (key in map)
+                if (map.hasOwnProperty(key)) size++;
+            return size;
+        }
+
+        $(document).ready(
+                function () {
+                    var ui = new GempLotrDeckBuildingUI2($("#collectionFilterDiv"), $("#paging"));
+
+                    $('body').layout({
+                        applyDefaultStyles:true,
+                        onresize:function () {
+                            ui.layoutUI(true);
+                        },
+                        north__minSize: 200
+                    });
+
+                    $("#northPanel").layout({
+                        applyDefaultStyles:true,
+                        onresize:function() {
+                            ui.layoutUI(true);
+                        },
+                        west__minSize: 340
+
+                    });
+
+                    $(".ui-layout-pane").css({"background-color":"#000000"});
+
+                    $(window).resize(function () {
+                        ui.layoutUI(true);
+                    });
+
+                    ui.layoutUI(true);
+                });
+    </script>
+
+</head>
+<body>
+<div id='northPanel' class="ui-layout-north">
+    <div id="collectionFilterDiv" class="ui-layout-west"></div>
+    <div id="collectionDiv" class="ui-layout-center">
+        <div id="paging"></div>
+    </div>
+</div>
+<div id="deckDiv" class="ui-layout-center"></div>
+</body>
+</html>
