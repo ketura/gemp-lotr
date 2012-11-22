@@ -119,7 +119,6 @@ var GempLotrGameUI = Class.extend({
             replayDiv.append("<br/>");
 
             var replayBut = $("<img id='replayButton' src='images/play.png' width='64' height='64'>").button();
-//            var replayBut = $("<button id='replayButton'>Play/Pause</button>").button({ icons: {primary:'ui-icon-custom-play'}, text: false}).css({width: "65px", height: "65px"});
             replayDiv.append(replayBut);
 
             $("#main").append(replayDiv);
