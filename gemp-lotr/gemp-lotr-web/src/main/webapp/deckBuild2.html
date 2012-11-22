@@ -13,77 +13,9 @@
             font-size: 12px;
         }
 
-        .borderOverlay {
-            border: 0px solid #000000;
-        }
-
-        .foilOverlay {
-            opacity: 0.2;
-        }
-
-        .selectableCard > .borderOverlay {
-            border: 2px solid #00ff00;
-            cursor: pointer;
-        }
-
-        .selectedCard > .borderOverlay {
-            border: 2px solid #00cccc;
-        }
-
-        .cardCount {
-            width: 20px;
-            height: 18px;
-            background-color: #000000;
-            color: #ffffff;
-            font-size: 120%;
-            font-weight: bolder;
-            display: table-cell;
-            text-align: center;
-            vertical-align: middle;
-            opacity: 0.7;
-        }
-
-        .ui-layout-east {
-            width: 350px;
-        }
-
-        #manageDecks {
-            color: #ffffff;
-            font-size: 180%;
-        }
-
-        #editingDeck {
-            vertical-align: top;
-            padding-left: 3px;
-        }
-
-        #deckStats {
-            color: #ffffff;
-        }
-
-        .ui-button-text-only .ui-button-text {
-            font-size: 70%;
-        }
-
-        #set {
-            width: 120px;
-        }
-
-        #cardType {
-            width: 100px;
-        }
-
-        #fullFiltering select {
-            font-size: 80%;
-        }
-
-        #fullFiltering input {
-            font-size: 80%;
-        }
-
-        #filtering select {
-            font-size: 80%;
-        }
+        .panel {
+            overflow: hidden !important;
+        } 
 
     </style>
     <link rel="stylesheet" type="text/css" href="css/dark-hive/jquery-ui-1.8.16.custom.css">
@@ -130,12 +62,25 @@
 
         $(document).ready(
                 function () {
-                    var ui = new GempLotrDeckBuildingUI2($("#collectionFilterDiv"), $("#paging"));
+                    var ui = new GempLotrDeckBuildingUI2(
+                            $("#collectionFilterDiv"),
+                            $("#paging"),
+                            $("#collectionContents"),
+                            $("#deckDiv")
+                    );
+
+                    var doLayout = function() {
+                        var collectionWidth = $("#collectionDiv").width();
+                        var collectionHeight = $("#collectionDiv").height();
+                        var deckWidth = $("#deckPanel").width();
+                        var deckHeight = $("#deckPanel").height();
+                        ui.layoutUI(collectionWidth, collectionHeight, deckWidth, deckHeight);
+                    };
 
                     $('body').layout({
                         applyDefaultStyles:true,
                         onresize:function () {
-                            ui.layoutUI(true);
+                            doLayout();
                         },
                         north__minSize: 200
                     });
@@ -143,30 +88,35 @@
                     $("#northPanel").layout({
                         applyDefaultStyles:true,
                         onresize:function() {
-                            ui.layoutUI(true);
+                            doLayout();
                         },
-                        west__minSize: 340
+                        west__minSize: 370
 
                     });
 
                     $(".ui-layout-pane").css({"background-color":"#000000"});
 
                     $(window).resize(function () {
-                        ui.layoutUI(true);
+                        doLayout();
                     });
 
-                    ui.layoutUI(true);
+                    doLayout();
                 });
+
     </script>
 
 </head>
 <body>
-<div id='northPanel' class="ui-layout-north">
-    <div id="collectionFilterDiv" class="ui-layout-west"></div>
-    <div id="collectionDiv" class="ui-layout-center">
+<div id='northPanel' class="ui-layout-north panel">
+    <div id="collectionFilterDiv" class="ui-layout-west panel"></div>
+    <div id="collectionDiv" class="ui-layout-center panel">
         <div id="paging"></div>
+        <div id="collectionContents" class="ui-widget-content"></div>
     </div>
 </div>
-<div id="deckDiv" class="ui-layout-center"></div>
+<div id="deckPanel" class="ui-layout-center panel">
+    <div id="deckDiv" class="ui-widget-content">
+    </div>
+</div>
 </body>
 </html>
