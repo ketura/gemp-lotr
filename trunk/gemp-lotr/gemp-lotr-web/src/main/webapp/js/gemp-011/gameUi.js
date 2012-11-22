@@ -68,6 +68,7 @@ var GempLotrGameUI = Class.extend({
     tabPane:null,
 
     animations:null,
+    replayPlay: false,
 
     init:function (url, replayMode) {
         this.replayMode = replayMode;
@@ -115,14 +116,15 @@ var GempLotrGameUI = Class.extend({
                 });
             replayDiv.append(slowerBut);
             replayDiv.append(fasterBut);
-            replayDiv.append("<input type='checkbox' id='replayButton' /><label id='replayBut' for='replayButton'><img src='images/play.png' width='50' height='50'/></label>");
+            var replayBut = $("<button id='replayButton'></button>").button({ icons: {primary:'ui-icon-custom-play'}});
+            replayDiv.append(replayBut);
+
             $("#main").append(replayDiv);
             replayDiv.css({"z-index":1000});
-            $("#replayButton").button();
-            $("#slowerButton").css({position:"absolute", left: "0px", top: "0px", width: "25px", height: "25px", margin: "0px"});
-            $("#fasterButton").css({position:"absolute", left: "25px", top: "0px", width: "25px", height: "25px", margin: "0px"});
-            $("#replayButton").css({position:"absolute", left: "0px", top: "25px", width: "50px", height: "50px", margin: "0px"});
-            $("#replayBut").css({position:"absolute", left: "0px", top: "25px", width: "50px", height: "50px", margin: "0px"});
+
+            $("#slowerButton").css({position:"absolute", left: "0px", top: "0px", width: "25px", height: "25px"});
+            $("#fasterButton").css({position:"absolute", left: "25px", top: "0px", width: "25px", height: "25px"});
+            $("#replayButton").css({position:"absolute", left: "0px", top: "25px", width: "50px", height: "50px"});
         }
 
         this.shadowAssignGroups = {};
@@ -921,9 +923,16 @@ var GempLotrGameUI = Class.extend({
             this.replayGameEvents = root.getElementsByTagName("ge");
             this.replayGameEventNextIndex = 0;
 
-            $("label", $(".replay")).click(
-                function () {
-                    that.playNextReplayEvent();
+            $("#replayButton").click(
+                function() {
+                    if (that.replayPlay) {
+                        that.replayPlay = false;
+                        $("#replayButton").button("option", {primary:'ui-icon-custom-play'});
+                    } else {
+                        that.replayPlay = true;
+                        $("#replayButton").button("option", {primary:'ui-icon-custom-pause'});
+                        that.playNextReplayEvent();
+                    }
                 });
 
             this.playNextReplayEvent();
@@ -931,7 +940,7 @@ var GempLotrGameUI = Class.extend({
     },
 
     shouldPlay:function () {
-        return $("label", $(".replay")).hasClass("ui-state-active");
+        return this.replayPlay;
     },
 
     playNextReplayEvent:function () {
