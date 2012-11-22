@@ -23,7 +23,7 @@ var CardFilter = Class.extend({
     sortSelect:null,
     raritySelect:null,
 
-    init:function (elem, getCollectionFunc, clearCollectionFunc, addCardFunc, finishCollectionFunc) {
+    init:function (elem, pageElem, getCollectionFunc, clearCollectionFunc, addCardFunc, finishCollectionFunc) {
         this.getCollectionFunc = getCollectionFunc;
         this.clearCollectionFunc = clearCollectionFunc;
         this.addCardFunc = addCardFunc;
@@ -31,7 +31,7 @@ var CardFilter = Class.extend({
 
         this.filter = "";
 
-        this.buildUi(elem);
+        this.buildUi(elem, pageElem);
     },
 
     enableDetailFilters:function (enable) {
@@ -52,7 +52,7 @@ var CardFilter = Class.extend({
         $("#type").val(typeValue);
     },
 
-    buildUi:function (elem) {
+    buildUi:function (elem, pageElem) {
         var that = this;
 
         this.pageDiv = $("<div></div>");
@@ -100,7 +100,7 @@ var CardFilter = Class.extend({
         this.pageDiv.append(this.nextPageBut);
         this.pageDiv.append(this.countSlider);
 
-        elem.append(this.pageDiv);
+        pageElem.append(this.pageDiv);
 
         this.fullFilterDiv = $("<div></div>");
         this.setSelect = $("<select style='width: 130px; font-size: 80%;'>"

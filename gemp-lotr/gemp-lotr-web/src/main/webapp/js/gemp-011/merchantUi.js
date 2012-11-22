@@ -23,7 +23,7 @@ var GempLotrMerchantUI = Class.extend({
 
         this.comm = new GempLotrCommunication("/gemp-lotr-server", that.processError);
 
-        this.cardFilter = new CardFilter(cardFilterElem,
+        this.cardFilter = new CardFilter(cardFilterElem, cardFilterElem,
             function (filter, start, count, callback) {
                 that.comm.getMerchant(filter, that.ownedMin, start, count, callback);
             },

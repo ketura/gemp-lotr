@@ -50,7 +50,7 @@ var GempLotrDeckBuildingUI = Class.extend({
 
         this.comm = new GempLotrCommunication("/gemp-lotr-server", that.processError);
 
-        this.cardFilter = new CardFilter($("#collectionDiv"),
+        this.cardFilter = new CardFilter($("#collectionDiv"),$("#collectionDiv"),
             function (filter, start, count, callback) {
                 that.comm.getCollection(that.collectionType, filter, start, count, function (xml) {
                     callback(xml);
