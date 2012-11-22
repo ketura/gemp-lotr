@@ -104,8 +104,8 @@ var GempLotrGameUI = Class.extend({
 
         if (this.replayMode) {
             var replayDiv = $("<div class='replay' style='position:absolute'></div>");
-            var slowerBut = $( "<button id='slowerButton'></button>" ).button({ icons: {primary:'ui-icon-triangle-1-w'}});
-            var fasterBut = $( "<button id='fasterButton'></button>" ).button({ icons: {primary:'ui-icon-triangle-1-e'}});
+            var slowerBut = $( "<button id='slowerButton'>Slower</button>" ).button({ icons: {primary:'ui-icon-triangle-1-w'}, text: false});
+            var fasterBut = $( "<button id='fasterButton'>Faster</button>" ).button({ icons: {primary:'ui-icon-triangle-1-e'}, text: false});
             slowerBut.click(
                 function() {
                     that.animations.replaySpeed = Math.min(2, that.animations.replaySpeed+0.2);
@@ -116,15 +116,14 @@ var GempLotrGameUI = Class.extend({
                 });
             replayDiv.append(slowerBut);
             replayDiv.append(fasterBut);
-            var replayBut = $("<button id='replayButton'></button>").button({ icons: {primary:'ui-icon-custom-play'}});
+            replayDiv.append("<br/>");
+
+            var replayBut = $("<img id='replayButton' src='images/play.png' width='64' height='64'>").button();
+//            var replayBut = $("<button id='replayButton'>Play/Pause</button>").button({ icons: {primary:'ui-icon-custom-play'}, text: false}).css({width: "65px", height: "65px"});
             replayDiv.append(replayBut);
 
             $("#main").append(replayDiv);
             replayDiv.css({"z-index":1000});
-
-            $("#slowerButton").css({position:"absolute", left: "0px", top: "0px", width: "25px", height: "25px"});
-            $("#fasterButton").css({position:"absolute", left: "25px", top: "0px", width: "25px", height: "25px"});
-            $("#replayButton").css({position:"absolute", left: "0px", top: "25px", width: "50px", height: "50px"});
         }
 
         this.shadowAssignGroups = {};
@@ -859,7 +858,7 @@ var GempLotrGameUI = Class.extend({
         this.chatBox.setBounds(4, 4 + 25, specialUiWidth + advPathWidth - 8, chatHeight - 8 - 25);
 
         if (this.replayMode) {
-            $(".replay").css({position:"absolute", left:width - 50 - 4 - padding, top:height - 75 - 2 - padding, width:50, height:75, "z-index":1000});
+            $(".replay").css({position:"absolute", left:width - 66 - 4 - padding, top:height - 97 - 2 - padding, width:66, height:97, "z-index":1000});
         }
     },
 
@@ -927,10 +926,10 @@ var GempLotrGameUI = Class.extend({
                 function() {
                     if (that.replayPlay) {
                         that.replayPlay = false;
-                        $("#replayButton").button("option", {primary:'ui-icon-custom-play'});
+                        $("#replayButton").attr("src", "images/play.png");
                     } else {
                         that.replayPlay = true;
-                        $("#replayButton").button("option", {primary:'ui-icon-custom-pause'});
+                        $("#replayButton").attr("src", "images/pause.png");
                         that.playNextReplayEvent();
                     }
                 });
