@@ -19,3 +19,11 @@ function formatPrice(price) {
 function getDateString(date) {
     return date.substring(0, 4) + "-" + date.substring(4, 6) + "-" + date.substring(6, 8);
 }
+
+function iterObj(obj, func) {
+    for (var key in obj) {
+        if (obj.hasOwnProperty(key)) {
+            func(key, obj[key]);
+        }
+    }
+}
