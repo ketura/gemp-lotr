@@ -15,7 +15,11 @@
 
         .panel {
             overflow: hidden !important;
-        } 
+        }
+
+        .card {
+            position: absolute;
+        }
 
     </style>
     <link rel="stylesheet" type="text/css" href="css/dark-hive/jquery-ui-1.8.16.custom.css">
@@ -32,7 +36,12 @@
     <script type="text/javascript" src="js/gemp-011/communication.js"></script>
     <script type="text/javascript" src="js/gemp-011/logging.js"></script>
     <script type="text/javascript" src="js/gemp-011/commonUi.js"></script>
-    <script type="text/javascript" src="js/gemp-011/cardFilter.js"></script>
+    <script type="text/javascript" src="js/gemp-011/jCards.js"></script>
+    <script type="text/javascript" src="js/gemp-011/CardContainer.js"></script>
+    <script type="text/javascript" src="js/gemp-011/CardGroup.js"></script>
+    <script type="text/javascript" src="js/gemp-011/RowCardLayoutCardGroup.js"></script>
+    <script type="text/javascript" src="js/gemp-011/cardFilter2.js"></script>
+    <script type="text/javascript" src="js/gemp-011/DeckPanel.js"></script>
     <script type="text/javascript" src="js/gemp-011/deckBuildingUi2.js"></script>
 
     <script type="text/javascript">
@@ -67,7 +76,7 @@
                             $("#paging"),
                             $("#collectionContents"),
                             $("#deckDiv")
-                    );
+                            );
 
                     var doLayout = function() {
                         var collectionWidth = $("#collectionDiv").width();
@@ -107,11 +116,11 @@
 
 </head>
 <body>
-<div id='northPanel' class="ui-layout-north panel">
+<div id='northPanel' class="ui-layout-north panel" style="padding: 0;">
     <div id="collectionFilterDiv" class="ui-layout-west panel"></div>
     <div id="collectionDiv" class="ui-layout-center panel">
         <div id="paging"></div>
-        <div id="collectionContents" class="ui-widget-content"></div>
+        <div id="collectionContents" class="ui-widget-content" style="position: relative"></div>
     </div>
 </div>
 <div id="deckPanel" class="ui-layout-center panel">
