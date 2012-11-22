@@ -291,6 +291,11 @@ var CardFilter = Class.extend({
         this.filterDiv.css({ position:"absolute", left:x, top:y + 80, width:width, height:80 });
     },
 
+    layoutPageUi: function(x, y, width) {
+        this.pageDiv.css({ left:x, top:y, width:width, height:36 });
+        this.countSlider.css({width:width - 100});
+    },
+
     disableNavigation:function () {
         this.previousPageBut.button("option", "disabled", true);
         this.nextPageBut.button("option", "disabled", true);
