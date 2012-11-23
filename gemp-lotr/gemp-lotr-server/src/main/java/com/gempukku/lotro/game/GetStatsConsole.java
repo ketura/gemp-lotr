@@ -1,6 +1,7 @@
 package com.gempukku.lotro.game;
 
 import com.gempukku.lotro.db.DbAccess;
+import com.gempukku.lotro.db.DbGameHistoryDAO;
 import com.gempukku.lotro.db.GameHistoryDAO;
 
 import java.text.DecimalFormat;
@@ -17,7 +18,7 @@ public class GetStatsConsole {
 
     public static void main(String[] args) throws ParseException {
         DbAccess dbAccess = new DbAccess();
-        GameHistoryDAO gameHistoryDAO = new GameHistoryDAO(dbAccess);
+        GameHistoryDAO gameHistoryDAO = new DbGameHistoryDAO(dbAccess);
         GameHistoryService gameHistoryService = new GameHistoryService(gameHistoryDAO);
 
         createGameActiveGamesStats(gameHistoryService);

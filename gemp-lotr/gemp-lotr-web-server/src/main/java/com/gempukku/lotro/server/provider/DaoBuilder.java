@@ -23,10 +23,10 @@ public class DaoBuilder {
         objectMap.put(TournamentPlayerDAO.class, new DbTournamentPlayerDAO(dbAccess));
         objectMap.put(TournamentMatchDAO.class, new DbTournamentMatchDAO(dbAccess));
         objectMap.put(MerchantDAO.class, new DbMerchantDAO(dbAccess));
-        objectMap.put(LeagueDAO.class, new LeagueDAO(dbAccess));
-        objectMap.put(GameHistoryDAO.class, new GameHistoryDAO(dbAccess));
-        objectMap.put(DeckDAO.class, new DeckDAO(dbAccess, library));
+        objectMap.put(LeagueDAO.class, new DbLeagueDAO(dbAccess));
+        objectMap.put(GameHistoryDAO.class, new DbGameHistoryDAO(dbAccess));
+        objectMap.put(DeckDAO.class, new DbDeckDAO(dbAccess, library));
         objectMap.put(CollectionDAO.class, new DbCollectionDAO(dbAccess, collectionSerializer));
-        objectMap.put(PlayerDAO.class, new PlayerDAO(dbAccess));
+        objectMap.put(PlayerDAO.class, new DbPlayerDAO(dbAccess));
     }
 }
