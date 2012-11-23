@@ -88,6 +88,8 @@ public class DbDeliveryDAO implements DeliveryDAO {
         try {
             Connection connection = _dbAccess.getDataSource().getConnection();
             try {
+                Map<String, DefaultCardCollection> result = new HashMap<String, DefaultCardCollection>();
+
                 String sql = "select name, collection from delivery where player=? and delivered=0";
 
                 PreparedStatement statement = connection.prepareStatement(sql);
@@ -95,7 +97,6 @@ public class DbDeliveryDAO implements DeliveryDAO {
                     statement.setString(1, player);
                     ResultSet resultSet = statement.executeQuery();
                     try {
-                        Map<String, DefaultCardCollection> result = new HashMap<String, DefaultCardCollection>();
                         while (resultSet.next()) {
                             String name = resultSet.getString(1);
 
@@ -119,13 +120,22 @@ public class DbDeliveryDAO implements DeliveryDAO {
                             }
                             result.put(name, cardCollection);
                         }
-                        return result;
                     } finally {
                         resultSet.close();
                     }
                 } finally {
                     statement.close();
                 }
+
+                sql = "update delivery set delivered=1 where player=?";
+                statement = connection.prepareStatement(sql);
+                try {
+                    statement.setString(1, player);
+                    statement.executeUpdate();
+                } finally {
+                    statement.close();
+                }
+                return result;
             } finally {
                 connection.close();
             }
