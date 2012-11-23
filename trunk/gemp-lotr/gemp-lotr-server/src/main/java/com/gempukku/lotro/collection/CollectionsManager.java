@@ -151,7 +151,7 @@ public class CollectionsManager {
         try {
             setPlayerCollection(player, collectionType.getCode(), cardCollection);
             if (cardCollection.getAll().size() > 0)
-                addPackage(player, collectionType, cardCollection);
+                addPackage(player, "New collection", collectionType, cardCollection);
         } finally {
             _readWriteLock.writeLock().unlock();
         }
@@ -189,7 +189,7 @@ public class CollectionsManager {
             final CardCollection packContents = mutableCardCollection.openPack(packId, selection, packsStorage);
             if (packContents != null) {
                 setPlayerCollection(player, collectionType.getCode(), mutableCardCollection);
-                addPackage(player, collectionType, packContents);
+                addPackage(player, "Opened pack", collectionType, packContents);
             }
             return packContents;
         } finally {
@@ -210,7 +210,7 @@ public class CollectionsManager {
                 }
 
                 setPlayerCollection(player, collectionType.getCode(), mutableCardCollection);
-                addPackage(player, collectionType, addedCards);
+                addPackage(player, "Items added to collection", collectionType, addedCards);
             }
         } finally {
             _readWriteLock.writeLock().unlock();
@@ -234,6 +234,12 @@ public class CollectionsManager {
                 mutableCardCollection.addItem(blueprintId2, count2);
 
                 setPlayerCollection(player, collectionType.getCode(), mutableCardCollection);
+
+                DefaultCardCollection newCards = new DefaultCardCollection();
+                newCards.addItem(blueprintId2, count2);
+
+                addPackage(player, "Trading items", collectionType, newCards);
+
                 return true;
             }
             return false;
@@ -253,6 +259,11 @@ public class CollectionsManager {
                 mutableCardCollection.addItem(blueprintId, 1);
 
                 setPlayerCollection(player, collectionType.getCode(), mutableCardCollection);
+
+                DefaultCardCollection newCards = new DefaultCardCollection();
+                newCards.addItem(blueprintId, 1);
+
+                addPackage(player, "Items bought", collectionType, newCards);
                 return true;
             }
             return false;
@@ -272,6 +283,10 @@ public class CollectionsManager {
                 mutableCardCollection.addCurrency(currency);
 
                 setPlayerCollection(player, collectionType.getCode(), mutableCardCollection);
+
+                DefaultCardCollection newCurrency = new DefaultCardCollection();
+                newCurrency.addCurrency(currency);
+                addPackage(player, "Selling items", collectionType, newCurrency);
                 return true;
             }
             return false;
@@ -280,22 +295,29 @@ public class CollectionsManager {
         }
     }
 
-    public void addCurrencyToPlayerCollection(String player, CollectionType collectionType, int currency) {
-        addCurrencyToPlayerCollection(_playerDAO.getPlayer(player), collectionType, currency);
+    public void addCurrencyToPlayerCollection(String player, String reason, CollectionType collectionType, int currency) {
+        addCurrencyToPlayerCollection(_playerDAO.getPlayer(player), reason, collectionType, currency);
     }
 
-    public void addCurrencyToPlayerCollection(Player player, CollectionType collectionType, int currency) {
-        _readWriteLock.writeLock().lock();
-        try {
-            final CardCollection playerCollection = getPlayerCollection(player, collectionType.getCode());
-            if (playerCollection != null) {
-                MutableCardCollection mutableCardCollection = new DefaultCardCollection(playerCollection);
-                mutableCardCollection.addCurrency(currency);
+    public void addCurrencyToPlayerCollection(Player player, String reason, CollectionType collectionType, int currency) {
+        if (currency > 0) {
+            _readWriteLock.writeLock().lock();
+            try {
+                final CardCollection playerCollection = getPlayerCollection(player, collectionType.getCode());
+                if (playerCollection != null) {
+                    MutableCardCollection mutableCardCollection = new DefaultCardCollection(playerCollection);
+                    mutableCardCollection.addCurrency(currency);
 
-                setPlayerCollection(player, collectionType.getCode(), mutableCardCollection);
+                    setPlayerCollection(player, collectionType.getCode(), mutableCardCollection);
+
+                    DefaultCardCollection newCurrency = new DefaultCardCollection();
+                    newCurrency.addCurrency(currency);
+
+                    addPackage(player, reason, collectionType, newCurrency);
+                }
+            } finally {
+                _readWriteLock.writeLock().unlock();
             }
-        } finally {
-            _readWriteLock.writeLock().unlock();
         }
     }
 
@@ -316,7 +338,7 @@ public class CollectionsManager {
         }
     }
 
-    private void addPackage(Player player, CollectionType collectionType, CardCollection cards) {
-        _deliveryService.addPackage(player, collectionType.getFullName(), cards);
+    private void addPackage(Player player, String reason, CollectionType collectionType, CardCollection cards) {
+        _deliveryService.addPackage(player, reason, collectionType.getFullName(), cards);
     }
 }

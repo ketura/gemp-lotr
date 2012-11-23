@@ -1,38 +1,25 @@
 package com.gempukku.lotro.collection;
 
 import com.gempukku.lotro.game.CardCollection;
-import com.gempukku.lotro.game.DefaultCardCollection;
-import com.gempukku.lotro.game.MutableCardCollection;
 import com.gempukku.lotro.game.Player;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class DeliveryService {
-    private Map<String, Map<String, MutableCardCollection>> _undeliveredDeliverables = new HashMap<String, Map<String, MutableCardCollection>>();
+    private DeliveryDAO _deliveryDAO;
 
     private ReadWriteLock _deliveryLock = new ReentrantReadWriteLock(false);
 
-    public void addPackage(Player player, String packageName, CardCollection itemCollection) {
+    public DeliveryService(DeliveryDAO deliveryDAO) {
+        _deliveryDAO = deliveryDAO;
+    }
+
+    public void addPackage(Player player, String reason, String packageName, CardCollection itemCollection) {
         _deliveryLock.writeLock().lock();
         try {
-            Map<String, MutableCardCollection> playerDeliverables = _undeliveredDeliverables.get(player.getName());
-            if (playerDeliverables == null) {
-                playerDeliverables = new HashMap<String, MutableCardCollection>();
-                _undeliveredDeliverables.put(player.getName(), playerDeliverables);
-            }
-            MutableCardCollection deliverablesInCollection = playerDeliverables.get(packageName);
-            if (deliverablesInCollection == null) {
-                deliverablesInCollection = new DefaultCardCollection();
-                playerDeliverables.put(packageName, deliverablesInCollection);
-            }
-            for (Map.Entry<String, CardCollection.Item> itemToAdd : itemCollection.getAll().entrySet()) {
-                String blueprintId = itemToAdd.getKey();
-                int count = itemToAdd.getValue().getCount();
-                deliverablesInCollection.addItem(blueprintId, count);
-            }
+            _deliveryDAO.addPackage(player.getName(), reason, packageName, itemCollection);
         } finally {
             _deliveryLock.writeLock().unlock();
         }
@@ -41,7 +28,7 @@ public class DeliveryService {
     public boolean hasUndeliveredPackages(String player) {
         _deliveryLock.readLock().lock();
         try {
-            return _undeliveredDeliverables.containsKey(player);
+            return _deliveryDAO.hasUndeliveredPackages(player);
         } finally {
             _deliveryLock.readLock().unlock();
         }
@@ -50,7 +37,7 @@ public class DeliveryService {
     public Map<String, ? extends CardCollection> consumePackages(Player player) {
         _deliveryLock.writeLock().lock();
         try {
-            return _undeliveredDeliverables.remove(player.getName());
+            return _deliveryDAO.consumeUndeliveredPackages(player.getName());
         } finally {
             _deliveryLock.writeLock().unlock();
         }

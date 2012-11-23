@@ -101,7 +101,7 @@ public class SingleEliminationRecurringQueue implements TournamentQueue {
     public synchronized void leavePlayer(CollectionsManager collectionsManager, Player player) {
         if (_players.contains(player.getName())) {
             if (_cost > 0)
-                collectionsManager.addCurrencyToPlayerCollection(player, _currencyCollection, _cost);
+                collectionsManager.addCurrencyToPlayerCollection(player, "Return for leaving queue", _currencyCollection, _cost);
             _players.remove(player.getName());
             _playerDecks.remove(player.getName());
         }
@@ -111,7 +111,7 @@ public class SingleEliminationRecurringQueue implements TournamentQueue {
     public synchronized void leaveAllPlayers(CollectionsManager collectionsManager) {
         if (_cost > 0) {
             for (String player : _players)
-                collectionsManager.addCurrencyToPlayerCollection(player, _currencyCollection, _cost);
+                collectionsManager.addCurrencyToPlayerCollection(player, "Return for leaving queue", _currencyCollection, _cost);
         }
         _players.clear();
         _playerDecks.clear();
