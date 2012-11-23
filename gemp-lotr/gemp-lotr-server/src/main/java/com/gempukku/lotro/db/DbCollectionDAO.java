@@ -11,11 +11,11 @@ import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CollectionDAO {
+public class DbCollectionDAO implements CollectionDAO {
     private DbAccess _dbAccess;
     private CollectionSerializer _collectionSerializer;
 
-    public CollectionDAO(DbAccess dbAccess, CollectionSerializer collectionSerializer) {
+    public DbCollectionDAO(DbAccess dbAccess, CollectionSerializer collectionSerializer) {
         _dbAccess = dbAccess;
         _collectionSerializer = collectionSerializer;
     }
