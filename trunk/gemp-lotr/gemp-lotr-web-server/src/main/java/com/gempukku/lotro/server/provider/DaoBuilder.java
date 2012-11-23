@@ -26,7 +26,7 @@ public class DaoBuilder {
         objectMap.put(LeagueDAO.class, new LeagueDAO(dbAccess));
         objectMap.put(GameHistoryDAO.class, new GameHistoryDAO(dbAccess));
         objectMap.put(DeckDAO.class, new DeckDAO(dbAccess, library));
-        objectMap.put(CollectionDAO.class, new CollectionDAO(dbAccess, collectionSerializer));
+        objectMap.put(CollectionDAO.class, new DbCollectionDAO(dbAccess, collectionSerializer));
         objectMap.put(PlayerDAO.class, new PlayerDAO(dbAccess));
     }
 }
