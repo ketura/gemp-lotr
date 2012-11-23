@@ -2,6 +2,7 @@ package com.gempukku.lotro.server.provider;
 
 import com.gempukku.lotro.chat.ChatServer;
 import com.gempukku.lotro.collection.CollectionsManager;
+import com.gempukku.lotro.collection.DeliveryDAO;
 import com.gempukku.lotro.collection.DeliveryService;
 import com.gempukku.lotro.db.*;
 import com.gempukku.lotro.game.GameHistoryService;
@@ -33,7 +34,8 @@ public class ServerBuilder {
                         extract(objectMap, GameHistoryService.class)));
 
         objectMap.put(DeliveryService.class,
-                new DeliveryService());
+                new DeliveryService(
+                        extract(objectMap, DeliveryDAO.class)));
 
         objectMap.put(CollectionsManager.class,
                 new CollectionsManager(
