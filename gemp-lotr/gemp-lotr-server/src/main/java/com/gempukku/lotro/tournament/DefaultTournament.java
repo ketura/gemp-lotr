@@ -36,7 +36,7 @@ public class DefaultTournament implements Tournament {
     private Map<String, Integer> _playerByes;
 
     private Set<String> _currentlyPlayingPlayers;
-    private Set<TournamentMatch> _finishedTournamentMatches;
+    private Set<TournamentMatch> _finishedTournamentMatches = new HashSet<TournamentMatch>();
 
     private TournamentService _tournamentService;
 
