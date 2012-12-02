@@ -41,7 +41,7 @@ public class Card15_059 extends AbstractCompanion {
         if (TriggerConditions.winsSkirmish(game, effectResult, self)) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Chooose a GONDOR ranger", Culture.GONDOR, Keyword.RANGER) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose a GONDOR ranger", Culture.GONDOR, Keyword.RANGER) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.appendEffect(
