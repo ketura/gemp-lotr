@@ -60,7 +60,7 @@ public class SealedLeagueData implements LeagueData {
                     startingCollection.addItem(serieCollectionItem.getKey(), serieCollectionItem.getValue().getCount());
             }
         }
-        collectionManager.addPlayerCollection(player, _collectionType, startingCollection);
+        collectionManager.addPlayerCollection(true, "Sealed league product", player, _collectionType, startingCollection);
         return startingCollection;
     }
 
@@ -74,7 +74,7 @@ public class SealedLeagueData implements LeagueData {
                 CardCollection leagueProduct = _leagueProduct.getCollectionForSerie(_format, i);
                 Map<Player, CardCollection> map = collectionsManager.getPlayersCollection(_collectionType.getCode());
                 for (Map.Entry<Player, CardCollection> playerCardCollectionEntry : map.entrySet()) {
-                    collectionsManager.addItemsToPlayerCollection(playerCardCollectionEntry.getKey(), _collectionType, leagueProduct.getAll().values());
+                    collectionsManager.addItemsToPlayerCollection(true, "New sealed league product", playerCardCollectionEntry.getKey(), _collectionType, leagueProduct.getAll().values());
                 }
                 status = i + 1;
             }
@@ -86,7 +86,7 @@ public class SealedLeagueData implements LeagueData {
                 for (PlayerStanding leagueStanding : leagueStandings) {
                     CardCollection leaguePrize = _leaguePrizes.getPrizeForLeague(leagueStanding.getStanding(), leagueStandings.size(), 1f);
                     if (leaguePrize != null)
-                        collectionsManager.addItemsToPlayerCollection(leagueStanding.getPlayerName(), _prizeCollectionType, leaguePrize.getAll().values());
+                        collectionsManager.addItemsToPlayerCollection(true, "End of league prizes", leagueStanding.getPlayerName(), _prizeCollectionType, leaguePrize.getAll().values());
                 }
                 status++;
             }

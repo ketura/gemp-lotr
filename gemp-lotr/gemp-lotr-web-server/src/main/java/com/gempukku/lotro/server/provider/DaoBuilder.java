@@ -1,7 +1,7 @@
 package com.gempukku.lotro.server.provider;
 
 import com.gempukku.lotro.collection.CollectionSerializer;
-import com.gempukku.lotro.collection.DeliveryDAO;
+import com.gempukku.lotro.collection.TransferDAO;
 import com.gempukku.lotro.db.*;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.tournament.TournamentDAO;
@@ -29,6 +29,6 @@ public class DaoBuilder {
         objectMap.put(DeckDAO.class, new DbDeckDAO(dbAccess, library));
         objectMap.put(CollectionDAO.class, new DbCollectionDAO(dbAccess, collectionSerializer));
         objectMap.put(PlayerDAO.class, new DbPlayerDAO(dbAccess));
-        objectMap.put(DeliveryDAO.class, new DbDeliveryDAO(dbAccess, collectionSerializer));
+        objectMap.put(TransferDAO.class, new DbTransferDAO(dbAccess));
     }
 }

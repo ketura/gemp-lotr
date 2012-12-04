@@ -29,7 +29,7 @@ public class DeliveryResource extends AbstractResource {
     public Document getDelivery(
             @Context HttpServletRequest request) throws ParserConfigurationException {
         Player resourceOwner = getResourceOwnerSafely(request, null);
-        Map<String, ? extends CardCollection> delivery = _deliveryService.consumePackages(resourceOwner);
+        Map<String, ? extends CardCollection> delivery = _transferDAO.consumeUndeliveredPackages(resourceOwner.getName());
         if (delivery == null)
             throw new WebApplicationException(Response.Status.NOT_FOUND);
 

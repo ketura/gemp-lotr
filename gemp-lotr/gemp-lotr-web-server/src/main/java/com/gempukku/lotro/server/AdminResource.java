@@ -279,7 +279,7 @@ public class AdminResource extends AbstractResource {
         for (String playerName : playerNames) {
             Player player = _playerDao.getPlayer(playerName);
 
-            _collectionsManager.addItemsToPlayerCollection(player, createCollectionType(collectionType), productItems);
+            _collectionsManager.addItemsToPlayerCollection(true, "Administrator action", player, createCollectionType(collectionType), productItems);
         }
 
         return "OK";

@@ -3,7 +3,7 @@ package com.gempukku.lotro.server;
 import com.gempukku.lotro.DateUtils;
 import com.gempukku.lotro.PlayerLock;
 import com.gempukku.lotro.collection.CollectionsManager;
-import com.gempukku.lotro.collection.DeliveryService;
+import com.gempukku.lotro.collection.TransferDAO;
 import com.gempukku.lotro.db.PlayerDAO;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.game.Player;
@@ -23,7 +23,7 @@ public abstract class AbstractResource {
     protected CollectionsManager _collectionManager;
 
     @Context
-    protected DeliveryService _deliveryService;
+    protected TransferDAO _transferDAO;
 
     protected final void processLoginReward(HttpServletRequest request) throws Exception {
         String logged = getLoggedUser(request);
@@ -36,11 +36,11 @@ public abstract class AbstractResource {
                 Integer lastReward = player.getLastLoginReward();
                 if (lastReward == null) {
                     _playerDao.setLastReward(player, latestMonday);
-                    _collectionManager.addCurrencyToPlayerCollection(player, "Initial currency balance", new CollectionType("permanent", "My cards"), 20000);
+                    _collectionManager.addCurrencyToPlayerCollection(true, "Initial currency balance", player, new CollectionType("permanent", "My cards"), 20000);
                 } else {
                     if (latestMonday != lastReward) {
                         if (_playerDao.updateLastReward(player, lastReward, latestMonday))
-                            _collectionManager.addCurrencyToPlayerCollection(player, "Weekly currency reward", new CollectionType("permanent", "My cards"), 5000);
+                            _collectionManager.addCurrencyToPlayerCollection(true, "Weekly activity reward", player, new CollectionType("permanent", "My cards"), 5000);
                     }
                 }
             }
@@ -49,7 +49,7 @@ public abstract class AbstractResource {
 
     protected final void processDeliveryServiceNotification(HttpServletRequest request, HttpServletResponse response) {
         String logged = getLoggedUser(request);
-        if (logged != null && _deliveryService.hasUndeliveredPackages(logged))
+        if (logged != null && _transferDAO.hasUndeliveredPackages(logged))
             response.addHeader("Delivery-Service-Package", "true");
     }
 
