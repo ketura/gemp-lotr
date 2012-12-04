@@ -84,7 +84,7 @@ public class SingleEliminationRecurringQueue implements TournamentQueue {
     @Override
     public synchronized void joinPlayer(CollectionsManager collectionsManager, Player player, LotroDeck deck) {
         if (!_players.contains(player.getName()) && _players.size() < _playerCap) {
-            if (_cost <= 0 || collectionsManager.removeCurrencyFromPlayerCollection(player, _currencyCollection, _cost)) {
+            if (_cost <= 0 || collectionsManager.removeCurrencyFromPlayerCollection("Joined "+getTournamentQueueName()+" queue", player, _currencyCollection, _cost)) {
                 _players.add(player.getName());
                 if (_requiresDeck)
                     _playerDecks.put(player.getName(), deck);
@@ -101,7 +101,7 @@ public class SingleEliminationRecurringQueue implements TournamentQueue {
     public synchronized void leavePlayer(CollectionsManager collectionsManager, Player player) {
         if (_players.contains(player.getName())) {
             if (_cost > 0)
-                collectionsManager.addCurrencyToPlayerCollection(player, "Return for leaving queue", _currencyCollection, _cost);
+                collectionsManager.addCurrencyToPlayerCollection(true, "Return for leaving "+getTournamentQueueName()+" queue", player, _currencyCollection, _cost);
             _players.remove(player.getName());
             _playerDecks.remove(player.getName());
         }
@@ -111,7 +111,7 @@ public class SingleEliminationRecurringQueue implements TournamentQueue {
     public synchronized void leaveAllPlayers(CollectionsManager collectionsManager) {
         if (_cost > 0) {
             for (String player : _players)
-                collectionsManager.addCurrencyToPlayerCollection(player, "Return for leaving queue", _currencyCollection, _cost);
+                collectionsManager.addCurrencyToPlayerCollection(false, "Return for leaving "+getTournamentQueueName()+" queue", player, _currencyCollection, _cost);
         }
         _players.clear();
         _playerDecks.clear();

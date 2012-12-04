@@ -25,7 +25,7 @@ public class SealedLeagueDataTest {
             CollectionsManager collectionsManager = Mockito.mock(CollectionsManager.class);
             Player player = new Player(1, "Test", "A", null);
             data.joinLeague(collectionsManager, player, i);
-            Mockito.verify(collectionsManager, new Times(1)).addPlayerCollection(Mockito.eq(player), Mockito.eq(collectionType), Mockito.argThat(
+            Mockito.verify(collectionsManager, new Times(1)).addPlayerCollection(Mockito.anyBoolean(), Mockito.anyString(), Mockito.eq(player), Mockito.eq(collectionType), Mockito.argThat(
                     new BaseMatcher<CardCollection>() {
                         @Override
                         public void describeTo(Description description) {
@@ -60,7 +60,7 @@ public class SealedLeagueDataTest {
             CollectionsManager collectionsManager = Mockito.mock(CollectionsManager.class);
             Player player = new Player(1, "Test", "A", null);
             data.joinLeague(collectionsManager, player, i);
-            Mockito.verify(collectionsManager, new Times(1)).addPlayerCollection(Mockito.eq(player), Mockito.eq(collectionType), Mockito.argThat(
+            Mockito.verify(collectionsManager, new Times(1)).addPlayerCollection(Mockito.anyBoolean(), Mockito.anyString(), Mockito.eq(player), Mockito.eq(collectionType), Mockito.argThat(
                     new BaseMatcher<CardCollection>() {
                         @Override
                         public void describeTo(Description description) {
@@ -135,7 +135,7 @@ public class SealedLeagueDataTest {
             expectedToAdd.add(CardCollection.Item.createItem("MoM - Booster", 3));
             expectedToAdd.add(CardCollection.Item.createItem("2_51", 1));
             Mockito.verify(collectionsManager, new Times(1)).getPlayersCollection("test");
-            Mockito.verify(collectionsManager, new Times(1)).addItemsToPlayerCollection(Mockito.eq(player), Mockito.eq(collectionType),
+            Mockito.verify(collectionsManager, new Times(1)).addItemsToPlayerCollection(Mockito.anyBoolean(), Mockito.anyString(), Mockito.eq(player), Mockito.eq(collectionType),
                     Mockito.argThat(
                             new ArgumentMatcher<Collection<CardCollection.Item>>() {
                                 @Override

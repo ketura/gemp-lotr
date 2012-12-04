@@ -44,7 +44,7 @@ public class DefaultDraft implements Draft {
 
         CardCollection fixedCollection = _draftPack.getFixedCollection();
         for (String player : _players)
-            _collectionsManager.addPlayerCollection(player, _collectionType, fixedCollection);
+            _collectionsManager.addPlayerCollection(false, "New draft fixed collection", player, _collectionType, fixedCollection);
     }
 
     @Override
@@ -98,7 +98,7 @@ public class DefaultDraft implements Draft {
         MutableCardCollection cardChoice = _cardChoice.get(playerName);
         if (cardChoice != null) {
             if (cardChoice.removeItem(cardId, 1)) {
-                _collectionsManager.addItemsToPlayerCollection(playerName, _collectionType, Arrays.asList(CardCollection.Item.createItem(cardId, 1)));
+                _collectionsManager.addItemsToPlayerCollection(false, "Pick in draft", playerName, _collectionType, Arrays.asList(CardCollection.Item.createItem(cardId, 1)));
                 _cardChoice.remove(playerName);
             }
         }
