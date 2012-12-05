@@ -106,8 +106,9 @@ public class DbTransferDAO implements TransferDAO {
         }
     }
 
+    // For now, very naive synchronization
     @Override
-    public Map<String, ? extends CardCollection> consumeUndeliveredPackages(String player) {
+    public synchronized Map<String, ? extends CardCollection> consumeUndeliveredPackages(String player) {
         try {
             Connection connection = _dbAccess.getDataSource().getConnection();
             try {
