@@ -24,7 +24,7 @@ public class DbTransferDAO implements TransferDAO {
             try {
                 Connection connection = _dbAccess.getDataSource().getConnection();
                 try {
-                    String sql = "insert into transfer (notify, player, reason, name, currency, collection, direction) values (?, ?, ?, ?, ?, ?, 'from')";
+                    String sql = "insert into transfer (notify, player, reason, name, currency, collection, transfer_date, direction) values (?, ?, ?, ?, ?, ?, ?, 'from')";
 
                     PreparedStatement statement = connection.prepareStatement(sql);
                     try {
@@ -34,6 +34,7 @@ public class DbTransferDAO implements TransferDAO {
                         statement.setString(4, collectionName);
                         statement.setInt(5, currency);
                         statement.setString(6, serializeCollection(items));
+                        statement.setLong(7, System.currentTimeMillis());
                         statement.execute();
                     } finally {
                         statement.close();
@@ -53,7 +54,7 @@ public class DbTransferDAO implements TransferDAO {
             try {
                 Connection connection = _dbAccess.getDataSource().getConnection();
                 try {
-                    String sql = "insert into transfer (notify, player, reason, name, currency, collection, direction) values (?, ?, ?, ?, ?, ?, 'to')";
+                    String sql = "insert into transfer (notify, player, reason, name, currency, collection, direction) values (?, ?, ?, ?, ?, ?, ?, 'to')";
 
                     PreparedStatement statement = connection.prepareStatement(sql);
                     try {
@@ -63,6 +64,7 @@ public class DbTransferDAO implements TransferDAO {
                         statement.setString(4, collectionName);
                         statement.setInt(5, currency);
                         statement.setString(6, serializeCollection(items));
+                        statement.setLong(7, System.currentTimeMillis());
                         statement.execute();
                     } finally {
                         statement.close();
