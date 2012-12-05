@@ -15,7 +15,7 @@ CREATE  TABLE IF NOT EXISTS `gemp-lotr`.`collection` (
   `type` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NOT NULL ,
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB
-AUTO_INCREMENT = 3507
+AUTO_INCREMENT = 5788
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_bin;
 
@@ -33,7 +33,7 @@ CREATE  TABLE IF NOT EXISTS `gemp-lotr`.`deck` (
   UNIQUE INDEX `player_deck` (`player_id` ASC, `name` ASC) ,
   INDEX `player_id` (`id` ASC) )
 ENGINE = InnoDB
-AUTO_INCREMENT = 15841
+AUTO_INCREMENT = 25552
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_bin;
 
@@ -57,7 +57,7 @@ CREATE  TABLE IF NOT EXISTS `gemp-lotr`.`game_history` (
   `tournament` VARCHAR(255) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NULL DEFAULT NULL ,
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB
-AUTO_INCREMENT = 38908
+AUTO_INCREMENT = 71300
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_bin;
 
@@ -77,7 +77,7 @@ CREATE  TABLE IF NOT EXISTS `gemp-lotr`.`league` (
   `cost` INT(11) NOT NULL DEFAULT '0' ,
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB
-AUTO_INCREMENT = 26
+AUTO_INCREMENT = 32
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_bin;
 
@@ -93,7 +93,7 @@ CREATE  TABLE IF NOT EXISTS `gemp-lotr`.`league_match` (
   `loser` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NOT NULL ,
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB
-AUTO_INCREMENT = 11138
+AUTO_INCREMENT = 17753
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_bin;
 
@@ -108,7 +108,7 @@ CREATE  TABLE IF NOT EXISTS `gemp-lotr`.`league_participation` (
   `join_ip` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NULL DEFAULT NULL ,
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB
-AUTO_INCREMENT = 3237
+AUTO_INCREMENT = 4417
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_bin;
 
@@ -127,7 +127,7 @@ CREATE  TABLE IF NOT EXISTS `gemp-lotr`.`merchant_data` (
   PRIMARY KEY (`id`) ,
   UNIQUE INDEX `blueprintId_UNIQUE` (`blueprint_id` ASC) )
 ENGINE = InnoDB
-AUTO_INCREMENT = 3042
+AUTO_INCREMENT = 3087
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_bin;
 
@@ -146,7 +146,7 @@ CREATE  TABLE IF NOT EXISTS `gemp-lotr`.`player` (
   PRIMARY KEY (`id`) ,
   UNIQUE INDEX `name_UNIQUE` (`name` ASC) )
 ENGINE = InnoDB
-AUTO_INCREMENT = 2379
+AUTO_INCREMENT = 3811
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_bin;
 
@@ -157,13 +157,17 @@ COLLATE = utf8_bin;
 CREATE  TABLE IF NOT EXISTS `gemp-lotr`.`tournament` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `tournament_id` VARCHAR(255) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NOT NULL ,
-  `class` VARCHAR(255) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NOT NULL ,
-  `parameters` VARCHAR(255) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NOT NULL ,
   `start` DECIMAL(20,0) NOT NULL ,
-  `finished` BINARY(1) NOT NULL DEFAULT '0' ,
+  `draft_type` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NULL DEFAULT NULL ,
+  `name` VARCHAR(255) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NULL DEFAULT NULL ,
+  `format` VARCHAR(255) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NULL DEFAULT NULL ,
+  `collection` VARCHAR(255) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NULL DEFAULT NULL ,
+  `stage` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NULL DEFAULT NULL ,
+  `pairing` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NULL DEFAULT NULL ,
+  `round` INT(3) NULL DEFAULT NULL ,
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB
-AUTO_INCREMENT = 18
+AUTO_INCREMENT = 54
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_bin;
 
@@ -180,7 +184,7 @@ CREATE  TABLE IF NOT EXISTS `gemp-lotr`.`tournament_match` (
   `winner` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NULL DEFAULT NULL ,
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB
-AUTO_INCREMENT = 53
+AUTO_INCREMENT = 161
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_bin;
 
@@ -197,7 +201,27 @@ CREATE  TABLE IF NOT EXISTS `gemp-lotr`.`tournament_player` (
   `dropped` BINARY(1) NOT NULL DEFAULT '0' ,
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB
-AUTO_INCREMENT = 69
+AUTO_INCREMENT = 437
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_bin;
+
+
+-- -----------------------------------------------------
+-- Table `gemp-lotr`.`transfer`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `gemp-lotr`.`transfer` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT ,
+  `notify` INT(11) NOT NULL ,
+  `player` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NOT NULL ,
+  `reason` VARCHAR(255) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NOT NULL ,
+  `name` VARCHAR(255) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NOT NULL ,
+  `currency` INT(11) NOT NULL ,
+  `collection` TEXT CHARACTER SET 'utf8' COLLATE 'utf8_bin' NOT NULL ,
+  `transfer_date` DECIMAL(20,0) NOT NULL ,
+  `direction` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NOT NULL ,
+  PRIMARY KEY (`id`) )
+ENGINE = InnoDB
+AUTO_INCREMENT = 4
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_bin;
 
