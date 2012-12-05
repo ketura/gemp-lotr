@@ -43,23 +43,25 @@ public class DeliveryResource extends AbstractResource {
             String collectionType = collectionTypeItems.getKey();
             CardCollection items = collectionTypeItems.getValue();
 
-            Element collectionTypeElem = doc.createElement("collectionType");
-            collectionTypeElem.setAttribute("name", collectionType);
-            for (CardCollection.Item item : items.getAll().values()) {
-                String blueprintId = item.getBlueprintId();
-                if (item.getType() == CardCollection.Item.Type.CARD) {
-                    Element card = doc.createElement("card");
-                    card.setAttribute("count", String.valueOf(item.getCount()));
-                    card.setAttribute("blueprintId", blueprintId);
-                    collectionTypeElem.appendChild(card);
-                } else {
-                    Element pack = doc.createElement("pack");
-                    pack.setAttribute("count", String.valueOf(item.getCount()));
-                    pack.setAttribute("blueprintId", blueprintId);
-                    collectionTypeElem.appendChild(pack);
+            if (items.getAll().size() > 0) {
+                Element collectionTypeElem = doc.createElement("collectionType");
+                collectionTypeElem.setAttribute("name", collectionType);
+                for (CardCollection.Item item : items.getAll().values()) {
+                    String blueprintId = item.getBlueprintId();
+                    if (item.getType() == CardCollection.Item.Type.CARD) {
+                        Element card = doc.createElement("card");
+                        card.setAttribute("count", String.valueOf(item.getCount()));
+                        card.setAttribute("blueprintId", blueprintId);
+                        collectionTypeElem.appendChild(card);
+                    } else {
+                        Element pack = doc.createElement("pack");
+                        pack.setAttribute("count", String.valueOf(item.getCount()));
+                        pack.setAttribute("blueprintId", blueprintId);
+                        collectionTypeElem.appendChild(pack);
+                    }
                 }
+                deliveryElem.appendChild(collectionTypeElem);
             }
-            deliveryElem.appendChild(collectionTypeElem);
         }
 
         doc.appendChild(deliveryElem);
