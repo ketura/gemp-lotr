@@ -58,8 +58,8 @@ public class AddTwilightEffect extends AbstractEffect implements Preventable {
         if (!isPrevented()) {
             game.getGameState().sendMessage(_sourceText + " added " + _twilight + " twilight");
             game.getGameState().addTwilight(_twilight);
-            return new FullEffectResult(true, _prevented == 0);
+            return new FullEffectResult(_prevented == 0);
         }
-        return new FullEffectResult(true, false);
+        return new FullEffectResult(false);
     }
 }

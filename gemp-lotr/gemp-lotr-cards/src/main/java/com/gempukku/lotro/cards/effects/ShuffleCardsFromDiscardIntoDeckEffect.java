@@ -58,6 +58,6 @@ public class ShuffleCardsFromDiscardIntoDeckEffect extends AbstractEffect {
             game.getGameState().sendMessage(getAppendedNames(toShuffleIn) + " " + GameUtils.be(toShuffleIn) + " shuffled into " + _playerDeck + " deck");
         }
 
-        return new FullEffectResult(toShuffleIn.size() == _cards.size(), toShuffleIn.size() == _cards.size());
+        return new FullEffectResult(toShuffleIn.size() == _cards.size());
     }
 }

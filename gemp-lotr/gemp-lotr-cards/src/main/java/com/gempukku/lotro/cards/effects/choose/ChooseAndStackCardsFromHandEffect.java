@@ -75,7 +75,7 @@ public class ChooseAndStackCardsFromHandEffect extends AbstractEffect {
                     });
         }
 
-        return new FullEffectResult(success, success);
+        return new FullEffectResult(success);
     }
 
     public void stackFromHandCallback(Collection<PhysicalCard> cardsStacked) {

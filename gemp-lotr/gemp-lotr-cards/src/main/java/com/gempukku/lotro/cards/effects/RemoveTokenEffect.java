@@ -51,9 +51,9 @@ public class RemoveTokenEffect extends AbstractEffect {
                 game.getGameState().sendMessage(GameUtils.getCardLink(_source) + " removed " + removeTokens + " " + _token + " token" + ((removeTokens > 1) ? "s" : "") + " from " + GameUtils.getCardLink(_target));
             }
 
-            return new FullEffectResult(removeTokens == _count, removeTokens == _count);
+            return new FullEffectResult(removeTokens == _count);
         } else {
-            return new FullEffectResult(false, false);
+            return new FullEffectResult(false);
         }
     }
 }

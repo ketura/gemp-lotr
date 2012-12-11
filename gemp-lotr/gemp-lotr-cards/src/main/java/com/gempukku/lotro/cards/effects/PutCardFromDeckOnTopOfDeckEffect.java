@@ -39,8 +39,8 @@ public class PutCardFromDeckOnTopOfDeckEffect extends AbstractEffect {
             GameState gameState = game.getGameState();
             gameState.removeCardsFromZone(_source.getOwner(), Collections.singleton(_physicalCard));
             gameState.putCardOnTopOfDeck(_physicalCard);
-            return new FullEffectResult(true, true);
+            return new FullEffectResult(true);
         }
-        return new FullEffectResult(false, false);
+        return new FullEffectResult(false);
     }
 }

@@ -39,8 +39,8 @@ public class CancelSkirmishEffect extends AbstractEffect {
         if (isPlayableInFull(game)) {
             game.getGameState().sendMessage("Skirmish is cancelled");
             game.getGameState().getSkirmish().cancel();
-            return new FullEffectResult(true, true);
+            return new FullEffectResult(true);
         }
-        return new FullEffectResult(false, false);
+        return new FullEffectResult(false);
     }
 }

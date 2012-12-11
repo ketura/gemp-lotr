@@ -33,8 +33,8 @@ public class PutPlayedEventOnTopOfDeckEffect extends AbstractEffect {
             game.getGameState().sendMessage(_action.getPerformingPlayer() + " puts " + GameUtils.getCardLink(_action.getEventPlayed()) + " on top of his/her deck");
             _action.skipDiscardPart();
             game.getGameState().putCardOnTopOfDeck(_action.getEventPlayed());
-            return new FullEffectResult(true, true);
+            return new FullEffectResult(true);
         }
-        return new FullEffectResult(false, false);
+        return new FullEffectResult(false);
     }
 }

@@ -43,8 +43,8 @@ public class TransferPermanentNotFromPlayEffect extends AbstractEffect {
             gameState.removeCardsFromZone(_physicalCard.getOwner(), Collections.singleton(_physicalCard));
             gameState.attachCard(game, _physicalCard, _targetCard);
 
-            return new FullEffectResult(true, true);
+            return new FullEffectResult(true);
         }
-        return new FullEffectResult(false, false);
+        return new FullEffectResult(false);
     }
 }

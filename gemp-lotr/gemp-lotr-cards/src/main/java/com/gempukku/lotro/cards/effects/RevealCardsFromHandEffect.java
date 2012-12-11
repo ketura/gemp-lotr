@@ -49,6 +49,6 @@ public class RevealCardsFromHandEffect extends AbstractEffect {
             game.getActionsEnvironment().emitEffectResult(new RevealCardFromHandResult(_source, _handPlayerId, card));
         }
 
-        return new FullEffectResult(true, true);
+        return new FullEffectResult(true);
     }
 }

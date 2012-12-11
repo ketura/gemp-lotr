@@ -34,8 +34,8 @@ public class PutPlayedEventIntoHandEffect extends AbstractEffect {
             game.getGameState().sendMessage(_action.getPerformingPlayer() + " puts " + GameUtils.getCardLink(_action.getEventPlayed()) + " into hand");
             _action.skipDiscardPart();
             game.getGameState().addCardToZone(game, _action.getEventPlayed(), Zone.HAND);
-            return new FullEffectResult(true, true);
+            return new FullEffectResult(true);
         }
-        return new FullEffectResult(false, false);
+        return new FullEffectResult(false);
     }
 }

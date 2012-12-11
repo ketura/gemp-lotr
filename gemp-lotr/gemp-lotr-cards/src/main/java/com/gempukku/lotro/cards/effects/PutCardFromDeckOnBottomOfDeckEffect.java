@@ -41,8 +41,8 @@ public class PutCardFromDeckOnBottomOfDeckEffect extends AbstractEffect {
             gameState.sendMessage(_physicalCard.getOwner() + " puts " + GameUtils.getCardLink(_physicalCard) + " from deck on the bottom of deck");
             gameState.removeCardsFromZone(_source.getOwner(), Collections.singleton(_physicalCard));
             gameState.putCardOnBottomOfDeck(_physicalCard);
-            return new FullEffectResult(true, true);
+            return new FullEffectResult(true);
         }
-        return new FullEffectResult(false, false);
+        return new FullEffectResult(false);
     }
 }

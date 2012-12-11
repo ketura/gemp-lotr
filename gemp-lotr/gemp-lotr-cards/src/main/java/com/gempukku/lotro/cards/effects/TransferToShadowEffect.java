@@ -36,9 +36,9 @@ public class TransferToShadowEffect extends AbstractEffect {
             game.getGameState().removeCardsFromZone(_card.getOwner(), Collections.singleton(_card));
             game.getGameState().addCardToZone(game, _card, Zone.SHADOW_CHARACTERS);
             cardTransferredCallback();
-            return new FullEffectResult(true, true);
+            return new FullEffectResult(true);
         }
-        return new FullEffectResult(false, false);
+        return new FullEffectResult(false);
     }
 
     protected void cardTransferredCallback() {

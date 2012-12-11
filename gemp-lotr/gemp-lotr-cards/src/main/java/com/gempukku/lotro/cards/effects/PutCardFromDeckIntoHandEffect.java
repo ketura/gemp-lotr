@@ -42,8 +42,8 @@ public class PutCardFromDeckIntoHandEffect extends AbstractEffect {
             gameState.addCardToZone(game, _card, Zone.HAND);
             game.getActionsEnvironment().emitEffectResult(new DrawCardOrPutIntoHandResult(_card.getOwner()));
 
-            return new FullEffectResult(true, true);
+            return new FullEffectResult(true);
         }
-        return new FullEffectResult(false, false);
+        return new FullEffectResult(false);
     }
 }

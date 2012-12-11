@@ -46,9 +46,9 @@ public class ExchangeCardsInHandWithStackedOnEffect extends AbstractEffect {
             for (PhysicalCard stackedCard : stackedCards)
                 game.getGameState().addCardToZone(game, stackedCard, Zone.HAND);
 
-            return new FullEffectResult(true, true);
+            return new FullEffectResult(true);
         }
-        return new FullEffectResult(false, false);
+        return new FullEffectResult(false);
     }
 
     @Override

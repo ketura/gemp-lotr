@@ -104,7 +104,7 @@ public class ResolveSkirmishEffect extends AbstractEffect {
                 game.getActionsEnvironment().emitEffectResult(new CharacterLostSkirmishResult(CharacterLostSkirmishResult.SkirmishType.OVERWHELM, removedMinion, skirmish.getFellowshipCharacter()));
         }
 
-        return new FullEffectResult(true, true);
+        return new FullEffectResult(true);
     }
 
     private Set<PhysicalCard> fpList(PhysicalCard card) {

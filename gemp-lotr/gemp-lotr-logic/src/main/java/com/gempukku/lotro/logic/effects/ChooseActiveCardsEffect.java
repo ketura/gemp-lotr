@@ -90,7 +90,7 @@ public abstract class ChooseActiveCardsEffect extends AbstractEffect {
                     });
         }
 
-        return new FullEffectResult(matchingCards.size() >= _minimum, matchingCards.size() >= _minimum);
+        return new FullEffectResult(matchingCards.size() >= _minimum);
     }
 
     protected abstract void cardsSelected(LotroGame game, Collection<PhysicalCard> cards);

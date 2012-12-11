@@ -61,6 +61,6 @@ public class DiscardStackedCardsEffect extends AbstractEffect {
         for (PhysicalCard card : toDiscard)
             gameState.addCardToZone(game, card, Zone.DISCARD);
 
-        return new FullEffectResult(toDiscard.size() == _cards.size(), toDiscard.size() == _cards.size());
+        return new FullEffectResult(toDiscard.size() == _cards.size());
     }
 }

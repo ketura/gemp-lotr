@@ -76,7 +76,7 @@ public class ShuffleCardsFromPlayIntoDeckEffect extends AbstractEffect {
             cardsShuffledCallback(toShuffleIn);
         }
 
-        return new FullEffectResult(toShuffleIn.size() == _cards.size(), toShuffleIn.size() == _cards.size());
+        return new FullEffectResult(toShuffleIn.size() == _cards.size());
     }
 
     protected void cardsShuffledCallback(Set<PhysicalCard> cardsShuffled) {

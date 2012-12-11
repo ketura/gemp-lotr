@@ -56,6 +56,6 @@ public class AssignmentPhaseEffect extends AbstractEffect {
             for (PhysicalCard minion : minions)
                 game.getActionsEnvironment().emitEffectResult(new AssignmentResult(_playerId, minion, fpChar));
         }
-        return new FullEffectResult(true, true);
+        return new FullEffectResult(true);
     }
 }

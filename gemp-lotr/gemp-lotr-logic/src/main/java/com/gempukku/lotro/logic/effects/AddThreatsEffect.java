@@ -63,8 +63,8 @@ public class AddThreatsEffect extends AbstractEffect {
             for (int i = 0; i < toAdd; i++)
                 game.getActionsEnvironment().emitEffectResult(new AddThreatResult(_source));
 
-            return new FullEffectResult(toAdd == count, toAdd == count);
+            return new FullEffectResult(toAdd == count);
         }
-        return new FullEffectResult(count == 0, count == 0);
+        return new FullEffectResult(count == 0);
     }
 }

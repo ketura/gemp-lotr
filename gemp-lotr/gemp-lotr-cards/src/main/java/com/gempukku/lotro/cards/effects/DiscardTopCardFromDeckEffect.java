@@ -61,9 +61,9 @@ public class DiscardTopCardFromDeckEffect extends AbstractEffect {
                 cardsDiscardedCallback(cardsDiscarded);
             }
 
-            return new FullEffectResult(_count == cardsDiscarded.size(), _count == cardsDiscarded.size());
+            return new FullEffectResult(_count == cardsDiscarded.size());
         }
-        return new FullEffectResult(false, false);
+        return new FullEffectResult(false);
     }
 
     protected void cardsDiscardedCallback(Collection<PhysicalCard> cards) {

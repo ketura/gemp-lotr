@@ -64,8 +64,8 @@ public class StackCardFromPlayEffect extends AbstractEffect {
             for (PhysicalCard discardedCard : discardedFromPlayCards)
                 game.getActionsEnvironment().emitEffectResult(new DiscardCardsFromPlayResult(discardedCard));
 
-            return new FullEffectResult(true, true);
+            return new FullEffectResult(true);
         }
-        return new FullEffectResult(false, false);
+        return new FullEffectResult(false);
     }
 }

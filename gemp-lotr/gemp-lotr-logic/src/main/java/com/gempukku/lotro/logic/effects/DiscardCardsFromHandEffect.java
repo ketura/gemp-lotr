@@ -68,9 +68,9 @@ public class DiscardCardsFromHandEffect extends AbstractEffect {
                 game.getActionsEnvironment().emitEffectResult(new DiscardCardFromHandResult(_source, card, _playerId, _forced));
             }
 
-            return new FullEffectResult(discardedCards.size() == _cards.size(), discardedCards.size() == _cards.size());
+            return new FullEffectResult(discardedCards.size() == _cards.size());
         }
 
-        return new FullEffectResult(false, false);
+        return new FullEffectResult(false);
     }
 }
