@@ -8,7 +8,6 @@ import java.util.Collection;
 
 public abstract class AbstractEffect implements Effect {
     private Boolean _carriedOut;
-    private Boolean _successful;
     protected boolean _prevented;
 
     protected abstract FullEffectResult playEffectReturningResult(LotroGame game);
@@ -17,7 +16,6 @@ public abstract class AbstractEffect implements Effect {
     public final void playEffect(LotroGame game) {
         FullEffectResult fullEffectResult = playEffectReturningResult(game);
         _carriedOut = fullEffectResult.isCarriedOut();
-        _successful = fullEffectResult.isSuccessful();
     }
 
     @Override
@@ -36,16 +34,10 @@ public abstract class AbstractEffect implements Effect {
     }
 
     protected static class FullEffectResult {
-        private boolean _successful;
         private boolean _carriedOut;
 
         public FullEffectResult(boolean successful, boolean carriedOut) {
-            _successful = successful;
             _carriedOut = carriedOut;
-        }
-
-        public boolean isSuccessful() {
-            return _successful;
         }
 
         public boolean isCarriedOut() {

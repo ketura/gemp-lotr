@@ -40,7 +40,7 @@ public class Card13_121 extends AbstractEvent {
                             @Override
                             protected FullEffectResult playEffectReturningResult(LotroGame game) {
                                 final FullEffectResult fullEffectResult = super.playEffectReturningResult(game);
-                                if (fullEffectResult.isSuccessful())
+                                if (fullEffectResult.isCarriedOut())
                                     bonus.set(6);
                                 return fullEffectResult;
                             }
