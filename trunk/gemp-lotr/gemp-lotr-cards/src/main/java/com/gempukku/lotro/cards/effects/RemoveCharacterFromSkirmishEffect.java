@@ -35,6 +35,6 @@ public class RemoveCharacterFromSkirmishEffect extends AbstractEffect {
         if (isPlayableInFull(game)) {
             game.getGameState().removeFromSkirmish(_toRemove);
         }
-        return new FullEffectResult(false, false);
+        return new FullEffectResult(false);
     }
 }

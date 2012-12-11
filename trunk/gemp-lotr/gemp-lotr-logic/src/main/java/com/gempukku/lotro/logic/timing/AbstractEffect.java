@@ -36,7 +36,7 @@ public abstract class AbstractEffect implements Effect {
     protected static class FullEffectResult {
         private boolean _carriedOut;
 
-        public FullEffectResult(boolean successful, boolean carriedOut) {
+        public FullEffectResult(boolean carriedOut) {
             _carriedOut = carriedOut;
         }
 

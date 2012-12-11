@@ -137,7 +137,7 @@ public class ChooseAndTransferAttachableEffect extends AbstractEffect {
                         }
                     });
         }
-        return new FullEffectResult(false, false);
+        return new FullEffectResult(false);
     }
 
     protected void afterTransferCallback(PhysicalCard transferredCard, PhysicalCard transferredFrom, PhysicalCard transferredTo) {

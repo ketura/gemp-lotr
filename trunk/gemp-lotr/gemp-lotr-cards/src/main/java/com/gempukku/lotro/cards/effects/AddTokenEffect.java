@@ -48,8 +48,8 @@ public class AddTokenEffect extends AbstractEffect {
                 game.getGameState().sendMessage(GameUtils.getCardLink(_source) + " added " + _count + " " + _token + " token" + ((_count > 1) ? "s" : "") + " to " + GameUtils.getCardLink(_target));
             }
 
-            return new FullEffectResult(true, true);
+            return new FullEffectResult(true);
         }
-        return new FullEffectResult(false, false);
+        return new FullEffectResult(false);
     }
 }

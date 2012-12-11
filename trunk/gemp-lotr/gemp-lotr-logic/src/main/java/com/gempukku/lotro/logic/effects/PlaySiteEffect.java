@@ -145,13 +145,13 @@ public class PlaySiteEffect extends AbstractEffect {
                     });
 
             game.getActionsEnvironment().addActionToStack(subAction);
-            return new FullEffectResult(true, true);
+            return new FullEffectResult(true);
         } else if (newSite.size() > 0) {
             game.getGameState().sendMessage("Can't play a site");
-            return new FullEffectResult(false, false);
+            return new FullEffectResult(false);
         } else {
             game.getGameState().sendMessage("Can't find a matching site to play in " + _playerId + " adventure deck");
-            return new FullEffectResult(false, false);
+            return new FullEffectResult(false);
         }
     }
 

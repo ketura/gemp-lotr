@@ -85,9 +85,9 @@ public class LiberateASiteEffect extends AbstractEffect {
 
             liberatedSiteCallback(siteToLiberate);
 
-            return new FullEffectResult(true, true);
+            return new FullEffectResult(true);
         }
-        return new FullEffectResult(false, false);
+        return new FullEffectResult(false);
     }
 
     public void liberatedSiteCallback(PhysicalCard liberatedSite) {

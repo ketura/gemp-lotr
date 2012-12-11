@@ -16,9 +16,9 @@ public class PreventEffect extends AbstractEffect {
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
         if (isPlayableInFull(game)) {
             _preventable.prevent();
-            return new FullEffectResult(true, true);
+            return new FullEffectResult(true);
         }
-        return new FullEffectResult(false, false);
+        return new FullEffectResult(false);
     }
 
     @Override

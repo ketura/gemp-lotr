@@ -34,8 +34,8 @@ public class ReplaceInSkirmishEffect extends AbstractEffect {
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
         if (isPlayableInFull(game)) {
             game.getGameState().replaceInSkirmish(_replacedBy);
-            return new FullEffectResult(true, true);
+            return new FullEffectResult(true);
         }
-        return new FullEffectResult(false, false);
+        return new FullEffectResult(false);
     }
 }

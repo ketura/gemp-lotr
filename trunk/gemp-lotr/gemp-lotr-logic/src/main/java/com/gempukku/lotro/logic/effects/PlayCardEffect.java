@@ -67,6 +67,6 @@ public class PlayCardEffect extends AbstractEffect {
 
         game.getActionsEnvironment().emitEffectResult(new PlayCardResult(_playedFrom, _cardPlayed, _attachedToCard, _attachedOrStackedPlayedFrom));
 
-        return new FullEffectResult(true, true);
+        return new FullEffectResult(true);
     }
 }

@@ -54,6 +54,6 @@ public class RemoveCardsFromDeckEffect extends AbstractEffect {
 
         game.getGameState().sendMessage(_playerPerforming + " removed " + GameUtils.getAppendedNames(removedCards) + " from deck using " + GameUtils.getCardLink(_source));
 
-        return new FullEffectResult(_cardsToRemove.size() == removedCards.size(), _cardsToRemove.size() == removedCards.size());
+        return new FullEffectResult(_cardsToRemove.size() == removedCards.size());
     }
 }

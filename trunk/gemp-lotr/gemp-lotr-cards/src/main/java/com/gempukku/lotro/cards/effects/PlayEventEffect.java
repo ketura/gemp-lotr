@@ -28,6 +28,6 @@ public class PlayEventEffect extends PlayCardEffect {
         if (_cardPlayed.getZone() != null)
             game.getGameState().removeCardsFromZone(_cardPlayed.getOwner(), Collections.singleton(_cardPlayed));
         game.getActionsEnvironment().emitEffectResult(_playEventResult);
-        return new FullEffectResult(true, true);
+        return new FullEffectResult(true);
     }
 }

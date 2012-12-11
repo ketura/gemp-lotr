@@ -42,7 +42,7 @@ public abstract class RevealBottomCardsOfDrawDeckEffect extends AbstractEffect {
         if (bottomCards.size() > 0)
             game.getGameState().sendMessage(GameUtils.getCardLink(_source) + " revealed cards from bottom of " + _playerId + " deck - " + getAppendedNames(bottomCards));
         cardsRevealed(bottomCards);
-        return new FullEffectResult(bottomCards.size() == _count, bottomCards.size() == _count);
+        return new FullEffectResult(bottomCards.size() == _count);
     }
 
     protected abstract void cardsRevealed(List<PhysicalCard> cards);

@@ -56,7 +56,7 @@ public class PayTwilightCostEffect extends AbstractEffect {
             game.getGameState().addTwilight(twilightCost);
             if (twilightCost > 0)
                 game.getGameState().sendMessage(_physicalCard.getOwner() + " adds " + twilightCost + " to twilight pool");
-            return new FullEffectResult(true, true);
+            return new FullEffectResult(true);
         } else {
             boolean success = game.getGameState().getTwilightPool() >= twilightCost;
             twilightCost = Math.min(twilightCost, game.getGameState().getTwilightPool());
@@ -64,7 +64,7 @@ public class PayTwilightCostEffect extends AbstractEffect {
                 game.getGameState().removeTwilight(twilightCost);
                 game.getGameState().sendMessage(_physicalCard.getOwner() + " removes " + twilightCost + " from twilight pool");
             }
-            return new FullEffectResult(success, success);
+            return new FullEffectResult(success);
         }
     }
 }

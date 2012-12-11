@@ -60,9 +60,9 @@ public class AssignmentEffect extends AbstractEffect {
 
             assignmentMadeCallback(_fpChar, _minion);
 
-            return new FullEffectResult(true, true);
+            return new FullEffectResult(true);
         }
-        return new FullEffectResult(false, false);
+        return new FullEffectResult(false);
     }
 
     protected void assignmentMadeCallback(PhysicalCard fpChar, PhysicalCard minion) {

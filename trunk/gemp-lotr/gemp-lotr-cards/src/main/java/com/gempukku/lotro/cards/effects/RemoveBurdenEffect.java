@@ -51,10 +51,10 @@ public class RemoveBurdenEffect extends AbstractEffect {
                 game.getGameState().removeBurdens(toRemove);
                 for (int i = 0; i < toRemove; i++)
                     game.getActionsEnvironment().emitEffectResult(new RemoveBurdenResult(_performingPlayerId, _source));
-                return new FullEffectResult(true, true);
+                return new FullEffectResult(true);
             }
         }
 
-        return new FullEffectResult(false, false);
+        return new FullEffectResult(false);
     }
 }

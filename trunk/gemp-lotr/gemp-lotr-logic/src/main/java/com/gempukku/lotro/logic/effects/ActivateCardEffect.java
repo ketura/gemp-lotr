@@ -51,6 +51,6 @@ public class ActivateCardEffect extends AbstractEffect {
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
         game.getActionsEnvironment().emitEffectResult(_activateCardResult);
-        return new FullEffectResult(true, true);
+        return new FullEffectResult(true);
     }
 }

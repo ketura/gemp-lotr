@@ -34,6 +34,6 @@ public class ThreatWoundsEffect extends AbstractEffect {
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
         game.getActionsEnvironment().emitEffectResult(new ThreatWoundTriggerResult());
-        return new FullEffectResult(true, true);
+        return new FullEffectResult(true);
     }
 }

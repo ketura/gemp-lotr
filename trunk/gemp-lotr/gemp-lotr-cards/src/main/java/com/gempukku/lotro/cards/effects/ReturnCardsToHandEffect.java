@@ -83,6 +83,6 @@ public class ReturnCardsToHandEffect extends AbstractEffect {
         for (PhysicalCard cardReturned : cardsToReturnToHand)
             game.getActionsEnvironment().emitEffectResult(new ReturnCardsToHandResult(cardReturned));
 
-        return new FullEffectResult(true, true);
+        return new FullEffectResult(true);
     }
 }

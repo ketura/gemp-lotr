@@ -27,6 +27,6 @@ public class TakeOffTheOneRingEffect extends AbstractEffect {
             game.getGameState().sendMessage("Ring-bearer takes off The One Ring");
             game.getGameState().setWearingRing(false);
         }
-        return new FullEffectResult(canTakeOffRing, canTakeOffRing);
+        return new FullEffectResult(canTakeOffRing);
     }
 }

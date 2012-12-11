@@ -44,13 +44,13 @@ public class PutCardFromDeckIntoHandOrDiscardEffect extends AbstractEffect {
                 game.getGameState().removeCardsFromZone(_physicalCard.getOwner(), Collections.singleton(_physicalCard));
                 game.getGameState().addCardToZone(game, _physicalCard, Zone.HAND);
                 game.getActionsEnvironment().emitEffectResult(new DrawCardOrPutIntoHandResult(_physicalCard.getOwner()));
-                return new FullEffectResult(true, true);
+                return new FullEffectResult(true);
             } else {
                 game.getGameState().sendMessage(_physicalCard.getOwner() + " discards " + GameUtils.getCardLink(_physicalCard) + " from deck due to Rule of 4");
                 game.getGameState().removeCardsFromZone(_physicalCard.getOwner(), Collections.singleton(_physicalCard));
                 game.getGameState().addCardToZone(game, _physicalCard, Zone.DISCARD);
             }
         }
-        return new FullEffectResult(false, false);
+        return new FullEffectResult(false);
     }
 }

@@ -61,8 +61,8 @@ public class AddBurdenEffect extends AbstractEffect implements Preventable {
             game.getGameState().addBurdens(toAdd);
             for (int i = 0; i < toAdd; i++)
                 game.getActionsEnvironment().emitEffectResult(new AddBurdenResult(_performingPlayer, _source));
-            return new FullEffectResult(true, _prevented == 0);
+            return new FullEffectResult(_prevented == 0);
         }
-        return new FullEffectResult(true, false);
+        return new FullEffectResult(false);
     }
 }

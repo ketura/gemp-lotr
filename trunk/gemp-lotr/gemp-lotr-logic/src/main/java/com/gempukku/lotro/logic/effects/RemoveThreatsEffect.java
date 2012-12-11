@@ -40,8 +40,8 @@ public class RemoveThreatsEffect extends AbstractEffect {
                 game.getGameState().removeThreats(game.getGameState().getCurrentPlayerId(), toRemove);
             }
 
-            return new FullEffectResult(_count == toRemove, _count == toRemove);
+            return new FullEffectResult(_count == toRemove);
         }
-        return new FullEffectResult(false, false);
+        return new FullEffectResult(false);
     }
 }

@@ -43,9 +43,9 @@ public class PutRandomCardFromHandOnBottomOfDeckEffect extends AbstractEffect {
                 putCardFromHandOnBottomOfDeckCallback(randomCard);
             }
 
-            return new FullEffectResult(true, true);
+            return new FullEffectResult(true);
         }
-        return new FullEffectResult(false, false);
+        return new FullEffectResult(false);
     }
 
     protected void putCardFromHandOnBottomOfDeckCallback(PhysicalCard card) {

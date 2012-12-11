@@ -16,7 +16,6 @@ import com.gempukku.lotro.logic.effects.ChooseArbitraryCardsEffect;
 import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -52,13 +51,6 @@ public class Card4_103 extends AbstractAlly {
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.insertEffect(
                                     new StackCardFromPlayEffect(card, self));
-                            action.appendEffect(
-                                    new UnrespondableEffect() {
-                                        @Override
-                                        protected void doPlayEffect(LotroGame game) {
-                                            discardEffect.incrementInstead();
-                                        }
-                                    });
                         }
                     });
             return Collections.singletonList(action);

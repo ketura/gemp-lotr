@@ -41,9 +41,9 @@ public class DiscardBottomCardFromDeckEffect extends AbstractEffect {
 
             discardedCardCallback(card);
 
-            return new FullEffectResult(true, true);
+            return new FullEffectResult(true);
         }
-        return new FullEffectResult(false, false);
+        return new FullEffectResult(false);
     }
 
     protected void discardedCardCallback(PhysicalCard card) {

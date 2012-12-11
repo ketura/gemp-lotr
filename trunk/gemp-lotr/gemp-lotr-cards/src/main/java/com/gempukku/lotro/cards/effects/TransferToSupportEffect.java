@@ -52,8 +52,8 @@ public class TransferToSupportEffect extends AbstractEffect {
             game.getActionsEnvironment().emitEffectResult(
                     new CardTransferredResult(_card, transferredFrom, null));
 
-            return new FullEffectResult(true, true);
+            return new FullEffectResult(true);
         }
-        return new FullEffectResult(false, false);
+        return new FullEffectResult(false);
     }
 }

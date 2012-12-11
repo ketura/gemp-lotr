@@ -40,6 +40,6 @@ public class RemoveTwilightEffect extends AbstractEffect {
         game.getGameState().sendMessage(GameUtils.formatNumber(toRemove, requestedToRemove) + " twilight gets removed from twilight pool");
         game.getGameState().removeTwilight(toRemove);
 
-        return new FullEffectResult(toRemove == requestedToRemove, toRemove == requestedToRemove);
+        return new FullEffectResult(toRemove == requestedToRemove);
     }
 }

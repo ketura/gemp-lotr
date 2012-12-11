@@ -71,7 +71,7 @@ public abstract class ChooseStackedCardsEffect extends AbstractEffect {
                     });
         }
 
-        return new FullEffectResult(success, success);
+        return new FullEffectResult(success);
     }
 
     protected abstract void cardsChosen(Collection<PhysicalCard> stackedCards);

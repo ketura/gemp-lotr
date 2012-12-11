@@ -39,8 +39,8 @@ public class StackCardFromDiscardEffect extends AbstractEffect {
             game.getGameState().sendMessage(_card.getOwner() + " stacks " + GameUtils.getCardLink(_card) + " from discard on " + GameUtils.getCardLink(_stackOn));
             game.getGameState().removeCardsFromZone(_card.getOwner(), Collections.singleton(_card));
             game.getGameState().stackCard(game, _card, _stackOn);
-            return new FullEffectResult(true, true);
+            return new FullEffectResult(true);
         }
-        return new FullEffectResult(false, false);
+        return new FullEffectResult(false);
     }
 }

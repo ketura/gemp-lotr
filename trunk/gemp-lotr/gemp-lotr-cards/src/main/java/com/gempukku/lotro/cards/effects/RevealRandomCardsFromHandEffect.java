@@ -42,9 +42,9 @@ public abstract class RevealRandomCardsFromHandEffect extends AbstractEffect {
             for (PhysicalCard randomCard : randomCards)
                 game.getActionsEnvironment().emitEffectResult(new RevealCardFromHandResult(_source, _playerHand, randomCard));
 
-            return new FullEffectResult(randomCards.size() == _count, randomCards.size() == _count);
+            return new FullEffectResult(randomCards.size() == _count);
         }
-        return new FullEffectResult(false, false);
+        return new FullEffectResult(false);
     }
 
     @Override

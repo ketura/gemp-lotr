@@ -30,9 +30,9 @@ public class PutOnTheOneRingEffect extends AbstractEffect {
             game.getGameState().sendMessage("Ring-bearer puts on The One Ring");
             game.getGameState().setWearingRing(true);
             game.getActionsEnvironment().emitEffectResult(new PutOnTheOneRingResult());
-            return new FullEffectResult(true, true);
+            return new FullEffectResult(true);
         } else {
-            return new FullEffectResult(false, false);
+            return new FullEffectResult(false);
         }
     }
 }

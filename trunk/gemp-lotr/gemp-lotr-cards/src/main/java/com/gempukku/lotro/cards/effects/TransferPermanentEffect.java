@@ -48,9 +48,9 @@ public class TransferPermanentEffect extends AbstractEffect {
 
             afterTransferredCallback();
 
-            return new FullEffectResult(true, true);
+            return new FullEffectResult(true);
         }
-        return new FullEffectResult(false, false);
+        return new FullEffectResult(false);
     }
 
     protected void afterTransferredCallback() {
