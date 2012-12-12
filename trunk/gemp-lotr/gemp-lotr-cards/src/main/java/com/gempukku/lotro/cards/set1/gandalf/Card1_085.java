@@ -4,7 +4,6 @@ import com.gempukku.lotro.cards.AbstractResponseOldEvent;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
-import com.gempukku.lotro.cards.effects.PreventCardEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -50,8 +49,7 @@ public class Card1_085 extends AbstractResponseOldEvent {
                     new ChooseActiveCardEffect(self, playerId, "Choose character", CardType.COMPANION, Filters.in(exertedCharacters)) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
-                            action.appendEffect(
-                                    new PreventCardEffect(exertEffect, card));
+                            exertEffect.placeNoWoundOn(card);
                         }
                     });
             return Collections.singletonList(action);

@@ -13,10 +13,13 @@ import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.results.ExertResult;
 
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 public class ExertCharactersEffect extends AbstractPreventableCardEffect {
     private Action _action;
     private PhysicalCard _source;
+    private Set<PhysicalCard> _placeNoWound = new HashSet<PhysicalCard>();
 
     public ExertCharactersEffect(Action action, PhysicalCard source, Filterable... filter) {
         super(filter);
@@ -58,8 +61,13 @@ public class ExertCharactersEffect extends AbstractPreventableCardEffect {
             game.getGameState().sendMessage(getAppendedNames(cards) + " exert" + GameUtils.s(cards) + " due to " + GameUtils.getCardLink(_source));
 
         for (PhysicalCard woundedCard : cards) {
-            game.getGameState().addWound(woundedCard);
+            if (!_placeNoWound.contains(woundedCard))
+                game.getGameState().addWound(woundedCard);
             game.getActionsEnvironment().emitEffectResult(new ExertResult(_action, woundedCard));
         }
+    }
+
+    public void placeNoWoundOn(PhysicalCard physicalCard) {
+        _placeNoWound.add(physicalCard);
     }
 }
