@@ -6,8 +6,6 @@ import com.gempukku.lotro.logic.vo.LotroDeck;
 import java.util.Set;
 
 public interface DeckDAO {
-    public void clearCache();
-
     public LotroDeck getDeckForPlayer(Player player, String name);
 
     public void saveDeckForPlayer(Player player, String name, LotroDeck deck);

@@ -2,12 +2,12 @@ package com.gempukku.lotro.league;
 
 import com.gempukku.lotro.db.LeagueParticipationDAO;
 import com.gempukku.lotro.game.Player;
+import org.apache.commons.collections.map.LRUMap;
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
@@ -16,7 +16,7 @@ public class CachedLeagueParticipationDAO implements LeagueParticipationDAO {
     private LeagueParticipationDAO _leagueParticipationDAO;
     private ReadWriteLock _readWriteLock = new ReentrantReadWriteLock();
 
-    private Map<String, Set<String>> _cachedParticipants = new ConcurrentHashMap<String, Set<String>>();
+    private Map<String, Set<String>> _cachedParticipants = Collections.synchronizedMap(new LRUMap(5));
 
     public CachedLeagueParticipationDAO(LeagueParticipationDAO leagueParticipationDAO) {
         _leagueParticipationDAO = leagueParticipationDAO;

@@ -5,8 +5,6 @@ import com.gempukku.lotro.game.Player;
 import java.sql.SQLException;
 
 public interface PlayerDAO {
-    public void clearCache();
-
     public Player getPlayer(int id);
 
     public Player getPlayer(String playerName);

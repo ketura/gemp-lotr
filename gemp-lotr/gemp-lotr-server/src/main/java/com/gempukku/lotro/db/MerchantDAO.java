@@ -7,8 +7,6 @@ public interface MerchantDAO {
 
     public void addTransaction(String blueprintId, float price, Date date, TransactionType transactionType);
 
-    public void clearCache();
-
     public enum TransactionType {
         SELL, BUY
     }

@@ -59,10 +59,6 @@ public class AdminResource extends AbstractResource {
     public String clearCache(@Context HttpServletRequest request) throws Exception {
         validateAdmin(request);
 
-        _playerDao.clearCache();
-        _collectionsManager.clearDBCache();
-        _deckDao.clearCache();
-        _merchantDao.clearCache();
         _leagueService.clearCache();
         _tournamentService.clearCache();
 
