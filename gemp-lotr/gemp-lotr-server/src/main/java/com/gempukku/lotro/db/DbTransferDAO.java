@@ -20,7 +20,7 @@ public class DbTransferDAO implements TransferDAO {
 
     @Override
     public void addTransferFrom(String player, String reason, String collectionName, int currency, CardCollection items) {
-        if (currency>0 || items.getAll().size()>0) {
+        if (currency > 0 || items.getAll().size() > 0) {
             try {
                 Connection connection = _dbAccess.getDataSource().getConnection();
                 try {
@@ -170,10 +170,12 @@ public class DbTransferDAO implements TransferDAO {
     private CardCollection deserializeCollection(String collection) {
         DefaultCardCollection cardCollection = new DefaultCardCollection();
         for (String item : collection.split(",")) {
-            String[] itemSplit = item.split("x", 2);
-            int count = Integer.parseInt(itemSplit[0]);
-            String blueprintId = itemSplit[1];
-            cardCollection.addItem(blueprintId, count);
+            if (item.length() > 0) {
+                String[] itemSplit = item.split("x", 2);
+                int count = Integer.parseInt(itemSplit[0]);
+                String blueprintId = itemSplit[1];
+                cardCollection.addItem(blueprintId, count);
+            }
         }
 
         return cardCollection;
