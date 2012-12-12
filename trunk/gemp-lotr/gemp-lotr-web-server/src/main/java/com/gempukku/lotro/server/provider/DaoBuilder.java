@@ -1,5 +1,6 @@
 package com.gempukku.lotro.server.provider;
 
+import com.gempukku.lotro.collection.CachedCollectionDAO;
 import com.gempukku.lotro.collection.CachedTransferDAO;
 import com.gempukku.lotro.collection.CollectionSerializer;
 import com.gempukku.lotro.collection.TransferDAO;
@@ -24,12 +25,26 @@ public class DaoBuilder {
         objectMap.put(TournamentDAO.class, new DbTournamentDAO(dbAccess));
         objectMap.put(TournamentPlayerDAO.class, new DbTournamentPlayerDAO(dbAccess));
         objectMap.put(TournamentMatchDAO.class, new DbTournamentMatchDAO(dbAccess));
-        objectMap.put(MerchantDAO.class, new DbMerchantDAO(dbAccess));
+
+        DbMerchantDAO dbMerchantDao = new DbMerchantDAO(dbAccess);
+        CachedMerchantDAO merchantDao = new CachedMerchantDAO(dbMerchantDao);
+        objectMap.put(MerchantDAO.class, merchantDao);
+
         objectMap.put(LeagueDAO.class, new DbLeagueDAO(dbAccess));
         objectMap.put(GameHistoryDAO.class, new DbGameHistoryDAO(dbAccess));
-        objectMap.put(DeckDAO.class, new DbDeckDAO(dbAccess, library));
-        objectMap.put(CollectionDAO.class, new DbCollectionDAO(dbAccess, collectionSerializer));
-        objectMap.put(PlayerDAO.class, new DbPlayerDAO(dbAccess));
+
+        DbDeckDAO dbDeckDao = new DbDeckDAO(dbAccess, library);
+        CachedDeckDAO deckDao = new CachedDeckDAO(dbDeckDao);
+        objectMap.put(DeckDAO.class, deckDao);
+
+        DbCollectionDAO dbCollectionDao = new DbCollectionDAO(dbAccess, collectionSerializer);
+        CachedCollectionDAO collectionDao = new CachedCollectionDAO(dbCollectionDao);
+        objectMap.put(CollectionDAO.class, collectionDao);
+
+
+        DbPlayerDAO dbPlayerDao = new DbPlayerDAO(dbAccess);
+        CachedPlayerDAO playerDao = new CachedPlayerDAO(dbPlayerDao);
+        objectMap.put(PlayerDAO.class, playerDao);
         
         DbTransferDAO dbTransferDao = new DbTransferDAO(dbAccess);
         CachedTransferDAO transferDao = new CachedTransferDAO(dbTransferDao);

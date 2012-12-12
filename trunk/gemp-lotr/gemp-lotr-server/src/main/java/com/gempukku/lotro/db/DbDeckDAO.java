@@ -10,21 +10,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class DbDeckDAO implements DeckDAO {
     private DbAccess _dbAccess;
     private LotroCardBlueprintLibrary _library;
 
-    private Map<Integer, Map<String, LotroDeck>> _decks = new ConcurrentHashMap<Integer, Map<String, LotroDeck>>();
-
     public DbDeckDAO(DbAccess dbAccess, LotroCardBlueprintLibrary library) {
         _dbAccess = dbAccess;
         _library = library;
-    }
-
-    public synchronized void clearCache() {
-        _decks.clear();
     }
 
     public synchronized LotroDeck getDeckForPlayer(Player player, String name) {
@@ -64,15 +57,6 @@ public class DbDeckDAO implements DeckDAO {
     }
 
     private Map<String, LotroDeck> getPlayerDecks(Player player) {
-        Map<String, LotroDeck> decksByName = _decks.get(player.getId());
-        if (decksByName == null) {
-            decksByName = loadPlayerDecks(player);
-            _decks.put(player.getId(), decksByName);
-        }
-        return decksByName;
-    }
-
-    private Map<String, LotroDeck> loadPlayerDecks(Player player) {
         try {
             return loadPlayerDecksFromDB(player.getId());
         } catch (SQLException exp) {

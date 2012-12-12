@@ -11,14 +11,12 @@ import org.apache.log4j.Logger;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class CollectionsManager {
     private static Logger _logger = Logger.getLogger(CollectionsManager.class);
     private ReentrantReadWriteLock _readWriteLock = new ReentrantReadWriteLock();
-    private Map<String, Map<String, CardCollection>> _collections = new ConcurrentHashMap<String, Map<String, CardCollection>>();
 
     private PlayerDAO _playerDAO;
     private CollectionDAO _collectionDAO;
@@ -73,10 +71,6 @@ public class CollectionsManager {
         return _defaultCollection;
     }
 
-    public void clearDBCache() {
-        _collections.clear();
-    }
-
     public CardCollection getPlayerCollection(Player player, String collectionType) {
         _readWriteLock.readLock().lock();
         try {
@@ -86,24 +80,11 @@ public class CollectionsManager {
             if (collectionType.equals("default"))
                 return getDefaultCollection();
 
-            Map<String, CardCollection> playerCollections = _collections.get(player.getName());
-            if (playerCollections != null) {
-                final CardCollection cardCollection = playerCollections.get(collectionType);
-                if (cardCollection != null)
-                    return cardCollection;
-            }
-
             final CardCollection collection = _collectionDAO.getPlayerCollection(player.getId(), collectionType);
-            if (collection != null) {
-                if (playerCollections == null) {
-                    playerCollections = new ConcurrentHashMap<String, CardCollection>();
-                    _collections.put(player.getName(), playerCollections);
-                }
-                playerCollections.put(collectionType, collection);
-            }
-
+            
             if (collection == null && collectionType.equals("permanent"))
                 return new DefaultCardCollection();
+
             return collection;
         } catch (SQLException exp) {
             throw new RuntimeException("Unable to get player collection", exp);
@@ -127,12 +108,6 @@ public class CollectionsManager {
             throw new IllegalArgumentException("Invalid collection type: " + collectionType);
         try {
             _collectionDAO.setPlayerCollection(player.getId(), collectionType, cardCollection);
-            Map<String, CardCollection> playerCollections = _collections.get(player.getName());
-            if (playerCollections == null) {
-                playerCollections = new ConcurrentHashMap<String, CardCollection>();
-                _collections.put(player.getName(), playerCollections);
-            }
-            playerCollections.put(collectionType, cardCollection);
         } catch (SQLException exp) {
             throw new RuntimeException("Unable to store player collection", exp);
         } catch (IOException exp) {

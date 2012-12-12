@@ -2,11 +2,11 @@ package com.gempukku.lotro.league;
 
 import com.gempukku.lotro.db.LeagueMatchDAO;
 import com.gempukku.lotro.db.vo.LeagueMatchResult;
+import org.apache.commons.collections.map.LRUMap;
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
@@ -15,7 +15,7 @@ public class CachedLeagueMatchDAO implements LeagueMatchDAO {
     private LeagueMatchDAO _leagueMatchDAO;
     private ReadWriteLock _readWriteLock = new ReentrantReadWriteLock();
 
-    private Map<String, Collection<LeagueMatchResult>> _cachedMatches = new ConcurrentHashMap<String, Collection<LeagueMatchResult>>();
+    private Map<String, Collection<LeagueMatchResult>> _cachedMatches = Collections.synchronizedMap(new LRUMap(5));
 
     public CachedLeagueMatchDAO(LeagueMatchDAO leagueMatchDAO) {
         _leagueMatchDAO = leagueMatchDAO;

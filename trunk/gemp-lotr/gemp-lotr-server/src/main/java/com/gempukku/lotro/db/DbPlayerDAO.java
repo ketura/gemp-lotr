@@ -7,33 +7,19 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class DbPlayerDAO implements PlayerDAO {
     private final String validLoginChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_";
 
     private DbAccess _dbAccess;
-    private Map<String, Player> _playersByName = new ConcurrentHashMap<String, Player>();
-    private Map<Integer, Player> _playersById = new ConcurrentHashMap<Integer, Player>();
 
     public DbPlayerDAO(DbAccess dbAccess) {
         _dbAccess = dbAccess;
     }
 
-    public synchronized void clearCache() {
-        _playersByName.clear();
-        _playersById.clear();
-    }
-
     public synchronized Player getPlayer(int id) {
-        if (_playersById.containsKey(id))
-            return _playersById.get(id);
-
         try {
             final Player player = getPlayerFromDBById(id);
-            if (player != null)
-                _playersById.put(id, player);
             return player;
         } catch (SQLException exp) {
             throw new RuntimeException("Error while retrieving player", exp);
@@ -41,12 +27,8 @@ public class DbPlayerDAO implements PlayerDAO {
     }
 
     public synchronized Player getPlayer(String playerName) {
-        if (_playersByName.containsKey(playerName))
-            return _playersByName.get(playerName);
         try {
             Player player = getPlayerFromDBByName(playerName);
-            if (player != null)
-                _playersByName.put(playerName, player);
             return player;
         } catch (SQLException exp) {
             throw new RuntimeException("Unable to get player from DB", exp);
