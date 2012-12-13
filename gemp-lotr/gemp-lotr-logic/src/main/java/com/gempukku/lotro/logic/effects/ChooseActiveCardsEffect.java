@@ -11,6 +11,7 @@ import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Set;
 
 public abstract class ChooseActiveCardsEffect extends AbstractEffect {
@@ -73,7 +74,9 @@ public abstract class ChooseActiveCardsEffect extends AbstractEffect {
         if (matchingCards.size() < minimum)
             minimum = matchingCards.size();
 
-        if (_shortcut && matchingCards.size() == minimum) {
+        if (_shortcut && maximum == 0) {
+            cardsSelected(game, Collections.<PhysicalCard>emptySet());
+        } if (_shortcut && matchingCards.size() == minimum) {
             if (_source != null && matchingCards.size() > 0)
                 game.getGameState().cardAffectsCard(_playerId, _source, matchingCards);
             cardsSelected(game, matchingCards);

@@ -14,6 +14,7 @@ import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Set;
 
 public class ChooseAndDiscardCardsFromHandEffect extends AbstractSubActionEffect {
@@ -79,7 +80,9 @@ public class ChooseAndDiscardCardsFromHandEffect extends AbstractSubActionEffect
         int maximum = Math.min(_maximum.evaluateExpression(game.getGameState(), game.getModifiersQuerying(), null), hand.size());
 
         int minimum = _minimum.evaluateExpression(game.getGameState(), game.getModifiersQuerying(), null);
-        if (hand.size() <= minimum) {
+        if (maximum == 0) {
+            cardsBeingDiscardedCallback(Collections.<PhysicalCard>emptySet());
+        } else if (hand.size() <= minimum) {
             SubAction subAction = new SubAction(_action);
             subAction.appendEffect(new DiscardCardsFromHandEffect(_action.getActionSource(), _playerId, hand, _forced));
             processSubAction(game, subAction);
