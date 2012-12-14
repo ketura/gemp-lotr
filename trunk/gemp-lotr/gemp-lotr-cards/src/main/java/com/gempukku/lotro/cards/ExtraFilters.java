@@ -20,7 +20,7 @@ public class ExtraFilters {
                 if (!(physicalCard.getBlueprint() instanceof AbstractAttachable))
                     return false;
                 AbstractAttachable weapon = (AbstractAttachable) physicalCard.getBlueprint();
-                return weapon.checkPlayRequirements(physicalCard.getOwner(), game, physicalCard, Filters.and(filters), twilightModifier);
+                return weapon.checkPlayRequirements(physicalCard.getOwner(), game, physicalCard, 0, Filters.and(filters), twilightModifier);
             }
         };
     }
