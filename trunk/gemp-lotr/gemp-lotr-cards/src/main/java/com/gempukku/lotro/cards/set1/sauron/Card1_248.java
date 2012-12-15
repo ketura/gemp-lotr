@@ -9,7 +9,10 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
+import com.gempukku.lotro.logic.decisions.IntegerAwaitingDecision;
 import com.gempukku.lotro.logic.effects.AddTwilightEffect;
+import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
 
 /**
  * Set: The Fellowship of the Ring
@@ -25,12 +28,22 @@ public class Card1_248 extends AbstractOldEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
-        PlayEventAction action = new PlayEventAction(self);
-        // TODO This should give an option to spot less
+    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+        final PlayEventAction action = new PlayEventAction(self);
         int sauronMinions = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Culture.SAURON, CardType.MINION);
-        action.appendEffect(
-                new AddTwilightEffect(self, sauronMinions));
+        if (sauronMinions > 0)
+            action.appendEffect(
+                    new PlayoutDecisionEffect(playerId,
+                            new IntegerAwaitingDecision(1, "Choose number of minions to spot", 0, sauronMinions, sauronMinions) {
+                                @Override
+                                public void decisionMade(String result) throws DecisionResultInvalidException {
+                                    int validatedResult = getValidatedResult(result);
+                                    if (validatedResult > 0)
+                                    action.appendEffect(
+                                            new AddTwilightEffect(self, validatedResult));
+                                }
+                            }
+                    ));
         return action;
     }
 
