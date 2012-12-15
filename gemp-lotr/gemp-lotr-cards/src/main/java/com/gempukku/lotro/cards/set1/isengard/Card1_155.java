@@ -13,9 +13,12 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
+import com.gempukku.lotro.logic.decisions.IntegerAwaitingDecision;
+import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -37,24 +40,33 @@ public class Card1_155 extends AbstractMinion {
     }
 
     @Override
-    public List<? extends ActivateCardAction> getOptionalInPlayAfterActions(final String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
+    public List<? extends ActivateCardAction> getOptionalInPlayAfterActions(final String playerId, final LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.PUT_ON_THE_ONE_RING
                 && PlayConditions.canExert(self, game, self)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(new SelfExertEffect(action, self));
-            // TODO this should give option to player to spot less
+
             int isengardMinionCount = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Culture.ISENGARD, CardType.MINION);
-            for (int i = 0; i < isengardMinionCount; i++) {
+            if (isengardMinionCount > 0) {
                 action.appendEffect(
-                        new UnrespondableEffect() {
-                            @Override
-                            public void doPlayEffect(LotroGame game) {
-                                List<? extends PhysicalCard> deck = game.getGameState().getDeck(playerId);
-                                if (deck.size() > 0 && deck.get(0).getBlueprint().getSide() == Side.SHADOW)
-                                    action.appendEffect(new AddBurdenEffect(self.getOwner(), self, 1));
-                            }
-                        });
-                action.appendEffect(new DiscardTopCardFromDeckEffect(self, playerId, false));
+                        new PlayoutDecisionEffect(playerId,
+                                new IntegerAwaitingDecision(1, "Choose number of minions to spot", 0, isengardMinionCount, isengardMinionCount) {
+                                    @Override
+                                    public void decisionMade(String result) throws DecisionResultInvalidException {
+                                        int spotted = getValidatedResult(result);
+                                        if (spotted > 0)
+                                            action.appendEffect(
+                                                    new DiscardTopCardFromDeckEffect(self, playerId, spotted, false) {
+                                                        @Override
+                                                        protected void cardsDiscardedCallback(Collection<PhysicalCard> cards) {
+                                                            int shadow = Filters.filter(cards, game.getGameState(), game.getModifiersQuerying(), Side.SHADOW).size();
+                                                            if (shadow > 0)
+                                                                action.appendEffect(
+                                                                        new AddBurdenEffect(playerId, self, shadow));
+                                                        }
+                                                    });
+                                    }
+                                }));
             }
             return Collections.singletonList(action);
         }
