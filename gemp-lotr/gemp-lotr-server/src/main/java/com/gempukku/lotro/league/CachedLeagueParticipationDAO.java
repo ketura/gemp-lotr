@@ -1,5 +1,6 @@
 package com.gempukku.lotro.league;
 
+import com.gempukku.lotro.cache.Cached;
 import com.gempukku.lotro.db.LeagueParticipationDAO;
 import com.gempukku.lotro.game.Player;
 import org.apache.commons.collections.map.LRUMap;
@@ -12,7 +13,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
-public class CachedLeagueParticipationDAO implements LeagueParticipationDAO {
+public class CachedLeagueParticipationDAO implements LeagueParticipationDAO, Cached {
     private LeagueParticipationDAO _leagueParticipationDAO;
     private ReadWriteLock _readWriteLock = new ReentrantReadWriteLock();
 
@@ -64,6 +65,7 @@ public class CachedLeagueParticipationDAO implements LeagueParticipationDAO {
         return leagueParticipants;
     }
 
+    @Override
     public void clearCache() {
         _readWriteLock.writeLock().lock();
         try {

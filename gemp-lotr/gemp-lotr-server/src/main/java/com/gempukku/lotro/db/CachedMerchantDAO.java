@@ -1,17 +1,23 @@
 package com.gempukku.lotro.db;
 
+import com.gempukku.lotro.cache.Cached;
 import org.apache.commons.collections.map.LRUMap;
 
 import java.util.Collections;
 import java.util.Date;
 import java.util.Map;
 
-public class CachedMerchantDAO implements MerchantDAO {
+public class CachedMerchantDAO implements MerchantDAO, Cached {
     private MerchantDAO _delegate;
     private Map<String, Transaction> _blueprintIdLastTransaction = Collections.synchronizedMap(new LRUMap(500));
 
     public CachedMerchantDAO(MerchantDAO delegate) {
         _delegate = delegate;
+    }
+
+    @Override
+    public void clearCache() {
+        _blueprintIdLastTransaction.clear();
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.gempukku.lotro.db;
 
+import com.gempukku.lotro.cache.Cached;
 import com.gempukku.lotro.game.Player;
 import org.apache.commons.collections.map.LRUMap;
 
@@ -7,13 +8,19 @@ import java.sql.SQLException;
 import java.util.Collections;
 import java.util.Map;
 
-public class CachedPlayerDAO implements PlayerDAO {
+public class CachedPlayerDAO implements PlayerDAO, Cached {
     private PlayerDAO _delegate;
     private Map<Integer, Player> _playerById = Collections.synchronizedMap(new LRUMap(500));
     private Map<String, Player> _playerByName = Collections.synchronizedMap(new LRUMap(500));
 
     public CachedPlayerDAO(PlayerDAO delegate) {
         _delegate = delegate;
+    }
+
+    @Override
+    public void clearCache() {
+        _playerById.clear();
+        _playerByName.clear();
     }
 
     @Override

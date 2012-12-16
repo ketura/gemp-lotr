@@ -1,6 +1,7 @@
 package com.gempukku.lotro.server;
 
 import com.gempukku.lotro.DateUtils;
+import com.gempukku.lotro.cache.CacheManager;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.db.DeckDAO;
 import com.gempukku.lotro.db.LeagueDAO;
@@ -54,6 +55,9 @@ public class AdminResource extends AbstractResource {
     @Context
     private LotroFormatLibrary _formatLibrary;
 
+    @Context
+    private CacheManager _cacheManager;
+
     @Path("/clearCache")
     @GET
     public String clearCache(@Context HttpServletRequest request) throws Exception {
@@ -61,6 +65,8 @@ public class AdminResource extends AbstractResource {
 
         _leagueService.clearCache();
         _tournamentService.clearCache();
+
+        _cacheManager.clearCaches();
 
         return "OK";
     }

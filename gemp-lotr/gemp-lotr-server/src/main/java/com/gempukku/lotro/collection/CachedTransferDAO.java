@@ -1,5 +1,6 @@
 package com.gempukku.lotro.collection;
 
+import com.gempukku.lotro.cache.Cached;
 import com.gempukku.lotro.game.CardCollection;
 
 import java.util.Collections;
@@ -7,12 +8,18 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public class CachedTransferDAO implements TransferDAO {
+public class CachedTransferDAO implements TransferDAO, Cached {
     private TransferDAO _delegate;
     private Set<String> _playersWithoutDelivery = Collections.synchronizedSet(new HashSet<String>());
 
     public CachedTransferDAO(TransferDAO delegate) {
         _delegate = delegate;
+    }
+
+
+    @Override
+    public void clearCache() {
+        _playersWithoutDelivery.clear();
     }
 
     public boolean hasUndeliveredPackages(String player) {

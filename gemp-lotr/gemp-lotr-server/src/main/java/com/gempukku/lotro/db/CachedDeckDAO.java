@@ -1,5 +1,6 @@
 package com.gempukku.lotro.db;
 
+import com.gempukku.lotro.cache.Cached;
 import com.gempukku.lotro.game.Player;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 import org.apache.commons.collections.map.LRUMap;
@@ -9,13 +10,19 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public class CachedDeckDAO implements DeckDAO {
+public class CachedDeckDAO implements DeckDAO, Cached {
     private DeckDAO _delegate;
     private Map<String, Set<String>> _playerDeckNames = Collections.synchronizedMap(new LRUMap(100));
     private Map<String, LotroDeck> _decks = Collections.synchronizedMap(new LRUMap(100));
 
     public CachedDeckDAO(DeckDAO delegate) {
         _delegate = delegate;
+    }
+
+    @Override
+    public void clearCache() {
+        _playerDeckNames.clear();
+        _decks.clear();
     }
 
     @Override

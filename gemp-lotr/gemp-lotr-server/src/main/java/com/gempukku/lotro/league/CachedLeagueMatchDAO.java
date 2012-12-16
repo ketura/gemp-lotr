@@ -1,5 +1,6 @@
 package com.gempukku.lotro.league;
 
+import com.gempukku.lotro.cache.Cached;
 import com.gempukku.lotro.db.LeagueMatchDAO;
 import com.gempukku.lotro.db.vo.LeagueMatchResult;
 import org.apache.commons.collections.map.LRUMap;
@@ -11,7 +12,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
-public class CachedLeagueMatchDAO implements LeagueMatchDAO {
+public class CachedLeagueMatchDAO implements LeagueMatchDAO, Cached {
     private LeagueMatchDAO _leagueMatchDAO;
     private ReadWriteLock _readWriteLock = new ReentrantReadWriteLock();
 
@@ -19,6 +20,16 @@ public class CachedLeagueMatchDAO implements LeagueMatchDAO {
 
     public CachedLeagueMatchDAO(LeagueMatchDAO leagueMatchDAO) {
         _leagueMatchDAO = leagueMatchDAO;
+    }
+
+    @Override
+    public void clearCache() {
+        _readWriteLock.writeLock().lock();
+        try {
+            _cachedMatches.clear();
+        } finally {
+            _readWriteLock.writeLock().unlock();
+        }
     }
 
     @Override
@@ -60,15 +71,6 @@ public class CachedLeagueMatchDAO implements LeagueMatchDAO {
 
             getLeagueMatchesInWriteLock(leagueId).add(match);
             _leagueMatchDAO.addPlayedMatch(leagueId, serieId, winner, loser);
-        } finally {
-            _readWriteLock.writeLock().unlock();
-        }
-    }
-
-    public void clearCache() {
-        _readWriteLock.writeLock().lock();
-        try {
-            _cachedMatches.clear();
         } finally {
             _readWriteLock.writeLock().unlock();
         }
