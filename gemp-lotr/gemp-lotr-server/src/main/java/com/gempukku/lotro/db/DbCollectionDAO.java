@@ -32,16 +32,7 @@ public class DbCollectionDAO implements CollectionDAO {
                     while (rs.next()) {
                         int playerId = rs.getInt(1);
                         Blob blob = rs.getBlob(2);
-                        try {
-                            InputStream inputStream = blob.getBinaryStream();
-                            try {
-                                playerCollections.put(playerId, _collectionSerializer.deserializeCollection(inputStream));
-                            } finally {
-                                inputStream.close();
-                            }
-                        } finally {
-                            blob.free();
-                        }
+                        playerCollections.put(playerId, extractCollectionAndClose(blob));
                     }
                     return playerCollections;
                 } finally {
@@ -66,16 +57,7 @@ public class DbCollectionDAO implements CollectionDAO {
                 try {
                     if (rs.next()) {
                         Blob blob = rs.getBlob(1);
-                        try {
-                            InputStream inputStream = blob.getBinaryStream();
-                            try {
-                                return _collectionSerializer.deserializeCollection(inputStream);
-                            } finally {
-                                inputStream.close();
-                            }
-                        } finally {
-                            blob.free();
-                        }
+                        return extractCollectionAndClose(blob);
                     } else {
                         return null;
                     }
@@ -87,6 +69,19 @@ public class DbCollectionDAO implements CollectionDAO {
             }
         } finally {
             connection.close();
+        }
+    }
+
+    private CardCollection extractCollectionAndClose(Blob blob) throws SQLException, IOException {
+        try {
+            InputStream inputStream = blob.getBinaryStream();
+            try {
+                return _collectionSerializer.deserializeCollection(inputStream);
+            } finally {
+                inputStream.close();
+            }
+        } finally {
+            blob.free();
         }
     }
 
