@@ -76,7 +76,7 @@ public abstract class ChooseActiveCardsEffect extends AbstractEffect {
 
         if (_shortcut && maximum == 0) {
             cardsSelected(game, Collections.<PhysicalCard>emptySet());
-        } if (_shortcut && matchingCards.size() == minimum) {
+        } else if (_shortcut && matchingCards.size() == minimum) {
             if (_source != null && matchingCards.size() > 0)
                 game.getGameState().cardAffectsCard(_playerId, _source, matchingCards);
             cardsSelected(game, matchingCards);
