@@ -100,7 +100,21 @@ var packBlueprints = {
     "TaD - Witch-king Starter":"/gemp-lotr/images/boosters/eof_witch_king_starter.png",
     "TaD - Booster":"/gemp-lotr/images/boosters/tad_booster.png",
 
-    "REF - Booster":"/gemp-lotr/images/boosters/ref_booster.png"
+    "REF - Booster":"/gemp-lotr/images/boosters/ref_booster.png",
+
+    "Special-01":"/gemp-lotr/images/boosters/special-01.png",
+    "Special-02":"/gemp-lotr/images/boosters/special-02.png",
+    "Special-03":"/gemp-lotr/images/boosters/special-03.png",
+    "Special-04":"/gemp-lotr/images/boosters/special-04.png",
+    "Special-05":"/gemp-lotr/images/boosters/special-05.png",
+    "Special-06":"/gemp-lotr/images/boosters/special-06.png",
+    "Special-07":"/gemp-lotr/images/boosters/special-07.png",
+    "Special-08":"/gemp-lotr/images/boosters/special-08.png",
+    "Special-09":"/gemp-lotr/images/boosters/special-09.png",
+
+    "(S)Special-1-3":"/gemp-lotr/images/boosters/starter_selection.png",
+    "(S)Special-4-6":"/gemp-lotr/images/boosters/starter_selection.png",
+    "(S)Special-7-9":"/gemp-lotr/images/boosters/starter_selection.png"
 };
 
 var Card = Class.extend({

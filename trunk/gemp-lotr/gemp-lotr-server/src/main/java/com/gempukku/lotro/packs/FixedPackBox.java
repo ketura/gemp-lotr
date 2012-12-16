@@ -17,11 +17,13 @@ public class FixedPackBox implements PackBox {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(FixedPackBox.class.getResourceAsStream("/" + packName + ".pack")));
         try {
             String line;
-            while ((line = bufferedReader.readLine()) != null)
-                if (!line.startsWith("#")) {
+            while ((line = bufferedReader.readLine()) != null) {
+                line = line.trim();
+                if (!line.startsWith("#") && line.length() > 0) {
                     String[] result = line.split("x", 2);
                     _contents.put(result[1], Integer.parseInt(result[0]));
                 }
+            }
         } finally {
             bufferedReader.close();
         }
