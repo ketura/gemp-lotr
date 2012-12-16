@@ -17,6 +17,7 @@ public class SealedLeagueProduct {
         createTowersBlock();
         createMovieBlock();
         createWarOfTheRingBlock();
+        createMovieSpecialBlock();
     }
 
     private void createFellowshipBlock() {
@@ -108,6 +109,39 @@ public class SealedLeagueProduct {
         kingBlock.add(fourthWeek);
 
         _collections.put(SealedLeagueType.MOVIE_BLOCK.getSealedCode(), kingBlock);
+    }
+
+    private void createMovieSpecialBlock() {
+        List<CardCollection> movieSpecialBlock = new ArrayList<CardCollection>();
+
+        MutableCardCollection firstWeek = new DefaultCardCollection();
+        firstWeek.addItem("(S)Special-1-3", 1);
+        firstWeek.addItem("FotR - Booster", 1);
+        firstWeek.addItem("TTT - Booster", 1);
+        firstWeek.addItem("RotK - Booster", 1);
+        firstWeek.addItem("(S)Movie Booster Choice", 3);
+        movieSpecialBlock.add(firstWeek);
+
+        MutableCardCollection secondWeek = new DefaultCardCollection();
+        secondWeek.addItem("(S)Special-4-6", 1);
+        secondWeek.addItem("MoM - Booster", 1);
+        secondWeek.addItem("BoHD - Booster", 1);
+        secondWeek.addItem("SoG - Booster", 1);
+        movieSpecialBlock.add(secondWeek);
+
+        MutableCardCollection thirdWeek = new DefaultCardCollection();
+        thirdWeek.addItem("(S)Special-7-9", 1);
+        thirdWeek.addItem("RotEL - Booster", 1);
+        thirdWeek.addItem("EoF - Booster", 1);
+        thirdWeek.addItem("MD - Booster", 1);
+        movieSpecialBlock.add(thirdWeek);
+
+        MutableCardCollection fourthWeek = new DefaultCardCollection();
+        fourthWeek.addItem("REF - Booster", 1);
+        fourthWeek.addItem("(S)Movie Booster Choice", 5);
+        movieSpecialBlock.add(fourthWeek);
+
+        _collections.put(SealedLeagueType.MOVIE_SPECIAL_BLOCK.getSealedCode(), movieSpecialBlock);
     }
 
     private void createWarOfTheRingBlock() {
