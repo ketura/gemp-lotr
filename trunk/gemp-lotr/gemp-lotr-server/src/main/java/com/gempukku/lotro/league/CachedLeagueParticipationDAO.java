@@ -66,6 +66,11 @@ public class CachedLeagueParticipationDAO implements LeagueParticipationDAO, Cac
     }
 
     @Override
+    public int getItemCount() {
+        return _cachedParticipants.size();
+    }
+
+    @Override
     public void clearCache() {
         _readWriteLock.writeLock().lock();
         try {

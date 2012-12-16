@@ -26,6 +26,11 @@ public class CachedDeckDAO implements DeckDAO, Cached {
     }
 
     @Override
+    public int getItemCount() {
+        return _playerDeckNames.size()+_decks.size();
+    }
+
+    @Override
     public LotroDeck buildDeckFromContents(String deckName, String contents) {
         return _delegate.buildDeckFromContents(deckName, contents);
     }

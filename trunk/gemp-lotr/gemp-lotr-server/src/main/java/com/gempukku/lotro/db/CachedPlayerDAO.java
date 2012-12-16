@@ -24,6 +24,11 @@ public class CachedPlayerDAO implements PlayerDAO, Cached {
     }
 
     @Override
+    public int getItemCount() {
+        return _playerById.size()+_playerByName.size();
+    }
+
+    @Override
     public Player getPlayer(int id) {
         Player player = (Player) _playerById.get(id);
         if (player == null) {
