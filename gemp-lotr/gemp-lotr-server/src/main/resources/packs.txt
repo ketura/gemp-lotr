@@ -61,3 +61,15 @@ BR - Saruman Starter
 (S)BL - Starter
 BL - Arwen Starter
 BL - Boromir Starter
+Special-01
+Special-02
+Special-03
+Special-04
+Special-05
+Special-06
+Special-07
+Special-08
+Special-09
+(S)Special-1-3
+(S)Special-4-6
+(S)Special-7-9

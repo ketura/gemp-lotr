@@ -77,6 +77,20 @@ public class PacksStorageBuilder {
             packStorage.addPackBox("BL - Arwen Starter", new FixedPackBox("BL - Arwen Starter"));
             packStorage.addPackBox("BL - Boromir Starter", new FixedPackBox("BL - Boromir Starter"));
 
+            packStorage.addPackBox("(S)Special-1-3", new FixedPackBox("(S)Special-1-3"));
+            packStorage.addPackBox("(S)Special-4-6", new FixedPackBox("(S)Special-4-6"));
+            packStorage.addPackBox("(S)Special-7-9", new FixedPackBox("(S)Special-7-9"));
+
+            packStorage.addPackBox("Special-01", new FixedPackBox("Special-01"));
+            packStorage.addPackBox("Special-02", new FixedPackBox("Special-02"));
+            packStorage.addPackBox("Special-03", new FixedPackBox("Special-03"));
+            packStorage.addPackBox("Special-04", new FixedPackBox("Special-04"));
+            packStorage.addPackBox("Special-05", new FixedPackBox("Special-05"));
+            packStorage.addPackBox("Special-06", new FixedPackBox("Special-06"));
+            packStorage.addPackBox("Special-07", new FixedPackBox("Special-07"));
+            packStorage.addPackBox("Special-08", new FixedPackBox("Special-08"));
+            packStorage.addPackBox("Special-09", new FixedPackBox("Special-09"));
+
             packStorage.addPackBox("FotR - Booster", new RarityPackBox(1));
             packStorage.addPackBox("MoM - Booster", new RarityPackBox(2));
             packStorage.addPackBox("RotEL - Booster", new RarityPackBox(3));
