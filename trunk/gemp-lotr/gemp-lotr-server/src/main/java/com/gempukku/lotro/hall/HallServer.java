@@ -270,7 +270,12 @@ public class HallServer extends AbstractServer {
             for (Map.Entry<String, AwaitingTable> tableInformation : _awaitingTables.entrySet()) {
                 final AwaitingTable table = tableInformation.getValue();
 
-                visitor.visitTable(tableInformation.getKey(), null, false, "Waiting", table.getLotroFormat().getName(), getTournamentName(table), table.getPlayerNames(), null);
+                Set<String> players;
+                if (table.getLeague() != null)
+                    players = Collections.<String>emptySet();
+                else
+                    players = table.getPlayerNames();
+                visitor.visitTable(tableInformation.getKey(), null, false, "Waiting", table.getLotroFormat().getName(), getTournamentName(table), players, null);
             }
 
             // Then non-finished
