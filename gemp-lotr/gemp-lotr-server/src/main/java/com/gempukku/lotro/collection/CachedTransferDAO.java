@@ -16,10 +16,14 @@ public class CachedTransferDAO implements TransferDAO, Cached {
         _delegate = delegate;
     }
 
-
     @Override
     public void clearCache() {
         _playersWithoutDelivery.clear();
+    }
+
+    @Override
+    public int getItemCount() {
+        return _playersWithoutDelivery.size();
     }
 
     public boolean hasUndeliveredPackages(String player) {

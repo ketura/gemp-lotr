@@ -66,9 +66,13 @@ public class AdminResource extends AbstractResource {
         _leagueService.clearCache();
         _tournamentService.clearCache();
 
+        int before = _cacheManager.getTotalCount();
+
         _cacheManager.clearCaches();
 
-        return "OK";
+        int after = _cacheManager.getTotalCount();
+
+        return "Before: "+before+"<br>OK<br>After: "+after;
     }
 
     @Path("/shutdown")

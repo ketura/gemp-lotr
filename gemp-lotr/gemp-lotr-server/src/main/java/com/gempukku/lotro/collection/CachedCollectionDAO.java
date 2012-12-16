@@ -24,6 +24,11 @@ public class CachedCollectionDAO implements CollectionDAO, Cached {
     }
 
     @Override
+    public int getItemCount() {
+        return _playerCollections.size();
+    }
+
+    @Override
     public CardCollection getPlayerCollection(int playerId, String type) throws SQLException, IOException {
         String key = constructCacheKey(playerId, type);
         CardCollection collection = (CardCollection) _playerCollections.get(key);

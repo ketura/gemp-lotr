@@ -33,6 +33,11 @@ public class CachedLeagueMatchDAO implements LeagueMatchDAO, Cached {
     }
 
     @Override
+    public int getItemCount() {
+        return _cachedMatches.size();
+    }
+
+    @Override
     public Collection<LeagueMatchResult> getLeagueMatches(String leagueId) {
         _readWriteLock.readLock().lock();
         try {

@@ -14,4 +14,11 @@ public class CacheManager {
         for (Cached cache : _caches)
             cache.clearCache();
     }
+
+    public int getTotalCount() {
+        int total = 0;
+        for (Cached cache : _caches)
+            total+=cache.getItemCount();
+        return total;
+    }
 }
