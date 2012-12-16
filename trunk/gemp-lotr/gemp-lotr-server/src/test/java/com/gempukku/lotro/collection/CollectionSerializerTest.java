@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.util.Map;
 
 public class CollectionSerializerTest {
+    private CollectionSerializer _serializer = new CollectionSerializer();
+
     @Test
     public void testSerializeDeserialize() throws IOException {
         DefaultCardCollection collection = new DefaultCardCollection();
@@ -21,14 +23,7 @@ public class CollectionSerializerTest {
         collection.addItem("1_237T*", 3);
         collection.addItem("FotR - Booster", 2);
 
-        CollectionSerializer serializer = new CollectionSerializer();
-
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        serializer.serializeCollection(collection, baos);
-
-        final byte[] bytes = baos.toByteArray();
-        ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
-        CardCollection resultCollection = serializer.deserializeCollection(bais);
+        CardCollection resultCollection = serializeAndDeserialize(collection);
 
         final Map<String, CardCollection.Item> result = resultCollection.getAll();
         assertEquals(5, result.size());
@@ -45,18 +40,21 @@ public class CollectionSerializerTest {
         DefaultCardCollection collection = new DefaultCardCollection();
         collection.addItem("FotR - Booster", 8);
 
-        CollectionSerializer serializer = new CollectionSerializer();
-
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        serializer.serializeCollection(collection, baos);
-
-        final byte[] bytes = baos.toByteArray();
-        ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
-        CardCollection resultCollection = serializer.deserializeCollection(bais);
+        CardCollection resultCollection = serializeAndDeserialize(collection);
 
         final Map<String, CardCollection.Item> result = resultCollection.getAll();
         assertEquals(1, result.size());
         assertEquals(8, result.get("FotR - Booster").getCount());
+    }
+
+    private CardCollection serializeAndDeserialize(DefaultCardCollection collection) throws IOException {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        _serializer.serializeCollection(collection, baos);
+
+        final byte[] bytes = baos.toByteArray();
+        ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
+        CardCollection resultCollection = _serializer.deserializeCollection(bais);
+        return resultCollection;
     }
 
     @Test
@@ -64,14 +62,7 @@ public class CollectionSerializerTest {
         DefaultCardCollection collection = new DefaultCardCollection();
         collection.addItem("FotR - Booster", 500);
 
-        CollectionSerializer serializer = new CollectionSerializer();
-
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        serializer.serializeCollection(collection, baos);
-
-        final byte[] bytes = baos.toByteArray();
-        ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
-        CardCollection resultCollection = serializer.deserializeCollection(bais);
+        CardCollection resultCollection = serializeAndDeserialize(collection);
 
         final Map<String, CardCollection.Item> result = resultCollection.getAll();
         assertEquals(1, result.size());
@@ -83,15 +74,25 @@ public class CollectionSerializerTest {
         DefaultCardCollection collection = new DefaultCardCollection();
         collection.addCurrency(127*255);
 
-        CollectionSerializer serializer = new CollectionSerializer();
-
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        serializer.serializeCollection(collection, baos);
-
-        final byte[] bytes = baos.toByteArray();
-        ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
-        CardCollection resultCollection = serializer.deserializeCollection(bais);
+        CardCollection resultCollection = serializeAndDeserialize(collection);
 
         assertEquals(127*255, resultCollection.getCurrency());
+    }
+    
+    @Test
+    public void testCardCount() throws IOException {
+        DefaultCardCollection collection = new DefaultCardCollection();
+        collection.addItem("1_1", 127);
+        assertEquals(127, serializeAndDeserialize(collection).getItemCount("1_1"));
+
+        collection.addItem("1_1", 1);
+        assertEquals(128, serializeAndDeserialize(collection).getItemCount("1_1"));
+
+        collection.addItem("1_1", 127);
+        assertEquals(255, serializeAndDeserialize(collection).getItemCount("1_1"));
+
+        // Card number is capped at 255
+        collection.addItem("1_1", 1);
+        assertEquals(255, serializeAndDeserialize(collection).getItemCount("1_1"));
     }
 }
