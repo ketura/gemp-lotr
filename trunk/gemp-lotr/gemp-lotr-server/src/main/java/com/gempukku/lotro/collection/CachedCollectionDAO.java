@@ -1,5 +1,6 @@
 package com.gempukku.lotro.collection;
 
+import com.gempukku.lotro.cache.Cached;
 import com.gempukku.lotro.db.CollectionDAO;
 import com.gempukku.lotro.game.CardCollection;
 import org.apache.commons.collections.map.LRUMap;
@@ -9,12 +10,17 @@ import java.sql.SQLException;
 import java.util.Collections;
 import java.util.Map;
 
-public class CachedCollectionDAO implements CollectionDAO {
+public class CachedCollectionDAO implements CollectionDAO, Cached {
     private CollectionDAO _delegate;
     private Map<String, CardCollection> _playerCollections = Collections.synchronizedMap(new LRUMap(100));
 
     public CachedCollectionDAO(CollectionDAO delegate) {
         _delegate = delegate;
+    }
+
+    @Override
+    public void clearCache() {
+        _playerCollections.clear();
     }
 
     @Override

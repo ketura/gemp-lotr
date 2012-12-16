@@ -1,5 +1,6 @@
 package com.gempukku.lotro.server.provider;
 
+import com.gempukku.lotro.cache.CacheManager;
 import com.gempukku.lotro.collection.CachedCollectionDAO;
 import com.gempukku.lotro.collection.CachedTransferDAO;
 import com.gempukku.lotro.collection.CollectionSerializer;
@@ -41,7 +42,6 @@ public class DaoBuilder {
         CachedCollectionDAO collectionDao = new CachedCollectionDAO(dbCollectionDao);
         objectMap.put(CollectionDAO.class, collectionDao);
 
-
         DbPlayerDAO dbPlayerDao = new DbPlayerDAO(dbAccess);
         CachedPlayerDAO playerDao = new CachedPlayerDAO(dbPlayerDao);
         objectMap.put(PlayerDAO.class, playerDao);
@@ -49,5 +49,13 @@ public class DaoBuilder {
         DbTransferDAO dbTransferDao = new DbTransferDAO(dbAccess);
         CachedTransferDAO transferDao = new CachedTransferDAO(dbTransferDao);
         objectMap.put(TransferDAO.class, transferDao);
+
+        CacheManager cacheManager = new CacheManager();
+        cacheManager.addCache(merchantDao);
+        cacheManager.addCache(deckDao);
+        cacheManager.addCache(collectionDao);
+        cacheManager.addCache(playerDao);
+        cacheManager.addCache(transferDao);
+        objectMap.put(CacheManager.class, cacheManager);
     }
 }
