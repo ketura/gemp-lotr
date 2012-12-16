@@ -40,9 +40,7 @@ public class CollectionSerializerTest {
         DefaultCardCollection collection = new DefaultCardCollection();
         collection.addItem("FotR - Booster", 8);
 
-        CardCollection resultCollection = serializeAndDeserialize(collection);
-
-        final Map<String, CardCollection.Item> result = resultCollection.getAll();
+        final Map<String, CardCollection.Item> result = serializeAndDeserialize(collection).getAll();
         assertEquals(1, result.size());
         assertEquals(8, result.get("FotR - Booster").getCount());
     }
@@ -53,8 +51,7 @@ public class CollectionSerializerTest {
 
         final byte[] bytes = baos.toByteArray();
         ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
-        CardCollection resultCollection = _serializer.deserializeCollection(bais);
-        return resultCollection;
+        return _serializer.deserializeCollection(bais);
     }
 
     @Test
@@ -62,9 +59,7 @@ public class CollectionSerializerTest {
         DefaultCardCollection collection = new DefaultCardCollection();
         collection.addItem("FotR - Booster", 500);
 
-        CardCollection resultCollection = serializeAndDeserialize(collection);
-
-        final Map<String, CardCollection.Item> result = resultCollection.getAll();
+        final Map<String, CardCollection.Item> result = serializeAndDeserialize(collection).getAll();
         assertEquals(1, result.size());
         assertEquals(500, result.get("FotR - Booster").getCount());
     }
@@ -74,9 +69,7 @@ public class CollectionSerializerTest {
         DefaultCardCollection collection = new DefaultCardCollection();
         collection.addCurrency(127*255);
 
-        CardCollection resultCollection = serializeAndDeserialize(collection);
-
-        assertEquals(127*255, resultCollection.getCurrency());
+        assertEquals(127*255, serializeAndDeserialize(collection).getCurrency());
     }
     
     @Test
