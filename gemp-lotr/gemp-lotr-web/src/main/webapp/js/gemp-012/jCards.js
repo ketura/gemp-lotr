@@ -33,6 +33,7 @@ var packBlueprints = {
     "(S)Tengwar":"/gemp-lotr/images/boosters/tengwar_selection.png",
 
     "(S)Booster Choice":"/gemp-lotr/images/boosters/booster_selection.png",
+    "(S)Movie Booster Choice":"/gemp-lotr/images/boosters/booster_selection.png",
 
     "FotR - League Starter":"/gemp-lotr/images/boosters/fotr_league_starter.png",
     "Random FotR Foil Common":"/gemp-lotr/images/boosters/random_foil.png",

@@ -38,6 +38,7 @@ public class PacksStorageBuilder {
             packStorage.addPackBox("(S)Tengwar", new TengwarPackBox(new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19}));
 
             packStorage.addPackBox("(S)Booster Choice", new FixedPackBox("(S)Booster Choice"));
+            packStorage.addPackBox("(S)Movie Booster Choice", new FixedPackBox("(S)Movie Booster Choice"));
 
             packStorage.addPackBox("FotR - Gandalf Starter", new FixedPackBox("FotR - Gandalf Starter"));
             packStorage.addPackBox("FotR - Aragorn Starter", new FixedPackBox("FotR - Aragorn Starter"));
