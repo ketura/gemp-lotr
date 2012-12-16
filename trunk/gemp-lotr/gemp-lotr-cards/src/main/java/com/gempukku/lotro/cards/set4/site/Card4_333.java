@@ -33,11 +33,11 @@ public class Card4_333 extends AbstractSite {
         if (TriggerConditions.startOfPhase(game, effectResult, Phase.FELLOWSHIP)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new ChooseAndHealCharactersEffect(action, game.getGameState().getCurrentPlayerId(), 1, 1, CardType.COMPANION));
+                    new ChooseAndHealCharactersEffect(action, game.getGameState().getCurrentPlayerId(), 0, 1, CardType.COMPANION));
             action.appendEffect(
-                    new ChooseAndHealCharactersEffect(action, game.getGameState().getCurrentPlayerId(), 1, 1, CardType.COMPANION));
+                    new ChooseAndHealCharactersEffect(action, game.getGameState().getCurrentPlayerId(), 0, 1, CardType.COMPANION));
             action.appendEffect(
-                    new ChooseAndHealCharactersEffect(action, game.getGameState().getCurrentPlayerId(), 1, 1, CardType.COMPANION));
+                    new ChooseAndHealCharactersEffect(action, game.getGameState().getCurrentPlayerId(), 0, 1, CardType.COMPANION));
             return Collections.singletonList(action);
         }
         return null;
