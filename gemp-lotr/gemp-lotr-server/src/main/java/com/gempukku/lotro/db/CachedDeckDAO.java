@@ -83,7 +83,7 @@ public class CachedDeckDAO implements DeckDAO, Cached {
     @Override
     public void saveDeckForPlayer(Player player, String name, LotroDeck deck) {
         _delegate.saveDeckForPlayer(player, name, deck);
-        _decks.put(constructDeckKey(player, name), deck);
         _playerDeckNames.remove(constructPlayerDeckNamesKey(player));
+        _decks.put(constructDeckKey(player, name), deck);
     }
 }
