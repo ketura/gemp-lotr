@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class ParametrizedMerchant implements Merchant {
     private static final int BOOSTER_PRICE = 1000;
-    private static final long DAY = BOOSTER_PRICE * 60 * 60 * 24;
+    private static final long DAY = 1000 * 60 * 60 * 24;
 
     private Date _merchantSetupDate;
 
@@ -82,7 +82,7 @@ public class ParametrizedMerchant implements Merchant {
             Integer basePrice = getBasePrice(blueprintId);
             if (basePrice == null)
                 return null;
-            lastTrans = new MerchantDAO.Transaction(_merchantSetupDate, basePrice, MerchantDAO.TransactionType.SELL);
+            lastTrans = new MerchantDAO.Transaction(_merchantSetupDate, basePrice, MerchantDAO.TransactionType.SELL, 0);
         }
         if (lastTrans.getDate().getTime() + _priceRevertTimeMs > currentTime.getTime()) {
             if (lastTrans.getTransactionType() == MerchantDAO.TransactionType.SELL) {
