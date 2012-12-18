@@ -20,7 +20,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 public class MerchantService {
     private Merchant _merchant;
     private long _priceGuaranteeExpire = 1000 * 60 * 5;
-    private Map<Player, PriceGuarantee> _priceGuarantees = new ConcurrentHashMap<Player, PriceGuarantee>();
+    private Map<String, PriceGuarantee> _priceGuarantees = new ConcurrentHashMap<String, PriceGuarantee>();
 
     private ReadWriteLock _lock = new ReentrantReadWriteLock(true);
     private Set<CardItem> _merchantableItems = new HashSet<CardItem>();
@@ -139,7 +139,7 @@ public class MerchantService {
                 }
             }
             PriceGuarantee priceGuarantee = new PriceGuarantee(sellPrices, buyPrices, currentTime);
-            _priceGuarantees.put(player, priceGuarantee);
+            _priceGuarantees.put(player.getName(), priceGuarantee);
             return priceGuarantee;
         } finally {
             lock.unlock();
@@ -151,7 +151,7 @@ public class MerchantService {
         Lock lock = _lock.writeLock();
         lock.lock();
         try {
-            PriceGuarantee guarantee = _priceGuarantees.get(player);
+            PriceGuarantee guarantee = _priceGuarantees.get(player.getName());
             if (guarantee == null || guarantee.getDate().getTime() + _priceGuaranteeExpire < currentTime.getTime())
                 throw new MerchantException("Price guarantee has expired");
             Integer guaranteedPrice = guarantee.getBuyPrices().get(blueprintId);
@@ -173,7 +173,7 @@ public class MerchantService {
         Lock lock = _lock.writeLock();
         lock.lock();
         try {
-            PriceGuarantee guarantee = _priceGuarantees.get(player);
+            PriceGuarantee guarantee = _priceGuarantees.get(player.getName());
             if (guarantee == null || guarantee.getDate().getTime() + _priceGuaranteeExpire < currentTime.getTime())
                 throw new MerchantException("Price guarantee has expired");
             Integer guaranteedPrice = guarantee.getSellPrices().get(blueprintId);
