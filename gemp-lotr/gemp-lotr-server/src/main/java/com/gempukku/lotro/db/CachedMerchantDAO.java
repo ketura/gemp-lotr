@@ -28,7 +28,7 @@ public class CachedMerchantDAO implements MerchantDAO, Cached {
     @Override
     public void addTransaction(String blueprintId, float price, Date date, TransactionType transactionType) {
         _delegate.addTransaction(blueprintId, price, date, transactionType);
-        _blueprintIdLastTransaction.put(blueprintId, new Transaction(date, price, transactionType));
+        _blueprintIdLastTransaction.remove(blueprintId);
     }
 
     @Override

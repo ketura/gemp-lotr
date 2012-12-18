@@ -81,7 +81,7 @@ public class DbMerchantDAO implements MerchantDAO {
         try {
             Connection connection = _dbAccess.getDataSource().getConnection();
             try {
-                PreparedStatement statement = connection.prepareStatement("select blueprint_id, transaction_price, transaction_date, transaction_type from merchant_data where blueprint_id=?");
+                PreparedStatement statement = connection.prepareStatement("select blueprint_id, transaction_price, transaction_date, transaction_type, buy_count-sell_count from merchant_data where blueprint_id=?");
                 try {
                     statement.setString(1, blueprintId);
                     ResultSet rs = statement.executeQuery();
@@ -90,8 +90,9 @@ public class DbMerchantDAO implements MerchantDAO {
                             float price = rs.getFloat(2);
                             Date date = rs.getTimestamp(3);
                             String type = rs.getString(4);
+                            int stock = rs.getInt(5);
 
-                            return new Transaction(date, price, TransactionType.valueOf(type));
+                            return new Transaction(date, price, TransactionType.valueOf(type), stock);
                         } else {
                             return null;
                         }
