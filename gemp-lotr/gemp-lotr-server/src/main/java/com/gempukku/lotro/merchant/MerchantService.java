@@ -8,11 +8,11 @@ import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.game.CardItem;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.game.Player;
+import org.apache.commons.collections.map.LRUMap;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
@@ -20,7 +20,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 public class MerchantService {
     private Merchant _merchant;
     private long _priceGuaranteeExpire = 1000 * 60 * 5;
-    private Map<String, PriceGuarantee> _priceGuarantees = new ConcurrentHashMap<String, PriceGuarantee>();
+    private Map<String, PriceGuarantee> _priceGuarantees = Collections.synchronizedMap(new LRUMap(100));
 
     private ReadWriteLock _lock = new ReentrantReadWriteLock(true);
     private Set<CardItem> _merchantableItems = new HashSet<CardItem>();
