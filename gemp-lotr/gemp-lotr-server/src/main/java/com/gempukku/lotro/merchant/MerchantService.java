@@ -33,17 +33,16 @@ public class MerchantService {
 
     public MerchantService(LotroCardBlueprintLibrary library, CollectionsManager collectionsManager, MerchantDAO merchantDAO) {
         _collectionsManager = collectionsManager;
-        ParametrizedMerchant parametrizedMerchant = new ParametrizedMerchant(library);
+        Date setupDate;
         try {
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             format.setTimeZone(TimeZone.getTimeZone("GMT"));
-            Date setupDate = format.parse("2012-03-14 00:00:00");
-            parametrizedMerchant.setMerchantSetupDate(setupDate);
+            setupDate = format.parse("2012-03-14 00:00:00");
         } catch (ParseException exp) {
             throw new RuntimeException("Unable to parse merchant setup date");
         }
-        parametrizedMerchant.setMerchantDao(merchantDAO);
-        _merchant = parametrizedMerchant;
+
+        _merchant = new StorageBasedMerchant(library, merchantDAO, setupDate);
 
         RarityReader rarityReader = new RarityReader();
         for (int i = 0; i <= 19; i++) {

@@ -53,7 +53,7 @@ public class StorageBasedMerchant implements Merchant {
 
         MerchantDAO.Transaction lastTransaction = _merchantDao.getLastTransaction(blueprintId);
 
-        if (lastTransaction == null || lastTransaction.getStock() < 0)
+        if (lastTransaction == null || lastTransaction.getStock() <= 0)
             return null;
 
         Double normalPrice = getNormalPrice(lastTransaction, blueprintId, currentTime);
