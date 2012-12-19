@@ -293,6 +293,7 @@ public class AdminResource extends AbstractResource {
     @POST
     public String addItemsToCollection(
             @FormParam("collectionType") String collectionType,
+            @FormParam("reason") String reason,
             @FormParam("product") String product,
             @Context HttpServletRequest request) throws Exception {
         validateAdmin(request);
@@ -302,7 +303,7 @@ public class AdminResource extends AbstractResource {
         Map<Player,CardCollection> playersCollection = _collectionManager.getPlayersCollection(collectionType);
         
         for (Map.Entry<Player, CardCollection> playerCollection : playersCollection.entrySet())
-            _collectionManager.addItemsToPlayerCollection(true, "Fixing league collection", playerCollection.getKey(), createCollectionType(collectionType), productItems);
+            _collectionManager.addItemsToPlayerCollection(true, reason, playerCollection.getKey(), createCollectionType(collectionType), productItems);
 
         return "OK";
     }
