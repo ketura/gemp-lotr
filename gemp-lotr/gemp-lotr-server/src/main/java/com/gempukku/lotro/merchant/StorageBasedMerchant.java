@@ -13,11 +13,15 @@ public class StorageBasedMerchant implements Merchant {
     private static final int BOOSTER_PRICE = 1000;
     private static final long DAY = 1000 * 60 * 60 * 24;
     private static final float _profitMargin = 0.7f;
-    private static final int DOUBLE_AFTER_DAYS = 60;
-    private static final int MAX_STOCK_BUY = 100;
+
+    private static final int MAX_STOCK_BUY = 99;
+    private static final int MIN_STOCK_SELL = 1;
+
     private static final int FOIL_PRICE_MULTIPLIER = 2;
     private static final int MIN_SELL_PRICE = 2;
     private static final int MIN_BUY_PRICE = 1;
+
+    private static final int DOUBLE_AFTER_DAYS = 60;
     private static final double PRICE_SHIFT_AFTER_TRANSACTION = 1.05;
 
     private LotroCardBlueprintLibrary _library;
@@ -53,7 +57,7 @@ public class StorageBasedMerchant implements Merchant {
 
         MerchantDAO.Transaction lastTransaction = _merchantDao.getLastTransaction(blueprintId);
 
-        if (lastTransaction == null || lastTransaction.getStock() <= 0)
+        if (lastTransaction == null || lastTransaction.getStock() < MIN_STOCK_SELL)
             return null;
 
         Double normalPrice = getNormalPrice(lastTransaction, blueprintId, currentTime);
@@ -73,7 +77,7 @@ public class StorageBasedMerchant implements Merchant {
 
         MerchantDAO.Transaction lastTransaction = _merchantDao.getLastTransaction(blueprintId);
 
-        if (lastTransaction != null && lastTransaction.getStock() >= MAX_STOCK_BUY && !foil)
+        if (lastTransaction != null && lastTransaction.getStock() > MAX_STOCK_BUY && !foil)
             return null;
 
         Double normalPrice = getNormalPrice(lastTransaction, blueprintId, currentTime);
