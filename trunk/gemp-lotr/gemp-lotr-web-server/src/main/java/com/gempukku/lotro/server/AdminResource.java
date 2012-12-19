@@ -2,7 +2,6 @@ package com.gempukku.lotro.server;
 
 import com.gempukku.lotro.DateUtils;
 import com.gempukku.lotro.cache.CacheManager;
-import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.db.DeckDAO;
 import com.gempukku.lotro.db.LeagueDAO;
 import com.gempukku.lotro.db.MerchantDAO;
@@ -29,12 +28,11 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 @Singleton
 @Path("/admin")
 public class AdminResource extends AbstractResource {
-    @Context
-    private CollectionsManager _collectionsManager;
     @Context
     private LeagueService _leagueService;
     @Context
@@ -285,8 +283,26 @@ public class AdminResource extends AbstractResource {
         for (String playerName : playerNames) {
             Player player = _playerDao.getPlayer(playerName);
 
-            _collectionsManager.addItemsToPlayerCollection(true, "Administrator action", player, createCollectionType(collectionType), productItems);
+            _collectionManager.addItemsToPlayerCollection(true, "Administrator action", player, createCollectionType(collectionType), productItems);
         }
+
+        return "OK";
+    }
+
+    @Path("/addItemsToCollection")
+    @POST
+    public String addItemsToCollection(
+            @FormParam("collectionType") String collectionType,
+            @FormParam("product") String product,
+            @Context HttpServletRequest request) throws Exception {
+        validateAdmin(request);
+
+        Collection<CardCollection.Item> productItems = getProductItems(product);
+
+        Map<Player,CardCollection> playersCollection = _collectionManager.getPlayersCollection(collectionType);
+        
+        for (Map.Entry<Player, CardCollection> playerCollection : playersCollection.entrySet())
+            _collectionManager.addItemsToPlayerCollection(true, "Fixing league collection", playerCollection.getKey(), createCollectionType(collectionType), productItems);
 
         return "OK";
     }
