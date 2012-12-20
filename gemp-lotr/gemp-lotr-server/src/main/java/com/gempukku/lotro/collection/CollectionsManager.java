@@ -225,7 +225,7 @@ public class CollectionsManager {
 
                 String reason = "Trading items";
                 _transferDAO.addTransferFrom(player.getName(), reason, collectionType.getFullName(), currencyCost, cardCollectionFromBlueprintId(removeCount, removeBlueprintId));
-                _transferDAO.addTransferTo(false, player.getName(), reason, collectionType.getFullName(), 0, cardCollectionFromBlueprintId(addCount, addBlueprintId));
+                _transferDAO.addTransferTo(true, player.getName(), reason, collectionType.getFullName(), 0, cardCollectionFromBlueprintId(addCount, addBlueprintId));
 
                 return true;
             }
@@ -272,7 +272,7 @@ public class CollectionsManager {
                 setPlayerCollection(player, collectionType.getCode(), mutableCardCollection);
 
                 _transferDAO.addTransferFrom(player.getName(), "Selling items", collectionType.getFullName(), 0, cardCollectionFromBlueprintId(1, blueprintId));
-                _transferDAO.addTransferTo(true, player.getName(), "Selling items", collectionType.getFullName(), currency, new DefaultCardCollection());
+                _transferDAO.addTransferTo(false, player.getName(), "Selling items", collectionType.getFullName(), currency, new DefaultCardCollection());
 
                 return true;
             }
