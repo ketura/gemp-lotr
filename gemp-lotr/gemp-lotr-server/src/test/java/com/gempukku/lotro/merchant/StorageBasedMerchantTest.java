@@ -68,12 +68,13 @@ public class StorageBasedMerchantTest {
 
     @Test
     public void cardPriceLowersOverTimeWhenInStock() {
-        _merchant.cardBought("1_1", new Date(0), 700);
+        for (int i=0; i<11; i++)
+            _merchant.cardBought("1_1", new Date(0), 700);
         int initialPrice = _merchant.getCardBuyPrice("1_1", new Date(0));
         assertTrue(initialPrice > _merchant.getCardBuyPrice("1_1", new Date(DAY)));
     }
 
-    // @Test
+    @Test
     public void plotPricesAfterTransactions() {
         Date setupDate = new Date(-1000 * 60 * 60 * 24 * 50L);
         Date firstTrans = new Date(0);
