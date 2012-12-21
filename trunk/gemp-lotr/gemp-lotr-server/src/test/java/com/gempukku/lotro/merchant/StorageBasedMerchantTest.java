@@ -46,7 +46,7 @@ public class StorageBasedMerchantTest {
     public void cardPriceLowersAfterMerchantBuys() {
         _merchant.cardBought("1_1", new Date(0), 700);
         int cardInitialPrice = _merchant.getCardSellPrice("1_1", new Date(0));
-        assertEqualsMoreOrLess((int) (1000 / 1.05f), cardInitialPrice);
+        assertEqualsMoreOrLess((int) (1000 / 1.1f), cardInitialPrice);
     }
 
     @Test
@@ -57,7 +57,7 @@ public class StorageBasedMerchantTest {
 
         _merchant.cardSold("1_1", new Date(0), 1000);
         int cardInitialPrice = _merchant.getCardSellPrice("1_1", new Date(0));
-        assertEqualsMoreOrLess((int) (1000*1.05f), cardInitialPrice);
+        assertEqualsMoreOrLess((int) (1000*1.1f), cardInitialPrice);
     }
 
     @Test
@@ -73,7 +73,7 @@ public class StorageBasedMerchantTest {
         assertTrue(initialPrice > _merchant.getCardBuyPrice("1_1", new Date(DAY)));
     }
 
-    // @Test
+    @Test
     public void plotPricesAfterTransactions() {
         Date setupDate = new Date(-1000 * 60 * 60 * 24 * 50L);
         Date firstTrans = new Date(0);
@@ -89,7 +89,7 @@ public class StorageBasedMerchantTest {
 
         System.out.println("-2,1000,700,1000,700");
         for (long time = 0; time < hour * 24 * 35L; time += hour * 2) {
-            System.out.println(time / hour + "," + merchant.getCardSellPrice("1_1", new Date(time)) + "," + merchant.getCardBuyPrice("1_1", new Date(time))
+            System.out.println((time / hour /24f) + "," + merchant.getCardSellPrice("1_1", new Date(time)) + "," + merchant.getCardBuyPrice("1_1", new Date(time))
                     + "," + merchant.getCardSellPrice("1_2", new Date(time)) + "," + merchant.getCardBuyPrice("1_2", new Date(time)));
         }
     }
@@ -106,7 +106,7 @@ public class StorageBasedMerchantTest {
         long hour = 1000 * 60 * 60;
 
         for (long time = 0; time < hour * 24 * 35L; time += hour * 2)
-            System.out.println(time / hour + "," + merchant.getCardSellPrice("1_1", new Date(time)) + "," + merchant.getCardBuyPrice("1_1", new Date(time)));
+            System.out.println((time / hour /24f) + "," + merchant.getCardSellPrice("1_1", new Date(time)) + "," + merchant.getCardBuyPrice("1_1", new Date(time)));
     }
 
     private void assertEqualsMoreOrLess(int expected, int given) {
