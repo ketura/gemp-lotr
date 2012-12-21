@@ -18,10 +18,12 @@ public class StorageBasedMerchant implements Merchant {
     private static final int MIN_STOCK_SELL = 1;
 
     private static final int FOIL_PRICE_MULTIPLIER = 2;
+
     private static final int MIN_SELL_PRICE = 2;
     private static final int MIN_BUY_PRICE = 1;
 
-    private static final int DOUBLE_AFTER_DAYS_NO_STOCK = 7;
+    private static final int LOW_STOCK_MAX = 10;
+    private static final int DOUBLE_AFTER_DAYS_LOW_STOCK = 7;
     private static final int HALVE_AFTER_DAYS_IN_STOCK = 60;
 
     private static final double PRICE_SHIFT_AFTER_TRANSACTION_PERC = 10;
@@ -107,17 +109,17 @@ public class StorageBasedMerchant implements Merchant {
         } else {
             basePrice = lastTransaction.getPrice();
             if (lastTransaction.getTransactionType() == MerchantDAO.TransactionType.BUY)
-                basePrice/= (1+(PRICE_SHIFT_AFTER_TRANSACTION_PERC/100));
+                basePrice /= (1 + (PRICE_SHIFT_AFTER_TRANSACTION_PERC / 100));
             else
-                basePrice*= (1+(PRICE_SHIFT_AFTER_TRANSACTION_PERC/100));
+                basePrice *= (1 + (PRICE_SHIFT_AFTER_TRANSACTION_PERC / 100));
             daysSinceLastTransaction = (currentTime.getTime() - lastTransaction.getDate().getTime()) / (DAY * 1f);
             stock = lastTransaction.getStock();
         }
 
-        if (stock > 0)
-            return basePrice / (1+ Math.pow(daysSinceLastTransaction/HALVE_AFTER_DAYS_IN_STOCK, 1.5));
+        if (stock > LOW_STOCK_MAX)
+            return basePrice / (1 + Math.pow(daysSinceLastTransaction / HALVE_AFTER_DAYS_IN_STOCK, 1.5));
         else
-            return basePrice * (1+ Math.pow(daysSinceLastTransaction/DOUBLE_AFTER_DAYS_NO_STOCK, 1.5));
+            return basePrice * (1 + Math.pow(daysSinceLastTransaction / DOUBLE_AFTER_DAYS_LOW_STOCK, 1.5));
 
     }
 
