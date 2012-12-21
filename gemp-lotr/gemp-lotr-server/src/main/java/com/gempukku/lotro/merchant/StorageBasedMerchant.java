@@ -21,8 +21,10 @@ public class StorageBasedMerchant implements Merchant {
     private static final int MIN_SELL_PRICE = 2;
     private static final int MIN_BUY_PRICE = 1;
 
-    private static final int DOUBLE_AFTER_DAYS = 60;
-    private static final double PRICE_SHIFT_AFTER_TRANSACTION = 1.05;
+    private static final int DOUBLE_AFTER_DAYS_NO_STOCK = 7;
+    private static final int HALVE_AFTER_DAYS_IN_STOCK = 60;
+
+    private static final double PRICE_SHIFT_AFTER_TRANSACTION = 1.1;
 
     private LotroCardBlueprintLibrary _library;
     private MerchantDAO _merchantDao;
@@ -113,9 +115,9 @@ public class StorageBasedMerchant implements Merchant {
         }
 
         if (stock > 0)
-            return basePrice / (1+ Math.pow(daysSinceLastTransaction/DOUBLE_AFTER_DAYS, 1.5));
+            return basePrice / (1+ Math.pow(daysSinceLastTransaction/HALVE_AFTER_DAYS_IN_STOCK, 1.5));
         else
-            return basePrice * (1+ Math.pow(daysSinceLastTransaction/DOUBLE_AFTER_DAYS, 1.5));
+            return basePrice * (1+ Math.pow(daysSinceLastTransaction/DOUBLE_AFTER_DAYS_NO_STOCK, 1.5));
 
     }
 
@@ -136,4 +138,3 @@ public class StorageBasedMerchant implements Merchant {
         throw new RuntimeException("Unknown rarity for priced card: " + cardRarity);
     }
 }
-;
