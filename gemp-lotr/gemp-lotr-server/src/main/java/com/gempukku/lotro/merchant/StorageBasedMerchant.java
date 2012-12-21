@@ -24,7 +24,7 @@ public class StorageBasedMerchant implements Merchant {
     private static final int DOUBLE_AFTER_DAYS_NO_STOCK = 7;
     private static final int HALVE_AFTER_DAYS_IN_STOCK = 60;
 
-    private static final double PRICE_SHIFT_AFTER_TRANSACTION = 1.1;
+    private static final double PRICE_SHIFT_AFTER_TRANSACTION_PERC = 10;
 
     private LotroCardBlueprintLibrary _library;
     private MerchantDAO _merchantDao;
@@ -107,9 +107,9 @@ public class StorageBasedMerchant implements Merchant {
         } else {
             basePrice = lastTransaction.getPrice();
             if (lastTransaction.getTransactionType() == MerchantDAO.TransactionType.BUY)
-                basePrice/= PRICE_SHIFT_AFTER_TRANSACTION;
+                basePrice/= (1+(PRICE_SHIFT_AFTER_TRANSACTION_PERC/100));
             else
-                basePrice*= PRICE_SHIFT_AFTER_TRANSACTION;
+                basePrice*= (1+(PRICE_SHIFT_AFTER_TRANSACTION_PERC/100));
             daysSinceLastTransaction = (currentTime.getTime() - lastTransaction.getDate().getTime()) / (DAY * 1f);
             stock = lastTransaction.getStock();
         }
