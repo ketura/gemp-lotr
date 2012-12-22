@@ -7,6 +7,12 @@ var DeckPanel = Class.extend({
     fpDiv:null,
     shadowDiv:null,
 
+    ringBearerContainer:null,
+    ringContainer:null,
+    sitesContainer:null,
+    fpContainer:null,
+    shadowContainer:null,
+
     init:function (deckDiv) {
         var tabGroup = $("<ul></ul>");
         tabGroup.append("<li><a href='#ringBearer'>Ring-bearer (0)</a></li>");
@@ -16,18 +22,63 @@ var DeckPanel = Class.extend({
         tabGroup.append("<li><a href='#shadow'>Shadow (0)</a></li>");
         deckDiv.append(tabGroup);
 
-        this.ringBearerDiv = $("<div id='ringBearer'></div>");
+        this.ringBearerDiv = $("<div id='ringBearer' class='deckPart'></div>");
         deckDiv.append(this.ringBearerDiv);
-        this.ringDiv = $("<div id='ring'></div>");
+        this.ringDiv = $("<div id='ring' class='deckPart'></div>");
         deckDiv.append(this.ringDiv);
-        this.sitesDiv = $("<div id='sites'></div>");
+        this.sitesDiv = $("<div id='sites' class='deckPart'></div>");
         deckDiv.append(this.sitesDiv);
-        this.fpDiv = $("<div id='fp'></div>");
+        this.fpDiv = $("<div id='fp' class='deckPart'></div>");
         deckDiv.append(this.fpDiv);
-        this.shadowDiv = $("<div id='shadow'></div>");
+        this.shadowDiv = $("<div id='shadow' class='deckPart'></div>");
         deckDiv.append(this.shadowDiv);
 
         this.tabs = $(deckDiv).tabs();
+
+        this.ringBearerContainer = new CardContainer(this.ringBearerDiv, this.layoutCardContainer);
+        var ringBearerGroup = new RowCardLayoutCardGroup(this.ringBearerDiv,
+                function() {
+                    return true;
+                });
+        ringBearerGroup.setZIndexBase(10);
+        this.ringBearerContainer.addCardGroup("main", ringBearerGroup);
+
+        this.ringContainer = new CardContainer(this.ringDiv, this.layoutCardContainer);
+        var ringGroup = new RowCardLayoutCardGroup(this.ringDiv,
+                function() {
+                    return true;
+                });
+        ringGroup.setZIndexBase(10);
+        this.ringContainer.addCardGroup("main", ringGroup);
+
+        this.sitesContainer = new CardContainer(this.sitesDiv, this.layoutCardContainer);
+        var sitesGroup = new RowCardLayoutCardGroup(this.sitesDiv,
+                function() {
+                    return true;
+                });
+        sitesGroup.setZIndexBase(10);
+        this.sitesContainer.addCardGroup("main", sitesGroup);
+
+        this.fpContainer = new CardContainer(this.fpDiv, this.layoutCardContainer);
+        var fpGroup = new RowCardLayoutCardGroup(this.fpDiv,
+                function() {
+                    return true;
+                });
+        fpGroup.setZIndexBase(10);
+        this.fpContainer.addCardGroup("main", fpGroup);
+
+        this.shadowContainer = new CardContainer(this.shadowDiv, this.layoutCardContainer);
+        var shadowGroup = new RowCardLayoutCardGroup(this.shadowDiv,
+                function() {
+                    return true;
+                });
+        shadowGroup.setZIndexBase(10);
+        this.shadowContainer.addCardGroup("main", shadowGroup);
+    },
+
+    layoutCardContainer : function(cardGroups, left, top, width, height) {
+        var padding = 3;
+        cardGroups["main"].setLayout(left + padding, top + padding, width - 2 * padding, height - 2 * padding);
     },
 
     clearDeck: function() {
@@ -36,5 +87,27 @@ var DeckPanel = Class.extend({
 
     layoutUi: function(x, y, width, height) {
         this.tabs.css({"left": x, "top": y, "width": width, "height": height});
+
+        var border = this.tabs.border();
+
+        var innerWidth = width - border.left - border.right;
+        var innerHeight = height - border.top - border.bottom;
+
+        var resultHeight = innerHeight - $("ul", this.tabs).height();
+        resultHeight = resultHeight - 3;
+
+        this.ringBearerContainer.setLayout(0, 0, innerWidth, resultHeight);
+        this.ringContainer.setLayout(0, 0, innerWidth, resultHeight);
+        this.sitesContainer.setLayout(0, 0, innerWidth, resultHeight);
+        this.fpContainer.setLayout(0, 0, innerWidth, resultHeight);
+        this.shadowContainer.setLayout(0, 0, innerWidth, resultHeight);
+    },
+
+    addCard: function(cardElem, cardId, cardProps, layoutCardFunc, widthToHeightScaleFunc) {
+        var selectedTabIndex = this.tabs.tabs('option', 'selected');
+        
+        this.ringBearerContainer.addCard(cardElem, cardId, cardProps, layoutCardFunc, widthToHeightScaleFunc);
+        this.ringBearerContainer.layoutCards();
+
     }
 });
