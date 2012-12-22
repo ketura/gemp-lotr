@@ -3,6 +3,8 @@ package com.gempukku.lotro.server;
 import com.gempukku.lotro.cards.packs.RarityReader;
 import com.gempukku.lotro.cards.packs.SetRarity;
 import com.gempukku.lotro.collection.CollectionsManager;
+import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.db.vo.League;
@@ -114,9 +116,9 @@ public class CollectionResource extends AbstractResource {
                     Element card = doc.createElement("card");
                     card.setAttribute("count", String.valueOf(item.getCount()));
                     card.setAttribute("blueprintId", blueprintId);
-                    Side side = _library.getLotroCardBlueprint(blueprintId).getSide();
-                    if (side != null)
-                        card.setAttribute("side", side.toString());
+                    LotroCardBlueprint blueprint = _library.getLotroCardBlueprint(blueprintId);
+                    appendCardSide(card, blueprint);
+                    appendCardGroup(card, blueprint);
                     collectionElem.appendChild(card);
                 } else {
                     Element pack = doc.createElement("pack");
@@ -138,6 +140,30 @@ public class CollectionResource extends AbstractResource {
         processDeliveryServiceNotification(request, response);
 
         return doc;
+    }
+
+    private void appendCardSide(Element card, LotroCardBlueprint blueprint) {
+        Side side = blueprint.getSide();
+        if (side != null)
+            card.setAttribute("side", side.toString());
+    }
+
+    private void appendCardGroup(Element card, LotroCardBlueprint blueprint) {
+        String group;
+        if (blueprint.getCardType() == CardType.THE_ONE_RING)
+            group="ring";
+        else if (blueprint.getCardType() == CardType.SITE)
+            group="site";
+        else if (blueprint.hasKeyword(Keyword.CAN_START_WITH_RING))
+            group="ringBearer";
+        else if (blueprint.getSide() == Side.FREE_PEOPLE)
+            group="fp";
+        else if (blueprint.getSide() == Side.SHADOW)
+            group="shadow";
+        else
+            group = null;
+        if (group != null)
+            card.setAttribute("group", group);
     }
 
     @GET
@@ -205,9 +231,7 @@ public class CollectionResource extends AbstractResource {
                 Element card = doc.createElement("card");
                 card.setAttribute("count", String.valueOf(item.getCount()));
                 card.setAttribute("blueprintId", blueprintId);
-                Side side = _library.getLotroCardBlueprint(blueprintId).getSide();
-                if (side != null)
-                    card.setAttribute("side", side.toString());
+                appendCardSide(card, _library.getLotroCardBlueprint(blueprintId));
                 collectionElem.appendChild(card);
             } else {
                 Element pack = doc.createElement("pack");
