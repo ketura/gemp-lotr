@@ -19,6 +19,24 @@
 
         .card {
             position: absolute;
+            overflow: hidden;
+        }
+
+        .card .img {
+            position: absolute;
+        }
+
+        .card .click {
+            position: absolute;
+        }
+
+        .card .border {
+            position: absolute;
+            border: solid #000000;
+        }
+
+        .deckPart {
+            position: relative;
         }
 
     </style>
@@ -33,13 +51,16 @@
 
     <script type="text/javascript" src="js/gemp-012/inheritance.js"></script>
     <script type="text/javascript" src="js/gemp-012/common.js"></script>
+
+    <script type="text/javascript" src="/generic-tcg/js/CardContainer.js"></script>
+    <script type="text/javascript" src="/generic-tcg/js/CardGroup.js"></script>
+    <script type="text/javascript" src="/generic-tcg/js/RowCardLayoutCardGroup.js"></script>
+    <script type="text/javascript" src="/generic-tcg/js/jquery/jquery-sizes.js"></script>
+
     <script type="text/javascript" src="js/gemp-012/communication.js"></script>
     <script type="text/javascript" src="js/gemp-012/logging.js"></script>
     <script type="text/javascript" src="js/gemp-012/commonUi.js"></script>
     <script type="text/javascript" src="js/gemp-012/jCards.js"></script>
-    <script type="text/javascript" src="/generic-tcg/js/CardContainer.js"></script>
-    <script type="text/javascript" src="/generic-tcg/js/CardGroup.js"></script>
-    <script type="text/javascript" src="/generic-tcg/js/RowCardLayoutCardGroup.js"></script>
     <script type="text/javascript" src="js/gemp-012/cardFilter2.js"></script>
     <script type="text/javascript" src="js/gemp-012/DeckPanel.js"></script>
     <script type="text/javascript" src="js/gemp-012/deckBuildingUi2.js"></script>

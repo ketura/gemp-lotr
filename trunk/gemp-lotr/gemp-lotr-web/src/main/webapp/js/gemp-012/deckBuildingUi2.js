@@ -14,6 +14,14 @@ var GempLotrDeckBuildingUI2 = Class.extend({
 
     cardInCollectionId:0,
 
+    // Card properties:
+    // type: pack, card
+    // blueprintId: id of the blueprint as in server
+    // count: number of cards of that type
+    // contents: contents of selection pack
+    // hor: if card is horizontal
+    // image: image url
+
     init:function (filterDiv, pageDiv, collectionContentsDiv, deckDiv) {
         this.collectionContentsDiv = collectionContentsDiv;
         this.deckDiv = deckDiv;
@@ -54,6 +62,32 @@ var GempLotrDeckBuildingUI2 = Class.extend({
 
         this.collectionType = "default";
         this.cardFilter.getCollection();
+
+        $("body").click(
+            function (event) {
+                return that.clickCardFunction(event);
+            });
+    },
+
+    clickCardFunction: function(event) {
+        var tar = $(event.target);
+        if (tar.length == 1 && tar[0].tagName == "A")
+            return true;
+
+        if (tar.hasClass("clickArea")) {
+            tar = tar.parent();
+            tar = tar.parent();
+
+            var cardElem = tar.parent();
+            // If card in collection
+            if (tar.hasClass("cardInCollection")) {
+                // add card to deck
+                var cardId = cardElem.data("id");
+                var cardProps = cardElem.data("props");
+                this.deckPanel.addCard(this.createDeckCardElem(cardProps), cardId, cardProps, this.layoutCardInCollection, this.widthToHeightScaleInCollection);
+            }
+        }
+        return true;
     },
 
     layoutCollectionContainer : function(cardGroups, left, top, width, height) {
@@ -70,11 +104,10 @@ var GempLotrDeckBuildingUI2 = Class.extend({
         var props = {};
         props["blueprintId"] = blueprintId;
         props["count"] = count;
+        props["type"] = type;
 
         var card = new Card(blueprintId, "collection", "1", "player", null);
-        cardDiv = this.createCollectionCardElem(card.imageUrl);
 
-        var cardDiv;
         if (type == "pack") {
             if (blueprintId.substr(0, 3) == "(S)") {
                 props["contents"] = contents;
@@ -90,11 +123,31 @@ var GempLotrDeckBuildingUI2 = Class.extend({
             props["count"] = count-countInDeck;
             props["hor"] = card.horizontal;
         }
+        props["image"] = card.imageUrl;
+
+        var cardDiv = this.createCollectionCardElem(props);
+
         this.collectionContainer.addCard(cardDiv, ""+(this.cardInCollectionId++) , props, this.layoutCardInCollection, this.widthToHeightScaleInCollection);
     },
 
-    createCollectionCardElem: function(image) {
-        return "<img src='" + image + "' width='100%' height='100%'>";
+    createCollectionCardElem: function(props) {
+        var cardDiv = $("<div class='cardInCollection'></div>");
+        this.appendCardElemDetails(cardDiv, props);
+        return cardDiv;
+    },
+
+    createDeckCardElem: function(props) {
+        var cardDiv = $("<div class='cardInDeck'></div>");
+        this.appendCardElemDetails(cardDiv, props);
+        return cardDiv;
+    },
+
+    appendCardElemDetails: function(cardDiv, props) {
+        cardDiv.append("<div class='img'><img src='" + props["image"] + "' width='100%' height='100%'></div>");
+        if (props["type"] == "card")
+            cardDiv.append("<div class='border'><img src='images/pixel.png' width='100%' height='100%'></div>");
+        cardDiv.append("<div class='click'><img class='clickArea' src='images/pixel.png' width='100%' height='100%'></div>");
+
     },
 
     widthToHeightScaleInCollection: function(cardId, props) {
@@ -104,8 +157,13 @@ var GempLotrDeckBuildingUI2 = Class.extend({
             return 360/500;
     },
 
-    layoutCardInCollection: function() {
-        
+    layoutCardInCollection: function(cardDiv, cardId, props, cardLeft, cardTop, cardWidth, cardHeight) {
+        $(".img", cardDiv).css({"left":0, "top":0, "width":cardWidth, "height":cardHeight});
+        if (props["type"] == "card") {
+            var borderWidth = Math.floor(Math.max(cardWidth, cardHeight) / 30);
+            $(".border", cardDiv).css({"left":0, "top":0, "width":(cardWidth-2*borderWidth), "height":(cardHeight-2*borderWidth), "border-width": borderWidth+"px"});
+        }
+        $(".click", cardDiv).css({"left":0, "top":0, "width":cardWidth, "height":cardHeight});
     },
 
     finishCollection: function() {
