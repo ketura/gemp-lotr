@@ -85,7 +85,13 @@ var DeckPanel = Class.extend({
     },
 
     clearDeck: function() {
+        this.ringBearerContainer.removeCards();
+        this.ringContainer.removeCards();
+        this.sitesContainer.removeCards();
+        this.fpContainer.removeCards();
+        this.shadowContainer.removeCards();
 
+        this.updateDeckCounts();
     },
 
     layoutUi: function(x, y, width, height) {
@@ -124,6 +130,23 @@ var DeckPanel = Class.extend({
         return count;
     },
 
+    updateDeckCounts: function() {
+        var that = this;
+
+        var updateGroup = function (groupContainer, titlePrefix, tabHref) {
+            groupContainer.layoutCards();
+            var count = groupContainer.getCardsCount();
+            var title = titlePrefix + " (" + count + ")";
+            $(".ui-tabs-nav a[href='#" + tabHref + "']", that.tabs).html(title);
+        };
+
+        updateGroup(this.ringContainer, "Ring", "ring");
+        updateGroup(this.ringBearerContainer, "Ring-bearer", "ringBearer");
+        updateGroup(this.sitesContainer, "Sites", "sites");
+        updateGroup(this.fpContainer, "Free People", "fp");
+        updateGroup(this.shadowContainer, "Shadow", "shadow");
+    },
+
     addCard: function(cardElem, cardId, cardProps, layoutCardFunc, widthToHeightScaleFunc) {
         var group = cardProps["group"];
 
@@ -147,18 +170,7 @@ var DeckPanel = Class.extend({
     },
 
     finishAddingCards: function() {
-        var updateGroup = function (groupContainer, titlePrefix, tabHref) {
-            groupContainer.layoutCards();
-            var count = groupContainer.getCardsCount();
-            var title = titlePrefix + " (" + count + ")";
-            $(".ui-tabs-nav a[href='#" + tabHref + "']", that.tabs).html(title);
-        };
-
-        updateGroup(this.ringContainer, "Ring", "ring");
-        updateGroup(this.ringBearerContainer, "Ring-bearer", "ringBearer");
-        updateGroup(this.sitesContainer, "Sites", "sites");
-        updateGroup(this.fpContainer, "Free People", "fp");
-        updateGroup(this.shadowContainer, "Shadow", "shadow");
+        this.updateDeckCounts();
     },
 
     addSingleCard: function(cardElem, cardId, cardProps, layoutCardFunc, widthToHeightScaleFunc) {
