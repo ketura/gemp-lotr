@@ -20,6 +20,7 @@ var GempLotrDeckBuildingUI2 = Class.extend({
     // count: number of cards of that type
     // contents: contents of selection pack
     // hor: if card is horizontal
+    // group: ring, ringBearer, site, fp, shadow
     // image: image url
 
     init:function (filterDiv, pageDiv, collectionContentsDiv, deckDiv) {
@@ -52,7 +53,7 @@ var GempLotrDeckBuildingUI2 = Class.extend({
                     that.clearCollection();
                 },
                 function (elem, type, blueprintId, count) {
-                    that.addCardToCollection(type, blueprintId, count, elem.getAttribute("side"), elem.getAttribute("contents"));
+                    that.addCardToCollection(type, blueprintId, count, elem.getAttribute("group"), elem.getAttribute("contents"));
                 },
                 function () {
                     that.finishCollection();
@@ -100,7 +101,7 @@ var GempLotrDeckBuildingUI2 = Class.extend({
         this.cardInCollectionId = 0;
     },
 
-    addCardToCollection: function(type, blueprintId, count, side, contents) {
+    addCardToCollection: function(type, blueprintId, count, group, contents) {
         var props = {};
         props["blueprintId"] = blueprintId;
         props["count"] = count;
@@ -124,6 +125,7 @@ var GempLotrDeckBuildingUI2 = Class.extend({
             props["hor"] = card.horizontal;
         }
         props["image"] = card.imageUrl;
+        props["group"] = group;
 
         var cardDiv = this.createCollectionCardElem(props);
 
