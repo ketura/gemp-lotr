@@ -87,6 +87,11 @@ var GempLotrDeckBuildingUI2 = Class.extend({
                 var cardProps = cardElem.data("props");
                 this.deckPanel.addSingleCard(this.createDeckCardElem(cardProps), ""+(this.cardInDeckId++), cardProps, this.layoutCardInDeck, this.widthToHeightScaleInCollection);
                 this.updateCardCount(cardElem, cardProps);
+            } else if (tar.hasClass("cardInDeck")) {
+                // remove card from deck
+                cardElem.remove();
+                this.deckPanel.updateDeckCounts();
+                this.updateCardCounts();
             }
         }
         return true;
