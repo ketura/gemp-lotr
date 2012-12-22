@@ -13,6 +13,7 @@ var GempLotrDeckBuildingUI2 = Class.extend({
     padding: 3,
 
     cardInCollectionId:0,
+    cardInDeckId:0,
 
     // Card properties:
     // type: pack, card
@@ -83,9 +84,9 @@ var GempLotrDeckBuildingUI2 = Class.extend({
             // If card in collection
             if (tar.hasClass("cardInCollection")) {
                 // add card to deck
-                var cardId = cardElem.data("id");
                 var cardProps = cardElem.data("props");
-                this.deckPanel.addCard(this.createDeckCardElem(cardProps), cardId, cardProps, this.layoutCardInCollection, this.widthToHeightScaleInCollection);
+                this.deckPanel.addSingleCard(this.createDeckCardElem(cardProps), ""+(this.cardInDeckId++), cardProps, this.layoutCardInDeck, this.widthToHeightScaleInCollection);
+                this.updateCardCount(cardElem, cardProps);
             }
         }
         return true;
@@ -115,32 +116,39 @@ var GempLotrDeckBuildingUI2 = Class.extend({
             }
         } else if (type == "card") {
             var countInDeck = 0;
-            $(".card", this.deckDiv).each(
-                    function () {
-                        var tempCardData = $(this).data("props");
-                        if (blueprintId == tempCardData["blueprintId"])
-                            countInDeck++;
-                    });
-            props["count"] = count-countInDeck;
             props["hor"] = card.horizontal;
         }
         props["image"] = card.imageUrl;
         props["group"] = group;
 
-        var cardDiv = this.createCollectionCardElem(props);
+        this.collectionContainer.addCard(this.createCollectionCardElem(props), ""+(this.cardInCollectionId++) , props, this.layoutCardInCollection, this.widthToHeightScaleInCollection);
+    },
 
-        this.collectionContainer.addCard(cardDiv, ""+(this.cardInCollectionId++) , props, this.layoutCardInCollection, this.widthToHeightScaleInCollection);
+    updateCardCount: function(cardDiv, props) {
+        var count = props["count"] - this.deckPanel.getCardCount(props["blueprintId"]);
+        $(".count", cardDiv).html(count);
+    },
+
+    updateCardCounts: function() {
+        var that = this;
+        this.collectionContainer.iterCards(
+                function(cardDiv, cardId, props, layout) {
+                    that.updateCardCount(cardDiv, props);
+                });
     },
 
     createCollectionCardElem: function(props) {
         var cardDiv = $("<div class='cardInCollection'></div>");
         this.appendCardElemDetails(cardDiv, props);
+        cardDiv.append("<div class='count'></div>");
+        cardDiv.append("<div class='click'><img class='clickArea' src='images/pixel.png' width='100%' height='100%'></div>");
         return cardDiv;
     },
 
     createDeckCardElem: function(props) {
         var cardDiv = $("<div class='cardInDeck'></div>");
         this.appendCardElemDetails(cardDiv, props);
+        cardDiv.append("<div class='click'><img class='clickArea' src='images/pixel.png' width='100%' height='100%'></div>");
         return cardDiv;
     },
 
@@ -148,8 +156,6 @@ var GempLotrDeckBuildingUI2 = Class.extend({
         cardDiv.append("<div class='img'><img src='" + props["image"] + "' width='100%' height='100%'></div>");
         if (props["type"] == "card")
             cardDiv.append("<div class='border'><img src='images/pixel.png' width='100%' height='100%'></div>");
-        cardDiv.append("<div class='click'><img class='clickArea' src='images/pixel.png' width='100%' height='100%'></div>");
-
     },
 
     widthToHeightScaleInCollection: function(cardId, props) {
@@ -161,6 +167,17 @@ var GempLotrDeckBuildingUI2 = Class.extend({
 
     layoutCardInCollection: function(cardDiv, cardId, props, cardLeft, cardTop, cardWidth, cardHeight) {
         $(".img", cardDiv).css({"left":0, "top":0, "width":cardWidth, "height":cardHeight});
+        var maxDimension = Math.max(cardWidth, cardHeight)
+        if (props["type"] == "card") {
+            var borderWidth = Math.floor(maxDimension / 30);
+            $(".border", cardDiv).css({"left":0, "top":0, "width":(cardWidth-2*borderWidth), "height":(cardHeight-2*borderWidth), "border-width": borderWidth+"px"});
+        }
+        $(".count", cardDiv).css({"left":0, "top":0, "width":cardWidth, "height":cardHeight, "font-size": maxDimension*1.5+"%"});
+        $(".click", cardDiv).css({"left":0, "top":0, "width":cardWidth, "height":cardHeight});
+    },
+
+    layoutCardInDeck: function(cardDiv, cardId, props, cardLeft, cardTop, cardWidth, cardHeight) {
+        $(".img", cardDiv).css({"left":0, "top":0, "width":cardWidth, "height":cardHeight});
         if (props["type"] == "card") {
             var borderWidth = Math.floor(Math.max(cardWidth, cardHeight) / 30);
             $(".border", cardDiv).css({"left":0, "top":0, "width":(cardWidth-2*borderWidth), "height":(cardHeight-2*borderWidth), "border-width": borderWidth+"px"});
@@ -170,6 +187,7 @@ var GempLotrDeckBuildingUI2 = Class.extend({
 
     finishCollection: function() {
         this.collectionContainer.layoutCards();
+        this.updateCardCounts();
     },
 
     layoutUI: function(collectionWidth, collectionHeight, deckWidth, deckHeight) {
