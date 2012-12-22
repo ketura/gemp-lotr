@@ -186,7 +186,7 @@ var GempLotrMerchantUI = Class.extend({
         this.infoDialog.html("");
         this.infoDialog.html("<div style='scroll: auto'></div>");
         this.infoDialog.append(createFullCardDiv(card.imageUrl, card.foil, card.horizontal, card.isPack()));
-        if (!card.isPack())
+        if (card.hasWikiInfo())
             this.infoDialog.append("<div><a href='" + card.getWikiLink() + "' target='_blank'>Wiki</a></div>");
         var windowWidth = $(window).width();
         var windowHeight = $(window).height();
@@ -301,7 +301,7 @@ var GempLotrMerchantUI = Class.extend({
         this.questionDialog.html("<div style='scroll: auto'></div>");
         var floatCardDiv = $("<div style='float: left;'></div>");
         floatCardDiv.append(createFullCardDiv(card.imageUrl, card.foil, card.horizontal, card.isPack()));
-        if (!card.isPack())
+        if (card.hasWikiInfo())
             floatCardDiv.append("<div><a href='" + card.getWikiLink() + "' target='_blank'>Wiki</a></div>");
         this.questionDialog.append(floatCardDiv);
         var questionDiv = $("<div id='cardEffects'>" + text + "</div>");

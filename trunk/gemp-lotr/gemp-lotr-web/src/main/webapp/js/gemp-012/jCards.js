@@ -6,7 +6,9 @@ var fixedImages = {
     "15_205":"http://lotrtcgwiki.com/images/LOTR15060E.jpg",
     "15_206":"http://lotrtcgwiki.com/images/LOTR15060G.jpg",
     // Holidays Gandalf
-    "15_207":"http://lotrtcgwiki.com/images/LOTR15029H.jpg"
+    "15_207":"http://lotrtcgwiki.com/images/LOTR15029H.jpg",
+    // Gemp-LotR promos
+    "gl_theOneRing":"/gemp-lotr/images/cards/gl_theOneRing.png"
 };
 
 var packBlueprints = {
@@ -122,6 +124,7 @@ var Card = Class.extend({
     blueprintId:null,
     foil:null,
     tengwar:null,
+    hasWiki: null,
     horizontal:null,
     imageUrl:null,
     zone:null,
@@ -145,6 +148,9 @@ var Card = Class.extend({
         this.tengwar = bareBlueprint.substring(len - 1, len) == "T";
         if (this.tengwar)
             bareBlueprint = bareBlueprint.substring(0, len - 1);
+
+        this.hasWiki = fixedImages[imageBlueprint] == null
+                && packBlueprints[imageBlueprint] == null;
 
         this.zone = zone;
         this.cardId = cardId;
@@ -266,6 +272,10 @@ var Card = Class.extend({
         var afterLastSlash = imageUrl.lastIndexOf("/") + 1;
         var countAfterLastSlash = imageUrl.length - 4 - afterLastSlash;
         return "http://lotrtcgwiki.com/wiki/" + imageUrl.substr(afterLastSlash, countAfterLastSlash);
+    },
+
+    hasWikiInfo: function() {
+        return this.hasWiki;
     },
 
     formatSetNo:function (setNo) {

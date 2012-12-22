@@ -10,58 +10,69 @@ import java.util.List;
 import java.util.Map;
 
 public class CollectionSerializer {
-    private List<String> _packIds = new ArrayList<String>();
-    private List<String> _cardIds = new ArrayList<String>();
+    private List<String> _doubleByteCountItems = new ArrayList<String>();
+    private List<String> _singleByteCountItems = new ArrayList<String>();
 
     public CollectionSerializer() {
         try {
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(CollectionSerializer.class.getResourceAsStream("/packs.txt"), "UTF-8"));
-            try {
-                String line;
-                while ((line = bufferedReader.readLine()) != null)
-                    _packIds.add(line);
-            } finally {
-                bufferedReader.close();
-            }
+            fillDoubleByteItems();
 
-            loadSet("1");
-            loadSet("2");
-            loadSet("3");
-            loadSet("0");
-            loadSet("4");
-            loadSet("5");
-            loadSet("6");
-            loadSet("7");
-            loadSet("8");
-            loadSet("9");
-            loadSet("10");
-            loadSet("11");
-            loadSet("12");
-            loadSet("13");
-            loadSet("14");
-            loadSet("15");
-            loadSet("16");
-            loadSet("17");
-            loadSet("18");
-            loadSet("19");
+            fillSingleByteItems();
 
         } catch (IOException exp) {
             throw new RuntimeException("Problem loading collection data", exp);
         }
     }
 
-    private void loadSet(String setNo) throws IOException {
-        BufferedReader cardReader = new BufferedReader(new InputStreamReader(CollectionSerializer.class.getResourceAsStream("/set" + setNo + "-rarity.txt"), "UTF-8"));
+    private void fillSingleByteItems() throws IOException {
+        loadSet("1");
+        loadSet("2");
+        loadSet("3");
+        loadSet("0");
+        loadSet("4");
+        loadSet("5");
+        loadSet("6");
+        loadSet("7");
+        loadSet("8");
+        loadSet("9");
+        loadSet("10");
+        loadSet("11");
+        loadSet("12");
+        loadSet("13");
+        loadSet("14");
+        loadSet("15");
+        loadSet("16");
+        loadSet("17");
+        loadSet("18");
+        loadSet("19");
+
+        _singleByteCountItems.add("gl_theOneRing");
+        _singleByteCountItems.add("gl_theOneRing*");
+    }
+
+    private void fillDoubleByteItems() throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(CollectionSerializer.class.getResourceAsStream("/packs.txt"), "UTF-8"));
+        try {
+            String line;
+            while ((line = bufferedReader.readLine()) != null)
+                _doubleByteCountItems.add(line);
+        } finally {
+            bufferedReader.close();
+        }
+    }
+
+    private void loadSet(String setId) throws IOException {
+        BufferedReader cardReader = new BufferedReader(new InputStreamReader(CollectionSerializer.class.getResourceAsStream("/set" + setId + "-rarity.txt"), "UTF-8"));
         try {
             String line;
 
             while ((line = cardReader.readLine()) != null) {
-                if (!line.substring(0, setNo.length()).equals(setNo))
+                if (!line.substring(0, setId.length()).equals(setId))
                     throw new IllegalStateException("Seems the rarity is for some other set");
                 // Normal
-                _cardIds.add(translateToBlueprintId(line));
+                _singleByteCountItems.add(translateToBlueprintId(line));
                 // Foil
-                _cardIds.add(translateToBlueprintId(line) + "*");
+                _singleByteCountItems.add(translateToBlueprintId(line) + "*");
             }
         } finally {
             cardReader.close();
@@ -91,24 +102,25 @@ public class CollectionSerializer {
         int currency = collection.getCurrency();
         printInt(outputStream, currency, 3);
 
-        byte packTypes = (byte) _packIds.size();
+        byte packTypes = (byte) _doubleByteCountItems.size();
         outputStream.write(packTypes);
 
         final Map<String, CardCollection.Item> collectionCounts = collection.getAll();
-        for (String packId : _packIds) {
-            final CardCollection.Item count = collectionCounts.get(packId);
+        for (String itemId : _doubleByteCountItems) {
+            final CardCollection.Item count = collectionCounts.get(itemId);
             if (count == null) {
                 printInt(outputStream, 0, 2);
             } else {
-                printInt(outputStream, count.getCount(), 2);
+                int itemCount = Math.min((int) Math.pow(255, 2), count.getCount());
+                printInt(outputStream, itemCount, 2);
             }
         }
 
-        int cardBytes = _cardIds.size();
+        int cardBytes = _singleByteCountItems.size();
         printInt(outputStream, cardBytes, 2);
 
-        for (String cardId : _cardIds) {
-            final CardCollection.Item count = collectionCounts.get(cardId);
+        for (String itemId : _singleByteCountItems) {
+            final CardCollection.Item count = collectionCounts.get(itemId);
             if (count == null)
                 outputStream.write(0);
             else {
@@ -145,7 +157,7 @@ public class CollectionSerializer {
             throw new IllegalStateException("Under-read the packs information");
         for (int i = 0; i < packs.length; i++)
             if (packs[i] > 0)
-                collection.addItem(_packIds.get(i), packs[i]);
+                collection.addItem(_doubleByteCountItems.get(i), packs[i]);
 
         int cardBytes = convertToInt(inputStream.read(), inputStream.read());
         byte[] cards = new byte[cardBytes];
@@ -154,7 +166,7 @@ public class CollectionSerializer {
             throw new IllegalArgumentException("Under-read the cards information");
         for (int i = 0; i < cards.length; i++)
             if (cards[i] > 0) {
-                final String blueprintId = _cardIds.get(i);
+                final String blueprintId = _singleByteCountItems.get(i);
                 collection.addItem(blueprintId, cards[i]);
             }
 
@@ -179,7 +191,7 @@ public class CollectionSerializer {
             throw new IllegalStateException("Under-read the packs information");
         for (int i = 0; i < packs.length; i++)
             if (packs[i] > 0)
-                collection.addItem(_packIds.get(i), packs[i]);
+                collection.addItem(_doubleByteCountItems.get(i), packs[i]);
 
         int cardBytes = convertToInt(inputStream.read(), inputStream.read());
         byte[] cards = new byte[cardBytes];
@@ -188,7 +200,7 @@ public class CollectionSerializer {
             throw new IllegalArgumentException("Under-read the cards information");
         for (int i = 0; i < cards.length; i++)
             if (cards[i] > 0) {
-                final String blueprintId = _cardIds.get(i);
+                final String blueprintId = _singleByteCountItems.get(i);
                 collection.addItem(blueprintId, cards[i]);
             }
 
@@ -215,7 +227,7 @@ public class CollectionSerializer {
         for (int i = 0; i < packTypes; i++) {
             int count = convertToInt(packs[i * 2], packs[i * 2 + 1]);
             if (count > 0)
-                collection.addItem(_packIds.get(i), count);
+                collection.addItem(_doubleByteCountItems.get(i), count);
         }
 
         int cardBytes = convertToInt(inputStream.read(), inputStream.read());
@@ -225,7 +237,7 @@ public class CollectionSerializer {
             throw new IllegalArgumentException("Under-read the cards information");
         for (int i = 0; i < cards.length; i++)
             if (cards[i] > 0) {
-                final String blueprintId = _cardIds.get(i);
+                final String blueprintId = _singleByteCountItems.get(i);
                 collection.addItem(blueprintId, cards[i]);
             }
 
@@ -233,16 +245,15 @@ public class CollectionSerializer {
     }
 
     private MutableCardCollection deserializeCollectionVer3(BufferedInputStream inputStream) throws IOException {
+        DefaultCardCollection collection = new DefaultCardCollection();
+
         int byte1 = inputStream.read();
         int byte2 = inputStream.read();
         int byte3 = inputStream.read();
-
         int currency = convertToInt(byte1, byte2, byte3);
-
-        int packTypes = inputStream.read();
-
-        DefaultCardCollection collection = new DefaultCardCollection();
         collection.addCurrency(currency);
+
+        int packTypes = convertToInt(inputStream.read());
 
         byte[] packs = new byte[packTypes * 2];
 
@@ -252,7 +263,7 @@ public class CollectionSerializer {
         for (int i = 0; i < packTypes; i++) {
             int count = convertToInt(packs[i * 2], packs[i * 2 + 1]);
             if (count > 0)
-                collection.addItem(_packIds.get(i), count);
+                collection.addItem(_doubleByteCountItems.get(i), count);
         }
 
         int cardBytes = convertToInt(inputStream.read(), inputStream.read());
@@ -263,7 +274,7 @@ public class CollectionSerializer {
         for (int i = 0; i < cards.length; i++) {
             int count = convertToInt(cards[i]);
             if (count>0) {
-                final String blueprintId = _cardIds.get(i);
+                final String blueprintId = _singleByteCountItems.get(i);
                 collection.addItem(blueprintId, count);
             }
         }
