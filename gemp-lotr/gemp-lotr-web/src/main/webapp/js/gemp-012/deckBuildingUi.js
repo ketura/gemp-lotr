@@ -503,7 +503,7 @@ var GempLotrDeckBuildingUI = Class.extend({
         this.infoDialog.html("");
         this.infoDialog.html("<div style='scroll: auto'></div>");
         this.infoDialog.append(createFullCardDiv(card.imageUrl, card.foil, card.horizontal, card.isPack()));
-        if (!card.isPack())
+        if (card.hasWikiInfo())
             this.infoDialog.append("<div><a href='" + card.getWikiLink() + "' target='_blank'>Wiki</a></div>");
         var windowWidth = $(window).width();
         var windowHeight = $(window).height();
