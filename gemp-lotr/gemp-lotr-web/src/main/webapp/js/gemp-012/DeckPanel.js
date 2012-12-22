@@ -38,12 +38,28 @@ var DeckPanel = Class.extend({
 
         this.tabs = $(deckDiv).tabs();
 
+        var isFirstWithSameBlueprintIdInGroup =
+                function(testedCardId, cardGroup, blueprintId) {
+                    var first;
+                    var finished = false;
+
+                    cardGroup.iterCards(
+                            function(cardDiv, cardId, props, layoutFunc) {
+                                if (!finished && props["blueprintId"] == blueprintId) {
+                                    first = (cardId == testedCardId);
+                                    finished = true;
+                                }
+                            });
+                    
+                    return first;
+                };
+
         this.ringBearerContainer = new CardContainer(this.ringBearerDiv, this.layoutCardContainer);
         var ringBearerGroup = new RowCardLayoutCardGroup(this.ringBearerDiv,
                 function() {
                     return true;
                 });
-        ringBearerGroup.setZIndexBase(10);
+        ringBearerGroup.setZIndexBase(100);
         this.ringBearerContainer.addCardGroup("main", ringBearerGroup);
 
         this.ringContainer = new CardContainer(this.ringDiv, this.layoutCardContainer);
@@ -51,7 +67,7 @@ var DeckPanel = Class.extend({
                 function() {
                     return true;
                 });
-        ringGroup.setZIndexBase(10);
+        ringGroup.setZIndexBase(100);
         this.ringContainer.addCardGroup("main", ringGroup);
 
         this.sitesContainer = new CardContainer(this.sitesDiv, this.layoutCardContainer);
@@ -59,23 +75,37 @@ var DeckPanel = Class.extend({
                 function() {
                     return true;
                 });
-        sitesGroup.setZIndexBase(10);
+        sitesGroup.setZIndexBase(100);
         this.sitesContainer.addCardGroup("main", sitesGroup);
 
         this.fpContainer = new CardContainer(this.fpDiv, this.layoutCardContainer);
-        var fpGroup = new RowCardLayoutCardGroup(this.fpDiv,
-                function() {
+        var fpGroup = new AttachedCardsLayoutCardGroup(this.fpDiv,
+                function(cardDiv, cardId, props) {
                     return true;
+                },
+                function(cardDiv, cardId, props) {
+                    return isFirstWithSameBlueprintIdInGroup(cardId, fpGroup, props["blueprintId"]);
                 });
-        fpGroup.setZIndexBase(10);
+        fpGroup.addAttachedGroup(-1/7, 0,
+                function(cardDiv, cardId, props, cardDivAtt, cardIdAtt, propsAtt) {
+                    return propsAtt["blueprintId"] == props["blueprintId"];
+                });
+        fpGroup.setZIndexBase(100);
         this.fpContainer.addCardGroup("main", fpGroup);
 
         this.shadowContainer = new CardContainer(this.shadowDiv, this.layoutCardContainer);
-        var shadowGroup = new RowCardLayoutCardGroup(this.shadowDiv,
-                function() {
+        var shadowGroup = new AttachedCardsLayoutCardGroup(this.shadowDiv,
+                function(cardDiv, cardId, props) {
                     return true;
+                },
+                function(cardDiv, cardId, props) {
+                    return isFirstWithSameBlueprintIdInGroup(cardId, shadowGroup, props["blueprintId"]);
                 });
-        shadowGroup.setZIndexBase(10);
+        shadowGroup.addAttachedGroup(-1/7, 0,
+                function(cardDiv, cardId, props, cardDivAtt, cardIdAtt, propsAtt) {
+                    return propsAtt["blueprintId"] == props["blueprintId"];
+                });
+        shadowGroup.setZIndexBase(100);
         this.shadowContainer.addCardGroup("main", shadowGroup);
     },
 
