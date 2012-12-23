@@ -116,12 +116,12 @@ var DeckPanel = Class.extend({
     },
 
     layoutUi: function(x, y, width, height) {
-        this.tabs.css({"left": x, "top": y, "width": width, "height": height});
-
         var border = this.tabs.border();
 
-        var innerWidth = width - border.left - border.right;
-        var innerHeight = height - border.top - border.bottom;
+        var innerWidth = width - border.left - border.right - 3;
+        var innerHeight = height - border.top - border.bottom - 3;
+
+        this.tabs.css({"left": x, "top": y, "width": innerWidth, "height": innerHeight});
 
         var resultHeight = innerHeight - $("ul", this.tabs).height();
         resultHeight = resultHeight - 3;
