@@ -103,7 +103,7 @@ var CardFilter = Class.extend({
         pageElem.append(this.pageDiv);
 
         this.fullFilterDiv = $("<div></div>");
-        this.setSelect = $("<select style='width: 130px; font-size: 80%;'>"
+        this.setSelect = $("<select style='font-size: 75%; float: right'>"
             + "<option value=''>All Sets</option>"
             + "<option value='fotr_block'>Fellowship Block</option>"
             + "<option value='ttt_block'>Towers Block</option>"
@@ -135,9 +135,8 @@ var CardFilter = Class.extend({
             + "<option value='18'>18 - Treachery & Deceit</option>"
             + "<option value='19'>19 - Ages End</option>"
             + "</select>");
-        this.nameInput = $("<input type='text' value='Card name' style='width: 130px; font-size: 70%;'>");
-        this.sortSelect = $("<select style='width: 80px; font-size: 80%;'>"
-            + "<option value=''>Sort by:</option>"
+        this.nameInput = $("<input type='text' style='width: 130px; font-size: 70%; float: right'>");
+        this.sortSelect = $("<select style='font-size: 75%; float: right'>"
             + "<option value='name,collectorInfo'>Name</option>"
             + "<option value='twilight,name,collectorInfo'>Twilight</option>"
             + "<option value='siteNumber,name'>Site number</option>"
@@ -147,8 +146,8 @@ var CardFilter = Class.extend({
             + "<option value='culture,name,collectorInfo'>Culture</option>"
             + "<option value='collectorInfo'>Collector's Info</option>"
             + "</select>");
-        this.raritySelect = $("<select style='width: 40px; font-size: 80%;'>"
-            + "<option value=''>Rarity:</option>"
+        this.raritySelect = $("<select style='font-size: 75%; float: right'>"
+            + "<option value=''>All</option>"
             + "<option value='R'>Rare</option>"
             + "<option value='U'>Uncommon</option>"
             + "<option value='C'>Common</option>"
@@ -158,39 +157,33 @@ var CardFilter = Class.extend({
             + "<option value='S'>Fixed</option>"
             + "</select>");
 
-        this.fullFilterDiv.append(this.setSelect);
-        this.fullFilterDiv.append(this.nameInput);
-        this.fullFilterDiv.append(this.sortSelect);
-        this.fullFilterDiv.append(this.raritySelect);
+        var cardNameDiv = $("<div></div>");
+        cardNameDiv.append("Card name: ");
+        cardNameDiv.append(this.nameInput);
+        this.fullFilterDiv.append(cardNameDiv);
+
+        var sortDiv = $("<div></div>");
+        sortDiv.append("Sort by: ");
+        sortDiv.append(this.sortSelect);
+        this.fullFilterDiv.append(sortDiv);
+
+        var setDiv = $("<div></div>");
+        setDiv.append("Set / Format: ");
+        setDiv.append(this.setSelect);
+        this.fullFilterDiv.append(setDiv);
+
+        var rarityDiv = $("<div></div>");
+        rarityDiv.append("Rarity: ");
+        rarityDiv.append(this.raritySelect);
+        this.fullFilterDiv.append(rarityDiv);
 
         elem.append(this.fullFilterDiv);
 
         this.filterDiv = $("<div></div>");
 
-        this.filterDiv.append("<div id='culture1'>"
-            + "<input type='checkbox' id='DWARVEN'/><label for='DWARVEN' id='labelDWARVEN'><img src='images/cultures/dwarven.png'/></label>"
-            + "<input type='checkbox' id='ELVEN'/><label for='ELVEN' id='labelELVEN'><img src='images/cultures/elven.png'/></label>"
-            + "<input type='checkbox' id='GANDALF'/><label for='GANDALF' id='labelGANDALF'><img src='images/cultures/gandalf.png'/></label>"
-            + "<input type='checkbox' id='GONDOR'/><label for='GONDOR' id='labelGONDOR'><img src='images/cultures/gondor.png'/></label>"
-            + "<input type='checkbox' id='ROHAN'/><label for='ROHAN' id='labelROHAN'><img src='images/cultures/rohan.png'/></label>"
-            + "<input type='checkbox' id='SHIRE'/><label for='SHIRE' id='labelSHIRE'><img src='images/cultures/shire.png'/></label>"
-            + "<input type='checkbox' id='GOLLUM'/><label for='GOLLUM' id='labelGOLLUM'><img src='images/cultures/gollum.png'/></label>"
-            + "</div>");
-        this.filterDiv.append("<div id='culture2'>"
-            + "<input type='checkbox' id='DUNLAND'/><label for='DUNLAND' id='labelDUNLAND'><img src='images/cultures/dunland.png'/></label>"
-            + "<input type='checkbox' id='ISENGARD'/><label for='ISENGARD' id='labelISENGARD'><img src='images/cultures/isengard.png'/></label>"
-            + "<input type='checkbox' id='MEN'/><label for='MEN' id='labelMEN'><img src='images/cultures/men.png'/></label>"
-            + "<input type='checkbox' id='MORIA'/><label for='MORIA' id='labelMORIA'><img src='images/cultures/moria.png'/></label>"
-            + "<input type='checkbox' id='ORC'/><label for='ORC' id='labelORC'><img src='images/cultures/orc.png'/></label>"
-            + "<input type='checkbox' id='RAIDER'/><label for='RAIDER' id='labelRAIDER'><img src='images/cultures/raider.png'/></label>"
-            + "<input type='checkbox' id='SAURON'/><label for='SAURON' id='labelSAURON'><img src='images/cultures/sauron.png'/></label>"
-            + "<input type='checkbox' id='URUK_HAI'/><label for='URUK_HAI' id='labelURUK_HAI'><img src='images/cultures/uruk_hai.png'/></label>"
-            + "<input type='checkbox' id='WRAITH'/><label for='WRAITH' id='labelWRAITH'><img src='images/cultures/wraith.png'/></label>"
-            + "</div>");
-
-        var combos = $("<div></div>");
-
-        combos.append(" <select id='cardType' style='font-size: 80%;'>"
+        var cardTypeDiv = $("<div></div>");
+        cardTypeDiv.append("Card type: ");
+        cardTypeDiv.append("<select id='cardType' style='font-size: 75%; float: right'>"
             + "<option value=''>All Card Types</option>"
             + "<option value='COMPANION,ALLY,MINION'>Characters</option>"
             + "<option value='POSSESSION,ARTIFACT'>Items</option>"
@@ -204,7 +197,11 @@ var CardFilter = Class.extend({
             + "<option value='MINION'>Minions</option>"
             + "<option value='POSSESSION'>Possessions</option>"
             + "</select>");
-        combos.append(" <select id='keyword' style='font-size: 80%;'>"
+        this.filterDiv.append(cardTypeDiv);
+
+        var keywordDiv = $("<div></div>");
+        keywordDiv.append("Keyword: ");
+        keywordDiv.append(" <select id='keyword' style='font-size: 75%; float: right'>"
             + "<option value=''>No keyword filtering</option>"
             + "<option value='ARCHER'>Archer</option>"
             + "<option value='BATTLEGROUND'>Battleground</option>"
@@ -244,7 +241,11 @@ var CardFilter = Class.extend({
             + "<option value='WARG_RIDER'>Warg-rider</option>"
             + "<option value='WEATHER'>Weather</option>"
             + "</select>");
-        combos.append(" <select id='type' style='font-size: 80%'>"
+        this.filterDiv.append(keywordDiv);
+
+        var typeDiv = $("<div></div>");
+        typeDiv.append("Item type: ");
+        typeDiv.append("<select id='type' style='font-size: 75%; float: right'>"
             + "<option value=''>All types</option>"
             + "<option value='pack'>Packs</option>"
             + "<option value='card'>Cards</option>"
@@ -252,7 +253,30 @@ var CardFilter = Class.extend({
             + "<option value='nonFoil'>Non-foils</option>"
             + "<option value='tengwar'>Tengwar</option>"
             + "</select>");
-        this.filterDiv.append(combos);
+        this.filterDiv.append(typeDiv);
+
+        this.filterDiv.append("Cultures:");
+
+        this.filterDiv.append("<div id='culture1'>"
+            + "<input type='checkbox' id='DWARVEN'/><label for='DWARVEN' id='labelDWARVEN'><img src='images/cultures/dwarven.png' height='15'/></label>"
+            + "<input type='checkbox' id='ELVEN'/><label for='ELVEN' id='labelELVEN'><img src='images/cultures/elven.png' height='15'/></label>"
+            + "<input type='checkbox' id='GANDALF'/><label for='GANDALF' id='labelGANDALF'><img src='images/cultures/gandalf.png' height='15'/></label>"
+            + "<input type='checkbox' id='GONDOR'/><label for='GONDOR' id='labelGONDOR'><img src='images/cultures/gondor.png' height='15'/></label>"
+            + "<input type='checkbox' id='ROHAN'/><label for='ROHAN' id='labelROHAN'><img src='images/cultures/rohan.png' height='15'/></label>"
+            + "<input type='checkbox' id='SHIRE'/><label for='SHIRE' id='labelSHIRE'><img src='images/cultures/shire.png' height='15'/></label>"
+            + "<input type='checkbox' id='GOLLUM'/><label for='GOLLUM' id='labelGOLLUM'><img src='images/cultures/gollum.png' height='15'/></label>"
+            + "</div>");
+        this.filterDiv.append("<div id='culture2'>"
+            + "<input type='checkbox' id='DUNLAND'/><label for='DUNLAND' id='labelDUNLAND'><img src='images/cultures/dunland.png' height='15'/></label>"
+            + "<input type='checkbox' id='ISENGARD'/><label for='ISENGARD' id='labelISENGARD'><img src='images/cultures/isengard.png' height='15'/></label>"
+            + "<input type='checkbox' id='MEN'/><label for='MEN' id='labelMEN'><img src='images/cultures/men.png' height='15'/></label>"
+            + "<input type='checkbox' id='MORIA'/><label for='MORIA' id='labelMORIA'><img src='images/cultures/moria.png' height='15'/></label>"
+            + "<input type='checkbox' id='ORC'/><label for='ORC' id='labelORC'><img src='images/cultures/orc.png' height='15'/></label>"
+            + "<input type='checkbox' id='RAIDER'/><label for='RAIDER' id='labelRAIDER'><img src='images/cultures/raider.png' height='15'/></label>"
+            + "<input type='checkbox' id='SAURON'/><label for='SAURON' id='labelSAURON'><img src='images/cultures/sauron.png' height='15'/></label>"
+            + "<input type='checkbox' id='URUK_HAI'/><label for='URUK_HAI' id='labelURUK_HAI'><img src='images/cultures/uruk_hai.png' height='15'/></label>"
+            + "<input type='checkbox' id='WRAITH'/><label for='WRAITH' id='labelWRAITH'><img src='images/cultures/wraith.png' height='15'/></label>"
+            + "</div>");
 
         elem.append(this.filterDiv);
 
@@ -345,14 +369,10 @@ var CardFilter = Class.extend({
             sort = " sort:" + sort;
 
         var cardName = this.nameInput.val();
-        if (cardName == "Card name")
-            cardName = "";
-        else {
-            var cardNameElems = cardName.split(" ");
-            cardName = "";
-            for (var i = 0; i < cardNameElems.length; i++)
-                cardName += " name:" + cardNameElems[i];
-        }
+        var cardNameElems = cardName.split(" ");
+        cardName = "";
+        for (var i = 0; i < cardNameElems.length; i++)
+            cardName += " name:" + cardNameElems[i];
 
         var rarity = $("option:selected", this.raritySelect).prop("value");
         if (rarity != "")

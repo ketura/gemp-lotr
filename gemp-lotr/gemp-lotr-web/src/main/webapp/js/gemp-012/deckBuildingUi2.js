@@ -6,6 +6,8 @@ var GempLotrDeckBuildingUI2 = Class.extend({
     collectionContainer:null,
     collectionGroup:null,
 
+    collectionSelect: null,
+
     deckDiv: null,
 
     cardFilter:null,
@@ -42,7 +44,28 @@ var GempLotrDeckBuildingUI2 = Class.extend({
 
         this.comm = new GempLotrCommunication("/gemp-lotr-server", that.processError);
 
-        this.cardFilter = new CardFilter(filterDiv, pageDiv,
+        var collectionTypeDiv = $("<div></div>");
+        var filterDivInternal = $("<div></div>");
+
+        collectionTypeDiv.append("Collection: ");
+
+        this.collectionSelect = $("<select></select>");
+        this.collectionSelect.css({"float":"right", "width":"180px", "font-size": "75%"});
+        this.collectionSelect.append("<option value='default'>All cards</option>");
+        this.collectionSelect.append("<option value='permanent'>My cards</option>");
+
+        collectionTypeDiv.append(this.collectionSelect);
+
+        this.collectionSelect.change(
+            function () {
+                that.collectionType = $("option:selected", this.collectionSelect).prop("value");
+                that.cardFilter.getCollection();
+            });
+
+        filterDiv.append(collectionTypeDiv);
+        filterDiv.append(filterDivInternal);
+
+        this.cardFilter = new CardFilter(filterDivInternal, pageDiv,
                 function (filter, start, count, callback) {
                     that.comm.getCollection(that.collectionType, filter, start, count, function (xml) {
                         callback(xml);
@@ -81,6 +104,8 @@ var GempLotrDeckBuildingUI2 = Class.extend({
                 function (event) {
                     return that.dragStopCardFunction(event);
                 });
+
+        this.loadExtraCollectionTypes();
     },
 
     dragCardProps:null,
@@ -159,6 +184,21 @@ var GempLotrDeckBuildingUI2 = Class.extend({
             }
         }
         return true;
+    },
+
+    loadExtraCollectionTypes:function () {
+        var that = this;
+        this.comm.getCollectionTypes(
+            function (xml) {
+                var root = xml.documentElement;
+                if (root.tagName == "collections") {
+                    var collections = root.getElementsByTagName("collection");
+                    for (var i = 0; i < collections.length; i++) {
+                        var collection = collections[i];
+                        this.collectionSelect.append("<option value='" + collection.getAttribute("type") + "'>" + collection.getAttribute("name") + "</option>");
+                    }
+                }
+            });
     },
 
     layoutCollectionContainer : function(cardGroups, left, top, width, height) {
