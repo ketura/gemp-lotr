@@ -60,7 +60,7 @@ var DeckPanel = Class.extend({
                     return true;
                 });
         ringBearerGroup.setZIndexBase(100);
-        ringBearerGroup.setMaxCardHeight(200);
+        ringBearerGroup.setMaxCardHeight(300);
         this.ringBearerContainer.addCardGroup("main", ringBearerGroup);
 
         this.ringContainer = new CardContainer(this.ringDiv, this.layoutCardContainer);
@@ -69,7 +69,7 @@ var DeckPanel = Class.extend({
                     return true;
                 });
         ringGroup.setZIndexBase(100);
-        ringGroup.setMaxCardHeight(200);
+        ringGroup.setMaxCardHeight(300);
         this.ringContainer.addCardGroup("main", ringGroup);
 
         this.sitesContainer = new CardContainer(this.sitesDiv, this.layoutCardContainer);
@@ -78,7 +78,7 @@ var DeckPanel = Class.extend({
                     return true;
                 });
         sitesGroup.setZIndexBase(100);
-        sitesGroup.setMaxCardHeight(200);
+        sitesGroup.setMaxCardHeight(300);
         this.sitesContainer.addCardGroup("main", sitesGroup);
 
         this.fpContainer = new CardContainer(this.fpDiv, this.layoutCardContainer);
@@ -87,7 +87,7 @@ var DeckPanel = Class.extend({
                     return true;
                 });
         fpGroup.setZIndexBase(100);
-        fpGroup.setMaxCardHeight(200);
+        fpGroup.setMaxCardHeight(300);
         this.fpContainer.addCardGroup("main", fpGroup);
 
         this.shadowContainer = new CardContainer(this.shadowDiv, this.layoutCardContainer);
@@ -96,7 +96,7 @@ var DeckPanel = Class.extend({
                     return true;
                 });
         shadowGroup.setZIndexBase(100);
-        shadowGroup.setMaxCardHeight(200);
+        shadowGroup.setMaxCardHeight(300);
         this.shadowContainer.addCardGroup("main", shadowGroup);
     },
 
