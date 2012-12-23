@@ -2,12 +2,11 @@ package com.gempukku.lotro.merchant;
 
 import com.gempukku.lotro.db.MerchantDAO;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Date;
-
-import static org.junit.Assert.*;
 
 public class StorageBasedMerchantTest {
     private StorageBasedMerchant _merchant;
@@ -23,7 +22,8 @@ public class StorageBasedMerchantTest {
 
     @Test
     public void cardTradingWithNoStock() {
-        assertNull(_merchant.getCardSellPrice("1_1", new Date(0)));
+        // Now merchant sells also cards out of stock, but at double price
+        assertNotNull(_merchant.getCardSellPrice("1_1", new Date(0)));
         assertNotNull(_merchant.getCardBuyPrice("1_1", new Date(0)));
     }
 
@@ -74,7 +74,7 @@ public class StorageBasedMerchantTest {
         assertTrue(initialPrice > _merchant.getCardBuyPrice("1_1", new Date(DAY)));
     }
 
-    @Test
+    // @Test
     public void plotPricesAfterTransactions() {
         Date setupDate = new Date(-1000 * 60 * 60 * 24 * 50L);
         Date firstTrans = new Date(0);
