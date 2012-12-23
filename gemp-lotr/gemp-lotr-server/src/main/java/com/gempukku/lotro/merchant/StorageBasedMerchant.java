@@ -23,7 +23,7 @@ public class StorageBasedMerchant implements Merchant {
     private static final int MIN_BUY_PRICE = 1;
 
     private static final int LOW_STOCK_MAX = 10;
-    private static final int DOUBLE_AFTER_DAYS_LOW_STOCK = 7;
+    private static final int DOUBLE_AFTER_DAYS_LOW_STOCK = 5;
     private static final int HALVE_AFTER_DAYS_IN_STOCK = 60;
 
     private static final double PRICE_SHIFT_AFTER_TRANSACTION_PERC = 10;
