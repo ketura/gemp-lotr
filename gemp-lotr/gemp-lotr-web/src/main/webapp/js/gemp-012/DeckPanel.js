@@ -50,7 +50,7 @@ var DeckPanel = Class.extend({
                                     finished = true;
                                 }
                             });
-                    
+
                     return first;
                 };
 
@@ -79,31 +79,17 @@ var DeckPanel = Class.extend({
         this.sitesContainer.addCardGroup("main", sitesGroup);
 
         this.fpContainer = new CardContainer(this.fpDiv, this.layoutCardContainer);
-        var fpGroup = new AttachedCardsLayoutCardGroup(this.fpDiv,
+        var fpGroup = new RowCardLayoutCardGroup(this.fpDiv,
                 function(cardDiv, cardId, props) {
                     return true;
-                },
-                function(cardDiv, cardId, props) {
-                    return isFirstWithSameBlueprintIdInGroup(cardId, fpGroup, props["blueprintId"]);
-                });
-        fpGroup.addAttachedGroup(-1/7, 0,
-                function(cardDiv, cardId, props, cardDivAtt, cardIdAtt, propsAtt) {
-                    return propsAtt["blueprintId"] == props["blueprintId"];
                 });
         fpGroup.setZIndexBase(100);
         this.fpContainer.addCardGroup("main", fpGroup);
 
         this.shadowContainer = new CardContainer(this.shadowDiv, this.layoutCardContainer);
-        var shadowGroup = new AttachedCardsLayoutCardGroup(this.shadowDiv,
+        var shadowGroup = new RowCardLayoutCardGroup(this.shadowDiv,
                 function(cardDiv, cardId, props) {
                     return true;
-                },
-                function(cardDiv, cardId, props) {
-                    return isFirstWithSameBlueprintIdInGroup(cardId, shadowGroup, props["blueprintId"]);
-                });
-        shadowGroup.addAttachedGroup(-1/7, 0,
-                function(cardDiv, cardId, props, cardDivAtt, cardIdAtt, propsAtt) {
-                    return propsAtt["blueprintId"] == props["blueprintId"];
                 });
         shadowGroup.setZIndexBase(100);
         this.shadowContainer.addCardGroup("main", shadowGroup);
@@ -148,7 +134,7 @@ var DeckPanel = Class.extend({
         var incrementCount =
                 function(cardDiv, cardId, props, layout) {
                     if (props["blueprintId"] == blueprintId)
-                        count++;
+                        count+=props["countInDeck"];
                 };
 
         this.ringBearerContainer.iterCards(incrementCount);
@@ -160,12 +146,21 @@ var DeckPanel = Class.extend({
         return count;
     },
 
+    getCardCountInGroup: function(groupContainer) {
+        var count = 0;
+        groupContainer.iterCards(
+                function(cardDiv, cardId, props) {
+                    count+=props["countInDeck"];
+                });
+        return count;
+    },
+
     updateDeckCounts: function() {
         var that = this;
 
         var updateGroup = function (groupContainer, titlePrefix, tabHref) {
             groupContainer.layoutCards();
-            var count = groupContainer.getCardsCount();
+            var count = that.getCardCountInGroup(groupContainer);
             var title = titlePrefix + " (" + count + ")";
             $(".ui-tabs-nav a[href='#" + tabHref + "']", that.tabs).html(title);
         };
@@ -177,61 +172,101 @@ var DeckPanel = Class.extend({
         updateGroup(this.shadowContainer, "Shadow", "shadow");
     },
 
+    findCardPropsInGroup: function(groupContainer, blueprintId) {
+        var cardInGroupProps = null;
+        groupContainer.iterCards(
+                function(cardDiv, cardId, props) {
+                    if (props["blueprintId"] == blueprintId)
+                        cardInGroupProps = props;
+                });
+        return cardInGroupProps;
+    },
+
+    addCardToGroup: function(groupContainer, cardElem, cardId, cardProps, layoutCardFunc, widthToHeightScaleFunc) {
+        var cardInGroupProps = this.findCardPropsInGroup(groupContainer, cardProps["blueprintId"]);;
+        if (cardInGroupProps == null) {
+            cardProps["countInDeck"] = 1;
+            groupContainer.addCard(cardElem, cardId, cardProps, layoutCardFunc, widthToHeightScaleFunc);
+        } else {
+            cardInGroupProps["countInDeck"] = cardInGroupProps["countInDeck"] + 1;
+        }
+    },
+
     addCard: function(cardElem, cardId, cardProps, layoutCardFunc, widthToHeightScaleFunc) {
         var group = cardProps["group"];
 
-        var addCardToGroup = function (groupContainer) {
-            groupContainer.addCard(cardElem, cardId, cardProps, layoutCardFunc, widthToHeightScaleFunc);
-        };
-
         if (group == "ring") {
-            addCardToGroup(this.ringContainer);
+            this.addCardToGroup(this.ringContainer);
         } else if (group == "ringBearer" || group == "fp") {
-            addCardToGroup(this.fpContainer);
+            this.addCardToGroup(this.fpContainer);
         } else if (group == "site") {
-            addCardToGroup(this.sitesContainer);
+            this.addCardToGroup(this.sitesContainer);
         } else if (group == "shadow") {
-            addCardToGroup(this.shadowContainer);
+            this.addCardToGroup(this.shadowContainer);
         }
     },
 
     addRingBearerCard: function(cardElem, cardId, cardProps, layoutCardFunc, widthToHeightScaleFunc) {
-        this.ringBearerContainer.addCard(cardElem, cardId, cardProps, layoutCardFunc, widthToHeightScaleFunc);
+        this.addCardToGroup(this.ringBearerContainer, cardElem, cardId, cardProps, layoutCardFunc, widthToHeightScaleFunc);
+    },
+
+    removeCardAndUpdate: function(cardElem, cardId, cardProps) {
+        var that = this;
+        var removeFromContainerIfThere = function(groupContainer, titlePrefix, tabHref) {
+            if (groupContainer.hasCardId(cardId)) {
+                var cardPropsInGroup = that.findCardPropsInGroup(groupContainer, cardProps["blueprintId"]);
+                if (cardPropsInGroup["countInDeck"]==1)
+                    groupContainer.removeCard(cardId);
+                else
+                    cardPropsInGroup["countInDeck"]=cardPropsInGroup["countInDeck"]-1;
+                groupContainer.layoutCards();
+                
+                var count = that.getCardCountInGroup(groupContainer);
+                var title = titlePrefix + " (" + count + ")";
+                $(".ui-tabs-nav a[href='#" + tabHref + "']", that.tabs).html(title);
+            }
+        };
+
+        removeFromContainerIfThere(this.ringBearerContainer, "Ring-bearer", "ringBearer");
+        removeFromContainerIfThere(this.ringContainer, "Ring", "ring");
+        removeFromContainerIfThere(this.sitesContainer, "Sites", "sites");
+        removeFromContainerIfThere(this.fpContainer, "Free People", "fp");
+        removeFromContainerIfThere(this.shadowContainer, "Shadow", "shadow");
     },
 
     finishAddingCards: function() {
         this.updateDeckCounts();
     },
 
-    addSingleCard: function(cardElem, cardId, cardProps, layoutCardFunc, widthToHeightScaleFunc) {
+    addCardToGroupAndUpdate: function(groupContainer, titlePrefix, tabHref, cardElem, cardId, cardProps, layoutCardFunc, widthToHeightScaleFunc) {
+        this.addCardToGroup(groupContainer, cardElem, cardId, cardProps, layoutCardFunc, widthToHeightScaleFunc);
+        groupContainer.layoutCards();
+        var count = this.getCardCountInGroup(groupContainer);
+        var title = titlePrefix + " (" + count + ")";
+        $(".ui-tabs-nav a[href='#" + tabHref + "']", this.tabs).html(title);
+    },
+
+    addCardAndUpdate: function(cardElem, cardId, cardProps, layoutCardFunc, widthToHeightScaleFunc) {
         var group = cardProps["group"];
 
         var that = this;
 
-        var addCardToGroup = function (groupContainer, titlePrefix, tabHref) {
-            groupContainer.addCard(cardElem, cardId, cardProps, layoutCardFunc, widthToHeightScaleFunc);
-            groupContainer.layoutCards();
-            var count = groupContainer.getCardsCount();
-            var title = titlePrefix + " (" + count + ")";
-            $(".ui-tabs-nav a[href='#" + tabHref + "']", that.tabs).html(title);
-        };
-
         if (group == "ring") {
-            addCardToGroup(this.ringContainer, "Ring", "ring");
+            this.addCardToGroupAndUpdate(this.ringContainer, "Ring", "ring", cardElem, cardId, cardProps, layoutCardFunc, widthToHeightScaleFunc);
         } else if (group == "ringBearer") {
             var selectedTabIndex = this.tabs.tabs('option', 'selected');
 
             if (selectedTabIndex == 0) {
-                addCardToGroup(this.ringBearerContainer, "Ring-bearer", "ringBearer");
+                this.addCardToGroupAndUpdate(this.ringBearerContainer, "Ring-bearer", "ringBearer", cardElem, cardId, cardProps, layoutCardFunc, widthToHeightScaleFunc);
             } else {
-                addCardToGroup(this.fpContainer, "Free People", "fp");
+                this.addCardToGroupAndUpdate(this.fpContainer, "Free People", "fp", cardElem, cardId, cardProps, layoutCardFunc, widthToHeightScaleFunc);
             }
         } else if (group == "site") {
-            addCardToGroup(this.sitesContainer, "Sites", "sites");
+            this.addCardToGroupAndUpdate(this.sitesContainer, "Sites", "sites", cardElem, cardId, cardProps, layoutCardFunc, widthToHeightScaleFunc);
         } else if (group == "fp") {
-            addCardToGroup(this.fpContainer, "Free People", "fp");
+            this.addCardToGroupAndUpdate(this.fpContainer, "Free People", "fp", cardElem, cardId, cardProps, layoutCardFunc, widthToHeightScaleFunc);
         } else if (group == "shadow") {
-            addCardToGroup(this.shadowContainer, "Shadow", "shadow");
+            this.addCardToGroupAndUpdate(this.shadowContainer, "Shadow", "shadow", cardElem, cardId, cardProps, layoutCardFunc, widthToHeightScaleFunc);
         }
     }
 });
