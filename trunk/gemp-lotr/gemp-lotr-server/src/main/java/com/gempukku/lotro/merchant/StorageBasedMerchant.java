@@ -15,7 +15,8 @@ public class StorageBasedMerchant implements Merchant {
     private static final float _profitMargin = 0.7f;
 
     private static final int MAX_STOCK_BUY = 99;
-    private static final int MIN_STOCK_SELL = 1;
+    private static final int OUT_OF_STOCK_MIN = 0;
+    private static final int OUT_OF_STOCK_MULTIPLIER = 2;
 
     private static final int FOIL_PRICE_MULTIPLIER = 2;
 
@@ -61,14 +62,17 @@ public class StorageBasedMerchant implements Merchant {
 
         MerchantDAO.Transaction lastTransaction = _merchantDao.getLastTransaction(blueprintId);
 
-        if (lastTransaction == null || lastTransaction.getStock() < MIN_STOCK_SELL)
-            return null;
+        boolean outOfStock = (lastTransaction == null || lastTransaction.getStock() <= OUT_OF_STOCK_MIN);
 
         Double normalPrice = getNormalPrice(lastTransaction, blueprintId, currentTime);
         if (normalPrice == null)
             return null;
 
-        return Math.max(MIN_SELL_PRICE, (int) Math.ceil(normalPrice));
+        if (outOfStock) {
+            return OUT_OF_STOCK_MULTIPLIER * Math.max(MIN_SELL_PRICE, (int) Math.ceil(normalPrice));
+        } else {
+            return Math.max(MIN_SELL_PRICE, (int) Math.ceil(normalPrice));
+        }
     }
 
     @Override
