@@ -511,18 +511,16 @@ var GempLotrGameUI = Class.extend({
         }
 
         if (tar.hasClass("actionArea")) {
-            tar = tar.parent();
-            if (tar.hasClass("borderOverlay")) {
-                var selectedCardElem = tar.parent();
-                if (event.which == 1) {
-                    if (!this.successfulDrag) {
-                        if (event.shiftKey) {
-                            this.displayCardInfo(selectedCardElem.data("card"));
-                        } else if ((selectedCardElem.hasClass("selectableCard") || selectedCardElem.hasClass("actionableCard")) && !this.replayMode)
-                            this.selectionFunction(selectedCardElem.data("card").cardId, event);
+            var tar2 = tar.parent();
+            if (tar2.hasClass("borderOverlay")) {
+                var selectedCardElem = tar2.parent();
+                if (!this.successfulDrag) {
+                    if (event.shiftKey || event.which > 1) {
+                        this.displayCardInfo(selectedCardElem.data("card"));
+                    } else if ((selectedCardElem.hasClass("selectableCard") || selectedCardElem.hasClass("actionableCard")) && !this.replayMode)
+                        this.selectionFunction(selectedCardElem.data("card").cardId, event);
                         event.stopPropagation();
-                    }
-                }
+                 }
             }
             return false;
         }
@@ -542,9 +540,9 @@ var GempLotrGameUI = Class.extend({
         this.successfulDrag = false;
         var tar = $(event.target);
         if (tar.hasClass("actionArea")) {
-            tar = tar.parent();
-            if (tar.hasClass("borderOverlay")) {
-                var selectedCardElem = tar.parent();
+            var tar2 = tar.parent();
+            if (tar2.hasClass("borderOverlay")) {
+                var selectedCardElem = tar2.parent();
                 if (event.which == 1) {
                     var cardData = selectedCardElem.data("card");
                     if (cardData) {
@@ -1200,6 +1198,10 @@ var GempLotrGameUI = Class.extend({
             this.alertText.html("");
         if (this.alertButtons != null)
             this.alertButtons.html("");
+        // ****CCG League****: Border around alert box
+        if (this.alertBox != null)
+        	this.alertBox.css({"border-radius":"7px", "border-color":""});
+        
         $(".card").each(
             function () {
                 var card = $(this).data("card");
@@ -1392,16 +1394,20 @@ var GempLotrGameUI = Class.extend({
         var that = this;
         var swipeOptions = {
             threshold:20,
+            fallbackToMouseEvents:false,
             swipeUp:function (event) {
                 var tar = $(event.target);
                 if (tar.hasClass("actionArea")) {
-                    tar = tar.parent();
-                    if (tar.hasClass("borderOverlay")) {
-                        var selectedCardElem = tar.parent();
+                    var tar2 = tar.parent();
+                    if (tar2.hasClass("borderOverlay")) {
+                        var selectedCardElem = tar2.parent();
                         that.displayCardInfo(selectedCardElem.data("card"));
                     }
                 }
                 return false;
+            },
+            click:function (event) {
+                return that.clickCardFunction(event);
             }
         };
         cardDiv.swipe(swipeOptions);
@@ -1535,6 +1541,8 @@ var GempLotrGameUI = Class.extend({
         var selectedCardIds = new Array();
 
         this.alertText.html(text);
+        // ****CCG League****: Border around alert box
+        this.alertBox.css({"border-radius":"7px", "border-color":"#7f7fff", "border-width":"2px"});
 
         var processButtons = function () {
             that.alertButtons.html("");
@@ -1558,6 +1566,8 @@ var GempLotrGameUI = Class.extend({
 
         var finishChoice = function () {
             that.alertText.html("");
+            // ****CCG League****: Border around alert box
+            that.alertBox.css({"border-radius":"7px", "border-color":"", "border-width":"1px"});
             that.alertButtons.html("");
             that.clearSelection();
             $(".card").each(
@@ -1796,11 +1806,15 @@ var GempLotrGameUI = Class.extend({
         var that = this;
 
         this.alertText.html(text);
+        // ****CCG League****: Border around alert box
+        this.alertBox.css({"border-radius":"7px", "border-color":"#7faf7f", "border-width":"2px"});
 
         var selectedCardIds = new Array();
 
         var finishChoice = function () {
             that.alertText.html("");
+            // ****CCG League****: Border around alert box
+            that.alertBox.css({"border-radius":"7px", "border-color":"", "border-width":"1px"});
             that.alertButtons.html("");
             that.clearSelection();
             that.decisionFunction(id, "" + selectedCardIds);
@@ -1868,6 +1882,8 @@ var GempLotrGameUI = Class.extend({
         this.assignmentStarted = false;
 
         this.alertText.html(text);
+        // ****CCG League****: Border around alert box
+        this.alertBox.css({"border-radius":"7px", "border-color":"#7faf7f", "border-width":"2px"});
         if (!this.replayMode) {
             this.alertButtons.html("<button id='Done'>Done</button>");
             $("#Done").button().click(function () {
@@ -1875,6 +1891,8 @@ var GempLotrGameUI = Class.extend({
                     return;
 
                 that.alertText.html("");
+                // ****CCG League****: Border around alert box
+                that.alertBox.css({"border-radius":"7px", "border-color":"", "border-width":"1px"});
                 that.alertButtons.html("");
                 that.clearSelection();
 
