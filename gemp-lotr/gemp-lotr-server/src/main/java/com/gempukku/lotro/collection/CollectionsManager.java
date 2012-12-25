@@ -34,32 +34,27 @@ public class CollectionsManager {
 
         // Hunters have 1-194 normal cards, 9 "O" cards, and 3 extra to cover the different culture versions of 15_60
 
-        Thread thr = new Thread() {
-            public void run() {
-                final int[] cardCounts = new int[]{129, 365, 122, 122, 365, 128, 128, 365, 122, 52, 122, 266, 203, 203, 15, 207, 6, 157, 149, 40};
+        final int[] cardCounts = new int[]{129, 365, 122, 122, 365, 128, 128, 365, 122, 52, 122, 266, 203, 203, 15, 207, 6, 157, 149, 40};
 
-                for (int i = 0; i <= 19; i++) {
-                    _logger.debug("Loading set " + i);
-                    for (int j = 1; j <= cardCounts[i]; j++) {
-                        String blueprintId = i + "_" + j;
-                        try {
-                            if (lotroCardBlueprintLibrary.getBaseBlueprintId(blueprintId).equals(blueprintId)) {
-                                LotroCardBlueprint cardBlueprint = lotroCardBlueprintLibrary.getLotroCardBlueprint(blueprintId);
-                                CardType cardType = cardBlueprint.getCardType();
-                                if (cardType == CardType.SITE || cardType == CardType.THE_ONE_RING)
-                                    _defaultCollection.addItem(blueprintId, 1);
-                                else
-                                    _defaultCollection.addItem(blueprintId, 4);
-                            }
-                        } catch (IllegalArgumentException exp) {
-
-                        }
+        for (int i = 0; i <= 19; i++) {
+            _logger.debug("Loading set " + i);
+            for (int j = 1; j <= cardCounts[i]; j++) {
+                String blueprintId = i + "_" + j;
+                try {
+                    if (lotroCardBlueprintLibrary.getBaseBlueprintId(blueprintId).equals(blueprintId)) {
+                        LotroCardBlueprint cardBlueprint = lotroCardBlueprintLibrary.getLotroCardBlueprint(blueprintId);
+                        CardType cardType = cardBlueprint.getCardType();
+                        if (cardType == CardType.SITE || cardType == CardType.THE_ONE_RING)
+                            _defaultCollection.addItem(blueprintId, 1);
+                        else
+                            _defaultCollection.addItem(blueprintId, 4);
                     }
+                } catch (IllegalArgumentException exp) {
+
                 }
-                _collectionReadyLatch.countDown();
             }
-        };
-        thr.start();
+        }
+        _collectionReadyLatch.countDown();
     }
 
     public CardCollection getDefaultCollection() {
@@ -81,7 +76,7 @@ public class CollectionsManager {
                 return getDefaultCollection();
 
             final CardCollection collection = _collectionDAO.getPlayerCollection(player.getId(), collectionType);
-            
+
             if (collection == null && collectionType.equals("permanent"))
                 return new DefaultCardCollection();
 
@@ -177,7 +172,7 @@ public class CollectionsManager {
     }
 
     private CardCollection cardCollectionFromBlueprintId(int count, String blueprintId) {
-        DefaultCardCollection result =new DefaultCardCollection();
+        DefaultCardCollection result = new DefaultCardCollection();
         result.addItem(blueprintId, count);
         return result;
     }
