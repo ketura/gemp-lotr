@@ -419,7 +419,11 @@ public class SortAndFilterCards {
         }
 
         private int getAvailableNumber(String str) {
-            return Integer.parseInt(str.substring(0, getFirstNonDigitIndex(str)));
+            try {
+                return Integer.parseInt(str.substring(0, getFirstNonDigitIndex(str)));
+            } catch (NumberFormatException exp) {
+                return 0;
+            }
         }
 
         private int getFirstNonDigitIndex(String str) {
