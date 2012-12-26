@@ -155,9 +155,7 @@ public class DbGameHistoryDAO implements GameHistoryDAO {
         try {
             Connection connection = _dbAccess.getDataSource().getConnection();
             try {
-                // 5 minutes minimum game
-                long minTime = 1000 * 60 * 5;
-                PreparedStatement statement = connection.prepareStatement("select count(*) from game_history where end_date>=? and end_date<? and end_date-start_date>" + minTime);
+                PreparedStatement statement = connection.prepareStatement("select count(*) from game_history where end_date>=? and end_date<?");
                 try {
                     statement.setLong(1, from);
                     statement.setLong(2, from + duration);
@@ -165,32 +163,6 @@ public class DbGameHistoryDAO implements GameHistoryDAO {
                     try {
                         if (rs.next())
                             return rs.getInt(1);
-                        else
-                            return -1;
-                    } finally {
-                        rs.close();
-                    }
-                } finally {
-                    statement.close();
-                }
-            } finally {
-                connection.close();
-            }
-        } catch (SQLException exp) {
-            throw new RuntimeException("Unable to get count of games played", exp);
-        }
-    }
-
-    public long getOldestGameHistoryEntry() {
-        try {
-            Connection connection = _dbAccess.getDataSource().getConnection();
-            try {
-                PreparedStatement statement = connection.prepareStatement("select min(end_date) from game_history where (tournament is null or tournament = 'Casual')");
-                try {
-                    ResultSet rs = statement.executeQuery();
-                    try {
-                        if (rs.next())
-                            return rs.getLong(1);
                         else
                             return -1;
                     } finally {

@@ -48,10 +48,6 @@ public class GameHistoryService {
         return _gameHistoryDAO.getGamesPlayedCount(from, duration);
     }
 
-    public long getOldestGameHistoryEntry() {
-        return _gameHistoryDAO.getOldestGameHistoryEntry();
-    }
-
     public GameHistoryStatistics getGameHistoryStatistics(long from, long duration) {
         GameHistoryStatistics stats = new GameHistoryStatistics(from, duration);
         stats.init(_gameHistoryDAO);

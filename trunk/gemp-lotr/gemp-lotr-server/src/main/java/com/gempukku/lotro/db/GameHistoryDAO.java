@@ -18,8 +18,6 @@ public interface GameHistoryDAO {
 
     public int getGamesPlayedCount(long from, long duration);
 
-    public long getOldestGameHistoryEntry();
-
     public Map<String, Integer> getCasualGamesPlayedPerFormat(long from, long duration);
 
     public List<PlayerStatistic> getCasualPlayerStatistics(Player player);
