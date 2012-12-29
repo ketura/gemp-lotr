@@ -348,7 +348,7 @@ public class AdminResource extends AbstractResource {
 
     private CollectionType createCollectionType(String collectionType) {
         if (collectionType.equals("permanent"))
-            return new CollectionType("permanent", "My cards");
+            return CollectionType.MY_CARDS;
 
         return _leagueService.getCollectionTypeByCode(collectionType);
     }

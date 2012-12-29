@@ -14,7 +14,7 @@ import java.util.List;
 public class NewConstructedLeagueData implements LeagueData {
     private List<LeagueSerieData> _series = new ArrayList<LeagueSerieData>();
 
-    private CollectionType _prizeCollectionType = new CollectionType("permanent", "My cards");
+    private CollectionType _prizeCollectionType = CollectionType.MY_CARDS;
     private LeaguePrizes _leaguePrizes = new NewLeaguePrizes();
     private float _prizeMultiplier;
 
@@ -23,9 +23,9 @@ public class NewConstructedLeagueData implements LeagueData {
         int start = Integer.parseInt(params[0]);
         CollectionType collectionType;
         if (params[1].equals("default"))
-            collectionType = new CollectionType("default", "All cards");
+            collectionType = CollectionType.ALL_CARDS;
         else if (params[1].equals("permanent"))
-            collectionType = new CollectionType("permanent", "My cards");
+            collectionType = CollectionType.MY_CARDS;
         else
             throw new IllegalArgumentException("Unkown collection type");
         _prizeMultiplier = Float.parseFloat(params[2]);

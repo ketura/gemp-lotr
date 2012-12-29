@@ -94,7 +94,7 @@ public class LeagueService {
         if (isPlayerInLeague(league, player))
             return false;
         int cost = league.getCost();
-        if (_collectionsManager.removeCurrencyFromPlayerCollection("Joining "+league.getName()+" league", player, new CollectionType("permanent", "My cards"), cost)) {
+        if (_collectionsManager.removeCurrencyFromPlayerCollection("Joining "+league.getName()+" league", player, CollectionType.MY_CARDS, cost)) {
             _leagueParticipationDAO.userJoinsLeague(league.getType(), player, remoteAddr);
             league.getLeagueData().joinLeague(_collectionsManager, player, DateUtils.getCurrentDate());
 
@@ -160,7 +160,7 @@ public class LeagueService {
         else
             prize = serie.getPrizeForLeagueMatchLoser(count, playerMatchesPlayedOn.size());
         if (prize != null)
-            _collectionsManager.addItemsToPlayerCollection(true, "Prize for winning league game", player, new CollectionType("permanent", "My cards"), prize.getAll().values());
+            _collectionsManager.addItemsToPlayerCollection(true, "Prize for winning league game", player, CollectionType.MY_CARDS, prize.getAll().values());
     }
 
     public synchronized Collection<LeagueMatchResult> getPlayerMatchesInSerie(League league, LeagueSerieData serie, String player) {
