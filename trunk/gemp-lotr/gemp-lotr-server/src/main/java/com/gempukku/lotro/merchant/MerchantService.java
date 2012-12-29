@@ -28,7 +28,7 @@ public class MerchantService {
 
     private Map<String, Integer> _fixedPriceItems = new HashMap<String, Integer>();
 
-    private CollectionType _permanentCollection = new CollectionType("permanent", "My cards");
+    private CollectionType _permanentCollection = CollectionType.MY_CARDS;
     private CollectionsManager _collectionsManager;
 
     public MerchantService(LotroCardBlueprintLibrary library, CollectionsManager collectionsManager, MerchantDAO merchantDAO) {

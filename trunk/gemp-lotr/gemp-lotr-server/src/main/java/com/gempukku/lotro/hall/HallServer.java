@@ -29,7 +29,7 @@ public class HallServer extends AbstractServer {
     private CollectionsManager _collectionsManager;
     private LotroServer _lotroServer;
 
-    private CollectionType _allCardsCollectionType = new CollectionType("default", "All cards");
+    private CollectionType _allCardsCollectionType = CollectionType.ALL_CARDS;
 
     private final int _playerInactivityPeriod = 1000 * 20; // 10 seconds
 
@@ -62,7 +62,7 @@ public class HallServer extends AbstractServer {
         _hallChat = _chatServer.createChatRoom("Game Hall", 10);
 
         _tournamentQueues.put("fotr_queue", new SingleEliminationRecurringQueue(0, "fotr_block",
-                new CollectionType("default", "All cards"), "fotrQueue-", "Test Fellowship Block 4-man", 4,
+                CollectionType.ALL_CARDS, "fotrQueue-", "Test Fellowship Block 4-man", 4,
                 true, tournamentService));
     }
 

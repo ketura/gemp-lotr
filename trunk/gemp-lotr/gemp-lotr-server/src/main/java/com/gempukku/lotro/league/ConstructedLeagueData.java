@@ -12,7 +12,7 @@ import java.util.List;
 
 public class ConstructedLeagueData implements LeagueData {
     private List<LeagueSerieData> _series = new ArrayList<LeagueSerieData>();
-    private CollectionType _prizeCollectionType = new CollectionType("permanent", "My cards");
+    private CollectionType _prizeCollectionType = CollectionType.MY_CARDS;
     private float _prizeMultiplier;
     private LeaguePrizes _leaguePrizes = new NewLeaguePrizes();
 

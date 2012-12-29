@@ -18,7 +18,7 @@ public class NewSealedLeagueData implements LeagueData {
     private SealedLeagueType _leagueType;
     private List<LeagueSerieData> _series;
     private CollectionType _collectionType;
-    private CollectionType _prizeCollectionType = new CollectionType("permanent", "My cards");
+    private CollectionType _prizeCollectionType = CollectionType.MY_CARDS;
     private NewLeaguePrizes _leaguePrizes;
     private SealedLeagueProduct _leagueProduct;
 

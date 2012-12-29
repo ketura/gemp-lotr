@@ -13,7 +13,7 @@ public class SingleEliminationRecurringQueue implements TournamentQueue {
     private String _format;
     private CollectionType _collectionType;
     private String _tournamentQueueName;
-    private CollectionType _currencyCollection = new CollectionType("permanent", "My cards");
+    private CollectionType _currencyCollection = CollectionType.MY_CARDS;
 
     private Set<String> _players = new HashSet<String>();
     private Map<String, LotroDeck> _playerDecks = new HashMap<String, LotroDeck>();
