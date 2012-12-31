@@ -15,7 +15,7 @@ public class SingleEliminationRecurringQueue implements TournamentQueue {
     private String _tournamentQueueName;
     private CollectionType _currencyCollection = CollectionType.MY_CARDS;
 
-    private Set<String> _players = new HashSet<String>();
+    private List<String> _players = new ArrayList<String>();
     private Map<String, LotroDeck> _playerDecks = new HashMap<String, LotroDeck>();
 
     private int _playerCap;
@@ -63,7 +63,7 @@ public class SingleEliminationRecurringQueue implements TournamentQueue {
 
     @Override
     public synchronized boolean process(TournamentQueueCallback tournamentQueueCallback) {
-        if (_players.size() == _playerCap) {
+        if (_players.size() >= _playerCap) {
             String tournamentId = _tournamentIdPrefix + System.currentTimeMillis();
 
             String tournamentName = _tournamentQueueName + " - " + DateUtils.getStringDateWithHour();

@@ -9,7 +9,6 @@ import com.gempukku.lotro.draft.Draft;
 import com.gempukku.lotro.draft.DraftCardChoice;
 import com.gempukku.lotro.draft.DraftPack;
 import com.gempukku.lotro.game.DeckInvalidException;
-import com.gempukku.lotro.game.LotroGameParticipant;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 import com.gempukku.lotro.packs.PacksStorage;
 
@@ -19,8 +18,8 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class DefaultTournament implements Tournament {
     // 10 minutes
-    public static final int DECK_BUILD_TIME = 10 * 60 * 1000;
-    private static final long _waitForPairingsTime = 1000 * 60 * 2;
+    private int _deckBuildTime = 10 * 60 * 1000;
+    private long _waitForPairingsTime = 1000 * 60 * 2;
 
     private PairingMechanism _pairingMechanism;
     private String _tournamentId;
@@ -90,6 +89,10 @@ public class DefaultTournament implements Tournament {
         }
     }
 
+    public void setWaitForPairingsTime(long waitForPairingsTime) {
+        _waitForPairingsTime = waitForPairingsTime;
+    }
+
     @Override
     public String getTournamentId() {
         return _tournamentId;
@@ -131,7 +134,7 @@ public class DefaultTournament implements Tournament {
     }
 
     @Override
-    public void reportGameFinished(TournamentCallback tournamentCallback, String winner, String loser) {
+    public void reportGameFinished(String winner, String loser) {
         _lock.writeLock().lock();
         try {
             if (_tournamentStage == Stage.PLAYING_GAMES && _currentlyPlayingPlayers.contains(winner)
@@ -221,7 +224,7 @@ public class DefaultTournament implements Tournament {
                     }
                 }
                 if (_tournamentStage == Stage.DECK_BUILDING) {
-                    if (_deckBuildStartTime + DECK_BUILD_TIME < System.currentTimeMillis()
+                    if (_deckBuildStartTime + _deckBuildTime < System.currentTimeMillis()
                             || _playerDecks.size() == _players.size()) {
                         _tournamentStage = Stage.PLAYING_GAMES;
                         _tournamentService.updateTournamentStage(_tournamentId, _tournamentStage);
@@ -232,7 +235,7 @@ public class DefaultTournament implements Tournament {
                         if (_pairingMechanism.isFinished(_tournamentRound, _players, _droppedPlayers)) {
                             finishTournament(tournamentCallback);
                         } else {
-                            tournamentCallback.broadcastMessage("Tournament " + _tournamentName + " will start next round in 2 minutes");
+                            tournamentCallback.broadcastMessage("Tournament " + _tournamentName + " will start round "+(_tournamentRound+1)+" in 2 minutes");
                             _nextTask = new PairPlayers();
                         }
                     }
@@ -275,8 +278,8 @@ public class DefaultTournament implements Tournament {
 
 
     private void createNewGame(TournamentCallback tournamentCallback, String playerOne, String playerTwo, boolean allowSpectators) {
-        tournamentCallback.createGame(new LotroGameParticipant(playerOne, _playerDecks.get(playerOne)),
-                new LotroGameParticipant(playerTwo, _playerDecks.get(playerTwo)), allowSpectators);
+        tournamentCallback.createGame(playerOne, _playerDecks.get(playerOne),
+                playerTwo, _playerDecks.get(playerTwo), allowSpectators);
     }
 
     private void doPairing(TournamentCallback tournamentCallback) {
@@ -284,7 +287,7 @@ public class DefaultTournament implements Tournament {
         _tournamentService.updateTournamentRound(_tournamentId, _tournamentRound);
         Map<String, String> pairingResults = new HashMap<String, String>();
         Set<String> byeResults = new HashSet<String>();
-        boolean finished = _pairingMechanism.pairPlayers(_tournamentRound, _players, _droppedPlayers, getCurrentStandings(), pairingResults, byeResults);
+        boolean finished = _pairingMechanism.pairPlayers(_tournamentRound, _players, _droppedPlayers, _playerByes, getCurrentStandings(), pairingResults, byeResults);
         if (finished) {
             finishTournament(tournamentCallback);
         } else {

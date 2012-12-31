@@ -11,15 +11,50 @@ public class SingleEliminationPairing implements PairingMechanism {
     }
 
     @Override
-    public boolean pairPlayers(int round, Set<String> players, Set<String> droppedPlayers, List<PlayerStanding> currentStandings, Map<String, String> pairingResults, Set<String> byeResults) {
+    public boolean pairPlayers(int round, Set<String> players, Set<String> droppedPlayers, Map<String, Integer> playerByes, List<PlayerStanding> currentStandings, Map<String, String> pairingResults, Set<String> byeResults) {
         if (isFinished(round, players, droppedPlayers))
             return true;
 
         Set<String> playersInContention = new HashSet<String>(players);
         playersInContention.removeAll(droppedPlayers);
 
-        List<String> playersRandomized = new ArrayList<String>(playersInContention);
-        Collections.shuffle(playersRandomized);
+        int maxByes = 0;
+        for (Map.Entry<String, Integer> playerByeCount : playerByes.entrySet()) {
+            String player = playerByeCount.getKey();
+            if (playersInContention.contains(player))
+                maxByes = Math.max(maxByes, playerByeCount.getValue());
+        }
+
+        List<String>[] playersGroupedByByes = new List[maxByes+1];
+        for (Map.Entry<String, Integer> playerByeCount : playerByes.entrySet()) {
+            String player = playerByeCount.getKey();
+            if (playersInContention.contains(player)) {
+                int count = playerByeCount.getValue();
+                List<String> playersWithThisNumberOfByes = playersGroupedByByes[maxByes - count];
+                if (playersWithThisNumberOfByes == null) {
+                    playersWithThisNumberOfByes = new ArrayList<String>();
+                    playersGroupedByByes[maxByes - count] = playersWithThisNumberOfByes;
+                }
+                playersWithThisNumberOfByes.add(player);
+                playersInContention.remove(player);
+            }
+        }
+
+        List<String> playersWithNoByes = playersGroupedByByes[maxByes];
+        if (playersWithNoByes == null) {
+            playersWithNoByes = new ArrayList<String>();
+            playersGroupedByByes[maxByes] = playersWithNoByes;
+        }
+        playersWithNoByes.addAll(playersInContention);
+
+        List<String> playersRandomized = new ArrayList<String>();
+
+        for (List<String> playersGroupedByBye : playersGroupedByByes) {
+            if (playersGroupedByBye != null) {
+                Collections.shuffle(playersGroupedByBye);
+                playersRandomized.addAll(playersGroupedByBye);
+            }
+        }
 
         Iterator<String> playerIterator = playersRandomized.iterator();
         while (playerIterator.hasNext()) {

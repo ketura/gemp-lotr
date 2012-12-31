@@ -531,10 +531,10 @@ public class HallServer extends AbstractServer {
         }
 
         @Override
-        public void createGame(LotroGameParticipant playerOne, LotroGameParticipant playerTwo, boolean allowSpectators) {
+        public void createGame(String playerOne, LotroDeck deckOne, String playerTwo, LotroDeck deckTwo, boolean allowSpectators) {
             final LotroGameParticipant[] participants = new LotroGameParticipant[2];
-            participants[0] = playerOne;
-            participants[1] = playerTwo;
+            participants[0] = new LotroGameParticipant(playerOne, deckOne);
+            participants[1] = new LotroGameParticipant(playerTwo, deckTwo);
             createGameInternal(participants, allowSpectators);
         }
 
@@ -546,7 +546,7 @@ public class HallServer extends AbstractServer {
                             new GameResultListener() {
                                 @Override
                                 public void gameFinished(String winnerPlayerId, String winReason, Map<String, String> loserPlayerIdsWithReasons) {
-                                    _tournament.reportGameFinished(HallTournamentCallback.this, winnerPlayerId, loserPlayerIdsWithReasons.keySet().iterator().next());
+                                    _tournament.reportGameFinished(winnerPlayerId, loserPlayerIdsWithReasons.keySet().iterator().next());
                                 }
 
                                 @Override
