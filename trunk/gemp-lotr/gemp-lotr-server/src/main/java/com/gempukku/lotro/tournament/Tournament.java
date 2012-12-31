@@ -33,7 +33,7 @@ public interface Tournament {
 
     public void advanceTournament(TournamentCallback tournamentCallback);
 
-    public void reportGameFinished(TournamentCallback tournamentCallback, String winner, String loser);
+    public void reportGameFinished(String winner, String loser);
 
     public void playerChosenCard(String playerName, String cardId);
     public void playerSummittedDeck(String player, LotroDeck deck) throws DeckInvalidException;
