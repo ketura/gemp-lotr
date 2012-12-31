@@ -15,7 +15,7 @@ public class SingleEliminationRecurringQueue implements TournamentQueue {
     private String _tournamentQueueName;
     private CollectionType _currencyCollection = CollectionType.MY_CARDS;
 
-    private List<String> _players = new ArrayList<String>();
+    private Queue<String> _players = new LinkedList<String>();
     private Map<String, LotroDeck> _playerDecks = new HashMap<String, LotroDeck>();
 
     private int _playerCap;
@@ -63,27 +63,27 @@ public class SingleEliminationRecurringQueue implements TournamentQueue {
 
     @Override
     public synchronized boolean process(TournamentQueueCallback tournamentQueueCallback) {
-        if (_players.size() >= _playerCap) {
+        while (_players.size() >= _playerCap) {
             String tournamentId = _tournamentIdPrefix + System.currentTimeMillis();
 
             String tournamentName = _tournamentQueueName + " - " + DateUtils.getStringDateWithHour();
 
-            for (String player : _players)
+            for (int i=0; i<_playerCap; i++) {
+                String player = _players.poll();
+                _playerDecks.remove(player);
                 _tournamentService.addPlayer(tournamentId, player, _playerDecks.get(player));
+            }
 
             Tournament tournament = _tournamentService.addTournament(tournamentId, null, tournamentName, _format, _collectionType, Tournament.Stage.PLAYING_GAMES, "singleElimination", new Date());
 
             tournamentQueueCallback.createTournament(tournament);
-
-            _players.clear();
-            _playerDecks.clear();
         }
         return false;
     }
 
     @Override
     public synchronized void joinPlayer(CollectionsManager collectionsManager, Player player, LotroDeck deck) {
-        if (!_players.contains(player.getName()) && _players.size() < _playerCap) {
+        if (!_players.contains(player.getName())) {
             if (_cost <= 0 || collectionsManager.removeCurrencyFromPlayerCollection("Joined "+getTournamentQueueName()+" queue", player, _currencyCollection, _cost)) {
                 _players.add(player.getName());
                 if (_requiresDeck)
