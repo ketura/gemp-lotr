@@ -142,7 +142,6 @@ public class SingleEliminationRecurringQueueTest {
         SingleEliminationRecurringQueue queue = new SingleEliminationRecurringQueue(10, "format", CollectionType.MY_CARDS,
                 "id-", "name-", 2, false, tournamentService);
 
-
         Player player1 = new Player(1, "p1", "u", null);
         Player player2 = new Player(2, "p2", "u", null);
         Player player3 = new Player(3, "p3", "u", null);
