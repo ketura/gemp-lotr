@@ -1,135 +1,20 @@
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%
+response.setHeader("Cache-Control","no-cache");
+response.setHeader("Pragma","no-cache");
+response.setDateHeader ("Expires", -1);
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Gemp-LotR</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <meta http-equiv="pragma" content="no-cache"/>
-    <meta http-equiv="Cache-Control" content="no-cache"/>
-    <meta http-equiv="Expires" content="-1">
 
-    <style type="text/css">
-        body {
-            font-size: 12px;
-        }
+    <link rel="stylesheet" type="text/css" href="css/gemp-001/merchant.css">
 
-        .borderOverlay {
-            border: 0px solid #000000;
-        }
-
-        .foilOverlay {
-            opacity: 0.2;
-        }
-
-        .buyPrice.ui-state-disabled, .sellPrice.ui-state-disabled, .tradeFoil {
-            opacity: 0.6;
-        }
-
-        .owned {
-            background-color: #000000;
-            border: 1px solid #ffffff;
-            color: #ffffff;
-            font-size: 220%;
-            font-weight: bolder;
-            display: table-cell;
-            text-align: center;
-            vertical-align: middle;
-            opacity: 0.7;
-        }
-
-        .pocket {
-            background-color: #000000;
-            border: 1px solid #ffffff;
-            color: #ffffff;
-            font-size: 100%;
-            font-weight: bolder;
-            text-align: right;
-            opacity: 1;
-        }
-
-        .hideMerchant {
-            color: #ffffff;
-            text-align: right;
-        }
-
-        .countDiv {
-            color: #ffffff;
-            text-align: right;
-        }
-
-        .buyPrice, .sellPrice, .tradeFoil {
-            opacity: 0.9;
-        }
-
-        .ui-button-text-only .ui-button-text {
-            font-size: 70%;
-        }
-
-        #set {
-            width: 120px;
-        }
-
-        #cardType {
-            width: 100px;
-        }
-
-        #fullFiltering select {
-            font-size: 100%;
-        }
-
-        #fullFiltering input {
-            font-size: 100%;
-        }
-
-        #filtering select {
-            font-size: 100%;
-        }
-
-    </style>
-    <link rel="stylesheet" type="text/css" href="css/dark-hive/jquery-ui-1.8.16.custom.css">
-    <link rel="stylesheet" type="text/css" href="js/jquery/styles/jquery.spinnercontrol.css">
-
-    <script type="text/javascript" src="js/jquery/jquery-1.6.2.js"></script>
-    <script type="text/javascript" src="js/jquery/jquery-ui-1.8.16.custom.min.js"></script>
-    <script type="text/javascript" src="js/jquery/jquery.cookie.js"></script>
-    <script type="text/javascript" src="js/jquery/jquery.layout.js"></script>
-    <script type="text/javascript" src="js/jquery/jquery.touchSwipe.js"></script>
-
-    <script type="text/javascript" src="js/gemp-013/inheritance.js"></script>
-    <script type="text/javascript" src="js/gemp-013/common.js"></script>
-    <script type="text/javascript" src="js/gemp-013/communication.js"></script>
-    <script type="text/javascript" src="js/gemp-013/deliveryService.js"></script>
-    <script type="text/javascript" src="js/gemp-013/jCardGroup.js"></script>
-    <script type="text/javascript" src="js/gemp-013/jCards.js"></script>
-    <script type="text/javascript" src="js/gemp-013/logging.js"></script>
-    <script type="text/javascript" src="js/gemp-013/commonUi.js"></script>
-    <script type="text/javascript" src="js/gemp-013/merchantUi.js"></script>
-    <script type="text/javascript" src="js/gemp-013/cardFilter.js"></script>
+    <%@ include file="js.inc" %>
 
     <script type="text/javascript">
-
-        // TODO: delete - Only for debugging
-        function getUrlParam(param) {
-            var search = window.location.search.substring(1);
-            if (search.indexOf('&') > -1) {
-                var params = search.split('&');
-                for (var i = 0; i < params.length; i++) {
-                    var key_value = params[i].split('=');
-                    if (key_value[0] == param) return key_value[1];
-                }
-            } else {
-                var params = search.split('=');
-                if (params[0] == param) return params[1];
-            }
-            return null;
-        }
-
-        function getMapSize(map) {
-            var size = 0, key;
-            for (key in map)
-                if (map.hasOwnProperty(key)) size++;
-            return size;
-        }
 
         $(document).ready(
                 function () {

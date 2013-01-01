@@ -1,217 +1,22 @@
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%
+response.setHeader("Cache-Control","no-cache");
+response.setHeader("Pragma","no-cache");
+response.setDateHeader ("Expires", -1);
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>Gemp-LotR</title>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-<meta http-equiv="pragma" content="no-cache"/>
-<meta http-equiv="Cache-Control" content="no-cache"/>
-<meta http-equiv="Expires" content="-1">
 
-<style type="text/css">
-    body {
-        font-size: 12px;
-        background-color: #000000;
-    }
+    <link rel="stylesheet" type="text/css" href="css/gemp-001/hall.css">
 
-    .eventHeader {
-        font-size: 120%;
-        font-weight: bolder;
-        background-color: #666666;
-    }
-
-    .leagueName, #stats .period, .tournamentName, .playerStatHeader {
-        font-size: 200%;
-        font-weight: bolder;
-    }
-
-    .serieName {
-        font-size: 150%;
-        font-weight: bolder;
-    }
-
-    .borderOverlay {
-        border: 2px solid #000000;
-    }
-
-    .foilOverlay {
-        opacity: 0.2;
-    }
-
-    .cardHint {
-        display: inline;
-        color: #6f6fff;
-        cursor: pointer;
-    }
-
-    .clickableFormat {
-        cursor: pointer;
-        color: #6f6fff;
-    }
-
-    .pocket {
-        background-color: #000000;
-        border: 1px solid #ffffff;
-        color: #ffffff;
-        font-size: 90%;
-        font-weight: bolder;
-        text-align: right;
-        opacity: 1;
-    }
-
-    .cardCount {
-        width: 20px;
-        height: 18px;
-        background-color: #000000;
-        color: #ffffff;
-        font-size: 120%;
-        font-weight: bolder;
-        display: table-cell;
-        text-align: center;
-        vertical-align: middle;
-        opacity: 0.7;
-    }
-
-    .tableFormatName {
-        text-align: center;
-        font-weight: bold;
-        font-size: 100%;
-    }
-
-    .tableStatus {
-        text-align: center;
-        font-style: italic;
-        font-size: 100%;
-    }
-
-    .tablePlayer {
-        text-align: center;
-    }
-
-    .winningPlayer {
-        font-weight: bold;
-        font-size: 110%;
-    }
-
-    .losingPlayer {
-        font-size: 80%;
-    }
-
-    .chatMessage {
-        color: #ffffff;
-    }
-
-    .systemMessage {
-        color: #5f5f5f;
-    }
-
-    .warningMessage {
-        color: #ff0000;
-    }
-
-    .chatUser {
-        color: #ffffff;
-    }
-
-    .systemMessage > .timestamp {
-        display: inline;
-        color: #5f5f5f;
-    }
-
-    .timestamp {
-        display: inline;
-        color: #cfcfcf;
-    }
-
-    #disclaimer {
-        color: #ffffff;
-        font-size: 80%;
-    }
-
-    #latestNews {
-        color: #ffffff;
-        font-size: 90%;
-    }
-
-    #motd {
-        color: #ffffff;
-        font-size: 90%;
-    }
-
-    table.tables {
-        width: 100%;
-    }
-
-    table.tables td, table.tables th {
-        padding: 2px;
-        border: 1px solid white;
-    }
-
-    .ui-tabs-nav li {
-        font-size: 70%;
-    }
-
-    .ui-button-text-only .ui-button-text {
-        font-size: 70%;
-        padding: .2em .5em;
-    }
-
-    .standings td, .standings th {
-        padding: 2px;
-        border: 1px solid white;
-    }
-
-    .gameHistory td, .gameHistory th {
-        padding: 2px;
-        border: 1px solid white;
-    }
-
-    .userList {
-        border-left: 1px solid #FFFFFF;
-    }
-
-</style>
-<link rel="stylesheet" type="text/css" href="css/dark-hive/jquery-ui-1.8.16.custom.css">
-<link rel="stylesheet" type="text/css" href="js/jquery/styles/jquery.spinnercontrol.css">
-
-<script type="text/javascript" src="js/jquery/jquery-1.6.2.js"></script>
-<script type="text/javascript" src="js/jquery/jquery-ui-1.8.16.custom.min.js"></script>
-
-<script type="text/javascript" src="js/gemp-013/inheritance.js"></script>
-<script type="text/javascript" src="js/gemp-013/common.js"></script>
-<script type="text/javascript" src="js/gemp-013/logging.js"></script>
-<script type="text/javascript" src="js/gemp-013/chat.js"></script>
-<script type="text/javascript" src="js/gemp-013/commonUi.js"></script>
-<script type="text/javascript" src="js/gemp-013/hallUi.js"></script>
-<script type="text/javascript" src="js/gemp-013/leagueResultsUi.js"></script>
-<script type="text/javascript" src="js/gemp-013/tournamentResultsUi.js"></script>
-<script type="text/javascript" src="js/gemp-013/statsUi.js"></script>
-<script type="text/javascript" src="js/gemp-013/playerStatsUi.js"></script>
-<script type="text/javascript" src="js/gemp-013/gameHistoryUi.js"></script>
-<script type="text/javascript" src="js/gemp-013/communication.js"></script>
-<!-- This is needed for delivery -->
-<script type="text/javascript" src="js/gemp-013/deliveryService.js"></script>
-<script type="text/javascript" src="js/gemp-013/jCardGroup.js"></script>
-<script type="text/javascript" src="js/gemp-013/jCards.js"></script>
+<%@ include file="js.inc" %>
 
 <script type="text/javascript">
     var chat;
     var hall;
-
-    function getUrlParam(param) {
-        var search = window.location.search.substring(1);
-        if (search.indexOf('&') > -1) {
-            var params = search.split('&');
-            for (var i = 0; i < params.length; i++) {
-                var key_value = params[i].split('=');
-                if (key_value[0] == param) return key_value[1];
-            }
-        } else {
-            var params = search.split('=');
-            if (params[0] == param) return params[1];
-        }
-        return null;
-    }
 
     $(document).ready(
             function () {
