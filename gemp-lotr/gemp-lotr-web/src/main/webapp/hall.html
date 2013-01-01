@@ -65,6 +65,7 @@ response.setDateHeader ("Expires", -1);
                                 var horSpace = 30;
                                 var vertSpace = 45;
 
+                                infoDialog.dialog({title:"Card information"});
                                 if (card.horizontal) {
                                     // 500x360
                                     infoDialog.dialog({width:Math.min(500 + horSpace, windowWidth), height:Math.min(360 + vertSpace, windowHeight)});
@@ -72,6 +73,16 @@ response.setDateHeader ("Expires", -1);
                                     // 360x500
                                     infoDialog.dialog({width:Math.min(360 + horSpace, windowWidth), height:Math.min(500 + vertSpace, windowHeight)});
                                 }
+                                infoDialog.dialog("open");
+
+                                event.stopPropagation();
+                                return false;
+                            } else if (tar.hasClass("prizeHint")) {
+                                var prizeDescription = tar.attr("value");
+
+                                infoDialog.text(prizeDescription);
+
+                                infoDialog.dialog({title:"Prizes details", width:300, height: 150});
                                 infoDialog.dialog("open");
 
                                 event.stopPropagation();

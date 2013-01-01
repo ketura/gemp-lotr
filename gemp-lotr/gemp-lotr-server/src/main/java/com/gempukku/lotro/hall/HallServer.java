@@ -72,6 +72,9 @@ public class HallServer extends AbstractServer {
         _tournamentQueues.put("movie_queue", new SingleEliminationRecurringQueue(635, "movie",
                 CollectionType.MY_CARDS, "movieQueue-", "Movie Block 8-man single-elimination", 8,
                 true, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes("onDemand")));
+        _tournamentQueues.put("expanded_queue", new SingleEliminationRecurringQueue(635, "expanded",
+                CollectionType.MY_CARDS, "expandedQueue-", "Expanded 8-man single-elimination", 8,
+                true, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes("onDemand")));
     }
 
     @Override

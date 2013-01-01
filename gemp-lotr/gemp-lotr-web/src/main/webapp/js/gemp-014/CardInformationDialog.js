@@ -36,7 +36,7 @@ var CardInformationDialog = Class.extend({
     },
 
     isOpened: function() {
-        return this.infoDialog.dialog("isOpen")
+        return this.infoDialog.dialog("isOpen");
     },
 
     close: function() {
