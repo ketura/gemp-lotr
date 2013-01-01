@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set17.gandalf;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.effects.DiscardTopCardFromDeckEffect;
 import com.gempukku.lotro.cards.effects.RevealTopCardsOfDrawDeckEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPutCardFromDeckIntoHandEffect;
@@ -58,6 +59,9 @@ public class Card17_023 extends AbstractPermanent {
                                                                     Side side = (index == 0) ? Side.FREE_PEOPLE : Side.SHADOW;
                                                                     if (Filters.filter(cards, game.getGameState(), game.getModifiersQuerying(), side).size() >= 2) {
                                                                         putCardsIntoHandFromDeck(action, playerId, game, cards);
+                                                                    } else {
+                                                                        action.appendEffect(
+                                                                                new DiscardTopCardFromDeckEffect(self, playerId, cards.size(), false));
                                                                     }
                                                                 }
                                                             });
