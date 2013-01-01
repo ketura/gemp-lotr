@@ -71,7 +71,7 @@ var GempLotrHallUI = Class.extend({
         this.buttonsDiv.append(" | ");
 
         this.pocketDiv = $("<div class='pocket'></div>");
-        this.pocketDiv.css({"float":"right", width:75, height:18});
+        this.pocketDiv.css({"float":"right", width:95, height:18});
         this.buttonsDiv.append(this.pocketDiv);
 
         this.supportedFormatsSelect = $("<select style='width: 220px'></select>");
@@ -139,7 +139,7 @@ var GempLotrHallUI = Class.extend({
         header.append(" Tournament queues");
 
         var table = $("<table class='tables queues'></table>");
-        table.append("<tr><th width='20%'>Format</th><th width='20%'>Collection</th><th width='20%'>Queue name</th><th width='10%'>Players</th><th width='10%'>Cost</th><th width='20%'>Actions</th></tr>");
+        table.append("<tr><th width='20%'>Format</th><th width='20%'>Collection</th><th width='30%'>Queue name</th><th width='10%'>Players</th><th width='10%'>Cost</th><th width='10%'>Actions</th></tr>");
         content.append(table);
 
         this.tablesDiv.append(header);
@@ -170,7 +170,7 @@ var GempLotrHallUI = Class.extend({
         header.append(" Waiting tables");
 
         var table = $("<table class='tables waitingTables'></table>");
-        table.append("<tr><th width='20%'>Format</th><th width='30%'>Tournament</th><th width='10%'>Status</th><th width='20%'>Players</th><th width='20%'>Actions</th></tr>");
+        table.append("<tr><th width='20%'>Format</th><th width='40%'>Tournament</th><th width='10%'>Status</th><th width='20%'>Players</th><th width='10%'>Actions</th></tr>");
         content.append(table);
 
         this.tablesDiv.append(header);
@@ -201,7 +201,7 @@ var GempLotrHallUI = Class.extend({
         header.append(" Playing tables");
 
         var table = $("<table class='tables playingTables'></table>");
-        table.append("<tr><th width='20%'>Format</th><th width='30%'>Tournament</th><th width='10%'>Status</th><th width='20%'>Players</th><th width='20%'>Actions</th></tr>");
+        table.append("<tr><th width='20%'>Format</th><th width='40%'>Tournament</th><th width='10%'>Status</th><th width='20%'>Players</th><th width='10%'>Actions</th></tr>");
         content.append(table);
 
         this.tablesDiv.append(header);
@@ -232,7 +232,7 @@ var GempLotrHallUI = Class.extend({
         header.append(" Finished tables");
 
         var table = $("<table class='tables finishedTables'></table>");
-        table.append("<tr><th width='20%'>Format</th><th width='30%'>Tournament</th><th width='10%'>Status</th><th width='20%'>Players</th><th width='20%'>Winner</th></tr>");
+        table.append("<tr><th width='20%'>Format</th><th width='40%'>Tournament</th><th width='10%'>Status</th><th width='20%'>Players</th><th width='10%'>Winner</th></tr>");
         content.append(table);
 
         this.tablesDiv.append(header);
