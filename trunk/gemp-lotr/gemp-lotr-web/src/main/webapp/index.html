@@ -1,12 +1,14 @@
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%
+response.setHeader("Cache-Control","no-cache");
+response.setHeader("Pragma","no-cache");
+response.setDateHeader ("Expires", -1);
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Gemp-LotR</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <meta http-equiv="pragma" content="no-cache"/>
-    <meta http-equiv="Cache-Control" content="no-cache"/>
-    <meta http-equiv="Expires" content="-1">
 
     <style type="text/css">
         body {
@@ -18,31 +20,10 @@
             padding: .2em .5em;
         }
     </style>
-    <link rel="stylesheet" type="text/css" href="css/dark-hive/jquery-ui-1.8.16.custom.css">
 
-    <script type="text/javascript" src="js/jquery/jquery-1.6.2.js"></script>
-    <script type="text/javascript" src="js/jquery/jquery-ui-1.8.16.custom.min.js"></script>
-
-    <script type="text/javascript" src="js/gemp-013/inheritance.js"></script>
-    <script type="text/javascript" src="js/gemp-013/logging.js"></script>
-    <script type="text/javascript" src="js/gemp-013/communication.js"></script>
-
+    <%@ include file="js.inc" %>
+    
     <script type="text/javascript">
-        function getUrlParam(param) {
-            var search = window.location.search.substring(1);
-            if (search.indexOf('&') > -1) {
-                var params = search.split('&');
-                for (var i = 0; i < params.length; i++) {
-                    var key_value = params[i].split('=');
-                    if (key_value[0] == param) return key_value[1];
-                }
-            } else {
-                var params = search.split('=');
-                if (params[0] == param) return params[1];
-            }
-            return null;
-        }
-
         jQuery.fn.center = function () {
             this.css("position", "absolute");
             this.css("top", (($(window).height() - this.outerHeight()) / 2) + $(window).scrollTop() + "px");

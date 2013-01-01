@@ -1,0 +1,299 @@
+body {
+    font-size: 12px;
+}
+
+.deckSize {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 200%;
+    font-weight: bolder;
+    width: 42px;
+    height: 42px;
+    background-image: url('images/deck-42.png');
+}
+
+.handSize {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 200%;
+    font-weight: bolder;
+    width: 42px;
+    height: 42px;
+    background-image: url('images/hand-42.png');
+}
+
+.threatsSize {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 200%;
+    font-weight: bolder;
+    width: 42px;
+    height: 42px;
+    background-image: url('images/threats-42.png');
+}
+
+.discardSize {
+    display: none;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 200%;
+    font-weight: bolder;
+    width: 42px;
+    height: 42px;
+    background-image: url('images/discard-42.png');
+}
+
+.deadPileSize {
+    display: none;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 200%;
+    font-weight: bolder;
+    width: 42px;
+    height: 42px;
+    background-image: url('images/deadPile-42.png');
+}
+
+.adventureDeckSize {
+    display: none;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 200%;
+    font-weight: bolder;
+    width: 42px;
+    height: 42px;
+    background-image: url('images/adventureDeck-42.png');
+}
+
+.showStats {
+    display: table-cell;
+}
+
+.borderOverlay {
+    border: solid #000000;
+}
+
+.highlightBorderOverlay {
+    border: solid #ffffff;
+}
+
+.foilOverlay {
+    opacity: 0.2;
+}
+
+.cardHint {
+    display: inline;
+    color: #6f6fff;
+    cursor: pointer;
+}
+
+.cardStrength {
+    text-align: center;
+    font-weight: bolder;
+    color: #ffffff;
+}
+
+.cardVitality {
+    text-align: center;
+    font-weight: bolder;
+    color: #ffffff;
+}
+
+.cardSiteNumber {
+    text-align: center;
+    font-weight: bolder;
+    color: #ffffff;
+}
+
+.cardResistance {
+    text-align: center;
+    font-weight: bolder;
+    color: #ffffff;
+}
+
+.selectableCard > .borderOverlay {
+    border-color: #7faf7f;
+    cursor: pointer;
+}
+
+.actionableCard > .borderOverlay {
+    border-color: #7f7fff;
+    cursor: pointer;
+}
+
+.selectedCard > .borderOverlay {
+    border-color: #009f9f;
+}
+
+.stats {
+    text-align: center;
+    padding: 2px;
+}
+
+.fpArchery {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    background-image: url('images/fpArchery.png');
+    background-repeat: no-repeat;
+    color: #007777;
+    font-size: 200%;
+    font-weight: bolder;
+    width: 30px;
+    height: 30px;
+}
+
+.shadowArchery {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    background-image: url('images/shadowArchery.png');
+    background-repeat: no-repeat;
+    color: #007777;
+    font-size: 200%;
+    font-weight: bolder;
+    width: 30px;
+    height: 30px;
+}
+
+.move {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    background-image: url('images/move.png');
+    background-repeat: no-repeat;
+    color: #007777;
+    font-size: 200%;
+    font-weight: bolder;
+    width: 30px;
+    height: 30px;
+}
+
+.player {
+    color: #ffffff;
+    position: relative;
+    z-index: 50;
+}
+
+.player.current {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+.playerStats {
+    color: #ffffff;
+}
+
+.playerStats .clickable {
+    color: #9f9fff;
+    cursor: pointer;
+}
+
+.phase {
+    color: #ffffff;
+    font-size: 120%;
+}
+
+.twilightPool {
+    float: right;
+    font-size: 30px;
+    width: 40px;
+    border-radius: 7px;
+    border: 1px solid #ffffff;
+    background-color: #000000;
+    color: #ffffff;
+    padding: 2px;
+    text-align: right;
+}
+
+.skirmish {
+}
+
+.fpDamageBonus, .shadowDamageBonus {
+    border-radius: 6px;
+    text-align: center;
+    vertical-align: middle;
+    background-color: #cccccc;
+    opacity: 0.7;
+    color: #000000;
+    font-size: 180%;
+}
+
+.fpStrength, .shadowStrength {
+    border-radius: 6px;
+    text-align: center;
+    vertical-align: middle;
+    background-color: #ffffff;
+    opacity: 0.7;
+    color: #000000;
+    font-size: 300%;
+}
+
+.fpStrength.overwhelmed {
+    border-radius: 6px;
+    text-align: center;
+    vertical-align: middle;
+    background-color: #ff3333;
+    opacity: 0.7;
+    color: #000000;
+    font-size: 300%;
+}
+
+#chatBox {
+    font-size: 90%;
+}
+
+.chatMessage {
+    color: #3fafff;
+}
+
+.systemMessage {
+    color: #5f5f5f;
+    font-size: 80%;
+}
+
+.gameMessage {
+    padding-top: 2px;
+    font-size: 80%;
+}
+
+.warningMessage {
+    color: #ff0000;
+}
+
+.ui-tabs-nav li {
+    font-size: 70%;
+}
+
+#settingsBox label {
+    font-size: 70%;
+}
+
+.clock {
+    float: right;
+    font-size: 100%;
+}
+
+.alertButtons .ui-button-text-only .ui-button-text {
+    font-size: 70%;
+    padding: .2em .5em;
+}
+
+.ui-button-text-only.slimButton .ui-button-text {
+    font-size: 70%;
+    padding: .2em .5em;
+}
+
+.ui-tabs .ui-tabs-panel.slimPanel {
+    padding: 4px;
+}
+
+.ui-tabs .ui-tabs-nav li a.slimTab {
+    padding-left: 3px;
+    padding-right: 3px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}

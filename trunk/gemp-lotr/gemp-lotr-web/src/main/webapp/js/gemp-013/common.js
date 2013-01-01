@@ -27,3 +27,25 @@ function iterObj(obj, func) {
         }
     }
 }
+
+function getUrlParam(param) {
+    var search = window.location.search.substring(1);
+    if (search.indexOf('&') > -1) {
+        var params = search.split('&');
+        for (var i = 0; i < params.length; i++) {
+            var key_value = params[i].split('=');
+            if (key_value[0] == param) return key_value[1];
+        }
+    } else {
+        var params = search.split('=');
+        if (params[0] == param) return params[1];
+    }
+    return null;
+}
+
+function getMapSize(map) {
+    var size = 0, key;
+    for (key in map)
+        if (map.hasOwnProperty(key)) size++;
+    return size;
+}
