@@ -5,8 +5,8 @@ import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.game.LotroFormat;
 import com.gempukku.lotro.game.Player;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
+import com.gempukku.lotro.hall.HallChannelVisitor;
 import com.gempukku.lotro.hall.HallException;
-import com.gempukku.lotro.hall.HallInfoVisitor;
 import com.gempukku.lotro.hall.HallServer;
 import com.gempukku.lotro.league.LeagueSerieData;
 import com.gempukku.lotro.league.LeagueService;
@@ -122,6 +122,36 @@ public class HallResource extends AbstractResource {
         return result.toString();
     }
 
+    @POST
+    @Produces(MediaType.APPLICATION_XML)
+    @Path("/update")
+    public Document updateHall(
+            @FormParam("participantId") String participantId,
+            @FormParam("channelNumber") int channelNumber,
+            @Context HttpServletRequest request,
+            @Context HttpServletResponse response) throws ParserConfigurationException, Exception {
+        Player resourceOwner = getResourceOwnerSafely(request, participantId);
+
+        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+
+        Document doc = documentBuilder.newDocument();
+
+        Element hall = doc.createElement("hall");
+        hall.setAttribute("currency", String.valueOf(_collectionManager.getPlayerCollection(resourceOwner, "permanent").getCurrency()));
+        String motd = _hallServer.getMOTD();
+        if (motd != null)
+            hall.setAttribute("motd", motd);
+
+        _hallServer.processHall(resourceOwner, channelNumber, new SerializeHallInfoVisitor(doc, hall));
+
+        doc.appendChild(hall);
+
+        processDeliveryServiceNotification(request, response);
+
+        return doc;
+    }
+
     @GET
     @Produces(MediaType.APPLICATION_XML)
     public Document getHall(
@@ -141,7 +171,7 @@ public class HallResource extends AbstractResource {
         if (motd != null)
             hall.setAttribute("motd", motd);
 
-        _hallServer.processHall(resourceOwner, new SerializeHallInfoVisitor(doc, hall));
+        _hallServer.signupUserForHall(resourceOwner, new SerializeHallInfoVisitor(doc, hall));
         for (Map.Entry<String, LotroFormat> format : _formatLibrary.getHallFormats().entrySet()) {
             Element formatElem = doc.createElement("format");
             formatElem.setAttribute("type", format.getKey());
@@ -248,7 +278,7 @@ public class HallResource extends AbstractResource {
         return doc;
     }
 
-    private class SerializeHallInfoVisitor implements HallInfoVisitor {
+    private class SerializeHallInfoVisitor implements HallChannelVisitor {
         private Document _doc;
         private Element _hall;
 
@@ -258,47 +288,69 @@ public class HallResource extends AbstractResource {
         }
 
         @Override
-        public void serverTime(String time) {
-            _hall.setAttribute("serverTime", time);
+        public void channelNumber(int channelNumber) {
+            _hall.setAttribute("channelNumber", String.valueOf(channelNumber));
         }
 
         @Override
-        public void playerIsWaiting(boolean waiting) {
-            _hall.setAttribute("waiting", String.valueOf(waiting));
+        public void serverTime(String serverTime) {
+            _hall.setAttribute("serverTime", serverTime);
         }
 
         @Override
-        public void visitTable(String tableId, String gameId, boolean watchable, String tableStatus, String formatName, String tournamentName, Set<String> playerIds, String winner) {
+        public void addTournamentQueue(String queueId, Map<String, String> props) {
+            Element queue = _doc.createElement("queue");
+            queue.setAttribute("action", "add");
+            queue.setAttribute("id", queueId);
+            for (Map.Entry<String, String> attribute : props.entrySet())
+                queue.setAttribute(attribute.getKey(), attribute.getValue());
+            _hall.appendChild(queue);
+        }
+
+        @Override
+        public void updateTournamentQueue(String queueId, Map<String, String> props) {
+            Element queue = _doc.createElement("queue");
+            queue.setAttribute("action", "update");
+            queue.setAttribute("id", queueId);
+            for (Map.Entry<String, String> attribute : props.entrySet())
+                queue.setAttribute(attribute.getKey(), attribute.getValue());
+            _hall.appendChild(queue);
+        }
+
+        @Override
+        public void removeTournamentQueue(String queueId) {
+            Element queue = _doc.createElement("queue");
+            queue.setAttribute("action", "remove");
+            queue.setAttribute("id", queueId);
+            _hall.appendChild(queue);
+        }
+
+        @Override
+        public void addTable(String tableId, Map<String, String> props) {
             Element table = _doc.createElement("table");
+            table.setAttribute("action", "add");
             table.setAttribute("id", tableId);
-            if (gameId != null)
-                table.setAttribute("gameId", gameId);
-            table.setAttribute("status", tableStatus);
-            table.setAttribute("watchable", String.valueOf(watchable));
-            table.setAttribute("format", formatName);
-            table.setAttribute("tournament", tournamentName);
-            table.setAttribute("players", mergeStrings(playerIds));
-            if (winner != null)
-                table.setAttribute("winner", winner);
+            for (Map.Entry<String, String> attribute : props.entrySet())
+                table.setAttribute(attribute.getKey(), attribute.getValue());
             _hall.appendChild(table);
         }
 
         @Override
-        public void runningPlayerDraft(String draftId) {
-            //To change body of implemented methods use File | Settings | File Templates.
+        public void updateTable(String tableId, Map<String, String> props) {
+            Element table = _doc.createElement("table");
+            table.setAttribute("action", "update");
+            table.setAttribute("id", tableId);
+            for (Map.Entry<String, String> attribute : props.entrySet())
+                table.setAttribute(attribute.getKey(), attribute.getValue());
+            _hall.appendChild(table);
         }
 
         @Override
-        public void visitTournamentQueue(String tournamentQueueKey, int cost, String collectionName, String formatName,
-                                         String tournamentQueueName, int playerCount, boolean playerSignedUp) {
-            Element tournamentQueue = _doc.createElement("tournamentQueue");
-            tournamentQueue.setAttribute("id", tournamentQueueKey);
-            tournamentQueue.setAttribute("cost", String.valueOf(cost));
-            tournamentQueue.setAttribute("tournament", tournamentQueueName);
-            tournamentQueue.setAttribute("players", String.valueOf(playerCount));
-            tournamentQueue.setAttribute("format", formatName);
-            tournamentQueue.setAttribute("joined", String.valueOf(playerSignedUp));
-            _hall.appendChild(tournamentQueue);
+        public void removeTable(String tableId) {
+            Element table = _doc.createElement("table");
+            table.setAttribute("action", "remove");
+            table.setAttribute("id", tableId);
+            _hall.appendChild(table);
         }
 
         @Override
@@ -306,6 +358,11 @@ public class HallResource extends AbstractResource {
             Element runningGame = _doc.createElement("game");
             runningGame.setAttribute("id", gameId);
             _hall.appendChild(runningGame);
+        }
+
+        @Override
+        public void playerBusy(boolean busy) {
+            _hall.setAttribute("busy", String.valueOf(busy));
         }
     }
 

@@ -16,6 +16,8 @@ import com.gempukku.lotro.logic.timing.GameResultListener;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 import com.gempukku.lotro.tournament.*;
 
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Response;
 import java.util.*;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
@@ -44,7 +46,8 @@ public class HallServer extends AbstractServer {
     private Map<String, AwaitingTable> _awaitingTables = new LinkedHashMap<String, AwaitingTable>();
     private Map<String, RunningTable> _runningTables = new LinkedHashMap<String, RunningTable>();
 
-    private Map<Player, Long> _lastVisitedPlayers = new HashMap<Player, Long>();
+    private Map<Player, HallCommunicationChannel> _playerChannelCommunication = new HashMap<Player, HallCommunicationChannel>();
+    private int _nextChannelNumber = 0;
 
     private Map<String, Tournament> _runningTournaments = new LinkedHashMap<String, Tournament>();
     private Map<String, TournamentQueue> _tournamentQueues = new HashMap<String, TournamentQueue>();
@@ -259,23 +262,51 @@ public class HallServer extends AbstractServer {
         }
     }
 
-    public void processHall(Player player, HallInfoVisitor visitor) {
+    public void signupUserForHall(Player player, HallChannelVisitor hallChannelVisitor) {
         _hallDataAccessLock.readLock().lock();
         try {
-            _lastVisitedPlayers.put(player, System.currentTimeMillis());
-            visitor.playerIsWaiting(isPlayerBusy(player.getName()));
+            HallCommunicationChannel channel = new HallCommunicationChannel(_nextChannelNumber++);
+            channel.processCommunicationChannel(this, player, hallChannelVisitor);
+            _playerChannelCommunication.put(player, channel);
+        } finally {
+            _hallDataAccessLock.readLock().unlock();
+        }
+    }
+
+    public void processHall(Player player, int channelNumber, HallChannelVisitor hallChannelVisitor) {
+        _hallDataAccessLock.readLock().lock();
+        try {
+            HallCommunicationChannel communicationChannel = _playerChannelCommunication.get(player);
+            if (communicationChannel != null) {
+                if (communicationChannel.getChannelNumber() == channelNumber) {
+                    communicationChannel.processCommunicationChannel(this, player, hallChannelVisitor);
+                } else {
+                    throw new WebApplicationException(Response.Status.CONFLICT);
+                }
+            } else {
+                throw new WebApplicationException(Response.Status.GONE);
+            }
+        } finally {
+            _hallDataAccessLock.readLock().unlock();
+        }
+    }
+
+    protected void processHall(Player player, HallInfoVisitor visitor) {
+        _hallDataAccessLock.readLock().lock();
+        try {
             visitor.serverTime(DateUtils.getStringDateWithHour());
+            visitor.playerBusy(isPlayerBusy(player.getName()));
 
             // First waiting
             for (Map.Entry<String, AwaitingTable> tableInformation : _awaitingTables.entrySet()) {
                 final AwaitingTable table = tableInformation.getValue();
 
-                Set<String> players;
+                List<String> players;
                 if (table.getLeague() != null)
-                    players = Collections.<String>emptySet();
+                    players = Collections.<String>emptyList();
                 else
                     players = table.getPlayerNames();
-                visitor.visitTable(tableInformation.getKey(), null, false, "Waiting", table.getLotroFormat().getName(), getTournamentName(table), players, null);
+                visitor.visitTable(tableInformation.getKey(), null, false, HallInfoVisitor.TableStatus.WAITING, "Waiting", table.getLotroFormat().getName(), getTournamentName(table), players, null);
             }
 
             // Then non-finished
@@ -286,7 +317,7 @@ public class HallServer extends AbstractServer {
                 LotroGameMediator lotroGameMediator = _lotroServer.getGameById(runningTable.getGameId());
                 if (lotroGameMediator != null) {
                     if (!lotroGameMediator.isFinished())
-                        visitor.visitTable(runningGame.getKey(), runningTable.getGameId(), player.getType().contains("a") || lotroGameMediator.isAllowSpectators(), lotroGameMediator.getGameStatus(), runningTable.getFormatName(), runningTable.getTournamentName(), lotroGameMediator.getPlayersPlaying(), lotroGameMediator.getWinner());
+                        visitor.visitTable(runningGame.getKey(), runningTable.getGameId(), player.getType().contains("a") || lotroGameMediator.isAllowSpectators(), HallInfoVisitor.TableStatus.PLAYING, lotroGameMediator.getGameStatus(), runningTable.getFormatName(), runningTable.getTournamentName(), lotroGameMediator.getPlayersPlaying(), lotroGameMediator.getWinner());
                     else
                         finishedTables.put(runningGame.getKey(), runningTable);
                 }
@@ -297,7 +328,7 @@ public class HallServer extends AbstractServer {
                 final RunningTable runningTable = nonPlayingGame.getValue();
                 LotroGameMediator lotroGameMediator = _lotroServer.getGameById(runningTable.getGameId());
                 if (lotroGameMediator != null)
-                    visitor.visitTable(nonPlayingGame.getKey(), runningTable.getGameId(), false, lotroGameMediator.getGameStatus(), runningTable.getFormatName(), runningTable.getTournamentName(), lotroGameMediator.getPlayersPlaying(), lotroGameMediator.getWinner());
+                    visitor.visitTable(nonPlayingGame.getKey(), runningTable.getGameId(), false, HallInfoVisitor.TableStatus.FINISHED, lotroGameMediator.getGameStatus(), runningTable.getFormatName(), runningTable.getTournamentName(), lotroGameMediator.getPlayersPlaying(), lotroGameMediator.getWinner());
             }
 
             for (Map.Entry<String, TournamentQueue> tournamentQueueEntry : _tournamentQueues.entrySet()) {
@@ -486,11 +517,11 @@ public class HallServer extends AbstractServer {
             }
 
             long currentTime = System.currentTimeMillis();
-            Map<Player, Long> visitCopy = new LinkedHashMap<Player, Long>(_lastVisitedPlayers);
-            for (Map.Entry<Player, Long> lastVisitedPlayer : visitCopy.entrySet()) {
-                if (currentTime > lastVisitedPlayer.getValue() + _playerInactivityPeriod) {
+            Map<Player, HallCommunicationChannel> visitCopy = new LinkedHashMap<Player, HallCommunicationChannel>(_playerChannelCommunication);
+            for (Map.Entry<Player, HallCommunicationChannel> lastVisitedPlayer : visitCopy.entrySet()) {
+                if (currentTime > lastVisitedPlayer.getValue().getLastConsumed() + _playerInactivityPeriod) {
                     Player player = lastVisitedPlayer.getKey();
-                    _lastVisitedPlayers.remove(player);
+                    _playerChannelCommunication.remove(player);
                     leaveAwaitingTables(player);
                     leaveQueues(player);
                 }

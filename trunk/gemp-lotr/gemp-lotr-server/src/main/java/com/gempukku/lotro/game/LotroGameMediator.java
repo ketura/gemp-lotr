@@ -33,7 +33,6 @@ public class LotroGameMediator {
     private boolean _allowSpectators;
     private boolean _cancellable;
     //    private final int _maxSecondsForGamePerPlayer = 60 * 40; // 40 minutes
-    private final int _channelInactivityTimeoutPeriod = 1000 * 60 * 5; // 5 minutes
     private final int _playerDecisionTimeoutPeriod = 1000 * 60 * 10; // 10 minutes
 
     private ReentrantReadWriteLock _lock = new ReentrantReadWriteLock(true);
@@ -97,8 +96,8 @@ public class LotroGameMediator {
         return _lotroGame.getWinnerPlayerId();
     }
 
-    public Set<String> getPlayersPlaying() {
-        return Collections.unmodifiableSet(_playersPlaying);
+    public List<String> getPlayersPlaying() {
+        return new LinkedList<String>(_playersPlaying);
     }
 
     public String getGameStatus() {
@@ -236,7 +235,7 @@ public class LotroGameMediator {
                 // Channel is stale (user no longer connected to game, to save memory, we remove the channel
                 // User can always reconnect and establish a new channel
                 GatheringParticipantCommunicationChannel channel = playerChannels.getValue();
-                if (currentTime > channel.getLastConsumed().getTime() + _channelInactivityTimeoutPeriod) {
+                if (currentTime > channel.getLastConsumed().getTime() + _playerDecisionTimeoutPeriod) {
                     _lotroGame.removeGameStateListener(channel);
                     _communicationChannels.remove(playerId);
                 }

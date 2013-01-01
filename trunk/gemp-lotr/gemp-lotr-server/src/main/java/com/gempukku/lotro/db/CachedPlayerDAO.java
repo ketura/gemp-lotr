@@ -25,7 +25,7 @@ public class CachedPlayerDAO implements PlayerDAO, Cached {
 
     @Override
     public int getItemCount() {
-        return _playerById.size()+_playerByName.size();
+        return _playerById.size() + _playerByName.size();
     }
 
     @Override
@@ -33,8 +33,10 @@ public class CachedPlayerDAO implements PlayerDAO, Cached {
         Player player = (Player) _playerById.get(id);
         if (player == null) {
             player = _delegate.getPlayer(id);
-            _playerById.put(id, player);
-            _playerByName.put(player.getName(), player);
+            if (player != null) {
+                _playerById.put(id, player);
+                _playerByName.put(player.getName(), player);
+            }
         }
         return player;
     }
@@ -44,8 +46,10 @@ public class CachedPlayerDAO implements PlayerDAO, Cached {
         Player player = (Player) _playerByName.get(playerName);
         if (player == null) {
             player = _delegate.getPlayer(playerName);
-            _playerById.put(player.getId(), player);
-            _playerByName.put(player.getName(), player);
+            if (player != null) {
+                _playerById.put(player.getId(), player);
+                _playerByName.put(player.getName(), player);
+            }
         }
         return player;
     }
