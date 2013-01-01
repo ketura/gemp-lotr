@@ -21,11 +21,11 @@ public class DbTournamentDAO implements TournamentDAO {
     }
 
     @Override
-    public void addTournament(String tournamentId, String draftType, String tournamentName, String format, CollectionType collectionType, Tournament.Stage stage, String pairingMechanism, Date start) {
+    public void addTournament(String tournamentId, String draftType, String tournamentName, String format, CollectionType collectionType, Tournament.Stage stage, String pairingMechanism, String prizesScheme, Date start) {
         try {
             Connection conn = _dbAccess.getDataSource().getConnection();
             try {
-                PreparedStatement statement = conn.prepareStatement("insert into tournament (tournament_id, draft_type, name, format, collection, stage, pairing, start, round) values (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                PreparedStatement statement = conn.prepareStatement("insert into tournament (tournament_id, draft_type, name, format, collection, stage, pairing, start, round, prizes) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
                 try {
                     statement.setString(1, tournamentId);
                     statement.setString(2, draftType);
@@ -36,6 +36,7 @@ public class DbTournamentDAO implements TournamentDAO {
                     statement.setString(7, pairingMechanism);
                     statement.setLong(8, start.getTime());
                     statement.setInt(9, 0);
+                    statement.setString(10, prizesScheme);
                     statement.execute();
                 } finally {
                     statement.close();
@@ -53,7 +54,7 @@ public class DbTournamentDAO implements TournamentDAO {
         try {
             Connection connection = _dbAccess.getDataSource().getConnection();
             try {
-                PreparedStatement statement = connection.prepareStatement("select draft_type, name, format, collection, stage, pairing, round from tournament where tournament_id=?");
+                PreparedStatement statement = connection.prepareStatement("select draft_type, name, format, collection, stage, pairing, round, prizes from tournament where tournament_id=?");
                 try {
                     statement.setString(1, tournamentId);
                     ResultSet rs = statement.executeQuery();
@@ -63,7 +64,7 @@ public class DbTournamentDAO implements TournamentDAO {
                             return new TournamentInfo(
                                     tournamentId, rs.getString(1), rs.getString(2), rs.getString(3),
                                     new CollectionType(collectionTypeStr[0], collectionTypeStr[1]), Tournament.Stage.valueOf(rs.getString(5)),
-                                    rs.getString(6), rs.getInt(7));
+                                    rs.getString(6), rs.getString(8), rs.getInt(7));
                         } else
                             return null;
                     } finally {
@@ -85,7 +86,7 @@ public class DbTournamentDAO implements TournamentDAO {
         try {
             Connection connection = _dbAccess.getDataSource().getConnection();
             try {
-                PreparedStatement statement = connection.prepareStatement("select tournament_id, draft_type, name, format, collection, stage, pairing, round from tournament where stage <> '"+ Tournament.Stage.FINISHED.name()+"'");
+                PreparedStatement statement = connection.prepareStatement("select tournament_id, draft_type, name, format, collection, stage, pairing, round, prizes from tournament where stage <> '"+ Tournament.Stage.FINISHED.name()+"'");
                 try {
                     ResultSet rs = statement.executeQuery();
                     try {
@@ -94,7 +95,7 @@ public class DbTournamentDAO implements TournamentDAO {
                             String[] collectionTypeStr = rs.getString(5).split(":", 2);
                             result.add(new TournamentInfo(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
                                     new CollectionType(collectionTypeStr[0], collectionTypeStr[1]), Tournament.Stage.valueOf(rs.getString(6)),
-                                    rs.getString(7), rs.getInt(8)));
+                                    rs.getString(7), rs.getString(9), rs.getInt(8)));
                         }
                         return result;
                     } finally {
@@ -116,7 +117,7 @@ public class DbTournamentDAO implements TournamentDAO {
         try {
             Connection connection = _dbAccess.getDataSource().getConnection();
             try {
-                PreparedStatement statement = connection.prepareStatement("select tournament_id, draft_type, name, format, collection, stage, pairing, round from tournament where stage = '"+ Tournament.Stage.FINISHED.name()+"' and start>?");
+                PreparedStatement statement = connection.prepareStatement("select tournament_id, draft_type, name, format, collection, stage, pairing, round, prizes from tournament where stage = '"+ Tournament.Stage.FINISHED.name()+"' and start>?");
                 try {
                     statement.setLong(1, time);
                     ResultSet rs = statement.executeQuery();
@@ -126,7 +127,7 @@ public class DbTournamentDAO implements TournamentDAO {
                             String[] collectionTypeStr = rs.getString(5).split(":", 2);
                             result.add(new TournamentInfo(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
                                     new CollectionType(collectionTypeStr[0], collectionTypeStr[1]), Tournament.Stage.valueOf(rs.getString(6)),
-                                    rs.getString(7), rs.getInt(8)));
+                                    rs.getString(7), rs.getString(9), rs.getInt(8)));
                         }
                         return result;
                     } finally {

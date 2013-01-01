@@ -8,16 +8,19 @@ public class TournamentInfo {
     private String _tournamentName;
     private String _tournamentFormat;
     private CollectionType _collectionType;
+    private String _prizesScheme;
     private int _tournamentRound;
     private String _pairingMechanism;
     private Tournament.Stage _tournamentStage;
 
-    public TournamentInfo(String tournamentId, String draftType, String tournamentName, String tournamentFormat, CollectionType collectionType, Tournament.Stage tournamentStage, String pairingMechanism, int tournamentRound) {
+    public TournamentInfo(String tournamentId, String draftType, String tournamentName, String tournamentFormat, CollectionType collectionType,
+                          Tournament.Stage tournamentStage, String pairingMechanism, String prizesScheme, int tournamentRound) {
         _tournamentId = tournamentId;
         _draftType = draftType;
         _tournamentName = tournamentName;
         _tournamentFormat = tournamentFormat;
         _collectionType = collectionType;
+        _prizesScheme = prizesScheme;
         _tournamentRound = tournamentRound;
         _pairingMechanism = pairingMechanism;
         _tournamentStage = tournamentStage;
@@ -49,6 +52,10 @@ public class TournamentInfo {
 
     public String getPairingMechanism() {
         return _pairingMechanism;
+    }
+
+    public String getPrizesScheme() {
+        return _prizesScheme;
     }
 
     public Tournament.Stage getTournamentStage() {

@@ -13,6 +13,7 @@ public class TournamentService {
     private PacksStorage _packsStorage;
     private DraftPackStorage _draftPackStorage;
     private PairingMechanismRegistry _pairingMechanismRegistry;
+    private TournamentPrizeSchemeRegistry _tournamentPrizeSchemeRegistry;
     private TournamentDAO _tournamentDao;
     private TournamentPlayerDAO _tournamentPlayerDao;
     private TournamentMatchDAO _tournamentMatchDao;
@@ -22,12 +23,13 @@ public class TournamentService {
     private Map<String, Tournament> _tournamentById = new HashMap<String, Tournament>();
 
     public TournamentService(CollectionsManager collectionsManager, PacksStorage packsStorage, DraftPackStorage draftPackStorage,
-                             PairingMechanismRegistry pairingMechanismRegistry,
+                             PairingMechanismRegistry pairingMechanismRegistry, TournamentPrizeSchemeRegistry tournamentPrizeSchemeRegistry,
                              TournamentDAO tournamentDao, TournamentPlayerDAO tournamentPlayerDao, TournamentMatchDAO tournamentMatchDao) {
         _collectionsManager = collectionsManager;
         _packsStorage = packsStorage;
         _draftPackStorage = draftPackStorage;
         _pairingMechanismRegistry = pairingMechanismRegistry;
+        _tournamentPrizeSchemeRegistry = tournamentPrizeSchemeRegistry;
         _tournamentDao = tournamentDao;
         _tournamentPlayerDao = tournamentPlayerDao;
         _tournamentMatchDao = tournamentMatchDao;
@@ -77,9 +79,9 @@ public class TournamentService {
         return _tournamentMatchDao.getMatches(tournamentId);
     }
 
-    public Tournament addTournament(String tournamentId, String draftType, String tournamentName, String format, CollectionType collectionType, Tournament.Stage stage, String pairingMechanism, Date start) {
-        _tournamentDao.addTournament(tournamentId, draftType, tournamentName, format, collectionType, stage, pairingMechanism, start);
-        return createTournamentAndStoreInCache(tournamentId, new TournamentInfo(tournamentId, draftType, tournamentName, format, collectionType, stage, pairingMechanism, 0));
+    public Tournament addTournament(String tournamentId, String draftType, String tournamentName, String format, CollectionType collectionType, Tournament.Stage stage, String pairingMechanism, String prizeScheme, Date start) {
+        _tournamentDao.addTournament(tournamentId, draftType, tournamentName, format, collectionType, stage, pairingMechanism, prizeScheme, start);
+        return createTournamentAndStoreInCache(tournamentId, new TournamentInfo(tournamentId, draftType, tournamentName, format, collectionType, stage, pairingMechanism, prizeScheme, 0));
     }
 
     public void updateTournamentStage(String tournamentId, Tournament.Stage stage) {
@@ -135,7 +137,8 @@ public class TournamentService {
             tournament = new DefaultTournament(_collectionsManager, this, _packsStorage, draftPack,
                     tournamentId,  tournamentInfo.getTournamentName(), tournamentInfo.getTournamentFormat(),
                     tournamentInfo.getCollectionType(), tournamentInfo.getTournamentRound(), tournamentInfo.getTournamentStage(), 
-                    _pairingMechanismRegistry.getPairingMechanism(tournamentInfo.getPairingMechanism()));
+                    _pairingMechanismRegistry.getPairingMechanism(tournamentInfo.getPairingMechanism()),
+                    _tournamentPrizeSchemeRegistry.getTournamentPrizes(tournamentInfo.getPrizesScheme()));
 
         } catch (Exception exp) {
             throw new RuntimeException("Unable to create Tournament", exp);

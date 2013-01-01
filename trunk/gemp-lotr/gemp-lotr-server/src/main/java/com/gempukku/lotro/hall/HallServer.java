@@ -30,6 +30,7 @@ public class HallServer extends AbstractServer {
     private LotroFormatLibrary _formatLibrary;
     private CollectionsManager _collectionsManager;
     private LotroServer _lotroServer;
+    private TournamentPrizeSchemeRegistry _tournamentPrizeSchemeRegistry;
 
     private CollectionType _allCardsCollectionType = CollectionType.ALL_CARDS;
 
@@ -54,7 +55,7 @@ public class HallServer extends AbstractServer {
     private final ChatRoomMediator _hallChat;
 
     public HallServer(LotroServer lotroServer, ChatServer chatServer, LeagueService leagueService, TournamentService tournamentService, LotroCardBlueprintLibrary library,
-                      LotroFormatLibrary formatLibrary, CollectionsManager collectionsManager, boolean test) {
+                      LotroFormatLibrary formatLibrary, CollectionsManager collectionsManager, TournamentPrizeSchemeRegistry tournamentPrizeSchemeRegistry, boolean test) {
         _lotroServer = lotroServer;
         _chatServer = chatServer;
         _leagueService = leagueService;
@@ -62,11 +63,15 @@ public class HallServer extends AbstractServer {
         _library = library;
         _formatLibrary = formatLibrary;
         _collectionsManager = collectionsManager;
+        _tournamentPrizeSchemeRegistry = tournamentPrizeSchemeRegistry;
         _hallChat = _chatServer.createChatRoom("Game Hall", 10);
 
-        _tournamentQueues.put("fotr_queue", new SingleEliminationRecurringQueue(0, "fotr_block",
-                CollectionType.ALL_CARDS, "fotrQueue-", "Test Fellowship Block 4-man", 4,
-                true, tournamentService));
+        _tournamentQueues.put("fotr_queue", new SingleEliminationRecurringQueue(635, "fotr_block",
+                CollectionType.MY_CARDS, "fotrQueue-", "Fellowship Block 8-man single-elimination", 8,
+                true, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes("onDemand")));
+        _tournamentQueues.put("movie_queue", new SingleEliminationRecurringQueue(635, "movie",
+                CollectionType.MY_CARDS, "movieQueue-", "Movie Block 8-man single-elimination", 8,
+                true, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes("onDemand")));
     }
 
     @Override
@@ -336,6 +341,7 @@ public class HallServer extends AbstractServer {
                 TournamentQueue tournamentQueue = tournamentQueueEntry.getValue();
                 visitor.visitTournamentQueue(tournamentQueueKey, tournamentQueue.getCost(), tournamentQueue.getCollectionType().getFullName(),
                         _formatLibrary.getFormat(tournamentQueue.getFormat()).getName(), tournamentQueue.getTournamentQueueName(),
+                        tournamentQueue.getPrizesDescription(),
                         tournamentQueue.getPlayerCount(), tournamentQueue.isPlayerSignedUp(player.getName()));
             }
 
@@ -537,7 +543,7 @@ public class HallServer extends AbstractServer {
             }
 
             for (Tournament runningTournament : new ArrayList<Tournament>(_runningTournaments.values())) {
-                runningTournament.advanceTournament(new HallTournamentCallback(runningTournament));
+                runningTournament.advanceTournament(new HallTournamentCallback(runningTournament), _collectionsManager);
                 if (runningTournament.getTournamentStage() == Tournament.Stage.FINISHED)
                     _runningTournaments.remove(runningTournament);
             }

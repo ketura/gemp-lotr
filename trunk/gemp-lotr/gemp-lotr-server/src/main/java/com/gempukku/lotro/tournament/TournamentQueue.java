@@ -14,6 +14,8 @@ public interface TournamentQueue {
 
     public String getTournamentQueueName();
 
+    public String getPrizesDescription();
+
     public boolean isRequiresDeck();
 
     public boolean process(TournamentQueueCallback tournamentQueueCallback);
