@@ -11,6 +11,7 @@ public class NewLeaguePrizes implements LeaguePrizes {
     private List<String> _commons = new ArrayList<String>();
     private List<String> _uncommons = new ArrayList<String>();
     private List<String> _promos = new ArrayList<String>();
+    private List<String> _rares = new ArrayList<String>();
 
     public NewLeaguePrizes() {
         RarityReader rarityReader = new RarityReader();
@@ -20,12 +21,14 @@ public class NewLeaguePrizes implements LeaguePrizes {
             _commons.addAll(setRarity.getCardsOfRarity("C"));
             _uncommons.addAll(setRarity.getCardsOfRarity("U"));
             _promos.addAll(setRarity.getCardsOfRarity("P"));
+            _rares.addAll(setRarity.getCardsOfRarity("R"));
         }
     }
 
     public CardCollection getPrizeForLeagueMatchWinner(int winCountThisSerie, int totalGamesPlayedThisSerie) {
         DefaultCardCollection winnerPrize = new DefaultCardCollection();
-        if (winCountThisSerie == 1 || winCountThisSerie == 3 || winCountThisSerie == 5 || winCountThisSerie == 8 || winCountThisSerie == 10)
+        if (winCountThisSerie == 1 || winCountThisSerie == 3 || winCountThisSerie == 5 || winCountThisSerie == 8
+                || winCountThisSerie == 10 || winCountThisSerie == 12)
             winnerPrize.addItem("(S)Booster Choice", 1);
         else {
             if (winCountThisSerie == 2)
@@ -39,7 +42,13 @@ public class NewLeaguePrizes implements LeaguePrizes {
             else if (winCountThisSerie == 9) {
                 winnerPrize.addItem(getRandom(_promos), 1);
                 winnerPrize.addItem(getRandom(_commons) + "*", 1);
+            } else if (winCountThisSerie == 11)
+                winnerPrize.addItem(getRandom(_promos), 1);
+            else if (winCountThisSerie == 13) {
+                winnerPrize.addItem(getRandom(_promos)+"*", 1);
+                winnerPrize.addItem(getRandom(_rares)+"*", 1);
             }
+            
         }
         return winnerPrize;
     }
