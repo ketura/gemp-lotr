@@ -45,7 +45,7 @@ public class Card13_001 extends AbstractAttachableFPPossession {
     @Override
     protected List<? extends Modifier> getNonBasicStatsModifiers(PhysicalCard self) {
         return Collections.singletonList(
-                new ResistanceModifier(self, Filters.hasAttached(self), 2));
+                new ResistanceModifier(self, Filters.hasAttached(self), 1));
     }
 
     @Override
