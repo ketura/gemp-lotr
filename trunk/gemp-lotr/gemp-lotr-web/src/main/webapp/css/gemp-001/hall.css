@@ -33,6 +33,12 @@ body {
     cursor: pointer;
 }
 
+.prizeHint {
+    display: inline;
+    color: #6f6fff;
+    cursor: pointer;
+}
+
 .clickableFormat {
     cursor: pointer;
     color: #6f6fff;
