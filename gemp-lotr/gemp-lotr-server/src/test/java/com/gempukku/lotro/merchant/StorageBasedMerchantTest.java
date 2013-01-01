@@ -46,7 +46,7 @@ public class StorageBasedMerchantTest {
     public void cardPriceLowersAfterMerchantBuys() {
         _merchant.cardBought("1_1", new Date(0), 700);
         int cardInitialPrice = _merchant.getCardSellPrice("1_1", new Date(0));
-        assertEqualsMoreOrLess((int) (1000 / 1.1f), cardInitialPrice);
+        assertEqualsMoreOrLess((int) (1000 / 1.15f), cardInitialPrice);
     }
 
     @Test
@@ -57,7 +57,7 @@ public class StorageBasedMerchantTest {
 
         _merchant.cardSold("1_1", new Date(0), 1000);
         int cardInitialPrice = _merchant.getCardSellPrice("1_1", new Date(0));
-        assertEqualsMoreOrLess((int) (1000*1.1f), cardInitialPrice);
+        assertEqualsMoreOrLess((int) (1000*1.15f), cardInitialPrice);
     }
 
     @Test

@@ -1,5 +1,6 @@
 package com.gempukku.lotro.tournament;
 
+import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.competitive.PlayerStanding;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.draft.DraftCardChoice;
@@ -31,7 +32,7 @@ public interface Tournament {
     public Stage getTournamentStage();
     public int getCurrentRound();
 
-    public void advanceTournament(TournamentCallback tournamentCallback);
+    public void advanceTournament(TournamentCallback tournamentCallback, CollectionsManager collectionsManager);
 
     public void reportGameFinished(String winner, String loser);
 

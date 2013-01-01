@@ -8,6 +8,7 @@ import com.gempukku.lotro.draft.DefaultDraft;
 import com.gempukku.lotro.draft.Draft;
 import com.gempukku.lotro.draft.DraftCardChoice;
 import com.gempukku.lotro.draft.DraftPack;
+import com.gempukku.lotro.game.CardCollection;
 import com.gempukku.lotro.game.DeckInvalidException;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 import com.gempukku.lotro.packs.PacksStorage;
@@ -22,6 +23,7 @@ public class DefaultTournament implements Tournament {
     private long _waitForPairingsTime = 1000 * 60 * 2;
 
     private PairingMechanism _pairingMechanism;
+    private TournamentPrizes _tournamentPrizes;
     private String _tournamentId;
     private String _tournamentName;
     private String _format;
@@ -49,7 +51,7 @@ public class DefaultTournament implements Tournament {
 
     public DefaultTournament(CollectionsManager collectionsManager, TournamentService tournamentService,
                              PacksStorage packsStorage, DraftPack draftPack, String tournamentId, String tournamentName, String format, CollectionType collectionType,
-                             int tournamentRound, Stage tournamentStage, PairingMechanism pairingMechanism) {
+                             int tournamentRound, Stage tournamentStage, PairingMechanism pairingMechanism, TournamentPrizes tournamentPrizes) {
         _tournamentService = tournamentService;
         _tournamentId = tournamentId;
         _tournamentName = tournamentName;
@@ -58,6 +60,7 @@ public class DefaultTournament implements Tournament {
         _tournamentRound = tournamentRound;
         _tournamentStage = tournamentStage;
         _pairingMechanism = pairingMechanism;
+        _tournamentPrizes = tournamentPrizes;
 
         _currentlyPlayingPlayers = new HashSet<String>();
 
@@ -210,7 +213,7 @@ public class DefaultTournament implements Tournament {
     }
 
     @Override
-    public void advanceTournament(TournamentCallback tournamentCallback) {
+    public void advanceTournament(TournamentCallback tournamentCallback, CollectionsManager collectionsManager) {
         _lock.writeLock().lock();
         try {
             if (_nextTask == null) {
@@ -233,7 +236,7 @@ public class DefaultTournament implements Tournament {
                 if (_tournamentStage == Stage.PLAYING_GAMES) {
                     if (_currentlyPlayingPlayers.size() == 0) {
                         if (_pairingMechanism.isFinished(_tournamentRound, _players, _droppedPlayers)) {
-                            finishTournament(tournamentCallback);
+                            finishTournament(tournamentCallback, collectionsManager);
                         } else {
                             tournamentCallback.broadcastMessage("Tournament " + _tournamentName + " will start round "+(_tournamentRound+1)+" in 2 minutes");
                             _nextTask = new PairPlayers();
@@ -244,7 +247,7 @@ public class DefaultTournament implements Tournament {
             if (_nextTask != null && _nextTask.getExecuteAfter() <= System.currentTimeMillis()) {
                 TournamentTask task = _nextTask;
                 _nextTask = null;
-                task.executeTask(tournamentCallback);
+                task.executeTask(tournamentCallback, collectionsManager);
             }
         } finally {
             _lock.writeLock().unlock();
@@ -266,14 +269,20 @@ public class DefaultTournament implements Tournament {
         }
     }
 
-    private void finishTournament(TournamentCallback tournamentCallback) {
+    private void finishTournament(TournamentCallback tournamentCallback, CollectionsManager collectionsManager) {
         _tournamentStage = Stage.FINISHED;
         _tournamentService.updateTournamentStage(_tournamentId, _tournamentStage);
         tournamentCallback.broadcastMessage("Tournament " + _tournamentName + " is finished");
-        awardPrizes();
+        awardPrizes(collectionsManager);
     }
 
-    private void awardPrizes() {
+    private void awardPrizes(CollectionsManager collectionsManager) {
+        List<PlayerStanding> list = getCurrentStandings();
+        for (PlayerStanding playerStanding : list) {
+            CardCollection prizes = _tournamentPrizes.getPrizeForTournament(playerStanding, list.size());
+            if (prizes != null)
+                collectionsManager.addItemsToPlayerCollection(true, "Tournament " +getTournamentName()+" prize", playerStanding.getPlayerName(), CollectionType.MY_CARDS, prizes.getAll().values());
+        }
     }
 
 
@@ -282,14 +291,14 @@ public class DefaultTournament implements Tournament {
                 playerTwo, _playerDecks.get(playerTwo), allowSpectators);
     }
 
-    private void doPairing(TournamentCallback tournamentCallback) {
+    private void doPairing(TournamentCallback tournamentCallback, CollectionsManager collectionsManager) {
         _tournamentRound++;
         _tournamentService.updateTournamentRound(_tournamentId, _tournamentRound);
         Map<String, String> pairingResults = new HashMap<String, String>();
         Set<String> byeResults = new HashSet<String>();
         boolean finished = _pairingMechanism.pairPlayers(_tournamentRound, _players, _droppedPlayers, _playerByes, getCurrentStandings(), pairingResults, byeResults);
         if (finished) {
-            finishTournament(tournamentCallback);
+            finishTournament(tournamentCallback, collectionsManager);
         } else {
             for (Map.Entry<String, String> pairing : pairingResults.entrySet()) {
                 String playerOne = pairing.getKey();
@@ -318,8 +327,8 @@ public class DefaultTournament implements Tournament {
         private long _taskStart = System.currentTimeMillis() + _waitForPairingsTime;
 
         @Override
-        public void executeTask(TournamentCallback tournamentCallback) {
-            doPairing(tournamentCallback);
+        public void executeTask(TournamentCallback tournamentCallback, CollectionsManager collectionsManager) {
+            doPairing(tournamentCallback, collectionsManager);
         }
 
         @Override
@@ -336,7 +345,7 @@ public class DefaultTournament implements Tournament {
         }
 
         @Override
-        public void executeTask(TournamentCallback tournamentCallback) {
+        public void executeTask(TournamentCallback tournamentCallback, CollectionsManager collectionsManager) {
             for (Map.Entry<String, String> pairings : _gamesToCreate.entrySet()) {
                 String playerOne = pairings.getKey();
                 String playerTwo = pairings.getValue();

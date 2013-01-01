@@ -16,7 +16,7 @@ public class SingleEliminationRecurringQueueTest {
         TournamentService tournamentService = Mockito.mock(TournamentService.class);
 
         SingleEliminationRecurringQueue queue = new SingleEliminationRecurringQueue(10, "format", CollectionType.MY_CARDS,
-                "id-", "name-", 2, false, tournamentService);
+                "id-", "name-", 2, false, tournamentService, new NoPrizes());
 
         Player player = new Player(1, "p1", "u", null);
 
@@ -38,7 +38,7 @@ public class SingleEliminationRecurringQueueTest {
         TournamentService tournamentService = Mockito.mock(TournamentService.class);
 
         SingleEliminationRecurringQueue queue = new SingleEliminationRecurringQueue(10, "format", CollectionType.MY_CARDS,
-                "id-", "name-", 2, false, tournamentService);
+                "id-", "name-", 2, false, tournamentService, new NoPrizes());
 
         Player player = new Player(1, "p1", "u", null);
 
@@ -63,7 +63,7 @@ public class SingleEliminationRecurringQueueTest {
         TournamentService tournamentService = Mockito.mock(TournamentService.class);
 
         SingleEliminationRecurringQueue queue = new SingleEliminationRecurringQueue(10, "format", CollectionType.MY_CARDS,
-                "id-", "name-", 2, false, tournamentService);
+                "id-", "name-", 2, false, tournamentService, new NoPrizes());
 
         Player player = new Player(1, "p1", "u", null);
 
@@ -89,11 +89,11 @@ public class SingleEliminationRecurringQueueTest {
 
         TournamentService tournamentService = Mockito.mock(TournamentService.class);
         Mockito.when(tournamentService.addTournament(Mockito.anyString(), Mockito.<String>eq(null), Mockito.anyString(), Mockito.eq("format"),
-                Mockito.eq(CollectionType.MY_CARDS), Mockito.eq(Tournament.Stage.PLAYING_GAMES), Mockito.eq("singleElimination"), Mockito.<Date>any()))
+                Mockito.eq(CollectionType.MY_CARDS), Mockito.eq(Tournament.Stage.PLAYING_GAMES), Mockito.eq("singleElimination"), Mockito.anyString(), Mockito.<Date>any()))
                 .thenReturn(tournament);
 
         SingleEliminationRecurringQueue queue = new SingleEliminationRecurringQueue(10, "format", CollectionType.MY_CARDS,
-                "id-", "name-", 2, false, tournamentService);
+                "id-", "name-", 2, false, tournamentService, new NoPrizes());
 
 
         Player player1 = new Player(1, "p1", "u", null);
@@ -121,7 +121,7 @@ public class SingleEliminationRecurringQueueTest {
         assertFalse(queue.isPlayerSignedUp("p2"));
 
         Mockito.verify(tournamentService).addTournament(Mockito.anyString(), Mockito.<String>eq(null), Mockito.anyString(), Mockito.eq("format"),
-                Mockito.eq(CollectionType.MY_CARDS), Mockito.eq(Tournament.Stage.PLAYING_GAMES), Mockito.eq("singleElimination"), Mockito.<Date>any());
+                Mockito.eq(CollectionType.MY_CARDS), Mockito.eq(Tournament.Stage.PLAYING_GAMES), Mockito.eq("singleElimination"), Mockito.anyString(), Mockito.<Date>any());
         
         Mockito.verify(tournamentService).addPlayer(Mockito.anyString(), Mockito.eq("p1"), Mockito.<LotroDeck>eq(null));
         Mockito.verify(tournamentService).addPlayer(Mockito.anyString(), Mockito.eq("p2"), Mockito.<LotroDeck>eq(null));
@@ -136,11 +136,11 @@ public class SingleEliminationRecurringQueueTest {
 
         TournamentService tournamentService = Mockito.mock(TournamentService.class);
         Mockito.when(tournamentService.addTournament(Mockito.anyString(), Mockito.<String>eq(null), Mockito.anyString(), Mockito.eq("format"),
-                Mockito.eq(CollectionType.MY_CARDS), Mockito.eq(Tournament.Stage.PLAYING_GAMES), Mockito.eq("singleElimination"), Mockito.<Date>any()))
+                Mockito.eq(CollectionType.MY_CARDS), Mockito.eq(Tournament.Stage.PLAYING_GAMES), Mockito.eq("singleElimination"), Mockito.anyString(), Mockito.<Date>any()))
                 .thenReturn(tournament);
 
         SingleEliminationRecurringQueue queue = new SingleEliminationRecurringQueue(10, "format", CollectionType.MY_CARDS,
-                "id-", "name-", 2, false, tournamentService);
+                "id-", "name-", 2, false, tournamentService, new NoPrizes());
 
         Player player1 = new Player(1, "p1", "u", null);
         Player player2 = new Player(2, "p2", "u", null);
@@ -170,7 +170,7 @@ public class SingleEliminationRecurringQueueTest {
         assertTrue(queue.isPlayerSignedUp("p3"));
 
         Mockito.verify(tournamentService).addTournament(Mockito.anyString(), Mockito.<String>eq(null), Mockito.anyString(), Mockito.eq("format"),
-                Mockito.eq(CollectionType.MY_CARDS), Mockito.eq(Tournament.Stage.PLAYING_GAMES), Mockito.eq("singleElimination"), Mockito.<Date>any());
+                Mockito.eq(CollectionType.MY_CARDS), Mockito.eq(Tournament.Stage.PLAYING_GAMES), Mockito.eq("singleElimination"), Mockito.anyString(), Mockito.<Date>any());
 
         Mockito.verify(tournamentService).addPlayer(Mockito.anyString(), Mockito.eq("p1"), Mockito.<LotroDeck>eq(null));
         Mockito.verify(tournamentService).addPlayer(Mockito.anyString(), Mockito.eq("p2"), Mockito.<LotroDeck>eq(null));

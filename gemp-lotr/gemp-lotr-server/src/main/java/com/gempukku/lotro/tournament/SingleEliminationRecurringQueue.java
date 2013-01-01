@@ -21,11 +21,14 @@ public class SingleEliminationRecurringQueue implements TournamentQueue {
     private int _playerCap;
 
     private TournamentService _tournamentService;
+    private TournamentPrizes _tournamentPrizes;
     private String _tournamentIdPrefix;
 
     private boolean _requiresDeck;
 
-    public SingleEliminationRecurringQueue(int cost, String format, CollectionType collectionType, String tournamentIdPrefix, String tournamentQueueName, int playerCap, boolean requiresDeck, TournamentService tournamentService) {
+    public SingleEliminationRecurringQueue(int cost, String format, CollectionType collectionType, String tournamentIdPrefix,
+                                           String tournamentQueueName, int playerCap, boolean requiresDeck,
+                                           TournamentService tournamentService, TournamentPrizes tournamentPrizes) {
         _cost = cost;
         _format = format;
         _collectionType = collectionType;
@@ -34,6 +37,7 @@ public class SingleEliminationRecurringQueue implements TournamentQueue {
         _tournamentIdPrefix = tournamentIdPrefix;
         _requiresDeck = requiresDeck;
         _tournamentService = tournamentService;
+        _tournamentPrizes = tournamentPrizes;
     }
 
     @Override
@@ -57,6 +61,11 @@ public class SingleEliminationRecurringQueue implements TournamentQueue {
     }
 
     @Override
+    public String getPrizesDescription() {
+        return _tournamentPrizes.getPrizeDescription();
+    }
+
+    @Override
     public boolean isRequiresDeck() {
         return _requiresDeck;
     }
@@ -74,7 +83,8 @@ public class SingleEliminationRecurringQueue implements TournamentQueue {
                 _tournamentService.addPlayer(tournamentId, player, _playerDecks.get(player));
             }
 
-            Tournament tournament = _tournamentService.addTournament(tournamentId, null, tournamentName, _format, _collectionType, Tournament.Stage.PLAYING_GAMES, "singleElimination", new Date());
+            Tournament tournament = _tournamentService.addTournament(tournamentId, null, tournamentName, _format, _collectionType, Tournament.Stage.PLAYING_GAMES, "singleElimination",
+                    _tournamentPrizes.getRegistryRepresentation(), new Date());
 
             tournamentQueueCallback.createTournament(tournament);
         }

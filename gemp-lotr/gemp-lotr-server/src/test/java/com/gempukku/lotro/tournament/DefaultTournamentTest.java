@@ -1,5 +1,6 @@
 package com.gempukku.lotro.tournament;
 
+import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.competitive.PlayerStanding;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.logic.vo.LotroDeck;
@@ -40,8 +41,10 @@ public class DefaultTournamentTest {
         PairingMechanism pairingMechanism = Mockito.mock(PairingMechanism.class);
         Mockito.when(pairingMechanism.shouldDropLoser()).thenReturn(true);
 
+        CollectionsManager collectionsManager = Mockito.mock(CollectionsManager.class);
+
         DefaultTournament tournament = new DefaultTournament(null, tournamentService, null, null, tournamentId, "Name", "format",
-                CollectionType.ALL_CARDS, 0, Tournament.Stage.PLAYING_GAMES, pairingMechanism);
+                CollectionType.ALL_CARDS, 0, Tournament.Stage.PLAYING_GAMES, pairingMechanism, new SingleEliminationOnDemandPrizes("onDemand"));
         tournament.setWaitForPairingsTime(_waitForPairingsTime);
 
         Mockito.when(pairingMechanism.isFinished(Mockito.eq(3), Mockito.eq(allPlayers), Mockito.eq(droppedAfterRoundThree)))
@@ -99,88 +102,94 @@ public class DefaultTournamentTest {
                 }
         ).when(tournamentCallback).broadcastMessage(Mockito.anyString());
 
-        tournament.advanceTournament(tournamentCallback);
+        tournament.advanceTournament(tournamentCallback, collectionsManager);
 
         Mockito.verify(tournamentCallback).broadcastMessage(Mockito.anyString());
-        Mockito.verifyNoMoreInteractions(tournamentCallback);
+        Mockito.verifyNoMoreInteractions(collectionsManager, tournamentCallback);
 
         Thread.sleep(_waitForPairingsTime);
-        tournament.advanceTournament(tournamentCallback);
+        tournament.advanceTournament(tournamentCallback, collectionsManager);
 
         Mockito.verify(tournamentCallback, new Times(1)).createGame("p1", playerDecks.get("p1"), "p2", playerDecks.get("p2"), false);
         Mockito.verify(tournamentCallback, new Times(1)).createGame("p3", playerDecks.get("p3"), "p4", playerDecks.get("p4"), false);
         Mockito.verify(tournamentCallback, new Times(1)).createGame("p5", playerDecks.get("p5"), "p6", playerDecks.get("p6"), false);
         Mockito.verify(tournamentCallback, new Times(1)).createGame("p7", playerDecks.get("p7"), "p8", playerDecks.get("p8"), false);
         
-        Mockito.verifyNoMoreInteractions(tournamentCallback);
+        Mockito.verifyNoMoreInteractions(collectionsManager, tournamentCallback);
 
         assertEquals(1, tournament.getCurrentRound());
 
-        tournament.advanceTournament(tournamentCallback);
-        Mockito.verifyNoMoreInteractions(tournamentCallback);
+        tournament.advanceTournament(tournamentCallback, collectionsManager);
+        Mockito.verifyNoMoreInteractions(collectionsManager, tournamentCallback);
 
         tournament.reportGameFinished("p1", "p2");
 
-        tournament.advanceTournament(tournamentCallback);
-        Mockito.verifyNoMoreInteractions(tournamentCallback);
+        tournament.advanceTournament(tournamentCallback, collectionsManager);
+        Mockito.verifyNoMoreInteractions(collectionsManager, tournamentCallback);
 
         tournament.reportGameFinished("p3", "p4");
 
-        tournament.advanceTournament(tournamentCallback);
-        Mockito.verifyNoMoreInteractions(tournamentCallback);
+        tournament.advanceTournament(tournamentCallback, collectionsManager);
+        Mockito.verifyNoMoreInteractions(collectionsManager, tournamentCallback);
 
         tournament.reportGameFinished("p5", "p6");
 
-        tournament.advanceTournament(tournamentCallback);
-        Mockito.verifyNoMoreInteractions(tournamentCallback);
+        tournament.advanceTournament(tournamentCallback, collectionsManager);
+        Mockito.verifyNoMoreInteractions(collectionsManager, tournamentCallback);
 
         tournament.reportGameFinished("p7", "p8");
 
-        tournament.advanceTournament(tournamentCallback);
+        tournament.advanceTournament(tournamentCallback, collectionsManager);
         Mockito.verify(tournamentCallback, new Times(2)).broadcastMessage(Mockito.anyString());
-        Mockito.verifyNoMoreInteractions(tournamentCallback);
+        Mockito.verifyNoMoreInteractions(collectionsManager, tournamentCallback);
 
         Thread.sleep(_waitForPairingsTime);
-        tournament.advanceTournament(tournamentCallback);
+        tournament.advanceTournament(tournamentCallback, collectionsManager);
 
         Mockito.verify(tournamentCallback, new Times(1)).createGame("p1", playerDecks.get("p1"), "p3", playerDecks.get("p3"), false);
         Mockito.verify(tournamentCallback, new Times(1)).createGame("p5", playerDecks.get("p5"), "p7", playerDecks.get("p7"), false);
 
-        Mockito.verifyNoMoreInteractions(tournamentCallback);
+        Mockito.verifyNoMoreInteractions(collectionsManager, tournamentCallback);
         
         assertEquals(2, tournament.getCurrentRound());
 
-        tournament.advanceTournament(tournamentCallback);
-        Mockito.verifyNoMoreInteractions(tournamentCallback);
+        tournament.advanceTournament(tournamentCallback, collectionsManager);
+        Mockito.verifyNoMoreInteractions(collectionsManager, tournamentCallback);
 
         tournament.reportGameFinished("p1", "p3");
 
-        tournament.advanceTournament(tournamentCallback);
-        Mockito.verifyNoMoreInteractions(tournamentCallback);
+        tournament.advanceTournament(tournamentCallback, collectionsManager);
+        Mockito.verifyNoMoreInteractions(collectionsManager, tournamentCallback);
 
         tournament.reportGameFinished("p5", "p7");
 
-        tournament.advanceTournament(tournamentCallback);
+        tournament.advanceTournament(tournamentCallback, collectionsManager);
         Mockito.verify(tournamentCallback, new Times(3)).broadcastMessage(Mockito.anyString());
-        Mockito.verifyNoMoreInteractions(tournamentCallback);
+        Mockito.verifyNoMoreInteractions(collectionsManager, tournamentCallback);
 
         Thread.sleep(_waitForPairingsTime);
-        tournament.advanceTournament(tournamentCallback);
+        tournament.advanceTournament(tournamentCallback, collectionsManager);
 
         Mockito.verify(tournamentCallback, new Times(1)).createGame("p1", playerDecks.get("p1"), "p5", playerDecks.get("p5"), false);
 
-        Mockito.verifyNoMoreInteractions(tournamentCallback);
+        Mockito.verifyNoMoreInteractions(collectionsManager, tournamentCallback);
 
         assertEquals(3, tournament.getCurrentRound());
 
-        tournament.advanceTournament(tournamentCallback);
-        Mockito.verifyNoMoreInteractions(tournamentCallback);
+        tournament.advanceTournament(tournamentCallback, collectionsManager);
+        Mockito.verifyNoMoreInteractions(collectionsManager, tournamentCallback);
 
         tournament.reportGameFinished("p1", "p5");
 
-        tournament.advanceTournament(tournamentCallback);
+        tournament.advanceTournament(tournamentCallback, collectionsManager);
         Mockito.verify(tournamentCallback, new Times(4)).broadcastMessage(Mockito.anyString());
-        Mockito.verifyNoMoreInteractions(tournamentCallback);
+
+        Mockito.verify(collectionsManager).addItemsToPlayerCollection(Mockito.eq(true), Mockito.anyString(), Mockito.eq("p1"), Mockito.eq(CollectionType.MY_CARDS), Mockito.anyCollection());
+        Mockito.verify(collectionsManager).addItemsToPlayerCollection(Mockito.eq(true), Mockito.anyString(), Mockito.eq("p5"), Mockito.eq(CollectionType.MY_CARDS), Mockito.anyCollection());
+        Mockito.verify(collectionsManager).addItemsToPlayerCollection(Mockito.eq(true), Mockito.anyString(), Mockito.eq("p3"), Mockito.eq(CollectionType.MY_CARDS), Mockito.anyCollection());
+        Mockito.verify(collectionsManager).addItemsToPlayerCollection(Mockito.eq(true), Mockito.anyString(), Mockito.eq("p7"), Mockito.eq(CollectionType.MY_CARDS), Mockito.anyCollection());
+
+        Mockito.verifyNoMoreInteractions(collectionsManager, tournamentCallback);
         
         assertEquals(3, tournament.getCurrentRound());
         assertEquals(Tournament.Stage.FINISHED, tournament.getTournamentStage());

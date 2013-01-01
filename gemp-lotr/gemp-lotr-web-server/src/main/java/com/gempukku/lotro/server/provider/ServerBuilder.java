@@ -46,12 +46,15 @@ public class ServerBuilder {
                         extract(objectMap, LeagueParticipationDAO.class),
                         extract(objectMap, CollectionsManager.class)));
 
+        TournamentPrizeSchemeRegistry tournamentPrizeSchemeRegistry = new TournamentPrizeSchemeRegistry();
+
         objectMap.put(TournamentService.class,
                 new TournamentService(
                         extract(objectMap, CollectionsManager.class),
                         extract(objectMap, PacksStorage.class),
                         new DraftPackStorage(),
                         new PairingMechanismRegistry(),
+                        tournamentPrizeSchemeRegistry,
                         extract(objectMap, TournamentDAO.class),
                         extract(objectMap, TournamentPlayerDAO.class),
                         extract(objectMap, TournamentMatchDAO.class)));
@@ -80,6 +83,7 @@ public class ServerBuilder {
                         extract(objectMap, LotroCardBlueprintLibrary.class),
                         extract(objectMap, LotroFormatLibrary.class),
                         extract(objectMap, CollectionsManager.class),
+                        tournamentPrizeSchemeRegistry,
                         false));
     }
 
