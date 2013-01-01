@@ -59,7 +59,7 @@ public class Card19_038 extends AbstractMinion {
     }
 
     @Override
-    public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, final PhysicalCard self) {
+    public List<RequiredTriggerAction> getRequiredAfterTriggers(final LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         if (TriggerConditions.played(game, effectResult, self)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
 
@@ -73,6 +73,7 @@ public class Card19_038 extends AbstractMinion {
                                 @Override
                                 protected void validDecisionMade(int index, String result) {
                                     self.setWhileInZoneData(Race.findRaceByHumanReadable(result));
+                                    game.getGameState().sendMessage(self.getOwner() +" has chosen "+result);
                                 }
                             }));
             return Collections.singletonList(action);
