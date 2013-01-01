@@ -499,6 +499,19 @@ var GempLotrCommunication = Class.extend({
             dataType:"xml"
         });
     },
+    updateHall:function (callback, channelNumber, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/hall/update",
+            cache:false,
+            data:{
+                channelNumber:channelNumber,
+                participantId:getUrlParam("participantId") },
+            success:this.deliveryCheck(callback),
+            error:this.errorCheck(errorMap),
+            dataType:"xml"
+        });
+    },
     joinQueue:function (queueId, deckName, callback, errorMap) {
         $.ajax({
             type:"POST",

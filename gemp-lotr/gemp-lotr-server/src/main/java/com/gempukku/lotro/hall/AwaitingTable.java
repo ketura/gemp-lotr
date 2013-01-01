@@ -38,8 +38,8 @@ public class AwaitingTable {
         return _players.containsKey(playerId);
     }
 
-    public Set<String> getPlayerNames() {
-        return Collections.unmodifiableSet(_players.keySet());
+    public List<String> getPlayerNames() {
+        return new LinkedList<String>(_players.keySet());
     }
 
     public Set<LotroGameParticipant> getPlayers() {
