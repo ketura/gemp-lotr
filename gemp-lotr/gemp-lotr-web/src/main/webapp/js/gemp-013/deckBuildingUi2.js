@@ -117,10 +117,7 @@ var GempLotrDeckBuildingUI2 = Class.extend({
         this.successfulDrag = false;
         var tar = $(event.target);
         if (tar.hasClass("clickArea")) {
-            tar = tar.parent();
-            tar = tar.parent();
-
-            var cardElem = tar.parent();
+            var cardElem = tar.closest(".card");
             var cardProps = cardElem.data("props");
 
             if (event.which == 1) {
@@ -159,10 +156,7 @@ var GempLotrDeckBuildingUI2 = Class.extend({
         }
 
         if (tar.hasClass("clickArea")) {
-            tar = tar.parent();
-            tar = tar.parent();
-
-            var cardElem = tar.parent();
+            var cardElem = tar.closest(".card");
             var cardProps = cardElem.data("props");
 
             if (event.which == 1) {

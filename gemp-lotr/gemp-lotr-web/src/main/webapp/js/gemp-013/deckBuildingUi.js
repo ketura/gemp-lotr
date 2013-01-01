@@ -50,25 +50,25 @@ var GempLotrDeckBuildingUI = Class.extend({
 
         this.comm = new GempLotrCommunication("/gemp-lotr-server", that.processError);
 
-        this.cardFilter = new CardFilter($("#collectionDiv"),$("#collectionDiv"),
-            function (filter, start, count, callback) {
-                that.comm.getCollection(that.collectionType, filter, start, count, function (xml) {
-                    callback(xml);
-                }, {
-                    "404":function () {
-                        alert("You don't have collection of that type.");
-                    }
+        this.cardFilter = new CardFilter($("#collectionDiv"), $("#collectionDiv"),
+                function (filter, start, count, callback) {
+                    that.comm.getCollection(that.collectionType, filter, start, count, function (xml) {
+                        callback(xml);
+                    }, {
+                        "404":function () {
+                            alert("You don't have collection of that type.");
+                        }
+                    });
+                },
+                function () {
+                    that.clearCollection();
+                },
+                function (elem, type, blueprintId, count) {
+                    that.addCardToCollection(type, blueprintId, count, elem.getAttribute("side"), elem.getAttribute("contents"));
+                },
+                function () {
+                    that.finishCollection();
                 });
-            },
-            function () {
-                that.clearCollection();
-            },
-            function (elem, type, blueprintId, count) {
-                that.addCardToCollection(type, blueprintId, count, elem.getAttribute("side"), elem.getAttribute("contents"));
-            },
-            function () {
-                that.finishCollection();
-            });
         this.collectionType = "default";
 
         this.deckDiv = $("#deckDiv");
@@ -101,75 +101,75 @@ var GempLotrDeckBuildingUI = Class.extend({
         this.deckDiv.append(this.manageDecksDiv);
 
         newDeckBut.click(
-            function () {
-                that.deckName = null;
-                $("#editingDeck").text("New deck");
-                that.clearDeck();
-            });
+                function () {
+                    that.deckName = null;
+                    $("#editingDeck").text("New deck");
+                    that.clearDeck();
+                });
 
         saveDeckBut.click(
-            function () {
-                if (that.deckName == null) {
-                    var newDeckName = prompt("Enter the name of the deck", "");
+                function () {
+                    if (that.deckName == null) {
+                        var newDeckName = prompt("Enter the name of the deck", "");
+                        if (newDeckName == null)
+                            return;
+                        if (newDeckName.length < 3 || newDeckName.length > 40)
+                            alert("Deck name has to have at least 3 characters and at most 40 characters.");
+                        else {
+                            that.deckName = newDeckName;
+                            $("#editingDeck").text(newDeckName);
+                            that.saveDeck(true);
+                        }
+                    } else {
+                        that.saveDeck(false);
+                    }
+                });
+
+        renameDeckBut.click(
+                function () {
+                    if (that.deckName == null) {
+                        alert("You can't rename this deck, since it's not named (saved) yet.");
+                        return;
+                    }
+                    var newDeckName = prompt("Enter new name for the deck", "");
                     if (newDeckName == null)
                         return;
                     if (newDeckName.length < 3 || newDeckName.length > 40)
                         alert("Deck name has to have at least 3 characters and at most 40 characters.");
                     else {
+                        var oldDeckName = that.deckName;
                         that.deckName = newDeckName;
                         $("#editingDeck").text(newDeckName);
-                        that.saveDeck(true);
-                    }
-                } else {
-                    that.saveDeck(false);
-                }
-            });
-
-        renameDeckBut.click(
-            function () {
-                if (that.deckName == null) {
-                    alert("You can't rename this deck, since it's not named (saved) yet.");
-                    return;
-                }
-                var newDeckName = prompt("Enter new name for the deck", "");
-                if (newDeckName == null)
-                    return;
-                if (newDeckName.length < 3 || newDeckName.length > 40)
-                    alert("Deck name has to have at least 3 characters and at most 40 characters.");
-                else {
-                    var oldDeckName = that.deckName;
-                    that.deckName = newDeckName;
-                    $("#editingDeck").text(newDeckName);
-                    that.comm.renameDeck(oldDeckName, newDeckName,
-                        function () {
-                            if (confirm("Do you wish to save this deck?"))
-                                that.saveDeck(false);
-                        }, {
+                        that.comm.renameDeck(oldDeckName, newDeckName,
+                                function () {
+                                    if (confirm("Do you wish to save this deck?"))
+                                        that.saveDeck(false);
+                                }, {
                             "404":function () {
                                 alert("Couldn't find the deck to rename on the server.");
                             }
                         });
-                }
-            });
+                    }
+                });
 
         copyDeckBut.click(
-            function () {
-                that.deckName = null;
-                $("#editingDeck").text("New deck");
-            });
+                function () {
+                    that.deckName = null;
+                    $("#editingDeck").text("New deck");
+                });
 
         deckListBut.click(
-            function () {
-                that.loadDeckList();
-            });
+                function () {
+                    that.loadDeckList();
+                });
 
         this.collectionDiv = $("#collectionDiv");
 
         $("#collectionSelect").change(
-            function () {
-                that.collectionType = that.getCollectionType();
-                that.cardFilter.getCollection();
-            });
+                function () {
+                    that.collectionType = that.getCollectionType();
+                    that.cardFilter.getCollection();
+                });
 
         this.normalCollectionDiv = $("<div></div>");
         this.normalCollectionGroup = new NormalCardGroup(this.normalCollectionDiv, function (card) {
@@ -180,11 +180,11 @@ var GempLotrDeckBuildingUI = Class.extend({
 
         this.ringBearerDiv = $("<div>Ring Bearer</div>");
         this.ringBearerDiv.click(
-            function () {
-                if ($(".card", that.ringBearerDiv).length == 0) {
-                    that.showPredefinedFilter("keyword:CAN_START_WITH_RING type:card", that.ringBearerDiv);
-                }
-            });
+                function () {
+                    if ($(".card", that.ringBearerDiv).length == 0) {
+                        that.showPredefinedFilter("keyword:CAN_START_WITH_RING type:card", that.ringBearerDiv);
+                    }
+                });
         this.ringBearerGroup = new NormalCardGroup(this.ringBearerDiv, function (card) {
             return true;
         });
@@ -192,10 +192,10 @@ var GempLotrDeckBuildingUI = Class.extend({
 
         this.ringDiv = $("<div>Ring</div>");
         this.ringDiv.click(
-            function () {
-                if ($(".card", that.ringDiv).length == 0)
-                    that.showPredefinedFilter("cardType:THE_ONE_RING type:card", that.ringDiv);
-            });
+                function () {
+                    if ($(".card", that.ringDiv).length == 0)
+                        that.showPredefinedFilter("cardType:THE_ONE_RING type:card", that.ringDiv);
+                });
         this.ringGroup = new NormalCardGroup(this.ringDiv, function (card) {
             return true;
         });
@@ -227,28 +227,28 @@ var GempLotrDeckBuildingUI = Class.extend({
         this.selectionFunc = this.addCardToDeckAndLayout;
 
         $("body").click(
-            function (event) {
-                return that.clickCardFunction(event);
-            });
+                function (event) {
+                    return that.clickCardFunction(event);
+                });
         $("body").mousedown(
-            function (event) {
-                return that.dragStartCardFunction(event);
-            });
+                function (event) {
+                    return that.dragStartCardFunction(event);
+                });
         $("body").mouseup(
-            function (event) {
-                return that.dragStopCardFunction(event);
-            });
+                function (event) {
+                    return that.dragStopCardFunction(event);
+                });
 
         var width = $(window).width();
         var height = $(window).height();
 
         this.infoDialog = $("<div></div>")
-            .dialog({
-                autoOpen:false,
-                closeOnEscape:true,
-                resizable:false,
-                title:"Card information"
-            });
+                .dialog({
+            autoOpen:false,
+            closeOnEscape:true,
+            resizable:false,
+            title:"Card information"
+        });
 
         var swipeOptions = {
             threshold:20,
@@ -278,16 +278,16 @@ var GempLotrDeckBuildingUI = Class.extend({
     getCollectionTypes:function () {
         var that = this;
         this.comm.getCollectionTypes(
-            function (xml) {
-                var root = xml.documentElement;
-                if (root.tagName == "collections") {
-                    var collections = root.getElementsByTagName("collection");
-                    for (var i = 0; i < collections.length; i++) {
-                        var collection = collections[i];
-                        $("#collectionSelect").append("<option value='" + collection.getAttribute("type") + "'>" + collection.getAttribute("name") + "</option>");
+                function (xml) {
+                    var root = xml.documentElement;
+                    if (root.tagName == "collections") {
+                        var collections = root.getElementsByTagName("collection");
+                        for (var i = 0; i < collections.length; i++) {
+                            var collection = collections[i];
+                            $("#collectionSelect").append("<option value='" + collection.getAttribute("type") + "'>" + collection.getAttribute("name") + "</option>");
+                        }
                     }
-                }
-            });
+                });
     },
 
     loadDeckList:function () {
@@ -295,15 +295,15 @@ var GempLotrDeckBuildingUI = Class.extend({
         this.comm.getDecks(function (xml) {
             if (that.deckListDialog == null) {
                 that.deckListDialog = $("<div></div>")
-                    .dialog({
-                        title:"Your stored decks",
-                        autoOpen:false,
-                        closeOnEscape:true,
-                        resizable:true,
-                        width:400,
-                        height:400,
-                        modal:true
-                    });
+                        .dialog({
+                    title:"Your stored decks",
+                    autoOpen:false,
+                    closeOnEscape:true,
+                    resizable:true,
+                    width:400,
+                    height:400,
+                    modal:true
+                });
             }
             that.deckListDialog.html("");
 
@@ -326,39 +326,39 @@ var GempLotrDeckBuildingUI = Class.extend({
                     that.deckListDialog.append(deckElem);
 
                     openDeckBut.click(
-                        (function (deckName) {
-                            return function () {
-                                that.comm.getDeck(deckName,
-                                    function (xml) {
-                                        that.setupDeck(xml, deckName);
-                                    });
-                            };
-                        })(deckName));
+                            (function (deckName) {
+                                return function () {
+                                    that.comm.getDeck(deckName,
+                                            function (xml) {
+                                                that.setupDeck(xml, deckName);
+                                            });
+                                };
+                            })(deckName));
 
                     deckListBut.click(
-                        (function (deckName) {
-                            return function () {
-                                window.open('/gemp-lotr-server/deck/html?deckName=' + encodeURIComponent(deckName), "_blank");
-                            };
-                        })(deckName));
+                            (function (deckName) {
+                                return function () {
+                                    window.open('/gemp-lotr-server/deck/html?deckName=' + encodeURIComponent(deckName), "_blank");
+                                };
+                            })(deckName));
 
                     deleteDeckBut.click(
-                        (function (deckName) {
-                            return function () {
-                                if (confirm("Are you sure you want to delete this deck?")) {
-                                    that.comm.deleteDeck(deckName,
-                                        function () {
-                                            if (that.deckName == deckName) {
-                                                that.deckName = null;
-                                                $("#editingDeck").text("New deck");
-                                                that.clearDeck();
-                                            }
+                            (function (deckName) {
+                                return function () {
+                                    if (confirm("Are you sure you want to delete this deck?")) {
+                                        that.comm.deleteDeck(deckName,
+                                                function () {
+                                                    if (that.deckName == deckName) {
+                                                        that.deckName = null;
+                                                        $("#editingDeck").text("New deck");
+                                                        that.clearDeck();
+                                                    }
 
-                                            that.loadDeckList();
-                                        });
-                                }
-                            };
-                        })(deckName));
+                                                    that.loadDeckList();
+                                                });
+                                    }
+                                };
+                            })(deckName));
                 }
             }
 
@@ -380,84 +380,81 @@ var GempLotrDeckBuildingUI = Class.extend({
         }
 
         if (tar.hasClass("actionArea")) {
-            tar = tar.parent();
-            if (tar.hasClass("borderOverlay")) {
-                var selectedCardElem = tar.parent();
-                if (event.which == 1) {
-                    if (!this.successfulDrag) {
-                        if (event.shiftKey) {
-                            this.displayCardInfo(selectedCardElem.data("card"));
-                        } else if (selectedCardElem.hasClass("cardInCollection")) {
-                            var cardData = selectedCardElem.data("card");
-                            this.selectionFunc(cardData.blueprintId, cardData.zone);
-                            cardData.tokens = {count:(parseInt(cardData.tokens["count"]) - 1)};
-                            layoutTokens(selectedCardElem);
-                        } else if (selectedCardElem.hasClass("packInCollection")) {
-                            if (confirm("Would you like to open this pack?")) {
-                                this.comm.openPack(this.getCollectionType(), selectedCardElem.data("card").blueprintId, function () {
-                                    that.cardFilter.getCollection();
-                                }, {
-                                    "404":function () {
-                                        alert("You have no pack of this type in your collection.");
-                                    }
-                                });
-                            }
-                        } else if (selectedCardElem.hasClass("cardToSelect")) {
-                            this.comm.openSelectionPack(this.getCollectionType(), this.packSelectionId, selectedCardElem.data("card").blueprintId, function () {
+            var selectedCardElem = tar.closest(".card");
+            if (event.which == 1) {
+                if (!this.successfulDrag) {
+                    if (event.shiftKey) {
+                        this.displayCardInfo(selectedCardElem.data("card"));
+                    } else if (selectedCardElem.hasClass("cardInCollection")) {
+                        var cardData = selectedCardElem.data("card");
+                        this.selectionFunc(cardData.blueprintId, cardData.zone);
+                        cardData.tokens = {count:(parseInt(cardData.tokens["count"]) - 1)};
+                        layoutTokens(selectedCardElem);
+                    } else if (selectedCardElem.hasClass("packInCollection")) {
+                        if (confirm("Would you like to open this pack?")) {
+                            this.comm.openPack(this.getCollectionType(), selectedCardElem.data("card").blueprintId, function () {
                                 that.cardFilter.getCollection();
                             }, {
                                 "404":function () {
-                                    alert("You have no pack of this type in your collection or that selection is not available for this pack.");
+                                    alert("You have no pack of this type in your collection.");
                                 }
                             });
-                            this.selectionDialog.dialog("close");
-                        } else if (selectedCardElem.hasClass("selectionInCollection")) {
-                            var selectionDialogResize = function () {
-                                var width = that.selectionDialog.width() + 10;
-                                var height = that.selectionDialog.height() + 10;
-                                that.selectionGroup.setBounds(2, 2, width - 2 * 2, height - 2 * 2);
-                            };
-
-                            if (this.selectionDialog == null) {
-                                this.selectionDialog = $("<div></div>")
-                                    .dialog({
-                                        title:"Choose one",
-                                        autoOpen:false,
-                                        closeOnEscape:true,
-                                        resizable:true,
-                                        width:400,
-                                        height:200,
-                                        modal:true
-                                    });
-
-                                this.selectionGroup = new NormalCardGroup(this.selectionDialog, function (card) {
-                                    return true;
-                                }, false);
-
-                                this.selectionDialog.bind("dialogresize", selectionDialogResize);
-                            }
-                            this.selectionDialog.html("");
-                            var cardData = selectedCardElem.data("card");
-                            this.packSelectionId = cardData.blueprintId;
-                            var selection = selectedCardElem.data("selection");
-                            var blueprintIds = selection.split("|");
-                            for (var i = 0; i < blueprintIds.length; i++) {
-                                var card = new Card(blueprintIds[i], "selection", "selection" + i, "player");
-                                var cardDiv = createCardDiv(card.imageUrl, null, card.isFoil(), false, card.isPack(), card.hasErrata());
-                                cardDiv.data("card", card);
-                                cardDiv.addClass("cardToSelect");
-                                this.selectionDialog.append(cardDiv);
-                            }
-                            openSizeDialog(that.selectionDialog);
-                            selectionDialogResize();
-                        } else if (selectedCardElem.hasClass("cardInDeck")) {
-                            this.removeCardFromDeck(selectedCardElem);
                         }
-                        event.stopPropagation();
+                    } else if (selectedCardElem.hasClass("cardToSelect")) {
+                        this.comm.openSelectionPack(this.getCollectionType(), this.packSelectionId, selectedCardElem.data("card").blueprintId, function () {
+                            that.cardFilter.getCollection();
+                        }, {
+                            "404":function () {
+                                alert("You have no pack of this type in your collection or that selection is not available for this pack.");
+                            }
+                        });
+                        this.selectionDialog.dialog("close");
+                    } else if (selectedCardElem.hasClass("selectionInCollection")) {
+                        var selectionDialogResize = function () {
+                            var width = that.selectionDialog.width() + 10;
+                            var height = that.selectionDialog.height() + 10;
+                            that.selectionGroup.setBounds(2, 2, width - 2 * 2, height - 2 * 2);
+                        };
+
+                        if (this.selectionDialog == null) {
+                            this.selectionDialog = $("<div></div>")
+                                    .dialog({
+                                title:"Choose one",
+                                autoOpen:false,
+                                closeOnEscape:true,
+                                resizable:true,
+                                width:400,
+                                height:200,
+                                modal:true
+                            });
+
+                            this.selectionGroup = new NormalCardGroup(this.selectionDialog, function (card) {
+                                return true;
+                            }, false);
+
+                            this.selectionDialog.bind("dialogresize", selectionDialogResize);
+                        }
+                        this.selectionDialog.html("");
+                        var cardData = selectedCardElem.data("card");
+                        this.packSelectionId = cardData.blueprintId;
+                        var selection = selectedCardElem.data("selection");
+                        var blueprintIds = selection.split("|");
+                        for (var i = 0; i < blueprintIds.length; i++) {
+                            var card = new Card(blueprintIds[i], "selection", "selection" + i, "player");
+                            var cardDiv = createCardDiv(card.imageUrl, null, card.isFoil(), false, card.isPack(), card.hasErrata());
+                            cardDiv.data("card", card);
+                            cardDiv.addClass("cardToSelect");
+                            this.selectionDialog.append(cardDiv);
+                        }
+                        openSizeDialog(that.selectionDialog);
+                        selectionDialogResize();
+                    } else if (selectedCardElem.hasClass("cardInDeck")) {
+                        this.removeCardFromDeck(selectedCardElem);
                     }
+                    event.stopPropagation();
                 }
-                return false;
             }
+            return false;
         }
         return true;
     },
@@ -471,15 +468,12 @@ var GempLotrDeckBuildingUI = Class.extend({
         this.successfulDrag = false;
         var tar = $(event.target);
         if (tar.hasClass("actionArea")) {
-            tar = tar.parent();
-            if (tar.hasClass("borderOverlay")) {
-                var selectedCardElem = tar.parent();
-                if (event.which == 1) {
-                    this.dragCardData = selectedCardElem.data("card");
-                    this.dragStartX = event.clientX;
-                    this.dragStartY = event.clientY;
-                    return false;
-                }
+            var selectedCardElem = tar.closest(".card");
+            if (event.which == 1) {
+                this.dragCardData = selectedCardElem.data("card");
+                this.dragStartX = event.clientX;
+                this.dragStartY = event.clientY;
+                return false;
             }
         }
         return true;
@@ -535,17 +529,17 @@ var GempLotrDeckBuildingUI = Class.extend({
 
         var sites = new Array();
         $(".card", this.siteDiv).each(
-            function () {
-                sites.push($(this).data("card").blueprintId);
-            });
+                function () {
+                    sites.push($(this).data("card").blueprintId);
+                });
         result += sites;
         result += "|";
 
         var cards = new Array();
         $(".card", this.drawDeckDiv).each(
-            function () {
-                cards.push($(this).data("card").blueprintId);
-            });
+                function () {
+                    cards.push($(this).data("card").blueprintId);
+                });
         result += cards;
 
         return result;
@@ -626,14 +620,14 @@ var GempLotrDeckBuildingUI = Class.extend({
         var that = this;
         var added = false;
         $(".card.cardInDeck", this.drawDeckDiv).each(
-            function () {
-                var cardData = $(this).data("card");
-                if (cardData.blueprintId == blueprintId) {
-                    var attDiv = that.addCardToContainer(blueprintId, "attached", that.drawDeckDiv, false);
-                    cardData.attachedCards.push(attDiv);
-                    added = true;
-                }
-            });
+                function () {
+                    var cardData = $(this).data("card");
+                    if (cardData.blueprintId == blueprintId) {
+                        var attDiv = that.addCardToContainer(blueprintId, "attached", that.drawDeckDiv, false);
+                        cardData.attachedCards.push(attDiv);
+                        added = true;
+                    }
+                });
         if (!added) {
             var div = this.addCardToContainer(blueprintId, side, this.drawDeckDiv, false)
             div.addClass("cardInDeck");
@@ -649,9 +643,9 @@ var GempLotrDeckBuildingUI = Class.extend({
         } else {
             var that = this;
             setTimeout(
-                function () {
-                    that.checkDeckStatsDirty();
-                }, that.checkDirtyInterval);
+                    function () {
+                        that.checkDeckStatsDirty();
+                    }, that.checkDirtyInterval);
         }
     },
 
@@ -660,23 +654,23 @@ var GempLotrDeckBuildingUI = Class.extend({
         var deckContents = this.getDeckContents();
         if (deckContents != null) {
             this.comm.getDeckStats(deckContents,
-                function (html) {
-                    $("#deckStats").html(html);
-                    setTimeout(
-                        function () {
-                            that.checkDeckStatsDirty();
-                        }, that.checkDirtyInterval);
-                }, {
-                    "400":function () {
-                        alert("Invalid deck for getting stats.");
-                    }
-                });
+                    function (html) {
+                        $("#deckStats").html(html);
+                        setTimeout(
+                                function () {
+                                    that.checkDeckStatsDirty();
+                                }, that.checkDirtyInterval);
+                    }, {
+                "400":function () {
+                    alert("Invalid deck for getting stats.");
+                }
+            });
         } else {
             $("#deckStats").html("Deck has no Ring, Ring-bearer or all 9 sites");
             setTimeout(
-                function () {
-                    that.checkDeckStatsDirty();
-                }, that.checkDirtyInterval);
+                    function () {
+                        that.checkDeckStatsDirty();
+                    }, that.checkDirtyInterval);
         }
     },
 
@@ -690,11 +684,11 @@ var GempLotrDeckBuildingUI = Class.extend({
         }
         var cardInCollectionElem = null;
         $(".card", this.normalCollectionDiv).each(
-            function () {
-                var tempCardData = $(this).data("card");
-                if (tempCardData.blueprintId == cardData.blueprintId)
-                    cardInCollectionElem = $(this);
-            });
+                function () {
+                    var tempCardData = $(this).data("card");
+                    if (tempCardData.blueprintId == cardData.blueprintId)
+                        cardInCollectionElem = $(this);
+                });
         if (cardInCollectionElem != null) {
             var cardInCollectionData = cardInCollectionElem.data("card");
             cardInCollectionData.tokens = {count:(parseInt(cardInCollectionData.tokens["count"]) + 1)};
@@ -708,11 +702,11 @@ var GempLotrDeckBuildingUI = Class.extend({
 
     clearDeck:function () {
         $(".cardInDeck").each(
-            function () {
-                var cardData = $(this).data("card");
-                for (var i = 0; i < cardData.attachedCards.length; i++)
-                    cardData.attachedCards[i].remove();
-            });
+                function () {
+                    var cardData = $(this).data("card");
+                    for (var i = 0; i < cardData.attachedCards.length; i++)
+                        cardData.attachedCards[i].remove();
+                });
         $(".cardInDeck").remove();
 
         this.layoutUI(false);
@@ -775,11 +769,11 @@ var GempLotrDeckBuildingUI = Class.extend({
             var card = new Card(blueprintId, side, "collection", "player");
             var countInDeck = 0;
             $(".card", this.deckDiv).each(
-                function () {
-                    var tempCardData = $(this).data("card");
-                    if (blueprintId == tempCardData.blueprintId)
-                        countInDeck++;
-                });
+                    function () {
+                        var tempCardData = $(this).data("card");
+                        if (blueprintId == tempCardData.blueprintId)
+                            countInDeck++;
+                    });
             card.tokens = {"count":count - countInDeck};
             var cardDiv = createCardDiv(card.imageUrl, null, card.isFoil(), true, false, card.hasErrata());
             cardDiv.data("card", card);
