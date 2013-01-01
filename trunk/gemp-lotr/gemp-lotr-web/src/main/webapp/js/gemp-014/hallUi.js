@@ -330,25 +330,28 @@ var GempLotrHallUI = Class.extend({
                     var joined = queue.getAttribute("signedUp");
                     if (joined != "true") {
                         var but = $("<button>Join queue</button>");
-                        $(but).button().click(
-                                function (event) {
-                                    var deck = that.decksSelect.val();
-                                    if (deck != null)
-                                        that.comm.joinQueue(id, deck, function (xml) {
-                                            that.processResponse(xml);
-                                        });
-                                });
+                        $(but).button().click((
+                                function(queueId) {
+                                    return function () {
+                                        var deck = that.decksSelect.val();
+                                        if (deck != null)
+                                            that.comm.joinQueue(queueId, deck, function (xml) {
+                                                that.processResponse(xml);
+                                            });
+                                    };
+                                }
+                                )(id));
                         actionsField.append(but);
                     } else {
                         var but = $("<button>Leave queue</button>");
-                        $(but).button().click(
-                                function (event) {
+                        $(but).button().click((
+                                function(queueId) {
                                     var deck = that.decksSelect.val();
                                     if (deck != null)
                                         that.comm.leaveQueue(id, deck, function (xml) {
                                             that.processResponse(xml);
                                         });
-                                });
+                                })(id));
                         actionsField.append(but);
                     }
 
@@ -411,27 +414,27 @@ var GempLotrHallUI = Class.extend({
                         var that = this;
 
                         var but = $("<button>Join table</button>");
-                        $(but).button().click(
-                                function (event) {
+                        $(but).button().click((
+                                function(tableId) {
                                     var deck = that.decksSelect.val();
                                     if (deck != null)
-                                        that.comm.joinTable(id, deck, function (xml) {
+                                        that.comm.joinTable(tableId, deck, function (xml) {
                                             that.processResponse(xml);
                                         });
-                                });
+                                })(id));
                         lastField.append(but);
                     }
 
                     if (status == "PLAYING" && watchable == "true") {
                         var but = $("<button>Watch game</button>");
-                        $(but).button().click(
-                                function (event) {
+                        $(but).button().click((
+                                function(gameIdToWatch) {
                                     var participantId = getUrlParam("participantId");
                                     var participantIdAppend = "";
                                     if (participantId != null)
                                         participantIdAppend = "&participantId=" + participantId;
-                                    location.href = "/gemp-lotr/game.html?gameId=" + gameId + participantIdAppend;
-                                });
+                                    location.href = "/gemp-lotr/game.html?gameId=" + gameIdToWatch + participantIdAppend;
+                                })(gameId));
                         lastField.append(but);
                     }
 

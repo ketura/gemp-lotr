@@ -53,6 +53,6 @@ public class SingleEliminationOnDemandPrizes implements TournamentPrizes{
 
     @Override
     public String getPrizeDescription() {
-        return "1st place - 2 boosters, 2nd place - 1 booster and a random promo, 3rd & 4th - 1 booster";
+        return "3 wins - 2 boosters, 2 wins - 1 booster and a random promo, 1 win - 1 booster";
     }
 }
