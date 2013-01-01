@@ -139,7 +139,7 @@ var GempLotrHallUI = Class.extend({
         header.append(" Tournament queues");
 
         var table = $("<table class='tables queues'></table>");
-        table.append("<tr><th width='20%'>Format</th><th width='10%'>Collection</th><th width='20%'>Queue name</th><th width='10%'>Players</th><th width='10%'>Cost</th><th width='20%'>Prizes</th><th width='10%'>Actions</th></tr>");
+        table.append("<tr><th width='10%'>Format</th><th width='10%'>Collection</th><th width='20%'>Queue name</th><th width='10%'>Players</th><th width='10%'>Cost</th><th width='30%'>Prizes</th><th width='10%'>Actions</th></tr>");
         content.append(table);
 
         this.tablesDiv.append(header);
@@ -359,7 +359,7 @@ var GempLotrHallUI = Class.extend({
                                 "<td>" + queue.getAttribute("collection") + "</td>" +
                                 "<td>" + queue.getAttribute("queue") + "</td>" +
                                 "<td>" + queue.getAttribute("playerCount") + "</td>" +
-                                "<td>" + formatPrice(queue.getAttribute("cost")) + "</td>" +
+                                "<td align='right'>" + formatPrice(queue.getAttribute("cost")) + "</td>" +
                                 "<td>" + queue.getAttribute("prizes") + "</td>" +
                                 "</tr>");
 
