@@ -66,6 +66,16 @@ public class SingleEliminationRecurringQueue implements TournamentQueue {
     }
 
     @Override
+    public String getPairingDescription() {
+        return "Single elimination";
+    }
+
+    @Override
+    public String getStartCondition() {
+        return "When "+_playerCap+" players join";
+    }
+
+    @Override
     public boolean isRequiresDeck() {
         return _requiresDeck;
     }

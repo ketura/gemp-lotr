@@ -67,13 +67,13 @@ public class HallServer extends AbstractServer {
         _hallChat = _chatServer.createChatRoom("Game Hall", 10);
 
         _tournamentQueues.put("fotr_queue", new SingleEliminationRecurringQueue(635, "fotr_block",
-                CollectionType.MY_CARDS, "fotrQueue-", "Fellowship Block 8-man single-elimination", 8,
+                CollectionType.MY_CARDS, "fotrQueue-", "Fellowship Block", 8,
                 true, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes("onDemand")));
         _tournamentQueues.put("movie_queue", new SingleEliminationRecurringQueue(635, "movie",
-                CollectionType.MY_CARDS, "movieQueue-", "Movie Block 8-man single-elimination", 8,
+                CollectionType.MY_CARDS, "movieQueue-", "Movie Block", 8,
                 true, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes("onDemand")));
         _tournamentQueues.put("expanded_queue", new SingleEliminationRecurringQueue(635, "expanded",
-                CollectionType.MY_CARDS, "expandedQueue-", "Expanded 8-man single-elimination", 8,
+                CollectionType.MY_CARDS, "expandedQueue-", "Expanded", 8,
                 true, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes("onDemand")));
     }
 
@@ -344,7 +344,7 @@ public class HallServer extends AbstractServer {
                 TournamentQueue tournamentQueue = tournamentQueueEntry.getValue();
                 visitor.visitTournamentQueue(tournamentQueueKey, tournamentQueue.getCost(), tournamentQueue.getCollectionType().getFullName(),
                         _formatLibrary.getFormat(tournamentQueue.getFormat()).getName(), tournamentQueue.getTournamentQueueName(),
-                        tournamentQueue.getPrizesDescription(),
+                        tournamentQueue.getPrizesDescription(), tournamentQueue.getPairingDescription(), tournamentQueue.getStartCondition(),
                         tournamentQueue.getPlayerCount(), tournamentQueue.isPlayerSignedUp(player.getName()));
             }
 

@@ -61,7 +61,7 @@ public class HallCommunicationChannel {
 
                     @Override
                     public void visitTournamentQueue(String tournamentQueueKey, int cost, String collectionName, String formatName, String tournamentQueueName,
-                                                     String tournamentPrizes, int playerCount, boolean playerSignedUp) {
+                                                     String tournamentPrizes, String pairingDescription, String startCondition, int playerCount, boolean playerSignedUp) {
                         Map<String, String> props = new HashMap<String, String>();
                         props.put("cost", String.valueOf(cost));
                         props.put("collection", collectionName);
@@ -69,6 +69,8 @@ public class HallCommunicationChannel {
                         props.put("queue", tournamentQueueName);
                         props.put("playerCount", String.valueOf(playerCount));
                         props.put("prizes", tournamentPrizes);
+                        props.put("system", pairingDescription);
+                        props.put("start", startCondition);
                         props.put("signedUp", String.valueOf(playerSignedUp));
 
                         tournamentsOnServer.put(tournamentQueueKey, props);

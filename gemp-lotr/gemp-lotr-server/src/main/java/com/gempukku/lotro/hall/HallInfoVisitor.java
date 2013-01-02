@@ -13,7 +13,8 @@ public interface HallInfoVisitor {
 
     public void visitTable(String tableId, String gameId, boolean watchable, TableStatus status, String statusDescription, String formatName, String tournamentName, List<String> playerIds, String winner);
 
-    public void visitTournamentQueue(String tournamentQueueKey, int cost, String collectionName, String formatName, String tournamentQueueName, String tournamentPrizes, int playerCount, boolean playerSignedUp);
+    public void visitTournamentQueue(String tournamentQueueKey, int cost, String collectionName, String formatName, String tournamentQueueName, String tournamentPrizes,
+                                     String pairingDescription, String startCondition, int playerCount, boolean playerSignedUp);
 
     public void runningPlayerGame(String gameId);
 }
