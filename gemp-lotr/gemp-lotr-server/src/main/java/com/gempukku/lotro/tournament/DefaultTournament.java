@@ -71,7 +71,6 @@ public class DefaultTournament implements Tournament {
 
         if (_tournamentStage == Stage.PLAYING_GAMES) {
             Map<String, String> matchesToCreate = new HashMap<String, String>();
-            _finishedTournamentMatches = new HashSet<TournamentMatch>();
             for (TournamentMatch tournamentMatch : _tournamentService.getMatches(_tournamentId)) {
                 if (tournamentMatch.isFinished())
                     _finishedTournamentMatches.add(tournamentMatch);
@@ -89,6 +88,8 @@ public class DefaultTournament implements Tournament {
                     _players);
         } else if (_tournamentStage == Stage.DECK_BUILDING) {
             _deckBuildStartTime = System.currentTimeMillis();
+        } else if (_tournamentStage == Stage.FINISHED) {
+            _finishedTournamentMatches.addAll(_tournamentService.getMatches(_tournamentId));
         }
     }
 
