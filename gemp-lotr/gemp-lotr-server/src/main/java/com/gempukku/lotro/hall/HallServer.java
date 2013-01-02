@@ -225,13 +225,35 @@ public class HallServer extends AbstractServer {
         }
     }
 
-    public void leaveQueues(Player player) {
+    public void leaveQueue(String queueId, Player player) {
+        _hallDataAccessLock.writeLock().lock();
+        try {
+            TournamentQueue tournamentQueue = _tournamentQueues.get(queueId);
+            if (tournamentQueue != null && tournamentQueue.isPlayerSignedUp(player.getName()))
+                tournamentQueue.leavePlayer(_collectionsManager, player);
+        } finally {
+            _hallDataAccessLock.writeLock().unlock();
+        }
+    }
+
+    private void leaveQueues(Player player) {
         _hallDataAccessLock.writeLock().lock();
         try {
             for (TournamentQueue tournamentQueue : _tournamentQueues.values()) {
                 if (tournamentQueue.isPlayerSignedUp(player.getName()))
                     tournamentQueue.leavePlayer(_collectionsManager, player);
             }
+        } finally {
+            _hallDataAccessLock.writeLock().unlock();
+        }
+    }
+
+    public void dropFromTournament(String tournamentId, Player player) {
+        _hallDataAccessLock.writeLock().lock();
+        try {
+            Tournament tournament = _runningTournaments.get(tournamentId);
+            if (tournament != null)
+                tournament.dropPlayer(player.getName());
         } finally {
             _hallDataAccessLock.writeLock().unlock();
         }
@@ -346,7 +368,7 @@ public class HallServer extends AbstractServer {
                         tournamentQueue.getPlayerCount(), tournamentQueue.isPlayerSignedUp(player.getName()));
             }
 
-            for (Map.Entry<String, Tournament> tournamentEntry: _runningTournaments.entrySet()){
+            for (Map.Entry<String, Tournament> tournamentEntry : _runningTournaments.entrySet()) {
                 String tournamentKey = tournamentEntry.getKey();
                 Tournament tournament = tournamentEntry.getValue();
                 visitor.visitTournament(tournamentKey, tournament.getCollectionType().getFullName(),
