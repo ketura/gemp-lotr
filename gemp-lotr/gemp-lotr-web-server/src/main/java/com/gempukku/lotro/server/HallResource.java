@@ -139,9 +139,6 @@ public class HallResource extends AbstractResource {
 
         Element hall = doc.createElement("hall");
         hall.setAttribute("currency", String.valueOf(_collectionManager.getPlayerCollection(resourceOwner, "permanent").getCurrency()));
-        String motd = _hallServer.getMOTD();
-        if (motd != null)
-            hall.setAttribute("motd", motd);
 
         _hallServer.processHall(resourceOwner, channelNumber, new SerializeHallInfoVisitor(doc, hall));
 
@@ -167,9 +164,6 @@ public class HallResource extends AbstractResource {
 
         Element hall = doc.createElement("hall");
         hall.setAttribute("currency", String.valueOf(_collectionManager.getPlayerCollection(resourceOwner, "permanent").getCurrency()));
-        String motd = _hallServer.getMOTD();
-        if (motd != null)
-            hall.setAttribute("motd", motd);
 
         _hallServer.signupUserForHall(resourceOwner, new SerializeHallInfoVisitor(doc, hall));
         for (Map.Entry<String, LotroFormat> format : _formatLibrary.getHallFormats().entrySet()) {
@@ -295,6 +289,11 @@ public class HallResource extends AbstractResource {
         @Override
         public void serverTime(String serverTime) {
             _hall.setAttribute("serverTime", serverTime);
+        }
+
+        @Override
+        public void motdChanged(String motd) {
+            _hall.setAttribute("motd", motd);
         }
 
         @Override

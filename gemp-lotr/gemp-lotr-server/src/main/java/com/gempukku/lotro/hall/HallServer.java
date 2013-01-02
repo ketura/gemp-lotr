@@ -97,10 +97,6 @@ public class HallServer extends AbstractServer {
         }
     }
 
-    public String getMOTD() {
-        return _motd;
-    }
-
     public void setMOTD(String motd) {
         _motd = motd;
     }
@@ -304,6 +300,8 @@ public class HallServer extends AbstractServer {
         try {
             visitor.serverTime(DateUtils.getStringDateWithHour());
             visitor.playerBusy(isPlayerBusy(player.getName()));
+            if (_motd != null)
+                visitor.motd(_motd);
 
             // First waiting
             for (Map.Entry<String, AwaitingTable> tableInformation : _awaitingTables.entrySet()) {
