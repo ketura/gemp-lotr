@@ -53,6 +53,6 @@ public class SingleEliminationOnDemandPrizes implements TournamentPrizes{
 
     @Override
     public String getPrizeDescription() {
-        return "<div class='prizeHint' value='3 wins - 2 boosters, 2 wins - 1 booster and a random promo, 1 win - 1 booster'>3-(2+promo)-1-1</div>";
+        return "<div class='prizeHint' value='3 wins - 2 boosters, 2 wins - 1 booster and a random promo, 1 win - 1 booster'>2-(1+promo)-1-1</div>";
     }
 }
