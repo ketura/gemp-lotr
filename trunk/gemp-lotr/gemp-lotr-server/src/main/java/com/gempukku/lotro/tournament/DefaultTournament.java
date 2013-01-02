@@ -308,7 +308,10 @@ public class DefaultTournament implements Tournament {
         _tournamentService.updateTournamentRound(_tournamentId, _tournamentRound);
         Map<String, String> pairingResults = new HashMap<String, String>();
         Set<String> byeResults = new HashSet<String>();
-        boolean finished = _pairingMechanism.pairPlayers(_tournamentRound, _players, _droppedPlayers, _playerByes, getCurrentStandings(), pairingResults, byeResults);
+
+        Map<String, Set<String>> previouslyPaired = getPreviouslyPairedPlayersMap();
+
+        boolean finished = _pairingMechanism.pairPlayers(_tournamentRound, _players, _droppedPlayers, _playerByes, getCurrentStandings(), previouslyPaired, pairingResults, byeResults);
         if (finished) {
             finishTournament(tournamentCallback, collectionsManager);
         } else {
@@ -326,6 +329,18 @@ public class DefaultTournament implements Tournament {
                 addPlayerBye(bye);
             }
         }
+    }
+
+    private Map<String, Set<String>> getPreviouslyPairedPlayersMap() {
+        Map<String, Set<String>> previouslyPaired = new HashMap<String, Set<String>>();
+        for (String player : _players)
+            previouslyPaired.put(player, new HashSet<String>());
+
+        for (TournamentMatch finishedTournamentMatch : _finishedTournamentMatches) {
+            previouslyPaired.get(finishedTournamentMatch.getWinner()).add(finishedTournamentMatch.getLoser());
+            previouslyPaired.get(finishedTournamentMatch.getLoser()).add(finishedTournamentMatch.getWinner());
+        }
+        return previouslyPaired;
     }
 
     private void addPlayerBye(String player) {
