@@ -428,16 +428,7 @@ var GempLotrHallUI = Class.extend({
                     }
 
                     if (status == "PLAYING" && watchable == "true") {
-                        var but = $("<button>Watch game</button>");
-                        $(but).button().click((
-                                function(gameIdToWatch) {
-                                    var participantId = getUrlParam("participantId");
-                                    var participantIdAppend = "";
-                                    if (participantId != null)
-                                        participantIdAppend = "&participantId=" + participantId;
-                                    location.href = "/gemp-lotr/game.html?gameId=" + gameIdToWatch + participantIdAppend;
-                                })(gameId));
-                        lastField.append(but);
+                        lastField.append("<a href='game.html?gameId="+gameId+participantIdAppend+"'>Watch game</a>");
                     }
 
                     if (status == "FINISHED" && winner != null) {
