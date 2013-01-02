@@ -49,8 +49,6 @@ var GempLotrGameUI = Class.extend({
     shadowAssignGroups:null,
     freePeopleAssignGroups:null,
 
-    assignmentStarted:null,
-
     selectionFunction:null,
 
     chatBoxDiv:null,
@@ -1870,22 +1868,13 @@ var GempLotrGameUI = Class.extend({
 
         var that = this;
 
-        this.assignmentStarted = false;
-
         this.alertText.html(text);
         // ****CCG League****: Border around alert box
         this.alertBox.css({"border-radius":"7px", "border-color":"#7faf7f", "border-width":"2px"});
         if (!this.replayMode) {
             this.alertButtons.html("<button id='Done'>Done</button>");
             $("#Done").button().click(function () {
-                if (!that.assignmentStarted && !confirm("Do you want to skip assigning?"))
-                    return;
-
-                that.alertText.html("");
-                // ****CCG League****: Border around alert box
-                that.alertBox.css({"border-radius":"7px", "border-color":"", "border-width":"1px"});
-                that.alertButtons.html("");
-                that.clearSelection();
+                var atLeastOnMinionUnassigned = false;
 
                 var assignmentMap = {};
                 for (var i = 0; i < freeCharacters.length; i++) {
@@ -1896,12 +1885,23 @@ var GempLotrGameUI = Class.extend({
                         var card = $(this).data("card");
                         if (card.assign != null)
                             assignmentMap[card.assign] += " " + card.cardId;
+                        else
+                            atLeastOnMinionUnassigned=true;
                     });
+
+                if (atLeastOnMinionUnassigned && !confirm("At least one minion has not been assigned, do you want to proceed?"))
+                    return;
 
                 var assignmentArray = new Array();
                 for (var i = 0; i < freeCharacters.length; i++) {
                     assignmentArray.push(assignmentMap[freeCharacters[i]]);
                 }
+
+                that.alertText.html("");
+                // ****CCG League****: Border around alert box
+                that.alertBox.css({"border-radius":"7px", "border-color":"", "border-width":"1px"});
+                that.alertButtons.html("");
+                that.clearSelection();
 
                 that.decisionFunction(id, "" + assignmentArray);
             });
@@ -1954,7 +1954,6 @@ var GempLotrGameUI = Class.extend({
     doAssignments:function (freeCharacters, minions) {
         var that = this;
         this.selectionFunction = function (cardId) {
-            that.assignmentStarted = true;
             that.clearSelection();
 
             that.selectionFunction = function (secondCardId) {
