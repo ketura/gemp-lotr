@@ -34,7 +34,7 @@ public class Card12_058 extends AbstractPermanent {
 
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (TriggerConditions.forEachDiscardedFromPlay(game, effectResult, Culture.MEN, CardType.POSSESSION, Zone.DISCARD)) {
+        if (TriggerConditions.forEachDiscardedFromPlay(game, effectResult, Culture.MEN, CardType.POSSESSION)) {
             DiscardCardsFromPlayResult result = (DiscardCardsFromPlayResult) effectResult;
             final PhysicalCard discardedCard = result.getDiscardedCard();
             ActivateCardAction action = new ActivateCardAction(self);
