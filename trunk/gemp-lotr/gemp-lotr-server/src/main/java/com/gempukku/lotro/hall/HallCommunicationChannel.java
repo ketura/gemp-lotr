@@ -2,6 +2,7 @@ package com.gempukku.lotro.hall;
 
 import com.gempukku.lotro.game.Player;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.mutable.MutableObject;
 
 import java.util.HashMap;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.Map;
 public class HallCommunicationChannel {
     private int _channelNumber;
     private long _lastConsumed;
+    private String _lastMotd;
     private Map<String, Map<String, String>> _tournamentQueuePropsOnClient = new HashMap<String, Map<String, String>>();
     private Map<String, Map<String, String>> _tablePropsOnClient = new HashMap<String, Map<String, String>>();
 
@@ -27,6 +29,7 @@ public class HallCommunicationChannel {
 
     public synchronized void processCommunicationChannel(HallServer hallServer, Player player, final HallChannelVisitor hallChannelVisitor) {
         hallChannelVisitor.channelNumber(_channelNumber);
+        final MutableObject newMotd = new MutableObject();
 
         final Map<String, Map<String, String>> tournamentsOnServer = new HashMap<String, Map<String, String>>();
         final Map<String, Map<String, String>> tablesOnServer = new HashMap<String, Map<String, String>>();
@@ -41,6 +44,11 @@ public class HallCommunicationChannel {
                     @Override
                     public void playerBusy(boolean busy) {
                         hallChannelVisitor.playerBusy(busy);
+                    }
+
+                    @Override
+                    public void motd(String motd) {
+                        newMotd.setValue(motd);
                     }
 
                     @Override
@@ -115,6 +123,9 @@ public class HallCommunicationChannel {
         for (Map.Entry<String, Map<String, String>> tableOnServer : tablesOnServer.entrySet())
             if (!_tablePropsOnClient.containsKey(tableOnServer.getKey()))
                 hallChannelVisitor.addTable(tableOnServer.getKey(), tableOnServer.getValue());
+
+        if (newMotd.getValue() != null && !newMotd.equals(_lastMotd))
+            hallChannelVisitor.motdChanged((String) newMotd.getValue());
 
         _tablePropsOnClient = tablesOnServer;
 

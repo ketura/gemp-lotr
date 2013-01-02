@@ -4,6 +4,7 @@ import java.util.Map;
 
 public interface HallChannelVisitor {
     public void channelNumber(int channelNumber);
+    public void motdChanged(String motd);
     
     public void serverTime(String serverTime);
     public void runningPlayerGame(String gameId);
