@@ -416,6 +416,11 @@ var GempLotrHallUI = Class.extend({
                     }
 
                     if (status == "PLAYING" && watchable == "true") {
+                        var participantId = getUrlParam("participantId");
+                        var participantIdAppend = "";
+                        if (participantId != null)
+                            participantIdAppend = "&participantId=" + participantId;
+
                         lastField.append("<a href='game.html?gameId="+gameId+participantIdAppend+"'>Watch game</a>");
                     }
 
