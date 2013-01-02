@@ -525,10 +525,21 @@ var GempLotrCommunication = Class.extend({
             dataType:"xml"
         });
     },
-    leaveQueue:function (errorMap) {
+    leaveQueue:function (queueId, errorMap) {
         $.ajax({
             type:"POST",
-            url:this.url + "/hall/queue/leave",
+            url:this.url + "/hall/queue/"+queueId+"/leave",
+            cache:false,
+            data:{
+                participantId:getUrlParam("participantId")},
+            error:this.errorCheck(errorMap),
+            dataType:"xml"
+        });
+    },
+    dropFromTournament:function(tournamentId, callback, errorMap) {
+        $.ajax({
+            type:"POST",
+            url:this.url + "/hall/tournament/"+tournamentId+"/leave",
             cache:false,
             data:{
                 participantId:getUrlParam("participantId")},

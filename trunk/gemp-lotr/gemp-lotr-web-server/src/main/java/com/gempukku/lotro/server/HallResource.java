@@ -207,14 +207,27 @@ public class HallResource extends AbstractResource {
         }
     }
 
-    @Path("/queue/leave")
+    @Path("/queue/{queueId}/leave")
     @POST
     public void leaveQueue(
+            @PathParam("queueId") String queueId,
             @FormParam("participantId") String participantId,
             @Context HttpServletRequest request) throws ParserConfigurationException {
         Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
-        _hallServer.leaveQueues(resourceOwner);
+        _hallServer.leaveQueue(queueId, resourceOwner);
+    }
+
+    @Path("/tournament/{tournamentId}/leave")
+    @POST
+    public Document dropFromTournament(
+            @PathParam("tournamentId") String tournamentId,
+            @FormParam("participantId") String participantId,
+            @Context HttpServletRequest request) throws ParserConfigurationException {
+        Player resourceOwner = getResourceOwnerSafely(request, participantId);
+
+        _hallServer.dropFromTournament(tournamentId, resourceOwner);
+        return null;
     }
 
     @Path("/{table}")

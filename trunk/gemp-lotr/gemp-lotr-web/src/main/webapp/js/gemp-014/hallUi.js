@@ -372,11 +372,9 @@ var GempLotrHallUI = Class.extend({
                         $(but).button().click((
                             function(queueId) {
                                 return function() {
-                                    var deck = that.decksSelect.val();
-                                    if (deck != null)
-                                        that.comm.leaveQueue(id, deck, function (xml) {
-                                            that.processResponse(xml);
-                                        });
+                                    that.comm.leaveQueue(queueId, function (xml) {
+                                        that.processResponse(xml);
+                                    });
                                 }
                             })(id));
                         actionsField.append(but);
@@ -419,9 +417,9 @@ var GempLotrHallUI = Class.extend({
                         $(but).button().click((
                             function(tournamentId) {
                                 return function () {
-                                        that.comm.dropFromTournament(tournamentId, function (xml) {
-                                            that.processResponse(xml);
-                                        });
+                                    that.comm.dropFromTournament(tournamentId, function (xml) {
+                                        that.processResponse(xml);
+                                    });
                                 };
                             }
                             )(id));
@@ -559,11 +557,11 @@ var GempLotrHallUI = Class.extend({
                 }
             }
 
-            $(".count", $(".eventHeader.queues")).html("("+($("tr", $("table.queues")).length-1)+")");
-            $(".count", $(".eventHeader.tournaments")).html("("+($("tr", $("table.tournaments")).length-1)+")");
-            $(".count", $(".eventHeader.waitingTables")).html("("+($("tr", $("table.waitingTables")).length-1)+")");
-            $(".count", $(".eventHeader.playingTables")).html("("+($("tr", $("table.playingTables")).length-1)+")");
-            $(".count", $(".eventHeader.finishedTables")).html("("+($("tr", $("table.finishedTables")).length-1)+")");
+            $(".count", $(".eventHeader.queues")).html("(" + ($("tr", $("table.queues")).length - 1) + ")");
+            $(".count", $(".eventHeader.tournaments")).html("(" + ($("tr", $("table.tournaments")).length - 1) + ")");
+            $(".count", $(".eventHeader.waitingTables")).html("(" + ($("tr", $("table.waitingTables")).length - 1) + ")");
+            $(".count", $(".eventHeader.playingTables")).html("(" + ($("tr", $("table.playingTables")).length - 1) + ")");
+            $(".count", $(".eventHeader.finishedTables")).html("(" + ($("tr", $("table.finishedTables")).length - 1) + ")");
 
             var skipReload = false;
             var games = root.getElementsByTagName("game");
