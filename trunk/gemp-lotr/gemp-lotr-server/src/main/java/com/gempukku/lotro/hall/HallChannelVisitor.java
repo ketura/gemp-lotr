@@ -14,6 +14,10 @@ public interface HallChannelVisitor {
     public void updateTournamentQueue(String queueId, Map<String, String> props);
     public void removeTournamentQueue(String queueId);
 
+    public void addTournament(String tournamentId, Map<String, String> props);
+    public void updateTournament(String tournamentId, Map<String, String> props);
+    public void removeTournament(String tournamentId);
+
     public void addTable(String tableId, Map<String, String> props);
     public void updateTable(String tableId, Map<String, String> props);
     public void removeTable(String tableId);

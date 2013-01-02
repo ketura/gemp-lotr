@@ -99,6 +99,16 @@ public class DefaultTournament implements Tournament {
     }
 
     @Override
+    public String getPlayOffSystem() {
+        return _pairingMechanism.getPlayOffSystem();
+    }
+
+    @Override
+    public int getPlayersInCompetitionCount() {
+        return _players.size() - _droppedPlayers.size();
+    }
+
+    @Override
     public String getTournamentId() {
         return _tournamentId;
     }

@@ -14,6 +14,7 @@ public class HallCommunicationChannel {
     private long _lastConsumed;
     private String _lastMotd;
     private Map<String, Map<String, String>> _tournamentQueuePropsOnClient = new LinkedHashMap<String, Map<String, String>>();
+    private Map<String, Map<String, String>> _tournamentPropsOnClient = new LinkedHashMap<String, Map<String, String>>();
     private Map<String, Map<String, String>> _tablePropsOnClient = new LinkedHashMap<String, Map<String, String>>();
 
     public HallCommunicationChannel(int channelNumber) {
@@ -32,8 +33,9 @@ public class HallCommunicationChannel {
         hallChannelVisitor.channelNumber(_channelNumber);
         final MutableObject newMotd = new MutableObject();
 
-        final Map<String, Map<String, String>> tournamentsOnServer = new LinkedHashMap<String, Map<String, String>>();
+        final Map<String, Map<String, String>> tournamentQueuesOnServer = new LinkedHashMap<String, Map<String, String>>();
         final Map<String, Map<String, String>> tablesOnServer = new LinkedHashMap<String, Map<String, String>>();
+        final Map<String, Map<String, String>> tournamentsOnServer = new LinkedHashMap<String, Map<String, String>>();
 
         hallServer.processHall(player,
                 new HallInfoVisitor() {
@@ -82,7 +84,23 @@ public class HallCommunicationChannel {
                         props.put("start", startCondition);
                         props.put("signedUp", String.valueOf(playerSignedUp));
 
-                        tournamentsOnServer.put(tournamentQueueKey, props);
+                        tournamentQueuesOnServer.put(tournamentQueueKey, props);
+                    }
+
+                    @Override
+                    public void visitTournament(String tournamentKey, String collectionName, String formatName, String tournamentName, String pairingDescription,
+                                                String tournamentStage, int round, int playerCount, boolean playerInCompetition) {
+                        Map<String, String> props = new HashMap<String, String>();
+                        props.put("collection", collectionName);
+                        props.put("format", formatName);
+                        props.put("name", tournamentName);
+                        props.put("system", pairingDescription);
+                        props.put("stage", tournamentStage);
+                        props.put("round", String.valueOf(round));
+                        props.put("playerCount", String.valueOf(playerCount));
+                        props.put("signedUp", String.valueOf(playerInCompetition));
+
+                        tournamentsOnServer.put(tournamentKey, props);
                     }
 
                     @Override
@@ -91,24 +109,22 @@ public class HallCommunicationChannel {
                     }
                 });
 
-        for (Map.Entry<String, Map<String, String>> tournamentQueueOnClient : _tournamentQueuePropsOnClient.entrySet()) {
-            String tournamentQueueId = tournamentQueueOnClient.getKey();
-            Map<String, String> tournamentProps = tournamentQueueOnClient.getValue();
-            Map<String, String> tournamentLatestProps = tournamentsOnServer.get(tournamentQueueId);
-            if (tournamentLatestProps != null) {
-                if (!tournamentProps.equals(tournamentLatestProps))
-                    hallChannelVisitor.updateTournamentQueue(tournamentQueueId, tournamentLatestProps);
-            } else {
-                hallChannelVisitor.removeTournamentQueue(tournamentQueueId);
-            }
-        }
+        notifyAboutTournamentQueues(hallChannelVisitor, tournamentQueuesOnServer);
+        _tournamentQueuePropsOnClient = tournamentQueuesOnServer;
 
-        for (Map.Entry<String, Map<String, String>> tournamentQueueOnServer : tournamentsOnServer.entrySet())
-            if (!_tournamentQueuePropsOnClient.containsKey(tournamentQueueOnServer.getKey()))
-                hallChannelVisitor.addTournamentQueue(tournamentQueueOnServer.getKey(), tournamentQueueOnServer.getValue());
+        notifyAboutTournaments(hallChannelVisitor, tournamentsOnServer);
+        _tournamentPropsOnClient = tournamentsOnServer;
 
-        _tournamentQueuePropsOnClient = tournamentsOnServer;
+        notifyAboutTables(hallChannelVisitor, tablesOnServer);
+        _tablePropsOnClient = tablesOnServer;
 
+        if (newMotd.getValue() != null && !newMotd.equals(_lastMotd))
+            hallChannelVisitor.motdChanged((String) newMotd.getValue());
+
+        _lastConsumed = System.currentTimeMillis();
+    }
+
+    private void notifyAboutTables(HallChannelVisitor hallChannelVisitor, Map<String, Map<String, String>> tablesOnServer) {
         for (Map.Entry<String, Map<String, String>> tableOnClient : _tablePropsOnClient.entrySet()) {
             String tableId = tableOnClient.getKey();
             Map<String, String> tableProps = tableOnClient.getValue();
@@ -124,12 +140,41 @@ public class HallCommunicationChannel {
         for (Map.Entry<String, Map<String, String>> tableOnServer : tablesOnServer.entrySet())
             if (!_tablePropsOnClient.containsKey(tableOnServer.getKey()))
                 hallChannelVisitor.addTable(tableOnServer.getKey(), tableOnServer.getValue());
+    }
 
-        if (newMotd.getValue() != null && !newMotd.equals(_lastMotd))
-            hallChannelVisitor.motdChanged((String) newMotd.getValue());
+    private void notifyAboutTournamentQueues(HallChannelVisitor hallChannelVisitor, Map<String, Map<String, String>> tournamentQueuesOnServer) {
+        for (Map.Entry<String, Map<String, String>> tournamentQueueOnClient : _tournamentQueuePropsOnClient.entrySet()) {
+            String tournamentQueueId = tournamentQueueOnClient.getKey();
+            Map<String, String> tournamentProps = tournamentQueueOnClient.getValue();
+            Map<String, String> tournamentLatestProps = tournamentQueuesOnServer.get(tournamentQueueId);
+            if (tournamentLatestProps != null) {
+                if (!tournamentProps.equals(tournamentLatestProps))
+                    hallChannelVisitor.updateTournamentQueue(tournamentQueueId, tournamentLatestProps);
+            } else {
+                hallChannelVisitor.removeTournamentQueue(tournamentQueueId);
+            }
+        }
 
-        _tablePropsOnClient = tablesOnServer;
+        for (Map.Entry<String, Map<String, String>> tournamentQueueOnServer : tournamentQueuesOnServer.entrySet())
+            if (!_tournamentQueuePropsOnClient.containsKey(tournamentQueueOnServer.getKey()))
+                hallChannelVisitor.addTournamentQueue(tournamentQueueOnServer.getKey(), tournamentQueueOnServer.getValue());
+    }
 
-        _lastConsumed = System.currentTimeMillis();
+    private void notifyAboutTournaments(HallChannelVisitor hallChannelVisitor, Map<String, Map<String, String>> tournamentsOnServer) {
+        for (Map.Entry<String, Map<String, String>> tournamentOnClient : _tournamentPropsOnClient.entrySet()) {
+            String tournamentId = tournamentOnClient.getKey();
+            Map<String, String> tournamentProps = tournamentOnClient.getValue();
+            Map<String, String> tournamentLatestProps = tournamentsOnServer.get(tournamentId);
+            if (tournamentLatestProps != null) {
+                if (!tournamentProps.equals(tournamentLatestProps))
+                    hallChannelVisitor.updateTournament(tournamentId, tournamentLatestProps);
+            } else {
+                hallChannelVisitor.removeTournament(tournamentId);
+            }
+        }
+
+        for (Map.Entry<String, Map<String, String>> tournamentQueueOnServer : tournamentsOnServer.entrySet())
+            if (!_tournamentPropsOnClient.containsKey(tournamentQueueOnServer.getKey()))
+                hallChannelVisitor.addTournament(tournamentQueueOnServer.getKey(), tournamentQueueOnServer.getValue());
     }
 }

@@ -41,6 +41,7 @@ var GempLotrHallUI = Class.extend({
         this.tablesDiv.css({overflow:"auto", left:"0px", top:"0px", width:width + "px", height:(height - 30) + "px"});
 
         this.addQueuesTable();
+        this.addTournamentsTable();
         this.addWaitingTablesTable();
         this.addPlayingTablesTable();
         this.addFinishedTablesTable();
@@ -129,6 +130,38 @@ var GempLotrHallUI = Class.extend({
 
         var table = $("<table class='tables queues'></table>");
         table.append("<tr><th width='10%'>Format</th><th width='8%'>Collection</th><th width='12%'>Queue name</th><th width='16%'>Starts</th><th width='10%'>System</th><th width='6%'>Players</th><th width='8%'>Cost</th><th width='20%'>Prizes</th><th width='10%'>Actions</th></tr>");
+        content.append(table);
+
+        this.tablesDiv.append(header);
+        this.tablesDiv.append(content);
+    },
+
+    addTournamentsTable: function() {
+        var header = $("<div class='eventHeader tournaments'></div>");
+
+        var content = $("<div></div>");
+
+        var toggleContent = $("<div>Toggle tournaments</div>").button({
+            icons: {
+                primary: "ui-icon-circlesmall-minus"
+            },
+            text: false
+        });
+        toggleContent.css({width: "13px", height: "15px"});
+        toggleContent.click(
+            function() {
+                if (toggleContent.button("option", "icons")["primary"] == "ui-icon-circlesmall-minus")
+                    toggleContent.button("option", "icons", {primary: "ui-icon-circlesmall-plus"});
+                else
+                    toggleContent.button("option", "icons", {primary: "ui-icon-circlesmall-minus"});
+                content.toggle("blind", {}, 200);
+            });
+        header.append(toggleContent);
+        header.append(" Tournaments");
+        header.append(" <span class='count'>(0)</span>");
+
+        var table = $("<table class='tables tournaments'></table>");
+        table.append("<tr><th width='10%'>Format</th><th width='10%'>Collection</th><th width='25%'>Tournament name</th><th width='15%'>System</th><th width='10%'>Stage</th><th width='10%'>Round</th><th width='10%'>Players</th><th width='10%'>Actions</th></tr>");
         content.append(table);
 
         this.tablesDiv.append(header);
@@ -372,6 +405,51 @@ var GempLotrHallUI = Class.extend({
                 }
             }
 
+            var tournaments = root.getElementsByTagName("tournament");
+            for (var i = 0; i < tournaments.length; i++) {
+                var tournament = tournaments[i];
+                var id = tournament.getAttribute("id");
+                var action = tournament.getAttribute("action");
+                if (action == "add" || action == "update") {
+                    var actionsField = $("<td></td>");
+
+                    var joined = tournament.getAttribute("signedUp");
+                    if (joined == "true") {
+                        var but = $("<button>Drop from tournament</button>");
+                        $(but).button().click((
+                            function(tournamentId) {
+                                return function () {
+                                        that.comm.dropFromTournament(tournamentId, function (xml) {
+                                            that.processResponse(xml);
+                                        });
+                                };
+                            }
+                            )(id));
+                        actionsField.append(but);
+                    }
+
+                    var row = $("<tr class='tournament" + id + "'><td>" + tournament.getAttribute("format") + "</td>" +
+                        "<td>" + tournament.getAttribute("collection") + "</td>" +
+                        "<td>" + tournament.getAttribute("name") + "</td>" +
+                        "<td>" + tournament.getAttribute("system") + "</td>" +
+                        "<td>" + tournament.getAttribute("stage") + "</td>" +
+                        "<td>" + tournament.getAttribute("round") + "</td>" +
+                        "<td>" + tournament.getAttribute("playerCount") + "</td>" +
+                        "</tr>");
+
+                    row.append(actionsField);
+
+                    if (action == "add") {
+                        $("table.tournaments", this.tablesDiv)
+                            .append(row);
+                    } else if (action == "update") {
+                        $(".tournament" + id, this.tablesDiv).replaceWith(row);
+                    }
+                } else if (action == "remove") {
+                    $(".tournament" + id, this.tablesDiv).remove();
+                }
+            }
+
             var tables = root.getElementsByTagName("table");
             for (var i = 0; i < tables.length; i++) {
                 var table = tables[i];
@@ -482,6 +560,7 @@ var GempLotrHallUI = Class.extend({
             }
 
             $(".count", $(".eventHeader.queues")).html("("+($("tr", $("table.queues")).length-1)+")");
+            $(".count", $(".eventHeader.tournaments")).html("("+($("tr", $("table.tournaments")).length-1)+")");
             $(".count", $(".eventHeader.waitingTables")).html("("+($("tr", $("table.waitingTables")).length-1)+")");
             $(".count", $(".eventHeader.playingTables")).html("("+($("tr", $("table.playingTables")).length-1)+")");
             $(".count", $(".eventHeader.finishedTables")).html("("+($("tr", $("table.finishedTables")).length-1)+")");

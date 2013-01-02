@@ -11,6 +11,11 @@ public class SingleEliminationPairing implements PairingMechanism {
     }
 
     @Override
+    public String getPlayOffSystem() {
+        return "Single elimination";
+    }
+
+    @Override
     public boolean pairPlayers(int round, Set<String> players, Set<String> droppedPlayers, Map<String, Integer> playerByes, List<PlayerStanding> currentStandings, Map<String, String> pairingResults, Set<String> byeResults) {
         if (isFinished(round, players, droppedPlayers))
             return true;

@@ -346,6 +346,15 @@ public class HallServer extends AbstractServer {
                         tournamentQueue.getPlayerCount(), tournamentQueue.isPlayerSignedUp(player.getName()));
             }
 
+            for (Map.Entry<String, Tournament> tournamentEntry: _runningTournaments.entrySet()){
+                String tournamentKey = tournamentEntry.getKey();
+                Tournament tournament = tournamentEntry.getValue();
+                visitor.visitTournament(tournamentKey, tournament.getCollectionType().getFullName(),
+                        _formatLibrary.getFormat(tournament.getFormat()).getName(), tournament.getTournamentName(), tournament.getPlayOffSystem(),
+                        tournament.getTournamentStage().getHumanReadable(),
+                        tournament.getCurrentRound(), tournament.getPlayersInCompetitionCount(), tournament.isPlayerInCompetition(player.getName()));
+            }
+
             String gameId = getPlayingPlayerGameId(player.getName());
             if (gameId != null)
                 visitor.runningPlayerGame(gameId);

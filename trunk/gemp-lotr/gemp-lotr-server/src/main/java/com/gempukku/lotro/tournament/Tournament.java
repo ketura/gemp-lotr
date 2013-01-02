@@ -28,9 +28,11 @@ public interface Tournament {
     public String getFormat();
     public CollectionType getCollectionType();
     public String getTournamentName();
+    public String getPlayOffSystem();
 
     public Stage getTournamentStage();
     public int getCurrentRound();
+    public int getPlayersInCompetitionCount();
 
     public void advanceTournament(TournamentCallback tournamentCallback, CollectionsManager collectionsManager);
 
