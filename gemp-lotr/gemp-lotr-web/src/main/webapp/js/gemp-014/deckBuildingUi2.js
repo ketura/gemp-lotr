@@ -164,12 +164,12 @@ var GempLotrDeckBuildingUI2 = Class.extend({
                     // If card in collection
                     if (event.shiftKey) {
                         this.cardInformationDialog.showCardInfo(cardProps["blueprintId"]);
-                    } else if (tar.hasClass("cardInCollection")) {
+                    } else if (cardProps["inCollection"] == "true") {
                         // add card to deck
                         this.addCardToDeck(cardProps["type"], cardProps["group"],
                                 cardProps["blueprintId"], cardProps["image"]);
                         this.updateCardCount(cardElem, cardProps);
-                    } else if (tar.hasClass("cardInDeck")) {
+                    } else if (cardProps["inDeck"] == "true") {
                         // remove card from deck
                         this.deckPanel.removeCardAndUpdate(cardElem, cardElem.data("id"), cardProps);
                         this.updateCardCounts();
@@ -212,6 +212,7 @@ var GempLotrDeckBuildingUI2 = Class.extend({
         cardProps["blueprintId"] = blueprintId;
         cardProps["image"] = image;
         cardProps["hor"] = horizontal;
+        cardProps["inDeck"] = "true";
         this.deckPanel.addCardAndUpdate(this.createDeckCardElem(cardProps), "" + (this.cardInDeckId++), cardProps);
     },
 
@@ -233,6 +234,7 @@ var GempLotrDeckBuildingUI2 = Class.extend({
         }
         props["image"] = card.imageUrl;
         props["group"] = group;
+        props["inCollection"] = "true";
 
         this.collectionContainer.addCard(this.createCollectionCardElem(props), "" + (this.cardInCollectionId++), props);
     },
@@ -251,7 +253,7 @@ var GempLotrDeckBuildingUI2 = Class.extend({
     },
 
     createCollectionCardElem: function(props) {
-        var cardDiv = $("<div class='cardInCollection'></div>");
+        var cardDiv = $("<div></div>");
         this.appendCardElemDetails(cardDiv, props);
         cardDiv.append("<div class='count'></div>");
         cardDiv.append("<div class='click'><img class='clickArea' src='images/pixel.png' width='100%' height='100%'></div>");
@@ -259,7 +261,7 @@ var GempLotrDeckBuildingUI2 = Class.extend({
     },
 
     createDeckCardElem: function(props) {
-        var cardDiv = $("<div class='cardInDeck'></div>");
+        var cardDiv = $("<div></div>");
         this.appendCardElemDetails(cardDiv, props);
         cardDiv.append("<div class='count'></div>");
         cardDiv.append("<div class='click'><img class='clickArea' src='images/pixel.png' width='100%' height='100%'></div>");
