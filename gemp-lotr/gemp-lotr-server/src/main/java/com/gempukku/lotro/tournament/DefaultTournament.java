@@ -37,7 +37,7 @@ public class DefaultTournament implements Tournament {
     private Map<String, Integer> _playerByes;
 
     private Set<String> _currentlyPlayingPlayers;
-    private Set<TournamentMatch> _finishedTournamentMatches = new HashSet<TournamentMatch>();
+    private Set<TournamentMatch> _finishedTournamentMatches;
 
     private TournamentService _tournamentService;
 
@@ -68,6 +68,7 @@ public class DefaultTournament implements Tournament {
         _playerDecks = new HashMap<String, LotroDeck>(_tournamentService.getPlayerDecks(_tournamentId));
         _droppedPlayers = new HashSet<String>(_tournamentService.getDroppedPlayers(_tournamentId));
         _playerByes = new HashMap<String, Integer>(_tournamentService.getPlayerByes(_tournamentId));
+        _finishedTournamentMatches = new HashSet<TournamentMatch>();
 
         if (_tournamentStage == Stage.PLAYING_GAMES) {
             Map<String, String> matchesToCreate = new HashMap<String, String>();
