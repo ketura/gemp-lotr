@@ -67,17 +67,17 @@ var GempLotrHallUI = Class.extend({
 
         this.createTableButton = $("<button>Create table</button>");
         $(this.createTableButton).button().click(
-                function () {
-                    that.supportedFormatsSelect.hide();
-                    that.decksSelect.hide();
-                    that.createTableButton.hide();
-                    var format = that.supportedFormatsSelect.val();
-                    var deck = that.decksSelect.val();
-                    if (deck != null)
-                        that.comm.createTable(format, deck, function (xml) {
-                            that.processResponse(xml);
-                        });
-                });
+            function () {
+                that.supportedFormatsSelect.hide();
+                that.decksSelect.hide();
+                that.createTableButton.hide();
+                var format = that.supportedFormatsSelect.val();
+                var deck = that.decksSelect.val();
+                if (deck != null)
+                    that.comm.createTable(format, deck, function (xml) {
+                        that.processResponse(xml);
+                    });
+            });
         this.createTableButton.hide();
 
         this.decksSelect = $("<select style='width: 220px'></select>");
@@ -89,10 +89,10 @@ var GempLotrHallUI = Class.extend({
 
         this.leaveTableButton = $("<button>Leave table</button>");
         $(this.leaveTableButton).button().click(
-                function () {
-                    that.leaveTableButton.hide();
-                    that.comm.leaveTable();
-                });
+            function () {
+                that.leaveTableButton.hide();
+                that.comm.leaveTable();
+            });
         this.leaveTableButton.hide();
 
         this.buttonsDiv.append(this.leaveTableButton);
@@ -116,13 +116,13 @@ var GempLotrHallUI = Class.extend({
         });
         toggleContent.css({width: "13px", height: "15px"});
         toggleContent.click(
-                function() {
-                    if (toggleContent.button("option", "icons")["primary"] == "ui-icon-circlesmall-minus")
-                        toggleContent.button("option", "icons", {primary: "ui-icon-circlesmall-plus"});
-                    else
-                        toggleContent.button("option", "icons", {primary: "ui-icon-circlesmall-minus"});
-                    content.toggle("blind", {}, 200);
-                });
+            function() {
+                if (toggleContent.button("option", "icons")["primary"] == "ui-icon-circlesmall-minus")
+                    toggleContent.button("option", "icons", {primary: "ui-icon-circlesmall-plus"});
+                else
+                    toggleContent.button("option", "icons", {primary: "ui-icon-circlesmall-minus"});
+                content.toggle("blind", {}, 200);
+            });
         header.append(toggleContent);
         header.append(" Tournament queues");
 
@@ -147,13 +147,13 @@ var GempLotrHallUI = Class.extend({
         });
         toggleContent.css({width: "13px", height: "15px"});
         toggleContent.click(
-                function() {
-                    if (toggleContent.button("option", "icons")["primary"] == "ui-icon-circlesmall-minus")
-                        toggleContent.button("option", "icons", {primary: "ui-icon-circlesmall-plus"});
-                    else
-                        toggleContent.button("option", "icons", {primary: "ui-icon-circlesmall-minus"});
-                    content.toggle("blind", {}, 200);
-                });
+            function() {
+                if (toggleContent.button("option", "icons")["primary"] == "ui-icon-circlesmall-minus")
+                    toggleContent.button("option", "icons", {primary: "ui-icon-circlesmall-plus"});
+                else
+                    toggleContent.button("option", "icons", {primary: "ui-icon-circlesmall-minus"});
+                content.toggle("blind", {}, 200);
+            });
         header.append(toggleContent);
         header.append(" Waiting tables");
 
@@ -178,13 +178,13 @@ var GempLotrHallUI = Class.extend({
         });
         toggleContent.css({width: "13px", height: "15px"});
         toggleContent.click(
-                function() {
-                    if (toggleContent.button("option", "icons")["primary"] == "ui-icon-circlesmall-minus")
-                        toggleContent.button("option", "icons", {primary: "ui-icon-circlesmall-plus"});
-                    else
-                        toggleContent.button("option", "icons", {primary: "ui-icon-circlesmall-minus"});
-                    content.toggle("blind", {}, 200);
-                });
+            function() {
+                if (toggleContent.button("option", "icons")["primary"] == "ui-icon-circlesmall-minus")
+                    toggleContent.button("option", "icons", {primary: "ui-icon-circlesmall-plus"});
+                else
+                    toggleContent.button("option", "icons", {primary: "ui-icon-circlesmall-minus"});
+                content.toggle("blind", {}, 200);
+            });
         header.append(toggleContent);
         header.append(" Playing tables");
 
@@ -209,13 +209,13 @@ var GempLotrHallUI = Class.extend({
         });
         toggleContent.css({width: "13px", height: "15px"});
         toggleContent.click(
-                function() {
-                    if (toggleContent.button("option", "icons")["primary"] == "ui-icon-circlesmall-minus")
-                        toggleContent.button("option", "icons", {primary: "ui-icon-circlesmall-plus"});
-                    else
-                        toggleContent.button("option", "icons", {primary: "ui-icon-circlesmall-minus"});
-                    content.toggle("blind", {}, 200);
-                });
+            function() {
+                if (toggleContent.button("option", "icons")["primary"] == "ui-icon-circlesmall-minus")
+                    toggleContent.button("option", "icons", {primary: "ui-icon-circlesmall-plus"});
+                else
+                    toggleContent.button("option", "icons", {primary: "ui-icon-circlesmall-minus"});
+                content.toggle("blind", {}, 200);
+            });
         header.append(toggleContent);
         header.append(" Finished tables");
 
@@ -244,17 +244,17 @@ var GempLotrHallUI = Class.extend({
         var that = this;
 
         this.comm.updateHall(
-                function (xml) {
-                    that.processHall(xml);
-                }, this.hallChannelId,
-        {
-            "409":function() {
-                that.chat.appendMessage("You have accessed Game Hall in another browser, press F5 (refresh) to regain access in this window");
-            },
-            "410":function() {
-                that.chat.appendMessage("You have been inactive for too long, press F5 (refresh) to enter Game Hall again");
-            }
-        });
+            function (xml) {
+                that.processHall(xml);
+            }, this.hallChannelId,
+            {
+                "409":function() {
+                    that.chat.appendMessage("You have accessed Game Hall in another browser, press F5 (refresh) to regain access in this window");
+                },
+                "410":function() {
+                    that.chat.appendMessage("You have been inactive for too long, press F5 (refresh) to enter Game Hall again");
+                }
+            });
     },
 
     updateDecks:function () {
@@ -319,45 +319,45 @@ var GempLotrHallUI = Class.extend({
                     if (joined != "true") {
                         var but = $("<button>Join queue</button>");
                         $(but).button().click((
-                                function(queueId) {
-                                    return function () {
-                                        var deck = that.decksSelect.val();
-                                        if (deck != null)
-                                            that.comm.joinQueue(queueId, deck, function (xml) {
-                                                that.processResponse(xml);
-                                            });
-                                    };
-                                }
-                                )(id));
+                            function(queueId) {
+                                return function () {
+                                    var deck = that.decksSelect.val();
+                                    if (deck != null)
+                                        that.comm.joinQueue(queueId, deck, function (xml) {
+                                            that.processResponse(xml);
+                                        });
+                                };
+                            }
+                            )(id));
                         actionsField.append(but);
                     } else {
                         var but = $("<button>Leave queue</button>");
                         $(but).button().click((
-                                function(queueId) {
-                                    var deck = that.decksSelect.val();
-                                    if (deck != null)
-                                        that.comm.leaveQueue(id, deck, function (xml) {
-                                            that.processResponse(xml);
-                                        });
-                                })(id));
+                            function(queueId) {
+                                var deck = that.decksSelect.val();
+                                if (deck != null)
+                                    that.comm.leaveQueue(id, deck, function (xml) {
+                                        that.processResponse(xml);
+                                    });
+                            })(id));
                         actionsField.append(but);
                     }
 
                     var row = $("<tr class='queue" + id + "'><td>" + queue.getAttribute("format") + "</td>" +
-                                "<td>" + queue.getAttribute("collection") + "</td>" +
-                                "<td>" + queue.getAttribute("queue") + "</td>" +
-                                "<td>" + queue.getAttribute("start") + "</td>" +
-                                "<td>" + queue.getAttribute("system") + "</td>" +
-                                "<td>" + queue.getAttribute("playerCount") + "</td>" +
-                                "<td align='right'>" + formatPrice(queue.getAttribute("cost")) + "</td>" +
-                                "<td>" + queue.getAttribute("prizes") + "</td>" +
-                                "</tr>");
+                        "<td>" + queue.getAttribute("collection") + "</td>" +
+                        "<td>" + queue.getAttribute("queue") + "</td>" +
+                        "<td>" + queue.getAttribute("start") + "</td>" +
+                        "<td>" + queue.getAttribute("system") + "</td>" +
+                        "<td>" + queue.getAttribute("playerCount") + "</td>" +
+                        "<td align='right'>" + formatPrice(queue.getAttribute("cost")) + "</td>" +
+                        "<td>" + queue.getAttribute("prizes") + "</td>" +
+                        "</tr>");
 
                     row.append(actionsField);
 
                     if (action == "add") {
                         $("table.queues", this.tablesDiv)
-                                .append(row);
+                            .append(row);
                     } else if (action == "update") {
                         $(".queue" + id, this.tablesDiv).replaceWith(row);
                     }
@@ -405,13 +405,15 @@ var GempLotrHallUI = Class.extend({
 
                         var but = $("<button>Join table</button>");
                         $(but).button().click((
-                                function(tableId) {
+                            function(tableId) {
+                                return function() {
                                     var deck = that.decksSelect.val();
                                     if (deck != null)
                                         that.comm.joinTable(tableId, deck, function (xml) {
                                             that.processResponse(xml);
                                         });
-                                })(id));
+                                };
+                            })(id));
                         lastField.append(but);
                     }
 
@@ -421,7 +423,7 @@ var GempLotrHallUI = Class.extend({
                         if (participantId != null)
                             participantIdAppend = "&participantId=" + participantId;
 
-                        lastField.append("<a href='game.html?gameId="+gameId+participantIdAppend+"'>Watch game</a>");
+                        lastField.append("<a href='game.html?gameId=" + gameId + participantIdAppend + "'>Watch game</a>");
                     }
 
                     if (status == "FINISHED" && winner != null) {
@@ -433,38 +435,38 @@ var GempLotrHallUI = Class.extend({
                     if (action == "add") {
                         if (status == "WAITING") {
                             $("table.waitingTables", this.tablesDiv)
-                                    .append(row);
+                                .append(row);
                         } else if (status == "PLAYING") {
                             $("table.playingTables", this.tablesDiv)
-                                    .append(row);
+                                .append(row);
                         } else if (status == "FINISHED") {
                             $("table.finishedTables", this.tablesDiv)
-                                    .append(row);
+                                .append(row);
                         }
                     } else if (action == "update") {
                         if (status == "WAITING") {
-                            if ($(".table"+id, $("table.waitingTables")).length > 0) {
+                            if ($(".table" + id, $("table.waitingTables")).length > 0) {
                                 $(".table" + id, this.tablesDiv).replaceWith(row);
                             } else {
                                 $(".table" + id, this.tablesDiv).remove();
                                 $("table.waitingTables", this.tablesDiv)
-                                        .append(row);
+                                    .append(row);
                             }
                         } else if (status == "PLAYING") {
-                            if ($(".table"+id, $("table.playingTables")).length > 0) {
+                            if ($(".table" + id, $("table.playingTables")).length > 0) {
                                 $(".table" + id, this.tablesDiv).replaceWith(row);
                             } else {
                                 $(".table" + id, this.tablesDiv).remove();
                                 $("table.playingTables", this.tablesDiv)
-                                        .append(row);
+                                    .append(row);
                             }
                         } else if (status == "FINISHED") {
-                            if ($(".table"+id, $("table.finishedTables")).length > 0) {
+                            if ($(".table" + id, $("table.finishedTables")).length > 0) {
                                 $(".table" + id, this.tablesDiv).replaceWith(row);
                             } else {
                                 $(".table" + id, this.tablesDiv).remove();
                                 $("table.finishedTables", this.tablesDiv)
-                                        .append(row);
+                                    .append(row);
                             }
                         }
                     }
