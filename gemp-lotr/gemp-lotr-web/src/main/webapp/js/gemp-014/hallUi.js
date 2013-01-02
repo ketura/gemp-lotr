@@ -104,7 +104,7 @@ var GempLotrHallUI = Class.extend({
     },
 
     addQueuesTable: function() {
-        var header = $("<div class='eventHeader'></div>");
+        var header = $("<div class='eventHeader queues'></div>");
 
         var content = $("<div></div>");
 
@@ -125,6 +125,7 @@ var GempLotrHallUI = Class.extend({
             });
         header.append(toggleContent);
         header.append(" Tournament queues");
+        header.append(" <span class='count'>(0)</span>");
 
         var table = $("<table class='tables queues'></table>");
         table.append("<tr><th width='10%'>Format</th><th width='8%'>Collection</th><th width='12%'>Queue name</th><th width='16%'>Starts</th><th width='10%'>System</th><th width='6%'>Players</th><th width='8%'>Cost</th><th width='20%'>Prizes</th><th width='10%'>Actions</th></tr>");
@@ -135,7 +136,7 @@ var GempLotrHallUI = Class.extend({
     },
 
     addWaitingTablesTable: function() {
-        var header = $("<div class='eventHeader'></div>");
+        var header = $("<div class='eventHeader waitingTables'></div>");
 
         var content = $("<div></div>");
 
@@ -156,6 +157,7 @@ var GempLotrHallUI = Class.extend({
             });
         header.append(toggleContent);
         header.append(" Waiting tables");
+        header.append(" <span class='count'>(0)</span>");
 
         var table = $("<table class='tables waitingTables'></table>");
         table.append("<tr><th width='20%'>Format</th><th width='40%'>Tournament</th><th width='10%'>Status</th><th width='20%'>Players</th><th width='10%'>Actions</th></tr>");
@@ -166,7 +168,7 @@ var GempLotrHallUI = Class.extend({
     },
 
     addPlayingTablesTable: function() {
-        var header = $("<div class='eventHeader'></div>");
+        var header = $("<div class='eventHeader playingTables'></div>");
 
         var content = $("<div></div>");
 
@@ -187,6 +189,7 @@ var GempLotrHallUI = Class.extend({
             });
         header.append(toggleContent);
         header.append(" Playing tables");
+        header.append(" <span class='count'>(0)</span>");
 
         var table = $("<table class='tables playingTables'></table>");
         table.append("<tr><th width='20%'>Format</th><th width='40%'>Tournament</th><th width='10%'>Status</th><th width='20%'>Players</th><th width='10%'>Actions</th></tr>");
@@ -197,7 +200,7 @@ var GempLotrHallUI = Class.extend({
     },
 
     addFinishedTablesTable: function() {
-        var header = $("<div class='eventHeader'></div>");
+        var header = $("<div class='eventHeader finishedTables'></div>");
 
         var content = $("<div></div>");
 
@@ -218,6 +221,7 @@ var GempLotrHallUI = Class.extend({
             });
         header.append(toggleContent);
         header.append(" Finished tables");
+        header.append(" <span class='count'>(0)</span>");
 
         var table = $("<table class='tables finishedTables'></table>");
         table.append("<tr><th width='20%'>Format</th><th width='40%'>Tournament</th><th width='10%'>Status</th><th width='20%'>Players</th><th width='10%'>Winner</th></tr>");
@@ -476,6 +480,11 @@ var GempLotrHallUI = Class.extend({
                     $(".table" + id, this.tablesDiv).remove();
                 }
             }
+
+            $(".count", $(".eventHeader.queues")).html("("+($("tr", $("table.queues")).length-1)+")");
+            $(".count", $(".eventHeader.waitingTables")).html("("+($("tr", $("table.waitingTables")).length-1)+")");
+            $(".count", $(".eventHeader.playingTables")).html("("+($("tr", $("table.playingTables")).length-1)+")");
+            $(".count", $(".eventHeader.finishedTables")).html("("+($("tr", $("table.finishedTables")).length-1)+")");
 
             var skipReload = false;
             var games = root.getElementsByTagName("game");
