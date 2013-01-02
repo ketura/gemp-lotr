@@ -325,6 +325,34 @@ public class HallResource extends AbstractResource {
         }
 
         @Override
+        public void addTournament(String tournamentId, Map<String, String> props) {
+            Element tournament = _doc.createElement("tournament");
+            tournament.setAttribute("action", "add");
+            tournament.setAttribute("id", tournamentId);
+            for (Map.Entry<String, String> attribute : props.entrySet())
+                tournament.setAttribute(attribute.getKey(), attribute.getValue());
+            _hall.appendChild(tournament);
+        }
+
+        @Override
+        public void updateTournament(String tournamentId, Map<String, String> props) {
+            Element tournament = _doc.createElement("tournament");
+            tournament.setAttribute("action", "update");
+            tournament.setAttribute("id", tournamentId);
+            for (Map.Entry<String, String> attribute : props.entrySet())
+                tournament.setAttribute(attribute.getKey(), attribute.getValue());
+            _hall.appendChild(tournament);
+        }
+
+        @Override
+        public void removeTournament(String tournamentId) {
+            Element tournament = _doc.createElement("tournament");
+            tournament.setAttribute("action", "remove");
+            tournament.setAttribute("id", tournamentId);
+            _hall.appendChild(tournament);
+        }
+
+        @Override
         public void addTable(String tableId, Map<String, String> props) {
             Element table = _doc.createElement("table");
             table.setAttribute("action", "add");
