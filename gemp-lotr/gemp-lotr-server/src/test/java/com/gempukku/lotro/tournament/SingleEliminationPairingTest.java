@@ -34,7 +34,7 @@ public class SingleEliminationPairingTest {
         Map<String, String> pairingResults = new HashMap<String, String>();
         Set<String> byeResults = new HashSet<String>();
 
-        assertFalse(_pairing.pairPlayers(1, allPlayers, Collections.<String>emptySet(), Collections.<String, Integer>emptyMap(), null, pairingResults, byeResults));
+        assertFalse(_pairing.pairPlayers(1, allPlayers, Collections.<String>emptySet(), Collections.<String, Integer>emptyMap(), null, null, pairingResults, byeResults));
 
         assertEquals(0, byeResults.size());
         assertEquals(2, pairingResults.size());
@@ -55,7 +55,7 @@ public class SingleEliminationPairingTest {
         Map<String, String> pairingResults = new HashMap<String, String>();
         Set<String> byeResults = new HashSet<String>();
 
-        assertFalse(_pairing.pairPlayers(1, allPlayers, Collections.<String>emptySet(), Collections.<String, Integer>emptyMap(), null, pairingResults, byeResults));
+        assertFalse(_pairing.pairPlayers(1, allPlayers, Collections.<String>emptySet(), Collections.<String, Integer>emptyMap(), null, null, pairingResults, byeResults));
 
         assertEquals(1, byeResults.size());
         assertEquals(1, pairingResults.size());
@@ -82,7 +82,7 @@ public class SingleEliminationPairingTest {
         playerByes.put("p2", 2);
         playerByes.put("p3", 3);
 
-        assertFalse(_pairing.pairPlayers(1, allPlayers, Collections.<String>emptySet(), playerByes, null, pairingResults, byeResults));
+        assertFalse(_pairing.pairPlayers(1, allPlayers, Collections.<String>emptySet(), playerByes, null, null, pairingResults, byeResults));
 
         assertEquals(1, byeResults.size());
         assertTrue(byeResults.contains("p1"));
@@ -107,7 +107,7 @@ public class SingleEliminationPairingTest {
         Map<String, String> pairingResults = new HashMap<String, String>();
         Set<String> byeResults = new HashSet<String>();
 
-        assertFalse(_pairing.pairPlayers(1, allPlayers, droppedPlayers, Collections.<String, Integer>emptyMap(), null, pairingResults, byeResults));
+        assertFalse(_pairing.pairPlayers(1, allPlayers, droppedPlayers, Collections.<String, Integer>emptyMap(), null, null, pairingResults, byeResults));
 
         assertEquals(1, byeResults.size());
         assertEquals(1, pairingResults.size());

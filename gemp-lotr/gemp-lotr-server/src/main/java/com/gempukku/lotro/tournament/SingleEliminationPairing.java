@@ -16,7 +16,9 @@ public class SingleEliminationPairing implements PairingMechanism {
     }
 
     @Override
-    public boolean pairPlayers(int round, Set<String> players, Set<String> droppedPlayers, Map<String, Integer> playerByes, List<PlayerStanding> currentStandings, Map<String, String> pairingResults, Set<String> byeResults) {
+    public boolean pairPlayers(int round, Set<String> players, Set<String> droppedPlayers, Map<String, Integer> playerByes, List<PlayerStanding> currentStandings,
+                               Map<String, Set<String>> previouslyPaired,
+                               Map<String, String> pairingResults, Set<String> byeResults) {
         if (isFinished(round, players, droppedPlayers))
             return true;
 
