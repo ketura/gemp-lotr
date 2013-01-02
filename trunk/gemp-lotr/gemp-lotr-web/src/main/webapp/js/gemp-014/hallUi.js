@@ -392,10 +392,10 @@ var GempLotrHallUI = Class.extend({
                     row.append("<td>" + statusDescription + "</td>");
 
                     var playersStr = "";
-                    for (var i = 0; i < players.length; i++) {
-                        if (i > 0)
+                    for (var playerI = 0; playerI < players.length; playerI++) {
+                        if (playerI > 0)
                             playersStr += ", ";
-                        playersStr += players[i];
+                        playersStr += players[playerI];
                     }
                     row.append("<td>" + playersStr + "</td>");
 

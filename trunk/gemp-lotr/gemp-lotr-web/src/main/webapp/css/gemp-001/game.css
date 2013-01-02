@@ -10,7 +10,7 @@ body {
     font-weight: bolder;
     width: 42px;
     height: 42px;
-    background-image: url('images/deck-42.png');
+    background-image: url('/gemp-lotr/images/deck-42.png');
 }
 
 .handSize {
@@ -21,7 +21,7 @@ body {
     font-weight: bolder;
     width: 42px;
     height: 42px;
-    background-image: url('images/hand-42.png');
+    background-image: url('/gemp-lotr/images/hand-42.png');
 }
 
 .threatsSize {
@@ -32,7 +32,7 @@ body {
     font-weight: bolder;
     width: 42px;
     height: 42px;
-    background-image: url('images/threats-42.png');
+    background-image: url('/gemp-lotr/images/threats-42.png');
 }
 
 .discardSize {
@@ -43,7 +43,7 @@ body {
     font-weight: bolder;
     width: 42px;
     height: 42px;
-    background-image: url('images/discard-42.png');
+    background-image: url('/gemp-lotr/images/discard-42.png');
 }
 
 .deadPileSize {
@@ -54,7 +54,7 @@ body {
     font-weight: bolder;
     width: 42px;
     height: 42px;
-    background-image: url('images/deadPile-42.png');
+    background-image: url('/gemp-lotr/images/deadPile-42.png');
 }
 
 .adventureDeckSize {
@@ -65,7 +65,7 @@ body {
     font-weight: bolder;
     width: 42px;
     height: 42px;
-    background-image: url('images/adventureDeck-42.png');
+    background-image: url('/gemp-lotr/images/adventureDeck-42.png');
 }
 
 .showStats {
@@ -137,7 +137,7 @@ body {
     display: table-cell;
     text-align: center;
     vertical-align: middle;
-    background-image: url('images/fpArchery.png');
+    background-image: url('/gemp-lotr/images/fpArchery.png');
     background-repeat: no-repeat;
     color: #007777;
     font-size: 200%;
@@ -150,7 +150,7 @@ body {
     display: table-cell;
     text-align: center;
     vertical-align: middle;
-    background-image: url('images/shadowArchery.png');
+    background-image: url('/gemp-lotr/images/shadowArchery.png');
     background-repeat: no-repeat;
     color: #007777;
     font-size: 200%;
@@ -163,7 +163,7 @@ body {
     display: table-cell;
     text-align: center;
     vertical-align: middle;
-    background-image: url('images/move.png');
+    background-image: url('/gemp-lotr/images/move.png');
     background-repeat: no-repeat;
     color: #007777;
     font-size: 200%;
