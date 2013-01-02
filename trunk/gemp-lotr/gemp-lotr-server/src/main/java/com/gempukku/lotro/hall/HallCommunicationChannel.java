@@ -5,6 +5,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.mutable.MutableObject;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,8 +13,8 @@ public class HallCommunicationChannel {
     private int _channelNumber;
     private long _lastConsumed;
     private String _lastMotd;
-    private Map<String, Map<String, String>> _tournamentQueuePropsOnClient = new HashMap<String, Map<String, String>>();
-    private Map<String, Map<String, String>> _tablePropsOnClient = new HashMap<String, Map<String, String>>();
+    private Map<String, Map<String, String>> _tournamentQueuePropsOnClient = new LinkedHashMap<String, Map<String, String>>();
+    private Map<String, Map<String, String>> _tablePropsOnClient = new LinkedHashMap<String, Map<String, String>>();
 
     public HallCommunicationChannel(int channelNumber) {
         _channelNumber = channelNumber;
@@ -31,8 +32,8 @@ public class HallCommunicationChannel {
         hallChannelVisitor.channelNumber(_channelNumber);
         final MutableObject newMotd = new MutableObject();
 
-        final Map<String, Map<String, String>> tournamentsOnServer = new HashMap<String, Map<String, String>>();
-        final Map<String, Map<String, String>> tablesOnServer = new HashMap<String, Map<String, String>>();
+        final Map<String, Map<String, String>> tournamentsOnServer = new LinkedHashMap<String, Map<String, String>>();
+        final Map<String, Map<String, String>> tablesOnServer = new LinkedHashMap<String, Map<String, String>>();
 
         hallServer.processHall(player,
                 new HallInfoVisitor() {
