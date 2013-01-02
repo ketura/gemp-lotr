@@ -52,6 +52,7 @@ public class DefaultTournamentTest {
 
         Mockito.when(pairingMechanism.pairPlayers(Mockito.eq(1), Mockito.eq(allPlayers), Mockito.eq(Collections.<String>emptySet()),
                 Mockito.eq(Collections.<String, Integer>emptyMap()), Mockito.<List<PlayerStanding>>any(),
+                Mockito.any(Map.class),
                 Mockito.eq(Collections.<String, String>emptyMap()), Mockito.eq(Collections.<String>emptySet()))).then(
                 new Answer<Boolean>() {
                     @Override
@@ -67,6 +68,7 @@ public class DefaultTournamentTest {
                 });
         Mockito.when(pairingMechanism.pairPlayers(Mockito.eq(2), Mockito.eq(allPlayers), Mockito.eq(droppedAfterRoundOne),
                 Mockito.eq(Collections.<String, Integer>emptyMap()), Mockito.<List<PlayerStanding>>any(),
+                Mockito.any(Map.class),
                 Mockito.eq(Collections.<String, String>emptyMap()), Mockito.eq(Collections.<String>emptySet()))).then(
                 new Answer<Boolean>() {
                     @Override
@@ -80,6 +82,7 @@ public class DefaultTournamentTest {
                 });
         Mockito.when(pairingMechanism.pairPlayers(Mockito.eq(3), Mockito.eq(allPlayers), Mockito.eq(droppedAfterRoundTwo),
                 Mockito.eq(Collections.<String, Integer>emptyMap()), Mockito.<List<PlayerStanding>>any(),
+                Mockito.any(Map.class),
                 Mockito.eq(Collections.<String, String>emptyMap()), Mockito.eq(Collections.<String>emptySet()))).then(
                 new Answer<Boolean>() {
                     @Override

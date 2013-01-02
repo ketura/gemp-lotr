@@ -70,7 +70,7 @@ public abstract class AbstractResource {
         if (resourceOwner == null)
             throw new WebApplicationException(Response.Status.UNAUTHORIZED);
 
-        if (resourceOwner.getType().contains("a") && participantId != null && !participantId.equals("null")) {
+        if (resourceOwner.getType().contains("a") && participantId != null && !participantId.equals("null") && !participantId.equals("")) {
             resourceOwner = _playerDao.getPlayer(participantId);
             if (resourceOwner == null)
                 throw new WebApplicationException(Response.Status.UNAUTHORIZED);
