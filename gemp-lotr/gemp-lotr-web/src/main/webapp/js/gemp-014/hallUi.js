@@ -334,11 +334,13 @@ var GempLotrHallUI = Class.extend({
                         var but = $("<button>Leave queue</button>");
                         $(but).button().click((
                             function(queueId) {
-                                var deck = that.decksSelect.val();
-                                if (deck != null)
-                                    that.comm.leaveQueue(id, deck, function (xml) {
-                                        that.processResponse(xml);
-                                    });
+                                return function() {
+                                    var deck = that.decksSelect.val();
+                                    if (deck != null)
+                                        that.comm.leaveQueue(id, deck, function (xml) {
+                                            that.processResponse(xml);
+                                        });
+                                }
                             })(id));
                         actionsField.append(but);
                     }
