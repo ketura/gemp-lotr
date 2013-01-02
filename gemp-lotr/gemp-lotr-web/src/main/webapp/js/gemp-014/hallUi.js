@@ -52,22 +52,10 @@ var GempLotrHallUI = Class.extend({
 
         var that = this;
 
-        var editDeck = $("<button>Deck builder</button>");
-        editDeck.button().click(
-                function () {
-                    location.href = 'deckBuild.html';
-                });
-
-        var merchant = $("<button>Merchant</button>");
-        merchant.button().click(
-                function () {
-                    location.href = 'merchant.html';
-                });
-
-        this.buttonsDiv.append(editDeck);
+        this.buttonsDiv.append("<a href='deckBuild.html'>Deck builder</a>");
         this.buttonsDiv.append(" | ");
 
-        this.buttonsDiv.append(merchant);
+        this.buttonsDiv.append("<a href='merchant.html'>Merchant</a>");
         this.buttonsDiv.append(" | ");
 
         this.pocketDiv = $("<div class='pocket'></div>");
