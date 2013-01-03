@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set15.men;
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.SelfExertEffect;
-import com.gempukku.lotro.cards.modifiers.PreventMinionBeingAssignedToCharacterModifier;
+import com.gempukku.lotro.cards.modifiers.CantBeAssignedAgainstModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -24,7 +24,7 @@ public class Card15_072 extends AbstractMinion {
 
     @Override
     public Modifier getAlwaysOnModifier(PhysicalCard self) {
-        return new PreventMinionBeingAssignedToCharacterModifier(self, Side.FREE_PEOPLE, CardType.COMPANION, new SpotCondition(self, Filters.unwounded), self);
+        return new CantBeAssignedAgainstModifier(self, Side.FREE_PEOPLE, CardType.COMPANION, new SpotCondition(self, Filters.unwounded), self);
     }
 
     @Override

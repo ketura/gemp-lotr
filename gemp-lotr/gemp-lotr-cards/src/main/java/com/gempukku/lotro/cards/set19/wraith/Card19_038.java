@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set19.wraith;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.modifiers.PreventMinionBeingAssignedToCharacterModifier;
+import com.gempukku.lotro.cards.modifiers.CantBeAssignedAgainstModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
@@ -41,7 +41,7 @@ public class Card19_038 extends AbstractMinion {
 
     @Override
     public Modifier getAlwaysOnModifier(final PhysicalCard self) {
-        return new PreventMinionBeingAssignedToCharacterModifier(self, Side.FREE_PEOPLE,
+        return new CantBeAssignedAgainstModifier(self, Side.FREE_PEOPLE,
                 Filters.and(CardType.COMPANION, new Filter() {
                     @Override
                     public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
