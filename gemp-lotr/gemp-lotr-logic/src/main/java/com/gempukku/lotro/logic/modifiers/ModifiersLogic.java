@@ -903,6 +903,19 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     }
 
     @Override
+    public boolean canBeLiberated(GameState gameState, String playerId, PhysicalCard card, PhysicalCard source) {
+        LoggingThreadLocal.logMethodStart(card, "canBeLiberated");
+        try {
+            for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierEffect.LIBERATION_MODIFIER, card))
+                if (!modifier.canBeLiberated(gameState, this, playerId, card, source))
+                    return false;
+            return true;
+        } finally {
+            LoggingThreadLocal.logMethodEnd();
+        }
+    }
+
+    @Override
     public Side hasInitiative(GameState gameState) {
         for (Modifier modifier : getModifiers(gameState, ModifierEffect.INITIATIVE_MODIFIER)) {
             Side initiative = modifier.hasInitiative(gameState, this);
