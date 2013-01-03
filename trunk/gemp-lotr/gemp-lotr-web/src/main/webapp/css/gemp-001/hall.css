@@ -9,6 +9,10 @@ body {
     background-color: #666666;
 }
 
+.serverTime {
+    border: 1px solid #ffffff;
+}
+
 .leagueName, #stats .period, .tournamentName, .playerStatHeader {
     font-size: 200%;
     font-weight: bolder;
