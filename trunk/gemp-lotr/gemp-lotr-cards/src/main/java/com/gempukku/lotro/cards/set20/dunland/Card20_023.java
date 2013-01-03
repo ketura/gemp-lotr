@@ -3,10 +3,7 @@ package com.gempukku.lotro.cards.set20.dunland;
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
-import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
@@ -35,7 +32,7 @@ public class Card20_023 extends AbstractEvent {
                             public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard cardAffected) {
                                 return Filters.filter(gameState.getDiscard(gameState.getCurrentPlayerId()), gameState, modifiersQuerying, CardType.POSSESSION).size();
                             }
-                        }));
+                        }, Culture.DUNLAND, Race.MAN));
         return action;
     }
 }
