@@ -137,14 +137,13 @@ var CardFilter = Class.extend({
             + "</select>");
         this.nameInput = $("<input type='text' style='width: 130px; font-size: 70%; float: right'>");
         this.sortSelect = $("<select style='font-size: 75%; float: right'>"
-            + "<option value='name,collectorInfo'>Name</option>"
-            + "<option value='twilight,name,collectorInfo'>Twilight</option>"
+            + "<option value='name'>Name</option>"
+            + "<option value='twilight,name'>Twilight</option>"
             + "<option value='siteNumber,name'>Site number</option>"
-            + "<option value='strength,name,collectorInfo'>Strength</option>"
-            + "<option value='vitality,name,collectorInfo'>Vitality</option>"
-            + "<option value='cardType,name,collectorInfo'>Card type</option>"
-            + "<option value='culture,name,collectorInfo'>Culture</option>"
-            + "<option value='collectorInfo'>Collector's Info</option>"
+            + "<option value='strength,name'>Strength</option>"
+            + "<option value='vitality,name'>Vitality</option>"
+            + "<option value='cardType,name'>Card type</option>"
+            + "<option value='culture,name'>Culture</option>"
             + "</select>");
         this.raritySelect = $("<select style='font-size: 75%; float: right'>"
             + "<option value=''>All</option>"
