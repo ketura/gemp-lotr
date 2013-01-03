@@ -20,7 +20,8 @@ import java.util.List;
  * War Club
  * Dunland	Possession • Hand Weapon
  * +2
- * Bearer must be a [Dunland] Man. Each time bearer wins a skirmish, you may discard 2 Free Peoples possessions.
+ * Bearer must be a [Dunland] Man.
+ * Each time bearer wins a skirmish, you may discard 2 Free Peoples possessions.
  */
 public class Card20_030 extends AbstractAttachable {
     public Card20_030() {
