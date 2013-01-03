@@ -40,5 +40,7 @@ public class RuleSet {
         new RingBearerRule(_modifiersLogic).applyRule();
 
         new ThreatRule(_actionsEnvironment).applyRule();
+
+        new CunningRule(_modifiersLogic).applyRule();
     }
 }

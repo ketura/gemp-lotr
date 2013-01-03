@@ -21,7 +21,8 @@ import java.util.List;
  * • Wulf, Warchief of Dunland
  * Dunland	Minion • Man
  * 10	2	3
- * Fierce. Shadow: If the fellowship has moved again this turn, remove (2) to take a [Dunland] card
+ * Fierce.
+ * Shadow: If the fellowship has moved again this turn, remove (2) to take a [Dunland] card
  * into hand from your discard pile.
  */
 public class Card20_021 extends AbstractMinion {
