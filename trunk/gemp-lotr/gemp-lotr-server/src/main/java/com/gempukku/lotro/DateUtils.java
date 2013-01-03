@@ -30,6 +30,12 @@ public class DateUtils {
         return format.format(date);
     }
 
+    public static Date parseDateWithHour(String date) throws ParseException {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        format.setTimeZone(TimeZone.getTimeZone("GMT"));
+        return format.parse(date);
+    }
+
     public static int offsetDate(int start, int dayOffset) {
         try {
             SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");

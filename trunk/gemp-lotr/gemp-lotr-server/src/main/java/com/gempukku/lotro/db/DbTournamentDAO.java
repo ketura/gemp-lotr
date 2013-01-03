@@ -1,5 +1,6 @@
 package com.gempukku.lotro.db;
 
+import com.gempukku.lotro.DateUtils;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.tournament.Tournament;
 import com.gempukku.lotro.tournament.TournamentDAO;
@@ -10,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -236,7 +238,7 @@ public class DbTournamentDAO implements TournamentDAO {
         }
     }
 
-    public static void main(String[] args) {
-        System.out.println(System.currentTimeMillis()+2*60*1000);
+    public static void main(String[] args) throws ParseException {
+        System.out.println(DateUtils.parseDateWithHour("2013-01-05 17:30:00").getTime());
     }
 }
