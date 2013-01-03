@@ -52,8 +52,6 @@ public class SortAndFilterCards {
                 comparators.addComparator(new PacksFirstComparator(new StrengthComparator(cardLibrary)));
             else if (oneSort.equals("vitality"))
                 comparators.addComparator(new PacksFirstComparator(new VitalityComparator(cardLibrary)));
-            else if (oneSort.equals("collectorInfo"))
-                comparators.addComparator(new PacksFirstComparator(new CardBlueprintIdComparator()));
             else if (oneSort.equals("cardType"))
                 comparators.addComparator(new PacksFirstComparator(new CardTypeComparator(cardLibrary)));
             else if (oneSort.equals("culture"))
@@ -382,56 +380,6 @@ public class SortAndFilterCards {
             if (culture == null)
                 return -1;
             return culture.ordinal();
-        }
-    }
-
-    private static class CardBlueprintIdComparator implements Comparator<CardItem> {
-        @Override
-        public int compare(CardItem o1, CardItem o2) {
-            String[] o1Parts = o1.getBlueprintId().split("_");
-            String[] o2Parts = o2.getBlueprintId().split("_");
-
-            if (o1Parts[0].equals(o2Parts[0])) {
-                final int firstNumber = getAvailableNumber(o1Parts[1]);
-                final int secondNumber = getAvailableNumber(o2Parts[1]);
-
-                if (firstNumber != secondNumber)
-                    return firstNumber - secondNumber;
-
-                return compareSameCardNumber(o1Parts[1], o2Parts[1]);
-            } else {
-                return getAvailableNumber(o1Parts[0]) - getAvailableNumber(o2Parts[0]);
-            }
-        }
-
-        private int compareSameCardNumber(String card1, String card2) {
-            if (card1.endsWith("*") && card2.endsWith("*"))
-                return compareNotFoils(card1.substring(0, card1.length() - 1), card2.substring(0, card2.length() - 1));
-            if (card1.endsWith("*"))
-                return -1;
-            if (card2.endsWith("*"))
-                return 1;
-            return compareNotFoils(card1, card2);
-        }
-
-        private int compareNotFoils(String card1, String card2) {
-            return card1.compareTo(card2);
-        }
-
-        private int getAvailableNumber(String str) {
-            try {
-                return Integer.parseInt(str.substring(0, getFirstNonDigitIndex(str)));
-            } catch (NumberFormatException exp) {
-                return 0;
-            }
-        }
-
-        private int getFirstNonDigitIndex(String str) {
-            final char[] chars = str.toCharArray();
-            for (int i = 0; i < chars.length; i++)
-                if (!Character.isDigit(chars[i]))
-                    return i;
-            return chars.length;
         }
     }
 }
