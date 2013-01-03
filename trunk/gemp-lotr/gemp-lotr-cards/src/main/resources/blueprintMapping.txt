@@ -228,3 +228,5 @@
 18_149,18_133
 # Gemp-LotR promos
 gl_theOneRing,1_2
+# 2nd edition
+20_2,1_2
