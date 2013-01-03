@@ -129,7 +129,7 @@ var GempLotrHallUI = Class.extend({
         header.append(" <span class='count'>(0)</span>");
 
         var table = $("<table class='tables queues'></table>");
-        table.append("<tr><th width='10%'>Format</th><th width='8%'>Collection</th><th width='12%'>Queue name</th><th width='16%'>Starts</th><th width='10%'>System</th><th width='6%'>Players</th><th width='8%'>Cost</th><th width='20%'>Prizes</th><th width='10%'>Actions</th></tr>");
+        table.append("<tr><th width='10%'>Format</th><th width='8%'>Collection</th><th width='20%'>Queue name</th><th width='16%'>Starts</th><th width='10%'>System</th><th width='6%'>Players</th><th width='8%'>Cost</th><th width='12%'>Prizes</th><th width='10%'>Actions</th></tr>");
         content.append(table);
 
         this.tablesDiv.append(header);
