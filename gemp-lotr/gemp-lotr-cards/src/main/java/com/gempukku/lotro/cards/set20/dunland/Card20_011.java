@@ -20,7 +20,7 @@ import java.util.List;
  * Dunlending Brute
  * Dunland	Minion • Man
  * 9	1	3
- * Dunlending Brute is strength +1 for each [Dunland] Man stacked on a site.
+ * Dunlending Brute is strength +1 for each [Dunland] Man stacked on each site you control.
  */
 public class Card20_011 extends AbstractMinion {
     public Card20_011() {
