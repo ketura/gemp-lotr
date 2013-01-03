@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set6.moria;
 
 import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.modifiers.PreventMinionBeingAssignedToCharacterModifier;
+import com.gempukku.lotro.cards.modifiers.CantBeAssignedAgainstModifier;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -44,7 +44,7 @@ public class Card6_076 extends AbstractMinion {
     @Override
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
-                new PreventMinionBeingAssignedToCharacterModifier(self, null,
+                new CantBeAssignedAgainstModifier(self, null,
                         Filters.and(Filters.or(CardType.COMPANION, CardType.ALLY), Filters.lessStrengthThan(6)), self));
     }
 }

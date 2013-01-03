@@ -4,7 +4,7 @@ import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
-import com.gempukku.lotro.cards.modifiers.PreventMinionBeingAssignedToCharacterModifier;
+import com.gempukku.lotro.cards.modifiers.CantBeAssignedAgainstModifier;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
@@ -47,7 +47,7 @@ public class Card12_094 extends AbstractMinion {
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.appendEffect(
                                     new AddUntilStartOfPhaseModifierEffect(
-                                            new PreventMinionBeingAssignedToCharacterModifier(self, null, card, self), Phase.REGROUP));
+                                            new CantBeAssignedAgainstModifier(self, null, card, self), Phase.REGROUP));
                         }
                     });
             return Collections.singletonList(action);

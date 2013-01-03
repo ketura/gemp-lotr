@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set19.moria;
 
 import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.modifiers.PreventMinionBeingAssignedToCharacterModifier;
+import com.gempukku.lotro.cards.modifiers.CantBeAssignedAgainstModifier;
 import com.gempukku.lotro.cards.modifiers.ShouldSkipPhaseModifier;
 import com.gempukku.lotro.cards.modifiers.conditions.LocationCondition;
 import com.gempukku.lotro.common.*;
@@ -40,7 +40,7 @@ public class Card19_018 extends AbstractMinion {
         modifiers.add(
                 new ShouldSkipPhaseModifier(self, new LocationCondition(Keyword.UNDERGROUND), Phase.MANEUVER));
         modifiers.add(
-                new PreventMinionBeingAssignedToCharacterModifier(self, null, Filters.and(CardType.COMPANION, Filters.lessStrengthThan(7)),
+                new CantBeAssignedAgainstModifier(self, null, Filters.and(CardType.COMPANION, Filters.lessStrengthThan(7)),
                         new LocationCondition(Keyword.UNDERGROUND), self));
         return modifiers;
     }

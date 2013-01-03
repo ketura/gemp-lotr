@@ -12,17 +12,17 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
 import java.util.Set;
 
-public class PreventMinionBeingAssignedToCharacterModifier extends AbstractModifier {
+public class CantBeAssignedAgainstModifier extends AbstractModifier {
     private Side _side;
     private Filterable _minionFilter;
 
-    public PreventMinionBeingAssignedToCharacterModifier(PhysicalCard source, Side side, Filterable characterFilter, Filterable minionFilter) {
+    public CantBeAssignedAgainstModifier(PhysicalCard source, Side side, Filterable characterFilter, Filterable minionFilter) {
         super(source, "Is affected by assignment restriction", characterFilter, ModifierEffect.ASSIGNMENT_MODIFIER);
         _side = side;
         _minionFilter = minionFilter;
     }
 
-    public PreventMinionBeingAssignedToCharacterModifier(PhysicalCard source, Side side, Filterable characterFilter, Condition condition, Filterable minionFilter) {
+    public CantBeAssignedAgainstModifier(PhysicalCard source, Side side, Filterable characterFilter, Condition condition, Filterable minionFilter) {
         super(source, "Is affected by assignment restriction", characterFilter, condition, ModifierEffect.ASSIGNMENT_MODIFIER);
         _side = side;
         _minionFilter = minionFilter;
