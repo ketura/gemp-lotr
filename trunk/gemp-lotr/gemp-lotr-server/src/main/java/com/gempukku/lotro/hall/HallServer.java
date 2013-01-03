@@ -52,7 +52,7 @@ public class HallServer extends AbstractServer {
     private int _nextChannelNumber = 0;
 
     private Map<String, Tournament> _runningTournaments = new LinkedHashMap<String, Tournament>();
-    private Map<String, TournamentQueue> _tournamentQueues = new HashMap<String, TournamentQueue>();
+    private Map<String, TournamentQueue> _tournamentQueues = new LinkedHashMap<String, TournamentQueue>();
     private final ChatRoomMediator _hallChat;
 
     public HallServer(LotroServer lotroServer, ChatServer chatServer, LeagueService leagueService, TournamentService tournamentService, LotroCardBlueprintLibrary library,
