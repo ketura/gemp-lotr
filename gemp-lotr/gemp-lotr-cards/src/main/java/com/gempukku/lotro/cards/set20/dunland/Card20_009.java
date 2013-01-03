@@ -23,7 +23,7 @@ import java.util.List;
  * Dunlending Plunderer
  * Dunland	Minion • Man
  * 9	1	3
- * When you play Dunlending Plunder, you may discard a [Dunland] card from hand. If you do, spot another [Dunland] man
+ * When you play Dunlending Plunder, you may discard a [Dunland] card from hand and spot another [Dunland] man
  * to discard a Free Peoples possession.
  */
 public class Card20_009 extends AbstractMinion {
