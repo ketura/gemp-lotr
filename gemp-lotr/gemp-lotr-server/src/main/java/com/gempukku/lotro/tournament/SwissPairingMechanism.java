@@ -31,7 +31,7 @@ public class SwissPairingMechanism implements PairingMechanism {
 
         Set<String> playersWithByes = getPlayersWithByes(playerByes);
 
-        boolean success = tryPairBracketAndFurther(0, new HashSet<String>(), playersGroupedByBracket, playersWithByes, previouslyPaired, pairingResults, byeResults);
+        boolean success = tryPairBracketAndFurther(0, new HashSet<String>(), new HashSet<String>(), playersGroupedByBracket, playersWithByes, previouslyPaired, pairingResults, byeResults);
         // Managed to pair with this carry over count - proceed with the pairings
         if (success)
             return false;
@@ -40,21 +40,86 @@ public class SwissPairingMechanism implements PairingMechanism {
         return true;
     }
 
-    private boolean tryPairBracketAndFurther(int bracketIndex, Set<String> carryOverPlayers, List<List<String>> playersGroupedByBracket, Set<String> playersWithByes,
+    private boolean tryPairBracketAndFurther(int bracketIndex, Set<String> carryOverPlayers, Set<String> carryOverFromThisBracket, List<List<String>> playersGroupedByBracket, Set<String> playersWithByes,
                                              Map<String, Set<String>> previouslyPaired, Map<String, String> pairingsResult, Set<String> byes) {
-        for (int carryOverMax = 0; carryOverMax < 4; carryOverMax++) {
-            boolean success = tryPairBracketWithCarryOverMax(bracketIndex, carryOverMax, playersGroupedByBracket, playersWithByes, previouslyPaired, pairingsResult, pairingsResult, byes);
-            if (success)
-                return true;
-        }
-        return false;
-    }
+        List<String> playersInBracket = playersGroupedByBracket.get(bracketIndex);
 
-    private boolean tryPairBracketWithCarryOverMax(int bracketIndex, int carryOverMax, List<List<String>> playersGroupedByPoints, Set<String> playersWithByes,
-                                                   Map<String, Set<String>> previouslyPaired, Map<String, String> pairingsResult,
-                                                   Map<String, String> pairingsResult1, Set<String> byes) {
-        // TODO
-        return true;
+        // First try to pair carried over players
+        while (carryOverPlayers.size() > 0) {
+            String firstCarryOver = carryOverPlayers.iterator().next();
+            carryOverPlayers.remove(firstCarryOver);
+
+            for (int index = 0; index < playersInBracket.size(); index++) {
+                String player = playersInBracket.remove(index);
+                if (!previouslyPaired.get(firstCarryOver).contains(player)) {
+                    // This might be a good pairing
+                    pairingsResult.put(firstCarryOver, player);
+                    // Lets give it a try
+                    boolean success = tryPairBracketAndFurther(bracketIndex, carryOverPlayers, carryOverFromThisBracket, playersGroupedByBracket, playersWithByes, previouslyPaired, pairingsResult, byes);
+                    if (success)
+                        return true;
+                    // Naah, it didn't work out
+                    pairingsResult.remove(firstCarryOver);
+                }
+                playersInBracket.add(index, player);
+            }
+
+            carryOverFromThisBracket.add(firstCarryOver);
+        }
+
+        if (playersInBracket.size() > 1) {
+            // Pair whatever we manage within a bracket
+            for (int index = 0; index < playersInBracket.size() - 1; index++) {
+                String firstPlayer = playersInBracket.remove(index);
+                for (int index2 = index; index2 < playersInBracket.size(); index2++) {
+                    String secondPlayer = playersInBracket.remove(index2);
+                    if (!previouslyPaired.get(firstPlayer).contains(secondPlayer)) {
+                        // This pairing might work
+                        pairingsResult.put(firstPlayer, secondPlayer);
+                        // Lets give it a try
+                        boolean success = tryPairBracketAndFurther(bracketIndex, Collections.<String>emptySet(), carryOverFromThisBracket, playersGroupedByBracket, playersWithByes, previouslyPaired, pairingsResult, byes);
+                        if (success)
+                            return true;
+                        // Naah, it didn't work out
+                        pairingsResult.remove(firstPlayer);
+                    }
+                    playersInBracket.add(index2, secondPlayer);
+                }
+                playersInBracket.add(index, firstPlayer);
+            }
+        }
+
+        // We have to go to next bracket
+        if (bracketIndex+1 < playersGroupedByBracket.size()) {
+            // Remaining players can't be paired within this bracket
+            Set<String> carryOverForNextBracket = new HashSet<String>(carryOverFromThisBracket);
+            carryOverForNextBracket.addAll(playersInBracket);
+
+            return tryPairBracketAndFurther(bracketIndex+1, carryOverForNextBracket, new HashSet<String>(), playersGroupedByBracket, playersWithByes, previouslyPaired, pairingsResult, byes);
+        } else {
+            // There is no more brackets left, whatever is left, has to get a bye
+            Set<String> leftoverPlayers = new HashSet<String>(carryOverFromThisBracket);
+            leftoverPlayers.addAll(playersInBracket);
+
+            // We only accept one bye
+            int playersLeftWithoutPair = leftoverPlayers.size();
+            switch(playersLeftWithoutPair) {
+                case 0:
+                        return true;
+                case 1: {
+                    String lastPlayer = leftoverPlayers.iterator().next();
+                    if (playersWithByes.contains(lastPlayer)) {
+                        // The last remaining player already has a bye
+                        return false;
+                    } else {
+                        byes.add(lastPlayer);
+                        return true;
+                    }
+                }
+                default:
+                    return false;
+            }
+        }
     }
 
     private Set<String> getPlayersWithByes(Map<String, Integer> playerByes) {
@@ -109,8 +174,8 @@ public class SwissPairingMechanism implements PairingMechanism {
     }
 
     public static void main(String[] args) {
-        for (int i = 1; i <= 128; i++) {
-            System.out.println("i=" + i + " - " + getRoundCountBasedOnNumberOfPlayers(i));
-        }
+        System.out.println(getRoundCountBasedOnNumberOfPlayers(11));
+        System.out.println(getRoundCountBasedOnNumberOfPlayers(9));
+        System.out.println(getRoundCountBasedOnNumberOfPlayers(8));
     }
 }
