@@ -6,7 +6,7 @@ import org.junit.Test;
 import java.util.*;
 
 public class SingleEliminationPairingTest {
-    private SingleEliminationPairing _pairing = new SingleEliminationPairing();
+    private SingleEliminationPairing _pairing = new SingleEliminationPairing("singleElimination");
 
     @Test
     public void correctlyDetectsFinishedTournament() {

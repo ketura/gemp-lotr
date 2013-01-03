@@ -5,6 +5,17 @@ import com.gempukku.lotro.competitive.PlayerStanding;
 import java.util.*;
 
 public class SingleEliminationPairing implements PairingMechanism {
+    private String _registryRepresentation;
+
+    public SingleEliminationPairing(String registryRepresentation) {
+        _registryRepresentation = registryRepresentation;
+    }
+
+    @Override
+    public String getRegistryRepresentation() {
+        return _registryRepresentation;
+    }
+
     @Override
     public boolean isFinished(int round, Set<String> players, Set<String> droppedPlayers) {
         return players.size() - droppedPlayers.size() < 2;

@@ -15,4 +15,6 @@ public interface PairingMechanism {
                                List<PlayerStanding> currentStandings, Map<String, Set<String>> previouslyPaired, Map<String, String> pairingResults, Set<String> byeResults);
 
     public String getPlayOffSystem();
+
+    public String getRegistryRepresentation();
 }

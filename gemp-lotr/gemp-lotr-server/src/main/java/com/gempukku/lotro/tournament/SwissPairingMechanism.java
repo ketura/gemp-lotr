@@ -5,6 +5,17 @@ import com.gempukku.lotro.competitive.PlayerStanding;
 import java.util.*;
 
 public class SwissPairingMechanism implements PairingMechanism {
+    private String _registryRepresentation;
+
+    public SwissPairingMechanism(String registryRepresentation) {
+        _registryRepresentation = registryRepresentation;
+    }
+
+    @Override
+    public String getRegistryRepresentation() {
+        return _registryRepresentation;
+    }
+
     @Override
     public String getPlayOffSystem() {
         return "Swiss";

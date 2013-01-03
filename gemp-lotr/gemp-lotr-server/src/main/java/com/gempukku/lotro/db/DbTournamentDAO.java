@@ -4,6 +4,7 @@ import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.tournament.Tournament;
 import com.gempukku.lotro.tournament.TournamentDAO;
 import com.gempukku.lotro.tournament.TournamentInfo;
+import com.gempukku.lotro.tournament.TournamentQueueInfo;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -184,5 +185,58 @@ public class DbTournamentDAO implements TournamentDAO {
         } catch (SQLException exp) {
             throw new RuntimeException(exp);
         }
+    }
+
+    @Override
+    public List<TournamentQueueInfo> getUnstartedScheduledTournamentQueues() {
+        try {
+            Connection connection = _dbAccess.getDataSource().getConnection();
+            try {
+                PreparedStatement statement = connection.prepareStatement("select tournament_id, name, format, start, cost, playoff, prizes, minimum_players from scheduled_tournament where started = 0");
+                try {
+                    ResultSet rs = statement.executeQuery();
+                    try {
+                        List<TournamentQueueInfo> result = new ArrayList<TournamentQueueInfo>();
+                        while (rs.next()) {
+                            result.add(new TournamentQueueInfo(rs.getString(1), rs.getString(2), rs.getString(3), rs.getLong(4),
+                                    rs.getInt(5), rs.getString(6), rs.getString(7), rs.getInt(8)));
+                        }
+                        return result;
+                    } finally {
+                        rs.close();
+                    }
+                } finally {
+                    statement.close();
+                }
+            } finally {
+                connection.close();
+            }
+        } catch (SQLException exp) {
+            throw new RuntimeException(exp);
+        }
+    }
+
+    @Override
+    public void updateScheduledTournamentStarted(String scheduledTournamentId) {
+        try {
+            Connection conn = _dbAccess.getDataSource().getConnection();
+            try {
+                PreparedStatement statement = conn.prepareStatement("update scheduled_tournament set started=1 where tournament_id=?");
+                try {
+                    statement.setString(1, scheduledTournamentId);
+                    statement.executeUpdate();
+                } finally {
+                    statement.close();
+                }
+            } finally {
+                conn.close();
+            }
+        } catch (SQLException exp) {
+            throw new RuntimeException(exp);
+        }
+    }
+
+    public static void main(String[] args) {
+        System.out.println(System.currentTimeMillis()+2*60*1000);
     }
 }

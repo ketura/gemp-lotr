@@ -2,7 +2,7 @@ package com.gempukku.lotro.tournament;
 
 public class TournamentPrizeSchemeRegistry {
     public TournamentPrizes getTournamentPrizes(String prizesScheme) {
-        if (prizesScheme == null)
+        if (prizesScheme == null || prizesScheme.equals("none"))
             return new NoPrizes();
         
         if (prizesScheme.equals("onDemand"))

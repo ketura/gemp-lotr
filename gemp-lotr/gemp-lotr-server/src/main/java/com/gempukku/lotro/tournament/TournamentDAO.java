@@ -9,8 +9,6 @@ public interface TournamentDAO {
     public void addTournament(String tournamentId, String draftType, String tournamentName, String format,
                               CollectionType collectionType, Tournament.Stage stage, String pairingMechanism, String prizeScheme, Date start);
 
-//    public List<TournamentQueueInfo> getFutureScheduledTournaments();
-
     public List<TournamentInfo> getUnfinishedTournaments();
 
     public List<TournamentInfo> getFinishedTournamentsSince(long time);
@@ -20,4 +18,8 @@ public interface TournamentDAO {
     public void updateTournamentStage(String tournamentId, Tournament.Stage stage);
 
     public void updateTournamentRound(String tournamentId, int round);
+
+    public List<TournamentQueueInfo> getUnstartedScheduledTournamentQueues();
+
+    public void updateScheduledTournamentStarted(String scheduledTournamentId);
 }

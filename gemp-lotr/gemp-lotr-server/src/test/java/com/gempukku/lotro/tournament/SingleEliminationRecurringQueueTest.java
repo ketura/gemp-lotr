@@ -106,7 +106,7 @@ public class SingleEliminationRecurringQueueTest {
         queue.joinPlayer(collectionsManager, player1, null);
 
         TournamentQueueCallback queueCallback = Mockito.mock(TournamentQueueCallback.class);
-        assertFalse(queue.process(queueCallback));
+        assertFalse(queue.process(queueCallback, collectionsManager));
 
         Mockito.verifyNoMoreInteractions(queueCallback);
 
@@ -114,7 +114,7 @@ public class SingleEliminationRecurringQueueTest {
 
         assertEquals(2, queue.getPlayerCount());
 
-        assertFalse(queue.process(queueCallback));
+        assertFalse(queue.process(queueCallback, collectionsManager));
 
         assertEquals(0, queue.getPlayerCount());
         assertFalse(queue.isPlayerSignedUp("p1"));
@@ -153,7 +153,7 @@ public class SingleEliminationRecurringQueueTest {
         queue.joinPlayer(collectionsManager, player1, null);
 
         TournamentQueueCallback queueCallback = Mockito.mock(TournamentQueueCallback.class);
-        assertFalse(queue.process(queueCallback));
+        assertFalse(queue.process(queueCallback, collectionsManager));
 
         Mockito.verifyNoMoreInteractions(queueCallback);
 
@@ -162,7 +162,7 @@ public class SingleEliminationRecurringQueueTest {
 
         assertEquals(3, queue.getPlayerCount());
 
-        assertFalse(queue.process(queueCallback));
+        assertFalse(queue.process(queueCallback, collectionsManager));
 
         assertEquals(1, queue.getPlayerCount());
         assertFalse(queue.isPlayerSignedUp("p1"));

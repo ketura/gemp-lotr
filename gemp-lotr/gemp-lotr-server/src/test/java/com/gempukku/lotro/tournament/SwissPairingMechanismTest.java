@@ -62,7 +62,7 @@ public class SwissPairingMechanismTest {
         for (String player : players)
             previouslyPaired.put(player, new HashSet<String>());
 
-        SwissPairingMechanism pairing = new SwissPairingMechanism();
+        SwissPairingMechanism pairing = new SwissPairingMechanism("swiss");
         for (int i = 1; i < 20; i++) {
             if (!pairing.isFinished(i - 1, players, droppedPlayers)) {
                 System.out.println("Pairing round " + i);
