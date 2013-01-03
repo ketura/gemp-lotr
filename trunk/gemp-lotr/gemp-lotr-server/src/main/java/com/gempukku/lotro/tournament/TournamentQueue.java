@@ -22,7 +22,7 @@ public interface TournamentQueue {
 
     public boolean isRequiresDeck();
 
-    public boolean process(TournamentQueueCallback tournamentQueueCallback);
+    public boolean process(TournamentQueueCallback tournamentQueueCallback, CollectionsManager collectionsManager);
 
     public void joinPlayer(CollectionsManager collectionsManager, Player player, LotroDeck deck);
 

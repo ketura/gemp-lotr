@@ -30,6 +30,7 @@ public class HallServer extends AbstractServer {
     private LotroFormatLibrary _formatLibrary;
     private CollectionsManager _collectionsManager;
     private LotroServer _lotroServer;
+    private PairingMechanismRegistry _pairingMechanismRegistry;
     private TournamentPrizeSchemeRegistry _tournamentPrizeSchemeRegistry;
 
     private CollectionType _allCardsCollectionType = CollectionType.ALL_CARDS;
@@ -55,7 +56,8 @@ public class HallServer extends AbstractServer {
     private final ChatRoomMediator _hallChat;
 
     public HallServer(LotroServer lotroServer, ChatServer chatServer, LeagueService leagueService, TournamentService tournamentService, LotroCardBlueprintLibrary library,
-                      LotroFormatLibrary formatLibrary, CollectionsManager collectionsManager, TournamentPrizeSchemeRegistry tournamentPrizeSchemeRegistry, boolean test) {
+                      LotroFormatLibrary formatLibrary, CollectionsManager collectionsManager, TournamentPrizeSchemeRegistry tournamentPrizeSchemeRegistry,
+                      PairingMechanismRegistry pairingMechanismRegistry, boolean test) {
         _lotroServer = lotroServer;
         _chatServer = chatServer;
         _leagueService = leagueService;
@@ -64,6 +66,7 @@ public class HallServer extends AbstractServer {
         _formatLibrary = formatLibrary;
         _collectionsManager = collectionsManager;
         _tournamentPrizeSchemeRegistry = tournamentPrizeSchemeRegistry;
+        _pairingMechanismRegistry = pairingMechanismRegistry;
         _hallChat = _chatServer.createChatRoom("Game Hall", 10);
 
         _tournamentQueues.put("fotr_queue", new SingleEliminationRecurringQueue(635, "fotr_block",
@@ -272,19 +275,6 @@ public class HallServer extends AbstractServer {
             }
         } finally {
             _hallDataAccessLock.writeLock().unlock();
-        }
-    }
-
-    public boolean processTournament(String tournamentId, Player player, TournamentVisitor tournamentVisitor) {
-        _hallDataAccessLock.readLock().lock();
-        try {
-            Tournament tournament = _runningTournaments.get(tournamentId);
-            if (tournament == null)
-                return false;
-
-            return true;
-        } finally {
-            _hallDataAccessLock.readLock().unlock();
         }
     }
 
@@ -543,6 +533,8 @@ public class HallServer extends AbstractServer {
         return false;
     }
 
+    private int _tickCounter = 60;
+
     @Override
     protected void cleanup() {
         _hallDataAccessLock.writeLock().lock();
@@ -570,15 +562,33 @@ public class HallServer extends AbstractServer {
                 TournamentQueue tournamentQueue = runningTournamentQueue.getValue();
                 HallTournamentQueueCallback queueCallback = new HallTournamentQueueCallback();
                 // If it's finished, remove it
-                if (tournamentQueue.process(queueCallback))
+                if (tournamentQueue.process(queueCallback, _collectionsManager))
                     _tournamentQueues.remove(tournamentQueueKey);
             }
 
-            for (Tournament runningTournament : new ArrayList<Tournament>(_runningTournaments.values())) {
+            for (Map.Entry<String, Tournament> tournamentEntry : new HashMap<String, Tournament>(_runningTournaments).entrySet()) {
+                Tournament runningTournament = tournamentEntry.getValue();
                 runningTournament.advanceTournament(new HallTournamentCallback(runningTournament), _collectionsManager);
                 if (runningTournament.getTournamentStage() == Tournament.Stage.FINISHED)
-                    _runningTournaments.remove(runningTournament);
+                    _runningTournaments.remove(tournamentEntry.getKey());
             }
+
+            if (_tickCounter == 60) {
+                _tickCounter =0;
+                List<TournamentQueueInfo> unstartedTournamentQueues = _tournamentService.getUnstartedScheduledTournamentQueues();
+                for (TournamentQueueInfo unstartedTournamentQueue : unstartedTournamentQueues) {
+                    String scheduledTournamentId = unstartedTournamentQueue.getScheduledTournamentId();
+                    if (!_tournamentQueues.containsKey(scheduledTournamentId)) {
+                        ScheduledTournamentQueue scheduledQueue = new ScheduledTournamentQueue(scheduledTournamentId, unstartedTournamentQueue.getCost(),
+                                true, _tournamentService, unstartedTournamentQueue.getStartTime(), unstartedTournamentQueue.getTournamentName(),
+                                unstartedTournamentQueue.getFormat(), CollectionType.ALL_CARDS, Tournament.Stage.PLAYING_GAMES,
+                                _pairingMechanismRegistry.getPairingMechanism(unstartedTournamentQueue.getPlayOffSystem()),
+                                _tournamentPrizeSchemeRegistry.getTournamentPrizes(unstartedTournamentQueue.getPrizeScheme()), unstartedTournamentQueue.getMinimumPlayers());
+                        _tournamentQueues.put(scheduledTournamentId, scheduledQueue);
+                    }
+                }
+            }
+            _tickCounter++;
 
         } finally {
             _hallDataAccessLock.writeLock().unlock();

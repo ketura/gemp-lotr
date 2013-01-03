@@ -57,7 +57,7 @@ public class DefaultTournamentTest {
                 new Answer<Boolean>() {
                     @Override
                     public Boolean answer(InvocationOnMock invocationOnMock) throws Throwable {
-                        Map<String, String> pairings = (Map<String, String>) invocationOnMock.getArguments()[5];
+                        Map<String, String> pairings = (Map<String, String>) invocationOnMock.getArguments()[6];
                         pairings.put("p1", "p2");
                         pairings.put("p3", "p4");
                         pairings.put("p5", "p6");
@@ -73,7 +73,7 @@ public class DefaultTournamentTest {
                 new Answer<Boolean>() {
                     @Override
                     public Boolean answer(InvocationOnMock invocationOnMock) throws Throwable {
-                        Map<String, String> pairings = (Map<String, String>) invocationOnMock.getArguments()[5];
+                        Map<String, String> pairings = (Map<String, String>) invocationOnMock.getArguments()[6];
                         pairings.put("p1", "p3");
                         pairings.put("p5", "p7");
 
@@ -87,7 +87,7 @@ public class DefaultTournamentTest {
                 new Answer<Boolean>() {
                     @Override
                     public Boolean answer(InvocationOnMock invocationOnMock) throws Throwable {
-                        Map<String, String> pairings = (Map<String, String>) invocationOnMock.getArguments()[5];
+                        Map<String, String> pairings = (Map<String, String>) invocationOnMock.getArguments()[6];
                         pairings.put("p1", "p5");
 
                         return false;

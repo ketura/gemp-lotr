@@ -24,6 +24,12 @@ public class DateUtils {
         return format.format(new Date());
     }
 
+    public static String formatDateWithHour(Date date) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        format.setTimeZone(TimeZone.getTimeZone("GMT"));
+        return format.format(date);
+    }
+
     public static int offsetDate(int start, int dayOffset) {
         try {
             SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");

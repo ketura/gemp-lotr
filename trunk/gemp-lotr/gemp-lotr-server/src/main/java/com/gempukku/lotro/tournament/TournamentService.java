@@ -154,4 +154,12 @@ public class TournamentService {
     public Map<String, Integer> getPlayerByes(String tournamentId) {
         return _tournamentMatchDao.getPlayerByes(tournamentId);
     }
+
+    public List<TournamentQueueInfo> getUnstartedScheduledTournamentQueues() {
+        return _tournamentDao.getUnstartedScheduledTournamentQueues();
+    }
+
+    public void updateScheduledTournamentStarted(String scheduledTournamentId) {
+        _tournamentDao.updateScheduledTournamentStarted(scheduledTournamentId);
+    }
 }
