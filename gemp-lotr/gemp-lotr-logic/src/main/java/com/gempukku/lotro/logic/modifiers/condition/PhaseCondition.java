@@ -1,4 +1,4 @@
-package com.gempukku.lotro.cards.modifiers.conditions;
+package com.gempukku.lotro.logic.modifiers.condition;
 
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.game.state.GameState;

@@ -2,7 +2,6 @@ package com.gempukku.lotro.cards.set13.site;
 
 import com.gempukku.lotro.cards.AbstractNewSite;
 import com.gempukku.lotro.cards.modifiers.conditions.NotCondition;
-import com.gempukku.lotro.cards.modifiers.conditions.PhaseCondition;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
@@ -14,6 +13,7 @@ import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
+import com.gempukku.lotro.logic.modifiers.condition.PhaseCondition;
 
 import java.util.HashMap;
 import java.util.Map;
