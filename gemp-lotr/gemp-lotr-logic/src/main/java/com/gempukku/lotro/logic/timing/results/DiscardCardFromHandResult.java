@@ -28,4 +28,8 @@ public class DiscardCardFromHandResult extends EffectResult {
     public String getHandPlayerId() {
         return _handPlayerId;
     }
+
+    public PhysicalCard getDiscardedCard() {
+        return _card;
+    }
 }
