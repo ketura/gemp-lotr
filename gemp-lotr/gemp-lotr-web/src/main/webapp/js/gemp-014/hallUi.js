@@ -141,7 +141,7 @@ var GempLotrHallUI = Class.extend({
 
         var content = $("<div></div>");
 
-        var toggleContent = $("<div>Toggle tournaments</div>").button({
+        var toggleContent = $("<div>Toggle tournaments in progress</div>").button({
             icons: {
                 primary: "ui-icon-circlesmall-minus"
             },
@@ -157,7 +157,7 @@ var GempLotrHallUI = Class.extend({
                 content.toggle("blind", {}, 200);
             });
         header.append(toggleContent);
-        header.append(" Tournaments");
+        header.append(" Tournaments in progress");
         header.append(" <span class='count'>(0)</span>");
 
         var table = $("<table class='tables tournaments'></table>");
