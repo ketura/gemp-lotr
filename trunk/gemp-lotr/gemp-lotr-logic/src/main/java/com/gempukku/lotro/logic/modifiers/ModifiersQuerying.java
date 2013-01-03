@@ -126,6 +126,8 @@ public interface ModifiersQuerying {
 
     public boolean canDiscardCardsFromTopOfDeck(GameState gameState, String playerId, PhysicalCard source);
 
+    public boolean canBeLiberated(GameState gameState, String playerId, PhysicalCard card, PhysicalCard source);
+
     public Side hasInitiative(GameState gameState);
 
     public int getSpotBonus(GameState gameState, Filterable filter);
