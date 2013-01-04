@@ -321,7 +321,11 @@ public class LotroGameMediator {
                             }
                         }
                     }
+                } else {
+                    throw new WebApplicationException(Response.Status.CONFLICT);
                 }
+            } else {
+                throw new WebApplicationException(Response.Status.GONE);
             }
         } finally {
             _writeLock.unlock();
