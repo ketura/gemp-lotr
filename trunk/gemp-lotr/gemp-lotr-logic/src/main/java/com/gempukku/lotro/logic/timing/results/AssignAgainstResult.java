@@ -6,20 +6,20 @@ import com.gempukku.lotro.logic.timing.EffectResult;
 import java.util.Collections;
 import java.util.Set;
 
-public class AssignmentResult extends EffectResult {
+public class AssignAgainstResult extends EffectResult {
     private String _playerId;
     private PhysicalCard _assignedCard;
     private Set<PhysicalCard> _against;
 
-    public AssignmentResult(String playerId, PhysicalCard assignedCard, PhysicalCard against) {
-        super(EffectResult.Type.CHARACTER_ASSIGNED);
+    public AssignAgainstResult(String playerId, PhysicalCard assignedCard, PhysicalCard against) {
+        super(Type.ASSIGNED_AGAINST);
         _playerId = playerId;
         _assignedCard = assignedCard;
         _against = Collections.singleton(against);
     }
 
-    public AssignmentResult(String playerId, PhysicalCard assignedCard, Set<PhysicalCard> against) {
-        super(EffectResult.Type.CHARACTER_ASSIGNED);
+    public AssignAgainstResult(String playerId, PhysicalCard assignedCard, Set<PhysicalCard> against) {
+        super(Type.ASSIGNED_AGAINST);
         _playerId = playerId;
         _assignedCard = assignedCard;
         _against = against;

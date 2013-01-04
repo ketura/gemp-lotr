@@ -11,7 +11,7 @@ import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.effects.AddTwilightEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.results.AssignmentResult;
+import com.gempukku.lotro.logic.timing.results.AssignAgainstResult;
 
 import java.util.Collections;
 import java.util.List;
@@ -28,8 +28,8 @@ public class AmbushRule {
                 new AbstractActionProxy() {
                     @Override
                     public List<? extends OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult) {
-                        if (effectResult.getType() == EffectResult.Type.CHARACTER_ASSIGNED) {
-                            AssignmentResult assignmentResult = (AssignmentResult) effectResult;
+                        if (effectResult.getType() == EffectResult.Type.ASSIGNED_AGAINST) {
+                            AssignAgainstResult assignmentResult = (AssignAgainstResult) effectResult;
                             if (assignmentResult.getPlayerId().equals(game.getGameState().getCurrentPlayerId())) {
                                 PhysicalCard assignedCard = assignmentResult.getAssignedCard();
                                 if (Filters.and(CardType.MINION, Keyword.AMBUSH, Filters.owner(playerId)).accepts(game.getGameState(), game.getModifiersQuerying(), assignedCard)) {

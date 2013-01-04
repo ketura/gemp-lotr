@@ -16,7 +16,7 @@ import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.effects.AddTwilightEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.results.AssignmentResult;
+import com.gempukku.lotro.logic.timing.results.AssignAgainstResult;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -53,7 +53,7 @@ public class Card17_067 extends AbstractPermanent {
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.assignedAgainst(game, effectResult, Side.FREE_PEOPLE, CardType.COMPANION, Culture.ORC, Race.ORC, Filters.mounted)) {
-            AssignmentResult assignResult = (AssignmentResult) effectResult;
+            AssignAgainstResult assignResult = (AssignAgainstResult) effectResult;
             PhysicalCard companion = assignResult.getAgainst().iterator().next();
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.setText("Assigned " + GameUtils.getCardLink(assignResult.getAssignedCard()) + " to " + GameUtils.getCardLink(companion));
