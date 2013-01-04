@@ -300,7 +300,7 @@ var GempLotrHallUI = Class.extend({
                 that.showErrorDialog("Concurrent access error", "You are accessing Game Hall from another browser or window. Close this window or if you wish to access Game Hall from here, click \"Refresh page\".", true, false);
             },
             "410":function() {
-                that.showErrorDialog("Inactivity error", "You were inactive for too long and you have been removed from the Game Hall. If you wish to re-enter, clich \"Refresh page\".", true, false);
+                that.showErrorDialog("Inactivity error", "You were inactive for too long and have been removed from the Game Hall. If you wish to re-enter, click \"Refresh page\".", true, false);
             }
         };
     },

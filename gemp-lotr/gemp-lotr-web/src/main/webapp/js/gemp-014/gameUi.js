@@ -851,14 +851,6 @@ var GempLotrGameUI = Class.extend({
         }
     },
 
-    startGameSession:function () {
-        var that = this;
-        this.communication.startGameSession(
-                function (xml) {
-                    that.processXml(xml, false);
-                });
-    },
-
     startReplaySession:function (replayId) {
         var that = this;
         this.communication.getReplay(replayId,
@@ -867,13 +859,21 @@ var GempLotrGameUI = Class.extend({
                 });
     },
 
+    startGameSession:function () {
+        var that = this;
+        this.communication.startGameSession(
+                function (xml) {
+                    that.processXml(xml, false);
+                }, this.gameErrorMap());
+    },
+
     updateGameState:function () {
         var that = this;
         this.communication.updateGameState(
                 this.channelNumber,
                 function (xml) {
                     that.processXml(xml, true);
-                });
+                }, this.gameErrorMap());
     },
 
     decisionFunction:function (decisionId, result) {
@@ -882,9 +882,60 @@ var GempLotrGameUI = Class.extend({
                 this.channelNumber,
                 function (xml) {
                     that.processXml(xml, true);
-                });
+                }, this.gameErrorMap());
     },
 
+    gameErrorMap:function() {
+        var that = this;
+        return {
+            "0": function() {
+                that.showErrorDialog("Server connection error", "Unable to connect to server. Either server is down or there is a problem with your internet connection.", true, false, false);
+            },
+            "401":function() {
+                that.showErrorDialog("Authentication error", "You are not logged in", false, true, false);
+            },
+            "403":function() {
+                that.showErrorDialog("Game access forbidden", "This game is private and does not allow spectators.", false, false, true);
+            },
+            "409":function() {
+                that.showErrorDialog("Concurrent access error", "You are observing this Game Hall from another browser or window. Close this window or if you wish to observe it here, click \"Refresh page\".", true, false, false);
+            },
+            "410":function() {
+                that.showErrorDialog("Inactivity error", "You were inactive for too long and have been removed from observing this game. If you wish to start again, click \"Refresh page\".", true, false, false);
+            }
+        };
+    },
+
+    showErrorDialog:function(title, text, reloadButton, mainPageButton, gameHallButton) {
+        var buttons = {};
+        if (reloadButton) {
+            buttons["Refresh page"] =
+            function () {
+                location.reload(true);
+            };
+        }
+        if (mainPageButton) {
+            buttons["Go to main page"] =
+            function() {
+                location.href = "/gemp-lotr/";
+            };
+        }
+        if (gameHallButton) {
+            buttons["Go to Game Hall"] =
+            function() {
+                location.href = "/game-lotr/hall.html";
+            };
+        }
+
+        var dialog = $("<div></div>").dialog({
+            title: title,
+            resizable: false,
+            height: 160,
+            modal: true,
+            buttons: buttons
+        }).text(text);
+    },
+    
     getCardModifiersFunction:function (cardId, func) {
         var that = this;
         this.communication.getGameCardModifiers(cardId,
