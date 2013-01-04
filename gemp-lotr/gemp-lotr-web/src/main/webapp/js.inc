@@ -9,25 +9,25 @@
 <script type="text/javascript" src="js/jquery/jquery.layout.js"></script>
 <script type="text/javascript" src="js/jquery/jquery.touchSwipe.js"></script>
 
-<script type="text/javascript" src="js/gemp-014/inheritance.js"></script>
-<script type="text/javascript" src="js/gemp-014/common.js"></script>
-<script type="text/javascript" src="js/gemp-014/logging.js"></script>
-<script type="text/javascript" src="js/gemp-014/chat.js"></script>
-<script type="text/javascript" src="js/gemp-014/communication.js"></script>
-<script type="text/javascript" src="js/gemp-014/deliveryService.js"></script>
-<script type="text/javascript" src="js/gemp-014/commonUi.js"></script>
-<script type="text/javascript" src="js/gemp-014/cardFilter.js"></script>
+<script type="text/javascript" src="js/gemp-015/inheritance.js"></script>
+<script type="text/javascript" src="js/gemp-015/common.js"></script>
+<script type="text/javascript" src="js/gemp-015/logging.js"></script>
+<script type="text/javascript" src="js/gemp-015/chat.js"></script>
+<script type="text/javascript" src="js/gemp-015/communication.js"></script>
+<script type="text/javascript" src="js/gemp-015/deliveryService.js"></script>
+<script type="text/javascript" src="js/gemp-015/commonUi.js"></script>
+<script type="text/javascript" src="js/gemp-015/cardFilter.js"></script>
 
-<script type="text/javascript" src="js/gemp-014/jCardGroup.js"></script>
-<script type="text/javascript" src="js/gemp-014/jCards.js"></script>
+<script type="text/javascript" src="js/gemp-015/jCardGroup.js"></script>
+<script type="text/javascript" src="js/gemp-015/jCards.js"></script>
 
-<script type="text/javascript" src="js/gemp-014/hallUi.js"></script>
-<script type="text/javascript" src="js/gemp-014/leagueResultsUi.js"></script>
-<script type="text/javascript" src="js/gemp-014/tournamentResultsUi.js"></script>
-<script type="text/javascript" src="js/gemp-014/statsUi.js"></script>
-<script type="text/javascript" src="js/gemp-014/playerStatsUi.js"></script>
-<script type="text/javascript" src="js/gemp-014/gameHistoryUi.js"></script>
-<script type="text/javascript" src="js/gemp-014/deckBuildingUi.js"></script>
-<script type="text/javascript" src="js/gemp-014/gameUi.js"></script>
-<script type="text/javascript" src="js/gemp-014/gameAnimations.js"></script>
-<script type="text/javascript" src="js/gemp-014/merchantUi.js"></script>
+<script type="text/javascript" src="js/gemp-015/hallUi.js"></script>
+<script type="text/javascript" src="js/gemp-015/leagueResultsUi.js"></script>
+<script type="text/javascript" src="js/gemp-015/tournamentResultsUi.js"></script>
+<script type="text/javascript" src="js/gemp-015/statsUi.js"></script>
+<script type="text/javascript" src="js/gemp-015/playerStatsUi.js"></script>
+<script type="text/javascript" src="js/gemp-015/gameHistoryUi.js"></script>
+<script type="text/javascript" src="js/gemp-015/deckBuildingUi.js"></script>
+<script type="text/javascript" src="js/gemp-015/gameUi.js"></script>
+<script type="text/javascript" src="js/gemp-015/gameAnimations.js"></script>
+<script type="text/javascript" src="js/gemp-015/merchantUi.js"></script>
