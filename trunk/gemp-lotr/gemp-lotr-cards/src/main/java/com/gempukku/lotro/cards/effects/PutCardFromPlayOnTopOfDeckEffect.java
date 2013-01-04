@@ -42,8 +42,7 @@ public class PutCardFromPlayOnTopOfDeckEffect extends AbstractEffect {
 
             gameState.putCardOnTopOfDeck(_physicalCard);
             for (PhysicalCard discardedCard : discardedCards) {
-                game.getActionsEnvironment().emitEffectResult(
-                        new DiscardCardsFromPlayResult(discardedCard));
+                game.getActionsEnvironment().emitEffectResult(new DiscardCardsFromPlayResult(null, discardedCard));
             }
             for (PhysicalCard toGoToDiscardCard : toGoToDiscardCards)
                 gameState.addCardToZone(game, toGoToDiscardCard, Zone.DISCARD);

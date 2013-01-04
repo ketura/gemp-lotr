@@ -69,7 +69,7 @@ public class ShuffleCardsFromPlayIntoDeckEffect extends AbstractEffect {
                 game.getGameState().addCardToZone(game, physicalCard, Zone.DISCARD);
 
             for (PhysicalCard physicalCard : discardedFromPlay)
-                game.getActionsEnvironment().emitEffectResult(new DiscardCardsFromPlayResult(physicalCard));
+                game.getActionsEnvironment().emitEffectResult(new DiscardCardsFromPlayResult(null, physicalCard));
 
             game.getGameState().sendMessage(getAppendedNames(toShuffleIn) + " " + GameUtils.be(toShuffleIn) + " shuffled into " + _playerDeck + " deck");
 

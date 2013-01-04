@@ -14,6 +14,7 @@ import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.results.DiscardCardsFromPlayResult;
 
 import java.util.Collections;
 import java.util.List;
@@ -45,6 +46,7 @@ public class Card17_036 extends AbstractPermanent {
         if (PlayConditions.isPhase(game, Phase.SKIRMISH)
                 && TriggerConditions.forEachDiscardedFromPlay(game, effectResult, CardType.MINION)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
+            action.setTriggerIdentifier(self.getCardId()+"-"+((DiscardCardsFromPlayResult) effectResult).getDiscardedCard());
             action.appendEffect(
                     new ReinforceTokenEffect(self, playerId, Token.GONDOR));
             return Collections.singletonList(action);
