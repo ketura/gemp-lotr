@@ -1,7 +1,6 @@
 package com.gempukku.lotro.hall;
 
-import com.gempukku.lotro.AbstractServer;
-import com.gempukku.lotro.DateUtils;
+import com.gempukku.lotro.*;
 import com.gempukku.lotro.chat.ChatRoomMediator;
 import com.gempukku.lotro.chat.ChatServer;
 import com.gempukku.lotro.collection.CollectionsManager;
@@ -16,8 +15,6 @@ import com.gempukku.lotro.logic.timing.GameResultListener;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 import com.gempukku.lotro.tournament.*;
 
-import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.Response;
 import java.util.*;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
@@ -289,7 +286,7 @@ public class HallServer extends AbstractServer {
         }
     }
 
-    public void processHall(Player player, int channelNumber, HallChannelVisitor hallChannelVisitor) {
+    public void processHall(Player player, int channelNumber, HallChannelVisitor hallChannelVisitor) throws SubscriptionExpiredException, SubscriptionConflictException {
         _hallDataAccessLock.readLock().lock();
         try {
             HallCommunicationChannel communicationChannel = _playerChannelCommunication.get(player);
@@ -297,10 +294,10 @@ public class HallServer extends AbstractServer {
                 if (communicationChannel.getChannelNumber() == channelNumber) {
                     communicationChannel.processCommunicationChannel(this, player, hallChannelVisitor);
                 } else {
-                    throw new WebApplicationException(Response.Status.CONFLICT);
+                    throw new SubscriptionConflictException();
                 }
             } else {
-                throw new WebApplicationException(Response.Status.GONE);
+                throw new SubscriptionExpiredException();
             }
         } finally {
             _hallDataAccessLock.readLock().unlock();
@@ -641,7 +638,11 @@ public class HallServer extends AbstractServer {
 
         @Override
         public void broadcastMessage(String message) {
+            try {
             _hallChat.sendMessage("TournamentSystem", message, true);
+            } catch (PrivateInformationException exp) {
+                // Ignore, sent as admin
+            }
         }
     }
 }

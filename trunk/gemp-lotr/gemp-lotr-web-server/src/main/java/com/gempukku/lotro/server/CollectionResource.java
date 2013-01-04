@@ -94,7 +94,7 @@ public class CollectionResource extends AbstractResource {
         CardCollection collection = getCollection(resourceOwner, collectionType);
 
         if (collection == null)
-            sendError(Response.Status.NOT_FOUND);
+            throw new WebApplicationException(Response.Status.NOT_FOUND);
 
         Collection<CardCollection.Item> items = collection.getAll().values();
         List<CardCollection.Item> filteredResult = _sortAndFilterCards.process(filter, items, _library, _formatLibrary, _rarities);
@@ -215,7 +215,7 @@ public class CollectionResource extends AbstractResource {
         CardCollection packContents = _collectionsManager.openPackInPlayerCollection(resourceOwner, collectionTypeObj, selection, _packStorage, packId);
 
         if (packContents == null)
-            sendError(Response.Status.NOT_FOUND);
+            throw new WebApplicationException(Response.Status.NOT_FOUND);
 
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();

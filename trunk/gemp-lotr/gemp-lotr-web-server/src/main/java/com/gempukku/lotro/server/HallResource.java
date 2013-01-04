@@ -1,5 +1,7 @@
 package com.gempukku.lotro.server;
 
+import com.gempukku.lotro.SubscriptionConflictException;
+import com.gempukku.lotro.SubscriptionExpiredException;
 import com.gempukku.lotro.db.vo.League;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.game.LotroFormat;
@@ -20,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -129,7 +132,7 @@ public class HallResource extends AbstractResource {
             @FormParam("participantId") String participantId,
             @FormParam("channelNumber") int channelNumber,
             @Context HttpServletRequest request,
-            @Context HttpServletResponse response) throws ParserConfigurationException, Exception {
+            @Context HttpServletResponse response) throws ParserConfigurationException {
         Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -140,7 +143,13 @@ public class HallResource extends AbstractResource {
         Element hall = doc.createElement("hall");
         hall.setAttribute("currency", String.valueOf(_collectionManager.getPlayerCollection(resourceOwner, "permanent").getCurrency()));
 
-        _hallServer.processHall(resourceOwner, channelNumber, new SerializeHallInfoVisitor(doc, hall));
+        try {
+            _hallServer.processHall(resourceOwner, channelNumber, new SerializeHallInfoVisitor(doc, hall));
+        } catch (SubscriptionExpiredException exp) {
+            throw new WebApplicationException(Response.Status.GONE);
+        } catch (SubscriptionConflictException exp) {
+            throw new WebApplicationException(Response.Status.CONFLICT);
+        }
 
         doc.appendChild(hall);
 

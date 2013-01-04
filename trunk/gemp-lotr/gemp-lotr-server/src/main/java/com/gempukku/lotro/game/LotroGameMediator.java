@@ -1,5 +1,8 @@
 package com.gempukku.lotro.game;
 
+import com.gempukku.lotro.PrivateInformationException;
+import com.gempukku.lotro.SubscriptionConflictException;
+import com.gempukku.lotro.SubscriptionExpiredException;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.communication.GameStateListener;
 import com.gempukku.lotro.filters.Filters;
@@ -14,8 +17,6 @@ import com.gempukku.lotro.logic.timing.GameResultListener;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 import org.apache.log4j.Logger;
 
-import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.Response;
 import java.util.*;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
@@ -291,7 +292,7 @@ public class LotroGameMediator {
         }
     }
 
-    public void playerAnswered(Player player, int channelNumber, int decisionId, String answer) {
+    public void playerAnswered(Player player, int channelNumber, int decisionId, String answer) throws SubscriptionConflictException, SubscriptionExpiredException {
         String playerName = player.getName();
         _writeLock.lock();
         try {
@@ -322,20 +323,20 @@ public class LotroGameMediator {
                         }
                     }
                 } else {
-                    throw new WebApplicationException(Response.Status.CONFLICT);
+                    throw new SubscriptionConflictException();
                 }
             } else {
-                throw new WebApplicationException(Response.Status.GONE);
+                throw new SubscriptionExpiredException();
             }
         } finally {
             _writeLock.unlock();
         }
     }
 
-    public void processCommunicationChannel(Player player, int channelNumber, ParticipantCommunicationVisitor visitor) {
+    public void processCommunicationChannel(Player player, int channelNumber, ParticipantCommunicationVisitor visitor) throws PrivateInformationException, SubscriptionConflictException, SubscriptionExpiredException {
         String playerName = player.getName();
         if (!player.getType().contains("a") && !_allowSpectators && !_playersPlaying.contains(playerName))
-            throw new WebApplicationException(Response.Status.FORBIDDEN);
+            throw new PrivateInformationException();
 
         _readLock.lock();
         try {
@@ -357,20 +358,20 @@ public class LotroGameMediator {
                     }
                     visitor.visitClock(secondsLeft);
                 } else {
-                    visitor.visitGameEvent(new GameEvent(GameEvent.Type.W).message("You have joined this game in another window, please refresh your browser window (press F5) if you wish to continue playing in this window"));
+                    throw new SubscriptionConflictException();
                 }
             } else {
-                visitor.visitGameEvent(new GameEvent(GameEvent.Type.W).message("Your browser was inactive for too long, please refresh your browser window to continue playing"));
+                throw new SubscriptionExpiredException();
             }
         } finally {
             _readLock.unlock();
         }
     }
 
-    public void singupUserForGame(Player player, ParticipantCommunicationVisitor visitor) {
+    public void singupUserForGame(Player player, ParticipantCommunicationVisitor visitor) throws PrivateInformationException {
         String playerName = player.getName();
         if (!player.getType().contains("a") && !_allowSpectators && !_playersPlaying.contains(playerName))
-            throw new WebApplicationException(Response.Status.FORBIDDEN);
+            throw new PrivateInformationException();
 
         _readLock.lock();
         try {

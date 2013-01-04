@@ -1,9 +1,10 @@
 package com.gempukku.lotro.server;
 
+import com.gempukku.lotro.PrivateInformationException;
+import com.gempukku.lotro.SubscriptionExpiredException;
 import com.gempukku.lotro.chat.ChatMessage;
 import com.gempukku.lotro.chat.ChatRoomMediator;
 import com.gempukku.lotro.chat.ChatServer;
-import com.gempukku.lotro.chat.UserUnsubscribedException;
 import com.gempukku.lotro.game.Player;
 import com.sun.jersey.spi.resource.Singleton;
 import org.apache.commons.lang.StringEscapeUtils;
@@ -38,7 +39,7 @@ public class ChatResource extends AbstractResource {
 
         ChatRoomMediator chatRoom = _chatServer.getChatRoom(room);
         if (chatRoom == null)
-            sendError(Response.Status.NOT_FOUND);
+            throw new WebApplicationException(Response.Status.NOT_FOUND);
 
         List<ChatMessage> chatMessages = chatRoom.joinUser(resourceOwner.getName());
         Collection<String> usersInRoom = chatRoom.getUsersInRoom();
@@ -65,12 +66,16 @@ public class ChatResource extends AbstractResource {
 
         ChatRoomMediator chatRoom = _chatServer.getChatRoom(room);
         if (chatRoom == null)
-            sendError(Response.Status.NOT_FOUND);
+            throw new WebApplicationException(Response.Status.NOT_FOUND);
 
         if (messages != null) {
-            for (String message : messages) {
-                if (message != null && message.trim().length() > 0)
-                    chatRoom.sendMessage(resourceOwner.getName(), StringEscapeUtils.escapeHtml(message), resourceOwner.getType().contains("a"));
+            try {
+                for (String message : messages) {
+                    if (message != null && message.trim().length() > 0)
+                        chatRoom.sendMessage(resourceOwner.getName(), StringEscapeUtils.escapeHtml(message), resourceOwner.getType().contains("a"));
+                }
+            } catch (PrivateInformationException exp) {
+                throw new WebApplicationException(Response.Status.FORBIDDEN);
             }
         }
 
@@ -87,9 +92,8 @@ public class ChatResource extends AbstractResource {
             serializeChatRoomData(room, chatMessages, usersInRoom, doc);
 
             return doc;
-        } catch (UserUnsubscribedException exp) {
-            sendError(Response.Status.GONE);
-            return null;
+        } catch (SubscriptionExpiredException exp) {
+            throw new WebApplicationException(Response.Status.GONE);
         }
     }
 

@@ -113,7 +113,7 @@ public class TournamentResource extends AbstractResource {
 
         Tournament tournament = _tournamentService.getTournamentById(tournamentId);
         if (tournament == null)
-            sendError(Response.Status.NOT_FOUND);
+            throw new WebApplicationException(Response.Status.NOT_FOUND);
 
         Element tournamentElem = doc.createElement("tournament");
 
@@ -148,14 +148,14 @@ public class TournamentResource extends AbstractResource {
 
         Tournament tournament = _tournamentService.getTournamentById(tournamentId);
         if (tournament == null)
-            sendError(Response.Status.NOT_FOUND);
+            throw new WebApplicationException(Response.Status.NOT_FOUND);
 
         if (tournament.getTournamentStage() != Tournament.Stage.FINISHED)
-            sendError(Response.Status.FORBIDDEN);
+            throw new WebApplicationException(Response.Status.FORBIDDEN);
 
         LotroDeck deck = _tournamentService.getPlayerDeck(tournamentId, playerName);
         if (deck == null)
-            sendError(Response.Status.NOT_FOUND);
+            throw new WebApplicationException(Response.Status.NOT_FOUND);
 
         StringBuilder result = new StringBuilder();
         result.append("<html><body>");

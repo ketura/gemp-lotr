@@ -336,14 +336,14 @@ public class AdminResource extends AbstractResource {
         Player player = getResourceOwnerSafely(request, null);
 
         if (!player.getType().contains("a"))
-            sendError(Response.Status.FORBIDDEN);
+            throw new WebApplicationException(Response.Status.FORBIDDEN);
     }
 
     private void validateLeagueAdmin(HttpServletRequest request) {
         Player player = getResourceOwnerSafely(request, null);
 
         if (!player.getType().contains("l"))
-            sendError(Response.Status.FORBIDDEN);
+            throw new WebApplicationException(Response.Status.FORBIDDEN);
     }
 
     private CollectionType createCollectionType(String collectionType) {

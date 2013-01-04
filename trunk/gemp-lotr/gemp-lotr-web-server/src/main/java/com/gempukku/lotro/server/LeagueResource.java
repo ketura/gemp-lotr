@@ -44,10 +44,10 @@ public class LeagueResource extends AbstractResource {
 
         League league = _leagueService.getLeagueByType(leagueType);
         if (league == null)
-            sendError(Response.Status.NOT_FOUND);
+            throw new WebApplicationException(Response.Status.NOT_FOUND);
 
         if (!_leagueService.playerJoinsLeague(league, resourceOwner, request.getRemoteAddr()))
-            sendError(Response.Status.CONFLICT);
+            throw new WebApplicationException(Response.Status.CONFLICT);
     }
 
     @GET
@@ -100,7 +100,7 @@ public class LeagueResource extends AbstractResource {
         League league = getLeagueByType(leagueType);
 
         if (league == null)
-            sendError(Response.Status.NOT_FOUND);
+            throw new WebApplicationException(Response.Status.NOT_FOUND);
 
         final LeagueData leagueData = league.getLeagueData();
         final List<LeagueSerieData> series = leagueData.getSeries();
