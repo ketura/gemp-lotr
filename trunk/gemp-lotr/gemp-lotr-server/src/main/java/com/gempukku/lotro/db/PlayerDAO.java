@@ -15,7 +15,7 @@ public interface PlayerDAO {
 
     public boolean updateLastReward(Player player, int previousReward, int currentReward) throws SQLException;
 
-    public boolean registerUser(String login, String password, String remoteAddr) throws SQLException;
+    public boolean registerUser(String login, String password, String remoteAddr) throws SQLException, LoginInvalidException;
 
     public void updateLastLoginIp(String login, String remoteAddr) throws SQLException;
 }

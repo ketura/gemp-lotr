@@ -104,7 +104,7 @@ public class DbPlayerDAO implements PlayerDAO {
         }
     }
 
-    public synchronized boolean registerUser(String login, String password, String remoteAddr) throws SQLException {
+    public synchronized boolean registerUser(String login, String password, String remoteAddr) throws SQLException, LoginInvalidException {
         boolean result = validateLogin(login);
         if (!result)
             return false;
@@ -127,13 +127,13 @@ public class DbPlayerDAO implements PlayerDAO {
         }
     }
 
-    private boolean validateLogin(String login) throws SQLException {
+    private boolean validateLogin(String login) throws SQLException, LoginInvalidException {
         if (login.length() < 2 || login.length() > 10)
-            return false;
+            throw new LoginInvalidException();
         for (int i = 0; i < login.length(); i++) {
             char c = login.charAt(i);
             if (!validLoginChars.contains("" + c))
-                return false;
+                throw new LoginInvalidException();
         }
 
         String lowerCase = login.toLowerCase();

@@ -1,6 +1,7 @@
 package com.gempukku.lotro.server;
 
 import com.gempukku.lotro.chat.ChatServer;
+import com.gempukku.lotro.db.LoginInvalidException;
 import com.gempukku.lotro.db.PlayerStatistic;
 import com.gempukku.lotro.db.vo.GameHistoryEntry;
 import com.gempukku.lotro.game.*;
@@ -52,7 +53,7 @@ public class ServerResource extends AbstractResource {
     @Path("/login")
     @POST
     @Produces("text/html")
-    public String login(
+    public void login(
             @FormParam("login") String login,
             @FormParam("password") String password,
             @Context HttpServletRequest request) throws Exception {
@@ -60,12 +61,11 @@ public class ServerResource extends AbstractResource {
         if (player != null) {
             if (player.getType().contains("u")) {
                 logUser(request, login);
-                return "<script>location.href='hall.html';</script>";
             } else {
-                return "You were banned. If you think it was a mistake, please write an e-mail to marcins78@gmail.com";
+                throw new WebApplicationException(Response.Status.FORBIDDEN);
             }
         } else {
-            return "Invalid login or password. Please try again.<br/>" + getLoginHTML();
+            throw new WebApplicationException(Response.Status.UNAUTHORIZED);
         }
     }
 
@@ -79,28 +79,19 @@ public class ServerResource extends AbstractResource {
     @Path("/register")
     @POST
     @Produces("text/html")
-    public String register(
+    public void register(
             @FormParam("login") String login,
             @FormParam("password") String password,
-            @Context HttpServletRequest request) throws Exception {
-        if (_playerDao.registerUser(login, password, request.getRemoteAddr())) {
-            logUser(request, login);
-            return "<script>location.href='hall.html';</script>";
-        } else {
-            StringBuilder sb = new StringBuilder();
-            sb.append("User with this name already exists or your login is invalid.<br/>");
-            sb.append("Login must be between 2-10 characters long, contain only<br/>english letters, numbers or _ (underscore) and - (dash) characters.<br/>");
-            sb.append("Try to <button id='clickToRegister'>register</button> again.");
-            return sb.toString();
+            @Context HttpServletRequest request) throws SQLException {
+        try {
+            if (_playerDao.registerUser(login, password, request.getRemoteAddr())) {
+                logUser(request, login);
+            } else {
+                throw new WebApplicationException(Response.Status.CONFLICT);
+            }
+        } catch (LoginInvalidException exp) {
+            throw new WebApplicationException(Response.Status.BAD_REQUEST);
         }
-    }
-
-    private String getLoginHTML() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Login: <input id='login' type='text'><br/>");
-        sb.append("Password: <input id='password' type='password'><br/>");
-        sb.append("<button id='loginButton'>Login</button>");
-        return sb.toString();
     }
 
     @Path("/replay/{replayId}")
@@ -195,19 +186,12 @@ public class ServerResource extends AbstractResource {
             @QueryParam("participantId") String participantId,
             @Context HttpServletRequest request) throws ParserConfigurationException {
         StringBuilder sb = new StringBuilder();
-        participantId = getUserNameIfLogged(request);
-        if (participantId != null) {
-            sb.append("<script>location.href='hall.html';</script>");
-        } else {
-            sb.append("You are not logged in, log in below or <button id='clickToRegister'>register</button>.");
-            int day = 1000 * 60 * 60 * 24;
-            int week = 1000 * 60 * 60 * 24 * 7;
-            sb.append("<div class='status'>Tables count: ").append(_hallServer.getTablesCount()).append(", players in hall: ").append(_chatServer.getChatRoom("Game Hall").getUsersInRoom().size())
-                    .append(", games played in last 24 hours: ").append(_gameHistoryService.getGamesPlayedCount(System.currentTimeMillis() - day, day))
-                    .append(",<br/> active players in last week: ").append(_gameHistoryService.getActivePlayersCount(System.currentTimeMillis() - week, week))
-                    .append("</div>");
-            sb.append(getLoginHTML());
-        }
+
+        int day = 1000 * 60 * 60 * 24;
+        int week = 1000 * 60 * 60 * 24 * 7;
+        sb.append("Tables count: ").append(_hallServer.getTablesCount()).append(", players in hall: ").append(_chatServer.getChatRoom("Game Hall").getUsersInRoom().size())
+                .append(", games played in last 24 hours: ").append(_gameHistoryService.getGamesPlayedCount(System.currentTimeMillis() - day, day))
+                .append(",<br/> active players in last week: ").append(_gameHistoryService.getActivePlayersCount(System.currentTimeMillis() - week, week));
 
         return sb.toString();
     }

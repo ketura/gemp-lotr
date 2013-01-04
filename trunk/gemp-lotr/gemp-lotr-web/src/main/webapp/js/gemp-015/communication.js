@@ -615,6 +615,7 @@ var GempLotrCommunication = Class.extend({
             type:"POST",
             url:this.url + "/login",
             cache:false,
+            async:false,
             data:{
                 login:login,
                 password:password,
@@ -643,6 +644,7 @@ var GempLotrCommunication = Class.extend({
             type:"POST",
             url:"/gemp-lotr/includes/registrationForm.html",
             cache:false,
+            async:false,
             data:{
                 participantId:getUrlParam("participantId")},
             success:this.deliveryCheck(callback),
