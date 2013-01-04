@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set6.elven;
 
 import com.gempukku.lotro.cards.AbstractAlly;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.DiscardTopCardFromDeckEffect;
 import com.gempukku.lotro.cards.effects.PutCardFromDiscardIntoHandEffect;
 import com.gempukku.lotro.cards.effects.SelfExertEffect;
@@ -41,7 +42,7 @@ public class Card6_015 extends AbstractAlly {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.START_OF_TURN) {
+        if (TriggerConditions.startOfTurn(game, effectResult)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new HealCharactersEffect(self, self));

@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set4.dunland;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
@@ -55,7 +56,7 @@ public class Card4_033 extends AbstractMinion {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.WHEN_FELLOWSHIP_MOVES) {
+        if (TriggerConditions.moves(game, effectResult)) {
             int dunlandManCount = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Culture.DUNLAND, Race.MAN);
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             for (int i = 0; i < dunlandManCount; i++)

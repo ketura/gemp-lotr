@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set6.gandalf;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
@@ -34,7 +35,8 @@ public class Card6_030 extends AbstractCompanion {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.WHEN_FELLOWSHIP_MOVES) {
+        if (TriggerConditions.moves(game, effectResult)) {
+
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new WoundCharactersEffect(self, self));

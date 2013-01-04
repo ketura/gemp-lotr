@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set5.isengard;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromDiscardEffect;
 import com.gempukku.lotro.cards.modifiers.conditions.AndCondition;
@@ -69,7 +70,7 @@ public class Card5_056 extends AbstractMinion {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.WHEN_FELLOWSHIP_MOVES) {
+        if (TriggerConditions.moves(game, effectResult)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
                     new HealCharactersEffect(self, Culture.ISENGARD, Race.ORC));

@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set4.isengard;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.PutCardFromDiscardIntoHandEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseCardsFromDiscardEffect;
 import com.gempukku.lotro.common.*;
@@ -31,7 +32,7 @@ public class Card4_213 extends AbstractPermanent {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.WHEN_FELLOWSHIP_MOVES
+        if (TriggerConditions.moves(game, effectResult)
                 && game.getGameState().getCurrentPhase() == Phase.REGROUP
                 && game.getGameState().getHand(playerId).size() >= 2) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);

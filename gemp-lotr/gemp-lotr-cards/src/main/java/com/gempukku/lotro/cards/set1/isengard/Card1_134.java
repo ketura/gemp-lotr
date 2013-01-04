@@ -62,7 +62,7 @@ public class Card1_134 extends AbstractAttachable {
             return Collections.singletonList(action);
         }
 
-        if (effectResult.getType() == EffectResult.Type.END_OF_TURN) {
+        if (TriggerConditions.endOfTurn(game, effectResult)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(new SelfDiscardEffect(self));
 

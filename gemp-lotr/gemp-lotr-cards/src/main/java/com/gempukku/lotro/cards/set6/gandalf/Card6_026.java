@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set6.gandalf;
 
 import com.gempukku.lotro.cards.AbstractAttachable;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -41,7 +42,7 @@ public class Card6_026 extends AbstractAttachable {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.END_OF_TURN) {
+        if (TriggerConditions.endOfTurn(game, effectResult)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new SelfDiscardEffect(self));

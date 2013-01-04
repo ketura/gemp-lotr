@@ -40,11 +40,19 @@ public class TriggerConditions {
 
     public static boolean endOfPhase(LotroGame game, EffectResult effectResult, Phase phase) {
         return (effectResult.getType() == EffectResult.Type.END_OF_PHASE
-                && game.getGameState().getCurrentPhase() == phase);
+                && (game.getGameState().getCurrentPhase() == phase || phase == null));
+    }
+
+    public static boolean startOfTurn(LotroGame game, EffectResult effectResult) {
+        return effectResult.getType() == EffectResult.Type.START_OF_TURN;
     }
 
     public static boolean endOfTurn(LotroGame game, EffectResult effectResult) {
         return effectResult.getType() == EffectResult.Type.END_OF_TURN;
+    }
+
+    public static boolean reconciles(LotroGame game, EffectResult effectResult, String playerId) {
+        return effectResult.getType() == EffectResult.Type.RECONCILE && (playerId == null || ((ReconcileResult) effectResult).getPlayerId().equals(playerId));
     }
 
     public static boolean winsSkirmish(LotroGame game, EffectResult effectResult, Filterable... filters) {
@@ -86,7 +94,7 @@ public class TriggerConditions {
             AddBurdenResult burdenResult = (AddBurdenResult) effectResult;
             String fpPlayer = game.getGameState().getCurrentPlayerId();
             if ((side == Side.FREE_PEOPLE && fpPlayer.equals(burdenResult.getPerformingPlayer()))
-                || (side == Side.SHADOW && !fpPlayer.equals(burdenResult.getPerformingPlayer())))
+                    || (side == Side.SHADOW && !fpPlayer.equals(burdenResult.getPerformingPlayer())))
                 return true;
             else
                 return false;

@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set1.gondor;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -32,7 +33,7 @@ public class Card1_365 extends AbstractCompanion {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(final String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.START_OF_TURN) {
+        if (TriggerConditions.startOfTurn(game, effectResult)) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
                     new ChooseAndHealCharactersEffect(action, playerId, CardType.COMPANION, Signet.ARAGORN, Filters.not(self)));

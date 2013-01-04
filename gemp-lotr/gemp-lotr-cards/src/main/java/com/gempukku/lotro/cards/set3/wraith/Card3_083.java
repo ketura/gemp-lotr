@@ -33,7 +33,7 @@ public class Card3_083 extends AbstractPermanent {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.WHEN_FELLOWSHIP_MOVES) {
+        if (TriggerConditions.moves(game, effectResult)) {
             int burdens = game.getGameState().getBurdens();
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(

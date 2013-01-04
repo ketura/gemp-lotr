@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set4.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.filters.Filters;
@@ -27,8 +28,7 @@ public class Card4_362 extends AbstractSite {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.WHEN_MOVE_TO
-                && game.getGameState().getCurrentSite() == self) {
+        if (TriggerConditions.movesTo(game, effectResult, self)) {
             int companionCount = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION);
             if (!playerId.equals(game.getGameState().getCurrentPlayerId())
                     && companionCount > 4) {

@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set3.moria;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -34,7 +35,7 @@ public class Card3_077 extends AbstractPermanent {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.WHEN_FELLOWSHIP_MOVES
+        if (TriggerConditions.moves(game, effectResult)
                 && game.getGameState().getCurrentPhase() == Phase.REGROUP) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(

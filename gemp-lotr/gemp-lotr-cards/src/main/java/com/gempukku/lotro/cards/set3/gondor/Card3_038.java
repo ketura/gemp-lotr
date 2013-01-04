@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set3.gondor;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -31,7 +32,7 @@ public class Card3_038 extends AbstractCompanion {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.WHEN_FELLOWSHIP_MOVES
+        if (TriggerConditions.moves(game, effectResult)
                 && game.getGameState().getCurrentPhase() == Phase.FELLOWSHIP) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(

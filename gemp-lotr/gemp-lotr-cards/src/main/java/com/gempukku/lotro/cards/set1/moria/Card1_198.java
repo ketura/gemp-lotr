@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set1.moria;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayPermanentAction;
 import com.gempukku.lotro.cards.effects.DiscardCardAtRandomFromHandEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
@@ -46,9 +47,8 @@ public class Card1_198 extends AbstractPermanent {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        int siteNumber = game.getGameState().getCurrentSiteNumber();
-        if (effectResult.getType() == EffectResult.Type.WHEN_MOVE_TO
-                && siteNumber >= 4 && siteNumber <= 6 && game.getGameState().getCurrentSiteBlock() == Block.FELLOWSHIP
+        if (TriggerConditions.movesTo(game, effectResult, Filters.siteBlock(Block.FELLOWSHIP), Filters.or(
+                Filters.siteNumber(4), Filters.siteNumber(5), Filters.siteNumber(6)))
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION, Filters.or(Race.ELF, Race.DWARF))) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(new DiscardCardAtRandomFromHandEffect(self, game.getGameState().getCurrentPlayerId(), true));

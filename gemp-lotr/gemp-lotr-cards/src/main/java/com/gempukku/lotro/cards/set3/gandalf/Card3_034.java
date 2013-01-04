@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set3.gandalf;
 
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.RemoveBurdenEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
@@ -37,7 +38,7 @@ public class Card3_034 extends AbstractAttachableFPPossession {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.START_OF_TURN) {
+        if (TriggerConditions.startOfTurn(game, effectResult)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(
                     new AddTwilightEffect(self, 3));

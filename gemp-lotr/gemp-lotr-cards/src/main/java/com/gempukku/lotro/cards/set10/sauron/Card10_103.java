@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set10.sauron;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -36,7 +37,7 @@ public class Card10_103 extends AbstractPermanent {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.WHEN_FELLOWSHIP_MOVES
+        if (TriggerConditions.moves(game, effectResult)
                 && PlayConditions.isPhase(game, Phase.REGROUP)
                 && PlayConditions.canRemoveThreat(game, self, 1)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);

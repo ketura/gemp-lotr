@@ -39,7 +39,7 @@ public class Card1_010 extends AbstractAttachable {
             action.appendEffect(new HealCharactersEffect(self, self.getAttachedTo()));
             action.appendEffect(new HealCharactersEffect(self, self.getAttachedTo()));
             return Collections.singletonList(action);
-        } else if (effectResult.getType() == EffectResult.Type.START_OF_TURN) {
+        } else if (TriggerConditions.startOfTurn(game, effectResult)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(new ExertCharactersEffect(action, self, self.getAttachedTo()));
             return Collections.singletonList(action);

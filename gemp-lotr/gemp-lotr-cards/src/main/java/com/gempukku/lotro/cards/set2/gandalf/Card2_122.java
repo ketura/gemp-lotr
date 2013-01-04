@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set2.gandalf;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.common.Signet;
@@ -32,7 +33,7 @@ public class Card2_122 extends AbstractCompanion {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.START_OF_TURN) {
+        if (TriggerConditions.startOfTurn(game, effectResult)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
                     new DrawCardsEffect(action, playerId, 1));

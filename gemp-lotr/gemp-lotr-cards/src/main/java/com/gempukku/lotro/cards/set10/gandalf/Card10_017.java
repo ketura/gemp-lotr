@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set10.gandalf;
 
 import com.gempukku.lotro.cards.AbstractResponseEvent;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
@@ -35,7 +36,7 @@ public class Card10_017 extends AbstractResponseEvent {
 
     @Override
     public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.WHEN_FELLOWSHIP_MOVES
+        if (TriggerConditions.moves(game, effectResult)
                 && checkPlayRequirements(playerId, game, self, 0, 0, false, false)
                 && game.getGameState().getCurrentPhase() == Phase.REGROUP) {
             PlayEventAction action = new PlayEventAction(self);

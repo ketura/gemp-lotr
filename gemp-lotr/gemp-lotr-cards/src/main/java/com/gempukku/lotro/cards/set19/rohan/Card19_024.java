@@ -55,7 +55,7 @@ public class Card19_024 extends AbstractAttachable {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.END_OF_TURN
+        if (TriggerConditions.endOfTurn(game, effectResult)
                 && !game.getActionsEnvironment().hasWonSkirmishThisTurn(game, self.getAttachedTo())) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(

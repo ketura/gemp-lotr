@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set3.gondor;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Side;
@@ -31,7 +32,7 @@ public class Card3_040 extends AbstractPermanent {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.END_OF_TURN
+        if (TriggerConditions.endOfTurn(game, effectResult)
                 && !game.getActionsEnvironment().hasLostSkirmishThisTurn(game, Filters.or(CardType.COMPANION, CardType.ALLY))) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(

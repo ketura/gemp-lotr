@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set6.gollum;
 
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseActionProxyEffect;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfTurnModifierEffect;
@@ -46,7 +47,7 @@ public class Card6_044 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayCardAction(String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, 3, Filters.smeagol));
@@ -61,8 +62,8 @@ public class Card6_044 extends AbstractEvent {
                 new AddUntilEndOfPhaseActionProxyEffect(
                         new AbstractActionProxy() {
                             @Override
-                            public List<? extends OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame lotroGame, EffectResult effectResults) {
-                                if (effectResults.getType() == EffectResult.Type.WHEN_FELLOWSHIP_MOVES
+                            public List<? extends OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame lotroGame, EffectResult effectResult) {
+                                if (TriggerConditions.moves(game, effectResult)
                                         && !lotroGame.getGameState().getCurrentPlayerId().equals(playerId)) {
                                     OptionalTriggerAction action = new OptionalTriggerAction(self);
                                     action.setVirtualCardAction(true);

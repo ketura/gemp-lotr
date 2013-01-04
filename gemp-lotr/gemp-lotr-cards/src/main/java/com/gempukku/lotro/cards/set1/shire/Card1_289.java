@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set1.shire;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -31,7 +32,7 @@ public class Card1_289 extends AbstractCompanion {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(final String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.START_OF_TURN) {
+        if (TriggerConditions.startOfTurn(game, effectResult)) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
                     new ChooseAndHealCharactersEffect(action, playerId, CardType.ALLY, Race.HOBBIT));

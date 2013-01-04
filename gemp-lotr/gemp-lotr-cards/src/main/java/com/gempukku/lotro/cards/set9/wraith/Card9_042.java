@@ -57,7 +57,7 @@ public class Card9_042 extends AbstractAttachable {
 
     @Override
     public List<? extends Action> getOptionalInPlayAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.RECONCILE) {
+        if (TriggerConditions.reconciles(game, effectResult, null)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
                     new ReturnCardsToHandEffect(self, self.getAttachedTo()));
