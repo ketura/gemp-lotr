@@ -23,8 +23,7 @@ public class ChatRoom {
             shrinkLastMessages();
         }
         for (Map.Entry<String, ChatRoomListener> listeners : _chatRoomListeners.entrySet())
-            if (!listeners.getKey().equals(from))
-                listeners.getValue().messageReceived(chatMessage);
+            listeners.getValue().messageReceived(chatMessage);
     }
 
     public void postMessage(String from, String message) {

@@ -39,12 +39,12 @@ public class ChatRoomMediator {
         }
     }
 
-    public List<ChatMessage> getPendingMessages(String playerId) {
+    public List<ChatMessage> getPendingMessages(String playerId) throws UserUnsubscribedException {
         _lock.readLock().lock();
         try {
             GatheringChatRoomListener gatheringChatRoomListener = _listeners.get(playerId);
             if (gatheringChatRoomListener == null)
-                throw new WebApplicationException(Response.Status.NOT_FOUND);
+                throw new UserUnsubscribedException();
             return gatheringChatRoomListener.consumeMessages();
         } finally {
             _lock.readLock().unlock();

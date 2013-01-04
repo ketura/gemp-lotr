@@ -456,7 +456,7 @@ var GempLotrCommunication = Class.extend({
             cache:false,
             data:{
                 participantId:getUrlParam("participantId")},
-            success:this.deliveryCheck(callback),
+            success:callback,
             error:this.errorCheck(errorMap),
             dataType:"xml"
         });
@@ -468,7 +468,7 @@ var GempLotrCommunication = Class.extend({
             cache:false,
             data:{
                 participantId:getUrlParam("participantId")},
-            success:this.deliveryCheck(callback),
+            success:callback,
             error:this.errorCheck(errorMap),
             dataType:"xml"
         });
@@ -478,10 +478,11 @@ var GempLotrCommunication = Class.extend({
             type:"POST",
             url:this.url + "/chat/" + room,
             cache:false,
+            async:false,
             data:{
                 participantId:getUrlParam("participantId"),
                 message:messages},
-            success:this.deliveryCheck(callback),
+            success:callback,
             traditional:true,
             error:this.errorCheck(errorMap),
             dataType:"xml"

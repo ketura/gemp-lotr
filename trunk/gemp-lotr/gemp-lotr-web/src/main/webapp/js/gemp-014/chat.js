@@ -2,55 +2,34 @@ var ChatBoxUI = Class.extend({
     name:null,
     div:null,
     communication:null,
+
     chatMessagesDiv:null,
     chatTalkDiv:null,
     chatListDiv:null,
+
     showTimestamps:false,
     maxMessageCount:500,
     talkBoxHeight:25,
+
     chatUpdateInterval:1000,
-    unsentMessages:null,
-    processingMessages:null,
-    retryCount:null,
-    maxRetryCount:5,
+
     playerListener:null,
     hiddenClasses:null,
+
     hideSystemButton:null,
     lockButton:null,
+
     lockChat:false,
+    stopUpdates: false,
 
     init:function (name, div, url, showList, playerListener, showHideSystemButton, showLockButton) {
         var that = this;
         this.hiddenClasses = new Array();
         this.playerListener = playerListener;
-        this.retryCount = 0;
         this.name = name;
         this.div = div;
-        this.unsentMessages = new Array();
         this.communication = new GempLotrCommunication(url, function (xhr, ajaxOptions, thrownError) {
-            if (thrownError != "abort") {
-                if (xhr != null) {
-                    that.retryCount++;
-                    if (that.retryCount <= that.maxRetryCount) {
-                        that.appendMessage("Chat had a problem communicating with the server (error " + xhr.status + "). Retrying (" + that.retryCount + " of " + that.maxRetryCount + ")...", "systemMessage");
-                        setTimeout(function () {
-                            that.updateChatMessages();
-                        }, that.chatUpdateInterval);
-                    } else {
-                        that.appendMessage("Chat has given up on connection retry (tried " + that.maxRetryCount + "), make sure your connection with the Internet is working.", "warningMessage");
-                    }
-                    return;
-                }
-                that.retryCount++;
-                if (that.retryCount <= that.maxRetryCount) {
-                    that.appendMessage("Chat had an unkown problem communicating with the server. Retrying (" + that.retryCount + " of " + that.maxRetryCount + ")...", "systemMessage");
-                    setTimeout(function () {
-                        that.updateChatMessages();
-                    }, that.chatUpdateInterval);
-                } else {
-                    that.appendMessage("Chat has given up on connection retry (tried " + that.maxRetryCount + "), make sure your connection with the Internet is working.", "warningMessage");
-                }
-            }
+            that.appendMessage("Unkown chat problem occured (error=" + xhr.status + ")", "warningMessage");
         });
 
         this.chatMessagesDiv = $("<div class='chatMessages'></div>");
@@ -61,37 +40,37 @@ var ChatBoxUI = Class.extend({
 
             if (showHideSystemButton) {
                 this.hideSystemButton = $("<button id='showSystemMessages'>Toggle system messages</button>").button(
-                    {icons:{
-                        primary:"ui-icon-zoomin"
-                    }, text:false});
+                {icons:{
+                    primary:"ui-icon-zoomin"
+                }, text:false});
                 this.hideSystemButton.click(
-                    function () {
-                        if (that.isShowingMessageClass("systemMessage")) {
-                            $('#showSystemMessages').button("option", "icons", {primary:'ui-icon-zoomin'});
-                            that.hideMessageClass("systemMessage");
-                        } else {
-                            $('#showSystemMessages').button("option", "icons", {primary:'ui-icon-zoomout'});
-                            that.showMessageClass("systemMessage");
-                        }
-                    });
+                        function () {
+                            if (that.isShowingMessageClass("systemMessage")) {
+                                $('#showSystemMessages').button("option", "icons", {primary:'ui-icon-zoomin'});
+                                that.hideMessageClass("systemMessage");
+                            } else {
+                                $('#showSystemMessages').button("option", "icons", {primary:'ui-icon-zoomout'});
+                                that.showMessageClass("systemMessage");
+                            }
+                        });
                 this.hideMessageClass("systemMessage");
             }
 
             if (showLockButton) {
                 this.lockButton = $("<button id='lockChatButton'>Toggle lock chat</button>").button(
-                    {icons:{
-                        primary:"ui-icon-locked"
-                    }, text:false});
+                {icons:{
+                    primary:"ui-icon-locked"
+                }, text:false});
                 this.lockButton.click(
-                    function () {
-                        if (that.lockChat) {
-                            $('#lockChatButton').button("option", "icons", {primary:'ui-icon-locked'});
-                            that.lockChat = false;
-                        } else {
-                            $('#lockChatButton').button("option", "icons", {primary:'ui-icon-unlocked'});
-                            that.lockChat = true;
-                        }
-                    });
+                        function () {
+                            if (that.lockChat) {
+                                $('#lockChatButton').button("option", "icons", {primary:'ui-icon-locked'});
+                                that.lockChat = false;
+                            } else {
+                                $('#lockChatButton').button("option", "icons", {primary:'ui-icon-unlocked'});
+                                that.lockChat = true;
+                            }
+                        });
             }
 
             if (showList) {
@@ -105,28 +84,16 @@ var ChatBoxUI = Class.extend({
             this.div.append(this.chatTalkDiv);
 
             this.communication.startChat(this.name,
-                function (xml) {
-                    that.processMessages(xml, true);
-                }, {
-                    "401":function () {
-                        that.appendMessage("You are not logged in, go to the main page to log in.", "warningMessage");
-                    },
-                    "403":function () {
-                        that.appendMessage("You have no permission to join this chat.", "warningMessage");
-                    },
-                    "404":function () {
-                        that.appendMessage("Chat room was closed, please go to the Game Hall.", "warningMessage");
-                    }
-                });
+                    function (xml) {
+                        that.processMessages(xml, true);
+                    }, this.chatErrorMap());
 
             this.chatTalkDiv.bind("keypress", function (e) {
                 var code = (e.keyCode ? e.keyCode : e.which);
                 if (code == 13) {
                     var value = $(this).val();
-                    if (value != "") {
+                    if (value != "")
                         that.sendMessage(value);
-                        that.appendMessage("<b>Me:</b> " + that.escapeHtml(value));
-                    }
                     $(this).val("");
                 }
             });
@@ -214,7 +181,6 @@ var ChatBoxUI = Class.extend({
         var root = xml.documentElement;
         if (root.tagName == 'chat') {
             this.retryCount = 0;
-            this.processingMessages = null;
             var messages = root.getElementsByTagName("message");
             for (var i = 0; i < messages.length; i++) {
                 var message = messages[i];
@@ -264,59 +230,50 @@ var ChatBoxUI = Class.extend({
         }
     },
 
-    updateChatMessages:function (xml) {
+    updateChatMessages:function () {
         var that = this;
 
-        if (this.processingMessages != null) {
-            this.communication.sendChatMessage(this.name, this.processingMessages, function (xml) {
-                that.processMessages(xml, true);
-            }, {
-                "401":function () {
-                    that.appendMessage("You are not logged in, go to the main page to log in.", "warningMessage");
-                },
-                "403":function () {
-                    that.appendMessage("You have no permission to send messages to this chat.", "warningMessage");
-                },
-                "404":function () {
-                    that.appendMessage("Chat room was closed, or you were inactive for too long, please go to the Game Hall.", "warningMessage");
-                }
-            });
-        } else if (this.unsentMessages.length > 0) {
-            this.communication.sendChatMessage(this.name, this.unsentMessages, function (xml) {
-                that.processMessages(xml, true);
-            }, {
-                "401":function () {
-                    that.appendMessage("You are not logged in, go to the main page to log in.", "warningMessage");
-                },
-                "403":function () {
-                    that.appendMessage("You have no permission to send messages to this chat.", "warningMessage");
-                },
-                "404":function () {
-                    that.appendMessage("Chat room was closed, or you were inactive for too long, please go to the Game Hall.", "warningMessage");
-                }
-            });
-            this.processingMessages = this.unsentMessages;
-            this.unsentMessages = new Array();
-        } else {
-            this.communication.updateChat(this.name, function (xml) {
-                that.processMessages(xml, true);
-            }, {
-                "401":function () {
-                    that.appendMessage("You are not logged in, go to the main page to log in.", "warningMessage");
-                },
-                "403":function () {
-                    that.appendMessage("You have no permission to get message from this chat.", "warningMessage");
-                },
-                "404":function () {
-                    that.appendMessage("Chat room was closed, or you were inactive for too long, please go to the Game Hall.", "warningMessage");
-                }
-            });
-        }
+        this.communication.updateChat(this.name, function (xml) {
+            that.processMessages(xml, true);
+        }, this.chatErrorMap());
     },
 
     sendMessage:function (message) {
         var that = this;
+        this.communication.sendChatMessage(this.name, message, function(xml) {
+            that.processMessages(xml, false);
+        }, this.chatErrorMap());
+    },
 
-        this.unsentMessages.push(message);
+    chatMalfunction: function() {
+        this.stopUpdates = true;
+        this.chatTalkDiv.prop('disabled', true);
+        this.chatTalkDiv.css({"background-color": "#ff9999"});
+    },
+
+    chatErrorMap:function() {
+        var that = this;
+        return {
+            "0":function() {
+                that.chatMalfunction();
+                that.appendMessage("Chat server has been closed or there was a problem with your internet connection.", "warningMessage");
+            },
+            "401":function() {
+                that.chatMalfunction();
+                that.appendMessage("You are not logged in.", "warningMessage");
+            },
+            "403": function() {
+                that.chatMalfunction();
+                that.appendMessage("You have no permission to participate in this chat.", "warningMessage");
+            },
+            "404": function() {
+                that.chatMalfunction();
+                that.appendMessage("Chat room is closed.", "warningMessage");
+            },
+            "410": function() {
+                that.chatMalfunction();
+                that.appendMessage("You have been inactive for too long and were removed from the chat room. Refresh the page if you wish to re-enter.", "warningMessage");
+            }
+        };
     }
 });

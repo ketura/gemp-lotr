@@ -3,6 +3,7 @@ package com.gempukku.lotro.server;
 import com.gempukku.lotro.chat.ChatMessage;
 import com.gempukku.lotro.chat.ChatRoomMediator;
 import com.gempukku.lotro.chat.ChatServer;
+import com.gempukku.lotro.chat.UserUnsubscribedException;
 import com.gempukku.lotro.game.Player;
 import com.sun.jersey.spi.resource.Singleton;
 import org.apache.commons.lang.StringEscapeUtils;
@@ -73,18 +74,23 @@ public class ChatResource extends AbstractResource {
             }
         }
 
-        List<ChatMessage> chatMessages = chatRoom.getPendingMessages(resourceOwner.getName());
+        try {
+            List<ChatMessage> chatMessages = chatRoom.getPendingMessages(resourceOwner.getName());
 
-        Collection<String> usersInRoom = chatRoom.getUsersInRoom();
+            Collection<String> usersInRoom = chatRoom.getUsersInRoom();
 
-        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+            DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
 
-        Document doc = documentBuilder.newDocument();
+            Document doc = documentBuilder.newDocument();
 
-        serializeChatRoomData(room, chatMessages, usersInRoom, doc);
+            serializeChatRoomData(room, chatMessages, usersInRoom, doc);
 
-        return doc;
+            return doc;
+        } catch (UserUnsubscribedException exp) {
+            sendError(Response.Status.GONE);
+            return null;
+        }
     }
 
     private void serializeChatRoomData(String room, List<ChatMessage> chatMessages, Collection<String> usersInRoom, Document doc) {
