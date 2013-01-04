@@ -9,14 +9,15 @@ import com.gempukku.lotro.logic.decisions.AwaitingDecision;
 import com.gempukku.lotro.logic.decisions.AwaitingDecisionType;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertTrue;
 import org.junit.Test;
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertTrue;
 
 public class TriggersAtTest extends AbstractAtTest {
     @Test
@@ -197,6 +198,52 @@ public class TriggersAtTest extends AbstractAtTest {
         assertEquals(AwaitingDecisionType.CARD_ACTION_CHOICE, regroupPhaseActionDecision.getDecisionType());
         validateContents(new String[]{}, (String[]) regroupPhaseActionDecision.getDecisionParameters().get("cardId"));
 
+        assertEquals(Phase.REGROUP, _game.getGameState().getCurrentPhase());
+    }
+
+    @Test
+    public void musterForShadowSideTriggersCorrectly() throws DecisionResultInvalidException {
+        initializeSimplestGame();
+
+        PhysicalCardImpl musterWitchKing = new PhysicalCardImpl(100, "11_226", P2, _library.getLotroCardBlueprint("11_226"));
+        PhysicalCardImpl musterWitchKing2 = new PhysicalCardImpl(101, "11_226", P2, _library.getLotroCardBlueprint("11_226"));
+
+        skipMulligans();
+
+        _game.getGameState().addCardToZone(_game, musterWitchKing, Zone.SHADOW_CHARACTERS);
+        _game.getGameState().addCardToZone(_game, musterWitchKing2, Zone.HAND);
+
+        // End fellowship phase
+        playerDecided(P1, "");
+
+        // End shadow phase
+        playerDecided(P2, "");
+
+        // End maneuver phase
+        playerDecided(P1, "");
+        playerDecided(P2, "");
+
+        // End archery phase
+        playerDecided(P1, "");
+        playerDecided(P2, "");
+
+        // End assignment phase
+        playerDecided(P1, "");
+        playerDecided(P2, "");
+
+        // Assign
+        playerDecided(P1, "");
+        playerDecided(P2, "");
+
+        // End fierce assignment phase
+        playerDecided(P1, "");
+        playerDecided(P2, "");
+
+        // Fierce assign
+        playerDecided(P1, "");
+        playerDecided(P2, "");
+
+        // Start regroup
         assertEquals(Phase.REGROUP, _game.getGameState().getCurrentPhase());
     }
 
