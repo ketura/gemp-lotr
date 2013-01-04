@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set13.gondor;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.modifiers.ResistanceModifier;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -16,7 +17,6 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.results.ReconcileResult;
 
 import java.util.Collections;
 import java.util.List;
@@ -52,7 +52,7 @@ public class Card13_071 extends AbstractCompanion {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.END_OF_PHASE
+        if (TriggerConditions.endOfPhase(game, effectResult, null)
                 && game.getModifiersQuerying().getResistance(game.getGameState(), self) == 0) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
@@ -64,8 +64,7 @@ public class Card13_071 extends AbstractCompanion {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.RECONCILE
-                && ((ReconcileResult) effectResult).getPlayerId().equals(playerId)) {
+        if (TriggerConditions.reconciles(game, effectResult, playerId)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
                     new DrawCardsEffect(action, playerId, 1));

@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set3.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
 import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -25,8 +26,7 @@ public class Card3_116 extends AbstractSite {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.WHEN_MOVE_TO
-                && game.getGameState().getCurrentSite() == self) {
+        if (TriggerConditions.movesTo(game, effectResult, self)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new AddBurdenEffect(game.getGameState().getCurrentPlayerId(), self, 1));

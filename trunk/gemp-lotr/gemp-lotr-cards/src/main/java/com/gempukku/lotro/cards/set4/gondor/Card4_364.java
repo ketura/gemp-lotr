@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set4.gondor;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.ForEachYouSpotEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -34,7 +35,7 @@ public class Card4_364 extends AbstractCompanion {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(final String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.WHEN_FELLOWSHIP_MOVES
+        if (TriggerConditions.moves(game, effectResult)
                 && PlayConditions.canSpot(game, Race.HOBBIT, Filters.unboundCompanion)) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(

@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set5.elven;
 
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.PossessionClass;
@@ -37,7 +38,7 @@ public class Card5_012 extends AbstractAttachableFPPossession {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.WHEN_FELLOWSHIP_MOVES
+        if (TriggerConditions.moves(game, effectResult)
                 && PlayConditions.canSpot(game, CardType.MINION, Filters.wounded)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(

@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set7.gollum;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayPermanentAction;
 import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
 import com.gempukku.lotro.cards.modifiers.MoveLimitModifier;
@@ -56,7 +57,7 @@ public class Card7_069 extends AbstractPermanent {
                 game.getModifiersQuerying().getUntilEndOfTurnLimitCounter(self).incrementToLimit(1, 1);
         }
 
-        if (effectResult.getType() == EffectResult.Type.END_OF_TURN) {
+        if (TriggerConditions.endOfTurn(game, effectResult)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new SelfDiscardEffect(self));

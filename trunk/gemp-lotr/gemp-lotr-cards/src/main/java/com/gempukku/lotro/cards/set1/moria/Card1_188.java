@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set1.moria;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
 import com.gempukku.lotro.common.*;
@@ -46,8 +47,7 @@ public class Card1_188 extends AbstractPermanent {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.WHEN_MOVE_TO
-                && (game.getGameState().getCurrentSiteNumber() == 4 || game.getGameState().getCurrentSiteNumber() == 5) && game.getGameState().getCurrentSiteBlock() == Block.FELLOWSHIP) {
+        if (TriggerConditions.movesTo(game, effectResult, Filters.siteBlock(Block.FELLOWSHIP), Filters.or(Filters.siteNumber(4), Filters.siteNumber(5)))) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             int dwarfCompanions = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Race.DWARF, CardType.COMPANION);
             action.appendEffect(new AddTwilightEffect(self, dwarfCompanions * 2));

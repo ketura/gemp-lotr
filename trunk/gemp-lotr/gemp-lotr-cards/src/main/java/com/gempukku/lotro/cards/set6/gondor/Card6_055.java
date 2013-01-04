@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set6.gondor;
 
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
@@ -35,7 +36,7 @@ public class Card6_055 extends AbstractAttachableFPPossession {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.START_OF_TURN) {
+        if (TriggerConditions.startOfTurn(game, effectResult)) {
             final Set<Culture> cultureTokens = new HashSet<Culture>();
             for (PhysicalCard physicalCard : Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Filters.hasAnyCultureTokens(1))) {
                 Map<Token, Integer> tokens = game.getGameState().getTokens(physicalCard);

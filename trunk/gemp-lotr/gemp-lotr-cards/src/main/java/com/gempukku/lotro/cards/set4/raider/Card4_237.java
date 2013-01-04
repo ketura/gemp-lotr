@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set4.raider;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
 import com.gempukku.lotro.common.*;
@@ -35,7 +36,7 @@ public class Card4_237 extends AbstractPermanent {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.END_OF_PHASE) {
+        if (TriggerConditions.endOfPhase(game, effectResult, null)) {
             if (game.getGameState().getCurrentSiteBlock() == Block.TWO_TOWERS
                     && game.getGameState().getCurrentSiteNumber() >= 7 && game.getGameState().getCurrentSiteNumber() <= 9
                     && game.getGameState().getTwilightPool() < 7) {

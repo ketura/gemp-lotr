@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set9.wraith;
 
 import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.RemoveBurdenEffect;
 import com.gempukku.lotro.cards.effects.ReturnCardsToHandEffect;
 import com.gempukku.lotro.cards.modifiers.VitalityModifier;
@@ -60,7 +61,7 @@ public class Card9_044 extends AbstractAttachable {
 
     @Override
     public List<? extends Action> getOptionalInPlayAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.RECONCILE) {
+        if (TriggerConditions.reconciles(game, effectResult, null)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
                     new ReturnCardsToHandEffect(self, self.getAttachedTo()));

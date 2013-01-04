@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set3.isengard;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Side;
@@ -37,7 +38,7 @@ public class Card3_071 extends AbstractPermanent {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.WHEN_FELLOWSHIP_MOVES
+        if (TriggerConditions.moves(game, effectResult)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION, Filters.exhausted)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(

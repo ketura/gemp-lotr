@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set3.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.RemoveBurdenEffect;
 import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Race;
@@ -29,9 +30,8 @@ public class Card3_119 extends AbstractSite {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.WHEN_MOVE_TO
+        if (TriggerConditions.movesTo(game, effectResult, self)
                 && playerId.equals(game.getGameState().getCurrentPlayerId())
-                && game.getGameState().getCurrentSite() == self
                 && PlayConditions.canSpot(game, 2, Race.ELF)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(

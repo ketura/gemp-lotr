@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set9.gollum;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayPermanentAction;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
 import com.gempukku.lotro.common.CardType;
@@ -50,7 +51,7 @@ public class Card9_030 extends AbstractCompanion {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (effectResult.getType() == EffectResult.Type.WHEN_FELLOWSHIP_MOVES) {
+        if (TriggerConditions.moves(game, effectResult)) {
             final RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new ChooseActiveCardEffect(self, self.getOwner(), "Choose unbound companion", Filters.unboundCompanion) {
