@@ -1,10 +1,12 @@
 package com.gempukku.lotro.logic.effects;
 
+import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.results.AssignmentResult;
+import com.gempukku.lotro.logic.timing.results.AssignAgainstResult;
+import com.gempukku.lotro.logic.timing.results.AssignedToSkirmishResult;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -50,11 +52,18 @@ public class AssignmentPhaseEffect extends AbstractEffect {
         for (Map.Entry<PhysicalCard, Set<PhysicalCard>> physicalCardListEntry : _assignments.entrySet()) {
             PhysicalCard fpChar = physicalCardListEntry.getKey();
             Set<PhysicalCard> minions = physicalCardListEntry.getValue();
+
+            if (Filters.notAssignedToSkirmish.accepts(game.getGameState(), game.getModifiersQuerying(), fpChar))
+                game.getActionsEnvironment().emitEffectResult(new AssignedToSkirmishResult(fpChar, _playerId));
+            for (PhysicalCard notAssignedMinion : Filters.filter(minions, game.getGameState(), game.getModifiersQuerying(), Filters.notAssignedToSkirmish))
+                game.getActionsEnvironment().emitEffectResult(new AssignedToSkirmishResult(notAssignedMinion, _playerId));
+
             game.getGameState().assignToSkirmishes(fpChar, minions);
 
-            game.getActionsEnvironment().emitEffectResult(new AssignmentResult(_playerId, fpChar, minions));
+
+            game.getActionsEnvironment().emitEffectResult(new AssignAgainstResult(_playerId, fpChar, minions));
             for (PhysicalCard minion : minions)
-                game.getActionsEnvironment().emitEffectResult(new AssignmentResult(_playerId, minion, fpChar));
+                game.getActionsEnvironment().emitEffectResult(new AssignAgainstResult(_playerId, minion, fpChar));
         }
         return new FullEffectResult(true);
     }

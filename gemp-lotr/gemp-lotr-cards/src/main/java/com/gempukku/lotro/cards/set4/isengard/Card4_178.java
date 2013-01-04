@@ -13,7 +13,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.results.AssignmentResult;
+import com.gempukku.lotro.logic.timing.results.AssignAgainstResult;
 
 import java.util.Collections;
 import java.util.List;
@@ -38,7 +38,7 @@ public class Card4_178 extends AbstractMinion {
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.assignedAgainst(game, effectResult, Side.FREE_PEOPLE, Filters.and(Culture.ISENGARD, Race.MAN), Filters.or(CardType.COMPANION, CardType.ALLY))) {
-            AssignmentResult assignmentResult = (AssignmentResult) effectResult;
+            AssignAgainstResult assignmentResult = (AssignAgainstResult) effectResult;
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.setText("Exert " + GameUtils.getCardLink(assignmentResult.getAssignedCard()));
             action.appendEffect(

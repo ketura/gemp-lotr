@@ -45,7 +45,7 @@ public class Card4_172 extends AbstractAttachable {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (TriggerConditions.assignedAgainst(game, effectResult, Side.FREE_PEOPLE, Filters.any, Filters.hasAttached(self))) {
+        if (TriggerConditions.assignedToSkirmish(game, effectResult, Side.FREE_PEOPLE, Filters.hasAttached(self))) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new ExertCharactersEffect(action, self, CardType.ALLY));

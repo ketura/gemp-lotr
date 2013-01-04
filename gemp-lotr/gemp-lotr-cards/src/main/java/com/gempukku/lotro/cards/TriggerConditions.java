@@ -119,8 +119,8 @@ public class TriggerConditions {
     }
 
     public static boolean assignedAgainst(LotroGame game, EffectResult effectResult, Side side, Filterable againstFilter, Filterable... assignedFilters) {
-        if (effectResult.getType() == EffectResult.Type.CHARACTER_ASSIGNED) {
-            AssignmentResult assignmentResult = (AssignmentResult) effectResult;
+        if (effectResult.getType() == EffectResult.Type.ASSIGNED_AGAINST) {
+            AssignAgainstResult assignmentResult = (AssignAgainstResult) effectResult;
             if (side != null) {
                 if (assignmentResult.getPlayerId().equals(game.getGameState().getCurrentPlayerId())) {
                     if (side == Side.SHADOW)
@@ -133,6 +133,24 @@ public class TriggerConditions {
 
             return Filters.and(assignedFilters).accepts(game.getGameState(), game.getModifiersQuerying(), assignmentResult.getAssignedCard())
                     && Filters.filter(assignmentResult.getAgainst(), game.getGameState(), game.getModifiersQuerying(), againstFilter).size() > 0;
+        }
+        return false;
+    }
+
+    public static boolean assignedToSkirmish(LotroGame game, EffectResult effectResult, Side side, Filterable... filters) {
+        if (effectResult.getType() == EffectResult.Type.ASSIGNED_TO_SKIRMISH) {
+            AssignedToSkirmishResult assignResult = (AssignedToSkirmishResult) effectResult;
+            if (side != null) {
+                if (assignResult.getPlayerId().equals(game.getGameState().getCurrentPlayerId())) {
+                    if (side == Side.SHADOW)
+                        return false;
+                } else {
+                    if (side == Side.FREE_PEOPLE)
+                        return false;
+                }
+            }
+
+            return Filters.and(filters).accepts(game.getGameState(), game.getModifiersQuerying(), ((AssignedToSkirmishResult) effectResult).getAssignedCard());
         }
         return false;
     }

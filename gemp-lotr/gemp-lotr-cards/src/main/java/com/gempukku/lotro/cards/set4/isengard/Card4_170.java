@@ -33,7 +33,7 @@ public class Card4_170 extends AbstractPermanent {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (TriggerConditions.assignedAgainst(game, effectResult, Side.FREE_PEOPLE, Filters.any, CardType.ALLY)
+        if (TriggerConditions.assignedToSkirmish(game, effectResult, Side.FREE_PEOPLE, CardType.ALLY)
                 && PlayConditions.canPlayFromDiscard(playerId, game, -2, Culture.ISENGARD, CardType.MINION)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(

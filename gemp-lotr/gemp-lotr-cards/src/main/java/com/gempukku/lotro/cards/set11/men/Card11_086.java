@@ -34,7 +34,7 @@ public class Card11_086 extends AbstractMinion {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (TriggerConditions.assignedAgainst(game, effectResult, Side.FREE_PEOPLE, Filters.any, self)) {
+        if (TriggerConditions.assignedToSkirmish(game, effectResult, Side.FREE_PEOPLE, self)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             int twilight = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Side.FREE_PEOPLE, Filters.character, Filters.maxResistance(5));
             action.appendEffect(

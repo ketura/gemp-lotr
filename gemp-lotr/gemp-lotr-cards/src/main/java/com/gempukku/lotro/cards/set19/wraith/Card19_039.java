@@ -17,7 +17,7 @@ import com.gempukku.lotro.logic.modifiers.Condition;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.results.AssignmentResult;
+import com.gempukku.lotro.logic.timing.results.AssignAgainstResult;
 
 import java.util.HashSet;
 import java.util.List;
@@ -70,7 +70,7 @@ public class Card19_039 extends AbstractMinion {
                 data = new HashSet<Integer>();
                 self.setWhileInZoneData(data);
             }
-            for (PhysicalCard physicalCard : ((AssignmentResult) effectResult).getAgainst())
+            for (PhysicalCard physicalCard : ((AssignAgainstResult) effectResult).getAgainst())
                 data.add(physicalCard.getCardId());
         }
         return null;

@@ -13,7 +13,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.results.AssignmentResult;
+import com.gempukku.lotro.logic.timing.results.AssignAgainstResult;
 
 import java.util.Collections;
 import java.util.List;
@@ -40,7 +40,7 @@ public class Card11_200 extends AbstractMinion {
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.assignedAgainst(game, effectResult, null, Filters.and(Filters.character, Filters.maxResistance(3)), self)
                 && PlayConditions.canSelfExert(self, game)) {
-            AssignmentResult assignmentResult = (AssignmentResult) effectResult;
+            AssignAgainstResult assignmentResult = (AssignAgainstResult) effectResult;
             final Set<PhysicalCard> assignedAgainst = assignmentResult.getAgainst();
 
             OptionalTriggerAction action = new OptionalTriggerAction(self);

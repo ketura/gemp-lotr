@@ -31,7 +31,7 @@ public class Card4_336 extends AbstractSite {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (TriggerConditions.assignedAgainst(game, effectResult, Side.FREE_PEOPLE, Filters.any, Filters.or(CardType.COMPANION, CardType.ALLY))) {
+        if (TriggerConditions.assignedToSkirmish(game, effectResult, Side.FREE_PEOPLE, Filters.or(CardType.COMPANION, CardType.ALLY))) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new AddTwilightEffect(self, 1));

@@ -13,7 +13,7 @@ import com.gempukku.lotro.logic.timing.ActionStack;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.processes.GatherPlayableActionsFromDiscardVisitor;
-import com.gempukku.lotro.logic.timing.results.AssignmentResult;
+import com.gempukku.lotro.logic.timing.results.AssignedToSkirmishResult;
 import com.gempukku.lotro.logic.timing.results.CharacterLostSkirmishResult;
 import com.gempukku.lotro.logic.timing.results.CharacterWonSkirmishResult;
 import com.gempukku.lotro.logic.timing.results.PlayCardResult;
@@ -81,9 +81,9 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
                 new AbstractActionProxy() {
                     @Override
                     public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult) {
-                        if (effectResult.getType() == EffectResult.Type.CHARACTER_ASSIGNED) {
-                            AssignmentResult assignmentResult = (AssignmentResult) effectResult;
-                            _assignedInTurn.add(assignmentResult.getAssignedCard());
+                        if (effectResult.getType() == EffectResult.Type.ASSIGNED_TO_SKIRMISH) {
+                            AssignedToSkirmishResult assignResult = (AssignedToSkirmishResult) effectResult;
+                            _assignedInTurn.add(assignResult.getAssignedCard());
                         }
                         return null;
                     }

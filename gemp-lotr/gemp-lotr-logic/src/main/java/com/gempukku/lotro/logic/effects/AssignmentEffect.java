@@ -7,7 +7,8 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.results.AssignmentResult;
+import com.gempukku.lotro.logic.timing.results.AssignAgainstResult;
+import com.gempukku.lotro.logic.timing.results.AssignedToSkirmishResult;
 
 import java.util.Collections;
 
@@ -52,11 +53,16 @@ public class AssignmentEffect extends AbstractEffect {
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
         if (isPlayableInFull(game)) {
+            if (Filters.notAssignedToSkirmish.accepts(game.getGameState(), game.getModifiersQuerying(), _fpChar))
+                game.getActionsEnvironment().emitEffectResult(new AssignedToSkirmishResult(_fpChar, _playerId));
+            if (Filters.notAssignedToSkirmish.accepts(game.getGameState(), game.getModifiersQuerying(), _minion))
+                game.getActionsEnvironment().emitEffectResult(new AssignedToSkirmishResult(_minion, _playerId));
+
             game.getGameState().sendMessage(_playerId + " assigns " + GameUtils.getCardLink(_minion) + " to skirmish " + GameUtils.getCardLink(_fpChar));
             game.getGameState().assignToSkirmishes(_fpChar, Collections.singleton(_minion));
 
-            game.getActionsEnvironment().emitEffectResult(new AssignmentResult(_playerId, _fpChar, _minion));
-            game.getActionsEnvironment().emitEffectResult(new AssignmentResult(_playerId, _minion, _fpChar));
+            game.getActionsEnvironment().emitEffectResult(new AssignAgainstResult(_playerId, _fpChar, _minion));
+            game.getActionsEnvironment().emitEffectResult(new AssignAgainstResult(_playerId, _minion, _fpChar));
 
             assignmentMadeCallback(_fpChar, _minion);
 

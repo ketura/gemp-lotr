@@ -11,7 +11,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.results.AssignmentResult;
+import com.gempukku.lotro.logic.timing.results.AssignAgainstResult;
 
 import java.util.Collections;
 import java.util.List;
@@ -39,7 +39,7 @@ public class Card16_002 extends AbstractMinion {
         if (TriggerConditions.assignedAgainst(game, effectResult, Side.FREE_PEOPLE, CardType.COMPANION, self)
                 && PlayConditions.canSpot(game, Filters.not(self), Culture.WRAITH, Race.WRAITH)
                 && game.getGameState().getTwilightPool() >= 2) {
-            AssignmentResult assignmentResult = (AssignmentResult) effectResult;
+            AssignAgainstResult assignmentResult = (AssignAgainstResult) effectResult;
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(
                     new RemoveTwilightEffect(2));
