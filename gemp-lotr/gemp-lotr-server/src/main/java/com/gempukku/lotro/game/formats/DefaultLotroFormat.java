@@ -262,7 +262,7 @@ public class DefaultLotroFormat implements LotroFormat {
 
             for (Map.Entry<String, Integer> count : cardCountByName.entrySet()) {
                 if (count.getValue() > _maximumSameName)
-                    throw new DeckInvalidException("Deck contains more of the same card than allowed: " + count.getKey());
+                    throw new DeckInvalidException("Deck contains more of the same card than allowed ("+count.getValue()+">"+_maximumSameName+"): " + count.getKey());
             }
 
             // Restricted cards
