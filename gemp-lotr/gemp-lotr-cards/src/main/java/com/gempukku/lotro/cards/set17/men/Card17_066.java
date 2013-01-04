@@ -39,6 +39,7 @@ public class Card17_066 extends AbstractPermanent {
                 && PlayConditions.isPhase(game, Phase.MANEUVER)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             PhysicalCard discardedCard = ((DiscardCardsFromPlayResult) effectResult).getDiscardedCard();
+            action.setTriggerIdentifier(self.getCardId() + "-" + discardedCard.getCardId());
             action.setText("Stack " + GameUtils.getCardLink(discardedCard));
             action.appendEffect(
                     new StackCardFromDiscardEffect(discardedCard, self));

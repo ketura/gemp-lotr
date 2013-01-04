@@ -12,6 +12,7 @@ import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.results.DiscardCardsFromPlayResult;
 
 import java.util.Collections;
 import java.util.List;
@@ -36,6 +37,7 @@ public class Card12_071 extends AbstractPermanent {
                 && !PlayConditions.isPhase(game, Phase.REGROUP)
                 && PlayConditions.canPlayFromHand(playerId, game, -2, Culture.MEN, CardType.MINION)) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
+            action.setTriggerIdentifier(self.getCardId()+"-"+((DiscardCardsFromPlayResult) effectResult).getDiscardedCard().getCardId());
             action.appendEffect(
                     new ChooseAndPlayCardFromHandEffect(playerId, game, -2, Culture.MEN, CardType.MINION) {
                         @Override

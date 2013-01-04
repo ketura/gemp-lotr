@@ -13,13 +13,12 @@ import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
 import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.results.DiscardCardsFromPlayResult;
 
-import java.util.Collection;
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -38,27 +37,22 @@ public class Card6_073 extends AbstractPermanent {
     }
 
     @Override
-    public List<OptionalTriggerAction> getOptionalBeforeTriggers(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
-        if (TriggerConditions.isGettingDiscarded(effect, game, Culture.ISENGARD, Race.ORC)) {
-            DiscardCardsFromPlayEffect discardEffect = (DiscardCardsFromPlayEffect) effect;
+    public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+        if (TriggerConditions.forEachDiscardedFromPlay(game, effectResult, Culture.ISENGARD, Race.ORC)) {
+            DiscardCardsFromPlayResult discardResult = (DiscardCardsFromPlayResult) effectResult;
             if (game.getGameState().getCurrentPhase() == Phase.REGROUP
-                    && discardEffect.getSource() != null) {
-                List<OptionalTriggerAction> actions = new LinkedList<OptionalTriggerAction>();
-                final Collection<PhysicalCard> discardedOrcs = Filters.filter(discardEffect.getAffectedCardsMinusPrevented(game), game.getGameState(), game.getModifiersQuerying(), Culture.ISENGARD, Race.ORC);
-                for (final PhysicalCard discardedOrc : discardedOrcs) {
-                    OptionalTriggerAction action = new OptionalTriggerAction(self);
-                    action.setText("Stack " + GameUtils.getCardLink(discardedOrc));
-                    action.appendEffect(
-                            new StackCardFromPlayEffect(discardedOrc, self));
-                    actions.add(action);
-                }
-
-                return actions;
+                    && discardResult.getSource() != null) {
+                PhysicalCard discardedOrc = discardResult.getDiscardedCard();
+                OptionalTriggerAction action = new OptionalTriggerAction(self);
+                action.setTriggerIdentifier(self.getCardId()+"-"+discardedOrc.getCardId());
+                action.setText("Stack " + GameUtils.getCardLink(discardedOrc));
+                action.appendEffect(
+                        new StackCardFromPlayEffect(discardedOrc, self));
+                return Collections.singletonList(action);
             }
         }
         return null;
     }
-
 
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {

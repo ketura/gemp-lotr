@@ -81,7 +81,7 @@ public class LiberateASiteEffect extends AbstractEffect {
             game.getGameState().loseControlOfCard(siteToLiberate, Zone.ADVENTURE_PATH);
 
             for (PhysicalCard discardedCard : discardedCards)
-                game.getActionsEnvironment().emitEffectResult(new DiscardCardsFromPlayResult(discardedCard));
+                game.getActionsEnvironment().emitEffectResult(new DiscardCardsFromPlayResult(null, discardedCard));
 
             liberatedSiteCallback(siteToLiberate);
 
