@@ -1,9 +1,9 @@
 package com.gempukku.lotro.chat;
 
+import com.gempukku.lotro.PrivateInformationException;
+import com.gempukku.lotro.SubscriptionExpiredException;
 import com.gempukku.lotro.game.GatheringChatRoomListener;
 
-import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.Response;
 import java.util.*;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
@@ -39,12 +39,12 @@ public class ChatRoomMediator {
         }
     }
 
-    public List<ChatMessage> getPendingMessages(String playerId) throws UserUnsubscribedException {
+    public List<ChatMessage> getPendingMessages(String playerId) throws SubscriptionExpiredException {
         _lock.readLock().lock();
         try {
             GatheringChatRoomListener gatheringChatRoomListener = _listeners.get(playerId);
             if (gatheringChatRoomListener == null)
-                throw new UserUnsubscribedException();
+                throw new SubscriptionExpiredException();
             return gatheringChatRoomListener.consumeMessages();
         } finally {
             _lock.readLock().unlock();
@@ -61,11 +61,11 @@ public class ChatRoomMediator {
         }
     }
 
-    public void sendMessage(String playerId, String message, boolean admin) {
+    public void sendMessage(String playerId, String message, boolean admin) throws PrivateInformationException {
         _lock.writeLock().lock();
         try {
             if (!admin && _allowedPlayers != null && !_allowedPlayers.contains(playerId))
-                throw new WebApplicationException(Response.Status.FORBIDDEN);
+                throw new PrivateInformationException();
 
             _chatRoom.postMessage(playerId, message);
         } finally {

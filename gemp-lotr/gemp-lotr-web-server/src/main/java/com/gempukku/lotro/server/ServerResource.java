@@ -109,13 +109,13 @@ public class ServerResource extends AbstractResource {
     public StreamingOutput getReplay(
             @PathParam("replayId") String replayId) throws ParserConfigurationException {
         if (!replayId.contains("$"))
-            sendError(Response.Status.NOT_FOUND);
+            throw new WebApplicationException(Response.Status.NOT_FOUND);
         if (replayId.contains("."))
-            sendError(Response.Status.NOT_FOUND);
+            throw new WebApplicationException(Response.Status.NOT_FOUND);
 
         final String[] split = replayId.split("\\$");
         if (split.length != 2)
-            sendError(Response.Status.NOT_FOUND);
+            throw new WebApplicationException(Response.Status.NOT_FOUND);
 
         return new StreamingOutput() {
             @Override
@@ -144,7 +144,7 @@ public class ServerResource extends AbstractResource {
             @QueryParam("participantId") String participantId,
             @Context HttpServletRequest request) throws ParserConfigurationException {
         if (start < 0 || count < 1 || count > 100)
-            sendError(Response.Status.BAD_REQUEST);
+            throw new WebApplicationException(Response.Status.BAD_REQUEST);
 
         Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
@@ -234,7 +234,7 @@ public class ServerResource extends AbstractResource {
             else if (length.equals("day"))
                 to.setDate(to.getDate() + 1);
             else
-                sendError(Response.Status.BAD_REQUEST);
+                throw new WebApplicationException(Response.Status.BAD_REQUEST);
             long duration = to.getTime() - from;
 
             int activePlayers = _gameHistoryService.getActivePlayersCount(from, duration);
@@ -263,8 +263,7 @@ public class ServerResource extends AbstractResource {
             doc.appendChild(stats);
             return doc;
         } catch (ParseException exp) {
-            sendError(Response.Status.BAD_REQUEST);
-            return null;
+            throw new WebApplicationException(Response.Status.BAD_REQUEST);
         }
     }
 

@@ -101,7 +101,7 @@ public class DeckResource extends AbstractResource {
         LotroDeck deck = _deckDao.getDeckForPlayer(resourceOwner, deckName);
 
         if (deck == null)
-            sendError(Response.Status.NOT_FOUND);
+            throw new WebApplicationException(Response.Status.NOT_FOUND);
 
         StringBuilder result = new StringBuilder();
         result.append("<html><body>");
@@ -152,7 +152,7 @@ public class DeckResource extends AbstractResource {
 
         LotroDeck lotroDeck = _lotroServer.createDeckWithValidate(deckName, contents);
         if (lotroDeck == null)
-            sendError(Response.Status.BAD_REQUEST);
+            throw new WebApplicationException(Response.Status.BAD_REQUEST);
 
         _deckDao.saveDeckForPlayer(resourceOwner, deckName, lotroDeck);
 
@@ -178,7 +178,7 @@ public class DeckResource extends AbstractResource {
 
         LotroDeck deck = _deckDao.renameDeck(resourceOwner, oldDeckName, deckName);
         if (deck == null)
-            sendError(Response.Status.NOT_FOUND);
+            throw new WebApplicationException(Response.Status.NOT_FOUND);
 
         return serializeDeck(deck);
     }
@@ -205,7 +205,7 @@ public class DeckResource extends AbstractResource {
 
         LotroDeck deck = _lotroServer.createDeckWithValidate("tempDeck", contents);
         if (deck == null)
-            sendError(Response.Status.BAD_REQUEST);
+            throw new WebApplicationException(Response.Status.BAD_REQUEST);
 
         int fpCount = 0;
         int shadowCount = 0;

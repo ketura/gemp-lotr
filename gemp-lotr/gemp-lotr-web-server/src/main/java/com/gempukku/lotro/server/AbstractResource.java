@@ -78,7 +78,4 @@ public abstract class AbstractResource {
         return resourceOwner;
     }
 
-    protected final void sendError(Response.Status status) throws WebApplicationException {
-        throw new WebApplicationException(status);
-    }
 }

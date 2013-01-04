@@ -1,5 +1,8 @@
 package com.gempukku.lotro.server;
 
+import com.gempukku.lotro.PrivateInformationException;
+import com.gempukku.lotro.SubscriptionConflictException;
+import com.gempukku.lotro.SubscriptionExpiredException;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.game.LotroGameMediator;
 import com.gempukku.lotro.game.LotroServer;
@@ -56,7 +59,7 @@ public class GameResource extends AbstractResource {
         LotroGameMediator gameMediator = _lotroServer.getGameById(gameId);
 
         if (gameMediator == null)
-            sendError(Response.Status.NOT_FOUND);
+            throw new WebApplicationException(Response.Status.NOT_FOUND);
 
         gameMediator.setPlayerAutoPassSettings(resourceOwner.getName(), getAutoPassPhases(request));
 
@@ -65,7 +68,11 @@ public class GameResource extends AbstractResource {
         Document doc = documentBuilder.newDocument();
         Element gameState = doc.createElement("gameState");
 
-        gameMediator.singupUserForGame(resourceOwner, new SerializationVisitor(doc, gameState));
+        try {
+            gameMediator.singupUserForGame(resourceOwner, new SerializationVisitor(doc, gameState));
+        } catch (PrivateInformationException e) {
+            throw new WebApplicationException(Response.Status.FORBIDDEN);
+        }
 
         doc.appendChild(gameState);
         return doc;
@@ -100,7 +107,7 @@ public class GameResource extends AbstractResource {
 
         LotroGameMediator gameMediator = _lotroServer.getGameById(gameId);
         if (gameMediator == null)
-            sendError(Response.Status.NOT_FOUND);
+            throw new WebApplicationException(Response.Status.NOT_FOUND);
 
         return gameMediator.produceCardInfo(resourceOwner, cardId);
     }
@@ -115,7 +122,7 @@ public class GameResource extends AbstractResource {
 
         LotroGameMediator gameMediator = _lotroServer.getGameById(gameId);
         if (gameMediator == null)
-            sendError(Response.Status.NOT_FOUND);
+            throw new WebApplicationException(Response.Status.NOT_FOUND);
 
         gameMediator.concede(resourceOwner);
     }
@@ -130,7 +137,7 @@ public class GameResource extends AbstractResource {
 
         LotroGameMediator gameMediator = _lotroServer.getGameById(gameId);
         if (gameMediator == null)
-            sendError(Response.Status.NOT_FOUND);
+            throw new WebApplicationException(Response.Status.NOT_FOUND);
 
         gameMediator.cancel(resourceOwner);
     }
@@ -152,7 +159,7 @@ public class GameResource extends AbstractResource {
         try {
             LotroGameMediator gameMediator = _lotroServer.getGameById(gameId);
             if (gameMediator == null)
-                sendError(Response.Status.NOT_FOUND);
+                throw new WebApplicationException(Response.Status.NOT_FOUND);
 
             gameMediator.setPlayerAutoPassSettings(resourceOwner.getName(), getAutoPassPhases(request));
 
@@ -172,6 +179,12 @@ public class GameResource extends AbstractResource {
             processDeliveryServiceNotification(request, response);
 
             return doc;
+        } catch (SubscriptionConflictException exp) {
+            throw new WebApplicationException(Response.Status.CONFLICT);
+        } catch (PrivateInformationException e) {
+            throw new WebApplicationException(Response.Status.FORBIDDEN);
+        } catch (SubscriptionExpiredException e) {
+            throw new WebApplicationException(Response.Status.GONE);
         } finally {
             LoggingThreadLocal.stop(decisionId != null);
         }
