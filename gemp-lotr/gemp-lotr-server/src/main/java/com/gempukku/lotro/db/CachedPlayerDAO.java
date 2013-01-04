@@ -60,7 +60,7 @@ public class CachedPlayerDAO implements PlayerDAO, Cached {
     }
 
     @Override
-    public boolean registerUser(String login, String password, String remoteAddr) throws SQLException {
+    public boolean registerUser(String login, String password, String remoteAddr) throws SQLException, LoginInvalidException {
         boolean registered = _delegate.registerUser(login, password, remoteAddr);
         if (registered)
             _playerByName.remove(login);

@@ -22,7 +22,7 @@ response.setDateHeader ("Expires", -1);
     </style>
 
     <%@ include file="js.inc" %>
-    
+
     <script type="text/javascript">
         jQuery.fn.center = function () {
             this.css("position", "absolute");
@@ -35,59 +35,109 @@ response.setDateHeader ("Expires", -1);
             alert("Unable to contact the server");
         });
 
-        function processResponse(html) {
-            $("#message").append(html).center();
-            attachEvents();
-        }
-
-        $(document).ready(
-                function () {
-                    comm.getStatus(processResponse);
-                });
-
-        function attachEvents() {
-            var loginButton = $("#loginButton");
-            if (loginButton != null) {
-                loginButton.button().click(
-                        function () {
-                            var login = $("#login").val();
-                            var password = $("#password").val();
-                            $("#message").html("");
-                            comm.login(login, password, processResponse);
-                        });
-            }
-
-            var registerButton = $("#registerButton");
-            if (registerButton != null) {
-                registerButton.button().click(
-                        function () {
-                            var login = $("#login").val();
-                            var password = $("#password").val();
-                            var password2 = $("#password2").val();
-                            if (password != password2) {
-                                alert("Password and Password repeated are different!");
-                            } else {
-                                $("#message").html("");
-                                comm.register(login, password, processResponse);
+        function register() {
+            var login = $("#login").val();
+            var password = $("#password").val();
+            var password2 = $("#password2").val();
+            if (password != password2) {
+                $(".error").html("Password and Password repeated are different! Try again");
+            } else {
+                comm.register(login, password, function() {
+                    location.href="/gemp-lotr/hall.html";
+                },
+                        {
+                            "0": function() {
+                                alert("Unable to connect to server, either server is down or there is a problem" +
+                                        " with your internet connection");
+                            },
+                            "400":function() {
+                                $(".error").html("Login is invalid. Login must be between 2-10 characters long, and contain only<br/>"+
+                                        +" english letters, numbers or _ (underscore) and - (dash) characters.");
+                            },
+                            "409": function() {
+                                $(".error").html("User with this login already exists in the system. Try a different one.");
                             }
                         });
             }
 
-            var clickToRegisterButton = $("#clickToRegister");
-            if (clickToRegisterButton != null) {
-                clickToRegisterButton.button().click(
-                        function () {
-                            $("#message").html("");
-                            comm.getRegistrationForm(processResponse);
-                        });
-            }
         }
+
+        function registrationScreen() {
+            comm.getRegistrationForm(
+                    function(html) {
+                        $(".error").html();
+                        $(".interaction").html(html);
+                        $("#registerButton").click(
+
+                        )
+                    });
+        }
+
+        function login() {
+            var login = $("#login").val();
+            var password = $("#password").val();
+            comm.login(login, password, function() {
+                        location.href = "/gemp-lotr/hall.html";
+                    },
+                    {
+                        "0": function() {
+                            alert("Unable to connect to server, either server is down or there is a problem" +
+                                    " with your internet connection");
+                        },
+                        "401":function() {
+                            $(".error").html("Invalid username or password. Try again.");
+                            loginScreen();
+                        },
+                        "403": function() {
+                            $(".error").html("You have been banned. If you think it was a mistake, please write an e-mail to <a href='mailto:marcins78@gmail.com>marcins78@gmail.com</a>");
+                            $(".interaction").html("");
+                        }
+                    });
+        }
+
+        function loginScreen() {
+            $(".error").html("");
+            $(".interaction").html("");
+            $(".interaction").append("Login below, or ");
+            var registerButton = $("<div>Register</div>").button();
+            registerButton.click(registrationScreen);
+
+            $(".interaction").append(registerButton);
+            $(".interaction").append("<br/>Login: <input id='login' type='text'><br/>Password: <input id='password' type='password'><br/>");
+
+            var loginButton = $("<div>Login</div>").button();
+            loginButton.click(login);
+
+            $("#password").keypress(function (e) {
+                if (e.which == 13) {
+                    login();
+                    e.preventDefault();
+                    return false;
+                }
+            });
+
+            $(".interaction").append(loginButton);
+        }
+
+        $(document).ready(
+                function () {
+                    comm.getStatus(
+                            function(html) {
+                                $(".status").append(html);
+                            });
+                    $(".centerContainer").center();
+                    loginScreen();
+                });
     </script>
 
 </head>
 <body bgcolor="#000000">
 <div style="float: left;height: 98%"><img src="images/troll.png" height="98%"/></div>
 <div style="float: right;height: 98%"><img src="images/man.png" height="98%"/></div>
-<div id="message" style="color:#ffffff;"></div>
+<div class="centerContainer">
+    <div class="status" style="color:#ffffff;"></div>
+    <div class="error" style="color: #ff0000;"></div>
+    <div class="interaction" style="color: #ffffff;"></div>
+</div>
 </body>
 </html>
