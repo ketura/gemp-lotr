@@ -52,7 +52,7 @@ response.setDateHeader ("Expires", -1);
                             },
                             "400":function() {
                                 $(".error").html("Login is invalid. Login must be between 2-10 characters long, and contain only<br/>"+
-                                        +" english letters, numbers or _ (underscore) and - (dash) characters.");
+                                        " english letters, numbers or _ (underscore) and - (dash) characters.");
                             },
                             "409": function() {
                                 $(".error").html("User with this login already exists in the system. Try a different one.");
@@ -67,9 +67,7 @@ response.setDateHeader ("Expires", -1);
                     function(html) {
                         $(".error").html();
                         $(".interaction").html(html);
-                        $("#registerButton").click(
-
-                        )
+                        $("#registerButton").button().click(register);
                     });
         }
 
@@ -96,7 +94,6 @@ response.setDateHeader ("Expires", -1);
         }
 
         function loginScreen() {
-            $(".error").html("");
             $(".interaction").html("");
             $(".interaction").append("Login below, or ");
             var registerButton = $("<div>Register</div>").button();
@@ -125,8 +122,8 @@ response.setDateHeader ("Expires", -1);
                             function(html) {
                                 $(".status").append(html);
                             });
-                    $(".centerContainer").center();
                     loginScreen();
+                    $(".centerContainer").center();
                 });
     </script>
 
