@@ -32,12 +32,12 @@ public class LookAtOpponentsHandEffect extends AbstractEffect {
 
     @Override
     public boolean isPlayableInFull(LotroGame game) {
-        return game.getModifiersQuerying().canLookOrRevealCardsInHand(game.getGameState(), _opponentId);
+        return game.getModifiersQuerying().canLookOrRevealCardsInHand(game.getGameState(), _opponentId, _playerId);
     }
 
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
-        if (game.getModifiersQuerying().canLookOrRevealCardsInHand(game.getGameState(), _opponentId)) {
+        if (game.getModifiersQuerying().canLookOrRevealCardsInHand(game.getGameState(), _opponentId, _playerId)) {
             List<PhysicalCard> opponentHand = new LinkedList<PhysicalCard>(game.getGameState().getHand(_opponentId));
 
             game.getUserFeedback().sendAwaitingDecision(_playerId,

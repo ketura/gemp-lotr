@@ -120,7 +120,7 @@ public interface ModifiersQuerying {
 
     public boolean canDrawCardAndIncrement(GameState gameState, String playerId);
 
-    public boolean canLookOrRevealCardsInHand(GameState gameState, String playerId);
+    public boolean canLookOrRevealCardsInHand(GameState gameState, String revealingPlayerId, String performingPlayerId);
 
     public boolean canDiscardCardsFromHand(GameState gameState, String playerId, PhysicalCard source);
 

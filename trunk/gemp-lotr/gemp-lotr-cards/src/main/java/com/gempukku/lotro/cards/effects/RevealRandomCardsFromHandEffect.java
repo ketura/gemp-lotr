@@ -34,7 +34,7 @@ public abstract class RevealRandomCardsFromHandEffect extends AbstractEffect {
 
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
-        if (_actingPlayer.equals(_playerHand) || game.getModifiersQuerying().canLookOrRevealCardsInHand(game.getGameState(), _playerHand)) {
+        if (_actingPlayer.equals(_playerHand) || game.getModifiersQuerying().canLookOrRevealCardsInHand(game.getGameState(), _playerHand, _actingPlayer)) {
             List<PhysicalCard> randomCards = GameUtils.getRandomCards(game.getGameState().getHand(_playerHand), _count);
             if (randomCards.size() > 0)
                 game.getGameState().sendMessage(GameUtils.getCardLink(_source) + " revealed cards from " + _playerHand + " hand at random - " + getAppendedNames(randomCards));
@@ -51,7 +51,7 @@ public abstract class RevealRandomCardsFromHandEffect extends AbstractEffect {
     public boolean isPlayableInFull(LotroGame game) {
         if (game.getGameState().getHand(_playerHand).size() < _count)
             return false;
-        return _actingPlayer.equals(_playerHand) || game.getModifiersQuerying().canLookOrRevealCardsInHand(game.getGameState(), _playerHand);
+        return _actingPlayer.equals(_playerHand) || game.getModifiersQuerying().canLookOrRevealCardsInHand(game.getGameState(), _playerHand, _actingPlayer);
     }
 
     protected abstract void cardsRevealed(List<PhysicalCard> revealedCards);
