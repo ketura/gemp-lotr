@@ -79,18 +79,18 @@ public class LotroServer extends AbstractServer {
         return "Game" + gameId;
     }
 
-    public String createNewGame(LotroFormat lotroFormat, String tournamentName, final LotroGameParticipant[] participants, boolean allowSpectators, boolean allowCancelling, boolean muteSpectators, boolean competitiveTime) {
+    public String createNewGame(LotroFormat lotroFormat, String tournamentName, final LotroGameParticipant[] participants, boolean allowSpectators, boolean allowCancelling, boolean allowChatAccess, boolean competitiveTime) {
         _lock.writeLock().lock();
         try {
             if (participants.length < 2)
                 throw new IllegalArgumentException("There has to be at least two players");
             final String gameId = String.valueOf(_nextGameId);
 
-            if (muteSpectators) {
+            if (!allowChatAccess) {
                 Set<String> allowedUsers = new HashSet<String>();
                 for (LotroGameParticipant participant : participants)
                     allowedUsers.add(participant.getPlayerId());
-                _chatServer.createVoicedChatRoom(getChatRoomName(gameId), allowedUsers, 30);
+                _chatServer.createPrivateChatRoom(getChatRoomName(gameId), allowedUsers, 30);
             } else
                 _chatServer.createChatRoom(getChatRoomName(gameId), 30);
 

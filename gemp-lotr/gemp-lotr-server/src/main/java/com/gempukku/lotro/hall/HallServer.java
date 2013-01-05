@@ -468,12 +468,12 @@ public class HallServer extends AbstractServer {
             };
         }
 
-        createGame(tableId, participants, listener, awaitingTable.getLotroFormat(), getTournamentName(awaitingTable), true, league == null, false, league != null);
+        createGame(tableId, participants, listener, awaitingTable.getLotroFormat(), getTournamentName(awaitingTable), true, league == null, true, league != null);
         _awaitingTables.remove(tableId);
     }
 
-    private void createGame(String tableId, LotroGameParticipant[] participants, GameResultListener listener, LotroFormat lotroFormat, String tournamentName, boolean allowSpectators, boolean allowCancelling, boolean muteSpectators, boolean competitiveTime) {
-        String gameId = _lotroServer.createNewGame(lotroFormat, tournamentName, participants, allowSpectators, allowCancelling, muteSpectators, competitiveTime);
+    private void createGame(String tableId, LotroGameParticipant[] participants, GameResultListener listener, LotroFormat lotroFormat, String tournamentName, boolean allowSpectators, boolean allowCancelling, boolean allowChatAccess, boolean competitiveTime) {
+        String gameId = _lotroServer.createNewGame(lotroFormat, tournamentName, participants, allowSpectators, allowCancelling, allowChatAccess, competitiveTime);
         LotroGameMediator lotroGameMediator = _lotroServer.getGameById(gameId);
         if (listener != null)
             lotroGameMediator.addGameResultListener(listener);
@@ -631,7 +631,7 @@ public class HallServer extends AbstractServer {
                                 public void gameCancelled() {
                                     createGameInternal(participants, allowSpectators);
                                 }
-                            }, _formatLibrary.getFormat(_tournament.getFormat()), _tournament.getTournamentName(), allowSpectators, false, true, true);
+                            }, _formatLibrary.getFormat(_tournament.getFormat()), _tournament.getTournamentName(), allowSpectators, false, false, true);
                 }
             } finally {
                 _hallDataAccessLock.writeLock().unlock();

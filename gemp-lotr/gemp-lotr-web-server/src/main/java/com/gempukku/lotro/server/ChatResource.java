@@ -40,8 +40,8 @@ public class ChatResource extends AbstractResource {
         ChatRoomMediator chatRoom = _chatServer.getChatRoom(room);
         if (chatRoom == null)
             throw new WebApplicationException(Response.Status.NOT_FOUND);
-
-        List<ChatMessage> chatMessages = chatRoom.joinUser(resourceOwner.getName());
+        try {
+        List<ChatMessage> chatMessages = chatRoom.joinUser(resourceOwner.getName(), resourceOwner.getType().contains("a"));
         Collection<String> usersInRoom = chatRoom.getUsersInRoom();
 
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -52,6 +52,9 @@ public class ChatResource extends AbstractResource {
         serializeChatRoomData(room, chatMessages, usersInRoom, doc);
 
         return doc;
+        } catch (PrivateInformationException exp) {
+            throw new WebApplicationException(Response.Status.FORBIDDEN);
+        }
     }
 
     @Path("/{room}")

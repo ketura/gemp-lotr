@@ -27,9 +27,12 @@ public class ChatRoomMediator {
         _channelInactivityTimeoutPeriod = 1000 * secondsTimeoutPeriod;
     }
 
-    public List<ChatMessage> joinUser(String playerId) {
+    public List<ChatMessage> joinUser(String playerId, boolean admin) throws PrivateInformationException {
         _lock.writeLock().lock();
         try {
+            if (!admin && _allowedPlayers != null && !_allowedPlayers.contains(playerId))
+                throw new PrivateInformationException();
+
             GatheringChatRoomListener value = new GatheringChatRoomListener();
             _listeners.put(playerId, value);
             _chatRoom.joinChatRoom(playerId, value);
