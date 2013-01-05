@@ -39,8 +39,12 @@ public class StandingsProducer {
             int points = playerWinCounts.get(playerName).intValue() * pointsForWin + playerLossCounts.get(playerName).intValue() * pointsForLoss;
             int gamesPlayed = playerWinCounts.get(playerName).intValue() + playerLossCounts.get(playerName).intValue();
 
-            if (playersWithByes.containsKey(playerName))
-                points += pointsForWin * playersWithByes.get(playerName);
+            if (playersWithByes.containsKey(playerName)) {
+                int byesCount = playersWithByes.get(playerName);
+                
+                points += pointsForWin * byesCount;
+                gamesPlayed += byesCount;
+            }
 
             PlayerStanding standing = new PlayerStanding(playerName, points, gamesPlayed);
             List<String> opponents = playerOpponents.get(playerName);
