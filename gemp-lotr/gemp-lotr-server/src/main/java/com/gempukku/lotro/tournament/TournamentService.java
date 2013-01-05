@@ -155,7 +155,7 @@ public class TournamentService {
         return _tournamentMatchDao.getPlayerByes(tournamentId);
     }
 
-    public List<TournamentQueueInfo> getUnstartedScheduledTournamentQueues() {
+    public List<TournamentQueueInfo> getUnstartedScheduledTournamentQueues(long tillDate) {
         return _tournamentDao.getUnstartedScheduledTournamentQueues();
     }
 

@@ -20,6 +20,9 @@ import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class HallServer extends AbstractServer {
+    private final int _playerInactivityPeriod = 1000 * 20; // 10 seconds
+    private final long _scheduledTournamentLoadTime = 1000*60*60*24*7; // Week
+
     private ChatServer _chatServer;
     private LeagueService _leagueService;
     private TournamentService _tournamentService;
@@ -31,8 +34,6 @@ public class HallServer extends AbstractServer {
     private TournamentPrizeSchemeRegistry _tournamentPrizeSchemeRegistry;
 
     private CollectionType _allCardsCollectionType = CollectionType.ALL_CARDS;
-
-    private final int _playerInactivityPeriod = 1000 * 20; // 10 seconds
 
     private int _nextTableId = 1;
 
@@ -572,7 +573,8 @@ public class HallServer extends AbstractServer {
 
             if (_tickCounter == 60) {
                 _tickCounter =0;
-                List<TournamentQueueInfo> unstartedTournamentQueues = _tournamentService.getUnstartedScheduledTournamentQueues();
+                List<TournamentQueueInfo> unstartedTournamentQueues = _tournamentService.getUnstartedScheduledTournamentQueues(
+                        System.currentTimeMillis()+_scheduledTournamentLoadTime);
                 for (TournamentQueueInfo unstartedTournamentQueue : unstartedTournamentQueues) {
                     String scheduledTournamentId = unstartedTournamentQueue.getScheduledTournamentId();
                     if (!_tournamentQueues.containsKey(scheduledTournamentId)) {

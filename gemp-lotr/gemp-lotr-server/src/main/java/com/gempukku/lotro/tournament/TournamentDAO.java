@@ -19,7 +19,7 @@ public interface TournamentDAO {
 
     public void updateTournamentRound(String tournamentId, int round);
 
-    public List<TournamentQueueInfo> getUnstartedScheduledTournamentQueues();
+    public List<TournamentQueueInfo> getUnstartedScheduledTournamentQueues(long tillDate);
 
     public void updateScheduledTournamentStarted(String scheduledTournamentId);
 }

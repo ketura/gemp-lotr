@@ -190,12 +190,13 @@ public class DbTournamentDAO implements TournamentDAO {
     }
 
     @Override
-    public List<TournamentQueueInfo> getUnstartedScheduledTournamentQueues() {
+    public List<TournamentQueueInfo> getUnstartedScheduledTournamentQueues(long tillDate) {
         try {
             Connection connection = _dbAccess.getDataSource().getConnection();
             try {
-                PreparedStatement statement = connection.prepareStatement("select tournament_id, name, format, start, cost, playoff, prizes, minimum_players from scheduled_tournament where started = 0");
+                PreparedStatement statement = connection.prepareStatement("select tournament_id, name, format, start, cost, playoff, prizes, minimum_players from scheduled_tournament where started = 0 and start<=?");
                 try {
+                    statement.setLong(1, tillDate);
                     ResultSet rs = statement.executeQuery();
                     try {
                         List<TournamentQueueInfo> result = new ArrayList<TournamentQueueInfo>();
