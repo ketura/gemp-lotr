@@ -50,7 +50,7 @@ public class Card1_055 extends AbstractPermanent {
                             new MultipleChoiceAwaitingDecision(1, "Choose opponent with at least 7 cards in hand", opponentsHavingAtLeast7Cards(game, playerId)) {
                                 @Override
                                 protected void validDecisionMade(int index, final String chosenOpponent) {
-                                    if (game.getModifiersQuerying().canLookOrRevealCardsInHand(game.getGameState(), chosenOpponent)) {
+                                    if (game.getModifiersQuerying().canLookOrRevealCardsInHand(game.getGameState(), chosenOpponent, playerId)) {
                                         List<? extends PhysicalCard> hand = game.getGameState().getHand(chosenOpponent);
                                         List<PhysicalCard> randomCardsFromHand = GameUtils.getRandomCards(hand, 2);
                                         action.appendEffect(

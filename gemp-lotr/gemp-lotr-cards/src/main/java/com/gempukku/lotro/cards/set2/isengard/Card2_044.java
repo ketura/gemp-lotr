@@ -36,6 +36,6 @@ public class Card2_044 extends AbstractPermanent {
 
     @Override
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
-        return Collections.singletonList(new OpponentsCantLookOrRevealCardsFromHand(self));
+        return Collections.singletonList(new OpponentsCantLookOrRevealCardsFromHand(self, null, game.getGameState().getCurrentPlayerId()));
     }
 }

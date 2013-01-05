@@ -38,13 +38,13 @@ public abstract class RevealAndChooseCardsFromOpponentHandEffect extends Abstrac
 
     @Override
     public boolean isPlayableInFull(LotroGame game) {
-        return (game.getModifiersQuerying().canLookOrRevealCardsInHand(game.getGameState(), _opponentId))
+        return (game.getModifiersQuerying().canLookOrRevealCardsInHand(game.getGameState(), _opponentId, _playerId))
                 && game.getGameState().getHand(_opponentId).size() >= _minChosen;
     }
 
     @Override
     public void playEffect(LotroGame game) {
-        if (game.getModifiersQuerying().canLookOrRevealCardsInHand(game.getGameState(), _opponentId)) {
+        if (game.getModifiersQuerying().canLookOrRevealCardsInHand(game.getGameState(), _opponentId, _playerId)) {
             List<PhysicalCard> opponentHand = new LinkedList<PhysicalCard>(game.getGameState().getHand(_opponentId));
 
             SubAction subAction = new SubAction(_action);

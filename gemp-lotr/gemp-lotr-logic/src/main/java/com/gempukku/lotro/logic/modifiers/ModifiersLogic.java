@@ -879,9 +879,9 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     }
 
     @Override
-    public boolean canLookOrRevealCardsInHand(GameState gameState, String playerId) {
+    public boolean canLookOrRevealCardsInHand(GameState gameState, String revealingPlayerId, String performingPlayerId) {
         for (Modifier modifier : getModifiers(gameState, ModifierEffect.LOOK_OR_REVEAL_MODIFIER))
-            if (!modifier.canLookOrRevealCardsInHand(gameState, this, playerId))
+            if (!modifier.canLookOrRevealCardsInHand(gameState, this, revealingPlayerId, performingPlayerId))
                 return false;
         return true;
     }

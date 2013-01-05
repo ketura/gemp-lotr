@@ -288,7 +288,7 @@ public abstract class AbstractModifier implements Modifier {
     }
 
     @Override
-    public boolean canLookOrRevealCardsInHand(GameState gameState, ModifiersQuerying modifiersQuerying, String playerId) {
+    public boolean canLookOrRevealCardsInHand(GameState gameState, ModifiersQuerying modifiersQuerying, String revealingPlayerId, String actingPlayerId) {
         return true;
     }
 
