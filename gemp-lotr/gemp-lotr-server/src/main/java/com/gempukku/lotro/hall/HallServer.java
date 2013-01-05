@@ -16,6 +16,7 @@ import com.gempukku.lotro.logic.vo.LotroDeck;
 import com.gempukku.lotro.tournament.*;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
@@ -46,7 +47,7 @@ public class HallServer extends AbstractServer {
     private Map<String, AwaitingTable> _awaitingTables = new LinkedHashMap<String, AwaitingTable>();
     private Map<String, RunningTable> _runningTables = new LinkedHashMap<String, RunningTable>();
 
-    private Map<Player, HallCommunicationChannel> _playerChannelCommunication = new HashMap<Player, HallCommunicationChannel>();
+    private Map<Player, HallCommunicationChannel> _playerChannelCommunication = new ConcurrentHashMap<Player, HallCommunicationChannel>();
     private int _nextChannelNumber = 0;
 
     private Map<String, Tournament> _runningTournaments = new LinkedHashMap<String, Tournament>();
