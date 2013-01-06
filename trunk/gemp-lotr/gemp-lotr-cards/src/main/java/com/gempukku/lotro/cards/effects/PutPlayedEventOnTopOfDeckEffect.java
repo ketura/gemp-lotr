@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.effects;
 
 import com.gempukku.lotro.cards.actions.PlayEventAction;
+import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
@@ -24,7 +25,7 @@ public class PutPlayedEventOnTopOfDeckEffect extends AbstractEffect {
 
     @Override
     public boolean isPlayableInFull(LotroGame game) {
-        return true;
+        return _action.getEventPlayed().getZone() == Zone.VOID;
     }
 
     @Override
