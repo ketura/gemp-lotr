@@ -452,15 +452,18 @@ public class Filters {
     }
 
     public static Filter canExert(final PhysicalCard source) {
+        return canExert(source, 1);
+    }
+
+    public static Filter canExert(final PhysicalCard source, final int count) {
         return new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                return modifiersQuerying.getVitality(gameState, physicalCard) > 1
+                return modifiersQuerying.getVitality(gameState, physicalCard) > count
                         && modifiersQuerying.canBeExerted(gameState, source, physicalCard);
             }
         };
     }
-
 
     public static Filter canHeal =
             new Filter() {
