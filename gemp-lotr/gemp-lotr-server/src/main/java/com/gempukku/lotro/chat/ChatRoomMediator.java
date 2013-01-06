@@ -3,12 +3,14 @@ package com.gempukku.lotro.chat;
 import com.gempukku.lotro.PrivateInformationException;
 import com.gempukku.lotro.SubscriptionExpiredException;
 import com.gempukku.lotro.game.GatheringChatRoomListener;
+import org.apache.log4j.Logger;
 
 import java.util.*;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class ChatRoomMediator {
+    private Logger _logger;
     private ChatRoom _chatRoom = new ChatRoom();
 
     private Map<String, GatheringChatRoomListener> _listeners = new HashMap<String, GatheringChatRoomListener>();
@@ -18,11 +20,12 @@ public class ChatRoomMediator {
 
     private ReadWriteLock _lock = new ReentrantReadWriteLock();
 
-    public ChatRoomMediator(int secondsTimeoutPeriod) {
-        this(secondsTimeoutPeriod, null);
+    public ChatRoomMediator(String roomName, int secondsTimeoutPeriod) {
+        this(roomName, secondsTimeoutPeriod, null);
     }
 
-    public ChatRoomMediator(int secondsTimeoutPeriod, Set<String> allowedPlayers) {
+    public ChatRoomMediator(String roomName, int secondsTimeoutPeriod, Set<String> allowedPlayers) {
+        _logger = Logger.getLogger("chat."+roomName);
         _allowedPlayers = allowedPlayers;
         _channelInactivityTimeoutPeriod = 1000 * secondsTimeoutPeriod;
     }
@@ -70,6 +73,7 @@ public class ChatRoomMediator {
             if (!admin && _allowedPlayers != null && !_allowedPlayers.contains(playerId))
                 throw new PrivateInformationException();
 
+            _logger.info(playerId+": "+message);
             _chatRoom.postMessage(playerId, message);
         } finally {
             _lock.writeLock().unlock();
