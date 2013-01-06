@@ -21,15 +21,15 @@ public class ChooseAndStackCardsFromHandEffect extends AbstractEffect {
     private final int _minimum;
     private final int _maximum;
     private PhysicalCard _stackOn;
-    private Filterable _filter;
+    private Filterable[] _filters;
 
-    public ChooseAndStackCardsFromHandEffect(Action action, String playerId, int minimum, int maximum, PhysicalCard stackOn, Filterable filter) {
+    public ChooseAndStackCardsFromHandEffect(Action action, String playerId, int minimum, int maximum, PhysicalCard stackOn, Filterable... filters) {
         _action = action;
         _playerId = playerId;
         _minimum = minimum;
         _maximum = maximum;
         _stackOn = stackOn;
-        _filter = filter;
+        _filters = filters;
     }
 
     @Override
@@ -44,12 +44,12 @@ public class ChooseAndStackCardsFromHandEffect extends AbstractEffect {
 
     @Override
     public boolean isPlayableInFull(LotroGame game) {
-        return Filters.filter(game.getGameState().getHand(_playerId), game.getGameState(), game.getModifiersQuerying(), _filter).size() >= _minimum;
+        return Filters.filter(game.getGameState().getHand(_playerId), game.getGameState(), game.getModifiersQuerying(), _filters).size() >= _minimum;
     }
 
     @Override
     protected FullEffectResult playEffectReturningResult(final LotroGame game) {
-        Collection<PhysicalCard> hand = Filters.filter(game.getGameState().getHand(_playerId), game.getGameState(), game.getModifiersQuerying(), _filter);
+        Collection<PhysicalCard> hand = Filters.filter(game.getGameState().getHand(_playerId), game.getGameState(), game.getModifiersQuerying(), _filters);
         int maximum = Math.min(_maximum, hand.size());
 
         final boolean success = hand.size() >= _minimum;
