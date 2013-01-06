@@ -91,4 +91,8 @@ public class SingleEliminationRecurringQueue extends AbstractTournamentQueue imp
         return false;
     }
 
+    @Override
+    public boolean isJoinable() {
+        return true;
+    }
 }

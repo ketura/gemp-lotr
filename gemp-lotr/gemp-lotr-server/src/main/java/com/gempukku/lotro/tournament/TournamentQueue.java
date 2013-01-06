@@ -33,4 +33,6 @@ public interface TournamentQueue {
     public int getPlayerCount();
 
     public boolean isPlayerSignedUp(String player);
+
+    public boolean isJoinable();
 }

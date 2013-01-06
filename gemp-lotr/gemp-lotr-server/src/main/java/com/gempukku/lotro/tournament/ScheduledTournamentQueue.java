@@ -7,6 +7,7 @@ import com.gempukku.lotro.db.vo.CollectionType;
 import java.util.Date;
 
 public class ScheduledTournamentQueue extends AbstractTournamentQueue implements TournamentQueue {
+    private static final long _signupTimeBeforeStart = 1000 * 60 * 15; // 15 minutes before start
     private long _startTime;
     private int _minimumPlayers;
     private String _startCondition;
@@ -81,7 +82,7 @@ public class ScheduledTournamentQueue extends AbstractTournamentQueue implements
         long now = System.currentTimeMillis();
         if (now > _startTime) {
             if (_players.size() >= _minimumPlayers) {
-                
+
                 for (String player : _players)
                     _tournamentService.addPlayer(_scheduledTournamentId, player, _playerDecks.get(player));
 
@@ -96,5 +97,10 @@ public class ScheduledTournamentQueue extends AbstractTournamentQueue implements
             return true;
         }
         return false;
+    }
+
+    @Override
+    public boolean isJoinable() {
+        return System.currentTimeMillis() >= _startTime - _signupTimeBeforeStart;
     }
 }
