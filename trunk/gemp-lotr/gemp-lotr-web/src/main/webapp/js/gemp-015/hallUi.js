@@ -392,7 +392,7 @@ var GempLotrHallUI = Class.extend({
                     var actionsField = $("<td></td>");
 
                     var joined = queue.getAttribute("signedUp");
-                    if (joined != "true") {
+                    if (joined != "true" && queue.getAttribute("joinable") == "true") {
                         var but = $("<button>Join queue</button>");
                         $(but).button().click((
                                 function(queueId) {
@@ -406,7 +406,7 @@ var GempLotrHallUI = Class.extend({
                                 }
                                 )(id));
                         actionsField.append(but);
-                    } else {
+                    } else if (joined == "true") {
                         var but = $("<button>Leave queue</button>");
                         $(but).button().click((
                                 function(queueId) {
