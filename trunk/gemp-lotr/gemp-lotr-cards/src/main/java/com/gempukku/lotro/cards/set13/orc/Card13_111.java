@@ -34,7 +34,7 @@ public class Card13_111 extends AbstractEvent {
         action.appendCost(
                 new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 0, Integer.MAX_VALUE, Filters.owner(playerId), Culture.ORC, CardType.MINION) {
                     @Override
-                    protected void cardsToBeDiscardedCallback(Collection<PhysicalCard> cards) {
+                    protected void forEachDiscardedByEffectCallback(Collection<PhysicalCard> cards) {
                         if (cards.size() > 0)
                             action.appendEffect(
                                     new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, 3 * cards.size(), Culture.ORC, CardType.MINION));
