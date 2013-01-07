@@ -5,6 +5,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.results.RevealCardFromTopOfDeckResult;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -40,9 +41,12 @@ public abstract class RevealTopCardsOfDrawDeckEffect extends AbstractEffect {
         List<? extends PhysicalCard> deck = game.getGameState().getDeck(_playerId);
         int count = Math.min(deck.size(), _count);
         LinkedList<PhysicalCard> topCards = new LinkedList<PhysicalCard>(deck.subList(0, count));
-        if (topCards.size() > 0)
+        if (topCards.size() > 0) {
             game.getGameState().sendMessage(GameUtils.getCardLink(_source) + " revealed cards from top of " + _playerId + " deck - " + getAppendedNames(topCards));
-        cardsRevealed(topCards);
+            game.getActionsEnvironment().emitEffectResult(
+                    new RevealCardFromTopOfDeckResult(_playerId, topCards));
+            cardsRevealed(topCards);
+        }
         return new FullEffectResult(topCards.size() == _count);
     }
 

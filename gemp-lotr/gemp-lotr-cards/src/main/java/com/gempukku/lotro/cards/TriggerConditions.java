@@ -217,6 +217,14 @@ public class TriggerConditions {
         return false;
     }
 
+    public static boolean revealedCardsFromTopOfDeck(EffectResult effectResult, String playerId) {
+        if (effectResult.getType() == EffectResult.Type.REVEAL_CARDS_FROM_TOP_OF_DECK) {
+            RevealCardFromTopOfDeckResult revealCardFromTopOfDeckResult = (RevealCardFromTopOfDeckResult) effectResult;
+            return revealCardFromTopOfDeckResult.getPlayerId().equals(playerId);
+        }
+        return false;
+    }
+
     public static boolean isAddingBurden(Effect effect, LotroGame game, Filterable... filters) {
         if (effect.getType() == Effect.Type.BEFORE_ADD_BURDENS) {
             AddBurdenEffect addBurdenEffect = (AddBurdenEffect) effect;
