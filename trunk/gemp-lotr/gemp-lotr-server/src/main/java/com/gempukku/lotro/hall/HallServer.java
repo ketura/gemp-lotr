@@ -21,7 +21,7 @@ import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class HallServer extends AbstractServer {
-    private final int _playerInactivityPeriod = 1000 * 20; // 10 seconds
+    private final int _playerInactivityPeriod = 1000 * 20; // 20 seconds
     private final long _scheduledTournamentLoadTime = 1000*60*60*24*7; // Week
 
     private ChatServer _chatServer;
