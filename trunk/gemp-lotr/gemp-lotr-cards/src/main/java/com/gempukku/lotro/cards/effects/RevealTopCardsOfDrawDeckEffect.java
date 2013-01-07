@@ -46,5 +46,5 @@ public abstract class RevealTopCardsOfDrawDeckEffect extends AbstractEffect {
         return new FullEffectResult(topCards.size() == _count);
     }
 
-    protected abstract void cardsRevealed(List<PhysicalCard> cards);
+    protected abstract void cardsRevealed(List<PhysicalCard> revealedCards);
 }

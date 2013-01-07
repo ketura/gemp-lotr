@@ -40,8 +40,8 @@ public class Card12_022 extends AbstractCompanion {
             action.appendEffect(
                     new RevealTopCardsOfDrawDeckEffect(self, playerId, 1) {
                         @Override
-                        protected void cardsRevealed(List<PhysicalCard> cards) {
-                            for (PhysicalCard card : cards) {
+                        protected void cardsRevealed(List<PhysicalCard> revealedCards) {
+                            for (PhysicalCard card : revealedCards) {
                                 if (card.getBlueprint().getCulture() == Culture.ELVEN)
                                     action.appendEffect(
                                             new AddUntilStartOfPhaseModifierEffect(

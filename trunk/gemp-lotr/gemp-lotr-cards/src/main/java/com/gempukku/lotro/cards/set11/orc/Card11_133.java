@@ -43,8 +43,8 @@ public class Card11_133 extends AbstractMinion {
             action.appendEffect(
                     new RevealTopCardsOfDrawDeckEffect(self, game.getGameState().getCurrentPlayerId(), 1) {
                         @Override
-                        protected void cardsRevealed(List<PhysicalCard> cards) {
-                            for (PhysicalCard card : cards) {
+                        protected void cardsRevealed(List<PhysicalCard> revealedCards) {
+                            for (PhysicalCard card : revealedCards) {
                                 if (card.getBlueprint().getSide() == Side.SHADOW) {
                                     int twilightCost = card.getBlueprint().getTwilightCost();
                                     if (twilightCost > 0)

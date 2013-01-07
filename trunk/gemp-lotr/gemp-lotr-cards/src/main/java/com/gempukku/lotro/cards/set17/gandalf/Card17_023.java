@@ -55,13 +55,13 @@ public class Card17_023 extends AbstractPermanent {
                                                     action.appendEffect(
                                                             new RevealTopCardsOfDrawDeckEffect(self, playerId, 3) {
                                                                 @Override
-                                                                protected void cardsRevealed(List<PhysicalCard> cards) {
+                                                                protected void cardsRevealed(List<PhysicalCard> revealedCards) {
                                                                     Side side = (index == 0) ? Side.FREE_PEOPLE : Side.SHADOW;
-                                                                    if (Filters.filter(cards, game.getGameState(), game.getModifiersQuerying(), side).size() >= 2) {
-                                                                        putCardsIntoHandFromDeck(action, playerId, game, cards);
+                                                                    if (Filters.filter(revealedCards, game.getGameState(), game.getModifiersQuerying(), side).size() >= 2) {
+                                                                        putCardsIntoHandFromDeck(action, playerId, game, revealedCards);
                                                                     } else {
                                                                         action.appendEffect(
-                                                                                new DiscardTopCardFromDeckEffect(self, playerId, cards.size(), false));
+                                                                                new DiscardTopCardFromDeckEffect(self, playerId, revealedCards.size(), false));
                                                                     }
                                                                 }
                                                             });

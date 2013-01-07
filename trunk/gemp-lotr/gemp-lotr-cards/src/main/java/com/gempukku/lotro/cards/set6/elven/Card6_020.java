@@ -41,8 +41,8 @@ public class Card6_020 extends AbstractEvent {
         action.appendEffect(
                 new RevealTopCardsOfDrawDeckEffect(self, playerId, 1) {
                     @Override
-                    protected void cardsRevealed(List<PhysicalCard> cards) {
-                        for (final PhysicalCard card : cards) {
+                    protected void cardsRevealed(List<PhysicalCard> revealedCards) {
+                        for (final PhysicalCard card : revealedCards) {
                             Culture cardCulture = card.getBlueprint().getCulture();
                             action.appendEffect(
                                     new ChooseAndHealCharactersEffect(action, playerId, 0, 2, CardType.COMPANION, cardCulture));

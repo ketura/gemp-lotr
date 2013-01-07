@@ -41,8 +41,8 @@ public class Card1_215 extends AbstractOldEvent {
                                 action.appendEffect(
                                         new RevealTopCardsOfDrawDeckEffect(self, playerId, spotCount) {
                                             @Override
-                                            protected void cardsRevealed(List<PhysicalCard> cards) {
-                                                for (PhysicalCard revealedCard : cards) {
+                                            protected void cardsRevealed(List<PhysicalCard> revealedCards) {
+                                                for (PhysicalCard revealedCard : revealedCards) {
                                                     if (revealedCard.getBlueprint().getCulture() == Culture.WRAITH)
                                                         action.appendEffect(
                                                                 new PutCardFromDeckIntoHandOrDiscardEffect(revealedCard));

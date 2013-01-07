@@ -44,16 +44,16 @@ public class Card1_301 extends AbstractAlly {
             action.appendEffect(
                     new RevealTopCardsOfDrawDeckEffect(self, playerId, 3) {
                         @Override
-                        protected void cardsRevealed(final List<PhysicalCard> cards) {
-                            for (int i = 0; i < cards.size(); i++)
+                        protected void cardsRevealed(final List<PhysicalCard> revealedCards) {
+                            for (int i = 0; i < revealedCards.size(); i++)
                                 action.appendEffect(
-                                        new ChooseAndPutCardFromDeckIntoHandEffect(action, playerId, 1, 1, Filters.in(cards), Culture.SHIRE, Zone.DECK));
+                                        new ChooseAndPutCardFromDeckIntoHandEffect(action, playerId, 1, 1, Filters.in(revealedCards), Culture.SHIRE, Zone.DECK));
 
                             action.appendEffect(
                                     new UnrespondableEffect() {
                                         @Override
                                         protected void doPlayEffect(LotroGame game) {
-                                            Collection<PhysicalCard> cardsToDiscard = Filters.filter(cards, game.getGameState(), game.getModifiersQuerying(), Zone.DECK);
+                                            Collection<PhysicalCard> cardsToDiscard = Filters.filter(revealedCards, game.getGameState(), game.getModifiersQuerying(), Zone.DECK);
                                             for (PhysicalCard cardToDiscard : cardsToDiscard) {
                                                 action.appendEffect(
                                                         new DiscardCardFromDeckEffect(cardToDiscard));

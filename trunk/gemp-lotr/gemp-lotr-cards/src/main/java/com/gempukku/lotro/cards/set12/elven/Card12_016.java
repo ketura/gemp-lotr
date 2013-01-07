@@ -48,7 +48,7 @@ public class Card12_016 extends AbstractEvent {
                         action.appendEffect(
                                 new RevealTopCardsOfDrawDeckEffect(self, playerId, count) {
                                     @Override
-                                    protected void cardsRevealed(List<PhysicalCard> cards) {
+                                    protected void cardsRevealed(List<PhysicalCard> revealedCards) {
                                     }
                                 });
                         action.appendEffect(

@@ -71,8 +71,8 @@ public class Card11_026 extends AbstractPermanent {
             action.appendEffect(
                     new RevealTopCardsOfDrawDeckEffect(self, playerId, 1) {
                         @Override
-                        protected void cardsRevealed(List<PhysicalCard> cards) {
-                            for (final PhysicalCard card : cards) {
+                        protected void cardsRevealed(List<PhysicalCard> revealedCards) {
+                            for (final PhysicalCard card : revealedCards) {
                                 action.appendEffect(
                                         new PlayoutDecisionEffect(playerId,
                                                 new YesNoDecision("Do you want to put " + GameUtils.getCardLink(card) + " beneath your draw deck?") {

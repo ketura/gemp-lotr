@@ -62,9 +62,9 @@ public class Card1_018 extends AbstractOldEvent {
                                 action.insertEffect(
                                         new RevealTopCardsOfDrawDeckEffect(self, chosenPlayerId, 3) {
                                             @Override
-                                            protected void cardsRevealed(final List<PhysicalCard> topDeckCards) {
-                                                if (topDeckCards.size() > 0) {
-                                                    Collection<PhysicalCard> shadowCards = Filters.filter(topDeckCards, game.getGameState(), game.getModifiersQuerying(), Side.SHADOW);
+                                            protected void cardsRevealed(final List<PhysicalCard> revealedCards) {
+                                                if (revealedCards.size() > 0) {
+                                                    Collection<PhysicalCard> shadowCards = Filters.filter(revealedCards, game.getGameState(), game.getModifiersQuerying(), Side.SHADOW);
 
                                                     if (shadowCards.size() > 0) {
                                                         action.appendEffect(
@@ -73,18 +73,18 @@ public class Card1_018 extends AbstractOldEvent {
                                                                     protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
                                                                         if (selectedCards.size() > 0) {
                                                                             action.appendEffect(new DiscardCardFromDeckEffect(selectedCards.iterator().next()));
-                                                                            topDeckCards.removeAll(selectedCards);
+                                                                            revealedCards.removeAll(selectedCards);
                                                                         }
 
-                                                                        if (topDeckCards.size() > 0)
-                                                                            game.getGameState().removeCardsFromZone(playerId, topDeckCards);
+                                                                        if (revealedCards.size() > 0)
+                                                                            game.getGameState().removeCardsFromZone(playerId, revealedCards);
                                                                     }
                                                                 });
                                                     } else {
-                                                        game.getGameState().removeCardsFromZone(playerId, topDeckCards);
+                                                        game.getGameState().removeCardsFromZone(playerId, revealedCards);
                                                     }
 
-                                                    action.appendEffect(new ChooseCardToPutOnTop(action, playerId, topDeckCards));
+                                                    action.appendEffect(new ChooseCardToPutOnTop(action, playerId, revealedCards));
                                                 }
                                             }
                                         });

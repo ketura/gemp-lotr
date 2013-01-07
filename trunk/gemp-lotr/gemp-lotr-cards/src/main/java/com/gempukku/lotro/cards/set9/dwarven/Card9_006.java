@@ -52,8 +52,8 @@ public class Card9_006 extends AbstractAttachableFPPossession {
                             action.appendEffect(
                                     new RevealTopCardsOfDrawDeckEffect(self, playerId, spotCount) {
                                         @Override
-                                        protected void cardsRevealed(List<PhysicalCard> cards) {
-                                            for (PhysicalCard card : cards) {
+                                        protected void cardsRevealed(List<PhysicalCard> revealedCards) {
+                                            for (PhysicalCard card : revealedCards) {
                                                 if (card.getBlueprint().getSide() == Side.FREE_PEOPLE)
                                                     action.appendEffect(
                                                             new PutCardFromDeckIntoHandEffect(card));

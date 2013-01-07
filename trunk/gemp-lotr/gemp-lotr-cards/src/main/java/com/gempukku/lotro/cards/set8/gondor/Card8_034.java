@@ -44,9 +44,9 @@ public class Card8_034 extends AbstractCompanion {
             action.appendEffect(
                     new RevealTopCardsOfDrawDeckEffect(self, playerId, 10) {
                         @Override
-                        protected void cardsRevealed(List<PhysicalCard> cards) {
+                        protected void cardsRevealed(List<PhysicalCard> revealedCards) {
                             action.insertEffect(
-                                    new ChooseArbitraryCardsEffect(playerId, "Choose a knight to play", cards, Filters.and(Keyword.KNIGHT, Filters.playable(game)), 0, 1) {
+                                    new ChooseArbitraryCardsEffect(playerId, "Choose a knight to play", revealedCards, Filters.and(Keyword.KNIGHT, Filters.playable(game)), 0, 1) {
                                         @Override
                                         protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
                                             if (selectedCards.size() == 1) {

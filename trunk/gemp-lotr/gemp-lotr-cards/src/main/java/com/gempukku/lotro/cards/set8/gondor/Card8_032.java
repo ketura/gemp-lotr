@@ -51,8 +51,8 @@ public class Card8_032 extends AbstractPermanent {
                             action.insertEffect(
                                     new RevealTopCardsOfDrawDeckEffect(self, revealOppponentId, 1) {
                                         @Override
-                                        protected void cardsRevealed(List<PhysicalCard> cards) {
-                                            for (PhysicalCard card : cards) {
+                                        protected void cardsRevealed(List<PhysicalCard> revealedCards) {
+                                            for (PhysicalCard card : revealedCards) {
                                                 final int twilightCost = card.getBlueprint().getTwilightCost();
                                                 action.insertEffect(
                                                         new ChooseOpponentEffect(playerId) {

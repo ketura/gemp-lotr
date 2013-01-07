@@ -45,9 +45,9 @@ public class Card1_028 extends AbstractOldEvent {
         action.appendEffect(
                 new RevealTopCardsOfDrawDeckEffect(self, playerId, 3) {
                     @Override
-                    protected void cardsRevealed(List<PhysicalCard> cards) {
+                    protected void cardsRevealed(List<PhysicalCard> revealedCards) {
                         action.appendEffect(
-                                new PutCardsFromDeckIntoHandDiscardRestEffect(action, self, playerId, cards, Side.FREE_PEOPLE));
+                                new PutCardsFromDeckIntoHandDiscardRestEffect(action, self, playerId, revealedCards, Side.FREE_PEOPLE));
                     }
                 });
         return action;

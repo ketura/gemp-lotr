@@ -31,8 +31,8 @@ public class Card6_016 extends AbstractEvent {
         action.appendCost(
                 new RevealTopCardsOfDrawDeckEffect(self, playerId, 1) {
                     @Override
-                    protected void cardsRevealed(List<PhysicalCard> cards) {
-                        for (PhysicalCard card : cards) {
+                    protected void cardsRevealed(List<PhysicalCard> revealedCards) {
+                        for (PhysicalCard card : revealedCards) {
                             int twilightCost = card.getBlueprint().getTwilightCost();
                             action.appendEffect(
                                     new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, -twilightCost, CardType.MINION, Filters.inSkirmishAgainst(Race.ELF)));

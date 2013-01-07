@@ -47,12 +47,12 @@ public class Card1_242 extends AbstractPermanent {
             action.appendEffect(
                     new RevealTopCardsOfDrawDeckEffect(self, playerId, 1) {
                         @Override
-                        protected void cardsRevealed(List<PhysicalCard> cards) {
-                            if (cards.size() == 0) {
+                        protected void cardsRevealed(List<PhysicalCard> revealedCards) {
+                            if (revealedCards.size() == 0) {
                                 action.appendEffect(
                                         new ChooseAndDiscardCardsFromHandEffect(action, playerId, true));
                             } else {
-                                PhysicalCard topCard = cards.get(0);
+                                PhysicalCard topCard = revealedCards.get(0);
                                 if (topCard.getBlueprint().getCulture() == Culture.SAURON)
                                     action.appendEffect(
                                             new PutCardFromDeckIntoHandOrDiscardEffect(topCard));
