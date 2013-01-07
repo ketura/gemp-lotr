@@ -32,7 +32,7 @@ public class Card7_054 extends AbstractEvent {
         action.appendCost(
                 new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 0, Integer.MAX_VALUE, Culture.GOLLUM, CardType.CONDITION) {
                     @Override
-                    protected void cardsToBeDiscardedCallback(Collection<PhysicalCard> cards) {
+                    protected void forEachDiscardedByEffectCallback(Collection<PhysicalCard> cards) {
                         int count = cards.size();
                         game.getModifiersEnvironment().addUntilEndOfPhaseModifier(
                                 new StrengthModifier(self, Filters.smeagol, count * 3), Phase.SKIRMISH);
