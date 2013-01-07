@@ -46,7 +46,7 @@ public class Card20_056 extends AbstractAttachableFPPossession{
                         @Override
                         protected void spottedCards(int spotCount) {
                             action.appendEffect(
-                                    new ChooseActiveCardEffect(self, playerId, "Choose a DWARVEN condition in your support area", Culture.DWARVEN, CardType.CONDITION, Zone.SUPPORT) {
+                                    new ChooseActiveCardEffect(self, playerId, "Choose a DWARVEN condition in your support area", Culture.DWARVEN, CardType.CONDITION, Keyword.SUPPORT_AREA) {
                                         @Override
                                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                                             action.appendEffect(

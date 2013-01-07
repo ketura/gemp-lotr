@@ -43,10 +43,10 @@ public class Card20_053 extends AbstractCompanion {
     protected List<ActivateCardAction> getExtraInPlayPhaseActions(final String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.FELLOWSHIP, self)
                 && PlayConditions.hasCardInHand(game, playerId, 1, Filters.any)
-                && PlayConditions.canSpot(game, Culture.DWARVEN, Zone.SUPPORT, CardType.CONDITION)) {
+                && PlayConditions.canSpot(game, Culture.DWARVEN, Keyword.SUPPORT_AREA, CardType.CONDITION)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseActiveCardEffect(self, playerId, "Choose a DWARVEN condition in your support area", Culture.DWARVEN, Zone.SUPPORT, CardType.CONDITION) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose a DWARVEN condition in your support area", Culture.DWARVEN, Keyword.SUPPORT_AREA, CardType.CONDITION) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.appendCost(

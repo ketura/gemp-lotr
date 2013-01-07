@@ -26,14 +26,14 @@ public class Card20_062 extends AbstractEvent {
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
                 && PlayConditions.hasCardInHand(game, playerId, 1, Filters.not(self), Side.FREE_PEOPLE)
-                && PlayConditions.canSpot(game, Culture.DWARVEN, CardType.CONDITION, Zone.SUPPORT);
+                && PlayConditions.canSpot(game, Culture.DWARVEN, CardType.CONDITION, Keyword.SUPPORT_AREA);
     }
 
     @Override
     public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new ChooseActiveCardEffect(self, playerId, "Choose a DWARVEN condition in your support area", Culture.DWARVEN, CardType.CONDITION, Zone.SUPPORT) {
+                new ChooseActiveCardEffect(self, playerId, "Choose a DWARVEN condition in your support area", Culture.DWARVEN, CardType.CONDITION, Keyword.SUPPORT_AREA) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
                         action.appendCost(
