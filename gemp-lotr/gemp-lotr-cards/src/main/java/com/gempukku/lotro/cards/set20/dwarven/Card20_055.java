@@ -47,7 +47,7 @@ public class Card20_055 extends AbstractAttachableFPPossession {
         if (TriggerConditions.winsSkirmish(game, effectResult, Filters.hasAttached(self))) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose a DWARVEN condition in your support area", Culture.DWARVEN, Zone.SUPPORT, CardType.CONDITION) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose a DWARVEN condition in your support area", Culture.DWARVEN, Keyword.SUPPORT_AREA, CardType.CONDITION) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.appendEffect(

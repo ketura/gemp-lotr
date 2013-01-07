@@ -1,7 +1,7 @@
 package com.gempukku.lotro.common;
 
 public enum Keyword implements Filterable {
-    SUPPORT_AREA("Support Area"),
+    SUPPORT_AREA("Support Area", true),
 
     SKIRMISH("Skirmish"), FELLOWSHIP("Fellowship"), RESPONSE("Response"), MANEUVER("Maneuver"), ARCHERY("Archery"), SHADOW("Shadow"), ASSIGNMENT("Assignment"), REGROUP("Regroup"),
 
@@ -17,7 +17,9 @@ public enum Keyword implements Filterable {
     SANCTUARY("Sanctuary", true, false, true), FOREST("Forest", true, false, true), MARSH("Marsh", true, false, true),
     MOUNTAIN("Mountain", true, false, true), BATTLEGROUND("Battleground", true, false, true), DWELLING("Dwelling", true, false, true),
 
-    PIPEWEED("Pipeweed"),
+    PIPEWEED("Pipeweed", true),
+
+    LOTHLORIEN("Lothlorien", true, false, false),
 
     DAMAGE("Damage", true, true), DEFENDER("Defender", true, true), AMBUSH("Ambush", true, true), FIERCE("Fierce", true), ARCHER("Archer", true),
     UNHASTY("Unhasty", true), MUSTER("Muster", true), TOIL("Toil", true, true), LURKER("Lurker", true), CUNNING("Cunning", true),

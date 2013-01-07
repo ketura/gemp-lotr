@@ -43,7 +43,7 @@ public class Card20_063 extends AbstractEvent {
                                     final RequiredTriggerAction action = new RequiredTriggerAction(self);
                                     action.setVirtualCardAction(true);
                                     action.appendEffect(
-                                            new ChooseActiveCardEffect(self, playerId, "Choose DWARVEN condition in your support area", Culture.DWARVEN, CardType.CONDITION, Zone.SUPPORT) {
+                                            new ChooseActiveCardEffect(self, playerId, "Choose DWARVEN condition in your support area", Culture.DWARVEN, CardType.CONDITION, Keyword.SUPPORT_AREA) {
                                                 @Override
                                                 protected void cardSelected(LotroGame game, PhysicalCard card) {
                                                     action.appendEffect(
