@@ -57,7 +57,7 @@ public class NewLeaguePrizes implements LeaguePrizes {
         return null;
     }
 
-    public CardCollection getPrizeForLeague(int position, int playersCount, float multiplier) {
+    public CardCollection getPrizeForLeague(int position, int playersCount, int gamesPlayed, int maxGamesPlayed, float multiplier) {
         DefaultCardCollection leaguePrize = new DefaultCardCollection();
         int count = (int) Math.floor((2 * playersCount + 24) / (position + 9) - 2.4);
         if (count > 0) {

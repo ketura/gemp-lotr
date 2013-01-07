@@ -151,8 +151,7 @@ public class PlayEventAction extends AbstractCostToEffectAction implements Disco
 
         if (!_cardDiscarded && !_skipDiscardCard) {
             _cardDiscarded = true;
-            if (_eventPlayed.getZone() != null)
-                game.getGameState().removeCardsFromZone(_eventPlayed.getOwner(), Collections.singleton(_eventPlayed));
+            game.getGameState().removeCardsFromZone(_eventPlayed.getOwner(), Collections.singleton(_eventPlayed));
             game.getGameState().addCardToZone(game, _eventPlayed, Zone.DISCARD);
         }
 
