@@ -7,6 +7,8 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
 
+import java.util.Collections;
+
 public class StackPlayedEventOnACardEffect extends AbstractEffect {
     private PlayEventAction _action;
     private PhysicalCard _stackOn;
@@ -34,9 +36,11 @@ public class StackPlayedEventOnACardEffect extends AbstractEffect {
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
         if (isPlayableInFull(game)) {
-            game.getGameState().sendMessage(_action.getPerformingPlayer() + " stacks " + GameUtils.getCardLink(_action.getEventPlayed()) + " on "+GameUtils.getCardLink(_stackOn));
+            PhysicalCard eventPlayed = _action.getEventPlayed();
+            game.getGameState().sendMessage(_action.getPerformingPlayer() + " stacks " + GameUtils.getCardLink(eventPlayed) + " on " + GameUtils.getCardLink(_stackOn));
             _action.skipDiscardPart();
-            game.getGameState().stackCard(game, _action.getEventPlayed(), _stackOn);
+            game.getGameState().removeCardsFromZone(eventPlayed.getOwner(), Collections.singletonList(eventPlayed));
+            game.getGameState().stackCard(game, eventPlayed, _stackOn);
             return new FullEffectResult(true);
         }
         return new FullEffectResult(false);

@@ -7,8 +7,6 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.effects.PlayCardEffect;
 
-import java.util.Collections;
-
 public class PlayEventEffect extends PlayCardEffect {
     private PhysicalCard _cardPlayed;
     private PlayEventResult _playEventResult;
@@ -25,8 +23,6 @@ public class PlayEventEffect extends PlayCardEffect {
 
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
-        if (_cardPlayed.getZone() != null)
-            game.getGameState().removeCardsFromZone(_cardPlayed.getOwner(), Collections.singleton(_cardPlayed));
         game.getActionsEnvironment().emitEffectResult(_playEventResult);
         return new FullEffectResult(true);
     }

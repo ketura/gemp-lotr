@@ -7,5 +7,5 @@ public interface LeaguePrizes {
 
     public CardCollection getPrizeForLeagueMatchLoser(int winCountThisSerie, int totalGamesPlayedThisSerie);
 
-    public CardCollection getPrizeForLeague(int position, int playersCount, float multiplier);
+    public CardCollection getPrizeForLeague(int position, int playersCount, int gamesPlayed, int maxGamesPlayed, float multiplier);
 }

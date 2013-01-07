@@ -18,9 +18,13 @@ public class LeaguePrizesTest {
     @Test
     public void testLeaguePrize() {
         LeaguePrizes leaguePrizes = new NewLeaguePrizes();
-        CardCollection prize = leaguePrizes.getPrizeForLeague(1, 100, 2f);
-        for (Map.Entry<String, CardCollection.Item> stringIntegerEntry : prize.getAll().entrySet()) {
-            System.out.println(stringIntegerEntry.getKey() + ": " + stringIntegerEntry.getValue().getCount());
+        for (int i = 1; i <= 32; i++) {
+            System.out.println("Place "+i);
+            CardCollection prize = leaguePrizes.getPrizeForLeague(i, 60, 1, 2, 2f);
+            if (prize != null)
+            for (Map.Entry<String, CardCollection.Item> stringIntegerEntry : prize.getAll().entrySet()) {
+                System.out.println(stringIntegerEntry.getKey() + ": " + stringIntegerEntry.getValue().getCount());
+            }
         }
     }
 }

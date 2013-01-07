@@ -2,9 +2,12 @@ package com.gempukku.lotro.cards.effects;
 
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.common.Zone;
+import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
+
+import java.util.Collections;
 
 public class PutPlayedEventOnTopOfDeckEffect extends AbstractEffect {
     private PlayEventAction _action;
@@ -31,9 +34,11 @@ public class PutPlayedEventOnTopOfDeckEffect extends AbstractEffect {
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
         if (isPlayableInFull(game)) {
-            game.getGameState().sendMessage(_action.getPerformingPlayer() + " puts " + GameUtils.getCardLink(_action.getEventPlayed()) + " on top of his/her deck");
+            PhysicalCard eventPlayed = _action.getEventPlayed();
+            game.getGameState().sendMessage(_action.getPerformingPlayer() + " puts " + GameUtils.getCardLink(eventPlayed) + " on top of his/her deck");
             _action.skipDiscardPart();
-            game.getGameState().putCardOnTopOfDeck(_action.getEventPlayed());
+            game.getGameState().removeCardsFromZone(eventPlayed.getOwner(), Collections.singletonList(eventPlayed));
+            game.getGameState().putCardOnTopOfDeck(eventPlayed);
             return new FullEffectResult(true);
         }
         return new FullEffectResult(false);
