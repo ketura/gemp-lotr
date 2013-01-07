@@ -64,7 +64,12 @@ public class ExertCharactersEffect extends AbstractPreventableCardEffect {
             if (!_placeNoWound.contains(woundedCard))
                 game.getGameState().addWound(woundedCard);
             game.getActionsEnvironment().emitEffectResult(new ExertResult(_action, woundedCard));
+            forEachExertedByEffect(woundedCard);
         }
+    }
+
+    protected void forEachExertedByEffect(PhysicalCard physicalCard) {
+
     }
 
     public void placeNoWoundOn(PhysicalCard physicalCard) {
