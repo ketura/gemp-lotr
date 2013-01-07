@@ -50,7 +50,7 @@ public class Card20_046 extends AbstractEvent {
                                     action.appendEffect(
                                             new ChooseStackedCardsEffect(action, playerId, 1, 1, Filters.and(Culture.DWARVEN, CardType.CONDITION), Culture.DWARVEN) {
                                                 @Override
-                                                protected void cardsChosen(Collection<PhysicalCard> stackedCards) {
+                                                protected void cardsChosen(LotroGame game, Collection<PhysicalCard> stackedCards) {
                                                     for (PhysicalCard stackedCard : stackedCards) {
                                                         action.appendEffect(
                                                                 new PutCardFromStackedIntoHandEffect(stackedCard));
