@@ -47,10 +47,10 @@ public class Card7_104 extends AbstractEvent {
                         action.insertEffect(
                                 new RevealTopCardsOfDrawDeckEffect(self, opponentId, 5) {
                                     @Override
-                                    protected void cardsRevealed(List<PhysicalCard> cards) {
+                                    protected void cardsRevealed(List<PhysicalCard> revealedCards) {
                                         int fpCards = 0;
                                         int shadowCards = 0;
-                                        for (PhysicalCard card : cards) {
+                                        for (PhysicalCard card : revealedCards) {
                                             if (card.getBlueprint().getSide() == Side.FREE_PEOPLE)
                                                 fpCards++;
                                             else

@@ -38,8 +38,8 @@ public class Card20_077 extends AbstractAlly {
             action.appendEffect(
                     new RevealTopCardsOfDrawDeckEffect(self, playerId, 1) {
                         @Override
-                        protected void cardsRevealed(List<PhysicalCard> cards) {
-                            for (PhysicalCard revealedCard : cards) {
+                        protected void cardsRevealed(List<PhysicalCard> revealedCards) {
+                            for (PhysicalCard revealedCard : revealedCards) {
                                 if (Filters.and(Culture.ELVEN).accepts(game.getGameState(), game.getModifiersQuerying(), revealedCard))
                                     action.appendEffect(
                                             new ChooseAndWoundCharactersEffect(action, playerId, 0, 1, CardType.MINION));

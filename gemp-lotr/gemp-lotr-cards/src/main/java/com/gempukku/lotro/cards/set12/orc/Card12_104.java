@@ -40,8 +40,8 @@ public class Card12_104 extends AbstractEvent {
         action.appendCost(
                 new RevealTopCardsOfDrawDeckEffect(self, playerId, count) {
                     @Override
-                    protected void cardsRevealed(List<PhysicalCard> cards) {
-                        int bonus = Filters.filter(cards, game.getGameState(), game.getModifiersQuerying(), Culture.ORC).size();
+                    protected void cardsRevealed(List<PhysicalCard> revealedCards) {
+                        int bonus = Filters.filter(revealedCards, game.getGameState(), game.getModifiersQuerying(), Culture.ORC).size();
                         action.appendEffect(
                                 new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, bonus, Culture.ORC, CardType.MINION));
                     }

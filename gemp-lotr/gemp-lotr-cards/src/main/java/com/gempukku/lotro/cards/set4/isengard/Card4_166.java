@@ -54,9 +54,9 @@ public class Card4_166 extends AbstractPermanent {
                                     action.insertEffect(
                                             new RevealTopCardsOfDrawDeckEffect(self, deckId, 1) {
                                                 @Override
-                                                protected void cardsRevealed(List<PhysicalCard> cards) {
-                                                    if (cards.size() > 0) {
-                                                        final PhysicalCard card = cards.get(0);
+                                                protected void cardsRevealed(List<PhysicalCard> revealedCards) {
+                                                    if (revealedCards.size() > 0) {
+                                                        final PhysicalCard card = revealedCards.get(0);
                                                         action.appendEffect(
                                                                 new PlayoutDecisionEffect(playerId,
                                                                         new MultipleChoiceAwaitingDecision(1, "Do you want to put " + GameUtils.getFullName(card) + " on bottom of deck?", new String[]{"Yes", "No"}) {

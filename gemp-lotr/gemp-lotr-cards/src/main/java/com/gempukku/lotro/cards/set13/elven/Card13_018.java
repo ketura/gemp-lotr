@@ -38,8 +38,8 @@ public class Card13_018 extends AbstractCompanion {
             action.appendEffect(
                     new RevealTopCardsOfDrawDeckEffect(self, playerId, 1) {
                         @Override
-                        protected void cardsRevealed(List<PhysicalCard> cards) {
-                            for (PhysicalCard card : cards) {
+                        protected void cardsRevealed(List<PhysicalCard> revealedCards) {
+                            for (PhysicalCard card : revealedCards) {
                                 if (card.getBlueprint().getCulture() == Culture.ELVEN)
                                     action.appendEffect(
                                             new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, CardType.MINION));

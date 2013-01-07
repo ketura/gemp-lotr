@@ -45,8 +45,8 @@ public class Card10_007 extends AbstractCompanion {
             action.appendCost(
                     new RevealTopCardsOfDrawDeckEffect(self, playerId, 1) {
                         @Override
-                        protected void cardsRevealed(List<PhysicalCard> cards) {
-                            for (final PhysicalCard card : cards) {
+                        protected void cardsRevealed(List<PhysicalCard> revealedCards) {
+                            for (final PhysicalCard card : revealedCards) {
                                 if (card.getBlueprint().getCulture() == Culture.ELVEN) {
                                     action.insertCost(
                                             new OptionalEffect(action, playerId,

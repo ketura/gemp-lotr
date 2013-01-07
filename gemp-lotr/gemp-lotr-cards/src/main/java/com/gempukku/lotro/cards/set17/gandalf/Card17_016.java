@@ -48,8 +48,8 @@ public class Card17_016 extends AbstractCompanion {
             action.appendEffect(
                     new RevealTopCardsOfDrawDeckEffect(self, playerId, 2) {
                         @Override
-                        protected void cardsRevealed(List<PhysicalCard> cards) {
-                            for (PhysicalCard card : cards) {
+                        protected void cardsRevealed(List<PhysicalCard> revealedCards) {
+                            for (PhysicalCard card : revealedCards) {
                                 if (card.getBlueprint().getCulture() == Culture.GANDALF)
                                     action.appendEffect(
                                             new PutCardFromDeckIntoHandEffect(card));

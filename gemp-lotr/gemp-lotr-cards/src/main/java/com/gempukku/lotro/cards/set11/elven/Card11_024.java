@@ -2,13 +2,13 @@ package com.gempukku.lotro.cards.set11.elven;
 
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
-import com.gempukku.lotro.cards.effects.RevealTopCardsOfDrawDeckEffect;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
+import com.gempukku.lotro.cards.effects.RevealTopCardsOfDrawDeckEffect;
+import com.gempukku.lotro.cards.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
+import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.game.state.LotroGame;
 
 import java.util.List;
 
@@ -40,8 +40,8 @@ public class Card11_024 extends AbstractEvent {
         action.appendEffect(
                 new RevealTopCardsOfDrawDeckEffect(self, playerId, 1) {
                     @Override
-                    protected void cardsRevealed(List<PhysicalCard> cards) {
-                        for (PhysicalCard card : cards) {
+                    protected void cardsRevealed(List<PhysicalCard> revealedCards) {
+                        for (PhysicalCard card : revealedCards) {
                             if (card.getBlueprint().getTwilightCost()<=3) {
                                 action.appendEffect(
                                         new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, -3, CardType.MINION));

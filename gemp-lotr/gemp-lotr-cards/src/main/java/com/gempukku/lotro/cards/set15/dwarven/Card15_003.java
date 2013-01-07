@@ -58,8 +58,8 @@ public class Card15_003 extends AbstractPermanent {
             action.appendEffect(
                     new RevealTopCardsOfDrawDeckEffect(self, playerId, 1) {
                         @Override
-                        protected void cardsRevealed(List<PhysicalCard> cards) {
-                            for (PhysicalCard card : cards) {
+                        protected void cardsRevealed(List<PhysicalCard> revealedCards) {
+                            for (PhysicalCard card : revealedCards) {
                                 if (card.getBlueprint().getCulture() == Culture.DWARVEN)
                                     action.appendEffect(
                                             new PutCardFromDeckIntoHandOrDiscardEffect(card));

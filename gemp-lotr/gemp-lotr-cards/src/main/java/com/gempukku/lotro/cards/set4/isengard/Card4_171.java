@@ -59,9 +59,9 @@ public class Card4_171 extends AbstractAttachable {
                 action.appendEffect(
                         new RevealTopCardsOfDrawDeckEffect(self, game.getGameState().getCurrentPlayerId(), 10) {
                             @Override
-                            protected void cardsRevealed(final List<PhysicalCard> cards) {
+                            protected void cardsRevealed(final List<PhysicalCard> revealedCards) {
                                 action.appendEffect(
-                                        new ChooseArbitraryCardsEffect(self.getOwner(), "Choose shadow card", cards, Side.SHADOW, 1, 1) {
+                                        new ChooseArbitraryCardsEffect(self.getOwner(), "Choose shadow card", revealedCards, Side.SHADOW, 1, 1) {
                                             @Override
                                             protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
                                                 for (PhysicalCard selectedCard : selectedCards) {
@@ -71,7 +71,7 @@ public class Card4_171 extends AbstractAttachable {
                                             }
                                         });
                                 action.appendEffect(
-                                        new ChooseArbitraryCardsEffect(self.getOwner(), "Choose free people card", cards, Side.FREE_PEOPLE, 1, 1) {
+                                        new ChooseArbitraryCardsEffect(self.getOwner(), "Choose free people card", revealedCards, Side.FREE_PEOPLE, 1, 1) {
                                             @Override
                                             protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
                                                 for (PhysicalCard selectedCard : selectedCards) {

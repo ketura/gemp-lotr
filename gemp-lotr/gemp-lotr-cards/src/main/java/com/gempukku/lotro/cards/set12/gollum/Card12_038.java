@@ -37,9 +37,9 @@ public class Card12_038 extends AbstractEvent {
         action.appendEffect(
                 new RevealTopCardsOfDrawDeckEffect(self, playerId, count) {
                     @Override
-                    protected void cardsRevealed(List<PhysicalCard> cards) {
+                    protected void cardsRevealed(List<PhysicalCard> revealedCards) {
                         action.appendEffect(
-                                new ChooseArbitraryCardsEffect(playerId, "Choose minion to play", cards, Filters.and(CardType.MINION, Filters.playable(game, -2)), 0, 1) {
+                                new ChooseArbitraryCardsEffect(playerId, "Choose minion to play", revealedCards, Filters.and(CardType.MINION, Filters.playable(game, -2)), 0, 1) {
                                     @Override
                                     protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
                                         if (selectedCards.size() > 0) {

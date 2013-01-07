@@ -39,8 +39,8 @@ public class Card7_023 extends AbstractPermanent {
             action.appendEffect(
                     new RevealTopCardsOfDrawDeckEffect(self, playerId, 1) {
                         @Override
-                        protected void cardsRevealed(List<PhysicalCard> cards) {
-                            for (PhysicalCard card : cards) {
+                        protected void cardsRevealed(List<PhysicalCard> revealedCards) {
+                            for (PhysicalCard card : revealedCards) {
                                 if (card.getBlueprint().getCulture() == Culture.ELVEN) {
                                     action.appendEffect(
                                             new RemoveThreatsEffect(self, 3));
