@@ -69,7 +69,8 @@ public class Card12_054 extends AbstractMinion {
 
             final Set<String> possibleCultures = new LinkedHashSet<String>();
             for (Culture culture : Culture.values())
-                possibleCultures.add(culture.getHumanReadable());
+                if (culture.isOfficial())
+                    possibleCultures.add(culture.getHumanReadable());
 
             action.appendEffect(
                     new PlayoutDecisionEffect(self.getOwner(),
