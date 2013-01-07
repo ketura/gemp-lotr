@@ -11,7 +11,7 @@ public class ChatServer extends AbstractServer {
     private Map<String, ChatRoomMediator> _chatRooms = new ConcurrentHashMap<String, ChatRoomMediator>();
 
     public ChatRoomMediator createChatRoom(String name, int secondsTimeoutPeriod) {
-        ChatRoomMediator chatRoom = new ChatRoomMediator(secondsTimeoutPeriod);
+        ChatRoomMediator chatRoom = new ChatRoomMediator(name, secondsTimeoutPeriod);
         try {
             chatRoom.sendMessage("System", "Welcome to room: " + name, true);
         } catch (PrivateInformationException exp) {
@@ -22,7 +22,7 @@ public class ChatServer extends AbstractServer {
     }
 
     public ChatRoomMediator createPrivateChatRoom(String name, Set<String> allowedUsers, int secondsTimeoutPeriod) {
-        ChatRoomMediator chatRoom = new ChatRoomMediator(secondsTimeoutPeriod, allowedUsers);
+        ChatRoomMediator chatRoom = new ChatRoomMediator(name, secondsTimeoutPeriod, allowedUsers);
         try {
             chatRoom.sendMessage("System", "Welcome to private room: " + name, true);
         } catch (PrivateInformationException exp) {
