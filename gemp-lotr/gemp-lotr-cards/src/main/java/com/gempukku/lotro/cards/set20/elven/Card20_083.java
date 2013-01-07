@@ -47,7 +47,7 @@ public class Card20_083 extends AbstractPermanent {
             action.appendEffect(
                     new UnrespondableEffect() {
                         @Override
-                        protected void doPlayEffect(LotroGame game) {
+                        protected void doPlayEffect(final LotroGame game) {
                             if (game.getGameState().getDeck(playerId).size()>0) {
                                 final PhysicalCard topCard = game.getGameState().getDeck(playerId).get(0);
                                 action.appendEffect(
@@ -67,6 +67,7 @@ public class Card20_083 extends AbstractPermanent {
                                                                 new SelfDiscardEffect(self));
                                                         subAction.appendEffect(
                                                                 new DiscardCardFromDeckEffect(topCard));
+                                                        game.getActionsEnvironment().addActionToStack(subAction);
                                                     }
                                                 }));
                             }
