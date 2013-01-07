@@ -33,5 +33,11 @@ public class ChooseAndAddUntilEOPStrengthBonusEffect extends ChooseActiveCardEff
         final Phase phase = game.getGameState().getCurrentPhase();
 
         game.getModifiersEnvironment().addUntilEndOfPhaseModifier(modifier, phase);
+
+        selectedCharacterCallback(card);
+    }
+
+    protected void selectedCharacterCallback(PhysicalCard selectedCharacter) {
+
     }
 }
