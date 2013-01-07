@@ -54,7 +54,7 @@ public class Card5_009 extends AbstractPermanent {
                 action.appendEffect(
                         new ChooseStackedCardsEffect(action, playerId, 1, 1, self, Side.FREE_PEOPLE) {
                             @Override
-                            protected void cardsChosen(Collection<PhysicalCard> stackedCards) {
+                            protected void cardsChosen(LotroGame game, Collection<PhysicalCard> stackedCards) {
                                 for (PhysicalCard stackedCard : stackedCards)
                                     action.insertEffect(
                                             new PutCardFromStackedIntoHandEffect(stackedCard));

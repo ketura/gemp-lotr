@@ -59,14 +59,14 @@ public abstract class ChooseStackedCardsEffect extends AbstractEffect {
         final boolean success = stackedCards.size() >= _minimum;
 
         if (stackedCards.size() <= _minimum) {
-            cardsChosen(stackedCards);
+            cardsChosen(game, stackedCards);
         } else {
             game.getUserFeedback().sendAwaitingDecision(_playerId,
                     new CardsSelectionDecision(1, "Choose cards", stackedCards, _minimum, maximum) {
                         @Override
                         public void decisionMade(String result) throws DecisionResultInvalidException {
                             Set<PhysicalCard> stackedCards = getSelectedCardsByResponse(result);
-                            cardsChosen(stackedCards);
+                            cardsChosen(game, stackedCards);
                         }
                     });
         }
@@ -74,5 +74,5 @@ public abstract class ChooseStackedCardsEffect extends AbstractEffect {
         return new FullEffectResult(success);
     }
 
-    protected abstract void cardsChosen(Collection<PhysicalCard> stackedCards);
+    protected abstract void cardsChosen(LotroGame game, Collection<PhysicalCard> stackedCards);
 }
