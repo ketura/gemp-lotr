@@ -208,20 +208,6 @@ var GempLotrCommunication = Class.extend({
             dataType:"xml"
         });
     },
-    sendGameMessage: function(message, callback, errorMap) {
-        $.ajax({
-            type:"POST",
-            url:this.url + "/game/" + getUrlParam("gameId")+"/chat",
-            cache:false,
-            async: false,
-            data:{
-                message: message,
-                participantId:getUrlParam("participantId") },
-            success:this.deliveryCheck(callback),
-            error:this.errorCheck(errorMap),
-            dataType:"xml"
-        });
-    },
     getGameCardModifiers:function (cardId, callback, errorMap) {
         $.ajax({
             type:"GET",

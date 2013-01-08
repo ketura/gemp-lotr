@@ -3,7 +3,6 @@ package com.gempukku.lotro.game;
 import com.gempukku.lotro.PrivateInformationException;
 import com.gempukku.lotro.SubscriptionConflictException;
 import com.gempukku.lotro.SubscriptionExpiredException;
-import com.gempukku.lotro.chat.ChatRoom;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.communication.GameStateListener;
 import com.gempukku.lotro.filters.Filters;
@@ -40,7 +39,6 @@ public class LotroGameMediator {
     private ReentrantReadWriteLock.ReadLock _readLock = _lock.readLock();
     private ReentrantReadWriteLock.WriteLock _writeLock = _lock.writeLock();
     private int _channelNextIndex = 0;
-    private ChatRoom _chatRoom;
 
     public LotroGameMediator(LotroFormat lotroFormat, LotroGameParticipant[] participants, LotroCardBlueprintLibrary library, int maxSecondsForGamePerPlayer,
                              boolean allowSpectators, boolean cancellable) {
@@ -62,7 +60,6 @@ public class LotroGameMediator {
         _userFeedback = new DefaultUserFeedback();
         _lotroGame = new DefaultLotroGame(lotroFormat, decks, _userFeedback, library);
         _userFeedback.setGame(_lotroGame);
-        _chatRoom = new ChatRoom(false);
     }
 
     public boolean isAllowSpectators() {
@@ -77,14 +74,6 @@ public class LotroGameMediator {
 
     public void sendMessageToPlayers(String message) {
         _lotroGame.getGameState().sendMessage(message);
-    }
-
-    public void sendMessage(Player player, String message) throws PrivateInformationException {
-        String playerName = player.getName();
-        if (!player.getType().contains("a") && !_allowSpectators && !_playersPlaying.contains(playerName))
-            throw new PrivateInformationException();
-
-        _chatRoom.postMessage(playerName, message);
     }
 
     public void addGameStateListener(String playerId, GameStateListener listener) {
@@ -249,7 +238,6 @@ public class LotroGameMediator {
                 if (currentTime > channel.getLastConsumed().getTime() + _playerDecisionTimeoutPeriod) {
                     _lotroGame.removeGameStateListener(channel);
                     _communicationChannels.remove(playerId);
-                    _chatRoom.partChatRoom(playerId);
                 }
             }
 
@@ -415,7 +403,6 @@ public class LotroGameMediator {
             _communicationChannels.put(playerName, participantCommunicationChannel);
 
             _lotroGame.addGameStateListener(playerName, participantCommunicationChannel);
-            _chatRoom.joinChatRoom(playerName, participantCommunicationChannel);
 
             visitor.visitChannelNumber(number);
 
