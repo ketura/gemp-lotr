@@ -7,6 +7,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.logic.decisions.AwaitingDecision;
 import com.gempukku.lotro.logic.timing.GameStats;
 
+import java.util.Date;
 import java.util.List;
 
 public class GameEvent {
@@ -18,10 +19,11 @@ public class GameEvent {
         AT, RT,
         M, W,
         GS,
-        CAC, EP, CA, D
+        CAC, EP, CA, D, CH
     }
 
     private String _message;
+    private Date _date;
     private String _side;
     private Type _type;
     private Zone _zone;
@@ -49,6 +51,15 @@ public class GameEvent {
 
     public GameEvent index(int index) {
         _index = index;
+        return this;
+    }
+
+    public Date getDate() {
+        return _date;
+    }
+
+    public GameEvent date(Date date) {
+        _date = date;
         return this;
     }
 

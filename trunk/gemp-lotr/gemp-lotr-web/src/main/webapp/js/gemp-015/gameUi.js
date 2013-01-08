@@ -474,7 +474,11 @@ var GempLotrGameUI = Class.extend({
         };
 
         var chatRoomName = (this.replayMode ? null : ("Game" + getUrlParam("gameId")));
-        this.chatBox = new ChatBoxUI(chatRoomName, $("#chatBox"), this.communication.url, false, playerListener, false, true);
+        this.chatBox = new ChatBoxUI(chatRoomName, $("#chatBox"), this.communication.url, false, playerListener, false, true, false);
+        this.chatBox.sendMessageFunc =
+            function(message) {
+                this.comm.sendGameMessage(message, function() {}, this.gameErrorMap());
+            };
         this.chatBox.chatUpdateInterval = 3000;
 
         if (!this.spectatorMode && !this.replayMode) {
@@ -1053,6 +1057,8 @@ var GempLotrGameUI = Class.extend({
             this.animations.cardActivated(gameEvent, animate);
         } else if (eventType == "D") {
             this.animations.processDecision(gameEvent, animate);
+        } else if (eventType == "CH") {
+            this.animations.chatMessage(gameEvent, animate);
         }
     },
 

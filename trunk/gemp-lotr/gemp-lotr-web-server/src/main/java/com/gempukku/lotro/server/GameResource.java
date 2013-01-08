@@ -142,6 +142,26 @@ public class GameResource extends AbstractResource {
         gameMediator.cancel(resourceOwner);
     }
 
+    @Path("/{gameId}/chat")
+    @POST
+    public void sendMessage(
+            @PathParam("gameId") String gameId,
+            @FormParam("message") String message,
+            @FormParam("participantId") String participantId,
+            @Context HttpServletRequest request) throws ParserConfigurationException {
+        Player resourceOwner = getResourceOwnerSafely(request, participantId);
+
+        LotroGameMediator gameMediator = _lotroServer.getGameById(gameId);
+        if (gameMediator == null)
+            throw new WebApplicationException(Response.Status.NOT_FOUND);
+        
+        try {
+            gameMediator.sendMessage(resourceOwner, message);
+        } catch (PrivateInformationException e) {
+            throw new WebApplicationException(Response.Status.FORBIDDEN);
+        }
+    }
+
     @Path("/{gameId}")
     @POST
     @Produces(MediaType.APPLICATION_XML)
@@ -174,7 +194,7 @@ public class GameResource extends AbstractResource {
 
             // Use long polling
             long start = System.currentTimeMillis();
-            while (System.currentTimeMillis()< start+_longPollingLength && !gameMediator.hasAnyNewMessages(resourceOwner, channelNumber)) {
+            while (System.currentTimeMillis() < start + _longPollingLength && !gameMediator.hasAnyNewMessages(resourceOwner, channelNumber)) {
                 try {
                     Thread.sleep(_longPollingInterval);
                 } catch (InterruptedException exp) {
