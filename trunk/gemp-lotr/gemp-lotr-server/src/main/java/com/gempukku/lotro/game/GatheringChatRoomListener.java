@@ -23,6 +23,10 @@ public class GatheringChatRoomListener implements ChatRoomListener {
         return messages;
     }
 
+    public synchronized boolean hasMessages() {
+        return _messages.size()>0;
+    }
+
     public synchronized Date getLastConsumed() {
         return _lastConsumed;
     }

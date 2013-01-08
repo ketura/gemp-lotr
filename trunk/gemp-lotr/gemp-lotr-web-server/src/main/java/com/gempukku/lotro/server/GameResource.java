@@ -173,11 +173,10 @@ public class GameResource extends AbstractResource {
             Element update = doc.createElement("update");
 
             // Use long polling
-            int retry = 5;
-            while (retry>0 && !gameMediator.hasAnyNewMessages(resourceOwner, channelNumber)) {
-                retry--;
+            long start = System.currentTimeMillis();
+            while (System.currentTimeMillis()< start+_longPollingLength && !gameMediator.hasAnyNewMessages(resourceOwner, channelNumber)) {
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(_longPollingInterval);
                 } catch (InterruptedException exp) {
 
                 }
