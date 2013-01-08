@@ -916,7 +916,7 @@ var GameAnimations = Class.extend({
                 setTimeout(
                     function () {
                         that.game.updateGameState();
-                    }, 1000);
+                    }, 100);
 
                 if (!animate)
                     that.game.layoutUI(false);
