@@ -84,17 +84,15 @@ public class ChatResource extends AbstractResource {
 
         try {
             // Use long polling
-            List<ChatMessage> chatMessages;
-            int retry = 5;
-            do {
-                chatMessages = chatRoom.getPendingMessages(resourceOwner.getName());
-                retry--;
+            long start = System.currentTimeMillis();
+            while (System.currentTimeMillis()<start+_longPollingLength && !chatRoom.hasPendingMessages(resourceOwner.getName())) {
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(_longPollingInterval);
                 } catch (InterruptedException exp) {
 
                 }
-            } while (retry>0 && chatMessages.size() == 0);
+            }
+            List<ChatMessage> chatMessages = chatRoom.getPendingMessages(resourceOwner.getName());
 
             Collection<String> usersInRoom = chatRoom.getUsersInRoom();
 
