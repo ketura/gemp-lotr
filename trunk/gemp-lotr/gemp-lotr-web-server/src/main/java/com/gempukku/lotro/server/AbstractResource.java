@@ -16,8 +16,8 @@ import javax.ws.rs.core.Response;
 
 public abstract class AbstractResource {
     protected final boolean _test = System.getProperty("test") != null;
-    protected final long _longPollingLength = 5000;
-    protected final long _longPollingInterval = 200;
+    protected static long _longPollingLength = 5000;
+    protected static long _longPollingInterval = 200;
 
     @Context
     protected PlayerDAO _playerDao;

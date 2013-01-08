@@ -56,6 +56,22 @@ public class AdminResource extends AbstractResource {
     @Context
     private CacheManager _cacheManager;
 
+    @Path("/parameter")
+    @GET
+    public String setParameter(
+            @QueryParam("pollLength") Long pollLength,
+            @QueryParam("pollInterval") Long pollInterval,
+            @Context HttpServletRequest request) throws Exception {
+        validateAdmin(request);
+
+        if (pollLength != null)
+            _longPollingLength= pollLength;
+        if (pollInterval != null)
+            _longPollingInterval = pollInterval;
+
+        return "OK";
+    }
+
     @Path("/clearCache")
     @GET
     public String clearCache(@Context HttpServletRequest request) throws Exception {
