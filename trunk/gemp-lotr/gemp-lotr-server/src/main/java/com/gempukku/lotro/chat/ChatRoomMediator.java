@@ -11,7 +11,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class ChatRoomMediator {
     private Logger _logger;
-    private ChatRoom _chatRoom = new ChatRoom();
+    private ChatRoom _chatRoom;
 
     private Map<String, GatheringChatRoomListener> _listeners = new HashMap<String, GatheringChatRoomListener>();
 
@@ -20,14 +20,15 @@ public class ChatRoomMediator {
 
     private ReadWriteLock _lock = new ReentrantReadWriteLock();
 
-    public ChatRoomMediator(String roomName, int secondsTimeoutPeriod) {
-        this(roomName, secondsTimeoutPeriod, null);
+    public ChatRoomMediator(String roomName, boolean muteJoinPartMessages, int secondsTimeoutPeriod) {
+        this(roomName, muteJoinPartMessages, secondsTimeoutPeriod, null);
     }
 
-    public ChatRoomMediator(String roomName, int secondsTimeoutPeriod, Set<String> allowedPlayers) {
+    public ChatRoomMediator(String roomName, boolean muteJoinPartMessages, int secondsTimeoutPeriod, Set<String> allowedPlayers) {
         _logger = Logger.getLogger("chat."+roomName);
         _allowedPlayers = allowedPlayers;
         _channelInactivityTimeoutPeriod = 1000 * secondsTimeoutPeriod;
+        _chatRoom = new ChatRoom(muteJoinPartMessages);
     }
 
     public List<ChatMessage> joinUser(String playerId, boolean admin) throws PrivateInformationException {

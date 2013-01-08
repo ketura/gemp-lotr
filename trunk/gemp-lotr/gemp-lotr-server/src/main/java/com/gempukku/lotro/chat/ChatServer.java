@@ -10,8 +10,8 @@ import java.util.concurrent.ConcurrentHashMap;
 public class ChatServer extends AbstractServer {
     private Map<String, ChatRoomMediator> _chatRooms = new ConcurrentHashMap<String, ChatRoomMediator>();
 
-    public ChatRoomMediator createChatRoom(String name, int secondsTimeoutPeriod) {
-        ChatRoomMediator chatRoom = new ChatRoomMediator(name, secondsTimeoutPeriod);
+    public ChatRoomMediator createChatRoom(String name, boolean muteJoinPartMessages, int secondsTimeoutPeriod) {
+        ChatRoomMediator chatRoom = new ChatRoomMediator(name, muteJoinPartMessages, secondsTimeoutPeriod);
         try {
             chatRoom.sendMessage("System", "Welcome to room: " + name, true);
         } catch (PrivateInformationException exp) {
@@ -21,8 +21,8 @@ public class ChatServer extends AbstractServer {
         return chatRoom;
     }
 
-    public ChatRoomMediator createPrivateChatRoom(String name, Set<String> allowedUsers, int secondsTimeoutPeriod) {
-        ChatRoomMediator chatRoom = new ChatRoomMediator(name, secondsTimeoutPeriod, allowedUsers);
+    public ChatRoomMediator createPrivateChatRoom(String name, boolean muteJoinPartMessages, Set<String> allowedUsers, int secondsTimeoutPeriod) {
+        ChatRoomMediator chatRoom = new ChatRoomMediator(name, muteJoinPartMessages, secondsTimeoutPeriod, allowedUsers);
         try {
             chatRoom.sendMessage("System", "Welcome to private room: " + name, true);
         } catch (PrivateInformationException exp) {

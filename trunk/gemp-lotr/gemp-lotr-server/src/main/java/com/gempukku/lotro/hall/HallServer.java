@@ -66,7 +66,7 @@ public class HallServer extends AbstractServer {
         _collectionsManager = collectionsManager;
         _tournamentPrizeSchemeRegistry = tournamentPrizeSchemeRegistry;
         _pairingMechanismRegistry = pairingMechanismRegistry;
-        _hallChat = _chatServer.createChatRoom("Game Hall", 10);
+        _hallChat = _chatServer.createChatRoom("Game Hall", true, 10);
 
         _tournamentQueues.put("fotr_queue", new SingleEliminationRecurringQueue(635, "fotr_block",
                 CollectionType.MY_CARDS, "fotrQueue-", "Fellowship Block", 8,
