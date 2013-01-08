@@ -7,10 +7,12 @@ import com.gempukku.lotro.logic.PlayerOrder;
 import com.gempukku.lotro.logic.decisions.AwaitingDecision;
 import com.gempukku.lotro.logic.modifiers.ModifierFlag;
 import com.gempukku.lotro.logic.timing.GameStats;
+import org.apache.log4j.Logger;
 
 import java.util.*;
 
 public class GameState {
+    private static Logger _log = Logger.getLogger(GameState.class);
     private static final int LAST_MESSAGE_STORED_COUNT = 15;
     private PlayerOrder _playerOrder;
 
@@ -395,7 +397,7 @@ public class GameState {
         for (PhysicalCard card : cards) {
             List<PhysicalCardImpl> zoneCards = getZoneCards(card.getOwner(), card.getBlueprint().getCardType(), card.getZone());
             if (!zoneCards.contains(card))
-                throw new RuntimeException("Card was not found in the expected zone");
+                _log.error("Card was not found in the expected zone");
         }
 
         for (PhysicalCard card : cards) {
@@ -460,7 +462,7 @@ public class GameState {
             zoneCards.add(0, (PhysicalCardImpl) card);
 
         if (card.getZone() != null)
-            throw new RuntimeException("Card was in " + card.getZone() + " when tried to add to zone: " + zone);
+            _log.error("Card was in " + card.getZone() + " when tried to add to zone: " + zone);
 
         ((PhysicalCardImpl) card).setZone(zone);
 
