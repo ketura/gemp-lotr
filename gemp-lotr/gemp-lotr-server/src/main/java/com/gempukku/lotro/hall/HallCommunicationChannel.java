@@ -25,11 +25,17 @@ public class HallCommunicationChannel {
         return _channelNumber;
     }
 
-    public long getLastConsumed() {
+    private void updateLastAccess() {
+        _lastConsumed = System.currentTimeMillis();
+    }
+
+    public long getLastAccessed() {
         return _lastConsumed;
     }
 
     public synchronized boolean hasChangesInCommunicationChannel(HallServer hallServer, Player player) {
+        updateLastAccess();
+
         final MutableObject newMotd = new MutableObject();
 
         final Map<String, Map<String, String>> tournamentQueuesOnServer = new LinkedHashMap<String, Map<String, String>>();
@@ -137,6 +143,8 @@ public class HallCommunicationChannel {
     }
 
     public synchronized void processCommunicationChannel(HallServer hallServer, Player player, final HallChannelVisitor hallChannelVisitor) {
+        updateLastAccess();
+
         hallChannelVisitor.channelNumber(_channelNumber);
         final MutableObject newMotd = new MutableObject();
 
@@ -228,8 +236,6 @@ public class HallCommunicationChannel {
 
         if (newMotd.getValue() != null && !newMotd.equals(_lastMotd))
             hallChannelVisitor.motdChanged((String) newMotd.getValue());
-
-        _lastConsumed = System.currentTimeMillis();
     }
 
     private void notifyAboutTables(HallChannelVisitor hallChannelVisitor, Map<String, Map<String, String>> tablesOnServer) {

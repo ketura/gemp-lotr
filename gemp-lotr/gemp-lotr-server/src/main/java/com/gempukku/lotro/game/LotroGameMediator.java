@@ -236,7 +236,7 @@ public class LotroGameMediator {
                 // Channel is stale (user no longer connected to game, to save memory, we remove the channel
                 // User can always reconnect and establish a new channel
                 GatheringParticipantCommunicationChannel channel = playerChannels.getValue();
-                if (currentTime > channel.getLastConsumed().getTime() + _playerDecisionTimeoutPeriod) {
+                if (currentTime > channel.getLastAccessed() + _playerDecisionTimeoutPeriod) {
                     _lotroGame.removeGameStateListener(channel);
                     _communicationChannels.remove(playerId);
                 }

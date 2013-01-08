@@ -101,7 +101,7 @@ public class ChatRoomMediator {
             for (Map.Entry<String, GatheringChatRoomListener> playerListener : copy.entrySet()) {
                 String playerId = playerListener.getKey();
                 GatheringChatRoomListener listener = playerListener.getValue();
-                if (currentTime > listener.getLastConsumed().getTime() + _channelInactivityTimeoutPeriod) {
+                if (currentTime > listener.getLastAccessed() + _channelInactivityTimeoutPeriod) {
                     _chatRoom.partChatRoom(playerId);
                     _listeners.remove(playerId);
                 }

@@ -566,7 +566,7 @@ public class HallServer extends AbstractServer {
             long currentTime = System.currentTimeMillis();
             Map<Player, HallCommunicationChannel> visitCopy = new LinkedHashMap<Player, HallCommunicationChannel>(_playerChannelCommunication);
             for (Map.Entry<Player, HallCommunicationChannel> lastVisitedPlayer : visitCopy.entrySet()) {
-                if (currentTime > lastVisitedPlayer.getValue().getLastConsumed() + _playerInactivityPeriod) {
+                if (currentTime > lastVisitedPlayer.getValue().getLastAccessed() + _playerInactivityPeriod) {
                     Player player = lastVisitedPlayer.getKey();
                     _playerChannelCommunication.remove(player);
                     leaveAwaitingTables(player);
