@@ -13,7 +13,7 @@ public enum Zone implements Filterable {
     ADVENTURE_DECK("adventureDeck", false, true, false),
 
     // Nobody sees
-    VOID("void", false, false, false), DECK("deck", false, false, false), REMOVED("removed", false, false, false);
+    VOID("void", false, false, false), VOID_FROM_HAND("voidFromHand", false, false, false), DECK("deck", false, false, false), REMOVED("removed", false, false, false);
 
     private String _humanReadable;
     private boolean _public;

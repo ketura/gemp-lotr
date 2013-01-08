@@ -30,7 +30,8 @@ public class StackPlayedEventOnACardEffect extends AbstractEffect {
 
     @Override
     public boolean isPlayableInFull(LotroGame game) {
-        return _stackOn.getZone().isInPlay() && _action.getEventPlayed().getZone() == Zone.VOID;
+        Zone zone = _action.getEventPlayed().getZone();
+        return _stackOn.getZone().isInPlay() && (zone == Zone.VOID || zone == Zone.VOID_FROM_HAND);
     }
 
     @Override

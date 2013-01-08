@@ -28,7 +28,8 @@ public class RemovePlayedEventFromGameEffect extends AbstractEffect {
 
     @Override
     public boolean isPlayableInFull(LotroGame game) {
-        return _action.getEventPlayed().getZone() == Zone.VOID;
+        Zone zone = _action.getEventPlayed().getZone();
+        return zone == Zone.VOID || zone == Zone.VOID_FROM_HAND;
     }
 
     @Override
