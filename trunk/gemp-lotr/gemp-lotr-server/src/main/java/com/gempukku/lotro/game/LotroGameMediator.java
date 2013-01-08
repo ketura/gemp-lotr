@@ -7,6 +7,7 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.communication.GameStateListener;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.state.GameEvent;
+import com.gempukku.lotro.game.state.GatheringParticipantCommunicationChannel;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.decisions.AwaitingDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;

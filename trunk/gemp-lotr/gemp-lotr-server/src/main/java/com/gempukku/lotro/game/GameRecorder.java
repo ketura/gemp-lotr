@@ -3,6 +3,7 @@ package com.gempukku.lotro.game;
 import com.gempukku.lotro.common.ApplicationConfiguration;
 import com.gempukku.lotro.game.state.EventSerializer;
 import com.gempukku.lotro.game.state.GameEvent;
+import com.gempukku.lotro.game.state.GatheringParticipantCommunicationChannel;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
