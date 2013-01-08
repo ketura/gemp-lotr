@@ -88,6 +88,8 @@ public class PlayPermanentAction extends AbstractCostToEffectAction implements D
             game.getGameState().sendMessage(_permanentPlayed.getOwner() + " plays " + GameUtils.getCardLink(_permanentPlayed) + " from " + playedFromZone.getHumanReadable());
             game.getGameState().removeCardsFromZone(_permanentPlayed.getOwner(), Collections.singleton(_permanentPlayed));
             if (playedFromZone == Zone.HAND)
+                game.getGameState().addCardToZone(game, _permanentPlayed, Zone.VOID_FROM_HAND);
+            else
                 game.getGameState().addCardToZone(game, _permanentPlayed, Zone.VOID);
             if (playedFromZone == Zone.DECK && !_skipShuffling)
                 game.getGameState().shuffleDeck(_permanentPlayed.getOwner());
@@ -137,8 +139,7 @@ public class PlayPermanentAction extends AbstractCostToEffectAction implements D
         } else {
             if (!_cardDiscarded) {
                 _cardDiscarded = true;
-                if (_permanentPlayed.getZone() != null)
-                    game.getGameState().removeCardsFromZone(_permanentPlayed.getOwner(), Collections.singleton(_permanentPlayed));
+                game.getGameState().removeCardsFromZone(_permanentPlayed.getOwner(), Collections.singleton(_permanentPlayed));
                 game.getGameState().addCardToZone(game, _permanentPlayed, Zone.DISCARD);
             }
         }

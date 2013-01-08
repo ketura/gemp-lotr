@@ -97,7 +97,11 @@ public class PlayEventAction extends AbstractCostToEffectAction implements Disco
             game.getGameState().sendMessage(_eventPlayed.getOwner() + " plays " + GameUtils.getCardLink(_eventPlayed) + " from " + playedFromZone.getHumanReadable());
             game.getGameState().removeCardsFromZone(_eventPlayed.getOwner(), Collections.singleton(_eventPlayed));
 
-            game.getGameState().addCardToZone(game, _eventPlayed, Zone.VOID);
+            if (playedFromZone == Zone.HAND)
+                game.getGameState().addCardToZone(game, _eventPlayed, Zone.VOID_FROM_HAND);
+            else
+                game.getGameState().addCardToZone(game, _eventPlayed, Zone.VOID);
+
             if (playedFromZone == Zone.DECK)
                 game.getGameState().shuffleDeck(_eventPlayed.getOwner());
             

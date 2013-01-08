@@ -112,6 +112,8 @@ public class AttachPermanentAction extends AbstractCostToEffectAction implements
             final Zone playedFromZone = _cardToAttach.getZone();
             game.getGameState().removeCardsFromZone(_cardToAttach.getOwner(), Collections.singleton(_cardToAttach));
             if (playedFromZone == Zone.HAND)
+                game.getGameState().addCardToZone(game, _cardToAttach, Zone.VOID_FROM_HAND);
+            else
                 game.getGameState().addCardToZone(game, _cardToAttach, Zone.VOID);
             if (playedFromZone == Zone.DECK)
                 game.getGameState().shuffleDeck(_cardToAttach.getOwner());
@@ -167,16 +169,14 @@ public class AttachPermanentAction extends AbstractCostToEffectAction implements
             } else {
                 if (!_cardDiscarded) {
                     _cardDiscarded = true;
-                    if (_cardToAttach.getZone() != null)
-                        game.getGameState().removeCardsFromZone(_cardToAttach.getOwner(), Collections.singleton(_cardToAttach));
+                    game.getGameState().removeCardsFromZone(_cardToAttach.getOwner(), Collections.singleton(_cardToAttach));
                     game.getGameState().addCardToZone(game, _cardToAttach, Zone.DISCARD);
                 }
             }
         } else {
             if (!_cardDiscarded) {
                 _cardDiscarded = true;
-                if (_cardToAttach.getZone() != null)
-                    game.getGameState().removeCardsFromZone(_cardToAttach.getOwner(), Collections.singleton(_cardToAttach));
+                game.getGameState().removeCardsFromZone(_cardToAttach.getOwner(), Collections.singleton(_cardToAttach));
                 game.getGameState().addCardToZone(game, _cardToAttach, Zone.DISCARD);
             }
         }
