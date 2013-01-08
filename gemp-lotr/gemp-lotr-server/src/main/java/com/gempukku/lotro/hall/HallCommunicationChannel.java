@@ -29,6 +29,113 @@ public class HallCommunicationChannel {
         return _lastConsumed;
     }
 
+    public synchronized boolean hasChangesInCommunicationChannel(HallServer hallServer, Player player) {
+        final MutableObject newMotd = new MutableObject();
+
+        final Map<String, Map<String, String>> tournamentQueuesOnServer = new LinkedHashMap<String, Map<String, String>>();
+        final Map<String, Map<String, String>> tablesOnServer = new LinkedHashMap<String, Map<String, String>>();
+        final Map<String, Map<String, String>> tournamentsOnServer = new LinkedHashMap<String, Map<String, String>>();
+
+        hallServer.processHall(player,
+                new HallInfoVisitor() {
+                    @Override
+                    public void serverTime(String time) {
+                    }
+
+                    @Override
+                    public void playerBusy(boolean busy) {
+                    }
+
+                    @Override
+                    public void motd(String motd) {
+                        newMotd.setValue(motd);
+                    }
+
+                    @Override
+                    public void visitTable(String tableId, String gameId, boolean watchable, TableStatus status, String statusDescription, String formatName, String tournamentName, List<String> playerIds, String winner) {
+                        Map<String, String> props = new HashMap<String, String>();
+                        props.put("gameId", gameId);
+                        props.put("watchable", String.valueOf(watchable));
+                        props.put("status", String.valueOf(status));
+                        props.put("statusDescription", statusDescription);
+                        props.put("format", formatName);
+                        props.put("tournament", tournamentName);
+                        props.put("players", StringUtils.join(playerIds, ","));
+                        if (winner != null)
+                            props.put("winner", winner);
+
+                        tablesOnServer.put(tableId, props);
+                    }
+
+                    @Override
+                    public void visitTournamentQueue(String tournamentQueueKey, int cost, String collectionName, String formatName, String tournamentQueueName,
+                                                     String tournamentPrizes, String pairingDescription, String startCondition, int playerCount, boolean playerSignedUp, boolean joinable) {
+                        Map<String, String> props = new HashMap<String, String>();
+                        props.put("cost", String.valueOf(cost));
+                        props.put("collection", collectionName);
+                        props.put("format", formatName);
+                        props.put("queue", tournamentQueueName);
+                        props.put("playerCount", String.valueOf(playerCount));
+                        props.put("prizes", tournamentPrizes);
+                        props.put("system", pairingDescription);
+                        props.put("start", startCondition);
+                        props.put("signedUp", String.valueOf(playerSignedUp));
+                        props.put("joinable", String.valueOf(joinable));
+
+                        tournamentQueuesOnServer.put(tournamentQueueKey, props);
+                    }
+
+                    @Override
+                    public void visitTournament(String tournamentKey, String collectionName, String formatName, String tournamentName, String pairingDescription,
+                                                String tournamentStage, int round, int playerCount, boolean playerInCompetition) {
+                        Map<String, String> props = new HashMap<String, String>();
+                        props.put("collection", collectionName);
+                        props.put("format", formatName);
+                        props.put("name", tournamentName);
+                        props.put("system", pairingDescription);
+                        props.put("stage", tournamentStage);
+                        props.put("round", String.valueOf(round));
+                        props.put("playerCount", String.valueOf(playerCount));
+                        props.put("signedUp", String.valueOf(playerInCompetition));
+
+                        tournamentsOnServer.put(tournamentKey, props);
+                    }
+
+                    @Override
+                    public void runningPlayerGame(String gameId) {
+                    }
+                });
+
+        if (newMotd.getValue() != null && !newMotd.equals(_lastMotd))
+            return true;
+
+        if (_tournamentQueuePropsOnClient.size() != tournamentQueuesOnServer.size())
+            return true;
+
+        if (_tournamentPropsOnClient.size() != tournamentsOnServer.size())
+            return true;
+
+        if (_tablePropsOnClient.size() != tablesOnServer.size())
+            return true;
+
+        for (Map.Entry<String, Map<String, String>> tournamentQueuePropsOnClientPair: _tournamentQueuePropsOnClient.entrySet()){
+            if (!tournamentQueuePropsOnClientPair.getValue().equals(tournamentQueuesOnServer.get(tournamentQueuePropsOnClientPair.getKey())))
+                return true;
+        }
+
+        for (Map.Entry<String, Map<String, String>> tournamentPropsOnClientPair: _tournamentPropsOnClient.entrySet()){
+            if (!tournamentPropsOnClientPair.getValue().equals(tournamentQueuesOnServer.get(tournamentPropsOnClientPair.getKey())))
+                return true;
+        }
+
+        for (Map.Entry<String, Map<String, String>> tablePropsOnClientPair : _tablePropsOnClient.entrySet()){
+            if (!tablePropsOnClientPair.getValue().equals(tablesOnServer.get(tablePropsOnClientPair.getKey())))
+                return true;
+        }
+
+        return false;
+    }
+
     public synchronized void processCommunicationChannel(HallServer hallServer, Player player, final HallChannelVisitor hallChannelVisitor) {
         hallChannelVisitor.channelNumber(_channelNumber);
         final MutableObject newMotd = new MutableObject();

@@ -141,15 +141,24 @@ public class HallResource extends AbstractResource {
         Document doc = documentBuilder.newDocument();
 
         Element hall = doc.createElement("hall");
-        hall.setAttribute("currency", String.valueOf(_collectionManager.getPlayerCollection(resourceOwner, "permanent").getCurrency()));
 
         try {
+            // Use long polling
+            long start = System.currentTimeMillis();
+            while (System.currentTimeMillis()< start+_longPollingLength && !_hallServer.hasChanges(resourceOwner, channelNumber)) {
+                try {
+                    Thread.sleep(_longPollingInterval);
+                } catch (InterruptedException exp) {
+
+                }
+            }
             _hallServer.processHall(resourceOwner, channelNumber, new SerializeHallInfoVisitor(doc, hall));
         } catch (SubscriptionExpiredException exp) {
             throw new WebApplicationException(Response.Status.GONE);
         } catch (SubscriptionConflictException exp) {
             throw new WebApplicationException(Response.Status.CONFLICT);
         }
+        hall.setAttribute("currency", String.valueOf(_collectionManager.getPlayerCollection(resourceOwner, "permanent").getCurrency()));
 
         doc.appendChild(hall);
 
