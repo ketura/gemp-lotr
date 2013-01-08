@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class CachedMerchantDAO implements MerchantDAO, Cached {
     private MerchantDAO _delegate;
-    private Map<String, Transaction> _blueprintIdLastTransaction = Collections.synchronizedMap(new LRUMap(500));
+    private Map<String, Transaction> _blueprintIdLastTransaction = Collections.synchronizedMap(new LRUMap(4000));
 
     public CachedMerchantDAO(MerchantDAO delegate) {
         _delegate = delegate;
