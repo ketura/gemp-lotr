@@ -333,6 +333,28 @@ public class LotroGameMediator {
         }
     }
 
+    public boolean hasAnyNewMessages(Player player, int channelNumber) throws PrivateInformationException, SubscriptionConflictException, SubscriptionExpiredException {
+        String playerName = player.getName();
+        if (!player.getType().contains("a") && !_allowSpectators && !_playersPlaying.contains(playerName))
+            throw new PrivateInformationException();
+
+        _readLock.lock();
+        try {
+            GatheringParticipantCommunicationChannel communicationChannel = _communicationChannels.get(playerName);
+            if (communicationChannel != null) {
+                if (communicationChannel.getChannelNumber() == channelNumber) {
+                    return communicationChannel.hasGameEvents() || _userFeedback.hasWarning(playerName);
+                } else {
+                    throw new SubscriptionConflictException();
+                }
+            } else {
+                throw new SubscriptionExpiredException();
+            }
+        } finally {
+            _readLock.unlock();
+        }
+    }
+
     public void processCommunicationChannel(Player player, int channelNumber, ParticipantCommunicationVisitor visitor) throws PrivateInformationException, SubscriptionConflictException, SubscriptionExpiredException {
         String playerName = player.getName();
         if (!player.getType().contains("a") && !_allowSpectators && !_playersPlaying.contains(playerName))

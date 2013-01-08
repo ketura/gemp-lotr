@@ -172,6 +172,16 @@ public class GameResource extends AbstractResource {
             Document doc = documentBuilder.newDocument();
             Element update = doc.createElement("update");
 
+            // Use long polling
+            int retry = 5;
+            while (retry>0 && !gameMediator.hasAnyNewMessages(resourceOwner, channelNumber)) {
+                retry--;
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException exp) {
+
+                }
+            }
             gameMediator.processCommunicationChannel(resourceOwner, channelNumber, new SerializationVisitor(doc, update));
 
             doc.appendChild(update);
