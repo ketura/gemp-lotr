@@ -19,8 +19,6 @@ public class EventSerializer {
             eventElem.setAttribute("cardId", gameEvent.getCardId().toString());
         if (gameEvent.getIndex() != null)
             eventElem.setAttribute("index", gameEvent.getIndex().toString());
-        if (gameEvent.getDate() != null)
-            eventElem.setAttribute("date", String.valueOf(gameEvent.getDate().getTime()));
         if (gameEvent.getControllerId() != null)
             eventElem.setAttribute("controllerId", gameEvent.getControllerId());
         if (gameEvent.getParticipantId() != null)
