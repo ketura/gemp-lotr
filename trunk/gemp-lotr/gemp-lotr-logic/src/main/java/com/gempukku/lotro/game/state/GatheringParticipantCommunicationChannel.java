@@ -13,7 +13,7 @@ import static com.gempukku.lotro.game.state.GameEvent.Type.*;
 public class GatheringParticipantCommunicationChannel implements GameStateListener {
     private List<GameEvent> _events = new LinkedList<GameEvent>();
     private String _self;
-    private Date _lastConsumed = new Date();
+    private long _lastConsumed = System.currentTimeMillis();
     private int _channelNumber;
 
     public GatheringParticipantCommunicationChannel(String self, int channelNumber) {
@@ -164,17 +164,22 @@ public class GatheringParticipantCommunicationChannel implements GameStateListen
     }
 
     public List<GameEvent> consumeGameEvents() {
+        updateLastAccess();
         List<GameEvent> result = _events;
         _events = new LinkedList<GameEvent>();
-        _lastConsumed = new Date();
         return result;
     }
 
     public boolean hasGameEvents() {
+        updateLastAccess();
         return _events.size()>0;
     }
 
-    public Date getLastConsumed() {
+    private void updateLastAccess() {
+        _lastConsumed = System.currentTimeMillis();
+    }
+
+    public long getLastAccessed() {
         return _lastConsumed;
     }
 }
