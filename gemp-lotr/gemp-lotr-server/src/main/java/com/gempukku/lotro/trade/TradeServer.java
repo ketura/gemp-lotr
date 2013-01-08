@@ -132,7 +132,7 @@ public class TradeServer extends AbstractServer {
         _playerOngoingTrade.put(from, tradeState);
         _playerOngoingTrade.put(to, tradeState);
 
-        _chatServer.createChatRoom(getChatRoomName(from, to), 30);
+        _chatServer.createChatRoom(getChatRoomName(from, to), false, 30);
     }
 
     private void destroyOngoingTrade(TradeState tradeState) {

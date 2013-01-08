@@ -12,8 +12,10 @@ public class ChatRoom {
                     return o1.compareToIgnoreCase(o2);
                 }
             });
+    private boolean _muteJoinPartMessages;
 
-    public ChatRoom() {
+    public ChatRoom(boolean muteJoinPartMessages) {
+        _muteJoinPartMessages = muteJoinPartMessages;
     }
 
     private void postMessage(String from, String message, boolean addToHistory) {
@@ -35,13 +37,13 @@ public class ChatRoom {
         _chatRoomListeners.put(playerId, listener);
         for (ChatMessage lastMessage : _lastMessages)
             listener.messageReceived(lastMessage);
-        if (!wasInRoom)
+        if (!wasInRoom && !_muteJoinPartMessages)
             postMessage("System", playerId + " joined the room", false);
     }
 
     public void partChatRoom(String playerId) {
         boolean wasInRoom = (_chatRoomListeners.remove(playerId) != null);
-        if (wasInRoom)
+        if (wasInRoom && !_muteJoinPartMessages)
             postMessage("System", playerId + " left the room", false);
     }
 

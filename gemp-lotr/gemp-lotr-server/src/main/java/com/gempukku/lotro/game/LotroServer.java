@@ -90,9 +90,9 @@ public class LotroServer extends AbstractServer {
                 Set<String> allowedUsers = new HashSet<String>();
                 for (LotroGameParticipant participant : participants)
                     allowedUsers.add(participant.getPlayerId());
-                _chatServer.createPrivateChatRoom(getChatRoomName(gameId), allowedUsers, 30);
+                _chatServer.createPrivateChatRoom(getChatRoomName(gameId), false, allowedUsers, 30);
             } else
-                _chatServer.createChatRoom(getChatRoomName(gameId), 30);
+                _chatServer.createChatRoom(getChatRoomName(gameId), false, 30);
 
             LotroGameMediator lotroGameMediator = new LotroGameMediator(lotroFormat, participants, _lotroCardBlueprintLibrary,
                     competitiveTime ? 60 * 40 : 60 * 80, allowSpectators, allowCancelling);
