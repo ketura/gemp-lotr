@@ -170,6 +170,10 @@ public class GatheringParticipantCommunicationChannel implements GameStateListen
         return result;
     }
 
+    public boolean hasGameEvents() {
+        return _events.size()>0;
+    }
+
     public Date getLastConsumed() {
         return _lastConsumed;
     }

@@ -47,6 +47,10 @@ public class DefaultUserFeedback implements UserFeedback {
         return _warnings.remove(playerId);
     }
 
+    public boolean hasWarning(String playerId) {
+        return _warnings.containsKey(playerId);
+    }
+
     public Set<String> getUsersPendingDecision() {
         return _awaitingDecisionMap.keySet();
     }
