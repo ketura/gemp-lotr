@@ -21,8 +21,9 @@ var ChatBoxUI = Class.extend({
 
     lockChat:false,
     stopUpdates: false,
+    sendMessageFunc: null,
 
-    init:function (name, div, url, showList, playerListener, showHideSystemButton, showLockButton) {
+    init:function (name, div, url, showList, playerListener, showHideSystemButton, showLockButton, startChat) {
         var that = this;
         this.hiddenClasses = new Array();
         this.playerListener = playerListener;
@@ -40,37 +41,37 @@ var ChatBoxUI = Class.extend({
 
             if (showHideSystemButton) {
                 this.hideSystemButton = $("<button id='showSystemMessages'>Toggle system messages</button>").button(
-                {icons:{
-                    primary:"ui-icon-zoomin"
-                }, text:false});
+                    {icons:{
+                        primary:"ui-icon-zoomin"
+                    }, text:false});
                 this.hideSystemButton.click(
-                        function () {
-                            if (that.isShowingMessageClass("systemMessage")) {
-                                $('#showSystemMessages').button("option", "icons", {primary:'ui-icon-zoomin'});
-                                that.hideMessageClass("systemMessage");
-                            } else {
-                                $('#showSystemMessages').button("option", "icons", {primary:'ui-icon-zoomout'});
-                                that.showMessageClass("systemMessage");
-                            }
-                        });
+                    function () {
+                        if (that.isShowingMessageClass("systemMessage")) {
+                            $('#showSystemMessages').button("option", "icons", {primary:'ui-icon-zoomin'});
+                            that.hideMessageClass("systemMessage");
+                        } else {
+                            $('#showSystemMessages').button("option", "icons", {primary:'ui-icon-zoomout'});
+                            that.showMessageClass("systemMessage");
+                        }
+                    });
                 this.hideMessageClass("systemMessage");
             }
 
             if (showLockButton) {
                 this.lockButton = $("<button id='lockChatButton'>Toggle lock chat</button>").button(
-                {icons:{
-                    primary:"ui-icon-locked"
-                }, text:false});
+                    {icons:{
+                        primary:"ui-icon-locked"
+                    }, text:false});
                 this.lockButton.click(
-                        function () {
-                            if (that.lockChat) {
-                                $('#lockChatButton').button("option", "icons", {primary:'ui-icon-locked'});
-                                that.lockChat = false;
-                            } else {
-                                $('#lockChatButton').button("option", "icons", {primary:'ui-icon-unlocked'});
-                                that.lockChat = true;
-                            }
-                        });
+                    function () {
+                        if (that.lockChat) {
+                            $('#lockChatButton').button("option", "icons", {primary:'ui-icon-locked'});
+                            that.lockChat = false;
+                        } else {
+                            $('#lockChatButton').button("option", "icons", {primary:'ui-icon-unlocked'});
+                            that.lockChat = true;
+                        }
+                    });
             }
 
             if (showList) {
@@ -83,10 +84,12 @@ var ChatBoxUI = Class.extend({
                 this.div.append(this.lockButton);
             this.div.append(this.chatTalkDiv);
 
-            this.communication.startChat(this.name,
+            if (startChat) {
+                this.communication.startChat(this.name,
                     function (xml) {
                         that.processMessages(xml, true);
                     }, this.chatErrorMap());
+            }
 
             this.chatTalkDiv.bind("keypress", function (e) {
                 var code = (e.keyCode ? e.keyCode : e.which);
@@ -150,6 +153,19 @@ var ChatBoxUI = Class.extend({
         }
     },
 
+    appendChatMessage: function(from, dateObj, text) {
+        var msgClass = "chatMessage";
+        if (from == "System")
+            msgClass = "systemMessage";
+        if (this.showTimestamps) {
+            var date = new Date(parseInt(dateObj));
+            var dateStr = this.monthNames[date.getMonth()] + " " + date.getDate() + " " + this.formatToTwoDigits(date.getHours()) + ":" + this.formatToTwoDigits(date.getMinutes()) + ":" + this.formatToTwoDigits(date.getSeconds());
+            this.appendMessage("<div class='timestamp'>[" + dateStr + "]</div> <b>" + from + ":</b> " + text, msgClass);
+        } else {
+            this.appendMessage("<b>" + from + ":</b> " + text, msgClass);
+        }
+    },
+
     appendMessage:function (message, msgClass) {
         if (msgClass == undefined)
             msgClass = "chatMessage";
@@ -187,16 +203,7 @@ var ChatBoxUI = Class.extend({
                 var from = message.getAttribute("from");
                 var text = message.childNodes[0].nodeValue;
 
-                var msgClass = "chatMessage";
-                if (from == "System")
-                    msgClass = "systemMessage";
-                if (this.showTimestamps) {
-                    var date = new Date(parseInt(message.getAttribute("date")));
-                    var dateStr = this.monthNames[date.getMonth()] + " " + date.getDate() + " " + this.formatToTwoDigits(date.getHours()) + ":" + this.formatToTwoDigits(date.getMinutes()) + ":" + this.formatToTwoDigits(date.getSeconds());
-                    this.appendMessage("<div class='timestamp'>[" + dateStr + "]</div> <b>" + from + ":</b> " + text, msgClass);
-                } else {
-                    this.appendMessage("<b>" + from + ":</b> " + text, msgClass);
-                }
+                this.appendChatMessage(from, message.getAttribute("date"), text);
             }
 
             var users = root.getElementsByTagName("user");
@@ -239,10 +246,14 @@ var ChatBoxUI = Class.extend({
     },
 
     sendMessage:function (message) {
-        var that = this;
-        this.communication.sendChatMessage(this.name, message, function(xml) {
-            that.processMessages(xml, false);
-        }, this.chatErrorMap());
+        if (this.sendMessageFunc != null) {
+            this.sendMessageFunc(message);
+        } else {
+            var that = this;
+            this.communication.sendChatMessage(this.name, message, function(xml) {
+                that.processMessages(xml, false);
+            }, this.chatErrorMap());
+        }
     },
 
     chatMalfunction: function() {

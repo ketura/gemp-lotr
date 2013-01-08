@@ -863,6 +863,21 @@ var GameAnimations = Class.extend({
             });
     },
 
+    chatMessage:function (element, animate) {
+        var that = this;
+        $("#main").queue(
+            function (next) {
+                var from = element.getAttribute("participantId");
+                var date = element.getAttribute("date");
+                var message = element.getAttribute("message");
+
+                if (that.game.chatBox != null)
+                    that.game.chatBox.appendChatMessage(form, date, message);
+
+                next();
+            });
+    },
+
     warning:function (element, animate) {
         var that = this;
         $("#main").queue(

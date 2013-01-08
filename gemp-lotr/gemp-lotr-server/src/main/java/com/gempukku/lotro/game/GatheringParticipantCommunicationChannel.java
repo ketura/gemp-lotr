@@ -1,8 +1,10 @@
-package com.gempukku.lotro.game.state;
+package com.gempukku.lotro.game;
 
+import com.gempukku.lotro.chat.ChatMessage;
+import com.gempukku.lotro.chat.ChatRoomListener;
 import com.gempukku.lotro.common.Token;
 import com.gempukku.lotro.communication.GameStateListener;
-import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.game.state.GameEvent;
 import com.gempukku.lotro.logic.decisions.AwaitingDecision;
 import com.gempukku.lotro.logic.timing.GameStats;
 
@@ -10,7 +12,7 @@ import java.util.*;
 
 import static com.gempukku.lotro.game.state.GameEvent.Type.*;
 
-public class GatheringParticipantCommunicationChannel implements GameStateListener {
+public class GatheringParticipantCommunicationChannel implements GameStateListener, ChatRoomListener {
     private List<GameEvent> _events = new LinkedList<GameEvent>();
     private String _self;
     private Date _lastConsumed = new Date();
@@ -41,6 +43,11 @@ public class GatheringParticipantCommunicationChannel implements GameStateListen
             index++;
         }
         return result;
+    }
+
+    @Override
+    public void messageReceived(ChatMessage message) {
+        _events.add(new GameEvent(CH).participantId(message.getFrom()).message(message.getMessage()).date(message.getWhen()));
     }
 
     @Override
