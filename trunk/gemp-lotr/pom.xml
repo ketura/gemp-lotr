@@ -17,6 +17,7 @@
         <module>gemp-lotr-logic</module>
         <module>gemp-lotr-common</module>
         <module>gemp-lotr-cards</module>
+        <module>gemp-lotr-async</module>
     </modules>
 
     <properties>
