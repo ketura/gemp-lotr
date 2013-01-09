@@ -22,6 +22,7 @@ public class RootUriRequestHandler implements UriRequestHandler {
     private DeliveryRequestHandler _deliveryRequestHandler;
     private GameRequestHandler _gameRequestHandler;
     private LeagueRequestHandler _leagueRequestHandler;
+    private MerchantRequestHandler _merchantRequestHandler;
 
     public RootUriRequestHandler(Map<Type, Object> context) {
         _hallRequestHandler = new HallRequestHandler(context);
@@ -34,6 +35,7 @@ public class RootUriRequestHandler implements UriRequestHandler {
         _deliveryRequestHandler = new DeliveryRequestHandler(context);
         _gameRequestHandler = new GameRequestHandler(context);
         _leagueRequestHandler = new LeagueRequestHandler(context);
+        _merchantRequestHandler = new MerchantRequestHandler(context);
     }
 
     @Override
@@ -60,6 +62,8 @@ public class RootUriRequestHandler implements UriRequestHandler {
             _gameRequestHandler.handleRequest(uri.substring(_serverContextPath.length()+4), request, context, responseWriter, e);
         } else if (uri.startsWith(_serverContextPath + "league")) {
             _leagueRequestHandler.handleRequest(uri.substring(_serverContextPath.length()+6), request, context, responseWriter, e);
+        } else if (uri.startsWith(_serverContextPath + "merchant")) {
+            _merchantRequestHandler.handleRequest(uri.substring(_serverContextPath.length()+8), request, context, responseWriter, e);
         } else if (uri.equals(_serverContextPath)) {
             _statusRequestHandler.handleRequest(uri.substring(_serverContextPath.length()), request, context, responseWriter, e);
         } else {
