@@ -30,6 +30,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.lang.reflect.Type;
+import java.util.HashMap;
 import java.util.Map;
 
 public class HallRequestHandler extends LotroServerRequestHandler implements UriRequestHandler {
@@ -284,7 +285,7 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
 
             Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
-            HallUpdateLongPollingResource polledResource = new HallUpdateLongPollingResource(resourceOwner, channelNumber, responseWriter);
+            HallUpdateLongPollingResource polledResource = new HallUpdateLongPollingResource(request, resourceOwner, channelNumber, responseWriter);
             if (polledResource.isChanged())
                 polledResource.process();
             else
@@ -292,11 +293,13 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
     }
 
     private class HallUpdateLongPollingResource implements LongPollingResource {
+        private HttpRequest _request;
         private Player _resourceOwner;
         private int _channelNumber;
         private ResponseWriter _responseWriter;
 
-        private HallUpdateLongPollingResource(Player resourceOwner, int channelNumber, ResponseWriter responseWriter) {
+        private HallUpdateLongPollingResource(HttpRequest request, Player resourceOwner, int channelNumber, ResponseWriter responseWriter) {
+            _request = request;
             _resourceOwner = resourceOwner;
             _channelNumber = channelNumber;
             _responseWriter = responseWriter;
@@ -332,7 +335,11 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
                 hall.setAttribute("currency", String.valueOf(_collectionManager.getPlayerCollection(_resourceOwner, "permanent").getCurrency()));
 
                 doc.appendChild(hall);
-                _responseWriter.writeResponse(doc);
+
+                Map<String, String> headers = new HashMap<String, String>();
+                processDeliveryServiceNotification(_request, headers);
+
+                _responseWriter.writeResponse(doc, headers);
             } catch (HttpProcessingException exp) {
                 _responseWriter.writeError(exp.getStatus());
             } catch (Exception exp) {

@@ -17,5 +17,5 @@ public interface ResponseWriter {
 
     public void writeResponse(Document document);
 
-    public void writeResponse(Document document, Map<String, String> addCookies);
+    public void writeResponse(Document document, Map<String, String> addHeaders);
 }

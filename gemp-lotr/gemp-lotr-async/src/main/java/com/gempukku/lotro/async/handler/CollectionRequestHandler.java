@@ -141,7 +141,10 @@ public class CollectionRequestHandler extends LotroServerRequestHandler implemen
             }
         }
 
-        responseWriter.writeResponse(doc);
+        Map<String, String> headers = new HashMap<String, String>();
+        processDeliveryServiceNotification(request, headers);
+        
+        responseWriter.writeResponse(doc, headers);
     }
 
     private CardCollection constructCollection(Player player, String collectionType) {
