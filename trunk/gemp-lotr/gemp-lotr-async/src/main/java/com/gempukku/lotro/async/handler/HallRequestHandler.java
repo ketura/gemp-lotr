@@ -3,6 +3,8 @@ package com.gempukku.lotro.async.handler;
 import com.gempukku.lotro.SubscriptionConflictException;
 import com.gempukku.lotro.SubscriptionExpiredException;
 import com.gempukku.lotro.async.HttpProcessingException;
+import com.gempukku.lotro.async.LongPollingResource;
+import com.gempukku.lotro.async.LongPollingSystem;
 import com.gempukku.lotro.async.ResponseWriter;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.db.vo.League;
@@ -38,6 +40,7 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
     private LotroCardBlueprintLibrary _library;
     private long _longPollingLength = 5000;
     private long _longPollingInterval = 200;
+    private LongPollingSystem _longPollingSystem;
 
     public HallRequestHandler(Map<Type, Object> context) {
         super(context);
@@ -46,6 +49,7 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
         _hallServer = extractObject(context, HallServer.class);
         _leagueService = extractObject(context, LeagueService.class);
         _library = extractObject(context, LotroCardBlueprintLibrary.class);
+        _longPollingSystem = extractObject(context, LongPollingSystem.class);
     }
 
     @Override
@@ -305,33 +309,12 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
 
             Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
-            DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
-
-            Document doc = documentBuilder.newDocument();
-
-            Element hall = doc.createElement("hall");
-
-            try {
-                // Use long polling
-                long start = System.currentTimeMillis();
-                while (System.currentTimeMillis() < start + _longPollingLength && !_hallServer.hasChanges(resourceOwner, channelNumber)) {
-                    try {
-                        Thread.sleep(_longPollingInterval);
-                    } catch (InterruptedException exp) {
-
-                    }
-                }
-                _hallServer.processHall(resourceOwner, channelNumber, new SerializeHallInfoVisitor(doc, hall));
-            } catch (SubscriptionExpiredException exp) {
-                throw new HttpProcessingException(410);
-            } catch (SubscriptionConflictException exp) {
-                throw new HttpProcessingException(409);
-            }
-            hall.setAttribute("currency", String.valueOf(_collectionManager.getPlayerCollection(resourceOwner, "permanent").getCurrency()));
-
-            doc.appendChild(hall);
-            responseWriter.writeResponse(doc);
+            HallUpdateLongPollingResource polledResource = new HallUpdateLongPollingResource(resourceOwner, channelNumber, responseWriter);
+            if (polledResource.isChanged())
+                polledResource.process();
+            else
+                _longPollingSystem.appendLongPollingResource(polledResource);
+            
         } catch (HttpProcessingException exp) {
             responseWriter.writeError(exp.getStatus());
         } catch (Exception exp) {
@@ -339,6 +322,55 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
         }
     }
 
+    private class HallUpdateLongPollingResource implements LongPollingResource {
+        private Player _resourceOwner;
+        private int _channelNumber;
+        private ResponseWriter _responseWriter;
+
+        private HallUpdateLongPollingResource(Player resourceOwner, int channelNumber, ResponseWriter responseWriter) {
+            _resourceOwner = resourceOwner;
+            _channelNumber = channelNumber;
+            _responseWriter = responseWriter;
+        }
+
+        @Override
+        public boolean isChanged() {
+            try {
+                return _hallServer.hasChanges(_resourceOwner, _channelNumber);
+            } catch (SubscriptionExpiredException e) {
+                return true;
+            } catch (SubscriptionConflictException e) {
+                return true;
+            }
+        }
+
+        @Override
+        public void process() {
+            try {
+                DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+                DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+
+                Document doc = documentBuilder.newDocument();
+
+                Element hall = doc.createElement("hall");
+                try {
+                    _hallServer.processHall(_resourceOwner, _channelNumber, new SerializeHallInfoVisitor(doc, hall));
+                } catch (SubscriptionExpiredException exp) {
+                    throw new HttpProcessingException(410);
+                } catch (SubscriptionConflictException exp) {
+                    throw new HttpProcessingException(409);
+                }
+                hall.setAttribute("currency", String.valueOf(_collectionManager.getPlayerCollection(_resourceOwner, "permanent").getCurrency()));
+
+                doc.appendChild(hall);
+                _responseWriter.writeResponse(doc);
+            } catch (HttpProcessingException exp) {
+                _responseWriter.writeError(exp.getStatus());
+            } catch (Exception exp) {
+                _responseWriter.writeError(500);
+            }
+        }
+    }
 
     private class SerializeHallInfoVisitor implements HallChannelVisitor {
         private Document _doc;

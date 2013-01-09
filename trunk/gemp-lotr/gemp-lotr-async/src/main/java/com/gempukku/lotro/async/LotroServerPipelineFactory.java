@@ -29,6 +29,9 @@ public class LotroServerPipelineFactory implements ChannelPipelineFactory {
         ServerBuilder.constructObjects(objects);
 
         objects.put(LoggedUserHolder.class, new LoggedUserHolder());
+        LongPollingSystem longPollingSystem = new LongPollingSystem();
+        longPollingSystem.start();
+        objects.put(LongPollingSystem.class, longPollingSystem);
 
         _context = objects;
         _uriRequestHandler = new RootUriRequestHandler(_context);
