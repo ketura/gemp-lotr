@@ -21,6 +21,6 @@ public class LotroAsyncServer {
 
         bootstrap.setOption("child.tcpNoDelay", true);
         bootstrap.setOption("child.keepAlive", true);
-        bootstrap.bind(new InetSocketAddress(80));
+        bootstrap.bind(new InetSocketAddress(8080));
     }
 }

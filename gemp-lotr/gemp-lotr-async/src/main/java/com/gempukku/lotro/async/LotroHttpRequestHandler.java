@@ -3,12 +3,10 @@ package com.gempukku.lotro.async;
 import org.apache.log4j.Logger;
 import org.jboss.netty.buffer.ChannelBuffers;
 import org.jboss.netty.channel.*;
-import org.jboss.netty.handler.codec.http.*;
-import static org.jboss.netty.handler.codec.http.HttpHeaders.Names.*;
-import static org.jboss.netty.handler.codec.http.HttpHeaders.is100ContinueExpected;
-import static org.jboss.netty.handler.codec.http.HttpHeaders.isKeepAlive;
-import static org.jboss.netty.handler.codec.http.HttpResponseStatus.*;
-import static org.jboss.netty.handler.codec.http.HttpVersion.HTTP_1_1;
+import org.jboss.netty.handler.codec.http.DefaultHttpResponse;
+import org.jboss.netty.handler.codec.http.HttpRequest;
+import org.jboss.netty.handler.codec.http.HttpResponse;
+import org.jboss.netty.handler.codec.http.HttpResponseStatus;
 import org.jboss.netty.util.CharsetUtil;
 import org.w3c.dom.Document;
 
@@ -19,6 +17,12 @@ import javax.xml.transform.stream.StreamResult;
 import java.io.*;
 import java.lang.reflect.Type;
 import java.util.Map;
+
+import static org.jboss.netty.handler.codec.http.HttpHeaders.Names.*;
+import static org.jboss.netty.handler.codec.http.HttpHeaders.is100ContinueExpected;
+import static org.jboss.netty.handler.codec.http.HttpHeaders.isKeepAlive;
+import static org.jboss.netty.handler.codec.http.HttpResponseStatus.*;
+import static org.jboss.netty.handler.codec.http.HttpVersion.HTTP_1_1;
 
 public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
     private Logger _log = Logger.getLogger(LotroHttpRequestHandler.class);
@@ -50,7 +54,12 @@ public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
             ResponseWriter responseWriter = new ResponseWriter() {
                 @Override
                 public void writeError(int status) {
-                    writeHttpErrorResponse(request, status, e);
+                    writeHttpErrorResponse(request, status, null, e);
+                }
+
+                @Override
+                public void writeError(int status, Map<String, String> headers) {
+                    writeHttpErrorResponse(request, status, headers, e);
                 }
 
                 @Override
@@ -59,8 +68,8 @@ public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
                 }
 
                 @Override
-                public void writeResponse(Document document, Map<String, String> addCookies) {
-                    writeHttpResponse(request, document, addCookies, e);
+                public void writeResponse(Document document, Map<String, String> headers) {
+                    writeHttpResponse(request, document, headers, e);
                 }
 
                 @Override
@@ -84,7 +93,7 @@ public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
             try {
                 raf = new RandomAccessFile(file, "r");
             } catch (FileNotFoundException fnfe) {
-                writeHttpErrorResponse(request, 404, e);
+                writeHttpErrorResponse(request, 404, null, e);
                 return;
             }
             long fileLength = raf.length();
@@ -128,14 +137,19 @@ public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
                 writeFuture.addListener(ChannelFutureListener.CLOSE);
             }
         } catch (IOException exp) {
-            writeHttpErrorResponse(request, 500, e);
+            writeHttpErrorResponse(request, 500, null, e);
         }
     }
 
-    private void writeHttpErrorResponse(HttpRequest request, int status, MessageEvent e) {
+    private void writeHttpErrorResponse(HttpRequest request, int status, Map<String, String> headers, MessageEvent e) {
         boolean keepAlive = isKeepAlive(request);
 
         HttpResponse response = new DefaultHttpResponse(HTTP_1_1, HttpResponseStatus.valueOf(status));
+
+        if (headers != null) {
+            for (Map.Entry<String, String> header: headers.entrySet())
+                response.setHeader(header.getKey(), header.getValue());
+        }
 
         if (keepAlive) {
             // Add 'Content-Length' header only for a keep-alive connection.
@@ -148,7 +162,7 @@ public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
         }
     }
 
-    private void writeHttpResponse(HttpRequest request, Document document, Map<String, String> addCookies, MessageEvent e) {
+    private void writeHttpResponse(HttpRequest request, Document document, Map<String, String> headers, MessageEvent e) {
         // Decide whether to close the connection or not.
         boolean keepAlive = isKeepAlive(request);
 
@@ -156,11 +170,9 @@ public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
             // Build the response object.
             HttpResponse response = new DefaultHttpResponse(HTTP_1_1, OK);
 
-            if (addCookies != null) {
-                CookieEncoder cookieEncoder = new CookieEncoder(true);
-                for (Map.Entry<String, String> cookie : addCookies.entrySet())
-                    cookieEncoder.addCookie(cookie.getKey(), cookie.getValue());
-                response.setHeader(SET_COOKIE, cookieEncoder.encode());
+            if (headers != null) {
+                for (Map.Entry<String, String> header: headers.entrySet())
+                    response.setHeader(header.getKey(), header.getValue());
             }
 
             int length = 0;

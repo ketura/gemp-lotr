@@ -4,6 +4,7 @@ import org.jboss.netty.channel.MessageEvent;
 import org.jboss.netty.handler.codec.http.HttpRequest;
 
 import java.lang.reflect.Type;
+import java.util.Collections;
 import java.util.Map;
 
 public class RootUriRequestHandler implements UriRequestHandler {
@@ -26,9 +27,11 @@ public class RootUriRequestHandler implements UriRequestHandler {
     public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, MessageEvent e) {
         if (uri.startsWith(_webContextPath)) {
             _webRequestHandler.handleRequest(uri.substring(_webContextPath.length()), request, context, responseWriter, e);
+        } else if (uri.equals("/gemp-lotr")) {
+            responseWriter.writeError(301, Collections.singletonMap("Location", "/gemp-lotr/"));
         } else if (uri.startsWith(_serverContextPath +"hall")) {
             _hallRequestHandler.handleRequest(uri.substring(_serverContextPath.length()+4), request, context, responseWriter, e);
-        } else if (uri.startsWith(_serverContextPath+"deck")) {
+        } else if (uri.startsWith(_serverContextPath + "deck")) {
             _deckRequestHandler.handleRequest(uri.substring(_serverContextPath.length()+4), request, context, responseWriter, e);
         } else if (uri.startsWith(_serverContextPath+"login")) {
             _loginRequestHandler.handleRequest(uri.substring(_serverContextPath.length()+5), request, context, responseWriter, e);
