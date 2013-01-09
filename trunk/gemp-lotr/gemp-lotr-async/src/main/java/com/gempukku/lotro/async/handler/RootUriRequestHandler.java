@@ -20,6 +20,8 @@ public class RootUriRequestHandler implements UriRequestHandler {
     private ChatRequestHandler _chatRequestHandler;
     private CollectionRequestHandler _collectionRequestHandler;
     private DeliveryRequestHandler _deliveryRequestHandler;
+    private GameRequestHandler _gameRequestHandler;
+    private LeagueRequestHandler _leagueRequestHandler;
 
     public RootUriRequestHandler(Map<Type, Object> context) {
         _hallRequestHandler = new HallRequestHandler(context);
@@ -30,6 +32,8 @@ public class RootUriRequestHandler implements UriRequestHandler {
         _chatRequestHandler = new ChatRequestHandler(context);
         _collectionRequestHandler = new CollectionRequestHandler(context);
         _deliveryRequestHandler = new DeliveryRequestHandler(context);
+        _gameRequestHandler = new GameRequestHandler(context);
+        _leagueRequestHandler = new LeagueRequestHandler(context);
     }
 
     @Override
@@ -52,6 +56,10 @@ public class RootUriRequestHandler implements UriRequestHandler {
             _collectionRequestHandler.handleRequest(uri.substring(_serverContextPath.length()+10), request, context, responseWriter, e);
         } else if (uri.startsWith(_serverContextPath + "delivery")) {
             _deliveryRequestHandler.handleRequest(uri.substring(_serverContextPath.length()+8), request, context, responseWriter, e);
+        } else if (uri.startsWith(_serverContextPath + "game")) {
+            _gameRequestHandler.handleRequest(uri.substring(_serverContextPath.length()+4), request, context, responseWriter, e);
+        } else if (uri.startsWith(_serverContextPath + "league")) {
+            _leagueRequestHandler.handleRequest(uri.substring(_serverContextPath.length()+6), request, context, responseWriter, e);
         } else if (uri.equals(_serverContextPath)) {
             _statusRequestHandler.handleRequest(uri.substring(_serverContextPath.length()), request, context, responseWriter, e);
         } else {
