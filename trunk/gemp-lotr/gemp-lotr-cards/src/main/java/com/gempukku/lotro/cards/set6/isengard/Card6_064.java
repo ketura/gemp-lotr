@@ -4,7 +4,7 @@ import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
-import com.gempukku.lotro.cards.effects.StackCardFromPlayEffect;
+import com.gempukku.lotro.cards.effects.StackCardFromDiscardEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardStackedCardsEffect;
 import com.gempukku.lotro.common.*;
@@ -46,7 +46,7 @@ public class Card6_064 extends AbstractPermanent {
                 action.setTriggerIdentifier(self.getCardId()+"-"+discardedOrc.getCardId());
                 action.setText("Stack " + GameUtils.getCardLink(discardedOrc));
                 action.appendEffect(
-                        new StackCardFromPlayEffect(discardedOrc, self));
+                        new StackCardFromDiscardEffect(discardedOrc, self));
                 return Collections.singletonList(action);
             }
         }
