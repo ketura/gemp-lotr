@@ -27,6 +27,7 @@ public class RootUriRequestHandler implements UriRequestHandler {
     private ReplayRequestHandler _replayRequestHandler;
     private GameHistoryRequestHandler _gameHistoryRequestHandler;
     private ServerStatsRequestHandler _serverStatsRequestHandler;
+    private PlayerStatsRequestHandler _playerStatsRequestHandler;
 
     public RootUriRequestHandler(Map<Type, Object> context) {
         _hallRequestHandler = new HallRequestHandler(context);
@@ -44,6 +45,7 @@ public class RootUriRequestHandler implements UriRequestHandler {
         _replayRequestHandler = new ReplayRequestHandler(context);
         _gameHistoryRequestHandler = new GameHistoryRequestHandler(context);
         _serverStatsRequestHandler = new ServerStatsRequestHandler(context);
+        _playerStatsRequestHandler = new PlayerStatsRequestHandler(context);
     }
 
     @Override
@@ -66,6 +68,8 @@ public class RootUriRequestHandler implements UriRequestHandler {
             _gameHistoryRequestHandler.handleRequest(uri.substring(_serverContextPath.length()+11), request, context, responseWriter, e);
         } else if (uri.startsWith(_serverContextPath+"stats")) {
             _serverStatsRequestHandler.handleRequest(uri.substring(_serverContextPath.length()+5), request, context, responseWriter, e);
+        } else if (uri.startsWith(_serverContextPath+"playerStats")) {
+            _playerStatsRequestHandler.handleRequest(uri.substring(_serverContextPath.length()+11), request, context, responseWriter, e);
         } else if (uri.startsWith(_serverContextPath+"admin")) {
             _adminRequestHandler.handleRequest(uri.substring(_serverContextPath.length()+5), request, context, responseWriter, e);
         } else if (uri.startsWith(_serverContextPath + "chat")) {
