@@ -27,7 +27,7 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
     }
 
     @Override
-    public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, MessageEvent e) {
+    public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, MessageEvent e) throws Exception {
         if (uri.equals("/list") && request.getMethod() == HttpMethod.GET) {
             listDecks(request, responseWriter);
         } else {
@@ -35,29 +35,25 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
         }
     }
 
-    private void listDecks(HttpRequest request, ResponseWriter responseWriter) {
-        try {
-            QueryStringDecoder queryDecoder = new QueryStringDecoder(request.getUri());
-            String participantId = getQueryParameterSafely(queryDecoder, "participantId");
+    private void listDecks(HttpRequest request, ResponseWriter responseWriter) throws Exception {
+        QueryStringDecoder queryDecoder = new QueryStringDecoder(request.getUri());
+        String participantId = getQueryParameterSafely(queryDecoder, "participantId");
 
-            Player resourceOwner = getResourceOwnerSafely(request, participantId);
+        Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
-            List<String> names = new ArrayList<String>(_deckDao.getPlayerDeckNames(resourceOwner));
-            Collections.sort(names);
+        List<String> names = new ArrayList<String>(_deckDao.getPlayerDeckNames(resourceOwner));
+        Collections.sort(names);
 
-            DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
-            Document doc = documentBuilder.newDocument();
-            Element decksElem = doc.createElement("decks");
-            for (String name : names) {
-                Element deckElem = doc.createElement("deck");
-                deckElem.appendChild(doc.createTextNode(name));
-                decksElem.appendChild(deckElem);
-            }
-            doc.appendChild(decksElem);
-            responseWriter.writeResponse(doc);
-        } catch (Exception exp) {
-            responseWriter.writeError(500);
+        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+        Document doc = documentBuilder.newDocument();
+        Element decksElem = doc.createElement("decks");
+        for (String name : names) {
+            Element deckElem = doc.createElement("deck");
+            deckElem.appendChild(doc.createTextNode(name));
+            decksElem.appendChild(deckElem);
         }
+        doc.appendChild(decksElem);
+        responseWriter.writeResponse(doc);
     }
 }

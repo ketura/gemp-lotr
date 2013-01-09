@@ -53,7 +53,7 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
     }
 
     @Override
-    public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, MessageEvent e) {
+    public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, MessageEvent e) throws Exception {
         if (uri.equals("") && request.getMethod() == HttpMethod.GET) {
             getHall(request, responseWriter);
         } else if (uri.equals("") && request.getMethod() == HttpMethod.POST) {
@@ -81,8 +81,7 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
         }
     }
 
-    private void joinTable(HttpRequest request, String tableId, ResponseWriter responseWriter) {
-        try {
+    private void joinTable(HttpRequest request, String tableId, ResponseWriter responseWriter) throws Exception {
             HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
             String participantId = getFormParameterSafely(postDecoder, "participantId");
             Player resourceOwner = getResourceOwnerSafely(request, participantId);
@@ -91,26 +90,18 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
 
             _hallServer.joinTableAsPlayer(tableId, resourceOwner, deckName);
             responseWriter.writeResponse(null);
-        } catch (Exception exp) {
-            responseWriter.writeError(500);
-        }
     }
 
-    private void leaveTable(HttpRequest request, ResponseWriter responseWriter) {
-        try {
+    private void leaveTable(HttpRequest request, ResponseWriter responseWriter) throws Exception {
             HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
             String participantId = getFormParameterSafely(postDecoder, "participantId");
             Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
             _hallServer.leaveAwaitingTables(resourceOwner);
             responseWriter.writeResponse(null);
-        } catch (Exception exp) {
-            responseWriter.writeError(500);
-        }
     }
 
-    private void createTable(HttpRequest request, ResponseWriter responseWriter) {
-        try {
+    private void createTable(HttpRequest request, ResponseWriter responseWriter) throws Exception {
             HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
             String participantId = getFormParameterSafely(postDecoder, "participantId");
             String format = getFormParameterSafely(postDecoder, "format");
@@ -124,13 +115,9 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
             } catch (HallException e) {
                 responseWriter.writeResponse(marshalException(e));
             }
-        } catch (Exception exp) {
-            responseWriter.writeError(500);
-        }
     }
 
-    private void dropFromTournament(HttpRequest request, String tournamentId, ResponseWriter responseWriter) {
-        try {
+    private void dropFromTournament(HttpRequest request, String tournamentId, ResponseWriter responseWriter) throws Exception {
             HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
             String participantId = getFormParameterSafely(postDecoder, "participantId");
             Player resourceOwner = getResourceOwnerSafely(request, participantId);
@@ -138,13 +125,9 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
             _hallServer.dropFromTournament(tournamentId, resourceOwner);
 
             responseWriter.writeResponse(null);
-        } catch (Exception exp) {
-            responseWriter.writeError(500);
-        }
     }
 
-    private void joinQueue(HttpRequest request, String queueId, ResponseWriter responseWriter) {
-        try {
+    private void joinQueue(HttpRequest request, String queueId, ResponseWriter responseWriter) throws Exception {
             HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
             String participantId = getFormParameterSafely(postDecoder, "participantId");
             String deckName = getFormParameterSafely(postDecoder, "deckName");
@@ -157,13 +140,9 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
             } catch (HallException e) {
                 responseWriter.writeResponse(marshalException(e));
             }
-        } catch (Exception exp) {
-            responseWriter.writeError(500);
-        }
     }
 
-    private void leaveQueue(HttpRequest request, String queueId, ResponseWriter responseWriter) {
-        try {
+    private void leaveQueue(HttpRequest request, String queueId, ResponseWriter responseWriter) throws Exception {
             HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
             String participantId = getFormParameterSafely(postDecoder, "participantId");
 
@@ -172,9 +151,6 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
             _hallServer.leaveQueue(queueId, resourceOwner);
 
             responseWriter.writeResponse(null);
-        } catch (Exception exp) {
-            responseWriter.writeError(500);
-        }
     }
 
     private Document marshalException(HallException e) throws ParserConfigurationException {
@@ -301,8 +277,7 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
         }
     }
 
-    private void updateHall(HttpRequest request, ResponseWriter responseWriter) {
-        try {
+    private void updateHall(HttpRequest request, ResponseWriter responseWriter) throws Exception {
             HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
             String participantId = getFormParameterSafely(postDecoder, "participantId");
             int channelNumber = Integer.parseInt(getFormParameterSafely(postDecoder, "channelNumber"));
@@ -314,12 +289,6 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
                 polledResource.process();
             else
                 _longPollingSystem.appendLongPollingResource(polledResource);
-            
-        } catch (HttpProcessingException exp) {
-            responseWriter.writeError(exp.getStatus());
-        } catch (Exception exp) {
-            responseWriter.writeError(500);
-        }
     }
 
     private class HallUpdateLongPollingResource implements LongPollingResource {

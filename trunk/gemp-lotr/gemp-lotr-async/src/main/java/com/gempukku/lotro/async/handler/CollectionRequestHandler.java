@@ -74,8 +74,7 @@ public class CollectionRequestHandler extends LotroServerRequestHandler implemen
     }
 
     @Override
-    public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, MessageEvent e) {
-        try {
+    public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, MessageEvent e) throws Exception {
             if (uri.equals("") && request.getMethod() == HttpMethod.GET) {
                 getCollectionTypes(request, responseWriter);
             } else if (uri.startsWith("/") && request.getMethod() == HttpMethod.POST) {
@@ -85,11 +84,6 @@ public class CollectionRequestHandler extends LotroServerRequestHandler implemen
             } else {
                 responseWriter.writeError(404);
             }
-        } catch (HttpProcessingException exp) {
-            responseWriter.writeError(exp.getStatus());
-        } catch (Exception exp) {
-            responseWriter.writeError(500);
-        }
     }
 
     private void getCollection(HttpRequest request, String collectionType, ResponseWriter responseWriter) throws Exception {
