@@ -254,7 +254,7 @@ public class ServerResource extends AbstractResource {
     @Path("/playerStats")
     @GET
     @Produces(MediaType.APPLICATION_XML)
-    public Document getServerStats(
+    public Document getPlayerStats(
             @QueryParam("participantId") String participantId,
             @Context HttpServletRequest request) throws ParserConfigurationException {
         Player resourceOwner = getResourceOwnerSafely(request, participantId);
