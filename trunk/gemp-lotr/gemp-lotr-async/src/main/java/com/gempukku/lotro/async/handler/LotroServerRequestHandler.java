@@ -53,7 +53,7 @@ public class LotroServerRequestHandler {
 
     protected String getQueryParameterSafely(QueryStringDecoder queryStringDecoder, String parameterName) {
         List<String> parameterValues = queryStringDecoder.getParameters().get(parameterName);
-        if (parameterValues.size() > 0)
+        if (parameterValues != null && parameterValues.size() > 0)
             return parameterValues.get(0);
         else
             return null;
