@@ -79,6 +79,11 @@ public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
                 }
 
                 @Override
+                public void writeByteResponse(String contentType, byte[] bytes) {
+                    writeHttpByteResponse(request, contentType, bytes, e);
+                }
+
+                @Override
                 public void writeFile(File file) {
                     writeFileResponse(request, file, e);
                 }
@@ -178,6 +183,46 @@ public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
         ChannelFuture future = e.getChannel().write(response);
         if (!keepAlive) {
             future.addListener(ChannelFutureListener.CLOSE);
+        }
+    }
+
+    private void writeHttpByteResponse(HttpRequest request, String contentType, byte[] bytes, MessageEvent e) {
+        // Decide whether to close the connection or not.
+        boolean keepAlive = isKeepAlive(request);
+
+        try {
+            // Build the response object.
+            HttpResponse response = new DefaultHttpResponse(HTTP_1_1, OK);
+
+            int length = 0;
+                response.setContent(ChannelBuffers.copiedBuffer(bytes));
+                response.setHeader(CONTENT_TYPE, contentType);
+
+                length = bytes.length;
+
+            if (keepAlive) {
+                // Add 'Content-Length' header only for a keep-alive connection.
+                response.setHeader(CONTENT_LENGTH, length);
+            }
+
+            // Write the response.
+            ChannelFuture future = e.getChannel().write(response);
+            if (!keepAlive) {
+                future.addListener(ChannelFutureListener.CLOSE);
+            }
+        } catch (Exception exp) {
+            HttpResponse response = new DefaultHttpResponse(HTTP_1_1, HttpResponseStatus.valueOf(500));
+
+            if (keepAlive) {
+                // Add 'Content-Length' header only for a keep-alive connection.
+                response.setHeader(CONTENT_LENGTH, response.getContent().readableBytes());
+            }
+
+            // Write the response.
+            ChannelFuture future = e.getChannel().write(response);
+            if (!keepAlive) {
+                future.addListener(ChannelFutureListener.CLOSE);
+            }
         }
     }
 

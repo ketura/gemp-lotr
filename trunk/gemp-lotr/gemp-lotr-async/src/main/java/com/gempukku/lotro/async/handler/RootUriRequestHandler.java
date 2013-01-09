@@ -23,6 +23,8 @@ public class RootUriRequestHandler implements UriRequestHandler {
     private GameRequestHandler _gameRequestHandler;
     private LeagueRequestHandler _leagueRequestHandler;
     private MerchantRequestHandler _merchantRequestHandler;
+    private RegisterRequestHandler _registerRequestHandler;
+    private ReplayRequestHandler _replayRequestHandler;
 
     public RootUriRequestHandler(Map<Type, Object> context) {
         _hallRequestHandler = new HallRequestHandler(context);
@@ -36,6 +38,8 @@ public class RootUriRequestHandler implements UriRequestHandler {
         _gameRequestHandler = new GameRequestHandler(context);
         _leagueRequestHandler = new LeagueRequestHandler(context);
         _merchantRequestHandler = new MerchantRequestHandler(context);
+        _registerRequestHandler = new RegisterRequestHandler(context);
+        _replayRequestHandler = new ReplayRequestHandler(context);
     }
 
     @Override
@@ -50,6 +54,10 @@ public class RootUriRequestHandler implements UriRequestHandler {
             _deckRequestHandler.handleRequest(uri.substring(_serverContextPath.length()+4), request, context, responseWriter, e);
         } else if (uri.startsWith(_serverContextPath+"login")) {
             _loginRequestHandler.handleRequest(uri.substring(_serverContextPath.length()+5), request, context, responseWriter, e);
+        } else if (uri.startsWith(_serverContextPath+"register")) {
+            _registerRequestHandler.handleRequest(uri.substring(_serverContextPath.length()+8), request, context, responseWriter, e);
+        } else if (uri.startsWith(_serverContextPath+"replay")) {
+            _replayRequestHandler.handleRequest(uri.substring(_serverContextPath.length()+6), request, context, responseWriter, e);
         } else if (uri.startsWith(_serverContextPath+"admin")) {
             _adminRequestHandler.handleRequest(uri.substring(_serverContextPath.length()+5), request, context, responseWriter, e);
         } else if (uri.startsWith(_serverContextPath + "chat")) {

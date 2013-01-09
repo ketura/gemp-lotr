@@ -4,6 +4,8 @@ import com.gempukku.lotro.async.HttpProcessingException;
 import com.gempukku.lotro.async.LoggedUserHolder;
 import com.gempukku.lotro.db.PlayerDAO;
 import com.gempukku.lotro.game.Player;
+import org.jboss.netty.channel.MessageEvent;
+import org.jboss.netty.handler.codec.http.CookieEncoder;
 import org.jboss.netty.handler.codec.http.HttpRequest;
 import org.jboss.netty.handler.codec.http.QueryStringDecoder;
 import org.jboss.netty.handler.codec.http.multipart.Attribute;
@@ -12,10 +14,13 @@ import org.jboss.netty.handler.codec.http.multipart.InterfaceHttpData;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.sql.SQLException;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+
+import static org.jboss.netty.handler.codec.http.HttpHeaders.Names.SET_COOKIE;
 
 public class LotroServerRequestHandler {
     protected PlayerDAO _playerDao;
@@ -89,5 +94,15 @@ public class LotroServerRequestHandler {
     protected <T> T extractObject(Map<Type, Object> context, Class<T> clazz) {
         Object value = context.get(clazz);
         return (T) value;
+    }
+
+    protected Map<String, String> logUserReturningHeaders(MessageEvent e, String login) throws SQLException {
+        _playerDao.updateLastLoginIp(login, e.getChannel().getRemoteAddress().toString());
+
+        CookieEncoder cookieEncoder = new CookieEncoder(true);
+        for (Map.Entry<String, String> cookie : _loggedUserHolder.logUser(login).entrySet())
+            cookieEncoder.addCookie(cookie.getKey(), cookie.getValue());
+
+        return Collections.singletonMap(SET_COOKIE, cookieEncoder.encode());
     }
 }
