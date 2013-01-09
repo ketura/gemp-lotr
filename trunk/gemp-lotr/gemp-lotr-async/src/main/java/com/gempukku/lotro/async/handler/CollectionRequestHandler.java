@@ -23,8 +23,6 @@ import org.jboss.netty.handler.codec.http.multipart.HttpPostRequestDecoder;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.Response;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.lang.reflect.Type;
@@ -106,7 +104,7 @@ public class CollectionRequestHandler extends LotroServerRequestHandler implemen
         CardCollection collection = constructCollection(resourceOwner, collectionType);
 
         if (collection == null)
-            throw new WebApplicationException(Response.Status.NOT_FOUND);
+            throw new HttpProcessingException(404);
 
         Collection<CardCollection.Item> items = collection.getAll().values();
         List<CardCollection.Item> filteredResult = _sortAndFilterCards.process(filter, items, _library, _formatLibrary, _rarities);
@@ -168,7 +166,7 @@ public class CollectionRequestHandler extends LotroServerRequestHandler implemen
         CardCollection packContents = _collectionsManager.openPackInPlayerCollection(resourceOwner, collectionTypeObj, selection, _packStorage, packId);
 
         if (packContents == null)
-            throw new WebApplicationException(Response.Status.NOT_FOUND);
+            throw new HttpProcessingException(404);
 
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
