@@ -12,7 +12,7 @@ public class RootUriRequestHandler implements UriRequestHandler {
     private String _serverContextPath ="/gemp-lotr-server/";
     private String _webContextPath="/gemp-lotr/";
     private HallRequestHandler _hallRequestHandler;
-    private WebRequestHandler _webRequestHandler = new WebRequestHandler();
+    private WebRequestHandler _webRequestHandler;
     private LoginRequestHandler _loginRequestHandler;
     private StatusRequestHandler _statusRequestHandler;
     private DeckRequestHandler _deckRequestHandler;
@@ -30,7 +30,8 @@ public class RootUriRequestHandler implements UriRequestHandler {
     private PlayerStatsRequestHandler _playerStatsRequestHandler;
     private TournamentRequestHandler _tournamentRequestHandler;
 
-    public RootUriRequestHandler(Map<Type, Object> context) {
+    public RootUriRequestHandler(Map<Type, Object> context, String webPath) {
+        _webRequestHandler = new WebRequestHandler(webPath);
         _hallRequestHandler = new HallRequestHandler(context);
         _deckRequestHandler = new DeckRequestHandler(context);
         _loginRequestHandler = new LoginRequestHandler(context);
