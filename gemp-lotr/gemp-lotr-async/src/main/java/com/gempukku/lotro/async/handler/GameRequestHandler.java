@@ -21,8 +21,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.Response;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.lang.reflect.Type;
@@ -154,7 +152,7 @@ public class GameRequestHandler extends LotroServerRequestHandler implements Uri
 
         LotroGameMediator gameMediator = _lotroServer.getGameById(gameId);
         if (gameMediator == null)
-            throw new WebApplicationException(Response.Status.NOT_FOUND);
+            throw new HttpProcessingException(404);
 
         gameMediator.cancel(resourceOwner);
 

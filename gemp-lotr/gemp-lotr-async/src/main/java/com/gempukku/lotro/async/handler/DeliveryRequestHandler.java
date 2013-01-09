@@ -1,5 +1,6 @@
 package com.gempukku.lotro.async.handler;
 
+import com.gempukku.lotro.async.HttpProcessingException;
 import com.gempukku.lotro.async.ResponseWriter;
 import com.gempukku.lotro.collection.TransferDAO;
 import com.gempukku.lotro.game.CardCollection;
@@ -10,8 +11,6 @@ import org.jboss.netty.handler.codec.http.HttpRequest;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.Response;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.lang.reflect.Type;
@@ -38,7 +37,7 @@ public class DeliveryRequestHandler extends LotroServerRequestHandler implements
         Player resourceOwner = getResourceOwnerSafely(request, null);
         Map<String, ? extends CardCollection> delivery = _transferDAO.consumeUndeliveredPackages(resourceOwner.getName());
         if (delivery == null)
-            throw new WebApplicationException(Response.Status.NOT_FOUND);
+            throw new HttpProcessingException(404);
 
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();

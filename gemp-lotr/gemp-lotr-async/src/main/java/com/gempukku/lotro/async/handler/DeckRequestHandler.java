@@ -17,8 +17,6 @@ import org.jboss.netty.handler.codec.http.multipart.HttpPostRequestDecoder;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.Response;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -71,7 +69,7 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
 
         LotroDeck deck = _lotroServer.createDeckWithValidate("tempDeck", contents);
         if (deck == null)
-            throw new WebApplicationException(Response.Status.BAD_REQUEST);
+            throw new HttpProcessingException(400);
 
         int fpCount = 0;
         int shadowCount = 0;
@@ -161,7 +159,7 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
         LotroDeck deck = _deckDao.getDeckForPlayer(resourceOwner, deckName);
 
         if (deck == null)
-            throw new WebApplicationException(Response.Status.NOT_FOUND);
+            throw new HttpProcessingException(404);
 
         StringBuilder result = new StringBuilder();
         result.append("<html><body>");

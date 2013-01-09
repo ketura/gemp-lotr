@@ -36,7 +36,6 @@ public class LoggedUserHolder {
                     if (value != null) {
                         String loggedUser = _users.get(value);
                         if (loggedUser != null) {
-                            System.out.println("Update last access");
                             _lastAccess.put(value, System.currentTimeMillis());
                             return loggedUser;
                         }

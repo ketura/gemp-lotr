@@ -19,8 +19,6 @@ import org.jboss.netty.handler.codec.http.multipart.HttpPostRequestDecoder;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.Response;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.lang.reflect.Type;
@@ -83,7 +81,7 @@ public class LeagueRequestHandler extends LotroServerRequestHandler implements U
         League league = getLeagueByType(leagueType);
 
         if (league == null)
-            throw new WebApplicationException(Response.Status.NOT_FOUND);
+            throw new HttpProcessingException(404);
 
         final LeagueData leagueData = league.getLeagueData();
         final List<LeagueSerieData> series = leagueData.getSeries();
