@@ -4,13 +4,16 @@ import com.gempukku.lotro.SubscriptionConflictException;
 import com.gempukku.lotro.SubscriptionExpiredException;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.db.vo.League;
+import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.game.LotroFormat;
 import com.gempukku.lotro.game.Player;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.gempukku.lotro.hall.HallChannelVisitor;
+import com.gempukku.lotro.hall.HallException;
 import com.gempukku.lotro.hall.HallServer;
 import com.gempukku.lotro.league.LeagueSerieData;
 import com.gempukku.lotro.league.LeagueService;
+import com.gempukku.lotro.logic.GameUtils;
 import org.jboss.netty.channel.MessageEvent;
 import org.jboss.netty.handler.codec.http.HttpMethod;
 import org.jboss.netty.handler.codec.http.HttpRequest;
@@ -23,6 +26,7 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import java.lang.reflect.Type;
 import java.util.Map;
 
@@ -31,6 +35,7 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
     private LotroFormatLibrary _formatLibrary;
     private HallServer _hallServer;
     private LeagueService _leagueService;
+    private LotroCardBlueprintLibrary _library;
     private long _longPollingLength = 5000;
     private long _longPollingInterval = 200;
 
@@ -40,17 +45,213 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
         _formatLibrary = extractObject(context, LotroFormatLibrary.class);
         _hallServer = extractObject(context, HallServer.class);
         _leagueService = extractObject(context, LeagueService.class);
+        _library = extractObject(context, LotroCardBlueprintLibrary.class);
     }
 
     @Override
     public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, MessageEvent e) {
         if (uri.equals("") && request.getMethod() == HttpMethod.GET) {
             getHall(request, responseWriter);
+        } else if (uri.equals("") && request.getMethod() == HttpMethod.POST) {
+            createTable(request, responseWriter);
         } else if (uri.equals("/update") && request.getMethod() == HttpMethod.POST) {
             updateHall(request, responseWriter);
+        } else if (uri.equals("/formats/html") && request.getMethod() == HttpMethod.GET) {
+            getFormats(request, responseWriter);
+        } else if (uri.startsWith("/format/") && request.getMethod() == HttpMethod.GET) {
+            getFormat(request, uri.substring(8), responseWriter);
+        } else if (uri.startsWith("/queue/") && request.getMethod() == HttpMethod.POST) {
+            if (uri.endsWith("/leave")) {
+                leaveQueue(request, uri.substring(7, uri.length() - 6), responseWriter);
+            } else {
+                joinQueue(request, uri.substring(7), responseWriter);
+            }
+        } else if (uri.startsWith("/tournament/") && uri.endsWith("/leave") && request.getMethod() == HttpMethod.POST) {
+            dropFromTournament(request, uri.substring(12, uri.length() - 6), responseWriter);
+        } else if (uri.equals("/leave") && request.getMethod() == HttpMethod.POST) {
+            leaveTable(request, responseWriter);
+        } else if (uri.startsWith("/") && request.getMethod() == HttpMethod.POST) {
+            joinTable(request, uri.substring(1), responseWriter);
         } else {
             responseWriter.writeError(404);
         }
+    }
+
+    private void joinTable(HttpRequest request, String tableId, ResponseWriter responseWriter) {
+        try {
+            HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
+            String participantId = getFormParameterSafely(postDecoder, "participantId");
+            Player resourceOwner = getResourceOwnerSafely(request, participantId);
+
+            String deckName = getFormParameterSafely(postDecoder, "deckName");
+
+            _hallServer.joinTableAsPlayer(tableId, resourceOwner, deckName);
+            responseWriter.writeResponse(null);
+        } catch (Exception exp) {
+            responseWriter.writeError(500);
+        }
+    }
+
+    private void leaveTable(HttpRequest request, ResponseWriter responseWriter) {
+        try {
+            HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
+            String participantId = getFormParameterSafely(postDecoder, "participantId");
+            Player resourceOwner = getResourceOwnerSafely(request, participantId);
+
+            _hallServer.leaveAwaitingTables(resourceOwner);
+            responseWriter.writeResponse(null);
+        } catch (Exception exp) {
+            responseWriter.writeError(500);
+        }
+    }
+
+    private void createTable(HttpRequest request, ResponseWriter responseWriter) {
+        try {
+            HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
+            String participantId = getFormParameterSafely(postDecoder, "participantId");
+            String format = getFormParameterSafely(postDecoder, "format");
+            String deckName = getFormParameterSafely(postDecoder, "deckName");
+
+            Player resourceOwner = getResourceOwnerSafely(request, participantId);
+
+            try {
+                _hallServer.createNewTable(format, resourceOwner, deckName);
+                responseWriter.writeResponse(null);
+            } catch (HallException e) {
+                responseWriter.writeResponse(marshalException(e));
+            }
+        } catch (Exception exp) {
+            responseWriter.writeError(500);
+        }
+    }
+
+    private void dropFromTournament(HttpRequest request, String tournamentId, ResponseWriter responseWriter) {
+        try {
+            HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
+            String participantId = getFormParameterSafely(postDecoder, "participantId");
+            Player resourceOwner = getResourceOwnerSafely(request, participantId);
+
+            _hallServer.dropFromTournament(tournamentId, resourceOwner);
+
+            responseWriter.writeResponse(null);
+        } catch (Exception exp) {
+            responseWriter.writeError(500);
+        }
+    }
+
+    private void joinQueue(HttpRequest request, String queueId, ResponseWriter responseWriter) {
+        try {
+            HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
+            String participantId = getFormParameterSafely(postDecoder, "participantId");
+            String deckName = getFormParameterSafely(postDecoder, "deckName");
+
+            Player resourceOwner = getResourceOwnerSafely(request, participantId);
+
+            try {
+                _hallServer.joinQueue(queueId, resourceOwner, deckName);
+                responseWriter.writeResponse(null);
+            } catch (HallException e) {
+                responseWriter.writeResponse(marshalException(e));
+            }
+        } catch (Exception exp) {
+            responseWriter.writeError(500);
+        }
+    }
+
+    private void leaveQueue(HttpRequest request, String queueId, ResponseWriter responseWriter) {
+        try {
+            HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
+            String participantId = getFormParameterSafely(postDecoder, "participantId");
+
+            Player resourceOwner = getResourceOwnerSafely(request, participantId);
+
+            _hallServer.leaveQueue(queueId, resourceOwner);
+
+            responseWriter.writeResponse(null);
+        } catch (Exception exp) {
+            responseWriter.writeError(500);
+        }
+    }
+
+    private Document marshalException(HallException e) throws ParserConfigurationException {
+        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+
+        Document doc = documentBuilder.newDocument();
+
+        Element error = doc.createElement("error");
+        error.setAttribute("message", e.getMessage());
+        doc.appendChild(error);
+        return doc;
+    }
+
+    private void getFormat(HttpRequest request, String format, ResponseWriter responseWriter) {
+        StringBuilder result = new StringBuilder();
+        LotroFormat lotroFormat = _formatLibrary.getFormat(format);
+        result.append("<b>" + lotroFormat.getName() + "</b>");
+        result.append("<ul>");
+        result.append("<li>valid sets: ");
+        for (Integer integer : lotroFormat.getValidSets())
+            result.append(integer + ", ");
+        result.append("</li>");
+        result.append("<li>sites from block: " + lotroFormat.getSiteBlock().getHumanReadable() + "</li>");
+        result.append("<li>Ring-bearer skirmish can be cancelled: " + (lotroFormat.canCancelRingBearerSkirmish() ? "yes" : "no") + "</li>");
+        result.append("<li>X-listed: ");
+        for (String blueprintId : lotroFormat.getBannedCards())
+            result.append(GameUtils.getCardLink(blueprintId, _library.getLotroCardBlueprint(blueprintId)) + ", ");
+        if (lotroFormat.getBannedCards().size() == 0)
+            result.append("none,");
+        result.append("</li>");
+        result.append("<li>R-listed: ");
+        for (String blueprintId : lotroFormat.getRestrictedCards())
+            result.append(GameUtils.getCardLink(blueprintId, _library.getLotroCardBlueprint(blueprintId)) + ", ");
+        if (lotroFormat.getRestrictedCards().size() == 0)
+            result.append("none,");
+        result.append("</li>");
+        result.append("<li>Additional valid: ");
+        for (String blueprintId : lotroFormat.getValidCards())
+            result.append(GameUtils.getCardLink(blueprintId, _library.getLotroCardBlueprint(blueprintId)) + ", ");
+        if (lotroFormat.getValidCards().size() == 0)
+            result.append("none,");
+        result.append("</li>");
+        result.append("</ul>");
+
+        responseWriter.writeHtmlResponse(result.toString());
+    }
+
+    private void getFormats(HttpRequest request, ResponseWriter responseWriter) {
+        StringBuilder result = new StringBuilder();
+        for (LotroFormat lotroFormat : _formatLibrary.getHallFormats().values()) {
+            result.append("<b>" + lotroFormat.getName() + "</b>");
+            result.append("<ul>");
+            result.append("<li>valid sets: ");
+            for (Integer integer : lotroFormat.getValidSets())
+                result.append(integer + ", ");
+            result.append("</li>");
+            result.append("<li>sites from block: " + lotroFormat.getSiteBlock().getHumanReadable() + "</li>");
+            result.append("<li>Ring-bearer skirmish can be cancelled: " + (lotroFormat.canCancelRingBearerSkirmish() ? "yes" : "no") + "</li>");
+            result.append("<li>X-listed: ");
+            for (String blueprintId : lotroFormat.getBannedCards())
+                result.append(GameUtils.getCardLink(blueprintId, _library.getLotroCardBlueprint(blueprintId)) + ", ");
+            if (lotroFormat.getBannedCards().size() == 0)
+                result.append("none,");
+            result.append("</li>");
+            result.append("<li>R-listed: ");
+            for (String blueprintId : lotroFormat.getRestrictedCards())
+                result.append(GameUtils.getCardLink(blueprintId, _library.getLotroCardBlueprint(blueprintId)) + ", ");
+            if (lotroFormat.getRestrictedCards().size() == 0)
+                result.append("none,");
+            result.append("</li>");
+            result.append("<li>Additional valid: ");
+            for (String blueprintId : lotroFormat.getValidCards())
+                result.append(GameUtils.getCardLink(blueprintId, _library.getLotroCardBlueprint(blueprintId)) + ", ");
+            if (lotroFormat.getValidCards().size() == 0)
+                result.append("none,");
+            result.append("</li>");
+            result.append("</ul>");
+        }
+
+        responseWriter.writeHtmlResponse(result.toString());
     }
 
     private void getHall(HttpRequest request, ResponseWriter responseWriter) {
