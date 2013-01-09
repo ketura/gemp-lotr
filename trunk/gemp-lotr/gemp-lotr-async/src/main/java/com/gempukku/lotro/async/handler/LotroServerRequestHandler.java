@@ -2,6 +2,7 @@ package com.gempukku.lotro.async.handler;
 
 import com.gempukku.lotro.async.HttpProcessingException;
 import com.gempukku.lotro.async.LoggedUserHolder;
+import com.gempukku.lotro.collection.TransferDAO;
 import com.gempukku.lotro.db.PlayerDAO;
 import com.gempukku.lotro.game.Player;
 import org.jboss.netty.channel.MessageEvent;
@@ -25,14 +26,22 @@ import static org.jboss.netty.handler.codec.http.HttpHeaders.Names.SET_COOKIE;
 public class LotroServerRequestHandler {
     protected PlayerDAO _playerDao;
     protected LoggedUserHolder _loggedUserHolder;
+    private TransferDAO _transferDAO;
 
     public LotroServerRequestHandler(Map<Type, Object> context) {
         _playerDao = extractObject(context, PlayerDAO.class);
         _loggedUserHolder = extractObject(context, LoggedUserHolder.class);
+        _transferDAO = extractObject(context, TransferDAO.class);
     }
 
     private boolean isTest() {
         return Boolean.valueOf(System.getProperty("test"));
+    }
+
+    protected final void processDeliveryServiceNotification(HttpRequest request, Map<String, String> headersToAdd) {
+        String logged = _loggedUserHolder.getLoggedUser(request);
+        if (logged != null && _transferDAO.hasUndeliveredPackages(logged))
+            headersToAdd.put("Delivery-Service-Package", "true");
     }
 
     protected final Player getResourceOwnerSafely(HttpRequest request, String participantId) throws HttpProcessingException {
