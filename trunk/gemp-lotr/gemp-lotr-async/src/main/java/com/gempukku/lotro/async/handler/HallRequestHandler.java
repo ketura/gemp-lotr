@@ -24,8 +24,6 @@ import org.jboss.netty.handler.codec.http.multipart.HttpPostRequestDecoder;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.Response;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -326,9 +324,9 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
                 }
                 _hallServer.processHall(resourceOwner, channelNumber, new SerializeHallInfoVisitor(doc, hall));
             } catch (SubscriptionExpiredException exp) {
-                throw new WebApplicationException(Response.Status.GONE);
+                throw new HttpProcessingException(410);
             } catch (SubscriptionConflictException exp) {
-                throw new WebApplicationException(Response.Status.CONFLICT);
+                throw new HttpProcessingException(409);
             }
             hall.setAttribute("currency", String.valueOf(_collectionManager.getPlayerCollection(resourceOwner, "permanent").getCurrency()));
 
