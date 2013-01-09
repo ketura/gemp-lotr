@@ -3,6 +3,8 @@ package com.gempukku.lotro.async.handler;
 import com.gempukku.lotro.PrivateInformationException;
 import com.gempukku.lotro.SubscriptionExpiredException;
 import com.gempukku.lotro.async.HttpProcessingException;
+import com.gempukku.lotro.async.LongPollingResource;
+import com.gempukku.lotro.async.LongPollingSystem;
 import com.gempukku.lotro.async.ResponseWriter;
 import com.gempukku.lotro.chat.ChatMessage;
 import com.gempukku.lotro.chat.ChatRoomMediator;
@@ -29,10 +31,12 @@ public class ChatRequestHandler extends LotroServerRequestHandler implements Uri
     private long _longPollingLength = 5000;
     private long _longPollingInterval = 200;
     private ChatServer _chatServer;
+    private LongPollingSystem _longPollingSystem;
 
     public ChatRequestHandler(Map<Type, Object> context) {
         super(context);
         _chatServer = extractObject(context, ChatServer.class);
+        _longPollingSystem = extractObject(context, LongPollingSystem.class);
     }
 
     @Override
@@ -71,32 +75,56 @@ public class ChatRequestHandler extends LotroServerRequestHandler implements Uri
             throw new HttpProcessingException(403);
         }
 
-        try {
-            // Use long polling
-            long start = System.currentTimeMillis();
-            while (System.currentTimeMillis() < start + _longPollingLength && !chatRoom.hasPendingMessages(resourceOwner.getName())) {
-                try {
-                    Thread.sleep(_longPollingInterval);
-                } catch (InterruptedException exp) {
+        ChatUpdateLongPollingResource polledResource = new ChatUpdateLongPollingResource(chatRoom, room, resourceOwner.getName(), responseWriter);
+        if (polledResource.isChanged())
+            polledResource.process();
+        else
+            _longPollingSystem.appendLongPollingResource(polledResource);
+    }
 
-                }
-            }
-            List<ChatMessage> chatMessages = chatRoom.getPendingMessages(resourceOwner.getName());
+    private class ChatUpdateLongPollingResource implements LongPollingResource {
+        private ChatRoomMediator _chatRoom;
+        private String _room;
+        private String _playerId;
+        private ResponseWriter _responseWriter;
 
-            Collection<String> usersInRoom = chatRoom.getUsersInRoom();
-
-            DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
-
-            Document doc = documentBuilder.newDocument();
-
-            serializeChatRoomData(room, chatMessages, usersInRoom, doc);
-
-            responseWriter.writeResponse(doc);
-        } catch (SubscriptionExpiredException exp) {
-            throw new HttpProcessingException(410);
+        private ChatUpdateLongPollingResource(ChatRoomMediator chatRoom, String room, String playerId, ResponseWriter responseWriter) {
+            _chatRoom = chatRoom;
+            _room = room;
+            _playerId = playerId;
+            _responseWriter = responseWriter;
         }
 
+        @Override
+        public boolean isChanged() {
+            try {
+                return _chatRoom.hasPendingMessages(_playerId);
+            } catch (SubscriptionExpiredException e) {
+                return true;
+            }
+        }
+
+        @Override
+        public void process() {
+            try {
+                List<ChatMessage> chatMessages = _chatRoom.getPendingMessages(_playerId);
+
+                Collection<String> usersInRoom = _chatRoom.getUsersInRoom();
+
+                DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+                DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+
+                Document doc = documentBuilder.newDocument();
+
+                serializeChatRoomData(_room, chatMessages, usersInRoom, doc);
+
+                _responseWriter.writeResponse(doc);
+            } catch (SubscriptionExpiredException exp) {
+                _responseWriter.writeError(410);
+            } catch (Exception exp) {
+                _responseWriter.writeError(500);
+            }
+        }
     }
 
     private void getMessages(HttpRequest request, String room, ResponseWriter responseWriter) throws Exception {
