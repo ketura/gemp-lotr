@@ -24,7 +24,7 @@ public class StatusRequestHandler extends LotroServerRequestHandler implements U
     }
 
     @Override
-    public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, MessageEvent e) {
+    public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, MessageEvent e) throws Exception {
         if (uri.equals("") && request.getMethod() == HttpMethod.GET) {
             StringBuilder sb = new StringBuilder();
 

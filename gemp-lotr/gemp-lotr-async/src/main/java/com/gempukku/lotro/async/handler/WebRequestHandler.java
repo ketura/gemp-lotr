@@ -13,7 +13,7 @@ public class WebRequestHandler implements UriRequestHandler {
     private String _root = ApplicationConfiguration.getProperty("web.folder");
 
     @Override
-    public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, MessageEvent e) {
+    public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, MessageEvent e) throws Exception {
         if (uri.equals(""))
             uri = "index.html";
 

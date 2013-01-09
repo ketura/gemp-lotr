@@ -40,21 +40,14 @@ public class ChatRequestHandler extends LotroServerRequestHandler implements Uri
     }
 
     @Override
-    public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, MessageEvent e) {
-        try {
-            if (uri.startsWith("/") && request.getMethod() == HttpMethod.GET) {
-                getMessages(request, URLDecoder.decode(uri.substring(1)), responseWriter);
-            } else if (uri.startsWith("/") && request.getMethod() == HttpMethod.POST) {
-                postMessages(request, URLDecoder.decode(uri.substring(1)), responseWriter);
-            } else {
-                responseWriter.writeError(404);
-            }
-        } catch (HttpProcessingException exp) {
-            responseWriter.writeError(exp.getStatus());
-        } catch (Exception exp) {
-            responseWriter.writeError(500);
+    public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, MessageEvent e) throws Exception {
+        if (uri.startsWith("/") && request.getMethod() == HttpMethod.GET) {
+            getMessages(request, URLDecoder.decode(uri.substring(1)), responseWriter);
+        } else if (uri.startsWith("/") && request.getMethod() == HttpMethod.POST) {
+            postMessages(request, URLDecoder.decode(uri.substring(1)), responseWriter);
+        } else {
+            responseWriter.writeError(404);
         }
-
     }
 
     private void postMessages(HttpRequest request, String room, ResponseWriter responseWriter) throws Exception {

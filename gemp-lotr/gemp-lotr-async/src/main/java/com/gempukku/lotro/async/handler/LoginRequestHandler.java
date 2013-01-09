@@ -21,29 +21,25 @@ public class LoginRequestHandler extends LotroServerRequestHandler implements Ur
     }
 
     @Override
-    public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, MessageEvent e) {
-        try {
-            if (uri.equals("") && request.getMethod() == HttpMethod.POST) {
-                HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
-                String login = getFormParameterSafely(postDecoder, "login");
-                String password = getFormParameterSafely(postDecoder, "password");
+    public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, MessageEvent e) throws Exception {
+        if (uri.equals("") && request.getMethod() == HttpMethod.POST) {
+            HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
+            String login = getFormParameterSafely(postDecoder, "login");
+            String password = getFormParameterSafely(postDecoder, "password");
 
-                Player player = _playerDao.loginUser(login, password);
-                if (player != null) {
-                    if (player.getType().contains("u")) {
-                        responseWriter.writeResponse(null, logUserReturningHeaders(e, login));
-                    } else {
-                        responseWriter.writeError(403);
-                    }
+            Player player = _playerDao.loginUser(login, password);
+            if (player != null) {
+                if (player.getType().contains("u")) {
+                    responseWriter.writeResponse(null, logUserReturningHeaders(e, login));
                 } else {
-                    responseWriter.writeError(401);
+                    responseWriter.writeError(403);
                 }
-
             } else {
-                responseWriter.writeError(404);
+                responseWriter.writeError(401);
             }
-        } catch (Exception exp) {
-            responseWriter.writeError(500);
+
+        } else {
+            responseWriter.writeError(404);
         }
     }
 

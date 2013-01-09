@@ -8,5 +8,5 @@ import java.lang.reflect.Type;
 import java.util.Map;
 
 public interface UriRequestHandler {
-    public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, MessageEvent e);
+    public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, MessageEvent e) throws Exception;
 }

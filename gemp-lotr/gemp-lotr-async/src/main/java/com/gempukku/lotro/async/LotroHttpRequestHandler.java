@@ -84,7 +84,13 @@ public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
                 }
             };
 
-            _uriRequestHandler.handleRequest(uri, request, _objects, responseWriter, e);
+            try {
+                _uriRequestHandler.handleRequest(uri, request, _objects, responseWriter, e);
+            } catch (HttpProcessingException exp) {
+                responseWriter.writeError(exp.getStatus());
+            } catch (Exception exp) {
+                responseWriter.writeError(500);
+            }
         }
     }
 
@@ -160,7 +166,7 @@ public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
         HttpResponse response = new DefaultHttpResponse(HTTP_1_1, HttpResponseStatus.valueOf(status));
 
         if (headers != null) {
-            for (Map.Entry<String, String> header: headers.entrySet())
+            for (Map.Entry<String, String> header : headers.entrySet())
                 response.setHeader(header.getKey(), header.getValue());
         }
 
@@ -184,7 +190,7 @@ public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
             HttpResponse response = new DefaultHttpResponse(HTTP_1_1, OK);
 
             if (headers != null) {
-                for (Map.Entry<String, String> header: headers.entrySet())
+                for (Map.Entry<String, String> header : headers.entrySet())
                     response.setHeader(header.getKey(), header.getValue());
             }
 
