@@ -16,7 +16,7 @@ import javax.ws.rs.core.Response;
 
 public abstract class AbstractResource {
     protected final boolean _test = System.getProperty("test") != null;
-    protected static long _longPollingLength = 5000;
+    protected static long _longPollingLength = 10000;
     protected static long _longPollingInterval = 200;
 
     @Context

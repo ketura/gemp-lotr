@@ -11,7 +11,7 @@ var ChatBoxUI = Class.extend({
     maxMessageCount:500,
     talkBoxHeight:25,
 
-    chatUpdateInterval:1000,
+    chatUpdateInterval:100,
 
     playerListener:null,
     hiddenClasses:null,

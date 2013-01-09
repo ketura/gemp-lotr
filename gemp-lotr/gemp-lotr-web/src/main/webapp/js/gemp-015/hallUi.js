@@ -658,7 +658,7 @@ var GempLotrHallUI = Class.extend({
             if (!skipReload) {
                 setTimeout(function () {
                     that.updateHall();
-                }, 3000);
+                }, 100);
             }
         }
     }
