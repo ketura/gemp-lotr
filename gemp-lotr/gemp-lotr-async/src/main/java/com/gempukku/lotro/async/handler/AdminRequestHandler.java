@@ -52,23 +52,23 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
     @Override
     public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, MessageEvent e) {
         try {
-            if (uri.equals("clearCache") && request.getMethod() == HttpMethod.GET) {
+            if (uri.equals("/clearCache") && request.getMethod() == HttpMethod.GET) {
                 clearCache(request, responseWriter);
-            } else if (uri.equals("shutdown") && request.getMethod() == HttpMethod.GET) {
+            } else if (uri.equals("/shutdown") && request.getMethod() == HttpMethod.GET) {
                 shutdown(request, responseWriter);
-            } else if (uri.equals("setMotd") && request.getMethod() == HttpMethod.POST) {
+            } else if (uri.equals("/setMotd") && request.getMethod() == HttpMethod.POST) {
                 setMotd(request, responseWriter);
-            } else if (uri.equals("previewSealedLeague") && request.getMethod() == HttpMethod.POST) {
+            } else if (uri.equals("/previewSealedLeague") && request.getMethod() == HttpMethod.POST) {
                 previewSealedLeague(request, responseWriter);
-            } else if (uri.equals("addSealedLeague") && request.getMethod() == HttpMethod.POST) {
+            } else if (uri.equals("/addSealedLeague") && request.getMethod() == HttpMethod.POST) {
                 addSealedLeague(request, responseWriter);
-            } else if (uri.equals("previewConstructedLeague") && request.getMethod() == HttpMethod.POST) {
+            } else if (uri.equals("/previewConstructedLeague") && request.getMethod() == HttpMethod.POST) {
                 previewConstructedLeague(request, responseWriter);
-            } else if (uri.equals("addConstructedLeague") && request.getMethod() == HttpMethod.POST) {
+            } else if (uri.equals("/addConstructedLeague") && request.getMethod() == HttpMethod.POST) {
                 addConstructedLeague(request, responseWriter);
-            } else if (uri.equals("addItems") && request.getMethod() == HttpMethod.POST) {
+            } else if (uri.equals("/addItems") && request.getMethod() == HttpMethod.POST) {
                 addItems(request, responseWriter);
-            } else if (uri.equals("addItemsToCollection") && request.getMethod() == HttpMethod.POST) {
+            } else if (uri.equals("/addItemsToCollection") && request.getMethod() == HttpMethod.POST) {
                 addItemsToCollection(request, responseWriter);
             } else {
                 responseWriter.writeError(404);
