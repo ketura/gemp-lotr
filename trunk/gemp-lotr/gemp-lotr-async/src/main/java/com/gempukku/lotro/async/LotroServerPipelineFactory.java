@@ -15,7 +15,23 @@ import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
-public class HttpServerPipelineFactory implements ChannelPipelineFactory {
+public class LotroServerPipelineFactory implements ChannelPipelineFactory {
+    private Map<Type, Object> _context;
+    private UriRequestHandler _uriRequestHandler;
+
+    public LotroServerPipelineFactory() {
+        Map<Type, Object> objects = new HashMap<Type, Object>();
+        objects.put(PacksStorage.class, PacksStorageBuilder.createPacksStorage());
+        DaoBuilder.fillObjectMap(objects);
+        ServerBuilder.fillObjectMap(objects);
+        ServerBuilder.constructObjects(objects);
+
+        objects.put(LoggedUserHolder.class, new LoggedUserHolder());
+
+        _context = objects;
+        _uriRequestHandler = new RootUriRequestHandler(_context);
+    }
+
     public ChannelPipeline getPipeline() throws Exception {
         // Create a default pipeline implementation.
         ChannelPipeline pipeline = Channels.pipeline();
@@ -32,13 +48,7 @@ public class HttpServerPipelineFactory implements ChannelPipelineFactory {
         // Remove the following line if you don't want automatic content compression.
         pipeline.addLast("deflater", new HttpContentCompressor());
 
-        Map<Type, Object> objects = new HashMap<Type, Object>();
-        objects.put(PacksStorage.class, PacksStorageBuilder.createPacksStorage());
-        DaoBuilder.fillObjectMap(objects);
-        ServerBuilder.fillObjectMap(objects);
-        ServerBuilder.constructObjects(objects);
-
-        pipeline.addLast("handler", new HttpRequestHandler(objects));
+        pipeline.addLast("handler", new LotroHttpRequestHandler(_context, _uriRequestHandler));
         return pipeline;
     }
 }
