@@ -28,6 +28,7 @@ public class RootUriRequestHandler implements UriRequestHandler {
     private GameHistoryRequestHandler _gameHistoryRequestHandler;
     private ServerStatsRequestHandler _serverStatsRequestHandler;
     private PlayerStatsRequestHandler _playerStatsRequestHandler;
+    private TournamentRequestHandler _tournamentRequestHandler;
 
     public RootUriRequestHandler(Map<Type, Object> context) {
         _hallRequestHandler = new HallRequestHandler(context);
@@ -46,6 +47,7 @@ public class RootUriRequestHandler implements UriRequestHandler {
         _gameHistoryRequestHandler = new GameHistoryRequestHandler(context);
         _serverStatsRequestHandler = new ServerStatsRequestHandler(context);
         _playerStatsRequestHandler = new PlayerStatsRequestHandler(context);
+        _tournamentRequestHandler = new TournamentRequestHandler(context);
     }
 
     @Override
@@ -84,6 +86,8 @@ public class RootUriRequestHandler implements UriRequestHandler {
             _leagueRequestHandler.handleRequest(uri.substring(_serverContextPath.length()+6), request, context, responseWriter, e);
         } else if (uri.startsWith(_serverContextPath + "merchant")) {
             _merchantRequestHandler.handleRequest(uri.substring(_serverContextPath.length()+8), request, context, responseWriter, e);
+        } else if (uri.startsWith(_serverContextPath + "tournament")) {
+            _tournamentRequestHandler.handleRequest(uri.substring(_serverContextPath.length()+10), request, context, responseWriter, e);
         } else if (uri.equals(_serverContextPath)) {
             _statusRequestHandler.handleRequest(uri.substring(_serverContextPath.length()), request, context, responseWriter, e);
         } else {

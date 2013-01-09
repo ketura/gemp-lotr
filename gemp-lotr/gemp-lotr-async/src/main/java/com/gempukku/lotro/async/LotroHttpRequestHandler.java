@@ -339,7 +339,8 @@ public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, ExceptionEvent e)
             throws Exception {
-        _log.error("Error while processing request", e.getCause());
+        if (!(e.getCause() instanceof IOException))
+            _log.error("Error while processing request", e.getCause());
         e.getChannel().close();
     }
 }
