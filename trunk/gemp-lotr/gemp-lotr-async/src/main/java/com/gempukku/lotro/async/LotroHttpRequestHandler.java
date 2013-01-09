@@ -1,5 +1,6 @@
 package com.gempukku.lotro.async;
 
+import com.gempukku.lotro.async.handler.UriRequestHandler;
 import org.apache.log4j.Logger;
 import org.jboss.netty.buffer.ChannelBuffers;
 import org.jboss.netty.channel.*;

@@ -1,5 +1,6 @@
-package com.gempukku.lotro.async;
+package com.gempukku.lotro.async.handler;
 
+import com.gempukku.lotro.async.ResponseWriter;
 import com.gempukku.lotro.common.ApplicationConfiguration;
 import org.jboss.netty.channel.MessageEvent;
 import org.jboss.netty.handler.codec.http.HttpRequest;
