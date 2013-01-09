@@ -1,5 +1,7 @@
-package com.gempukku.lotro.async;
+package com.gempukku.lotro.async.handler;
 
+import com.gempukku.lotro.async.HttpProcessingException;
+import com.gempukku.lotro.async.LoggedUserHolder;
 import com.gempukku.lotro.db.PlayerDAO;
 import com.gempukku.lotro.game.Player;
 import org.jboss.netty.handler.codec.http.HttpRequest;
@@ -10,6 +12,8 @@ import org.jboss.netty.handler.codec.http.multipart.InterfaceHttpData;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -53,6 +57,21 @@ public class LotroServerRequestHandler {
             return parameterValues.get(0);
         else
             return null;
+    }
+
+    protected List<String> getFormMultipleParametersSafely(HttpPostRequestDecoder postRequestDecoder, String parameterName) throws HttpPostRequestDecoder.NotEnoughDataDecoderException, IOException {
+        List<String> result = new LinkedList<String>();
+        List<InterfaceHttpData> datas = postRequestDecoder.getBodyHttpDatas(parameterName);
+        if (datas == null)
+            return Collections.emptyList();
+        for (InterfaceHttpData data : datas) {
+            if (data.getHttpDataType() == InterfaceHttpData.HttpDataType.Attribute) {
+                Attribute attribute = (Attribute) data;
+                result.add(attribute.getValue());
+            }
+
+        }
+        return result;
     }
 
     protected String getFormParameterSafely(HttpPostRequestDecoder postRequestDecoder, String parameterName) throws IOException, HttpPostRequestDecoder.NotEnoughDataDecoderException {

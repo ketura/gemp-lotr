@@ -1,5 +1,6 @@
-package com.gempukku.lotro.async;
+package com.gempukku.lotro.async.handler;
 
+import com.gempukku.lotro.async.ResponseWriter;
 import com.gempukku.lotro.chat.ChatServer;
 import com.gempukku.lotro.game.GameHistoryService;
 import com.gempukku.lotro.hall.HallServer;
