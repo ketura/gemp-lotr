@@ -108,6 +108,18 @@ public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
                 response.setHeader(PRAGMA, "no-cache");
                 response.setHeader(EXPIRES, -1);
                 response.setHeader(CONTENT_TYPE, "text/html; charset=UTF-8");
+            } else if (fileName.endsWith(".js")) {
+                response.setHeader(CONTENT_TYPE, "application/javascript; charset=UTF-8");
+            } else if (fileName.endsWith(".css")) {
+                response.setHeader(CONTENT_TYPE, "text/css; charset=UTF-8");
+            } else if (fileName.endsWith(".jpg")) {
+                response.setHeader(CONTENT_TYPE, "image/jpeg");
+            } else if (fileName.endsWith(".png")) {
+                response.setHeader(CONTENT_TYPE, "image/png");
+            } else if (fileName.endsWith(".gif")) {
+                response.setHeader(CONTENT_TYPE, "image/gif");
+            } else if (fileName.endsWith(".wav")) {
+                response.setHeader(CONTENT_TYPE, "audio/wav");
             }
 
             Channel ch = e.getChannel();
