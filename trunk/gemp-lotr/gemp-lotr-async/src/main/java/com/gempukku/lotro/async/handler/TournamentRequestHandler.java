@@ -19,8 +19,6 @@ import org.jboss.netty.handler.codec.http.HttpRequest;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.Response;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.lang.reflect.Type;
@@ -66,7 +64,7 @@ public class TournamentRequestHandler extends LotroServerRequestHandler implemen
 
         Tournament tournament = _tournamentService.getTournamentById(tournamentId);
         if (tournament == null)
-            throw new WebApplicationException(Response.Status.NOT_FOUND);
+            throw new HttpProcessingException(404);
 
         Element tournamentElem = doc.createElement("tournament");
 

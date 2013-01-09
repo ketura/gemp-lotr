@@ -12,8 +12,6 @@ import org.jboss.netty.handler.codec.http.QueryStringDecoder;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.Response;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.lang.reflect.Type;
@@ -55,7 +53,7 @@ public class ServerStatsRequestHandler extends LotroServerRequestHandler impleme
                 else if (length.equals("day"))
                     to.setDate(to.getDate() + 1);
                 else
-                    throw new WebApplicationException(Response.Status.BAD_REQUEST);
+                    throw new HttpProcessingException(400);
                 long duration = to.getTime() - from;
 
                 int activePlayers = _gameHistoryService.getActivePlayersCount(from, duration);

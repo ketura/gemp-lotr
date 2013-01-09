@@ -1,5 +1,6 @@
 package com.gempukku.lotro.async.handler;
 
+import com.gempukku.lotro.async.HttpProcessingException;
 import com.gempukku.lotro.async.ResponseWriter;
 import com.gempukku.lotro.db.vo.GameHistoryEntry;
 import com.gempukku.lotro.game.GameHistoryService;
@@ -11,8 +12,6 @@ import org.jboss.netty.handler.codec.http.QueryStringDecoder;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.Response;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.lang.reflect.Type;
@@ -37,7 +36,7 @@ public class GameHistoryRequestHandler extends LotroServerRequestHandler impleme
             int count = Integer.parseInt(getQueryParameterSafely(queryDecoder, "count"));
 
             if (start < 0 || count < 1 || count > 100)
-                throw new WebApplicationException(Response.Status.BAD_REQUEST);
+                throw new HttpProcessingException(400);
 
             Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
