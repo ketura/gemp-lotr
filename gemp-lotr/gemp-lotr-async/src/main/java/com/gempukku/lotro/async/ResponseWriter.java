@@ -13,6 +13,8 @@ public interface ResponseWriter {
 
     public void writeHtmlResponse(String html);
 
+    public void writeByteResponse(String contentType, byte[] bytes);
+
     public void writeResponse(Document document);
 
     public void writeResponse(Document document, Map<String, String> addCookies);
