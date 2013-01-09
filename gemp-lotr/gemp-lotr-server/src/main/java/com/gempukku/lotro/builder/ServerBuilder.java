@@ -1,4 +1,4 @@
-package com.gempukku.lotro.server.provider;
+package com.gempukku.lotro.builder;
 
 import com.gempukku.lotro.chat.ChatServer;
 import com.gempukku.lotro.collection.CollectionsManager;
