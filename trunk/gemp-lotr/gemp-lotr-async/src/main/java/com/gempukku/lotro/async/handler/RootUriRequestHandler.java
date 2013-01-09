@@ -18,6 +18,7 @@ public class RootUriRequestHandler implements UriRequestHandler {
     private DeckRequestHandler _deckRequestHandler;
     private AdminRequestHandler _adminRequestHandler;
     private ChatRequestHandler _chatRequestHandler;
+    private CollectionRequestHandler _collectionRequestHandler;
 
     public RootUriRequestHandler(Map<Type, Object> context) {
         _hallRequestHandler = new HallRequestHandler(context);
@@ -26,6 +27,7 @@ public class RootUriRequestHandler implements UriRequestHandler {
         _statusRequestHandler = new StatusRequestHandler(context);
         _adminRequestHandler = new AdminRequestHandler(context);
         _chatRequestHandler = new ChatRequestHandler(context);
+        _collectionRequestHandler = new CollectionRequestHandler(context);
     }
 
     @Override
@@ -44,6 +46,8 @@ public class RootUriRequestHandler implements UriRequestHandler {
             _adminRequestHandler.handleRequest(uri.substring(_serverContextPath.length()+5), request, context, responseWriter, e);
         } else if (uri.startsWith(_serverContextPath + "chat")) {
             _chatRequestHandler.handleRequest(uri.substring(_serverContextPath.length()+4), request, context, responseWriter, e);
+        } else if (uri.startsWith(_serverContextPath + "collection")) {
+            _collectionRequestHandler.handleRequest(uri.substring(_serverContextPath.length()+10), request, context, responseWriter, e);
         } else if (uri.equals(_serverContextPath)) {
             _statusRequestHandler.handleRequest(uri.substring(_serverContextPath.length()), request, context, responseWriter, e);
         } else {
