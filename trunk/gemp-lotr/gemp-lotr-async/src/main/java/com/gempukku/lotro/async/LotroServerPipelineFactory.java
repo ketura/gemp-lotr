@@ -21,7 +21,7 @@ public class LotroServerPipelineFactory implements ChannelPipelineFactory {
     private Map<Type, Object> _context;
     private UriRequestHandler _uriRequestHandler;
 
-    public LotroServerPipelineFactory() {
+    public LotroServerPipelineFactory(String webPath) {
         Map<Type, Object> objects = new HashMap<Type, Object>();
         objects.put(PacksStorage.class, PacksStorageBuilder.createPacksStorage());
         DaoBuilder.fillObjectMap(objects);
@@ -37,7 +37,7 @@ public class LotroServerPipelineFactory implements ChannelPipelineFactory {
         objects.put(LongPollingSystem.class, longPollingSystem);
 
         _context = objects;
-        _uriRequestHandler = new RootUriRequestHandler(_context);
+        _uriRequestHandler = new RootUriRequestHandler(_context, webPath);
     }
 
     public ChannelPipeline getPipeline() throws Exception {
