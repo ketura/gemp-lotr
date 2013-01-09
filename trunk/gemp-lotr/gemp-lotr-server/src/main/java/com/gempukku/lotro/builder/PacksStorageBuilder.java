@@ -1,4 +1,4 @@
-package com.gempukku.lotro.server.provider;
+package com.gempukku.lotro.builder;
 
 import com.gempukku.lotro.packs.*;
 import org.apache.log4j.Logger;
