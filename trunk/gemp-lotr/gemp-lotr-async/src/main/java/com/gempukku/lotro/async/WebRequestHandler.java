@@ -1,5 +1,6 @@
 package com.gempukku.lotro.async;
 
+import com.gempukku.lotro.common.ApplicationConfiguration;
 import org.jboss.netty.channel.MessageEvent;
 import org.jboss.netty.handler.codec.http.HttpRequest;
 
@@ -8,7 +9,7 @@ import java.lang.reflect.Type;
 import java.util.Map;
 
 public class WebRequestHandler implements UriRequestHandler {
-    private String _root = "I:\\dev\\projects\\gemp-lotr\\gemp-lotr-web\\src\\main\\webapp\\";
+    private String _root = ApplicationConfiguration.getProperty("web.folder");
 
     @Override
     public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, MessageEvent e) {

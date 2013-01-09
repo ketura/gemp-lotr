@@ -7,6 +7,7 @@ import java.util.Map;
 
 public interface ResponseWriter {
     public void writeError(int status);
+    public void writeError(int status, Map<String, String> headers);
 
     public void writeFile(File file);
 

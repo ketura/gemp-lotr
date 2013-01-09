@@ -2,13 +2,17 @@ package com.gempukku.lotro.async;
 
 import com.gempukku.lotro.game.Player;
 import org.jboss.netty.channel.MessageEvent;
+import org.jboss.netty.handler.codec.http.CookieEncoder;
 import org.jboss.netty.handler.codec.http.HttpMethod;
 import org.jboss.netty.handler.codec.http.HttpRequest;
 import org.jboss.netty.handler.codec.http.multipart.HttpPostRequestDecoder;
 
 import java.lang.reflect.Type;
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.Map;
+
+import static org.jboss.netty.handler.codec.http.HttpHeaders.Names.SET_COOKIE;
 
 public class LoginRequestHandler extends LotroServerRequestHandler implements UriRequestHandler {
     public LoginRequestHandler(Map<Type, Object> context) {
@@ -26,7 +30,7 @@ public class LoginRequestHandler extends LotroServerRequestHandler implements Ur
                 Player player = _playerDao.loginUser(login, password);
                 if (player != null) {
                     if (player.getType().contains("u")) {
-                        responseWriter.writeResponse(null, logUserReturningCookies(e, login));
+                        responseWriter.writeResponse(null, logUserReturningHeaders(e, login));
                     } else {
                         responseWriter.writeError(403);
                     }
@@ -42,8 +46,13 @@ public class LoginRequestHandler extends LotroServerRequestHandler implements Ur
         }
     }
 
-    private Map<String, String> logUserReturningCookies(MessageEvent e, String login) throws SQLException {
+    private Map<String, String> logUserReturningHeaders(MessageEvent e, String login) throws SQLException {
         _playerDao.updateLastLoginIp(login, e.getChannel().getRemoteAddress().toString());
-        return _loggedUserHolder.logUser(login);
+
+        CookieEncoder cookieEncoder = new CookieEncoder(true);
+        for (Map.Entry<String, String> cookie : _loggedUserHolder.logUser(login).entrySet())
+            cookieEncoder.addCookie(cookie.getKey(), cookie.getValue());
+
+        return Collections.singletonMap(SET_COOKIE, cookieEncoder.encode());
     }
 }
