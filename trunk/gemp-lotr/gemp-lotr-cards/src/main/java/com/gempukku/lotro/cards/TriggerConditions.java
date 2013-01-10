@@ -281,7 +281,7 @@ public class TriggerConditions {
     public static boolean forEachKilledInASkirmish(LotroGame game, EffectResult effectResult, Filterable killedBy, Filterable... killed) {
         if (effectResult.getType() == EffectResult.Type.FOR_EACH_KILLED
                 && game.getGameState().getCurrentPhase() == Phase.SKIRMISH
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.inSkirmish, killedBy)) {
+                && Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.inSkirmish, killedBy)>0) {
             ForEachKilledResult killResult = (ForEachKilledResult) effectResult;
 
             return Filters.and(killed).accepts(game.getGameState(), game.getModifiersQuerying(), killResult.getKilledCard());

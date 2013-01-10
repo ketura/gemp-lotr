@@ -43,7 +43,7 @@ public class ChooseAndExertCharactersEffect extends ChooseActiveCardsEffect {
                             && modifiersQuerying.getVitality(gameState, physicalCard) > exertTimes;
                 }
             };
-            if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.and(_filters, filter)))
+            if (Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.and(_filters, filter))>0)
                 return filter;
             times--;
         } while (times > 0);

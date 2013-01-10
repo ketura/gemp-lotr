@@ -31,7 +31,7 @@ public class CancelSkirmishEffect extends AbstractEffect {
         return game.getGameState().getSkirmish() != null
                 && !game.getGameState().getSkirmish().isCancelled()
                 && (_involvementFilter == null || Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.and(_involvementFilter, Filters.inSkirmish)) > 0)
-                && (game.getFormat().canCancelRingBearerSkirmish() || !Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.ringBearer, Filters.inSkirmish));
+                && (game.getFormat().canCancelRingBearerSkirmish() || Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.ringBearer, Filters.inSkirmish)==0);
     }
 
     @Override
