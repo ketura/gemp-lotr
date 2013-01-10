@@ -234,8 +234,11 @@ public class HallCommunicationChannel {
         notifyAboutTables(hallChannelVisitor, tablesOnServer);
         _tablePropsOnClient = tablesOnServer;
 
-        if (newMotd.getValue() != null && !newMotd.equals(_lastMotd))
-            hallChannelVisitor.motdChanged((String) newMotd.getValue());
+        if (newMotd.getValue() != null && !newMotd.equals(_lastMotd)) {
+            String newMotdStr = (String) newMotd.getValue();
+            hallChannelVisitor.motdChanged(newMotdStr);
+            _lastMotd = newMotdStr;
+        }
     }
 
     private void notifyAboutTables(HallChannelVisitor hallChannelVisitor, Map<String, Map<String, String>> tablesOnServer) {

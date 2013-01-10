@@ -1,6 +1,7 @@
 package com.gempukku.lotro.async.handler;
 
 import com.gempukku.lotro.async.ResponseWriter;
+import com.gempukku.lotro.common.ApplicationConfiguration;
 import org.jboss.netty.channel.MessageEvent;
 import org.jboss.netty.handler.codec.http.HttpRequest;
 
@@ -30,8 +31,8 @@ public class RootUriRequestHandler implements UriRequestHandler {
     private PlayerStatsRequestHandler _playerStatsRequestHandler;
     private TournamentRequestHandler _tournamentRequestHandler;
 
-    public RootUriRequestHandler(Map<Type, Object> context, String webPath) {
-        _webRequestHandler = new WebRequestHandler(webPath);
+    public RootUriRequestHandler(Map<Type, Object> context) {
+        _webRequestHandler = new WebRequestHandler(ApplicationConfiguration.getProperty("web.path"));
         _hallRequestHandler = new HallRequestHandler(context);
         _deckRequestHandler = new DeckRequestHandler(context);
         _loginRequestHandler = new LoginRequestHandler(context);

@@ -6,10 +6,8 @@ import com.gempukku.lotro.competitive.StandingsProducer;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.draft.DefaultDraft;
 import com.gempukku.lotro.draft.Draft;
-import com.gempukku.lotro.draft.DraftCardChoice;
 import com.gempukku.lotro.draft.DraftPack;
 import com.gempukku.lotro.game.CardCollection;
-import com.gempukku.lotro.game.DeckInvalidException;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 import com.gempukku.lotro.packs.PacksStorage;
 
@@ -169,7 +167,7 @@ public class DefaultTournament implements Tournament {
     }
 
     @Override
-    public void playerSummittedDeck(String player, LotroDeck deck) throws DeckInvalidException {
+    public void playerSummittedDeck(String player, LotroDeck deck) {
         _lock.writeLock().lock();
         try {
             if (_tournamentStage == Stage.DECK_BUILDING && _players.contains(player)) {
@@ -181,6 +179,19 @@ public class DefaultTournament implements Tournament {
         }
     }
 
+    public LotroDeck getPlayerDeck(String player) {
+        _lock.readLock().lock();
+        try {
+            return _playerDecks.get(player);
+        } finally {
+            _lock.readLock().unlock();
+        }
+    }
+
+    public Draft getDraft() {
+        return _draft;
+    }
+
     @Override
     public void playerChosenCard(String playerName, String cardId) {
         _lock.writeLock().lock();
@@ -190,16 +201,6 @@ public class DefaultTournament implements Tournament {
             }
         } finally {
             _lock.writeLock().unlock();
-        }
-    }
-
-    @Override
-    public DraftCardChoice getCardChoice(String playerName) {
-        _lock.readLock().lock();
-        try {
-            return _draft.getCardChoice(playerName);
-        } finally {
-            _lock.readLock().unlock();
         }
     }
 
@@ -236,6 +237,7 @@ public class DefaultTournament implements Tournament {
                         _tournamentStage = Stage.DECK_BUILDING;
                         _tournamentService.updateTournamentStage(_tournamentId, _tournamentStage);
                         _deckBuildStartTime = System.currentTimeMillis();
+                        _draft = null;
                     }
                 }
                 if (_tournamentStage == Stage.DECK_BUILDING) {

@@ -79,7 +79,7 @@ public class GameHistoryRequestHandler extends LotroServerRequestHandler impleme
 
             doc.appendChild(gameHistory);
 
-            responseWriter.writeResponse(doc);
+            responseWriter.writeXmlResponse(doc);
         } else {
             responseWriter.writeError(404);
         }

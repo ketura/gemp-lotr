@@ -72,6 +72,6 @@ public class DeliveryRequestHandler extends LotroServerRequestHandler implements
 
         doc.appendChild(deliveryElem);
 
-        responseWriter.writeResponse(doc);
+        responseWriter.writeXmlResponse(doc);
     }
 }

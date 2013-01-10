@@ -111,7 +111,7 @@ public class ChatRequestHandler extends LotroServerRequestHandler implements Uri
 
                 serializeChatRoomData(_room, chatMessages, usersInRoom, doc);
 
-                _responseWriter.writeResponse(doc);
+                _responseWriter.writeXmlResponse(doc);
             } catch (SubscriptionExpiredException exp) {
                 _responseWriter.writeError(410);
             } catch (Exception exp) {
@@ -140,7 +140,7 @@ public class ChatRequestHandler extends LotroServerRequestHandler implements Uri
 
             serializeChatRoomData(room, chatMessages, usersInRoom, doc);
 
-            responseWriter.writeResponse(doc);
+            responseWriter.writeXmlResponse(doc);
         } catch (PrivateInformationException exp) {
             throw new HttpProcessingException(403);
         }

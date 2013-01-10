@@ -87,9 +87,9 @@ public class MerchantRequestHandler extends LotroServerRequestHandler implements
         Player resourceOwner = getResourceOwnerSafely(request, participantId);
         try {
             _merchantService.tradeForFoil(resourceOwner, blueprintId);
-            responseWriter.writeResponse(null);
+            responseWriter.writeXmlResponse(null);
         } catch (MerchantException exp) {
-            responseWriter.writeResponse(marshalException(exp));
+            responseWriter.writeXmlResponse(marshalException(exp));
         }
     }
 
@@ -102,9 +102,9 @@ public class MerchantRequestHandler extends LotroServerRequestHandler implements
         Player resourceOwner = getResourceOwnerSafely(request, participantId);
         try {
             _merchantService.merchantBuysCard(resourceOwner, blueprintId, price);
-            responseWriter.writeResponse(null);
+            responseWriter.writeXmlResponse(null);
         } catch (MerchantException exp) {
-            responseWriter.writeResponse(marshalException(exp));
+            responseWriter.writeXmlResponse(marshalException(exp));
         }
     }
 
@@ -117,9 +117,9 @@ public class MerchantRequestHandler extends LotroServerRequestHandler implements
         Player resourceOwner = getResourceOwnerSafely(request, participantId);
         try {
             _merchantService.merchantSellsCard(resourceOwner, blueprintId, price);
-            responseWriter.writeResponse(null);
+            responseWriter.writeXmlResponse(null);
         } catch (MerchantException exp) {
-            responseWriter.writeResponse(marshalException(exp));
+            responseWriter.writeXmlResponse(marshalException(exp));
         }
     }
 
@@ -193,7 +193,7 @@ public class MerchantRequestHandler extends LotroServerRequestHandler implements
             merchantElem.appendChild(elem);
         }
 
-        responseWriter.writeResponse(doc);
+        responseWriter.writeXmlResponse(doc);
     }
 
     private Document marshalException(MerchantException e) throws ParserConfigurationException {

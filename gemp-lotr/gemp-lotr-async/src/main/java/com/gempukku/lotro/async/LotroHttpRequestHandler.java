@@ -1,13 +1,19 @@
 package com.gempukku.lotro.async;
 
 import com.gempukku.lotro.async.handler.UriRequestHandler;
+import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.jboss.netty.buffer.ChannelBuffers;
 import org.jboss.netty.channel.*;
 import org.jboss.netty.handler.codec.http.DefaultHttpResponse;
+import static org.jboss.netty.handler.codec.http.HttpHeaders.Names.*;
+import static org.jboss.netty.handler.codec.http.HttpHeaders.is100ContinueExpected;
+import static org.jboss.netty.handler.codec.http.HttpHeaders.isKeepAlive;
 import org.jboss.netty.handler.codec.http.HttpRequest;
 import org.jboss.netty.handler.codec.http.HttpResponse;
 import org.jboss.netty.handler.codec.http.HttpResponseStatus;
+import static org.jboss.netty.handler.codec.http.HttpResponseStatus.*;
+import static org.jboss.netty.handler.codec.http.HttpVersion.HTTP_1_1;
 import org.jboss.netty.util.CharsetUtil;
 import org.w3c.dom.Document;
 
@@ -17,13 +23,9 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.*;
 import java.lang.reflect.Type;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
-
-import static org.jboss.netty.handler.codec.http.HttpHeaders.Names.*;
-import static org.jboss.netty.handler.codec.http.HttpHeaders.is100ContinueExpected;
-import static org.jboss.netty.handler.codec.http.HttpHeaders.isKeepAlive;
-import static org.jboss.netty.handler.codec.http.HttpResponseStatus.*;
-import static org.jboss.netty.handler.codec.http.HttpVersion.HTTP_1_1;
 
 public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
     private Logger _log = Logger.getLogger(LotroHttpRequestHandler.class);
@@ -64,13 +66,13 @@ public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
                 }
 
                 @Override
-                public void writeResponse(Document document) {
-                    writeHttpResponse(request, document, null, e);
+                public void writeXmlResponse(Document document) {
+                    writeHttpXmlResponse(request, document, null, e);
                 }
 
                 @Override
-                public void writeResponse(Document document, Map<String, String> headers) {
-                    writeHttpResponse(request, document, headers, e);
+                public void writeXmlResponse(Document document, Map<String, String> headers) {
+                    writeHttpXmlResponse(request, document, headers, e);
                 }
 
                 @Override
@@ -80,7 +82,9 @@ public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
 
                 @Override
                 public void writeByteResponse(String contentType, byte[] bytes) {
-                    writeHttpByteResponse(request, contentType, bytes, e);
+                    Map<String, String> headers = new HashMap<String, String>();
+                    headers.put(CONTENT_TYPE, contentType);
+                    writeHttpByteResponse(request, bytes, headers, e);
                 }
 
                 @Override
@@ -99,70 +103,62 @@ public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
         }
     }
 
+    private Map<String, byte[]> _fileCache = Collections.synchronizedMap(new HashMap<String, byte[]>());
+
     private void writeFileResponse(HttpRequest request, File file, MessageEvent e) {
         try {
-            RandomAccessFile raf;
-            try {
-                raf = new RandomAccessFile(file, "r");
-            } catch (FileNotFoundException fnfe) {
-                writeHttpErrorResponse(request, 404, null, e);
-                return;
-            }
-            long fileLength = raf.length();
-
-
-            HttpResponse response = new DefaultHttpResponse(HTTP_1_1, OK);
-            response.setHeader(CONTENT_LENGTH, fileLength);
-
-            String fileName = file.getName();
-            if (fileName.endsWith(".html")) {
-                response.setHeader(CACHE_CONTROL, "no-cache");
-                response.setHeader(PRAGMA, "no-cache");
-                response.setHeader(EXPIRES, -1);
-                response.setHeader(CONTENT_TYPE, "text/html; charset=UTF-8");
-            } else if (fileName.endsWith(".js")) {
-                response.setHeader(CONTENT_TYPE, "application/javascript; charset=UTF-8");
-            } else if (fileName.endsWith(".css")) {
-                response.setHeader(CONTENT_TYPE, "text/css; charset=UTF-8");
-            } else if (fileName.endsWith(".jpg")) {
-                response.setHeader(CONTENT_TYPE, "image/jpeg");
-            } else if (fileName.endsWith(".png")) {
-                response.setHeader(CONTENT_TYPE, "image/png");
-            } else if (fileName.endsWith(".gif")) {
-                response.setHeader(CONTENT_TYPE, "image/gif");
-            } else if (fileName.endsWith(".wav")) {
-                response.setHeader(CONTENT_TYPE, "audio/wav");
-            }
-
-            Channel ch = e.getChannel();
-
-            // Write the initial line and the header.
-            ch.write(response);
-
-            // Write the content.
-            ChannelFuture writeFuture;
-            // No encryption - use zero-copy.
-            final FileRegion region =
-                    new DefaultFileRegion(raf.getChannel(), 0, fileLength);
-            writeFuture = ch.write(region);
-            writeFuture.addListener(new ChannelFutureProgressListener() {
-                public void operationComplete(ChannelFuture future) {
-                    region.releaseExternalResources();
+            String canonicalPath = file.getCanonicalPath();
+            byte[] fileBytes = _fileCache.get(canonicalPath);
+            if (fileBytes == null) {
+                if (!file.exists() || !file.isFile()) {
+                    writeHttpErrorResponse(request, 404, null, e);
+                    return;
                 }
 
-                public void operationProgressed(
-                        ChannelFuture future, long amount, long current, long total) {
+                FileInputStream fis = new FileInputStream(file);
+                try {
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    IOUtils.copyLarge(fis, baos);
+                    fileBytes = baos.toByteArray();
+                    _fileCache.put(canonicalPath, fileBytes);
+                } finally {
+                    IOUtils.closeQuietly(fis);
                 }
-            });
-
-            // Decide whether to close the connection or not.
-            if (!isKeepAlive(request)) {
-                // Close the connection when the whole content is written out.
-                writeFuture.addListener(ChannelFutureListener.CLOSE);
             }
+
+            writeHttpByteResponse(request, fileBytes, getHeadersForFile(file), e);
         } catch (IOException exp) {
             writeHttpErrorResponse(request, 500, null, e);
         }
+    }
+
+    private Map<String, String> getHeadersForFile(File file) {
+        Map<String, String> headers = new HashMap<String, String>();
+
+        String fileName = file.getName();
+        String contentType;
+        if (fileName.endsWith(".html")) {
+            headers.put(CACHE_CONTROL, "no-cache");
+            headers.put(PRAGMA, "no-cache");
+            headers.put(EXPIRES, String.valueOf(-1));
+            contentType = "text/html; charset=UTF-8";
+        } else if (fileName.endsWith(".js")) {
+            contentType = "application/javascript; charset=UTF-8";
+        } else if (fileName.endsWith(".css")) {
+            contentType = "text/css; charset=UTF-8";
+        } else if (fileName.endsWith(".jpg")) {
+            contentType = "image/jpeg";
+        } else if (fileName.endsWith(".png")) {
+            contentType = "image/png";
+        } else if (fileName.endsWith(".gif")) {
+            contentType = "image/gif";
+        } else if (fileName.endsWith(".wav")) {
+            contentType = "audio/wav";
+        } else {
+            contentType = "application/octet-stream";
+        }
+        headers.put(CONTENT_TYPE, contentType);
+        return headers;
     }
 
     private void writeHttpErrorResponse(HttpRequest request, int status, Map<String, String> headers, MessageEvent e) {
@@ -186,7 +182,7 @@ public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
         }
     }
 
-    private void writeHttpByteResponse(HttpRequest request, String contentType, byte[] bytes, MessageEvent e) {
+    private void writeHttpByteResponse(HttpRequest request, byte[] bytes, Map<String, String> headers, MessageEvent e) {
         // Decide whether to close the connection or not.
         boolean keepAlive = isKeepAlive(request);
 
@@ -194,11 +190,14 @@ public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
             // Build the response object.
             HttpResponse response = new DefaultHttpResponse(HTTP_1_1, OK);
 
-            int length = 0;
-                response.setContent(ChannelBuffers.copiedBuffer(bytes));
-                response.setHeader(CONTENT_TYPE, contentType);
+            if (headers != null) {
+                for (Map.Entry<String, String> header : headers.entrySet())
+                    response.setHeader(header.getKey(), header.getValue());
+            }
 
-                length = bytes.length;
+            response.setContent(ChannelBuffers.copiedBuffer(bytes));
+
+            int length = bytes.length;
 
             if (keepAlive) {
                 // Add 'Content-Length' header only for a keep-alive connection.
@@ -226,7 +225,7 @@ public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
         }
     }
 
-    private void writeHttpResponse(HttpRequest request, Document document, Map<String, String> headers, MessageEvent e) {
+    private void writeHttpXmlResponse(HttpRequest request, Document document, Map<String, String> headers, MessageEvent e) {
         // Decide whether to close the connection or not.
         boolean keepAlive = isKeepAlive(request);
 

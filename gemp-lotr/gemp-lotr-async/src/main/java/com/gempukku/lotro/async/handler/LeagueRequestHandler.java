@@ -64,7 +64,7 @@ public class LeagueRequestHandler extends LotroServerRequestHandler implements U
         if (!_leagueService.playerJoinsLeague(league, resourceOwner, e.getRemoteAddress().toString()))
             throw new HttpProcessingException(409);
 
-        responseWriter.writeResponse(null);
+        responseWriter.writeXmlResponse(null);
     }
 
     private void getLeagueInformation(HttpRequest request, String leagueType, ResponseWriter responseWriter) throws Exception {
@@ -139,7 +139,7 @@ public class LeagueRequestHandler extends LotroServerRequestHandler implements U
 
         doc.appendChild(leagueElem);
 
-        responseWriter.writeResponse(doc);
+        responseWriter.writeXmlResponse(doc);
     }
 
     private void getNonExpiredLeagues(HttpRequest request, ResponseWriter responseWriter) throws Exception {
@@ -167,7 +167,7 @@ public class LeagueRequestHandler extends LotroServerRequestHandler implements U
 
         doc.appendChild(leagues);
 
-        responseWriter.writeResponse(doc);
+        responseWriter.writeXmlResponse(doc);
     }
 
     public League getLeagueByType(String type) {

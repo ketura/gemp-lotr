@@ -28,7 +28,10 @@ public class WebRequestHandler implements UriRequestHandler {
             responseWriter.writeError(403);
         } else {
             File file = new File(_root + uri);
-            responseWriter.writeFile(file);
+            if (!file.getCanonicalPath().startsWith(_root))
+                responseWriter.writeError(403);
+            else
+                responseWriter.writeFile(file);
         }
     }
 }
