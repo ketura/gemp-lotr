@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.effects;
 
+import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.common.Zone;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
@@ -27,7 +27,7 @@ public class LiberateASiteEffect extends AbstractEffect {
 
     @Override
     public boolean isPlayableInFull(LotroGame game) {
-        return Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.siteControlledByShadowPlayer(game.getGameState().getCurrentPlayerId())) > 0;
+        return PlayConditions.canLiberateASite(game, _source.getOwner(), _source, _playerId);
     }
 
     @Override

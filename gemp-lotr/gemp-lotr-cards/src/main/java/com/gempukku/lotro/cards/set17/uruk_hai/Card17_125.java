@@ -37,7 +37,7 @@ public class Card17_125 extends AbstractMinion {
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, final LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         if (TriggerConditions.played(game, effectResult, self)
-                && PlayConditions.canLiberateASite(game)) {
+                && PlayConditions.canLiberateASite(game, playerId, self)) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(
                     new LiberateASiteEffect(self) {

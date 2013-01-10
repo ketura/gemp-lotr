@@ -41,7 +41,7 @@ public class Card18_075 extends AbstractMinion {
     @Override
     protected List<? extends Action> getExtraPhaseActions(final String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.MANEUVER, self, 0)
-                && PlayConditions.canLiberateASite(game, playerId)) {
+                && PlayConditions.canLiberateASite(game, playerId, self, playerId)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new LiberateASiteEffect(self, playerId));

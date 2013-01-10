@@ -38,13 +38,35 @@ public class PlayConditions {
         return true;
     }
 
-    public static boolean canLiberateASite(LotroGame game) {
-        return Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.siteControlledByShadowPlayer(game.getGameState().getCurrentPlayerId())) > 0;
+    public static boolean canLiberateASite(LotroGame game, String performingPlayer, PhysicalCard source) {
+        return canLiberateASite(game, performingPlayer, source, null);
     }
 
-    public static boolean canLiberateASite(LotroGame game, String playerId) {
-        return Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.siteControlled(playerId)) > 0;
+    public static boolean canLiberateASite(LotroGame game, String performingPlayer, PhysicalCard source, String controlledByPlayerId) {
+        PhysicalCard siteToLiberate = getSiteToLiberate(game, controlledByPlayerId);
+        return siteToLiberate != null && game.getModifiersQuerying().canBeLiberated(game.getGameState(), performingPlayer, siteToLiberate, source);
     }
+
+    private static PhysicalCard getSiteToLiberate(LotroGame game, String controlledByPlayerId) {
+        int maxUnoccupiedSite = Integer.MAX_VALUE;
+        for (String playerId : game.getGameState().getPlayerOrder().getAllPlayers())
+            maxUnoccupiedSite = Math.min(maxUnoccupiedSite, game.getGameState().getPlayerPosition(playerId) - 1);
+
+        for (int i = maxUnoccupiedSite; i >= 1; i--) {
+            PhysicalCard site = game.getGameState().getSite(i);
+            if (controlledByPlayerId == null) {
+                if (site != null && site.getCardController() != null
+                        && !site.getCardController().equals(game.getGameState().getCurrentPlayerId()))
+                    return site;
+            } else {
+                if (site != null && site.getCardController() != null && site.getCardController().equals(controlledByPlayerId))
+                    return site;
+            }
+        }
+
+        return null;
+    }
+
 
     public static boolean canDiscardFromHand(LotroGame game, String playerId, int count, Filterable... cardFilter) {
         return hasCardInHand(game, playerId, count, cardFilter);

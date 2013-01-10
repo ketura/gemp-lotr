@@ -49,7 +49,7 @@ public class Card17_138 extends AbstractPermanent {
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SKIRMISH, self, 0)
-                && PlayConditions.canLiberateASite(game)) {
+                && PlayConditions.canLiberateASite(game, playerId, self)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new LiberateASiteEffect(self));
