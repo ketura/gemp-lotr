@@ -73,13 +73,13 @@ public class HallServer extends AbstractServer {
         _hallChat = _chatServer.createChatRoom("Game Hall", true, 10);
 
         _tournamentQueues.put("fotr_queue", new SingleEliminationRecurringQueue(635, "fotr_block",
-                CollectionType.MY_CARDS, "fotrQueue-", "Fellowship Block", 8,
+                CollectionType.ALL_CARDS, "fotrQueue-", "Fellowship Block", 8,
                 true, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes("onDemand")));
         _tournamentQueues.put("movie_queue", new SingleEliminationRecurringQueue(635, "movie",
-                CollectionType.MY_CARDS, "movieQueue-", "Movie Block", 8,
+                CollectionType.ALL_CARDS, "movieQueue-", "Movie Block", 8,
                 true, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes("onDemand")));
         _tournamentQueues.put("expanded_queue", new SingleEliminationRecurringQueue(635, "expanded",
-                CollectionType.MY_CARDS, "expandedQueue-", "Expanded", 8,
+                CollectionType.ALL_CARDS, "expandedQueue-", "Expanded", 8,
                 true, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes("onDemand")));
     }
 
