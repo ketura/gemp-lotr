@@ -84,7 +84,7 @@ public class TournamentRequestHandler extends LotroServerRequestHandler implemen
 
         doc.appendChild(tournamentElem);
 
-        responseWriter.writeResponse(doc);
+        responseWriter.writeXmlResponse(doc);
     }
 
     private void setStandingAttributes(PlayerStanding standing, Element standingElem) {
@@ -167,7 +167,7 @@ public class TournamentRequestHandler extends LotroServerRequestHandler implemen
 
         doc.appendChild(tournaments);
 
-        responseWriter.writeResponse(doc);
+        responseWriter.writeXmlResponse(doc);
     }
 
     private void getCurrentTournaments(HttpRequest request, ResponseWriter responseWriter) throws Exception {
@@ -192,6 +192,6 @@ public class TournamentRequestHandler extends LotroServerRequestHandler implemen
 
         doc.appendChild(tournaments);
 
-        responseWriter.writeResponse(doc);
+        responseWriter.writeXmlResponse(doc);
     }
 }

@@ -108,7 +108,7 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
 
         _deckDao.deleteDeckForPlayer(resourceOwner, deckName);
 
-        responseWriter.writeResponse(null);
+        responseWriter.writeXmlResponse(null);
     }
 
     private void renameDeck(HttpRequest request, ResponseWriter responseWriter) throws Exception {
@@ -123,7 +123,7 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
         if (deck == null)
             throw new HttpProcessingException(404);
 
-        responseWriter.writeResponse(serializeDeck(deck));
+        responseWriter.writeXmlResponse(serializeDeck(deck));
     }
 
     private void saveDeck(HttpRequest request, ResponseWriter responseWriter) throws Exception {
@@ -147,7 +147,7 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
         Element deckElem = doc.createElement("ok");
         doc.appendChild(deckElem);
 
-        responseWriter.writeResponse(doc);
+        responseWriter.writeXmlResponse(doc);
     }
 
     private void getDeckInHtml(HttpRequest request, ResponseWriter responseWriter) throws Exception {
@@ -213,9 +213,9 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
             Element deckElem = doc.createElement("deck");
             doc.appendChild(deckElem);
 
-            responseWriter.writeResponse(doc);
+            responseWriter.writeXmlResponse(doc);
         } else {
-            responseWriter.writeResponse(serializeDeck(deck));
+            responseWriter.writeXmlResponse(serializeDeck(deck));
         }
     }
 
@@ -238,7 +238,7 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
             decksElem.appendChild(deckElem);
         }
         doc.appendChild(decksElem);
-        responseWriter.writeResponse(doc);
+        responseWriter.writeXmlResponse(doc);
     }
 
     private Document serializeDeck(LotroDeck deck) throws ParserConfigurationException {

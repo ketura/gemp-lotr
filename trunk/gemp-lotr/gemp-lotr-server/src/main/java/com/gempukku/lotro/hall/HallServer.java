@@ -6,6 +6,9 @@ import com.gempukku.lotro.chat.ChatServer;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.db.vo.League;
+import com.gempukku.lotro.draft.Draft;
+import com.gempukku.lotro.draft.DraftChannelVisitor;
+import com.gempukku.lotro.draft.DraftFinishedException;
 import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.gempukku.lotro.league.LeagueSerieData;
@@ -22,7 +25,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class HallServer extends AbstractServer {
     private final int _playerInactivityPeriod = 1000 * 20; // 20 seconds
-    private final long _scheduledTournamentLoadTime = 1000*60*60*24*7; // Week
+    private final long _scheduledTournamentLoadTime = 1000 * 60 * 60 * 24 * 7; // Week
 
     private ChatServer _chatServer;
     private LeagueService _leagueService;
@@ -51,12 +54,13 @@ public class HallServer extends AbstractServer {
     private int _nextChannelNumber = 0;
 
     private Map<String, Tournament> _runningTournaments = new LinkedHashMap<String, Tournament>();
+
     private Map<String, TournamentQueue> _tournamentQueues = new LinkedHashMap<String, TournamentQueue>();
     private final ChatRoomMediator _hallChat;
 
     public HallServer(LotroServer lotroServer, ChatServer chatServer, LeagueService leagueService, TournamentService tournamentService, LotroCardBlueprintLibrary library,
                       LotroFormatLibrary formatLibrary, CollectionsManager collectionsManager, TournamentPrizeSchemeRegistry tournamentPrizeSchemeRegistry,
-                      PairingMechanismRegistry pairingMechanismRegistry, boolean test) {
+                      PairingMechanismRegistry pairingMechanismRegistry) {
         _lotroServer = lotroServer;
         _chatServer = chatServer;
         _leagueService = leagueService;
@@ -261,6 +265,95 @@ public class HallServer extends AbstractServer {
         }
     }
 
+    public void singupForDraft(String tournamentId, Player player, DraftChannelVisitor draftChannelVisitor)
+            throws DraftFinishedException {
+        _hallDataAccessLock.readLock().lock();
+        try {
+            Tournament tournament = _runningTournaments.get(tournamentId);
+            if (tournament == null)
+                throw new DraftFinishedException();
+            Draft draft = tournament.getDraft();
+            if (draft == null)
+                throw new DraftFinishedException();
+            draft.signUpForDraft(player.getName(), draftChannelVisitor);
+            CardCollection cardCollection = _collectionsManager.getPlayerCollection(player, tournament.getCollectionType().getCode());
+            draftChannelVisitor.chosenCards(cardCollection);
+        } finally {
+            _hallDataAccessLock.readLock().unlock();
+        }
+    }
+
+    public void draftPick(String tournamentId, Player player, String blueprintId)
+            throws DraftFinishedException {
+        _hallDataAccessLock.readLock().lock();
+        try {
+            Tournament tournament = _runningTournaments.get(tournamentId);
+            if (tournament == null)
+                throw new DraftFinishedException();
+            Draft draft = tournament.getDraft();
+            if (draft == null)
+                throw new DraftFinishedException();
+            draft.playerChosenCard(player.getName(), blueprintId);
+        } finally {
+            _hallDataAccessLock.readLock().unlock();
+        }
+    }
+
+    public boolean hasChangesInDraft(String tournamentId, Player player, int channelNumber)
+            throws DraftFinishedException, SubscriptionConflictException, SubscriptionExpiredException {
+        _hallDataAccessLock.readLock().lock();
+        try {
+            Tournament tournament = _runningTournaments.get(tournamentId);
+            if (tournament == null)
+                throw new DraftFinishedException();
+            Draft draft = tournament.getDraft();
+            if (draft == null)
+                throw new DraftFinishedException();
+            return draft.hasChanges(player.getName(), channelNumber);
+        } finally {
+            _hallDataAccessLock.readLock().unlock();
+        }
+    }
+
+    public void processChangesInDraft(String tournamentId, Player player, int channelNumber, DraftChannelVisitor draftChannelVisitor)
+            throws DraftFinishedException, SubscriptionConflictException, SubscriptionExpiredException {
+        _hallDataAccessLock.readLock().lock();
+        try {
+            Tournament tournament = _runningTournaments.get(tournamentId);
+            if (tournament == null)
+                throw new DraftFinishedException();
+            Draft draft = tournament.getDraft();
+            if (draft == null)
+                throw new DraftFinishedException();
+            draft.processDraft(player.getName(), channelNumber, draftChannelVisitor);
+            CardCollection cardCollection = _collectionsManager.getPlayerCollection(player, tournament.getCollectionType().getCode());
+            draftChannelVisitor.chosenCards(cardCollection);
+        } finally {
+            _hallDataAccessLock.readLock().unlock();
+        }
+    }
+
+    public void submitTournamentDeck(String tournamentId, Player player, LotroDeck lotroDeck)
+            throws HallException {
+        _hallDataAccessLock.readLock().lock();
+        try {
+            Tournament tournament = _runningTournaments.get(tournamentId);
+            if (tournament == null)
+                throw new HallException("Tournament no longer accepts deck");
+            LotroFormat format = _formatLibrary.getFormat(tournament.getFormat());
+
+            try {
+                validateUserAndDeck(format, player, tournament.getCollectionType(), lotroDeck);
+
+                tournament.playerSummittedDeck(player.getName(), lotroDeck);
+            } catch (DeckInvalidException exp) {
+                throw new HallException("Your deck is not valid in the tournament format: " + exp.getMessage());
+            }
+        } finally {
+            _hallDataAccessLock.readLock().unlock();
+        }
+    }
+
     public void leaveAwaitingTables(Player player) {
         _hallDataAccessLock.writeLock().lock();
         try {
@@ -398,10 +491,16 @@ public class HallServer extends AbstractServer {
             throw new HallException("You don't have a deck registered yet");
 
         try {
-            format.validateDeck(lotroDeck);
+            lotroDeck = validateUserAndDeck(format, player, collectionType, lotroDeck);
         } catch (DeckInvalidException e) {
             throw new HallException("Your selected deck is not valid for this format: " + e.getMessage());
         }
+
+        return lotroDeck;
+    }
+
+    private LotroDeck validateUserAndDeck(LotroFormat format, Player player, CollectionType collectionType, LotroDeck lotroDeck) throws HallException, DeckInvalidException {
+        format.validateDeck(lotroDeck);
 
         // Now check if player owns all the cards
         if (collectionType.getCode().equals("default")) {
@@ -448,7 +547,6 @@ public class HallServer extends AbstractServer {
                 }
             }
         }
-
         return lotroDeck;
     }
 
@@ -591,9 +689,9 @@ public class HallServer extends AbstractServer {
             }
 
             if (_tickCounter == 60) {
-                _tickCounter =0;
+                _tickCounter = 0;
                 List<TournamentQueueInfo> unstartedTournamentQueues = _tournamentService.getUnstartedScheduledTournamentQueues(
-                        System.currentTimeMillis()+_scheduledTournamentLoadTime);
+                        System.currentTimeMillis() + _scheduledTournamentLoadTime);
                 for (TournamentQueueInfo unstartedTournamentQueue : unstartedTournamentQueues) {
                     String scheduledTournamentId = unstartedTournamentQueue.getScheduledTournamentId();
                     if (!_tournamentQueues.containsKey(scheduledTournamentId)) {
@@ -660,7 +758,7 @@ public class HallServer extends AbstractServer {
         @Override
         public void broadcastMessage(String message) {
             try {
-            _hallChat.sendMessage("TournamentSystem", message, true);
+                _hallChat.sendMessage("TournamentSystem", message, true);
             } catch (PrivateInformationException exp) {
                 // Ignore, sent as admin
             }

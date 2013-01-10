@@ -144,7 +144,7 @@ public class CollectionRequestHandler extends LotroServerRequestHandler implemen
         Map<String, String> headers = new HashMap<String, String>();
         processDeliveryServiceNotification(request, headers);
         
-        responseWriter.writeResponse(doc, headers);
+        responseWriter.writeXmlResponse(doc, headers);
     }
 
     private CardCollection constructCollection(Player player, String collectionType) {
@@ -189,7 +189,7 @@ public class CollectionRequestHandler extends LotroServerRequestHandler implemen
             }
         }
 
-        responseWriter.writeResponse(doc);
+        responseWriter.writeXmlResponse(doc);
     }
 
     private void getCollectionTypes(HttpRequest request, ResponseWriter responseWriter) throws Exception {
@@ -218,7 +218,7 @@ public class CollectionRequestHandler extends LotroServerRequestHandler implemen
 
         doc.appendChild(collectionsElem);
 
-        responseWriter.writeResponse(doc);
+        responseWriter.writeXmlResponse(doc);
     }
 
     private CollectionType createCollectionType(String collectionType) {

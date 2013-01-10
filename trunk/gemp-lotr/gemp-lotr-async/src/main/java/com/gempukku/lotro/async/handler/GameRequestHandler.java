@@ -131,7 +131,7 @@ public class GameRequestHandler extends LotroServerRequestHandler implements Uri
 
                 doc.appendChild(update);
 
-                _responseWriter.writeResponse(doc);
+                _responseWriter.writeXmlResponse(doc);
             } catch (SubscriptionConflictException exp) {
                 _responseWriter.writeError(409);
             } catch (PrivateInformationException e) {
@@ -156,7 +156,7 @@ public class GameRequestHandler extends LotroServerRequestHandler implements Uri
 
         gameMediator.cancel(resourceOwner);
 
-        responseWriter.writeResponse(null);
+        responseWriter.writeXmlResponse(null);
     }
 
     private void concede(HttpRequest request, String gameId, ResponseWriter responseWriter) throws Exception {
@@ -171,7 +171,7 @@ public class GameRequestHandler extends LotroServerRequestHandler implements Uri
 
         gameMediator.concede(resourceOwner);
 
-        responseWriter.writeResponse(null);
+        responseWriter.writeXmlResponse(null);
     }
 
     private void getCardInfo(HttpRequest request, String gameId, ResponseWriter responseWriter) throws Exception {
@@ -214,7 +214,7 @@ public class GameRequestHandler extends LotroServerRequestHandler implements Uri
 
         doc.appendChild(gameState);
 
-        responseWriter.writeResponse(doc);
+        responseWriter.writeXmlResponse(doc);
     }
 
     private Set<Phase> getAutoPassPhases(HttpRequest request) {

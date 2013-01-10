@@ -1,5 +1,7 @@
 package com.gempukku.lotro.draft;
 
+import com.gempukku.lotro.SubscriptionConflictException;
+import com.gempukku.lotro.SubscriptionExpiredException;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.game.CardCollection;
@@ -31,6 +33,9 @@ public class DefaultDraft implements Draft {
     private int _nextPackIndex = 0;
 
     private boolean _finishedDraft;
+
+    private Map<String, DraftCommunicationChannel> _playerDraftCommunications = new HashMap<String, DraftCommunicationChannel>();
+    private int _nextChannelNumber = 0;
 
     public DefaultDraft(CollectionsManager collectionsManager, CollectionType collectionType, PacksStorage packsStorage, DraftPack draftPack, Set<String> players) {
         _collectionsManager = collectionsManager;
@@ -71,8 +76,39 @@ public class DefaultDraft implements Draft {
         playerChosen(playerName, cardId);
     }
 
-    @Override
-    public DraftCardChoice getCardChoice(String playerName) {
+    public void signUpForDraft(String playerName, DraftChannelVisitor draftChannelVisitor) {
+        DraftCommunicationChannel draftCommunicationChannel = new DraftCommunicationChannel(_nextChannelNumber++);
+        _playerDraftCommunications.put(playerName, draftCommunicationChannel);
+        draftCommunicationChannel.processCommunicationChannel(getCardChoice(playerName), draftChannelVisitor);
+    }
+
+    public boolean hasChanges(String playerName, int channelNumber) throws SubscriptionExpiredException, SubscriptionConflictException {
+        DraftCommunicationChannel communicationChannel = _playerDraftCommunications.get(playerName);
+        if (communicationChannel != null) {
+            if (communicationChannel.getChannelNumber() == channelNumber) {
+                return communicationChannel.hasChangesInCommunicationChannel(getCardChoice(playerName));
+            } else {
+                throw new SubscriptionConflictException();
+            }
+        } else {
+            throw new SubscriptionExpiredException();
+        }
+    }
+
+    public void processDraft(String playerName, int channelNumber, DraftChannelVisitor draftChannelVisitor) throws SubscriptionExpiredException, SubscriptionConflictException {
+        DraftCommunicationChannel communicationChannel = _playerDraftCommunications.get(playerName);
+        if (communicationChannel != null) {
+            if (communicationChannel.getChannelNumber() == channelNumber) {
+                communicationChannel.processCommunicationChannel(getCardChoice(playerName), draftChannelVisitor);
+            } else {
+                throw new SubscriptionConflictException();
+            }
+        } else {
+            throw new SubscriptionExpiredException();
+        }
+    }
+
+    private DraftCardChoice getCardChoice(String playerName) {
         MutableCardCollection cardChoice = _cardChoice.get(playerName);
 
         return new DefaultDraftCardChoice(cardChoice, _lastPickStart + PICK_TIME);

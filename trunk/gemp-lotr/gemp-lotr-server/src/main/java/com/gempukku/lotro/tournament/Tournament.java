@@ -3,8 +3,7 @@ package com.gempukku.lotro.tournament;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.competitive.PlayerStanding;
 import com.gempukku.lotro.db.vo.CollectionType;
-import com.gempukku.lotro.draft.DraftCardChoice;
-import com.gempukku.lotro.game.DeckInvalidException;
+import com.gempukku.lotro.draft.Draft;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 
 import java.util.List;
@@ -39,10 +38,12 @@ public interface Tournament {
     public void reportGameFinished(String winner, String loser);
 
     public void playerChosenCard(String playerName, String cardId);
-    public void playerSummittedDeck(String player, LotroDeck deck) throws DeckInvalidException;
+    public void playerSummittedDeck(String player, LotroDeck deck);
+    public LotroDeck getPlayerDeck(String player);
     public boolean dropPlayer(String player);
 
-    public DraftCardChoice getCardChoice(String playerName);
+    public Draft getDraft();
+
     public List<PlayerStanding> getCurrentStandings();
 
     public boolean isPlayerInCompetition(String player);

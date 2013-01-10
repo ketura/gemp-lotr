@@ -25,7 +25,7 @@ public class LoginRequestHandler extends LotroServerRequestHandler implements Ur
             Player player = _playerDao.loginUser(login, password);
             if (player != null) {
                 if (player.getType().contains("u")) {
-                    responseWriter.writeResponse(null, logUserReturningHeaders(e, login));
+                    responseWriter.writeXmlResponse(null, logUserReturningHeaders(e, login));
                 } else {
                     responseWriter.writeError(403);
                 }

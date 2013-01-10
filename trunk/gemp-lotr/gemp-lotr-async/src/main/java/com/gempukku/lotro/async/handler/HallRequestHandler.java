@@ -8,9 +8,9 @@ import com.gempukku.lotro.async.LongPollingSystem;
 import com.gempukku.lotro.async.ResponseWriter;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.db.vo.League;
-import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
-import com.gempukku.lotro.game.LotroFormat;
-import com.gempukku.lotro.game.Player;
+import com.gempukku.lotro.draft.DraftChannelVisitor;
+import com.gempukku.lotro.draft.DraftFinishedException;
+import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.gempukku.lotro.hall.HallChannelVisitor;
 import com.gempukku.lotro.hall.HallException;
@@ -18,6 +18,7 @@ import com.gempukku.lotro.hall.HallServer;
 import com.gempukku.lotro.league.LeagueSerieData;
 import com.gempukku.lotro.league.LeagueService;
 import com.gempukku.lotro.logic.GameUtils;
+import com.gempukku.lotro.logic.vo.LotroDeck;
 import org.jboss.netty.channel.MessageEvent;
 import org.jboss.netty.handler.codec.http.HttpMethod;
 import org.jboss.netty.handler.codec.http.HttpRequest;
@@ -39,9 +40,8 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
     private HallServer _hallServer;
     private LeagueService _leagueService;
     private LotroCardBlueprintLibrary _library;
-    private long _longPollingLength = 5000;
-    private long _longPollingInterval = 200;
     private LongPollingSystem _longPollingSystem;
+    private LotroServer _lotroServer;
 
     public HallRequestHandler(Map<Type, Object> context) {
         super(context);
@@ -51,6 +51,7 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
         _leagueService = extractObject(context, LeagueService.class);
         _library = extractObject(context, LotroCardBlueprintLibrary.class);
         _longPollingSystem = extractObject(context, LongPollingSystem.class);
+        _lotroServer = extractObject(context, LotroServer.class);
     }
 
     @Override
@@ -61,6 +62,12 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
             createTable(request, responseWriter);
         } else if (uri.equals("/update") && request.getMethod() == HttpMethod.POST) {
             updateHall(request, responseWriter);
+        } else if (uri.startsWith("/draft/") && uri.endsWith("/update") && request.getMethod() == HttpMethod.POST) {
+            updateDraft(request, uri.substring(7, uri.length() - 7), responseWriter);
+        } else if (uri.startsWith("/draft/") && uri.endsWith("/pick") && request.getMethod() == HttpMethod.POST) {
+            draftPick(request, uri.substring(7, uri.length() - 5), responseWriter);
+        } else if (uri.startsWith("/draft/") && request.getMethod() == HttpMethod.GET) {
+            getDraft(request, uri.substring(7), responseWriter);
         } else if (uri.equals("/formats/html") && request.getMethod() == HttpMethod.GET) {
             getFormats(request, responseWriter);
         } else if (uri.startsWith("/format/") && request.getMethod() == HttpMethod.GET) {
@@ -71,6 +78,8 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
             } else {
                 joinQueue(request, uri.substring(7), responseWriter);
             }
+        } else if (uri.startsWith("/tournament/") && uri.endsWith("/deck") && request.getMethod() == HttpMethod.POST) {
+            submitTournamentDeck(request, uri.substring(12, uri.length()-5), responseWriter);
         } else if (uri.startsWith("/tournament/") && uri.endsWith("/leave") && request.getMethod() == HttpMethod.POST) {
             dropFromTournament(request, uri.substring(12, uri.length() - 6), responseWriter);
         } else if (uri.equals("/leave") && request.getMethod() == HttpMethod.POST) {
@@ -82,76 +91,199 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
         }
     }
 
+    private void submitTournamentDeck(HttpRequest request, String tournamentId, ResponseWriter responseWriter) throws Exception {
+        HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
+        String participantId = getFormParameterSafely(postDecoder, "participantId");
+        String contents = getFormParameterSafely(postDecoder, "deckContents");
+        Player resourceOwner = getResourceOwnerSafely(request, participantId);
+
+        LotroDeck lotroDeck = _lotroServer.createDeckWithValidate("Limited deck", contents);
+        if (lotroDeck == null)
+            throw new HttpProcessingException(400);
+
+        try {
+            _hallServer.submitTournamentDeck(tournamentId, resourceOwner, lotroDeck);
+            responseWriter.writeXmlResponse(null);
+        } catch (HallException e) {
+            responseWriter.writeXmlResponse(marshalException(e));
+        }
+    }
+
+    private void draftPick(HttpRequest request, String tournamentId, ResponseWriter responseWriter) throws Exception {
+        HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
+        String participantId = getFormParameterSafely(postDecoder, "participantId");
+        String blueprintId = getFormParameterSafely(postDecoder, "blueprintId");
+        Player resourceOwner = getResourceOwnerSafely(request, participantId);
+
+        try {
+            _hallServer.draftPick(tournamentId, resourceOwner, blueprintId);
+            responseWriter.writeXmlResponse(null);
+        } catch (DraftFinishedException exp) {
+            responseWriter.writeError(204);
+        }
+    }
+
+    private void updateDraft(HttpRequest request, String tournamentId, ResponseWriter responseWriter) throws Exception {
+        HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
+        String participantId = getFormParameterSafely(postDecoder, "participantId");
+        int channelNumber = Integer.parseInt(getFormParameterSafely(postDecoder, "channelNumber"));
+        Player resourceOwner = getResourceOwnerSafely(request, participantId);
+
+        DraftUpdateLongPollingResource polledResource = new DraftUpdateLongPollingResource(tournamentId, resourceOwner, channelNumber, responseWriter);
+        if (polledResource.isChanged())
+            polledResource.process();
+        else
+            _longPollingSystem.appendLongPollingResource(polledResource);
+    }
+
+    private class DraftUpdateLongPollingResource implements LongPollingResource {
+        private Player _player;
+        private int _channelNumber;
+        private String _tournamentId;
+        private ResponseWriter _responseWriter;
+
+        private DraftUpdateLongPollingResource(String tournamentId, Player player, int channelNumber, ResponseWriter responseWriter) {
+            _tournamentId = tournamentId;
+            _player = player;
+            _channelNumber = channelNumber;
+            _responseWriter = responseWriter;
+        }
+
+        public boolean isChanged() {
+            try {
+                return _hallServer.hasChangesInDraft(_tournamentId, _player, _channelNumber);
+            } catch (DraftFinishedException e) {
+                return true;
+            } catch (SubscriptionConflictException e) {
+                return true;
+            } catch (SubscriptionExpiredException e) {
+                return true;
+            }
+        }
+
+        public void process() {
+            try {
+                DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+                DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+
+                Document doc = documentBuilder.newDocument();
+
+                Element draft = doc.createElement("draft");
+
+                try {
+                    _hallServer.processChangesInDraft(_tournamentId, _player, _channelNumber, new SerializeDraftVisitor(doc, draft));
+
+                    doc.appendChild(draft);
+
+                    _responseWriter.writeXmlResponse(doc);
+                } catch (DraftFinishedException e) {
+                    throw new HttpProcessingException(204);
+                } catch (SubscriptionConflictException e) {
+                    throw new HttpProcessingException(409);
+                } catch (SubscriptionExpiredException e) {
+                    throw new HttpProcessingException(410);
+                }
+            } catch (HttpProcessingException exp) {
+                _responseWriter.writeError(exp.getStatus());
+            } catch (Exception exp) {
+                _responseWriter.writeError(500);
+            }
+        }
+    }
+
+    private void getDraft(HttpRequest request, String tournamentId, ResponseWriter responseWriter) throws Exception {
+        HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
+        String participantId = getFormParameterSafely(postDecoder, "participantId");
+        Player resourceOwner = getResourceOwnerSafely(request, participantId);
+
+        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+
+        Document doc = documentBuilder.newDocument();
+
+        Element draft = doc.createElement("draft");
+
+        try {
+            _hallServer.singupForDraft(tournamentId, resourceOwner, new SerializeDraftVisitor(doc, draft));
+
+            doc.appendChild(draft);
+
+            responseWriter.writeXmlResponse(doc);
+        } catch (DraftFinishedException exp) {
+            responseWriter.writeError(204);
+        }
+    }
+
     private void joinTable(HttpRequest request, String tableId, ResponseWriter responseWriter) throws Exception {
-            HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
-            String participantId = getFormParameterSafely(postDecoder, "participantId");
-            Player resourceOwner = getResourceOwnerSafely(request, participantId);
+        HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
+        String participantId = getFormParameterSafely(postDecoder, "participantId");
+        Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
-            String deckName = getFormParameterSafely(postDecoder, "deckName");
+        String deckName = getFormParameterSafely(postDecoder, "deckName");
 
-            _hallServer.joinTableAsPlayer(tableId, resourceOwner, deckName);
-            responseWriter.writeResponse(null);
+        _hallServer.joinTableAsPlayer(tableId, resourceOwner, deckName);
+        responseWriter.writeXmlResponse(null);
     }
 
     private void leaveTable(HttpRequest request, ResponseWriter responseWriter) throws Exception {
-            HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
-            String participantId = getFormParameterSafely(postDecoder, "participantId");
-            Player resourceOwner = getResourceOwnerSafely(request, participantId);
+        HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
+        String participantId = getFormParameterSafely(postDecoder, "participantId");
+        Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
-            _hallServer.leaveAwaitingTables(resourceOwner);
-            responseWriter.writeResponse(null);
+        _hallServer.leaveAwaitingTables(resourceOwner);
+        responseWriter.writeXmlResponse(null);
     }
 
     private void createTable(HttpRequest request, ResponseWriter responseWriter) throws Exception {
-            HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
-            String participantId = getFormParameterSafely(postDecoder, "participantId");
-            String format = getFormParameterSafely(postDecoder, "format");
-            String deckName = getFormParameterSafely(postDecoder, "deckName");
+        HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
+        String participantId = getFormParameterSafely(postDecoder, "participantId");
+        String format = getFormParameterSafely(postDecoder, "format");
+        String deckName = getFormParameterSafely(postDecoder, "deckName");
 
-            Player resourceOwner = getResourceOwnerSafely(request, participantId);
+        Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
-            try {
-                _hallServer.createNewTable(format, resourceOwner, deckName);
-                responseWriter.writeResponse(null);
-            } catch (HallException e) {
-                responseWriter.writeResponse(marshalException(e));
-            }
+        try {
+            _hallServer.createNewTable(format, resourceOwner, deckName);
+            responseWriter.writeXmlResponse(null);
+        } catch (HallException e) {
+            responseWriter.writeXmlResponse(marshalException(e));
+        }
     }
 
     private void dropFromTournament(HttpRequest request, String tournamentId, ResponseWriter responseWriter) throws Exception {
-            HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
-            String participantId = getFormParameterSafely(postDecoder, "participantId");
-            Player resourceOwner = getResourceOwnerSafely(request, participantId);
+        HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
+        String participantId = getFormParameterSafely(postDecoder, "participantId");
+        Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
-            _hallServer.dropFromTournament(tournamentId, resourceOwner);
+        _hallServer.dropFromTournament(tournamentId, resourceOwner);
 
-            responseWriter.writeResponse(null);
+        responseWriter.writeXmlResponse(null);
     }
 
     private void joinQueue(HttpRequest request, String queueId, ResponseWriter responseWriter) throws Exception {
-            HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
-            String participantId = getFormParameterSafely(postDecoder, "participantId");
-            String deckName = getFormParameterSafely(postDecoder, "deckName");
+        HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
+        String participantId = getFormParameterSafely(postDecoder, "participantId");
+        String deckName = getFormParameterSafely(postDecoder, "deckName");
 
-            Player resourceOwner = getResourceOwnerSafely(request, participantId);
+        Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
-            try {
-                _hallServer.joinQueue(queueId, resourceOwner, deckName);
-                responseWriter.writeResponse(null);
-            } catch (HallException e) {
-                responseWriter.writeResponse(marshalException(e));
-            }
+        try {
+            _hallServer.joinQueue(queueId, resourceOwner, deckName);
+            responseWriter.writeXmlResponse(null);
+        } catch (HallException e) {
+            responseWriter.writeXmlResponse(marshalException(e));
+        }
     }
 
     private void leaveQueue(HttpRequest request, String queueId, ResponseWriter responseWriter) throws Exception {
-            HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
-            String participantId = getFormParameterSafely(postDecoder, "participantId");
+        HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
+        String participantId = getFormParameterSafely(postDecoder, "participantId");
 
-            Player resourceOwner = getResourceOwnerSafely(request, participantId);
+        Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
-            _hallServer.leaveQueue(queueId, resourceOwner);
+        _hallServer.leaveQueue(queueId, resourceOwner);
 
-            responseWriter.writeResponse(null);
+        responseWriter.writeXmlResponse(null);
     }
 
     private Document marshalException(HallException e) throws ParserConfigurationException {
@@ -270,7 +402,7 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
 
             doc.appendChild(hall);
 
-            responseWriter.writeResponse(doc);
+            responseWriter.writeXmlResponse(doc);
         } catch (HttpProcessingException exp) {
             responseWriter.writeError(exp.getStatus());
         } catch (Exception exp) {
@@ -279,17 +411,17 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
     }
 
     private void updateHall(HttpRequest request, ResponseWriter responseWriter) throws Exception {
-            HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
-            String participantId = getFormParameterSafely(postDecoder, "participantId");
-            int channelNumber = Integer.parseInt(getFormParameterSafely(postDecoder, "channelNumber"));
+        HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
+        String participantId = getFormParameterSafely(postDecoder, "participantId");
+        int channelNumber = Integer.parseInt(getFormParameterSafely(postDecoder, "channelNumber"));
 
-            Player resourceOwner = getResourceOwnerSafely(request, participantId);
+        Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
-            HallUpdateLongPollingResource polledResource = new HallUpdateLongPollingResource(request, resourceOwner, channelNumber, responseWriter);
-            if (polledResource.isChanged())
-                polledResource.process();
-            else
-                _longPollingSystem.appendLongPollingResource(polledResource);
+        HallUpdateLongPollingResource polledResource = new HallUpdateLongPollingResource(request, resourceOwner, channelNumber, responseWriter);
+        if (polledResource.isChanged())
+            polledResource.process();
+        else
+            _longPollingSystem.appendLongPollingResource(polledResource);
     }
 
     private class HallUpdateLongPollingResource implements LongPollingResource {
@@ -339,11 +471,51 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
                 Map<String, String> headers = new HashMap<String, String>();
                 processDeliveryServiceNotification(_request, headers);
 
-                _responseWriter.writeResponse(doc, headers);
+                _responseWriter.writeXmlResponse(doc, headers);
             } catch (HttpProcessingException exp) {
                 _responseWriter.writeError(exp.getStatus());
             } catch (Exception exp) {
                 _responseWriter.writeError(500);
+            }
+        }
+    }
+
+    private class SerializeDraftVisitor implements DraftChannelVisitor {
+        private Document _doc;
+        private Element _draft;
+
+        private SerializeDraftVisitor(Document doc, Element draft) {
+            _doc = doc;
+            _draft = draft;
+        }
+
+        public void channelNumber(int channelNumber) {
+            _draft.setAttribute("channelNumber", String.valueOf(channelNumber));
+        }
+
+        public void timeLeft(long timeLeft) {
+            _draft.setAttribute("timeLeft", String.valueOf(timeLeft));
+        }
+
+        public void noCardChoice() {
+        }
+
+        public void cardChoice(CardCollection cardCollection) {
+            for (CardCollection.Item possiblePick : cardCollection.getAll().values()) {
+                for (int i = 0; i < possiblePick.getCount(); i++) {
+                    Element pick = _doc.createElement("pick");
+                    pick.setAttribute("blueprintId", possiblePick.getBlueprintId());
+                    _draft.appendChild(pick);
+                }
+            }
+        }
+
+        public void chosenCards(CardCollection cardCollection) {
+            for (CardCollection.Item cardInCollection : cardCollection.getAll().values()) {
+                Element card = _doc.createElement("card");
+                card.setAttribute("blueprintId", cardInCollection.getBlueprintId());
+                card.setAttribute("count", String.valueOf(cardInCollection.getCount()));
+                _draft.appendChild(card);
             }
         }
     }

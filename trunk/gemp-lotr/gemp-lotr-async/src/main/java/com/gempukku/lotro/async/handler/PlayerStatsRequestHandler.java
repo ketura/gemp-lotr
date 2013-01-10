@@ -54,7 +54,7 @@ public class PlayerStatsRequestHandler extends LotroServerRequestHandler impleme
 
             doc.appendChild(stats);
 
-            responseWriter.writeResponse(doc);
+            responseWriter.writeXmlResponse(doc);
         } else {
             responseWriter.writeError(404);
         }

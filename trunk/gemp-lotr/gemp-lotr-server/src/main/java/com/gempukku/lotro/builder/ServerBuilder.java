@@ -85,8 +85,8 @@ public class ServerBuilder {
                         extract(objectMap, LotroFormatLibrary.class),
                         extract(objectMap, CollectionsManager.class),
                         tournamentPrizeSchemeRegistry,
-                        pairingMechanismRegistry,
-                        false));
+                        pairingMechanismRegistry
+                ));
     }
 
     private static <T> T extract(Map<Type, Object> objectMap, Class<T> clazz) {

@@ -230,7 +230,7 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
 
         doc.appendChild(leagueElem);
 
-        responseWriter.writeResponse(doc);
+        responseWriter.writeXmlResponse(doc);
     }
 
     private void addSealedLeague(HttpRequest request, ResponseWriter responseWriter) throws Exception {
@@ -306,7 +306,7 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
 
         doc.appendChild(leagueElem);
 
-        responseWriter.writeResponse(doc);
+        responseWriter.writeXmlResponse(doc);
     }
 
     private void setMotd(HttpRequest request, ResponseWriter responseWriter) throws HttpProcessingException, Exception {

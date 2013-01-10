@@ -81,7 +81,7 @@ public class ServerStatsRequestHandler extends LotroServerRequestHandler impleme
 
                 doc.appendChild(stats);
 
-                responseWriter.writeResponse(doc);
+                responseWriter.writeXmlResponse(doc);
             } catch (ParseException exp) {
                 throw new HttpProcessingException(400);
             }
