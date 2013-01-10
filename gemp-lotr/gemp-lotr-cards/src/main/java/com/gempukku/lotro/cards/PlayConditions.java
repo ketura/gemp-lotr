@@ -116,7 +116,7 @@ public class PlayConditions {
         LotroCardBlueprint blueprint = self.getBlueprint();
         return (!blueprint.isUnique()
                 || (
-                !Filters.canSpot(gameState, modifiersQuerying, Filters.name(blueprint.getName()))
+                Filters.countActive(gameState, modifiersQuerying, Filters.name(blueprint.getName()))==0
                         && (ignoreCheckingDeadPile || (Filters.filter(gameState.getDeadPile(self.getOwner()), gameState, modifiersQuerying, Filters.name(blueprint.getName())).size() == 0))));
     }
 
@@ -351,7 +351,7 @@ public class PlayConditions {
 
     public static boolean canRemoveAnyCultureTokens(LotroGame game, int count, Filterable... fromFilters) {
         return !game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.CANT_TOUCH_CULTURE_TOKENS)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.and(fromFilters, Filters.hasAnyCultureTokens(count)));
+                && Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.and(fromFilters, Filters.hasAnyCultureTokens(count)))>0;
     }
 
     public static boolean canRemoveTokens(LotroGame game, PhysicalCard from, Token token) {

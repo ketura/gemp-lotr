@@ -14,7 +14,7 @@ public class ManeuverGameProcess implements GameProcess {
 
     @Override
     public void process(LotroGame game) {
-        if (!Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), CardType.MINION)
+        if (Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.MINION)==0
                 || game.getModifiersQuerying().shouldSkipPhase(game.getGameState(), Phase.MANEUVER, null))
             _followingGameProcess = new ArcheryGameProcess();
         else

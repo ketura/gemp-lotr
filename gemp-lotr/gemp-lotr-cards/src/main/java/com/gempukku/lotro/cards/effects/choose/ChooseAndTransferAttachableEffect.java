@@ -88,7 +88,7 @@ public class ChooseAndTransferAttachableEffect extends AbstractEffect {
                             return false;
 
                         AbstractAttachable attachable = (AbstractAttachable) transferredCard.getBlueprint();
-                        return Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), getValidTargetFilter(game, transferredCard, attachable));
+                        return Filters.countActive(game.getGameState(), game.getModifiersQuerying(), getValidTargetFilter(game, transferredCard, attachable))>0;
                     }
                 });
     }
