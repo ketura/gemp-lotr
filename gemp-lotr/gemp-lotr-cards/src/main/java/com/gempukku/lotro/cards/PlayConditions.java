@@ -39,11 +39,11 @@ public class PlayConditions {
     }
 
     public static boolean canLiberateASite(LotroGame game) {
-        return PlayConditions.canSpot(game, Filters.siteControlledByShadowPlayer(game.getGameState().getCurrentPlayerId()));
+        return Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.siteControlledByShadowPlayer(game.getGameState().getCurrentPlayerId())) > 0;
     }
 
     public static boolean canLiberateASite(LotroGame game, String playerId) {
-        return PlayConditions.canSpot(game, Filters.siteControlled(playerId));
+        return Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.siteControlled(playerId)) > 0;
     }
 
     public static boolean canDiscardFromHand(LotroGame game, String playerId, int count, Filterable... cardFilter) {
@@ -69,13 +69,13 @@ public class PlayConditions {
     public static boolean canPlayCardDuringPhase(LotroGame game, Phase phase, PhysicalCard self) {
         return (phase == null || game.getGameState().getCurrentPhase() == phase)
                 && self.getZone() == Zone.HAND
-                && (!self.getBlueprint().isUnique() || !Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name(self.getBlueprint().getName())));
+                && (!self.getBlueprint().isUnique() || Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.name(self.getBlueprint().getName()))==0);
     }
 
     public static boolean canPlayCardDuringPhase(LotroGame game, Phase[] phases, PhysicalCard self) {
         return (phases == null || containsPhase(phases, game.getGameState().getCurrentPhase()))
                 && self.getZone() == Zone.HAND
-                && (!self.getBlueprint().isUnique() || !Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name(self.getBlueprint().getName())));
+                && (!self.getBlueprint().isUnique() || Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.name(self.getBlueprint().getName()))==0);
     }
 
     public static boolean canUseFPCardDuringPhase(LotroGame game, Phase phase, PhysicalCard self) {

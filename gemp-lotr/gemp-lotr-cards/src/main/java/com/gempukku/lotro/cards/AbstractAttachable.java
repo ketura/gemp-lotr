@@ -83,7 +83,7 @@ public abstract class AbstractAttachable extends AbstractLotroCardBlueprint {
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, Filter additionalAttachmentFilter, int twilightModifier) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, false, false)
                 && (skipUniquenessCheck() || PlayConditions.checkUniqueness(game.getGameState(), game.getModifiersQuerying(), self, false))
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), getFullAttachValidTargetFilter(playerId, game, self), additionalAttachmentFilter);
+                && Filters.countActive(game.getGameState(), game.getModifiersQuerying(), getFullAttachValidTargetFilter(playerId, game, self), additionalAttachmentFilter)>0;
     }
 
     @Override
