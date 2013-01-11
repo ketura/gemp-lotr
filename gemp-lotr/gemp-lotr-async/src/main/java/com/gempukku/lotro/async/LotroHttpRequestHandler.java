@@ -32,10 +32,12 @@ public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
 
     private Map<Type, Object> _objects;
     private UriRequestHandler _uriRequestHandler;
+    private String _uniqueEtag;
 
     public LotroHttpRequestHandler(Map<Type, Object> objects, UriRequestHandler uriRequestHandler) {
         _objects = objects;
         _uriRequestHandler = uriRequestHandler;
+        _uniqueEtag = "\"" + String.valueOf(System.currentTimeMillis()) + "\"";
     }
 
     @Override
@@ -126,10 +128,28 @@ public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
                 }
             }
 
-            writeHttpByteResponse(request, fileBytes, getHeadersForFile(file), e);
+            if (clientHasCurrentVersion(request)) {
+                Map<String, String> headers = new HashMap<String, String>();
+                headers.put(ETAG, _uniqueEtag);
+                writeHttpErrorResponse(request, 304, headers, e);
+            } else {
+                writeHttpByteResponse(request, fileBytes, getHeadersForFile(file), e);
+            }
         } catch (IOException exp) {
             writeHttpErrorResponse(request, 500, null, e);
         }
+    }
+
+    private boolean clientHasCurrentVersion(HttpRequest request) {
+        String ifNoneMatch = request.getHeader(IF_NONE_MATCH);
+        if (ifNoneMatch != null) {
+            String[] clientKnownVersions = ifNoneMatch.split(",");
+            for (String clientKnownVersion : clientKnownVersions) {
+                if (clientKnownVersion.trim().equals(_uniqueEtag))
+                    return true;
+            }
+        }
+        return false;
     }
 
     private Map<String, String> getHeadersForFile(File file) {
@@ -158,6 +178,7 @@ public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
             contentType = "application/octet-stream";
         }
         headers.put(CONTENT_TYPE, contentType);
+        headers.put(ETAG, _uniqueEtag);
         return headers;
     }
 
