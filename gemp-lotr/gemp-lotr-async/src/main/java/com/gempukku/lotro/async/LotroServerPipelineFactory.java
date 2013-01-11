@@ -20,6 +20,7 @@ import java.util.Map;
 public class LotroServerPipelineFactory implements ChannelPipelineFactory {
     private Map<Type, Object> _context;
     private UriRequestHandler _uriRequestHandler;
+    private LotroHttpRequestHandler _lotroHttpRequestHandler;
 
     public LotroServerPipelineFactory() {
         Map<Type, Object> objects = new HashMap<Type, Object>();
@@ -38,6 +39,8 @@ public class LotroServerPipelineFactory implements ChannelPipelineFactory {
 
         _context = objects;
         _uriRequestHandler = new RootUriRequestHandler(_context);
+
+        _lotroHttpRequestHandler = new LotroHttpRequestHandler(_context, _uriRequestHandler);
     }
 
     public ChannelPipeline getPipeline() throws Exception {
@@ -56,7 +59,7 @@ public class LotroServerPipelineFactory implements ChannelPipelineFactory {
         // Remove the following line if you don't want automatic content compression.
         pipeline.addLast("deflater", new HttpContentCompressor());
 
-        pipeline.addLast("handler", new LotroHttpRequestHandler(_context, _uriRequestHandler));
+        pipeline.addLast("handler", _lotroHttpRequestHandler);
         return pipeline;
     }
 }
