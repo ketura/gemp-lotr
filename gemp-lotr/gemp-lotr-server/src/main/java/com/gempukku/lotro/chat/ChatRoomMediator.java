@@ -86,7 +86,7 @@ public class ChatRoomMediator {
             if (!admin && _allowedPlayers != null && !_allowedPlayers.contains(playerId))
                 throw new PrivateInformationException();
 
-            _logger.info(playerId+": "+message);
+            _logger.trace(playerId+": "+message);
             _chatRoom.postMessage(playerId, message);
         } finally {
             _lock.writeLock().unlock();
