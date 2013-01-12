@@ -16,7 +16,7 @@ public class LotroAsyncServer {
         ChannelFactory factory =
                 new NioServerSocketChannelFactory(
                         Executors.newCachedThreadPool(),
-                        new ThreadPoolExecutor(10, Integer.MAX_VALUE,
+                        new ThreadPoolExecutor(30, Integer.MAX_VALUE,
                                 60L, TimeUnit.SECONDS,
                                 new SynchronousQueue<Runnable>()));
 
