@@ -13,7 +13,7 @@ public class LotroAsyncServer {
         ChannelFactory factory =
                 new NioServerSocketChannelFactory(
                         Executors.newCachedThreadPool(),
-                        Executors.newCachedThreadPool());
+                        Executors.newFixedThreadPool(10));
 
 
         ServerBootstrap bootstrap = new ServerBootstrap(factory);
