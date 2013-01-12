@@ -32,12 +32,10 @@ public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
 
     private Map<Type, Object> _objects;
     private UriRequestHandler _uriRequestHandler;
-    private String _uniqueEtag;
 
     public LotroHttpRequestHandler(Map<Type, Object> objects, UriRequestHandler uriRequestHandler) {
         _objects = objects;
         _uriRequestHandler = uriRequestHandler;
-        _uniqueEtag = "\"" + String.valueOf(System.currentTimeMillis()) + "\"";
     }
 
     @Override
@@ -90,8 +88,8 @@ public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
                 }
 
                 @Override
-                public void writeFile(File file) {
-                    writeFileResponse(request, file, e);
+                public void writeFile(File file, Map<String, String> headers) {
+                    writeFileResponse(request, file, headers, e);
                 }
             };
 
@@ -107,7 +105,7 @@ public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
 
     private Map<String, byte[]> _fileCache = Collections.synchronizedMap(new HashMap<String, byte[]>());
 
-    private void writeFileResponse(HttpRequest request, File file, MessageEvent e) {
+    private void writeFileResponse(HttpRequest request, File file, Map<String, String> headers, MessageEvent e) {
         try {
             String canonicalPath = file.getCanonicalPath();
             byte[] fileBytes = _fileCache.get(canonicalPath);
@@ -128,39 +126,21 @@ public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
                 }
             }
 
-            if (clientHasCurrentVersion(request)) {
-                Map<String, String> headers = new HashMap<String, String>();
-                headers.put(ETAG, _uniqueEtag);
-                writeHttpErrorResponse(request, 304, headers, e);
-            } else {
-                writeHttpByteResponse(request, fileBytes, getHeadersForFile(file), e);
-            }
+                writeHttpByteResponse(request, fileBytes, getHeadersForFile(headers, file), e);
         } catch (IOException exp) {
             writeHttpErrorResponse(request, 500, null, e);
         }
     }
 
-    private boolean clientHasCurrentVersion(HttpRequest request) {
-        String ifNoneMatch = request.getHeader(IF_NONE_MATCH);
-        if (ifNoneMatch != null) {
-            String[] clientKnownVersions = ifNoneMatch.split(",");
-            for (String clientKnownVersion : clientKnownVersions) {
-                if (clientKnownVersion.trim().equals(_uniqueEtag))
-                    return true;
-            }
-        }
-        return false;
-    }
-
-    private Map<String, String> getHeadersForFile(File file) {
-        Map<String, String> headers = new HashMap<String, String>();
+    private Map<String, String> getHeadersForFile(Map<String, String> headers, File file) {
+        Map<String, String> fileHeaders = new HashMap<String, String>(headers);
 
         String fileName = file.getName();
         String contentType;
         if (fileName.endsWith(".html")) {
-            headers.put(CACHE_CONTROL, "no-cache");
-            headers.put(PRAGMA, "no-cache");
-            headers.put(EXPIRES, String.valueOf(-1));
+            fileHeaders.put(CACHE_CONTROL, "no-cache");
+            fileHeaders.put(PRAGMA, "no-cache");
+            fileHeaders.put(EXPIRES, String.valueOf(-1));
             contentType = "text/html; charset=UTF-8";
         } else if (fileName.endsWith(".js")) {
             contentType = "application/javascript; charset=UTF-8";
@@ -177,9 +157,8 @@ public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
         } else {
             contentType = "application/octet-stream";
         }
-        headers.put(CONTENT_TYPE, contentType);
-        headers.put(ETAG, _uniqueEtag);
-        return headers;
+        fileHeaders.put(CONTENT_TYPE, contentType);
+        return fileHeaders;
     }
 
     private void writeHttpErrorResponse(HttpRequest request, int status, Map<String, String> headers, MessageEvent e) {
