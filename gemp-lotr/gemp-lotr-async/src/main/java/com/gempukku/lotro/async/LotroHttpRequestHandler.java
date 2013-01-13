@@ -138,14 +138,12 @@ public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
     private Map<String, String> getHeadersForFile(Map<String, String> headers, File file) {
         Map<String, String> fileHeaders = new HashMap<String, String>(headers);
 
+        boolean disableCaching = false;
         boolean cache = false;
 
         String fileName = file.getName();
         String contentType;
         if (fileName.endsWith(".html")) {
-            fileHeaders.put(CACHE_CONTROL, "no-cache");
-            fileHeaders.put(PRAGMA, "no-cache");
-            fileHeaders.put(EXPIRES, String.valueOf(-1));
             contentType = "text/html; charset=UTF-8";
         } else if (fileName.endsWith(".js")) {
             contentType = "application/javascript; charset=UTF-8";
@@ -167,7 +165,11 @@ public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
             contentType = "application/octet-stream";
         }
 
-        if (cache) {
+        if (disableCaching) {
+            fileHeaders.put(CACHE_CONTROL, "no-cache");
+            fileHeaders.put(PRAGMA, "no-cache");
+            fileHeaders.put(EXPIRES, String.valueOf(-1));
+        } else if (cache) {
             SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz");
             long sixMonthsFromNow = System.currentTimeMillis()+SIX_MONTHS;
             fileHeaders.put(EXPIRES, dateFormat.format(new Date(sixMonthsFromNow)));
