@@ -10,11 +10,13 @@ var GempLotrCommunication = Class.extend({
     errorCheck:function (errorMap) {
         var that = this;
         return function (xhr, status, request) {
-            var errorStatus = "" + xhr.status;
-            if (errorMap != null && errorMap[errorStatus] != null)
-                errorMap[errorStatus](xhr, status, request);
-            else
-                that.failure(xhr, status, request);
+            if (xhr.getAllResponseHeaders()) {
+                var errorStatus = "" + xhr.status;
+                if (errorMap != null && errorMap[errorStatus] != null)
+                    errorMap[errorStatus](xhr, status, request);
+                else
+                    that.failure(xhr, status, request);
+            }
         };
     },
 
