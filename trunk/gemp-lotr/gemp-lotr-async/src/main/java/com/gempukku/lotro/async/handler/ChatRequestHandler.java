@@ -28,8 +28,6 @@ import java.util.List;
 import java.util.Map;
 
 public class ChatRequestHandler extends LotroServerRequestHandler implements UriRequestHandler {
-    private long _longPollingLength = 5000;
-    private long _longPollingInterval = 200;
     private ChatServer _chatServer;
     private LongPollingSystem _longPollingSystem;
 
