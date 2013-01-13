@@ -23,11 +23,14 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.*;
 import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
+    private final static long SIX_MONTHS = 1000L*60L*60L*24L*30L*6L;
     private Logger _log = Logger.getLogger(LotroHttpRequestHandler.class);
 
     private Map<Type, Object> _objects;
@@ -135,6 +138,8 @@ public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
     private Map<String, String> getHeadersForFile(Map<String, String> headers, File file) {
         Map<String, String> fileHeaders = new HashMap<String, String>(headers);
 
+        boolean cache = false;
+
         String fileName = file.getName();
         String contentType;
         if (fileName.endsWith(".html")) {
@@ -147,16 +152,27 @@ public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
         } else if (fileName.endsWith(".css")) {
             contentType = "text/css; charset=UTF-8";
         } else if (fileName.endsWith(".jpg")) {
+            cache = true;
             contentType = "image/jpeg";
         } else if (fileName.endsWith(".png")) {
+            cache = true;
             contentType = "image/png";
         } else if (fileName.endsWith(".gif")) {
+            cache = true;
             contentType = "image/gif";
         } else if (fileName.endsWith(".wav")) {
+            cache = true;
             contentType = "audio/wav";
         } else {
             contentType = "application/octet-stream";
         }
+
+        if (cache) {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz");
+            long sixMonthsFromNow = System.currentTimeMillis()+SIX_MONTHS;
+            fileHeaders.put(EXPIRES, dateFormat.format(new Date(sixMonthsFromNow)));
+        }
+
         fileHeaders.put(CONTENT_TYPE, contentType);
         return fileHeaders;
     }
