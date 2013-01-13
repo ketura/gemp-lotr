@@ -10,13 +10,11 @@ var GempLotrCommunication = Class.extend({
     errorCheck:function (errorMap) {
         var that = this;
         return function (xhr, status, request) {
-            if (xhr.getAllResponseHeaders()) {
-                var errorStatus = "" + xhr.status;
-                if (errorMap != null && errorMap[errorStatus] != null)
-                    errorMap[errorStatus](xhr, status, request);
-                else
-                    that.failure(xhr, status, request);
-            }
+            var errorStatus = "" + xhr.status;
+            if (errorMap != null && errorMap[errorStatus] != null)
+                errorMap[errorStatus](xhr, status, request);
+            else
+                that.failure(xhr, status, request);
         };
     },
 
@@ -531,7 +529,7 @@ var GempLotrCommunication = Class.extend({
     leaveQueue:function (queueId, errorMap) {
         $.ajax({
             type:"POST",
-            url:this.url + "/hall/queue/"+queueId+"/leave",
+            url:this.url + "/hall/queue/" + queueId + "/leave",
             cache:false,
             data:{
                 participantId:getUrlParam("participantId")},
@@ -542,7 +540,7 @@ var GempLotrCommunication = Class.extend({
     dropFromTournament:function(tournamentId, callback, errorMap) {
         $.ajax({
             type:"POST",
-            url:this.url + "/hall/tournament/"+tournamentId+"/leave",
+            url:this.url + "/hall/tournament/" + tournamentId + "/leave",
             cache:false,
             data:{
                 participantId:getUrlParam("participantId")},
