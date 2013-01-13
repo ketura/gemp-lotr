@@ -101,6 +101,7 @@ public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
             } catch (HttpProcessingException exp) {
                 responseWriter.writeError(exp.getStatus());
             } catch (Exception exp) {
+                _log.error("Error while processing request", exp);
                 responseWriter.writeError(500);
             }
         }
