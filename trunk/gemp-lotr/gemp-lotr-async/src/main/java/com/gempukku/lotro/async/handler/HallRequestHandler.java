@@ -79,7 +79,7 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
                 joinQueue(request, uri.substring(7), responseWriter);
             }
         } else if (uri.startsWith("/tournament/") && uri.endsWith("/deck") && request.getMethod() == HttpMethod.POST) {
-            submitTournamentDeck(request, uri.substring(12, uri.length()-5), responseWriter);
+            submitTournamentDeck(request, uri.substring(12, uri.length() - 5), responseWriter);
         } else if (uri.startsWith("/tournament/") && uri.endsWith("/leave") && request.getMethod() == HttpMethod.POST) {
             dropFromTournament(request, uri.substring(12, uri.length() - 6), responseWriter);
         } else if (uri.equals("/leave") && request.getMethod() == HttpMethod.POST) {
@@ -221,8 +221,12 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
 
         String deckName = getFormParameterSafely(postDecoder, "deckName");
 
-        _hallServer.joinTableAsPlayer(tableId, resourceOwner, deckName);
-        responseWriter.writeXmlResponse(null);
+        try {
+            _hallServer.joinTableAsPlayer(tableId, resourceOwner, deckName);
+            responseWriter.writeXmlResponse(null);
+        } catch (HallException e) {
+            responseWriter.writeXmlResponse(marshalException(e));
+        }
     }
 
     private void leaveTable(HttpRequest request, ResponseWriter responseWriter) throws Exception {
