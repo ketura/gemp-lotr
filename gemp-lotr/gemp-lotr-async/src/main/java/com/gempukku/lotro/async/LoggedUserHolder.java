@@ -2,13 +2,12 @@ package com.gempukku.lotro.async;
 
 import org.jboss.netty.handler.codec.http.Cookie;
 import org.jboss.netty.handler.codec.http.CookieDecoder;
+import static org.jboss.netty.handler.codec.http.HttpHeaders.Names.COOKIE;
 import org.jboss.netty.handler.codec.http.HttpRequest;
 
 import java.util.*;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
-
-import static org.jboss.netty.handler.codec.http.HttpHeaders.Names.COOKIE;
 
 public class LoggedUserHolder {
     private long _loggedUserExpireLength = 1000 * 60 * 10; // 10 minutes session length
@@ -29,15 +28,18 @@ public class LoggedUserHolder {
         _readWriteLock.readLock().lock();
         try {
             CookieDecoder cookieDecoder = new CookieDecoder();
-            Set<Cookie> cookies = cookieDecoder.decode(request.getHeader(COOKIE));
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("loggedUser")) {
-                    String value = cookie.getValue();
-                    if (value != null) {
-                        String loggedUser = _users.get(value);
-                        if (loggedUser != null) {
-                            _lastAccess.put(value, System.currentTimeMillis());
-                            return loggedUser;
+            String cookieHeader = request.getHeader(COOKIE);
+            if (cookieHeader != null) {
+                Set<Cookie> cookies = cookieDecoder.decode(cookieHeader);
+                for (Cookie cookie : cookies) {
+                    if (cookie.getName().equals("loggedUser")) {
+                        String value = cookie.getValue();
+                        if (value != null) {
+                            String loggedUser = _users.get(value);
+                            if (loggedUser != null) {
+                                _lastAccess.put(value, System.currentTimeMillis());
+                                return loggedUser;
+                            }
                         }
                     }
                 }
@@ -82,7 +84,7 @@ public class LoggedUserHolder {
             while (true) {
                 _readWriteLock.writeLock().lock();
                 try {
-                    long currentTime =  System.currentTimeMillis();
+                    long currentTime = System.currentTimeMillis();
                     Iterator<Map.Entry<String, Long>> iterator = _lastAccess.entrySet().iterator();
                     if (iterator.hasNext()) {
                         Map.Entry<String, Long> lastAccess = iterator.next();

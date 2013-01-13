@@ -219,19 +219,22 @@ public class GameRequestHandler extends LotroServerRequestHandler implements Uri
 
     private Set<Phase> getAutoPassPhases(HttpRequest request) {
         CookieDecoder cookieDecoder = new CookieDecoder();
-        Set<Cookie> cookies = cookieDecoder.decode(request.getHeader(HttpHeaders.Names.COOKIE));
-        for (Cookie cookie : cookies) {
-            if (cookie.getName().equals("autoPassPhases")) {
-                final String[] phases = cookie.getValue().split("0");
-                Set<Phase> result = new HashSet<Phase>();
-                for (String phase : phases)
-                    result.add(Phase.valueOf(phase));
-                return result;
+        String cookieHeader = request.getHeader(HttpHeaders.Names.COOKIE);
+        if (cookieHeader != null) {
+            Set<Cookie> cookies = cookieDecoder.decode(cookieHeader);
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("autoPassPhases")) {
+                    final String[] phases = cookie.getValue().split("0");
+                    Set<Phase> result = new HashSet<Phase>();
+                    for (String phase : phases)
+                        result.add(Phase.valueOf(phase));
+                    return result;
+                }
             }
-        }
-        for (Cookie cookie : cookies) {
-            if (cookie.getName().equals("autoPass") && cookie.getValue().equals("false"))
-                return Collections.emptySet();
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("autoPass") && cookie.getValue().equals("false"))
+                    return Collections.emptySet();
+            }
         }
         return _autoPassDefault;
     }
