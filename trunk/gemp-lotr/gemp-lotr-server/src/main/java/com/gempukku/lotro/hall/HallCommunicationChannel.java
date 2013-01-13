@@ -112,7 +112,7 @@ public class HallCommunicationChannel {
                     }
                 });
 
-        if (newMotd.getValue() != null && !newMotd.equals(_lastMotd))
+        if (newMotd.getValue() != null && !newMotd.getValue().equals(_lastMotd))
             return true;
 
         if (_tournamentQueuePropsOnClient.size() != tournamentQueuesOnServer.size())
@@ -234,7 +234,7 @@ public class HallCommunicationChannel {
         notifyAboutTables(hallChannelVisitor, tablesOnServer);
         _tablePropsOnClient = tablesOnServer;
 
-        if (newMotd.getValue() != null && !newMotd.equals(_lastMotd)) {
+        if (newMotd.getValue() != null && !newMotd.getValue().equals(_lastMotd)) {
             String newMotdStr = (String) newMotd.getValue();
             hallChannelVisitor.motdChanged(newMotdStr);
             _lastMotd = newMotdStr;
