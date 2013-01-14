@@ -8,7 +8,7 @@
     </formats>
     <fileSets>
         <fileSet>
-            <directory>${basedir}/../gemp-lotr-web/src/main/webapp/</directory>
+            <directory>${basedir}/src/main/web/</directory>
             <outputDirectory></outputDirectory>
             <filtered>false</filtered>
         </fileSet>
