@@ -43,7 +43,7 @@ public class LotroServerRequestHandler {
         return Boolean.valueOf(System.getProperty("test"));
     }
 
-    protected final void processLoginReward(HttpRequest request, String loggedUser) throws Exception {
+    protected final void processLoginReward(String loggedUser) throws Exception {
         if (loggedUser != null) {
             Player player = _playerDao.getPlayer(loggedUser);
             synchronized (PlayerLock.getLock(player)) {
