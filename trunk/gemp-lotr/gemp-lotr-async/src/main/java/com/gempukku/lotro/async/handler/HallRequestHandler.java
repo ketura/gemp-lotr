@@ -420,7 +420,7 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
         int channelNumber = Integer.parseInt(getFormParameterSafely(postDecoder, "channelNumber"));
 
         Player resourceOwner = getResourceOwnerSafely(request, participantId);
-        processLoginReward(request, resourceOwner.getName());
+        processLoginReward(resourceOwner.getName());
 
         HallUpdateLongPollingResource polledResource = new HallUpdateLongPollingResource(request, resourceOwner, channelNumber, responseWriter);
         if (polledResource.isChanged())
