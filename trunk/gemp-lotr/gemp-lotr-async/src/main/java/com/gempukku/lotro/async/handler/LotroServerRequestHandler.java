@@ -1,12 +1,17 @@
 package com.gempukku.lotro.async.handler;
 
+import com.gempukku.lotro.DateUtils;
+import com.gempukku.lotro.PlayerLock;
 import com.gempukku.lotro.async.HttpProcessingException;
 import com.gempukku.lotro.async.LoggedUserHolder;
+import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.collection.TransferDAO;
 import com.gempukku.lotro.db.PlayerDAO;
+import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.game.Player;
 import org.jboss.netty.channel.MessageEvent;
 import org.jboss.netty.handler.codec.http.CookieEncoder;
+import static org.jboss.netty.handler.codec.http.HttpHeaders.Names.SET_COOKIE;
 import org.jboss.netty.handler.codec.http.HttpRequest;
 import org.jboss.netty.handler.codec.http.QueryStringDecoder;
 import org.jboss.netty.handler.codec.http.multipart.Attribute;
@@ -21,21 +26,42 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import static org.jboss.netty.handler.codec.http.HttpHeaders.Names.SET_COOKIE;
-
 public class LotroServerRequestHandler {
     protected PlayerDAO _playerDao;
     protected LoggedUserHolder _loggedUserHolder;
     private TransferDAO _transferDAO;
+    private CollectionsManager _collectionManager;
 
     public LotroServerRequestHandler(Map<Type, Object> context) {
         _playerDao = extractObject(context, PlayerDAO.class);
         _loggedUserHolder = extractObject(context, LoggedUserHolder.class);
         _transferDAO = extractObject(context, TransferDAO.class);
+        _collectionManager = extractObject(context, CollectionsManager.class);
     }
 
     private boolean isTest() {
         return Boolean.valueOf(System.getProperty("test"));
+    }
+
+    protected final void processLoginReward(HttpRequest request, String loggedUser) throws Exception {
+        if (loggedUser != null) {
+            Player player = _playerDao.getPlayer(loggedUser);
+            synchronized (PlayerLock.getLock(player)) {
+                int currentDate = DateUtils.getCurrentDate();
+                int latestMonday = DateUtils.getMondayBeforeOrOn(currentDate);
+
+                Integer lastReward = player.getLastLoginReward();
+                if (lastReward == null) {
+                    _playerDao.setLastReward(player, latestMonday);
+                    _collectionManager.addCurrencyToPlayerCollection(true, "Singup reward", player, new CollectionType("permanent", "My cards"), 20000);
+                } else {
+                    if (latestMonday != lastReward) {
+                        if (_playerDao.updateLastReward(player, lastReward, latestMonday))
+                            _collectionManager.addCurrencyToPlayerCollection(true, "Weekly reward", player, new CollectionType("permanent", "My cards"), 5000);
+                    }
+                }
+            }
+        }
     }
 
     protected final void processDeliveryServiceNotification(HttpRequest request, Map<String, String> headersToAdd) {
