@@ -65,10 +65,12 @@ public class ChooseAndExertCharactersEffect extends ChooseActiveCardsEffect {
     protected final void cardsSelected(LotroGame game, Collection<PhysicalCard> characters) {
         _resultSubAction = new SubAction(_action);
         for (int i = 0; i < _times; i++) {
+            final boolean first = (i==0);
             _resultSubAction.appendEffect(new ExertCharactersEffect(_action, _action.getActionSource(), characters.toArray(new PhysicalCard[characters.size()])) {
                 @Override
                 protected void forEachExertedByEffect(PhysicalCard physicalCard) {
-                    ChooseAndExertCharactersEffect.this.forEachCardExertedCallback(physicalCard);
+                    if (first)
+                        ChooseAndExertCharactersEffect.this.forEachCardExertedCallback(physicalCard);
                 }
             });
         }
