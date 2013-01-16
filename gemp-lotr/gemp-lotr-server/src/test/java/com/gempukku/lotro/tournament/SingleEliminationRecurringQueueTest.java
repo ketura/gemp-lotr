@@ -15,8 +15,8 @@ public class SingleEliminationRecurringQueueTest {
     public void joiningQueue() {
         TournamentService tournamentService = Mockito.mock(TournamentService.class);
 
-        SingleEliminationRecurringQueue queue = new SingleEliminationRecurringQueue(10, "format", CollectionType.MY_CARDS,
-                "id-", "name-", 2, false, tournamentService, new NoPrizes());
+        ImmediateRecurringQueue queue = new ImmediateRecurringQueue(10, "format", CollectionType.MY_CARDS,
+                "id-", "name-", 2, false, tournamentService, new NoPrizes(), new SingleEliminationPairing("singleElimination"));
 
         Player player = new Player(1, "p1", "u", null);
 
@@ -37,8 +37,8 @@ public class SingleEliminationRecurringQueueTest {
     public void leavingQueue() {
         TournamentService tournamentService = Mockito.mock(TournamentService.class);
 
-        SingleEliminationRecurringQueue queue = new SingleEliminationRecurringQueue(10, "format", CollectionType.MY_CARDS,
-                "id-", "name-", 2, false, tournamentService, new NoPrizes());
+        ImmediateRecurringQueue queue = new ImmediateRecurringQueue(10, "format", CollectionType.MY_CARDS,
+                "id-", "name-", 2, false, tournamentService, new NoPrizes(), new SingleEliminationPairing("singleElimination"));
 
         Player player = new Player(1, "p1", "u", null);
 
@@ -62,8 +62,8 @@ public class SingleEliminationRecurringQueueTest {
     public void cancellingQueue() {
         TournamentService tournamentService = Mockito.mock(TournamentService.class);
 
-        SingleEliminationRecurringQueue queue = new SingleEliminationRecurringQueue(10, "format", CollectionType.MY_CARDS,
-                "id-", "name-", 2, false, tournamentService, new NoPrizes());
+        ImmediateRecurringQueue queue = new ImmediateRecurringQueue(10, "format", CollectionType.MY_CARDS,
+                "id-", "name-", 2, false, tournamentService, new NoPrizes(), new SingleEliminationPairing("singleElimination"));
 
         Player player = new Player(1, "p1", "u", null);
 
@@ -92,8 +92,8 @@ public class SingleEliminationRecurringQueueTest {
                 Mockito.eq(CollectionType.MY_CARDS), Mockito.eq(Tournament.Stage.PLAYING_GAMES), Mockito.eq("singleElimination"), Mockito.anyString(), Mockito.<Date>any()))
                 .thenReturn(tournament);
 
-        SingleEliminationRecurringQueue queue = new SingleEliminationRecurringQueue(10, "format", CollectionType.MY_CARDS,
-                "id-", "name-", 2, false, tournamentService, new NoPrizes());
+        ImmediateRecurringQueue queue = new ImmediateRecurringQueue(10, "format", CollectionType.MY_CARDS,
+                "id-", "name-", 2, false, tournamentService, new NoPrizes(), new SingleEliminationPairing("singleElimination"));
 
 
         Player player1 = new Player(1, "p1", "u", null);
@@ -139,8 +139,8 @@ public class SingleEliminationRecurringQueueTest {
                 Mockito.eq(CollectionType.MY_CARDS), Mockito.eq(Tournament.Stage.PLAYING_GAMES), Mockito.eq("singleElimination"), Mockito.anyString(), Mockito.<Date>any()))
                 .thenReturn(tournament);
 
-        SingleEliminationRecurringQueue queue = new SingleEliminationRecurringQueue(10, "format", CollectionType.MY_CARDS,
-                "id-", "name-", 2, false, tournamentService, new NoPrizes());
+        ImmediateRecurringQueue queue = new ImmediateRecurringQueue(10, "format", CollectionType.MY_CARDS,
+                "id-", "name-", 2, false, tournamentService, new NoPrizes(), new SingleEliminationPairing("singleElimination"));
 
         Player player1 = new Player(1, "p1", "u", null);
         Player player2 = new Player(2, "p2", "u", null);

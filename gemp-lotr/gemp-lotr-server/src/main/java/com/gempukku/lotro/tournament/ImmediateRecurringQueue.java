@@ -6,43 +6,20 @@ import com.gempukku.lotro.db.vo.CollectionType;
 
 import java.util.Date;
 
-public class SingleEliminationRecurringQueue extends AbstractTournamentQueue implements TournamentQueue {
-    private String _format;
-    private CollectionType _collectionType;
+public class ImmediateRecurringQueue extends AbstractTournamentQueue implements TournamentQueue {
     private String _tournamentQueueName;
-
     private int _playerCap;
-
     private TournamentService _tournamentService;
-    private TournamentPrizes _tournamentPrizes;
     private String _tournamentIdPrefix;
 
-    public SingleEliminationRecurringQueue(int cost, String format, CollectionType collectionType, String tournamentIdPrefix,
+    public ImmediateRecurringQueue(int cost, String format, CollectionType collectionType, String tournamentIdPrefix,
                                            String tournamentQueueName, int playerCap, boolean requiresDeck,
-                                           TournamentService tournamentService, TournamentPrizes tournamentPrizes) {
-        super(cost, requiresDeck);
-        _format = format;
-        _collectionType = collectionType;
+                                           TournamentService tournamentService, TournamentPrizes tournamentPrizes, PairingMechanism pairingMechanism) {
+        super(cost, requiresDeck, collectionType, tournamentPrizes, pairingMechanism, format);
         _tournamentQueueName = tournamentQueueName;
         _playerCap = playerCap;
         _tournamentIdPrefix = tournamentIdPrefix;
         _tournamentService = tournamentService;
-        _tournamentPrizes = tournamentPrizes;
-    }
-
-    @Override
-    public int getCost() {
-        return _cost;
-    }
-
-    @Override
-    public String getFormat() {
-        return _format;
-    }
-
-    @Override
-    public CollectionType getCollectionType() {
-        return _collectionType;
     }
 
     @Override
@@ -51,23 +28,8 @@ public class SingleEliminationRecurringQueue extends AbstractTournamentQueue imp
     }
 
     @Override
-    public String getPrizesDescription() {
-        return _tournamentPrizes.getPrizeDescription();
-    }
-
-    @Override
-    public String getPairingDescription() {
-        return "Single elimination";
-    }
-
-    @Override
     public String getStartCondition() {
         return "When "+_playerCap+" players join";
-    }
-
-    @Override
-    public boolean isRequiresDeck() {
-        return _requiresDeck;
     }
 
     @Override
