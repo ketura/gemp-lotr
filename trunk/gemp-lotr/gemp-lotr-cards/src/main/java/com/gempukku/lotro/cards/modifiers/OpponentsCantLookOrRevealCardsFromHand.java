@@ -22,9 +22,9 @@ public class OpponentsCantLookOrRevealCardsFromHand extends AbstractModifier {
 
     @Override
     public boolean canLookOrRevealCardsInHand(GameState gameState, ModifiersQuerying modifiersQuerying, String revealingPlayerId, String actingPlayerId) {
-        if (_revealingPlayerId == null || _revealingPlayerId.equals(revealingPlayerId))
+        if (_revealingPlayerId != null && _revealingPlayerId.equals(revealingPlayerId))
             return false;
-        if (_actingPlayerId == null || _actingPlayerId.equals(actingPlayerId))
+        if (_actingPlayerId != null && _actingPlayerId.equals(actingPlayerId))
             return false;
         return true;
     }
