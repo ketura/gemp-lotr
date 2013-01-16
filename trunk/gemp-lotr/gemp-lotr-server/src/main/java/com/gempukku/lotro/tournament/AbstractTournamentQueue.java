@@ -15,17 +15,41 @@ public abstract class AbstractTournamentQueue implements TournamentQueue {
     protected Queue<String> _players = new LinkedList<String>();
     protected Map<String, LotroDeck> _playerDecks = new HashMap<String, LotroDeck>();
     protected boolean _requiresDeck;
-    
+
     private CollectionType _currencyCollection = CollectionType.MY_CARDS;
 
-    public AbstractTournamentQueue(int cost, boolean requiresDeck) {
+    protected final PairingMechanism _pairingMechanism;
+    protected final CollectionType _collectionType;
+    protected final TournamentPrizes _tournamentPrizes;
+    protected String _format;
+
+    public AbstractTournamentQueue(int cost, boolean requiresDeck, CollectionType collectionType, TournamentPrizes tournamentPrizes, PairingMechanism pairingMechanism, String format) {
         _cost = cost;
         _requiresDeck = requiresDeck;
+        _collectionType = collectionType;
+        _tournamentPrizes = tournamentPrizes;
+        _pairingMechanism = pairingMechanism;
+        _format = format;
     }
 
     @Override
-    public synchronized void joinPlayer(CollectionsManager collectionsManager, Player player, LotroDeck deck) {
-        if (!_players.contains(player.getName())) {
+    public String getPairingDescription() {
+        return _pairingMechanism.getPlayOffSystem();
+    }
+
+    @Override
+    public final CollectionType getCollectionType() {
+        return _collectionType;
+    }
+
+    @Override
+    public final String getPrizesDescription() {
+        return _tournamentPrizes.getPrizeDescription();
+    }
+
+    @Override
+    public final synchronized void joinPlayer(CollectionsManager collectionsManager, Player player, LotroDeck deck) {
+        if (!_players.contains(player.getName()) && isJoinable()) {
             if (_cost <= 0 || collectionsManager.removeCurrencyFromPlayerCollection("Joined "+getTournamentQueueName()+" queue", player, _currencyCollection, _cost)) {
                 _players.add(player.getName());
                 if (_requiresDeck)
@@ -35,7 +59,7 @@ public abstract class AbstractTournamentQueue implements TournamentQueue {
     }
 
     @Override
-    public synchronized void leavePlayer(CollectionsManager collectionsManager, Player player) {
+    public final synchronized void leavePlayer(CollectionsManager collectionsManager, Player player) {
         if (_players.contains(player.getName())) {
             if (_cost > 0)
                 collectionsManager.addCurrencyToPlayerCollection(true, "Return for leaving "+getTournamentQueueName()+" queue", player, _currencyCollection, _cost);
@@ -45,7 +69,7 @@ public abstract class AbstractTournamentQueue implements TournamentQueue {
     }
 
     @Override
-    public synchronized void leaveAllPlayers(CollectionsManager collectionsManager) {
+    public final synchronized void leaveAllPlayers(CollectionsManager collectionsManager) {
         if (_cost > 0) {
             for (String player : _players)
                 collectionsManager.addCurrencyToPlayerCollection(false, "Return for leaving "+getTournamentQueueName()+" queue", player, _currencyCollection, _cost);
@@ -55,12 +79,27 @@ public abstract class AbstractTournamentQueue implements TournamentQueue {
     }
 
     @Override
-    public synchronized int getPlayerCount() {
+    public final synchronized int getPlayerCount() {
         return _players.size();
     }
 
     @Override
-    public synchronized boolean isPlayerSignedUp(String player) {
+    public final synchronized boolean isPlayerSignedUp(String player) {
         return _players.contains(player);
+    }
+
+    @Override
+    public final int getCost() {
+        return _cost;
+    }
+
+    @Override
+    public final boolean isRequiresDeck() {
+        return _requiresDeck;
+    }
+
+    @Override
+    public final String getFormat() {
+        return _format;
     }
 }

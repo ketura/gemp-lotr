@@ -72,15 +72,15 @@ public class HallServer extends AbstractServer {
         _pairingMechanismRegistry = pairingMechanismRegistry;
         _hallChat = _chatServer.createChatRoom("Game Hall", true, 10);
 
-        _tournamentQueues.put("fotr_queue", new SingleEliminationRecurringQueue(635, "fotr_block",
+        _tournamentQueues.put("fotr_queue", new ImmediateRecurringQueue(635, "fotr_block",
                 CollectionType.ALL_CARDS, "fotrQueue-", "Fellowship Block", 8,
-                true, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes("onDemand")));
-        _tournamentQueues.put("movie_queue", new SingleEliminationRecurringQueue(635, "movie",
+                true, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes("onDemand"), _pairingMechanismRegistry.getPairingMechanism("singleElimination")));
+        _tournamentQueues.put("movie_queue", new ImmediateRecurringQueue(635, "movie",
                 CollectionType.ALL_CARDS, "movieQueue-", "Movie Block", 8,
-                true, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes("onDemand")));
-        _tournamentQueues.put("expanded_queue", new SingleEliminationRecurringQueue(635, "expanded",
+                true, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes("onDemand"), _pairingMechanismRegistry.getPairingMechanism("singleElimination")));
+        _tournamentQueues.put("expanded_queue", new ImmediateRecurringQueue(635, "expanded",
                 CollectionType.ALL_CARDS, "expandedQueue-", "Expanded", 8,
-                true, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes("onDemand")));
+                true, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes("onDemand"), _pairingMechanismRegistry.getPairingMechanism("singleElimination")));
     }
 
     @Override
