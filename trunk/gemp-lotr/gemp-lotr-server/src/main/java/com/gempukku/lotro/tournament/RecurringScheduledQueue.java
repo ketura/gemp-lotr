@@ -35,7 +35,6 @@ public class RecurringScheduledQueue extends AbstractTournamentQueue implements 
         _nextStartText = DateUtils.formatDateWithHour(new Date(_nextStart));
     }
 
-
     @Override
     public String getStartCondition() {
         return _nextStartText;
@@ -44,6 +43,11 @@ public class RecurringScheduledQueue extends AbstractTournamentQueue implements 
     @Override
     public String getTournamentQueueName() {
         return _tournamentQueueName;
+    }
+
+    @Override
+    public String getPairingDescription() {
+        return _pairingMechanism.getPlayOffSystem() + ", minimum players: " + _minimumPlayers;
     }
 
     @Override
