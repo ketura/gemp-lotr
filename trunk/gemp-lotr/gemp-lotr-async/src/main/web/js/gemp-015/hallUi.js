@@ -604,7 +604,7 @@ var GempLotrHallUI = Class.extend({
                         lastField.append(but);
                     }
 
-                    if (playing == "true") {
+                    if (playing == "true" && status=="PLAYING") {
                         var participantId = getUrlParam("participantId");
                         var participantIdAppend = "";
                         if (participantId != null)
@@ -665,9 +665,10 @@ var GempLotrHallUI = Class.extend({
                         }
 
                         this.animateRowUpdate(".table" + id);
-                        if (playing)
-                            row.addClass("played");
                     }
+
+                    if (playing == "true")
+                        row.addClass("played");
                 } else if (action == "remove") {
                     $(".table" + id, this.tablesDiv).remove();
                 }
@@ -686,7 +687,7 @@ var GempLotrHallUI = Class.extend({
                 var participantIdAppend = "";
                 if (participantId != null)
                     participantIdAppend = "&participantId=" + participantId;
-                this.tablesDiv.append("<embed src='/gemp-lotr/fanfare_x.wav' hidden=true autostart=true loop=false>");
+                this.tablesDiv.append("<embed src='/gemp-lotr/fanfare_x.wav' hidden='true' autostart='true' loop='false'>");
                 window.open("/gemp-lotr/game.html?gameId=" + waitingGameId + participantIdAppend, "_blank");
             }
 
