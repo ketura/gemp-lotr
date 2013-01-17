@@ -878,6 +878,7 @@ var GempLotrGameUI = Class.extend({
 
     decisionFunction:function (decisionId, result) {
         var that = this;
+        this.stopAnimatingTitle();
         this.communication.gameDecisionMade(decisionId, result,
                 this.channelNumber,
                 function (xml) {
@@ -1093,8 +1094,46 @@ var GempLotrGameUI = Class.extend({
             }
         }
 
-        if (!hasDecision)
+        if (!hasDecision) {
             this.animations.updateGameState(animate);
+        } else {
+            this.startAnimatingTitle();
+        }
+    },
+
+    keepAnimating: false,
+
+    startAnimatingTitle: function() {
+        var that = this;
+        this.keepAnimating = true;
+        setTimeout(function() {
+            that.setDecisionTitle();
+        }, 500);
+    },
+
+    stopAnimatingTitle: function() {
+        this.keepAnimating = false;
+        window.document.title = "Game of Gemp-LotR";
+    },
+
+    setDecisionTitle: function() {
+        if (this.keepAnimating) {
+            window.document.title = "Waiting for your decision";
+            var that = this;
+            setTimeout(function() {
+                that.setNormalTitle();
+            }, 500);
+        }
+    },
+
+    setNormalTitle: function() {
+        if (this.keepAnimating) {
+            window.document.title = "Game of Gemp-LotR";
+            var that = this;
+            setTimeout(function() {
+                that.setDecisionTitle();
+            }, 500);
+        }
     },
 
     getPlayerIndex:function (playerId) {
