@@ -540,6 +540,13 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
         }
 
         @Override
+        public void newPlayerGame(String gameId) {
+            Element newGame = _doc.createElement("newGame");
+            newGame.setAttribute("id", gameId);
+            _hall.appendChild(newGame);
+        }
+
+        @Override
         public void serverTime(String serverTime) {
             _hall.setAttribute("serverTime", serverTime);
         }
@@ -631,18 +638,6 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
             table.setAttribute("action", "remove");
             table.setAttribute("id", tableId);
             _hall.appendChild(table);
-        }
-
-        @Override
-        public void runningPlayerGame(String gameId) {
-            Element runningGame = _doc.createElement("game");
-            runningGame.setAttribute("id", gameId);
-            _hall.appendChild(runningGame);
-        }
-
-        @Override
-        public void playerBusy(boolean busy) {
-            _hall.setAttribute("busy", String.valueOf(busy));
         }
     }
 }

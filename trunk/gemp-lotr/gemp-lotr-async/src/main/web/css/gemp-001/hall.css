@@ -168,3 +168,7 @@ table.tables td, table.tables th {
 .userList {
     border-left: 1px solid #FFFFFF;
 }
+
+tr.played {
+    background-color: #990000;
+}

@@ -157,9 +157,6 @@ public class HallServer extends AbstractServer {
 
         _hallDataAccessLock.writeLock().lock();
         try {
-            if (isPlayerBusy(player.getName()))
-                throw new HallException("You can't start a table, as you are considered busy");
-
             League league = null;
             LeagueSerieData leagueSerie = null;
             CollectionType collectionType = _allCardsCollectionType;
@@ -204,9 +201,6 @@ public class HallServer extends AbstractServer {
 
         _hallDataAccessLock.writeLock().lock();
         try {
-            if (isPlayerBusy(player.getName()))
-                throw new HallException("You can't join a queue, as you are considered busy");
-
             TournamentQueue tournamentQueue = _tournamentQueues.get(queueId);
             if (tournamentQueue == null)
                 throw new HallException("Tournament queue already finished accepting players, try again in a few seconds");
@@ -234,12 +228,12 @@ public class HallServer extends AbstractServer {
 
         _hallDataAccessLock.writeLock().lock();
         try {
-            if (isPlayerBusy(player.getName()))
-                throw new HallException("You can't join a table, as you are considered busy");
-
             AwaitingTable awaitingTable = _awaitingTables.get(tableId);
             if (awaitingTable == null)
                 throw new HallException("Table is already taken or was removed");
+
+            if (awaitingTable.hasPlayer(player.getName()))
+                throw new HallException("You can't play against yourself");
 
             if (awaitingTable.getLeague() != null && !_leagueService.isPlayerInLeague(awaitingTable.getLeague(), player))
                 throw new HallException("You're not in that league");
@@ -444,7 +438,6 @@ public class HallServer extends AbstractServer {
         _hallDataAccessLock.readLock().lock();
         try {
             visitor.serverTime(DateUtils.getStringDateWithHour());
-            visitor.playerBusy(isPlayerBusy(player.getName()));
             if (_motd != null)
                 visitor.motd(_motd);
 
@@ -647,27 +640,6 @@ public class HallServer extends AbstractServer {
     }
 
     private boolean isPlayerBusy(String playerId) {
-        for (AwaitingTable awaitingTable : _awaitingTables.values())
-            if (awaitingTable.hasPlayer(playerId))
-                return true;
-
-        for (RunningTable runningTable : _runningTables.values()) {
-            String gameId = runningTable.getGameId();
-            LotroGameMediator lotroGameMediator = _lotroServer.getGameById(gameId);
-            if (lotroGameMediator != null && !lotroGameMediator.isFinished() && lotroGameMediator.getPlayersPlaying().contains(playerId))
-                return true;
-        }
-
-        for (TournamentQueue tournamentQueue : _tournamentQueues.values()) {
-            if (tournamentQueue.isPlayerSignedUp(playerId))
-                return true;
-        }
-
-        for (Tournament runningTournament : _runningTournaments.values()) {
-            if (runningTournament.isPlayerInCompetition(playerId))
-                return true;
-        }
-
         return false;
     }
 

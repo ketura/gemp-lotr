@@ -2,12 +2,10 @@ package com.gempukku.lotro.hall;
 
 import com.gempukku.lotro.game.Player;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.mutable.MutableBoolean;
 import org.apache.commons.lang.mutable.MutableObject;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class HallCommunicationChannel {
     private int _channelNumber;
@@ -16,6 +14,7 @@ public class HallCommunicationChannel {
     private Map<String, Map<String, String>> _tournamentQueuePropsOnClient = new LinkedHashMap<String, Map<String, String>>();
     private Map<String, Map<String, String>> _tournamentPropsOnClient = new LinkedHashMap<String, Map<String, String>>();
     private Map<String, Map<String, String>> _tablePropsOnClient = new LinkedHashMap<String, Map<String, String>>();
+    private Set<String> _playedGames = new HashSet<String>();
 
     public HallCommunicationChannel(int channelNumber) {
         _channelNumber = channelNumber;
@@ -33,7 +32,7 @@ public class HallCommunicationChannel {
         return _lastConsumed;
     }
 
-    public synchronized boolean hasChangesInCommunicationChannel(HallServer hallServer, Player player) {
+    public synchronized boolean hasChangesInCommunicationChannel(HallServer hallServer, final Player player) {
         updateLastAccess();
 
         final MutableObject newMotd = new MutableObject();
@@ -41,15 +40,12 @@ public class HallCommunicationChannel {
         final Map<String, Map<String, String>> tournamentQueuesOnServer = new LinkedHashMap<String, Map<String, String>>();
         final Map<String, Map<String, String>> tablesOnServer = new LinkedHashMap<String, Map<String, String>>();
         final Map<String, Map<String, String>> tournamentsOnServer = new LinkedHashMap<String, Map<String, String>>();
+        final MutableBoolean hasNewGames = new MutableBoolean(false);
 
         hallServer.processHall(player,
                 new HallInfoVisitor() {
                     @Override
                     public void serverTime(String time) {
-                    }
-
-                    @Override
-                    public void playerBusy(boolean busy) {
                     }
 
                     @Override
@@ -67,6 +63,7 @@ public class HallCommunicationChannel {
                         props.put("format", formatName);
                         props.put("tournament", tournamentName);
                         props.put("players", StringUtils.join(playerIds, ","));
+                        props.put("playing", String.valueOf(playerIds.contains(player.getName())));
                         if (winner != null)
                             props.put("winner", winner);
 
@@ -109,8 +106,13 @@ public class HallCommunicationChannel {
 
                     @Override
                     public void runningPlayerGame(String gameId) {
+                        if (!_playedGames.contains(gameId))
+                            hasNewGames.setValue(true);
                     }
                 });
+
+        if (hasNewGames.booleanValue())
+            return true;
 
         if (newMotd.getValue() != null && !newMotd.getValue().equals(_lastMotd))
             return true;
@@ -142,7 +144,7 @@ public class HallCommunicationChannel {
         return false;
     }
 
-    public synchronized void processCommunicationChannel(HallServer hallServer, Player player, final HallChannelVisitor hallChannelVisitor) {
+    public synchronized void processCommunicationChannel(HallServer hallServer, final Player player, final HallChannelVisitor hallChannelVisitor) {
         updateLastAccess();
 
         hallChannelVisitor.channelNumber(_channelNumber);
@@ -151,17 +153,13 @@ public class HallCommunicationChannel {
         final Map<String, Map<String, String>> tournamentQueuesOnServer = new LinkedHashMap<String, Map<String, String>>();
         final Map<String, Map<String, String>> tablesOnServer = new LinkedHashMap<String, Map<String, String>>();
         final Map<String, Map<String, String>> tournamentsOnServer = new LinkedHashMap<String, Map<String, String>>();
+        final Set<String> playedGamesOnServer = new HashSet<String>();
 
         hallServer.processHall(player,
                 new HallInfoVisitor() {
                     @Override
                     public void serverTime(String time) {
                         hallChannelVisitor.serverTime(time);
-                    }
-
-                    @Override
-                    public void playerBusy(boolean busy) {
-                        hallChannelVisitor.playerBusy(busy);
                     }
 
                     @Override
@@ -179,6 +177,7 @@ public class HallCommunicationChannel {
                         props.put("format", formatName);
                         props.put("tournament", tournamentName);
                         props.put("players", StringUtils.join(playerIds, ","));
+                        props.put("playing", String.valueOf(playerIds.contains(player.getName())));
                         if (winner != null)
                             props.put("winner", winner);
 
@@ -221,7 +220,7 @@ public class HallCommunicationChannel {
 
                     @Override
                     public void runningPlayerGame(String gameId) {
-                        hallChannelVisitor.runningPlayerGame(gameId);
+                        playedGamesOnServer.add(gameId);
                     }
                 });
 
@@ -239,6 +238,12 @@ public class HallCommunicationChannel {
             hallChannelVisitor.motdChanged(newMotdStr);
             _lastMotd = newMotdStr;
         }
+
+        for (String gameId : playedGamesOnServer) {
+            if (!_playedGames.contains(gameId))
+                hallChannelVisitor.newPlayerGame(gameId);
+        }
+        _playedGames = playedGamesOnServer;
     }
 
     private void notifyAboutTables(HallChannelVisitor hallChannelVisitor, Map<String, Map<String, String>> tablesOnServer) {

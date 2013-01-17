@@ -42,14 +42,14 @@ var GempLotrHallUI = Class.extend({
 
         var hallSettingsStr = $.cookie("hallSettings");
         if (hallSettingsStr == null)
-            hallSettingsStr="0|0|1|1|0";
+            hallSettingsStr = "0|0|1|1|0";
         var hallSettings = hallSettingsStr.split("|");
 
-        this.addQueuesTable(hallSettings[0]=="1");
-        this.addTournamentsTable(hallSettings[1]=="1");
-        this.addWaitingTablesTable(hallSettings[2]=="1");
-        this.addPlayingTablesTable(hallSettings[3]=="1");
-        this.addFinishedTablesTable(hallSettings[4]=="1");
+        this.addQueuesTable(hallSettings[0] == "1");
+        this.addTournamentsTable(hallSettings[1] == "1");
+        this.addWaitingTablesTable(hallSettings[2] == "1");
+        this.addPlayingTablesTable(hallSettings[3] == "1");
+        this.addFinishedTablesTable(hallSettings[4] == "1");
 
         this.div.append(this.tablesDiv);
 
@@ -122,14 +122,14 @@ var GempLotrHallUI = Class.extend({
         });
 
         var that = this;
-        var toggle =function() {
-                if (toggleContent.button("option", "icons")["primary"] == "ui-icon-circlesmall-minus")
-                    toggleContent.button("option", "icons", {primary: "ui-icon-circlesmall-plus"});
-                else
-                    toggleContent.button("option", "icons", {primary: "ui-icon-circlesmall-minus"});
-                content.toggle("blind", {}, 200);
-                that.updateHallSettings();
-            };
+        var toggle = function() {
+            if (toggleContent.button("option", "icons")["primary"] == "ui-icon-circlesmall-minus")
+                toggleContent.button("option", "icons", {primary: "ui-icon-circlesmall-plus"});
+            else
+                toggleContent.button("option", "icons", {primary: "ui-icon-circlesmall-minus"});
+            content.toggle("blind", {}, 200);
+            that.updateHallSettings();
+        };
         toggleContent.css({width: "13px", height: "15px"});
         toggleContent.click(toggle);
 
@@ -163,14 +163,14 @@ var GempLotrHallUI = Class.extend({
         });
 
         var that = this;
-        var toggle=function() {
-                if (toggleContent.button("option", "icons")["primary"] == "ui-icon-circlesmall-minus")
-                    toggleContent.button("option", "icons", {primary: "ui-icon-circlesmall-plus"});
-                else
-                    toggleContent.button("option", "icons", {primary: "ui-icon-circlesmall-minus"});
-                content.toggle("blind", {}, 200);
+        var toggle = function() {
+            if (toggleContent.button("option", "icons")["primary"] == "ui-icon-circlesmall-minus")
+                toggleContent.button("option", "icons", {primary: "ui-icon-circlesmall-plus"});
+            else
+                toggleContent.button("option", "icons", {primary: "ui-icon-circlesmall-minus"});
+            content.toggle("blind", {}, 200);
             that.updateHallSettings();
-            };
+        };
         toggleContent.css({width: "13px", height: "15px"});
         toggleContent.click(toggle);
         header.append(toggleContent);
@@ -203,14 +203,14 @@ var GempLotrHallUI = Class.extend({
         });
 
         var that = this;
-        var toggle=function() {
-                if (toggleContent.button("option", "icons")["primary"] == "ui-icon-circlesmall-minus")
-                    toggleContent.button("option", "icons", {primary: "ui-icon-circlesmall-plus"});
-                else
-                    toggleContent.button("option", "icons", {primary: "ui-icon-circlesmall-minus"});
-                content.toggle("blind", {}, 200);
-                that.updateHallSettings();
-            };
+        var toggle = function() {
+            if (toggleContent.button("option", "icons")["primary"] == "ui-icon-circlesmall-minus")
+                toggleContent.button("option", "icons", {primary: "ui-icon-circlesmall-plus"});
+            else
+                toggleContent.button("option", "icons", {primary: "ui-icon-circlesmall-minus"});
+            content.toggle("blind", {}, 200);
+            that.updateHallSettings();
+        };
         toggleContent.css({width: "13px", height: "15px"});
         toggleContent.click(toggle);
         header.append(toggleContent);
@@ -243,14 +243,14 @@ var GempLotrHallUI = Class.extend({
         });
 
         var that = this;
-        var toggle=function() {
-                if (toggleContent.button("option", "icons")["primary"] == "ui-icon-circlesmall-minus")
-                    toggleContent.button("option", "icons", {primary: "ui-icon-circlesmall-plus"});
-                else
-                    toggleContent.button("option", "icons", {primary: "ui-icon-circlesmall-minus"});
-                content.toggle("blind", {}, 200);
+        var toggle = function() {
+            if (toggleContent.button("option", "icons")["primary"] == "ui-icon-circlesmall-minus")
+                toggleContent.button("option", "icons", {primary: "ui-icon-circlesmall-plus"});
+            else
+                toggleContent.button("option", "icons", {primary: "ui-icon-circlesmall-minus"});
+            content.toggle("blind", {}, 200);
             that.updateHallSettings();
-            };
+        };
         toggleContent.css({width: "13px", height: "15px"});
         toggleContent.click(toggle);
         header.append(toggleContent);
@@ -283,14 +283,14 @@ var GempLotrHallUI = Class.extend({
         });
 
         var that = this;
-        var toggle=function() {
-                if (toggleContent.button("option", "icons")["primary"] == "ui-icon-circlesmall-minus")
-                    toggleContent.button("option", "icons", {primary: "ui-icon-circlesmall-plus"});
-                else
-                    toggleContent.button("option", "icons", {primary: "ui-icon-circlesmall-minus"});
-                content.toggle("blind", {}, 200);
+        var toggle = function() {
+            if (toggleContent.button("option", "icons")["primary"] == "ui-icon-circlesmall-minus")
+                toggleContent.button("option", "icons", {primary: "ui-icon-circlesmall-plus"});
+            else
+                toggleContent.button("option", "icons", {primary: "ui-icon-circlesmall-minus"});
+            content.toggle("blind", {}, 200);
             that.updateHallSettings();
-            };
+        };
         toggleContent.css({width: "13px", height: "15px"});
         toggleContent.click(toggle);
         header.append(toggleContent);
@@ -312,12 +312,12 @@ var GempLotrHallUI = Class.extend({
 
     updateHallSettings: function() {
         var icons = $(".ui-button-icon-primary", this.tablesDiv);
-        var getSettingValue=
+        var getSettingValue =
             function(index) {
-                return $(icons[index]).hasClass("ui-icon-circlesmall-minus")?"1":"0";
+                return $(icons[index]).hasClass("ui-icon-circlesmall-minus") ? "1" : "0";
             };
 
-        var newHallSettings = getSettingValue(0)+"|"+getSettingValue(1)+"|"+getSettingValue(2)+"|"+getSettingValue(3)+"|"+getSettingValue(4);
+        var newHallSettings = getSettingValue(0) + "|" + getSettingValue(1) + "|" + getSettingValue(2) + "|" + getSettingValue(3) + "|" + getSettingValue(4);
         $.cookie("hallSettings", newHallSettings, { expires:365 });
     },
 
@@ -444,8 +444,6 @@ var GempLotrHallUI = Class.extend({
             if (serverTime != null)
                 $(".serverTime").text("Server time: " + serverTime);
 
-            var busy = root.getAttribute("busy") == "true";
-
             var queues = root.getElementsByTagName("queue");
             for (var i = 0; i < queues.length; i++) {
                 var queue = queues[i];
@@ -571,6 +569,7 @@ var GempLotrHallUI = Class.extend({
                     var players = new Array();
                     if (playersAttr.length > 0)
                         players = playersAttr.split(",");
+                    var playing = table.getAttribute("playing");
                     var winner = table.getAttribute("winner");
 
                     var row = $("<tr class='table" + id + "'></tr>");
@@ -588,7 +587,7 @@ var GempLotrHallUI = Class.extend({
                     row.append("<td>" + playersStr + "</td>");
 
                     var lastField = $("<td></td>");
-                    if (status == "WAITING" && !busy) {
+                    if (status == "WAITING") {
                         var that = this;
 
                         var but = $("<button>Join table</button>");
@@ -605,7 +604,14 @@ var GempLotrHallUI = Class.extend({
                         lastField.append(but);
                     }
 
-                    if (status == "PLAYING" && watchable == "true") {
+                    if (playing == "true") {
+                        var participantId = getUrlParam("participantId");
+                        var participantIdAppend = "";
+                        if (participantId != null)
+                            participantIdAppend = "&participantId=" + participantId;
+
+                        lastField.append("<a href='game.html?gameId=" + gameId + participantIdAppend + "'>Play the game</a>");
+                    } else if (status == "PLAYING" && watchable == "true") {
                         var participantId = getUrlParam("participantId");
                         var participantIdAppend = "";
                         if (participantId != null)
@@ -659,6 +665,8 @@ var GempLotrHallUI = Class.extend({
                         }
 
                         this.animateRowUpdate(".table" + id);
+                        if (playing)
+                            row.addClass("played");
                     }
                 } else if (action == "remove") {
                     $(".table" + id, this.tablesDiv).remove();
@@ -671,8 +679,7 @@ var GempLotrHallUI = Class.extend({
             $(".count", $(".eventHeader.playingTables")).html("(" + ($("tr", $("table.playingTables")).length - 1) + ")");
             $(".count", $(".eventHeader.finishedTables")).html("(" + ($("tr", $("table.finishedTables")).length - 1) + ")");
 
-            var skipReload = false;
-            var games = root.getElementsByTagName("game");
+            var games = root.getElementsByTagName("newGame");
             if (games.length > 0) {
                 var waitingGameId = games[0].getAttribute("id");
                 var participantId = getUrlParam("participantId");
@@ -680,8 +687,7 @@ var GempLotrHallUI = Class.extend({
                 if (participantId != null)
                     participantIdAppend = "&participantId=" + participantId;
                 this.tablesDiv.append("<embed src='/gemp-lotr/fanfare_x.wav' hidden=true autostart=true loop=false>");
-                skipReload = true;
-                setTimeout("location.href = '/gemp-lotr/game.html?gameId=" + waitingGameId + participantIdAppend + "'", 3000);
+                window.open("/gemp-lotr/game.html?gameId=" + waitingGameId + participantIdAppend, "_blank");
             }
 
             if (!this.supportedFormatsInitialized) {
@@ -694,29 +700,17 @@ var GempLotrHallUI = Class.extend({
                 this.supportedFormatsInitialized = true;
             }
 
-            if (busy) {
-                this.supportedFormatsSelect.hide();
-                this.decksSelect.hide();
-                this.createTableButton.hide();
-                if (this.leaveTableButton.css("display") == "none")
-                    this.leaveTableButton.css("display", "");
-            } else {
-                if (this.supportedFormatsSelect.css("display") == "none")
-                    this.supportedFormatsSelect.css("display", "");
-                if (this.decksSelect.css("display") == "none")
-                    this.decksSelect.css("display", "");
-                if (this.createTableButton.css("display") == "none")
-                    this.createTableButton.css("display", "");
-                this.leaveTableButton.hide();
-            }
+            if (this.supportedFormatsSelect.css("display") == "none")
+                this.supportedFormatsSelect.css("display", "");
+            if (this.decksSelect.css("display") == "none")
+                this.decksSelect.css("display", "");
+            if (this.createTableButton.css("display") == "none")
+                this.createTableButton.css("display", "");
+            this.leaveTableButton.hide();
 
-            var that = this;
-
-            if (!skipReload) {
-                setTimeout(function () {
-                    that.updateHall();
-                }, 100);
-            }
+            setTimeout(function () {
+                that.updateHall();
+            }, 100);
         }
     }
 });

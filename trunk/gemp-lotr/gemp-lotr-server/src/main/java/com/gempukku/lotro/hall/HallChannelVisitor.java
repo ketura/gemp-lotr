@@ -7,8 +7,7 @@ public interface HallChannelVisitor {
     public void motdChanged(String motd);
     
     public void serverTime(String serverTime);
-    public void runningPlayerGame(String gameId);
-    public void playerBusy(boolean busy);
+    public void newPlayerGame(String gameId);
 
     public void addTournamentQueue(String queueId, Map<String, String> props);
     public void updateTournamentQueue(String queueId, Map<String, String> props);
