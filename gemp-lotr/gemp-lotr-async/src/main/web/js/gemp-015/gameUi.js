@@ -536,15 +536,15 @@ var GempLotrGameUI = Class.extend({
         var tar = $(event.target);
         if (tar.hasClass("actionArea")) {
             var selectedCardElem = tar.closest(".card");
-                if (event.which == 1) {
-                    var cardData = selectedCardElem.data("card");
-                    if (cardData) {
-                        this.dragCardId = cardData.cardId;
-                        this.dragStartX = event.clientX;
-                        this.dragStartY = event.clientY;
-                        return false;
-                    }
+            if (event.which == 1) {
+                var cardData = selectedCardElem.data("card");
+                if (cardData) {
+                    this.dragCardId = cardData.cardId;
+                    this.dragStartX = event.clientX;
+                    this.dragStartY = event.clientY;
+                    return false;
                 }
+            }
         }
         return true;
     },
@@ -936,7 +936,7 @@ var GempLotrGameUI = Class.extend({
             buttons: buttons
         }).text(text);
     },
-    
+
     getCardModifiersFunction:function (cardId, func) {
         var that = this;
         this.communication.getGameCardModifiers(cardId,
@@ -1058,46 +1058,50 @@ var GempLotrGameUI = Class.extend({
     },
 
     processGameEventsXml:function (element, animate) {
-        this.channelNumber = element.getAttribute("cn");
+        try {
+            this.channelNumber = element.getAttribute("cn");
 
-        var gameEvents = element.getElementsByTagName("ge");
+            var gameEvents = element.getElementsByTagName("ge");
 
-        var hasDecision = false;
+            var hasDecision = false;
 
-        // Go through all the events
-        for (var i = 0; i < gameEvents.length; i++) {
-            var gameEvent = gameEvents[i];
-            this.processGameEvent(gameEvent, animate);
-            var eventType = gameEvent.getAttribute("type");
-            if (eventType == "D")
-                hasDecision = true;
-        }
+            // Go through all the events
+            for (var i = 0; i < gameEvents.length; i++) {
+                var gameEvent = gameEvents[i];
+                this.processGameEvent(gameEvent, animate);
+                var eventType = gameEvent.getAttribute("type");
+                if (eventType == "D")
+                    hasDecision = true;
+            }
 
-        if (this.allPlayerIds != null) {
-            var clocksXml = element.getElementsByTagName("clocks");
-            if (clocksXml.length > 0) {
-                var clocks = clocksXml[0].getElementsByTagName("clock");
-                for (var i = 0; i < clocks.length; i++) {
-                    var clock = clocks[i];
-                    var participantId = clock.getAttribute("participantId");
-                    var index = this.getPlayerIndex(participantId);
+            if (this.allPlayerIds != null) {
+                var clocksXml = element.getElementsByTagName("clocks");
+                if (clocksXml.length > 0) {
+                    var clocks = clocksXml[0].getElementsByTagName("clock");
+                    for (var i = 0; i < clocks.length; i++) {
+                        var clock = clocks[i];
+                        var participantId = clock.getAttribute("participantId");
+                        var index = this.getPlayerIndex(participantId);
 
-                    var value = parseInt(clock.childNodes[0].nodeValue);
+                        var value = parseInt(clock.childNodes[0].nodeValue);
 
-                    var sign = (value < 0) ? "-" : "";
-                    value = Math.abs(value);
-                    var minutes = Math.floor(value / 60);
-                    var seconds = value % 60;
+                        var sign = (value < 0) ? "-" : "";
+                        value = Math.abs(value);
+                        var minutes = Math.floor(value / 60);
+                        var seconds = value % 60;
 
-                    $("#clock" + index).text(sign + minutes + ":" + ((seconds < 10) ? ("0" + seconds) : seconds));
+                        $("#clock" + index).text(sign + minutes + ":" + ((seconds < 10) ? ("0" + seconds) : seconds));
+                    }
                 }
             }
-        }
 
-        if (!hasDecision) {
-            this.animations.updateGameState(animate);
-        } else {
-            this.startAnimatingTitle();
+            if (!hasDecision) {
+                this.animations.updateGameState(animate);
+            } else {
+                this.startAnimatingTitle();
+            }
+        } catch (e) {
+            this.showErrorDialog("Game error", "There was an error while processing game events in your browser. Reload the game to continue", true, false, false);
         }
     },
 
@@ -1481,7 +1485,7 @@ var GempLotrGameUI = Class.extend({
                 var tar = $(event.target);
                 if (tar.hasClass("actionArea")) {
                     var selectedCardElem = tar.closest(".card");
-                        that.displayCardInfo(selectedCardElem.data("card"));
+                    that.displayCardInfo(selectedCardElem.data("card"));
                 }
                 return false;
             },
@@ -1976,7 +1980,7 @@ var GempLotrGameUI = Class.extend({
                         if (card.assign != null)
                             assignmentMap[card.assign] += " " + card.cardId;
                         else
-                            atLeastOnMinionUnassigned=true;
+                            atLeastOnMinionUnassigned = true;
                     });
 
                 if (atLeastOnMinionUnassigned && !confirm("At least one minion has not been assigned, do you want to proceed?"))
