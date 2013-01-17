@@ -9,8 +9,6 @@ public interface HallInfoVisitor {
 
     public void serverTime(String time);
 
-    public void playerBusy(boolean busy);
-
     public void motd(String motd);
 
     public void visitTable(String tableId, String gameId, boolean watchable, TableStatus status, String statusDescription, String formatName, String tournamentName, List<String> playerIds, String winner);
