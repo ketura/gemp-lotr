@@ -40,11 +40,16 @@ var GempLotrHallUI = Class.extend({
         this.tablesDiv = $("<div></div>");
         this.tablesDiv.css({overflow:"auto", left:"0px", top:"0px", width:width + "px", height:(height - 30) + "px"});
 
-        this.addQueuesTable();
-        this.addTournamentsTable();
-        this.addWaitingTablesTable();
-        this.addPlayingTablesTable();
-        this.addFinishedTablesTable();
+        var hallSettingsStr = $.cookie("hallSettings");
+        if (hallSettingsStr == null)
+            hallSettingsStr="0|0|1|1|0";
+        var hallSettings = hallSettingsStr.split("|");
+
+        this.addQueuesTable(hallSettings[0]=="1");
+        this.addTournamentsTable(hallSettings[1]=="1");
+        this.addWaitingTablesTable(hallSettings[2]=="1");
+        this.addPlayingTablesTable(hallSettings[3]=="1");
+        this.addFinishedTablesTable(hallSettings[4]=="1");
 
         this.div.append(this.tablesDiv);
 
@@ -104,7 +109,7 @@ var GempLotrHallUI = Class.extend({
         this.updateDecks();
     },
 
-    addQueuesTable: function() {
+    addQueuesTable: function(displayed) {
         var header = $("<div class='eventHeader queues'></div>");
 
         var content = $("<div></div>");
@@ -115,15 +120,19 @@ var GempLotrHallUI = Class.extend({
             },
             text: false
         });
-        toggleContent.css({width: "13px", height: "15px"});
-        toggleContent.click(
-            function() {
+
+        var that = this;
+        var toggle =function() {
                 if (toggleContent.button("option", "icons")["primary"] == "ui-icon-circlesmall-minus")
                     toggleContent.button("option", "icons", {primary: "ui-icon-circlesmall-plus"});
                 else
                     toggleContent.button("option", "icons", {primary: "ui-icon-circlesmall-minus"});
                 content.toggle("blind", {}, 200);
-            });
+                that.updateHallSettings();
+            };
+        toggleContent.css({width: "13px", height: "15px"});
+        toggleContent.click(toggle);
+
         header.append(toggleContent);
         header.append(" Tournament queues");
         header.append(" <span class='count'>(0)</span>");
@@ -134,9 +143,14 @@ var GempLotrHallUI = Class.extend({
 
         this.tablesDiv.append(header);
         this.tablesDiv.append(content);
+
+        if (!displayed) {
+            toggleContent.button("option", "icons", {primary: "ui-icon-circlesmall-plus"});
+            content.css({"display":"none"});
+        }
     },
 
-    addTournamentsTable: function() {
+    addTournamentsTable: function(displayed) {
         var header = $("<div class='eventHeader tournaments'></div>");
 
         var content = $("<div></div>");
@@ -147,15 +161,18 @@ var GempLotrHallUI = Class.extend({
             },
             text: false
         });
-        toggleContent.css({width: "13px", height: "15px"});
-        toggleContent.click(
-            function() {
+
+        var that = this;
+        var toggle=function() {
                 if (toggleContent.button("option", "icons")["primary"] == "ui-icon-circlesmall-minus")
                     toggleContent.button("option", "icons", {primary: "ui-icon-circlesmall-plus"});
                 else
                     toggleContent.button("option", "icons", {primary: "ui-icon-circlesmall-minus"});
                 content.toggle("blind", {}, 200);
-            });
+            that.updateHallSettings();
+            };
+        toggleContent.css({width: "13px", height: "15px"});
+        toggleContent.click(toggle);
         header.append(toggleContent);
         header.append(" Tournaments in progress");
         header.append(" <span class='count'>(0)</span>");
@@ -166,9 +183,14 @@ var GempLotrHallUI = Class.extend({
 
         this.tablesDiv.append(header);
         this.tablesDiv.append(content);
+
+        if (!displayed) {
+            toggleContent.button("option", "icons", {primary: "ui-icon-circlesmall-plus"});
+            content.css({"display":"none"});
+        }
     },
 
-    addWaitingTablesTable: function() {
+    addWaitingTablesTable: function(displayed) {
         var header = $("<div class='eventHeader waitingTables'></div>");
 
         var content = $("<div></div>");
@@ -179,15 +201,18 @@ var GempLotrHallUI = Class.extend({
             },
             text: false
         });
-        toggleContent.css({width: "13px", height: "15px"});
-        toggleContent.click(
-            function() {
+
+        var that = this;
+        var toggle=function() {
                 if (toggleContent.button("option", "icons")["primary"] == "ui-icon-circlesmall-minus")
                     toggleContent.button("option", "icons", {primary: "ui-icon-circlesmall-plus"});
                 else
                     toggleContent.button("option", "icons", {primary: "ui-icon-circlesmall-minus"});
                 content.toggle("blind", {}, 200);
-            });
+                that.updateHallSettings();
+            };
+        toggleContent.css({width: "13px", height: "15px"});
+        toggleContent.click(toggle);
         header.append(toggleContent);
         header.append(" Waiting tables");
         header.append(" <span class='count'>(0)</span>");
@@ -198,9 +223,14 @@ var GempLotrHallUI = Class.extend({
 
         this.tablesDiv.append(header);
         this.tablesDiv.append(content);
+
+        if (!displayed) {
+            toggleContent.button("option", "icons", {primary: "ui-icon-circlesmall-plus"});
+            content.css({"display":"none"});
+        }
     },
 
-    addPlayingTablesTable: function() {
+    addPlayingTablesTable: function(displayed) {
         var header = $("<div class='eventHeader playingTables'></div>");
 
         var content = $("<div></div>");
@@ -211,15 +241,18 @@ var GempLotrHallUI = Class.extend({
             },
             text: false
         });
-        toggleContent.css({width: "13px", height: "15px"});
-        toggleContent.click(
-            function() {
+
+        var that = this;
+        var toggle=function() {
                 if (toggleContent.button("option", "icons")["primary"] == "ui-icon-circlesmall-minus")
                     toggleContent.button("option", "icons", {primary: "ui-icon-circlesmall-plus"});
                 else
                     toggleContent.button("option", "icons", {primary: "ui-icon-circlesmall-minus"});
                 content.toggle("blind", {}, 200);
-            });
+            that.updateHallSettings();
+            };
+        toggleContent.css({width: "13px", height: "15px"});
+        toggleContent.click(toggle);
         header.append(toggleContent);
         header.append(" Playing tables");
         header.append(" <span class='count'>(0)</span>");
@@ -230,9 +263,14 @@ var GempLotrHallUI = Class.extend({
 
         this.tablesDiv.append(header);
         this.tablesDiv.append(content);
+
+        if (!displayed) {
+            toggleContent.button("option", "icons", {primary: "ui-icon-circlesmall-plus"});
+            content.css({"display":"none"});
+        }
     },
 
-    addFinishedTablesTable: function() {
+    addFinishedTablesTable: function(displayed) {
         var header = $("<div class='eventHeader finishedTables'></div>");
 
         var content = $("<div></div>");
@@ -243,15 +281,18 @@ var GempLotrHallUI = Class.extend({
             },
             text: false
         });
-        toggleContent.css({width: "13px", height: "15px"});
-        toggleContent.click(
-            function() {
+
+        var that = this;
+        var toggle=function() {
                 if (toggleContent.button("option", "icons")["primary"] == "ui-icon-circlesmall-minus")
                     toggleContent.button("option", "icons", {primary: "ui-icon-circlesmall-plus"});
                 else
                     toggleContent.button("option", "icons", {primary: "ui-icon-circlesmall-minus"});
                 content.toggle("blind", {}, 200);
-            });
+            that.updateHallSettings();
+            };
+        toggleContent.css({width: "13px", height: "15px"});
+        toggleContent.click(toggle);
         header.append(toggleContent);
         header.append(" Finished tables");
         header.append(" <span class='count'>(0)</span>");
@@ -262,6 +303,22 @@ var GempLotrHallUI = Class.extend({
 
         this.tablesDiv.append(header);
         this.tablesDiv.append(content);
+
+        if (!displayed) {
+            toggleContent.button("option", "icons", {primary: "ui-icon-circlesmall-plus"});
+            content.css({"display":"none"});
+        }
+    },
+
+    updateHallSettings: function() {
+        var icons = $(".ui-button-icon-primary", this.tablesDiv);
+        var getSettingValue=
+            function(index) {
+                return $(icons[index]).hasClass("ui-icon-circlesmall-minus")?"1":"0";
+            };
+
+        var newHallSettings = getSettingValue(0)+"|"+getSettingValue(1)+"|"+getSettingValue(2)+"|"+getSettingValue(3)+"|"+getSettingValue(4);
+        $.cookie("hallSettings", newHallSettings, { expires:365 });
     },
 
     hallResized:function (width, height) {
