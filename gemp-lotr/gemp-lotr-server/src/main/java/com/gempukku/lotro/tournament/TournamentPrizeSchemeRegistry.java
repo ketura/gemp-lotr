@@ -8,6 +8,9 @@ public class TournamentPrizeSchemeRegistry {
         if (prizesScheme.equals("onDemand"))
             return new SingleEliminationOnDemandPrizes("onDemand");
 
+        if (prizesScheme.equals("daily"))
+            return new DailyTournamentPrizes("daily");
+
         return null;
     }
 }

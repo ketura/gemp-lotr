@@ -18,6 +18,8 @@ import com.gempukku.lotro.logic.timing.GameResultListener;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 import com.gempukku.lotro.tournament.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.ReadWriteLock;
@@ -26,6 +28,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 public class HallServer extends AbstractServer {
     private final int _playerInactivityPeriod = 1000 * 20; // 20 seconds
     private final long _scheduledTournamentLoadTime = 1000 * 60 * 60 * 24 * 7; // Week
+    private final long _repeatTournaments = 1000*60*60*24*2;
 
     private ChatServer _chatServer;
     private LeagueService _leagueService;
@@ -81,6 +84,26 @@ public class HallServer extends AbstractServer {
         _tournamentQueues.put("expanded_queue", new ImmediateRecurringQueue(635, "expanded",
                 CollectionType.ALL_CARDS, "expandedQueue-", "Expanded", 8,
                 true, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes("onDemand"), _pairingMechanismRegistry.getPairingMechanism("singleElimination")));
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
+
+        try {
+        _tournamentQueues.put("fotr_daily_eu", new RecurringScheduledQueue(sdf.parse("2013-01-17 19:30:00").getTime(), _repeatTournaments, "fotrDailyEu-", "Daily EU Fellowship Block", 0,
+                true, CollectionType.MY_CARDS, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes("daily"), _pairingMechanismRegistry.getPairingMechanism("swiss"),
+                "fotr_block", 8));
+        _tournamentQueues.put("fotr_daily_us", new RecurringScheduledQueue(sdf.parse("2013-01-18 00:30:00").getTime(), _repeatTournaments, "fotrDailyUs-", "Daily US Fellowship Block", 0,
+                true, CollectionType.MY_CARDS, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes("daily"), _pairingMechanismRegistry.getPairingMechanism("swiss"),
+                "fotr_block", 8));
+        _tournamentQueues.put("movie_daily_eu", new RecurringScheduledQueue(sdf.parse("2013-01-18 19:30:00").getTime(), _repeatTournaments, "movieDailyEu-", "Daily EU Movie Block", 0,
+                true, CollectionType.MY_CARDS, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes("daily"), _pairingMechanismRegistry.getPairingMechanism("swiss"),
+                "movie", 8));
+        _tournamentQueues.put("movie_daily_us", new RecurringScheduledQueue(sdf.parse("2013-01-19 00:30:00").getTime(), _repeatTournaments, "movieDailyUs-", "Daily US Movie Block", 0,
+                true, CollectionType.MY_CARDS, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes("daily"), _pairingMechanismRegistry.getPairingMechanism("swiss"),
+                "movie", 8));
+        } catch (ParseException exp) {
+            // Ignore, can't happen
+        }
     }
 
     @Override
