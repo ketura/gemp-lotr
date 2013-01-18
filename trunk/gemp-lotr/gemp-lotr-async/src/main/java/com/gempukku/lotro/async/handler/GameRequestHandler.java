@@ -14,6 +14,7 @@ import com.gempukku.lotro.game.ParticipantCommunicationVisitor;
 import com.gempukku.lotro.game.Player;
 import com.gempukku.lotro.game.state.EventSerializer;
 import com.gempukku.lotro.game.state.GameEvent;
+import com.gempukku.lotro.game.state.GatheringParticipantCommunicationChannel;
 import org.jboss.netty.channel.MessageEvent;
 import org.jboss.netty.handler.codec.http.*;
 import org.jboss.netty.handler.codec.http.multipart.HttpPostRequestDecoder;
@@ -108,7 +109,7 @@ public class GameRequestHandler extends LotroServerRequestHandler implements Uri
         @Override
         public boolean isChanged() {
             try {
-                return _gameMediator.hasAnyNewMessages(_resourceOwner, _channelNumber);
+                return _gameMediator.getCommunicationChannel(_resourceOwner, _channelNumber).hasGameEvents();
             } catch (PrivateInformationException e) {
                 return true;
             } catch (SubscriptionExpiredException e) {
@@ -127,7 +128,8 @@ public class GameRequestHandler extends LotroServerRequestHandler implements Uri
                 Document doc = documentBuilder.newDocument();
                 Element update = doc.createElement("update");
 
-                _gameMediator.processCommunicationChannel(_resourceOwner, _channelNumber, new SerializationVisitor(doc, update));
+                GatheringParticipantCommunicationChannel communicationChannel = _gameMediator.getCommunicationChannel(_resourceOwner, _channelNumber);
+                _gameMediator.processVisitor(communicationChannel, _channelNumber, _resourceOwner.getName(), new SerializationVisitor(doc, update));
 
                 doc.appendChild(update);
 
