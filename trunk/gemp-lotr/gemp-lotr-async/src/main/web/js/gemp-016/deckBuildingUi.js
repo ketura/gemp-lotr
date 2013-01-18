@@ -321,7 +321,7 @@ var GempLotrDeckBuildingUI = Class.extend({
                     deckElem.append(openDeckBut);
                     deckElem.append(deckListBut);
                     deckElem.append(deleteDeckBut);
-                    deckElem.append(deckName);
+                    deckElem.append($("<div/>").text(deckName).html());
 
                     that.deckListDialog.append(deckElem);
 
