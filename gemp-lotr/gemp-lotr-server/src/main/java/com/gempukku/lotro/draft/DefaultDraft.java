@@ -64,12 +64,14 @@ public class DefaultDraft implements Draft {
                 }
             } else {
                 presentNewCardChoices();
-                for (DraftCommunicationChannel draftCommunicationChannel : _playerDraftCommunications.values())
-                    draftCommunicationChannel.draftChanged();
             }
+            for (DraftCommunicationChannel draftCommunicationChannel : _playerDraftCommunications.values())
+                draftCommunicationChannel.draftChanged();
         } else {
             if (choiceTimePassed()) {
                 forceRandomCardChoice();
+                for (DraftCommunicationChannel draftCommunicationChannel : _playerDraftCommunications.values())
+                    draftCommunicationChannel.draftChanged();
             }
         }
     }
@@ -77,6 +79,7 @@ public class DefaultDraft implements Draft {
     @Override
     public void playerChosenCard(String playerName, String cardId) {
         playerChosen(playerName, cardId);
+        _playerDraftCommunications.get(playerName).draftChanged();
     }
 
     public void signUpForDraft(String playerName, DraftChannelVisitor draftChannelVisitor) {
@@ -131,7 +134,6 @@ public class DefaultDraft implements Draft {
             if (cardChoice.removeItem(cardId, 1)) {
                 _collectionsManager.addItemsToPlayerCollection(false, "Pick in draft", playerName, _collectionType, Arrays.asList(CardCollection.Item.createItem(cardId, 1)));
                 _cardChoice.remove(playerName);
-                _playerDraftCommunications.get(playerName).draftChanged();
             }
         }
     }
