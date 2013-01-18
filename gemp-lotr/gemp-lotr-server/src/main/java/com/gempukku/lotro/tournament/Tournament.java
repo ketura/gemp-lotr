@@ -33,7 +33,7 @@ public interface Tournament {
     public int getCurrentRound();
     public int getPlayersInCompetitionCount();
 
-    public void advanceTournament(TournamentCallback tournamentCallback, CollectionsManager collectionsManager);
+    public boolean advanceTournament(TournamentCallback tournamentCallback, CollectionsManager collectionsManager);
 
     public void reportGameFinished(String winner, String loser);
 

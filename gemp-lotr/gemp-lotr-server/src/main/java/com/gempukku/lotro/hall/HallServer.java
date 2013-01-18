@@ -689,11 +689,11 @@ public class HallServer extends AbstractServer {
 
             for (Map.Entry<String, Tournament> tournamentEntry : new HashMap<String, Tournament>(_runningTournaments).entrySet()) {
                 Tournament runningTournament = tournamentEntry.getValue();
-                runningTournament.advanceTournament(new HallTournamentCallback(runningTournament), _collectionsManager);
-                if (runningTournament.getTournamentStage() == Tournament.Stage.FINISHED) {
+                boolean changed = runningTournament.advanceTournament(new HallTournamentCallback(runningTournament), _collectionsManager);
+                if (runningTournament.getTournamentStage() == Tournament.Stage.FINISHED)
                     _runningTournaments.remove(tournamentEntry.getKey());
+                if (changed)
                     hallChanged();
-                }
             }
 
             if (_tickCounter == 60) {

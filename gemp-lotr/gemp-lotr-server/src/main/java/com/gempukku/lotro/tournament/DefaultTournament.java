@@ -226,9 +226,10 @@ public class DefaultTournament implements Tournament {
     }
 
     @Override
-    public void advanceTournament(TournamentCallback tournamentCallback, CollectionsManager collectionsManager) {
+    public boolean advanceTournament(TournamentCallback tournamentCallback, CollectionsManager collectionsManager) {
         _lock.writeLock().lock();
         try {
+            boolean result = false;
             if (_nextTask == null) {
                 if (_tournamentStage == Stage.DRAFT) {
                     _draft.advanceDraft(tournamentCallback);
@@ -238,6 +239,7 @@ public class DefaultTournament implements Tournament {
                         _tournamentService.updateTournamentStage(_tournamentId, _tournamentStage);
                         _deckBuildStartTime = System.currentTimeMillis();
                         _draft = null;
+                        result = true;
                     }
                 }
                 if (_tournamentStage == Stage.DECK_BUILDING) {
@@ -245,6 +247,7 @@ public class DefaultTournament implements Tournament {
                             || _playerDecks.size() == _players.size()) {
                         _tournamentStage = Stage.PLAYING_GAMES;
                         _tournamentService.updateTournamentStage(_tournamentId, _tournamentStage);
+                        result = true;
                     }
                 }
                 if (_tournamentStage == Stage.PLAYING_GAMES) {
@@ -255,6 +258,7 @@ public class DefaultTournament implements Tournament {
                             tournamentCallback.broadcastMessage("Tournament " + _tournamentName + " will start round "+(_tournamentRound+1)+" in 2 minutes");
                             _nextTask = new PairPlayers();
                         }
+                        result = true;
                     }
                 }
             }
@@ -262,7 +266,9 @@ public class DefaultTournament implements Tournament {
                 TournamentTask task = _nextTask;
                 _nextTask = null;
                 task.executeTask(tournamentCallback, collectionsManager);
+                result = true;
             }
+            return result;
         } finally {
             _lock.writeLock().unlock();
         }
