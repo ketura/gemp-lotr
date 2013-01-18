@@ -41,7 +41,7 @@ public class DraftCommunicationChannel {
         return sb.toString();
     }
 
-    public void processCommunicationChannel(DraftCardChoice draftCardChoice, DraftChannelVisitor draftChannelVisitor) {
+    public void processCommunicationChannel(DraftCardChoice draftCardChoice, CardCollection chosenCards, DraftChannelVisitor draftChannelVisitor) {
         updateLastAccess();
 
         CardCollection cardCollection = draftCardChoice.getCardCollection();
@@ -53,5 +53,6 @@ public class DraftCommunicationChannel {
             draftChannelVisitor.noCardChoice();
             _cardChoiceOnClient = null;
         }
+        draftChannelVisitor.chosenCards(chosenCards);
     }
 }

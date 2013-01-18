@@ -117,7 +117,7 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
         Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
         try {
-            _hallServer.draftPick(tournamentId, resourceOwner, blueprintId);
+            _hallServer.getDraft(tournamentId).playerChosenCard(resourceOwner.getName(), blueprintId);
             responseWriter.writeXmlResponse(null);
         } catch (DraftFinishedException exp) {
             responseWriter.writeError(204);
@@ -177,8 +177,8 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
                     try {
                         Draft draft = _hallServer.getDraft(_tournamentId);
                         SerializeDraftVisitor serializeDraftVisitor = new SerializeDraftVisitor(doc, draftElem);
-                        draft.getCommunicationChannel(_player.getName(), _channelNumber).processCommunicationChannel(draft.getCardChoice(_player.getName()), serializeDraftVisitor);
-                        serializeDraftVisitor.chosenCards(draft.getChosenCards(_player));
+                        draft.getCommunicationChannel(_player.getName(), _channelNumber)
+                                .processCommunicationChannel(draft.getCardChoice(_player.getName()), draft.getChosenCards(_player.getName()), serializeDraftVisitor);
 
                         doc.appendChild(draftElem);
 

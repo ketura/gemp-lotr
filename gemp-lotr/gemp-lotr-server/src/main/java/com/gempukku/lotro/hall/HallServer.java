@@ -339,24 +339,6 @@ public class HallServer extends AbstractServer {
             if (draft == null)
                 throw new DraftFinishedException();
             draft.signUpForDraft(player.getName(), draftChannelVisitor);
-            CardCollection cardCollection = _collectionsManager.getPlayerCollection(player, tournament.getCollectionType().getCode());
-            draftChannelVisitor.chosenCards(cardCollection);
-        } finally {
-            _hallDataAccessLock.readLock().unlock();
-        }
-    }
-
-    public void draftPick(String tournamentId, Player player, String blueprintId)
-            throws DraftFinishedException {
-        _hallDataAccessLock.readLock().lock();
-        try {
-            Tournament tournament = _runningTournaments.get(tournamentId);
-            if (tournament == null)
-                throw new DraftFinishedException();
-            Draft draft = tournament.getDraft();
-            if (draft == null)
-                throw new DraftFinishedException();
-            draft.playerChosenCard(player.getName(), blueprintId);
         } finally {
             _hallDataAccessLock.readLock().unlock();
         }
