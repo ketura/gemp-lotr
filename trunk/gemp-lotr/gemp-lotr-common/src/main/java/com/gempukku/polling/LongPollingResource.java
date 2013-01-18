@@ -1,4 +1,4 @@
-package com.gempukku.lotro.async;
+package com.gempukku.polling;
 
 public interface LongPollingResource {
     public boolean isChanged();

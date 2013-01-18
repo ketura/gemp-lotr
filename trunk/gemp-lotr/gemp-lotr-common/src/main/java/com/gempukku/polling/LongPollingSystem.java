@@ -1,4 +1,4 @@
-package com.gempukku.lotro.async;
+package com.gempukku.polling;
 
 import org.apache.log4j.Logger;
 

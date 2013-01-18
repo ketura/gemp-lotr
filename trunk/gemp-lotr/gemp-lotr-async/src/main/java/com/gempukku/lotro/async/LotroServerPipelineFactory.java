@@ -6,6 +6,7 @@ import com.gempukku.lotro.builder.DaoBuilder;
 import com.gempukku.lotro.builder.PacksStorageBuilder;
 import com.gempukku.lotro.builder.ServerBuilder;
 import com.gempukku.lotro.packs.PacksStorage;
+import com.gempukku.polling.LongPollingSystem;
 import org.jboss.netty.channel.ChannelPipeline;
 import org.jboss.netty.channel.ChannelPipelineFactory;
 import org.jboss.netty.channel.Channels;
