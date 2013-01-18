@@ -82,11 +82,11 @@ public class DefaultDraft implements Draft {
         draftCommunicationChannel.processCommunicationChannel(getCardChoice(playerName), draftChannelVisitor);
     }
 
-    public boolean hasChanges(String playerName, int channelNumber) throws SubscriptionExpiredException, SubscriptionConflictException {
+    public DraftCommunicationChannel getCommunicationChannel(String playerName, int channelNumber) throws SubscriptionExpiredException, SubscriptionConflictException {
         DraftCommunicationChannel communicationChannel = _playerDraftCommunications.get(playerName);
         if (communicationChannel != null) {
             if (communicationChannel.getChannelNumber() == channelNumber) {
-                return communicationChannel.hasChangesInCommunicationChannel(getCardChoice(playerName));
+                return communicationChannel;
             } else {
                 throw new SubscriptionConflictException();
             }
@@ -95,20 +95,7 @@ public class DefaultDraft implements Draft {
         }
     }
 
-    public void processDraft(String playerName, int channelNumber, DraftChannelVisitor draftChannelVisitor) throws SubscriptionExpiredException, SubscriptionConflictException {
-        DraftCommunicationChannel communicationChannel = _playerDraftCommunications.get(playerName);
-        if (communicationChannel != null) {
-            if (communicationChannel.getChannelNumber() == channelNumber) {
-                communicationChannel.processCommunicationChannel(getCardChoice(playerName), draftChannelVisitor);
-            } else {
-                throw new SubscriptionConflictException();
-            }
-        } else {
-            throw new SubscriptionExpiredException();
-        }
-    }
-
-    private DraftCardChoice getCardChoice(String playerName) {
+    public DraftCardChoice getCardChoice(String playerName) {
         MutableCardCollection cardChoice = _cardChoice.get(playerName);
 
         return new DefaultDraftCardChoice(cardChoice, _lastPickStart + PICK_TIME);
