@@ -924,7 +924,7 @@ var GempLotrGameUI = Class.extend({
         if (gameHallButton) {
             buttons["Go to Game Hall"] =
             function() {
-                location.href = "/game-lotr/hall.html";
+                location.href = "/gemp-lotr/hall.html";
             };
         }
 
