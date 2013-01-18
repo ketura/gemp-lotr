@@ -333,7 +333,7 @@ public class LotroGameMediator {
         }
     }
 
-    public boolean hasAnyNewMessages(Player player, int channelNumber) throws PrivateInformationException, SubscriptionConflictException, SubscriptionExpiredException {
+    public GatheringParticipantCommunicationChannel getCommunicationChannel(Player player, int channelNumber)  throws PrivateInformationException, SubscriptionConflictException, SubscriptionExpiredException {
         String playerName = player.getName();
         if (!player.getType().contains("a") && !_allowSpectators && !_playersPlaying.contains(playerName))
             throw new PrivateInformationException();
@@ -343,7 +343,7 @@ public class LotroGameMediator {
             GatheringParticipantCommunicationChannel communicationChannel = _communicationChannels.get(playerName);
             if (communicationChannel != null) {
                 if (communicationChannel.getChannelNumber() == channelNumber) {
-                    return communicationChannel.hasGameEvents() || _userFeedback.hasWarning(playerName);
+                    return communicationChannel;
                 } else {
                     throw new SubscriptionConflictException();
                 }
@@ -355,39 +355,21 @@ public class LotroGameMediator {
         }
     }
 
-    public void processCommunicationChannel(Player player, int channelNumber, ParticipantCommunicationVisitor visitor) throws PrivateInformationException, SubscriptionConflictException, SubscriptionExpiredException {
-        String playerName = player.getName();
-        if (!player.getType().contains("a") && !_allowSpectators && !_playersPlaying.contains(playerName))
-            throw new PrivateInformationException();
+    public void processVisitor(GatheringParticipantCommunicationChannel communicationChannel, int channelNumber, String playerName, ParticipantCommunicationVisitor visitor) {
+        visitor.visitChannelNumber(channelNumber);
+        for (GameEvent gameEvent : communicationChannel.consumeGameEvents())
+            visitor.visitGameEvent(gameEvent);
 
-        _readLock.lock();
-        try {
-            GatheringParticipantCommunicationChannel communicationChannel = _communicationChannels.get(playerName);
-            if (communicationChannel != null) {
-                if (communicationChannel.getChannelNumber() == channelNumber) {
-                    visitor.visitChannelNumber(channelNumber);
-                    for (GameEvent gameEvent : communicationChannel.consumeGameEvents())
-                        visitor.visitGameEvent(gameEvent);
+        String warning = _userFeedback.consumeWarning(playerName);
+        if (warning != null)
+            visitor.visitGameEvent(new GameEvent(GameEvent.Type.W).message(warning));
 
-                    String warning = _userFeedback.consumeWarning(playerName);
-                    if (warning != null)
-                        visitor.visitGameEvent(new GameEvent(GameEvent.Type.W).message(warning));
-
-                    Map<String, Integer> secondsLeft = new HashMap<String, Integer>();
-                    for (Map.Entry<String, Integer> playerClock : _playerClocks.entrySet()) {
-                        String playerClockName = playerClock.getKey();
-                        secondsLeft.put(playerClockName, _maxSecondsForGamePerPlayer - playerClock.getValue() - getCurrentUserPendingTime(playerClockName));
-                    }
-                    visitor.visitClock(secondsLeft);
-                } else {
-                    throw new SubscriptionConflictException();
-                }
-            } else {
-                throw new SubscriptionExpiredException();
-            }
-        } finally {
-            _readLock.unlock();
+        Map<String, Integer> secondsLeft = new HashMap<String, Integer>();
+        for (Map.Entry<String, Integer> playerClock : _playerClocks.entrySet()) {
+            String playerClockName = playerClock.getKey();
+            secondsLeft.put(playerClockName, _maxSecondsForGamePerPlayer - playerClock.getValue() - getCurrentUserPendingTime(playerClockName));
         }
+        visitor.visitClock(secondsLeft);
     }
 
     public void singupUserForGame(Player player, ParticipantCommunicationVisitor visitor) throws PrivateInformationException {
