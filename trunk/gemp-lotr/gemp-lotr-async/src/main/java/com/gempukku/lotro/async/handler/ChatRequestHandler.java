@@ -61,18 +61,18 @@ public class ChatRequestHandler extends LotroServerRequestHandler implements Uri
             throw new HttpProcessingException(404);
 
         try {
-            if (message != null && message.trim().length() > 0)
+            if (message != null && message.trim().length() > 0) {
                 chatRoom.sendMessage(resourceOwner.getName(), StringEscapeUtils.escapeHtml(message), resourceOwner.getType().contains("a"));
-        } catch (PrivateInformationException exp) {
-            throw new HttpProcessingException(403);
-        }
-
-        try {
-            ChatCommunicationChannel pollableResource = chatRoom.getChatRoomListener(resourceOwner.getName());
-            ChatUpdateLongPollingResource polledResource = new ChatUpdateLongPollingResource(chatRoom, room, resourceOwner.getName(), responseWriter);
-            _longPollingSystem.processLongPollingResource(polledResource, pollableResource);
+                responseWriter.writeXmlResponse(null);
+            } else {
+                ChatCommunicationChannel pollableResource = chatRoom.getChatRoomListener(resourceOwner.getName());
+                ChatUpdateLongPollingResource polledResource = new ChatUpdateLongPollingResource(chatRoom, room, resourceOwner.getName(), responseWriter);
+                _longPollingSystem.processLongPollingResource(polledResource, pollableResource);
+            }
         } catch (SubscriptionExpiredException exp) {
             responseWriter.writeError(410);
+        } catch (PrivateInformationException exp) {
+            throw new HttpProcessingException(403);
         }
     }
 

@@ -15,7 +15,7 @@ public class ChatRoomMediator {
 
     private Map<String, ChatCommunicationChannel> _listeners = new HashMap<String, ChatCommunicationChannel>();
 
-    private int _channelInactivityTimeoutPeriod = 1000 * 20; // 10 seconds
+    private final int _channelInactivityTimeoutPeriod;
     private Set<String> _allowedPlayers;
 
     private ReadWriteLock _lock = new ReentrantReadWriteLock();
