@@ -12,6 +12,7 @@ import com.gempukku.lotro.tournament.TournamentCallback;
 
 import java.util.*;
 
+// TODO - it has to be thread safe
 public class DefaultDraft implements Draft {
     // 35 seconds
     public static final int PICK_TIME = 35 * 1000;
@@ -63,6 +64,8 @@ public class DefaultDraft implements Draft {
                 }
             } else {
                 presentNewCardChoices();
+                for (DraftCommunicationChannel draftCommunicationChannel : _playerDraftCommunications.values())
+                    draftCommunicationChannel.draftChanged();
             }
         } else {
             if (choiceTimePassed()) {
@@ -128,6 +131,7 @@ public class DefaultDraft implements Draft {
             if (cardChoice.removeItem(cardId, 1)) {
                 _collectionsManager.addItemsToPlayerCollection(false, "Pick in draft", playerName, _collectionType, Arrays.asList(CardCollection.Item.createItem(cardId, 1)));
                 _cardChoice.remove(playerName);
+                _playerDraftCommunications.get(playerName).draftChanged();
             }
         }
     }

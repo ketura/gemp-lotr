@@ -1,12 +1,14 @@
 package com.gempukku.lotro.hall;
 
 import com.gempukku.lotro.game.Player;
+import com.gempukku.polling.LongPollableResource;
+import com.gempukku.polling.LongPollingResource;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.mutable.MutableObject;
 
 import java.util.*;
 
-public class HallCommunicationChannel {
+public class HallCommunicationChannel implements LongPollableResource {
     private int _channelNumber;
     private long _lastConsumed;
     private String _lastMotd;
@@ -15,13 +17,26 @@ public class HallCommunicationChannel {
     private Map<String, Map<String, String>> _tablePropsOnClient = new LinkedHashMap<String, Map<String, String>>();
     private Set<String> _playedGames = new HashSet<String>();
     private boolean _changed;
+    private LongPollingResource _longPollingResource;
 
     public HallCommunicationChannel(int channelNumber) {
         _channelNumber = channelNumber;
     }
 
+    @Override
+    public synchronized void deregisterResource(LongPollingResource longPollingResource) {
+        _longPollingResource = null;
+    }
+
+    @Override
+    public synchronized void registerForChanges(LongPollingResource longPollingResource) {
+        _longPollingResource = longPollingResource;
+    }
+
     public synchronized void hallChanged() {
         _changed = true;
+        if (_longPollingResource != null)
+            _longPollingResource.processIfNotProcessed();
     }
 
     public int getChannelNumber() {

@@ -1,12 +1,15 @@
 package com.gempukku.lotro.draft;
 
 import com.gempukku.lotro.game.CardCollection;
+import com.gempukku.polling.LongPollableResource;
+import com.gempukku.polling.LongPollingResource;
 
-public class DraftCommunicationChannel {
+public class DraftCommunicationChannel implements LongPollableResource {
     private int _channelNumber;
     private long _lastAccessed;
 
     private String _cardChoiceOnClient;
+    private LongPollingResource _longPollingResource;
 
     public DraftCommunicationChannel(int channelNumber) {
         _channelNumber = channelNumber;
@@ -22,6 +25,21 @@ public class DraftCommunicationChannel {
 
     private void updateLastAccess() {
         _lastAccessed = System.currentTimeMillis();
+    }
+
+    @Override
+    public void deregisterResource(LongPollingResource longPollingResource) {
+        _longPollingResource = null;
+    }
+
+    @Override
+    public void registerForChanges(LongPollingResource longPollingResource) {
+        _longPollingResource = longPollingResource;
+    }
+
+    public synchronized void draftChanged() {
+        if (_longPollingResource != null)
+            _longPollingResource.processIfNotProcessed();
     }
 
     public boolean hasChangesInCommunicationChannel(DraftCardChoice draftCardChoice) {
