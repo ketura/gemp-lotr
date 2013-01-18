@@ -7,7 +7,6 @@ import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.game.CardCollection;
 import com.gempukku.lotro.game.DefaultCardCollection;
 import com.gempukku.lotro.game.MutableCardCollection;
-import com.gempukku.lotro.game.Player;
 import com.gempukku.lotro.packs.PacksStorage;
 import com.gempukku.lotro.tournament.TournamentCallback;
 
@@ -80,7 +79,7 @@ public class DefaultDraft implements Draft {
     public void signUpForDraft(String playerName, DraftChannelVisitor draftChannelVisitor) {
         DraftCommunicationChannel draftCommunicationChannel = new DraftCommunicationChannel(_nextChannelNumber++);
         _playerDraftCommunications.put(playerName, draftCommunicationChannel);
-        draftCommunicationChannel.processCommunicationChannel(getCardChoice(playerName), draftChannelVisitor);
+        draftCommunicationChannel.processCommunicationChannel(getCardChoice(playerName), getChosenCards(playerName), draftChannelVisitor);
     }
 
     public DraftCommunicationChannel getCommunicationChannel(String playerName, int channelNumber) throws SubscriptionExpiredException, SubscriptionConflictException {
@@ -103,8 +102,8 @@ public class DefaultDraft implements Draft {
     }
 
     @Override
-    public CardCollection getChosenCards(Player player) {
-        return _collectionsManager.getPlayerCollection(player, _collectionType.getCode());
+    public CardCollection getChosenCards(String playerName) {
+        return _collectionsManager.getPlayerCollection(playerName, _collectionType.getCode());
     }
 
     @Override

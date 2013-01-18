@@ -68,6 +68,10 @@ public class CollectionsManager {
         return _defaultCollection;
     }
 
+    public CardCollection getPlayerCollection(String playerName, String collectionType) {
+        return getPlayerCollection(_playerDAO.getPlayer(playerName), collectionType);
+    }
+
     public CardCollection getPlayerCollection(Player player, String collectionType) {
         _readWriteLock.readLock().lock();
         try {
