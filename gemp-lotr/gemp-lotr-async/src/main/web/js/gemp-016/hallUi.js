@@ -402,7 +402,7 @@ var GempLotrHallUI = Class.extend({
                 var deckName = decks[i].childNodes[0].nodeValue;
                 var deckElem = $("<option></option>");
                 deckElem.attr("value", deckName);
-                deckElem.html(deckName);
+                deckElem.text(deckName);
                 this.decksSelect.append(deckElem);
             }
             this.decksSelect.css("display", "");
