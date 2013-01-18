@@ -7,6 +7,7 @@ import com.gempukku.lotro.async.ResponseWriter;
 import com.gempukku.lotro.chat.ChatMessage;
 import com.gempukku.lotro.chat.ChatRoomMediator;
 import com.gempukku.lotro.chat.ChatServer;
+import com.gempukku.lotro.game.ChatCommunicationChannel;
 import com.gempukku.lotro.game.Player;
 import com.gempukku.polling.LongPollingResource;
 import com.gempukku.polling.LongPollingSystem;
@@ -66,11 +67,13 @@ public class ChatRequestHandler extends LotroServerRequestHandler implements Uri
             throw new HttpProcessingException(403);
         }
 
-        ChatUpdateLongPollingResource polledResource = new ChatUpdateLongPollingResource(chatRoom, room, resourceOwner.getName(), responseWriter);
-        if (polledResource.isChanged())
-            polledResource.processIfNotProcessed();
-        else
-            _longPollingSystem.appendLongPollingResource(polledResource);
+        try {
+            ChatCommunicationChannel pollableResource = chatRoom.getChatRoomListener(resourceOwner.getName());
+            ChatUpdateLongPollingResource polledResource = new ChatUpdateLongPollingResource(chatRoom, room, resourceOwner.getName(), responseWriter);
+            _longPollingSystem.processLongPollingResource(polledResource, pollableResource);
+        } catch (SubscriptionExpiredException exp) {
+            responseWriter.writeError(410);
+        }
     }
 
     private class ChatUpdateLongPollingResource implements LongPollingResource {
@@ -94,6 +97,11 @@ public class ChatRequestHandler extends LotroServerRequestHandler implements Uri
             } catch (SubscriptionExpiredException e) {
                 return true;
             }
+        }
+
+        @Override
+        public synchronized boolean wasProcessed() {
+            return _processed;
         }
 
         @Override
