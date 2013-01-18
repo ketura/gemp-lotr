@@ -240,9 +240,7 @@ var ChatBoxUI = Class.extend({
 
     sendMessage:function (message) {
         var that = this;
-        this.communication.sendChatMessage(this.name, message, function(xml) {
-            that.processMessages(xml, false);
-        }, this.chatErrorMap());
+        this.communication.sendChatMessage(this.name, message, this.chatErrorMap());
     },
 
     chatMalfunction: function() {
