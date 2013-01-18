@@ -13,8 +13,8 @@ import com.gempukku.lotro.game.LotroServer;
 import com.gempukku.lotro.game.ParticipantCommunicationVisitor;
 import com.gempukku.lotro.game.Player;
 import com.gempukku.lotro.game.state.EventSerializer;
+import com.gempukku.lotro.game.state.GameCommunicationChannel;
 import com.gempukku.lotro.game.state.GameEvent;
-import com.gempukku.lotro.game.state.GatheringParticipantCommunicationChannel;
 import org.jboss.netty.channel.MessageEvent;
 import org.jboss.netty.handler.codec.http.*;
 import org.jboss.netty.handler.codec.http.multipart.HttpPostRequestDecoder;
@@ -130,7 +130,7 @@ public class GameRequestHandler extends LotroServerRequestHandler implements Uri
                     Document doc = documentBuilder.newDocument();
                     Element update = doc.createElement("update");
 
-                    GatheringParticipantCommunicationChannel communicationChannel = _gameMediator.getCommunicationChannel(_resourceOwner, _channelNumber);
+                    GameCommunicationChannel communicationChannel = _gameMediator.getCommunicationChannel(_resourceOwner, _channelNumber);
                     _gameMediator.processVisitor(communicationChannel, _channelNumber, _resourceOwner.getName(), new SerializationVisitor(doc, update));
 
                     doc.appendChild(update);

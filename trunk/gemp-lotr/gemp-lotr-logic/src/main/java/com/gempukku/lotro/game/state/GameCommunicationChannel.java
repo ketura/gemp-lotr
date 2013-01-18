@@ -10,13 +10,13 @@ import java.util.*;
 
 import static com.gempukku.lotro.game.state.GameEvent.Type.*;
 
-public class GatheringParticipantCommunicationChannel implements GameStateListener {
+public class GameCommunicationChannel implements GameStateListener {
     private List<GameEvent> _events = new LinkedList<GameEvent>();
     private String _self;
     private long _lastConsumed = System.currentTimeMillis();
     private int _channelNumber;
 
-    public GatheringParticipantCommunicationChannel(String self, int channelNumber) {
+    public GameCommunicationChannel(String self, int channelNumber) {
         _self = self;
         _channelNumber = channelNumber;
     }

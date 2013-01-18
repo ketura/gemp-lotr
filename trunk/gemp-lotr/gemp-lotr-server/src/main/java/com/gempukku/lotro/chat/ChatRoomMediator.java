@@ -2,7 +2,7 @@ package com.gempukku.lotro.chat;
 
 import com.gempukku.lotro.PrivateInformationException;
 import com.gempukku.lotro.SubscriptionExpiredException;
-import com.gempukku.lotro.game.GatheringChatRoomListener;
+import com.gempukku.lotro.game.ChatCommunicationChannel;
 import org.apache.log4j.Logger;
 
 import java.util.*;
@@ -13,7 +13,7 @@ public class ChatRoomMediator {
     private Logger _logger;
     private ChatRoom _chatRoom;
 
-    private Map<String, GatheringChatRoomListener> _listeners = new HashMap<String, GatheringChatRoomListener>();
+    private Map<String, ChatCommunicationChannel> _listeners = new HashMap<String, ChatCommunicationChannel>();
 
     private int _channelInactivityTimeoutPeriod = 1000 * 20; // 10 seconds
     private Set<String> _allowedPlayers;
@@ -37,7 +37,7 @@ public class ChatRoomMediator {
             if (!admin && _allowedPlayers != null && !_allowedPlayers.contains(playerId))
                 throw new PrivateInformationException();
 
-            GatheringChatRoomListener value = new GatheringChatRoomListener();
+            ChatCommunicationChannel value = new ChatCommunicationChannel();
             _listeners.put(playerId, value);
             _chatRoom.joinChatRoom(playerId, value);
             return value.consumeMessages();
@@ -46,10 +46,10 @@ public class ChatRoomMediator {
         }
     }
 
-    public GatheringChatRoomListener getChatRoomListener(String playerId) throws SubscriptionExpiredException {
+    public ChatCommunicationChannel getChatRoomListener(String playerId) throws SubscriptionExpiredException {
         _lock.readLock().lock();
         try {
-            GatheringChatRoomListener gatheringChatRoomListener = _listeners.get(playerId);
+            ChatCommunicationChannel gatheringChatRoomListener = _listeners.get(playerId);
             if (gatheringChatRoomListener == null)
                 throw new SubscriptionExpiredException();
             return gatheringChatRoomListener;
@@ -85,10 +85,10 @@ public class ChatRoomMediator {
         _lock.writeLock().lock();
         try {
             long currentTime = System.currentTimeMillis();
-            Map<String, GatheringChatRoomListener> copy = new HashMap<String, GatheringChatRoomListener>(_listeners);
-            for (Map.Entry<String, GatheringChatRoomListener> playerListener : copy.entrySet()) {
+            Map<String, ChatCommunicationChannel> copy = new HashMap<String, ChatCommunicationChannel>(_listeners);
+            for (Map.Entry<String, ChatCommunicationChannel> playerListener : copy.entrySet()) {
                 String playerId = playerListener.getKey();
-                GatheringChatRoomListener listener = playerListener.getValue();
+                ChatCommunicationChannel listener = playerListener.getValue();
                 if (currentTime > listener.getLastAccessed() + _channelInactivityTimeoutPeriod) {
                     _chatRoom.partChatRoom(playerId);
                     _listeners.remove(playerId);

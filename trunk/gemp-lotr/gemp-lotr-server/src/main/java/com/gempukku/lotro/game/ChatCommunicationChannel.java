@@ -6,7 +6,7 @@ import com.gempukku.lotro.chat.ChatRoomListener;
 import java.util.LinkedList;
 import java.util.List;
 
-public class GatheringChatRoomListener implements ChatRoomListener {
+public class ChatCommunicationChannel implements ChatRoomListener {
     private List<ChatMessage> _messages = new LinkedList<ChatMessage>();
     private long _lastConsumed = System.currentTimeMillis();
 
