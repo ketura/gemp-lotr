@@ -362,8 +362,7 @@ public class HallServer extends AbstractServer {
         }
     }
 
-    public boolean hasChangesInDraft(String tournamentId, Player player, int channelNumber)
-            throws DraftFinishedException, SubscriptionConflictException, SubscriptionExpiredException {
+    public Draft getDraft(String tournamentId) throws DraftFinishedException {
         _hallDataAccessLock.readLock().lock();
         try {
             Tournament tournament = _runningTournaments.get(tournamentId);
@@ -372,25 +371,7 @@ public class HallServer extends AbstractServer {
             Draft draft = tournament.getDraft();
             if (draft == null)
                 throw new DraftFinishedException();
-            return draft.getCommunicationChannel(player.getName(), channelNumber).hasChangesInCommunicationChannel(draft.getCardChoice(player.getName()));
-        } finally {
-            _hallDataAccessLock.readLock().unlock();
-        }
-    }
-
-    public void processChangesInDraft(String tournamentId, Player player, int channelNumber, DraftChannelVisitor draftChannelVisitor)
-            throws DraftFinishedException, SubscriptionConflictException, SubscriptionExpiredException {
-        _hallDataAccessLock.readLock().lock();
-        try {
-            Tournament tournament = _runningTournaments.get(tournamentId);
-            if (tournament == null)
-                throw new DraftFinishedException();
-            Draft draft = tournament.getDraft();
-            if (draft == null)
-                throw new DraftFinishedException();
-            draft.getCommunicationChannel(player.getName(), channelNumber).processCommunicationChannel(draft.getCardChoice(player.getName()), draftChannelVisitor);
-            CardCollection cardCollection = _collectionsManager.getPlayerCollection(player, tournament.getCollectionType().getCode());
-            draftChannelVisitor.chosenCards(cardCollection);
+            return draft;
         } finally {
             _hallDataAccessLock.readLock().unlock();
         }

@@ -7,6 +7,7 @@ import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.game.CardCollection;
 import com.gempukku.lotro.game.DefaultCardCollection;
 import com.gempukku.lotro.game.MutableCardCollection;
+import com.gempukku.lotro.game.Player;
 import com.gempukku.lotro.packs.PacksStorage;
 import com.gempukku.lotro.tournament.TournamentCallback;
 
@@ -99,6 +100,11 @@ public class DefaultDraft implements Draft {
         MutableCardCollection cardChoice = _cardChoice.get(playerName);
 
         return new DefaultDraftCardChoice(cardChoice, _lastPickStart + PICK_TIME);
+    }
+
+    @Override
+    public CardCollection getChosenCards(Player player) {
+        return _collectionsManager.getPlayerCollection(player, _collectionType.getCode());
     }
 
     @Override

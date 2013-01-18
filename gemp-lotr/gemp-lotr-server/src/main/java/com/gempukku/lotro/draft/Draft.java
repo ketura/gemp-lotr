@@ -2,6 +2,8 @@ package com.gempukku.lotro.draft;
 
 import com.gempukku.lotro.SubscriptionConflictException;
 import com.gempukku.lotro.SubscriptionExpiredException;
+import com.gempukku.lotro.game.CardCollection;
+import com.gempukku.lotro.game.Player;
 import com.gempukku.lotro.tournament.TournamentCallback;
 
 public interface Draft {
@@ -14,6 +16,7 @@ public interface Draft {
     public DraftCommunicationChannel getCommunicationChannel(String playerName, int channelNumber)  throws SubscriptionExpiredException, SubscriptionConflictException;
 
     public DraftCardChoice getCardChoice(String playerName);
+    public CardCollection getChosenCards(Player player);
 
     public boolean isFinished();
 }
