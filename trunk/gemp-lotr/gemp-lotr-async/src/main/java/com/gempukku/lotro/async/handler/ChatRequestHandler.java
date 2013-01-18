@@ -89,7 +89,7 @@ public class ChatRequestHandler extends LotroServerRequestHandler implements Uri
         @Override
         public boolean isChanged() {
             try {
-                return _chatRoom.hasPendingMessages(_playerId);
+                return _chatRoom.getChatRoomListener(_playerId).hasMessages();
             } catch (SubscriptionExpiredException e) {
                 return true;
             }
@@ -98,7 +98,7 @@ public class ChatRequestHandler extends LotroServerRequestHandler implements Uri
         @Override
         public void process() {
             try {
-                List<ChatMessage> chatMessages = _chatRoom.getPendingMessages(_playerId);
+                List<ChatMessage> chatMessages = _chatRoom.getChatRoomListener(_playerId).consumeMessages();
 
                 Collection<String> usersInRoom = _chatRoom.getUsersInRoom();
 

@@ -27,7 +27,7 @@ public class GatheringChatRoomListener implements ChatRoomListener {
         return _messages.size()>0;
     }
 
-    private void updateLastAccess() {
+    private synchronized void updateLastAccess() {
         _lastConsumed = System.currentTimeMillis();
     }
 
