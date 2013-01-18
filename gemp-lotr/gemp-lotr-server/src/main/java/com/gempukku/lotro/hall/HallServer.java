@@ -28,7 +28,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 public class HallServer extends AbstractServer {
     private final int _playerInactivityPeriod = 1000 * 20; // 20 seconds
     private final long _scheduledTournamentLoadTime = 1000 * 60 * 60 * 24 * 7; // Week
-    private final long _repeatTournaments = 1000*60*60*24*2;
+    private final long _repeatTournaments = 1000 * 60 * 60 * 24 * 2;
 
     private ChatServer _chatServer;
     private LeagueService _leagueService;
@@ -89,18 +89,18 @@ public class HallServer extends AbstractServer {
         sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
 
         try {
-        _tournamentQueues.put("fotr_daily_eu", new RecurringScheduledQueue(sdf.parse("2013-01-15 19:30:00").getTime(), _repeatTournaments, "fotrDailyEu-", "Daily EU Fellowship Block", 0,
-                true, CollectionType.MY_CARDS, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes("daily"), _pairingMechanismRegistry.getPairingMechanism("swiss"),
-                "fotr_block", 8));
-        _tournamentQueues.put("fotr_daily_us", new RecurringScheduledQueue(sdf.parse("2013-01-16 00:30:00").getTime(), _repeatTournaments, "fotrDailyUs-", "Daily US Fellowship Block", 0,
-                true, CollectionType.MY_CARDS, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes("daily"), _pairingMechanismRegistry.getPairingMechanism("swiss"),
-                "fotr_block", 8));
-        _tournamentQueues.put("movie_daily_eu", new RecurringScheduledQueue(sdf.parse("2013-01-16 19:30:00").getTime(), _repeatTournaments, "movieDailyEu-", "Daily EU Movie Block", 0,
-                true, CollectionType.MY_CARDS, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes("daily"), _pairingMechanismRegistry.getPairingMechanism("swiss"),
-                "movie", 8));
-        _tournamentQueues.put("movie_daily_us", new RecurringScheduledQueue(sdf.parse("2013-01-17 00:30:00").getTime(), _repeatTournaments, "movieDailyUs-", "Daily US Movie Block", 0,
-                true, CollectionType.MY_CARDS, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes("daily"), _pairingMechanismRegistry.getPairingMechanism("swiss"),
-                "movie", 8));
+            _tournamentQueues.put("fotr_daily_eu", new RecurringScheduledQueue(sdf.parse("2013-01-15 19:30:00").getTime(), _repeatTournaments, "fotrDailyEu-", "Daily EU Fellowship Block", 0,
+                    true, CollectionType.MY_CARDS, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes("daily"), _pairingMechanismRegistry.getPairingMechanism("swiss"),
+                    "fotr_block", 8));
+            _tournamentQueues.put("fotr_daily_us", new RecurringScheduledQueue(sdf.parse("2013-01-16 00:30:00").getTime(), _repeatTournaments, "fotrDailyUs-", "Daily US Fellowship Block", 0,
+                    true, CollectionType.MY_CARDS, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes("daily"), _pairingMechanismRegistry.getPairingMechanism("swiss"),
+                    "fotr_block", 8));
+            _tournamentQueues.put("movie_daily_eu", new RecurringScheduledQueue(sdf.parse("2013-01-16 19:30:00").getTime(), _repeatTournaments, "movieDailyEu-", "Daily EU Movie Block", 0,
+                    true, CollectionType.MY_CARDS, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes("daily"), _pairingMechanismRegistry.getPairingMechanism("swiss"),
+                    "movie", 8));
+            _tournamentQueues.put("movie_daily_us", new RecurringScheduledQueue(sdf.parse("2013-01-17 00:30:00").getTime(), _repeatTournaments, "movieDailyUs-", "Daily US Movie Block", 0,
+                    true, CollectionType.MY_CARDS, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes("daily"), _pairingMechanismRegistry.getPairingMechanism("swiss"),
+                    "movie", 8));
         } catch (ParseException exp) {
             // Ignore, can't happen
         }
@@ -177,6 +177,8 @@ public class HallServer extends AbstractServer {
                         throw new HallException("You have already played max games in league");
                     format = _formatLibrary.getFormat(leagueSerie.getFormat());
                     collectionType = leagueSerie.getCollectionType();
+
+                    verifyNotPlayingLeagueGame(player, league);
                 }
             }
             // It's not a normal format and also not a league one
@@ -192,6 +194,24 @@ public class HallServer extends AbstractServer {
             joinTableInternal(tableId, player.getName(), table, lotroDeck);
         } finally {
             _hallDataAccessLock.writeLock().unlock();
+        }
+    }
+
+    private void verifyNotPlayingLeagueGame(Player player, League league) throws HallException {
+        for (AwaitingTable awaitingTable : _awaitingTables.values()) {
+            if (awaitingTable.getLeague() == league
+                    && awaitingTable.hasPlayer(player.getName())) {
+                throw new HallException("You can't play in multiple league games at the same time");
+            }
+        }
+
+        for (RunningTable runningTable : _runningTables.values()) {
+            if (runningTable.getLeague() == league) {
+                String gameId = runningTable.getGameId();
+                LotroGameMediator game = _lotroServer.getGameById(gameId);
+                if (game != null && !game.isFinished() && game.getPlayersPlaying().contains(player.getName()))
+                    throw new HallException("You can't play in multiple league games at the same time");
+            }
         }
     }
 
@@ -371,6 +391,20 @@ public class HallServer extends AbstractServer {
         }
     }
 
+    public void leaveAwaitingTable(Player player, String tableId) {
+        _hallDataAccessLock.writeLock().lock();
+        try {
+            AwaitingTable table = _awaitingTables.get(tableId);
+            if (table != null && table.hasPlayer(player.getName())) {
+                boolean empty = table.removePlayer(player.getName());
+                if (empty)
+                    _awaitingTables.remove(tableId);
+            }
+        } finally {
+            _hallDataAccessLock.writeLock().unlock();
+        }
+    }
+
     public void leaveAwaitingTables(Player player) {
         _hallDataAccessLock.writeLock().lock();
         try {
@@ -465,7 +499,7 @@ public class HallServer extends AbstractServer {
                     else
                         finishedTables.put(runningGame.getKey(), runningTable);
                     if (lotroGameMediator != null && !lotroGameMediator.isFinished() && lotroGameMediator.getPlayersPlaying().contains(player.getName()))
-                        visitor.runningPlayerGame(runningTable.getGameId());                    
+                        visitor.runningPlayerGame(runningTable.getGameId());
                 }
             }
 
@@ -599,17 +633,17 @@ public class HallServer extends AbstractServer {
             };
         }
 
-        createGame(tableId, participants, listener, awaitingTable.getLotroFormat(), getTournamentName(awaitingTable), true, league == null, true, league != null);
+        createGame(league, leagueSerie, tableId, participants, listener, awaitingTable.getLotroFormat(), getTournamentName(awaitingTable), true, league == null, true, league != null);
         _awaitingTables.remove(tableId);
     }
 
-    private void createGame(String tableId, LotroGameParticipant[] participants, GameResultListener listener, LotroFormat lotroFormat, String tournamentName, boolean allowSpectators, boolean allowCancelling, boolean allowChatAccess, boolean competitiveTime) {
+    private void createGame(League league, LeagueSerieData leagueSerie, String tableId, LotroGameParticipant[] participants, GameResultListener listener, LotroFormat lotroFormat, String tournamentName, boolean allowSpectators, boolean allowCancelling, boolean allowChatAccess, boolean competitiveTime) {
         String gameId = _lotroServer.createNewGame(lotroFormat, tournamentName, participants, allowSpectators, allowCancelling, allowChatAccess, competitiveTime);
         LotroGameMediator lotroGameMediator = _lotroServer.getGameById(gameId);
         if (listener != null)
             lotroGameMediator.addGameResultListener(listener);
         lotroGameMediator.startGame();
-        _runningTables.put(tableId, new RunningTable(gameId, lotroFormat.getName(), tournamentName));
+        _runningTables.put(tableId, new RunningTable(gameId, lotroFormat.getName(), tournamentName, league, leagueSerie));
     }
 
     private void joinTableInternal(String tableId, String player, AwaitingTable awaitingTable, LotroDeck lotroDeck) throws HallException {
@@ -624,21 +658,6 @@ public class HallServer extends AbstractServer {
         boolean tableFull = awaitingTable.addPlayer(new LotroGameParticipant(player, lotroDeck));
         if (tableFull)
             createGameFromAwaitingTable(tableId, awaitingTable);
-    }
-
-    private String getPlayingPlayerGameId(String playerId) {
-        for (Map.Entry<String, RunningTable> runningTable : _runningTables.entrySet()) {
-            String gameId = runningTable.getValue().getGameId();
-            LotroGameMediator lotroGameMediator = _lotroServer.getGameById(gameId);
-            if (lotroGameMediator != null && !lotroGameMediator.isFinished() && lotroGameMediator.getPlayersPlaying().contains(playerId))
-                return gameId;
-        }
-
-        return null;
-    }
-
-    private boolean isPlayerBusy(String playerId) {
-        return false;
     }
 
     private int _tickCounter = 60;
@@ -730,7 +749,7 @@ public class HallServer extends AbstractServer {
             _hallDataAccessLock.writeLock().lock();
             try {
                 if (!_shutdown) {
-                    HallServer.this.createGame(String.valueOf(_nextTableId++), participants,
+                    HallServer.this.createGame(null, null, String.valueOf(_nextTableId++), participants,
                             new GameResultListener() {
                                 @Override
                                 public void gameFinished(String winnerPlayerId, String winReason, Map<String, String> loserPlayerIdsWithReasons) {

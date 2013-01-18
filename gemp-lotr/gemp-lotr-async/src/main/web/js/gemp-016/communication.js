@@ -561,10 +561,10 @@ var GempLotrCommunication = Class.extend({
             dataType:"xml"
         });
     },
-    leaveTable:function (errorMap) {
+    leaveTable:function (tableId, errorMap) {
         $.ajax({
             type:"POST",
-            url:this.url + "/hall/leave",
+            url:this.url + "/hall/"+tableId+"/leave",
             cache:false,
             data:{
                 participantId:getUrlParam("participantId")},

@@ -6,7 +6,6 @@ var GempLotrHallUI = Class.extend({
     supportedFormatsSelect:null,
     decksSelect:null,
     createTableButton:null,
-    leaveTableButton:null,
 
     tablesDiv:null,
     buttonsDiv:null,
@@ -92,16 +91,6 @@ var GempLotrHallUI = Class.extend({
         this.buttonsDiv.append(this.supportedFormatsSelect);
         this.buttonsDiv.append(this.decksSelect);
         this.buttonsDiv.append(this.createTableButton);
-
-        this.leaveTableButton = $("<button>Leave table</button>");
-        $(this.leaveTableButton).button().click(
-            function () {
-                that.leaveTableButton.hide();
-                that.comm.leaveTable();
-            });
-        this.leaveTableButton.hide();
-
-        this.buttonsDiv.append(this.leaveTableButton);
 
         this.div.append(this.buttonsDiv);
 
@@ -588,40 +577,53 @@ var GempLotrHallUI = Class.extend({
 
                     var lastField = $("<td></td>");
                     if (status == "WAITING") {
-                        var that = this;
+                        if (playing == "true") {
+                            var that = this;
 
-                        var but = $("<button>Join table</button>");
-                        $(but).button().click((
-                            function(tableId) {
-                                return function() {
-                                    var deck = that.decksSelect.val();
-                                    if (deck != null)
-                                        that.comm.joinTable(tableId, deck, function (xml) {
-                                            that.processResponse(xml);
-                                        });
-                                };
-                            })(id));
-                        lastField.append(but);
-                    }
+                            var but = $("<button>Leave table</button>");
+                            $(but).button().click((
+                                function(tableId) {
+                                    return function() {
+                                        that.comm.leaveTable(tableId);
+                                    };
+                                })(id));
+                            lastField.append(but);
+                        } else {
+                            var that = this;
 
-                    if (playing == "true" && status == "PLAYING") {
-                        var participantId = getUrlParam("participantId");
-                        var participantIdAppend = "";
-                        if (participantId != null)
-                            participantIdAppend = "&participantId=" + participantId;
+                            var but = $("<button>Join table</button>");
+                            $(but).button().click((
+                                function(tableId) {
+                                    return function() {
+                                        var deck = that.decksSelect.val();
+                                        if (deck != null)
+                                            that.comm.joinTable(tableId, deck, function (xml) {
+                                                that.processResponse(xml);
+                                            });
+                                    };
+                                })(id));
+                            lastField.append(but);
+                        }
+                    } else if (status == "PLAYING") {
+                        if (playing == "true") {
+                            var participantId = getUrlParam("participantId");
+                            var participantIdAppend = "";
+                            if (participantId != null)
+                                participantIdAppend = "&participantId=" + participantId;
 
-                        lastField.append("<a href='game.html?gameId=" + gameId + participantIdAppend + "'>Play the game</a>");
-                    } else if (status == "PLAYING" && watchable == "true") {
-                        var participantId = getUrlParam("participantId");
-                        var participantIdAppend = "";
-                        if (participantId != null)
-                            participantIdAppend = "&participantId=" + participantId;
+                            lastField.append("<a href='game.html?gameId=" + gameId + participantIdAppend + "'>Play the game</a>");
+                        } else if (watchable == "true") {
+                            var participantId = getUrlParam("participantId");
+                            var participantIdAppend = "";
+                            if (participantId != null)
+                                participantIdAppend = "&participantId=" + participantId;
 
-                        lastField.append("<a href='game.html?gameId=" + gameId + participantIdAppend + "'>Watch game</a>");
-                    }
-
-                    if (status == "FINISHED" && winner != null) {
-                        lastField.append(winner);
+                            lastField.append("<a href='game.html?gameId=" + gameId + participantIdAppend + "'>Watch game</a>");
+                        }
+                    } else if (status == "FINISHED") {
+                        if (winner != null) {
+                            lastField.append(winner);
+                        }
                     }
 
                     row.append(lastField);
@@ -712,7 +714,6 @@ var GempLotrHallUI = Class.extend({
                 this.decksSelect.css("display", "");
             if (this.createTableButton.css("display") == "none")
                 this.createTableButton.css("display", "");
-            this.leaveTableButton.hide();
 
             setTimeout(function () {
                 that.updateHall();
