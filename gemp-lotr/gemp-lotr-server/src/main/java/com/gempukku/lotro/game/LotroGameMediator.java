@@ -6,8 +6,8 @@ import com.gempukku.lotro.SubscriptionExpiredException;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.communication.GameStateListener;
 import com.gempukku.lotro.filters.Filters;
+import com.gempukku.lotro.game.state.GameCommunicationChannel;
 import com.gempukku.lotro.game.state.GameEvent;
-import com.gempukku.lotro.game.state.GatheringParticipantCommunicationChannel;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.decisions.AwaitingDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
@@ -23,7 +23,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 public class LotroGameMediator {
     private static final Logger LOG = Logger.getLogger(LotroGameMediator.class);
 
-    private Map<String, GatheringParticipantCommunicationChannel> _communicationChannels = new HashMap<String, GatheringParticipantCommunicationChannel>();
+    private Map<String, GameCommunicationChannel> _communicationChannels = new HashMap<String, GameCommunicationChannel>();
     private DefaultUserFeedback _userFeedback;
     private DefaultLotroGame _lotroGame;
     private Map<String, Integer> _playerClocks = new HashMap<String, Integer>();
@@ -230,12 +230,12 @@ public class LotroGameMediator {
         _writeLock.lock();
         try {
             long currentTime = System.currentTimeMillis();
-            Map<String, GatheringParticipantCommunicationChannel> channelsCopy = new HashMap<String, GatheringParticipantCommunicationChannel>(_communicationChannels);
-            for (Map.Entry<String, GatheringParticipantCommunicationChannel> playerChannels : channelsCopy.entrySet()) {
+            Map<String, GameCommunicationChannel> channelsCopy = new HashMap<String, GameCommunicationChannel>(_communicationChannels);
+            for (Map.Entry<String, GameCommunicationChannel> playerChannels : channelsCopy.entrySet()) {
                 String playerId = playerChannels.getKey();
                 // Channel is stale (user no longer connected to game, to save memory, we remove the channel
                 // User can always reconnect and establish a new channel
-                GatheringParticipantCommunicationChannel channel = playerChannels.getValue();
+                GameCommunicationChannel channel = playerChannels.getValue();
                 if (currentTime > channel.getLastAccessed() + _playerDecisionTimeoutPeriod) {
                     _lotroGame.removeGameStateListener(channel);
                     _communicationChannels.remove(playerId);
@@ -296,7 +296,7 @@ public class LotroGameMediator {
         String playerName = player.getName();
         _writeLock.lock();
         try {
-            GatheringParticipantCommunicationChannel communicationChannel = _communicationChannels.get(playerName);
+            GameCommunicationChannel communicationChannel = _communicationChannels.get(playerName);
             if (communicationChannel != null) {
                 if (communicationChannel.getChannelNumber() == channelNumber) {
                     AwaitingDecision awaitingDecision = _userFeedback.getAwaitingDecision(playerName);
@@ -333,14 +333,14 @@ public class LotroGameMediator {
         }
     }
 
-    public GatheringParticipantCommunicationChannel getCommunicationChannel(Player player, int channelNumber)  throws PrivateInformationException, SubscriptionConflictException, SubscriptionExpiredException {
+    public GameCommunicationChannel getCommunicationChannel(Player player, int channelNumber)  throws PrivateInformationException, SubscriptionConflictException, SubscriptionExpiredException {
         String playerName = player.getName();
         if (!player.getType().contains("a") && !_allowSpectators && !_playersPlaying.contains(playerName))
             throw new PrivateInformationException();
 
         _readLock.lock();
         try {
-            GatheringParticipantCommunicationChannel communicationChannel = _communicationChannels.get(playerName);
+            GameCommunicationChannel communicationChannel = _communicationChannels.get(playerName);
             if (communicationChannel != null) {
                 if (communicationChannel.getChannelNumber() == channelNumber) {
                     return communicationChannel;
@@ -355,7 +355,7 @@ public class LotroGameMediator {
         }
     }
 
-    public void processVisitor(GatheringParticipantCommunicationChannel communicationChannel, int channelNumber, String playerName, ParticipantCommunicationVisitor visitor) {
+    public void processVisitor(GameCommunicationChannel communicationChannel, int channelNumber, String playerName, ParticipantCommunicationVisitor visitor) {
         visitor.visitChannelNumber(channelNumber);
         for (GameEvent gameEvent : communicationChannel.consumeGameEvents())
             visitor.visitGameEvent(gameEvent);
@@ -382,7 +382,7 @@ public class LotroGameMediator {
             int number = _channelNextIndex;
             _channelNextIndex++;
 
-            GatheringParticipantCommunicationChannel participantCommunicationChannel = new GatheringParticipantCommunicationChannel(playerName, number);
+            GameCommunicationChannel participantCommunicationChannel = new GameCommunicationChannel(playerName, number);
             _communicationChannels.put(playerName, participantCommunicationChannel);
 
             _lotroGame.addGameStateListener(playerName, participantCommunicationChannel);

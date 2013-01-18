@@ -2,8 +2,8 @@ package com.gempukku.lotro.game;
 
 import com.gempukku.lotro.common.ApplicationConfiguration;
 import com.gempukku.lotro.game.state.EventSerializer;
+import com.gempukku.lotro.game.state.GameCommunicationChannel;
 import com.gempukku.lotro.game.state.GameEvent;
-import com.gempukku.lotro.game.state.GatheringParticipantCommunicationChannel;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -50,9 +50,9 @@ public class GameRecorder {
 
     public GameRecordingInProgress recordGame(LotroGameMediator lotroGame, final String formatName, final String tournament, final Map<String, String> deckNames) {
         final Date startData = new Date();
-        final Map<String, GatheringParticipantCommunicationChannel> recordingChannels = new HashMap<String, GatheringParticipantCommunicationChannel>();
+        final Map<String, GameCommunicationChannel> recordingChannels = new HashMap<String, GameCommunicationChannel>();
         for (String playerId : lotroGame.getPlayersPlaying()) {
-            GatheringParticipantCommunicationChannel recordChannel = new GatheringParticipantCommunicationChannel(playerId, 0);
+            GameCommunicationChannel recordChannel = new GameCommunicationChannel(playerId, 0);
             lotroGame.addGameStateListener(playerId, recordChannel);
             recordingChannels.put(playerId, recordChannel);
         }
@@ -84,9 +84,9 @@ public class GameRecorder {
         return new DeflaterOutputStream(new FileOutputStream(recordingFile), deflater);
     }
 
-    private Map<String, String> saveRecordedChannels(Map<String, GatheringParticipantCommunicationChannel> gameProgress) {
+    private Map<String, String> saveRecordedChannels(Map<String, GameCommunicationChannel> gameProgress) {
         Map<String, String> result = new HashMap<String, String>();
-        for (Map.Entry<String, GatheringParticipantCommunicationChannel> playerRecordings : gameProgress.entrySet()) {
+        for (Map.Entry<String, GameCommunicationChannel> playerRecordings : gameProgress.entrySet()) {
             String playerId = playerRecordings.getKey();
 
             String gameRecordingId = getRecordingId(playerId);
