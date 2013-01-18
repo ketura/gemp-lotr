@@ -46,25 +46,13 @@ public class ChatRoomMediator {
         }
     }
 
-    public boolean hasPendingMessages(String playerId) throws SubscriptionExpiredException {
+    public GatheringChatRoomListener getChatRoomListener(String playerId) throws SubscriptionExpiredException {
         _lock.readLock().lock();
         try {
             GatheringChatRoomListener gatheringChatRoomListener = _listeners.get(playerId);
             if (gatheringChatRoomListener == null)
                 throw new SubscriptionExpiredException();
-            return gatheringChatRoomListener.hasMessages();
-        } finally {
-            _lock.readLock().unlock();
-        }
-    }
-
-    public List<ChatMessage> getPendingMessages(String playerId) throws SubscriptionExpiredException {
-        _lock.readLock().lock();
-        try {
-            GatheringChatRoomListener gatheringChatRoomListener = _listeners.get(playerId);
-            if (gatheringChatRoomListener == null)
-                throw new SubscriptionExpiredException();
-            return gatheringChatRoomListener.consumeMessages();
+            return gatheringChatRoomListener;
         } finally {
             _lock.readLock().unlock();
         }
