@@ -8,7 +8,7 @@ public class LongPollingSystem {
     private static Logger _log = Logger.getLogger(LongPollingSystem.class);
 
     private ConcurrentLinkedQueue<LongPollingResource> _waitingActions = new ConcurrentLinkedQueue<LongPollingResource>();
-    private long _pollingInterval = 50;
+    private long _pollingInterval = 200;
     private long _pollingLength = 10000;
     private ProcessingRunnable _processingRunnable;
 
