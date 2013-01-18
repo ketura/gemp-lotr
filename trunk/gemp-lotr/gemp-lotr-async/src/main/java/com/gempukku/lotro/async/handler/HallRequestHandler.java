@@ -445,7 +445,7 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
         @Override
         public boolean isChanged() {
             try {
-                return _hallServer.hasChanges(_resourceOwner, _channelNumber);
+                return _hallServer.getCommunicationChannel(_resourceOwner, _channelNumber).hasChangesInCommunicationChannel(_hallServer, _resourceOwner);
             } catch (SubscriptionExpiredException e) {
                 return true;
             } catch (SubscriptionConflictException e) {
@@ -463,7 +463,7 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
 
                 Element hall = doc.createElement("hall");
                 try {
-                    _hallServer.processHall(_resourceOwner, _channelNumber, new SerializeHallInfoVisitor(doc, hall));
+                    _hallServer.getCommunicationChannel(_resourceOwner, _channelNumber).processCommunicationChannel(_hallServer, _resourceOwner, new SerializeHallInfoVisitor(doc, hall));
                 } catch (SubscriptionExpiredException exp) {
                     throw new HttpProcessingException(410);
                 } catch (SubscriptionConflictException exp) {
