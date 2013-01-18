@@ -8,10 +8,12 @@ import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.db.vo.League;
 import com.gempukku.lotro.draft.Draft;
 import com.gempukku.lotro.draft.DraftChannelVisitor;
+import com.gempukku.lotro.draft.DraftCommunicationChannel;
 import com.gempukku.lotro.draft.DraftFinishedException;
 import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.gempukku.lotro.hall.HallChannelVisitor;
+import com.gempukku.lotro.hall.HallCommunicationChannel;
 import com.gempukku.lotro.hall.HallException;
 import com.gempukku.lotro.hall.HallServer;
 import com.gempukku.lotro.league.LeagueSerieData;
@@ -130,11 +132,17 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
         int channelNumber = Integer.parseInt(getFormParameterSafely(postDecoder, "channelNumber"));
         Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
-        DraftUpdateLongPollingResource polledResource = new DraftUpdateLongPollingResource(tournamentId, resourceOwner, channelNumber, responseWriter);
-        if (polledResource.isChanged())
-            polledResource.processIfNotProcessed();
-        else
-            _longPollingSystem.appendLongPollingResource(polledResource);
+        try {
+            DraftCommunicationChannel pollableResource = _hallServer.getDraft(tournamentId).getCommunicationChannel(resourceOwner.getName(), channelNumber);
+            DraftUpdateLongPollingResource polledResource = new DraftUpdateLongPollingResource(tournamentId, resourceOwner, channelNumber, responseWriter);
+            _longPollingSystem.processLongPollingResource(polledResource, pollableResource);
+        } catch (DraftFinishedException e) {
+            responseWriter.writeError(204);
+        } catch (SubscriptionConflictException e) {
+            responseWriter.writeError(409);
+        } catch (SubscriptionExpiredException e) {
+            responseWriter.writeError(410);
+        }
     }
 
     private class DraftUpdateLongPollingResource implements LongPollingResource {
@@ -164,6 +172,11 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
             }
         }
 
+        @Override
+        public synchronized boolean wasProcessed() {
+            return _processed;
+        }
+
         public synchronized void processIfNotProcessed() {
             if (!_processed) {
                 try {
@@ -174,24 +187,20 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
 
                     Element draftElem = doc.createElement("draft");
 
-                    try {
-                        Draft draft = _hallServer.getDraft(_tournamentId);
-                        SerializeDraftVisitor serializeDraftVisitor = new SerializeDraftVisitor(doc, draftElem);
-                        draft.getCommunicationChannel(_player.getName(), _channelNumber)
-                                .processCommunicationChannel(draft.getCardChoice(_player.getName()), draft.getChosenCards(_player.getName()), serializeDraftVisitor);
+                    Draft draft = _hallServer.getDraft(_tournamentId);
+                    SerializeDraftVisitor serializeDraftVisitor = new SerializeDraftVisitor(doc, draftElem);
+                    draft.getCommunicationChannel(_player.getName(), _channelNumber)
+                            .processCommunicationChannel(draft.getCardChoice(_player.getName()), draft.getChosenCards(_player.getName()), serializeDraftVisitor);
 
-                        doc.appendChild(draftElem);
+                    doc.appendChild(draftElem);
 
-                        _responseWriter.writeXmlResponse(doc);
-                    } catch (DraftFinishedException e) {
-                        throw new HttpProcessingException(204);
-                    } catch (SubscriptionConflictException e) {
-                        throw new HttpProcessingException(409);
-                    } catch (SubscriptionExpiredException e) {
-                        throw new HttpProcessingException(410);
-                    }
-                } catch (HttpProcessingException exp) {
-                    _responseWriter.writeError(exp.getStatus());
+                    _responseWriter.writeXmlResponse(doc);
+                } catch (DraftFinishedException e) {
+                    _responseWriter.writeError(204);
+                } catch (SubscriptionConflictException e) {
+                    _responseWriter.writeError(409);
+                } catch (SubscriptionExpiredException e) {
+                    _responseWriter.writeError(410);
                 } catch (Exception exp) {
                     _responseWriter.writeError(500);
                 }
@@ -431,11 +440,15 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
         Player resourceOwner = getResourceOwnerSafely(request, participantId);
         processLoginReward(resourceOwner.getName());
 
-        HallUpdateLongPollingResource polledResource = new HallUpdateLongPollingResource(request, resourceOwner, channelNumber, responseWriter);
-        if (polledResource.isChanged())
-            polledResource.processIfNotProcessed();
-        else
-            _longPollingSystem.appendLongPollingResource(polledResource);
+        try {
+            HallCommunicationChannel pollableResource = _hallServer.getCommunicationChannel(resourceOwner, channelNumber);
+            HallUpdateLongPollingResource polledResource = new HallUpdateLongPollingResource(request, resourceOwner, channelNumber, responseWriter);
+            _longPollingSystem.processLongPollingResource(polledResource, pollableResource);
+        } catch (SubscriptionExpiredException exp) {
+            responseWriter.writeError(410);
+        } catch (SubscriptionConflictException exp) {
+            responseWriter.writeError(409);
+        }
     }
 
     private class HallUpdateLongPollingResource implements LongPollingResource {
@@ -464,6 +477,11 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
         }
 
         @Override
+        public synchronized boolean wasProcessed() {
+            return _processed;
+        }
+
+        @Override
         public synchronized void processIfNotProcessed() {
             if (!_processed) {
                 try {
@@ -473,13 +491,7 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
                     Document doc = documentBuilder.newDocument();
 
                     Element hall = doc.createElement("hall");
-                    try {
-                        _hallServer.getCommunicationChannel(_resourceOwner, _channelNumber).processCommunicationChannel(_hallServer, _resourceOwner, new SerializeHallInfoVisitor(doc, hall));
-                    } catch (SubscriptionExpiredException exp) {
-                        throw new HttpProcessingException(410);
-                    } catch (SubscriptionConflictException exp) {
-                        throw new HttpProcessingException(409);
-                    }
+                    _hallServer.getCommunicationChannel(_resourceOwner, _channelNumber).processCommunicationChannel(_hallServer, _resourceOwner, new SerializeHallInfoVisitor(doc, hall));
                     hall.setAttribute("currency", String.valueOf(_collectionManager.getPlayerCollection(_resourceOwner, "permanent").getCurrency()));
 
                     doc.appendChild(hall);
@@ -488,8 +500,10 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
                     processDeliveryServiceNotification(_request, headers);
 
                     _responseWriter.writeXmlResponse(doc, headers);
-                } catch (HttpProcessingException exp) {
-                    _responseWriter.writeError(exp.getStatus());
+                } catch (SubscriptionExpiredException exp) {
+                    _responseWriter.writeError(410);
+                } catch (SubscriptionConflictException exp) {
+                    _responseWriter.writeError(409);
                 } catch (Exception exp) {
                     _responseWriter.writeError(500);
                 }

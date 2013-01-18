@@ -85,12 +85,17 @@ public class GameRequestHandler extends LotroServerRequestHandler implements Uri
         if (decisionId != null)
             gameMediator.playerAnswered(resourceOwner, channelNumber, decisionId, decisionValue);
 
-        GameUpdateLongPollingResource pollingResource = new GameUpdateLongPollingResource(channelNumber, gameMediator, resourceOwner, responseWriter);
-
-        if (pollingResource.isChanged())
-            pollingResource.processIfNotProcessed();
-        else
-            _longPollingSystem.appendLongPollingResource(pollingResource);
+        try {
+            GameCommunicationChannel pollableResource = gameMediator.getCommunicationChannel(resourceOwner, channelNumber);
+            GameUpdateLongPollingResource pollingResource = new GameUpdateLongPollingResource(channelNumber, gameMediator, resourceOwner, responseWriter);
+            _longPollingSystem.processLongPollingResource(pollingResource, pollableResource);
+        } catch (SubscriptionConflictException exp) {
+            responseWriter.writeError(409);
+        } catch (PrivateInformationException e) {
+            responseWriter.writeError(403);
+        } catch (SubscriptionExpiredException e) {
+            responseWriter.writeError(410);
+        }
     }
 
     private class GameUpdateLongPollingResource implements LongPollingResource {
@@ -118,6 +123,11 @@ public class GameRequestHandler extends LotroServerRequestHandler implements Uri
             } catch (SubscriptionConflictException e) {
                 return true;
             }
+        }
+
+        @Override
+        public synchronized boolean wasProcessed() {
+            return _processed;
         }
 
         @Override

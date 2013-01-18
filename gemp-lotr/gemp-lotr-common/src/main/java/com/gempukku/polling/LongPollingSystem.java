@@ -2,18 +2,18 @@ package com.gempukku.polling;
 
 import org.apache.log4j.Logger;
 
+import java.util.Iterator;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class LongPollingSystem {
     private static Logger _log = Logger.getLogger(LongPollingSystem.class);
 
-    private ConcurrentLinkedQueue<LongPollingResource> _waitingActions = new ConcurrentLinkedQueue<LongPollingResource>();
+    private ConcurrentLinkedQueue<TimeoutResource> _waitingActions = new ConcurrentLinkedQueue<TimeoutResource>();
     private long _pollingInterval = 200;
     private long _pollingLength = 10000;
     private ProcessingRunnable _processingRunnable;
 
     public LongPollingSystem() {
-        _waitingActions.add(new PauseResource());
     }
 
     public void start() {
@@ -22,8 +22,13 @@ public class LongPollingSystem {
         thr.start();
     }
 
-    public void appendLongPollingResource(LongPollingResource resource) {
-        _waitingActions.add(new TimeoutLongPollingResource(resource));
+    public void processLongPollingResource(LongPollingResource resource, LongPollableResource pollableResource) {
+        if (resource.isChanged())
+            resource.processIfNotProcessed();
+        else
+            pollableResource.registerForChanges(resource);
+
+        _waitingActions.add(new TimeoutResource(resource, pollableResource, System.currentTimeMillis()));
     }
 
     private void pause() {
@@ -38,50 +43,46 @@ public class LongPollingSystem {
         @Override
         public void run() {
             while (true) {
-                LongPollingResource resource = _waitingActions.poll();
-                try {
-                    if (resource.isChanged())
-                        resource.processIfNotProcessed();
-                    else
-                        _waitingActions.add(resource);
-                } catch (Exception exp) {
-                    _log.error("Error while processing a long-polled resource", exp);
+                long now = System.currentTimeMillis();
+                Iterator<TimeoutResource> iterator = _waitingActions.iterator();
+                while (iterator.hasNext()) {
+                    TimeoutResource resource = iterator.next();
+                    if (resource.getLongPollingResource().wasProcessed())
+                        iterator.remove();
+                    else {
+                        if (resource.getStart() + _pollingLength < now) {
+                            resource.getLongPollableResource().deregisterResource(resource.getLongPollingResource());
+                            resource.getLongPollingResource().processIfNotProcessed();
+                            iterator.remove();
+                        }
+                    }
                 }
+                pause();
             }
         }
     }
 
-    private class TimeoutLongPollingResource implements LongPollingResource {
+    private class TimeoutResource {
         private long _start;
+        private LongPollableResource _longPollableResource;
         private LongPollingResource _longPollingResource;
 
-        private TimeoutLongPollingResource(LongPollingResource longPollingResource) {
+        private TimeoutResource(LongPollingResource longPollingResource, LongPollableResource longPollableResource, long start) {
             _longPollingResource = longPollingResource;
-            _start = System.currentTimeMillis();
+            _longPollableResource = longPollableResource;
+            _start = start;
         }
 
-        @Override
-        public boolean isChanged() {
-            boolean timeout = _start + _pollingLength < System.currentTimeMillis();
-            return timeout || _longPollingResource.isChanged();
+        public LongPollableResource getLongPollableResource() {
+            return _longPollableResource;
         }
 
-        @Override
-        public void processIfNotProcessed() {
-            _longPollingResource.processIfNotProcessed();
-        }
-    }
-
-    private class PauseResource implements LongPollingResource {
-        @Override
-        public boolean isChanged() {
-            return true;
+        public LongPollingResource getLongPollingResource() {
+            return _longPollingResource;
         }
 
-        @Override
-        public void processIfNotProcessed() {
-            pause();
-            _waitingActions.add(this);
+        public long getStart() {
+            return _start;
         }
     }
 }
