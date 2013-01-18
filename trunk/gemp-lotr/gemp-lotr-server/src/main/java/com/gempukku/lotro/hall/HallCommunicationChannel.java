@@ -66,7 +66,7 @@ public class HallCommunicationChannel {
                     }
 
                     @Override
-                    public void visitTable(String tableId, String gameId, boolean watchable, TableStatus status, String statusDescription, String formatName, String tournamentName, List<String> playerIds, String winner) {
+                    public void visitTable(String tableId, String gameId, boolean watchable, TableStatus status, String statusDescription, String formatName, String tournamentName, List<String> playerIds, boolean playing, String winner) {
                         Map<String, String> props = new HashMap<String, String>();
                         props.put("gameId", gameId);
                         props.put("watchable", String.valueOf(watchable));
@@ -75,7 +75,7 @@ public class HallCommunicationChannel {
                         props.put("format", formatName);
                         props.put("tournament", tournamentName);
                         props.put("players", StringUtils.join(playerIds, ","));
-                        props.put("playing", String.valueOf(playerIds.contains(player.getName())));
+                        props.put("playing", String.valueOf(playing));
                         if (winner != null)
                             props.put("winner", winner);
 
