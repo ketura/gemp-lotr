@@ -432,31 +432,13 @@ public class HallServer extends AbstractServer {
         }
     }
 
-    public boolean hasChanges(Player player, int channelNumber) throws SubscriptionExpiredException, SubscriptionConflictException {
+    public HallCommunicationChannel getCommunicationChannel(Player player, int channelNumber)  throws SubscriptionExpiredException, SubscriptionConflictException {
         _hallDataAccessLock.readLock().lock();
         try {
             HallCommunicationChannel communicationChannel = _playerChannelCommunication.get(player);
             if (communicationChannel != null) {
                 if (communicationChannel.getChannelNumber() == channelNumber) {
-                    return communicationChannel.hasChangesInCommunicationChannel(this, player);
-                } else {
-                    throw new SubscriptionConflictException();
-                }
-            } else {
-                throw new SubscriptionExpiredException();
-            }
-        } finally {
-            _hallDataAccessLock.readLock().unlock();
-        }
-    }
-
-    public void processHall(Player player, int channelNumber, HallChannelVisitor hallChannelVisitor) throws SubscriptionExpiredException, SubscriptionConflictException {
-        _hallDataAccessLock.readLock().lock();
-        try {
-            HallCommunicationChannel communicationChannel = _playerChannelCommunication.get(player);
-            if (communicationChannel != null) {
-                if (communicationChannel.getChannelNumber() == channelNumber) {
-                    communicationChannel.processCommunicationChannel(this, player, hallChannelVisitor);
+                    return communicationChannel;
                 } else {
                     throw new SubscriptionConflictException();
                 }
