@@ -8,6 +8,7 @@ import com.gempukku.lotro.async.LongPollingSystem;
 import com.gempukku.lotro.async.ResponseWriter;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.db.vo.League;
+import com.gempukku.lotro.draft.Draft;
 import com.gempukku.lotro.draft.DraftChannelVisitor;
 import com.gempukku.lotro.draft.DraftFinishedException;
 import com.gempukku.lotro.game.*;
@@ -152,7 +153,8 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
 
         public boolean isChanged() {
             try {
-                return _hallServer.hasChangesInDraft(_tournamentId, _player, _channelNumber);
+                Draft draft = _hallServer.getDraft(_tournamentId);
+                return draft.getCommunicationChannel(_player.getName(), _channelNumber).hasChangesInCommunicationChannel(draft.getCardChoice(_player.getName()));
             } catch (DraftFinishedException e) {
                 return true;
             } catch (SubscriptionConflictException e) {
@@ -170,12 +172,15 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
 
                     Document doc = documentBuilder.newDocument();
 
-                    Element draft = doc.createElement("draft");
+                    Element draftElem = doc.createElement("draft");
 
                     try {
-                        _hallServer.processChangesInDraft(_tournamentId, _player, _channelNumber, new SerializeDraftVisitor(doc, draft));
+                        Draft draft = _hallServer.getDraft(_tournamentId);
+                        SerializeDraftVisitor serializeDraftVisitor = new SerializeDraftVisitor(doc, draftElem);
+                        draft.getCommunicationChannel(_player.getName(), _channelNumber).processCommunicationChannel(draft.getCardChoice(_player.getName()), serializeDraftVisitor);
+                        serializeDraftVisitor.chosenCards(draft.getChosenCards(_player));
 
-                        doc.appendChild(draft);
+                        doc.appendChild(draftElem);
 
                         _responseWriter.writeXmlResponse(doc);
                     } catch (DraftFinishedException e) {
