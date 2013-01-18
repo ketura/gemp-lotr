@@ -82,8 +82,8 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
             submitTournamentDeck(request, uri.substring(12, uri.length() - 5), responseWriter);
         } else if (uri.startsWith("/tournament/") && uri.endsWith("/leave") && request.getMethod() == HttpMethod.POST) {
             dropFromTournament(request, uri.substring(12, uri.length() - 6), responseWriter);
-        } else if (uri.equals("/leave") && request.getMethod() == HttpMethod.POST) {
-            leaveTable(request, responseWriter);
+        } else if (uri.startsWith("/") && uri.endsWith("/leave") && request.getMethod() == HttpMethod.POST) {
+            leaveTable(request, uri.substring(1, uri.length()-6), responseWriter);
         } else if (uri.startsWith("/") && request.getMethod() == HttpMethod.POST) {
             joinTable(request, uri.substring(1), responseWriter);
         } else {
@@ -229,12 +229,12 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
         }
     }
 
-    private void leaveTable(HttpRequest request, ResponseWriter responseWriter) throws Exception {
+    private void leaveTable(HttpRequest request, String tableId, ResponseWriter responseWriter) throws Exception {
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
         String participantId = getFormParameterSafely(postDecoder, "participantId");
         Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
-        _hallServer.leaveAwaitingTables(resourceOwner);
+        _hallServer.leaveAwaitingTable(resourceOwner, tableId);
         responseWriter.writeXmlResponse(null);
     }
 
