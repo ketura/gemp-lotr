@@ -5,16 +5,19 @@ import com.gempukku.lotro.communication.GameStateListener;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.logic.decisions.AwaitingDecision;
 import com.gempukku.lotro.logic.timing.GameStats;
+import com.gempukku.polling.LongPollableResource;
+import com.gempukku.polling.LongPollingResource;
 
 import java.util.*;
 
 import static com.gempukku.lotro.game.state.GameEvent.Type.*;
 
-public class GameCommunicationChannel implements GameStateListener {
+public class GameCommunicationChannel implements GameStateListener, LongPollableResource {
     private List<GameEvent> _events = new LinkedList<GameEvent>();
     private String _self;
     private long _lastConsumed = System.currentTimeMillis();
     private int _channelNumber;
+    private LongPollingResource _longPollingResource;
 
     public GameCommunicationChannel(String self, int channelNumber) {
         _self = self;
@@ -33,9 +36,20 @@ public class GameCommunicationChannel implements GameStateListener {
         appendEvent(new GameEvent(P).participantId(_self).allParticipantIds(participantIds));
     }
 
-    private void appendEvent(GameEvent event) {
-        _events.add(event);
+    @Override
+    public synchronized void deregisterResource(LongPollingResource longPollingResource) {
+        _longPollingResource = null;
+    }
 
+    @Override
+    public synchronized void registerForChanges(LongPollingResource longPollingResource) {
+        _longPollingResource = longPollingResource;
+    }
+
+    private synchronized void appendEvent(GameEvent event) {
+        _events.add(event);
+        if (_longPollingResource != null)
+            _longPollingResource.processIfNotProcessed();
     }
 
     private int[] getCardIds(Collection<PhysicalCard> cards) {
