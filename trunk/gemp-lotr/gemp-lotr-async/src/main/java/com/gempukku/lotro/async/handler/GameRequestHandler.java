@@ -88,7 +88,7 @@ public class GameRequestHandler extends LotroServerRequestHandler implements Uri
         GameUpdateLongPollingResource pollingResource = new GameUpdateLongPollingResource(channelNumber, gameMediator, resourceOwner, responseWriter);
 
         if (pollingResource.isChanged())
-            pollingResource.process();
+            pollingResource.processIfNotProcessed();
         else
             _longPollingSystem.appendLongPollingResource(pollingResource);
     }
@@ -98,6 +98,7 @@ public class GameRequestHandler extends LotroServerRequestHandler implements Uri
         private Player _resourceOwner;
         private int _channelNumber;
         private ResponseWriter _responseWriter;
+        private boolean _processed;
 
         private GameUpdateLongPollingResource(int channelNumber, LotroGameMediator gameMediator, Player resourceOwner, ResponseWriter responseWriter) {
             _channelNumber = channelNumber;
@@ -120,28 +121,31 @@ public class GameRequestHandler extends LotroServerRequestHandler implements Uri
         }
 
         @Override
-        public void process() {
-            try {
-                DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-                DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+        public synchronized void processIfNotProcessed() {
+            if (!_processed) {
+                try {
+                    DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+                    DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
 
-                Document doc = documentBuilder.newDocument();
-                Element update = doc.createElement("update");
+                    Document doc = documentBuilder.newDocument();
+                    Element update = doc.createElement("update");
 
-                GatheringParticipantCommunicationChannel communicationChannel = _gameMediator.getCommunicationChannel(_resourceOwner, _channelNumber);
-                _gameMediator.processVisitor(communicationChannel, _channelNumber, _resourceOwner.getName(), new SerializationVisitor(doc, update));
+                    GatheringParticipantCommunicationChannel communicationChannel = _gameMediator.getCommunicationChannel(_resourceOwner, _channelNumber);
+                    _gameMediator.processVisitor(communicationChannel, _channelNumber, _resourceOwner.getName(), new SerializationVisitor(doc, update));
 
-                doc.appendChild(update);
+                    doc.appendChild(update);
 
-                _responseWriter.writeXmlResponse(doc);
-            } catch (SubscriptionConflictException exp) {
-                _responseWriter.writeError(409);
-            } catch (PrivateInformationException e) {
-                _responseWriter.writeError(403);
-            } catch (SubscriptionExpiredException e) {
-                _responseWriter.writeError(410);
-            } catch (Exception e) {
-                _responseWriter.writeError(500);
+                    _responseWriter.writeXmlResponse(doc);
+                } catch (SubscriptionConflictException exp) {
+                    _responseWriter.writeError(409);
+                } catch (PrivateInformationException e) {
+                    _responseWriter.writeError(403);
+                } catch (SubscriptionExpiredException e) {
+                    _responseWriter.writeError(410);
+                } catch (Exception e) {
+                    _responseWriter.writeError(500);
+                }
+                _processed = true;
             }
         }
 

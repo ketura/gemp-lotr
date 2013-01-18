@@ -372,7 +372,7 @@ public class HallServer extends AbstractServer {
             Draft draft = tournament.getDraft();
             if (draft == null)
                 throw new DraftFinishedException();
-            return draft.hasChanges(player.getName(), channelNumber);
+            return draft.getCommunicationChannel(player.getName(), channelNumber).hasChangesInCommunicationChannel(draft.getCardChoice(player.getName()));
         } finally {
             _hallDataAccessLock.readLock().unlock();
         }
@@ -388,7 +388,7 @@ public class HallServer extends AbstractServer {
             Draft draft = tournament.getDraft();
             if (draft == null)
                 throw new DraftFinishedException();
-            draft.processDraft(player.getName(), channelNumber, draftChannelVisitor);
+            draft.getCommunicationChannel(player.getName(), channelNumber).processCommunicationChannel(draft.getCardChoice(player.getName()), draftChannelVisitor);
             CardCollection cardCollection = _collectionsManager.getPlayerCollection(player, tournament.getCollectionType().getCode());
             draftChannelVisitor.chosenCards(cardCollection);
         } finally {

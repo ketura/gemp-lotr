@@ -41,7 +41,7 @@ public class LongPollingSystem {
                 LongPollingResource resource = _waitingActions.poll();
                 try {
                     if (resource.isChanged())
-                        resource.process();
+                        resource.processIfNotProcessed();
                     else
                         _waitingActions.add(resource);
                 } catch (Exception exp) {
@@ -67,8 +67,8 @@ public class LongPollingSystem {
         }
 
         @Override
-        public void process() {
-            _longPollingResource.process();
+        public void processIfNotProcessed() {
+            _longPollingResource.processIfNotProcessed();
         }
     }
 
@@ -79,7 +79,7 @@ public class LongPollingSystem {
         }
 
         @Override
-        public void process() {
+        public void processIfNotProcessed() {
             pause();
             _waitingActions.add(this);
         }

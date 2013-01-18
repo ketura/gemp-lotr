@@ -68,7 +68,7 @@ public class ChatRequestHandler extends LotroServerRequestHandler implements Uri
 
         ChatUpdateLongPollingResource polledResource = new ChatUpdateLongPollingResource(chatRoom, room, resourceOwner.getName(), responseWriter);
         if (polledResource.isChanged())
-            polledResource.process();
+            polledResource.processIfNotProcessed();
         else
             _longPollingSystem.appendLongPollingResource(polledResource);
     }
@@ -78,6 +78,7 @@ public class ChatRequestHandler extends LotroServerRequestHandler implements Uri
         private String _room;
         private String _playerId;
         private ResponseWriter _responseWriter;
+        private boolean _processed;
 
         private ChatUpdateLongPollingResource(ChatRoomMediator chatRoom, String room, String playerId, ResponseWriter responseWriter) {
             _chatRoom = chatRoom;
@@ -96,24 +97,27 @@ public class ChatRequestHandler extends LotroServerRequestHandler implements Uri
         }
 
         @Override
-        public void process() {
-            try {
-                List<ChatMessage> chatMessages = _chatRoom.getChatRoomListener(_playerId).consumeMessages();
+        public synchronized void processIfNotProcessed() {
+            if (!_processed) {
+                try {
+                    List<ChatMessage> chatMessages = _chatRoom.getChatRoomListener(_playerId).consumeMessages();
 
-                Collection<String> usersInRoom = _chatRoom.getUsersInRoom();
+                    Collection<String> usersInRoom = _chatRoom.getUsersInRoom();
 
-                DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-                DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+                    DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+                    DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
 
-                Document doc = documentBuilder.newDocument();
+                    Document doc = documentBuilder.newDocument();
 
-                serializeChatRoomData(_room, chatMessages, usersInRoom, doc);
+                    serializeChatRoomData(_room, chatMessages, usersInRoom, doc);
 
-                _responseWriter.writeXmlResponse(doc);
-            } catch (SubscriptionExpiredException exp) {
-                _responseWriter.writeError(410);
-            } catch (Exception exp) {
-                _responseWriter.writeError(500);
+                    _responseWriter.writeXmlResponse(doc);
+                } catch (SubscriptionExpiredException exp) {
+                    _responseWriter.writeError(410);
+                } catch (Exception exp) {
+                    _responseWriter.writeError(500);
+                }
+                _processed = true;
             }
         }
     }

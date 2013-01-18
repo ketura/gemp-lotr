@@ -83,7 +83,7 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
         } else if (uri.startsWith("/tournament/") && uri.endsWith("/leave") && request.getMethod() == HttpMethod.POST) {
             dropFromTournament(request, uri.substring(12, uri.length() - 6), responseWriter);
         } else if (uri.startsWith("/") && uri.endsWith("/leave") && request.getMethod() == HttpMethod.POST) {
-            leaveTable(request, uri.substring(1, uri.length()-6), responseWriter);
+            leaveTable(request, uri.substring(1, uri.length() - 6), responseWriter);
         } else if (uri.startsWith("/") && request.getMethod() == HttpMethod.POST) {
             joinTable(request, uri.substring(1), responseWriter);
         } else {
@@ -131,7 +131,7 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
 
         DraftUpdateLongPollingResource polledResource = new DraftUpdateLongPollingResource(tournamentId, resourceOwner, channelNumber, responseWriter);
         if (polledResource.isChanged())
-            polledResource.process();
+            polledResource.processIfNotProcessed();
         else
             _longPollingSystem.appendLongPollingResource(polledResource);
     }
@@ -141,6 +141,7 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
         private int _channelNumber;
         private String _tournamentId;
         private ResponseWriter _responseWriter;
+        private boolean _processed;
 
         private DraftUpdateLongPollingResource(String tournamentId, Player player, int channelNumber, ResponseWriter responseWriter) {
             _tournamentId = tournamentId;
@@ -161,32 +162,35 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
             }
         }
 
-        public void process() {
-            try {
-                DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-                DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
-
-                Document doc = documentBuilder.newDocument();
-
-                Element draft = doc.createElement("draft");
-
+        public synchronized void processIfNotProcessed() {
+            if (!_processed) {
                 try {
-                    _hallServer.processChangesInDraft(_tournamentId, _player, _channelNumber, new SerializeDraftVisitor(doc, draft));
+                    DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+                    DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
 
-                    doc.appendChild(draft);
+                    Document doc = documentBuilder.newDocument();
 
-                    _responseWriter.writeXmlResponse(doc);
-                } catch (DraftFinishedException e) {
-                    throw new HttpProcessingException(204);
-                } catch (SubscriptionConflictException e) {
-                    throw new HttpProcessingException(409);
-                } catch (SubscriptionExpiredException e) {
-                    throw new HttpProcessingException(410);
+                    Element draft = doc.createElement("draft");
+
+                    try {
+                        _hallServer.processChangesInDraft(_tournamentId, _player, _channelNumber, new SerializeDraftVisitor(doc, draft));
+
+                        doc.appendChild(draft);
+
+                        _responseWriter.writeXmlResponse(doc);
+                    } catch (DraftFinishedException e) {
+                        throw new HttpProcessingException(204);
+                    } catch (SubscriptionConflictException e) {
+                        throw new HttpProcessingException(409);
+                    } catch (SubscriptionExpiredException e) {
+                        throw new HttpProcessingException(410);
+                    }
+                } catch (HttpProcessingException exp) {
+                    _responseWriter.writeError(exp.getStatus());
+                } catch (Exception exp) {
+                    _responseWriter.writeError(500);
                 }
-            } catch (HttpProcessingException exp) {
-                _responseWriter.writeError(exp.getStatus());
-            } catch (Exception exp) {
-                _responseWriter.writeError(500);
+                _processed = true;
             }
         }
     }
@@ -424,7 +428,7 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
 
         HallUpdateLongPollingResource polledResource = new HallUpdateLongPollingResource(request, resourceOwner, channelNumber, responseWriter);
         if (polledResource.isChanged())
-            polledResource.process();
+            polledResource.processIfNotProcessed();
         else
             _longPollingSystem.appendLongPollingResource(polledResource);
     }
@@ -434,6 +438,7 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
         private Player _resourceOwner;
         private int _channelNumber;
         private ResponseWriter _responseWriter;
+        private boolean _processed;
 
         private HallUpdateLongPollingResource(HttpRequest request, Player resourceOwner, int channelNumber, ResponseWriter responseWriter) {
             _request = request;
@@ -454,33 +459,36 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
         }
 
         @Override
-        public void process() {
-            try {
-                DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-                DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
-
-                Document doc = documentBuilder.newDocument();
-
-                Element hall = doc.createElement("hall");
+        public synchronized void processIfNotProcessed() {
+            if (!_processed) {
                 try {
-                    _hallServer.getCommunicationChannel(_resourceOwner, _channelNumber).processCommunicationChannel(_hallServer, _resourceOwner, new SerializeHallInfoVisitor(doc, hall));
-                } catch (SubscriptionExpiredException exp) {
-                    throw new HttpProcessingException(410);
-                } catch (SubscriptionConflictException exp) {
-                    throw new HttpProcessingException(409);
+                    DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+                    DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+
+                    Document doc = documentBuilder.newDocument();
+
+                    Element hall = doc.createElement("hall");
+                    try {
+                        _hallServer.getCommunicationChannel(_resourceOwner, _channelNumber).processCommunicationChannel(_hallServer, _resourceOwner, new SerializeHallInfoVisitor(doc, hall));
+                    } catch (SubscriptionExpiredException exp) {
+                        throw new HttpProcessingException(410);
+                    } catch (SubscriptionConflictException exp) {
+                        throw new HttpProcessingException(409);
+                    }
+                    hall.setAttribute("currency", String.valueOf(_collectionManager.getPlayerCollection(_resourceOwner, "permanent").getCurrency()));
+
+                    doc.appendChild(hall);
+
+                    Map<String, String> headers = new HashMap<String, String>();
+                    processDeliveryServiceNotification(_request, headers);
+
+                    _responseWriter.writeXmlResponse(doc, headers);
+                } catch (HttpProcessingException exp) {
+                    _responseWriter.writeError(exp.getStatus());
+                } catch (Exception exp) {
+                    _responseWriter.writeError(500);
                 }
-                hall.setAttribute("currency", String.valueOf(_collectionManager.getPlayerCollection(_resourceOwner, "permanent").getCurrency()));
-
-                doc.appendChild(hall);
-
-                Map<String, String> headers = new HashMap<String, String>();
-                processDeliveryServiceNotification(_request, headers);
-
-                _responseWriter.writeXmlResponse(doc, headers);
-            } catch (HttpProcessingException exp) {
-                _responseWriter.writeError(exp.getStatus());
-            } catch (Exception exp) {
-                _responseWriter.writeError(500);
+                _processed = true;
             }
         }
     }
