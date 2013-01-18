@@ -60,6 +60,7 @@ public class HallServer extends AbstractServer {
 
     private Map<String, TournamentQueue> _tournamentQueues = new LinkedHashMap<String, TournamentQueue>();
     private final ChatRoomMediator _hallChat;
+    private final GameResultListener _notifyHallListeners = new NotifyHallListenersGameResultListener();
 
     public HallServer(LotroServer lotroServer, ChatServer chatServer, LeagueService leagueService, TournamentService tournamentService, LotroCardBlueprintLibrary library,
                       LotroFormatLibrary formatLibrary, CollectionsManager collectionsManager, TournamentPrizeSchemeRegistry tournamentPrizeSchemeRegistry,
@@ -106,6 +107,11 @@ public class HallServer extends AbstractServer {
         }
     }
 
+    private void hallChanged() {
+        for (HallCommunicationChannel hallCommunicationChannel : _playerChannelCommunication.values())
+            hallCommunicationChannel.hallChanged();
+    }
+
     @Override
     protected void doAfterStartup() {
         for (Tournament tournament : _tournamentService.getLiveTournaments())
@@ -120,6 +126,7 @@ public class HallServer extends AbstractServer {
                 cancelWaitingTables();
                 cancelTournamentQueues();
                 _chatServer.sendSystemMessageToAllChatRooms("System is entering shutdown mode and will be restarted when all games are finished");
+                hallChanged();
             }
         } finally {
             _hallDataAccessLock.writeLock().unlock();
@@ -127,13 +134,19 @@ public class HallServer extends AbstractServer {
     }
 
     public void setMOTD(String motd) {
-        _motd = motd;
+        _hallDataAccessLock.writeLock().lock();
+        try {
+            _motd = motd;
+            hallChanged();
+        } finally {
+            _hallDataAccessLock.writeLock().unlock();
+        }
     }
 
     public int getTablesCount() {
         _hallDataAccessLock.readLock().lock();
         try {
-            return _awaitingTables.size() + _runningTables.size();
+            return _runningTables.size();
         } finally {
             _hallDataAccessLock.readLock().unlock();
         }
@@ -192,6 +205,7 @@ public class HallServer extends AbstractServer {
             _awaitingTables.put(tableId, table);
 
             joinTableInternal(tableId, player.getName(), table, lotroDeck);
+            hallChanged();
         } finally {
             _hallDataAccessLock.writeLock().unlock();
         }
@@ -233,6 +247,8 @@ public class HallServer extends AbstractServer {
 
             tournamentQueue.joinPlayer(_collectionsManager, player, lotroDeck);
 
+            hallChanged();
+
             return true;
         } finally {
             _hallDataAccessLock.writeLock().unlock();
@@ -262,6 +278,8 @@ public class HallServer extends AbstractServer {
 
             joinTableInternal(tableId, player.getName(), awaitingTable, lotroDeck);
 
+            hallChanged();
+
             return true;
         } finally {
             _hallDataAccessLock.writeLock().unlock();
@@ -272,20 +290,26 @@ public class HallServer extends AbstractServer {
         _hallDataAccessLock.writeLock().lock();
         try {
             TournamentQueue tournamentQueue = _tournamentQueues.get(queueId);
-            if (tournamentQueue != null && tournamentQueue.isPlayerSignedUp(player.getName()))
+            if (tournamentQueue != null && tournamentQueue.isPlayerSignedUp(player.getName())) {
                 tournamentQueue.leavePlayer(_collectionsManager, player);
+                hallChanged();
+            }
         } finally {
             _hallDataAccessLock.writeLock().unlock();
         }
     }
 
-    private void leaveQueues(Player player) {
+    private boolean leaveQueuesForLeavingPlayer(Player player) {
         _hallDataAccessLock.writeLock().lock();
         try {
+            boolean result = false;
             for (TournamentQueue tournamentQueue : _tournamentQueues.values()) {
-                if (tournamentQueue.isPlayerSignedUp(player.getName()))
+                if (tournamentQueue.isPlayerSignedUp(player.getName())) {
                     tournamentQueue.leavePlayer(_collectionsManager, player);
+                    result = true;
+                }
             }
+            return result;
         } finally {
             _hallDataAccessLock.writeLock().unlock();
         }
@@ -295,8 +319,10 @@ public class HallServer extends AbstractServer {
         _hallDataAccessLock.writeLock().lock();
         try {
             Tournament tournament = _runningTournaments.get(tournamentId);
-            if (tournament != null)
+            if (tournament != null) {
                 tournament.dropPlayer(player.getName());
+                hallChanged();
+            }
         } finally {
             _hallDataAccessLock.writeLock().unlock();
         }
@@ -399,23 +425,27 @@ public class HallServer extends AbstractServer {
                 boolean empty = table.removePlayer(player.getName());
                 if (empty)
                     _awaitingTables.remove(tableId);
+                hallChanged();
             }
         } finally {
             _hallDataAccessLock.writeLock().unlock();
         }
     }
 
-    public void leaveAwaitingTables(Player player) {
+    public boolean leaveAwaitingTablesForLeavingPlayer(Player player) {
         _hallDataAccessLock.writeLock().lock();
         try {
+            boolean result = false;
             Map<String, AwaitingTable> copy = new HashMap<String, AwaitingTable>(_awaitingTables);
             for (Map.Entry<String, AwaitingTable> table : copy.entrySet()) {
                 if (table.getValue().hasPlayer(player.getName())) {
                     boolean empty = table.getValue().removePlayer(player.getName());
                     if (empty)
                         _awaitingTables.remove(table.getKey());
+                    result = true;
                 }
             }
+            return result;
         } finally {
             _hallDataAccessLock.writeLock().unlock();
         }
@@ -432,7 +462,7 @@ public class HallServer extends AbstractServer {
         }
     }
 
-    public HallCommunicationChannel getCommunicationChannel(Player player, int channelNumber)  throws SubscriptionExpiredException, SubscriptionConflictException {
+    public HallCommunicationChannel getCommunicationChannel(Player player, int channelNumber) throws SubscriptionExpiredException, SubscriptionConflictException {
         _hallDataAccessLock.readLock().lock();
         try {
             HallCommunicationChannel communicationChannel = _playerChannelCommunication.get(player);
@@ -625,7 +655,20 @@ public class HallServer extends AbstractServer {
         if (listener != null)
             lotroGameMediator.addGameResultListener(listener);
         lotroGameMediator.startGame();
+        lotroGameMediator.addGameResultListener(_notifyHallListeners);
         _runningTables.put(tableId, new RunningTable(gameId, lotroFormat.getName(), tournamentName, league, leagueSerie));
+    }
+
+    private class NotifyHallListenersGameResultListener implements GameResultListener {
+        @Override
+        public void gameCancelled() {
+            hallChanged();
+        }
+
+        @Override
+        public void gameFinished(String winnerPlayerId, String winReason, Map<String, String> loserPlayerIdsWithReasons) {
+            hallChanged();
+        }
     }
 
     private void joinTableInternal(String tableId, String player, AwaitingTable awaitingTable, LotroDeck lotroDeck) throws HallException {
@@ -651,8 +694,10 @@ public class HallServer extends AbstractServer {
             // Remove finished games
             HashMap<String, RunningTable> copy = new HashMap<String, RunningTable>(_runningTables);
             for (Map.Entry<String, RunningTable> runningTable : copy.entrySet()) {
-                if (_lotroServer.getGameById(runningTable.getValue().getGameId()) == null)
+                if (_lotroServer.getGameById(runningTable.getValue().getGameId()) == null) {
                     _runningTables.remove(runningTable.getKey());
+                    hallChanged();
+                }
             }
 
             long currentTime = System.currentTimeMillis();
@@ -661,8 +706,10 @@ public class HallServer extends AbstractServer {
                 if (currentTime > lastVisitedPlayer.getValue().getLastAccessed() + _playerInactivityPeriod) {
                     Player player = lastVisitedPlayer.getKey();
                     _playerChannelCommunication.remove(player);
-                    leaveAwaitingTables(player);
-                    leaveQueues(player);
+                    boolean leftTables = leaveAwaitingTablesForLeavingPlayer(player);
+                    boolean leftQueues = leaveQueuesForLeavingPlayer(player);
+                    if (leftTables || leftQueues)
+                        hallChanged();
                 }
             }
 
@@ -671,15 +718,19 @@ public class HallServer extends AbstractServer {
                 TournamentQueue tournamentQueue = runningTournamentQueue.getValue();
                 HallTournamentQueueCallback queueCallback = new HallTournamentQueueCallback();
                 // If it's finished, remove it
-                if (tournamentQueue.process(queueCallback, _collectionsManager))
+                if (tournamentQueue.process(queueCallback, _collectionsManager)) {
                     _tournamentQueues.remove(tournamentQueueKey);
+                    hallChanged();
+                }
             }
 
             for (Map.Entry<String, Tournament> tournamentEntry : new HashMap<String, Tournament>(_runningTournaments).entrySet()) {
                 Tournament runningTournament = tournamentEntry.getValue();
                 runningTournament.advanceTournament(new HallTournamentCallback(runningTournament), _collectionsManager);
-                if (runningTournament.getTournamentStage() == Tournament.Stage.FINISHED)
+                if (runningTournament.getTournamentStage() == Tournament.Stage.FINISHED) {
                     _runningTournaments.remove(tournamentEntry.getKey());
+                    hallChanged();
+                }
             }
 
             if (_tickCounter == 60) {
@@ -695,6 +746,7 @@ public class HallServer extends AbstractServer {
                                 _pairingMechanismRegistry.getPairingMechanism(unstartedTournamentQueue.getPlayOffSystem()),
                                 _tournamentPrizeSchemeRegistry.getTournamentPrizes(unstartedTournamentQueue.getPrizeScheme()), unstartedTournamentQueue.getMinimumPlayers());
                         _tournamentQueues.put(scheduledTournamentId, scheduledQueue);
+                        hallChanged();
                     }
                 }
             }
