@@ -204,6 +204,7 @@ var GempLotrCommunication = Class.extend({
                 channelNumber:channelNumber,
                 participantId:getUrlParam("participantId") },
             success:this.deliveryCheck(callback),
+            timeout: 20000,
             error:this.errorCheck(errorMap),
             dataType:"xml"
         });
@@ -232,6 +233,7 @@ var GempLotrCommunication = Class.extend({
                 decisionId:decisionId,
                 decisionValue:response },
             success:this.deliveryCheck(callback),
+            timeout: 20000,
             error:this.errorCheck(errorMap),
             dataType:"xml"
         });
@@ -469,6 +471,7 @@ var GempLotrCommunication = Class.extend({
             data:{
                 participantId:getUrlParam("participantId")},
             success:callback,
+            timeout: 20000,
             error:this.errorCheck(errorMap),
             dataType:"xml"
         });
@@ -508,6 +511,7 @@ var GempLotrCommunication = Class.extend({
                 channelNumber:channelNumber,
                 participantId:getUrlParam("participantId") },
             success:this.deliveryCheck(callback),
+            timeout: 20000,
             error:this.errorCheck(errorMap),
             dataType:"xml"
         });
