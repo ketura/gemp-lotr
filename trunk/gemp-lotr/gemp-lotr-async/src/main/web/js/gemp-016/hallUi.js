@@ -699,7 +699,7 @@ var GempLotrHallUI = Class.extend({
                 setTimeout(
                     function() {
                         soundPlay.remove();
-                    }, 2000);
+                    }, 5000);
             }
 
             if (!this.supportedFormatsInitialized) {
