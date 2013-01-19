@@ -157,8 +157,10 @@ public class DefaultTournament implements Tournament {
                 _currentlyPlayingPlayers.remove(loser);
                 _finishedTournamentMatches.add(
                         new TournamentMatch(winner, loser, winner, _tournamentRound));
-                if (_pairingMechanism.shouldDropLoser())
+                if (_pairingMechanism.shouldDropLoser()) {
+                    _tournamentService.dropPlayer(_tournamentId, loser);
                     _droppedPlayers.add(loser);
+                }
                 _currentStandings = null;
             }
         } finally {
