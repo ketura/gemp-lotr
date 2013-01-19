@@ -2,14 +2,15 @@ package com.gempukku.lotro.draft;
 
 import com.gempukku.lotro.game.CardCollection;
 import com.gempukku.polling.LongPollableResource;
-import com.gempukku.polling.LongPollingResource;
+import com.gempukku.polling.WaitingRequest;
 
 public class DraftCommunicationChannel implements LongPollableResource {
     private int _channelNumber;
     private long _lastAccessed;
 
+    private boolean _changed;
     private String _cardChoiceOnClient;
-    private LongPollingResource _longPollingResource;
+    private WaitingRequest _waitingRequest;
 
     public DraftCommunicationChannel(int channelNumber) {
         _channelNumber = channelNumber;
@@ -28,18 +29,23 @@ public class DraftCommunicationChannel implements LongPollableResource {
     }
 
     @Override
-    public void deregisterResource(LongPollingResource longPollingResource) {
-        _longPollingResource = null;
+    public synchronized void deregisterRequest(WaitingRequest waitingRequest) {
+        _waitingRequest = null;
     }
 
     @Override
-    public void registerForChanges(LongPollingResource longPollingResource) {
-        _longPollingResource = longPollingResource;
+    public boolean registerRequest(WaitingRequest waitingRequest) {
+        if (_changed)
+            return true;
+
+        _waitingRequest = waitingRequest;
+        return false;
     }
 
     public synchronized void draftChanged() {
-        if (_longPollingResource != null)
-            _longPollingResource.processIfNotProcessed();
+        _changed = true;
+        if (_waitingRequest != null)
+            _waitingRequest.processRequest();
     }
 
     public boolean hasChangesInCommunicationChannel(DraftCardChoice draftCardChoice) {
@@ -59,7 +65,7 @@ public class DraftCommunicationChannel implements LongPollableResource {
         return sb.toString();
     }
 
-    public void processCommunicationChannel(DraftCardChoice draftCardChoice, CardCollection chosenCards, DraftChannelVisitor draftChannelVisitor) {
+    public synchronized void processCommunicationChannel(DraftCardChoice draftCardChoice, CardCollection chosenCards, DraftChannelVisitor draftChannelVisitor) {
         updateLastAccess();
 
         CardCollection cardCollection = draftCardChoice.getCardCollection();
@@ -72,5 +78,7 @@ public class DraftCommunicationChannel implements LongPollableResource {
             _cardChoiceOnClient = null;
         }
         draftChannelVisitor.chosenCards(chosenCards);
+
+        _changed = false;
     }
 }

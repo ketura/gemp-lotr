@@ -2,7 +2,7 @@ package com.gempukku.lotro.hall;
 
 import com.gempukku.lotro.game.Player;
 import com.gempukku.polling.LongPollableResource;
-import com.gempukku.polling.LongPollingResource;
+import com.gempukku.polling.WaitingRequest;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.mutable.MutableObject;
 
@@ -17,26 +17,30 @@ public class HallCommunicationChannel implements LongPollableResource {
     private Map<String, Map<String, String>> _tablePropsOnClient = new LinkedHashMap<String, Map<String, String>>();
     private Set<String> _playedGames = new HashSet<String>();
     private boolean _changed;
-    private LongPollingResource _longPollingResource;
+    private WaitingRequest _waitingRequest;
 
     public HallCommunicationChannel(int channelNumber) {
         _channelNumber = channelNumber;
     }
 
     @Override
-    public synchronized void deregisterResource(LongPollingResource longPollingResource) {
-        _longPollingResource = null;
+    public synchronized void deregisterRequest(WaitingRequest waitingRequest) {
+        _waitingRequest = null;
     }
 
     @Override
-    public synchronized void registerForChanges(LongPollingResource longPollingResource) {
-        _longPollingResource = longPollingResource;
+    public boolean registerRequest(WaitingRequest waitingRequest) {
+        if (_changed)
+            return true;
+
+        _waitingRequest = waitingRequest;
+        return false;
     }
 
     public synchronized void hallChanged() {
         _changed = true;
-        if (_longPollingResource != null)
-            _longPollingResource.processIfNotProcessed();
+        if (_waitingRequest != null)
+            _waitingRequest.processRequest();
     }
 
     public int getChannelNumber() {

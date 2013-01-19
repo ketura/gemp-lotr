@@ -11,6 +11,7 @@ var GempLotrHallUI = Class.extend({
     buttonsDiv:null,
 
     pocketDiv:null,
+    pocketValue:null,
     hallChannelId: null,
 
     init:function (div, url, chat) {
@@ -422,8 +423,11 @@ var GempLotrHallUI = Class.extend({
         if (root.tagName == "hall") {
             this.hallChannelId = root.getAttribute("channelNumber");
 
-            var currency = root.getAttribute("currency");
-            this.pocketDiv.html(formatPrice(currency));
+            var currency = parseInt(root.getAttribute("currency"));
+            if (currency != this.pocketValue) {
+                this.pocketValue = currency;
+                this.pocketDiv.html(formatPrice(currency));
+            }
 
             var motd = root.getAttribute("motd");
             if (motd != null)

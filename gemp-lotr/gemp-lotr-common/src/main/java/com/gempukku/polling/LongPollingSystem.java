@@ -2,33 +2,40 @@ package com.gempukku.polling;
 
 import org.apache.log4j.Logger;
 
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Iterator;
-import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.Set;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class LongPollingSystem {
     private static Logger _log = Logger.getLogger(LongPollingSystem.class);
 
-    private ConcurrentLinkedQueue<TimeoutResource> _waitingActions = new ConcurrentLinkedQueue<TimeoutResource>();
+    private final Set<ResourceWaitingRequest> _waitingActions = Collections.synchronizedSet(new HashSet<ResourceWaitingRequest>());
+
     private long _pollingInterval = 1000;
     private long _pollingLength = 10000;
-    private ProcessingRunnable _processingRunnable;
+
+    private ProcessingRunnable _timeoutRunnable;
+    private ExecutorService _executorService = Executors.newCachedThreadPool();
 
     public LongPollingSystem() {
     }
 
     public void start() {
-        _processingRunnable = new ProcessingRunnable();
-        Thread thr = new Thread(_processingRunnable);
+        _timeoutRunnable = new ProcessingRunnable();
+        Thread thr = new Thread(_timeoutRunnable);
         thr.start();
     }
 
     public void processLongPollingResource(LongPollingResource resource, LongPollableResource pollableResource) {
-        if (resource.isChanged())
-            resource.processIfNotProcessed();
-        else
-            pollableResource.registerForChanges(resource);
-
-        _waitingActions.add(new TimeoutResource(resource, pollableResource, System.currentTimeMillis()));
+        ResourceWaitingRequest request = new ResourceWaitingRequest(pollableResource, resource, System.currentTimeMillis());
+        if (pollableResource.registerRequest(request)) {
+            execute(resource);
+        } else {
+            _waitingActions.add(request);
+        }
     }
 
     private void pause() {
@@ -39,21 +46,38 @@ public class LongPollingSystem {
         }
     }
 
+    private void processWaitingRequest(final ResourceWaitingRequest request) {
+        _waitingActions.remove(request);
+        execute(request.getLongPollingResource());
+    }
+
+    private void execute(final LongPollingResource resource) {
+        _executorService.submit(
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        resource.processIfNotProcessed();
+                    }
+                });
+    }
+
     private class ProcessingRunnable implements Runnable {
         @Override
         public void run() {
             while (true) {
-                long now = System.currentTimeMillis();
-                Iterator<TimeoutResource> iterator = _waitingActions.iterator();
-                while (iterator.hasNext()) {
-                    TimeoutResource resource = iterator.next();
-                    if (resource.getLongPollingResource().wasProcessed())
-                        iterator.remove();
-                    else {
-                        if (resource.getStart() + _pollingLength < now) {
-                            resource.getLongPollableResource().deregisterResource(resource.getLongPollingResource());
-                            resource.getLongPollingResource().processIfNotProcessed();
+                synchronized (_waitingActions) {
+                    long now = System.currentTimeMillis();
+                    Iterator<ResourceWaitingRequest> iterator = _waitingActions.iterator();
+                    while (iterator.hasNext()) {
+                        ResourceWaitingRequest waitingRequest = iterator.next();
+                        if (waitingRequest.getLongPollingResource().wasProcessed())
                             iterator.remove();
+                        else {
+                            if (waitingRequest.getStart() + _pollingLength < now) {
+                                waitingRequest.getLongPollableResource().deregisterRequest(waitingRequest);
+                                iterator.remove();
+                                execute(waitingRequest.getLongPollingResource());
+                            }
                         }
                     }
                 }
@@ -62,15 +86,20 @@ public class LongPollingSystem {
         }
     }
 
-    private class TimeoutResource {
-        private long _start;
-        private LongPollableResource _longPollableResource;
+    private class ResourceWaitingRequest implements WaitingRequest {
         private LongPollingResource _longPollingResource;
+        private LongPollableResource _longPollableResource;
+        private long _start;
 
-        private TimeoutResource(LongPollingResource longPollingResource, LongPollableResource longPollableResource, long start) {
-            _longPollingResource = longPollingResource;
+        private ResourceWaitingRequest(LongPollableResource longPollableResource, LongPollingResource longPollingResource, long start) {
             _longPollableResource = longPollableResource;
+            _longPollingResource = longPollingResource;
             _start = start;
+        }
+
+        @Override
+        public void processRequest() {
+            processWaitingRequest(this);
         }
 
         public LongPollableResource getLongPollableResource() {
