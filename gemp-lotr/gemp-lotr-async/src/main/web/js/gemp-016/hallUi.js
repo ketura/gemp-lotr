@@ -687,15 +687,17 @@ var GempLotrHallUI = Class.extend({
             $(".count", $(".eventHeader.finishedTables")).html("(" + ($("tr", $("table.finishedTables")).length - 1) + ")");
 
             var games = root.getElementsByTagName("newGame");
-            if (games.length > 0) {
-                var waitingGameId = games[0].getAttribute("id");
+            for (var i=0; i<games.length; i++) {
+                var waitingGameId = games[i].getAttribute("id");
                 var participantId = getUrlParam("participantId");
                 var participantIdAppend = "";
                 if (participantId != null)
                     participantIdAppend = "&participantId=" + participantId;
+                window.open("/gemp-lotr/game.html?gameId=" + waitingGameId + participantIdAppend, "_blank");
+            }
+            if (games.length > 0) {
                 var soundPlay = $("<embed src='/gemp-lotr/fanfare_x.wav' hidden='true' autostart='true' loop='false'>");
                 this.tablesDiv.append(soundPlay);
-                window.open("/gemp-lotr/game.html?gameId=" + waitingGameId + participantIdAppend, "_blank");
                 setTimeout(
                     function() {
                         soundPlay.remove();
