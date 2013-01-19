@@ -113,19 +113,6 @@ public class GameRequestHandler extends LotroServerRequestHandler implements Uri
         }
 
         @Override
-        public boolean isChanged() {
-            try {
-                return _gameMediator.getCommunicationChannel(_resourceOwner, _channelNumber).hasGameEvents();
-            } catch (PrivateInformationException e) {
-                return true;
-            } catch (SubscriptionExpiredException e) {
-                return true;
-            } catch (SubscriptionConflictException e) {
-                return true;
-            }
-        }
-
-        @Override
         public synchronized boolean wasProcessed() {
             return _processed;
         }

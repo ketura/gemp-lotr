@@ -91,15 +91,6 @@ public class ChatRequestHandler extends LotroServerRequestHandler implements Uri
         }
 
         @Override
-        public boolean isChanged() {
-            try {
-                return _chatRoom.getChatRoomListener(_playerId).hasMessages();
-            } catch (SubscriptionExpiredException e) {
-                return true;
-            }
-        }
-
-        @Override
         public synchronized boolean wasProcessed() {
             return _processed;
         }

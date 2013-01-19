@@ -3,21 +3,20 @@ package com.gempukku.lotro.game.state;
 import com.gempukku.lotro.common.Token;
 import com.gempukku.lotro.communication.GameStateListener;
 import com.gempukku.lotro.game.PhysicalCard;
+import static com.gempukku.lotro.game.state.GameEvent.Type.*;
 import com.gempukku.lotro.logic.decisions.AwaitingDecision;
 import com.gempukku.lotro.logic.timing.GameStats;
 import com.gempukku.polling.LongPollableResource;
-import com.gempukku.polling.LongPollingResource;
+import com.gempukku.polling.WaitingRequest;
 
 import java.util.*;
-
-import static com.gempukku.lotro.game.state.GameEvent.Type.*;
 
 public class GameCommunicationChannel implements GameStateListener, LongPollableResource {
     private List<GameEvent> _events = new LinkedList<GameEvent>();
     private String _self;
     private long _lastConsumed = System.currentTimeMillis();
     private int _channelNumber;
-    private LongPollingResource _longPollingResource;
+    private WaitingRequest _waitingRequest;
 
     public GameCommunicationChannel(String self, int channelNumber) {
         _self = self;
@@ -37,19 +36,23 @@ public class GameCommunicationChannel implements GameStateListener, LongPollable
     }
 
     @Override
-    public synchronized void deregisterResource(LongPollingResource longPollingResource) {
-        _longPollingResource = null;
+    public synchronized void deregisterRequest(WaitingRequest waitingRequest) {
+        _waitingRequest = null;
     }
 
     @Override
-    public synchronized void registerForChanges(LongPollingResource longPollingResource) {
-        _longPollingResource = longPollingResource;
+    public synchronized boolean registerRequest(WaitingRequest waitingRequest) {
+        if (_events.size()>0)
+            return true;
+
+        _waitingRequest = waitingRequest;
+        return false;
     }
 
     private synchronized void appendEvent(GameEvent event) {
         _events.add(event);
-        if (_longPollingResource != null)
-            _longPollingResource.processIfNotProcessed();
+        if (_waitingRequest != null)
+            _waitingRequest.processRequest();
     }
 
     private int[] getCardIds(Collection<PhysicalCard> cards) {

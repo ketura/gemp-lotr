@@ -466,17 +466,6 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
         }
 
         @Override
-        public boolean isChanged() {
-            try {
-                return _hallServer.getCommunicationChannel(_resourceOwner, _channelNumber).hasChangesInCommunicationChannel();
-            } catch (SubscriptionExpiredException e) {
-                return true;
-            } catch (SubscriptionConflictException e) {
-                return true;
-            }
-        }
-
-        @Override
         public synchronized boolean wasProcessed() {
             return _processed;
         }
