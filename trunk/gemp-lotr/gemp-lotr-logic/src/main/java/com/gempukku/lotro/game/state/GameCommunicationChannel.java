@@ -51,8 +51,10 @@ public class GameCommunicationChannel implements GameStateListener, LongPollable
 
     private synchronized void appendEvent(GameEvent event) {
         _events.add(event);
-        if (_waitingRequest != null)
+        if (_waitingRequest != null) {
             _waitingRequest.processRequest();
+            _waitingRequest = null;
+        }
     }
 
     private int[] getCardIds(Collection<PhysicalCard> cards) {
