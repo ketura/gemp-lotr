@@ -7,7 +7,9 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.SynchronousQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 public class LongPollingSystem {
     private static Logger _log = Logger.getLogger(LongPollingSystem.class);
@@ -18,10 +20,9 @@ public class LongPollingSystem {
     private long _pollingLength = 10000;
 
     private ProcessingRunnable _timeoutRunnable;
-    private ExecutorService _executorService = Executors.newCachedThreadPool();
-
-    public LongPollingSystem() {
-    }
+    private ExecutorService _executorService = new ThreadPoolExecutor(10, Integer.MAX_VALUE,
+                                60L, TimeUnit.SECONDS,
+                                new SynchronousQueue<Runnable>());
 
     public void start() {
         _timeoutRunnable = new ProcessingRunnable();
