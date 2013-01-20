@@ -39,8 +39,10 @@ public class HallCommunicationChannel implements LongPollableResource {
 
     public synchronized void hallChanged() {
         _changed = true;
-        if (_waitingRequest != null)
+        if (_waitingRequest != null) {
             _waitingRequest.processRequest();
+            _waitingRequest = null;
+        }
     }
 
     public int getChannelNumber() {

@@ -44,8 +44,10 @@ public class DraftCommunicationChannel implements LongPollableResource {
 
     public synchronized void draftChanged() {
         _changed = true;
-        if (_waitingRequest != null)
+        if (_waitingRequest != null) {
             _waitingRequest.processRequest();
+            _waitingRequest = null;
+        }
     }
 
     public boolean hasChangesInCommunicationChannel(DraftCardChoice draftCardChoice) {

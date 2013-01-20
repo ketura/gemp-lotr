@@ -30,8 +30,10 @@ public class ChatCommunicationChannel implements ChatRoomListener, LongPollableR
     @Override
     public synchronized void messageReceived(ChatMessage message) {
         _messages.add(message);
-        if (_waitingRequest != null)
+        if (_waitingRequest != null) {
             _waitingRequest.processRequest();
+            _waitingRequest = null;
+        }
     }
 
     public synchronized List<ChatMessage> consumeMessages() {
