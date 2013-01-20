@@ -8,9 +8,9 @@ public class DraftCommunicationChannel implements LongPollableResource {
     private int _channelNumber;
     private long _lastAccessed;
 
-    private boolean _changed;
     private String _cardChoiceOnClient;
-    private WaitingRequest _waitingRequest;
+    private volatile boolean _changed;
+    private volatile WaitingRequest _waitingRequest;
 
     public DraftCommunicationChannel(int channelNumber) {
         _channelNumber = channelNumber;

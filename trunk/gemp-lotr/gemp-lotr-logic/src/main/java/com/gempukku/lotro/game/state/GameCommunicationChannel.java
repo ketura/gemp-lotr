@@ -12,11 +12,11 @@ import com.gempukku.polling.WaitingRequest;
 import java.util.*;
 
 public class GameCommunicationChannel implements GameStateListener, LongPollableResource {
-    private List<GameEvent> _events = new LinkedList<GameEvent>();
+    private List<GameEvent> _events = Collections.synchronizedList(new LinkedList<GameEvent>());
     private String _self;
     private long _lastConsumed = System.currentTimeMillis();
     private int _channelNumber;
-    private WaitingRequest _waitingRequest;
+    private volatile WaitingRequest _waitingRequest;
 
     public GameCommunicationChannel(String self, int channelNumber) {
         _self = self;
@@ -190,7 +190,7 @@ public class GameCommunicationChannel implements GameStateListener, LongPollable
     public List<GameEvent> consumeGameEvents() {
         updateLastAccess();
         List<GameEvent> result = _events;
-        _events = new LinkedList<GameEvent>();
+        _events = Collections.synchronizedList(new LinkedList<GameEvent>());
         return result;
     }
 
