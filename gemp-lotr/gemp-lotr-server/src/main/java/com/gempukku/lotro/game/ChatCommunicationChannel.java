@@ -11,7 +11,7 @@ import java.util.List;
 public class ChatCommunicationChannel implements ChatRoomListener, LongPollableResource {
     private List<ChatMessage> _messages = new LinkedList<ChatMessage>();
     private long _lastConsumed = System.currentTimeMillis();
-    private WaitingRequest _waitingRequest;
+    private volatile WaitingRequest _waitingRequest;
 
     @Override
     public synchronized void deregisterRequest(WaitingRequest waitingRequest) {

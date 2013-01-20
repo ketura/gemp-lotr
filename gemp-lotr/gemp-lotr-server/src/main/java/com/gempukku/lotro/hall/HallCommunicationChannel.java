@@ -17,7 +17,7 @@ public class HallCommunicationChannel implements LongPollableResource {
     private Map<String, Map<String, String>> _tablePropsOnClient = new LinkedHashMap<String, Map<String, String>>();
     private Set<String> _playedGames = new HashSet<String>();
     private volatile boolean _changed;
-    private WaitingRequest _waitingRequest;
+    private volatile WaitingRequest _waitingRequest;
 
     public HallCommunicationChannel(int channelNumber) {
         _channelNumber = channelNumber;
