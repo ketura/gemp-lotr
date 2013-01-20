@@ -16,7 +16,7 @@ public class HallCommunicationChannel implements LongPollableResource {
     private Map<String, Map<String, String>> _tournamentPropsOnClient = new LinkedHashMap<String, Map<String, String>>();
     private Map<String, Map<String, String>> _tablePropsOnClient = new LinkedHashMap<String, Map<String, String>>();
     private Set<String> _playedGames = new HashSet<String>();
-    private boolean _changed;
+    private volatile boolean _changed;
     private WaitingRequest _waitingRequest;
 
     public HallCommunicationChannel(int channelNumber) {
@@ -29,7 +29,7 @@ public class HallCommunicationChannel implements LongPollableResource {
     }
 
     @Override
-    public boolean registerRequest(WaitingRequest waitingRequest) {
+    public synchronized boolean registerRequest(WaitingRequest waitingRequest) {
         if (_changed)
             return true;
 
@@ -55,13 +55,7 @@ public class HallCommunicationChannel implements LongPollableResource {
         return _lastConsumed;
     }
 
-    public synchronized boolean hasChangesInCommunicationChannel() {
-        updateLastAccess();
-
-        return _changed;
-    }
-
-    public synchronized void processCommunicationChannel(HallServer hallServer, final Player player, final HallChannelVisitor hallChannelVisitor) {
+    public void processCommunicationChannel(HallServer hallServer, final Player player, final HallChannelVisitor hallChannelVisitor) {
         updateLastAccess();
 
         hallChannelVisitor.channelNumber(_channelNumber);

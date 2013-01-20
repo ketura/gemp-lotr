@@ -442,7 +442,7 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
 
         try {
             HallCommunicationChannel pollableResource = _hallServer.getCommunicationChannel(resourceOwner, channelNumber);
-            HallUpdateLongPollingResource polledResource = new HallUpdateLongPollingResource(request, resourceOwner, channelNumber, responseWriter);
+            HallUpdateLongPollingResource polledResource = new HallUpdateLongPollingResource(pollableResource, request, resourceOwner, responseWriter);
             _longPollingSystem.processLongPollingResource(polledResource, pollableResource);
         } catch (SubscriptionExpiredException exp) {
             responseWriter.writeError(410);
@@ -453,15 +453,15 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
 
     private class HallUpdateLongPollingResource implements LongPollingResource {
         private HttpRequest _request;
+        private HallCommunicationChannel _hallCommunicationChannel;
         private Player _resourceOwner;
-        private int _channelNumber;
         private ResponseWriter _responseWriter;
         private boolean _processed;
 
-        private HallUpdateLongPollingResource(HttpRequest request, Player resourceOwner, int channelNumber, ResponseWriter responseWriter) {
+        private HallUpdateLongPollingResource(HallCommunicationChannel hallCommunicationChannel, HttpRequest request, Player resourceOwner, ResponseWriter responseWriter) {
+            _hallCommunicationChannel = hallCommunicationChannel;
             _request = request;
             _resourceOwner = resourceOwner;
-            _channelNumber = channelNumber;
             _responseWriter = responseWriter;
         }
 
@@ -480,7 +480,7 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
                     Document doc = documentBuilder.newDocument();
 
                     Element hall = doc.createElement("hall");
-                    _hallServer.getCommunicationChannel(_resourceOwner, _channelNumber).processCommunicationChannel(_hallServer, _resourceOwner, new SerializeHallInfoVisitor(doc, hall));
+                    _hallCommunicationChannel.processCommunicationChannel(_hallServer, _resourceOwner, new SerializeHallInfoVisitor(doc, hall));
                     hall.setAttribute("currency", String.valueOf(_collectionManager.getPlayerCollection(_resourceOwner, "permanent").getCurrency()));
 
                     doc.appendChild(hall);
@@ -489,10 +489,6 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
                     processDeliveryServiceNotification(_request, headers);
 
                     _responseWriter.writeXmlResponse(doc, headers);
-                } catch (SubscriptionExpiredException exp) {
-                    _responseWriter.writeError(410);
-                } catch (SubscriptionConflictException exp) {
-                    _responseWriter.writeError(409);
                 } catch (Exception exp) {
                     _responseWriter.writeError(500);
                 }

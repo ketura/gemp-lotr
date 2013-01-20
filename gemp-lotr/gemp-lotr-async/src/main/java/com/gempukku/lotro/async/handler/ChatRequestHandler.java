@@ -77,6 +77,7 @@ public class ChatRequestHandler extends LotroServerRequestHandler implements Uri
     }
 
     private class ChatUpdateLongPollingResource implements LongPollingResource {
+        private ChatCommunicationChannel _chatCommunicationChannel;
         private ChatRoomMediator _chatRoom;
         private String _room;
         private String _playerId;

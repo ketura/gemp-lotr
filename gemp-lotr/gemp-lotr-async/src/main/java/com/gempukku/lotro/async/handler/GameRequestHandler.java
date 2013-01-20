@@ -87,7 +87,7 @@ public class GameRequestHandler extends LotroServerRequestHandler implements Uri
 
         try {
             GameCommunicationChannel pollableResource = gameMediator.getCommunicationChannel(resourceOwner, channelNumber);
-            GameUpdateLongPollingResource pollingResource = new GameUpdateLongPollingResource(channelNumber, gameMediator, resourceOwner, responseWriter);
+            GameUpdateLongPollingResource pollingResource = new GameUpdateLongPollingResource(pollableResource, channelNumber, gameMediator, resourceOwner, responseWriter);
             _longPollingSystem.processLongPollingResource(pollingResource, pollableResource);
         } catch (SubscriptionConflictException exp) {
             responseWriter.writeError(409);
@@ -99,13 +99,15 @@ public class GameRequestHandler extends LotroServerRequestHandler implements Uri
     }
 
     private class GameUpdateLongPollingResource implements LongPollingResource {
+        private GameCommunicationChannel _gameCommunicationChannel;
         private LotroGameMediator _gameMediator;
         private Player _resourceOwner;
         private int _channelNumber;
         private ResponseWriter _responseWriter;
         private boolean _processed;
 
-        private GameUpdateLongPollingResource(int channelNumber, LotroGameMediator gameMediator, Player resourceOwner, ResponseWriter responseWriter) {
+        private GameUpdateLongPollingResource(GameCommunicationChannel gameCommunicationChannel, int channelNumber, LotroGameMediator gameMediator, Player resourceOwner, ResponseWriter responseWriter) {
+            _gameCommunicationChannel = gameCommunicationChannel;
             _channelNumber = channelNumber;
             _gameMediator = gameMediator;
             _resourceOwner = resourceOwner;
@@ -127,18 +129,11 @@ public class GameRequestHandler extends LotroServerRequestHandler implements Uri
                     Document doc = documentBuilder.newDocument();
                     Element update = doc.createElement("update");
 
-                    GameCommunicationChannel communicationChannel = _gameMediator.getCommunicationChannel(_resourceOwner, _channelNumber);
-                    _gameMediator.processVisitor(communicationChannel, _channelNumber, _resourceOwner.getName(), new SerializationVisitor(doc, update));
+                    _gameMediator.processVisitor(_gameCommunicationChannel, _channelNumber, _resourceOwner.getName(), new SerializationVisitor(doc, update));
 
                     doc.appendChild(update);
 
                     _responseWriter.writeXmlResponse(doc);
-                } catch (SubscriptionConflictException exp) {
-                    _responseWriter.writeError(409);
-                } catch (PrivateInformationException e) {
-                    _responseWriter.writeError(403);
-                } catch (SubscriptionExpiredException e) {
-                    _responseWriter.writeError(410);
                 } catch (Exception e) {
                     _responseWriter.writeError(500);
                 }
