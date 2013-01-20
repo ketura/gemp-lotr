@@ -59,6 +59,7 @@ public class LotroServer extends AbstractServer {
                     _gameDeathWarningsSent.add(gameId);
                 }
                 if (currentTime > finishedGame.getValue().getTime() + _timeToGameDeath) {
+                    _runningGames.get(gameId).destroy();
                     _gameDeathWarningsSent.remove(gameId);
                     _runningGames.remove(gameId);
                     _chatServer.destroyChatRoom(getChatRoomName(gameId));
@@ -79,7 +80,7 @@ public class LotroServer extends AbstractServer {
         return "Game" + gameId;
     }
 
-    public String createNewGame(LotroFormat lotroFormat, String tournamentName, final LotroGameParticipant[] participants, boolean allowSpectators, boolean allowCancelling, boolean allowChatAccess, boolean competitiveTime) {
+    public LotroGameMediator createNewGame(LotroFormat lotroFormat, String tournamentName, final LotroGameParticipant[] participants, boolean allowSpectators, boolean allowCancelling, boolean allowChatAccess, boolean competitiveTime) {
         _lock.writeLock().lock();
         try {
             if (participants.length < 2)
@@ -94,7 +95,7 @@ public class LotroServer extends AbstractServer {
             } else
                 _chatServer.createChatRoom(getChatRoomName(gameId), false, 30);
 
-            LotroGameMediator lotroGameMediator = new LotroGameMediator(lotroFormat, participants, _lotroCardBlueprintLibrary,
+            LotroGameMediator lotroGameMediator = new LotroGameMediator(gameId, lotroFormat, participants, _lotroCardBlueprintLibrary,
                     competitiveTime ? 60 * 40 : 60 * 80, allowSpectators, allowCancelling);
             lotroGameMediator.addGameResultListener(
                     new GameResultListener() {
@@ -140,7 +141,7 @@ public class LotroServer extends AbstractServer {
 
             _runningGames.put(gameId, lotroGameMediator);
             _nextGameId++;
-            return gameId;
+            return lotroGameMediator;
         } finally {
             _lock.writeLock().unlock();
         }
