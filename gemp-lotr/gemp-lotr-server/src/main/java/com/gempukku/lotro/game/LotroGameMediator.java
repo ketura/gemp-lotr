@@ -30,6 +30,7 @@ public class LotroGameMediator {
     private Map<String, Long> _decisionQuerySentTimes = new HashMap<String, Long>();
     private Set<String> _playersPlaying = new HashSet<String>();
 
+    private String _gameId;
     private int _maxSecondsForGamePerPlayer = 60 * 80; // 80 minutes
     private boolean _allowSpectators;
     private boolean _cancellable;
@@ -40,9 +41,11 @@ public class LotroGameMediator {
     private ReentrantReadWriteLock.ReadLock _readLock = _lock.readLock();
     private ReentrantReadWriteLock.WriteLock _writeLock = _lock.writeLock();
     private int _channelNextIndex = 0;
+    private volatile boolean _destroyed;
 
-    public LotroGameMediator(LotroFormat lotroFormat, LotroGameParticipant[] participants, LotroCardBlueprintLibrary library, int maxSecondsForGamePerPlayer,
+    public LotroGameMediator(String gameId, LotroFormat lotroFormat, LotroGameParticipant[] participants, LotroCardBlueprintLibrary library, int maxSecondsForGamePerPlayer,
                              boolean allowSpectators, boolean cancellable) {
+        _gameId = gameId;
         _maxSecondsForGamePerPlayer = maxSecondsForGamePerPlayer;
         _allowSpectators = allowSpectators;
         _cancellable = cancellable;
@@ -61,6 +64,18 @@ public class LotroGameMediator {
         _userFeedback = new DefaultUserFeedback();
         _lotroGame = new DefaultLotroGame(lotroFormat, decks, _userFeedback, library);
         _userFeedback.setGame(_lotroGame);
+    }
+
+    public boolean isDestroyed() {
+        return _destroyed;
+    }
+
+    public void destroy() {
+        _destroyed = true;
+    }
+
+    public String getGameId() {
+        return _gameId;
     }
 
     public boolean isAllowSpectators() {
