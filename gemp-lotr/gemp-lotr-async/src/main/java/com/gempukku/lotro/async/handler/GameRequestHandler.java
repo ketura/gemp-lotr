@@ -82,10 +82,10 @@ public class GameRequestHandler extends LotroServerRequestHandler implements Uri
 
         gameMediator.setPlayerAutoPassSettings(resourceOwner.getName(), getAutoPassPhases(request));
 
-        if (decisionId != null)
-            gameMediator.playerAnswered(resourceOwner, channelNumber, decisionId, decisionValue);
-
         try {
+            if (decisionId != null)
+                gameMediator.playerAnswered(resourceOwner, channelNumber, decisionId, decisionValue);
+
             GameCommunicationChannel pollableResource = gameMediator.getCommunicationChannel(resourceOwner, channelNumber);
             GameUpdateLongPollingResource pollingResource = new GameUpdateLongPollingResource(pollableResource, channelNumber, gameMediator, resourceOwner, responseWriter);
             _longPollingSystem.processLongPollingResource(pollingResource, pollableResource);
