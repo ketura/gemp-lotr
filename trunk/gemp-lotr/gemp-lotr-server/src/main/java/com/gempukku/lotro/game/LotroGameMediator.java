@@ -23,7 +23,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 public class LotroGameMediator {
     private static final Logger LOG = Logger.getLogger(LotroGameMediator.class);
 
-    private Map<String, GameCommunicationChannel> _communicationChannels = new HashMap<String, GameCommunicationChannel>();
+    private Map<String, GameCommunicationChannel> _communicationChannels = Collections.synchronizedMap(new HashMap<String, GameCommunicationChannel>());
     private DefaultUserFeedback _userFeedback;
     private DefaultLotroGame _lotroGame;
     private Map<String, Integer> _playerClocks = new HashMap<String, Integer>();
@@ -292,7 +292,7 @@ public class LotroGameMediator {
         }
     }
 
-    public void playerAnswered(Player player, int channelNumber, int decisionId, String answer) throws SubscriptionConflictException, SubscriptionExpiredException {
+    public synchronized void playerAnswered(Player player, int channelNumber, int decisionId, String answer) throws SubscriptionConflictException, SubscriptionExpiredException {
         String playerName = player.getName();
         _writeLock.lock();
         try {
@@ -333,7 +333,7 @@ public class LotroGameMediator {
         }
     }
 
-    public GameCommunicationChannel getCommunicationChannel(Player player, int channelNumber)  throws PrivateInformationException, SubscriptionConflictException, SubscriptionExpiredException {
+    public GameCommunicationChannel getCommunicationChannel(Player player, int channelNumber) throws PrivateInformationException, SubscriptionConflictException, SubscriptionExpiredException {
         String playerName = player.getName();
         if (!player.getType().contains("a") && !_allowSpectators && !_playersPlaying.contains(playerName))
             throw new PrivateInformationException();
@@ -356,20 +356,25 @@ public class LotroGameMediator {
     }
 
     public void processVisitor(GameCommunicationChannel communicationChannel, int channelNumber, String playerName, ParticipantCommunicationVisitor visitor) {
-        visitor.visitChannelNumber(channelNumber);
-        for (GameEvent gameEvent : communicationChannel.consumeGameEvents())
-            visitor.visitGameEvent(gameEvent);
+        _readLock.lock();
+        try {
+            visitor.visitChannelNumber(channelNumber);
+            for (GameEvent gameEvent : communicationChannel.consumeGameEvents())
+                visitor.visitGameEvent(gameEvent);
 
-        String warning = _userFeedback.consumeWarning(playerName);
-        if (warning != null)
-            visitor.visitGameEvent(new GameEvent(GameEvent.Type.W).message(warning));
+            String warning = _userFeedback.consumeWarning(playerName);
+            if (warning != null)
+                visitor.visitGameEvent(new GameEvent(GameEvent.Type.W).message(warning));
 
-        Map<String, Integer> secondsLeft = new HashMap<String, Integer>();
-        for (Map.Entry<String, Integer> playerClock : _playerClocks.entrySet()) {
-            String playerClockName = playerClock.getKey();
-            secondsLeft.put(playerClockName, _maxSecondsForGamePerPlayer - playerClock.getValue() - getCurrentUserPendingTime(playerClockName));
+            Map<String, Integer> secondsLeft = new HashMap<String, Integer>();
+            for (Map.Entry<String, Integer> playerClock : _playerClocks.entrySet()) {
+                String playerClockName = playerClock.getKey();
+                secondsLeft.put(playerClockName, _maxSecondsForGamePerPlayer - playerClock.getValue() - getCurrentUserPendingTime(playerClockName));
+            }
+            visitor.visitClock(secondsLeft);
+        } finally {
+            _readLock.unlock();
         }
-        visitor.visitClock(secondsLeft);
     }
 
     public void singupUserForGame(Player player, ParticipantCommunicationVisitor visitor) throws PrivateInformationException {
