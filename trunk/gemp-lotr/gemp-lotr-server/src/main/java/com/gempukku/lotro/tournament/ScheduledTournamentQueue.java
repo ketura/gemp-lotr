@@ -7,7 +7,7 @@ import com.gempukku.lotro.db.vo.CollectionType;
 import java.util.Date;
 
 public class ScheduledTournamentQueue extends AbstractTournamentQueue implements TournamentQueue {
-    private static final long _signupTimeBeforeStart = 1000 * 60 * 30; // 30 minutes before start
+    private static final long _signupTimeBeforeStart = 1000 * 60 * 60; // 60 minutes before start
     private long _startTime;
     private int _minimumPlayers;
     private String _startCondition;
