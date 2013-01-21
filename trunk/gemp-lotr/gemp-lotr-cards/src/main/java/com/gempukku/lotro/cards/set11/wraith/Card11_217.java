@@ -12,11 +12,12 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.effects.CorruptRingBearerEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.UnrespondableEffect;
+import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collections;
 import java.util.List;
@@ -34,6 +35,17 @@ import java.util.List;
 public class Card11_217 extends AbstractPermanent {
     public Card11_217() {
         super(Side.SHADOW, 2, CardType.CONDITION, Culture.WRAITH, Zone.SUPPORT, "Shapes Slowly Advancing");
+    }
+
+    @Override
+    public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
+        if (game.getGameState().getTokenCount(self, Token.WRAITH) >= 4) {
+            RequiredTriggerAction action = new RequiredTriggerAction(self);
+            action.appendEffect(
+                    new CorruptRingBearerEffect());
+            return Collections.singletonList(action);
+        }
+        return null;
     }
 
     @Override
@@ -63,15 +75,6 @@ public class Card11_217 extends AbstractPermanent {
                                 }
                             }
                     ));
-            action.appendEffect(
-                    new UnrespondableEffect() {
-                        @Override
-                        protected void doPlayEffect(LotroGame game) {
-                            if (game.getGameState().getTokenCount(self, Token.WRAITH) >= 4)
-                                action.appendEffect(
-                                        new CorruptRingBearerEffect());
-                        }
-                    });
             return Collections.singletonList(action);
         }
         return null;
