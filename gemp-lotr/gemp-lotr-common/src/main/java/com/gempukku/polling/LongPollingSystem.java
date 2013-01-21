@@ -76,7 +76,7 @@ public class LongPollingSystem {
                 while (iterator.hasNext()) {
                     ResourceWaitingRequest waitingRequest = iterator.next();
                     if (waitingRequest.getLongPollingResource().wasProcessed())
-                        iterator.remove();
+                        _waitingActions.remove(waitingRequest);
                     else {
                         if (waitingRequest.getStart() + _pollingLength < now) {
                             waitingRequest.getLongPollableResource().deregisterRequest(waitingRequest);
