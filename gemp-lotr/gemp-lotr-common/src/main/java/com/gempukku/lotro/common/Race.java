@@ -10,7 +10,7 @@ public enum Race implements Filterable {
     private boolean _official;
 
     private Race(String humanReadable) {
-        _humanReadable = humanReadable;
+        this(humanReadable, true);
     }
 
     private Race(String humanReadable, boolean official) {
