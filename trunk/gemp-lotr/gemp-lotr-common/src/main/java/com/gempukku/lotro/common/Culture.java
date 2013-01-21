@@ -14,6 +14,7 @@ public enum Culture implements Filterable {
 
     private Culture(String humanReadable, boolean official) {
         _humanReadable = humanReadable;
+        _official = official;
     }
 
     public boolean isOfficial() {
