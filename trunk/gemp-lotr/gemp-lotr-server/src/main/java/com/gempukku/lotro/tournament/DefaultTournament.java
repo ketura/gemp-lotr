@@ -10,6 +10,7 @@ import com.gempukku.lotro.draft.DraftPack;
 import com.gempukku.lotro.game.CardCollection;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 import com.gempukku.lotro.packs.PacksStorage;
+import org.apache.commons.lang.StringUtils;
 
 import java.util.*;
 import java.util.concurrent.locks.ReadWriteLock;
@@ -334,6 +335,8 @@ public class DefaultTournament implements Tournament {
                 createNewGame(tournamentCallback, playerOne, playerTwo, false);
             }
 
+            if (byeResults.size()>0)
+                tournamentCallback.broadcastMessage("Bye awarded to: "+ StringUtils.join(byeResults, ", "));
             for (String bye : byeResults) {
                 _tournamentService.addRoundBye(_tournamentId, bye, _tournamentRound);
                 addPlayerBye(bye);
