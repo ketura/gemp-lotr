@@ -64,8 +64,10 @@ public class Card19_038 extends AbstractMinion {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
 
             final Set<String> possibleRaces = new LinkedHashSet<String>();
-            for (Race race : Race.values())
-                possibleRaces.add(race.getHumanReadable());
+            for (Race race : Race.values()) {
+                if (race.isOfficial())
+                    possibleRaces.add(race.getHumanReadable());
+            }
 
             action.appendEffect(
                     new PlayoutDecisionEffect(self.getOwner(),
