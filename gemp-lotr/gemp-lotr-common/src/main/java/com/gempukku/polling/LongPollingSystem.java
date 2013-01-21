@@ -21,8 +21,8 @@ public class LongPollingSystem {
 
     private ProcessingRunnable _timeoutRunnable;
     private ExecutorService _executorService = new ThreadPoolExecutor(10, Integer.MAX_VALUE,
-                                60L, TimeUnit.SECONDS,
-                                new SynchronousQueue<Runnable>());
+            60L, TimeUnit.SECONDS,
+            new SynchronousQueue<Runnable>());
 
     public void start() {
         _timeoutRunnable = new ProcessingRunnable();
@@ -66,22 +66,26 @@ public class LongPollingSystem {
         @Override
         public void run() {
             while (true) {
+                Set<ResourceWaitingRequest> resourcesCopy;
                 synchronized (_waitingActions) {
-                    long now = System.currentTimeMillis();
-                    Iterator<ResourceWaitingRequest> iterator = _waitingActions.iterator();
-                    while (iterator.hasNext()) {
-                        ResourceWaitingRequest waitingRequest = iterator.next();
-                        if (waitingRequest.getLongPollingResource().wasProcessed())
-                            iterator.remove();
-                        else {
-                            if (waitingRequest.getStart() + _pollingLength < now) {
-                                waitingRequest.getLongPollableResource().deregisterRequest(waitingRequest);
-                                iterator.remove();
-                                execute(waitingRequest.getLongPollingResource());
-                            }
+                    resourcesCopy = new HashSet<ResourceWaitingRequest>(_waitingActions);
+                }
+                
+                long now = System.currentTimeMillis();
+                Iterator<ResourceWaitingRequest> iterator = resourcesCopy.iterator();
+                while (iterator.hasNext()) {
+                    ResourceWaitingRequest waitingRequest = iterator.next();
+                    if (waitingRequest.getLongPollingResource().wasProcessed())
+                        iterator.remove();
+                    else {
+                        if (waitingRequest.getStart() + _pollingLength < now) {
+                            waitingRequest.getLongPollableResource().deregisterRequest(waitingRequest);
+                            _waitingActions.remove(waitingRequest);
+                            execute(waitingRequest.getLongPollingResource());
                         }
                     }
                 }
+
                 pause();
             }
         }
