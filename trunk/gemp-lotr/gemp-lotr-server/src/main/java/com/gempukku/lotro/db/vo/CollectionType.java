@@ -28,15 +28,12 @@ public final class CollectionType {
         CollectionType that = (CollectionType) o;
 
         if (_code != null ? !_code.equals(that._code) : that._code != null) return false;
-        if (_fullName != null ? !_fullName.equals(that._fullName) : that._fullName != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = _code != null ? _code.hashCode() : 0;
-        result = 31 * result + (_fullName != null ? _fullName.hashCode() : 0);
-        return result;
+        return _code != null ? _code.hashCode() : 0;
     }
 }

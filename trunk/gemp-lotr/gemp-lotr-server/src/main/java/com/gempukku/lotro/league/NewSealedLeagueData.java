@@ -19,7 +19,7 @@ public class NewSealedLeagueData implements LeagueData {
     private List<LeagueSerieData> _series;
     private CollectionType _collectionType;
     private CollectionType _prizeCollectionType = CollectionType.MY_CARDS;
-    private LeaguePrizes _leaguePrizes;
+    private LeaguePrizes _leaguePrizes = new FixedLeaguePrizes();
     private SealedLeagueProduct _leagueProduct;
 
     public NewSealedLeagueData(String parameters) {
@@ -31,7 +31,6 @@ public class NewSealedLeagueData implements LeagueData {
 
         _collectionType = new CollectionType(params[4], params[5]);
 
-        _leaguePrizes = new NewLeaguePrizes();
         _leagueProduct = new SealedLeagueProduct();
 
         _series = new LinkedList<LeagueSerieData>();
@@ -88,7 +87,7 @@ public class NewSealedLeagueData implements LeagueData {
             LeagueSerieData lastSerie = _series.get(_series.size() - 1);
             if (currentTime > DateUtils.offsetDate(lastSerie.getEnd(), 1)) {
                 for (PlayerStanding leagueStanding : leagueStandings) {
-                    CardCollection leaguePrize = _leaguePrizes.getPrizeForLeague(leagueStanding.getStanding(), leagueStandings.size(), leagueStanding.getGamesPlayed(), maxGamesTotal, 1f);
+                    CardCollection leaguePrize = _leaguePrizes.getPrizeForLeague(leagueStanding.getStanding(), leagueStandings.size(), leagueStanding.getGamesPlayed(), maxGamesTotal, _collectionType);
                     if (leaguePrize != null)
                         collectionsManager.addItemsToPlayerCollection(true, "End of league prizes", leagueStanding.getPlayerName(), _prizeCollectionType, leaguePrize.getAll().values());
                 }

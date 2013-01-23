@@ -12,23 +12,21 @@ import java.util.Collections;
 import java.util.List;
 
 public class NewConstructedLeagueData implements LeagueData {
+    private LeaguePrizes _leaguePrizes = new FixedLeaguePrizes();
     private List<LeagueSerieData> _series = new ArrayList<LeagueSerieData>();
 
     private CollectionType _prizeCollectionType = CollectionType.MY_CARDS;
-    private LeaguePrizes _leaguePrizes = new NewLeaguePrizes();
-    private float _prizeMultiplier;
+    private CollectionType _collectionType;
 
     public NewConstructedLeagueData(String parameters) {
         String[] params = parameters.split(",");
         int start = Integer.parseInt(params[0]);
-        CollectionType collectionType;
         if (params[1].equals("default"))
-            collectionType = CollectionType.ALL_CARDS;
+            _collectionType = CollectionType.ALL_CARDS;
         else if (params[1].equals("permanent"))
-            collectionType = CollectionType.MY_CARDS;
+            _collectionType = CollectionType.MY_CARDS;
         else
             throw new IllegalArgumentException("Unkown collection type");
-        _prizeMultiplier = Float.parseFloat(params[2]);
         int series = Integer.parseInt(params[3]);
 
         int serieStart = start;
@@ -38,7 +36,7 @@ public class NewConstructedLeagueData implements LeagueData {
             int maxMatches = Integer.parseInt(params[6 + i * 3]);
             _series.add(new DefaultLeagueSerieData(_leaguePrizes, false, "Serie " + (i + 1),
                     serieStart, DateUtils.offsetDate(serieStart, duration - 1),
-                    maxMatches, format, collectionType));
+                    maxMatches, format, _collectionType));
 
             serieStart = DateUtils.offsetDate(serieStart, duration);
         }
@@ -66,7 +64,7 @@ public class NewConstructedLeagueData implements LeagueData {
             LeagueSerieData lastSerie = _series.get(_series.size() - 1);
             if (currentTime > DateUtils.offsetDate(lastSerie.getEnd(), 1)) {
                 for (PlayerStanding leagueStanding : leagueStandings) {
-                    CardCollection leaguePrize = _leaguePrizes.getPrizeForLeague(leagueStanding.getStanding(), leagueStandings.size(), leagueStanding.getGamesPlayed(), maxGamesPlayed, _prizeMultiplier);
+                    CardCollection leaguePrize = _leaguePrizes.getPrizeForLeague(leagueStanding.getStanding(), leagueStandings.size(), leagueStanding.getGamesPlayed(), maxGamesPlayed, _collectionType);
                     if (leaguePrize != null)
                         collectionsManager.addItemsToPlayerCollection(true, "End of league prizes", leagueStanding.getPlayerName(), _prizeCollectionType, leaguePrize.getAll().values());
                 }

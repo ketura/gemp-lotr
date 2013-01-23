@@ -46,6 +46,6 @@ public class BiddingGameProcess implements GameProcess {
 
     @Override
     public GameProcess getNextProcess() {
-        return new CheckForCorruptionGameProcess(_bids, _playerOrderFeedback);
+        return new ChooseSeatingOrderGameProcess(_bids, _playerOrderFeedback);
     }
 }
