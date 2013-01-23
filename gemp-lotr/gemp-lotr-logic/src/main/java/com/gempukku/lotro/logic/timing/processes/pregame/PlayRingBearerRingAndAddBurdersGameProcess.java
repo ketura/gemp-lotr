@@ -33,12 +33,10 @@ public class PlayRingBearerRingAndAddBurdersGameProcess implements GameProcess {
             gameState.addBurdens(_bids.get(playerId));
         }
         gameState.setCurrentPhase(Phase.PLAY_STARTING_FELLOWSHIP);
-
-        _nextProcess = new PlayStartingFellowshipGameProcess(game.getGameState().getPlayerOrder().getClockwisePlayOrder(_firstPlayer, false), _firstPlayer);
     }
 
     @Override
     public GameProcess getNextProcess() {
-        return _nextProcess;
+        return new CheckForCorruptionGameProcess(_firstPlayer);
     }
 }

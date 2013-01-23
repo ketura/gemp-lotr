@@ -37,22 +37,26 @@ public class DefaultCardCollection implements MutableCardCollection {
 
     @Override
     public synchronized void addItem(String itemId, int toAdd) {
-        Item oldCount = _counts.get(itemId);
-        if (oldCount == null)
-            _counts.put(itemId, Item.createItem(itemId, toAdd));
-        else
-            _counts.put(itemId, Item.createItem(itemId, toAdd + oldCount.getCount()));
+        if (toAdd > 0) {
+            Item oldCount = _counts.get(itemId);
+            if (oldCount == null)
+                _counts.put(itemId, Item.createItem(itemId, toAdd));
+            else
+                _counts.put(itemId, Item.createItem(itemId, toAdd + oldCount.getCount()));
+        }
     }
 
     @Override
     public synchronized boolean removeItem(String itemId, int toRemove) {
-        Item oldCount = _counts.get(itemId);
-        if (oldCount == null || oldCount.getCount() < toRemove)
-            return false;
-        if (oldCount.getCount() == toRemove)
-            _counts.remove(itemId);
-        else
-            _counts.put(itemId, Item.createItem(itemId, oldCount.getCount() - toRemove));
+        if (toRemove > 0) {
+            Item oldCount = _counts.get(itemId);
+            if (oldCount == null || oldCount.getCount() < toRemove)
+                return false;
+            if (oldCount.getCount() == toRemove)
+                _counts.remove(itemId);
+            else
+                _counts.put(itemId, Item.createItem(itemId, oldCount.getCount() - toRemove));
+        }
         return true;
     }
 
