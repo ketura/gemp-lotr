@@ -101,6 +101,10 @@ public class MerchantService {
         addFixedItem("BR - Saruman Starter", 2500);
         addFixedItem("BL - Arwen Starter", 2500);
         addFixedItem("BL - Boromir Starter", 2500);
+
+        addFixedItem("Expanded", 1000*15);
+        addFixedItem("Wraith", 1000*5);
+        addFixedItem("AgesEnd", 1000*40);
     }
 
     private void addFixedItem(String blueprintId, int price) {

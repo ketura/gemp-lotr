@@ -117,7 +117,11 @@ var packBlueprints = {
 
     "(S)Special-1-3":"/gemp-lotr/images/boosters/starter_selection.png",
     "(S)Special-4-6":"/gemp-lotr/images/boosters/starter_selection.png",
-    "(S)Special-7-9":"/gemp-lotr/images/boosters/starter_selection.png"
+    "(S)Special-7-9":"/gemp-lotr/images/boosters/starter_selection.png",
+
+    "Expanded":"/gemp-lotr/images/boosters/expended.png",
+    "Wraith":"/gemp-lotr/images/boosters/wraith.png",
+    "AgesEnd":"/gemp-lotr/images/boosters/ages_end.png"
 };
 
 var Card = Class.extend({
@@ -150,7 +154,7 @@ var Card = Class.extend({
             bareBlueprint = bareBlueprint.substring(0, len - 1);
 
         this.hasWiki = fixedImages[imageBlueprint] == null
-                && packBlueprints[imageBlueprint] == null;
+            && packBlueprints[imageBlueprint] == null;
 
         this.zone = zone;
         this.cardId = cardId;
