@@ -78,6 +78,10 @@ public class PacksStorageBuilder {
             packStorage.addPackBox("BL - Arwen Starter", new FixedPackBox("BL - Arwen Starter"));
             packStorage.addPackBox("BL - Boromir Starter", new FixedPackBox("BL - Boromir Starter"));
 
+            packStorage.addPackBox("Expanded", new FixedPackBox("Expanded"));
+            packStorage.addPackBox("Wraith", new FixedPackBox("Wraith"));
+            packStorage.addPackBox("AgesEnd", new FixedPackBox("AgesEnd"));
+
             packStorage.addPackBox("(S)Special-1-3", new FixedPackBox("(S)Special-1-3"));
             packStorage.addPackBox("(S)Special-4-6", new FixedPackBox("(S)Special-4-6"));
             packStorage.addPackBox("(S)Special-7-9", new FixedPackBox("(S)Special-7-9"));
