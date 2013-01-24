@@ -103,7 +103,7 @@ public class MerchantService {
         addFixedItem("BL - Boromir Starter", 2500);
 
         addFixedItem("Expanded", 1000*15);
-        addFixedItem("Wraith", 1000*5);
+        addFixedItem("Wraith", 1000*6);
         addFixedItem("AgesEnd", 1000*40);
     }
 
