@@ -977,7 +977,7 @@ public class Filters {
             _gameState = gameState;
             _modifiersQuerying = modifiersQuerying;
             _searchingToSpot = count;
-            _filter = filter;
+            _filter = Filters.and(filter, Filters.spottable);
         }
 
         @Override
