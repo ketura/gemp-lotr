@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set20.dunland;
 
 import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.modifiers.evaluator.CountActiveEvaluator;
+import com.gempukku.lotro.cards.modifiers.evaluator.CountSpottableEvaluator;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
@@ -30,7 +30,7 @@ public class Card20_007 extends AbstractMinion {
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(
-                new StrengthModifier(self, self, null, new CountActiveEvaluator(Side.FREE_PEOPLE, CardType.POSSESSION)));
+                new StrengthModifier(self, self, null, new CountSpottableEvaluator(Side.FREE_PEOPLE, CardType.POSSESSION)));
         return modifiers;
     }
 }

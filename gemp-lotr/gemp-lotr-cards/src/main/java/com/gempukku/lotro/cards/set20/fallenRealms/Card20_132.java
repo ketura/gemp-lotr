@@ -1,23 +1,25 @@
-package com.gempukku.lotro.cards.set20.elven;
+package com.gempukku.lotro.cards.set20.fallenRealms;
 
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
 import com.gempukku.lotro.cards.modifiers.evaluator.CountSpottableEvaluator;
-import com.gempukku.lotro.cards.modifiers.evaluator.MultiplyEvaluator;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 
 /**
- * 1
- * Might of the Last Homely House
- * Elven	Event • Skirmish
- * Make a minion strength -X where X is the number of Rivendell allies you can spot.
+ * 2
+ * Overwhelming Numbers
+ * Fallen Realms	Event • Skirmish
+ * Make an Easterling strength +1 for each Easterling you can spot.
  */
-public class Card20_095 extends AbstractEvent {
-    public Card20_095() {
-        super(Side.FREE_PEOPLE, 1, Culture.ELVEN, "Might of the Last Homely House", Phase.SKIRMISH);
+public class Card20_132 extends AbstractEvent {
+    public Card20_132() {
+        super(Side.SHADOW, 2, Culture.FALLEN_REALMS, "Overwhelming Numbers", Phase.SKIRMISH);
     }
 
     @Override
@@ -25,7 +27,7 @@ public class Card20_095 extends AbstractEvent {
         PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId,
-                        new MultiplyEvaluator(-1, new CountSpottableEvaluator(CardType.ALLY, Keyword.RIVENDELL)), CardType.MINION));
+                        new CountSpottableEvaluator(Keyword.EASTERLING), Keyword.EASTERLING));
         return action;
     }
 }
