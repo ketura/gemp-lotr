@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set20.fallenRealms;
 
 import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.modifiers.evaluator.CountActiveEvaluator;
+import com.gempukku.lotro.cards.modifiers.evaluator.CountSpottableEvaluator;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
@@ -28,6 +28,6 @@ public class Card20_127 extends AbstractMinion {
     @Override
     public Modifier getAlwaysOnModifier(PhysicalCard self) {
         return new StrengthModifier(self, self, null,
-                new CountActiveEvaluator(Filters.not(self), Keyword.EASTERLING));
+                new CountSpottableEvaluator(Filters.not(self), Keyword.EASTERLING));
     }
 }
