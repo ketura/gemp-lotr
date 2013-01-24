@@ -11,6 +11,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.decisions.CardsSelectionDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.decisions.IntegerAwaitingDecision;
+import com.gempukku.lotro.logic.effects.AddTwilightEffect;
 import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
 
@@ -46,6 +47,8 @@ public class Card20_155 extends AbstractEvent {
                             @Override
                             public void decisionMade(String result) throws DecisionResultInvalidException {
                                 final int x = getValidatedResult(result);
+                                action.appendCost(
+                                        new AddTwilightEffect(self, x));
                                 action.appendEffect(
                                         new PlayoutDecisionEffect(playerId,
                                                 new CardsSelectionDecision(1, "Choose up to 4 Shadow conditions with combined twilight cost of up to "+x,
