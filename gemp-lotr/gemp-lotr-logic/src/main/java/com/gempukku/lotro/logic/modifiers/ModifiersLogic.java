@@ -937,6 +937,11 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     }
 
     @Override
+    public boolean canBeSpotted(GameState gameState, PhysicalCard card) {
+        return true;
+    }
+
+    @Override
     public int getSpotBonus(GameState gameState, Filterable filter) {
         int result = 0;
         for (Modifier modifier : getModifiers(gameState, ModifierEffect.SPOT_MODIFIER))

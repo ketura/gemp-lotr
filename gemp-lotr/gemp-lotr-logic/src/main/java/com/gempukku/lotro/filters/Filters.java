@@ -92,6 +92,12 @@ public class Filters {
         return visitor.getCard();
     }
 
+    public static int countSpottable(GameState gameState, ModifiersQuerying modifiersQuerying, Filterable... filters) {
+        GetCardsMatchingFilterVisitor matchingFilterVisitor = new GetCardsMatchingFilterVisitor(gameState, modifiersQuerying, Filters.and(filters, Filters.spottable));
+        gameState.iterateActiveCards(matchingFilterVisitor);
+        return matchingFilterVisitor.getCounter();
+    }
+
     public static int countActive(GameState gameState, ModifiersQuerying modifiersQuerying, Filterable... filters) {
         GetCardsMatchingFilterVisitor matchingFilterVisitor = new GetCardsMatchingFilterVisitor(gameState, modifiersQuerying, Filters.and(filters));
         gameState.iterateActiveCards(matchingFilterVisitor);
@@ -926,6 +932,13 @@ public class Filters {
     public static final Filter unboundCompanion = Filters.and(CardType.COMPANION, Filters.not(Keyword.RING_BOUND));
     public static final Filter roamingMinion = Filters.and(CardType.MINION, Keyword.ROAMING);
     public static final Filter mounted = Filters.or(Filters.hasAttached(PossessionClass.MOUNT), Keyword.MOUNTED);
+
+    public static Filter spottable = new Filter() {
+        @Override
+        public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+            return modifiersQuerying.canBeSpotted(gameState, physicalCard);
+        }
+    };
 
     private static class SpotFilterCardInPlayVisitor implements PhysicalCardVisitor {
         private GameState _gameState;

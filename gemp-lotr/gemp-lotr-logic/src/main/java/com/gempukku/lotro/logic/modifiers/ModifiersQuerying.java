@@ -130,6 +130,8 @@ public interface ModifiersQuerying {
 
     public Side hasInitiative(GameState gameState);
 
+    public boolean canBeSpotted(GameState gameState, PhysicalCard card);
+
     public int getSpotBonus(GameState gameState, Filterable filter);
 
     public boolean hasFlagActive(GameState gameState, ModifierFlag modifierFlag);
