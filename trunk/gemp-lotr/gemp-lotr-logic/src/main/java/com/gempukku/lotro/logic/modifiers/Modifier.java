@@ -128,6 +128,8 @@ public interface Modifier {
 
     public boolean canPlaySite(GameState gameState, ModifiersQuerying modifiersQuerying, String playerId);
 
+    public boolean shadowCanHaveInitiative(GameState gameState, ModifiersQuerying modifiersQuerying);
+
     public Side hasInitiative(GameState gameState, ModifiersQuerying modifiersQuerying);
 
     public int getInitiativeHandSizeModifier(GameState gameState, ModifiersQuerying modifiersQuerying);

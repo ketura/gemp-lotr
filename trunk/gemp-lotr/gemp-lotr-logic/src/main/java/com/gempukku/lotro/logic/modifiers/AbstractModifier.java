@@ -323,6 +323,11 @@ public abstract class AbstractModifier implements Modifier {
     }
 
     @Override
+    public boolean shadowCanHaveInitiative(GameState gameState, ModifiersQuerying modifiersQuerying) {
+        return true;
+    }
+
+    @Override
     public Side hasInitiative(GameState gameState, ModifiersQuerying modifiersQuerying) {
         return null;
     }

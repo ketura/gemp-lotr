@@ -918,6 +918,11 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     @Override
     public Side hasInitiative(GameState gameState) {
         for (Modifier modifier : getModifiers(gameState, ModifierEffect.INITIATIVE_MODIFIER)) {
+            if (!modifier.shadowCanHaveInitiative(gameState, this))
+                return Side.FREE_PEOPLE;
+        }
+
+        for (Modifier modifier : getModifiers(gameState, ModifierEffect.INITIATIVE_MODIFIER)) {
             Side initiative = modifier.hasInitiative(gameState, this);
             if (initiative != null)
                 return initiative;
