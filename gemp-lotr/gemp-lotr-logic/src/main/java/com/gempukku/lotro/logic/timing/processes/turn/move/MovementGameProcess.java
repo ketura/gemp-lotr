@@ -1,6 +1,7 @@
 package com.gempukku.lotro.logic.timing.processes.turn.move;
 
 import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.LotroCardBlueprint;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -11,6 +12,7 @@ import com.gempukku.lotro.logic.actions.SystemQueueAction;
 import com.gempukku.lotro.logic.effects.AddTwilightEffect;
 import com.gempukku.lotro.logic.effects.PlaySiteEffect;
 import com.gempukku.lotro.logic.effects.TriggeringResultEffect;
+import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
 import com.gempukku.lotro.logic.timing.results.WhenMoveFromResult;
@@ -90,9 +92,15 @@ public class MovementGameProcess implements GameProcess {
                             else if (siteNumber > 6 && siteNumber <= 9)
                                 siteTwilightCost += 6;
                         }
-                        int companionCount = Filters.countActive(gameState, game.getModifiersQuerying(), CardType.COMPANION);
+                        int companionsAddingTwilightForMoveCount = Filters.countActive(gameState, game.getModifiersQuerying(), CardType.COMPANION,
+                                new Filter() {
+                                    @Override
+                                    public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                                        return modifiersQuerying.addsTwilightForCompanionMove(gameState, physicalCard);
+                                    }
+                                });
 
-                        AddTwilightEffect effect = new AddTwilightEffect(null, siteTwilightCost + companionCount);
+                        AddTwilightEffect effect = new AddTwilightEffect(null, siteTwilightCost + companionsAddingTwilightForMoveCount);
                         effect.setSourceText("Moving");
                         action.insertEffect(effect);
                     }

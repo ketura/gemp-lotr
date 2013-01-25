@@ -76,6 +76,8 @@ public interface Modifier {
 
     public int getMoveLimitModifier(GameState gameState, ModifiersQuerying modifiersQuerying);
 
+    boolean addsTwilightForCompanionMove(GameState gameState, ModifiersLogic modifiersLogic, PhysicalCard companion);
+
     public boolean addsToArcheryTotal(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card);
 
     public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, Action action);
