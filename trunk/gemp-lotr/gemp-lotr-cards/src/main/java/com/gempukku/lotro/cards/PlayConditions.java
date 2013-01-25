@@ -234,6 +234,10 @@ public class PlayConditions {
         return game.getGameState().getThreats() >= count && game.getModifiersQuerying().canRemoveThreat(game.getGameState(), card);
     }
 
+    public static boolean canAddBurdens(LotroGame game, String performingPlayer, PhysicalCard card) {
+        return game.getModifiersQuerying().canAddBurden(game.getGameState(), performingPlayer, card);
+    }
+
     public static boolean canRemoveBurdens(LotroGame game, PhysicalCard card, int count) {
         return game.getGameState().getBurdens() >= count && game.getModifiersQuerying().canRemoveBurden(game.getGameState(), card);
     }
