@@ -364,6 +364,14 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     }
 
     @Override
+    public boolean addsTwilightForCompanionMove(GameState gameState, PhysicalCard companion) {
+        for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierEffect.MOVE_TWILIGHT_MODIFIER, companion))
+            if (!modifier.addsTwilightForCompanionMove(gameState, this, companion))
+                return false;
+        return true;
+    }
+
+    @Override
     public int getStrength(GameState gameState, PhysicalCard physicalCard) {
         LoggingThreadLocal.logMethodStart(physicalCard, "getStrength");
         try {
@@ -819,7 +827,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
 
     @Override
     public boolean canAddBurden(GameState gameState, String performingPlayer, PhysicalCard source) {
-        for (Modifier modifier : getModifiers(gameState, ModifierEffect.BURDEN_MODIFIER)) {
+        for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierEffect.BURDEN_MODIFIER, source)) {
             if (!modifier.canAddBurden(gameState, this, performingPlayer, source))
                 return false;
         }

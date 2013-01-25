@@ -188,6 +188,11 @@ public abstract class AbstractModifier implements Modifier {
     }
 
     @Override
+    public boolean addsTwilightForCompanionMove(GameState gameState, ModifiersLogic modifiersLogic, PhysicalCard companion) {
+        return true;
+    }
+
+    @Override
     public boolean addsToArcheryTotal(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card) {
         return true;
     }

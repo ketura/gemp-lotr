@@ -39,8 +39,10 @@ public interface ModifiersQuerying {
 
     public boolean addsToArcheryTotal(GameState gameState, PhysicalCard card);
 
-    // Move limit
+    // Movement
     public int getMoveLimit(GameState gameState, int baseMoveLimit);
+
+    public boolean addsTwilightForCompanionMove(GameState gameState, PhysicalCard companion);
 
     // Twilight cost
     public int getTwilightCost(GameState gameState, PhysicalCard physicalCard, boolean ignoreRoamingPenalty);
