@@ -273,6 +273,11 @@ public abstract class AbstractModifier implements Modifier {
     }
 
     @Override
+    public boolean canAddBurden(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, PhysicalCard source) {
+        return true;
+    }
+
+    @Override
     public boolean canRemoveBurden(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard source) {
         return true;
     }

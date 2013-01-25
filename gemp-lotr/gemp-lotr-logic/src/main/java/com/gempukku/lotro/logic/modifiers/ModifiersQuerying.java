@@ -73,6 +73,8 @@ public interface ModifiersQuerying {
 
     public boolean canBeHealed(GameState gameState, PhysicalCard card);
 
+    public boolean canAddBurden(GameState gameState, String performingPlayer, PhysicalCard source);
+
     public boolean canRemoveBurden(GameState gameState, PhysicalCard source);
 
     public boolean canRemoveThreat(GameState gameState, PhysicalCard source);

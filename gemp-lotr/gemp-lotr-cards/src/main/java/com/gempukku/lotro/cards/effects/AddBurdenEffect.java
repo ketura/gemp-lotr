@@ -45,7 +45,7 @@ public class AddBurdenEffect extends AbstractEffect implements Preventable {
 
     @Override
     public boolean isPlayableInFull(LotroGame game) {
-        return true;
+        return game.getModifiersQuerying().canAddBurden(game.getGameState(), _performingPlayer, _source);
     }
 
     @Override
@@ -55,7 +55,7 @@ public class AddBurdenEffect extends AbstractEffect implements Preventable {
 
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
-        if (_prevented < _count) {
+        if (isPlayableInFull(game) && _prevented < _count) {
             int toAdd = _count - _prevented;
             game.getGameState().sendMessage(GameUtils.getCardLink(_source) + " adds " + GameUtils.formatNumber(toAdd, _count) + " burden" + ((toAdd > 1) ? "s" : ""));
             game.getGameState().addBurdens(toAdd);
