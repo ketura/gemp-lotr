@@ -31,7 +31,7 @@ public class Card12_122 extends AbstractPermanent {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (TriggerConditions.played(game, effectResult, Race.HOBBIT)) {
+        if (TriggerConditions.played(game, effectResult, Filters.owner(playerId), Race.HOBBIT)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
                     new RemoveBurdenEffect(playerId, self, 1));
