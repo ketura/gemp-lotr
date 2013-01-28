@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set6.isengard;
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.PreventCardEffect;
-import com.gempukku.lotro.cards.effects.StackCardFromPlayEffect;
+import com.gempukku.lotro.cards.effects.StackCardFromDiscardEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardStackedCardsEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -47,7 +47,7 @@ public class Card6_073 extends AbstractPermanent {
                 action.setTriggerIdentifier(self.getCardId()+"-"+discardedOrc.getCardId());
                 action.setText("Stack " + GameUtils.getCardLink(discardedOrc));
                 action.appendEffect(
-                        new StackCardFromPlayEffect(discardedOrc, self));
+                        new StackCardFromDiscardEffect(discardedOrc, self));
                 return Collections.singletonList(action);
             }
         }
