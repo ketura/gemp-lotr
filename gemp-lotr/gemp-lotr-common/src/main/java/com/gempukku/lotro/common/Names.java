@@ -11,6 +11,7 @@ public class Names {
     public static final String toldea = "Úlairë Toldëa";
 
     public static final String witchKing = "The Witch-king";
+    public static final String caveTroll = "Cave Troll of Moria";
 
     public static final String eomer = "Éomer";
     public static final String eowyn = "Éowyn";

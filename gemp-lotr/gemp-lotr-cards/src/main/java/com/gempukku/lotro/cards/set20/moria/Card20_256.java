@@ -6,6 +6,7 @@ import com.gempukku.lotro.cards.effects.DiscountEffect;
 import com.gempukku.lotro.cards.effects.discount.DiscardCardFromHandDiscountEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Names;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -22,7 +23,7 @@ import com.gempukku.lotro.game.state.LotroGame;
  */
 public class Card20_256 extends AbstractMinion {
     public Card20_256() {
-        super(10, 15, 4, 4, Race.TROLL, Culture.MORIA, "Cave Troll of Moria", "Monstrous Fiend", true);
+        super(10, 15, 4, 4, Race.TROLL, Culture.MORIA, Names.caveTroll, "Monstrous Fiend", true);
         addKeyword(Keyword.DAMAGE,  1);
         addKeyword(Keyword.FIERCE);
     }
