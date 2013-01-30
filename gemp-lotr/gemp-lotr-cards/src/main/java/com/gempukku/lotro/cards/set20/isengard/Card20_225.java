@@ -27,6 +27,6 @@ public class Card20_225 extends AbstractMinion {
 
     @Override
     public int getTwilightCostModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
-        return Filters.countActive(gameState, modifiersQuerying, CardType.SITE, Keyword.BATTLEGROUND, Filters.region(GameUtils.getRegion(gameState)));
+        return -Filters.countActive(gameState, modifiersQuerying, CardType.SITE, Keyword.BATTLEGROUND, Filters.region(GameUtils.getRegion(gameState)));
     }
 }
