@@ -75,6 +75,11 @@ public class ChooseAndExertCharactersEffect extends ChooseActiveCardsEffect {
             });
         }
         game.getActionsEnvironment().addActionToStack(_resultSubAction);
+        cardsToBeExertedCallback(characters);
+    }
+
+    protected void cardsToBeExertedCallback(Collection<PhysicalCard> characters) {
+
     }
 
     protected void forEachCardExertedCallback(PhysicalCard character) {
