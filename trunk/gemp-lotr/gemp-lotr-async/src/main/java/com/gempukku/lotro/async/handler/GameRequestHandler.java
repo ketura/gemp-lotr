@@ -175,15 +175,20 @@ public class GameRequestHandler extends LotroServerRequestHandler implements Uri
     private void getCardInfo(HttpRequest request, String gameId, ResponseWriter responseWriter) throws Exception {
         QueryStringDecoder queryDecoder = new QueryStringDecoder(request.getUri());
         String participantId = getQueryParameterSafely(queryDecoder, "participantId");
-        int cardId = Integer.parseInt(getQueryParameterSafely(queryDecoder, "cardId"));
+        String cardIdStr = getQueryParameterSafely(queryDecoder, "cardId");
+        if (cardIdStr.startsWith("extra")) {
+            responseWriter.writeHtmlResponse("");
+        } else {
+            int cardId = Integer.parseInt(cardIdStr);
 
-        Player resourceOwner = getResourceOwnerSafely(request, participantId);
+            Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
-        LotroGameMediator gameMediator = _lotroServer.getGameById(gameId);
-        if (gameMediator == null)
-            throw new HttpProcessingException(404);
+            LotroGameMediator gameMediator = _lotroServer.getGameById(gameId);
+            if (gameMediator == null)
+                throw new HttpProcessingException(404);
 
-        responseWriter.writeHtmlResponse(gameMediator.produceCardInfo(resourceOwner, cardId));
+            responseWriter.writeHtmlResponse(gameMediator.produceCardInfo(resourceOwner, cardId));
+        }
     }
 
     private void getGameState(HttpRequest request, String gameId, ResponseWriter responseWriter) throws Exception {
