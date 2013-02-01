@@ -9,6 +9,8 @@ import com.gempukku.lotro.logic.timing.results.StartOfTurnResult;
 public class StartOfTurnGameProcess implements GameProcess {
     @Override
     public void process(LotroGame game) {
+        game.getGameState().startAffectingCardsForCurrentPlayer(game);
+
         SystemQueueAction action = new SystemQueueAction();
 
         action.appendEffect(
