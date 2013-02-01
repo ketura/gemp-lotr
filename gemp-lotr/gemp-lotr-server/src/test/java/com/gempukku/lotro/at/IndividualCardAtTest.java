@@ -763,4 +763,56 @@ public class IndividualCardAtTest extends AbstractAtTest {
 
         assertEquals(Zone.DISCARD, goblinRunner2.getZone());
     }
+
+    @Test
+    public void treebeardEarthborn() throws DecisionResultInvalidException {
+        initializeSimplestGame();
+
+        PhysicalCardImpl treebeard = new PhysicalCardImpl(100, "4_103", P1, _library.getLotroCardBlueprint("4_103"));
+        PhysicalCardImpl merry = new PhysicalCardImpl(101, "4_311", P1, _library.getLotroCardBlueprint("4_311"));
+        PhysicalCardImpl goblinRunner = new PhysicalCardImpl(102, "1_178", P2, _library.getLotroCardBlueprint("1_178"));
+
+        skipMulligans();
+
+        _game.getGameState().addCardToZone(_game, treebeard, Zone.SUPPORT);
+        _game.getGameState().addCardToZone(_game, merry, Zone.FREE_CHARACTERS);
+
+        // End fellowship
+        playerDecided(P1, "");
+
+        _game.getGameState().addCardToZone(_game, goblinRunner, Zone.SHADOW_CHARACTERS);
+
+        // End shadow
+        playerDecided(P2, "");
+
+        // End maneuver
+        playerDecided(P1, "");
+        playerDecided(P2, "");
+
+        // End archery
+        playerDecided(P1, "");
+        playerDecided(P2, "");
+
+        // End assignment
+        playerDecided(P1, "");
+        playerDecided(P2, "");
+
+        // Assign Gimli to goblin runner
+        PhysicalCard frodo = _game.getGameState().getRingBearer(P1);
+        playerDecided(P1, frodo.getCardId() + " " + goblinRunner.getCardId());
+
+        // Choose skirmish to start
+        playerDecided(P1, frodo.getCardId()+"");
+
+        AwaitingDecision playSkirmishAction = _userFeedback.getAwaitingDecision(P1);
+        assertEquals(AwaitingDecisionType.CARD_ACTION_CHOICE, playSkirmishAction.getDecisionType());
+        playerDecided(P1, getCardActionId(playSkirmishAction, "Use Merry"));
+
+        AwaitingDecision treebeardDecision = _userFeedback.getAwaitingDecision(P1);
+        assertEquals(AwaitingDecisionType.CARD_ACTION_CHOICE, treebeardDecision.getDecisionType());
+        playerDecided(P1, getCardActionId(treebeardDecision, "Use Tree"));
+
+        assertEquals(Zone.STACKED, merry.getZone());
+        assertEquals(treebeard, merry.getStackedOn());
+    }
 }
