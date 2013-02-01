@@ -19,8 +19,6 @@ public class PlayStartingFellowshipGameProcess implements GameProcess {
     public void process(LotroGame game) {
         String nextPlayer = _playOrder.getNextPlayer();
 
-        game.getGameState().stopAffectingCardsForCurrentPlayer();
-
         if (nextPlayer != null) {
             game.getGameState().startPlayerTurn(nextPlayer);
             game.getGameState().startAffectingCardsForCurrentPlayer(game);
