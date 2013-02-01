@@ -31,9 +31,10 @@ public class PlayerPlaysStartingFellowshipGameProcess implements GameProcess {
     @Override
     public void process(LotroGame game) {
         Collection<PhysicalCard> possibleCharacters = getPossibleCharacters(game, _playerId);
-        if (possibleCharacters.size() == 0)
+        if (possibleCharacters.size() == 0) {
+            game.getGameState().stopAffectingCardsForCurrentPlayer();
             _nextProcess = _followingGameProcess;
-        else
+        } else
             game.getUserFeedback().sendAwaitingDecision(_playerId, createChooseNextCharacterDecision(game, _playerId, possibleCharacters));
     }
 
@@ -57,9 +58,10 @@ public class PlayerPlaysStartingFellowshipGameProcess implements GameProcess {
             @Override
             public void decisionMade(String result) throws DecisionResultInvalidException {
                 List<PhysicalCard> selectedCharacters = getSelectedCardsByResponse(result);
-                if (selectedCharacters.size() == 0)
+                if (selectedCharacters.size() == 0) {
+                    game.getGameState().stopAffectingCardsForCurrentPlayer();
                     _nextProcess = _followingGameProcess;
-                else {
+                } else {
                     PhysicalCard selectedPhysicalCard = selectedCharacters.get(0);
                     Action playCardAction = selectedPhysicalCard.getBlueprint().getPlayCardAction(playerId, game, selectedPhysicalCard, 0, false);
                     game.getActionsEnvironment().addActionToStack(playCardAction);
