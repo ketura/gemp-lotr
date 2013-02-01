@@ -1,5 +1,6 @@
 package com.gempukku.lotro.logic.timing.processes.turn;
 
+import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.game.state.actions.DefaultActionsEnvironment;
 import com.gempukku.lotro.logic.actions.SystemQueueAction;
@@ -36,6 +37,8 @@ public class EndOfTurnGameProcess implements GameProcess {
                     public void playEffect(LotroGame game) {
                         ((ModifiersLogic) game.getModifiersEnvironment()).removeEndOfTurn();
                         ((DefaultActionsEnvironment) game.getActionsEnvironment()).removeEndOfTurnActionProxies();
+                        game.getGameState().stopAffectingCardsForCurrentPlayer();
+                        game.getGameState().setCurrentPhase(Phase.BETWEEN_TURNS);
                     }
                 });
         game.getActionsEnvironment().addActionToStack(action);
