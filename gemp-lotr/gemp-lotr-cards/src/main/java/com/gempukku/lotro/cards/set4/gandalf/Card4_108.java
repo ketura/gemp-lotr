@@ -51,7 +51,7 @@ public class Card4_108 extends AbstractOldEvent {
                     @Override
                     protected void opponentChosen(String opponentId) {
                         action.insertEffect(
-                                new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, CardType.MINION));
+                                new ChooseAndDiscardCardsFromPlayEffect(action, opponentId, 1, 1, CardType.MINION));
                     }
                 });
         return action;
