@@ -12,8 +12,6 @@ public class BetweenTurnsProcess implements GameProcess {
 
         String nextPlayer = playOrder.getNextPlayer();
         game.getGameState().startPlayerTurn(nextPlayer);
-        game.getGameState().startAffectingCardsForCurrentPlayer(game);
-
     }
 
     @Override
