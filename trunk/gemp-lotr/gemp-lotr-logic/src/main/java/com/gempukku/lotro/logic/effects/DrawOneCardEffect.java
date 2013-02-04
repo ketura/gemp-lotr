@@ -58,7 +58,7 @@ public class DrawOneCardEffect extends AbstractEffect implements Preventable {
     }
 
     @Override
-    public boolean isPrevented() {
+    public boolean isPrevented(LotroGame game) {
         return _prevented;
     }
 }
