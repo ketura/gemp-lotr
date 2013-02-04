@@ -15,7 +15,7 @@ import java.util.Collection;
 import java.util.Collections;
 
 public class WoundCharactersEffect extends AbstractPreventableCardEffect {
-    private Collection<PhysicalCard> _sources;
+    private Collection<PhysicalCard> _sources = Collections.emptySet();
     private String _sourceText;
 
     public WoundCharactersEffect(Collection<PhysicalCard> sources, Filterable... filter) {
