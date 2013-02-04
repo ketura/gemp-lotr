@@ -12,6 +12,7 @@ import com.gempukku.lotro.logic.modifiers.ModifierFlag;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Map;
 
 public class PlayConditions {
@@ -242,7 +243,7 @@ public class PlayConditions {
         return game.getGameState().getBurdens() >= count && game.getModifiersQuerying().canRemoveBurden(game.getGameState(), card);
     }
 
-    public static boolean canWound(PhysicalCard source, final LotroGame game, final int times, final int count, Filterable... filters) {
+    public static boolean canWound(final PhysicalCard source, final LotroGame game, final int times, final int count, Filterable... filters) {
         final GameState gameState = game.getGameState();
         final ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
         final Filter filter = Filters.and(filters, Filters.character);
@@ -254,7 +255,7 @@ public class PlayConditions {
                     public boolean visitPhysicalCard(PhysicalCard physicalCard) {
                         if (filter.accepts(gameState, modifiersQuerying, physicalCard)
                                 && modifiersQuerying.getVitality(gameState, physicalCard) > times
-                                && modifiersQuerying.canTakeWounds(gameState, physicalCard, times))
+                                && modifiersQuerying.canTakeWounds(gameState, Collections.singleton(source), physicalCard, times))
                             _woundableCount++;
                         return _woundableCount >= count;
                     }

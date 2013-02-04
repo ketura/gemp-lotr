@@ -65,7 +65,7 @@ public interface ModifiersQuerying {
     public boolean isAdditionalCardType(GameState gameState, PhysicalCard card, CardType cardType);
 
     // Wounds/exertions
-    public boolean canTakeWounds(GameState gameState, PhysicalCard card, int woundsToTake);
+    public boolean canTakeWounds(GameState gameState, Collection<PhysicalCard> woundSources, PhysicalCard card, int woundsToTake);
 
     public boolean canTakeWoundsFromLosingSkirmish(GameState gameState, PhysicalCard card, Set<PhysicalCard> winners);
 

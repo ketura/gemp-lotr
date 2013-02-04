@@ -41,7 +41,7 @@ public class Card4_115 extends AbstractOldEvent {
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Culture.GONDOR, Race.MAN));
         action.appendEffect(
-                new ChooseActiveCardEffect(self, playerId, "Choose minion", CardType.MINION, Filters.canTakeWound) {
+                new ChooseActiveCardEffect(self, playerId, "Choose minion", CardType.MINION, Filters.canTakeWounds(self, 1)) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
                         boolean urukHai = (card.getBlueprint().getRace() == Race.URUK_HAI);

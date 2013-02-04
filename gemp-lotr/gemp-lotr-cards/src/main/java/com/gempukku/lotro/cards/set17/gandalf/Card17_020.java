@@ -56,7 +56,7 @@ public class Card17_020 extends AbstractFollower {
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose a minion", CardType.MINION,
                             Filters.or(
-                                    Filters.and(Race.WIZARD, Filters.canTakeWound),
+                                    Filters.and(Race.WIZARD, Filters.canTakeWounds(self, 1)),
                                     Filters.and(Filters.not(Race.WIZARD), Filters.canExert(self))
                             )) {
                         @Override
