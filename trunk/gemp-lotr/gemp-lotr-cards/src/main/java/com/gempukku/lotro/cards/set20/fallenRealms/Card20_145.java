@@ -24,7 +24,7 @@ public class Card20_145 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
-                new ChooseActiveCardEffect(self, playerId, "Choose a companion", CardType.COMPANION, Filters.inSkirmishAgainst(Keyword.SOUTHRON), Filters.canTakeWound) {
+                new ChooseActiveCardEffect(self, playerId, "Choose a companion", CardType.COMPANION, Filters.inSkirmishAgainst(Keyword.SOUTHRON), Filters.canTakeWounds(self, 1)) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
                         int count = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Side.FREE_PEOPLE, Filters.attachedTo(card));

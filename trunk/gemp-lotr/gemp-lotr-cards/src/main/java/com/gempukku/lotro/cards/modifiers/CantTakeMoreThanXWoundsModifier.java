@@ -12,6 +12,8 @@ import com.gempukku.lotro.logic.modifiers.ModifierEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.condition.PhaseCondition;
 
+import java.util.Collection;
+
 public class CantTakeMoreThanXWoundsModifier extends AbstractModifier {
     private int _count;
 
@@ -26,7 +28,7 @@ public class CantTakeMoreThanXWoundsModifier extends AbstractModifier {
     }
 
     @Override
-    public boolean canTakeWounds(GameState gameState, ModifiersQuerying modifiersLogic, PhysicalCard physicalCard, int woundsAlreadyTaken, int woundsToTake) {
+    public boolean canTakeWounds(GameState gameState, ModifiersQuerying modifiersQuerying, Collection<PhysicalCard> woundSources, PhysicalCard physicalCard, int woundsAlreadyTaken, int woundsToTake) {
         return woundsAlreadyTaken + woundsToTake <= _count;
     }
 }

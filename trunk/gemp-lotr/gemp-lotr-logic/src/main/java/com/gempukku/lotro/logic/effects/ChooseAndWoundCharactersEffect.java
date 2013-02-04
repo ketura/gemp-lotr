@@ -32,12 +32,12 @@ public class ChooseAndWoundCharactersEffect extends ChooseActiveCardsEffect {
 
     @Override
     protected Filter getExtraFilterForPlaying(LotroGame game) {
-        return Filters.canTakeWound;
+        return Filters.canTakeWounds(_action.getActionSource(), 1);
     }
 
     @Override
     protected Filter getExtraFilterForPlayabilityCheck(LotroGame game) {
-        return Filters.canTakeWounds(_count);
+        return Filters.canTakeWounds(_action.getActionSource(), _count);
     }
 
     @Override

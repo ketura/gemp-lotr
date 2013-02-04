@@ -46,7 +46,7 @@ public class Card20_073 extends AbstractCompanion {
                             for (final PhysicalCard revealedCard : revealedCards) {
                                 if (Filters.and(Culture.ELVEN).accepts(game.getGameState(), game.getModifiersQuerying(), revealedCard)) {
                                     action.appendEffect(
-                                            new ChooseActiveCardEffect(self, playerId, "Choose a minion to wound", Filters.canTakeWound, CardType.MINION) {
+                                            new ChooseActiveCardEffect(self, playerId, "Choose a minion to wound", Filters.canTakeWounds(self, 1), CardType.MINION) {
                                                 @Override
                                                 protected void cardSelected(LotroGame game, PhysicalCard minion) {
                                                     action.appendEffect(

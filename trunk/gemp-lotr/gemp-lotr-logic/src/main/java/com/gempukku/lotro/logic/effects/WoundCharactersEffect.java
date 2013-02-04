@@ -54,7 +54,7 @@ public class WoundCharactersEffect extends AbstractPreventableCardEffect {
         return new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                return modifiersQuerying.canTakeWounds(gameState, physicalCard, 1);
+                return modifiersQuerying.canTakeWounds(gameState, _sources, physicalCard, 1);
             }
         };
     }
@@ -78,7 +78,7 @@ public class WoundCharactersEffect extends AbstractPreventableCardEffect {
         for (PhysicalCard woundedCard : cards) {
             game.getGameState().addWound(woundedCard);
             game.getModifiersEnvironment().addedWound(woundedCard);
-            game.getActionsEnvironment().emitEffectResult(new WoundResult(woundedCard));
+            game.getActionsEnvironment().emitEffectResult(new WoundResult(_sources, woundedCard));
         }
     }
 

@@ -526,14 +526,14 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     }
 
     @Override
-    public boolean canTakeWounds(GameState gameState, PhysicalCard card, int woundsToTake) {
+    public boolean canTakeWounds(GameState gameState, Collection<PhysicalCard> woundSources, PhysicalCard card, int woundsToTake) {
         LoggingThreadLocal.logMethodStart(card, "canTakeWound");
         try {
             for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierEffect.WOUND_MODIFIER, card)) {
                 Integer woundsTaken = _woundsPerPhaseMap.get(card.getCardId());
                 if (woundsTaken == null)
                     woundsTaken = 0;
-                if (!modifier.canTakeWounds(gameState, this, card, woundsTaken, woundsToTake))
+                if (!modifier.canTakeWounds(gameState, this, woundSources, card, woundsTaken, woundsToTake))
                     return false;
             }
             return true;

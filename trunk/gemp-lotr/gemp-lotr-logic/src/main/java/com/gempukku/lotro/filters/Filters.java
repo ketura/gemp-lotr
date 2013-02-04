@@ -407,11 +407,20 @@ public class Filters {
         }
     };
 
-    public static final Filter canTakeWounds(final int count) {
+    public static final Filter canTakeWounds(final PhysicalCard woundSource, final int count) {
         return new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                return modifiersQuerying.canTakeWounds(gameState, physicalCard, count) && modifiersQuerying.getVitality(gameState, physicalCard) >= count;
+                return modifiersQuerying.canTakeWounds(gameState, Collections.singleton(woundSource), physicalCard, count) && modifiersQuerying.getVitality(gameState, physicalCard) >= count;
+            }
+        };
+    }
+
+    public static final Filter canTakeWounds(final Collection<PhysicalCard> woundSources, final int count) {
+        return new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                return modifiersQuerying.canTakeWounds(gameState, woundSources, physicalCard, count) && modifiersQuerying.getVitality(gameState, physicalCard) >= count;
             }
         };
     }
@@ -433,8 +442,6 @@ public class Filters {
             }
         };
     }
-
-    public static final Filter canTakeWound = canTakeWounds(1);
 
     public static final Filter exhausted = new Filter() {
         @Override
