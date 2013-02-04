@@ -27,14 +27,14 @@ public class Card10_105 extends AbstractEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && PlayConditions.canExert(self, game, Race.HOBBIT, Filters.notAssignedToSkirmish);
+                && PlayConditions.canExert(self, game, Race.HOBBIT, CardType.COMPANION, Filters.notAssignedToSkirmish);
     }
 
     @Override
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.HOBBIT, Filters.notAssignedToSkirmish) {
+                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.HOBBIT, CardType.COMPANION, Filters.notAssignedToSkirmish) {
                     @Override
                     protected void forEachCardExertedCallback(PhysicalCard character) {
                         action.appendEffect(
