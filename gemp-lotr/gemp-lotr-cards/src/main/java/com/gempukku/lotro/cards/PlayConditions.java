@@ -255,7 +255,7 @@ public class PlayConditions {
                     public boolean visitPhysicalCard(PhysicalCard physicalCard) {
                         if (filter.accepts(gameState, modifiersQuerying, physicalCard)
                                 && modifiersQuerying.getVitality(gameState, physicalCard) > times
-                                && modifiersQuerying.canTakeWounds(gameState, Collections.singleton(source), physicalCard, times))
+                                && modifiersQuerying.canTakeWounds(gameState, (source != null)?Collections.singleton(source):Collections.<PhysicalCard>emptySet(), physicalCard, times))
                             _woundableCount++;
                         return _woundableCount >= count;
                     }

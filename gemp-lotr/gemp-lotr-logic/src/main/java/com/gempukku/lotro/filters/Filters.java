@@ -411,7 +411,7 @@ public class Filters {
         return new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                return modifiersQuerying.canTakeWounds(gameState, Collections.singleton(woundSource), physicalCard, count) && modifiersQuerying.getVitality(gameState, physicalCard) >= count;
+                return modifiersQuerying.canTakeWounds(gameState, (woundSource != null)?Collections.singleton(woundSource):Collections.<PhysicalCard>emptySet(), physicalCard, count) && modifiersQuerying.getVitality(gameState, physicalCard) >= count;
             }
         };
     }
