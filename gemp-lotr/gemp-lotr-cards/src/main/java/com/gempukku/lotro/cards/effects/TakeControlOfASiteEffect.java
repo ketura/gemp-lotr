@@ -59,7 +59,7 @@ public class TakeControlOfASiteEffect extends AbstractEffect implements Preventa
     }
 
     @Override
-    public boolean isPrevented() {
+    public boolean isPrevented(LotroGame game) {
         return _prevented;
     }
 

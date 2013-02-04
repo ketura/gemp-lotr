@@ -3,6 +3,8 @@ package com.gempukku.lotro.cards.effects;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
+import com.gempukku.lotro.logic.modifiers.evaluator.ConstantEvaluator;
+import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.Preventable;
@@ -11,10 +13,14 @@ import com.gempukku.lotro.logic.timing.results.AddBurdenResult;
 public class AddBurdenEffect extends AbstractEffect implements Preventable {
     private String _performingPlayer;
     private PhysicalCard _source;
-    private int _count;
+    private Evaluator _count;
     private int _prevented;
 
     public AddBurdenEffect(String performingPlayer, PhysicalCard source, int count) {
+        this(performingPlayer, source, new ConstantEvaluator(count));
+    }
+
+    public AddBurdenEffect(String performingPlayer, PhysicalCard source, Evaluator count) {
         _performingPlayer = performingPlayer;
         _source = source;
         _count = count;
@@ -25,8 +31,8 @@ public class AddBurdenEffect extends AbstractEffect implements Preventable {
     }
 
     @Override
-    public boolean isPrevented() {
-        return _prevented == _count;
+    public boolean isPrevented(LotroGame game) {
+        return _prevented == getBurdensToAdd(game);
     }
 
     @Override
@@ -35,12 +41,16 @@ public class AddBurdenEffect extends AbstractEffect implements Preventable {
     }
 
     public void preventAll() {
-        _prevented = _count;
+        _prevented = Integer.MAX_VALUE;
+    }
+
+    private int getBurdensToAdd(LotroGame game) {
+        return _count.evaluateExpression(game.getGameState(), game.getModifiersQuerying(), null);
     }
 
     @Override
     public String getText(LotroGame game) {
-        return "Add " + (_count - _prevented) + " burden" + (((_count - _prevented) > 1) ? "s" : "");
+        return "Add " + (getBurdensToAdd(game) - _prevented) + " burden" + (((getBurdensToAdd(game)- _prevented) > 1) ? "s" : "");
     }
 
     @Override
@@ -55,9 +65,10 @@ public class AddBurdenEffect extends AbstractEffect implements Preventable {
 
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
-        if (isPlayableInFull(game) && _prevented < _count) {
-            int toAdd = _count - _prevented;
-            game.getGameState().sendMessage(GameUtils.getCardLink(_source) + " adds " + GameUtils.formatNumber(toAdd, _count) + " burden" + ((toAdd > 1) ? "s" : ""));
+        int burdensEvaluated = getBurdensToAdd(game);
+        if (isPlayableInFull(game) && _prevented < burdensEvaluated) {
+            int toAdd = burdensEvaluated - _prevented;
+            game.getGameState().sendMessage(GameUtils.getCardLink(_source) + " adds " + GameUtils.formatNumber(toAdd, burdensEvaluated) + " burden" + ((toAdd > 1) ? "s" : ""));
             game.getGameState().addBurdens(toAdd);
             for (int i = 0; i < toAdd; i++)
                 game.getActionsEnvironment().emitEffectResult(new AddBurdenResult(_performingPlayer, _source));

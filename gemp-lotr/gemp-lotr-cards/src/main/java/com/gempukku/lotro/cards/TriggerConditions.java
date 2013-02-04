@@ -212,7 +212,7 @@ public class TriggerConditions {
     public static boolean isTakingControlOfSite(Effect effect, LotroGame game, Filterable... sourceFilters) {
         if (effect.getType() == Effect.Type.BEFORE_TAKE_CONTROL_OF_A_SITE) {
             TakeControlOfASiteEffect takeControlOfASiteEffect = (TakeControlOfASiteEffect) effect;
-            return !takeControlOfASiteEffect.isPrevented() && Filters.and(sourceFilters).accepts(game.getGameState(), game.getModifiersQuerying(), takeControlOfASiteEffect.getSource());
+            return !takeControlOfASiteEffect.isPrevented(game) && Filters.and(sourceFilters).accepts(game.getGameState(), game.getModifiersQuerying(), takeControlOfASiteEffect.getSource());
         }
         return false;
     }
@@ -228,7 +228,7 @@ public class TriggerConditions {
     public static boolean isAddingBurden(Effect effect, LotroGame game, Filterable... filters) {
         if (effect.getType() == Effect.Type.BEFORE_ADD_BURDENS) {
             AddBurdenEffect addBurdenEffect = (AddBurdenEffect) effect;
-            return !addBurdenEffect.isPrevented() && Filters.and(filters).accepts(game.getGameState(), game.getModifiersQuerying(), addBurdenEffect.getSource());
+            return !addBurdenEffect.isPrevented(game) && Filters.and(filters).accepts(game.getGameState(), game.getModifiersQuerying(), addBurdenEffect.getSource());
         }
         return false;
     }
@@ -236,7 +236,7 @@ public class TriggerConditions {
     public static boolean isAddingTwilight(Effect effect, LotroGame game, Filterable... filters) {
         if (effect.getType() == Effect.Type.BEFORE_ADD_TWILIGHT) {
             AddTwilightEffect addTwilightEffect = (AddTwilightEffect) effect;
-            return !addTwilightEffect.isPrevented() && addTwilightEffect.getSource() != null && Filters.and(filters).accepts(game.getGameState(), game.getModifiersQuerying(), addTwilightEffect.getSource());
+            return !addTwilightEffect.isPrevented(game) && addTwilightEffect.getSource() != null && Filters.and(filters).accepts(game.getGameState(), game.getModifiersQuerying(), addTwilightEffect.getSource());
         }
         return false;
     }

@@ -33,6 +33,6 @@ public class PreventEffect extends AbstractEffect {
 
     @Override
     public boolean isPlayableInFull(LotroGame game) {
-        return !_preventable.isPrevented();
+        return !_preventable.isPrevented(game);
     }
 }
