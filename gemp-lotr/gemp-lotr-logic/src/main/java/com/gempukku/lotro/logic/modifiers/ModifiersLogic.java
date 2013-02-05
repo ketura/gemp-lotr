@@ -4,6 +4,7 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 
@@ -231,6 +232,16 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
             }
         }
         return result;
+    }
+
+    @Override
+    public Evaluator getFpStrengthOverrideEvaluator(GameState gameState, PhysicalCard fpCharacter) {
+        for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierEffect.SKIRMISH_STRENGTH_EVALUATOR_MODIFIER, fpCharacter)) {
+            Evaluator evaluator = modifier.getFpSkirmishStrengthOverrideEvaluator(gameState, this, fpCharacter);
+            if (evaluator != null)
+                return evaluator;
+        }
+        return null;
     }
 
     private boolean affectsCardWithSkipSet(GameState gameState, PhysicalCard physicalCard, Modifier modifier) {
