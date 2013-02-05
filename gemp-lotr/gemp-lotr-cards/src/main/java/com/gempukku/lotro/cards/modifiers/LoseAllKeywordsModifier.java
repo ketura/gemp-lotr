@@ -6,7 +6,7 @@ import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.logic.modifiers.AbstractModifier;
 import com.gempukku.lotro.logic.modifiers.Condition;
 import com.gempukku.lotro.logic.modifiers.ModifierEffect;
-import com.gempukku.lotro.logic.modifiers.ModifiersLogic;
+import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
 public class LoseAllKeywordsModifier extends AbstractModifier {
     public LoseAllKeywordsModifier(PhysicalCard source, Filterable affectFilter) {
@@ -18,7 +18,7 @@ public class LoseAllKeywordsModifier extends AbstractModifier {
     }
 
     @Override
-    public boolean lostAllKeywords(GameState gameState, ModifiersLogic modifiersLogic, PhysicalCard card) {
+    public boolean lostAllKeywords(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card) {
         return true;
     }
 }
