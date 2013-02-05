@@ -74,6 +74,10 @@ public class RuleUtils {
         if (fpChar == null)
             return 0;
 
+        final Evaluator fpStrengthOverrideEvaluator = game.getModifiersQuerying().getFpStrengthOverrideEvaluator(game.getGameState(), fpChar);
+        if (fpStrengthOverrideEvaluator != null)
+            return fpStrengthOverrideEvaluator.evaluateExpression(game.getGameState(), game.getModifiersQuerying(), fpChar);
+
         final Evaluator overrideEvaluator = skirmish.getFpStrengthOverrideEvaluator();
         if (overrideEvaluator != null)
             return overrideEvaluator.evaluateExpression(game.getGameState(), game.getModifiersQuerying(), fpChar);

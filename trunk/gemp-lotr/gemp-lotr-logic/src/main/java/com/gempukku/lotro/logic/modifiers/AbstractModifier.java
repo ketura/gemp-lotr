@@ -6,6 +6,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 
@@ -349,7 +350,12 @@ public abstract class AbstractModifier implements Modifier {
     }
 
     @Override
-    public boolean lostAllKeywords(GameState gameState, ModifiersLogic modifiersLogic, PhysicalCard card) {
+    public boolean lostAllKeywords(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card) {
         return false;
+    }
+
+    @Override
+    public Evaluator getFpSkirmishStrengthOverrideEvaluator(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard fpCharacter) {
+        return null;
     }
 }

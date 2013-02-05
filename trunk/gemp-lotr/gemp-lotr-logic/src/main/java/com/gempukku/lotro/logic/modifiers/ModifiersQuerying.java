@@ -4,6 +4,7 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 
@@ -24,6 +25,8 @@ public interface ModifiersQuerying {
     public LimitCounter getUntilEndOfTurnLimitCounter(PhysicalCard card);
 
     public Collection<Modifier> getModifiersAffecting(GameState gameState, PhysicalCard card);
+
+    public Evaluator getFpStrengthOverrideEvaluator(GameState gameState, PhysicalCard fpCharacter);
 
     public boolean hasTextRemoved(GameState gameState, PhysicalCard card);
 
