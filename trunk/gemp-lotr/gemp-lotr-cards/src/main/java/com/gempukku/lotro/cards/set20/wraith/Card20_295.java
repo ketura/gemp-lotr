@@ -23,6 +23,15 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * 1
+ * Morgul Blade
+ * Ringwraith	Possession • Hand Weapon
+ * 1
+ * Bearer must be a Nazgul.
+ * This weapon may be borne in addition to 1 other hand weapon.
+ * Skirmish: Discard this possession to transfer Blade Tip from your support area or discard pile to a companion bearer is skirmishing.
+ */
 public class Card20_295  extends AbstractAttachable {
     public Card20_295() {
         super(Side.SHADOW, CardType.POSSESSION, 1, Culture.WRAITH, PossessionClass.HAND_WEAPON, "Morgul Blade");
