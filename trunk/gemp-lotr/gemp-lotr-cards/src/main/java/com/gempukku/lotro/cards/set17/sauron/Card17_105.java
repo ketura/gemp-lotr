@@ -3,18 +3,13 @@ package com.gempukku.lotro.cards.set17.sauron;
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.modifiers.ResistanceModifier;
-import com.gempukku.lotro.cards.modifiers.conditions.LocationCondition;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
-import com.gempukku.lotro.logic.modifiers.KeywordModifier;
-import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
-import com.gempukku.lotro.logic.modifiers.SpotCondition;
+import com.gempukku.lotro.logic.modifiers.*;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -47,14 +42,20 @@ public class Card17_105 extends AbstractPermanent {
                         new SpotCondition(Filters.name("Sauron")), Keyword.DAMAGE, 1));
         modifiers.add(
                 new ResistanceModifier(self, CardType.COMPANION,
-                        new LocationCondition(
-                                new Filter() {
-                                    @Override
-                                    public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                        PhysicalCard mountDoom = Filters.findFirstActive(gameState, modifiersQuerying, Filters.name("Mount Doom"));
-                                        return mountDoom != null && (1 + ((mountDoom.getSiteNumber() - 1) / 3)) == GameUtils.getRegion(gameState);
+                        new Condition() {
+                            @Override
+                            public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
+                                for (int siteNo = 1; siteNo <= 9; siteNo++) {
+                                    if (GameUtils.getRegion(siteNo) == GameUtils.getRegion(gameState)) {
+                                        PhysicalCard site = gameState.getSite(siteNo);
+                                        if (site != null && site.getBlueprint().getName().equals("Mount Doom"))
+                                            return true;
+
                                     }
-                                }), -2));
+                                }
+                                return false;
+                            }
+                        }, -2));
         return modifiers;
     }
 }
