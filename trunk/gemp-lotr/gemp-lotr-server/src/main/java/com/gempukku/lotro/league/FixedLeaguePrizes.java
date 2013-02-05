@@ -96,8 +96,8 @@ public class FixedLeaguePrizes implements LeaguePrizes {
 //2nd - 25 boosters, 3 tengwar, 2 foil rares
 //3rd - 20 boosters, 2 tengwar, 1 foil rares
 //4th - 15 boosters, 1 tengwar
-//5th-8th - 10 boosters, 2 promos
-//9th-16th - 5 boosters, 1 promo
+//5th-8th - 10 boosters
+//9th-16th - 5 boosters
 //17th-32nd - 2 boosters
     private CardCollection getPrizeForCollectorsLeague(int position, int playersCount, int gamesPlayed, int maxGamesPlayed) {
         DefaultCardCollection prize = new DefaultCardCollection();
