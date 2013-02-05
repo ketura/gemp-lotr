@@ -17,14 +17,14 @@ import java.util.List;
 /**
  * 2
  * Wizard Staff
- * Gandalf	Possession • Hand Weapon
+ * Gandalf	Possession • Staff
  * 1
  * Bearer must be a Wizard.
  * Skrimish: Exert bearer twice to make a minion strength -3.
  */
 public class Card20_172 extends AbstractAttachableFPPossession {
     public Card20_172() {
-        super(2, 1, 0, Culture.GANDALF, PossessionClass.HAND_WEAPON, "Wizard Staff", null, true);
+        super(2, 1, 0, Culture.GANDALF, PossessionClass.STAFF, "Wizard Staff", null, true);
     }
 
     @Override
