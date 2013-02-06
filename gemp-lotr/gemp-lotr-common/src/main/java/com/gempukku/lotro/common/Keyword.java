@@ -20,6 +20,7 @@ public enum Keyword implements Filterable {
     PIPEWEED("Pipeweed", true),
 
     LOTHLORIEN("Lothlorien", true, false, false), RIVENDELL("Rivendell", true, false, false), BREE("Bree", true, false, false),
+    EDORAS("Edoras", true, false, false),
 
     DAMAGE("Damage", true, true), DEFENDER("Defender", true, true), AMBUSH("Ambush", true, true), FIERCE("Fierce", true), ARCHER("Archer", true),
     UNHASTY("Unhasty", true), MUSTER("Muster", true), TOIL("Toil", true, true), LURKER("Lurker", true), CUNNING("Cunning", true),
