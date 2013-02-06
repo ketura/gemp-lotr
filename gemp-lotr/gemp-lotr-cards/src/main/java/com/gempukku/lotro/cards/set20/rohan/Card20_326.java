@@ -3,8 +3,8 @@ package com.gempukku.lotro.cards.set20.rohan;
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
+import com.gempukku.lotro.cards.effects.CommonEffects;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
-import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -45,12 +45,6 @@ public class Card20_326 extends AbstractPermanent {
                     new ExertCharactersEffect(action, self, CardType.MINION));
             return Collections.singletonList(action);
         }
-        if (TriggerConditions.startOfPhase(game, effectResult, Phase.REGROUP)) {
-            RequiredTriggerAction action = new RequiredTriggerAction(self);
-            action.appendEffect(
-                    new SelfDiscardEffect(self));
-            return Collections.singletonList(action);
-        }
-        return null;
+        return CommonEffects.getSelfDiscardAtStartOfRegroup(game, effectResult, self);
     }
 }
