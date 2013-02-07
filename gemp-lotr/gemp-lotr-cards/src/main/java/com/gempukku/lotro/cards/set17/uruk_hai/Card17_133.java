@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set17.uruk_hai;
 
 import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.modifiers.PlayersCantUseSpecialAbilitiesModifier;
+import com.gempukku.lotro.cards.modifiers.PlayersCantUseCardSpecialAbilitiesModifier;
 import com.gempukku.lotro.cards.modifiers.conditions.AndCondition;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
@@ -45,7 +45,7 @@ public class Card17_133 extends AbstractMinion {
                                 new SpotCondition(CardType.COMPANION, Keyword.HUNTER, Filters.inSkirmish)
                         ), CardType.EVENT, Keyword.SKIRMISH));
         modifiers.add(
-                new PlayersCantUseSpecialAbilitiesModifier(self,
+                new PlayersCantUseCardSpecialAbilitiesModifier(self,
                         new SpotCondition(self, Filters.assignedToSkirmish), CardType.COMPANION, Keyword.HUNTER));
         return modifiers;
     }

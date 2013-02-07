@@ -5,7 +5,7 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.*;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.cards.modifiers.PlayersCantUseSpecialAbilitiesModifier;
+import com.gempukku.lotro.cards.modifiers.PlayersCantUseCardSpecialAbilitiesModifier;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
@@ -56,7 +56,7 @@ public class Card19_016 extends AbstractMinion {
                         protected void forEachCardExertedCallback(PhysicalCard character) {
                             action.appendEffect(
                                     new AddUntilStartOfPhaseModifierEffect(
-                                            new PlayersCantUseSpecialAbilitiesModifier(self, character), Phase.REGROUP));
+                                            new PlayersCantUseCardSpecialAbilitiesModifier(self, character), Phase.REGROUP));
                         }
                     });
             return Collections.singletonList(action);
