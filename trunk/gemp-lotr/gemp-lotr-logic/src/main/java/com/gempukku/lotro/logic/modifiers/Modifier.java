@@ -143,4 +143,8 @@ public interface Modifier {
     public boolean lostAllKeywords(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card);
 
     Evaluator getFpSkirmishStrengthOverrideEvaluator(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard fpCharacter);
+
+    public boolean canSpotCulture(GameState gameState, ModifiersQuerying modifiersQuerying, Culture culture, String playerId);
+
+    public int getFPCulturesSpotCountModifier(GameState gameState, ModifiersQuerying modifiersQuerying, String playerId);
 }

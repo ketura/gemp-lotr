@@ -358,4 +358,14 @@ public abstract class AbstractModifier implements Modifier {
     public Evaluator getFpSkirmishStrengthOverrideEvaluator(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard fpCharacter) {
         return null;
     }
+
+    @Override
+    public boolean canSpotCulture(GameState gameState, ModifiersQuerying modifiersQuerying, Culture culture, String playerId) {
+        return true;
+    }
+
+    @Override
+    public int getFPCulturesSpotCountModifier(GameState gameState, ModifiersQuerying modifiersQuerying, String playerId) {
+        return 0;
+    }
 }
