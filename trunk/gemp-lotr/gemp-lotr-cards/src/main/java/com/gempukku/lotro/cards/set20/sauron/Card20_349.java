@@ -3,7 +3,8 @@ package com.gempukku.lotro.cards.set20.sauron;
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.SelfExertEffect;
-import com.gempukku.lotro.cards.modifiers.conditions.SpotCulturesCondition;
+import com.gempukku.lotro.cards.modifiers.conditions.CanSpotFPCulturesCondition;
+import com.gempukku.lotro.cards.modifiers.conditions.NotCondition;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -33,7 +34,7 @@ public class Card20_349 extends AbstractMinion {
     @Override
     public Modifier getAlwaysOnModifier(PhysicalCard self) {
         return new KeywordModifier(self, self,
-                new SpotCulturesCondition(3, Side.FREE_PEOPLE), Keyword.DAMAGE, 1);
+                new NotCondition(new CanSpotFPCulturesCondition(self.getOwner(), 3)), Keyword.DAMAGE, 1);
     }
 
     @Override

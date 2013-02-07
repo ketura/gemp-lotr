@@ -997,6 +997,24 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     }
 
     @Override
+    public int getNumberOfSpottableShadowCultures(GameState gameState, String playerId) {
+        Set<Culture> spottableCulturesBasedOnCards = new HashSet<Culture>();
+        for (PhysicalCard spottableFPCard : Filters.filterActive(gameState, this, Side.SHADOW, Filters.spottable)) {
+            final Culture fpCulture = spottableFPCard.getBlueprint().getCulture();
+            if (fpCulture != null)
+                spottableCulturesBasedOnCards.add(fpCulture);
+        }
+
+        int result = 0;
+        for (Culture spottableCulturesBasedOnCardsOnCard : spottableCulturesBasedOnCards)
+            for (Modifier modifier : getModifiers(gameState, ModifierEffect.SPOT_MODIFIER))
+                if (modifier.canSpotCulture(gameState, this, spottableCulturesBasedOnCardsOnCard, playerId))
+                    result++;
+
+        return result;
+    }
+
+    @Override
     public int getSpotBonus(GameState gameState, Filterable filter) {
         int result = 0;
         for (Modifier modifier : getModifiers(gameState, ModifierEffect.SPOT_MODIFIER))
