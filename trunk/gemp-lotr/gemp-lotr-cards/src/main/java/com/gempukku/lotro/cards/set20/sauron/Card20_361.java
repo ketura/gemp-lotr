@@ -59,7 +59,12 @@ public class Card20_361 extends AbstractPermanent {
                                                                         @Override
                                                                         public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
                                                                             return new ChooseAndExertCharactersEffect(action, playerId, 1, 1,
-                                                                                    CardType.COMPANION, Filters.not(cardToDiscard.getBlueprint().getCulture()));
+                                                                                    CardType.COMPANION, Filters.not(cardToDiscard.getBlueprint().getCulture())) {
+                                                                                @Override
+                                                                                public String getText(LotroGame game) {
+                                                                                    return "Exert a companion of a different culture";
+                                                                                }
+                                                                            };
                                                                         }
                                                                     }));
                                                 }
