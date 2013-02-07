@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set1.site;
 import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
-import com.gempukku.lotro.cards.modifiers.PlayersCantPlayPhaseEventsOrSpecialAbilitiesModifier;
+import com.gempukku.lotro.cards.modifiers.PlayersCantPlayPhaseEventsOrPhaseSpecialAbilitiesModifier;
 import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
@@ -86,11 +86,11 @@ public class Card1_363 extends AbstractSite {
                 else
                     _action.appendEffect(
                             new AddUntilEndOfPhaseModifierEffect(
-                                    new PlayersCantPlayPhaseEventsOrSpecialAbilitiesModifier(null, Phase.SHADOW), Phase.SHADOW));
+                                    new PlayersCantPlayPhaseEventsOrPhaseSpecialAbilitiesModifier(null, Phase.SHADOW), Phase.SHADOW));
             } else {
                 _action.appendEffect(
                         new AddUntilEndOfPhaseModifierEffect(
-                                new PlayersCantPlayPhaseEventsOrSpecialAbilitiesModifier(null, Phase.SHADOW), Phase.SHADOW));
+                                new PlayersCantPlayPhaseEventsOrPhaseSpecialAbilitiesModifier(null, Phase.SHADOW), Phase.SHADOW));
             }
         }
     }

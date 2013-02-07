@@ -1,7 +1,6 @@
 package com.gempukku.lotro.cards.modifiers;
 
-import com.gempukku.lotro.common.Filterable;
-import com.gempukku.lotro.filters.Filters;
+import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.logic.modifiers.AbstractModifier;
@@ -10,23 +9,23 @@ import com.gempukku.lotro.logic.modifiers.ModifierEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.Action;
 
-public class PlayersCantUseSpecialAbilitiesModifier extends AbstractModifier {
+public class PlayerCantPlayPhaseEventsOrPhaseSpecialAbilitiesModifier extends AbstractModifier {
+    private String _playerId;
+    private Phase _phase;
 
-    private Filterable[] _sourceFilters;
-
-    public PlayersCantUseSpecialAbilitiesModifier(PhysicalCard source, Filterable... sourceFilters) {
-        this(source, null, sourceFilters);
+    public PlayerCantPlayPhaseEventsOrPhaseSpecialAbilitiesModifier(PhysicalCard source, String playerId, Phase phase) {
+        this(source, null, playerId, phase);
     }
 
-    public PlayersCantUseSpecialAbilitiesModifier(PhysicalCard source, Condition condition, Filterable... sourceFilters) {
+    public PlayerCantPlayPhaseEventsOrPhaseSpecialAbilitiesModifier(PhysicalCard source, Condition condition, String playerId, Phase phase) {
         super(source, null, null, condition, ModifierEffect.ACTION_MODIFIER);
-        _sourceFilters = sourceFilters;
+        _playerId = playerId;
+        _phase = phase;
     }
 
     @Override
     public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, Action action) {
-        if (action.getType() == Action.Type.SPECIAL_ABILITY
-                && Filters.and(_sourceFilters).accepts(gameState, modifiersQuerying, action.getActionSource()))
+        if (performingPlayer.equals(_playerId) && action.getActionTimeword() == _phase)
             return false;
         return true;
     }

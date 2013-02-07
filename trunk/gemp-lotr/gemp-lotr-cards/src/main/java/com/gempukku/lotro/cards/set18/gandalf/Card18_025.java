@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set18.gandalf;
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
-import com.gempukku.lotro.cards.modifiers.PlayersCantUseSpecialAbilitiesModifier;
+import com.gempukku.lotro.cards.modifiers.PlayersCantUseCardSpecialAbilitiesModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -43,7 +43,7 @@ public class Card18_025 extends AbstractPermanent {
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.appendEffect(
                                     new AddUntilStartOfPhaseModifierEffect(
-                                            new PlayersCantUseSpecialAbilitiesModifier(self, card), Phase.REGROUP));
+                                            new PlayersCantUseCardSpecialAbilitiesModifier(self, card), Phase.REGROUP));
                         }
                     });
             return Collections.singletonList(action);
