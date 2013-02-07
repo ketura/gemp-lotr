@@ -114,4 +114,8 @@ public class GameUtils {
     public static int getRegion(int siteNumber) {
         return 1 + ((siteNumber - 1) / 3);
     }
+
+    public static int getSpottableFPCulturesCount(GameState gameState, ModifiersQuerying modifiersQuerying, String playerId) {
+        return modifiersQuerying.getNumberOfSpottableFPCultures(gameState, playerId);
+    }
 }

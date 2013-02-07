@@ -8,6 +8,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.PhysicalCardVisitor;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.modifiers.ModifierFlag;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
@@ -221,6 +222,10 @@ public class PlayConditions {
 
     public static boolean canSpotBurdens(LotroGame game, int count) {
         return game.getGameState().getBurdens() >= count;
+    }
+
+    public static boolean canSpotFPCultures(LotroGame game, int count, String playerId) {
+        return GameUtils.getSpottableFPCulturesCount(game.getGameState(), game.getModifiersQuerying(), playerId)>=count;
     }
 
     public static boolean hasInitiative(LotroGame game, Side side) {

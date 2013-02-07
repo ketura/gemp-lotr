@@ -1,6 +1,7 @@
 package com.gempukku.lotro.logic.modifiers;
 
 import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
@@ -972,6 +973,27 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     @Override
     public boolean canBeSpotted(GameState gameState, PhysicalCard card) {
         return true;
+    }
+
+    @Override
+    public int getNumberOfSpottableFPCultures(GameState gameState, String playerId) {
+        Set<Culture> spottableCulturesBasedOnCards = new HashSet<Culture>();
+        for (PhysicalCard spottableFPCard : Filters.filterActive(gameState, this, Side.FREE_PEOPLE, Filters.spottable)) {
+            final Culture fpCulture = spottableFPCard.getBlueprint().getCulture();
+            if (fpCulture != null)
+                spottableCulturesBasedOnCards.add(fpCulture);
+        }
+
+        int result = 0;
+        for (Culture spottableCulturesBasedOnCardsOnCard : spottableCulturesBasedOnCards)
+            for (Modifier modifier : getModifiers(gameState, ModifierEffect.SPOT_MODIFIER))
+                if (modifier.canSpotCulture(gameState, this, spottableCulturesBasedOnCardsOnCard, playerId))
+                    result++;
+
+        for (Modifier modifier : getModifiers(gameState, ModifierEffect.SPOT_MODIFIER))
+            result += modifier.getFPCulturesSpotCountModifier(gameState, this, playerId);
+
+        return result;
     }
 
     @Override

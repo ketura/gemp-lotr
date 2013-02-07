@@ -5,11 +5,11 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.PreventableEffect;
 import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndAssignCharacterToMinionEffect;
-import com.gempukku.lotro.cards.modifiers.evaluator.CountCulturesEvaluator;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.effects.AddThreatsEffect;
@@ -37,7 +37,7 @@ public class Card20_350 extends AbstractMinion {
 
     @Override
     public int getTwilightCostModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
-        return new CountCulturesEvaluator(Side.FREE_PEOPLE).evaluateExpression(gameState, modifiersQuerying, null);
+        return GameUtils.getSpottableFPCulturesCount(gameState, modifiersQuerying, self.getOwner());
     }
 
     @Override

@@ -139,6 +139,8 @@ public interface ModifiersQuerying {
 
     public boolean canBeSpotted(GameState gameState, PhysicalCard card);
 
+    public int getNumberOfSpottableFPCultures(GameState gameState, String playerId);
+
     public int getSpotBonus(GameState gameState, Filterable filter);
 
     public boolean hasFlagActive(GameState gameState, ModifierFlag modifierFlag);
