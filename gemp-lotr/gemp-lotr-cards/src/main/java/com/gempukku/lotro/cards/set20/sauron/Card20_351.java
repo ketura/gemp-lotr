@@ -1,8 +1,8 @@
 package com.gempukku.lotro.cards.set20.sauron;
 
 import com.gempukku.lotro.cards.AbstractAttachable;
+import com.gempukku.lotro.cards.modifiers.conditions.CanSpotFPCulturesCondition;
 import com.gempukku.lotro.cards.modifiers.conditions.NotCondition;
-import com.gempukku.lotro.cards.modifiers.conditions.SpotCulturesCondition;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -39,7 +39,7 @@ public class Card20_351 extends AbstractAttachable {
                 new StrengthModifier(self, Filters.hasAttached(self), 2));
         modifiers.add(
                 new KeywordModifier(self, Filters.hasAttached(self),
-                        new NotCondition(new SpotCulturesCondition(3, Side.FREE_PEOPLE)), Keyword.DAMAGE, 1));
+                        new NotCondition(new CanSpotFPCulturesCondition(self.getOwner(), 3)), Keyword.DAMAGE, 1));
         return modifiers;
     }
 }

@@ -118,4 +118,8 @@ public class GameUtils {
     public static int getSpottableFPCulturesCount(GameState gameState, ModifiersQuerying modifiersQuerying, String playerId) {
         return modifiersQuerying.getNumberOfSpottableFPCultures(gameState, playerId);
     }
+
+    public static int getSpottableShadowCulturesCount(GameState gameState, ModifiersQuerying modifiersQuerying, String playerId) {
+        return modifiersQuerying.getNumberOfSpottableShadowCultures(gameState, playerId);
+    }
 }
