@@ -38,7 +38,7 @@ public class Card12_139 extends AbstractEvent {
                             new PutPlayedEventIntoHandEffect(action) {
                                 @Override
                                 public String getText(LotroGame game) {
-                                    return "Return " + GameUtils.getCardLink(self) + " to your hand";
+                                    return "Return " + GameUtils.getFullName(self) + " to your hand";
                                 }
                             }));
         return action;

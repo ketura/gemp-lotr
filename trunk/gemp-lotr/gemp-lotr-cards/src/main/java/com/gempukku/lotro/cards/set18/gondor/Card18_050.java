@@ -66,7 +66,7 @@ public class Card18_050 extends AbstractPermanent {
                                                     new CantBeAssignedToSkirmishModifier(self, minion), Phase.REGROUP) {
                                                 @Override
                                                 public String getText(LotroGame game) {
-                                                    return "Make " + GameUtils.getCardLink(minion) + " not assignable to skirmish until the regroup phase";
+                                                    return "Make " + GameUtils.getFullName(minion) + " not assignable to skirmish until the regroup phase";
                                                 }
                                             }, GameUtils.getOpponents(game, playerId),
                                             new PreventableEffect.PreventionCost() {

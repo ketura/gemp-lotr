@@ -35,7 +35,7 @@ public class Card1_144 extends AbstractPermanent {
                 && game.getGameState().getTwilightPool() >= 1) {
             CharacterWonSkirmishResult skirmishResult = ((CharacterWonSkirmishResult) effectResult);
             final ActivateCardAction action = new ActivateCardAction(self);
-            action.setText("Heal " + GameUtils.getCardLink(skirmishResult.getWinner()));
+            action.setText("Heal " + GameUtils.getFullName(skirmishResult.getWinner()));
             action.appendCost(new RemoveTwilightEffect(1));
             action.appendEffect(
                     new HealCharactersEffect(self, skirmishResult.getWinner()));

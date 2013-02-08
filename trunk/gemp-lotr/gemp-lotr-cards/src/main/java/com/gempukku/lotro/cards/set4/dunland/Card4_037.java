@@ -41,7 +41,7 @@ public class Card4_037 extends AbstractResponseOldEvent {
                 && checkPlayRequirements(playerId, game, self, 0, 0, false, false)) {
             PhysicalCard winner = ((CharacterWonSkirmishResult) effectResult).getWinner();
             final PlayEventAction action = new PlayEventAction(self);
-            action.setText("Make " + GameUtils.getCardLink(winner) + " strength +4 and Fierce");
+            action.setText("Make " + GameUtils.getFullName(winner) + " strength +4 and Fierce");
             action.insertEffect(
                     new AddUntilStartOfPhaseModifierEffect(
                             new StrengthModifier(self, Filters.sameCard(winner), 4), Phase.REGROUP));

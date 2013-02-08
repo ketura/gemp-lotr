@@ -56,7 +56,7 @@ public class Card17_067 extends AbstractPermanent {
             AssignAgainstResult assignResult = (AssignAgainstResult) effectResult;
             PhysicalCard companion = assignResult.getAgainst().iterator().next();
             RequiredTriggerAction action = new RequiredTriggerAction(self);
-            action.setText("Assigned " + GameUtils.getCardLink(assignResult.getAssignedCard()) + " to " + GameUtils.getCardLink(companion));
+            action.setText("Assign " + GameUtils.getFullName(assignResult.getAssignedCard()) + " to " + GameUtils.getFullName(companion));
             List<Effect> possibleEffects = new LinkedList<Effect>();
             possibleEffects.add(
                     new ExertCharactersEffect(action, self, companion));

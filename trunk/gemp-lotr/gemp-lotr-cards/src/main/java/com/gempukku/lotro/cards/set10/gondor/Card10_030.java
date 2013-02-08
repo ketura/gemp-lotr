@@ -63,7 +63,7 @@ public class Card10_030 extends AbstractEvent {
                                                                     new KeywordModifier(self, card, Keyword.DAMAGE, 1), Phase.SKIRMISH) {
                                                                 @Override
                                                                 public String getText(LotroGame game) {
-                                                                    return "Make " + GameUtils.getCardLink(card) + " damage +1";
+                                                                    return "Make " + GameUtils.getFullName(card) + " damage +1";
                                                                 }
                                                             });
                                                     action.appendEffect(

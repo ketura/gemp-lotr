@@ -36,7 +36,7 @@ public class PutCardFromDiscardOnBottomOfDeckEffect extends AbstractEffect {
 
     @Override
     public String getText(LotroGame game) {
-        return "Put " + GameUtils.getCardLink(_physicalCard) + " from discard on bottom of deck";
+        return "Put " + GameUtils.getFullName(_physicalCard) + " from discard on bottom of deck";
     }
 
     @Override

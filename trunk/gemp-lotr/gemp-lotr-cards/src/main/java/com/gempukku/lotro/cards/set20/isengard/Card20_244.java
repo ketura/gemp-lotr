@@ -35,7 +35,7 @@ public class Card20_244 extends AbstractResponseEvent {
         if (TriggerConditions.forEachWounded(game, effectResult, CardType.COMPANION)) {
             PlayEventAction action = new PlayEventAction(self);
             PhysicalCard woundedCompanion = ((WoundResult) effectResult).getWoundedCard();
-            action.setText("Wound "+ GameUtils.getCardLink(woundedCompanion));
+            action.setText("Wound "+ GameUtils.getFullName(woundedCompanion));
             action.appendEffect(
                     new WoundCharactersEffect(self, woundedCompanion));
             return Collections.singletonList(action);

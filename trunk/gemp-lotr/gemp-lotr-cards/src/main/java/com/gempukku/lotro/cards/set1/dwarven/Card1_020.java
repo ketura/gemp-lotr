@@ -38,7 +38,7 @@ public class Card1_020 extends AbstractPermanent {
             List<RequiredTriggerAction> actions = new LinkedList<RequiredTriggerAction>();
             for (PhysicalCard losingOrc : Filters.filter(wonResult.getInvolving(), game.getGameState(), game.getModifiersQuerying(), Race.ORC)) {
                 RequiredTriggerAction action = new RequiredTriggerAction(self);
-                action.setText("Discard " + GameUtils.getCardLink(losingOrc));
+                action.setText("Discard " + GameUtils.getFullName(losingOrc));
                 action.appendEffect(new DiscardCardsFromPlayEffect(self, losingOrc));
                 actions.add(action);
             }

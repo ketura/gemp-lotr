@@ -26,7 +26,7 @@ public class PutCardFromDeckOnBottomOfDeckEffect extends AbstractEffect {
 
     @Override
     public String getText(LotroGame game) {
-        return "Put " + GameUtils.getCardLink(_physicalCard) + " on the bottom of draw deck";
+        return "Put " + GameUtils.getFullName(_physicalCard) + " on the bottom of draw deck";
     }
 
     @Override

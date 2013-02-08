@@ -38,7 +38,7 @@ public class Card12_058 extends AbstractPermanent {
             DiscardCardsFromPlayResult result = (DiscardCardsFromPlayResult) effectResult;
             final PhysicalCard discardedCard = result.getDiscardedCard();
             ActivateCardAction action = new ActivateCardAction(self);
-            action.setText("Stack " + GameUtils.getCardLink(discardedCard));
+            action.setText("Stack " + GameUtils.getFullName(discardedCard));
             action.appendEffect(
                     new StackCardFromDiscardEffect(discardedCard, self));
             return Collections.singletonList(action);

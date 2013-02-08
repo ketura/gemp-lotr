@@ -41,7 +41,7 @@ public class Card8_115 extends AbstractResponseEvent {
             ExertResult exertResult = (ExertResult) effectResult;
             PlayEventAction action = new PlayEventAction(self);
             final PhysicalCard exertedCard = exertResult.getExertedCard();
-            action.setText("Wound " + GameUtils.getCardLink(exertedCard));
+            action.setText("Wound " + GameUtils.getFullName(exertedCard));
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.unboundCompanion, Race.HOBBIT));
             action.appendEffect(

@@ -53,7 +53,7 @@ public class Card13_073 extends AbstractAttachableFPPossession {
                                                 new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, CardType.CONDITION, Filters.attachedTo(character)) {
                                                     @Override
                                                     public String getText(LotroGame game) {
-                                                        return "Discard a condition " + GameUtils.getCardLink(character) + " bears";
+                                                        return "Discard a condition " + GameUtils.getFullName(character) + " bears";
                                                     }
                                                 }));
                         }

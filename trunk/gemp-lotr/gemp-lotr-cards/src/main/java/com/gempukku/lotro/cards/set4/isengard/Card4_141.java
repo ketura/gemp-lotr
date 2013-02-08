@@ -46,7 +46,7 @@ public class Card4_141 extends AbstractResponseOldEvent {
                 && checkPlayRequirements(playerId, game, self, 0, 0, false, false)) {
             ForEachKilledResult killResult = (ForEachKilledResult) effectResult;
             PlayEventAction action = new PlayEventAction(self);
-            action.setText(GameUtils.getCardLink(killResult.getKilledCard()) + " was killed");
+            action.setText(GameUtils.getFullName(killResult.getKilledCard()) + " was killed");
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Culture.ISENGARD, CardType.MINION));
             boolean hasSpecific = Filters.or(Filters.aragorn, Filters.gandalf, Filters.name(Names.theoden)).accepts(game.getGameState(), game.getModifiersQuerying(), killResult.getKilledCard());

@@ -24,7 +24,7 @@ public class DiscardCardFromDeckEffect extends AbstractEffect {
 
     @Override
     public String getText(LotroGame game) {
-        return "Discard " + GameUtils.getCardLink(_card) + " from deck";
+        return "Discard " + GameUtils.getFullName(_card) + " from deck";
     }
 
     @Override

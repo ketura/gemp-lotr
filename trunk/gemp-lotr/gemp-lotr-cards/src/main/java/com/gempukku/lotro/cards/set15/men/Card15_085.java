@@ -71,7 +71,7 @@ public class Card15_085 extends AbstractEvent {
                                         new ReturnCardsToHandEffect(self, Filters.and(Side.FREE_PEOPLE, Filters.attachedTo(card))) {
                                             @Override
                                             public String getText(LotroGame game) {
-                                                return "Return each Free Peoples card attached to " + GameUtils.getCardLink(card);
+                                                return "Return each Free Peoples card attached to " + GameUtils.getFullName(card);
                                             }
                                         }, game.getGameState().getCurrentPlayerId(),
                                         new PreventableEffect.PreventionCost() {

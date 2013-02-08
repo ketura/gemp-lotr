@@ -18,7 +18,7 @@ public class PutPlayedEventIntoHandEffect extends AbstractEffect {
 
     @Override
     public String getText(LotroGame game) {
-        return "Put " + GameUtils.getCardLink(_action.getEventPlayed()) + " into hand";
+        return "Put " + GameUtils.getFullName(_action.getEventPlayed()) + " into hand";
     }
 
     @Override

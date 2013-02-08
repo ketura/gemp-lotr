@@ -18,7 +18,7 @@ public class RemovePlayedEventFromGameEffect extends AbstractEffect {
 
     @Override
     public String getText(LotroGame game) {
-        return "Remove " + GameUtils.getCardLink(_action.getEventPlayed()) + " from the game";
+        return "Remove " + GameUtils.getFullName(_action.getEventPlayed()) + " from the game";
     }
 
     @Override

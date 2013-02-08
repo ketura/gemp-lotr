@@ -39,7 +39,7 @@ public class Card11_158 extends AbstractPermanent {
                 && Filters.filter(game.getGameState().getStackedCards(self), game.getGameState(), game.getModifiersQuerying(), CardType.POSSESSION).size() <= 1) {
             DiscardCardsFromPlayResult discardResult = (DiscardCardsFromPlayResult) effectResult;
             ActivateCardAction action = new ActivateCardAction(self);
-            action.setText("Stack " + GameUtils.getCardLink(discardResult.getDiscardedCard()));
+            action.setText("Stack " + GameUtils.getFullName(discardResult.getDiscardedCard()));
             action.appendEffect(
                     new StackCardFromDiscardEffect(discardResult.getDiscardedCard(), self));
             return Collections.singletonList(action);

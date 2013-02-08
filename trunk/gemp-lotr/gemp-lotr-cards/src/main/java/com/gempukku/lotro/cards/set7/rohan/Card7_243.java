@@ -44,7 +44,7 @@ public class Card7_243 extends AbstractEvent {
                                                 new StrengthModifier(self, rohanMan, 4), Phase.SKIRMISH) {
                                             @Override
                                             public String getText(LotroGame game) {
-                                                return "Make " + GameUtils.getCardLink(rohanMan) + " strength +4";
+                                                return "Make " + GameUtils.getFullName(rohanMan) + " strength +4";
                                             }
                                         }, GameUtils.getOpponents(game, playerId),
                                         new PreventableEffect.PreventionCost() {

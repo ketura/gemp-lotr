@@ -44,7 +44,7 @@ public class Card6_063 extends AbstractPermanent {
                 PhysicalCard discardedOrc = discardResult.getDiscardedCard();
                 OptionalTriggerAction action = new OptionalTriggerAction(self);
                 action.setTriggerIdentifier(self.getCardId()+"-"+discardedOrc.getCardId());
-                action.setText("Stack " + GameUtils.getCardLink(discardedOrc));
+                action.setText("Stack " + GameUtils.getFullName(discardedOrc));
                 action.appendEffect(
                         new StackCardFromDiscardEffect(discardedOrc, self));
                 return Collections.singletonList(action);
