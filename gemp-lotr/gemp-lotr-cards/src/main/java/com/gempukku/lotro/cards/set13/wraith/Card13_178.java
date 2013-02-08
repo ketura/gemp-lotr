@@ -64,7 +64,7 @@ public class Card13_178 extends AbstractEvent {
                                                 new StackActionEffect(subAction) {
                                                     @Override
                                                     public String getText(LotroGame game) {
-                                                        return "Heal " + GameUtils.getCardLink(companion) + " to add a burden";
+                                                        return "Heal " + GameUtils.getFullName(companion) + " to add a burden";
                                                     }
                                                 }));
                             }

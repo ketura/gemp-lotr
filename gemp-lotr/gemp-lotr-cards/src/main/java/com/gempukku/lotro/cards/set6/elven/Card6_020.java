@@ -48,7 +48,7 @@ public class Card6_020 extends AbstractEvent {
                                     new ChooseAndHealCharactersEffect(action, playerId, 0, 2, CardType.COMPANION, cardCulture));
                             action.appendEffect(
                                     new PlayoutDecisionEffect(playerId,
-                                            new MultipleChoiceAwaitingDecision(1, "Do you wish to discard " + GameUtils.getCardLink(card), new String[]{"Yes", "No"}) {
+                                            new MultipleChoiceAwaitingDecision(1, "Do you wish to discard " + GameUtils.getFullName(card), new String[]{"Yes", "No"}) {
                                                 @Override
                                                 protected void validDecisionMade(int index, String result) {
                                                     if (result.equals("Yes"))

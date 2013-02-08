@@ -37,7 +37,7 @@ public class Card4_027 extends AbstractPermanent {
             CharacterWonSkirmishResult skirmishResult = (CharacterWonSkirmishResult) effectResult;
             PhysicalCard winner = skirmishResult.getWinner();
             OptionalTriggerAction action = new OptionalTriggerAction(self);
-            action.setText("Make " + GameUtils.getCardLink(winner) + " strength +2 and Fierce");
+            action.setText("Make " + GameUtils.getFullName(winner) + " strength +2 and Fierce");
             action.appendEffect(
                     new AddUntilStartOfPhaseModifierEffect(
                             new StrengthModifier(self, Filters.sameCard(winner), 2), Phase.REGROUP));

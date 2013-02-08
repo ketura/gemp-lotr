@@ -44,7 +44,7 @@ public class Card1_159 extends AbstractPermanent {
             CharacterWonSkirmishResult skirmishResult = ((CharacterWonSkirmishResult) effectResult);
 
             final ActivateCardAction action = new ActivateCardAction(self);
-            action.setText("Make " + GameUtils.getCardLink(skirmishResult.getWinner()) + " fierce");
+            action.setText("Make " + GameUtils.getFullName(skirmishResult.getWinner()) + " fierce");
 
             action.appendCost(new RemoveTwilightEffect(3));
             action.appendEffect(

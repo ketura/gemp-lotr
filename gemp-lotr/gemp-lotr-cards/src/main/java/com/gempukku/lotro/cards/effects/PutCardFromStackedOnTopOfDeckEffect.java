@@ -35,7 +35,7 @@ public class PutCardFromStackedOnTopOfDeckEffect extends AbstractEffect {
 
     @Override
     public String getText(LotroGame game) {
-        return "Put " + GameUtils.getCardLink(_physicalCard) + " from being stacked on top of deck";
+        return "Put " + GameUtils.getFullName(_physicalCard) + " from being stacked on top of deck";
     }
 
     @Override

@@ -23,7 +23,7 @@ public class CancelEventEffect extends AbstractEffect {
 
     @Override
     public String getText(LotroGame game) {
-        return "Cancel effect - " + GameUtils.getCardLink(_effect.getPlayedCard());
+        return "Cancel effect - " + GameUtils.getFullName(_effect.getPlayedCard());
     }
 
     @Override

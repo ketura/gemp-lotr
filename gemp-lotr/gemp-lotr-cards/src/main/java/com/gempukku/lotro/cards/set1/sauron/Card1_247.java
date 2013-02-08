@@ -36,7 +36,7 @@ public class Card1_247 extends AbstractResponseOldEvent {
             CharacterWonSkirmishResult skirmishResult = (CharacterWonSkirmishResult) effectResult;
 
             final PlayEventAction action = new PlayEventAction(self);
-            action.setText("Make " + GameUtils.getCardLink(skirmishResult.getWinner()) + " fierce");
+            action.setText("Make " + GameUtils.getFullName(skirmishResult.getWinner()) + " fierce");
             action.appendEffect(
                     new AddUntilStartOfPhaseModifierEffect(
                             new KeywordModifier(self, skirmishResult.getWinner(), Keyword.FIERCE), Phase.REGROUP));

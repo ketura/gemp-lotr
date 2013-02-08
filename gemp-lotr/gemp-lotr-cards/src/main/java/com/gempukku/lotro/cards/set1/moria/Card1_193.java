@@ -40,7 +40,7 @@ public class Card1_193 extends AbstractPermanent {
             DiscardCardsFromPlayResult discardResult = (DiscardCardsFromPlayResult) effectResult;
             final PhysicalCard discardedCard = discardResult.getDiscardedCard();
             ActivateCardAction action = new ActivateCardAction(self);
-            action.setText("Play " + GameUtils.getCardLink(discardedCard));
+            action.setText("Play " + GameUtils.getFullName(discardedCard));
             action.appendEffect(
                     new ChooseAndPlayCardFromDiscardEffect(playerId,
                             game,

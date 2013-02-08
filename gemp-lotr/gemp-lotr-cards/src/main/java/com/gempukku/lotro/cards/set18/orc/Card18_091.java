@@ -66,7 +66,7 @@ public class Card18_091 extends AbstractMinion {
                             new StackActionEffect(subAction) {
                                 @Override
                                 public String getText(LotroGame game) {
-                                    return "Add burden or exert the Ring-bearer twice to discard " + GameUtils.getCardLink(self);
+                                    return "Add burden or exert the Ring-bearer twice to discard " + GameUtils.getFullName(self);
                                 }
                             }));
             return Collections.singletonList(action);

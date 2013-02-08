@@ -40,7 +40,7 @@ public class Card17_066 extends AbstractPermanent {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             PhysicalCard discardedCard = ((DiscardCardsFromPlayResult) effectResult).getDiscardedCard();
             action.setTriggerIdentifier(self.getCardId() + "-" + discardedCard.getCardId());
-            action.setText("Stack " + GameUtils.getCardLink(discardedCard));
+            action.setText("Stack " + GameUtils.getFullName(discardedCard));
             action.appendEffect(
                     new StackCardFromDiscardEffect(discardedCard, self));
             return Collections.singletonList(action);

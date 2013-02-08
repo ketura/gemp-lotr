@@ -25,7 +25,7 @@ public class StackCardFromDiscardEffect extends AbstractEffect {
 
     @Override
     public String getText(LotroGame game) {
-        return "Stack " + GameUtils.getCardLink(_card) + " from discard on " + GameUtils.getCardLink(_stackOn);
+        return "Stack " + GameUtils.getFullName(_card) + " from discard on " + GameUtils.getFullName(_stackOn);
     }
 
     @Override

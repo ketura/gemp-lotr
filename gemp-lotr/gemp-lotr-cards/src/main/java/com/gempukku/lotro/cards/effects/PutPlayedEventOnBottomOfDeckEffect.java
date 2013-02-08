@@ -18,7 +18,7 @@ public class PutPlayedEventOnBottomOfDeckEffect extends AbstractEffect {
 
     @Override
     public String getText(LotroGame game) {
-        return "Put " + GameUtils.getCardLink(_action.getEventPlayed()) + " on bottom of your deck";
+        return "Put " + GameUtils.getFullName(_action.getEventPlayed()) + " on bottom of your deck";
     }
 
     @Override

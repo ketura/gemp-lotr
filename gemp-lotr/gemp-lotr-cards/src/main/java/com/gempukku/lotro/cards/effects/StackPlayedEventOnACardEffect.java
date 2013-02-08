@@ -20,7 +20,7 @@ public class StackPlayedEventOnACardEffect extends AbstractEffect {
 
     @Override
     public String getText(LotroGame game) {
-        return "Stack " + GameUtils.getCardLink(_action.getEventPlayed()) + " on "+GameUtils.getCardLink(_stackOn);
+        return "Stack " + GameUtils.getFullName(_action.getEventPlayed()) + " on "+GameUtils.getFullName(_stackOn);
     }
 
     @Override

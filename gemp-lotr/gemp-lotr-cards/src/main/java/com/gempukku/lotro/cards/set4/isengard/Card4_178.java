@@ -40,7 +40,7 @@ public class Card4_178 extends AbstractMinion {
         if (TriggerConditions.assignedAgainst(game, effectResult, Side.FREE_PEOPLE, Filters.and(Culture.ISENGARD, Race.MAN), Filters.or(CardType.COMPANION, CardType.ALLY))) {
             AssignAgainstResult assignmentResult = (AssignAgainstResult) effectResult;
             RequiredTriggerAction action = new RequiredTriggerAction(self);
-            action.setText("Exert " + GameUtils.getCardLink(assignmentResult.getAssignedCard()));
+            action.setText("Exert " + GameUtils.getFullName(assignmentResult.getAssignedCard()));
             action.appendEffect(
                     new ExertCharactersEffect(action, self, assignmentResult.getAssignedCard()));
             return Collections.singletonList(action);

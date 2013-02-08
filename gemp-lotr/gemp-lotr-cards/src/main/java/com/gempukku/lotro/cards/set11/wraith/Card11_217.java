@@ -60,7 +60,7 @@ public class Card11_217 extends AbstractPermanent {
                             new AddTokenEffect(self, self, Token.WRAITH) {
                                 @Override
                                 public String getText(LotroGame game) {
-                                    return "Add WRAITH token to " + GameUtils.getCardLink(self);
+                                    return "Add WRAITH token to " + GameUtils.getFullName(self);
                                 }
                             }, game.getGameState().getCurrentPlayerId(),
                             new PreventableEffect.PreventionCost() {

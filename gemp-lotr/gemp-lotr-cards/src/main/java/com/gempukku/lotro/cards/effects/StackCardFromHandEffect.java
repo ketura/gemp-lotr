@@ -31,7 +31,7 @@ public class StackCardFromHandEffect extends AbstractEffect {
 
     @Override
     public String getText(LotroGame game) {
-        return "Stack " + GameUtils.getCardLink(_card) + " from hand on " + GameUtils.getCardLink(_stackOn);
+        return "Stack " + GameUtils.getFullName(_card) + " from hand on " + GameUtils.getFullName(_stackOn);
     }
 
     @Override

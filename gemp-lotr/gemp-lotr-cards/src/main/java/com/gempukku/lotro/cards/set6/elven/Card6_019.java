@@ -48,7 +48,7 @@ public class Card6_019 extends AbstractEvent {
                         for (final PhysicalCard card : revealedCards) {
                             action.appendEffect(
                                     new PlayoutDecisionEffect(playerId,
-                                            new MultipleChoiceAwaitingDecision(1, "Choose what do you want to do with " + GameUtils.getCardLink(card), new String[]{"Discard it", "Return to top of deck", "Take into hand"}) {
+                                            new MultipleChoiceAwaitingDecision(1, "Choose what do you want to do with " + GameUtils.getFullName(card), new String[]{"Discard it", "Return to top of deck", "Take into hand"}) {
                                                 @Override
                                                 protected void validDecisionMade(int index, String result) {
                                                     if (index == 0)
