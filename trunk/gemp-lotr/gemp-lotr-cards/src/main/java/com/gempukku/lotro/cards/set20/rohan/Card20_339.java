@@ -20,7 +20,7 @@ import java.util.List;
  * Rohan	Ally • Man • Edoras
  * 4	2
  * Villager.
- * Skirmish: while you have initiaitve, you may discard a card from hand to make a [rohan] man strength + 1
+ * Skirmish: If you have initiaitve, discard a card from hand to make a [rohan] man strength +1.
  */
 public class Card20_339 extends AbstractAlly {
     public Card20_339() {
