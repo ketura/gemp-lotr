@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * 0
  * Helm's Deep Armory
- * Rohan	Possession • Support Area
+ * Rohan	Possession • Companion
  * Fortification.
  * Bearer must be a [Rohan] Man.
  * Bearer may not be overwhelmed unless his or her strength is tripled.
