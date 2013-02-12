@@ -16,12 +16,12 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
  * 3
  * Orc Skulker
  * Sauron	Minion • Orc
- * 10	3	6
+ * 9	3	6
  * While you cannot spot 3 Free Peoples cultures, characters skirmishing this minion may not use skirmish special abilities.
  */
 public class Card20_370 extends AbstractMinion {
     public Card20_370() {
-        super(3, 10, 3, 6, Race.ORC, Culture.SAURON, "Orc Skulker");
+        super(3, 9, 3, 6, Race.ORC, Culture.SAURON, "Orc Skulker");
     }
 
     @Override
