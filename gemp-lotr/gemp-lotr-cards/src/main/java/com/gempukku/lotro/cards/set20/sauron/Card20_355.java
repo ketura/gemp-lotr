@@ -4,12 +4,16 @@ import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayPermanentAction;
+import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
+import com.gempukku.lotro.cards.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.effects.AddTwilightEffect;
+import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -20,6 +24,7 @@ import java.util.List;
  * Ever Watchful
  * Sauron	Condition • Support Area
  * To play, exert a [Sauron] Orc. Each time the fellowship moves, add (1) if you cannot spot 3 Free Peoples cultures.
+ * Skirmish: Discard this condition to make a [Sauron] Orc strength +2.
  */
 public class Card20_355 extends AbstractPermanent {
     public Card20_355() {
@@ -47,6 +52,20 @@ public class Card20_355 extends AbstractPermanent {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new AddTwilightEffect(self, 1));
+            return Collections.singletonList(action);
+        }
+        return null;
+    }
+
+    @Override
+    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+        if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SKIRMISH, self, 0)
+                && PlayConditions.canSelfDiscard(self, game)) {
+            ActivateCardAction action = new ActivateCardAction(self);
+            action.appendCost(
+                    new SelfDiscardEffect(self));
+            action.appendEffect(
+                    new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, 2, Culture.SAURON, Race.ORC));
             return Collections.singletonList(action);
         }
         return null;
