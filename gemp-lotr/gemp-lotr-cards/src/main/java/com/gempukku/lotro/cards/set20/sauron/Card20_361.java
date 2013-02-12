@@ -27,7 +27,8 @@ import java.util.List;
  * •Grond, Wolf's Head
  * Sauron	Possession • Support Area
  * Regroup: Remove X threats and exert a [Sauron] minion to discard a non-character Free Peoples card that has
- * a twilight cost of X. The Free Peoples player may exert a companion of a different culture than the chosen card to prevent this.
+ * a twilight cost of X. If the Free Peoples player can spot 3 Free Peoples cultures, he or she may exert a companion
+ * of a different culture than the chosen card to prevent this.
  */
 public class Card20_361 extends AbstractPermanent {
     public Card20_361() {
@@ -51,22 +52,26 @@ public class Card20_361 extends AbstractPermanent {
                                             new ChooseActiveCardEffect(self, playerId, "Choose card to discard", Filters.not(Filters.character), Side.FREE_PEOPLE, Filters.printedTwilightCost(threats), Filters.canBeDiscarded(playerId, self)) {
                                                 @Override
                                                 protected void cardSelected(LotroGame game, final PhysicalCard cardToDiscard) {
-                                                    action.appendEffect(
-                                                            new PreventableEffect(action,
-                                                                    new DiscardCardsFromPlayEffect(playerId, self, cardToDiscard),
-                                                                    game.getGameState().getCurrentPlayerId(),
-                                                                    new PreventableEffect.PreventionCost() {
-                                                                        @Override
-                                                                        public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
-                                                                            return new ChooseAndExertCharactersEffect(action, playerId, 1, 1,
-                                                                                    CardType.COMPANION, Filters.not(cardToDiscard.getBlueprint().getCulture())) {
-                                                                                @Override
-                                                                                public String getText(LotroGame game) {
-                                                                                    return "Exert a companion of a different culture";
-                                                                                }
-                                                                            };
-                                                                        }
-                                                                    }));
+                                                    if (PlayConditions.canSpotFPCultures(game, 3, game.getGameState().getCurrentPlayerId()))
+                                                        action.appendEffect(
+                                                                new PreventableEffect(action,
+                                                                        new DiscardCardsFromPlayEffect(playerId, self, cardToDiscard),
+                                                                        game.getGameState().getCurrentPlayerId(),
+                                                                        new PreventableEffect.PreventionCost() {
+                                                                            @Override
+                                                                            public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
+                                                                                return new ChooseAndExertCharactersEffect(action, playerId, 1, 1,
+                                                                                        CardType.COMPANION, Filters.not(cardToDiscard.getBlueprint().getCulture())) {
+                                                                                    @Override
+                                                                                    public String getText(LotroGame game) {
+                                                                                        return "Exert a companion of a different culture";
+                                                                                    }
+                                                                                };
+                                                                            }
+                                                                        }));
+                                                    else
+                                                        action.appendEffect(
+                                                                new DiscardCardsFromPlayEffect(playerId, self, cardToDiscard));
                                                 }
                                             });
                                 }
