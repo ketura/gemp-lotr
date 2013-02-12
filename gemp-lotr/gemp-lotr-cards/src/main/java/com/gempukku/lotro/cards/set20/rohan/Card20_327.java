@@ -18,15 +18,15 @@ import java.util.List;
 /**
  * 2
  * •Gamling, Warrior of the Mark
- * Companion • Man
- * 6	3	5
+ * Rohan	Companion • Man
+ * 6	3	7
  * Valiant.
  * While you can spot 3 Valiant men, Gamling is strength +2.
  * While you can spot 3 mounted men, Gamling is damage +1.
  */
 public class Card20_327 extends AbstractCompanion {
     public Card20_327() {
-        super(2, 6, 3, 5, Culture.ROHAN, Race.MAN, null, "Gamling", "Warrior of the Mark", true);
+        super(2, 6, 3, 7, Culture.ROHAN, Race.MAN, null, "Gamling", "Warrior of the Mark", true);
         addKeyword(Keyword.VALIANT);
     }
 
