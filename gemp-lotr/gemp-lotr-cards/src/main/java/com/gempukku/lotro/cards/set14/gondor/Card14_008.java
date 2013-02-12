@@ -36,7 +36,7 @@ public class Card14_008 extends AbstractCompanion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new KeywordModifier(self, self, new SpotCondition(PossessionClass.MOUNT), Keyword.DAMAGE, 1);
     }
 

@@ -261,7 +261,7 @@ public class TimingAtTest extends AbstractAtTest {
         PhysicalCardImpl moveFromSite = new PhysicalCardImpl(100, "0_1234", P1,
                 new AbstractSite("Blah", Block.FELLOWSHIP, 1, 0, LotroCardBlueprint.Direction.LEFT) {
                     @Override
-                    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+                    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
                         return new SpecialFlagModifier(self, ModifierFlag.RING_TEXT_INACTIVE);
                     }
                 });
@@ -269,7 +269,7 @@ public class TimingAtTest extends AbstractAtTest {
         PhysicalCardImpl moveToSite = new PhysicalCardImpl(100, "0_1235", P1,
                 new AbstractSite("Blah", Block.FELLOWSHIP, 2, 0, LotroCardBlueprint.Direction.LEFT) {
                     @Override
-                    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+                    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
                         return new SpecialFlagModifier(self, ModifierFlag.CANT_PREVENT_WOUNDS);
                     }
                 });

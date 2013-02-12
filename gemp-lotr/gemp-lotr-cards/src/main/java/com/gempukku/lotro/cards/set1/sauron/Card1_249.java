@@ -34,7 +34,7 @@ public class Card1_249 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new StrengthModifier(self,
                 Filters.and(
                         Culture.SAURON,

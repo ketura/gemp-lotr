@@ -34,7 +34,7 @@ public class Card2_025 extends AbstractAlly {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new TwilightCostModifier(self,
                 Filters.and(
                         Filters.owner(self.getOwner()),

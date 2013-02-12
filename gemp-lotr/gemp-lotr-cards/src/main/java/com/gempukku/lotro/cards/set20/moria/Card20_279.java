@@ -31,7 +31,7 @@ public class Card20_279 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new StrengthModifier(self, Filters.and(Culture.MORIA, CardType.MINION, Filters.unique), 1);
     }
 

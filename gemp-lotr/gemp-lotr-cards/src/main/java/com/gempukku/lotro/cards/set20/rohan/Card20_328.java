@@ -36,7 +36,7 @@ public class Card20_328 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new StrengthModifier(self, Filters.and(CardType.MINION, Filters.inSkirmishAgainst(Filters.unboundCompanion)), -2);
     }
 

@@ -37,7 +37,7 @@ public class Card12_041 extends AbstractAttachable {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new CantHealModifier(self, new SpotCondition(Culture.GOLLUM, Filters.or(Filters.character, Filters.and(Zone.SUPPORT, Filters.owner(self.getOwner())))), Filters.hasAttached(self));
     }
 }

@@ -43,7 +43,7 @@ public class Card17_035 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new MinionSiteNumberModifier(self, Filters.hasAttached(self), null, 3);
     }
 

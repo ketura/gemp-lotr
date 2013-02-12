@@ -45,7 +45,7 @@ public class Card20_315 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new CantTakeMoreThanXWoundsModifier(self, Phase.SKIRMISH, 1, Culture.ROHAN, Race.MAN);
     }
 

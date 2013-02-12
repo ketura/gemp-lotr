@@ -41,6 +41,8 @@ public interface ActionsEnvironment {
 
     public List<PhysicalCard> getPlayedCardsInCurrentPhase();
 
+    public List<PhysicalCard> getPlayedCardsInCurrentTurn();
+
     public boolean hasWonSkirmishThisTurn(LotroGame game, Filterable... filters);
 
     public boolean hasLostSkirmishThisTurn(LotroGame game, Filterable... filters);

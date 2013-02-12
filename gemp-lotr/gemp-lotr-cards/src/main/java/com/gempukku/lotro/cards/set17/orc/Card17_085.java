@@ -36,7 +36,7 @@ public class Card17_085 extends AbstractMinion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new TwilightCostModifier(self, Filters.and(Culture.ORC, PossessionClass.MOUNT), -1);
     }
 

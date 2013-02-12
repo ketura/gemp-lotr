@@ -34,7 +34,7 @@ public class Card15_180 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new StrengthModifier(self, Filters.and(Culture.URUK_HAI, CardType.MINION, Keyword.HUNTER, Filters.unwounded), 1);
     }
 

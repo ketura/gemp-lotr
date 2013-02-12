@@ -34,7 +34,7 @@ public class Card17_097 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new RemoveKeywordModifier(self,
                 Filters.and(CardType.MINION, Filters.inSkirmishAgainst(Culture.ROHAN, CardType.COMPANION)),
                 new SpotCondition(Filters.ringBearer, Filters.assignedToSkirmish), Keyword.HUNTER);

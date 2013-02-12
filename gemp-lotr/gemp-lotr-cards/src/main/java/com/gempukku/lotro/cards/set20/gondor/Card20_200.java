@@ -28,7 +28,7 @@ public class Card20_200 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new ArcheryTotalModifier(self, Side.SHADOW,
                 new LocationCondition(Filters.owner(self.getOwner())), -2);
     }

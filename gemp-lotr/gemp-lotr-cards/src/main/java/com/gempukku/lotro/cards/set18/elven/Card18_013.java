@@ -44,7 +44,7 @@ public class Card18_013 extends AbstractCompanion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new CancelStrengthBonusTargetModifier(self, Filters.and(CardType.MINION, Filters.inSkirmishAgainst(self)), CardType.POSSESSION);
     }
 

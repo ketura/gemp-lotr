@@ -52,7 +52,7 @@ public class Card15_177 extends AbstractMinion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new CantTakeWoundsModifier(self,
                 new AndCondition(
                         new SpotCondition(Filters.siteControlled(self.getOwner())),

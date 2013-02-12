@@ -41,7 +41,7 @@ public class Card17_116 extends AbstractMinion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new ResistanceModifier(self, CardType.COMPANION,
                 new Condition() {
                     @Override

@@ -90,7 +90,7 @@ public abstract class AbstractAttachableFPPossession extends AbstractAttachable 
     }
 
     @Override
-    public final Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public final Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         throw new UnsupportedOperationException("This should not be called");
     }
 

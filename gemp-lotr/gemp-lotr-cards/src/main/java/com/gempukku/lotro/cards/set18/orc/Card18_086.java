@@ -32,7 +32,7 @@ public class Card18_086 extends AbstractMinion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new ArcheryTotalModifier(self, Side.SHADOW, null, new CountActiveEvaluator(CardType.COMPANION, Keyword.HUNTER));
     }
 }

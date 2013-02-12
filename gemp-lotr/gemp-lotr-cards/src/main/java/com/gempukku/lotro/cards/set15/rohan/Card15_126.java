@@ -37,7 +37,7 @@ public class Card15_126 extends AbstractCompanion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new StrengthModifier(self, self, new SpotCondition(3, Keyword.HUNTER), 3);
     }
 }

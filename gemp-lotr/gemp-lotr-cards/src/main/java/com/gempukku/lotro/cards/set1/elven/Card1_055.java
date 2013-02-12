@@ -72,7 +72,7 @@ public class Card1_055 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new StrengthModifier(self, Filters.and(CardType.ALLY, Filters.isAllyHome(6, Block.FELLOWSHIP)), 1);
     }
 

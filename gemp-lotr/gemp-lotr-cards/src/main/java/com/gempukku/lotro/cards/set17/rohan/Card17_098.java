@@ -41,7 +41,7 @@ public class Card17_098 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new CantBeAssignedToSkirmishModifier(self, Filters.or(Filters.saruman, Filters.name("Grima")));
     }
 

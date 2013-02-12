@@ -37,7 +37,7 @@ public class Card13_095 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new StrengthModifier(self, Filters.hasAttached(self), null, new CountActiveEvaluator(Filters.not(Filters.hasAttached(self)), Culture.MEN, CardType.MINION));
     }
 

@@ -38,7 +38,7 @@ public class Card15_070 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new CantTakeWoundsFromLosingSkirmishModifier(self,
                 Filters.and(Filters.character, Filters.inSkirmishAgainst(Filters.hasAttached(self))), Filters.hasAttached(self));
     }

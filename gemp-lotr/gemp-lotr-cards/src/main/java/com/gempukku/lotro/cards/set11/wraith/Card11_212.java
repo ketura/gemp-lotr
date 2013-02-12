@@ -32,7 +32,7 @@ public class Card11_212 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new StrengthModifier(self, Filters.and(Culture.WRAITH, CardType.MINION, Filters.inSkirmishAgainst(Filters.hasAttached(self))), null, new CountActiveEvaluator(CardType.SITE, Keyword.FOREST));
     }
 

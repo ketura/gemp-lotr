@@ -39,7 +39,7 @@ public class Card17_037 extends AbstractMinion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new CantBeAssignedToSkirmishModifier(self,
                 new Condition() {
                     @Override

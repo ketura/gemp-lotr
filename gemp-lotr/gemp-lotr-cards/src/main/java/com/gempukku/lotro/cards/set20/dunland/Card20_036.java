@@ -36,7 +36,7 @@ public class Card20_036 extends AbstractAttachable {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new CantBeLiberatedModifier(self, Side.FREE_PEOPLE, new SpotCondition(Culture.DUNLAND, Race.MAN), Filters.hasAttached(self));
     }
 }

@@ -32,7 +32,7 @@ public class Card12_145 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new KeywordModifier(self, Filters.and(Culture.URUK_HAI, CardType.MINION), new SpotCondition(6, CardType.COMPANION), Keyword.DAMAGE, 1);
     }
 

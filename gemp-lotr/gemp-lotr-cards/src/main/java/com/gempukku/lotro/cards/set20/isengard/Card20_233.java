@@ -32,7 +32,7 @@ public class Card20_233 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new KeywordModifier(self, Filters.and(CardType.SITE, Zone.ADVENTURE_PATH),
                 new InitiativeCondition(Side.SHADOW), Keyword.BATTLEGROUND, 1);
     }

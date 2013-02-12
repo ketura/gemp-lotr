@@ -31,7 +31,7 @@ public class Card12_181 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new StrengthModifier(self, Race.NAZGUL, new SpotCondition(6, CardType.COMPANION), 3);
     }
 

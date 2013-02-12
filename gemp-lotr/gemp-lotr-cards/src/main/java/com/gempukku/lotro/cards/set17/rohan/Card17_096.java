@@ -38,7 +38,7 @@ public class Card17_096 extends AbstractCompanion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new CantTakeWoundsModifier(self,
                 new AndCondition(
                         new SpotCondition(Filters.ringBearer, Filters.assignedToSkirmish),

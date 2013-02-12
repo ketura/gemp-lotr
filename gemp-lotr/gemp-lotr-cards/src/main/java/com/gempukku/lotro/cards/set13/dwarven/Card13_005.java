@@ -37,7 +37,7 @@ public class Card13_005 extends AbstractCompanion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new StrengthModifier(self, self, null, new CountActiveEvaluator(CardType.MINION, Filters.assignedToSkirmish));
     }
 

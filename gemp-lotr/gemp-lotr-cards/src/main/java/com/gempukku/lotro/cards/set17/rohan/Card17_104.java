@@ -40,7 +40,7 @@ public class Card17_104 extends AbstractCompanion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new CantBeTransferredModifier(self, Filters.and(CardType.POSSESSION, Filters.attachedTo(self)));
     }
 

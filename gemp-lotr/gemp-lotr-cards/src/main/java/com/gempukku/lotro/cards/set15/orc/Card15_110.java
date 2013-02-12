@@ -46,7 +46,7 @@ public class Card15_110 extends AbstractMinion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new KeywordModifier(self, self, new SpotCondition(2, Filters.not(self), Culture.ORC, CardType.MINION), Keyword.FIERCE, 1);
     }
 }

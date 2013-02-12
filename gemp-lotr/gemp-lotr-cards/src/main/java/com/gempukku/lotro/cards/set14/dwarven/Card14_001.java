@@ -37,7 +37,7 @@ public class Card14_001 extends AbstractCompanion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new TwilightCostModifier(self,
                 Filters.and(Filters.owner(self.getOwner()), Filters.not(self),
                         Filters.or(Race.DWARF, Filters.and(Culture.GANDALF, Race.MAN))), -1);

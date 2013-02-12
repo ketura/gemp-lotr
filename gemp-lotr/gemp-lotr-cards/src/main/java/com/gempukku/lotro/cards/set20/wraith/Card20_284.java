@@ -28,7 +28,7 @@ public class Card20_284 extends AbstractAttachable  {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new CantTakeWoundsModifier(self,
                 new GameHasCondition(Filters.ringBearer, Filters.maxResistance(6)), Filters.witchKing);
     }

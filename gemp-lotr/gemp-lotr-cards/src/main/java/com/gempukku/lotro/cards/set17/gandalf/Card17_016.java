@@ -34,7 +34,7 @@ public class Card17_016 extends AbstractCompanion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new StrengthModifier(self, self, null, new CountActiveEvaluator(Zone.ATTACHED, Culture.GANDALF, CardType.FOLLOWER));
     }
 

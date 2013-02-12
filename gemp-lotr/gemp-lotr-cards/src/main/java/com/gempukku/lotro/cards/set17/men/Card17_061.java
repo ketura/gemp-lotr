@@ -39,7 +39,7 @@ public class Card17_061 extends AbstractMinion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new StrengthModifier(self, self, new SpotCondition(CardType.POSSESSION, Filters.attachedTo(self)),
                 new MultiplyEvaluator(2, new CountCulturesEvaluator(Side.FREE_PEOPLE)));
     }

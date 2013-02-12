@@ -33,7 +33,7 @@ public class Card15_076 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new RemoveGameTextModifier(self, Filters.and(CardType.SITE, Zone.ADVENTURE_PATH, Filters.name((String) self.getWhileInZoneData())));
     }
 

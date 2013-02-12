@@ -33,7 +33,7 @@ public class Card2_021 extends AbstractAlly {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new OpponentsCantLookOrRevealCardsFromHand(self, self.getOwner());
     }
 }

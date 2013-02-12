@@ -38,7 +38,7 @@ public class Card15_091 extends AbstractMinion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new KeywordModifier(self, self, new SpotCondition(Keyword.HUNTER), Keyword.HUNTER, 1);
     }
 
