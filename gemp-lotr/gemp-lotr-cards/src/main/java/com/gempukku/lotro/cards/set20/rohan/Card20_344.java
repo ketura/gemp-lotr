@@ -15,13 +15,13 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
  * 3
  * •Theoden, Keeper of the Golden Hall
  * Rohan	Companion • Man
- * 7	3	5
+ * 7	3	6
  * Valiant.
  * While Theoden is mounted, an opponent may not use skirmish special abilities during skirmishes involving Theoden.
  */
 public class Card20_344 extends AbstractCompanion {
     public Card20_344() {
-        super(3, 7, 3, 5, Culture.ROHAN, Race.MAN, null, Names.theoden, "Keeper of the Golden Hall", true);
+        super(3, 7, 3, 6, Culture.ROHAN, Race.MAN, null, Names.theoden, "Keeper of the Golden Hall", true);
         addKeyword(Keyword.VALIANT);
     }
 
