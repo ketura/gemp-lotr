@@ -15,12 +15,12 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
  * 3
  * Orc Ravager
  * Sauron	Minion • Orc
- * 10	3	6
+ * 9	3	6
  * While you cannot spot 3 Free Peoples cultures, this minion is damage +1.
  */
 public class Card20_367 extends AbstractMinion {
     public Card20_367() {
-        super(3, 10, 3, 6, Race.ORC, Culture.SAURON, "Orc Ravager");
+        super(3, 9, 3, 6, Race.ORC, Culture.SAURON, "Orc Ravager");
     }
 
     @Override
