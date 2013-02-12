@@ -13,7 +13,7 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 
 /**
- * 3
+ * 4
  * Orc Brute
  * Sauron	Minion • Orc
  * 10	3	6
@@ -21,7 +21,7 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
  */
 public class Card20_364 extends AbstractMinion {
     public Card20_364() {
-        super(3, 10, 3, 6, Race.ORC, Culture.SAURON, "Orc Brute");
+        super(4, 10, 3, 6, Race.ORC, Culture.SAURON, "Orc Brute");
     }
 
     @Override
