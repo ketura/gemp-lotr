@@ -17,15 +17,15 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * 4
+ * 3
  * Orc Savage
  * Sauron	Minion • Orc
- * 10	3	6
+ * 9	3	6
  * Each time this minion wins a skirmish, you may remove a threat to wound an unbound companion.
  */
 public class Card20_369 extends AbstractMinion {
     public Card20_369() {
-        super(4, 10, 3, 6, Race.ORC, Culture.SAURON, "Orc Savage");
+        super(3, 9, 3, 6, Race.ORC, Culture.SAURON, "Orc Savage");
     }
 
     @Override
