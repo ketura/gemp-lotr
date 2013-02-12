@@ -14,12 +14,12 @@ import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
  * 3
  * •Eomer, Eored Captain
  * Rohan	Companion • Man
- * 7	3	5
+ * 7	3	7
  * Valiant. Eomer is strength +2 for each wound on each minion he is skirmishing.
  */
 public class Card20_316 extends AbstractCompanion{
     public Card20_316() {
-        super(3, 7, 3, 5, Culture.ROHAN, Race.MAN, null, Names.eomer, "Eored Captain", true);
+        super(3, 7, 3, 7, Culture.ROHAN, Race.MAN, null, Names.eomer, "Eored Captain", true);
         addKeyword(Keyword.VALIANT);
     }
 
