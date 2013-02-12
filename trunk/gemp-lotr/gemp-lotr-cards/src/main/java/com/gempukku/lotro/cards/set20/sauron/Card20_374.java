@@ -18,7 +18,7 @@ import com.gempukku.lotro.logic.effects.AddThreatsEffect;
  * 2
  * Shadow in the East
  * Sauron	Event • Maneuver
- * Spot a [Sauron] minion to add a threat for each Free Peoples culture under 5 that you can spot.
+ * Spot a [Sauron] minion to add a threat for each Free Peoples culture less than 4 that you can spot.
  */
 public class Card20_374 extends AbstractEvent {
     public Card20_374() {
@@ -35,7 +35,7 @@ public class Card20_374 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
-                new AddThreatsEffect(playerId, self, new AddEvaluator(5, new MultiplyEvaluator(-1, new CountFPCulturesEvaluator(self.getOwner())))));
+                new AddThreatsEffect(playerId, self, new AddEvaluator(4, new MultiplyEvaluator(-1, new CountFPCulturesEvaluator(self.getOwner())))));
         return action;
     }
 }
