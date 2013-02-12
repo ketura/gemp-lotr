@@ -35,7 +35,7 @@ public class Card20_158 extends AbstractAttachableFPPossession {
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.startOfPhase(game, effectResult, Phase.FELLOWSHIP)
                 && PlayConditions.canDiscardFromPlay(self, game, CardType.POSSESSION, Keyword.PIPEWEED)
-                && PlayConditions.canSpot(game, 2, Filters.not(self), PossessionClass.PIPE)) {
+                && PlayConditions.canSpot(game, 2, PossessionClass.PIPE)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(
                     new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, CardType.POSSESSION, Keyword.PIPEWEED));

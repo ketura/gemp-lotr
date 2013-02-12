@@ -59,15 +59,11 @@ public class Filters {
     }
 
     public static boolean canSpot(GameState gameState, ModifiersQuerying modifiersQuerying, Filterable... filters) {
-        Filter filter = Filters.and(filters);
-        SpotFilterCardInPlayVisitor visitor = new SpotFilterCardInPlayVisitor(gameState, modifiersQuerying, filter);
-        return gameState.iterateActiveCards(visitor);
+        return canSpot(gameState, modifiersQuerying, 1, filters);
     }
 
     public static boolean canSpot(GameState gameState, ModifiersQuerying modifiersQuerying, int count, Filterable... filters) {
-        Filter filter = Filters.and(filters);
-        SpotCountFilterCardInPlayVisitor visitor = new SpotCountFilterCardInPlayVisitor(gameState, modifiersQuerying, count, filter);
-        return gameState.iterateActiveCards(visitor);
+        return countSpottable(gameState, modifiersQuerying, filters)>=count;
     }
 
     public static Collection<PhysicalCard> filterActive(GameState gameState, ModifiersQuerying modifiersQuerying, Filterable... filters) {
@@ -87,7 +83,7 @@ public class Filters {
     }
 
     public static PhysicalCard findFirstActive(GameState gameState, ModifiersQuerying modifiersQuerying, Filterable... filters) {
-        SpotFilterCardInPlayVisitor visitor = new SpotFilterCardInPlayVisitor(gameState, modifiersQuerying, Filters.and(filters));
+        FindFirstActiveCardInPlayVisitor visitor = new FindFirstActiveCardInPlayVisitor(gameState, modifiersQuerying, Filters.and(filters));
         gameState.iterateActiveCards(visitor);
         return visitor.getCard();
     }
@@ -95,7 +91,10 @@ public class Filters {
     public static int countSpottable(GameState gameState, ModifiersQuerying modifiersQuerying, Filterable... filters) {
         GetCardsMatchingFilterVisitor matchingFilterVisitor = new GetCardsMatchingFilterVisitor(gameState, modifiersQuerying, Filters.and(filters, Filters.spottable));
         gameState.iterateActiveCards(matchingFilterVisitor);
-        return matchingFilterVisitor.getCounter();
+        int result = matchingFilterVisitor.getCounter();
+        if (filters.length==1)
+            result+=modifiersQuerying.getSpotBonus(gameState, filters[0]);
+        return result;
     }
 
     public static int countActive(GameState gameState, ModifiersQuerying modifiersQuerying, Filterable... filters) {
@@ -165,6 +164,15 @@ public class Filters {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
                 return modifiersQuerying.getStrength(gameState, physicalCard) == evaluator.evaluateExpression(gameState, modifiersQuerying, null);
+            }
+        };
+    }
+
+    public static Filter moreStrangthThan(final int strength) {
+        return new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                return modifiersQuerying.getStrength(gameState, physicalCard) > strength;
             }
         };
     }
@@ -947,13 +955,13 @@ public class Filters {
         }
     };
 
-    private static class SpotFilterCardInPlayVisitor implements PhysicalCardVisitor {
+    private static class FindFirstActiveCardInPlayVisitor implements PhysicalCardVisitor {
         private GameState _gameState;
         private ModifiersQuerying _modifiersQuerying;
         private Filter _filter;
         private PhysicalCard _card;
 
-        private SpotFilterCardInPlayVisitor(GameState gameState, ModifiersQuerying modifiersQuerying, Filter filter) {
+        private FindFirstActiveCardInPlayVisitor(GameState gameState, ModifiersQuerying modifiersQuerying, Filter filter) {
             _gameState = gameState;
             _modifiersQuerying = modifiersQuerying;
             _filter = filter;
@@ -970,31 +978,6 @@ public class Filters {
 
         public PhysicalCard getCard() {
             return _card;
-        }
-    }
-
-    private static class SpotCountFilterCardInPlayVisitor implements PhysicalCardVisitor {
-        private GameState _gameState;
-        private ModifiersQuerying _modifiersQuerying;
-        private Filter _filter;
-        private int _spottedCount;
-        private int _searchingToSpot;
-
-        private SpotCountFilterCardInPlayVisitor(GameState gameState, ModifiersQuerying modifiersQuerying, int count, Filter filter) {
-            _gameState = gameState;
-            _modifiersQuerying = modifiersQuerying;
-            _searchingToSpot = count;
-            _filter = Filters.and(filter, Filters.spottable);
-        }
-
-        @Override
-        public boolean visitPhysicalCard(PhysicalCard physicalCard) {
-            if (_filter.accepts(_gameState, _modifiersQuerying, physicalCard)) {
-                _spottedCount++;
-                if (_spottedCount >= _searchingToSpot)
-                    return true;
-            }
-            return false;
         }
     }
 

@@ -2,7 +2,6 @@ package com.gempukku.lotro.cards.effects;
 
 import com.gempukku.lotro.cards.decisions.ForEachYouSpotDecision;
 import com.gempukku.lotro.common.Filterable;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.timing.AbstractSuccessfulEffect;
@@ -30,7 +29,7 @@ public abstract class ForEachYouSpotEffect extends AbstractSuccessfulEffect {
     @Override
     public void playEffect(LotroGame game) {
         game.getUserFeedback().sendAwaitingDecision(_playerId,
-                new ForEachYouSpotDecision(1, "Choose how many you wish to spot", game, Filters.and(_filters), Integer.MAX_VALUE) {
+                new ForEachYouSpotDecision(1, "Choose how many you wish to spot", game, Integer.MAX_VALUE, _filters) {
                     @Override
                     public void decisionMade(String result) throws DecisionResultInvalidException {
                         spottedCards(getValidatedResult(result));

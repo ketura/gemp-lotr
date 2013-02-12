@@ -34,7 +34,7 @@ public class Card1_215 extends AbstractOldEvent {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new PlayoutDecisionEffect(playerId,
-                        new ForEachYouSpotDecision(1, "Choose how many Nazgul you want to spot", game, Race.NAZGUL, Integer.MAX_VALUE) {
+                        new ForEachYouSpotDecision(1, "Choose how many Nazgul you want to spot", game, Integer.MAX_VALUE, Race.NAZGUL) {
                             @Override
                             public void decisionMade(String result) throws DecisionResultInvalidException {
                                 int spotCount = getValidatedResult(result);

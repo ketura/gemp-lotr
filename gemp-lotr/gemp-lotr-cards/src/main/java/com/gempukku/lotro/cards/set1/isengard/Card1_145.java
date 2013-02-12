@@ -46,7 +46,7 @@ public class Card1_145 extends AbstractMinion {
             action.appendCost(new RemoveTwilightEffect(2));
             action.appendEffect(
                     new PlayoutDecisionEffect(playerId,
-                            new ForEachYouSpotDecision(1, "Choose number of minions you wish to spot", game, Filters.and(Race.URUK_HAI, Filters.not(self)), Integer.MAX_VALUE) {
+                            new ForEachYouSpotDecision(1, "Choose number of minions you wish to spot", game, Integer.MAX_VALUE, Filters.and(Race.URUK_HAI, Filters.not(self))) {
                                 @Override
                                 public void decisionMade(String result) throws DecisionResultInvalidException {
                                     int spotCount = getValidatedResult(result);
