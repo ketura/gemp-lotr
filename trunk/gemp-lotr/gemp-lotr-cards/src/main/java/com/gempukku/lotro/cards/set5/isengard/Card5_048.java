@@ -31,7 +31,7 @@ public class Card5_048 extends AbstractEvent {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new PlayoutDecisionEffect(playerId,
-                        new ForEachYouSpotDecision(1, "Choose number of Uruk-hai you wish to spot?", game, Race.URUK_HAI, Integer.MAX_VALUE) {
+                        new ForEachYouSpotDecision(1, "Choose number of Uruk-hai you wish to spot?", game, Integer.MAX_VALUE, Race.URUK_HAI) {
                             @Override
                             public void decisionMade(String result) throws DecisionResultInvalidException {
                                 int count = getValidatedResult(result);

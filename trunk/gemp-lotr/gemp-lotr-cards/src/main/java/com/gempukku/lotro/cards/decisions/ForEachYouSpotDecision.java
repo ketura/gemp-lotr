@@ -10,22 +10,23 @@ import java.util.Map;
 
 public abstract class ForEachYouSpotDecision extends IntegerAwaitingDecision {
     private LotroGame _lotroGame;
-    private Filterable _filter;
+    private Filterable[] _filters;
     private int _defaultValue;
     private int _max;
 
-    protected ForEachYouSpotDecision(int id, String text, LotroGame lotroGame, Filterable filter, int defaultValue) {
+    protected ForEachYouSpotDecision(int id, String text, LotroGame lotroGame, int defaultValue, Filterable... filter) {
         super(id, text, 0);
         _lotroGame = lotroGame;
-        _filter = filter;
+        _filters = filter;
         _defaultValue = defaultValue;
     }
 
     @Override
     public Map<String, Object> getDecisionParameters() {
         Map<String, Object> result = super.getDecisionParameters();
-        int count = Filters.countActive(_lotroGame.getGameState(), _lotroGame.getModifiersQuerying(), _filter);
-        count += _lotroGame.getModifiersQuerying().getSpotBonus(_lotroGame.getGameState(), _filter);
+        int count = Filters.countActive(_lotroGame.getGameState(), _lotroGame.getModifiersQuerying(), _filters);
+        if (_filters.length == 1)
+            count += _lotroGame.getModifiersQuerying().getSpotBonus(_lotroGame.getGameState(), _filters[0]);
         _max = count;
         result.put("max", String.valueOf(count));
         if (_defaultValue > _max)
