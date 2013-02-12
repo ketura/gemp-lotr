@@ -19,7 +19,7 @@ import java.util.List;
  * 2
  * Despairing Shadow
  * Sauron	Condition • Support Area
- * If you can spot 5 burdens, 0 Free Peoples cultures and a [Sauron] minion, the Ring-bearer is corrupted.
+ * If you can spot 5 burdens, no Free Peoples cultures and a [Sauron] minion, the Ring-bearer is corrupted.
  */
 public class Card20_354 extends AbstractPermanent {
     public Card20_354() {
