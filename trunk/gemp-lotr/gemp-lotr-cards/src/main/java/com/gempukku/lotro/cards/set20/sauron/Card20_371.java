@@ -12,7 +12,7 @@ import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 
 /**
- * 3
+ * 4
  * Orc Stalker
  * Sauron	Minion • Orc
  * 10	3	6
@@ -20,7 +20,7 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
  */
 public class Card20_371 extends AbstractMinion {
     public Card20_371() {
-        super(3, 10, 3, 6, Race.ORC, Culture.SAURON, "Orc Stalker");
+        super(4, 10, 3, 6, Race.ORC, Culture.SAURON, "Orc Stalker");
     }
 
     @Override
