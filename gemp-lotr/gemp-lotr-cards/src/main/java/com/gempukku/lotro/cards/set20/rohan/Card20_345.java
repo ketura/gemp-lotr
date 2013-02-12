@@ -14,12 +14,12 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
  * 3
  * •Theoden, Renewed in Spirit
  * Rohan	Companion • Man
- * 7	3	5
+ * 7	3	6
  * While you can spot Gandalf, Theoden is strength +2.
  */
 public class Card20_345 extends AbstractCompanion {
     public Card20_345() {
-        super(3, 7, 3, 5, Culture.ROHAN, Race.MAN, null, Names.theoden, "Renewed in Spirit", true);
+        super(3, 7, 3, 6, Culture.ROHAN, Race.MAN, null, Names.theoden, "Renewed in Spirit", true);
     }
 
     @Override
