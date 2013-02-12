@@ -21,13 +21,14 @@ import java.util.List;
  * Vicious Olog-hai
  * Sauron	Minion • Troll
  * 15	4	6
- * Fierce.
+ * Fierce. Damage +1.
  * Regroup: Exert this minion to add a threat.
  */
 public class Card20_379 extends AbstractMinion {
     public Card20_379() {
         super(8, 15, 4, 6, Race.TROLL, Culture.SAURON, "Vicious Olog-hai");
         addKeyword(Keyword.FIERCE);
+        addKeyword(Keyword.DAMAGE, 1);
     }
 
     @Override
