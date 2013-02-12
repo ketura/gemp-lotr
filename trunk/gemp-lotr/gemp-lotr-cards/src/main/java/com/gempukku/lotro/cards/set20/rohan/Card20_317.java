@@ -22,13 +22,13 @@ import java.util.List;
  * 3
  * •Eomer, Rohirrim Marshal
  * Rohan	Companion • Man
- * 7	3	5
+ * 7	3	7
  * While you can spot a [Rohan] man, Eomer's twilight cost is - 1.
  * Each time Eomer wins a skirmish, you may play a [Rohan] mount from your draw deck.
  */
 public class Card20_317 extends AbstractCompanion {
     public Card20_317() {
-        super(3, 7, 3, 5, Culture.ROHAN, Race.MAN, null, Names.eomer, "Rohirrim Marshal", true);
+        super(3, 7, 3, 7, Culture.ROHAN, Race.MAN, null, Names.eomer, "Rohirrim Marshal", true);
     }
 
     @Override
