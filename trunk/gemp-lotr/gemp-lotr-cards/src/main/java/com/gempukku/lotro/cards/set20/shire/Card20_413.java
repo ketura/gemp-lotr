@@ -36,6 +36,6 @@ public class Card20_413 extends AbstractAttachableFPPossession {
     protected List<? extends Modifier> getNonBasicStatsModifiers(PhysicalCard self) {
         return Collections.singletonList(
                 new StrengthModifier(self, Filters.and(Filters.hasAttached(self),
-                        Filters.inSkirmishAgainst(CardType.MINION, Filters.lessStrengthThan(9))), 2);
+                        Filters.inSkirmishAgainst(CardType.MINION, Filters.lessStrengthThan(9))), 2));
     }
 }
