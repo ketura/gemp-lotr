@@ -31,7 +31,7 @@ public class Card20_123 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new ArcheryTotalModifier(self, Side.FREE_PEOPLE, new SpotCondition(Keyword.EASTERLING), -1);
     }
 

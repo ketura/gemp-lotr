@@ -35,7 +35,7 @@ public class Card19_006 extends AbstractCompanion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new StrengthModifier(self, Filters.and(CardType.MINION, Filters.inSkirmishAgainst(self)), new SpotCondition(2, Culture.ELVEN, CardType.FOLLOWER), -2);
     }
 

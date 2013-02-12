@@ -35,7 +35,7 @@ public class Card15_087 extends AbstractMinion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new StrengthModifier(self, Filters.and(self, Filters.canSpotCompanionWithStrengthAtLeast(12)), 5);
     }
 

@@ -32,7 +32,7 @@ public class Card18_121 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new CantTakeWoundsModifier(self,
                 new PhaseCondition(Phase.ARCHERY),
                 Filters.and(Culture.URUK_HAI, CardType.MINION, Filters.hasAttached(PossessionClass.HAND_WEAPON)));

@@ -7,6 +7,7 @@ import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 
 /**
@@ -27,7 +28,7 @@ public class Card1_143 extends AbstractMinion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(final PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, final PhysicalCard self) {
         return new CancelStrengthBonusTargetModifier(self, Filters.inSkirmishAgainst(self), Filters.weapon);
     }
 }

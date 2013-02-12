@@ -39,7 +39,7 @@ public class Card20_294 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new ResistanceModifier(self, Filters.and(CardType.COMPANION, Filters.not(Filters.ringBearer)),
                 new MultiplyEvaluator(-1, new CountSpottableEvaluator(Keyword.TWILIGHT)));
     }

@@ -44,7 +44,7 @@ public class Card12_169 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new RemoveSpecialAbilitiesModifier(self, Filters.hasAttached(self));
     }
 }

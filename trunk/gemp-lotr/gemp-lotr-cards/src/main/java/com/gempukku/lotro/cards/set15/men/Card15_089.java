@@ -32,7 +32,7 @@ public class Card15_089 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new CantReplaceSiteByFPPlayerModifier(self, new SpotCondition(Culture.MEN, Race.MAN), Filters.siteInCurrentRegion);
     }
 

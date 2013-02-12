@@ -47,7 +47,7 @@ public class Card15_049 extends AbstractCompanion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new ResistanceModifier(self, Filters.and(CardType.COMPANION, Keyword.RING_BOUND), 1);
     }
 

@@ -37,7 +37,7 @@ public class Card2_008 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new TwilightCostModifier(self,
                 Filters.and(Culture.MORIA, Race.ORC),
                 new LocationCondition(Filters.not(Keyword.UNDERGROUND)), 2);

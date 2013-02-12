@@ -36,7 +36,7 @@ public class Card15_118 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new MinionSiteNumberModifier(self, Filters.and(Culture.ORC, Race.ORC), new MinThreatCondition(1), -1);
     }
 

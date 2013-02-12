@@ -33,6 +33,7 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
     private List<ActionProxy> _untilEndOfTurnActionProxies = new LinkedList<ActionProxy>();
 
     private List<PhysicalCard> _playedCardsInPhase = new LinkedList<PhysicalCard>();
+    private List<PhysicalCard> _playedCardsInTurn = new LinkedList<PhysicalCard>();
 
     private Set<EffectResult> _effectResults = new HashSet<EffectResult>();
 
@@ -51,6 +52,7 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
                         if (effectResults.getType() == EffectResult.Type.PLAY) {
                             PlayCardResult playResult = (PlayCardResult) effectResults;
                             _playedCardsInPhase.add(playResult.getPlayedCard());
+                            _playedCardsInTurn.add(playResult.getPlayedCard());
                         }
                         return null;
                     }
@@ -137,6 +139,7 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
         _wonSkirmishesInTurn.clear();
         _lostSkirmishesInTurn.clear();
         _assignedInTurn.clear();
+        _playedCardsInTurn.clear();
     }
 
     @Override
@@ -343,6 +346,11 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
     @Override
     public List<PhysicalCard> getPlayedCardsInCurrentPhase() {
         return Collections.unmodifiableList(_playedCardsInPhase);
+    }
+
+    @Override
+    public List<PhysicalCard> getPlayedCardsInCurrentTurn() {
+        return Collections.unmodifiableList(_playedCardsInTurn);
     }
 
     @Override

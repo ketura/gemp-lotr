@@ -39,7 +39,7 @@ public class Card1_314 extends AbstractAttachable {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(final PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, final PhysicalCard self) {
         return new StrengthModifier(self,
                 Filters.and(
                         Filters.hasAttached(self),

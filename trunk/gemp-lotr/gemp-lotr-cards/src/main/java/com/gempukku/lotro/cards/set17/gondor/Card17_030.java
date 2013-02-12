@@ -38,7 +38,7 @@ public class Card17_030 extends AbstractCompanion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new CantDiscardFromPlayModifier(self, "Cannot be discarded from play by Shadow cards",
                 new SpotCondition(CardType.MINION, Keyword.ROAMING),
                 Filters.and(Filters.owner(self.getOwner()), Culture.GONDOR, CardType.CONDITION), Side.SHADOW);

@@ -29,7 +29,7 @@ public class Card12_014 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new KeywordModifier(self, Race.DWARF, Keyword.MUSTER);
     }
 

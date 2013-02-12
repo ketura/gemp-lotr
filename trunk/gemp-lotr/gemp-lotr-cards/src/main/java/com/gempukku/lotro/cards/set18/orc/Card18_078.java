@@ -32,7 +32,7 @@ public class Card18_078 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new RemoveKeywordModifier(self, CardType.COMPANION,
                 new AndCondition(
                         new SpotCondition(Culture.ORC, CardType.MINION),

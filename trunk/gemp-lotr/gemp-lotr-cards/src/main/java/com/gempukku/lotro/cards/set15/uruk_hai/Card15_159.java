@@ -34,7 +34,7 @@ public class Card15_159 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new CantReplaceSiteByFPPlayerModifier(self, new SpotCondition(Culture.URUK_HAI, CardType.MINION), Filters.any);
     }
 

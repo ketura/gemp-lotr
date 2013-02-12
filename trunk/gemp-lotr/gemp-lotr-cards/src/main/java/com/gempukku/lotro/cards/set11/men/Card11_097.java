@@ -51,7 +51,7 @@ public class Card11_097 extends AbstractMinion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new KeywordModifier(self, Filters.and(Culture.MEN, CardType.MINION), new SpotCondition(6, CardType.COMPANION), Keyword.FIERCE, 1);
     }
 }

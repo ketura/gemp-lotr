@@ -30,7 +30,7 @@ public class Card12_168 extends AbstractAttachable {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new StrengthModifier(self, Filters.hasAttached(self), null,
                 new ConditionEvaluator(1, 2,
                         new LocationCondition(Filters.or(Keyword.BATTLEGROUND, Keyword.FOREST))));

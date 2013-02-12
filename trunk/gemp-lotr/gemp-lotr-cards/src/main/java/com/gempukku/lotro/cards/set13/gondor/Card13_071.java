@@ -40,7 +40,7 @@ public class Card13_071 extends AbstractCompanion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(final PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, final PhysicalCard self) {
         return new ResistanceModifier(self, self, null,
                 new Evaluator() {
                     @Override

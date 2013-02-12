@@ -4,6 +4,7 @@ import com.gempukku.lotro.cards.AbstractNewSite;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.TwilightCostModifier;
 
@@ -21,7 +22,7 @@ public class Card12_186 extends AbstractNewSite {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new TwilightCostModifier(self, Filters.balrog, -3);
     }
 }

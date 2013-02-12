@@ -5,6 +5,7 @@ import com.gempukku.lotro.cards.modifiers.evaluator.LimitEvaluator;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
+import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
@@ -22,7 +23,7 @@ public class Card20_047 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(final PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, final PhysicalCard self) {
         return new KeywordModifier(self, Race.DWARF, null, Keyword.DAMAGE,
                 new LimitEvaluator(
                         new Evaluator() {

@@ -35,7 +35,7 @@ public class Card12_129 extends AbstractCompanion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new OverwhelmedByMultiplierModifier(self, Filters.sam, 3);
     }
 

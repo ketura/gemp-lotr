@@ -50,7 +50,7 @@ public class Card17_002 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(final PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, final PhysicalCard self) {
         return new AbstractExtraPlayCostModifier(self, "To play, remove an ORC card from your discard pile from the game.",
                 Filters.and(Culture.ORC, Race.ORC),
                 new AndCondition(

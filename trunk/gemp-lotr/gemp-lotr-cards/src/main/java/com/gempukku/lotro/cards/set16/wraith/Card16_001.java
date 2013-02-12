@@ -40,7 +40,7 @@ public class Card16_001 extends AbstractMinion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new CantTakeWoundsModifier(self, new NotCondition(new PhaseCondition(Phase.SKIRMISH)), Filters.and(Culture.WRAITH, Race.WRAITH));
     }
 

@@ -35,7 +35,7 @@ public class Card20_226 extends AbstractMinion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new KeywordModifier(self, Filters.currentSite, Keyword.BATTLEGROUND);
     }
 

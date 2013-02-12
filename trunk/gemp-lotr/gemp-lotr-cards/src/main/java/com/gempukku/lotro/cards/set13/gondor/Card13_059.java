@@ -42,7 +42,7 @@ public class Card13_059 extends AbstractCompanion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new StrengthModifier(self, self, null, new CountActiveEvaluator(Culture.GONDOR, Filters.hasAnyCultureTokens(1)));
     }
 

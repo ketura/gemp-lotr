@@ -35,7 +35,7 @@ public class Card13_086 extends AbstractMinion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new ArcheryTotalModifier(self, Side.SHADOW,
                 new CanSpotCultureTokensCondition(5), 2);
     }

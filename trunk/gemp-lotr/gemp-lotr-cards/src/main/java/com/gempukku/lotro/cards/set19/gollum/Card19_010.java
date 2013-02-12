@@ -33,7 +33,7 @@ public class Card19_010 extends AbstractMinion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new StrengthModifier(self, self, null, new ForEachThreatEvaluator());
     }
 

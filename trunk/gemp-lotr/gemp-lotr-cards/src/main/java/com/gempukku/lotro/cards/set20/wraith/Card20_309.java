@@ -8,6 +8,7 @@ import com.gempukku.lotro.common.Names;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 
 /**
@@ -24,7 +25,7 @@ public class Card20_309 extends AbstractMinion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new FpSkirmishResistanceStrengthOverrideModifier(self, Filters.and(Filters.character, Filters.inSkirmishAgainst(self)), null);
     }
 }

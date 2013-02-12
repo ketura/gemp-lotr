@@ -45,7 +45,7 @@ public class Card1_133 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new TwilightCostModifier(self, Filters.and(Culture.ISENGARD, CardType.EVENT, Filters.owner(self.getOwner())), -1);
     }
 }

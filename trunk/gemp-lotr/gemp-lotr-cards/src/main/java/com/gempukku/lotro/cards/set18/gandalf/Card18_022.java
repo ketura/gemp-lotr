@@ -38,7 +38,7 @@ public class Card18_022 extends AbstractCompanion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new StrengthModifier(self, Filters.and(Culture.GANDALF, Race.MAN), new CanSpotCultureTokensCondition(2, Token.GANDALF), 2);
     }
 

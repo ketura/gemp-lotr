@@ -30,7 +30,7 @@ public class Card2_035 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new ArcheryTotalModifier(self, Side.SHADOW, new LocationCondition(Keyword.FOREST), -2);
     }
 }

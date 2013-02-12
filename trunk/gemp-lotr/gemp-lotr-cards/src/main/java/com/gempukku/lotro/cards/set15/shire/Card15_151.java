@@ -34,7 +34,7 @@ public class Card15_151 extends AbstractCompanion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new TwilightCostModifier(self, Filters.and(Culture.SHIRE, CardType.FOLLOWER), -1);
     }
 

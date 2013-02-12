@@ -32,7 +32,7 @@ public class Card20_349 extends AbstractMinion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new KeywordModifier(self, self,
                 new NotCondition(new CanSpotFPCulturesCondition(self.getOwner(), 3)), Keyword.DAMAGE, 1);
     }

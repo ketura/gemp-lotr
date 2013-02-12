@@ -35,7 +35,7 @@ public class Card12_148 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new ResistanceModifier(self, Filters.unboundCompanion, new SpotCondition(Culture.URUK_HAI, CardType.MINION),
                 new Evaluator() {
                     @Override

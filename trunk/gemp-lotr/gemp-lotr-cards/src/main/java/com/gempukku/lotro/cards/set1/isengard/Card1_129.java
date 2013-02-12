@@ -40,7 +40,7 @@ public class Card1_129 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new TwilightCostModifier(self, CardType.COMPANION,
                 new NotCondition(new LocationCondition(Keyword.SANCTUARY)), 2);
     }

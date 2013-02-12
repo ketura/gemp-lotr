@@ -34,7 +34,7 @@ public class Card20_037 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new TwilightCostModifier(self, CardType.SITE, new SpotCondition(Filters.or(Filters.saruman, Filters.and(Culture.DUNLAND, Race.MAN))),
                 new Evaluator() {
                     @Override

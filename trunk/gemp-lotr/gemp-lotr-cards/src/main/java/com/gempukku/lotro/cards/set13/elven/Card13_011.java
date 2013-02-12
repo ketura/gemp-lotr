@@ -35,7 +35,7 @@ public class Card13_011 extends AbstractCompanion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new KeywordModifier(self, Filters.and(Race.ELF, Filters.minResistance(7)), new LocationCondition(Keyword.FOREST), Keyword.MUSTER, 1);
     }
 

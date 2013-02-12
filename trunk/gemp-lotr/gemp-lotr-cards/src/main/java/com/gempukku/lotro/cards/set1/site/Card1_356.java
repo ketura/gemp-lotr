@@ -9,6 +9,7 @@ import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 
 /**
@@ -25,7 +26,7 @@ public class Card1_356 extends AbstractSite {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new ArcheryTotalModifier(self, Side.SHADOW, null, new MultiplyEvaluator(2, new CountActiveEvaluator(4, (Integer) null, CardType.COMPANION)));
     }
 }

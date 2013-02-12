@@ -49,7 +49,7 @@ public class Card2_031 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new ShouldSkipPhaseModifier(self, Phase.ARCHERY);
     }
 

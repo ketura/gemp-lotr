@@ -4,6 +4,7 @@ import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.CantDiscardFromPlayModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 
@@ -27,7 +28,7 @@ public class Card13_163 extends AbstractMinion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new CantDiscardFromPlayModifier(self, "Can't be discarded by Free Peoples cards",
                 Filters.and(CardType.POSSESSION, Filters.attachedTo(self)),
                 Filters.and(Side.FREE_PEOPLE));

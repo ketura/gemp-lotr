@@ -42,7 +42,7 @@ public class Card19_039 extends AbstractMinion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(final PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, final PhysicalCard self) {
         return new CantBeAssignedAgainstModifier(self, null,
                 new Filter() {
                     @Override

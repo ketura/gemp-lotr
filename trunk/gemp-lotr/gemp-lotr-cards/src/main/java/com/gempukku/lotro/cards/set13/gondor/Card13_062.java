@@ -36,7 +36,7 @@ public class Card13_062 extends AbstractCompanion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new ResistanceModifier(self, self, null, new NegativeEvaluator(new CountActiveEvaluator(CardType.MINION, Keyword.LURKER)));
     }
 

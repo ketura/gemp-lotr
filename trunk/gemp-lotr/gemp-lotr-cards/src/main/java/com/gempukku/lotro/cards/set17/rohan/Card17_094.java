@@ -31,7 +31,7 @@ public class Card17_094 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new StrengthModifier(self, Filters.and(CardType.COMPANION, Filters.mounted),
                 new LocationCondition(Keyword.PLAINS), 1);
     }

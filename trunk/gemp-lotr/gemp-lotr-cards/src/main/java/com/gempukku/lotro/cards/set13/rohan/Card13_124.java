@@ -39,7 +39,7 @@ public class Card13_124 extends AbstractCompanion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(final PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, final PhysicalCard self) {
         return new AbstractModifier(self, "The cost of each possession you play on Eowyn during the fellowship phase is twilight cost -1", CardType.POSSESSION, new PhaseCondition(Phase.FELLOWSHIP), ModifierEffect.TWILIGHT_COST_MODIFIER) {
             @Override
             public int getPlayOnTwilightCostModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, PhysicalCard target) {

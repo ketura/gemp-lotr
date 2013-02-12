@@ -39,7 +39,7 @@ public class Card20_381 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new RemoveKeywordModifier(self, Filters.and(Culture.SAURON, CardType.MINION),
                 new MinThreatCondition(3), Keyword.ROAMING);
     }

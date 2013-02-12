@@ -37,7 +37,7 @@ public class Card1_261 extends AbstractMinion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new RoamingPenaltyModifier(self, Filters.and(Filters.owner(self.getOwner()), Culture.SAURON, CardType.MINION), -1);
     }
 

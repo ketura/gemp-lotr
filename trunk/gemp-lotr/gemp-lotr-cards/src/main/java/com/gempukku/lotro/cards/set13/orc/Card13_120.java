@@ -33,7 +33,7 @@ public class Card13_120 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new KeywordModifier(self, Filters.and(Culture.ORC, Race.ORC), new SpotCondition(3, CardType.SITE, Keyword.UNDERGROUND), Keyword.MUSTER, 1);
     }
 

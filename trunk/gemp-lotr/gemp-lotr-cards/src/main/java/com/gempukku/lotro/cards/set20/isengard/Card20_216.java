@@ -31,7 +31,7 @@ public class Card20_216 extends AbstractAttachable {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new VitalityModifier(self, Filters.hasAttached(self), 1);
     }
 

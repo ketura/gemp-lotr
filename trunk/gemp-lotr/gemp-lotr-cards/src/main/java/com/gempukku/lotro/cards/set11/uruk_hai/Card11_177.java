@@ -8,6 +8,7 @@ import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 
 /**
@@ -29,7 +30,7 @@ public class Card11_177 extends AbstractMinion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new DoesNotAddToArcheryTotalModifier(self, Filters.and(Side.FREE_PEOPLE, Keyword.ARCHER, Filters.maxResistance(5)));
     }
 }

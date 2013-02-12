@@ -33,7 +33,7 @@ public class Card12_070 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new CancelStrengthBonusTargetModifier(self, new SpotCondition(6, CardType.COMPANION),
                 Filters.and(CardType.COMPANION, Filters.inSkirmishAgainst(Culture.MEN, CardType.MINION)),
                 CardType.POSSESSION);

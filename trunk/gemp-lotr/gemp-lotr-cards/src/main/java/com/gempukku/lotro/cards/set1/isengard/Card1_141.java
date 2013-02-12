@@ -29,7 +29,7 @@ public class Card1_141 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new StrengthModifier(self, Filters.and(Keyword.ARCHER, Filters.or(CardType.COMPANION, CardType.ALLY)), -1);
     }
 }

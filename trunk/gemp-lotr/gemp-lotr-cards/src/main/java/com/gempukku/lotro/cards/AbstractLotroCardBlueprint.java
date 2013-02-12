@@ -103,7 +103,7 @@ public abstract class AbstractLotroCardBlueprint implements LotroCardBlueprint {
 
     @Override
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
-        Modifier modifier = getAlwaysOnModifier(self);
+        Modifier modifier = getAlwaysOnModifier(game, self);
         if (modifier != null)
             return Collections.singletonList(modifier);
         return null;
@@ -124,7 +124,7 @@ public abstract class AbstractLotroCardBlueprint implements LotroCardBlueprint {
         return null;
     }
 
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return null;
     }
 

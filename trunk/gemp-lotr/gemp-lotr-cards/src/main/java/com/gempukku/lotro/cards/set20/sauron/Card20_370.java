@@ -9,6 +9,7 @@ import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 
 /**
@@ -24,7 +25,7 @@ public class Card20_370 extends AbstractMinion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new PlayersCantUseCardPhaseSpecialAbilitiesModifier(self,
                 new NotCondition(new CanSpotFPCulturesCondition(self.getOwner(), 3)), Phase.SKIRMISH, Filters.character, Filters.inSkirmishAgainst(self));
     }

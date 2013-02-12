@@ -39,7 +39,7 @@ public class Card15_040 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new TwilightCostModifier(self, Filters.and(Side.SHADOW, CardType.EVENT), new SpotCondition(2, Race.HOBBIT, Keyword.RING_BOUND), 1);
     }
 

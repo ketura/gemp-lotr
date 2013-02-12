@@ -36,7 +36,7 @@ public class Card1_309 extends AbstractAlly {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new StrengthModifier(self, Filters.sam, 1);
     }
 

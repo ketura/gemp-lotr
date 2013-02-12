@@ -36,7 +36,7 @@ public class Card16_006 extends AbstractMinion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new ResistanceModifier(self, Filters.and(CardType.COMPANION, Filters.wounded), new SpotCondition(Filters.not(self), Culture.WRAITH, Race.WRAITH), -2);
     }
 

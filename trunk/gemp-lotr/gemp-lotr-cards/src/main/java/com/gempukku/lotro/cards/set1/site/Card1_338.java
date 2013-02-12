@@ -34,7 +34,7 @@ public class Card1_338 extends AbstractSite {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(final PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, final PhysicalCard self) {
         return new TwilightCostModifier(self,
                 Filters.and(
                         Race.NAZGUL,

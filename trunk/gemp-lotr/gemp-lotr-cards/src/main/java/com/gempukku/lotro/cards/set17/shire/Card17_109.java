@@ -34,7 +34,7 @@ public class Card17_109 extends AbstractCompanion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(PhysicalCard self) {
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new RaceSpotModifier(self, Race.ENT);
     }
 
