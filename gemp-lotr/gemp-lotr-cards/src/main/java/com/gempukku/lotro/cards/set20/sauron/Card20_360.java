@@ -45,7 +45,7 @@ public class Card20_360 extends AbstractMinion {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new AddThreatsEffect(self.getOwner(), self,
-                            new CountActiveEvaluator(4, null, CardType.COMPANION)));
+                            new CountActiveEvaluator(4, (Integer) null, CardType.COMPANION)));
             return Collections.singletonList(action);
         }
         return null;
