@@ -21,24 +21,26 @@ import java.util.List;
  * Rohirrim Commoner
  * Rohan	Ally • Man • Edoras
  * 4	2
- * Fellowship: Exert this ally to play a fortification from your discard pile.
+ * Villager.
+ * Fellowship: Exert this ally to play a [Rohan] fortification from your discard pile.
  */
 public class Card20_338 extends AbstractAlly {
     public Card20_338() {
         super(1, null, 0, 4, 2, Race.MAN, Culture.ROHAN, "Rohirrim Commoner");
         addKeyword(Keyword.EDORAS);
+        addKeyword(Keyword.VILLAGER);
     }
 
     @Override
     protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.FELLOWSHIP, self)
                 && PlayConditions.canSelfExert(self, game)
-                && PlayConditions.canPlayFromDiscard(playerId, game, Keyword.FORTIFICATION)) {
+                && PlayConditions.canPlayFromDiscard(playerId, game, Culture.ROHAN, Keyword.FORTIFICATION)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new SelfExertEffect(action, self));
             action.appendEffect(
-                    new ChooseAndPlayCardFromDiscardEffect(playerId, game, Keyword.FORTIFICATION));
+                    new ChooseAndPlayCardFromDiscardEffect(playerId, game, Culture.ROHAN, Keyword.FORTIFICATION));
             return Collections.singletonList(action);
         }
         return null;
