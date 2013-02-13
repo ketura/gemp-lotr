@@ -2,6 +2,7 @@ package com.gempukku.lotro.logic;
 
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Filterable;
+import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.common.Token;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.LotroCardBlueprint;
@@ -13,6 +14,13 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import java.util.*;
 
 public class GameUtils {
+    public static boolean isSide(GameState gameState, Side side, String playerId) {
+        if (side == Side.FREE_PEOPLE)
+            return gameState.getCurrentPlayerId().equals(playerId);
+        else
+            return !gameState.getCurrentPlayerId().equals(playerId);
+    }
+
     public static boolean isFP(LotroGame game, String playerId) {
         return game.getGameState().getCurrentPlayerId().equals(playerId);
     }
