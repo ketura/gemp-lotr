@@ -17,6 +17,10 @@ public class GameUtils {
         return game.getGameState().getCurrentPlayerId().equals(playerId);
     }
 
+    public static boolean isShadow(LotroGame game, String playerId) {
+        return !game.getGameState().getCurrentPlayerId().equals(playerId);
+    }
+
     public static String getFullName(PhysicalCard card) {
         LotroCardBlueprint blueprint = card.getBlueprint();
         return getFullName(blueprint);
