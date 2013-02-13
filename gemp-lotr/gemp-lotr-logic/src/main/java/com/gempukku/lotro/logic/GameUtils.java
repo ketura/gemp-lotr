@@ -13,6 +13,10 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import java.util.*;
 
 public class GameUtils {
+    public static boolean isFP(LotroGame game, String playerId) {
+        return game.getGameState().getCurrentPlayerId().equals(playerId);
+    }
+
     public static String getFullName(PhysicalCard card) {
         LotroCardBlueprint blueprint = card.getBlueprint();
         return getFullName(blueprint);
