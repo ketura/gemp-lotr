@@ -1,7 +1,7 @@
 package com.gempukku.lotro.merchant;
 
-import com.gempukku.lotro.cards.packs.RarityReader;
-import com.gempukku.lotro.cards.packs.SetRarity;
+import com.gempukku.lotro.cards.CardSets;
+import com.gempukku.lotro.cards.packs.SetDefinition;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.db.MerchantDAO;
 import com.gempukku.lotro.db.vo.CollectionType;
@@ -31,7 +31,7 @@ public class MerchantService {
     private CollectionType _permanentCollection = CollectionType.MY_CARDS;
     private CollectionsManager _collectionsManager;
 
-    public MerchantService(LotroCardBlueprintLibrary library, CollectionsManager collectionsManager, MerchantDAO merchantDAO) {
+    public MerchantService(LotroCardBlueprintLibrary library, CollectionsManager collectionsManager, MerchantDAO merchantDAO, CardSets cardSets) {
         _collectionsManager = collectionsManager;
         Date setupDate;
         try {
@@ -42,15 +42,15 @@ public class MerchantService {
             throw new RuntimeException("Unable to parse merchant setup date");
         }
 
-        _merchant = new StorageBasedMerchant(library, merchantDAO, setupDate);
+        _merchant = new StorageBasedMerchant(library, merchantDAO, setupDate, cardSets);
 
-        RarityReader rarityReader = new RarityReader();
-        for (int i = 0; i <= 19; i++) {
-            SetRarity rarity = rarityReader.getSetRarity(String.valueOf(i));
-            for (String blueprintId : rarity.getAllCards()) {
-                String baseBlueprintId = library.getBaseBlueprintId(blueprintId);
-                _merchantableItems.add(new BasicCardItem(baseBlueprintId));
-                _merchantableStrings.add(baseBlueprintId);
+        for (SetDefinition setDefinition : cardSets.getSetDefinitions().values()) {
+            if (setDefinition.hasFlag("merchantable")) {
+                for (String blueprintId : setDefinition.getAllCards()) {
+                    String baseBlueprintId = library.getBaseBlueprintId(blueprintId);
+                    _merchantableItems.add(new BasicCardItem(baseBlueprintId));
+                    _merchantableStrings.add(baseBlueprintId);
+                }
             }
         }
 

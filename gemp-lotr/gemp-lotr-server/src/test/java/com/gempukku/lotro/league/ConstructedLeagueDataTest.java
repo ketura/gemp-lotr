@@ -1,5 +1,6 @@
 package com.gempukku.lotro.league;
 
+import com.gempukku.lotro.cards.CardSets;
 import org.junit.Test;
 
 import java.util.List;
@@ -10,7 +11,7 @@ import static org.junit.Assert.assertTrue;
 public class ConstructedLeagueDataTest {
     @Test
     public void testParameters() {
-        ConstructedLeagueData leagueData = new ConstructedLeagueData("20120312,fotr_block,0.7,default,All cards,7,10,3,fotr1_block,fotr_block,fotr2_block,fotr_block,fotr_block,fotr_block");
+        ConstructedLeagueData leagueData = new ConstructedLeagueData(new CardSets(), "20120312,fotr_block,0.7,default,All cards,7,10,3,fotr1_block,fotr_block,fotr2_block,fotr_block,fotr_block,fotr_block");
         final List<LeagueSerieData> series = leagueData.getSeries();
         assertTrue(series.size() == 3);
         assertTrue(series.get(0).getStart() == 20120312);

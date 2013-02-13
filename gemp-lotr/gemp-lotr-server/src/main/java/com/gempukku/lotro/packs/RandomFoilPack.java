@@ -1,7 +1,7 @@
 package com.gempukku.lotro.packs;
 
-import com.gempukku.lotro.cards.packs.RarityReader;
-import com.gempukku.lotro.cards.packs.SetRarity;
+import com.gempukku.lotro.cards.CardSets;
+import com.gempukku.lotro.cards.packs.SetDefinition;
 import com.gempukku.lotro.game.CardCollection;
 
 import java.util.ArrayList;
@@ -12,11 +12,9 @@ import java.util.Random;
 public class RandomFoilPack implements PackBox {
     private List<String> _availableCards = new ArrayList<String>();
 
-    public RandomFoilPack(String rarity, String[] sets) {
-        RarityReader rarityReader = new RarityReader();
-        for (String set : sets) {
-            final SetRarity setRarity = rarityReader.getSetRarity(set);
-            _availableCards.addAll(setRarity.getCardsOfRarity(rarity));
+    public RandomFoilPack(String rarity, String[] sets, CardSets cardSets) {
+        for (SetDefinition setDefinition : cardSets.getSetDefinitions().values()) {
+            _availableCards.addAll(setDefinition.getCardsOfRarity(rarity));
         }
     }
 

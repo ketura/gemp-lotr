@@ -1,15 +1,18 @@
 package com.gempukku.lotro.merchant;
 
+import com.gempukku.lotro.cards.CardSets;
 import com.gempukku.lotro.db.MerchantDAO;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
-import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Date;
 
+import static org.junit.Assert.*;
+
 public class StorageBasedMerchantTest {
     private StorageBasedMerchant _merchant;
+    private CardSets _cardSets = new CardSets();
     private static final long DAY = 1000 * 60 * 60 * 24;
 
     @Before
@@ -17,7 +20,7 @@ public class StorageBasedMerchantTest {
         Date setupDate = new Date(0);
         MerchantDAO merchantDao = new MockMerchantDAO();
 
-        _merchant = new StorageBasedMerchant(new LotroCardBlueprintLibrary(), merchantDao, setupDate);
+        _merchant = new StorageBasedMerchant(new LotroCardBlueprintLibrary(), merchantDao, setupDate, _cardSets);
     }
 
     @Test
@@ -81,7 +84,7 @@ public class StorageBasedMerchantTest {
 
         MerchantDAO merchantDao = new MockMerchantDAO();
 
-        StorageBasedMerchant merchant = new StorageBasedMerchant(new LotroCardBlueprintLibrary(), merchantDao, setupDate);
+        StorageBasedMerchant merchant = new StorageBasedMerchant(new LotroCardBlueprintLibrary(), merchantDao, setupDate, _cardSets);
 
         merchant.cardSold("1_1", firstTrans, 1000);
         merchant.cardBought("1_2", firstTrans, 700);
@@ -106,7 +109,7 @@ public class StorageBasedMerchantTest {
 
         MerchantDAO merchantDao = new MockMerchantDAO();
 
-        StorageBasedMerchant merchant = new StorageBasedMerchant(new LotroCardBlueprintLibrary(), merchantDao, setupDate);
+        StorageBasedMerchant merchant = new StorageBasedMerchant(new LotroCardBlueprintLibrary(), merchantDao, setupDate, _cardSets);
 
         long hour = 1000 * 60 * 60;
 

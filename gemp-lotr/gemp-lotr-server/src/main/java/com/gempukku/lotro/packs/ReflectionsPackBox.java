@@ -1,22 +1,21 @@
 package com.gempukku.lotro.packs;
 
-import com.gempukku.lotro.cards.packs.RarityReader;
-import com.gempukku.lotro.cards.packs.SetRarity;
+import com.gempukku.lotro.cards.CardSets;
+import com.gempukku.lotro.cards.packs.SetDefinition;
 import com.gempukku.lotro.game.CardCollection;
 
 import java.util.*;
 
 public class ReflectionsPackBox implements PackBox {
     private Random _random = new Random();
-    private SetRarity _reflectionsRarity;
+    private SetDefinition _reflectionsRarity;
     private List<String> _previousSetCards = new ArrayList<String>();
 
-    public ReflectionsPackBox() {
-        RarityReader rarityReader = new RarityReader();
-        _reflectionsRarity = rarityReader.getSetRarity("9");
+    public ReflectionsPackBox(CardSets cardSets) {
+        _reflectionsRarity = cardSets.getSetDefinitions().get("9");
 
         for (int set = 1; set <= 6; set++) {
-            final SetRarity setRarity = rarityReader.getSetRarity(String.valueOf(set));
+            final SetDefinition setRarity = cardSets.getSetDefinitions().get(String.valueOf(set));
             _previousSetCards.addAll(setRarity.getCardsOfRarity("R"));
             _previousSetCards.addAll(setRarity.getCardsOfRarity("P"));
             for (int i = 0; i < 3; i++)

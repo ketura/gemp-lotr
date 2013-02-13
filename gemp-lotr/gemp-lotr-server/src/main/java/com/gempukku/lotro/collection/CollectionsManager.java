@@ -1,5 +1,7 @@
 package com.gempukku.lotro.collection;
 
+import com.gempukku.lotro.cards.CardSets;
+import com.gempukku.lotro.cards.packs.SetDefinition;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.db.CollectionDAO;
 import com.gempukku.lotro.db.PlayerDAO;
@@ -25,7 +27,8 @@ public class CollectionsManager {
     private CountDownLatch _collectionReadyLatch = new CountDownLatch(1);
     private DefaultCardCollection _defaultCollection;
 
-    public CollectionsManager(PlayerDAO playerDAO, CollectionDAO collectionDAO, TransferDAO transferDAO, final LotroCardBlueprintLibrary lotroCardBlueprintLibrary) {
+    public CollectionsManager(PlayerDAO playerDAO, CollectionDAO collectionDAO, TransferDAO transferDAO, final LotroCardBlueprintLibrary lotroCardBlueprintLibrary,
+                              CardSets cardSets) {
         _playerDAO = playerDAO;
         _collectionDAO = collectionDAO;
         _transferDAO = transferDAO;
@@ -36,23 +39,23 @@ public class CollectionsManager {
 
         boolean test = Boolean.valueOf(System.getProperty("test"));
 
-        final int[] cardCounts = new int[]{129, 365, 122, 122, 365, 128, 128, 365, 122, 52, 122, 266, 203, 203, 15, 207, 6, 157, 149, 40};
+        for (SetDefinition setDefinition : cardSets.getSetDefinitions().values()) {
+            if (setDefinition.hasFlag("playable")) {
+                _logger.debug("Loading set " + setDefinition.getSetId());
+                final Set<String> allCards = setDefinition.getAllCards();
+                for (String blueprintId : allCards) {
+                    try {
+                        if (lotroCardBlueprintLibrary.getBaseBlueprintId(blueprintId).equals(blueprintId)) {
+                            LotroCardBlueprint cardBlueprint = lotroCardBlueprintLibrary.getLotroCardBlueprint(blueprintId);
+                            CardType cardType = cardBlueprint.getCardType();
+                            if (cardType == CardType.SITE || cardType == CardType.THE_ONE_RING)
+                                _defaultCollection.addItem(blueprintId, 1);
+                            else
+                                _defaultCollection.addItem(blueprintId, 4);
+                        }
+                    } catch (IllegalArgumentException exp) {
 
-        for (int i = 0; i <= (test?1:19); i++) {
-            _logger.debug("Loading set " + i);
-            for (int j = 1; j <= cardCounts[i]; j++) {
-                String blueprintId = i + "_" + j;
-                try {
-                    if (lotroCardBlueprintLibrary.getBaseBlueprintId(blueprintId).equals(blueprintId)) {
-                        LotroCardBlueprint cardBlueprint = lotroCardBlueprintLibrary.getLotroCardBlueprint(blueprintId);
-                        CardType cardType = cardBlueprint.getCardType();
-                        if (cardType == CardType.SITE || cardType == CardType.THE_ONE_RING)
-                            _defaultCollection.addItem(blueprintId, 1);
-                        else
-                            _defaultCollection.addItem(blueprintId, 4);
                     }
-                } catch (IllegalArgumentException exp) {
-
                 }
             }
         }

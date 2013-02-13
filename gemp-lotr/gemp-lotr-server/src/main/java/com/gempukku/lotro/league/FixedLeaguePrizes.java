@@ -1,7 +1,7 @@
 package com.gempukku.lotro.league;
 
-import com.gempukku.lotro.cards.packs.RarityReader;
-import com.gempukku.lotro.cards.packs.SetRarity;
+import com.gempukku.lotro.cards.CardSets;
+import com.gempukku.lotro.cards.packs.SetDefinition;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.game.CardCollection;
 import com.gempukku.lotro.game.DefaultCardCollection;
@@ -13,14 +13,13 @@ public class FixedLeaguePrizes implements LeaguePrizes {
     private List<String> _uncommons = new ArrayList<String>();
     private List<String> _rares = new ArrayList<String>();
 
-    public FixedLeaguePrizes() {
-        RarityReader rarityReader = new RarityReader();
-
-        for (int i = 0; i <= 19; i++) {
-            SetRarity setRarity = rarityReader.getSetRarity(String.valueOf(i));
-            _commons.addAll(setRarity.getCardsOfRarity("C"));
-            _uncommons.addAll(setRarity.getCardsOfRarity("U"));
-            _rares.addAll(setRarity.getCardsOfRarity("R"));
+    public FixedLeaguePrizes(CardSets cardSets) {
+        for (SetDefinition setDefinition : cardSets.getSetDefinitions().values()) {
+            if (setDefinition.hasFlag("originalSet")) {
+                _commons.addAll(setDefinition.getCardsOfRarity("C"));
+                _uncommons.addAll(setDefinition.getCardsOfRarity("U"));
+                _rares.addAll(setDefinition.getCardsOfRarity("R"));
+            }
         }
     }
 

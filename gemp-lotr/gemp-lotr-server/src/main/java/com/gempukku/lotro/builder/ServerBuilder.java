@@ -1,5 +1,6 @@
 package com.gempukku.lotro.builder;
 
+import com.gempukku.lotro.cards.CardSets;
 import com.gempukku.lotro.chat.ChatServer;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.collection.TransferDAO;
@@ -37,14 +38,16 @@ public class ServerBuilder {
                         extract(objectMap, PlayerDAO.class),
                         extract(objectMap, CollectionDAO.class),
                         extract(objectMap, TransferDAO.class),
-                        extract(objectMap, LotroCardBlueprintLibrary.class)));
+                        extract(objectMap, LotroCardBlueprintLibrary.class),
+                        extract(objectMap, CardSets.class)));
 
         objectMap.put(LeagueService.class,
                 new LeagueService(
                         extract(objectMap, LeagueDAO.class),
                         extract(objectMap, LeagueMatchDAO.class),
                         extract(objectMap, LeagueParticipationDAO.class),
-                        extract(objectMap, CollectionsManager.class)));
+                        extract(objectMap, CollectionsManager.class),
+                        extract(objectMap, CardSets.class)));
 
         TournamentPrizeSchemeRegistry tournamentPrizeSchemeRegistry = new TournamentPrizeSchemeRegistry();
         PairingMechanismRegistry pairingMechanismRegistry = new PairingMechanismRegistry();
@@ -58,13 +61,15 @@ public class ServerBuilder {
                         tournamentPrizeSchemeRegistry,
                         extract(objectMap, TournamentDAO.class),
                         extract(objectMap, TournamentPlayerDAO.class),
-                        extract(objectMap, TournamentMatchDAO.class)));
+                        extract(objectMap, TournamentMatchDAO.class),
+                        extract(objectMap, CardSets.class)));
 
         objectMap.put(MerchantService.class,
                 new MerchantService(
                         extract(objectMap, LotroCardBlueprintLibrary.class),
                         extract(objectMap, CollectionsManager.class),
-                        extract(objectMap, MerchantDAO.class)));
+                        extract(objectMap, MerchantDAO.class),
+                        extract(objectMap, CardSets.class)));
 
         objectMap.put(ChatServer.class, new ChatServer());
 
@@ -85,7 +90,8 @@ public class ServerBuilder {
                         extract(objectMap, LotroFormatLibrary.class),
                         extract(objectMap, CollectionsManager.class),
                         tournamentPrizeSchemeRegistry,
-                        pairingMechanismRegistry
+                        pairingMechanismRegistry,
+                        extract(objectMap, CardSets.class)
                 ));
     }
 

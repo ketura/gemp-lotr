@@ -2,8 +2,8 @@ package com.gempukku.lotro.async.handler;
 
 import com.gempukku.lotro.async.HttpProcessingException;
 import com.gempukku.lotro.async.ResponseWriter;
-import com.gempukku.lotro.cards.packs.RarityReader;
-import com.gempukku.lotro.cards.packs.SetRarity;
+import com.gempukku.lotro.cards.CardSets;
+import com.gempukku.lotro.cards.packs.SetDefinition;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
@@ -32,7 +32,7 @@ import java.util.List;
 import java.util.Map;
 
 public class CollectionRequestHandler extends LotroServerRequestHandler implements UriRequestHandler {
-    private HashMap<String, SetRarity> _rarities;
+    private Map<String, SetDefinition> _setDefinitions;
     private LeagueService _leagueService;
     private CollectionsManager _collectionsManager;
     private PacksStorage _packStorage;
@@ -42,28 +42,7 @@ public class CollectionRequestHandler extends LotroServerRequestHandler implemen
 
     public CollectionRequestHandler(Map<Type, Object> context) {
         super(context);
-        _rarities = new HashMap<String, SetRarity>();
-        RarityReader reader = new RarityReader();
-        _rarities.put("0", reader.getSetRarity("0"));
-        _rarities.put("1", reader.getSetRarity("1"));
-        _rarities.put("2", reader.getSetRarity("2"));
-        _rarities.put("3", reader.getSetRarity("3"));
-        _rarities.put("4", reader.getSetRarity("4"));
-        _rarities.put("5", reader.getSetRarity("5"));
-        _rarities.put("6", reader.getSetRarity("6"));
-        _rarities.put("7", reader.getSetRarity("7"));
-        _rarities.put("8", reader.getSetRarity("8"));
-        _rarities.put("9", reader.getSetRarity("9"));
-        _rarities.put("10", reader.getSetRarity("10"));
-        _rarities.put("11", reader.getSetRarity("11"));
-        _rarities.put("12", reader.getSetRarity("12"));
-        _rarities.put("13", reader.getSetRarity("13"));
-        _rarities.put("14", reader.getSetRarity("14"));
-        _rarities.put("15", reader.getSetRarity("15"));
-        _rarities.put("16", reader.getSetRarity("16"));
-        _rarities.put("17", reader.getSetRarity("17"));
-        _rarities.put("18", reader.getSetRarity("18"));
-        _rarities.put("19", reader.getSetRarity("19"));
+        _setDefinitions = extractObject(context, CardSets.class).getSetDefinitions();
 
         _leagueService = extractObject(context, LeagueService.class);
         _collectionsManager = extractObject(context, CollectionsManager.class);
@@ -75,15 +54,15 @@ public class CollectionRequestHandler extends LotroServerRequestHandler implemen
 
     @Override
     public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, MessageEvent e) throws Exception {
-            if (uri.equals("") && request.getMethod() == HttpMethod.GET) {
-                getCollectionTypes(request, responseWriter);
-            } else if (uri.startsWith("/") && request.getMethod() == HttpMethod.POST) {
-                openPack(request, uri.substring(1), responseWriter);
-            } else if (uri.startsWith("/") && request.getMethod() == HttpMethod.GET) {
-                getCollection(request, uri.substring(1), responseWriter);
-            } else {
-                responseWriter.writeError(404);
-            }
+        if (uri.equals("") && request.getMethod() == HttpMethod.GET) {
+            getCollectionTypes(request, responseWriter);
+        } else if (uri.startsWith("/") && request.getMethod() == HttpMethod.POST) {
+            openPack(request, uri.substring(1), responseWriter);
+        } else if (uri.startsWith("/") && request.getMethod() == HttpMethod.GET) {
+            getCollection(request, uri.substring(1), responseWriter);
+        } else {
+            responseWriter.writeError(404);
+        }
     }
 
     private void getCollection(HttpRequest request, String collectionType, ResponseWriter responseWriter) throws Exception {
@@ -92,7 +71,7 @@ public class CollectionRequestHandler extends LotroServerRequestHandler implemen
         String filter = getQueryParameterSafely(queryDecoder, "filter");
         int start = Integer.parseInt(getQueryParameterSafely(queryDecoder, "start"));
         int count = Integer.parseInt(getQueryParameterSafely(queryDecoder, "count"));
-        
+
         Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
         CardCollection collection = constructCollection(resourceOwner, collectionType);
@@ -101,7 +80,7 @@ public class CollectionRequestHandler extends LotroServerRequestHandler implemen
             throw new HttpProcessingException(404);
 
         Collection<CardCollection.Item> items = collection.getAll().values();
-        List<CardCollection.Item> filteredResult = _sortAndFilterCards.process(filter, items, _library, _formatLibrary, _rarities);
+        List<CardCollection.Item> filteredResult = _sortAndFilterCards.process(filter, items, _library, _formatLibrary, _setDefinitions);
 
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
@@ -143,7 +122,7 @@ public class CollectionRequestHandler extends LotroServerRequestHandler implemen
 
         Map<String, String> headers = new HashMap<String, String>();
         processDeliveryServiceNotification(request, headers);
-        
+
         responseWriter.writeXmlResponse(doc, headers);
     }
 
@@ -237,15 +216,15 @@ public class CollectionRequestHandler extends LotroServerRequestHandler implemen
     private void appendCardGroup(Element card, LotroCardBlueprint blueprint) {
         String group;
         if (blueprint.getCardType() == CardType.THE_ONE_RING)
-            group="ring";
+            group = "ring";
         else if (blueprint.getCardType() == CardType.SITE)
-            group="site";
+            group = "site";
         else if (blueprint.hasKeyword(Keyword.CAN_START_WITH_RING))
-            group="ringBearer";
+            group = "ringBearer";
         else if (blueprint.getSide() == Side.FREE_PEOPLE)
-            group="fp";
+            group = "fp";
         else if (blueprint.getSide() == Side.SHADOW)
-            group="shadow";
+            group = "shadow";
         else
             group = null;
         if (group != null)

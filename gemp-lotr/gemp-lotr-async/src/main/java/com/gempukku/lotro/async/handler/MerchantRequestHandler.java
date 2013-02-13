@@ -1,8 +1,8 @@
 package com.gempukku.lotro.async.handler;
 
 import com.gempukku.lotro.async.ResponseWriter;
-import com.gempukku.lotro.cards.packs.RarityReader;
-import com.gempukku.lotro.cards.packs.SetRarity;
+import com.gempukku.lotro.cards.CardSets;
+import com.gempukku.lotro.cards.packs.SetDefinition;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
@@ -23,7 +23,7 @@ import java.lang.reflect.Type;
 import java.util.*;
 
 public class MerchantRequestHandler extends LotroServerRequestHandler implements UriRequestHandler {
-    private HashMap<String, SetRarity> _rarities;
+    private Map<String, SetDefinition> _rarities;
     private CollectionsManager _collectionsManager;
     private SortAndFilterCards _sortAndFilterCards;
     private MerchantService _merchantService;
@@ -39,28 +39,7 @@ public class MerchantRequestHandler extends LotroServerRequestHandler implements
         _library = extractObject(context, LotroCardBlueprintLibrary.class);
         _formatLibrary = extractObject(context, LotroFormatLibrary.class);
 
-        _rarities = new HashMap<String, SetRarity>();
-        RarityReader reader = new RarityReader();
-        _rarities.put("0", reader.getSetRarity("0"));
-        _rarities.put("1", reader.getSetRarity("1"));
-        _rarities.put("2", reader.getSetRarity("2"));
-        _rarities.put("3", reader.getSetRarity("3"));
-        _rarities.put("4", reader.getSetRarity("4"));
-        _rarities.put("5", reader.getSetRarity("5"));
-        _rarities.put("6", reader.getSetRarity("6"));
-        _rarities.put("7", reader.getSetRarity("7"));
-        _rarities.put("8", reader.getSetRarity("8"));
-        _rarities.put("9", reader.getSetRarity("9"));
-        _rarities.put("10", reader.getSetRarity("10"));
-        _rarities.put("11", reader.getSetRarity("11"));
-        _rarities.put("12", reader.getSetRarity("12"));
-        _rarities.put("13", reader.getSetRarity("13"));
-        _rarities.put("14", reader.getSetRarity("14"));
-        _rarities.put("15", reader.getSetRarity("15"));
-        _rarities.put("16", reader.getSetRarity("16"));
-        _rarities.put("17", reader.getSetRarity("17"));
-        _rarities.put("18", reader.getSetRarity("18"));
-        _rarities.put("19", reader.getSetRarity("19"));
+        _rarities = extractObject(context, CardSets.class).getSetDefinitions();
 
     }
 

@@ -4,6 +4,7 @@ import com.gempukku.lotro.DateUtils;
 import com.gempukku.lotro.async.HttpProcessingException;
 import com.gempukku.lotro.async.ResponseWriter;
 import com.gempukku.lotro.cache.CacheManager;
+import com.gempukku.lotro.cards.CardSets;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.db.LeagueDAO;
 import com.gempukku.lotro.db.vo.CollectionType;
@@ -37,9 +38,11 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
     private LotroFormatLibrary _formatLibrary;
     private LeagueDAO _leagueDao;
     private CollectionsManager _collectionManager;
+    private CardSets _cardSets;
 
     public AdminRequestHandler(Map<Type, Object> context) {
         super(context);
+        _cardSets = extractObject(context, CardSets.class);
         _leagueService = extractObject(context, LeagueService.class);
         _tournamentService = extractObject(context, TournamentService.class);
         _cacheManager = extractObject(context, CacheManager.class);
@@ -166,7 +169,7 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
             sb.append("," + formats.get(i) + "," + serieDurations.get(i) + "," + maxMatches.get(i));
 
         String parameters = sb.toString();
-        LeagueData leagueData = new NewConstructedLeagueData(parameters);
+        LeagueData leagueData = new NewConstructedLeagueData(_cardSets, parameters);
         List<LeagueSerieData> series = leagueData.getSeries();
         int leagueStart = series.get(0).getStart();
         int displayEnd = DateUtils.offsetDate(series.get(series.size() - 1).getEnd(), 2);
@@ -197,7 +200,7 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
             sb.append("," + formats.get(i) + "," + serieDurations.get(i) + "," + maxMatches.get(i));
 
         String parameters = sb.toString();
-        LeagueData leagueData = new NewConstructedLeagueData(parameters);
+        LeagueData leagueData = new NewConstructedLeagueData(_cardSets, parameters);
 
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
@@ -247,7 +250,7 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
         String code = String.valueOf(System.currentTimeMillis());
 
         String parameters = format + "," + start + "," + serieDuration + "," + maxMatches + "," + code + "," + name;
-        LeagueData leagueData = new NewSealedLeagueData(parameters);
+        LeagueData leagueData = new NewSealedLeagueData(_cardSets, parameters);
         List<LeagueSerieData> series = leagueData.getSeries();
         int leagueStart = series.get(0).getStart();
         int displayEnd = DateUtils.offsetDate(series.get(series.size() - 1).getEnd(), 2);
@@ -273,7 +276,7 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
         String code = String.valueOf(System.currentTimeMillis());
 
         String parameters = format + "," + start + "," + serieDuration + "," + maxMatches + "," + code + "," + name;
-        LeagueData leagueData = new NewSealedLeagueData(parameters);
+        LeagueData leagueData = new NewSealedLeagueData(_cardSets, parameters);
 
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();

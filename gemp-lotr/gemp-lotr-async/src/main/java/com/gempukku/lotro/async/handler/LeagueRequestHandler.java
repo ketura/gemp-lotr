@@ -3,6 +3,7 @@ package com.gempukku.lotro.async.handler;
 import com.gempukku.lotro.DateUtils;
 import com.gempukku.lotro.async.HttpProcessingException;
 import com.gempukku.lotro.async.ResponseWriter;
+import com.gempukku.lotro.cards.CardSets;
 import com.gempukku.lotro.competitive.PlayerStanding;
 import com.gempukku.lotro.db.vo.League;
 import com.gempukku.lotro.db.vo.LeagueMatchResult;
@@ -30,10 +31,12 @@ import java.util.Map;
 public class LeagueRequestHandler extends LotroServerRequestHandler implements UriRequestHandler {
     private LeagueService _leagueService;
     private LotroFormatLibrary _formatLibrary;
+    private CardSets _cardSets;
 
     public LeagueRequestHandler(Map<Type, Object> context) {
         super(context);
 
+        _cardSets = extractObject(context, CardSets.class);
         _leagueService = extractObject(context, LeagueService.class);
         _formatLibrary = extractObject(context, LotroFormatLibrary.class);
     }
@@ -83,7 +86,7 @@ public class LeagueRequestHandler extends LotroServerRequestHandler implements U
         if (league == null)
             throw new HttpProcessingException(404);
 
-        final LeagueData leagueData = league.getLeagueData();
+        final LeagueData leagueData = league.getLeagueData(_cardSets);
         final List<LeagueSerieData> series = leagueData.getSeries();
 
         int end = series.get(series.size() - 1).getEnd();
@@ -150,7 +153,7 @@ public class LeagueRequestHandler extends LotroServerRequestHandler implements U
         Element leagues = doc.createElement("leagues");
 
         for (League league : _leagueService.getActiveLeagues()) {
-            final LeagueData leagueData = league.getLeagueData();
+            final LeagueData leagueData = league.getLeagueData(_cardSets);
             final List<LeagueSerieData> series = leagueData.getSeries();
 
             int end = series.get(series.size() - 1).getEnd();
