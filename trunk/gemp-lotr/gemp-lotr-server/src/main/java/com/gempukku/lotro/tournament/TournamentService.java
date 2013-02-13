@@ -1,5 +1,6 @@
 package com.gempukku.lotro.tournament;
 
+import com.gempukku.lotro.cards.CardSets;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.draft.DraftPack;
@@ -17,6 +18,7 @@ public class TournamentService {
     private TournamentDAO _tournamentDao;
     private TournamentPlayerDAO _tournamentPlayerDao;
     private TournamentMatchDAO _tournamentMatchDao;
+    private CardSets _cardSets;
 
     private CollectionsManager _collectionsManager;
 
@@ -24,7 +26,8 @@ public class TournamentService {
 
     public TournamentService(CollectionsManager collectionsManager, PacksStorage packsStorage, DraftPackStorage draftPackStorage,
                              PairingMechanismRegistry pairingMechanismRegistry, TournamentPrizeSchemeRegistry tournamentPrizeSchemeRegistry,
-                             TournamentDAO tournamentDao, TournamentPlayerDAO tournamentPlayerDao, TournamentMatchDAO tournamentMatchDao) {
+                             TournamentDAO tournamentDao, TournamentPlayerDAO tournamentPlayerDao, TournamentMatchDAO tournamentMatchDao,
+                             CardSets cardSets) {
         _collectionsManager = collectionsManager;
         _packsStorage = packsStorage;
         _draftPackStorage = draftPackStorage;
@@ -33,6 +36,7 @@ public class TournamentService {
         _tournamentDao = tournamentDao;
         _tournamentPlayerDao = tournamentPlayerDao;
         _tournamentMatchDao = tournamentMatchDao;
+        _cardSets = cardSets;
     }
 
     public void clearCache() {
@@ -138,7 +142,7 @@ public class TournamentService {
                     tournamentId,  tournamentInfo.getTournamentName(), tournamentInfo.getTournamentFormat(),
                     tournamentInfo.getCollectionType(), tournamentInfo.getTournamentRound(), tournamentInfo.getTournamentStage(), 
                     _pairingMechanismRegistry.getPairingMechanism(tournamentInfo.getPairingMechanism()),
-                    _tournamentPrizeSchemeRegistry.getTournamentPrizes(tournamentInfo.getPrizesScheme()));
+                    _tournamentPrizeSchemeRegistry.getTournamentPrizes(_cardSets, tournamentInfo.getPrizesScheme()));
 
         } catch (Exception exp) {
             throw new RuntimeException("Unable to create Tournament", exp);

@@ -1,0 +1,110 @@
+[
+    {
+        "setId":"0",
+        "setName":"Promotional",
+        "rarityFile":"/set0-rarity.txt"
+    },
+    {
+        "setId":"1",
+        "setName":"The Fellowship of the Ring",
+        "rarityFile":"/set1-rarity.txt"
+    },
+    {
+        "setId":"2",
+        "setName":"Mines of Moria",
+        "rarityFile":"/set2-rarity.txt"
+    },
+    {
+        "setId":"3",
+        "setName":"Realms of the Elf-lords",
+        "rarityFile":"/set3-rarity.txt"
+    },
+    {
+        "setId":"4",
+        "setName":"The Two Towers",
+        "rarityFile":"/set4-rarity.txt"
+    },
+    {
+        "setId":"5",
+        "setName":"Battle of Helm's Deep",
+        "rarityFile":"/set5-rarity.txt"
+    },
+    {
+        "setId":"6",
+        "setName":"Ents of Fangorn",
+        "rarityFile":"/set6-rarity.txt"
+    },
+    {
+        "setId":"7",
+        "setName":"The Return of the King",
+        "rarityFile":"/set7-rarity.txt"
+    },
+    {
+        "setId":"8",
+        "setName":"Siege of Gondor",
+        "rarityFile":"/set8-rarity.txt"
+    },
+    {
+        "setId":"9",
+        "setName":"Reflections",
+        "rarityFile":"/set9-rarity.txt"
+    },
+    {
+        "setId":"10",
+        "setName":"Mount Doom",
+        "rarityFile":"/set10-rarity.txt"
+    },
+    {
+        "setId":"11",
+        "setName":"Shadows",
+        "rarityFile":"/set11-rarity.txt"
+    },
+    {
+        "setId":"12",
+        "setName":"Black Rider",
+        "rarityFile":"/set12-rarity.txt"
+    },
+    {
+        "setId":"13",
+        "setName":"Bloodlines",
+        "rarityFile":"/set13-rarity.txt"
+    },
+    {
+        "setId":"14",
+        "setName":"Expanded Middle-earth",
+        "rarityFile":"/set14-rarity.txt"
+    },
+    {
+        "setId":"15",
+        "setName":"The Hunters",
+        "rarityFile":"/set15-rarity.txt"
+    },
+    {
+        "setId":"16",
+        "setName":"The Wraith Collection",
+        "rarityFile":"/set16-rarity.txt"
+    },
+    {
+        "setId":"17",
+        "setName":"Rise of Saruman",
+        "rarityFile":"/set17-rarity.txt"
+    },
+    {
+        "setId":"18",
+        "setName":"Treachery & Deceit",
+        "rarityFile":"/set18-rarity.txt"
+    },
+    {
+        "setId":"19",
+        "setName":"Ages End",
+        "rarityFile":"/set19-rarity.txt"
+    },
+    {
+        "setId":"20",
+        "setName":"Second Edition",
+        "rarityFile":"/set20-rarity.txt",
+        "originalSet":false,
+        "merchantable":false,
+        "playable":false
+    }
+]

@@ -1,12 +1,11 @@
 package com.gempukku.lotro.merchant;
 
-import com.gempukku.lotro.cards.packs.RarityReader;
-import com.gempukku.lotro.cards.packs.SetRarity;
+import com.gempukku.lotro.cards.CardSets;
+import com.gempukku.lotro.cards.packs.SetDefinition;
 import com.gempukku.lotro.db.MerchantDAO;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 
 public class ParametrizedMerchant implements Merchant {
@@ -24,14 +23,12 @@ public class ParametrizedMerchant implements Merchant {
     private final long _decreaseHalfedMs = 90 * DAY;
 
     private MerchantDAO _merchantDao;
-    private Map<Integer, SetRarity> _rarity = new HashMap<Integer, SetRarity>();
+    private Map<String, SetDefinition> _rarity;
     private LotroCardBlueprintLibrary _library;
 
-    public ParametrizedMerchant(LotroCardBlueprintLibrary library) {
+    public ParametrizedMerchant(LotroCardBlueprintLibrary library, CardSets cardSets) {
         _library = library;
-        RarityReader rarityReader = new RarityReader();
-        for (int i = 0; i <= 19; i++)
-            _rarity.put(i, rarityReader.getSetRarity(String.valueOf(i)));
+        _rarity = cardSets.getSetDefinitions();
     }
 
     public void setMerchantSetupDate(Date merchantSetupDate) {
@@ -100,7 +97,7 @@ public class ParametrizedMerchant implements Merchant {
         int underscoreIndex = blueprintId.indexOf("_");
         if (underscoreIndex == -1)
             return null;
-        SetRarity rarity = _rarity.get(Integer.parseInt(blueprintId.substring(0, blueprintId.indexOf("_"))));
+        SetDefinition rarity = _rarity.get(blueprintId.substring(0, blueprintId.indexOf("_")));
         String cardRarity = rarity.getCardRarity(blueprintId);
         if (cardRarity.equals("X"))
             return 3 * BOOSTER_PRICE;

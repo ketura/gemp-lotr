@@ -1,18 +1,16 @@
 package com.gempukku.lotro.packs;
 
-import com.gempukku.lotro.cards.packs.RarityReader;
-import com.gempukku.lotro.cards.packs.SetRarity;
+import com.gempukku.lotro.cards.packs.SetDefinition;
 import com.gempukku.lotro.game.CardCollection;
 
 import java.util.*;
 
 public class RarityPackBox implements PackBox {
     private Random _random = new Random();
-    private SetRarity _setRarity;
+    private SetDefinition _setRarity;
 
-    public RarityPackBox(int setNo) {
-        RarityReader rarityReader = new RarityReader();
-        _setRarity = rarityReader.getSetRarity(String.valueOf(setNo));
+    public RarityPackBox(SetDefinition setDefinition) {
+        _setRarity = setDefinition;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.gempukku.lotro.league;
 
 import com.gempukku.lotro.DateUtils;
+import com.gempukku.lotro.cards.CardSets;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.competitive.PlayerStanding;
 import com.gempukku.lotro.db.vo.CollectionType;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ConstructedLeagueData implements LeagueData {
-    private LeaguePrizes _leaguePrizes = new FixedLeaguePrizes();
+    private LeaguePrizes _leaguePrizes;
     private List<LeagueSerieData> _series = new ArrayList<LeagueSerieData>();
     private CollectionType _prizeCollectionType = CollectionType.MY_CARDS;
     private CollectionType _collectionType;
@@ -21,7 +22,9 @@ public class ConstructedLeagueData implements LeagueData {
     // serie1 format, serie1 prize pool,
     // serie2 format, serie2 prize pool,
     // serie3 format, serie3 prize pool,
-    public ConstructedLeagueData(String parameters) {
+    public ConstructedLeagueData(CardSets cardSets, String parameters) {
+        _leaguePrizes = new FixedLeaguePrizes(cardSets);
+        
         String[] params = parameters.split(",");
         final int start = Integer.parseInt(params[0]);
         _collectionType = new CollectionType(params[3], params[4]);

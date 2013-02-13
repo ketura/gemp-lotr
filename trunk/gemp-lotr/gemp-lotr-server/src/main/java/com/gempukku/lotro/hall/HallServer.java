@@ -1,6 +1,7 @@
 package com.gempukku.lotro.hall;
 
 import com.gempukku.lotro.*;
+import com.gempukku.lotro.cards.CardSets;
 import com.gempukku.lotro.chat.ChatRoomMediator;
 import com.gempukku.lotro.chat.ChatServer;
 import com.gempukku.lotro.collection.CollectionsManager;
@@ -38,6 +39,7 @@ public class HallServer extends AbstractServer {
     private CollectionsManager _collectionsManager;
     private LotroServer _lotroServer;
     private PairingMechanismRegistry _pairingMechanismRegistry;
+    private CardSets _cardSets;
     private TournamentPrizeSchemeRegistry _tournamentPrizeSchemeRegistry;
 
     private CollectionType _allCardsCollectionType = CollectionType.ALL_CARDS;
@@ -64,7 +66,7 @@ public class HallServer extends AbstractServer {
 
     public HallServer(LotroServer lotroServer, ChatServer chatServer, LeagueService leagueService, TournamentService tournamentService, LotroCardBlueprintLibrary library,
                       LotroFormatLibrary formatLibrary, CollectionsManager collectionsManager, TournamentPrizeSchemeRegistry tournamentPrizeSchemeRegistry,
-                      PairingMechanismRegistry pairingMechanismRegistry) {
+                      PairingMechanismRegistry pairingMechanismRegistry, CardSets cardSets) {
         _lotroServer = lotroServer;
         _chatServer = chatServer;
         _leagueService = leagueService;
@@ -74,33 +76,34 @@ public class HallServer extends AbstractServer {
         _collectionsManager = collectionsManager;
         _tournamentPrizeSchemeRegistry = tournamentPrizeSchemeRegistry;
         _pairingMechanismRegistry = pairingMechanismRegistry;
+        _cardSets = cardSets;
         _hallChat = _chatServer.createChatRoom("Game Hall", true, 15);
 
         _tournamentQueues.put("fotr_queue", new ImmediateRecurringQueue(635, "fotr_block",
                 CollectionType.ALL_CARDS, "fotrQueue-", "Fellowship Block", 8,
-                true, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes("onDemand"), _pairingMechanismRegistry.getPairingMechanism("singleElimination")));
+                true, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes(cardSets, "onDemand"), _pairingMechanismRegistry.getPairingMechanism("singleElimination")));
         _tournamentQueues.put("movie_queue", new ImmediateRecurringQueue(635, "movie",
                 CollectionType.ALL_CARDS, "movieQueue-", "Movie Block", 8,
-                true, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes("onDemand"), _pairingMechanismRegistry.getPairingMechanism("singleElimination")));
+                true, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes(cardSets, "onDemand"), _pairingMechanismRegistry.getPairingMechanism("singleElimination")));
         _tournamentQueues.put("expanded_queue", new ImmediateRecurringQueue(635, "expanded",
                 CollectionType.ALL_CARDS, "expandedQueue-", "Expanded", 8,
-                true, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes("onDemand"), _pairingMechanismRegistry.getPairingMechanism("singleElimination")));
+                true, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes(cardSets, "onDemand"), _pairingMechanismRegistry.getPairingMechanism("singleElimination")));
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
 
         try {
             _tournamentQueues.put("fotr_daily_eu", new RecurringScheduledQueue(sdf.parse("2013-01-15 19:30:00").getTime(), _repeatTournaments, "fotrDailyEu-", "Daily EU Fellowship Block", 0,
-                    true, CollectionType.MY_CARDS, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes("daily"), _pairingMechanismRegistry.getPairingMechanism("swiss"),
+                    true, CollectionType.MY_CARDS, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes(cardSets, "daily"), _pairingMechanismRegistry.getPairingMechanism("swiss"),
                     "fotr_block", 8));
             _tournamentQueues.put("fotr_daily_us", new RecurringScheduledQueue(sdf.parse("2013-01-16 00:30:00").getTime(), _repeatTournaments, "fotrDailyUs-", "Daily US Fellowship Block", 0,
-                    true, CollectionType.MY_CARDS, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes("daily"), _pairingMechanismRegistry.getPairingMechanism("swiss"),
+                    true, CollectionType.MY_CARDS, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes(cardSets, "daily"), _pairingMechanismRegistry.getPairingMechanism("swiss"),
                     "fotr_block", 8));
             _tournamentQueues.put("movie_daily_eu", new RecurringScheduledQueue(sdf.parse("2013-01-16 19:30:00").getTime(), _repeatTournaments, "movieDailyEu-", "Daily EU Movie Block", 0,
-                    true, CollectionType.MY_CARDS, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes("daily"), _pairingMechanismRegistry.getPairingMechanism("swiss"),
+                    true, CollectionType.MY_CARDS, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes(cardSets, "daily"), _pairingMechanismRegistry.getPairingMechanism("swiss"),
                     "movie", 8));
             _tournamentQueues.put("movie_daily_us", new RecurringScheduledQueue(sdf.parse("2013-01-17 00:30:00").getTime(), _repeatTournaments, "movieDailyUs-", "Daily US Movie Block", 0,
-                    true, CollectionType.MY_CARDS, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes("daily"), _pairingMechanismRegistry.getPairingMechanism("swiss"),
+                    true, CollectionType.MY_CARDS, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes(cardSets, "daily"), _pairingMechanismRegistry.getPairingMechanism("swiss"),
                     "movie", 8));
         } catch (ParseException exp) {
             // Ignore, can't happen
@@ -706,7 +709,7 @@ public class HallServer extends AbstractServer {
                                 true, _tournamentService, unstartedTournamentQueue.getStartTime(), unstartedTournamentQueue.getTournamentName(),
                                 unstartedTournamentQueue.getFormat(), CollectionType.ALL_CARDS, Tournament.Stage.PLAYING_GAMES,
                                 _pairingMechanismRegistry.getPairingMechanism(unstartedTournamentQueue.getPlayOffSystem()),
-                                _tournamentPrizeSchemeRegistry.getTournamentPrizes(unstartedTournamentQueue.getPrizeScheme()), unstartedTournamentQueue.getMinimumPlayers());
+                                _tournamentPrizeSchemeRegistry.getTournamentPrizes(_cardSets, unstartedTournamentQueue.getPrizeScheme()), unstartedTournamentQueue.getMinimumPlayers());
                         _tournamentQueues.put(scheduledTournamentId, scheduledQueue);
                         hallChanged();
                     }

@@ -1,6 +1,6 @@
 package com.gempukku.lotro.game;
 
-import com.gempukku.lotro.cards.packs.SetRarity;
+import com.gempukku.lotro.cards.packs.SetDefinition;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -12,7 +12,7 @@ import com.gempukku.util.MultipleComparator;
 import java.util.*;
 
 public class SortAndFilterCards {
-    public <T extends CardItem> List<T> process(String filter, Collection<T> items, LotroCardBlueprintLibrary cardLibrary, LotroFormatLibrary formatLibrary, Map<String, SetRarity> rarities) {
+    public <T extends CardItem> List<T> process(String filter, Collection<T> items, LotroCardBlueprintLibrary cardLibrary, LotroFormatLibrary formatLibrary, Map<String, SetDefinition> rarities) {
         if (filter == null)
             filter = "";
         String[] filterParams = filter.split(" ");
@@ -66,7 +66,7 @@ public class SortAndFilterCards {
     }
 
     private boolean acceptsFilters(
-            LotroCardBlueprintLibrary library, LotroFormatLibrary formatLibrary, Map<String, SetRarity> rarities, String blueprintId, Side side, String type, String rarity, String[] sets,
+            LotroCardBlueprintLibrary library, LotroFormatLibrary formatLibrary, Map<String, SetDefinition> rarities, String blueprintId, Side side, String type, String rarity, String[] sets,
             Set<CardType> cardTypes, Set<Culture> cultures, Set<Keyword> keywords, List<String> words, Integer siteNumber) {
         if (isPack(blueprintId)) {
             if (type == null || type.equals("pack"))
@@ -124,9 +124,9 @@ public class SortAndFilterCards {
         return sets;
     }
 
-    private boolean isRarity(String blueprintId, String rarity, LotroCardBlueprintLibrary library, Map<String, SetRarity> rarities) {
+    private boolean isRarity(String blueprintId, String rarity, LotroCardBlueprintLibrary library, Map<String, SetDefinition> rarities) {
         if (blueprintId.contains("_")) {
-            SetRarity setRarity = rarities.get(blueprintId.substring(0, blueprintId.indexOf("_")));
+            SetDefinition setRarity = rarities.get(blueprintId.substring(0, blueprintId.indexOf("_")));
             if (setRarity != null && setRarity.getCardRarity(library.stripBlueprintModifiers(blueprintId)).equals(rarity))
                 return true;
             return false;

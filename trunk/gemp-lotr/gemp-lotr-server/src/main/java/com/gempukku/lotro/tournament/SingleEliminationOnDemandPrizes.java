@@ -1,7 +1,7 @@
 package com.gempukku.lotro.tournament;
 
-import com.gempukku.lotro.cards.packs.RarityReader;
-import com.gempukku.lotro.cards.packs.SetRarity;
+import com.gempukku.lotro.cards.CardSets;
+import com.gempukku.lotro.cards.packs.SetDefinition;
 import com.gempukku.lotro.competitive.PlayerStanding;
 import com.gempukku.lotro.game.CardCollection;
 import com.gempukku.lotro.game.DefaultCardCollection;
@@ -14,15 +14,12 @@ public class SingleEliminationOnDemandPrizes implements TournamentPrizes{
     private List<String> _promos = new ArrayList<String>();
     private String _registryRepresentation;
 
-    public SingleEliminationOnDemandPrizes(String registryRepresentation) {
+    public SingleEliminationOnDemandPrizes(CardSets cardSets, String registryRepresentation) {
         _registryRepresentation = registryRepresentation;
-        RarityReader rarityReader = new RarityReader();
-
-        for (int i = 0; i <= 19; i++) {
-            SetRarity setRarity = rarityReader.getSetRarity(String.valueOf(i));
-            _promos.addAll(setRarity.getCardsOfRarity("P"));
+        for (SetDefinition setDefinition : cardSets.getSetDefinitions().values()) {
+            if (setDefinition.hasFlag("originalSet"))
+                _promos.addAll(setDefinition.getCardsOfRarity("P"));
         }
-
     }
 
     @Override

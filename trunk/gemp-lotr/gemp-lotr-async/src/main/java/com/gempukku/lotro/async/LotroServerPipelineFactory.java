@@ -5,6 +5,7 @@ import com.gempukku.lotro.async.handler.UriRequestHandler;
 import com.gempukku.lotro.builder.DaoBuilder;
 import com.gempukku.lotro.builder.PacksStorageBuilder;
 import com.gempukku.lotro.builder.ServerBuilder;
+import com.gempukku.lotro.cards.CardSets;
 import com.gempukku.lotro.packs.PacksStorage;
 import com.gempukku.polling.LongPollingSystem;
 import org.jboss.netty.channel.ChannelPipeline;
@@ -25,10 +26,13 @@ public class LotroServerPipelineFactory implements ChannelPipelineFactory {
 
     public LotroServerPipelineFactory() {
         Map<Type, Object> objects = new HashMap<Type, Object>();
-        objects.put(PacksStorage.class, PacksStorageBuilder.createPacksStorage());
+        final CardSets cardSets = new CardSets();
+        objects.put(CardSets.class, cardSets);
+        objects.put(PacksStorage.class, PacksStorageBuilder.createPacksStorage(cardSets));
         DaoBuilder.fillObjectMap(objects);
         ServerBuilder.fillObjectMap(objects);
         ServerBuilder.constructObjects(objects);
+
 
         LoggedUserHolder loggedUserHolder = new LoggedUserHolder();
         loggedUserHolder.start();
