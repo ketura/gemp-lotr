@@ -3,23 +3,28 @@ package com.gempukku.lotro.cards.set20.site;
 import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.TakeControlOfASiteEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Race;
+import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
+import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
+import com.gempukku.lotro.logic.modifiers.Modifier;
+import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.logic.modifiers.TwilightCostModifier;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
-import java.util.Collections;
 import java.util.List;
 
 /**
  * The Isen
  * 4	3
  * River.
- * At the start of the regroup phase, you may discard a [Dunland] man to take control of a site.
+ * The twilight cost of the first [Dunland] Man played at The Isen each turn is -2.
  */
 public class Card20_438 extends AbstractSite {
     public Card20_438() {
@@ -28,16 +33,23 @@ public class Card20_438 extends AbstractSite {
     }
 
     @Override
-    public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (TriggerConditions.startOfPhase(game, effectResult, Phase.REGROUP)
-                && PlayConditions.canDiscardFromPlay(self, game, Filters.owner(playerId), Culture.DUNLAND, Race.MAN)) {
-            OptionalTriggerAction action = new OptionalTriggerAction(self);
-            action.appendCost(
-                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.owner(playerId), Culture.DUNLAND, Race.MAN));
-            action.appendEffect(
-                    new TakeControlOfASiteEffect(self, playerId));
-            return Collections.singletonList(action);
-        }
+    public Modifier getAlwaysOnModifier(LotroGame game, final PhysicalCard self) {
+        return new TwilightCostModifier(self,
+                Filters.and(
+                        Culture.DUNLAND, Race.MAN,
+                        new Filter() {
+                            @Override
+                            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                                return modifiersQuerying.getUntilEndOfTurnLimitCounter(self).getUsedLimit() < 1;
+                            }
+                        }), -2);
+    }
+
+    @Override
+    public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
+        if (TriggerConditions.played(game, effectResult, Culture.DUNLAND, Race.MAN)
+                && PlayConditions.location(game, self))
+            game.getModifiersQuerying().getUntilEndOfTurnLimitCounter(self).incrementToLimit(1, 1);
         return null;
     }
 }
