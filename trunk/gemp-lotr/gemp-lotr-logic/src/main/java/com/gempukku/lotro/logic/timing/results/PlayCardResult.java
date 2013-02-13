@@ -9,13 +9,19 @@ public class PlayCardResult extends EffectResult {
     private PhysicalCard _playedCard;
     private PhysicalCard _attachedTo;
     private PhysicalCard _attachedOrStackedPlayedFrom;
+    private boolean _paidToil;
 
-    public PlayCardResult(Zone playedFrom, PhysicalCard playedCard, PhysicalCard attachedTo, PhysicalCard attachedOrStackedPlayedFrom) {
+    public PlayCardResult(Zone playedFrom, PhysicalCard playedCard, PhysicalCard attachedTo, PhysicalCard attachedOrStackedPlayedFrom, boolean paidToil) {
         super(EffectResult.Type.PLAY);
         _playedFrom = playedFrom;
         _playedCard = playedCard;
         _attachedTo = attachedTo;
         _attachedOrStackedPlayedFrom = attachedOrStackedPlayedFrom;
+        _paidToil = paidToil;
+    }
+
+    public boolean isPaidToil() {
+        return _paidToil;
     }
 
     public PhysicalCard getPlayedCard() {

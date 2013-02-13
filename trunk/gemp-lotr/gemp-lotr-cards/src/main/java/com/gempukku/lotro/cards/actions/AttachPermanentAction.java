@@ -34,19 +34,19 @@ public class AttachPermanentAction extends AbstractCostToEffectAction implements
 
     private boolean _exertTarget;
 
-    private PhysicalCard _target;
-
     private boolean _discountResolved;
     private DiscountEffect _discountEffect;
 
     private boolean _discountApplied;
 
     private int _twilightModifier;
+    private Zone _playedFrom;
+    private PhysicalCard _target;
 
     public AttachPermanentAction(final LotroGame game, final PhysicalCard card, Filter filter, final Map<Filter, Integer> attachCostModifiers, final int twilightModifier) {
         _cardToAttach = card;
 
-        final Zone playedFromZone = card.getZone();
+        _playedFrom = card.getZone();
 
         _chooseTargetEffect =
                 new ChooseActiveCardEffect(null, card.getOwner(), "Attach " + GameUtils.getFullName(card) + ". Choose target to attach to", filter) {
@@ -65,9 +65,7 @@ public class AttachPermanentAction extends AbstractCostToEffectAction implements
 
                         _twilightModifier = modifier;
 
-                        game.getGameState().sendMessage(card.getOwner() + " plays " + GameUtils.getCardLink(card) + " from " + playedFromZone.getHumanReadable() + " on " + GameUtils.getCardLink(target));
-
-                        _playCardEffect = new PlayCardEffect(playedFromZone, card, target, null);
+                        game.getGameState().sendMessage(card.getOwner() + " plays " + GameUtils.getCardLink(card) + " from " + _playedFrom.getHumanReadable() + " on " + GameUtils.getCardLink(target));
                     }
                 };
     }
@@ -147,12 +145,14 @@ public class AttachPermanentAction extends AbstractCostToEffectAction implements
 
         if (!_discountApplied) {
             _discountApplied = true;
-            if (_discountEffect != null)
+            if (_discountEffect != null) {
                 _twilightModifier -= _discountEffect.getDiscountPaidFor();
+                _discountEffect.afterDiscountCallback(this);
+            }
             insertCost(new PayPlayOnTwilightCostEffect(_cardToAttach, _target, _twilightModifier));
         }
 
-        if (_playCardEffect != null) {
+        if (_target != null) {
             if (!isCostFailed()) {
                 Effect cost = getNextCost();
                 if (cost != null)
@@ -160,6 +160,8 @@ public class AttachPermanentAction extends AbstractCostToEffectAction implements
 
                 if (!_cardPlayed) {
                     _cardPlayed = true;
+                    _playCardEffect = new PlayCardEffect(_playedFrom, _cardToAttach, _target, null, isPaidToil());
+
                     return _playCardEffect;
                 }
 

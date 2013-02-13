@@ -16,19 +16,22 @@ public class PlayCardEffect extends AbstractEffect {
     private PhysicalCard _attachedToCard;
     private Zone _zone;
     private PhysicalCard _attachedOrStackedPlayedFrom;
+    private boolean _paidToil;
 
-    public PlayCardEffect(Zone playedFrom, PhysicalCard cardPlayed, Zone playedTo, PhysicalCard attachedOrStackedPlayedFrom) {
+    public PlayCardEffect(Zone playedFrom, PhysicalCard cardPlayed, Zone playedTo, PhysicalCard attachedOrStackedPlayedFrom, boolean paidToil) {
         _playedFrom = playedFrom;
         _cardPlayed = cardPlayed;
         _zone = playedTo;
         _attachedOrStackedPlayedFrom = attachedOrStackedPlayedFrom;
+        _paidToil = paidToil;
     }
 
-    public PlayCardEffect(Zone playedFrom, PhysicalCard cardPlayed, PhysicalCard attachedToCard, PhysicalCard attachedOrStackedPlayedFrom) {
+    public PlayCardEffect(Zone playedFrom, PhysicalCard cardPlayed, PhysicalCard attachedToCard, PhysicalCard attachedOrStackedPlayedFrom, boolean paidToil) {
         _playedFrom = playedFrom;
         _cardPlayed = cardPlayed;
         _attachedToCard = attachedToCard;
         _attachedOrStackedPlayedFrom = attachedOrStackedPlayedFrom;
+        _paidToil = paidToil;
         _zone = Zone.ATTACHED;
     }
 
@@ -64,7 +67,7 @@ public class PlayCardEffect extends AbstractEffect {
             game.getGameState().addCardToZone(game, _cardPlayed, _zone);
         }
 
-        game.getActionsEnvironment().emitEffectResult(new PlayCardResult(_playedFrom, _cardPlayed, _attachedToCard, _attachedOrStackedPlayedFrom));
+        game.getActionsEnvironment().emitEffectResult(new PlayCardResult(_playedFrom, _cardPlayed, _attachedToCard, _attachedOrStackedPlayedFrom, _paidToil));
 
         return new FullEffectResult(true);
     }
