@@ -33,8 +33,11 @@ public class LotroFormatLibrary {
                     Boolean cancelRingBearerSkirmish = (Boolean) formatDef.get("cancelRingBearerSkirmish");
                     if (cancelRingBearerSkirmish == null)
                         cancelRingBearerSkirmish = false;
+                    Boolean hasRuleOfFour = (Boolean) formatDef.get("hasRuleOfFour");
+                    if (hasRuleOfFour == null)
+                        hasRuleOfFour = true;
 
-                    final DefaultLotroFormat format = new DefaultLotroFormat(library, name, block, true, 60, 4, true, cancelRingBearerSkirmish);
+                    final DefaultLotroFormat format = new DefaultLotroFormat(library, name, block, true, 60, 4, true, cancelRingBearerSkirmish, hasRuleOfFour);
 
                     JSONArray sets = (JSONArray) formatDef.get("set");
                     for (Object set : sets)

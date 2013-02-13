@@ -40,7 +40,8 @@ public class DrawOneCardEffect extends AbstractEffect implements Preventable {
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
         int drawn = 0;
-        if (!_prevented && game.getGameState().getDeck(_playerId).size() > 0 && game.getModifiersQuerying().canDrawCardAndIncrement(game.getGameState(), _playerId)) {
+        if (!_prevented && game.getGameState().getDeck(_playerId).size() > 0 &&
+                (!game.getFormat().hasRuleOfFour() || game.getModifiersQuerying().canDrawCardAndIncrementForRuleOfFour(game.getGameState(), _playerId))) {
             game.getGameState().playerDrawsCard(_playerId);
             drawn++;
         }

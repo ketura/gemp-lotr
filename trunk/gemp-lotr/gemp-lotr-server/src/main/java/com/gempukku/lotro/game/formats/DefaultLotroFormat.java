@@ -21,13 +21,16 @@ public class DefaultLotroFormat implements LotroFormat {
     private int _maximumSameName = 4;
     private boolean _mulliganRule;
     private boolean _canCancelRingBearerSkirmish;
+    private boolean _hasRuleOfFour;
     private int _minimumDeckSize = 60;
     private List<String> _bannedCards = new ArrayList<String>();
     private List<String> _restrictedCards = new ArrayList<String>();
     private List<String> _validCards = new ArrayList<String>();
     private List<Integer> _validSets = new ArrayList<Integer>();
 
-    public DefaultLotroFormat(LotroCardBlueprintLibrary library, String name, Block siteBlock, boolean validateShadowFPCount, int minimumDeckSize, int maximumSameName, boolean mulliganRule, boolean canCancelRingBearerSkirmish) {
+    public DefaultLotroFormat(LotroCardBlueprintLibrary library, String name, Block siteBlock,
+                              boolean validateShadowFPCount, int minimumDeckSize, int maximumSameName, boolean mulliganRule,
+                              boolean canCancelRingBearerSkirmish, boolean hasRuleOfFour) {
         _library = library;
         _name = name;
         _siteBlock = siteBlock;
@@ -36,6 +39,7 @@ public class DefaultLotroFormat implements LotroFormat {
         _maximumSameName = maximumSameName;
         _mulliganRule = mulliganRule;
         _canCancelRingBearerSkirmish = canCancelRingBearerSkirmish;
+        _hasRuleOfFour = hasRuleOfFour;
     }
 
     @Override
@@ -56,6 +60,11 @@ public class DefaultLotroFormat implements LotroFormat {
     @Override
     public boolean canCancelRingBearerSkirmish() {
         return _canCancelRingBearerSkirmish;
+    }
+
+    @Override
+    public boolean hasRuleOfFour() {
+        return _hasRuleOfFour;
     }
 
     @Override

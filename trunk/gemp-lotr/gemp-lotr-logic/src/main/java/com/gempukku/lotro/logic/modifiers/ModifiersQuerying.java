@@ -125,7 +125,7 @@ public interface ModifiersQuerying {
 
     public boolean canDrawCardNoIncrement(GameState gameState, String playerId);
 
-    public boolean canDrawCardAndIncrement(GameState gameState, String playerId);
+    public boolean canDrawCardAndIncrementForRuleOfFour(GameState gameState, String playerId);
 
     public boolean canLookOrRevealCardsInHand(GameState gameState, String revealingPlayerId, String performingPlayerId);
 

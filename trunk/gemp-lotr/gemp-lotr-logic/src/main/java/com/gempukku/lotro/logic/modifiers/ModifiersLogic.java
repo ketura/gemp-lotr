@@ -893,7 +893,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
      * @return
      */
     @Override
-    public boolean canDrawCardAndIncrement(GameState gameState, String playerId) {
+    public boolean canDrawCardAndIncrementForRuleOfFour(GameState gameState, String playerId) {
         if (gameState.getCurrentPlayerId().equals(playerId)) {
             if (gameState.getCurrentPhase() != Phase.FELLOWSHIP)
                 return true;
