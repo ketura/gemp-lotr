@@ -22,11 +22,17 @@ public class WinConditionRule {
                 new AbstractActionProxy() {
                     @Override
                     public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResults) {
-                        if (effectResults.getType() == EffectResult.Type.START_OF_PHASE
+                        if (game.getFormat().winAtEndOfRegroup()
+                                && effectResults.getType() == EffectResult.Type.END_OF_PHASE
+                                && game.getGameState().getCurrentPhase() == Phase.REGROUP
+                                && game.getGameState().getCurrentSiteNumber() == 9)
+                            game.playerWon(game.getGameState().getCurrentPlayerId(), "Surviving to end of Regroup phase on site 9");
+                        else if (effectResults.getType() == EffectResult.Type.START_OF_PHASE
                                 && game.getGameState().getCurrentPhase() == Phase.REGROUP
                                 && game.getGameState().getCurrentSiteNumber() == 9
                                 && !game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.WIN_CHECK_AFTER_SHADOW_RECONCILE))
                             game.playerWon(game.getGameState().getCurrentPlayerId(), "Surviving to Regroup phase on site 9");
+
                         return null;
                     }
                 });

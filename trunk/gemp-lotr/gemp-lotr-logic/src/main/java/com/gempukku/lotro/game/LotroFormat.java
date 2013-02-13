@@ -14,6 +14,8 @@ public interface LotroFormat {
 
     public boolean hasMulliganRule();
 
+    public boolean winAtEndOfRegroup();
+
     public String getName();
 
     public void validateCard(String cardId) throws DeckInvalidException;
