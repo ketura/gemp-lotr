@@ -10,6 +10,8 @@ public interface LotroFormat {
 
     public boolean canCancelRingBearerSkirmish();
 
+    public boolean hasRuleOfFour();
+
     public boolean hasMulliganRule();
 
     public String getName();

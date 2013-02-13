@@ -255,6 +255,7 @@
         "valid":[],
         "set":[20],
         "cancelRingBearerSkirmish":true,
+        "ruleOfFour":false,
         "hall":false
     }
 ]
