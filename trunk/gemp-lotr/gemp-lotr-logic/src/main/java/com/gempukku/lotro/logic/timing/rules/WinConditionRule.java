@@ -35,7 +35,7 @@ public class WinConditionRule {
                                 && game.getGameState().getCurrentSiteNumber() == 9
                                 && !game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.WIN_CHECK_AFTER_SHADOW_RECONCILE))
                             game.playerWon(game.getGameState().getCurrentPlayerId(), "Surviving to Regroup phase on site 9");
-                        else {
+                        else if (game.getFormat().winOnControlling5Sites()) {
                             for (String opponent : GameUtils.getOpponents(game, game.getGameState().getCurrentPlayerId())) {
                                 if (Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.SITE, Filters.siteControlled(opponent))>=5)
                                     game.playerWon(opponent, "Controls 5 sites");

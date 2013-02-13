@@ -23,6 +23,7 @@ public class DefaultLotroFormat implements LotroFormat {
     private boolean _canCancelRingBearerSkirmish;
     private boolean _hasRuleOfFour;
     private boolean _winAtEndOfRegroup;
+    private boolean _winOnControlling5Sites;
     private int _minimumDeckSize = 60;
     private List<String> _bannedCards = new ArrayList<String>();
     private List<String> _restrictedCards = new ArrayList<String>();
@@ -31,7 +32,7 @@ public class DefaultLotroFormat implements LotroFormat {
 
     public DefaultLotroFormat(LotroCardBlueprintLibrary library, String name, Block siteBlock,
                               boolean validateShadowFPCount, int minimumDeckSize, int maximumSameName, boolean mulliganRule,
-                              boolean canCancelRingBearerSkirmish, boolean hasRuleOfFour, boolean winAtEndOfRegroup) {
+                              boolean canCancelRingBearerSkirmish, boolean hasRuleOfFour, boolean winAtEndOfRegroup, boolean winOnControlling5Sites) {
         _library = library;
         _name = name;
         _siteBlock = siteBlock;
@@ -42,9 +43,8 @@ public class DefaultLotroFormat implements LotroFormat {
         _canCancelRingBearerSkirmish = canCancelRingBearerSkirmish;
         _hasRuleOfFour = hasRuleOfFour;
         _winAtEndOfRegroup = winAtEndOfRegroup;
+        _winOnControlling5Sites = winOnControlling5Sites;
     }
-
-
 
     @Override
     public final boolean isOrderedSites() {
@@ -74,6 +74,11 @@ public class DefaultLotroFormat implements LotroFormat {
     @Override
     public boolean hasRuleOfFour() {
         return _hasRuleOfFour;
+    }
+
+    @Override
+    public boolean winOnControlling5Sites() {
+        return _winOnControlling5Sites;
     }
 
     @Override

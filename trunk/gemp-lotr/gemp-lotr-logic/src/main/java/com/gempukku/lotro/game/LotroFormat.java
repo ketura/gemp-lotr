@@ -16,6 +16,8 @@ public interface LotroFormat {
 
     public boolean winAtEndOfRegroup();
 
+    public boolean winOnControlling5Sites();
+
     public String getName();
 
     public void validateCard(String cardId) throws DeckInvalidException;

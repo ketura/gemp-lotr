@@ -39,8 +39,12 @@ public class LotroFormatLibrary {
                     Boolean winAtEndOfRegroup = (Boolean) formatDef.get("winAtEndOfRegroup");
                     if (winAtEndOfRegroup == null)
                         winAtEndOfRegroup = false;
+                    Boolean winOnControlling5Sites = (Boolean) formatDef.get("winOnControlling5Sites");
+                    if (winOnControlling5Sites == null)
+                        winOnControlling5Sites = false;
 
-                    final DefaultLotroFormat format = new DefaultLotroFormat(library, name, block, true, 60, 4, true, cancelRingBearerSkirmish, hasRuleOfFour, winAtEndOfRegroup);
+                    final DefaultLotroFormat format = new DefaultLotroFormat(library, name, block, true, 60, 4, true,
+                            cancelRingBearerSkirmish, hasRuleOfFour, winAtEndOfRegroup, winOnControlling5Sites);
 
                     JSONArray sets = (JSONArray) formatDef.get("set");
                     for (Object set : sets)
