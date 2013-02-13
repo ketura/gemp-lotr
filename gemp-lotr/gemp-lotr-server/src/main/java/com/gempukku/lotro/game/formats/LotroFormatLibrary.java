@@ -33,7 +33,7 @@ public class LotroFormatLibrary {
                     Boolean cancelRingBearerSkirmish = (Boolean) formatDef.get("cancelRingBearerSkirmish");
                     if (cancelRingBearerSkirmish == null)
                         cancelRingBearerSkirmish = false;
-                    Boolean hasRuleOfFour = (Boolean) formatDef.get("hasRuleOfFour");
+                    Boolean hasRuleOfFour = (Boolean) formatDef.get("ruleOfFour");
                     if (hasRuleOfFour == null)
                         hasRuleOfFour = true;
 
