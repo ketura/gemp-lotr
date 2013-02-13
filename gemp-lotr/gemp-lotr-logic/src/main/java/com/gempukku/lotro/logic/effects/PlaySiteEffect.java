@@ -140,7 +140,7 @@ public class PlaySiteEffect extends AbstractEffect {
                             }
 
                             sitePlayedCallback(newSite);
-                            game.getActionsEnvironment().emitEffectResult(new PlayCardResult(Zone.ADVENTURE_DECK, newSite, null, null));
+                            game.getActionsEnvironment().emitEffectResult(new PlayCardResult(Zone.ADVENTURE_DECK, newSite, null, null, false));
                         }
                     });
 

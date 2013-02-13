@@ -6,6 +6,7 @@ import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.AbstractCostToEffectAction;
 import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.timing.AbstractSubActionEffect;
 import com.gempukku.lotro.logic.timing.Action;
@@ -84,4 +85,9 @@ public class ToilDiscountEffect extends AbstractSubActionEffect implements Disco
         return (_exertedCount + _paidToil) * _toilCount;
     }
 
+    @Override
+    public void afterDiscountCallback(AbstractCostToEffectAction action) {
+        if (_exertedCount>0)
+            action.setPaidToil(true);
+    }
 }

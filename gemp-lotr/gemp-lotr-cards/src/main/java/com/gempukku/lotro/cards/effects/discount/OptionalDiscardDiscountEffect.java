@@ -7,6 +7,7 @@ import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffe
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.AbstractCostToEffectAction;
 import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.timing.AbstractSubActionEffect;
 import com.gempukku.lotro.logic.timing.Action;
@@ -79,4 +80,9 @@ public class OptionalDiscardDiscountEffect extends AbstractSubActionEffect imple
 
     protected void discountPaidCallback() {
     }
+
+    @Override
+    public void afterDiscountCallback(AbstractCostToEffectAction action) {
+    }
+
 }

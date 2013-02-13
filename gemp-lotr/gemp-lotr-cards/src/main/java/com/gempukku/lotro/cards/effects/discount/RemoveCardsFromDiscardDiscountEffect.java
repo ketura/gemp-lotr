@@ -7,6 +7,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
+import com.gempukku.lotro.logic.actions.AbstractCostToEffectAction;
 import com.gempukku.lotro.logic.decisions.ArbitraryCardsSelectionDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.decisions.YesNoDecision;
@@ -103,4 +104,9 @@ public class RemoveCardsFromDiscardDiscountEffect implements DiscountEffect {
     public boolean wasCarriedOut() {
         return !_required || _paid;
     }
+
+    @Override
+    public void afterDiscountCallback(AbstractCostToEffectAction action) {
+    }
+
 }

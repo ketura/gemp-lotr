@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.effects.discount;
 
 import com.gempukku.lotro.cards.effects.DiscountEffect;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.AbstractCostToEffectAction;
 import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.decisions.IntegerAwaitingDecision;
@@ -73,4 +74,9 @@ public class RemoveThreatsToDiscountEffect extends AbstractSubActionEffect imple
     public int getDiscountPaidFor() {
         return _threatsRemoved;
     }
+
+    @Override
+    public void afterDiscountCallback(AbstractCostToEffectAction action) {
+    }
+
 }

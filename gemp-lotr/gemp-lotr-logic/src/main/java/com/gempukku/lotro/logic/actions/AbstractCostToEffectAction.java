@@ -16,6 +16,15 @@ public abstract class AbstractCostToEffectAction implements CostToEffectAction {
     private String _performingPlayer;
 
     private boolean _virtualCardAction = false;
+    private boolean _paidToil = false;
+
+    public boolean isPaidToil() {
+        return _paidToil;
+    }
+
+    public void setPaidToil(boolean paidToil) {
+        _paidToil = paidToil;
+    }
 
     @Override
     public void setVirtualCardAction(boolean virtualCardAction) {

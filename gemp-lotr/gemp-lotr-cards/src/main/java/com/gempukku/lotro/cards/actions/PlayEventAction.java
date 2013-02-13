@@ -33,6 +33,7 @@ public class PlayEventAction extends AbstractCostToEffectAction implements Disco
     private DiscountEffect _discountEffect;
 
     private boolean _discountApplied;
+    private Zone _playedFrom;
 
     public PlayEventAction(PhysicalCard card) {
         this(card, false);
@@ -42,7 +43,7 @@ public class PlayEventAction extends AbstractCostToEffectAction implements Disco
         _eventPlayed = card;
         _requiresRanger = requiresRanger;
 
-        _playCardEffect = new PlayEventEffect(this, card.getZone(), card, requiresRanger);
+        _playedFrom = card.getZone();
 
         _text = "Play " + GameUtils.getFullName(_eventPlayed);
     }
@@ -132,8 +133,10 @@ public class PlayEventAction extends AbstractCostToEffectAction implements Disco
         if (!_discountApplied) {
             _discountApplied = true;
             int twilightModifier = 0;
-            if (_discountEffect != null)
+            if (_discountEffect != null) {
                 twilightModifier -= _discountEffect.getDiscountPaidFor();
+                _discountEffect.afterDiscountCallback(this);
+            }
             insertCost(new PayTwilightCostEffect(_eventPlayed, twilightModifier));
         }
 
@@ -144,10 +147,11 @@ public class PlayEventAction extends AbstractCostToEffectAction implements Disco
 
             if (!_cardPlayed) {
                 _cardPlayed = true;
+                _playCardEffect = new PlayEventEffect(this, _playedFrom, _eventPlayed, _requiresRanger, isPaidToil());
                 return _playCardEffect;
             }
 
-            if (!_playCardEffect.getPlayEventResult().isEventCancelled()) {
+            if (_playCardEffect != null && !_playCardEffect.getPlayEventResult().isEventCancelled()) {
                 Effect effect = getNextEffect();
                 if (effect != null)
                     return effect;

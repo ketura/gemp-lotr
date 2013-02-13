@@ -17,7 +17,6 @@ import java.util.Collections;
 
 public class PlayPermanentAction extends AbstractCostToEffectAction implements DiscountableAction {
     private PhysicalCard _permanentPlayed;
-    private Zone _zone;
     private int _twilightModifier;
     private boolean _ignoreRoamingPenalty;
 
@@ -34,21 +33,23 @@ public class PlayPermanentAction extends AbstractCostToEffectAction implements D
     private boolean _discountApplied;
 
     private boolean _skipShuffling;
+    private Zone _fromZone;
+    private Zone _toZone;
+    private PhysicalCard _playedFromCard;
 
     public PlayPermanentAction(PhysicalCard card, Zone zone, int twilightModifier, boolean ignoreRoamingPenalty) {
         _permanentPlayed = card;
         setPerformingPlayer(card.getOwner());
-        _zone = zone;
         _twilightModifier = twilightModifier;
         _ignoreRoamingPenalty = ignoreRoamingPenalty;
 
-        PhysicalCard playedFromCard = null;
         if (card.getZone() == Zone.STACKED)
-            playedFromCard = card.getStackedOn();
+            _playedFromCard = card.getStackedOn();
         else if (card.getZone() == Zone.ATTACHED)
-            playedFromCard = card.getAttachedTo();
+            _playedFromCard = card.getAttachedTo();
 
-        _playCardEffect = new PlayCardEffect(card.getZone(), card, zone, playedFromCard);
+        _fromZone = card.getZone();
+        _toZone = zone;
     }
 
     public void skipShufflingDeck() {
@@ -118,8 +119,10 @@ public class PlayPermanentAction extends AbstractCostToEffectAction implements D
 
         if (!_discountApplied) {
             _discountApplied = true;
-            if (_discountEffect != null)
+            if (_discountEffect != null) {
                 _twilightModifier -= _discountEffect.getDiscountPaidFor();
+                _discountEffect.afterDiscountCallback(this);
+            }
             insertCost(new PayTwilightCostEffect(_permanentPlayed, _twilightModifier, _ignoreRoamingPenalty));
         }
 
@@ -130,6 +133,7 @@ public class PlayPermanentAction extends AbstractCostToEffectAction implements D
 
             if (!_cardPlayed) {
                 _cardPlayed = true;
+                _playCardEffect = new PlayCardEffect(_fromZone, _permanentPlayed, _toZone, _playedFromCard, isPaidToil());
                 return _playCardEffect;
             }
 
@@ -148,6 +152,6 @@ public class PlayPermanentAction extends AbstractCostToEffectAction implements D
     }
 
     public boolean wasCarriedOut() {
-        return _cardPlayed && _playCardEffect.wasCarriedOut();
+        return _cardPlayed && _playCardEffect != null && _playCardEffect.wasCarriedOut();
     }
 }
