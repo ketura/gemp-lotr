@@ -35,11 +35,11 @@ public class Card13_002 extends AbstractEvent {
                         boolean canSpotCultureToken = PlayConditions.canSpot(game, Filters.hasToken(Token.DWARVEN));
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new StrengthModifier(self, card, canSpotCultureToken ? 4 : 3), Phase.SKIRMISH));
+                                        new StrengthModifier(self, card, canSpotCultureToken ? 4 : 3)));
                         if (canSpotCultureToken)
                             action.appendEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
-                                            new KeywordModifier(self, card, Keyword.DAMAGE, 1), Phase.SKIRMISH));
+                                            new KeywordModifier(self, card, Keyword.DAMAGE, 1)));
                     }
                 });
         return action;

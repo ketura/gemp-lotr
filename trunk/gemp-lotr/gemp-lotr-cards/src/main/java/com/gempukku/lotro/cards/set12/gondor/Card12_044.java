@@ -37,11 +37,11 @@ public class Card12_044 extends AbstractEvent {
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new StrengthModifier(self, card, 1), Phase.SKIRMISH));
+                                        new StrengthModifier(self, card, 1)));
                         if (Filters.inSkirmishAgainst(Filters.roamingMinion).accepts(game.getGameState(), game.getModifiersQuerying(), card)) {
                             action.appendEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
-                                            new OpponentsCantUseSpecialAbilitiesModifier(self, playerId), Phase.SKIRMISH));
+                                            new OpponentsCantUseSpecialAbilitiesModifier(self, playerId)));
                         }
                     }
                 });

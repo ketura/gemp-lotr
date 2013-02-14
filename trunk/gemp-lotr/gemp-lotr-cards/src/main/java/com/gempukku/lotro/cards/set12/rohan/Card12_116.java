@@ -48,7 +48,7 @@ public class Card12_116 extends AbstractCompanion {
                     new SelfExertEffect(action, self));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new StrengthModifier(self, self, 1), Phase.SKIRMISH));
+                            new StrengthModifier(self, self, 1)));
             return Collections.singletonList(action);
         }
         return null;

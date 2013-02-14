@@ -47,7 +47,7 @@ public class Card11_164 extends AbstractCompanion {
                     new SelfExertEffect(action, self));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new KeywordModifier(self, self, Keyword.MUSTER), Phase.REGROUP));
+                            new KeywordModifier(self, self, Keyword.MUSTER)));
             return Collections.singletonList(action);
         }
         return null;

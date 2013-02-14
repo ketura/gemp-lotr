@@ -43,7 +43,7 @@ public class Card12_123 extends AbstractEvent {
                     protected void cardSelected(LotroGame game, final PhysicalCard hobbit) {
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new StrengthModifier(self, hobbit, 2), Phase.SKIRMISH));
+                                        new StrengthModifier(self, hobbit, 2)));
                         action.appendEffect(
                                 new AddUntilEndOfPhaseActionProxyEffect(
                                         new AbstractActionProxy() {
@@ -59,7 +59,7 @@ public class Card12_123 extends AbstractEvent {
                                                 }
                                                 return null;
                                             }
-                                        }, Phase.SKIRMISH));
+                                        }));
                     }
                 });
         return action;

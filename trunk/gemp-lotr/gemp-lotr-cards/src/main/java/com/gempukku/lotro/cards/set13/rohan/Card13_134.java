@@ -47,10 +47,10 @@ public class Card13_134 extends AbstractEvent {
                                                 protected void cardSelected(LotroGame game, PhysicalCard card) {
                                                     action.appendEffect(
                                                             new AddUntilEndOfPhaseModifierEffect(
-                                                                    new StrengthModifier(self, card, 5), Phase.SKIRMISH));
+                                                                    new StrengthModifier(self, card, 5)));
                                                     action.appendEffect(
                                                             new AddUntilEndOfPhaseModifierEffect(
-                                                                    new KeywordModifier(self, card, Keyword.DAMAGE, 1), Phase.SKIRMISH));
+                                                                    new KeywordModifier(self, card, Keyword.DAMAGE, 1)));
                                                 }
                                             });
                                 }

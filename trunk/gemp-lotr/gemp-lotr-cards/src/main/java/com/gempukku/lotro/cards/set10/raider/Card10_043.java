@@ -66,7 +66,7 @@ public class Card10_043 extends AbstractPermanent {
                         protected void forEachCardExertedCallback(PhysicalCard character) {
                             action.appendEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
-                                            new StrengthModifier(self, character, 1), Phase.SKIRMISH));
+                                            new StrengthModifier(self, character, 1)));
                         }
                     });
             return Collections.singletonList(action);

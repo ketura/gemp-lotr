@@ -3,13 +3,10 @@ package com.gempukku.lotro.cards.set1.dwarven;
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
-import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 
 /**
@@ -36,15 +33,6 @@ public class Card1_011 extends AbstractCompanion {
 
     @Override
     public Modifier getAlwaysOnModifier(LotroGame game, final PhysicalCard self) {
-        return new StrengthModifier(self,
-                Filters.and(
-                        self,
-                        Filters.inSkirmish,
-                        new Filter() {
-                            @Override
-                            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                return Filters.canSpot(gameState, modifiersQuerying, Race.ORC, Filters.inSkirmish);
-                            }
-                        }), 2);
+        return new StrengthModifier(self, Filters.and(self, Filters.inSkirmishAgainst(Race.ORC)), 2);
     }
 }

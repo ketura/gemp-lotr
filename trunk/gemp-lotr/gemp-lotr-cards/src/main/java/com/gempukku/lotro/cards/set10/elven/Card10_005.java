@@ -45,9 +45,9 @@ public class Card10_005 extends AbstractCompanion {
                         @Override
                         protected void discardedCardCallback(PhysicalCard card) {
                             if (card.getBlueprint().getCulture() == Culture.ELVEN) {
-                                action.appendEffect(
-                                        new AddUntilEndOfPhaseModifierEffect(new StrengthModifier(self, Filters.and(CardType.MINION, Filters.inSkirmishAgainst(self)), -3), Phase.SKIRMISH));
                             }
+                            action.appendEffect(
+                                    new AddUntilEndOfPhaseModifierEffect(new StrengthModifier(self, Filters.and(CardType.MINION, Filters.inSkirmishAgainst(self)), -3)));
                         }
                     });
             return Collections.singletonList(action);

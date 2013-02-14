@@ -40,7 +40,7 @@ public class Card13_043 extends AbstractPermanent {
                         protected void forEachCardExertedCallback(PhysicalCard character) {
                             action.appendEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
-                                            new KeywordModifier(self, character, Keyword.DAMAGE, 1), Phase.SKIRMISH));
+                                            new KeywordModifier(self, character, Keyword.DAMAGE, 1)));
                         }
                     });
             action.appendCost(

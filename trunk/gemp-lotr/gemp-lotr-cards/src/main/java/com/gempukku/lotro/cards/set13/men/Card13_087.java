@@ -52,7 +52,7 @@ public class Card13_087 extends AbstractPermanent {
                             if (count > 0)
                                 action.appendEffect(
                                         new AddUntilEndOfPhaseModifierEffect(
-                                                new KeywordModifier(self, card, Keyword.DAMAGE, count), Phase.SKIRMISH));
+                                                new KeywordModifier(self, card, Keyword.DAMAGE, count)));
                         }
                     });
             return Collections.singletonList(action);

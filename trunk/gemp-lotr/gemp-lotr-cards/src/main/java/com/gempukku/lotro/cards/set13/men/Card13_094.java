@@ -61,7 +61,7 @@ public class Card13_094 extends AbstractPermanent {
                     new ChoiceEffect(action, playerId, possibleCosts));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new ArcheryTotalModifier(self, Side.SHADOW, 1), Phase.ARCHERY));
+                            new ArcheryTotalModifier(self, Side.SHADOW, 1)));
             return Collections.singletonList(action);
         }
         return null;

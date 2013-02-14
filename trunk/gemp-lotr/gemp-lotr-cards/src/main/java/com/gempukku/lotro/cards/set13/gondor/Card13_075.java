@@ -41,7 +41,7 @@ public class Card13_075 extends AbstractPermanent {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new KeywordModifier(self, ((ExertResult) effectResult).getExertedCard(), Keyword.MUSTER), Phase.REGROUP));
+                            new KeywordModifier(self, ((ExertResult) effectResult).getExertedCard(), Keyword.MUSTER)));
             return Collections.singletonList(action);
         }
         return null;

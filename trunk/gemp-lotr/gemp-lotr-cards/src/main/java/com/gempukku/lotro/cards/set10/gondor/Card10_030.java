@@ -47,7 +47,7 @@ public class Card10_030 extends AbstractEvent {
                     protected void cardSelected(LotroGame game, final PhysicalCard card) {
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new StrengthModifier(self, card, 2), Phase.SKIRMISH));
+                                        new StrengthModifier(self, card, 2)));
                         action.appendEffect(
                                 new AddUntilEndOfPhaseActionProxyEffect(
                                         new AbstractActionProxy() {
@@ -60,7 +60,7 @@ public class Card10_030 extends AbstractEvent {
                                                             new HealCharactersEffect(self, card));
                                                     possibleEffects.add(
                                                             new AddUntilEndOfPhaseModifierEffect(
-                                                                    new KeywordModifier(self, card, Keyword.DAMAGE, 1), Phase.SKIRMISH) {
+                                                                    new KeywordModifier(self, card, Keyword.DAMAGE, 1)) {
                                                                 @Override
                                                                 public String getText(LotroGame game) {
                                                                     return "Make " + GameUtils.getFullName(card) + " damage +1";
@@ -72,7 +72,7 @@ public class Card10_030 extends AbstractEvent {
                                                 }
                                                 return null;
                                             }
-                                        }, Phase.SKIRMISH));
+                                        }));
                     }
                 });
         return action;

@@ -53,7 +53,7 @@ public class Card10_098 extends AbstractResponseEvent {
                                         return false;
                                     return true;
                                 }
-                            }, game.getGameState().getCurrentPhase()));
+                            }));
             return Collections.singletonList(action);
         }
         return null;

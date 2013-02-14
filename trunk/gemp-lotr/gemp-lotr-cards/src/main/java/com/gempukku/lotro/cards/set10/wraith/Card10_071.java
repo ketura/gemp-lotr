@@ -50,7 +50,7 @@ public class Card10_071 extends AbstractMinion {
                     new HealCharactersEffect(self, self));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new KeywordModifier(self, self, Keyword.DAMAGE, 1), Phase.SKIRMISH));
+                            new KeywordModifier(self, self, Keyword.DAMAGE, 1)));
             return Collections.singletonList(action);
         }
         return null;

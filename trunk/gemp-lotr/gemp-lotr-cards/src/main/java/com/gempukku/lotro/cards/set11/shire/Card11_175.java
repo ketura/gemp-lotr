@@ -40,7 +40,7 @@ public class Card11_175 extends AbstractEvent {
                                     protected void cardSelected(LotroGame game, PhysicalCard card) {
                                         action.appendEffect(
                                                 new AddUntilEndOfPhaseModifierEffect(
-                                                        new ResistanceModifier(self, card, spotCount), Phase.SKIRMISH));
+                                                        new ResistanceModifier(self, card, spotCount)));
                                     }
                                 });
                     }

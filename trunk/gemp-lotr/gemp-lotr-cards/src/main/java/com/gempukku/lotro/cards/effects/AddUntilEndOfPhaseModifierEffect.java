@@ -9,6 +9,10 @@ public class AddUntilEndOfPhaseModifierEffect extends UnrespondableEffect {
     private Modifier _modifier;
     private Phase _phase;
 
+    public AddUntilEndOfPhaseModifierEffect(Modifier modifier) {
+        this(modifier, null);
+    }
+
     public AddUntilEndOfPhaseModifierEffect(Modifier modifier, Phase phase) {
         _modifier = modifier;
         _phase = phase;
@@ -16,6 +20,9 @@ public class AddUntilEndOfPhaseModifierEffect extends UnrespondableEffect {
 
     @Override
     public void doPlayEffect(LotroGame game) {
-        game.getModifiersEnvironment().addUntilEndOfPhaseModifier(_modifier, _phase);
+        Phase phase = _phase;
+        if (phase == null)
+            phase = game.getGameState().getCurrentPhase();
+        game.getModifiersEnvironment().addUntilEndOfPhaseModifier(_modifier, phase);
     }
 }

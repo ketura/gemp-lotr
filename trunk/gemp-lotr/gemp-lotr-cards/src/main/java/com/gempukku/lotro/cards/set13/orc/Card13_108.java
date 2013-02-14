@@ -50,7 +50,7 @@ public class Card13_108 extends AbstractPermanent {
                     new ChooseAndDiscardCardsFromPlayEffect(action, game.getGameState().getCurrentPlayerId(), 1, 1, Filters.not(self), Culture.ORC, CardType.CONDITION));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new SpecialFlagModifier(self, ModifierFlag.HAS_TO_MOVE_IF_POSSIBLE), Phase.REGROUP));
+                            new SpecialFlagModifier(self, ModifierFlag.HAS_TO_MOVE_IF_POSSIBLE)));
             action.appendEffect(
                     new SelfDiscardEffect(self));
             return Collections.singletonList(action);

@@ -43,7 +43,7 @@ public class Card12_047 extends AbstractCompanion {
             int wounds = game.getGameState().getWounds(game.getGameState().getRingBearer(playerId));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new StrengthModifier(self, self, wounds), Phase.SKIRMISH));
+                            new StrengthModifier(self, self, wounds)));
             return Collections.singletonList(action);
         }
         return null;

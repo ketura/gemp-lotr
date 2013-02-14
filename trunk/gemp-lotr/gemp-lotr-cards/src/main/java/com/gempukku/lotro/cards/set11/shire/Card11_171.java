@@ -64,7 +64,7 @@ public class Card11_171 extends AbstractAttachableFPPossession {
                     new SelfDiscardEffect(self));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new OverwhelmedByMultiplierModifier(self, self.getAttachedTo(), 3), Phase.SKIRMISH));
+                            new OverwhelmedByMultiplierModifier(self, self.getAttachedTo(), 3)));
             return Collections.singletonList(action);
         }
         return null;

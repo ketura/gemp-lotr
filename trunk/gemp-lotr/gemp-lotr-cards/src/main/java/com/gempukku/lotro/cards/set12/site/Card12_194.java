@@ -40,7 +40,7 @@ public class Card12_194 extends AbstractNewSite {
                         protected void forEachCardExertedCallback(PhysicalCard character) {
                             action.appendEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
-                                            new KeywordModifier(self, character, Keyword.DAMAGE, 1), Phase.SKIRMISH));
+                                            new KeywordModifier(self, character, Keyword.DAMAGE, 1)));
                         }
                     });
             return Collections.singletonList(action);

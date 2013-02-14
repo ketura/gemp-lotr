@@ -51,7 +51,7 @@ public class Card13_062 extends AbstractCompanion {
             if (bonus > 0)
                 action.appendEffect(
                         new AddUntilEndOfPhaseModifierEffect(
-                                new StrengthModifier(self, self, bonus), Phase.SKIRMISH));
+                                new StrengthModifier(self, self, bonus)));
             return Collections.singletonList(action);
         }
         return null;

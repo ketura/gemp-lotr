@@ -34,10 +34,10 @@ public class Card11_004 extends AbstractEvent {
                         if (wounds > 0) {
                             action.insertEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
-                                            new StrengthModifier(self, card, wounds * 2), Phase.SKIRMISH));
+                                            new StrengthModifier(self, card, wounds * 2)));
                             action.insertEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
-                                            new KeywordModifier(self, card, Keyword.DAMAGE, wounds), Phase.SKIRMISH));
+                                            new KeywordModifier(self, card, Keyword.DAMAGE, wounds)));
                         }
                     }
                 });

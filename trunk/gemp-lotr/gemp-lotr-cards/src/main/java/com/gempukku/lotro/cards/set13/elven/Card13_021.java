@@ -36,7 +36,7 @@ public class Card13_021 extends AbstractEvent {
         int total = game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.SHADOW_PLAYER_REPLACED_CURRENT_SITE) ? 2 : 1;
         action.appendEffect(
                 new AddUntilEndOfPhaseModifierEffect(
-                        new ArcheryTotalModifier(self, Side.FREE_PEOPLE, total), Phase.ARCHERY));
+                        new ArcheryTotalModifier(self, Side.FREE_PEOPLE, total)));
         return action;
     }
 }

@@ -9,6 +9,10 @@ public class AddUntilEndOfPhaseActionProxyEffect extends UnrespondableEffect {
     private ActionProxy _actionProxy;
     private Phase _phase;
 
+    public AddUntilEndOfPhaseActionProxyEffect(ActionProxy actionProxy) {
+        this(actionProxy, null);
+    }
+
     public AddUntilEndOfPhaseActionProxyEffect(ActionProxy actionProxy, Phase phase) {
         _actionProxy = actionProxy;
         _phase = phase;
@@ -16,6 +20,9 @@ public class AddUntilEndOfPhaseActionProxyEffect extends UnrespondableEffect {
 
     @Override
     public void doPlayEffect(LotroGame game) {
-        game.getActionsEnvironment().addUntilEndOfPhaseActionProxy(_actionProxy, _phase);
+        Phase phase = _phase;
+        if (phase == null)
+            phase = game.getGameState().getCurrentPhase();
+        game.getActionsEnvironment().addUntilEndOfPhaseActionProxy(_actionProxy, phase);
     }
 }

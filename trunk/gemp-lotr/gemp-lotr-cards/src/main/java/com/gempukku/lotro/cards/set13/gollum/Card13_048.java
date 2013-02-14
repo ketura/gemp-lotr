@@ -8,7 +8,6 @@ import com.gempukku.lotro.cards.effects.ReinforceTokenEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndRemoveCultureTokensFromCardEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Filterable;
-import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Token;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -70,7 +69,7 @@ public class Card13_048 extends AbstractAttachableFPPossession {
                             new ChooseAndRemoveCultureTokensFromCardEffect(self, playerId, Token.GOLLUM, 1, Filters.any));
                     action.appendEffect(
                             new AddUntilEndOfPhaseModifierEffect(
-                                    new StrengthModifier(self, Filters.hasAttached(self), 2), Phase.SKIRMISH));
+                                    new StrengthModifier(self, Filters.hasAttached(self), 2)));
                     return Collections.singletonList(action);
                 }
             }
