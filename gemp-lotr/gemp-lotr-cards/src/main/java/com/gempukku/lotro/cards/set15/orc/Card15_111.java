@@ -53,7 +53,7 @@ public class Card15_111 extends AbstractMinion {
 
                                 action.appendEffect(
                                         new AddUntilEndOfPhaseModifierEffect(
-                                                new StrengthModifier(self, self, twilightCost), Phase.SKIRMISH));
+                                                new StrengthModifier(self, self, twilightCost)));
                             }
                         }
                     });

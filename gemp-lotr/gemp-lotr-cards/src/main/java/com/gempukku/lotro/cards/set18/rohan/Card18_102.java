@@ -48,7 +48,7 @@ public class Card18_102 extends AbstractPermanent {
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.appendEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
-                                            new StrengthModifier(self, card, 2), Phase.SKIRMISH));
+                                            new StrengthModifier(self, card, 2)));
                         }
                     });
             action.appendCost(

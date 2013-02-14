@@ -39,10 +39,10 @@ public class Card1_004 extends AbstractOldEvent {
                     protected void forEachCardExertedCallback(PhysicalCard dwarf) {
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new StrengthModifier(self, dwarf, 3), Phase.SKIRMISH));
+                                        new StrengthModifier(self, dwarf, 3)));
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new KeywordModifier(self, dwarf, Keyword.DAMAGE), Phase.SKIRMISH));
+                                        new KeywordModifier(self, dwarf, Keyword.DAMAGE)));
                     }
                 }
         );

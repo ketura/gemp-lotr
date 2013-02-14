@@ -44,7 +44,7 @@ public class Card19_007 extends AbstractCompanion {
                     new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, CardType.MINION));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new DoesNotAddToArcheryTotalModifier(self, self), Phase.ARCHERY));
+                            new DoesNotAddToArcheryTotalModifier(self, self)));
             return Collections.singletonList(action);
         }
         return null;

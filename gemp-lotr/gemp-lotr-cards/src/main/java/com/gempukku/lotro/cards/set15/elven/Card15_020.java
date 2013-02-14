@@ -36,7 +36,7 @@ public class Card15_020 extends AbstractEvent {
         PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new AddUntilEndOfPhaseModifierEffect(
-                        new ArcheryTotalModifier(self, Side.SHADOW, -3), Phase.ARCHERY));
+                        new ArcheryTotalModifier(self, Side.SHADOW, -3)));
         return action;
     }
 }

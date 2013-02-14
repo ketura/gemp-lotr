@@ -45,7 +45,7 @@ public class Card18_059 extends AbstractCompanion {
                         protected void forEachCardExertedCallback(PhysicalCard character) {
                             action.appendEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
-                                            new StrengthModifier(self, character, 3), Phase.SKIRMISH));
+                                            new StrengthModifier(self, character, 3)));
                         }
                     });
             return Collections.singletonList(action);

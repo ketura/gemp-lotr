@@ -52,7 +52,7 @@ public class Card17_103 extends AbstractEvent {
                     protected void cardSelected(LotroGame game, final PhysicalCard card) {
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new StrengthModifier(self, Filters.frodo, 5), Phase.SKIRMISH));
+                                        new StrengthModifier(self, Filters.frodo, 5)));
                         action.appendEffect(
                                 new AddUntilEndOfPhaseActionProxyEffect(
                                         new AbstractActionProxy() {

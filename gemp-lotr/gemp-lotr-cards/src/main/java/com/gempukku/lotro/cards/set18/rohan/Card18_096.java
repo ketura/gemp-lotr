@@ -56,7 +56,7 @@ public class Card18_096 extends AbstractAttachableFPPossession {
                     new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, CardType.FOLLOWER));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new StrengthModifier(self, self.getAttachedTo(), null, new CardMatchesEvaluator(4, 5, Filters.name("Erkenbrand"))), Phase.SKIRMISH));
+                            new StrengthModifier(self, self.getAttachedTo(), null, new CardMatchesEvaluator(4, 5, Filters.name("Erkenbrand")))));
             return Collections.singletonList(action);
         }
         return null;

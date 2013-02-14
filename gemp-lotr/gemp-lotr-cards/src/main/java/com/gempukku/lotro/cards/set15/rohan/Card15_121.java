@@ -33,11 +33,11 @@ public class Card15_121 extends AbstractEvent {
                         boolean isHunter = game.getModifiersQuerying().hasKeyword(game.getGameState(), card, Keyword.HUNTER);
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new StrengthModifier(self, card, isHunter ? 3 : 2), Phase.SKIRMISH));
+                                        new StrengthModifier(self, card, isHunter ? 3 : 2)));
                         if (isHunter)
                             action.appendEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
-                                            new KeywordModifier(self, card, Keyword.DAMAGE, 1), Phase.SKIRMISH));
+                                            new KeywordModifier(self, card, Keyword.DAMAGE, 1)));
                     }
                 });
         return action;

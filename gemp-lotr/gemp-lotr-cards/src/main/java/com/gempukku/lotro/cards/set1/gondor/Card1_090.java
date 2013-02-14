@@ -51,7 +51,7 @@ public class Card1_090 extends AbstractAttachableFPPossession {
             action.appendCost(new ExertCharactersEffect(action, self, self.getAttachedTo()));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new DoesNotAddToArcheryTotalModifier(self, Filters.sameCard(self.getAttachedTo())), Phase.ARCHERY));
+                            new DoesNotAddToArcheryTotalModifier(self, Filters.sameCard(self.getAttachedTo()))));
             action.appendEffect(
                     new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, CardType.MINION));
             return Collections.singletonList(action);

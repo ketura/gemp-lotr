@@ -43,10 +43,10 @@ public class Card18_130 extends AbstractMinion {
                     new RemoveTwilightEffect(2));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new StrengthModifier(self, self, 1), Phase.SKIRMISH));
+                            new StrengthModifier(self, self, 1)));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new KeywordModifier(self, self, Keyword.DAMAGE, 1), Phase.SKIRMISH));
+                            new KeywordModifier(self, self, Keyword.DAMAGE, 1)));
             return Collections.singletonList(action);
         }
         return null;

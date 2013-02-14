@@ -46,7 +46,7 @@ public class Card18_100 extends AbstractAttachableFPPossession {
                     new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, CardType.FOLLOWER));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new StrengthModifier(self, self.getAttachedTo(), 4), Phase.SKIRMISH));
+                            new StrengthModifier(self, self.getAttachedTo(), 4)));
             if (PlayConditions.canSpot(game, Filters.name("Gamling"), Filters.hasAttached(self))) {
                 action.appendEffect(
                         new OptionalEffect(action, playerId,

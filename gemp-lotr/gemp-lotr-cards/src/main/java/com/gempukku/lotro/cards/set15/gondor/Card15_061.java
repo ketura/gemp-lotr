@@ -78,7 +78,7 @@ public class Card15_061 extends AbstractCompanion {
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.appendEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
-                                            new MinionSiteNumberModifier(self, card, null, 2), Phase.SKIRMISH));
+                                            new MinionSiteNumberModifier(self, card, null, 2)));
                         }
                     });
             return Collections.singletonList(action);

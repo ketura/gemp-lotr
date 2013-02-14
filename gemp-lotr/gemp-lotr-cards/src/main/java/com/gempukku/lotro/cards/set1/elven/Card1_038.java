@@ -36,8 +36,9 @@ public class Card1_038 extends AbstractOldEvent {
     @Override
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         PlayEventAction action = new PlayEventAction(self);
-        action.appendEffect(new AddUntilEndOfPhaseModifierEffect(
-                new ArcheryTotalModifier(self, Side.FREE_PEOPLE, 1), Phase.ARCHERY));
+        action.appendEffect(
+                new AddUntilEndOfPhaseModifierEffect(
+                        new ArcheryTotalModifier(self, Side.FREE_PEOPLE, 1)));
 
         return action;
     }

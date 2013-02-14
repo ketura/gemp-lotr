@@ -39,7 +39,7 @@ public class Card18_019 extends AbstractEvent {
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new CancelStrengthBonusTargetModifier(self, card, CardType.POSSESSION), Phase.SKIRMISH));
+                                        new CancelStrengthBonusTargetModifier(self, card, CardType.POSSESSION)));
                     }
                 });
         return action;

@@ -50,7 +50,7 @@ public class Card17_111 extends AbstractPermanent {
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.appendEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
-                                            new OverwhelmedByMultiplierModifier(self, card, 3), Phase.SKIRMISH));
+                                            new OverwhelmedByMultiplierModifier(self, card, 3)));
                         }
                     });
             return Collections.singletonList(action);

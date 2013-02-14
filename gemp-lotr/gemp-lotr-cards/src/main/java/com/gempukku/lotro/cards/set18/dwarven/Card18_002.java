@@ -61,7 +61,7 @@ public class Card18_002 extends AbstractPermanent {
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.appendEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
-                                            new KeywordModifier(self, card, Keyword.HUNTER, 1), Phase.SKIRMISH));
+                                            new KeywordModifier(self, card, Keyword.HUNTER, 1)));
                         }
                     });
             return Collections.singletonList(action);

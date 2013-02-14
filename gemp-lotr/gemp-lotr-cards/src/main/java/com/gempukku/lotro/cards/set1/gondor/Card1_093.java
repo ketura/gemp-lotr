@@ -46,7 +46,7 @@ public class Card1_093 extends AbstractOldEvent {
                             filter = Filters.aragorn;
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new StrengthModifier(self, filter, 3), Phase.SKIRMISH));
+                                        new StrengthModifier(self, filter, 3)));
                     }
                 }
         );

@@ -66,7 +66,7 @@ public class Card19_001 extends AbstractAttachable {
                     new AddBurdenEffect(self.getOwner(), self, 1));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new StrengthModifier(self, self.getAttachedTo(), 3), Phase.SKIRMISH));
+                            new StrengthModifier(self, self.getAttachedTo(), 3)));
             return Collections.singletonList(action);
         }
         return null;

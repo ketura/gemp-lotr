@@ -43,7 +43,7 @@ public class Card17_045 extends AbstractEvent {
                                         action.appendEffect(
                                                 new AddUntilEndOfPhaseModifierEffect(
                                                         new StrengthModifier(self, minion, null,
-                                                                Filters.filter(game.getGameState().getStackedCards(possession), game.getGameState(), game.getModifiersQuerying(), CardType.MINION).size()), Phase.SKIRMISH));
+                                                                Filters.filter(game.getGameState().getStackedCards(possession), game.getGameState(), game.getModifiersQuerying(), CardType.MINION).size())));
                                         SubCostToEffectAction subAction = new SubCostToEffectAction(action);
                                         subAction.appendCost(
                                                 new DiscardCardsFromPlayEffect(self, possession));
