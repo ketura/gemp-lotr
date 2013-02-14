@@ -58,7 +58,7 @@ public class Card15_009 extends AbstractAttachableFPPossession {
                     new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 1, Culture.DWARVEN));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new KeywordModifier(self, self.getAttachedTo(), Keyword.DAMAGE, 1), Phase.SKIRMISH));
+                            new KeywordModifier(self, self.getAttachedTo(), Keyword.DAMAGE, 1)));
             return Collections.singletonList(action);
         }
         return null;

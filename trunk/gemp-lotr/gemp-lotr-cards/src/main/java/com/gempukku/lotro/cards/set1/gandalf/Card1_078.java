@@ -2,7 +2,8 @@ package com.gempukku.lotro.cards.set1.gandalf;
 
 import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
+import com.gempukku.lotro.cards.effects.SnapshotAndApplyStrengthModifierUntilEndOfCurrentPhaseEffect;
+import com.gempukku.lotro.cards.modifiers.evaluator.ConditionEvaluator;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
@@ -10,7 +11,7 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.modifiers.StrengthModifier;
+import com.gempukku.lotro.logic.modifiers.SpotBurdensCondition;
 
 /**
  * Set: The Fellowship of the Ring
@@ -29,13 +30,9 @@ public class Card1_078 extends AbstractOldEvent {
     @Override
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         PlayEventAction action = new PlayEventAction(self);
-        int bonus = (game.getGameState().getBurdens() <= 4) ? 4 : 2;
-        final PhysicalCard gandalf = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.gandalf);
-        if (gandalf != null) {
-            action.appendEffect(
-                    new AddUntilEndOfPhaseModifierEffect(
-                            new StrengthModifier(self, Filters.sameCard(gandalf), bonus), Phase.SKIRMISH));
-        }
+        action.appendEffect(
+                new SnapshotAndApplyStrengthModifierUntilEndOfCurrentPhaseEffect(
+                        self, new ConditionEvaluator(4, 2, new SpotBurdensCondition(5)), Filters.gandalf));
         return action;
     }
 

@@ -52,7 +52,7 @@ public class Card15_123 extends AbstractCompanion {
                     new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 1, Culture.ROHAN));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new StrengthModifier(self, self, 2), Phase.SKIRMISH));
+                            new StrengthModifier(self, self, 2)));
             return Collections.singletonList(action);
         }
         return null;

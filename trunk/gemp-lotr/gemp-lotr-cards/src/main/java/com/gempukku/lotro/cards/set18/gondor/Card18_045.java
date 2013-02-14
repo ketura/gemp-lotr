@@ -44,7 +44,7 @@ public class Card18_045 extends AbstractAttachableFPPossession {
                     new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 2, Culture.GONDOR));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new ArcheryTotalModifier(self, Side.FREE_PEOPLE, 1), Phase.ARCHERY));
+                            new ArcheryTotalModifier(self, Side.FREE_PEOPLE, 1)));
             return Collections.singletonList(action);
         }
         return null;

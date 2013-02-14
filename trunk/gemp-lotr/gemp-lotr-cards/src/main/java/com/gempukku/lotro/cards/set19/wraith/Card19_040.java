@@ -46,7 +46,7 @@ public class Card19_040 extends AbstractMinion {
                             for (PhysicalCard physicalCard : cardsBeingDiscarded) {
                                 action.appendEffect(
                                         new AddUntilEndOfPhaseModifierEffect(
-                                                new StrengthModifier(self, self, null, PlayConditions.canSpot(game, Filters.name(physicalCard.getBlueprint().getName())) ? 2 : 1), Phase.SKIRMISH));
+                                                new StrengthModifier(self, self, null, PlayConditions.canSpot(game, Filters.name(physicalCard.getBlueprint().getName())) ? 2 : 1)));
                             }
                         }
                     });

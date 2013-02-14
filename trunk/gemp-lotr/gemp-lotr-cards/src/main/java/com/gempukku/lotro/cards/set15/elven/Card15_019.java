@@ -46,7 +46,7 @@ public class Card15_019 extends AbstractCompanion {
                     new AddUntilEndOfPhaseModifierEffect(
                             new ArcheryTotalModifier(self, Side.FREE_PEOPLE, null,
                                     new CardPhaseLimitEvaluator(game, self, Phase.ARCHERY, 3,
-                                            new CountActiveEvaluator(CardType.MINION, Keyword.HUNTER))), Phase.ARCHERY));
+                                            new CountActiveEvaluator(CardType.MINION, Keyword.HUNTER)))));
             return Collections.singletonList(action);
         }
         return null;

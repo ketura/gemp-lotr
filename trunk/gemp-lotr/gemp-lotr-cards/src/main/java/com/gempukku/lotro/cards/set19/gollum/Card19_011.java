@@ -76,7 +76,7 @@ public class Card19_011 extends AbstractCompanion {
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, CardType.COMPANION, Keyword.RING_BOUND));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new StrengthModifier(self, self, 2), Phase.SKIRMISH));
+                            new StrengthModifier(self, self, 2)));
             return Collections.singletonList(action);
         }
         return null;

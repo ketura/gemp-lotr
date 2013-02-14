@@ -36,13 +36,13 @@ public class Card18_079 extends AbstractEvent {
         PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new AddUntilEndOfPhaseModifierEffect(
-                        new ArcheryTotalModifier(self, Side.SHADOW, 2), Phase.ARCHERY));
+                        new ArcheryTotalModifier(self, Side.SHADOW, 2)));
         final int count = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.FOLLOWER);
         if (count > 0)
             action.appendEffect(
                     new OptionalEffect(action, playerId,
                             new AddUntilEndOfPhaseModifierEffect(
-                                    new ArcheryTotalModifier(self, Side.SHADOW, count * 2), Phase.ARCHERY) {
+                                    new ArcheryTotalModifier(self, Side.SHADOW, count * 2)) {
                                 @Override
                                 public String getText(LotroGame game) {
                                     return "Add additional " + (count * 2) + " to the minion archery total";

@@ -72,8 +72,7 @@ public class Card1_047 extends AbstractAttachableFPPossession {
                     new ChoiceEffect(action, playerId, possibleCosts));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new StrengthModifier(self, Filters.sameCard(self.getAttachedTo()), 1),
-                            Phase.SKIRMISH));
+                            new StrengthModifier(self, Filters.sameCard(self.getAttachedTo()), 1)));
 
             return Collections.singletonList(action);
         }

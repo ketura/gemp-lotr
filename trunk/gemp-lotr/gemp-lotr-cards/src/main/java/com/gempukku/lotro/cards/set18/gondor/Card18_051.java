@@ -41,7 +41,7 @@ public class Card18_051 extends AbstractEvent {
                     protected void forEachCardExertedCallback(PhysicalCard character) {
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new StrengthModifier(self, character, 3), Phase.SKIRMISH));
+                                        new StrengthModifier(self, character, 3)));
                     }
                 });
         return action;

@@ -47,7 +47,7 @@ public class Card15_149 extends AbstractCompanion {
                     new AddThreatsEffect(playerId, self, 1));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new StrengthModifier(self, self, 2), Phase.SKIRMISH));
+                            new StrengthModifier(self, self, 2)));
             return Collections.singletonList(action);
         }
         return null;

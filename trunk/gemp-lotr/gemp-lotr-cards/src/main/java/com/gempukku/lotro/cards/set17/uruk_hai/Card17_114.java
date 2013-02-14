@@ -45,7 +45,7 @@ public class Card17_114 extends AbstractEvent {
                         List<Effect> possibleEffects = new LinkedList<Effect>();
                         possibleEffects.add(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new StrengthModifier(self, urukHai, 2), Phase.SKIRMISH) {
+                                        new StrengthModifier(self, urukHai, 2)) {
                                     @Override
                                     public String getText(LotroGame game) {
                                         return "Make that Uruk-hai strength +2";
@@ -54,7 +54,7 @@ public class Card17_114 extends AbstractEvent {
                         if (PlayConditions.canSpot(game, Filters.siteControlled(playerId)))
                             possibleEffects.add(
                                     new AddUntilEndOfPhaseModifierEffect(
-                                            new StrengthModifier(self, urukHai, 3), Phase.SKIRMISH) {
+                                            new StrengthModifier(self, urukHai, 3)) {
                                         @Override
                                         public String getText(LotroGame game) {
                                             return "Make that Uruk-hai strength +3";
@@ -68,10 +68,10 @@ public class Card17_114 extends AbstractEvent {
                                 new LiberateASiteEffect(self));
                         subAction.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new StrengthModifier(self, urukHai, 2), Phase.SKIRMISH));
+                                        new StrengthModifier(self, urukHai, 2)));
                         subAction.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new KeywordModifier(self, urukHai, Keyword.DAMAGE, 1), Phase.SKIRMISH));
+                                        new KeywordModifier(self, urukHai, Keyword.DAMAGE, 1)));
 
                         action.appendEffect(
                                 new OptionalEffect(action, playerId,

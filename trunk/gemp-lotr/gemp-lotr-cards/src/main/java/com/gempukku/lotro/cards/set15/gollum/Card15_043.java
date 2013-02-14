@@ -42,7 +42,7 @@ public class Card15_043 extends AbstractMinion {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new StrengthModifier(self, self, rbStr), Phase.SKIRMISH));
+                            new StrengthModifier(self, self, rbStr)));
             return Collections.singletonList(action);
         }
         return null;

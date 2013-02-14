@@ -51,7 +51,9 @@ public class Card1_029 extends AbstractOldEvent {
                 new ChooseActiveCardEffect(self, playerId, "Choose an Elf", Race.ELF) {
                     @Override
                     protected void cardSelected(LotroGame game, final PhysicalCard elf) {
-                        action.appendEffect(new AddUntilEndOfPhaseModifierEffect(new StrengthModifier(self, Filters.sameCard(elf), 1), Phase.SKIRMISH));
+                        action.appendEffect(
+                                new AddUntilEndOfPhaseModifierEffect(
+                                        new StrengthModifier(self, Filters.sameCard(elf), 1)));
                         action.appendEffect(
                                 new AddUntilEndOfPhaseActionProxyEffect(
                                         new AbstractActionProxy() {

@@ -60,10 +60,10 @@ public class Card15_049 extends AbstractCompanion {
                     new ChooseAndExertCharactersEffect(action, playerId, 2, 2, 1, Race.HOBBIT, Keyword.RING_BOUND));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new StrengthModifier(self, self, 1), Phase.SKIRMISH));
+                            new StrengthModifier(self, self, 1)));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new OverwhelmedByMultiplierModifier(self, self, 3), Phase.SKIRMISH));
+                            new OverwhelmedByMultiplierModifier(self, self, 3)));
             return Collections.singletonList(action);
         }
         return null;

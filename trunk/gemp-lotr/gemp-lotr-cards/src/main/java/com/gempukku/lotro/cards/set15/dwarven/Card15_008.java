@@ -36,14 +36,14 @@ public class Card15_008 extends AbstractEvent {
                         if (count > 0) {
                             action.appendEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
-                                            new StrengthModifier(self, card, count), Phase.SKIRMISH));
+                                            new StrengthModifier(self, card, count)));
                             action.appendEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
-                                            new KeywordModifier(self, card, Keyword.DAMAGE, count), Phase.SKIRMISH));
+                                            new KeywordModifier(self, card, Keyword.DAMAGE, count)));
                         } else {
                             action.appendEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
-                                            new StrengthModifier(self, card, 2), Phase.SKIRMISH));
+                                            new StrengthModifier(self, card, 2)));
                         }
                     }
                 });

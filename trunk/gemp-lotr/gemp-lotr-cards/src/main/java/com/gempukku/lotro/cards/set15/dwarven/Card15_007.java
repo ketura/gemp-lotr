@@ -51,7 +51,7 @@ public class Card15_007 extends AbstractAttachableFPPossession {
                     new ChooseAndRemoveCultureTokensFromCardEffect(self, playerId, Token.DWARVEN, 1, Filters.any));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new StrengthModifier(self, self.getAttachedTo(), 1), Phase.SKIRMISH));
+                            new StrengthModifier(self, self.getAttachedTo(), 1)));
             return Collections.singletonList(action);
         }
         return null;

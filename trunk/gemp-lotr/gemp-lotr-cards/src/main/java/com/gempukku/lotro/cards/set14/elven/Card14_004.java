@@ -39,7 +39,7 @@ public class Card14_004 extends AbstractCompanion {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new KeywordModifier(self, Filters.and(Filters.owner(self.getOwner()), CardType.COMPANION), Keyword.ARCHER), Phase.ARCHERY));
+                            new KeywordModifier(self, Filters.and(Filters.owner(self.getOwner()), CardType.COMPANION), Keyword.ARCHER)));
             return Collections.singletonList(action);
         }
         return null;

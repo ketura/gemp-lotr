@@ -45,7 +45,7 @@ public class Card15_021 extends AbstractEvent {
                 });
         action.appendEffect(
                 new AddUntilEndOfPhaseModifierEffect(
-                        new ArcheryTotalModifier(self, Side.FREE_PEOPLE, count), Phase.ARCHERY));
+                        new ArcheryTotalModifier(self, Side.FREE_PEOPLE, count)));
         return action;
     }
 }
