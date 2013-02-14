@@ -848,11 +848,15 @@ public class Filters {
 
     public static Filter and(final Filterable... filters) {
         Filter[] filtersInt = convertToFilters(filters);
+        if (filtersInt.length == 1)
+            return filtersInt[0];
         return andInternal(filtersInt);
     }
 
     public static Filter or(final Filterable... filters) {
         Filter[] filtersInt = convertToFilters(filters);
+        if (filtersInt.length == 1)
+            return filtersInt[0];
         return orInternal(filtersInt);
     }
 
@@ -915,6 +919,10 @@ public class Filters {
     public static Filter and(final Filterable[] filters1, final Filterable... filters2) {
         final Filter[] newFilters1 = convertToFilters(filters1);
         final Filter[] newFilters2 = convertToFilters(filters2);
+        if (newFilters1.length == 1 && newFilters2.length == 0)
+            return newFilters1[0];
+        if (newFilters1.length == 0 && newFilters2.length == 1)
+            return newFilters2[0];
         return new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
