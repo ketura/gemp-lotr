@@ -1,13 +1,14 @@
 package com.gempukku.lotro.logic.modifiers;
 
 import com.gempukku.lotro.common.Filterable;
+import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.logic.timing.Action;
 
 public class CantPlayCardsModifier extends AbstractModifier {
-    private Filterable[] _filters;
+    private Filter _filters;
 
     public CantPlayCardsModifier(PhysicalCard source, Filterable... filters) {
         this(source, null, filters);
@@ -15,7 +16,7 @@ public class CantPlayCardsModifier extends AbstractModifier {
 
     public CantPlayCardsModifier(PhysicalCard source, Condition condition, Filterable... filters) {
         super(source, null, null, condition, ModifierEffect.ACTION_MODIFIER);
-        _filters = filters;
+        _filters = Filters.and(filters);
     }
 
     @Override
@@ -23,7 +24,7 @@ public class CantPlayCardsModifier extends AbstractModifier {
         final PhysicalCard actionSource = action.getActionSource();
         if (actionSource != null)
             if (action.getType() == Action.Type.PLAY_CARD)
-                if (Filters.and(_filters).accepts(gameState, modifiersQuerying, actionSource))
+                if (_filters.accepts(gameState, modifiersQuerying, actionSource))
                     return false;
         return true;
     }
