@@ -54,7 +54,7 @@ public class Card1_015 extends AbstractAttachableFPPossession {
                     new SelfDiscardEffect(self));
             action.appendEffect(
                     new AddUntilEndOfPhaseActionProxyEffect(
-                            new PreventAllWoundsActionProxy(self, self.getAttachedTo()), Phase.SKIRMISH));
+                            new PreventAllWoundsActionProxy(self, self.getAttachedTo())));
             return Collections.singletonList(action);
         }
         return null;

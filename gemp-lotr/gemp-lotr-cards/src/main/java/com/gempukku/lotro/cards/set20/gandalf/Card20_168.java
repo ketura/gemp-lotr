@@ -60,7 +60,7 @@ public class Card20_168 extends AbstractEvent {
                                                 }
                                                 return null;
                                             }
-                                        }, Phase.SKIRMISH));
+                                        }));
                     }
                 });
         return action;

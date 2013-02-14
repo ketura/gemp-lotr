@@ -56,7 +56,7 @@ public class Card8_073 extends AbstractEvent {
                                                 }
                                                 return null;
                                             }
-                                        }, Phase.SKIRMISH));
+                                        }));
                     }
                 });
         return action;

@@ -57,7 +57,7 @@ public class Card4_047 extends AbstractPermanent {
                                     });
                             action.appendEffect(
                                     new AddUntilEndOfPhaseActionProxyEffect(
-                                            new PreventAllWoundsActionProxy(self, character), Phase.SKIRMISH));
+                                            new PreventAllWoundsActionProxy(self, character)));
                         }
                     });
             return Collections.singletonList(action);

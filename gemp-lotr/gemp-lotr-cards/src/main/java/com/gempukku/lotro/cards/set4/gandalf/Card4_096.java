@@ -40,7 +40,7 @@ public class Card4_096 extends AbstractOldEvent {
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
                         action.appendEffect(
                                 new AddUntilEndOfPhaseActionProxyEffect(
-                                        new PreventAllWoundsActionProxy(self, card), Phase.SKIRMISH));
+                                        new PreventAllWoundsActionProxy(self, card)));
                     }
                 });
         return action;

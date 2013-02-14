@@ -68,7 +68,7 @@ public class Card7_091 extends AbstractCompanion {
                         new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.gandalf));
                 action.appendEffect(
                         new AddUntilEndOfPhaseActionProxyEffect(
-                                new PreventAllWoundsActionProxy(self, self), Phase.SKIRMISH));
+                                new PreventAllWoundsActionProxy(self, self)));
                 actions.add(action);
             }
 

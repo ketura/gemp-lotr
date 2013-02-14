@@ -73,7 +73,7 @@ public class Card6_044 extends AbstractEvent {
                                 }
                                 return null;
                             }
-                        }, Phase.REGROUP));
+                        }));
         return action;
     }
 }
