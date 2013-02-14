@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.effects;
 
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.common.Filterable;
+import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.AbstractActionProxy;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -16,11 +17,11 @@ import java.util.List;
 
 public class PreventAllWoundsActionProxy extends AbstractActionProxy {
     private PhysicalCard _source;
-    private Filterable[] _filters;
+    private Filter _filters;
 
     public PreventAllWoundsActionProxy(PhysicalCard source, Filterable... filters) {
         _source = source;
-        _filters = filters;
+        _filters = Filters.and(filters);
     }
 
     @Override
