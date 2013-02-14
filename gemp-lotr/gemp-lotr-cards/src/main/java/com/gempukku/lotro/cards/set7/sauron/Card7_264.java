@@ -55,7 +55,7 @@ public class Card7_264 extends AbstractMinion {
                     new RemoveThreatsEffect(self, 1));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new StrengthModifier(self, self, 1), Phase.SKIRMISH));
+                            new StrengthModifier(self, self, 1)));
             return Collections.singletonList(action);
         }
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.REGROUP, self, 0)

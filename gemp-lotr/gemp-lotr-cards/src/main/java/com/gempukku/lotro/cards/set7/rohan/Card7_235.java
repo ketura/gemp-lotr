@@ -41,7 +41,7 @@ public class Card7_235 extends AbstractCompanion {
                     new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Culture.ROHAN, CardType.CONDITION));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new StrengthModifier(self, self, 1), Phase.SKIRMISH));
+                            new StrengthModifier(self, self, 1)));
             return Collections.singletonList(action);
         }
         return null;

@@ -45,7 +45,7 @@ public class Card7_108 extends AbstractAttachableFPPossession {
                     new AddThreatsEffect(playerId, self, 1));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new StrengthModifier(self, Filters.hasAttached(self), 1), Phase.SKIRMISH));
+                            new StrengthModifier(self, Filters.hasAttached(self), 1)));
             return Collections.singletonList(action);
         }
         return null;

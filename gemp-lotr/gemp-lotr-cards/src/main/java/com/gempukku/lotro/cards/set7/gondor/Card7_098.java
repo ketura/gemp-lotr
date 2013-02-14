@@ -43,7 +43,7 @@ public class Card7_098 extends AbstractAttachableFPPossession {
                     new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 3));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new KeywordModifier(self, Filters.hasAttached(self), Keyword.DAMAGE, 1), Phase.SKIRMISH));
+                            new KeywordModifier(self, Filters.hasAttached(self), Keyword.DAMAGE, 1)));
             return Collections.singletonList(action);
         }
         return null;

@@ -47,7 +47,7 @@ public class Card6_037 extends AbstractCompanion {
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.HOBBIT, Filters.unboundCompanion));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new UnhastyCompanionParticipatesInSkirmishedModifier(self, self), Phase.ASSIGNMENT));
+                            new UnhastyCompanionParticipatesInSkirmishedModifier(self, self)));
             return Collections.singletonList(action);
         }
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
@@ -61,7 +61,7 @@ public class Card6_037 extends AbstractCompanion {
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.insertEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
-                                            new KeywordModifier(self, card, Keyword.DAMAGE, 1), Phase.SKIRMISH));
+                                            new KeywordModifier(self, card, Keyword.DAMAGE, 1)));
                         }
                     });
             return Collections.singletonList(action);

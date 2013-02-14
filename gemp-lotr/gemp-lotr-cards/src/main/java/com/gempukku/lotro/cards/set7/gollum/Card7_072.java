@@ -53,7 +53,7 @@ public class Card7_072 extends AbstractCompanion {
                     new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 2));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new OverwhelmedByMultiplierModifier(self, self, 3), Phase.SKIRMISH));
+                            new OverwhelmedByMultiplierModifier(self, self, 3)));
             return Collections.singletonList(action);
         }
         return null;

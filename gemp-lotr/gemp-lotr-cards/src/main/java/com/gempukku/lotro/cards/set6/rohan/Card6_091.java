@@ -42,7 +42,7 @@ public class Card6_091 extends AbstractPermanent {
                                 affectedCharacters.add(card.getAttachedTo());
                             action.appendEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
-                                            new OverwhelmedByMultiplierModifier(self, Filters.in(affectedCharacters), 3), Phase.SKIRMISH));
+                                            new OverwhelmedByMultiplierModifier(self, Filters.in(affectedCharacters), 3)));
                         }
                     });
             return Collections.singletonList(action);

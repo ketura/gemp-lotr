@@ -34,10 +34,10 @@ public class Card6_024 extends AbstractEvent {
                         int unboundHobbit = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Race.HOBBIT, Filters.unboundCompanion);
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new StrengthModifier(self, card, unboundHobbit), Phase.SKIRMISH));
+                                        new StrengthModifier(self, card, unboundHobbit)));
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new KeywordModifier(self, card, Keyword.DAMAGE, unboundHobbit), Phase.SKIRMISH));
+                                        new KeywordModifier(self, card, Keyword.DAMAGE, unboundHobbit)));
                     }
                 });
         return action;

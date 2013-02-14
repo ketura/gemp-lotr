@@ -75,7 +75,7 @@ public class Card7_190 extends AbstractMinion {
                     new RemoveThreatsEffect(self, 1));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new StrengthModifier(self, self, 3), Phase.SKIRMISH));
+                            new StrengthModifier(self, self, 3)));
             return Collections.singletonList(action);
         }
         return null;

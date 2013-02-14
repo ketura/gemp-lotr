@@ -40,7 +40,7 @@ public class Card7_026 extends AbstractCompanion {
                     new AddThreatsEffect(playerId, self, 1));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new ArcheryTotalModifier(self, Side.FREE_PEOPLE, 1), Phase.ARCHERY));
+                            new ArcheryTotalModifier(self, Side.FREE_PEOPLE, 1)));
             return Collections.singletonList(action);
         }
         return null;

@@ -59,7 +59,7 @@ public class Card9_024 extends AbstractAttachable {
                     new ExertCharactersEffect(action, self, self.getAttachedTo()));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new KeywordModifier(self, self.getAttachedTo(), Keyword.DAMAGE, 1), Phase.SKIRMISH));
+                            new KeywordModifier(self, self.getAttachedTo(), Keyword.DAMAGE, 1)));
             return Collections.singletonList(action);
         }
         return null;

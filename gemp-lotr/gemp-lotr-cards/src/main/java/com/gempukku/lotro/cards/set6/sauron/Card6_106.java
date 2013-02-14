@@ -54,7 +54,7 @@ public class Card6_106 extends AbstractMinion {
                     new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 1, Culture.SAURON));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new StrengthModifier(self, self, 1), Phase.SKIRMISH));
+                            new StrengthModifier(self, self, 1)));
             return Collections.singletonList(action);
         }
         return null;

@@ -68,7 +68,7 @@ public class Card8_097 extends AbstractMinion {
                     new ChoiceEffect(action, playerId, possibleCosts));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new ArcheryTotalModifier(self, Side.FREE_PEOPLE, -2), Phase.ARCHERY));
+                            new ArcheryTotalModifier(self, Side.FREE_PEOPLE, -2)));
             return Collections.singletonList(action);
         }
         return null;

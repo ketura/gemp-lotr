@@ -45,7 +45,7 @@ public class Card8_082 extends AbstractEvent {
                     protected void cardSelected(LotroGame game, final PhysicalCard card) {
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new StrengthModifier(self, card, 2), Phase.SKIRMISH));
+                                        new StrengthModifier(self, card, 2)));
                         action.appendEffect(
                                 new AddUntilEndOfPhaseActionProxyEffect(
                                         new AbstractActionProxy() {

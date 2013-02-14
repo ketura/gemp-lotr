@@ -45,7 +45,7 @@ public class Card6_040 extends AbstractMinion {
             int bonus = (Filters.inSkirmishAgainst(CardType.COMPANION, Keyword.RING_BOUND).accepts(game.getGameState(), game.getModifiersQuerying(), self)) ? 2 : 1;
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new StrengthModifier(self, self, null, bonus), Phase.SKIRMISH));
+                            new StrengthModifier(self, self, null, bonus)));
             return Collections.singletonList(action);
         }
         return null;

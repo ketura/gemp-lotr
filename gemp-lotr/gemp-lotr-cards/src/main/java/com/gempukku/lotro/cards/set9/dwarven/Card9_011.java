@@ -42,7 +42,7 @@ public class Card9_011 extends AbstractCompanion {
             int damageCount = game.getModifiersQuerying().getKeywordCount(game.getGameState(), self, Keyword.DAMAGE);
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new StrengthModifier(self, self, damageCount), Phase.SKIRMISH));
+                            new StrengthModifier(self, self, damageCount)));
             return Collections.singletonList(action);
         }
         return null;

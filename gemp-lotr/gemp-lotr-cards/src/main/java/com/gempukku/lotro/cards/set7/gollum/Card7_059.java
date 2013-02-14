@@ -61,7 +61,7 @@ public class Card7_059 extends AbstractMinion {
                     new ChoiceEffect(action, playerId, possibleCosts));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new StrengthModifier(self, self, 2), Phase.SKIRMISH));
+                            new StrengthModifier(self, self, 2)));
             return Collections.singletonList(action);
         }
         return null;

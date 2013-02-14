@@ -43,7 +43,7 @@ public class Card7_144 extends AbstractMinion {
                     new SelfExertEffect(action, self));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new KeywordModifier(self, self, Keyword.DAMAGE, 1), Phase.SKIRMISH));
+                            new KeywordModifier(self, self, Keyword.DAMAGE, 1)));
             return Collections.singletonList(action);
         }
         return null;

@@ -44,7 +44,7 @@ public class Card7_224 extends AbstractCompanion {
                     new SelfExertEffect(action, self));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new StrengthModifier(self, self, null, new CountActiveEvaluator(Filters.uncontrolledSite, Keyword.PLAINS)), Phase.SKIRMISH));
+                            new StrengthModifier(self, self, null, new CountActiveEvaluator(Filters.uncontrolledSite, Keyword.PLAINS))));
             return Collections.singletonList(action);
         }
         return null;
