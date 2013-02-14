@@ -35,12 +35,12 @@ public class Card2_005 extends AbstractOldEvent {
 
                         if (has2Weapons) {
                             action.appendEffect(
-                                    new AddUntilEndOfPhaseModifierEffect(new StrengthModifier(self, Filters.sameCard(dwarf), 4), Phase.SKIRMISH));
+                                    new AddUntilEndOfPhaseModifierEffect(new StrengthModifier(self, Filters.sameCard(dwarf), 4)));
                             action.appendEffect(
-                                    new AddUntilEndOfPhaseModifierEffect(new KeywordModifier(self, Filters.sameCard(dwarf), Keyword.DAMAGE), Phase.SKIRMISH));
+                                    new AddUntilEndOfPhaseModifierEffect(new KeywordModifier(self, Filters.sameCard(dwarf), Keyword.DAMAGE)));
                         } else
                             action.appendEffect(
-                                    new AddUntilEndOfPhaseModifierEffect(new StrengthModifier(self, Filters.sameCard(dwarf), 2), Phase.SKIRMISH));
+                                    new AddUntilEndOfPhaseModifierEffect(new StrengthModifier(self, Filters.sameCard(dwarf), 2)));
                     }
                 });
         return action;

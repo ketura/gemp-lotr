@@ -54,7 +54,7 @@ public class Card3_020 extends AbstractAlly {
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.insertEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
-                                            new StrengthModifier(self, Filters.sameCard(card), -1), Phase.SKIRMISH));
+                                            new StrengthModifier(self, Filters.sameCard(card), -1)));
                         }
                     });
             return Collections.singletonList(action);

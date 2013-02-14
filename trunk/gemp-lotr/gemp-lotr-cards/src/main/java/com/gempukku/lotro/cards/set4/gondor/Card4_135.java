@@ -40,11 +40,11 @@ public class Card4_135 extends AbstractOldEvent {
                         int bonus = isAgainstRoaming ? 3 : 2;
                         action.insertEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new StrengthModifier(self, Filters.sameCard(card), bonus), Phase.SKIRMISH));
+                                        new StrengthModifier(self, Filters.sameCard(card), bonus)));
                         if (isAgainstRoaming)
                             action.appendEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
-                                            new KeywordModifier(self, Filters.sameCard(card), Keyword.DAMAGE), Phase.SKIRMISH));
+                                            new KeywordModifier(self, Filters.sameCard(card), Keyword.DAMAGE)));
                     }
                 });
         return action;

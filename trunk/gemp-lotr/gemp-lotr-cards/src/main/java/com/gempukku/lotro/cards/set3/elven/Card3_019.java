@@ -78,7 +78,7 @@ public class Card3_019 extends AbstractAttachable {
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.insertEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
-                                            new StrengthModifier(self, Filters.sameCard(card), -1), Phase.SKIRMISH));
+                                            new StrengthModifier(self, Filters.sameCard(card), -1)));
                         }
                     });
             return Collections.singletonList(action);

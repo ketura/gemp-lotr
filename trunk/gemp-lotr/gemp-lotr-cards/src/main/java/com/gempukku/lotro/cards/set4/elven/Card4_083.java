@@ -34,7 +34,7 @@ public class Card4_083 extends AbstractOldEvent {
                         int bonus = (PlayConditions.canSpot(game, 3, CardType.COMPANION, Race.ELF)) ? 3 : 2;
                         action.insertEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new StrengthModifier(self, Filters.sameCard(card), bonus), Phase.SKIRMISH));
+                                        new StrengthModifier(self, Filters.sameCard(card), bonus)));
                     }
                 });
         return action;

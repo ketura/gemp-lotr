@@ -50,7 +50,7 @@ public class Card3_009 extends AbstractPermanent {
                                             protected void cardSelected(LotroGame game, PhysicalCard minion) {
                                                 action.insertEffect(
                                                         new AddUntilEndOfPhaseModifierEffect(
-                                                                new StrengthModifier(self, Filters.sameCard(minion), -1), Phase.SKIRMISH));
+                                                                new StrengthModifier(self, Filters.sameCard(minion), -1)));
                                             }
                                         });
                             }

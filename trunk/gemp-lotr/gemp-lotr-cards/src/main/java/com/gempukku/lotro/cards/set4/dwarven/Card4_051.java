@@ -39,11 +39,11 @@ public class Card4_051 extends AbstractOldEvent {
                         boolean spotsLegolas = Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.legolas);
                         action.insertEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new StrengthModifier(self, Filters.sameCard(card), spotsLegolas ? 3 : 2), Phase.SKIRMISH));
+                                        new StrengthModifier(self, Filters.sameCard(card), spotsLegolas ? 3 : 2)));
                         if (spotsLegolas)
                             action.insertEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
-                                            new KeywordModifier(self, Filters.sameCard(card), Keyword.DAMAGE), Phase.SKIRMISH));
+                                            new KeywordModifier(self, Filters.sameCard(card), Keyword.DAMAGE)));
                     }
                 });
         return action;

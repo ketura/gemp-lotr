@@ -43,7 +43,7 @@ public class Card3_002 extends AbstractAttachable {
                     new ExertCharactersEffect(action, self, self.getAttachedTo()));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new PossessionClassSpotModifier(self, PossessionClass.PIPE), Phase.FELLOWSHIP));
+                            new PossessionClassSpotModifier(self, PossessionClass.PIPE)));
             return Collections.singletonList(action);
         }
         return null;

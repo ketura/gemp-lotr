@@ -75,7 +75,7 @@ public class Card4_041 extends AbstractAttachableFPPossession {
 
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new StrengthModifier(self, Filters.gimli, 1), Phase.SKIRMISH));
+                            new StrengthModifier(self, Filters.gimli, 1)));
             return Collections.singletonList(action);
         }
         return null;

@@ -41,7 +41,7 @@ public class Card2_037 extends AbstractOldEvent {
                         int bonus = (game.getGameState().isFierceSkirmishes()) ? 4 : 2;
                         action.insertEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new StrengthModifier(self, Filters.sameCard(card), bonus), Phase.SKIRMISH));
+                                        new StrengthModifier(self, Filters.sameCard(card), bonus)));
                     }
                 });
         return action;

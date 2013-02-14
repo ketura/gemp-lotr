@@ -38,7 +38,7 @@ public class Card4_066 extends AbstractOldEvent {
                         int wounds = game.getGameState().getWounds(card);
                         action.insertEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new StrengthModifier(self, Filters.sameCard(card), -2 * wounds), Phase.SKIRMISH));
+                                        new StrengthModifier(self, Filters.sameCard(card), -2 * wounds)));
                     }
                 });
         return action;

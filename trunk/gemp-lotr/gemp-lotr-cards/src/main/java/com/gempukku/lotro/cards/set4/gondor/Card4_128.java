@@ -53,7 +53,7 @@ public class Card4_128 extends AbstractOldEvent {
                     protected void cardSelected(final LotroGame game, final PhysicalCard minion) {
                         action.insertEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new MinionSiteNumberModifier(self, Filters.sameCard(minion), null, 2), Phase.SKIRMISH));
+                                        new MinionSiteNumberModifier(self, Filters.sameCard(minion), null, 2)));
                         action.appendEffect(
                                 new AddUntilEndOfPhaseActionProxyEffect(
                                         new AbstractActionProxy() {

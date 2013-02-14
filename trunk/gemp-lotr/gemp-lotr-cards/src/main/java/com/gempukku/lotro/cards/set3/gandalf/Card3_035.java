@@ -47,7 +47,7 @@ public class Card3_035 extends AbstractPermanent {
                                     new AddUntilEndOfPhaseModifierEffect(
                                             new StrengthModifier(self, Filters.sameCard(card), null,
                                                     new CardPhaseLimitEvaluator(game, self, Phase.SKIRMISH, 3,
-                                                            new CountActiveEvaluator(CardType.COMPANION, Signet.GANDALF))), Phase.SKIRMISH));
+                                                            new CountActiveEvaluator(CardType.COMPANION, Signet.GANDALF)))));
                         }
                     });
             return Collections.singletonList(action);

@@ -50,7 +50,7 @@ public class Card2_029 extends AbstractAttachableFPPossession {
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.insertEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
-                                            new StrengthModifier(self, Filters.sameCard(card), -3), Phase.SKIRMISH));
+                                            new StrengthModifier(self, Filters.sameCard(card), -3)));
                         }
                     });
 

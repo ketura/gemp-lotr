@@ -48,7 +48,7 @@ public class Card4_049 extends AbstractCompanion {
                             int bonus = (companion.getBlueprint().getName().equals("Legolas")) ? 2 : 1;
                             action.insertEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
-                                            new StrengthModifier(self, Filters.sameCard(companion), bonus), Phase.SKIRMISH));
+                                            new StrengthModifier(self, Filters.sameCard(companion), bonus)));
                         }
                     });
             return Collections.singletonList(action);

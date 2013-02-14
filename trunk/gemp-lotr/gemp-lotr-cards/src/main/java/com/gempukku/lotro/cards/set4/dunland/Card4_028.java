@@ -57,7 +57,7 @@ public class Card4_028 extends AbstractPermanent {
                                     new AddUntilEndOfPhaseModifierEffect(
                                             new CancelStrengthBonusTargetModifier(self,
                                                     Filters.and(Filters.character, Filters.inSkirmishAgainst(dunlandMan)),
-                                                    CardType.POSSESSION), Phase.SKIRMISH));
+                                                    CardType.POSSESSION)));
                         }
                     });
             return Collections.singletonList(action);

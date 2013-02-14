@@ -46,7 +46,7 @@ public class Card2_069 extends AbstractOldEvent {
                         int penalty = (canSpotElf && canSpotDwarf) ? -3 : -1;
                         action.insertEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new StrengthModifier(self, Filters.sameCard(elfOrDwarf), penalty), Phase.SKIRMISH));
+                                        new StrengthModifier(self, Filters.sameCard(elfOrDwarf), penalty)));
                     }
                 });
         return action;

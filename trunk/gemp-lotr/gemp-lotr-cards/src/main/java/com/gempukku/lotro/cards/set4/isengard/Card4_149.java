@@ -37,7 +37,7 @@ public class Card4_149 extends AbstractOldEvent {
         int deadPileSize = game.getGameState().getDeadPile(game.getGameState().getCurrentPlayerId()).size();
         action.appendEffect(
                 new AddUntilEndOfPhaseModifierEffect(
-                        new ArcheryTotalModifier(self, Side.SHADOW, deadPileSize), Phase.ARCHERY));
+                        new ArcheryTotalModifier(self, Side.SHADOW, deadPileSize)));
         return action;
     }
 
