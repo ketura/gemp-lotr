@@ -49,7 +49,7 @@ public class Card2_036 extends AbstractOldEvent {
                         int bonus = (card.getBlueprint().getSignet() == Signet.ARAGORN) ? 3 : 2;
                         action.insertEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new StrengthModifier(self, Filters.sameCard(card), bonus), Phase.SKIRMISH));
+                                        new StrengthModifier(self, Filters.sameCard(card), bonus)));
                     }
                 });
         return action;

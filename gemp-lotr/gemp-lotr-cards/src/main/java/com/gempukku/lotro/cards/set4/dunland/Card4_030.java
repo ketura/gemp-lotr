@@ -45,7 +45,7 @@ public class Card4_030 extends AbstractAttachable {
                     new SelfDiscardEffect(self));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new SpecialFlagModifier(self, ModifierFlag.HAS_TO_MOVE_IF_POSSIBLE), Phase.REGROUP));
+                            new SpecialFlagModifier(self, ModifierFlag.HAS_TO_MOVE_IF_POSSIBLE)));
             return Collections.singletonList(action);
         }
         return null;

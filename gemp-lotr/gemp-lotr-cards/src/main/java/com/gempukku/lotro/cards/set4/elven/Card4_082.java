@@ -57,7 +57,7 @@ public class Card4_082 extends AbstractPermanent {
                             int bonus = Math.max(-3, -game.getGameState().getTokenCount(self, Token.ELVEN));
                             action.insertEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
-                                            new StrengthModifier(self, Filters.sameCard(card), bonus), Phase.SKIRMISH));
+                                            new StrengthModifier(self, Filters.sameCard(card), bonus)));
                             action.appendEffect(
                                     new SelfDiscardEffect(self));
                         }

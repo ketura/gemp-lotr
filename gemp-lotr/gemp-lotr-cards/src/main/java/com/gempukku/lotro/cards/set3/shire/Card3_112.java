@@ -44,7 +44,7 @@ public class Card3_112 extends AbstractOldEvent {
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new RemoveKeywordModifier(self, Filters.sameCard(card), Keyword.DAMAGE), Phase.SKIRMISH));
+                                        new RemoveKeywordModifier(self, Filters.sameCard(card), Keyword.DAMAGE)));
                     }
                 });
         return action;

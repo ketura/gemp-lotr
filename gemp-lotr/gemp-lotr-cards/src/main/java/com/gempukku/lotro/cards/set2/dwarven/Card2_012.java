@@ -46,12 +46,12 @@ public class Card2_012 extends AbstractPermanent {
                             action.appendEffect(
                                     new CheckPhaseLimitEffect(action, self, "str", 3, Phase.SKIRMISH,
                                             new AddUntilEndOfPhaseModifierEffect(
-                                                    new StrengthModifier(self, Filters.sameCard(dwarf), 1), Phase.SKIRMISH)));
+                                                    new StrengthModifier(self, Filters.sameCard(dwarf), 1))));
                             if (PlayConditions.location(game, Keyword.UNDERGROUND))
                                 action.appendEffect(
                                         new CheckPhaseLimitEffect(action, self, "dmg", 3, Phase.SKIRMISH,
                                                 new AddUntilEndOfPhaseModifierEffect(
-                                                        new KeywordModifier(self, Filters.sameCard(dwarf), Keyword.DAMAGE), Phase.SKIRMISH)));
+                                                        new KeywordModifier(self, Filters.sameCard(dwarf), Keyword.DAMAGE))));
                         }
                     });
             return Collections.singletonList(action);

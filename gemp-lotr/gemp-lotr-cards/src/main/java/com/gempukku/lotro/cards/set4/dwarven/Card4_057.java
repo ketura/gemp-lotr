@@ -57,7 +57,7 @@ public class Card4_057 extends AbstractPermanent {
                             int bonus = Math.min(3, game.getGameState().getTokenCount(self, Token.DWARVEN));
                             action.insertEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
-                                            new StrengthModifier(self, Filters.sameCard(card), bonus), Phase.SKIRMISH));
+                                            new StrengthModifier(self, Filters.sameCard(card), bonus)));
                         }
                     });
             action.appendEffect(

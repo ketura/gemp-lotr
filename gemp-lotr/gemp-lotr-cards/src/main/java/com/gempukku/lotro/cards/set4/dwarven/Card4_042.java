@@ -38,7 +38,7 @@ public class Card4_042 extends AbstractOldEvent {
                         int bonus = game.getModifiersQuerying().hasKeyword(game.getGameState(), game.getGameState().getCurrentSite(), Keyword.BATTLEGROUND) ? 4 : 2;
                         action.insertEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new StrengthModifier(self, Filters.sameCard(card), bonus), Phase.SKIRMISH));
+                                        new StrengthModifier(self, Filters.sameCard(card), bonus)));
                     }
                 });
         return action;

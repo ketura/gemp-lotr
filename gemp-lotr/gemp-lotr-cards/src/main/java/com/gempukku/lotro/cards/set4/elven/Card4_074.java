@@ -53,7 +53,7 @@ public class Card4_074 extends AbstractCompanion {
                                         protected void cardSelected(LotroGame game, PhysicalCard minion) {
                                             action.insertEffect(
                                                     new AddUntilEndOfPhaseModifierEffect(
-                                                            new StrengthModifier(self, Filters.sameCard(minion), bonus), Phase.SKIRMISH));
+                                                            new StrengthModifier(self, Filters.sameCard(minion), bonus)));
                                         }
                                     });
                         }
