@@ -51,7 +51,7 @@ public class Card20_192 extends AbstractAttachableFPPossession {
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.name("Faramir")));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new ArcheryTotalModifier(self, Side.FREE_PEOPLE, 1), Phase.ARCHERY));
+                            new ArcheryTotalModifier(self, Side.FREE_PEOPLE, 1)));
             return Collections.singletonList(action);
         }
         return null;

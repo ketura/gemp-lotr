@@ -41,7 +41,7 @@ public class Card20_437 extends AbstractSite {
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.owner(playerId), Race.GOBLIN));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new SpecialFlagModifier(self, ModifierFlag.HAS_TO_MOVE_IF_POSSIBLE), Phase.REGROUP));
+                            new SpecialFlagModifier(self, ModifierFlag.HAS_TO_MOVE_IF_POSSIBLE)));
             return Collections.singletonList(action);
         }
         return null;

@@ -48,7 +48,7 @@ public class Card1_286 extends AbstractAlly {
                         protected void cardSelected(LotroGame game, PhysicalCard hobbit) {
                             action.appendEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
-                                            new OverwhelmedByMultiplierModifier(self, Filters.sameCard(hobbit), 3), Phase.SKIRMISH));
+                                            new OverwhelmedByMultiplierModifier(self, Filters.sameCard(hobbit), 3)));
                         }
                     }
             );

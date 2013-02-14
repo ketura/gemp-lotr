@@ -37,7 +37,7 @@ public class Card20_153 extends AbstractEvent {
         PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new AddUntilEndOfPhaseModifierEffect(
-                        new SidePlayerCantPlayPhaseEventsOrSpecialAbilitiesModifier(self, Side.SHADOW, Phase.SKIRMISH), Phase.SKIRMISH));
+                        new SidePlayerCantPlayPhaseEventsOrSpecialAbilitiesModifier(self, Side.SHADOW, Phase.SKIRMISH)));
         return action;
     }
 }

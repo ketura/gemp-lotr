@@ -33,7 +33,7 @@ public class Card20_322 extends AbstractEvent {
                         if (Filters.and(Filters.inSkirmishAgainst(CardType.MINION, Filters.wounded)).accepts(game.getGameState(), game.getModifiersQuerying(), selectedCharacter))
                             action.appendEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
-                                            new KeywordModifier(self, selectedCharacter, Keyword.DAMAGE, 1), Phase.SKIRMISH));
+                                            new KeywordModifier(self, selectedCharacter, Keyword.DAMAGE, 1)));
                     }
                 });
         return action;

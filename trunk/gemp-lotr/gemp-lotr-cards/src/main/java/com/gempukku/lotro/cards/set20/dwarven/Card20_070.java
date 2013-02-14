@@ -40,7 +40,7 @@ public class Card20_070 extends AbstractEvent {
                                     protected void discardingCardsCallback(Collection<PhysicalCard> cards) {
                                         action.appendEffect(
                                                 new AddUntilEndOfPhaseModifierEffect(
-                                                        new ArcheryTotalModifier(self, Side.SHADOW, -cards.size()), Phase.ARCHERY));
+                                                        new ArcheryTotalModifier(self, Side.SHADOW, -cards.size())));
                                     }
                                 }
                         );

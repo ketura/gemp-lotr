@@ -33,11 +33,11 @@ public class Card20_207 extends AbstractEvent {
                                 game.getGameState(), game.getModifiersQuerying(), ranger);
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new StrengthModifier(self, ranger, matches?3:2), Phase.SKIRMISH));
+                                        new StrengthModifier(self, ranger, matches?3:2)));
                         if (matches)
                             action.appendEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
-                                            new KeywordModifier(self, ranger, Keyword.DAMAGE, 1), Phase.SKIRMISH));
+                                            new KeywordModifier(self, ranger, Keyword.DAMAGE, 1)));
                     }
                 });
         return action;

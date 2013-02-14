@@ -47,7 +47,7 @@ public class Card20_078 extends AbstractPermanent {
                     new SelfDiscardEffect(self));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new ArcheryTotalModifier(self, Side.FREE_PEOPLE, 2), Phase.ARCHERY));
+                            new ArcheryTotalModifier(self, Side.FREE_PEOPLE, 2)));
             return Collections.singletonList(action);
         }
         return null;

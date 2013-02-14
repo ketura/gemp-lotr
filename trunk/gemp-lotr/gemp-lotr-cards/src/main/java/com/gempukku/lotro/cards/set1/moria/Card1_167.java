@@ -36,7 +36,7 @@ public class Card1_167 extends AbstractOldEvent {
                         int bonus = Math.min(4, Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Culture.MORIA, Race.ORC, Filters.not(Filters.sameCard(orc))));
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new StrengthModifier(self, Filters.sameCard(orc), bonus), Phase.SKIRMISH));
+                                        new StrengthModifier(self, Filters.sameCard(orc), bonus)));
                     }
                 }
         );

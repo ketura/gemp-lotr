@@ -45,10 +45,10 @@ public class Card20_040 extends AbstractEvent {
                                 new ReplaceInSkirmishEffect(gimli, Filters.unboundCompanion));
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new StrengthModifier(self, gimli, new SpotCondition(gimli, Filters.inSkirmish), 2), Phase.SKIRMISH));
+                                        new StrengthModifier(self, gimli, new SpotCondition(gimli, Filters.inSkirmish), 2)));
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new KeywordModifier(self, gimli, new SpotCondition(gimli, Filters.inSkirmish), Keyword.DAMAGE, 1), Phase.SKIRMISH));
+                                        new KeywordModifier(self, gimli, new SpotCondition(gimli, Filters.inSkirmish), Keyword.DAMAGE, 1)));
                     }
                 });
         return action;

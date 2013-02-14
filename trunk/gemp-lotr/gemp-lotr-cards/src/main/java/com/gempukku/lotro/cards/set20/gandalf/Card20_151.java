@@ -32,14 +32,14 @@ public class Card20_151 extends AbstractEvent {
         if (initiative) {
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new StrengthModifier(self, Filters.gandalf, 4), Phase.SKIRMISH));
+                            new StrengthModifier(self, Filters.gandalf, 4)));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new KeywordModifier(self, Filters.gandalf, Keyword.DAMAGE, 1), Phase.SKIRMISH));
+                            new KeywordModifier(self, Filters.gandalf, Keyword.DAMAGE, 1)));
         } else {
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new StrengthModifier(self, Filters.gandalf, 2), Phase.SKIRMISH));
+                            new StrengthModifier(self, Filters.gandalf, 2)));
         }
         return action;
     }

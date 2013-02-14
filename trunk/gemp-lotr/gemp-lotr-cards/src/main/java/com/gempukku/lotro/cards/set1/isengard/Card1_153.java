@@ -45,7 +45,7 @@ public class Card1_153 extends AbstractMinion {
                     new AddUntilEndOfPhaseModifierEffect(
                             new StrengthModifier(self, self, null,
                                     new CardPhaseLimitEvaluator(game, self, Phase.SKIRMISH, 3,
-                                            new ConstantEvaluator(1))), Phase.SKIRMISH));
+                                            new ConstantEvaluator(1)))));
 
             return Collections.singletonList(action);
         }

@@ -36,7 +36,7 @@ public class Card1_204 extends AbstractOldEvent {
                         int bonus = (game.getGameState().isWearingRing()) ? 5 : 2;
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new StrengthModifier(self, Filters.sameCard(nazgul), bonus), Phase.SKIRMISH));
+                                        new StrengthModifier(self, Filters.sameCard(nazgul), bonus)));
                     }
                 });
         return action;

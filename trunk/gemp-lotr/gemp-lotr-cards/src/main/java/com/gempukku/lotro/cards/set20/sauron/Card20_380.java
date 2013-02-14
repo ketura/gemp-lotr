@@ -31,7 +31,7 @@ public class Card20_380 extends AbstractEvent {
                         if (!PlayConditions.canSpotFPCultures(game, 2, playerId))
                             action.appendEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
-                                            new KeywordModifier(self, selectedCharacter, Keyword.DAMAGE, 1), Phase.SKIRMISH));
+                                            new KeywordModifier(self, selectedCharacter, Keyword.DAMAGE, 1)));
                     }
                 });
         return action;

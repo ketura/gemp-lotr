@@ -37,10 +37,10 @@ public class Card20_060 extends AbstractEvent {
                     protected void forEachCardExertedCallback(PhysicalCard character) {
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new StrengthModifier(self, character, 3), Phase.SKIRMISH));
+                                        new StrengthModifier(self, character, 3)));
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new KeywordModifier(self, character, Keyword.DAMAGE, 1), Phase.SKIRMISH));
+                                        new KeywordModifier(self, character, Keyword.DAMAGE, 1)));
                     }
                 });
         return action;

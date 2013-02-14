@@ -52,7 +52,7 @@ public class Card1_269 extends AbstractAttachable {
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
                             new StrengthModifier(self, Filters.sameCard(self.getAttachedTo()), null,
-                                    new CardPhaseLimitEvaluator(game, self, Phase.SKIRMISH, 3, new ConstantEvaluator(1))), Phase.SKIRMISH));
+                                    new CardPhaseLimitEvaluator(game, self, Phase.SKIRMISH, 3, new ConstantEvaluator(1)))));
             return Collections.singletonList(action);
         }
         return null;

@@ -52,8 +52,7 @@ public class Card1_145 extends AbstractMinion {
                                     int spotCount = getValidatedResult(result);
                                     action.appendEffect(
                                             new AddUntilEndOfPhaseModifierEffect(
-                                                    new StrengthModifier(self, self, spotCount)
-                                                    , Phase.SKIRMISH));
+                                                    new StrengthModifier(self, self, spotCount)));
                                 }
                             }
                     ));

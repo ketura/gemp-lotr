@@ -47,7 +47,7 @@ public class Card1_121 extends AbstractOldEvent {
                     protected void forEachCardExertedCallback(PhysicalCard urukHai) {
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new StrengthModifier(self, Filters.sameCard(urukHai), 3), Phase.SKIRMISH));
+                                        new StrengthModifier(self, Filters.sameCard(urukHai), 3)));
                     }
                 }
         );

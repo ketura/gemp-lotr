@@ -47,7 +47,7 @@ public class Card1_293 extends AbstractOldEvent {
                     protected void forEachCardExertedCallback(PhysicalCard hobbit) {
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new StrengthModifier(self, Filters.sameCard(hobbit), 3), Phase.SKIRMISH));
+                                        new StrengthModifier(self, Filters.sameCard(hobbit), 3)));
                     }
                 });
         return action;

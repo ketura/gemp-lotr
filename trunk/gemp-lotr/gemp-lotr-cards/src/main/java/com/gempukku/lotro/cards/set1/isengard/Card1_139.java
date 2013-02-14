@@ -49,7 +49,7 @@ public class Card1_139 extends AbstractOldEvent {
                         } else {
                             action.appendEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
-                                            new StrengthModifier(self, Filters.sameCard(urukHai), 2), Phase.SKIRMISH));
+                                            new StrengthModifier(self, Filters.sameCard(urukHai), 2)));
                         }
                     }
                 });

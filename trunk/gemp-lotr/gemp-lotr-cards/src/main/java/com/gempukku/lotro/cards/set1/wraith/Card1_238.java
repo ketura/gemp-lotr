@@ -42,7 +42,7 @@ public class Card1_238 extends AbstractPermanent {
             action.appendCost(new RemoveTwilightEffect(1));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new ArcheryTotalModifier(self, Side.FREE_PEOPLE, -1), Phase.ARCHERY));
+                            new ArcheryTotalModifier(self, Side.FREE_PEOPLE, -1)));
             return Collections.singletonList(action);
         }
         return null;
