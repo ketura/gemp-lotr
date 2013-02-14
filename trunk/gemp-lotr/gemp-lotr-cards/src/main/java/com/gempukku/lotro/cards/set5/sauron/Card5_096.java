@@ -41,7 +41,7 @@ public class Card5_096 extends AbstractEvent {
                         int ringBoundCompanions = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION, Keyword.RING_BOUND);
                         action.insertEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new StrengthModifier(self, Filters.sameCard(card), -ringBoundCompanions), Phase.SKIRMISH));
+                                        new StrengthModifier(self, Filters.sameCard(card), -ringBoundCompanions)));
                     }
                 });
         return action;

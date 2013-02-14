@@ -40,7 +40,7 @@ public class Card4_243 extends AbstractOldEvent {
         int total = Math.min(5, game.getGameState().getBurdens());
         action.appendEffect(
                 new AddUntilEndOfPhaseModifierEffect(
-                        new ArcheryTotalModifier(self, Side.SHADOW, total), Phase.ARCHERY));
+                        new ArcheryTotalModifier(self, Side.SHADOW, total)));
         return action;
     }
 

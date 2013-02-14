@@ -52,11 +52,11 @@ public class Card5_116 extends AbstractAttachableFPPossession {
                             if (card.getBlueprint().getName().equals("Smeagol"))
                                 action.insertEffect(
                                         new AddUntilEndOfPhaseModifierEffect(
-                                                new StrengthModifier(self, Filters.sameCard(card), 2), Phase.SKIRMISH));
+                                                new StrengthModifier(self, Filters.sameCard(card), 2)));
                             else
                                 action.insertEffect(
                                         new AddUntilEndOfPhaseModifierEffect(
-                                                new StrengthModifier(self, Filters.sameCard(card), -2), Phase.SKIRMISH));
+                                                new StrengthModifier(self, Filters.sameCard(card), -2)));
                         }
                     });
             return Collections.singletonList(action);

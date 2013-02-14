@@ -45,7 +45,7 @@ public class Card5_094 extends AbstractPermanent {
                             boolean atPlains = game.getModifiersQuerying().hasKeyword(game.getGameState(), game.getGameState().getCurrentSite(), Keyword.PLAINS);
                             action.insertEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
-                                            new StrengthModifier(self, Filters.sameCard(card), 3), Phase.SKIRMISH));
+                                            new StrengthModifier(self, Filters.sameCard(card), 3)));
                             if (atPlains)
                                 action.appendEffect(
                                         new HealCharactersEffect(self, card));

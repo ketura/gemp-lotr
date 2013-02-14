@@ -46,7 +46,7 @@ public class Card4_219 extends AbstractMinion {
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, CardType.COMPANION, Filters.not(Filters.ringBearer)));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new DoesNotAddToArcheryTotalModifier(self, self), Phase.ARCHERY));
+                            new DoesNotAddToArcheryTotalModifier(self, self)));
             return Collections.singletonList(action);
         }
         return null;

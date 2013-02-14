@@ -49,7 +49,7 @@ public class Card4_160 extends AbstractMinion {
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.insertEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
-                                            new CantTakeWoundsModifier(self, Filters.sameCard(card)), Phase.SKIRMISH));
+                                            new CantTakeWoundsModifier(self, Filters.sameCard(card))));
                         }
                     });
             return Collections.singletonList(action);

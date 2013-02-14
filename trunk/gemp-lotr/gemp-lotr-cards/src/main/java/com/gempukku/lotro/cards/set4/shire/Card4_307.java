@@ -50,7 +50,7 @@ public class Card4_307 extends AbstractEvent {
                     protected void forEachCardExertedCallback(final PhysicalCard character) {
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new StrengthModifier(self, Filters.sameCard(character), 3), Phase.SKIRMISH));
+                                        new StrengthModifier(self, Filters.sameCard(character), 3)));
                         action.appendEffect(
                                 new AddUntilEndOfPhaseActionProxyEffect(
                                         new AbstractActionProxy() {

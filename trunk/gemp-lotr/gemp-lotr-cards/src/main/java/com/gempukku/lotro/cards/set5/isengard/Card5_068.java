@@ -37,7 +37,7 @@ public class Card5_068 extends AbstractEvent {
                         boolean isMounted = Filters.mounted.accepts(game.getGameState(), game.getModifiersQuerying(), card);
                         action.insertEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new StrengthModifier(self, Filters.sameCard(card), 2), Phase.SKIRMISH));
+                                        new StrengthModifier(self, Filters.sameCard(card), 2)));
                         if (isMounted)
                             action.appendEffect(
                                     new HealCharactersEffect(self, card));

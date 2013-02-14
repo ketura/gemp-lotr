@@ -33,7 +33,7 @@ public class Card4_273 extends AbstractOldEvent {
                         int bonus = Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Keyword.VILLAGER) ? 3 : 2;
                         action.insertEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new StrengthModifier(self, Filters.sameCard(card), bonus), Phase.SKIRMISH));
+                                        new StrengthModifier(self, Filters.sameCard(card), bonus)));
                     }
                 });
         return action;

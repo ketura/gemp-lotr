@@ -48,7 +48,7 @@ public class Card5_087 extends AbstractPermanent {
                     });
             possibleEffects.add(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new ArcheryTotalModifier(self, Side.SHADOW, -3), Phase.ARCHERY) {
+                            new ArcheryTotalModifier(self, Side.SHADOW, -3)) {
                         @Override
                         public String getText(LotroGame game) {
                             return "Make the minion archery total -3";

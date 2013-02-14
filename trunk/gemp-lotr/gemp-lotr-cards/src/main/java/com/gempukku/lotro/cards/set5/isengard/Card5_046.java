@@ -68,7 +68,7 @@ public class Card5_046 extends AbstractMinion {
                     new SelfExertEffect(action, self));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new StrengthModifier(self, self, 8), Phase.SKIRMISH));
+                            new StrengthModifier(self, self, 8)));
             return Collections.singletonList(action);
         }
         return null;
