@@ -10,11 +10,8 @@ import com.gempukku.lotro.logic.modifiers.ModifierEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
 public class AllyMayNotParticipateInArcheryFireAndSkirmishesModifier extends AbstractModifier {
-    private PhysicalCard _source;
-
     public AllyMayNotParticipateInArcheryFireAndSkirmishesModifier(PhysicalCard source, Condition condition, Filter affectFilter) {
         super(source, "May not participate in archery fire and skirmishes", affectFilter, condition, ModifierEffect.PRESENCE_MODIFIER);
-        _source = source;
     }
 
     @Override

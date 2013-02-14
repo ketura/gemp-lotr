@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.modifiers;
 
 import com.gempukku.lotro.common.Filterable;
+import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
@@ -11,11 +12,11 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import java.util.Set;
 
 public class CantTakeWoundsFromLosingSkirmishModifier extends AbstractModifier {
-    private Filterable _winnersFilter;
+    private Filter _winnersFilter;
 
     public CantTakeWoundsFromLosingSkirmishModifier(PhysicalCard source, Filterable affectFilter, Filterable winnersFilter) {
         super(source, "Can't take wounds", affectFilter, ModifierEffect.WOUND_MODIFIER);
-        _winnersFilter = winnersFilter;
+        _winnersFilter = Filters.and(winnersFilter);
     }
 
     @Override
