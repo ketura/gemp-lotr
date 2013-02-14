@@ -43,7 +43,7 @@ public class Card4_097 extends AbstractOldEvent {
         action.appendEffect(
                 new PreventableEffect(action,
                         new AddUntilEndOfPhaseActionProxyEffect(
-                                new PreventAllWoundsActionProxy(self, Filters.gandalf), Phase.SKIRMISH) {
+                                new PreventAllWoundsActionProxy(self, Filters.gandalf)) {
                             @Override
                             public String getText(LotroGame game) {
                                 return "Prevent all wounds to Gandalf";

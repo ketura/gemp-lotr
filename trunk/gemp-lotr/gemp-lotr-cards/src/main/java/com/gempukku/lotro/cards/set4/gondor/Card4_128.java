@@ -69,7 +69,7 @@ public class Card4_128 extends AbstractOldEvent {
                                                 }
                                                 return null;
                                             }
-                                        }, Phase.SKIRMISH));
+                                        }));
                     }
                 });
         return action;
