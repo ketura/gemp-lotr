@@ -42,14 +42,14 @@ public class Card11_096 extends AbstractEvent {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new AddUntilEndOfPhaseModifierEffect(
-                        new ArcheryTotalModifier(self, Side.SHADOW, 1), Phase.ARCHERY));
+                        new ArcheryTotalModifier(self, Side.SHADOW, 1)));
         action.appendEffect(
                 new ChooseActiveCardsEffect(self, game.getGameState().getCurrentPlayerId(), "Choose companions who will be taking archery wound", 3, 3, CardType.COMPANION) {
                     @Override
                     protected void cardsSelected(LotroGame game, Collection<PhysicalCard> cards) {
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new CantTakeArcheryWoundsModifier(self, Filters.and(CardType.COMPANION, Filters.not(Filters.in(cards)))), Phase.ARCHERY));
+                                        new CantTakeArcheryWoundsModifier(self, Filters.and(CardType.COMPANION, Filters.not(Filters.in(cards))))));
                     }
                 });
         return action;

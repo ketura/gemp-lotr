@@ -38,7 +38,7 @@ public class Card10_080 extends AbstractEvent {
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new StrengthModifier(self, card, null, new MultiplyEvaluator(2, new CountActiveEvaluator(Filters.siteControlled(playerId)))), Phase.SKIRMISH));
+                                        new StrengthModifier(self, card, null, new MultiplyEvaluator(2, new CountActiveEvaluator(Filters.siteControlled(playerId))))));
                         if (PlayConditions.hasInitiative(game, Side.SHADOW))
                             action.appendEffect(
                                     new AddUntilStartOfPhaseModifierEffect(

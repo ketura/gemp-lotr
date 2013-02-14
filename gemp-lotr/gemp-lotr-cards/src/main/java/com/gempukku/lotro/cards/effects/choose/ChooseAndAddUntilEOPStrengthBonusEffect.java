@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.effects.choose;
 
 import com.gempukku.lotro.common.Filterable;
-import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
@@ -29,10 +29,9 @@ public class ChooseAndAddUntilEOPStrengthBonusEffect extends ChooseActiveCardEff
     @Override
     protected void cardSelected(LotroGame game, PhysicalCard card) {
         final int bonus = _bonusEvaluator.evaluateExpression(game.getGameState(), game.getModifiersQuerying(), card);
-        final StrengthModifier modifier = new StrengthModifier(_source, card, null, bonus);
-        final Phase phase = game.getGameState().getCurrentPhase();
+        final StrengthModifier modifier = new StrengthModifier(_source, Filters.sameCard(card), bonus);
 
-        game.getModifiersEnvironment().addUntilEndOfPhaseModifier(modifier, phase);
+        game.getModifiersEnvironment().addUntilEndOfPhaseModifier(modifier, game.getGameState().getCurrentPhase());
 
         selectedCharacterCallback(card);
     }

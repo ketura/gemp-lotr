@@ -2,17 +2,17 @@ package com.gempukku.lotro.cards.set11.elven;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.modifiers.ArcheryTotalModifier;
-import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
+import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
+import com.gempukku.lotro.cards.modifiers.ArcheryTotalModifier;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.timing.Action;
 
-import java.util.List;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * Set: Shadows
@@ -44,7 +44,7 @@ public class Card11_017 extends AbstractPermanent {
                     new SelfDiscardEffect(self));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new ArcheryTotalModifier(self, Side.FREE_PEOPLE, 2), Phase.ARCHERY));
+                            new ArcheryTotalModifier(self, Side.FREE_PEOPLE, 2)));
             return Collections.singletonList(action);
         }
         return null;

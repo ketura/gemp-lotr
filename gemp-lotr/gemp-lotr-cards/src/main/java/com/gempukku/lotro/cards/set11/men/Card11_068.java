@@ -75,7 +75,7 @@ public class Card11_068 extends AbstractMinion {
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action3.insertEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
-                                            new KeywordModifier(self, card, Keyword.DAMAGE, 1), Phase.SKIRMISH));
+                                            new KeywordModifier(self, card, Keyword.DAMAGE, 1)));
                         }
                     });
             actions.add(action3);

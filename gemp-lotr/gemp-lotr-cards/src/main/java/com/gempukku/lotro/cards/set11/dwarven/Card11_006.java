@@ -46,7 +46,7 @@ public class Card11_006 extends AbstractEvent {
                         if (resistance > 0)
                             action.appendEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
-                                            new StrengthModifier(self, character, resistance), Phase.SKIRMISH));
+                                            new StrengthModifier(self, character, resistance)));
                     }
                 });
         return action;

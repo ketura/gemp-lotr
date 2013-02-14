@@ -49,7 +49,7 @@ public class Card12_027 extends AbstractCompanion {
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.unboundCompanion, Filters.inSkirmishAgainst(CardType.MINION)));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new StrengthModifier(self, self, 3), Phase.SKIRMISH));
+                            new StrengthModifier(self, self, 3)));
             action.appendEffect(
                     new ReplaceInSkirmishEffect(self, Filters.unboundCompanion, Filters.inSkirmishAgainst(CardType.MINION)));
             return Collections.singletonList(action);

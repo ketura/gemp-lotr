@@ -4,7 +4,6 @@ import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
@@ -38,10 +37,10 @@ public class Card1_005 extends AbstractOldEvent {
                     protected void cardSelected(LotroGame game, PhysicalCard dwarf) {
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new StrengthModifier(self, Filters.sameCard(dwarf), 2), Phase.SKIRMISH));
+                                        new StrengthModifier(self, dwarf, 2), Phase.SKIRMISH));
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new KeywordModifier(self, Filters.sameCard(dwarf), Keyword.DAMAGE), Phase.SKIRMISH));
+                                        new KeywordModifier(self, dwarf, Keyword.DAMAGE), Phase.SKIRMISH));
                     }
                 }
         );

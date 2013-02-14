@@ -44,7 +44,7 @@ public class Card11_149 extends AbstractAttachable {
                     new SelfDiscardEffect(self));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new KeywordModifier(self, self.getAttachedTo(), Keyword.DEFENDER, 1), Phase.ASSIGNMENT));
+                            new KeywordModifier(self, self.getAttachedTo(), Keyword.DEFENDER, 1)));
             return Collections.singletonList(action);
         }
         return null;

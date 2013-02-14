@@ -47,7 +47,7 @@ public class Card12_156 extends AbstractMinion {
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.appendEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
-                                            new CantBeAssignedAgainstModifier(self, Side.FREE_PEOPLE, card, self), Phase.ASSIGNMENT));
+                                            new CantBeAssignedAgainstModifier(self, Side.FREE_PEOPLE, card, self)));
                         }
                     });
             return Collections.singletonList(action);

@@ -53,7 +53,7 @@ public class Card12_182 extends AbstractPermanent {
                                 bonus++;
                             action.appendEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
-                                            new StrengthModifier(self, card, bonus), Phase.SKIRMISH));
+                                            new StrengthModifier(self, card, bonus)));
                         }
                     });
             return Collections.singletonList(action);

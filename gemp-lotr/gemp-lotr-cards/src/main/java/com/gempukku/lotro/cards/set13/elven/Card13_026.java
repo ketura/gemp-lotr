@@ -48,7 +48,7 @@ public class Card13_026 extends AbstractPermanent {
                         protected void cardsSelected(LotroGame game, Collection<PhysicalCard> cards) {
                             action.appendEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
-                                            new RemoveKeywordModifier(self, Filters.in(cards), Keyword.ARCHER), Phase.ARCHERY));
+                                            new RemoveKeywordModifier(self, Filters.in(cards), Keyword.ARCHER)));
                         }
                     });
             action.appendEffect(

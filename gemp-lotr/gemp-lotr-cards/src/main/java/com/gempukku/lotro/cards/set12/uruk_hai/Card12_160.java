@@ -42,7 +42,7 @@ public class Card12_160 extends AbstractPermanent {
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.appendEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
-                                            new KeywordModifier(self, card, Keyword.MUSTER), Phase.REGROUP));
+                                            new KeywordModifier(self, card, Keyword.MUSTER)));
                         }
                     });
             return Collections.singletonList(action);

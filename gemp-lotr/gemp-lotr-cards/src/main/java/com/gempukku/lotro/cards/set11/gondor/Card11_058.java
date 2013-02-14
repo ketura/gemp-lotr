@@ -46,7 +46,7 @@ public class Card11_058 extends AbstractAttachableFPPossession {
                     new ExertCharactersEffect(action, self, self.getAttachedTo()));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new ArcheryTotalModifier(self, Side.FREE_PEOPLE, 1), Phase.ARCHERY));
+                            new ArcheryTotalModifier(self, Side.FREE_PEOPLE, 1)));
             return Collections.singletonList(action);
         }
         return null;

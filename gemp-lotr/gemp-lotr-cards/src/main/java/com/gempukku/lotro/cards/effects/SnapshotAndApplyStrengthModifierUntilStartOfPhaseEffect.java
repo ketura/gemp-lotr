@@ -9,6 +9,8 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
 
+import java.util.Collection;
+
 public class SnapshotAndApplyStrengthModifierUntilStartOfPhaseEffect extends AbstractEffect {
     private PhysicalCard _source;
     private Filterable[] _filters;
@@ -29,11 +31,12 @@ public class SnapshotAndApplyStrengthModifierUntilStartOfPhaseEffect extends Abs
 
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
-        for (PhysicalCard physicalCard : Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), _filters)) {
+        final Collection<PhysicalCard> affectedCards = Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), _filters);
+        for (PhysicalCard physicalCard : affectedCards) {
             final int modifier = _evaluator.evaluateExpression(game.getGameState(), game.getModifiersQuerying(), physicalCard);
             if (modifier != 0)
                 game.getModifiersEnvironment().addUntilStartOfPhaseModifier(
-                        new StrengthModifier(_source, physicalCard, modifier), _phase);
+                        new StrengthModifier(_source, Filters.sameCard(physicalCard), modifier), _phase);
         }
 
         return new FullEffectResult(true);

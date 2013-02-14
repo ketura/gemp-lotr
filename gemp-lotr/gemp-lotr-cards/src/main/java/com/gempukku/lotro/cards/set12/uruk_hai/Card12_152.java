@@ -48,7 +48,7 @@ public class Card12_152 extends AbstractMinion {
                             int bonus = PlayConditions.canSpot(game, CardType.COMPANION, Filters.maxResistance(3)) ? 2 * spotCount : spotCount;
                             action.appendEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
-                                            new StrengthModifier(self, self, bonus), Phase.SKIRMISH));
+                                            new StrengthModifier(self, self, bonus)));
                         }
                     });
             return Collections.singletonList(action);

@@ -57,7 +57,7 @@ public class Card13_009 extends AbstractCompanion {
                                     new AddUntilEndOfPhaseModifierEffect(
                                             new StrengthModifier(self, card, null,
                                                     new NegativeEvaluator(
-                                                            new CountActiveEvaluator(Filters.not(self), CardType.COMPANION, Filters.assignedToSkirmish))), Phase.SKIRMISH));
+                                                            new CountActiveEvaluator(Filters.not(self), CardType.COMPANION, Filters.assignedToSkirmish)))));
                         }
                     });
             return Collections.singletonList(action);

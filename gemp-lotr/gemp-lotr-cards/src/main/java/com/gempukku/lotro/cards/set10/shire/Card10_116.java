@@ -50,7 +50,7 @@ public class Card10_116 extends AbstractPermanent {
                                                         public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
                                                             return Filters.filter(game.getActionsEnvironment().getPlayedCardsInCurrentPhase(), gameState, modifiersQuerying, Side.SHADOW, CardType.EVENT).size() == 0;
                                                         }
-                                                    }), Phase.SKIRMISH));
+                                                    })));
                         }
                     });
             action.appendEffect(

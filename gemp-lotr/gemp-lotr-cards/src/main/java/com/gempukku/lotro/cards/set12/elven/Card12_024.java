@@ -44,7 +44,7 @@ public class Card12_024 extends AbstractPermanent {
                     new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 1, Culture.ELVEN, Filters.character));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new ArcheryTotalModifier(self, Side.FREE_PEOPLE, 1), Phase.ARCHERY));
+                            new ArcheryTotalModifier(self, Side.FREE_PEOPLE, 1)));
             return Collections.singletonList(action);
         }
         return null;

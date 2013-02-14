@@ -53,7 +53,7 @@ public class Card12_016 extends AbstractEvent {
                                 });
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new StrengthModifier(self, card, count * 2), Phase.SKIRMISH));
+                                        new StrengthModifier(self, card, count * 2)));
                         action.appendEffect(
                                 new PutCardsFromDeckBeneathDrawDeckEffect(action, self, playerId, game.getGameState().getDeck(playerId).subList(0, count)));
                     }

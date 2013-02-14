@@ -43,7 +43,7 @@ public class Card12_173 extends AbstractMinion {
                     new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 1, Culture.WRAITH));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new StrengthModifier(self, self, 3), Phase.SKIRMISH));
+                            new StrengthModifier(self, self, 3)));
             return Collections.singletonList(action);
         }
         return null;

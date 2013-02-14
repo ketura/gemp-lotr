@@ -44,7 +44,7 @@ public class Card11_107 extends AbstractMinion {
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.not(self), Culture.ORC, CardType.MINION));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new StrengthModifier(self, self, null, new CardMatchesEvaluator(2, 4, Filters.inSkirmishAgainst(CardType.COMPANION, Filters.maxResistance(4)))), Phase.SKIRMISH));
+                            new StrengthModifier(self, self, null, new CardMatchesEvaluator(2, 4, Filters.inSkirmishAgainst(CardType.COMPANION, Filters.maxResistance(4))))));
             return Collections.singletonList(action);
         }
         return null;

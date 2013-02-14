@@ -46,7 +46,7 @@ public class Card11_151 extends AbstractAttachableFPPossession {
                     new SelfDiscardEffect(self));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new ArcheryTotalModifier(self, Side.FREE_PEOPLE, null, new ConditionEvaluator(1, 2, new LocationCondition(Keyword.PLAINS))), Phase.ARCHERY));
+                            new ArcheryTotalModifier(self, Side.FREE_PEOPLE, null, new ConditionEvaluator(1, 2, new LocationCondition(Keyword.PLAINS)))));
             return Collections.singletonList(action);
         }
         return null;

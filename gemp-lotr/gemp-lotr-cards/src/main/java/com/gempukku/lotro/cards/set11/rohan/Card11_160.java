@@ -40,11 +40,11 @@ public class Card11_160 extends AbstractEvent {
                     protected void forEachCardExertedCallback(PhysicalCard character) {
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new StrengthModifier(self, character, 3), Phase.SKIRMISH));
+                                        new StrengthModifier(self, character, 3)));
                         if (game.getModifiersQuerying().getResistance(game.getGameState(), character) >= 5)
                             action.appendEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
-                                            new KeywordModifier(self, character, Keyword.DAMAGE, 1), Phase.SKIRMISH));
+                                            new KeywordModifier(self, character, Keyword.DAMAGE, 1)));
                     }
                 });
         return action;

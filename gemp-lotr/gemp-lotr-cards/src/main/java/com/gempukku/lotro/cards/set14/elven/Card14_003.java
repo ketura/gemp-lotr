@@ -3,17 +3,15 @@ package com.gempukku.lotro.cards.set14.elven;
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
+import com.gempukku.lotro.cards.effects.SnapshotAndApplyStrengthModifierUntilEndOfCurrentPhaseEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.modifiers.TwilightCostModifier;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
@@ -48,8 +46,7 @@ public class Card14_003 extends AbstractCompanion {
                 && PlayConditions.canSpot(game, Filters.or(Filters.name("Elrohir"), Filters.name("Elladan")), Filters.inSkirmish)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new AddUntilEndOfPhaseModifierEffect(
-                            new StrengthModifier(self, Filters.and(CardType.MINION, Filters.inSkirmish), -2), Phase.SKIRMISH));
+                    new SnapshotAndApplyStrengthModifierUntilEndOfCurrentPhaseEffect(self, -2, Filters.and(CardType.MINION, Filters.inSkirmish)));
             return Collections.singletonList(action);
         }
         return null;
