@@ -51,10 +51,10 @@ public class Card8_068 extends AbstractEvent {
                     protected void forEachCardExertedCallback(final PhysicalCard character) {
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new StrengthModifier(self, character, 2), Phase.SKIRMISH));
+                                        new StrengthModifier(self, character, 2)));
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new KeywordModifier(self, character, Keyword.DAMAGE, 1), Phase.SKIRMISH));
+                                        new KeywordModifier(self, character, Keyword.DAMAGE, 1)));
 
                         final Collection<PhysicalCard> againstNazgulCollection = Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Filters.inSkirmishAgainst(character));
                         if (againstNazgulCollection.size() > 0) {

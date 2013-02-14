@@ -46,7 +46,7 @@ public class Card7_027 extends AbstractEvent {
                         int elvenCount = Filters.filter(cards, game.getGameState(), game.getModifiersQuerying(), Culture.ELVEN).size();
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new ArcheryTotalModifier(self, Side.FREE_PEOPLE, elvenCount), Phase.ARCHERY));
+                                        new ArcheryTotalModifier(self, Side.FREE_PEOPLE, elvenCount)));
                     }
                 });
         return action;

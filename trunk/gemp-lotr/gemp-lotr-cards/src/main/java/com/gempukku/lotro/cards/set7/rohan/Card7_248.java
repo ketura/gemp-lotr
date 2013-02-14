@@ -43,7 +43,7 @@ public class Card7_248 extends AbstractAttachableFPPossession {
                     new SelfDiscardEffect(self));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new ArcheryTotalModifier(self, Side.FREE_PEOPLE, 1), Phase.ARCHERY));
+                            new ArcheryTotalModifier(self, Side.FREE_PEOPLE, 1)));
             return Collections.singletonList(action);
         }
         return null;

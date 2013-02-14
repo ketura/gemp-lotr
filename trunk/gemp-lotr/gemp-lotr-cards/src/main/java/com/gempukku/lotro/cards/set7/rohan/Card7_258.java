@@ -35,15 +35,15 @@ public class Card7_258 extends AbstractEvent {
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new StrengthModifier(self, card, null, new CountActiveEvaluator(CardType.COMPANION, Filters.mounted)), Phase.SKIRMISH));
+                                        new StrengthModifier(self, card, null, new CountActiveEvaluator(CardType.COMPANION, Filters.mounted))));
                         boolean skirmishingRaider = Filters.inSkirmishAgainst(Culture.RAIDER, CardType.MINION).accepts(game.getGameState(), game.getModifiersQuerying(), card);
                         if (skirmishingRaider) {
                             action.appendEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
-                                            new StrengthModifier(self, card, 2), Phase.SKIRMISH));
+                                            new StrengthModifier(self, card, 2)));
                             action.appendEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
-                                            new KeywordModifier(self, card, Keyword.DAMAGE, 2), Phase.SKIRMISH));
+                                            new KeywordModifier(self, card, Keyword.DAMAGE, 2)));
                         }
                     }
                 });

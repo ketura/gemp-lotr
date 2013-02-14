@@ -37,7 +37,7 @@ public class Card7_100 extends AbstractEvent {
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Culture.GONDOR, Race.MAN));
         action.appendEffect(
                 new AddUntilEndOfPhaseModifierEffect(
-                        new ArcheryTotalModifier(self, Side.FREE_PEOPLE, 2), Phase.ARCHERY));
+                        new ArcheryTotalModifier(self, Side.FREE_PEOPLE, 2)));
         return action;
     }
 }

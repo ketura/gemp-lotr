@@ -34,7 +34,7 @@ public class Card7_064 extends AbstractEvent {
                     protected void spottedCards(int spotCount) {
                         action.insertEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new StrengthModifier(self, Filters.smeagol, spotCount), Phase.SKIRMISH));
+                                        new StrengthModifier(self, Filters.smeagol, spotCount)));
                     }
                 });
         return action;

@@ -64,7 +64,7 @@ public class Card7_037 extends AbstractCompanion {
                             action.insertEffect(
                                     new PreventableEffect(action,
                                             new AddUntilEndOfPhaseModifierEffect(
-                                                    new StrengthModifier(self, card, -3), Phase.SKIRMISH) {
+                                                    new StrengthModifier(self, card, -3)) {
                                                 @Override
                                                 public String getText(LotroGame game) {
                                                     return "Make " + GameUtils.getFullName(card) + " strength -3";

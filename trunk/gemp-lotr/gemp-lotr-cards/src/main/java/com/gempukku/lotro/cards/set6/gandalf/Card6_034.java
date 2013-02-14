@@ -44,7 +44,7 @@ public class Card6_034 extends AbstractEvent {
                                 + game.getModifiersQuerying().getSpotBonus(game.getGameState(), Race.ENT));
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new StrengthModifier(self, character, bonus), Phase.SKIRMISH));
+                                        new StrengthModifier(self, character, bonus)));
                     }
                 });
         return action;

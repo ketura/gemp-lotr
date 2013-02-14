@@ -44,7 +44,7 @@ public class Card8_100 extends AbstractMinion {
                     new ReturnCardsToHandEffect(self, self));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new ArcheryTotalModifier(self, Side.FREE_PEOPLE, -2), Phase.ARCHERY));
+                            new ArcheryTotalModifier(self, Side.FREE_PEOPLE, -2)));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
                             new AbstractModifier(self, null, null, ModifierEffect.ACTION_MODIFIER) {
@@ -56,7 +56,7 @@ public class Card8_100 extends AbstractMinion {
                                         return false;
                                     return true;
                                 }
-                            }, Phase.ARCHERY));
+                            }));
             return Collections.singletonList(action);
         }
         return null;

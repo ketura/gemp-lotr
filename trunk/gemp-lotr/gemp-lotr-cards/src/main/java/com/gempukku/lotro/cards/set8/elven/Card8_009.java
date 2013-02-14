@@ -48,12 +48,12 @@ public class Card8_009 extends AbstractEvent {
                                 int reduce = getValidatedResult(result);
                                 action.appendCost(
                                         new AddUntilEndOfPhaseModifierEffect(
-                                                new ArcheryTotalModifier(self, Side.FREE_PEOPLE, -reduce), Phase.ARCHERY));
+                                                new ArcheryTotalModifier(self, Side.FREE_PEOPLE, -reduce)));
                                 action.appendEffect(
                                         new ChooseAndHealCharactersEffect(action, playerId, reduce, reduce, Filters.unboundCompanion));
                                 action.appendEffect(
                                         new AddUntilEndOfPhaseModifierEffect(
-                                                new PlayerCantUsePhaseSpecialAbilitiesModifier(self, playerId, Phase.ARCHERY), Phase.ARCHERY));
+                                                new PlayerCantUsePhaseSpecialAbilitiesModifier(self, playerId, Phase.ARCHERY)));
                             }
                         }));
         return action;

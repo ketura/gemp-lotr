@@ -53,7 +53,7 @@ public class Card7_365 extends AbstractCompanion {
                     new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 3));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new StrengthModifier(self, self, null, new CountActiveEvaluator(CardType.COMPANION, Keyword.VALIANT)), Phase.SKIRMISH));
+                            new StrengthModifier(self, self, null, new CountActiveEvaluator(CardType.COMPANION, Keyword.VALIANT))));
             return Collections.singletonList(action);
         }
         return null;

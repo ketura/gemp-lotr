@@ -66,7 +66,7 @@ public class Card9_005 extends AbstractCompanion {
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.appendEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
-                                            new KeywordModifier(self, card, Keyword.DAMAGE, 1), Phase.SKIRMISH));
+                                            new KeywordModifier(self, card, Keyword.DAMAGE, 1)));
                         }
                     });
             return Collections.singletonList(action);

@@ -40,7 +40,7 @@ public class Card8_120 extends AbstractSite {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new SpecialFlagModifier(self, ModifierFlag.HAS_TO_MOVE_IF_POSSIBLE), Phase.REGROUP));
+                            new SpecialFlagModifier(self, ModifierFlag.HAS_TO_MOVE_IF_POSSIBLE)));
             return Collections.singletonList(action);
         }
         return null;

@@ -44,7 +44,7 @@ public class Card7_017 extends AbstractAttachableFPPossession {
                     new ExertCharactersEffect(action, self, self.getAttachedTo()));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new StrengthModifier(self, Filters.and(CardType.MINION, Filters.inSkirmishAgainst(Filters.hasAttached(self))), -2), Phase.SKIRMISH));
+                            new StrengthModifier(self, Filters.and(CardType.MINION, Filters.inSkirmishAgainst(Filters.hasAttached(self))), -2)));
             return Collections.singletonList(action);
         }
         return null;

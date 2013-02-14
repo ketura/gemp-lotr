@@ -42,10 +42,10 @@ public class Card6_112 extends AbstractEvent {
                         int count = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Culture.GANDALF, CardType.COMPANION);
                         action.insertEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new StrengthModifier(self, character, count), Phase.SKIRMISH));
+                                        new StrengthModifier(self, character, count)));
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new KeywordModifier(self, character, Keyword.DAMAGE, count), Phase.SKIRMISH));
+                                        new KeywordModifier(self, character, Keyword.DAMAGE, count)));
                     }
                 });
         return action;

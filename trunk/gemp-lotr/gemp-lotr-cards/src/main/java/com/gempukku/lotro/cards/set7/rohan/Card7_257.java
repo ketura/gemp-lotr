@@ -47,7 +47,7 @@ public class Card7_257 extends AbstractCompanion {
                         protected void spottedCards(int spotCount) {
                             action.appendEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
-                                            new StrengthModifier(self, self, spotCount), Phase.SKIRMISH));
+                                            new StrengthModifier(self, self, spotCount)));
                         }
                     });
             return Collections.singletonList(action);

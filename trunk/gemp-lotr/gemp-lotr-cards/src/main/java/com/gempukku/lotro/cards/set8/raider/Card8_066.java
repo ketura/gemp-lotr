@@ -45,7 +45,7 @@ public class Card8_066 extends AbstractEvent {
                                 int value = getValidatedResult(result);
                                 action.appendEffect(
                                         new AddUntilEndOfPhaseModifierEffect(
-                                                new StrengthModifier(self, card, value), Phase.SKIRMISH));
+                                                new StrengthModifier(self, card, value)));
                                 if (PlayConditions.hasInitiative(game, Side.SHADOW))
                                     action.appendEffect(
                                             new OptionalEffect(action, playerId,

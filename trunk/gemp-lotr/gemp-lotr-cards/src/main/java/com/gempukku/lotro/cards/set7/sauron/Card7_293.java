@@ -55,7 +55,7 @@ public class Card7_293 extends AbstractMinion {
                                             new StrengthModifier(self, card, null,
                                                     new NegativeEvaluator(
                                                             new CardPhaseLimitEvaluator(game, self, Phase.SKIRMISH, 3,
-                                                                    new CountActiveEvaluator(Filters.not(self), Culture.SAURON, Race.ORC)))), Phase.SKIRMISH));
+                                                                    new CountActiveEvaluator(Filters.not(self), Culture.SAURON, Race.ORC))))));
                         }
                     });
             return Collections.singletonList(action);

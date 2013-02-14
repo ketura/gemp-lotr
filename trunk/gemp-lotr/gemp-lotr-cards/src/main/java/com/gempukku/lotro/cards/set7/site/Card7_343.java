@@ -38,7 +38,7 @@ public class Card7_343 extends AbstractSite {
                     new RemoveBurdenEffect(playerId, self, 3));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new ArcheryTotalModifier(self, Side.SHADOW, 3), Phase.ARCHERY));
+                            new ArcheryTotalModifier(self, Side.SHADOW, 3)));
             return Collections.singletonList(action);
         }
         return null;

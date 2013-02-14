@@ -35,11 +35,11 @@ public class Card7_231 extends AbstractEvent {
                         int bonus = againstWounded ? 3 : 2;
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new StrengthModifier(self, card, bonus), Phase.SKIRMISH));
+                                        new StrengthModifier(self, card, bonus)));
                         if (againstWounded)
                             action.appendEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
-                                            new KeywordModifier(self, card, Keyword.DAMAGE, 1), Phase.SKIRMISH));
+                                            new KeywordModifier(self, card, Keyword.DAMAGE, 1)));
                     }
                 });
         return action;

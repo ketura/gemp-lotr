@@ -53,7 +53,7 @@ public class Card7_167 extends AbstractMinion {
                     new RemoveThreatsEffect(self, 1));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new ArcheryTotalModifier(self, Side.SHADOW, 1), Phase.ARCHERY));
+                            new ArcheryTotalModifier(self, Side.SHADOW, 1)));
             return Collections.singletonList(action);
         }
         return null;

@@ -54,7 +54,7 @@ public class Card8_013 extends AbstractPermanent {
             action.appendEffect(
                     new CheckPhaseLimitEffect(action, self, 2, Phase.ARCHERY,
                             new AddUntilEndOfPhaseModifierEffect(
-                                    new ArcheryTotalModifier(self, Side.FREE_PEOPLE, 1), Phase.ARCHERY)));
+                                    new ArcheryTotalModifier(self, Side.FREE_PEOPLE, 1))));
             return Collections.singletonList(action);
         }
         return null;

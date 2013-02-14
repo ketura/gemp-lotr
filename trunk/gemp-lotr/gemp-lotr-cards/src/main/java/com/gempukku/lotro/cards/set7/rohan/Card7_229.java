@@ -40,7 +40,7 @@ public class Card7_229 extends AbstractCompanion {
                     new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, CardType.POSSESSION, Filters.attachedTo(self)));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new StrengthModifier(self, self, 2), Phase.SKIRMISH));
+                            new StrengthModifier(self, self, 2)));
             return Collections.singletonList(action);
         }
         return null;

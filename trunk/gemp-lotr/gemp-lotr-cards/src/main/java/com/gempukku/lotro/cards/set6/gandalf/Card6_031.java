@@ -48,7 +48,7 @@ public class Card6_031 extends AbstractAttachableFPPossession {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new KeywordModifier(self, self.getAttachedTo(), Keyword.DAMAGE), Phase.SKIRMISH));
+                            new KeywordModifier(self, self.getAttachedTo(), Keyword.DAMAGE)));
             return Collections.singletonList(action);
         }
         return null;

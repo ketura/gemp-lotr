@@ -40,7 +40,7 @@ public class Card7_215 extends AbstractMinion {
                     new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Culture.WRAITH, CardType.MINION));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new StrengthModifier(self, self, 2), Phase.SKIRMISH));
+                            new StrengthModifier(self, self, 2)));
             return Collections.singletonList(action);
         }
         return null;

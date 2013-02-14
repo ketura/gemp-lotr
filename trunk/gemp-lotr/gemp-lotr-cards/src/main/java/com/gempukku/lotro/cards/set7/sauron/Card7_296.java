@@ -42,7 +42,7 @@ public class Card7_296 extends AbstractMinion {
                     new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 3));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new StrengthModifier(self, self, 3), Phase.SKIRMISH));
+                            new StrengthModifier(self, self, 3)));
             return Collections.singletonList(action);
         }
         return null;

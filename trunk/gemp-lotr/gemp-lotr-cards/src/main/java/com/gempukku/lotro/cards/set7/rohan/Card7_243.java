@@ -41,7 +41,7 @@ public class Card7_243 extends AbstractEvent {
                         action.appendEffect(
                                 new PreventableEffect(action,
                                         new AddUntilEndOfPhaseModifierEffect(
-                                                new StrengthModifier(self, rohanMan, 4), Phase.SKIRMISH) {
+                                                new StrengthModifier(self, rohanMan, 4)) {
                                             @Override
                                             public String getText(LotroGame game) {
                                                 return "Make " + GameUtils.getFullName(rohanMan) + " strength +4";
@@ -60,7 +60,7 @@ public class Card7_243 extends AbstractEvent {
                                                     protected void putCardFromHandOnBottomOfDeckCallback(PhysicalCard card) {
                                                         action.appendEffect(
                                                                 new AddUntilEndOfPhaseModifierEffect(
-                                                                        new StrengthModifier(self, rohanMan, 2), Phase.SKIRMISH));
+                                                                        new StrengthModifier(self, rohanMan, 2)));
                                                     }
                                                 };
                                             }
