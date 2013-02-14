@@ -134,6 +134,7 @@ var CardFilter = Class.extend({
             + "<option value='17'>17 - Rise of Saruman</option>"
             + "<option value='18'>18 - Treachery & Deceit</option>"
             + "<option value='19'>19 - Ages End</option>"
+            + "<option value='20'>20 - Second Edition</option>"
             + "</select>");
         this.nameInput = $("<input type='text' value='Card name' style='width: 130px; font-size: 70%;'>");
         this.sortSelect = $("<select style='width: 80px; font-size: 80%;'>"

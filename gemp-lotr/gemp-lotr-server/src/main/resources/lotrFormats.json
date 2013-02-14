@@ -258,6 +258,6 @@
         "winAtEndOfRegroup":true,
         "ruleOfFour":false,
         "winOnControlling5Sites":true,
-        "hall":false
+        "hall":true
     }
 ]
