@@ -45,10 +45,10 @@ public class Card1_128 extends AbstractOldEvent {
                     protected void cardSelected(LotroGame game, PhysicalCard urukHai) {
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new StrengthModifier(self, Filters.sameCard(urukHai), -1), Phase.SKIRMISH));
+                                        new StrengthModifier(self, Filters.sameCard(urukHai), -1)));
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new KeywordModifier(self, Filters.sameCard(urukHai), Keyword.DAMAGE), Phase.SKIRMISH));
+                                        new KeywordModifier(self, Filters.sameCard(urukHai), Keyword.DAMAGE)));
                     }
                 }
         );

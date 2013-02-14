@@ -37,7 +37,7 @@ public class Card1_213 extends AbstractOldEvent {
                         boolean notAssigned = Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.ringBearer, Filters.notAssignedToSkirmish);
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new StrengthModifier(self, Filters.sameCard(nazgul), notAssigned ? 2 : 3), Phase.SKIRMISH));
+                                        new StrengthModifier(self, Filters.sameCard(nazgul), notAssigned ? 2 : 3)));
                     }
                 });
         return action;

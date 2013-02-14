@@ -50,7 +50,7 @@ public class Card20_176 extends AbstractCompanion {
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.DWARF));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new KeywordModifier(self, self, Keyword.DAMAGE, 1), Phase.SKIRMISH));
+                            new KeywordModifier(self, self, Keyword.DAMAGE, 1)));
             return Collections.singletonList(action);
         }
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.REGROUP, self)

@@ -36,7 +36,7 @@ public class Card1_227 extends AbstractOldEvent {
                         int bonus = (game.getGameState().getBurdens() >= 5) ? 4 : 2;
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new StrengthModifier(self, Filters.sameCard(nazgul), bonus), Phase.SKIRMISH));
+                                        new StrengthModifier(self, Filters.sameCard(nazgul), bonus)));
                     }
                 });
         return action;

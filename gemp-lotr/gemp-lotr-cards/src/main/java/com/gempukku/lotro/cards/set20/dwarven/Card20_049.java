@@ -49,7 +49,7 @@ public class Card20_049 extends AbstractAttachable {
                     new SelfDiscardEffect(self));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new StrengthModifier(self, self.getAttachedTo(), 1), Phase.SKIRMISH));
+                            new StrengthModifier(self, self.getAttachedTo(), 1)));
             return Collections.singletonList(action);
         }
         return null;

@@ -40,7 +40,7 @@ public class Card20_102 extends AbstractEvent {
         action.appendEffect(
                 new AddUntilEndOfPhaseModifierEffect(
                         new ArcheryTotalModifier(self, Side.FREE_PEOPLE, null,
-                                new CountActiveEvaluator(Filters.siteControlledByShadowPlayer(playerId))), Phase.ARCHERY));
+                                new CountActiveEvaluator(Filters.siteControlledByShadowPlayer(playerId)))));
         return action;
     }
 }

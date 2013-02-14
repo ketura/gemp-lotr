@@ -40,7 +40,7 @@ public class Card1_246 extends AbstractOldEvent {
                         protected void burdensSpotted(int burdensSpotted) {
                             action.insertEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
-                                            new StrengthModifier(self, Filters.sameCard(skirmish.getFellowshipCharacter()), -burdensSpotted), Phase.SKIRMISH));
+                                            new StrengthModifier(self, Filters.sameCard(skirmish.getFellowshipCharacter()), -burdensSpotted)));
                         }
                     });
         }

@@ -42,10 +42,10 @@ public class Card1_210 extends AbstractOldEvent {
 
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new StrengthModifier(self, Filters.sameCard(nazgul), (burdens >= 6) ? 3 : 1), Phase.SKIRMISH));
+                                        new StrengthModifier(self, Filters.sameCard(nazgul), (burdens >= 6) ? 3 : 1)));
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new KeywordModifier(self, Filters.sameCard(nazgul), Keyword.DAMAGE, (burdens >= 6) ? 2 : 1), Phase.SKIRMISH));
+                                        new KeywordModifier(self, Filters.sameCard(nazgul), Keyword.DAMAGE, (burdens >= 6) ? 2 : 1)));
                     }
                 });
         return action;

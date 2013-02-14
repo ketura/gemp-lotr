@@ -48,7 +48,7 @@ public class Card20_029 extends AbstractEvent {
                     protected void cardSelected(LotroGame game, final PhysicalCard minion) {
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new StrengthModifier(self, minion, 3), Phase.SKIRMISH));
+                                        new StrengthModifier(self, minion, 3)));
                         action.appendEffect(
                                 new AddUntilEndOfPhaseActionProxyEffect(
                                         new AbstractActionProxy() {

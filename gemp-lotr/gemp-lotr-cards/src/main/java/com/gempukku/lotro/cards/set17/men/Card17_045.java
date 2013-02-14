@@ -49,7 +49,7 @@ public class Card17_045 extends AbstractEvent {
                                                 new DiscardCardsFromPlayEffect(self, possession));
                                         subAction.appendEffect(
                                                 new AddUntilEndOfPhaseModifierEffect(
-                                                        new KeywordModifier(self, minion, Keyword.DAMAGE, 1), Phase.SKIRMISH));
+                                                        new KeywordModifier(self, minion, Keyword.DAMAGE, 1)));
                                         action.appendEffect(
                                                 new OptionalEffect(action, playerId, new StackActionEffect(subAction) {
                                                     @Override

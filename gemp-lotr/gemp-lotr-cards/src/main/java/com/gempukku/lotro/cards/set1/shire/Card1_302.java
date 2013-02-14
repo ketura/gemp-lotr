@@ -50,7 +50,7 @@ public class Card1_302 extends AbstractCompanion {
                             int merryStrength = game.getModifiersQuerying().getStrength(game.getGameState(), self);
                             action.appendEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
-                                            new StrengthModifier(self, Filters.sameCard(anotherCompanion), merryStrength), Phase.SKIRMISH));
+                                            new StrengthModifier(self, Filters.sameCard(anotherCompanion), merryStrength)));
                         }
                     });
             return Collections.singletonList(action);

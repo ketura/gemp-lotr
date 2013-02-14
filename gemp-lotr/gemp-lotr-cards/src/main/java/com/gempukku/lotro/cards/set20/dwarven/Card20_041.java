@@ -47,7 +47,7 @@ public class Card20_041 extends AbstractEvent {
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new CantTakeMoreThanXWoundsModifier(self, Phase.SKIRMISH, 1, card), Phase.SKIRMISH));
+                                        new CantTakeMoreThanXWoundsModifier(self, Phase.SKIRMISH, 1, card)));
                     }
                 });
         return action;

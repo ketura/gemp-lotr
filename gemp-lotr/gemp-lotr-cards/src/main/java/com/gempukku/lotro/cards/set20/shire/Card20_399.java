@@ -51,7 +51,7 @@ public class Card20_399 extends AbstractAttachableFPPossession {
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, 2, Filters.hasAttached(self)));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new OverwhelmedByMultiplierModifier(self, self.getAttachedTo(), 3), Phase.SKIRMISH));
+                            new OverwhelmedByMultiplierModifier(self, self.getAttachedTo(), 3)));
             return Collections.singletonList(action);
         }
         return null;

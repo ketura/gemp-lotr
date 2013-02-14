@@ -48,7 +48,7 @@ public class Card1_298 extends AbstractOldEvent {
                         protected void cardSelected(LotroGame game, PhysicalCard hobbit) {
                             action.appendEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
-                                            new StrengthModifier(self, Filters.sameCard(hobbit), 2), Phase.SKIRMISH));
+                                            new StrengthModifier(self, Filters.sameCard(hobbit), 2)));
                         }
                     });
         } else {

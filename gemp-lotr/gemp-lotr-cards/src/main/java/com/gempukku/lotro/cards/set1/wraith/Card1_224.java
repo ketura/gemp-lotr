@@ -68,7 +68,7 @@ public class Card1_224 extends AbstractResponseOldEvent {
                                                                         RequiredTriggerAction action = new RequiredTriggerAction(self);
                                                                         action.appendEffect(
                                                                                 new AddUntilEndOfPhaseModifierEffect(
-                                                                                        new SpecialFlagModifier(self, ModifierFlag.RING_TEXT_INACTIVE), Phase.SKIRMISH));
+                                                                                        new SpecialFlagModifier(self, ModifierFlag.RING_TEXT_INACTIVE)));
                                                                         return Collections.singletonList(action);
                                                                     }
                                                                     return null;

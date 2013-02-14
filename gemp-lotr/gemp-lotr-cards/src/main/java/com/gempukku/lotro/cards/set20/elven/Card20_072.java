@@ -35,7 +35,7 @@ public class Card20_072 extends AbstractEvent {
         int x = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION, Keyword.ARCHER);
         action.appendCost(
                 new AddUntilEndOfPhaseModifierEffect(
-                        new ArcheryTotalModifier(self, Side.FREE_PEOPLE, -x), Phase.ARCHERY));
+                        new ArcheryTotalModifier(self, Side.FREE_PEOPLE, -x)));
         action.appendEffect(
                 new ChooseAndDiscardCardsFromPlayEffect(action, playerId, x, x, CardType.CONDITION, Side.SHADOW));
         return action;

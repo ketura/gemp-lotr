@@ -32,7 +32,7 @@ public class Card20_106 extends AbstractEvent {
         int count = PlayConditions.location(game, Keyword.FOREST)?2:1;
         action.appendEffect(
                 new AddUntilEndOfPhaseModifierEffect(
-                        new ArcheryTotalModifier(self, Side.FREE_PEOPLE, null, count), Phase.ARCHERY));
+                        new ArcheryTotalModifier(self, Side.FREE_PEOPLE, null, count)));
         return action;
     }
 }

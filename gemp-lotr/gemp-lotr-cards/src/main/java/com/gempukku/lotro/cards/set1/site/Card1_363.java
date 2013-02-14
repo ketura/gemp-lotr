@@ -86,11 +86,11 @@ public class Card1_363 extends AbstractSite {
                 else
                     _action.appendEffect(
                             new AddUntilEndOfPhaseModifierEffect(
-                                    new PlayersCantPlayPhaseEventsOrPhaseSpecialAbilitiesModifier(null, Phase.SHADOW), Phase.SHADOW));
+                                    new PlayersCantPlayPhaseEventsOrPhaseSpecialAbilitiesModifier(null, Phase.SHADOW)));
             } else {
                 _action.appendEffect(
                         new AddUntilEndOfPhaseModifierEffect(
-                                new PlayersCantPlayPhaseEventsOrPhaseSpecialAbilitiesModifier(null, Phase.SHADOW), Phase.SHADOW));
+                                new PlayersCantPlayPhaseEventsOrPhaseSpecialAbilitiesModifier(null, Phase.SHADOW)));
             }
         }
     }
