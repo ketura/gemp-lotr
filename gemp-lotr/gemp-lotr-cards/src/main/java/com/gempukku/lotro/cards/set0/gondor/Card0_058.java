@@ -2,18 +2,14 @@ package com.gempukku.lotro.cards.set0.gondor;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
+import com.gempukku.lotro.cards.effects.SnapshotAndApplyStrengthModifierUntilEndOfCurrentPhaseEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromHandEffect;
-import com.gempukku.lotro.cards.modifiers.evaluator.SingleMemoryEvaluator;
+import com.gempukku.lotro.cards.modifiers.evaluator.VitalityEvaluator;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
-import com.gempukku.lotro.logic.modifiers.StrengthModifier;
-import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 
 import java.util.Collections;
 import java.util.List;
@@ -43,15 +39,9 @@ public class Card0_058 extends AbstractCompanion {
             action.appendCost(
                     new ChooseAndPlayCardFromHandEffect(playerId, game, Culture.GONDOR, CardType.EVENT, Keyword.SKIRMISH));
             action.appendEffect(
-                    new AddUntilEndOfPhaseModifierEffect(
-                            new StrengthModifier(self, Filters.in(Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Filters.and(CardType.MINION, Filters.inSkirmishAgainst(self)))), null,
-                                    new SingleMemoryEvaluator(
-                                            new Evaluator() {
-                                                @Override
-                                                public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard cardAffected) {
-                                                    return -modifiersQuerying.getVitality(game.getGameState(), self);
-                                                }
-                                            })), Phase.SKIRMISH));
+                    new SnapshotAndApplyStrengthModifierUntilEndOfCurrentPhaseEffect(self,
+                            new VitalityEvaluator(self, -1),
+                            CardType.MINION, Filters.inSkirmishAgainst(self)));
             return Collections.singletonList(action);
         }
         return null;
