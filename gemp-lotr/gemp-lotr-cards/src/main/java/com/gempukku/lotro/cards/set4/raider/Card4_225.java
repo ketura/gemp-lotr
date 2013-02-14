@@ -56,7 +56,7 @@ public class Card4_225 extends AbstractMinion {
                             protected void cardSelected(LotroGame game, PhysicalCard card) {
                                 action.insertEffect(
                                         new AddUntilEndOfPhaseModifierEffect(
-                                                new StrengthModifier(self, Filters.sameCard(card), 2), Phase.SKIRMISH));
+                                                new StrengthModifier(self, Filters.sameCard(card), 2)));
                             }
                         });
                 actions.add(action);
@@ -72,7 +72,7 @@ public class Card4_225 extends AbstractMinion {
                             protected void cardSelected(LotroGame game, PhysicalCard card) {
                                 action.insertEffect(
                                         new AddUntilEndOfPhaseModifierEffect(
-                                                new StrengthModifier(self, Filters.sameCard(card), 3), Phase.SKIRMISH));
+                                                new StrengthModifier(self, Filters.sameCard(card), 3)));
                             }
                         });
                 actions.add(action);
@@ -88,7 +88,7 @@ public class Card4_225 extends AbstractMinion {
                             protected void cardSelected(LotroGame game, PhysicalCard card) {
                                 action.insertEffect(
                                         new AddUntilEndOfPhaseModifierEffect(
-                                                new StrengthModifier(self, Filters.sameCard(card), 4), Phase.SKIRMISH));
+                                                new StrengthModifier(self, Filters.sameCard(card), 4)));
                             }
                         });
                 actions.add(action);

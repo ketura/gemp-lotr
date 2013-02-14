@@ -64,7 +64,7 @@ public class Card5_019 extends AbstractCompanion {
                     new ChoiceEffect(action, playerId, possibleCosts));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new UnhastyCompanionParticipatesInSkirmishedModifier(self, self), Phase.ASSIGNMENT));
+                            new UnhastyCompanionParticipatesInSkirmishedModifier(self, self)));
             return Collections.singletonList(action);
         }
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)

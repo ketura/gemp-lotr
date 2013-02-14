@@ -65,7 +65,7 @@ public class Card5_017 extends AbstractCompanion {
                     new ChoiceEffect(action, playerId, possibleCosts));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new UnhastyCompanionParticipatesInSkirmishedModifier(self, self), Phase.ASSIGNMENT));
+                            new UnhastyCompanionParticipatesInSkirmishedModifier(self, self)));
             return Collections.singletonList(action);
         }
         return null;

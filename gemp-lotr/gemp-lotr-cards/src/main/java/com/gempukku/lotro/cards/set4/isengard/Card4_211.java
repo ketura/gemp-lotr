@@ -52,7 +52,7 @@ public class Card4_211 extends AbstractPermanent {
                     new RemoveTokenEffect(self, self, Token.ISENGARD, 2));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new ArcheryTotalModifier(self, Side.SHADOW, 2), Phase.ARCHERY));
+                            new ArcheryTotalModifier(self, Side.SHADOW, 2)));
             action.appendEffect(
                     new SelfDiscardEffect(self));
             return Collections.singletonList(action);

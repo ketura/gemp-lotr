@@ -36,7 +36,7 @@ public class Card5_011 extends AbstractEvent {
                 new ChooseAndExertCharactersEffect(action, playerId, 3, 3, Race.ELF, CardType.COMPANION));
         action.appendEffect(
                 new AddUntilEndOfPhaseModifierEffect(
-                        new ArcheryTotalModifier(self, Side.FREE_PEOPLE, 2), Phase.ARCHERY));
+                        new ArcheryTotalModifier(self, Side.FREE_PEOPLE, 2)));
         return action;
     }
 }

@@ -33,13 +33,13 @@ public class Card4_297 extends AbstractEvent {
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
                         action.insertEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new StrengthModifier(self, Filters.sameCard(card), 2), Phase.SKIRMISH));
+                                        new StrengthModifier(self, Filters.sameCard(card), 2)));
 
                         boolean mounted = Filters.mounted.accepts(game.getGameState(), game.getModifiersQuerying(), card);
                         if (mounted)
                             action.appendEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
-                                            new KeywordModifier(self, Filters.sameCard(card), Keyword.DAMAGE, 2), Phase.SKIRMISH));
+                                            new KeywordModifier(self, Filters.sameCard(card), Keyword.DAMAGE, 2)));
                     }
                 });
         return action;

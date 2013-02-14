@@ -52,10 +52,10 @@ public class Card5_029 extends AbstractCompanion {
                     new AddBurdenEffect(self.getOwner(), self, 1));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new StrengthModifier(self, self, 2), Phase.SKIRMISH));
+                            new StrengthModifier(self, self, 2)));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new CantTakeWoundsModifier(self, self), Phase.SKIRMISH));
+                            new CantTakeWoundsModifier(self, self)));
             return Collections.singletonList(action);
         }
         return null;

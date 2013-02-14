@@ -48,7 +48,7 @@ public class Card4_183 extends AbstractMinion {
                     new ChooseAndWoundCharactersEffect(action, game.getGameState().getCurrentPlayerId(), 1, 1, Filters.unboundCompanion));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new DoesNotAddToArcheryTotalModifier(self, self), Phase.ARCHERY));
+                            new DoesNotAddToArcheryTotalModifier(self, self)));
             return Collections.singletonList(action);
         }
         return null;

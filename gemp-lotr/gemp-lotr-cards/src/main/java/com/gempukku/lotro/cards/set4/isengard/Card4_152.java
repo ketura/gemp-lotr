@@ -35,7 +35,7 @@ public class Card4_152 extends AbstractOldEvent {
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
                         action.insertEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new CantBeAssignedToSkirmishModifier(self, Filters.sameCard(card)), Phase.ASSIGNMENT));
+                                        new CantBeAssignedToSkirmishModifier(self, Filters.sameCard(card))));
                     }
                 });
         return action;

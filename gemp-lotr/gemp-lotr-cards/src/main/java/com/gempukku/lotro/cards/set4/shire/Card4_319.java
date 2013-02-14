@@ -40,7 +40,7 @@ public class Card4_319 extends AbstractEvent {
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.insertEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
-                                            new OverwhelmedByMultiplierModifier(self, Filters.sameCard(card), 3), Phase.SKIRMISH));
+                                            new OverwhelmedByMultiplierModifier(self, Filters.sameCard(card), 3)));
                         }
                     });
         }

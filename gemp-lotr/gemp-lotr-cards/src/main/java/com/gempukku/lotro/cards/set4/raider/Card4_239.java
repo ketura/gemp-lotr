@@ -35,7 +35,7 @@ public class Card4_239 extends AbstractOldEvent {
                         int bonus = (game.getGameState().getBurdens() >= 4) ? 4 : 3;
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new StrengthModifier(self, card, bonus), Phase.SKIRMISH));
+                                        new StrengthModifier(self, card, bonus)));
                     }
                 });
         return action;

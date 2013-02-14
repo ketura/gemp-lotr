@@ -41,7 +41,7 @@ public class Card5_118 extends AbstractSite {
                     new RemoveTwilightEffect(9));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new SpecialFlagModifier(self, ModifierFlag.HAS_TO_MOVE_IF_POSSIBLE), Phase.REGROUP));
+                            new SpecialFlagModifier(self, ModifierFlag.HAS_TO_MOVE_IF_POSSIBLE)));
             return Collections.singletonList(action);
         }
         return null;

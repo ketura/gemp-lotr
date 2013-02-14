@@ -37,7 +37,7 @@ public class Card4_156 extends AbstractOldEvent {
                                 (Filters.inSkirmishAgainst(Filters.hasAttached(Keyword.SEARCH)).accepts(game.getGameState(), game.getModifiersQuerying(), card)) ? 4 : 2;
                         action.insertEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
-                                        new StrengthModifier(self, Filters.sameCard(card), bonus), Phase.SKIRMISH));
+                                        new StrengthModifier(self, Filters.sameCard(card), bonus)));
                     }
                 });
         return action;
