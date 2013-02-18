@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set18.orc;
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.RemoveCardsFromTheGameEffect;
+import com.gempukku.lotro.cards.effects.RemoveCardsFromDeckEffect;
 import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
 import com.gempukku.lotro.cards.effects.ShuffleDeckEffect;
 import com.gempukku.lotro.common.*;
@@ -51,7 +51,7 @@ public class Card18_082 extends AbstractPermanent {
                         @Override
                         protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
                             action.insertEffect(
-                                    new RemoveCardsFromTheGameEffect(playerId, self, selectedCards));
+                                    new RemoveCardsFromDeckEffect(playerId, self, selectedCards));
                         }
                     });
             action.appendEffect(
