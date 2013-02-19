@@ -1,23 +1,27 @@
 package com.gempukku.lotro.cards.set20.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
+import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
+import com.gempukku.lotro.cards.effects.AddBurdenEffect;
 import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
-import com.gempukku.lotro.logic.effects.AddThreatsEffect;
+import com.gempukku.lotro.logic.GameUtils;
+import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
+import com.gempukku.lotro.logic.effects.RemoveThreatsEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collections;
 import java.util.List;
 
 /**
+ *
  * Mount Doom
  * 9	9
  * Mountain.
- * When the fellowship moves to Mount Doom, add a burden for each threat you can spot.
+ * When the fellowship moves to Mount Doom, the Shadow player may remove 2 threats to add 2 burdens.
  */
 public class Card20_466 extends AbstractSite {
     public Card20_466() {
@@ -26,11 +30,15 @@ public class Card20_466 extends AbstractSite {
     }
 
     @Override
-    public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (TriggerConditions.movesTo(game, effectResult, self)) {
-            RequiredTriggerAction action = new RequiredTriggerAction(self);
+    public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+        if (TriggerConditions.movesTo(game, effectResult, self)
+                && GameUtils.isShadow(game, playerId)
+                && PlayConditions.canRemoveThreat(game, self, 2)) {
+            OptionalTriggerAction action = new OptionalTriggerAction(self);
+            action.appendCost(
+                    new RemoveThreatsEffect(self, 2));
             action.appendEffect(
-                    new AddThreatsEffect(game.getGameState().getCurrentPlayerId(), self, game.getGameState().getThreats()));
+                    new AddBurdenEffect(playerId, self, 2));
             return Collections.singletonList(action);
         }
         return null;
