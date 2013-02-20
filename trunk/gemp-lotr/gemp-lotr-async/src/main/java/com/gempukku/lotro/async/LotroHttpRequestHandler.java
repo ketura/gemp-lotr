@@ -271,6 +271,10 @@ public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
                 response.setHeader(CONTENT_TYPE, "application/xml; charset=UTF-8");
 
                 length = responseString.length();
+            } else {
+                response.setContent(ChannelBuffers.copiedBuffer("OK", CharsetUtil.UTF_8));
+                response.setHeader(CONTENT_TYPE, "text/plain");
+                length = 2;
             }
 
             if (keepAlive) {
