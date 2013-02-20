@@ -13,7 +13,7 @@ var GempLotrCommunication = Class.extend({
             var errorStatus = "" + xhr.status;
             if (errorMap != null && errorMap[errorStatus] != null)
                 errorMap[errorStatus](xhr, status, request);
-            else
+            else if (""+xhr.status != "200")
                 that.failure(xhr, status, request);
         };
     },
