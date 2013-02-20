@@ -3,21 +3,25 @@ package com.gempukku.lotro.at;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Token;
 import com.gempukku.lotro.common.Zone;
+import com.gempukku.lotro.game.DefaultUserFeedback;
+import com.gempukku.lotro.game.LotroFormat;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.PhysicalCardImpl;
+import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.gempukku.lotro.logic.decisions.AwaitingDecision;
 import com.gempukku.lotro.logic.decisions.AwaitingDecisionType;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
+import com.gempukku.lotro.logic.timing.DefaultLotroGame;
 import com.gempukku.lotro.logic.vo.LotroDeck;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertTrue;
 
 public class IndividualCardAtTest extends AbstractAtTest {
     @Test
@@ -814,5 +818,44 @@ public class IndividualCardAtTest extends AbstractAtTest {
 
         assertEquals(Zone.STACKED, merry.getZone());
         assertEquals(treebeard, merry.getStackedOn());
+    }
+
+    @Test
+    public void garradrielCorruptionAtStart() throws DecisionResultInvalidException {
+        Map<String, LotroDeck> decks = new HashMap<String, LotroDeck>();
+        LotroDeck lotroDeck = new LotroDeck("Some deck");
+        lotroDeck.setRingBearer("9_14");
+        lotroDeck.setRing("11_1");
+        lotroDeck.addSite("7_330");
+        lotroDeck.addSite("7_335");
+        lotroDeck.addSite("8_117");
+        lotroDeck.addSite("7_342");
+        lotroDeck.addSite("7_345");
+        lotroDeck.addSite("7_350");
+        lotroDeck.addSite("8_120");
+        lotroDeck.addSite("10_120");
+        lotroDeck.addSite("7_360");
+        decks.put(P1, lotroDeck);
+        decks.put(P2, createSimplestDeck());
+
+        _userFeedback = new DefaultUserFeedback();
+
+        LotroFormatLibrary formatLibrary = new LotroFormatLibrary(_library);
+        LotroFormat format = formatLibrary.getFormat("movie");
+
+        _game = new DefaultLotroGame(format, decks, _userFeedback, _library);
+        _userFeedback.setGame(_game);
+        _game.startGame();
+
+        // Bidding
+        playerDecided(P1, "5");
+        playerDecided(P2, "0");
+
+        // Seating choice
+        playerDecided(P1, "0");
+
+        _game.carryOutPendingActionsUntilDecisionNeeded();
+        
+        assertFalse(_game.isFinished());
     }
 }
