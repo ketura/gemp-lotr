@@ -22,11 +22,13 @@ public class CheckForCorruptionGameProcess implements GameProcess {
                 break;
 
             game.getGameState().startPlayerTurn(nextPlayer);
+            game.getGameState().startAffectingCardsForCurrentPlayer(game);
             int ringBearerResistance = game.getModifiersQuerying().getResistance(game.getGameState(), game.getGameState().getRingBearer(nextPlayer));
             if (ringBearerResistance<=0) {
                 game.playerLost(nextPlayer, "Corrupted before game started");
                 break;
             }
+            game.getGameState().stopAffectingCardsForCurrentPlayer();
         }
 
         _nextProcess = new PlayStartingFellowshipGameProcess(game.getGameState().getPlayerOrder().getClockwisePlayOrder(_firstPlayer, false), _firstPlayer);
