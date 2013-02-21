@@ -18,16 +18,16 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * 5
+ * 4
  * Threatening Olog-hai
  * Sauron	Minion • Troll
- * 14	4	6
+ * 12	3	6
  * Fierce.
  * This minion's twilight cost is +1 for each Free Peoples culture you can spot. Each time this minion wins a skirmish, add a threat.
  */
 public class Card20_376 extends AbstractMinion {
     public Card20_376() {
-        super(5, 14, 4, 6, Race.TROLL, Culture.SAURON, "Threatening Olog-hai");
+        super(4, 12, 3, 6, Race.TROLL, Culture.SAURON, "Threatening Olog-hai");
         addKeyword(Keyword.FIERCE);
     }
 
