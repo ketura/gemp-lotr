@@ -13,15 +13,15 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 
 /**
- * 4
+ * 3
  * Orc Brute
  * Sauron	Minion • Orc
- * 10	3	6
+ * 8	3	6
  * While you cannot spot 3 Free Peoples cultures, each [Sauron] minion is strength +2.
  */
 public class Card20_364 extends AbstractMinion {
     public Card20_364() {
-        super(4, 10, 3, 6, Race.ORC, Culture.SAURON, "Orc Brute");
+        super(3, 8, 3, 6, Race.ORC, Culture.SAURON, "Orc Brute");
     }
 
     @Override
