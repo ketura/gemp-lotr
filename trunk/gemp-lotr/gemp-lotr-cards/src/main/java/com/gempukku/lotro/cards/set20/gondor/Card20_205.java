@@ -4,6 +4,7 @@ import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
 import com.gempukku.lotro.cards.modifiers.evaluator.CountActiveEvaluator;
+import com.gempukku.lotro.cards.modifiers.evaluator.MultiplyEvaluator;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -14,7 +15,7 @@ import com.gempukku.lotro.logic.GameUtils;
  * 0
  * Rangers of the North
  * Gondor	Event • Skirmish
- * Make a [Gondor] ranger strength +1 for each site from your adventure deck in the current region.
+ * Make a [Gondor] ranger strength +2 for each site from your adventure deck in the current region.
  */
 public class Card20_205 extends AbstractEvent {
     public Card20_205() {
@@ -27,7 +28,8 @@ public class Card20_205 extends AbstractEvent {
         action.appendEffect(
                 new ChooseAndAddUntilEOPStrengthBonusEffect(
                         action, self, playerId,
-                        new CountActiveEvaluator(CardType.SITE, Filters.owner(playerId), Filters.region(GameUtils.getRegion(game.getGameState()))), Culture.GONDOR, Keyword.RANGER));
+                        new MultiplyEvaluator(2,
+                                new CountActiveEvaluator(CardType.SITE, Filters.owner(playerId), Filters.region(GameUtils.getRegion(game.getGameState())))), Culture.GONDOR, Keyword.RANGER));
         return action;
     }
 }
