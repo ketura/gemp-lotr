@@ -34,12 +34,11 @@ public class Card3_114 extends AbstractPermanent {
     public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
         if (TriggerConditions.isAddingTwilight(effect, game, Side.SHADOW)
                 && PlayConditions.canExert(self, game, Race.HOBBIT, CardType.ALLY)) {
-            final AddTwilightEffect addTwilightEffect = (AddTwilightEffect) effect;
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.HOBBIT, CardType.ALLY));
             action.appendEffect(
-                    new PreventEffect(addTwilightEffect));
+                    new PreventEffect((AddTwilightEffect) effect));
             return Collections.singletonList(action);
         }
         return null;
