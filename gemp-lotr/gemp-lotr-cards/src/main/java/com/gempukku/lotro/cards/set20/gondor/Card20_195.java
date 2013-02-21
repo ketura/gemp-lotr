@@ -16,13 +16,13 @@ import java.util.List;
 
 /**
  * 1
- * Heightened Awareness
+ * •Heightened Awareness
  * Gondor	Condition • Support Area
- * Each time you play a [Gondor] event, the site number of each minion is +1 until the regroup phase.
+ * Each time you play a [Gondor] event, the site number of each minion is +2 until the regroup phase.
  */
 public class Card20_195 extends AbstractPermanent {
     public Card20_195() {
-        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.GONDOR, Zone.SUPPORT, "Heightened Awareness");
+        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.GONDOR, Zone.SUPPORT, "Heightened Awareness", null, true);
     }
 
     @Override
@@ -31,7 +31,7 @@ public class Card20_195 extends AbstractPermanent {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new AddUntilStartOfPhaseModifierEffect(
-                            new MinionSiteNumberModifier(self, Filters.in(Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), CardType.MINION)), null, 1), Phase.REGROUP));
+                            new MinionSiteNumberModifier(self, Filters.in(Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), CardType.MINION)), null, 2), Phase.REGROUP));
             return Collections.singletonList(action);
         }
         return null;
