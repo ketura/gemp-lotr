@@ -21,17 +21,17 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * 4
+ * 5
  * Black Gate Olog-hai
  * Sauron	Minion • Troll
- * 13	4	6
+ * 12	4	6
  * Fierce.
  * This minion's twilight cost is +1 for each Free Peoples culture you can spot.
- * Assignment: Exert this minion to assign it to skirmish an ally. The Free Peoples player may add a threat to prevent this.
+ * Assignment: Exert this minion to assign it to an ally. The Free Peoples player may add a threat to prevent this.
  */
 public class Card20_350 extends AbstractMinion {
     public Card20_350() {
-        super(4, 13, 4, 6, Race.TROLL, Culture.SAURON, "Black Gate Olog-hai");
+        super(5, 12, 4, 6, Race.TROLL, Culture.SAURON, "Black Gate Olog-hai");
         addKeyword(Keyword.FIERCE);
     }
 
