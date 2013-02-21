@@ -14,7 +14,7 @@ import com.gempukku.lotro.logic.timing.EffectResult;
 import java.util.List;
 
 /**
- * 3
+ * 2
  * Hornburg Parapet
  * Rohan	Possession • Support Area
  * Fortification.
@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class Card20_333 extends AbstractPermanent {
     public Card20_333() {
-        super(Side.FREE_PEOPLE, 3, CardType.POSSESSION, Culture.ROHAN, Zone.SUPPORT, "Hornburg Parapet");
+        super(Side.FREE_PEOPLE, 2, CardType.POSSESSION, Culture.ROHAN, Zone.SUPPORT, "Hornburg Parapet");
         addKeyword(Keyword.FORTIFICATION);
     }
 
