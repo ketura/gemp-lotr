@@ -20,17 +20,17 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * 5
+ * 4
  * Troll of Morannon
  * Sauron	Minion • Troll
- * 14	4	6
+ * 12	3	6
  * Damage +1. Fierce.
  * This minion's twilight cost is +1 for each Free Peoples culture you can spot.
  * When you play this minion in region 3, add a burden.
  */
 public class Card20_378 extends AbstractMinion {
     public Card20_378() {
-        super(5, 14, 4, 6, Race.TROLL, Culture.SAURON, "Troll of Morannon");
+        super(4, 12, 3, 6, Race.TROLL, Culture.SAURON, "Troll of Morannon");
         addKeyword(Keyword.DAMAGE, 1);
         addKeyword(Keyword.FIERCE);
     }
