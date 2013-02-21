@@ -16,15 +16,15 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * 4
+ * 3
  * Orc Miscreant
  * Sauron	Minion • Orc
- * 10	3	6
+ * 8	3	6
  * At the start of each skirmish involving this minion, you may remove a threat to play a [Sauron] skirmish event from your discard pile.
  */
 public class Card20_365 extends AbstractMinion {
     public Card20_365() {
-        super(4, 10, 3, 6, Race.ORC, Culture.SAURON, "Orc Miscreant");
+        super(3, 8, 3, 6, Race.ORC, Culture.SAURON, "Orc Miscreant");
     }
 
     @Override
