@@ -19,17 +19,17 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * 3
+ * 2
  * Outer Wall
  * Rohan	Possession • Support Area
  * Fortification.
  * To spot two Valiant men.
- * Each minion skirmishing a [Rohan] man loses fierce and cannot gain fierce until the regroup phase.
+ * Each minion skirmishing an unbound companion loses fierce and cannot gain fierce until the regroup phase.
  * Discard this condition start of the regroup phase.
  */
 public class Card20_336 extends AbstractPermanent {
     public Card20_336() {
-        super(Side.FREE_PEOPLE, 3, CardType.POSSESSION, Culture.ROHAN, Zone.SUPPORT, "Outer Wall");
+        super(Side.FREE_PEOPLE, 2, CardType.POSSESSION, Culture.ROHAN, Zone.SUPPORT, "Outer Wall");
         addKeyword(Keyword.FORTIFICATION);
     }
 
@@ -49,7 +49,7 @@ public class Card20_336 extends AbstractPermanent {
 
         Set<PhysicalCard> toLose = new HashSet<PhysicalCard>();
         final Set<Integer> toLoseInts = new HashSet<Integer>();
-        for (PhysicalCard minion : Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Filters.inSkirmishAgainst(Culture.ROHAN, CardType.COMPANION))) {
+        for (PhysicalCard minion : Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Filters.inSkirmishAgainst(Filters.unboundCompanion))) {
             if (!minionsMarked.contains(minion.getCardId())) {
                 toLose.add(minion);
                 toLoseInts.add(minion.getCardId());
