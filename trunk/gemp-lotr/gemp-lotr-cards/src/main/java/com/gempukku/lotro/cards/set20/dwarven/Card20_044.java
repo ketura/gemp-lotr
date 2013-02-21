@@ -16,16 +16,16 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * 2
+ * 1
  * Dwarven Axe
  * Dwarven	Possession • Hand Weapon
- * 2	1
- * Bearer must be a Dwarf
+ * 1	1
+ * Bearer must be a Dwarf:
  * Each time bearer wins a skirmish, you may discard a card stacked on a [Dwarven] condition to wound a minion.
  */
 public class Card20_044 extends AbstractAttachableFPPossession {
     public Card20_044() {
-        super(2, 2, 1, Culture.DWARVEN, PossessionClass.HAND_WEAPON, "Dwarven Axe");
+        super(1, 1, 1, Culture.DWARVEN, PossessionClass.HAND_WEAPON, "Dwarven Axe");
     }
 
     @Override
