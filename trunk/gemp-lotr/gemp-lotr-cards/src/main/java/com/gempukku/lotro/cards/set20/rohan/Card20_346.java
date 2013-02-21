@@ -12,14 +12,14 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 
 /**
- * 2
+ * 0
  * To the Smithy!
  * Rohan	Event • Skirmish
  * Play a [Rohan] possession from your discard pile.
  */
 public class Card20_346 extends AbstractEvent {
     public Card20_346() {
-        super(Side.FREE_PEOPLE, 2, Culture.ROHAN, "To the Smithy!", Phase.SKIRMISH);
+        super(Side.FREE_PEOPLE, 0, Culture.ROHAN, "To the Smithy!", Phase.SKIRMISH);
     }
 
     @Override
