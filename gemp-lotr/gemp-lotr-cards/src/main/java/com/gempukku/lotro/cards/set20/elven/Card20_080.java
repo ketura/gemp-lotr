@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set20.elven;
 import com.gempukku.lotro.cards.AbstractAlly;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
+import com.gempukku.lotro.cards.effects.ChoiceEffect;
 import com.gempukku.lotro.cards.effects.RevealTopCardsOfDrawDeckEffect;
 import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.common.*;
@@ -12,11 +13,14 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
+import com.gempukku.lotro.logic.effects.ChooseAndHealCharactersEffect;
 import com.gempukku.lotro.logic.effects.HealCharactersEffect;
 import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -24,7 +28,7 @@ import java.util.List;
  * •Elrond, Peredhil
  * Elven	Ally • Elf • Rivendell
  * 8	4
- * At the start of each of your turns, heal every Rivendell ally.
+ * At the start of each of your turns, heal Elrond twice or heal every Rivendell ally.
  * Regroup: Exert Elrond twice to reveal the top card of your draw deck. If it is an [Elven] card,
  * heal a companion (or an Elf companion twice).
  */
@@ -38,8 +42,23 @@ public class Card20_080 extends AbstractAlly {
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.startOfTurn(game, effectResult)) {
             RequiredTriggerAction action =new RequiredTriggerAction(self);
+            List<Effect> possibleEffects = new LinkedList<Effect>();
+            possibleEffects.add(
+                    new ChooseAndHealCharactersEffect(action, self.getOwner(), 1, 1, 2, self) {
+                        @Override
+                        public String getText(LotroGame game) {
+                            return "Heal Elrond twice";
+                        }
+                    });
+            possibleEffects.add(
+                    new HealCharactersEffect(self, CardType.ALLY, Keyword.RIVENDELL) {
+                        @Override
+                        public String getText(LotroGame game) {
+                            return "Heal every Rivendell ally";
+                        }
+                    });
             action.appendEffect(
-                    new HealCharactersEffect(self, CardType.ALLY, Keyword.RIVENDELL));
+                    new ChoiceEffect(action, self.getOwner(), possibleEffects));
             return Collections.singletonList(action);
         }
         return null;
