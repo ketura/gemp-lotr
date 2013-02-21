@@ -23,7 +23,7 @@ import java.util.List;
  * Ford of Bruinen
  * 3	0
  * River. Sanctuary.
- * The twilight cost of the first Nazgul played at Ford of Bruinen each turn is -5.
+ * The twilight cost of the first Nazgul played at Ford of Bruinen each turn is -2.
  */
 public class Card20_429 extends AbstractSite {
     public Card20_429() {
@@ -42,7 +42,7 @@ public class Card20_429 extends AbstractSite {
                             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
                                 return modifiersQuerying.getUntilEndOfTurnLimitCounter(self).getUsedLimit() < 1;
                             }
-                        }), -5);
+                        }), -2);
     }
 
     @Override
