@@ -20,7 +20,7 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
  */
 public class Card20_366 extends AbstractMinion {
     public Card20_366() {
-        super(5, 13, 3, 6, Race.ORC, Culture.SAURON, "Orc Monstrosity");
+        super(4, 12, 3, 6, Race.ORC, Culture.SAURON, "Orc Monstrosity");
     }
 
     @Override
