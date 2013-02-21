@@ -27,7 +27,7 @@ import java.util.Set;
  */
 public class Card20_372 extends AbstractMinion {
     public Card20_372() {
-        super(3, 9, 3, 6, Race.ORC, Culture.SAURON, "Orc Villain");
+        super(3, 8, 3, 6, Race.ORC, Culture.SAURON, "Orc Villain");
     }
 
     @Override
