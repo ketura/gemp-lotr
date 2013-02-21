@@ -7,8 +7,9 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
+import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 
-import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -17,7 +18,7 @@ import java.util.List;
  * Gandalf	Possession • Hand Weapon
  * 2
  * Bearer must be Gandalf.
- * While skirmishing an Orc, Gandalf is damage +1.
+ * While skirmishing an Orc or Goblin, Gandalf is strength +2 and damage +1.
  */
 public class Card20_160 extends AbstractAttachableFPPossession {
     public Card20_160() {
@@ -31,7 +32,11 @@ public class Card20_160 extends AbstractAttachableFPPossession {
 
     @Override
     protected List<? extends Modifier> getNonBasicStatsModifiers(PhysicalCard self) {
-        return Collections.singletonList(
-                new KeywordModifier(self, Filters.and(Filters.hasAttached(self), Filters.inSkirmishAgainst(Race.ORC)), Keyword.DAMAGE, 1));
+        List<Modifier> modifiers = new LinkedList<Modifier>();
+        modifiers.add(
+                new KeywordModifier(self, Filters.and(Filters.hasAttached(self), Filters.inSkirmishAgainst(Filters.or(Race.ORC, Race.GOBLIN))), Keyword.DAMAGE, 1));
+        modifiers.add(
+                new StrengthModifier(self, Filters.and(Filters.hasAttached(self), Filters.inSkirmishAgainst(Filters.or(Race.ORC, Race.GOBLIN))), 2));
+        return modifiers;
     }
 }
