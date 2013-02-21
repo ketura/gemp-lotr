@@ -2,13 +2,14 @@ package com.gempukku.lotro.cards.set20.dwarven;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.SelfExertEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndStackCardsFromDiscardEffect;
+import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
+import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardStackedCardsEffect;
 import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
+import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 
 import java.util.Collections;
 import java.util.List;
@@ -19,7 +20,7 @@ import java.util.List;
  * Dwarven	Companion • Dwarf
  * 5	3	6
  * Damage +1.
- * Regroup: Exert Fror to stack a [Dwarven] event from your discard pile onto a [Dwarven] support area Condition
+ * Skirmish: Discard a card stacked on a [Dwarven] Condition to make Fror strength +1.
  */
 public class Card20_052 extends AbstractCompanion {
     public Card20_052() {
@@ -29,19 +30,14 @@ public class Card20_052 extends AbstractCompanion {
 
     @Override
     protected List<ActivateCardAction> getExtraInPlayPhaseActions(final String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canUseFPCardDuringPhase(game, Phase.REGROUP, self)
-                && PlayConditions.canSelfExert(self, game)) {
+        if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
+                && PlayConditions.isActive(game, Culture.DWARVEN, CardType.CONDITION, Filters.hasStacked(Filters.any))) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(action, self));
+                    new ChooseAndDiscardStackedCardsEffect(action, playerId, 1, 1, Filters.and(Culture.DWARVEN, CardType.CONDITION), Filters.any));
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose a DWARVEN condition in your support area", Culture.DWARVEN, CardType.CONDITION, Keyword.SUPPORT_AREA) {
-                        @Override
-                        protected void cardSelected(LotroGame game, PhysicalCard card) {
-                            action.appendEffect(
-                                    new ChooseAndStackCardsFromDiscardEffect(action, playerId, 1, 1, card, Culture.DWARVEN, CardType.EVENT));
-                        }
-                    });
+                    new AddUntilEndOfPhaseModifierEffect(
+                            new StrengthModifier(self, self, 1)));
             return Collections.singletonList(action);
         }
         return null;
