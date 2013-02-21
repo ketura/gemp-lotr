@@ -10,14 +10,14 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 
 /**
- * 2
+ * 0
  * To Whatever End
  * Rohan	Event • Regroup
  * Exert a [Rohan] Man to play a [Rohan] fortification from your discard pile.
  */
 public class Card20_347 extends AbstractEvent {
     public Card20_347() {
-        super(Side.FREE_PEOPLE, 2, Culture.ROHAN, "To Whatever End", Phase.REGROUP);
+        super(Side.FREE_PEOPLE, 0, Culture.ROHAN, "To Whatever End", Phase.REGROUP);
     }
 
     @Override
