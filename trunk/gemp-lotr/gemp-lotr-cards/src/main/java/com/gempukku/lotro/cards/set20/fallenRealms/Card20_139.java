@@ -12,16 +12,16 @@ import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 
 /**
- * 6
+ * 5
  * Southron Packmaster
  * Fallen Realms	Minion • Man
- * 13	3	4
+ * 11	3	4
  * Southron. Archer.
  * While this minion is mounted, each Southron is ambush (2).
  */
 public class Card20_139 extends AbstractMinion {
     public Card20_139() {
-        super(6, 13, 3, 4, Race.MAN, Culture.FALLEN_REALMS, "Southron Packmaster");
+        super(5, 11, 3, 4, Race.MAN, Culture.FALLEN_REALMS, "Southron Packmaster");
         addKeyword(Keyword.SOUTHRON);
         addKeyword(Keyword.ARCHER);
     }
