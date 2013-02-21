@@ -19,16 +19,16 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * 5
+ * 4
  * •Barad-Dur Captain
  * Sauron	Minion • Orc
- * 13	3	6
+ * 10	3	6
  * While you cannot spot 3 Free Peoples cultures, this minion is damage +1.
  * Skirmish: Exert Barad-Dur Captain to wound a character it is skirmishing.
  */
 public class Card20_349 extends AbstractMinion {
     public Card20_349() {
-        super(5, 13, 3, 6, Race.ORC, Culture.SAURON, "Barad-Dur Captain", null, true);
+        super(4, 10, 3, 6, Race.ORC, Culture.SAURON, "Barad-Dur Captain", null, true);
     }
 
     @Override
