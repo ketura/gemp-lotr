@@ -25,7 +25,7 @@ import java.util.List;
 
 /**
  * 4
- * •The Great Eye
+ * •The Great Eye, Lidless
  * Sauron	Minion
  * 8	4	6
  * Cunning.
@@ -34,7 +34,7 @@ import java.util.List;
  */
 public class Card20_360 extends AbstractMinion {
     public Card20_360() {
-        super(4, 8, 4, 6, null, Culture.SAURON, "The Great Eye", null, true);
+        super(4, 8, 4, 6, null, Culture.SAURON, "The Great Eye", "Lidless", true);
         addKeyword(Keyword.CUNNING);
     }
 
