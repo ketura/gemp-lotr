@@ -985,15 +985,22 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
         }
 
         int result = 0;
-        for (Culture spottableCulturesBasedOnCardsOnCard : spottableCulturesBasedOnCards)
-            for (Modifier modifier : getModifiers(gameState, ModifierEffect.SPOT_MODIFIER))
-                if (modifier.canSpotCulture(gameState, this, spottableCulturesBasedOnCardsOnCard, playerId))
-                    result++;
+        for (Culture spottableCulturesBasedOnCardsOnCard : spottableCulturesBasedOnCards) {
+            if (canSpotCulture(gameState, playerId, spottableCulturesBasedOnCardsOnCard))
+                result++;
+        }
 
         for (Modifier modifier : getModifiers(gameState, ModifierEffect.SPOT_MODIFIER))
             result += modifier.getFPCulturesSpotCountModifier(gameState, this, playerId);
 
         return result;
+    }
+
+    private boolean canSpotCulture(GameState gameState, String playerId, Culture culture) {
+        for (Modifier modifier : getModifiers(gameState, ModifierEffect.SPOT_MODIFIER))
+            if (!modifier.canSpotCulture(gameState, this, culture, playerId))
+                return false;
+        return true;
     }
 
     @Override
