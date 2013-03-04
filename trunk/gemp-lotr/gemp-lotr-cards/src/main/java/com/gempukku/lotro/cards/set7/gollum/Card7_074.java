@@ -4,6 +4,7 @@ import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromDiscardEffect;
+import com.gempukku.lotro.cards.modifiers.evaluator.ForEachThreatEvaluator;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Side;
@@ -36,9 +37,8 @@ public class Card7_074 extends AbstractEvent {
         PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
                 new ChooseAndPlayCardFromDiscardEffect(playerId, game, Filters.gollum));
-        int threats = game.getGameState().getThreats();
         action.appendEffect(
-                new AddTwilightEffect(self, threats));
+                new AddTwilightEffect(self, new ForEachThreatEvaluator()));
         return action;
     }
 }
