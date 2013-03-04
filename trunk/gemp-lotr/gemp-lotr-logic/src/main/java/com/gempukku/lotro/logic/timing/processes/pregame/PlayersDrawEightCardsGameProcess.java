@@ -22,13 +22,12 @@ public class PlayersDrawEightCardsGameProcess implements GameProcess {
             for (int i = 0; i < 8; i++)
                 gameState.playerDrawsCard(player);
         }
-        if (game.getFormat().hasMulliganRule()) {
-            gameState.setCurrentPhase(Phase.BETWEEN_TURNS);
+        gameState.setCurrentPhase(Phase.BETWEEN_TURNS);
+        if (game.getFormat().hasMulliganRule())
             _followingGameProcess = new MulliganProcess(game.getGameState().getPlayerOrder().getClockwisePlayOrder(_firstPlayer, false));
-        } else {
-            gameState.setCurrentPhase(Phase.BETWEEN_TURNS);
+        else
             _followingGameProcess = new BetweenTurnsProcess();
-        }
+
     }
 
     @Override
