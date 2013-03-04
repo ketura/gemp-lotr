@@ -1013,10 +1013,10 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
         }
 
         int result = 0;
-        for (Culture spottableCulturesBasedOnCardsOnCard : spottableCulturesBasedOnCards)
-            for (Modifier modifier : getModifiers(gameState, ModifierEffect.SPOT_MODIFIER))
-                if (modifier.canSpotCulture(gameState, this, spottableCulturesBasedOnCardsOnCard, playerId))
-                    result++;
+        for (Culture spottableCulturesBasedOnCardsOnCard : spottableCulturesBasedOnCards) {
+            if (canPlayerSpotCulture(gameState, playerId, spottableCulturesBasedOnCardsOnCard))
+                result++;
+        }
 
         return result;
     }
