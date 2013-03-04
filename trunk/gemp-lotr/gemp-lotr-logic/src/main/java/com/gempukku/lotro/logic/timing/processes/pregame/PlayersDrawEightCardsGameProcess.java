@@ -1,5 +1,6 @@
 package com.gempukku.lotro.logic.timing.processes.pregame;
 
+import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
@@ -21,10 +22,13 @@ public class PlayersDrawEightCardsGameProcess implements GameProcess {
             for (int i = 0; i < 8; i++)
                 gameState.playerDrawsCard(player);
         }
-        if (game.getFormat().hasMulliganRule())
+        if (game.getFormat().hasMulliganRule()) {
+            gameState.setCurrentPhase(Phase.BETWEEN_TURNS);
             _followingGameProcess = new MulliganProcess(game.getGameState().getPlayerOrder().getClockwisePlayOrder(_firstPlayer, false));
-        else
+        } else {
+            gameState.setCurrentPhase(Phase.BETWEEN_TURNS);
             _followingGameProcess = new BetweenTurnsProcess();
+        }
     }
 
     @Override

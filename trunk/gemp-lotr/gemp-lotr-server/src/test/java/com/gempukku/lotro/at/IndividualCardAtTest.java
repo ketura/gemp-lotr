@@ -13,15 +13,16 @@ import com.gempukku.lotro.logic.decisions.AwaitingDecisionType;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.timing.DefaultLotroGame;
 import com.gempukku.lotro.logic.vo.LotroDeck;
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
 import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 public class IndividualCardAtTest extends AbstractAtTest {
     @Test
@@ -857,5 +858,56 @@ public class IndividualCardAtTest extends AbstractAtTest {
         _game.carryOutPendingActionsUntilDecisionNeeded();
         
         assertFalse(_game.isFinished());
+    }
+
+    @Test
+    public void greenHillCountryWorksForFirstPlayer() throws DecisionResultInvalidException {
+        Map<String, LotroDeck> decks = new HashMap<String, LotroDeck>();
+        LotroDeck lotroDeck = new LotroDeck("Some deck");
+        lotroDeck.setRingBearer("10_121");
+        lotroDeck.setRing("1_2");
+        // 7_330,7_336,8_117,7_342,7_345,7_350,8_120,10_120,7_360
+        lotroDeck.addSite("1_323");
+        lotroDeck.addSite("7_335");
+        lotroDeck.addSite("8_117");
+        lotroDeck.addSite("7_342");
+        lotroDeck.addSite("7_345");
+        lotroDeck.addSite("7_350");
+        lotroDeck.addSite("8_120");
+        lotroDeck.addSite("10_120");
+        lotroDeck.addSite("7_360");
+        lotroDeck.addCard("1_303");
+        decks.put(P1, lotroDeck);
+        decks.put(P2, createSimplestDeck());
+
+        _userFeedback = new DefaultUserFeedback();
+
+        LotroFormatLibrary formatLibrary = new LotroFormatLibrary(_library);
+        LotroFormat format = formatLibrary.getFormat("movie");
+
+        _game = new DefaultLotroGame(format, decks, _userFeedback, _library);
+        _userFeedback.setGame(_game);
+        _game.startGame();
+
+        // Bidding
+        playerDecided(P1, "1");
+        playerDecided(P2, "0");
+
+        // Seating choice
+        playerDecided(P1, "0");
+
+        // Play no starting companions
+        playerDecided(P1, "");
+
+        // Mulligans
+        playerDecided(P1, "0");
+        playerDecided(P2, "0");
+
+        // Fellowship phase
+        AwaitingDecision playFellowshipAction = _userFeedback.getAwaitingDecision(P1);
+        assertEquals(AwaitingDecisionType.CARD_ACTION_CHOICE, playFellowshipAction.getDecisionType());
+        playerDecided(P1, getCardActionId(playFellowshipAction, "Play Merry"));
+
+        assertEquals(0, _game.getGameState().getTwilightPool());
     }
 }
