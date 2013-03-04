@@ -10,7 +10,12 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
+import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
+import com.gempukku.lotro.logic.decisions.IntegerAwaitingDecision;
+import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.ChooseAndHealCharactersEffect;
+import com.gempukku.lotro.logic.effects.HealCharactersEffect;
+import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
@@ -35,11 +40,27 @@ public class Card3_013 extends AbstractAlly {
     }
 
     @Override
-    public List<OptionalTriggerAction> getOptionalAfterTriggers(final String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<OptionalTriggerAction> getOptionalAfterTriggers(final String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         if (TriggerConditions.startOfTurn(game, effectResult)) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
-            action.appendEffect(
-                    new ChooseAndHealCharactersEffect(action, playerId, 1, 1, 2, CardType.ALLY, Filters.isAllyHome(3, Block.FELLOWSHIP)));
+            action.appendCost(
+                    new ChooseActiveCardEffect(self, playerId, "Choose an ally", CardType.ALLY, Filters.isAllyHome(3, Block.FELLOWSHIP), Filters.canHeal) {
+                        @Override
+                        protected void cardSelected(LotroGame game, final PhysicalCard card) {
+                            action.appendEffect(
+                                    new PlayoutDecisionEffect(playerId,
+                                            new IntegerAwaitingDecision(1, "How many times do you wish to heal it?", 0, 2, 2) {
+                                                @Override
+                                                public void decisionMade(String result) throws DecisionResultInvalidException {
+                                                    final int heals = getValidatedResult(result);
+                                                    for (int i=0; i<heals; i++)
+                                                        action.appendEffect(
+                                                                new HealCharactersEffect(self, card));
+                                                }
+                                            }));
+                        }
+                    });
+            
             return Collections.singletonList(action);
         }
         return null;
