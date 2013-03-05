@@ -36,7 +36,7 @@ public class AddTwilightEffect extends AbstractEffect implements Preventable {
 
     @Override
     public String getText(LotroGame game) {
-        return "Add (" + _twilight + ")";
+        return "Add (" + getTwilightToAdd(game) + ")";
     }
 
     @Override
@@ -62,11 +62,15 @@ public class AddTwilightEffect extends AbstractEffect implements Preventable {
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
         if (!isPrevented(game)) {
-            int count = _twilight.evaluateExpression(game.getGameState(), game.getModifiersQuerying(), null);
+            int count = getTwilightToAdd(game);
             game.getGameState().sendMessage(_sourceText + " added " + count + " twilight");
             game.getGameState().addTwilight(count);
             return new FullEffectResult(true);
         }
         return new FullEffectResult(false);
+    }
+
+    private int getTwilightToAdd(LotroGame game) {
+        return _twilight.evaluateExpression(game.getGameState(), game.getModifiersQuerying(), null);
     }
 }
