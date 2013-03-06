@@ -181,7 +181,7 @@ public class SwissPairingMechanism implements PairingMechanism {
     }
 
     private static int getRoundCountBasedOnNumberOfPlayers(int numberOfPlayers) {
-        return (int) (Math.ceil(Math.log(numberOfPlayers) / Math.log(2))) + 1;
+        return (int) (Math.ceil(Math.log(numberOfPlayers) / Math.log(2)));
     }
 
     public static void main(String[] args) {
