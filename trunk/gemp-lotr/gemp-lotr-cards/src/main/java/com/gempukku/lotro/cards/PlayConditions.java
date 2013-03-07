@@ -18,7 +18,7 @@ import java.util.Map;
 
 public class PlayConditions {
     public static boolean canPayForShadowCard(LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty) {
-        return game.getModifiersQuerying().getTwilightCost(game.getGameState(), self, ignoreRoamingPenalty) + twilightModifier <= game.getGameState().getTwilightPool() - withTwilightRemoved;
+        return game.getModifiersQuerying().getTwilightCost(game.getGameState(), self, twilightModifier, ignoreRoamingPenalty) <= game.getGameState().getTwilightPool() - withTwilightRemoved;
     }
 
     private static boolean containsPhase(Phase[] phases, Phase phase) {

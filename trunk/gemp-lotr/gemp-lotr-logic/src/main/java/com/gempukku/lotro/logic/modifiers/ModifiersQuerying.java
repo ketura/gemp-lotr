@@ -48,9 +48,9 @@ public interface ModifiersQuerying {
     public boolean addsTwilightForCompanionMove(GameState gameState, PhysicalCard companion);
 
     // Twilight cost
-    public int getTwilightCost(GameState gameState, PhysicalCard physicalCard, boolean ignoreRoamingPenalty);
+    public int getTwilightCost(GameState gameState, PhysicalCard physicalCard, int twilightCostModifier, boolean ignoreRoamingPenalty);
 
-    public int getPlayOnTwilightCost(GameState gameState, PhysicalCard physicalCard, PhysicalCard target);
+    public int getPlayOnTwilightCost(GameState gameState, PhysicalCard physicalCard, PhysicalCard target, int twilightCostModifier);
 
     public int getRoamingPenalty(GameState gameState, PhysicalCard physicalCard);
 

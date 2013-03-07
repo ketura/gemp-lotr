@@ -44,7 +44,7 @@ public class PlayerPlaysStartingFellowshipGameProcess implements GameProcess {
                 new Filter() {
                     @Override
                     public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                        int twilightCost = modifiersQuerying.getTwilightCost(gameState, physicalCard, false);
+                        int twilightCost = modifiersQuerying.getTwilightCost(gameState, physicalCard, 0, false);
                         return gameState.getTwilightPool() + twilightCost <= 4
                                 && physicalCard.getBlueprint().checkPlayRequirements(playerId, game, physicalCard, 0, 0, false, false)
                                 && modifiersQuerying.canPlayAction(gameState, playerId, physicalCard.getBlueprint().getPlayCardAction(playerId, game, physicalCard, 0, false));

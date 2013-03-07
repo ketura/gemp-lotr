@@ -459,10 +459,10 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     }
 
     @Override
-    public int getTwilightCost(GameState gameState, PhysicalCard physicalCard, boolean ignoreRoamingPenalty) {
+    public int getTwilightCost(GameState gameState, PhysicalCard physicalCard, int twilightCostModifier, boolean ignoreRoamingPenalty) {
         LoggingThreadLocal.logMethodStart(physicalCard, "getTwilightCost");
         try {
-            int result = physicalCard.getBlueprint().getTwilightCost();
+            int result = physicalCard.getBlueprint().getTwilightCost() + twilightCostModifier;
             result += physicalCard.getBlueprint().getTwilightCostModifier(gameState, this, physicalCard);
             for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierEffect.TWILIGHT_COST_MODIFIER, physicalCard)) {
                 result += modifier.getTwilightCostModifier(gameState, this, physicalCard, ignoreRoamingPenalty);
@@ -480,10 +480,10 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     }
 
     @Override
-    public int getPlayOnTwilightCost(GameState gameState, PhysicalCard physicalCard, PhysicalCard target) {
+    public int getPlayOnTwilightCost(GameState gameState, PhysicalCard physicalCard, PhysicalCard target, int twilightCostModifier) {
         LoggingThreadLocal.logMethodStart(physicalCard, "getPlayOnTwilightCost");
         try {
-            int result = getTwilightCost(gameState, physicalCard, false);
+            int result = getTwilightCost(gameState, physicalCard, twilightCostModifier, false);
             for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierEffect.TWILIGHT_COST_MODIFIER, physicalCard)) {
                 result += modifier.getPlayOnTwilightCostModifier(gameState, this, physicalCard, target);
             }
