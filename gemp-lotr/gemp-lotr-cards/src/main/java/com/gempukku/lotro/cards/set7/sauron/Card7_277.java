@@ -39,7 +39,7 @@ public class Card7_277 extends AbstractMinion {
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SHADOW, self, 0)) {
             List<ActivateCardAction> actions = new LinkedList<ActivateCardAction>();
-            if (PlayConditions.canDiscardFromHand(game, playerId, 2, Filters.any) && PlayConditions.canPlayFromStacked(playerId, game, Filters.siteControlled(playerId), Culture.SAURON, Race.ORC)) {
+            if (PlayConditions.canDiscardFromHand(game, playerId, 2, Filters.any)) {
                 ActivateCardAction action = new ActivateCardAction(self);
                 action.setText("Play stacked SAURON Orc");
                 action.appendCost(
@@ -48,7 +48,7 @@ public class Card7_277 extends AbstractMinion {
                         new ChooseAndPlayCardFromStackedEffect(playerId, Filters.siteControlled(playerId), Culture.SAURON, Race.ORC));
                 actions.add(action);
             }
-            if (PlayConditions.canDiscardFromHand(game, playerId, 1, Filters.any) && PlayConditions.canPlayFromStacked(playerId, game, Filters.siteControlled(playerId), Culture.SAURON, Race.ORC, Keyword.BESIEGER)) {
+            if (PlayConditions.canDiscardFromHand(game, playerId, 1, Filters.any)) {
                 ActivateCardAction action = new ActivateCardAction(self);
                 action.setText("Play stacked besieger SAURON Orc");
                 action.appendCost(

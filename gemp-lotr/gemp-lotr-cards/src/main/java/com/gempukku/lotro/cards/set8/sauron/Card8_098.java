@@ -38,8 +38,7 @@ public class Card8_098 extends AbstractMinion {
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.played(game, effectResult, self)
-                && PlayConditions.canRemoveBurdens(game, self, 1)
-                && PlayConditions.canPlayFromStacked(playerId, game, Filters.siteControlled(playerId), Keyword.BESIEGER)) {
+                && PlayConditions.canRemoveBurdens(game, self, 1)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(
                     new RemoveBurdenEffect(playerId, self));

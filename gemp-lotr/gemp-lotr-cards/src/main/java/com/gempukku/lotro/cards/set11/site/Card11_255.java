@@ -34,8 +34,7 @@ public class Card11_255 extends AbstractNewSite {
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.startOfPhase(game, effectResult, Phase.FELLOWSHIP)
                 && playerId.equals(game.getGameState().getCurrentPlayerId())
-                && PlayConditions.canExert(self, game, 1, 3, CardType.COMPANION)
-                && PlayConditions.canPlayFromDeadPile(playerId, game, Race.WIZARD)) {
+                && PlayConditions.canExert(self, game, 1, 3, CardType.COMPANION)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 3, 3, CardType.COMPANION));

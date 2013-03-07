@@ -66,8 +66,7 @@ public class Card8_071 extends AbstractPermanent {
             return Collections.singletonList(action);
         }
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SHADOW, self, 0)
-                && PlayConditions.canSpot(game, 2, Culture.WRAITH, CardType.MINION)
-                && PlayConditions.canPlayFromStacked(playerId, game, self, Culture.WRAITH, CardType.MINION)) {
+                && PlayConditions.canSpot(game, 2, Culture.WRAITH, CardType.MINION)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
                     new ChooseAndPlayCardFromStackedEffect(playerId, self, Culture.WRAITH, CardType.MINION));

@@ -34,8 +34,7 @@ public class Card6_117 extends AbstractSite {
     @Override
     public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseSiteDuringPhase(game, Phase.FELLOWSHIP, self)
-                && PlayConditions.canExert(self, game, 1, 3, CardType.COMPANION, Signet.GANDALF)
-                && PlayConditions.canPlayFromDeadPile(playerId, game, Filters.unboundCompanion)) {
+                && PlayConditions.canExert(self, game, 1, 3, CardType.COMPANION, Signet.GANDALF)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 3, 3, CardType.COMPANION, Signet.GANDALF));

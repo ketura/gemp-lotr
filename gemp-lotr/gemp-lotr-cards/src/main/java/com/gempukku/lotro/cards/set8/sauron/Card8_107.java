@@ -61,8 +61,7 @@ public class Card8_107 extends AbstractPermanent {
             return Collections.singletonList(action);
         }
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SHADOW, self, 0)
-                && PlayConditions.canRemoveThreat(game, self, 1)
-                && PlayConditions.canPlayFromStacked(playerId, game, Filters.siteControlled(playerId), Culture.SAURON, CardType.MINION)) {
+                && PlayConditions.canRemoveThreat(game, self, 1)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new RemoveThreatsEffect(self, 1));

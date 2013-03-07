@@ -48,8 +48,7 @@ public class Card12_058 extends AbstractPermanent {
 
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SHADOW, self, 1)
-                && PlayConditions.canPlayFromStacked(playerId, game, 1, self, CardType.POSSESSION)) {
+        if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SHADOW, self, 1)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new RemoveTwilightEffect(1));

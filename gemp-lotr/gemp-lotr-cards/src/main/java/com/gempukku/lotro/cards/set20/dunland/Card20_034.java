@@ -46,8 +46,7 @@ public class Card20_034 extends AbstractPermanent {
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if ((PlayConditions.canUseShadowCardDuringPhase(game, Phase.SHADOW, self, 0)
                 || PlayConditions.canUseShadowCardDuringPhase(game, Phase.SKIRMISH, self, 0))
-                && Filters.filter(game.getGameState().getStackedCards(self), game.getGameState(), game.getModifiersQuerying(), Culture.DUNLAND).size()>=3
-                && PlayConditions.canPlayFromStacked(playerId, game, self, Filters.any)) {
+                && Filters.filter(game.getGameState().getStackedCards(self), game.getGameState(), game.getModifiersQuerying(), Culture.DUNLAND).size()>=3) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
                     new ChooseAndPlayCardFromStackedEffect(playerId, self, Filters.any));
