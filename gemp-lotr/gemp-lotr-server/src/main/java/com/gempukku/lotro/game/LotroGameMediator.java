@@ -182,7 +182,7 @@ public class LotroGameMediator {
 
                 sb.append("<br><br><b>Effective stats:</b>");
                 try {
-                    int twilightCost = _lotroGame.getModifiersQuerying().getTwilightCost(_lotroGame.getGameState(), card, false);
+                    int twilightCost = _lotroGame.getModifiersQuerying().getTwilightCost(_lotroGame.getGameState(), card, 0, false);
                     sb.append("<br><b>Twilight cost:</b> " + twilightCost);
                 } catch (UnsupportedOperationException exp) {
                 }

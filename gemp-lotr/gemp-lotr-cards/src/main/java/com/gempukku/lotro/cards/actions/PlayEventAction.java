@@ -120,7 +120,7 @@ public class PlayEventAction extends AbstractCostToEffectAction implements Disco
             if (_discountEffect != null) {
                 int requiredDiscount = 0;
                 if (_eventPlayed.getBlueprint().getSide() == Side.SHADOW) {
-                    int twilightCost = game.getModifiersQuerying().getTwilightCost(game.getGameState(), _eventPlayed, false);
+                    int twilightCost = game.getModifiersQuerying().getTwilightCost(game.getGameState(), _eventPlayed, 0, false);
                     int underPool = twilightCost - game.getGameState().getTwilightPool();
                     if (underPool > 0)
                         requiredDiscount = underPool;

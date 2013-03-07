@@ -84,7 +84,7 @@ public class MovementGameProcess implements GameProcess {
                     protected void doPlayEffect(LotroGame game) {
                         GameState gameState = game.getGameState();
 
-                        int siteTwilightCost = game.getModifiersQuerying().getTwilightCost(gameState, gameState.getCurrentSite(), false);
+                        int siteTwilightCost = game.getModifiersQuerying().getTwilightCost(gameState, gameState.getCurrentSite(), 0, false);
                         if (!game.getFormat().isOrderedSites()) {
                             final int siteNumber = gameState.getCurrentSiteNumber();
                             if (siteNumber > 3 && siteNumber <= 6)

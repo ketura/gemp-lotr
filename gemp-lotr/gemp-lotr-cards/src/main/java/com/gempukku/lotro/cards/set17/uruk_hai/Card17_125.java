@@ -44,7 +44,7 @@ public class Card17_125 extends AbstractMinion {
                         @Override
                         public void liberatedSiteCallback(PhysicalCard liberatedSite) {
                             action.appendEffect(
-                                    new AddTwilightEffect(self, game.getModifiersQuerying().getTwilightCost(game.getGameState(), liberatedSite, false)));
+                                    new AddTwilightEffect(self, game.getModifiersQuerying().getTwilightCost(game.getGameState(), liberatedSite, 0, false)));
                         }
                     });
             return Collections.singletonList(action);

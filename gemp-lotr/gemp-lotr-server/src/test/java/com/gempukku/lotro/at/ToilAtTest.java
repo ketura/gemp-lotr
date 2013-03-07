@@ -6,12 +6,13 @@ import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.AwaitingDecision;
 import com.gempukku.lotro.logic.decisions.AwaitingDecisionType;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import static junit.framework.Assert.assertEquals;
 import org.junit.Test;
 
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+
+import static junit.framework.Assert.assertEquals;
 
 public class ToilAtTest extends AbstractAtTest {
     @Test
@@ -327,6 +328,7 @@ public class ToilAtTest extends AbstractAtTest {
         assertEquals(1, _game.getGameState().getWounds(corpsOfHarad3));
         assertEquals(1, _game.getGameState().getWounds(corpsOfHarad4));
         assertEquals(1, _game.getGameState().getWounds(corpsOfHarad5));
-        assertEquals(8, _game.getGameState().getTwilightPool());
+        // It's 6 not 8, because of roaming penalty
+        assertEquals(6, _game.getGameState().getTwilightPool());
     }
 }

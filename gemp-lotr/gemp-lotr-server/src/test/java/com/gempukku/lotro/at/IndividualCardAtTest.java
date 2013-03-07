@@ -503,7 +503,7 @@ public class IndividualCardAtTest extends AbstractAtTest {
         // End fellowship
         playerDecided(P2, "");
 
-        assertEquals(8, _game.getModifiersQuerying().getTwilightCost(_game.getGameState(), attea, false));
+        assertEquals(8, _game.getModifiersQuerying().getTwilightCost(_game.getGameState(), attea, 0, false));
     }
 
     @Test
