@@ -54,7 +54,7 @@ public class Card8_050 extends AbstractPermanent {
                 final ActivateCardAction action = new ActivateCardAction(self);
                 action.appendCost(
                         new PlayoutDecisionEffect(playerId,
-                                new IntegerAwaitingDecision(1, "How many tokens you wish to remove?", 0, tokens) {
+                                new IntegerAwaitingDecision(1, "How many tokens you wish to remove?", 0, tokens, tokens) {
                                     @Override
                                     public void decisionMade(String result) throws DecisionResultInvalidException {
                                         int tokens = getValidatedResult(result);
