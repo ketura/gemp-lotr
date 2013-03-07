@@ -44,8 +44,7 @@ public class Card20_240 extends AbstractPermanent {
             return Collections.singletonList(action);
         }
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SHADOW, self, 0)
-                && PlayConditions.canRemoveThreat(game, self, 1)
-            && PlayConditions.canPlayFromStacked(playerId, game, self, Filters.saruman)) {
+                && PlayConditions.canRemoveThreat(game, self, 1)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new RemoveThreatsEffect(self, 1));

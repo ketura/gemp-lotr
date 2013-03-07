@@ -45,8 +45,7 @@ public class Card8_030 extends AbstractPermanent {
                     });
             return Collections.singletonList(action);
         }
-        if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SHADOW, self, 0)
-                && PlayConditions.canPlayFromStacked(playerId, game, self, CardType.MINION, Culture.GOLLUM)) {
+        if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SHADOW, self, 0)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
                     new ChooseAndPlayCardFromStackedEffect(playerId, self, CardType.MINION, Culture.GOLLUM));

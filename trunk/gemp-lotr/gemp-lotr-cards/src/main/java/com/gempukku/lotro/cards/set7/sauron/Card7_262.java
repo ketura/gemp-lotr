@@ -12,7 +12,6 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -34,51 +33,29 @@ public class Card7_262 extends AbstractEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && (
-                (PlayConditions.canRemoveBurdens(game, self, 1)
-                        && PlayConditions.canPlayFromDiscard(playerId, game, Culture.SAURON, Race.ORC)
-                )
-                        || PlayConditions.canPlayFromStacked(playerId, game, Filters.siteControlled(playerId), Keyword.BESIEGER));
+                && PlayConditions.canPlayFromDiscard(playerId, game, Culture.SAURON, Race.ORC)
+                && (PlayConditions.canRemoveBurdens(game, self, 1)
+                || PlayConditions.canPlayFromStacked(playerId, game, Filters.siteControlled(playerId), Keyword.BESIEGER));
     }
 
     @Override
     public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self);
         List<Effect> possibleCosts = new LinkedList<Effect>();
-        if (PlayConditions.canPlayFromStacked(playerId, game, Filters.siteControlled(playerId), Keyword.BESIEGER))
-            possibleCosts.add(
-                    new UnrespondableEffect() {
-                        @Override
-                        public String getText(LotroGame game) {
-                            return "Play a besieger stacked on a site you control";
-                        }
-
-                        @Override
-                        protected void doPlayEffect(LotroGame game) {
-                            action.appendEffect(
-                                    new ChooseAndPlayCardFromStackedEffect(playerId, Filters.siteControlled(playerId), Keyword.BESIEGER));
-                        }
-                    });
-        if (PlayConditions.canRemoveBurdens(game, self, 1)
-                && PlayConditions.canPlayFromDiscard(playerId, game, Culture.SAURON, Race.ORC))
-            possibleCosts.add(
-                    new UnrespondableEffect() {
-                        @Override
-                        public String getText(LotroGame game) {
-                            return "Remove a burden to play a SAURON Orc from your discard pile";
-                        }
-
-                        @Override
-                        protected void doPlayEffect(LotroGame game) {
-                            action.insertCost(
-                                    new RemoveBurdenEffect(playerId, self));
-                            action.appendEffect(
-                                    new ChooseAndPlayCardFromDiscardEffect(playerId, game, Culture.SAURON, Race.ORC));
-                        }
-                    });
-
+        possibleCosts.add(
+                new ChooseAndPlayCardFromStackedEffect(playerId, Filters.siteControlled(playerId), Keyword.BESIEGER) {
+                    @Override
+                    public String getText(LotroGame game) {
+                        return "Play a besieger stacked on a site you control";
+                    }
+                });
+        possibleCosts.add(
+                new RemoveBurdenEffect(playerId, self));
         action.appendCost(
                 new ChoiceEffect(action, playerId, possibleCosts));
+
+        action.appendEffect(
+                new ChooseAndPlayCardFromDiscardEffect(playerId, game, Culture.SAURON, Race.ORC));
         return action;
     }
 }

@@ -45,8 +45,7 @@ public class Card13_106 extends AbstractPermanent {
             return Collections.singletonList(action);
         }
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SHADOW, self, 0)
-                && PlayConditions.canRemoveBurdens(game, self, 1)
-                && PlayConditions.canPlayFromStacked(playerId, game, 0, -3, self, CardType.MINION, Keyword.LURKER)) {
+                && PlayConditions.canRemoveBurdens(game, self, 1)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new RemoveBurdenEffect(playerId, self, 1));

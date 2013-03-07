@@ -30,8 +30,7 @@ public class Card20_274 extends AbstractPermanent {
 
     @Override
     public List<? extends Action> getExtraPhaseActions(final String playerId, final LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SHADOW, self, 0)
-                && PlayConditions.canPlayFromStacked(playerId, game, self, Race.GOBLIN)) {
+        if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SHADOW, self, 0)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
                     new ChooseAndPlayCardFromStackedEffect(playerId, self, Race.GOBLIN));

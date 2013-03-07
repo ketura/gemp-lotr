@@ -1,7 +1,6 @@
 package com.gempukku.lotro.cards.set17.men;
 
 import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromStackedEffect;
 import com.gempukku.lotro.common.CardType;
@@ -56,8 +55,7 @@ public class Card17_057 extends AbstractMinion {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (TriggerConditions.startOfPhase(game, effectResult, Phase.MANEUVER)
-                && PlayConditions.canPlayFromStacked(playerId, game, Filters.and(Culture.MEN, CardType.POSSESSION), CardType.MINION)) {
+        if (TriggerConditions.startOfPhase(game, effectResult, Phase.MANEUVER)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
                     new ChooseAndPlayCardFromStackedEffect(playerId, Filters.and(Culture.MEN, CardType.POSSESSION), CardType.MINION));

@@ -1,7 +1,6 @@
 package com.gempukku.lotro.cards.set4.gandalf;
 
 import com.gempukku.lotro.cards.AbstractOldEvent;
-import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromDeadPileEffect;
 import com.gempukku.lotro.common.Culture;
@@ -30,8 +29,7 @@ public class Card4_106 extends AbstractOldEvent {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Race.ELF)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Culture.GONDOR, Race.MAN)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Race.DWARF)
-                && PlayConditions.canPlayFromDeadPile(playerId, game, Filters.gandalf);
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Race.DWARF);
     }
 
     @Override
