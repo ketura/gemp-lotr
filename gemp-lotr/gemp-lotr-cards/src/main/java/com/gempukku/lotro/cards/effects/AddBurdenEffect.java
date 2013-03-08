@@ -50,7 +50,8 @@ public class AddBurdenEffect extends AbstractEffect implements Preventable {
 
     @Override
     public String getText(LotroGame game) {
-        return "Add " + (getBurdensToAdd(game) - _prevented) + " burden" + (((getBurdensToAdd(game)- _prevented) > 1) ? "s" : "");
+        final int burdensToAdd = getBurdensToAdd(game) - _prevented;
+        return "Add " + burdensToAdd + " burden" + ((burdensToAdd > 1) ? "s" : "");
     }
 
     @Override
