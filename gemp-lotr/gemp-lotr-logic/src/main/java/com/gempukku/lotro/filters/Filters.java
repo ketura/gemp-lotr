@@ -554,10 +554,14 @@ public class Filters {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
                 Side expectedSide = (physicalCard.getOwner().equals(gameState.getCurrentPlayerId()) ? Side.FREE_PEOPLE : Side.SHADOW);
-                if (physicalCard.getBlueprint().getSide() != expectedSide)
+                final LotroCardBlueprint blueprint = physicalCard.getBlueprint();
+                if (blueprint.getSide() != expectedSide)
                     return false;
 
-                return physicalCard.getBlueprint().checkPlayRequirements(physicalCard.getOwner(), game, physicalCard, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile);
+                if (blueprint.getPlayCardAction(physicalCard.getOwner(), game, physicalCard, 0, false)== null)
+                    return false;
+
+                return blueprint.checkPlayRequirements(physicalCard.getOwner(), game, physicalCard, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile);
             }
         };
     }

@@ -18,9 +18,11 @@ public abstract class AbstractOldEvent extends AbstractLotroCardBlueprint {
 
     public AbstractOldEvent(Side side, Culture culture, String name, Phase playableInPhase, Phase... additionalPlayableInPhases) {
         super(side, CardType.EVENT, culture, name);
-        _playableInPhases = mergeArray(playableInPhase, additionalPlayableInPhases);
-        for (Phase playablePhase : _playableInPhases)
-            processPhase(playablePhase);
+        if (playableInPhase != null) {
+            _playableInPhases = mergeArray(playableInPhase, additionalPlayableInPhases);
+            for (Phase playablePhase : _playableInPhases)
+                processPhase(playablePhase);
+        }
     }
 
     private static final Phase[] mergeArray(Phase playableInPhase, Phase... additionalPlayableInPhases) {
@@ -50,9 +52,23 @@ public abstract class AbstractOldEvent extends AbstractLotroCardBlueprint {
     }
 
     @Override
+    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
+        if (_playableInPhases != null) {
+            Phase currentPhase = game.getGameState().getCurrentPhase();
+            for (Phase playableInPhase : _playableInPhases) {
+                if (playableInPhase == currentPhase)
+                    return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile);
+            }
+
+            return false;
+        }
+        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile);
+    }
+
+    @Override
     public final List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (_playableInPhases != null) {
-            if (PlayConditions.canPlayCardDuringPhase(game, _playableInPhases, self)) {
+            if (PlayConditions.canPlayCardFromHandDuringPhase(game, _playableInPhases, self)) {
                 if (checkPlayRequirements(playerId, game, self, 0, 0, false, false))
                     return Collections.singletonList(getPlayCardAction(playerId, game, self, 0, false));
             }
