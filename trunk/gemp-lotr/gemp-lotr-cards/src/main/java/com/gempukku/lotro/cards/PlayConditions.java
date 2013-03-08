@@ -96,7 +96,7 @@ public class PlayConditions {
                 && (!self.getBlueprint().isUnique() || Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.name(self.getBlueprint().getName()))==0);
     }
 
-    public static boolean canPlayCardDuringPhase(LotroGame game, Phase[] phases, PhysicalCard self) {
+    public static boolean canPlayCardFromHandDuringPhase(LotroGame game, Phase[] phases, PhysicalCard self) {
         return (phases == null || containsPhase(phases, game.getGameState().getCurrentPhase()))
                 && self.getZone() == Zone.HAND
                 && (!self.getBlueprint().isUnique() || Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.name(self.getBlueprint().getName()))==0);
