@@ -5,6 +5,7 @@ import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
 import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
+import com.gempukku.lotro.cards.modifiers.evaluator.ForEachBurdenEvaluator;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -34,10 +35,9 @@ public class Card3_083 extends AbstractPermanent {
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.moves(game, effectResult)) {
-            int burdens = game.getGameState().getBurdens();
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new AddTwilightEffect(self, burdens));
+                    new AddTwilightEffect(self, new ForEachBurdenEvaluator()));
             return Collections.singletonList(action);
         }
         if (TriggerConditions.endOfPhase(game, effectResult, Phase.SHADOW)) {
