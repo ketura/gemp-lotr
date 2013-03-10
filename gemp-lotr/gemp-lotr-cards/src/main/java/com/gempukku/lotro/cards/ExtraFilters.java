@@ -14,14 +14,15 @@ public class ExtraFilters {
     }
 
     public static Filter attachableTo(final LotroGame game, final int twilightModifier, final Filterable... filters) {
-        return new Filter() {
-            @Override
-            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                if (!(physicalCard.getBlueprint() instanceof AbstractAttachable))
-                    return false;
-                AbstractAttachable weapon = (AbstractAttachable) physicalCard.getBlueprint();
-                return weapon.checkPlayRequirements(physicalCard.getOwner(), game, physicalCard, 0, Filters.and(filters), twilightModifier);
-            }
-        };
+        return Filters.and(Filters.playable(game),
+                new Filter() {
+                    @Override
+                    public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                        if (!(physicalCard.getBlueprint() instanceof AbstractAttachable))
+                            return false;
+                        AbstractAttachable weapon = (AbstractAttachable) physicalCard.getBlueprint();
+                        return weapon.checkPlayRequirements(physicalCard.getOwner(), game, physicalCard, 0, Filters.and(filters), twilightModifier);
+                    }
+                });
     }
 }
