@@ -610,7 +610,7 @@ public class HallServer extends AbstractServer {
             };
         }
 
-        createGame(league, leagueSerie, tableId, participants, listener, awaitingTable.getLotroFormat(), getTournamentName(awaitingTable), true, league == null, true, league != null);
+        createGame(league, leagueSerie, tableId, participants, listener, awaitingTable.getLotroFormat(), getTournamentName(awaitingTable), true, true, true, league != null);
         _awaitingTables.remove(tableId);
     }
 
