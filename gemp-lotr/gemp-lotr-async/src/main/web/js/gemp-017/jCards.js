@@ -153,7 +153,7 @@ var Card = Class.extend({
         if (this.tengwar)
             bareBlueprint = bareBlueprint.substring(0, len - 1);
 
-        this.hasWiki = fixedImages[imageBlueprint] == null
+        this.hasWiki = this.getFixedImage(imageBlueprint) == null
             && packBlueprints[imageBlueprint] == null;
 
         this.zone = zone;
@@ -186,6 +186,16 @@ var Card = Class.extend({
                 };
             }
         }
+    },
+
+    getFixedImage: function(blueprintId) {
+        var img = fixedImages[blueprintId];
+        if (img != null)
+            return img;
+        img = set20[blueprintId];
+        if (img != null)
+            return img;
+        return null;
     },
 
     isTengwar:function () {
@@ -241,12 +251,14 @@ var Card = Class.extend({
             return (cardNo >= 145 && cardNo <= 148);
         if (setNo == 18)
             return (cardNo >= 134 && cardNo <= 140);
+        if (setNo == 20)
+            return (cardNo >= 416 && cardNo <= 469);
         return false;
     },
 
     getUrlByBlueprintId:function (blueprintId, ignoreErrata) {
-        if (fixedImages[blueprintId] != null)
-            return fixedImages[blueprintId];
+        if (this.getFixedImage(blueprintId) != null)
+            return this.getFixedImage(blueprintId);
 
         if (packBlueprints[blueprintId] != null)
             return packBlueprints[blueprintId];

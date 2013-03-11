@@ -105,6 +105,6 @@
         "rarityFile":"/set20-rarity.txt",
         "originalSet":false,
         "merchantable":false,
-        "playable":false
+        "playable":true
     }
 ]

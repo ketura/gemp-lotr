@@ -29,12 +29,15 @@ public class DefaultLotroFormat implements LotroFormat {
     private List<String> _restrictedCards = new ArrayList<String>();
     private List<String> _validCards = new ArrayList<String>();
     private List<Integer> _validSets = new ArrayList<Integer>();
+    private String _surveyUrl;
 
-    public DefaultLotroFormat(LotroCardBlueprintLibrary library, String name, Block siteBlock,
+    public DefaultLotroFormat(LotroCardBlueprintLibrary library, String name, String surveyUrl,
+                              Block siteBlock,
                               boolean validateShadowFPCount, int minimumDeckSize, int maximumSameName, boolean mulliganRule,
                               boolean canCancelRingBearerSkirmish, boolean hasRuleOfFour, boolean winAtEndOfRegroup, boolean winOnControlling5Sites) {
         _library = library;
         _name = name;
+        _surveyUrl = surveyUrl;
         _siteBlock = siteBlock;
         _validateShadowFPCount = validateShadowFPCount;
         _minimumDeckSize = minimumDeckSize;
@@ -104,6 +107,11 @@ public class DefaultLotroFormat implements LotroFormat {
     @Override
     public Block getSiteBlock() {
         return _siteBlock;
+    }
+
+    @Override
+    public String getSurveyUrl() {
+        return _surveyUrl;
     }
 
     protected void addBannedCard(String baseBlueprintId) {

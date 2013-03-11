@@ -44,17 +44,13 @@ public class CollectionsManager {
                 _logger.debug("Loading set " + setDefinition.getSetId());
                 final Set<String> allCards = setDefinition.getAllCards();
                 for (String blueprintId : allCards) {
-                    try {
-                        if (lotroCardBlueprintLibrary.getBaseBlueprintId(blueprintId).equals(blueprintId)) {
-                            LotroCardBlueprint cardBlueprint = lotroCardBlueprintLibrary.getLotroCardBlueprint(blueprintId);
-                            CardType cardType = cardBlueprint.getCardType();
-                            if (cardType == CardType.SITE || cardType == CardType.THE_ONE_RING)
-                                _defaultCollection.addItem(blueprintId, 1);
-                            else
-                                _defaultCollection.addItem(blueprintId, 4);
-                        }
-                    } catch (IllegalArgumentException exp) {
-
+                    if (lotroCardBlueprintLibrary.getBaseBlueprintId(blueprintId).equals(blueprintId)) {
+                        LotroCardBlueprint cardBlueprint = lotroCardBlueprintLibrary.getLotroCardBlueprint(blueprintId);
+                        CardType cardType = cardBlueprint.getCardType();
+                        if (cardType == CardType.SITE || cardType == CardType.THE_ONE_RING)
+                            _defaultCollection.addItem(blueprintId, 1);
+                        else
+                            _defaultCollection.addItem(blueprintId, 4);
                     }
                 }
             }
