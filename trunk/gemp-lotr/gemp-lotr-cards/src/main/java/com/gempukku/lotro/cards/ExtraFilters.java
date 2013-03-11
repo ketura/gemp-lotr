@@ -14,7 +14,7 @@ public class ExtraFilters {
     }
 
     public static Filter attachableTo(final LotroGame game, final int twilightModifier, final Filterable... filters) {
-        return Filters.and(Filters.playable(game),
+        return Filters.and(Filters.playable(game, twilightModifier),
                 new Filter() {
                     @Override
                     public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
