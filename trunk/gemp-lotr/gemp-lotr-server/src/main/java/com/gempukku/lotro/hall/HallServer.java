@@ -485,7 +485,7 @@ public class HallServer extends AbstractServer {
                 final RunningTable runningTable = nonPlayingGame.getValue();
                 LotroGameMediator lotroGameMediator = runningTable.getLotroGameMediator();
                 if (lotroGameMediator != null)
-                    visitor.visitTable(nonPlayingGame.getKey(), lotroGameMediator.getGameId(), false, HallInfoVisitor.TableStatus.FINISHED, lotroGameMediator.getGameStatus(), runningTable.getFormatName(), runningTable.getTournamentName(), lotroGameMediator.getPlayersPlaying(),  lotroGameMediator.getPlayersPlaying().contains(player.getName()), lotroGameMediator.getWinner());
+                    visitor.visitTable(nonPlayingGame.getKey(), lotroGameMediator.getGameId(), false, HallInfoVisitor.TableStatus.FINISHED, lotroGameMediator.getGameStatus(), runningTable.getFormatName(), runningTable.getTournamentName(), lotroGameMediator.getPlayersPlaying(), lotroGameMediator.getPlayersPlaying().contains(player.getName()), lotroGameMediator.getWinner());
             }
 
             for (Map.Entry<String, TournamentQueue> tournamentQueueEntry : _tournamentQueues.entrySet()) {
@@ -615,11 +615,31 @@ public class HallServer extends AbstractServer {
     }
 
     private void createGame(League league, LeagueSerieData leagueSerie, String tableId, LotroGameParticipant[] participants, GameResultListener listener, LotroFormat lotroFormat, String tournamentName, boolean allowSpectators, boolean allowCancelling, boolean allowChatAccess, boolean competitiveTime) {
-        LotroGameMediator lotroGameMediator = _lotroServer.createNewGame(lotroFormat, tournamentName, participants, allowSpectators, allowCancelling, allowChatAccess, competitiveTime);
+        final LotroGameMediator lotroGameMediator = _lotroServer.createNewGame(lotroFormat, tournamentName, participants, allowSpectators, allowCancelling, allowChatAccess, competitiveTime);
         if (listener != null)
             lotroGameMediator.addGameResultListener(listener);
         lotroGameMediator.startGame();
         lotroGameMediator.addGameResultListener(_notifyHallListeners);
+        final String surveyUrl = lotroFormat.getSurveyUrl();
+        if (surveyUrl != null) {
+            lotroGameMediator.addGameResultListener(
+                    new GameResultListener() {
+                        @Override
+                        public void gameFinished(String winnerPlayerId, String winReason, Map<String, String> loserPlayerIdsWithReasons) {
+                            notifyAboutSurvey();
+                        }
+
+                        @Override
+                        public void gameCancelled() {
+                            notifyAboutSurvey();
+                        }
+
+                        private void notifyAboutSurvey() {
+                            lotroGameMediator.sendMessageToPlayers("Thank you for playing. You may want to fill out the <a href=\"" + surveyUrl + "\" target=\"_blank\">survey (click here)</a> to help us improve the format");
+                        }
+                    }
+            );
+        }
         _runningTables.put(tableId, new RunningTable(lotroGameMediator, lotroFormat.getName(), tournamentName, league, leagueSerie));
     }
 

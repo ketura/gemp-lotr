@@ -29,6 +29,7 @@ public class LotroFormatLibrary {
                     JSONObject formatDef = (JSONObject) formatDefObj;
                     String formatCode = (String) formatDef.get("code");
                     String name = (String) formatDef.get("name");
+                    String surveyUrl = (String) formatDef.get("surveyUrl");
                     Block block = Block.valueOf((String) formatDef.get("sites"));
                     Boolean cancelRingBearerSkirmish = (Boolean) formatDef.get("cancelRingBearerSkirmish");
                     if (cancelRingBearerSkirmish == null)
@@ -43,7 +44,7 @@ public class LotroFormatLibrary {
                     if (winOnControlling5Sites == null)
                         winOnControlling5Sites = false;
 
-                    final DefaultLotroFormat format = new DefaultLotroFormat(library, name, block, true, 60, 4, true,
+                    final DefaultLotroFormat format = new DefaultLotroFormat(library, name, surveyUrl, block, true, 60, 4, true,
                             cancelRingBearerSkirmish, hasRuleOfFour, winAtEndOfRegroup, winOnControlling5Sites);
 
                     JSONArray sets = (JSONArray) formatDef.get("set");
