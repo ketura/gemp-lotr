@@ -5,7 +5,6 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPutCardFromDiscardIntoHandEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndStackCardsFromHandEffect;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -42,7 +41,7 @@ public class Card20_053 extends AbstractCompanion {
     @Override
     protected List<ActivateCardAction> getExtraInPlayPhaseActions(final String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.FELLOWSHIP, self)
-                && PlayConditions.hasCardInHand(game, playerId, 1, Filters.any)
+                && PlayConditions.hasCardInHand(game, playerId, 1, Side.FREE_PEOPLE)
                 && PlayConditions.canSpot(game, Culture.DWARVEN, Keyword.SUPPORT_AREA, CardType.CONDITION)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
@@ -50,7 +49,7 @@ public class Card20_053 extends AbstractCompanion {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.appendCost(
-                                    new ChooseAndStackCardsFromHandEffect(action, playerId, 1, 1, card, Filters.any));
+                                    new ChooseAndStackCardsFromHandEffect(action, playerId, 1, 1, card, Side.FREE_PEOPLE));
                         }
                     });
             action.appendEffect(
