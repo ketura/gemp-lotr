@@ -432,6 +432,7 @@ var set20 = {
     '20_431': 'http://lotrtcg.org/coreset/sites/3gapofrohan.png',
     '20_432': 'http://lotrtcg.org/coreset/sites/3gatesofmoria.png',
     '20_433': 'http://lotrtcg.org/coreset/sites/3lothlorien.png',
+    '20_434': 'http://lotrtcg.org/coreset/sites/4deadmarshes.png',
     '20_435': 'http://lotrtcg.org/coreset/sites/4easternemynmuil.png',
     '20_436': 'http://lotrtcg.org/coreset/sites/4hollin.png',
     '20_437': 'http://lotrtcg.org/coreset/sites/4moriacaverns.png',
