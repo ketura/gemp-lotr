@@ -22,7 +22,7 @@ import java.util.List;
  * Shire	Companion • Hobbit
  * 3 	4	8
  * Add 1 to the number of pipes you can spot.
- * At the start of the fellowship phase, you may exert Merry to play a pipeweed possession from your draw deck.
+ * At the start of the fellowship phase, you may exert Merry twice to play a pipeweed possession from your draw deck.
  */
 public class Card20_397 extends AbstractCompanion {
     public Card20_397() {
@@ -37,8 +37,10 @@ public class Card20_397 extends AbstractCompanion {
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.startOfPhase(game, effectResult, Phase.FELLOWSHIP)
-                && PlayConditions.canSelfExert(self, game)) {
+                && PlayConditions.canSelfExert(self, 2, game)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
+            action.appendCost(
+                    new SelfExertEffect(action, self));
             action.appendCost(
                     new SelfExertEffect(action, self));
             action.appendEffect(
