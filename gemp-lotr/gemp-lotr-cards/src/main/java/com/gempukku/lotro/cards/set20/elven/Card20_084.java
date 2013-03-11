@@ -6,7 +6,6 @@ import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.RevealTopCardsOfDrawDeckEffect;
 import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -26,8 +25,8 @@ import java.util.List;
  * Elven	Ally • Elf • Lothlorien
  * 3	3
  * At the start of each of your turns, heal every Lothlorien ally.
- * Skirmish: Exert Galadriel and another Elf to reveal the top card of your draw deck. Make a minion skirmishing
- * that Elf strength - X where X is that card's twilight cost.
+ * Skirmish: Exert Galadriel to reveal the top card of your draw deck. Make a minion skirmishing an Elf strength - X
+ * where X is the revealed card's twilight cost.
  */
 public class Card20_084 extends AbstractAlly {
     public Card20_084() {
@@ -54,21 +53,15 @@ public class Card20_084 extends AbstractAlly {
             final ActivateCardAction action =new ActivateCardAction(self);
             action.appendCost(
                     new SelfExertEffect(action, self));
-            action.appendCost(
-                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.not(self), Race.ELF) {
+            action.appendEffect(
+                    new RevealTopCardsOfDrawDeckEffect(self, playerId, 1) {
                         @Override
-                        protected void forEachCardExertedCallback(final PhysicalCard character) {
-                            action.appendEffect(
-                                    new RevealTopCardsOfDrawDeckEffect(self, playerId, 1) {
-                                        @Override
-                                        protected void cardsRevealed(List<PhysicalCard> revealedCards) {
-                                            for (PhysicalCard revealedCard : revealedCards) {
-                                                int twilightCost = revealedCard.getBlueprint().getTwilightCost();
-                                                action.appendEffect(
-                                                        new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, -twilightCost, CardType.MINION, Filters.inSkirmishAgainst(character)));
-                                            }
-                                        }
-                                    });
+                        protected void cardsRevealed(List<PhysicalCard> revealedCards) {
+                            for (PhysicalCard revealedCard : revealedCards) {
+                                int twilightCost = revealedCard.getBlueprint().getTwilightCost();
+                                action.appendEffect(
+                                        new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, -twilightCost, CardType.MINION, Filters.inSkirmishAgainst(Race.ELF)));
+                            }
                         }
                     });
             return Collections.singletonList(action);
