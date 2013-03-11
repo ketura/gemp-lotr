@@ -13,7 +13,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
-import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
+import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
@@ -28,7 +28,7 @@ import java.util.List;
  * Gondor	Companion • Man
  * 8	4	8
  * Ranger.
- * At the beginning of the manuever phase, exert Aragorn to make him defender +1 until the regroup phase
+ * At the beginning of the manuever phase, you may exert Aragorn to make him defender +1 until the regroup phase
  * for each site from your adventure deck in the current region.
  */
 public class Card20_175 extends AbstractCompanion {
@@ -38,10 +38,10 @@ public class Card20_175 extends AbstractCompanion {
     }
 
     @Override
-    public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, final PhysicalCard self) {
+    public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         if (TriggerConditions.startOfPhase(game, effectResult, Phase.MANEUVER)
                 && PlayConditions.canSelfExert(self, game)) {
-            RequiredTriggerAction action = new RequiredTriggerAction(self);
+            OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(
                     new SelfExertEffect(action, self));
             action.appendEffect(
