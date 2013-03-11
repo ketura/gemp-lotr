@@ -2,8 +2,8 @@ package com.gempukku.lotro.cards.set20.shire;
 
 import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
+import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.modifiers.VitalityModifier;
 import com.gempukku.lotro.cards.modifiers.evaluator.CountSpottableEvaluator;
 import com.gempukku.lotro.common.*;
@@ -48,7 +48,7 @@ public class Card20_411 extends AbstractAttachable {
                 && PlayConditions.canExert(self, game, 2, Filters.hasAttached(self))) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new SelfExertEffect(action, self));
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, 2, Filters.hasAttached(self)));
             action.appendEffect(
                     new ChooseAndAddUntilEOPStrengthBonusEffect(
                             action, self, playerId,
