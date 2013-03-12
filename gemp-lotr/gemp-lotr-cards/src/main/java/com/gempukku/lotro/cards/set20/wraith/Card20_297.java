@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card20_297 extends AbstractPermanent {
     public Card20_297() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.WRAITH, Zone.SUPPORT, "Ominous Landscape", null, true);
+        super(Side.SHADOW, 0, CardType.CONDITION, Culture.WRAITH, Zone.SUPPORT, "Ominous Landscape", null, true);
     }
 
     @Override
