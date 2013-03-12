@@ -62,7 +62,7 @@ var set20 = {
     '20_61': 'http://lotrtcg.org/coreset/dwarven/memoriesofkhazaddum.png',
     '20_62': 'http://lotrtcg.org/coreset/dwarven/minersofmithril.png',
     '20_63': 'http://lotrtcg.org/coreset/dwarven/resourcefulness.png',
-    '20_64': 'http://lotrtcg.org/coreset/dwarven/resourcefulness.png',
+    '20_64': 'http://lotrtcg.org/coreset/dwarven/retribution.png',
     '20_65': 'http://lotrtcg.org/coreset/dwarven/roadrop.png',
     '20_66': 'http://lotrtcg.org/coreset/dwarven/rogdrop.png',
     '20_67': 'http://lotrtcg.org/coreset/dwarven/rordrop.png',
