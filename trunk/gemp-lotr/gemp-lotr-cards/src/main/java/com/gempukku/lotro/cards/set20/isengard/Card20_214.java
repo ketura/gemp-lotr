@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card20_214 extends AbstractMinion {
     public Card20_214() {
-        super(3, 6, 2, 4, Race.ORC, Culture.ISENGARD, "Orthanc Strategist", null, true);
+        super(3, 6, 3, 4, Race.ORC, Culture.ISENGARD, "Orthanc Strategist", null, true);
         addKeyword(Keyword.CUNNING);
     }
 
