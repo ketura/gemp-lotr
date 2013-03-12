@@ -6,6 +6,7 @@ import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.modifiers.evaluator.ForEachBurdenEvaluator;
+import com.gempukku.lotro.cards.modifiers.evaluator.MultiplyEvaluator;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -37,7 +38,7 @@ public class Card20_299 extends AbstractEvent {
                     protected void forEachCardExertedCallback(PhysicalCard character) {
                         action.appendEffect(
                                 new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId,
-                                        new ForEachBurdenEvaluator(), CardType.COMPANION, Filters.inSkirmishAgainst(character)));
+                                        new MultiplyEvaluator(-1, new ForEachBurdenEvaluator()), CardType.COMPANION, Filters.inSkirmishAgainst(character)));
                     }
                 });
         return action;
