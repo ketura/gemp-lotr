@@ -39,9 +39,9 @@ public class Card20_194 extends AbstractAttachableFPPossession {
     protected List<? extends Modifier> getNonBasicStatsModifiers(PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(
-                new StrengthModifier(self, Filters.hasAttached(self, Filters.inSkirmishAgainst(Race.NAZGUL)), 2));
+                new StrengthModifier(self, Filters.and (Filters.hasAttached(self), Filters.inSkirmishAgainst(Race.NAZGUL)), 2));
         modifiers.add(
-                new KeywordModifier(self, Filters.hasAttached(self, Filters.inSkirmishAgainst(Race.NAZGUL)), Keyword.DAMAGE, 1));
+                new KeywordModifier(self, Filters.and(Filters.hasAttached(self), Filters.inSkirmishAgainst(Race.NAZGUL)), Keyword.DAMAGE, 1));
         return modifiers;
     }
 }
