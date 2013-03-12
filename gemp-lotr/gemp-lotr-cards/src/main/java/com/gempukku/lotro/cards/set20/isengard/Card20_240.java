@@ -29,6 +29,12 @@ public class Card20_240 extends AbstractPermanent {
     }
 
     @Override
+    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
+        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
+                && PlayConditions.canSpot(game, Filters.saruman);
+    }
+
+    @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.REGROUP, self, 0)
                 && PlayConditions.isActive(game, Filters.saruman, Filters.not(Filters.exhausted))) {
