@@ -33,7 +33,7 @@ import java.util.List;
  */
 public class Card20_022 extends AbstractMinion {
     public Card20_022() {
-        super(4, 8, 4, 4, Race.MAN, Culture.DUNLAND, "Saruman", "Tribal Instigator", true);
+        super(4, 8, 4, 4, Race.WIZARD, Culture.DUNLAND, "Saruman", "Tribal Instigator", true);
         addKeyword(Keyword.CUNNING);
     }
 
