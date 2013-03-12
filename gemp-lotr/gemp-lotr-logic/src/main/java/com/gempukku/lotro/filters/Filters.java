@@ -10,6 +10,7 @@ import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.game.state.Skirmish;
 import com.gempukku.lotro.logic.GameUtils;
+import com.gempukku.lotro.logic.modifiers.Condition;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 
@@ -104,6 +105,20 @@ public class Filters {
     }
 
     // Filters available
+
+    public static Filter conditionFilter(final Filterable defaultFilters, final Condition condition, final Filterable conditionMetFilter) {
+        final Filter filter1 = changeToFilter(defaultFilters);
+        final Filter filter2 = changeToFilter(conditionMetFilter);
+        return new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                if (condition.isFullfilled(gameState, modifiersQuerying))
+                    return filter2.accepts(gameState, modifiersQuerying, physicalCard);
+                else
+                    return filter1.accepts(gameState, modifiersQuerying, physicalCard);
+            }
+        };
+    }
 
     public static Filter canSpotCompanionWithStrengthAtLeast(final int strength) {
         return new Filter() {
