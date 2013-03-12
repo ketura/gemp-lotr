@@ -32,7 +32,7 @@ public class Card20_442 extends AbstractSite {
     }
 
     @Override
-    public List<? extends Action> getPhaseActions(final String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends Action> getPhaseActions(final String playerId, final LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseSiteDuringPhase(game, Phase.REGROUP, self)
                 && GameUtils.isShadow(game, playerId)) {
             final ActivateCardAction action = new ActivateCardAction(self);
@@ -43,7 +43,7 @@ public class Card20_442 extends AbstractSite {
                             int count = cards.size();
                             if (count > 0)
                                 action.appendEffect(
-                                        new ChooseAndWoundCharactersEffect(action, playerId, count, count, CardType.COMPANION));
+                                        new ChooseAndWoundCharactersEffect(action, game.getGameState().getCurrentPlayerId(), count, count, CardType.COMPANION));
                         }
                     });
             return Collections.singletonList(action);
