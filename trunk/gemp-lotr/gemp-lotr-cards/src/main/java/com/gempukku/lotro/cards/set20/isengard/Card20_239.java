@@ -33,6 +33,12 @@ public class Card20_239 extends AbstractPermanent {
     }
 
     @Override
+    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
+        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
+                && PlayConditions.canSpot(game, Culture.ISENGARD, CardType.MINION);
+    }
+
+    @Override
     public List<? extends ActivateCardAction> getOptionalInPlayAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.played(game, effectResult, Keyword.SPELL)
                 && PlayConditions.canSpot(game, Filters.saruman)) {
