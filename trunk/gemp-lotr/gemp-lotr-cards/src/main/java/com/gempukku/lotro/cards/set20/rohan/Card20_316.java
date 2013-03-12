@@ -34,7 +34,7 @@ public class Card20_316 extends AbstractCompanion{
                         for (PhysicalCard physicalCard : Filters.filterActive(gameState, modifiersQuerying, CardType.MINION, Filters.inSkirmishAgainst(self))) {
                             count+= gameState.getWounds(physicalCard);
                         }
-                        return count;
+                        return 2*count;
                     }
                 });
     }
