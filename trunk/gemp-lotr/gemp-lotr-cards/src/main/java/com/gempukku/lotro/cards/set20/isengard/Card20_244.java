@@ -32,7 +32,8 @@ public class Card20_244 extends AbstractResponseEvent {
 
     @Override
     public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (TriggerConditions.forEachWounded(game, effectResult, CardType.COMPANION)) {
+        if (TriggerConditions.forEachWounded(game, effectResult, CardType.COMPANION)
+                && checkPlayRequirements(playerId, game, self, 0, 0, false, false)) {
             PlayEventAction action = new PlayEventAction(self);
             PhysicalCard woundedCompanion = ((WoundResult) effectResult).getWoundedCard();
             action.setText("Wound "+ GameUtils.getFullName(woundedCompanion));
