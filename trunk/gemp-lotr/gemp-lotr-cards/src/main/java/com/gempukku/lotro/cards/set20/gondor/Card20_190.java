@@ -22,7 +22,6 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 public class Card20_190 extends AbstractCompanion {
     public Card20_190() {
         super(3, 7, 3, 7, Culture.GONDOR, Race.MAN, null, "Faramir", "Cunning Ranger", true);
-        addKeyword(Keyword.RING_BOUND);
         addKeyword(Keyword.RANGER);
     }
 
