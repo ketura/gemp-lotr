@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class Card20_296 extends AbstractPermanent {
     public Card20_296() {
-        super(Side.SHADOW, 0, CardType.CONDITION, Culture.WRAITH, Zone.SUPPORT, "Nine for Mortal Men", null, true);
+        super(Side.SHADOW, 0, CardType.ARTIFACT, Culture.WRAITH, Zone.SUPPORT, "Nine for Mortal Men", null, true);
     }
 
     @Override
@@ -82,7 +82,7 @@ public class Card20_296 extends AbstractPermanent {
             && game.getGameState().getStackedCards(self).size()>=2) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseAndDiscardStackedCardsEffect(action, playerId, 1, 1, self, Filters.any));
+                    new ChooseAndDiscardStackedCardsEffect(action, playerId, 2, 2, self, Filters.any));
             action.appendEffect(
                     new ChooseAndPutCardFromDiscardIntoHandEffect(action, playerId, 1, 1, Culture.WRAITH));
             return Collections.singletonList(action);
