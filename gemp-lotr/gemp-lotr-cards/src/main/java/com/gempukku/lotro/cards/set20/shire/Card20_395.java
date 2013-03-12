@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class Card20_395 extends AbstractPermanent {
     public Card20_395() {
-        super(Side.FREE_PEOPLE, 1, CardType.POSSESSION, Culture.SHIRE, Zone.SUPPORT, "Longbottom Leaf", "Horbnlower's Crop", false);
+        super(Side.FREE_PEOPLE, 1, CardType.POSSESSION, Culture.SHIRE, Zone.SUPPORT, "Longbottom Leaf", "Hornblower's Crop", false);
         addKeyword(Keyword.PIPEWEED);
     }
 
