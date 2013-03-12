@@ -38,7 +38,7 @@ public class Card20_237 extends AbstractMinion {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (TriggerConditions.endOfPhase(game, effectResult, Phase.ASSIGNMENT)) {
+        if (TriggerConditions.startOfPhase(game, effectResult, Phase.MANEUVER)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new AddTwilightEffect(self, game.getGameState().getThreats()));
