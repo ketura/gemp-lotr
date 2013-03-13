@@ -33,7 +33,7 @@ public class Card20_430 extends AbstractSite {
 
     @Override
     public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canUseFPCardDuringPhase(game, Phase.FELLOWSHIP, self)
+        if (PlayConditions.canUseSiteDuringPhase(game, Phase.FELLOWSHIP, self)
                 && GameUtils.isFP(game, playerId)
             && PlayConditions.canExert(self, game, Race.ELF)) {
             ActivateCardAction action = new ActivateCardAction(self);
