@@ -14,7 +14,7 @@ public interface LotroFormat {
 
     public boolean hasMulliganRule();
 
-    public boolean winAtEndOfRegroup();
+    public boolean winWhenShadowReconciles();
 
     public boolean winOnControlling5Sites();
 

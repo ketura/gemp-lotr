@@ -65,7 +65,7 @@ public class DefaultLotroFormat implements LotroFormat {
     }
 
     @Override
-    public boolean winAtEndOfRegroup() {
+    public boolean winWhenShadowReconciles() {
         return _winAtEndOfRegroup;
     }
 
