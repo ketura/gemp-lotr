@@ -10,6 +10,7 @@ import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.modifiers.ModifierFlag;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.results.ReconcileResult;
 
 import java.util.List;
 
@@ -25,25 +26,30 @@ public class WinConditionRule {
                 new AbstractActionProxy() {
                     @Override
                     public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResults) {
-                        if (game.getFormat().winAtEndOfRegroup()
-                                && effectResults.getType() == EffectResult.Type.END_OF_PHASE
-                                && game.getGameState().getCurrentPhase() == Phase.REGROUP
-                                && game.getGameState().getCurrentSiteNumber() == 9)
-                            game.playerWon(game.getGameState().getCurrentPlayerId(), "Surviving to end of Regroup phase on site 9");
-                        else if (effectResults.getType() == EffectResult.Type.START_OF_PHASE
-                                && game.getGameState().getCurrentPhase() == Phase.REGROUP
-                                && game.getGameState().getCurrentSiteNumber() == 9
-                                && !game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.WIN_CHECK_AFTER_SHADOW_RECONCILE))
-                            game.playerWon(game.getGameState().getCurrentPlayerId(), "Surviving to Regroup phase on site 9");
-                        else if (game.getFormat().winOnControlling5Sites()
+                        if (game.getGameState().getCurrentPhase() == Phase.REGROUP
+                                && game.getGameState().getCurrentSiteNumber() == 9) {
+                            if (isWinAtReconcile(game)) {
+                                if (effectResults.getType() == EffectResult.Type.RECONCILE
+                                        && !((ReconcileResult) effectResults).getPlayerId().equals(game.getGameState().getCurrentPlayerId())) {
+                                    game.playerWon(game.getGameState().getCurrentPlayerId(), "Surviving till Shadow player reconciles on site 9");
+                                }
+                            } else if (effectResults.getType() == EffectResult.Type.START_OF_PHASE) {
+                                game.playerWon(game.getGameState().getCurrentPlayerId(), "Surviving to Regroup phase on site 9");
+                            }
+                        } else if (game.getFormat().winOnControlling5Sites()
                                 && effectResults.getType() == EffectResult.Type.TAKE_CONTROL_OF_SITE) {
                             for (String opponent : GameUtils.getOpponents(game, game.getGameState().getCurrentPlayerId())) {
-                                if (Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.SITE, Filters.siteControlled(opponent))>=5)
+                                if (Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.SITE, Filters.siteControlled(opponent)) >= 5)
                                     game.playerWon(opponent, "Controls 5 sites");
                             }
                         }
                         return null;
                     }
                 });
+    }
+
+    private boolean isWinAtReconcile(LotroGame game) {
+        return (game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.WIN_CHECK_AFTER_SHADOW_RECONCILE)
+                || game.getFormat().winWhenShadowReconciles());
     }
 }
