@@ -32,10 +32,9 @@ public class Card20_261 extends AbstractMinion{
         if (TriggerConditions.playedFromZone(game, effectResult, Zone.STACKED, Culture.MORIA, CardType.MINION)
                 && Filters.and(Culture.MORIA, CardType.CONDITION).accepts(game.getGameState(), game.getModifiersQuerying(), ((PlayCardResult) effectResult).getAttachedOrStackedPlayedFrom())) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
-            PhysicalCard playedCard = ((PlayCardResult) effectResult).getPlayedCard();
             action.appendEffect(
                     new AddUntilStartOfPhaseModifierEffect(
-                            new StrengthModifier(self, playedCard, 1), Phase.REGROUP));
+                            new StrengthModifier(self, self, 1), Phase.REGROUP));
             return Collections.singletonList(action);
         }
         return null;
