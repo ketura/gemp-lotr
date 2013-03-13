@@ -12,7 +12,7 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 
 /**
- * 3
+ * 4
  * •Ancient Chieftan, Elder Goblin
  * Moria	Minion • Goblin
  * 9	3	4
@@ -20,7 +20,7 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
  */
 public class Card20_250 extends AbstractMinion {
     public Card20_250() {
-        super(3, 9, 3, 4, Race.GOBLIN, Culture.MORIA, "Ancient Chieftain", "Elder Goblin", true);
+        super(4, 9, 3, 4, Race.GOBLIN, Culture.MORIA, "Ancient Chieftain", "Elder Goblin", true);
     }
 
     @Override
