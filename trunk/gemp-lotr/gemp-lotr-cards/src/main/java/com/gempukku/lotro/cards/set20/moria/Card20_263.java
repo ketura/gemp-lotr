@@ -19,11 +19,11 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
  */
 public class Card20_263 extends AbstractMinion {
     public Card20_263() {
-        super(5, 11, 3, 4, Race.GOBLIN, Culture.MORIA, "Goblin Patroller");
+        super(5, 11, 3, 4, Race.GOBLIN, Culture.MORIA, "Goblin Patrol");
     }
 
     @Override
     public int getTwilightCostModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
-        return -(new CountStackedEvaluator(Filters.and(Culture.MORIA, CardType.CONDITION), Filters.any).evaluateExpression(gameState, modifiersQuerying, self));
+        return -(new CountStackedEvaluator(Filters.and(Culture.MORIA, CardType.CONDITION), Race.GOBLIN).evaluateExpression(gameState, modifiersQuerying, self));
     }
 }
