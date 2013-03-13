@@ -36,7 +36,7 @@ public class Card20_147 extends AbstractEvent {
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Keyword.SOUTHRON));
         action.appendEffect(
-                new ChooseAndWoundCharactersEffect(action, playerId, 4, 4, Filters.unboundCompanion));
+                new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, 4, Filters.unboundCompanion));
         return action;
     }
 }
