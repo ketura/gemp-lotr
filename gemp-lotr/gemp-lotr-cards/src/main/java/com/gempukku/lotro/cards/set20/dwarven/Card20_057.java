@@ -57,7 +57,7 @@ public class Card20_057 extends AbstractCompanion {
             action.appendCost(
                     new SelfExertEffect(action, self));
             action.appendEffect(
-                    new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, new CardMatchesEvaluator(2, 3, Filters.gimli), Filters.not(self), Race.DWARF));
+                    new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, new CardMatchesEvaluator(2, 3, Filters.gimli), Race.DWARF));
             return Collections.singletonList(action);
         }
         return null;
