@@ -4,6 +4,7 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.results.DiscardCardsFromPlayResult;
@@ -17,7 +18,7 @@ public class LiberateASiteEffect extends AbstractEffect {
     private String _playerId;
 
     public LiberateASiteEffect(PhysicalCard source) {
-        _source = source;
+        this(source, source.getOwner());
     }
 
     public LiberateASiteEffect(PhysicalCard source, String playerId) {
@@ -62,30 +63,34 @@ public class LiberateASiteEffect extends AbstractEffect {
 
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
-        PhysicalCard siteToLiberate = getSiteToLiberate(game);
-        if (siteToLiberate != null) {
-            Set<PhysicalCard> cardsToRemove = new HashSet<PhysicalCard>();
-            Set<PhysicalCard> discardedCards = new HashSet<PhysicalCard>();
+        if (isPlayableInFull(game)) {
+            PhysicalCard siteToLiberate = getSiteToLiberate(game);
+            if (siteToLiberate != null) {
+                Set<PhysicalCard> cardsToRemove = new HashSet<PhysicalCard>();
+                Set<PhysicalCard> discardedCards = new HashSet<PhysicalCard>();
 
-            List<PhysicalCard> stackedCards = game.getGameState().getStackedCards(siteToLiberate);
-            cardsToRemove.addAll(stackedCards);
+                List<PhysicalCard> stackedCards = game.getGameState().getStackedCards(siteToLiberate);
+                cardsToRemove.addAll(stackedCards);
 
-            List<PhysicalCard> attachedCards = game.getGameState().getAttachedCards(siteToLiberate);
-            cardsToRemove.addAll(attachedCards);
-            discardedCards.addAll(attachedCards);
+                List<PhysicalCard> attachedCards = game.getGameState().getAttachedCards(siteToLiberate);
+                cardsToRemove.addAll(attachedCards);
+                discardedCards.addAll(attachedCards);
 
-            game.getGameState().removeCardsFromZone(_source.getOwner(), cardsToRemove);
-            for (PhysicalCard removedCard : cardsToRemove)
-                game.getGameState().addCardToZone(game, removedCard, Zone.DISCARD);
+                game.getGameState().removeCardsFromZone(_source.getOwner(), cardsToRemove);
+                for (PhysicalCard removedCard : cardsToRemove)
+                    game.getGameState().addCardToZone(game, removedCard, Zone.DISCARD);
 
-            game.getGameState().loseControlOfCard(siteToLiberate, Zone.ADVENTURE_PATH);
+                game.getGameState().loseControlOfCard(siteToLiberate, Zone.ADVENTURE_PATH);
 
-            for (PhysicalCard discardedCard : discardedCards)
-                game.getActionsEnvironment().emitEffectResult(new DiscardCardsFromPlayResult(null, discardedCard));
+                for (PhysicalCard discardedCard : discardedCards)
+                    game.getActionsEnvironment().emitEffectResult(new DiscardCardsFromPlayResult(null, discardedCard));
 
-            liberatedSiteCallback(siteToLiberate);
+                game.getGameState().sendMessage(_playerId + " liberated a " + GameUtils.getCardLink(siteToLiberate) + " using " + GameUtils.getCardLink(_source));
 
-            return new FullEffectResult(true);
+                liberatedSiteCallback(siteToLiberate);
+
+                return new FullEffectResult(true);
+            }
         }
         return new FullEffectResult(false);
     }
