@@ -43,7 +43,7 @@ public class Card20_226 extends AbstractMinion {
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.winsSkirmish(game, effectResult, self)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
-            int count = Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Race.HOBBIT);
+            int count = Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Race.HOBBIT, CardType.COMPANION);
             if (count > 0)
                 action.appendEffect(
                         new ChooseAndExertCharactersEffect(action, game.getGameState().getCurrentPlayerId(), count, count, CardType.COMPANION));
