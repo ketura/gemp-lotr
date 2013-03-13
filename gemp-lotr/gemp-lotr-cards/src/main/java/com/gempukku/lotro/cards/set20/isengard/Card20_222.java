@@ -20,7 +20,7 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
  */
 public class Card20_222 extends AbstractMinion {
     public Card20_222() {
-        super(4, 8, 2, 5, Race.URUK_HAI, Culture.ISENGARD, "Uruk Brute");
+        super(4, 9, 2, 5, Race.URUK_HAI, Culture.ISENGARD, "Uruk Brute");
         addKeyword(Keyword.DAMAGE, 1);
     }
 
