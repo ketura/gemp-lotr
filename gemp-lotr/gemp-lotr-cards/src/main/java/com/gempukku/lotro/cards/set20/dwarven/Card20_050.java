@@ -4,17 +4,12 @@ import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
-import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardStackedCardsEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndStackCardsFromHandEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
-import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.effects.DrawCardsEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collection;
@@ -45,37 +40,13 @@ public class Card20_050 extends AbstractCompanion {
                     new ChooseAndDiscardStackedCardsEffect(action, playerId, 1, 1, Filters.and(Culture.DWARVEN, CardType.CONDITION), Culture.DWARVEN) {
                         @Override
                         protected void discardingCardsCallback(Collection<PhysicalCard> cards) {
-                            if (cards.size()>0) {
+                            if (cards.size() > 0) {
                                 final PhysicalCard card = cards.iterator().next();
                                 action.appendEffect(
                                         new RemoveTwilightEffect(card.getBlueprint().getTwilightCost()));
                             }
                         }
                     });
-            return Collections.singletonList(action);
-        }
-        return null;
-    }
-
-    @Override
-    protected List<ActivateCardAction> getExtraInPlayPhaseActions(final String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canUseFPCardDuringPhase(game, Phase.FELLOWSHIP, self)
-                && PlayConditions.canSelfExert(self, game)
-                && PlayConditions.hasCardInHand(game, playerId, 1, Culture.DWARVEN, CardType.EVENT)
-                && PlayConditions.canSpot(game, Culture.DWARVEN, Keyword.SUPPORT_AREA, CardType.CONDITION)) {
-            final ActivateCardAction action = new ActivateCardAction(self);
-            action.appendCost(
-                    new SelfExertEffect(action, self));
-            action.appendCost(
-                    new ChooseActiveCardEffect(self, playerId, "Choose DWARVEN condition in your support area", Culture.DWARVEN, Keyword.SUPPORT_AREA, CardType.CONDITION) {
-                        @Override
-                        protected void cardSelected(LotroGame game, PhysicalCard card) {
-                            action.appendCost(
-                                    new ChooseAndStackCardsFromHandEffect(action, playerId, 1, 1, card, Culture.DWARVEN, CardType.EVENT));
-                        }
-                    });
-            action.appendEffect(
-                    new DrawCardsEffect(action, playerId, 1));
             return Collections.singletonList(action);
         }
         return null;
