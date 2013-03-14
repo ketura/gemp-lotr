@@ -38,7 +38,7 @@ public class Card20_269 extends AbstractMinion {
                     new ChooseArbitraryCardsEffect(playerId, "Choose card to play", game.getGameState().getDiscard(playerId),
                             Filters.and(
                                     Filters.weapon,
-                                    ExtraFilters.attachableTo(game, additionalAttachmentFilter)), 1, 1) {
+                                    ExtraFilters.attachableTo(game, additionalAttachmentFilter)), 1, 1, true) {
                         @Override
                         protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
                             if (selectedCards.size() > 0) {
