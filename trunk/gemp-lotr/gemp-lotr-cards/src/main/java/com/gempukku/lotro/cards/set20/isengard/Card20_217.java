@@ -46,11 +46,11 @@ public class Card20_217 extends AbstractEvent {
                                     protected void afterCardPlayed(PhysicalCard cardPlayed) {
                                         action.appendEffect(
                                                 new AddUntilStartOfPhaseModifierEffect(
-                                                        new KeywordModifier(self, cardPlayed, Keyword.FIERCE), Phase.MANEUVER));
+                                                        new KeywordModifier(self, cardPlayed, Keyword.FIERCE), Phase.REGROUP));
                                         if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), 6, CardType.COMPANION))
                                             action.appendEffect(
                                                     new AddUntilStartOfPhaseModifierEffect(
-                                                            new KeywordModifier(self, cardPlayed, Keyword.DAMAGE, 1), Phase.MANEUVER));
+                                                            new KeywordModifier(self, cardPlayed, Keyword.DAMAGE, 1), Phase.REGROUP));
                                     }
                                 });
                     }
