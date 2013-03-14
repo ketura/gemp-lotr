@@ -37,7 +37,7 @@ public class Card20_334 extends AbstractAttachableFPPossession {
                 && PlayConditions.isActive(game, Filters.hasAttached(self), Filters.inSkirmish)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new ExertCharactersEffect(action, self, CardType.MINION, Filters.not(Filters.mounted)));
+                    new ExertCharactersEffect(action, self, CardType.MINION, Filters.not(Filters.mounted), Filters.inSkirmish));
             return Collections.singletonList(action);
         }
         return null;
