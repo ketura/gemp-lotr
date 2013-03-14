@@ -20,7 +20,7 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
  */
 public class Card20_223 extends AbstractMinion {
     public Card20_223() {
-        super(4, 8, 2, 5, Race.URUK_HAI, Culture.ISENGARD, "Uruk Bloodfiend");
+        super(4, 9, 2, 5, Race.URUK_HAI, Culture.ISENGARD, "Uruk Bloodfiend");
         addKeyword(Keyword.DAMAGE, 1);
     }
 
