@@ -46,12 +46,16 @@ public class Card20_010 extends AbstractMinion {
                     new ChooseActiveCardEffect(self, playerId, "Choose a companion", CardType.COMPANION, Filters.not(Filters.ringBearer)) {
                         @Override
                         protected void cardSelected(LotroGame game, final PhysicalCard companion) {
+                            final int companionId = companion.getCardId();
+                            final int minionId = self.getCardId();
                             action.appendEffect(
                                     new AddUntilEndOfPhaseActionProxyEffect(
                                             new AbstractActionProxy() {
                                                 @Override
                                                 public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult) {
-                                                    if (TriggerConditions.startOfPhase(game, effectResult, Phase.ASSIGNMENT)) {
+                                                    if (TriggerConditions.startOfPhase(game, effectResult, Phase.ASSIGNMENT)
+                                                            && PlayConditions.isActive(game, companion) && companion.getCardId() == companionId
+                                                            && PlayConditions.isActive(game, self) && self.getCardId() == minionId) {
                                                         RequiredTriggerAction action = new RequiredTriggerAction(self);
                                                         action.appendEffect(
                                                                 new AssignmentEffect(playerId, companion, self));
