@@ -4,6 +4,7 @@ import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
 import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
@@ -28,7 +29,7 @@ public class Card20_198 extends AbstractPermanent {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (TriggerConditions.winsSkirmish(game, effectResult, Culture.GONDOR, Keyword.RANGER)) {
+        if (TriggerConditions.winsSkirmishInvolving(game, effectResult, Filters.and(Culture.GONDOR, Keyword.RANGER), Filters.and(CardType.MINION, Keyword.ROAMING))) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new HealCharactersEffect(self, ((CharacterWonSkirmishResult) effectResult).getWinner()));
