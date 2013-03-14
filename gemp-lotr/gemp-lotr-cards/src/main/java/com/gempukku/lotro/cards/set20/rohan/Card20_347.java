@@ -17,7 +17,7 @@ import com.gempukku.lotro.game.state.LotroGame;
  */
 public class Card20_347 extends AbstractEvent {
     public Card20_347() {
-        super(Side.FREE_PEOPLE, 0, Culture.ROHAN, "To Whatever End", Phase.REGROUP);
+        super(Side.FREE_PEOPLE, 0, Culture.ROHAN, "To Whatever End", Phase.SKIRMISH);
     }
 
     @Override
