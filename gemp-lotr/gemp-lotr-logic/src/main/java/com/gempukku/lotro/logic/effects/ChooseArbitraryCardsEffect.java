@@ -16,6 +16,7 @@ import java.util.HashSet;
 public abstract class ChooseArbitraryCardsEffect extends AbstractEffect {
     private String _playerId;
     private String _choiceText;
+    private boolean _showMatchingOnly;
     private Collection<PhysicalCard> _cards;
     private Filterable _filter;
     private int _minimum;
@@ -26,8 +27,13 @@ public abstract class ChooseArbitraryCardsEffect extends AbstractEffect {
     }
 
     public ChooseArbitraryCardsEffect(String playerId, String choiceText, Collection<? extends PhysicalCard> cards, Filterable filter, int minimum, int maximum) {
+        this(playerId, choiceText, cards, filter, minimum, maximum, false);
+    }
+
+    public ChooseArbitraryCardsEffect(String playerId, String choiceText, Collection<? extends PhysicalCard> cards, Filterable filter, int minimum, int maximum, boolean showMatchingOnly) {
         _playerId = playerId;
         _choiceText = choiceText;
+        _showMatchingOnly = showMatchingOnly;
         _cards = new HashSet<PhysicalCard>(cards);
         _filter = filter;
         _minimum = minimum;
@@ -65,8 +71,12 @@ public abstract class ChooseArbitraryCardsEffect extends AbstractEffect {
         } else if (possibleCards.size() == minimum) {
             cardsSelected(game, possibleCards);
         } else {
+            Collection<PhysicalCard> toShow = _cards;
+            if (_showMatchingOnly)
+                toShow = possibleCards;
+
             game.getUserFeedback().sendAwaitingDecision(_playerId,
-                    new ArbitraryCardsSelectionDecision(1, _choiceText, _cards, possibleCards, _minimum, _maximum) {
+                    new ArbitraryCardsSelectionDecision(1, _choiceText, toShow, possibleCards, _minimum, _maximum) {
                         @Override
                         public void decisionMade(String result) throws DecisionResultInvalidException {
                             cardsSelected(game, getSelectedCardsByResponse(result));
