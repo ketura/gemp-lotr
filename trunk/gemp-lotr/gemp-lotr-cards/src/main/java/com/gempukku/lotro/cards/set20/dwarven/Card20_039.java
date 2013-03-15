@@ -35,7 +35,7 @@ public class Card20_039 extends AbstractEvent{
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.DWARF));
         action.appendEffect(
-                new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, Race.GOBLIN));
+                new ChooseAndWoundCharactersEffect(action, playerId, 1, 2, Race.GOBLIN));
         return action;
     }
 }
