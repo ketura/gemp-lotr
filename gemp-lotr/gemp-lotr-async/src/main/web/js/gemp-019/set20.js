@@ -7,7 +7,7 @@ var set20 = {
     '20_6': 'http://lotrtcg.org/coreset/dunland/dunlendingclansman(r1).png',
     '20_7': 'http://lotrtcg.org/coreset/dunland/dunlendingveteran(r1).png',
     '20_8': 'http://lotrtcg.org/coreset/dunland/dunlendinghorde(r1).png',
-    '20_9': 'http://lotrtcg.org/coreset/dunland/dunlendingplunderer.png',
+    '20_9': 'http://lotrtcg.org/coreset/dunland/dunlendingplunderer(r1).png',
     '20_10': 'http://lotrtcg.org/coreset/dunland/dunlendingruffian.png',
     '20_11': 'http://lotrtcg.org/coreset/dunland/dunlendingbrute.png',
     '20_12': 'http://lotrtcg.org/coreset/dunland/dunlendingraider',
