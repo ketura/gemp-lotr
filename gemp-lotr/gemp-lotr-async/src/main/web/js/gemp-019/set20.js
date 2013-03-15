@@ -55,7 +55,7 @@ var set20 = {
     '20_54': 'http://lotrtcg.org/coreset/dwarven/gimlisp.png',
     '20_55': 'http://lotrtcg.org/coreset/dwarven/gimlisbattleaxewoe.png',
     '20_56': 'http://lotrtcg.org/coreset/dwarven/gimlispipe.png',
-    '20_57': 'http://lotrtcg.org/coreset/dwarven/gloinvd.png',
+    '20_57': 'http://lotrtcg.org/coreset/dwarven/gloinvd(r1).png',
     '20_58': 'http://lotrtcg.org/coreset/dwarven/handaxe.png',
     '20_59': 'http://lotrtcg.org/coreset/dwarven/killingblow.png',
     '20_60': 'http://lotrtcg.org/coreset/dwarven/lethalstrike.png',
