@@ -20,14 +20,15 @@ import java.util.List;
 /**
  * 4
  * Dunlending Clansman
- * Dunland	Minion • Man
- * 11	1	3
- * When you play Dunlending Clansman, you may discard a [Dunland] card from hand. If you do, Dunlending Clansman
- * may not take wounds until the regroup phase.
+ * Minion • Man
+ * 10	1	3
+ * When you play this minion, you may discard a [Dunland] card from hand. If you do, this minion may not take wounds
+ * until the regroup phase.
+ * http://lotrtcg.org/coreset/dunland/dunlendingclansman(r1).png
  */
 public class Card20_006 extends AbstractMinion {
     public Card20_006() {
-        super(4, 11, 1, 3, Race.MAN, Culture.DUNLAND, "Dunlending Clansman");
+        super(4, 10, 1, 3, Race.MAN, Culture.DUNLAND, "Dunlending Clansman");
     }
 
     @Override
