@@ -19,15 +19,16 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * 1
- * Westfold in Flames
- * Dunland	Condition • Support Area
+ * 3
+ * •Westfold in Flames
+ * Condition • Support Area
  * Each time you discard a [Dunland] card from hand during the Shadow phase, you may stack that card here.
  * Shadow or Skirmish: Spot 3 [Dunland] cards stacked here to play a card stacked here as if from hand.
+ * http://lotrtcg.org/coreset/dunland/westfoldinflames(r1).png
  */
 public class Card20_034 extends AbstractPermanent {
     public Card20_034() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.DUNLAND, Zone.SUPPORT, "Westfold in Flames");
+        super(Side.SHADOW, 3, CardType.CONDITION, Culture.DUNLAND, Zone.SUPPORT, "Westfold in Flames", null, true);
     }
 
     @Override

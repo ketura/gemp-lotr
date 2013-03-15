@@ -32,7 +32,7 @@ var set20 = {
     '20_31': 'http://lotrtcg.org/coreset/dunland/hillmanaxe.png',
     '20_32': 'http://lotrtcg.org/coreset/dunland/hides.png',
     '20_33': 'http://lotrtcg.org/coreset/dunland/bloodoath.png',
-    '20_34': 'http://lotrtcg.org/coreset/dunland/westfoldinflames.png',
+    '20_34': 'http://lotrtcg.org/coreset/dunland/westfoldinflames(r1).png',
     '20_35': 'http://lotrtcg.org/coreset/dunland/wilyhillmen.png',
     '20_36': 'http://lotrtcg.org/coreset/dunland/takebackyourlands.png',
     '20_37': 'http://lotrtcg.org/coreset/dunland/crebainspies.png',
