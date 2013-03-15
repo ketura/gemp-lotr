@@ -25,14 +25,15 @@ import java.util.List;
 /**
  * 4
  * • Dunlending Ruffian
- * Dunland	Minion • Man
- * 10	2	3
- * When you play Dunlending Ruffian, you may discard a [Dunland] card from hand. If you do, spot a companion
- * (except the Ring-bearer.) At the beginning of the next Assignment phase, assign this minion to the companion.
+ * Minion • Man
+ * 9	2	3
+ * When you play this minion, you may discard a [Dunland] card from hand. If you do, spot a companion (except
+ * the Ring-bearer). At the start of the next assignment phase, assign this minion to that companion.
+ * http://lotrtcg.org/coreset/dunland/dunlendingruffian(r1).png
  */
 public class Card20_010 extends AbstractMinion {
     public Card20_010() {
-        super(4, 10, 2, 3, Race.MAN, Culture.DUNLAND, "Dunlending Ruffian", null, true);
+        super(4, 9, 2, 3, Race.MAN, Culture.DUNLAND, "Dunlending Ruffian", null, true);
     }
 
     @Override
