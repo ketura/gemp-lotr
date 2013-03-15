@@ -21,11 +21,12 @@ import java.util.List;
 /**
  * 4
  * • Freca, Oathsworn Savage
- * Dunland	Minion • Man
+ * Minion • Man
  * 9	1	3
  * While you can spot Saruman, Freca's twilight cost is -2.
- * Maneuver or Regroup: Stack Freca on a site you control.
  * Shadow: If stacked on a site you control, spot Saruman or a [Dunland] Man to play Freca; his twilight cost is -2.
+ * Regroup: Stack Freca on a site you control.
+ * http://lotrtcg.org/coreset/dunland/frecaos(r1).png
  */
 public class Card20_020 extends AbstractMinion {
     public Card20_020() {
@@ -41,8 +42,7 @@ public class Card20_020 extends AbstractMinion {
 
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
-        if ((PlayConditions.canUseShadowCardDuringPhase(game, Phase.REGROUP, self, 0)
-                || PlayConditions.canUseShadowCardDuringPhase(game, Phase.MANEUVER, self, 0))) {
+        if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.REGROUP, self, 0)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose site you control", Filters.siteControlled(playerId)) {
