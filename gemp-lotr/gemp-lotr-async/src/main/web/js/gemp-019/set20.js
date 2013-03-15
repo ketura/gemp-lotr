@@ -46,7 +46,7 @@ var set20 = {
     '20_45': 'http://lotrtcg.org/coreset/dwarven/dwarvenbracers.png',
     '20_46': 'http://lotrtcg.org/coreset/dwarven/dwarvenfrenzy.png',
     '20_47': 'http://lotrtcg.org/coreset/dwarven/dwarvenire.png',
-    '20_48': 'http://lotrtcg.org/coreset/dwarven/dwarvenvigor.png',
+    '20_48': 'http://lotrtcg.org/coreset/dwarven/dwarvenvigor(r1).png',
     '20_49': 'http://lotrtcg.org/coreset/dwarven/enduranceofdwarves.png',
     '20_50': 'http://lotrtcg.org/coreset/dwarven/farindoe.png',
     '20_51': 'http://lotrtcg.org/coreset/dwarven/festivefolk.png',
