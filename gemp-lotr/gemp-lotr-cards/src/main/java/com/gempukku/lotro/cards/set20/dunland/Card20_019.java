@@ -19,14 +19,15 @@ import java.util.List;
 /**
  * 3
  * Hillman Warrior
- * Dunland	Minion • Man
- * 9	1	3
- * While a [Dunland] Man is stacked on a site you control, this minion is strength +3, damage +1 and may only
- * take wounds during skirmishes.
+ * Minion • Man
+ * 8	1	3
+ * While a [Dunland] Man is stacked on a site you control, this minion is strength +2, damage +1 and may only take wounds
+ * during skirmishes.
+ * http://lotrtcg.org/coreset/dunland/hillmanwarrior(r1).png
  */
 public class Card20_019 extends AbstractMinion {
     public Card20_019() {
-        super(3, 9, 1, 3, Race.MAN, Culture.DUNLAND, "Hillman Warrior");
+        super(3, 8, 1, 3, Race.MAN, Culture.DUNLAND, "Hillman Warrior");
     }
 
     @Override
@@ -34,7 +35,7 @@ public class Card20_019 extends AbstractMinion {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         SpotCondition condition = new SpotCondition(Filters.siteControlled(self.getOwner()), Filters.hasStacked(Culture.DUNLAND, Race.MAN));
         modifiers.add(
-                new StrengthModifier(self, self, condition, 3));
+                new StrengthModifier(self, self, condition, 2));
         modifiers.add(
                 new KeywordModifier(self, self, condition, Keyword.DAMAGE, 1));
         modifiers.add(
