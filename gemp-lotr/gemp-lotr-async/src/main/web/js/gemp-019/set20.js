@@ -41,7 +41,7 @@ var set20 = {
     '20_40': 'http://lotrtcg.org/coreset/dwarven/battlefever.png',
     '20_41': 'http://lotrtcg.org/coreset/dwarven/battletested.png',
     '20_42': 'http://lotrtcg.org/coreset/dwarven/brothersinarms.png',
-    '20_43': 'http://lotrtcg.org/coreset/dwarven/crushingblow.png',
+    '20_43': 'http://lotrtcg.org/coreset/dwarven/crushingblow(r1).png',
     '20_44': 'http://lotrtcg.org/coreset/dwarven/dwarvenaxe.png',
     '20_45': 'http://lotrtcg.org/coreset/dwarven/dwarvenbracers.png',
     '20_46': 'http://lotrtcg.org/coreset/dwarven/dwarvenfrenzy.png',
