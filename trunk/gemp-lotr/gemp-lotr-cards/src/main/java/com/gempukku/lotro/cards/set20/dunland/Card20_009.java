@@ -21,14 +21,15 @@ import java.util.List;
 /**
  * 3
  * Dunlending Plunderer
- * Dunland	Minion • Man
- * 9	1	3
- * When you play Dunlending Plunder, you may discard a [Dunland] card from hand and spot another [Dunland] man
- * to discard a Free Peoples possession.
+ * Minion • Man
+ * 8	1	3
+ * When you play this minion, you may discard a [Dunland] card from hand and spot another [Dunland] Man to discard
+ * a Free Peoples possession.
+ * http://lotrtcg.org/coreset/dunland/dunlendingplunderer(r1).png
  */
 public class Card20_009 extends AbstractMinion {
     public Card20_009() {
-        super(3, 9, 1, 3, Race.MAN, Culture.DUNLAND, "Dunlending Plunderer");
+        super(3, 8, 1, 3, Race.MAN, Culture.DUNLAND, "Dunlending Plunderer");
     }
 
     @Override
