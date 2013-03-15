@@ -1,6 +1,8 @@
 package com.gempukku.lotro.db;
 
 import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.game.CardNotFoundException;
+import com.gempukku.lotro.game.LotroCardBlueprint;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.game.Player;
 import com.gempukku.lotro.logic.vo.LotroDeck;
@@ -134,10 +136,16 @@ public class DbDeckDAO implements DeckDAO {
             if (ring.length() > 0)
                 lotroDeck.setRing(ring);
             for (String blueprintId : cardsList.subList(2, cardsList.size())) {
-                if (_library.getLotroCardBlueprint(blueprintId).getCardType() == CardType.SITE)
-                    lotroDeck.addSite(blueprintId);
-                else
-                    lotroDeck.addCard(blueprintId);
+                final LotroCardBlueprint cardBlueprint;
+                try {
+                    cardBlueprint = _library.getLotroCardBlueprint(blueprintId);
+                    if (cardBlueprint.getCardType() == CardType.SITE)
+                        lotroDeck.addSite(blueprintId);
+                    else
+                        lotroDeck.addCard(blueprintId);
+                } catch (CardNotFoundException e) {
+                    // Ignore the card
+                }
             }
 
             return lotroDeck;

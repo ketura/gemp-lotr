@@ -2,6 +2,7 @@ package com.gempukku.lotro.at;
 
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Zone;
+import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import org.junit.Test;
@@ -14,7 +15,7 @@ import static junit.framework.Assert.assertEquals;
 
 public class DeathAtTest extends AbstractAtTest {
     @Test
-    public void charactersDontDieIfPrintedVitalityEqualToWoundsButCurrentVitalityMoreThanZero() throws DecisionResultInvalidException {
+    public void charactersDontDieIfPrintedVitalityEqualToWoundsButCurrentVitalityMoreThanZero() throws DecisionResultInvalidException, CardNotFoundException {
         Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
         initializeSimplestGame(extraCards);
 
@@ -55,7 +56,7 @@ public class DeathAtTest extends AbstractAtTest {
     }
 
     @Test
-    public void charactersDieIfCurrentVitalityIsZero() throws DecisionResultInvalidException {
+    public void charactersDieIfCurrentVitalityIsZero() throws DecisionResultInvalidException, CardNotFoundException {
         Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
         initializeSimplestGame(extraCards);
 

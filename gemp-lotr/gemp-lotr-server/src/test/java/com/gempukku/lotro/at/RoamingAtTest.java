@@ -5,6 +5,7 @@ import com.gempukku.lotro.cards.modifiers.RoamingPenaltyModifier;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Zone;
+import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.AwaitingDecision;
 import com.gempukku.lotro.logic.decisions.AwaitingDecisionType;
@@ -22,7 +23,7 @@ import static org.junit.Assert.assertTrue;
 
 public class RoamingAtTest extends AbstractAtTest {
     @Test
-    public void cantPlayRoamingMinionIfNotEnoughTwilight() throws DecisionResultInvalidException {
+    public void cantPlayRoamingMinionIfNotEnoughTwilight() throws DecisionResultInvalidException, CardNotFoundException {
         Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
         initializeSimplestGame(extraCards);
 
@@ -46,7 +47,7 @@ public class RoamingAtTest extends AbstractAtTest {
     }
 
     @Test
-    public void payingForRoamingMinionDefaultRoamingPenalty() throws DecisionResultInvalidException {
+    public void payingForRoamingMinionDefaultRoamingPenalty() throws DecisionResultInvalidException, CardNotFoundException {
         Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
         initializeSimplestGame(extraCards);
 
@@ -75,7 +76,7 @@ public class RoamingAtTest extends AbstractAtTest {
     }
 
     @Test
-    public void payingForRoamingMinionDiscountRoamingPenalty() throws DecisionResultInvalidException {
+    public void payingForRoamingMinionDiscountRoamingPenalty() throws DecisionResultInvalidException, CardNotFoundException {
         Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
         initializeSimplestGame(extraCards);
 
@@ -106,7 +107,7 @@ public class RoamingAtTest extends AbstractAtTest {
     }
 
     @Test
-    public void payingForRoamingMinionNotRoamingModifier() throws DecisionResultInvalidException {
+    public void payingForRoamingMinionNotRoamingModifier() throws DecisionResultInvalidException, CardNotFoundException {
         Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
         initializeSimplestGame(extraCards);
 
@@ -137,7 +138,7 @@ public class RoamingAtTest extends AbstractAtTest {
     }
 
     @Test
-    public void payingForRoamingMinionSiteNumberModifier() throws DecisionResultInvalidException {
+    public void payingForRoamingMinionSiteNumberModifier() throws DecisionResultInvalidException, CardNotFoundException {
         Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
         initializeSimplestGame(extraCards);
 
@@ -168,7 +169,7 @@ public class RoamingAtTest extends AbstractAtTest {
     }
 
     @Test
-    public void payingForRoamingMinionSiteNumberModifierNotEnough() throws DecisionResultInvalidException {
+    public void payingForRoamingMinionSiteNumberModifierNotEnough() throws DecisionResultInvalidException, CardNotFoundException {
         Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
         initializeSimplestGame(extraCards);
 
@@ -199,7 +200,7 @@ public class RoamingAtTest extends AbstractAtTest {
     }
 
     @Test
-    public void payingForRoamingMinionWithoutRoamingPenalty() throws DecisionResultInvalidException {
+    public void payingForRoamingMinionWithoutRoamingPenalty() throws DecisionResultInvalidException, CardNotFoundException {
         Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
         initializeSimplestGame(extraCards);
 

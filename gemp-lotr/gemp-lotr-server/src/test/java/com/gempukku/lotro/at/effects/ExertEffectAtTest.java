@@ -5,6 +5,7 @@ import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filters;
+import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
@@ -15,7 +16,7 @@ import static org.junit.Assert.assertFalse;
 
 public class ExertEffectAtTest extends AbstractAtTest {
     @Test
-    public void chooseAndExertTwiceAndCanOnlyOnce() throws DecisionResultInvalidException {
+    public void chooseAndExertTwiceAndCanOnlyOnce() throws DecisionResultInvalidException, CardNotFoundException {
         initializeSimplestGame();
 
         skipMulligans();

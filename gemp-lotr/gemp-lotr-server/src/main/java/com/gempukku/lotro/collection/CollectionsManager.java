@@ -45,12 +45,16 @@ public class CollectionsManager {
                 final Set<String> allCards = setDefinition.getAllCards();
                 for (String blueprintId : allCards) {
                     if (lotroCardBlueprintLibrary.getBaseBlueprintId(blueprintId).equals(blueprintId)) {
-                        LotroCardBlueprint cardBlueprint = lotroCardBlueprintLibrary.getLotroCardBlueprint(blueprintId);
-                        CardType cardType = cardBlueprint.getCardType();
-                        if (cardType == CardType.SITE || cardType == CardType.THE_ONE_RING)
-                            _defaultCollection.addItem(blueprintId, 1);
-                        else
-                            _defaultCollection.addItem(blueprintId, 4);
+                        try {
+                            LotroCardBlueprint cardBlueprint = lotroCardBlueprintLibrary.getLotroCardBlueprint(blueprintId);
+                            CardType cardType = cardBlueprint.getCardType();
+                            if (cardType == CardType.SITE || cardType == CardType.THE_ONE_RING)
+                                _defaultCollection.addItem(blueprintId, 1);
+                            else
+                                _defaultCollection.addItem(blueprintId, 4);
+                        } catch (CardNotFoundException exp) {
+                            throw new RuntimeException("Unable to start the server, due to invalid (missing) card definition - " + blueprintId);
+                        }
                     }
                 }
             }

@@ -4,10 +4,7 @@ import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.game.DeckInvalidException;
-import com.gempukku.lotro.game.LotroCardBlueprint;
-import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
-import com.gempukku.lotro.game.LotroFormat;
+import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 
@@ -157,18 +154,22 @@ public class DefaultLotroFormat implements LotroFormat {
     @Override
     public void validateCard(String blueprintId) throws DeckInvalidException {
         blueprintId = _library.getBaseBlueprintId(blueprintId);
+        try {
+            _library.getLotroCardBlueprint(blueprintId);
+            if (_validCards.contains(blueprintId))
+                return;
 
-        if (_validCards.contains(blueprintId))
-            return;
+            if (_validSets.size() > 0 && !isValidInSets(blueprintId))
+                throw new DeckInvalidException("Deck contains card not from valid set: " + GameUtils.getFullName(_library.getLotroCardBlueprint(blueprintId)));
 
-        if (_validSets.size() > 0 && !isValidInSets(blueprintId))
-            throw new DeckInvalidException("Deck contains card not from valid set: " + GameUtils.getFullName(_library.getLotroCardBlueprint(blueprintId)));
-
-        // Banned cards
-        Set<String> allAlternates = _library.getAllAlternates(blueprintId);
-        for (String bannedBlueprintId : _bannedCards) {
-            if (bannedBlueprintId.equals(blueprintId) || (allAlternates != null && allAlternates.contains(bannedBlueprintId)))
-                throw new DeckInvalidException("Deck contains a copy of an X-listed card: " + GameUtils.getFullName(_library.getLotroCardBlueprint(bannedBlueprintId)));
+            // Banned cards
+            Set<String> allAlternates = _library.getAllAlternates(blueprintId);
+            for (String bannedBlueprintId : _bannedCards) {
+                if (bannedBlueprintId.equals(blueprintId) || (allAlternates != null && allAlternates.contains(bannedBlueprintId)))
+                    throw new DeckInvalidException("Deck contains a copy of an X-listed card: " + GameUtils.getFullName(_library.getLotroCardBlueprint(bannedBlueprintId)));
+            }
+        } catch (CardNotFoundException e) {
+            // Ignore this card
         }
     }
 
@@ -184,44 +185,13 @@ public class DefaultLotroFormat implements LotroFormat {
     public void validateDeck(LotroDeck deck) throws DeckInvalidException {
         try {
             // Ring-bearer
-            if (deck.getRingBearer() == null)
-                throw new DeckInvalidException("Deck doesn't have a Ring-bearer");
-            LotroCardBlueprint ringBearer = _library.getLotroCardBlueprint(deck.getRingBearer());
-            if (!ringBearer.hasKeyword(Keyword.CAN_START_WITH_RING))
-                throw new DeckInvalidException("Card assigned as Ring-bearer can not bear the ring");
+            validateRingBearer(deck);
 
             // Ring
-            if (deck.getRing() == null)
-                throw new DeckInvalidException("Deck doesn't have a Ring");
-            LotroCardBlueprint ring = _library.getLotroCardBlueprint(deck.getRing());
-            if (ring.getCardType() != CardType.THE_ONE_RING)
-                throw new DeckInvalidException("Card assigned as Ring is not The One Ring");
+            validateRing(deck);
 
             // Sites
-            if (deck.getSites() == null)
-                throw new DeckInvalidException("Deck doesn't have sites");
-            if (deck.getSites().size() != 9)
-                throw new DeckInvalidException("Deck doesn't have nine sites");
-            for (String site : deck.getSites()) {
-                LotroCardBlueprint siteBlueprint = _library.getLotroCardBlueprint(site);
-                if (siteBlueprint.getCardType() != CardType.SITE)
-                    throw new DeckInvalidException("Card assigned as Site is not really a site");
-                if (siteBlueprint.getSiteBlock() != _siteBlock && _siteBlock != Block.SPECIAL)
-                    throw new DeckInvalidException("Invalid site: " + GameUtils.getFullName(siteBlueprint));
-                if (_siteBlock == Block.SPECIAL && siteBlueprint.getSiteBlock() == Block.SHADOWS)
-                    throw new DeckInvalidException("Invalid site: " + GameUtils.getFullName(siteBlueprint));
-            }
-            if (_siteBlock == Block.SPECIAL) {
-                Block usedBlock = null;
-                for (String site : deck.getSites()) {
-                    LotroCardBlueprint siteBlueprint = _library.getLotroCardBlueprint(site);
-                    Block block = siteBlueprint.getSiteBlock();
-                    if (usedBlock == null)
-                        usedBlock = block;
-                    else if (usedBlock != block)
-                        throw new DeckInvalidException("All your sites have to be from the same block");
-                }
-            }
+            validateSites(deck);
 
             validateCard(deck.getRingBearer());
             validateCard(deck.getRing());
@@ -230,55 +200,10 @@ public class DefaultLotroFormat implements LotroFormat {
             for (String card : deck.getAdventureCards())
                 validateCard(card);
 
-            if (isOrderedSites()) {
-                boolean[] sites = new boolean[9];
-                for (String site : deck.getSites()) {
-                    LotroCardBlueprint blueprint = _library.getLotroCardBlueprint(site);
-                    if (sites[blueprint.getSiteNumber() - 1])
-                        throw new DeckInvalidException("Deck has multiple of the same site number: " + blueprint.getSiteNumber());
-                    sites[blueprint.getSiteNumber() - 1] = true;
-                }
-            } else {
-                Set<LotroCardBlueprint> siteBlueprints = new HashSet<LotroCardBlueprint>();
-                for (String site : deck.getSites())
-                    siteBlueprints.add(_library.getLotroCardBlueprint(site));
-
-                if (siteBlueprints.size() < 9)
-                    throw new DeckInvalidException("Deck contains multiple of the same site");
-
-                Map<Integer, Integer> twilightCount = new HashMap<Integer, Integer>();
-                for (LotroCardBlueprint siteBlueprint : siteBlueprints) {
-                    int twilight = siteBlueprint.getTwilightCost();
-                    Integer count = twilightCount.get(twilight);
-                    if (count == null)
-                        count = 0;
-                    twilightCount.put(twilight, count + 1);
-                }
-
-                for (Map.Entry<Integer, Integer> twilightCountEntry : twilightCount.entrySet()) {
-                    if (twilightCountEntry.getValue() > 3)
-                        throw new DeckInvalidException("Deck contains " + twilightCountEntry.getValue() + " sites with twilight number of " + twilightCountEntry.getKey());
-                }
-            }
+            validateSitesStructure(deck);
 
             // Deck
-            if (deck.getAdventureCards().size() < _minimumDeckSize)
-                throw new DeckInvalidException("Deck contains below minimum number of cards: " + deck.getAdventureCards().size() + "<" + _minimumDeckSize);
-            if (_validateShadowFPCount) {
-                int shadow = 0;
-                int fp = 0;
-                for (String blueprintId : deck.getAdventureCards()) {
-                    LotroCardBlueprint card = _library.getLotroCardBlueprint(blueprintId);
-                    if (card.getSide() == Side.SHADOW)
-                        shadow++;
-                    else if (card.getSide() == Side.FREE_PEOPLE)
-                        fp++;
-                    else
-                        throw new DeckInvalidException("Deck contains non-shadow, non-free-people card");
-                }
-                if (fp != shadow)
-                    throw new DeckInvalidException("Deck contains different number of shadow and free people cards");
-            }
+            validateDeckStructure(deck);
 
             // Card count in deck and Ring-bearer
             Map<String, Integer> cardCountByName = new HashMap<String, Integer>();
@@ -302,13 +227,110 @@ public class DefaultLotroFormat implements LotroFormat {
                 if (count != null && count > 1)
                     throw new DeckInvalidException("Deck contains more than one copy of an R-listed card: " + GameUtils.getFullName(_library.getLotroCardBlueprint(blueprintId)));
             }
-
+        } catch (CardNotFoundException exp) {
+            throw new DeckInvalidException("Deck contains card removed from the set");
         } catch (IllegalArgumentException exp) {
             throw new DeckInvalidException("Deck contains unrecognizable card");
         }
     }
 
-    private void processCardCounts(String blueprintId, Map<String, Integer> cardCountByName, Map<String, Integer> cardCountByBaseBlueprintId) {
+    private void validateDeckStructure(LotroDeck deck) throws DeckInvalidException, CardNotFoundException {
+        if (deck.getAdventureCards().size() < _minimumDeckSize)
+            throw new DeckInvalidException("Deck contains below minimum number of cards: " + deck.getAdventureCards().size() + "<" + _minimumDeckSize);
+        if (_validateShadowFPCount) {
+            int shadow = 0;
+            int fp = 0;
+            for (String blueprintId : deck.getAdventureCards()) {
+                LotroCardBlueprint card = _library.getLotroCardBlueprint(blueprintId);
+                if (card.getSide() == Side.SHADOW)
+                    shadow++;
+                else if (card.getSide() == Side.FREE_PEOPLE)
+                    fp++;
+                else
+                    throw new DeckInvalidException("Deck contains non-shadow, non-free-people card");
+            }
+            if (fp != shadow)
+                throw new DeckInvalidException("Deck contains different number of shadow and free people cards");
+        }
+    }
+
+    private void validateSitesStructure(LotroDeck deck) throws CardNotFoundException, DeckInvalidException {
+        if (isOrderedSites()) {
+            boolean[] sites = new boolean[9];
+            for (String site : deck.getSites()) {
+                LotroCardBlueprint blueprint = _library.getLotroCardBlueprint(site);
+                if (sites[blueprint.getSiteNumber() - 1])
+                    throw new DeckInvalidException("Deck has multiple of the same site number: " + blueprint.getSiteNumber());
+                sites[blueprint.getSiteNumber() - 1] = true;
+            }
+        } else {
+            Set<LotroCardBlueprint> siteBlueprints = new HashSet<LotroCardBlueprint>();
+            for (String site : deck.getSites())
+                siteBlueprints.add(_library.getLotroCardBlueprint(site));
+
+            if (siteBlueprints.size() < 9)
+                throw new DeckInvalidException("Deck contains multiple of the same site");
+
+            Map<Integer, Integer> twilightCount = new HashMap<Integer, Integer>();
+            for (LotroCardBlueprint siteBlueprint : siteBlueprints) {
+                int twilight = siteBlueprint.getTwilightCost();
+                Integer count = twilightCount.get(twilight);
+                if (count == null)
+                    count = 0;
+                twilightCount.put(twilight, count + 1);
+            }
+
+            for (Map.Entry<Integer, Integer> twilightCountEntry : twilightCount.entrySet()) {
+                if (twilightCountEntry.getValue() > 3)
+                    throw new DeckInvalidException("Deck contains " + twilightCountEntry.getValue() + " sites with twilight number of " + twilightCountEntry.getKey());
+            }
+        }
+    }
+
+    private void validateSites(LotroDeck deck) throws DeckInvalidException, CardNotFoundException {
+        if (deck.getSites() == null)
+            throw new DeckInvalidException("Deck doesn't have sites");
+        if (deck.getSites().size() != 9)
+            throw new DeckInvalidException("Deck doesn't have nine sites");
+        for (String site : deck.getSites()) {
+            LotroCardBlueprint siteBlueprint = _library.getLotroCardBlueprint(site);
+            if (siteBlueprint.getCardType() != CardType.SITE)
+                throw new DeckInvalidException("Card assigned as Site is not really a site");
+            if (siteBlueprint.getSiteBlock() != _siteBlock && _siteBlock != Block.SPECIAL)
+                throw new DeckInvalidException("Invalid site: " + GameUtils.getFullName(siteBlueprint));
+            if (_siteBlock == Block.SPECIAL && siteBlueprint.getSiteBlock() == Block.SHADOWS)
+                throw new DeckInvalidException("Invalid site: " + GameUtils.getFullName(siteBlueprint));
+        }
+        if (_siteBlock == Block.SPECIAL) {
+            Block usedBlock = null;
+            for (String site : deck.getSites()) {
+                LotroCardBlueprint siteBlueprint = _library.getLotroCardBlueprint(site);
+                Block block = siteBlueprint.getSiteBlock();
+                if (usedBlock == null)
+                    usedBlock = block;
+                else if (usedBlock != block)
+                    throw new DeckInvalidException("All your sites have to be from the same block");
+            }
+        }
+    }
+
+    private void validateRing(LotroDeck deck) throws DeckInvalidException, CardNotFoundException {
+        if (deck.getRing() == null)
+            throw new DeckInvalidException("Deck doesn't have a Ring");
+        LotroCardBlueprint ring = _library.getLotroCardBlueprint(deck.getRing());
+        if (ring.getCardType() != CardType.THE_ONE_RING)
+            throw new DeckInvalidException("Card assigned as Ring is not The One Ring");
+    }
+
+    private void validateRingBearer(LotroDeck deck) throws DeckInvalidException, CardNotFoundException {
+        if (deck.getRingBearer() == null)
+            throw new DeckInvalidException("Deck doesn't have a Ring-bearer");
+        LotroCardBlueprint ringBearer = _library.getLotroCardBlueprint(deck.getRingBearer());
+        if (!ringBearer.hasKeyword(Keyword.CAN_START_WITH_RING))
+            throw new DeckInvalidException("Card assigned as Ring-bearer can not bear the ring");
+    }
+
+    private void processCardCounts(String blueprintId, Map<String, Integer> cardCountByName, Map<String, Integer> cardCountByBaseBlueprintId) throws CardNotFoundException {
         LotroCardBlueprint cardBlueprint = _library.getLotroCardBlueprint(blueprintId);
         increaseCount(cardCountByName, cardBlueprint.getName());
         increaseCount(cardCountByBaseBlueprintId, _library.getBaseBlueprintId(blueprintId));

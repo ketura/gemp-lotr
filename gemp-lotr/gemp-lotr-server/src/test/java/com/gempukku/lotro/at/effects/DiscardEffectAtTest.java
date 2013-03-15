@@ -5,6 +5,7 @@ import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.AbstractActionProxy;
+import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -24,7 +25,7 @@ import static org.junit.Assert.assertTrue;
 
 public class DiscardEffectAtTest extends AbstractAtTest {
     @Test
-    public void attachedCardGetsDiscarded() throws DecisionResultInvalidException {
+    public void attachedCardGetsDiscarded() throws DecisionResultInvalidException, CardNotFoundException {
         initializeSimplestGame();
 
         skipMulligans();
@@ -65,7 +66,7 @@ public class DiscardEffectAtTest extends AbstractAtTest {
     }
 
     @Test
-    public void attachedCardToAttachedCardGetsDiscarded() throws DecisionResultInvalidException {
+    public void attachedCardToAttachedCardGetsDiscarded() throws DecisionResultInvalidException, CardNotFoundException {
         initializeSimplestGame();
 
         skipMulligans();
@@ -110,7 +111,7 @@ public class DiscardEffectAtTest extends AbstractAtTest {
     }
 
     @Test
-    public void stackedCardGetsDiscarded() throws DecisionResultInvalidException {
+    public void stackedCardGetsDiscarded() throws DecisionResultInvalidException, CardNotFoundException {
         initializeSimplestGame();
 
         skipMulligans();

@@ -6,6 +6,7 @@ import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Token;
 import com.gempukku.lotro.common.Zone;
+import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.LotroCardBlueprint;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.PhysicalCardImpl;
@@ -94,7 +95,7 @@ public class TimingAtTest extends AbstractAtTest {
     }
 
     @Test
-    public void playMultipleRequiredEffectsInOrder() throws DecisionResultInvalidException {
+    public void playMultipleRequiredEffectsInOrder() throws DecisionResultInvalidException, CardNotFoundException {
         Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
         initializeSimplestGame(extraCards);
 
@@ -117,7 +118,7 @@ public class TimingAtTest extends AbstractAtTest {
     }
 
     @Test
-    public void playMultipleOptionalEffectsInOrder() throws DecisionResultInvalidException {
+    public void playMultipleOptionalEffectsInOrder() throws DecisionResultInvalidException, CardNotFoundException {
         Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
         initializeSimplestGame(extraCards);
 
@@ -145,7 +146,7 @@ public class TimingAtTest extends AbstractAtTest {
     }
 
     @Test
-    public void playEffectFromDiscard() throws DecisionResultInvalidException {
+    public void playEffectFromDiscard() throws DecisionResultInvalidException, CardNotFoundException {
         Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
         initializeSimplestGame(extraCards);
 
@@ -171,7 +172,7 @@ public class TimingAtTest extends AbstractAtTest {
     }
 
     @Test
-    public void playEffectFromStacked() throws DecisionResultInvalidException {
+    public void playEffectFromStacked() throws DecisionResultInvalidException, CardNotFoundException {
         Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
         initializeSimplestGame(extraCards);
 
@@ -206,7 +207,7 @@ public class TimingAtTest extends AbstractAtTest {
     }
 
     @Test
-    public void stackedCardAffectsGame() throws DecisionResultInvalidException {
+    public void stackedCardAffectsGame() throws DecisionResultInvalidException, CardNotFoundException {
         Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
         initializeSimplestGame(extraCards);
 
@@ -337,7 +338,7 @@ public class TimingAtTest extends AbstractAtTest {
     }
 
     @Test
-    public void extraCostToPlay() throws DecisionResultInvalidException {
+    public void extraCostToPlay() throws DecisionResultInvalidException, CardNotFoundException {
         initializeSimplestGame();
 
         skipMulligans();
@@ -370,7 +371,7 @@ public class TimingAtTest extends AbstractAtTest {
     }
 
     @Test
-    public void twoBeforeRequiredEffectsPreventing() throws DecisionResultInvalidException {
+    public void twoBeforeRequiredEffectsPreventing() throws DecisionResultInvalidException, CardNotFoundException {
         Map<String, LotroDeck> decks = new HashMap<String, LotroDeck>();
         LotroDeck p1Deck = createSimplestDeck();
         p1Deck.setRingBearer("9_4");

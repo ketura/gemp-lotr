@@ -1,6 +1,7 @@
 package com.gempukku.lotro.at;
 
 import com.gempukku.lotro.common.Zone;
+import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.AwaitingDecision;
 import com.gempukku.lotro.logic.decisions.AwaitingDecisionType;
@@ -15,7 +16,7 @@ import static junit.framework.Assert.*;
 
 public class AmbushAtTest extends AbstractAtTest {
     @Test
-    public void cantPlayIfNotEnoughAndCantExertAnything() throws DecisionResultInvalidException {
+    public void cantPlayIfNotEnoughAndCantExertAnything() throws DecisionResultInvalidException, CardNotFoundException {
         Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
         initializeSimplestGame(extraCards);
 

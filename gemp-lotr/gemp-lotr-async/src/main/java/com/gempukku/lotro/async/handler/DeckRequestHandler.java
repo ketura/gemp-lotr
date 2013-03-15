@@ -269,7 +269,13 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
 
         for (CardItem cardItem : _sortAndFilterCards.process("sort:cardType,culture,name", createCardItems(deck.getAdventureCards()), _library, _formatLibrary, null)) {
             Element card = doc.createElement("card");
-            card.setAttribute("side", _library.getLotroCardBlueprint(cardItem.getBlueprintId()).getSide().toString());
+            String side;
+            try {
+                side = _library.getLotroCardBlueprint(cardItem.getBlueprintId()).getSide().toString();
+            } catch (CardNotFoundException e) {
+                side = "FREE_PEOPLE";
+            }
+            card.setAttribute("side", side);
             card.setAttribute("blueprintId", cardItem.getBlueprintId());
             deckElem.appendChild(card);
         }

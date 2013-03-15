@@ -2,6 +2,7 @@ package com.gempukku.lotro.at;
 
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Zone;
+import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.game.state.actions.DefaultActionsEnvironment;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
@@ -17,7 +18,7 @@ import static junit.framework.Assert.assertNull;
 
 public class HarrowdaleAtTest extends AbstractAtTest {
     @Test
-    public void movesFromHarrowdale() throws DecisionResultInvalidException {
+    public void movesFromHarrowdale() throws DecisionResultInvalidException, CardNotFoundException {
         Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
         initializeSimplestGame(extraCards);
 
@@ -59,7 +60,7 @@ public class HarrowdaleAtTest extends AbstractAtTest {
     }
 
     @Test
-    public void movesThroughHarrowdale() throws DecisionResultInvalidException {
+    public void movesThroughHarrowdale() throws DecisionResultInvalidException, CardNotFoundException {
         Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
         initializeSimplestGame(extraCards);
 

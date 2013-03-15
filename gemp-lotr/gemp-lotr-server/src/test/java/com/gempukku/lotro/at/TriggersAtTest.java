@@ -3,6 +3,7 @@ package com.gempukku.lotro.at;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Zone;
+import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.AwaitingDecision;
@@ -21,7 +22,7 @@ import static junit.framework.Assert.assertTrue;
 
 public class TriggersAtTest extends AbstractAtTest {
     @Test
-    public void fpCharWinsSkirmish() throws DecisionResultInvalidException {
+    public void fpCharWinsSkirmish() throws DecisionResultInvalidException, CardNotFoundException {
         Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
         initializeSimplestGame(extraCards);
 
@@ -72,7 +73,7 @@ public class TriggersAtTest extends AbstractAtTest {
     }
 
     @Test
-    public void musterWorkingWithOtherOptionalStartOfRegroupTrigger() throws DecisionResultInvalidException {
+    public void musterWorkingWithOtherOptionalStartOfRegroupTrigger() throws DecisionResultInvalidException, CardNotFoundException {
         Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
         initializeSimplestGame(extraCards);
 
@@ -113,7 +114,7 @@ public class TriggersAtTest extends AbstractAtTest {
     }
 
     @Test
-    public void userOfMusterAllowsUseOfOtherOptionalStartOfRegroupTrigger() throws DecisionResultInvalidException {
+    public void userOfMusterAllowsUseOfOtherOptionalStartOfRegroupTrigger() throws DecisionResultInvalidException, CardNotFoundException {
         Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
         initializeSimplestGame(extraCards);
 
@@ -159,7 +160,7 @@ public class TriggersAtTest extends AbstractAtTest {
     }
 
     @Test
-    public void userOfMusterDisablesUseOfOtherOptionalStartOfRegroupTrigger() throws DecisionResultInvalidException {
+    public void userOfMusterDisablesUseOfOtherOptionalStartOfRegroupTrigger() throws DecisionResultInvalidException, CardNotFoundException {
         initializeSimplestGame();
 
         PhysicalCardImpl dervorin = new PhysicalCardImpl(100, "7_88", P1, _library.getLotroCardBlueprint("7_88"));
@@ -202,7 +203,7 @@ public class TriggersAtTest extends AbstractAtTest {
     }
 
     @Test
-    public void musterForShadowSideTriggersCorrectly() throws DecisionResultInvalidException {
+    public void musterForShadowSideTriggersCorrectly() throws DecisionResultInvalidException, CardNotFoundException {
         initializeSimplestGame();
 
         PhysicalCardImpl musterWitchKing = new PhysicalCardImpl(100, "11_226", P2, _library.getLotroCardBlueprint("11_226"));
@@ -248,7 +249,7 @@ public class TriggersAtTest extends AbstractAtTest {
     }
 
     @Test
-    public void replaceSiteNotPossibleWithMountDoom() throws DecisionResultInvalidException {
+    public void replaceSiteNotPossibleWithMountDoom() throws DecisionResultInvalidException, CardNotFoundException {
         initializeSimplestGame();
 
         PhysicalCardImpl gandalf = new PhysicalCardImpl(100, "1_72", P1, _library.getLotroCardBlueprint("1_72"));
