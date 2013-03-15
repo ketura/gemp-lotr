@@ -26,7 +26,7 @@ var set20 = {
     '20_25': 'http://lotrtcg.org/coreset/dunland/plundered.png',
     '20_26': 'http://lotrtcg.org/coreset/dunland/savagetactics.png',
     '20_27': 'http://lotrtcg.org/coreset/dunland/runningrampant.png',
-    '20_28': 'http://lotrtcg.org/coreset/dunland/sneakattack.png',
+    '20_28': 'http://lotrtcg.org/coreset/dunland/sneakattack(r1).png',
     '20_29': 'http://lotrtcg.org/coreset/dunland/dunlendingwarcry.png',
     '20_30': 'http://lotrtcg.org/coreset/dunland/warclub.png',
     '20_31': 'http://lotrtcg.org/coreset/dunland/hillmanaxe.png',
