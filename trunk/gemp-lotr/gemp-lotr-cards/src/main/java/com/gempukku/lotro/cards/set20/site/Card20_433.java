@@ -33,7 +33,7 @@ public class Card20_433 extends AbstractSite {
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.movesTo(game, effectResult, self)
                 && GameUtils.isFP(game, playerId)
-                && PlayConditions.canSpot(game, Race.ELF)) {
+                && PlayConditions.canSpot(game, 2, Race.ELF)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
                     new RemoveBurdenEffect(playerId, self, 1));
