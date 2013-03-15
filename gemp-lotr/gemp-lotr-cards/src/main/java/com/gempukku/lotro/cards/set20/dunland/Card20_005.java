@@ -20,14 +20,15 @@ import java.util.List;
 /**
  * 3
  * Dunlending Tribesman
- * Dunland	Minion • Man
- * 9	1	3
- * When you play Dunlending Tribesman, you may discard a [Dunland] card from hand. If you do, Dunlending Tribesman
- * is strength +3 until the regroup phase.
+ * Minion • Man
+ * 8	1	3
+ * When you play this minion, you may discard a [Dunland] card from hand. If you do, this minion is strength +2
+ * until the regroup phase.
+ * http://lotrtcg.org/coreset/dunland/dunlendingtribesman(r1).png
  */
 public class Card20_005 extends AbstractMinion {
     public Card20_005() {
-        super(3, 9, 1, 3, Race.MAN, Culture.DUNLAND, "Dunlending Tribesman");
+        super(3, 8, 1, 3, Race.MAN, Culture.DUNLAND, "Dunlending Tribesman");
     }
 
     @Override
@@ -39,7 +40,7 @@ public class Card20_005 extends AbstractMinion {
                     new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 1, Culture.DUNLAND));
             action.appendEffect(
                     new AddUntilStartOfPhaseModifierEffect(
-                            new StrengthModifier(self, self, 3), Phase.REGROUP));
+                            new StrengthModifier(self, self, 2), Phase.REGROUP));
             return Collections.singletonList(action);
         }
         return null;
