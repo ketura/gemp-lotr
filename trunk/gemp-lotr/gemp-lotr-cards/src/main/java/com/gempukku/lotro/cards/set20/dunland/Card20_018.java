@@ -17,24 +17,24 @@ import java.util.List;
 /**
  * 5
  * Hillman Pillager
- * Dunland	Minion • Man
- * 13	1	3
- * Shadow: If stacked on a site you control, play Hillman Pillager; his twilight cost is -1 for each Free Peoples
- * possession you can spot.
- * Regroup: Spot Saruman or another [Dunland] Man to stack Hillman Pillager on a site you control.
+ * Minion • Man
+ * 11	1	3
+ * Shadow: If stacked on a site you control, play this minion; his twilight cost is -1 for each Free Peoples possession
+ * you can spot.
+ * Regroup: Spot Saruman or another [Dunland] Man to stack this minion on a site you control.
+ * http://lotrtcg.org/coreset/dunland/hillmanpillager(r1).png
  */
 public class Card20_018 extends AbstractMinion {
     public Card20_018() {
-        super(5, 13, 1, 3, Race.MAN, Culture.DUNLAND, "Hillman Pillager");
+        super(5, 11, 1, 3, Race.MAN, Culture.DUNLAND, "Hillman Pillager");
     }
-
 
     @Override
     public List<? extends Action> getPhaseActionsFromStacked(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseStackedShadowCardDuringPhase(game, Phase.SHADOW, self, 0)
                 && PlayConditions.stackedOn(self, game, Filters.siteControlled(self.getOwner()))
-                && checkPlayRequirements(playerId, game, self, 0, -Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Side.FREE_PEOPLE, CardType.POSSESSION), false, false)) {
-            return Collections.singletonList(getPlayCardAction(playerId, game, self, -Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Side.FREE_PEOPLE, CardType.POSSESSION), false));
+                && checkPlayRequirements(playerId, game, self, 0, -Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Side.FREE_PEOPLE, CardType.POSSESSION), false, false)) {
+            return Collections.singletonList(getPlayCardAction(playerId, game, self, -Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Side.FREE_PEOPLE, CardType.POSSESSION), false));
         }
         return null;
     }
