@@ -13,7 +13,7 @@ var set20 = {
     '20_12': 'http://lotrtcg.org/coreset/dunland/dunlendingraider',
     '20_13': 'http://lotrtcg.org/coreset/dunland/dunlendingelder.png',
     '20_14': 'http://lotrtcg.org/coreset/dunland/clanofthehills(r1).png',
-    '20_15': 'http://lotrtcg.org/coreset/dunland/hillmantribe.png',
+    '20_15': 'http://lotrtcg.org/coreset/dunland/hillmantribe(r1).png',
     '20_16': 'http://lotrtcg.org/coreset/dunland/hillmantorchbearer.png',
     '20_17': 'http://lotrtcg.org/coreset/dunland/hillmanprimitive.png',
     '20_18': 'http://lotrtcg.org/coreset/dunland/hillmanpillager.png',

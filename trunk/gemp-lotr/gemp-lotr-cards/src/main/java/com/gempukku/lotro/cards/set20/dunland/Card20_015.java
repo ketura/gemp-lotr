@@ -19,14 +19,15 @@ import java.util.List;
 /**
  * 3
  * Hillman Tribe
- * Dunland	Minion • Man
- * 9	1	3
- * Shadow: If stacked on a site you control, play Hillman Tribe; its twilight cost is -1.
- * Regroup: Spot Saruman or another [Dunland] Man to stack Hillman Tribe on a site you control.
+ * Minion • Man
+ * 8	1	3
+ * Shadow: If stacked on a site you control, play this minion; its twilight cost is -1.
+ * Regroup: Spot Saruman or another [Dunland] Man to stack this minion on a site you control.
+ * http://lotrtcg.org/coreset/dunland/hillmantribe(r1).png
  */
 public class Card20_015 extends AbstractMinion {
     public Card20_015() {
-        super(3, 9, 1, 3, Race.MAN, Culture.DUNLAND, "Hillman Tribe");
+        super(3, 8, 1, 3, Race.MAN, Culture.DUNLAND, "Hillman Tribe");
     }
 
     @Override
