@@ -17,7 +17,7 @@ var set20 = {
     '20_16': 'http://lotrtcg.org/coreset/dunland/hillmantorchbearer.png',
     '20_17': 'http://lotrtcg.org/coreset/dunland/hillmanprimitive(r1).png',
     '20_18': 'http://lotrtcg.org/coreset/dunland/hillmanpillager(r1).png',
-    '20_19': 'http://lotrtcg.org/coreset/dunland/hillmanwarrior.png',
+    '20_19': 'http://lotrtcg.org/coreset/dunland/hillmanwarrior(r1).png',
     '20_20': 'http://lotrtcg.org/coreset/dunland/frecaos.png',
     '20_21': 'http://lotrtcg.org/coreset/dunland/wulfwod.png',
     '20_22': 'http://lotrtcg.org/coreset/dunland/sarumanti.png',
