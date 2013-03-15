@@ -15,8 +15,9 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 /**
  * 0
  * Crushing Blow
- * Dwarven	Event • Skirmish
- * Make a Dwarf strength +2 (or strength +4 if you can spot a card stacked on a [Dwarven] condition).
+ * Event • Skirmish
+ * Make a Dwarf strength +2 (or strength +3 if you can spot a card stacked on a [Dwarven] condition).
+ * http://lotrtcg.org/coreset/dwarven/crushingblow(r1).png
  */
 public class Card20_043 extends AbstractEvent {
     public Card20_043() {
@@ -28,7 +29,7 @@ public class Card20_043 extends AbstractEvent {
         PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId,
-                        new ConditionEvaluator(2, 4,
+                        new ConditionEvaluator(2, 3,
                                 new Condition() {
                                     @Override
                                     public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
