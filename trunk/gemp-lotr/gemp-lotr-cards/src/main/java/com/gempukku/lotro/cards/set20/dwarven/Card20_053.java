@@ -2,28 +2,31 @@ package com.gempukku.lotro.cards.set20.dwarven;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPutCardFromDiscardIntoHandEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndStackCardsFromHandEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collections;
 import java.util.List;
 
 /**
  * 3
- * Gimli, Dwarven Emissary
- * Dwarven	Companion • Dwarf
+ * •Gimli, Dwarven Emissary
+ * Companion • Dwarf
  * 6	4	7
  * Damage +1.
  * While in your starting fellowship, Gimli's twilight cost is -1.
- * Fellowship: Stack a card from hand on a [Dwarven] support area condition to take a [Dwarven] event from
- * your discard pile into hand.
+ * At the start of the fellowship phase, you may stack a Free Peoples card from hand on a [Dwarven] condition
+ * in your support area to take a [Dwarven] event from your discard pile into hand.
+ * http://lotrtcg.org/coreset/dwarven/gimlide(r1).png
  */
 public class Card20_053 extends AbstractCompanion {
     public Card20_053() {
@@ -39,11 +42,11 @@ public class Card20_053 extends AbstractCompanion {
     }
 
     @Override
-    protected List<ActivateCardAction> getExtraInPlayPhaseActions(final String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canUseFPCardDuringPhase(game, Phase.FELLOWSHIP, self)
+    public List<OptionalTriggerAction> getOptionalAfterTriggers(final String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+        if (TriggerConditions.startOfPhase(game, effectResult, Phase.FELLOWSHIP)
                 && PlayConditions.hasCardInHand(game, playerId, 1, Side.FREE_PEOPLE)
                 && PlayConditions.canSpot(game, Culture.DWARVEN, Keyword.SUPPORT_AREA, CardType.CONDITION)) {
-            final ActivateCardAction action = new ActivateCardAction(self);
+            final OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(
                     new ChooseActiveCardEffect(self, playerId, "Choose a DWARVEN condition in your support area", Culture.DWARVEN, Keyword.SUPPORT_AREA, CardType.CONDITION) {
                         @Override

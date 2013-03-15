@@ -51,7 +51,7 @@ var set20 = {
     '20_50': 'http://lotrtcg.org/coreset/dwarven/farindoe.png',
     '20_51': 'http://lotrtcg.org/coreset/dwarven/festivefolk.png',
     '20_52': 'http://lotrtcg.org/coreset/dwarven/frorgk.png',
-    '20_53': 'http://lotrtcg.org/coreset/dwarven/gimlide.png',
+    '20_53': 'http://lotrtcg.org/coreset/dwarven/gimlide(r1).png',
     '20_54': 'http://lotrtcg.org/coreset/dwarven/gimlisp.png',
     '20_55': 'http://lotrtcg.org/coreset/dwarven/gimlisbattleaxewoe.png',
     '20_56': 'http://lotrtcg.org/coreset/dwarven/gimlispipe.png',
