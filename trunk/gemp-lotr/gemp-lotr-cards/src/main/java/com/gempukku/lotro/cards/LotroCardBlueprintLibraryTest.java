@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards;
 
 import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.LotroCardBlueprint;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.logic.GameUtils;
@@ -9,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LotroCardBlueprintLibraryTest {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws CardNotFoundException {
         LotroCardBlueprintLibrary library = new LotroCardBlueprintLibrary();
 
         Map<String, String> cardNames = new HashMap<String, String>();

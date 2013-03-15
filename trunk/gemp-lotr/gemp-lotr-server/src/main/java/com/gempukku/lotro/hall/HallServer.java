@@ -567,8 +567,13 @@ public class HallServer extends AbstractServer {
             for (Map.Entry<String, Integer> cardCount : deckCardCounts.entrySet()) {
                 final int collectionCount = collection.getItemCount(cardCount.getKey());
                 if (collectionCount < cardCount.getValue()) {
-                    String cardName = GameUtils.getFullName(_library.getLotroCardBlueprint(cardCount.getKey()));
-                    throw new HallException("You don't have the required cards in collection: " + cardName + " required " + cardCount.getValue() + ", owned " + collectionCount);
+                    String cardName = null;
+                    try {
+                        cardName = GameUtils.getFullName(_library.getLotroCardBlueprint(cardCount.getKey()));
+                        throw new HallException("You don't have the required cards in collection: " + cardName + " required " + cardCount.getValue() + ", owned " + collectionCount);
+                    } catch (CardNotFoundException e) {
+                        // Ignore, card player has in a collection, should not disappear
+                    }
                 }
             }
         }

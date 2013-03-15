@@ -1,6 +1,7 @@
 package com.gempukku.lotro.at;
 
 import com.gempukku.lotro.common.Zone;
+import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.AwaitingDecision;
@@ -16,7 +17,7 @@ import static junit.framework.Assert.assertEquals;
 
 public class ToilAtTest extends AbstractAtTest {
     @Test
-    public void cantPlayIfNotEnoughAndCantExertAnything() throws DecisionResultInvalidException {
+    public void cantPlayIfNotEnoughAndCantExertAnything() throws DecisionResultInvalidException, CardNotFoundException {
         Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
         initializeSimplestGame(extraCards);
 
@@ -37,7 +38,7 @@ public class ToilAtTest extends AbstractAtTest {
     }
 
     @Test
-    public void canPlayIfNotEnoughAndCantExertAnything() throws DecisionResultInvalidException {
+    public void canPlayIfNotEnoughAndCantExertAnything() throws DecisionResultInvalidException, CardNotFoundException {
         Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
         initializeSimplestGame(extraCards);
 
@@ -63,7 +64,7 @@ public class ToilAtTest extends AbstractAtTest {
     }
 
     @Test
-    public void cantPlayIfNotEnoughAndCanExertOneMinion() throws DecisionResultInvalidException {
+    public void cantPlayIfNotEnoughAndCanExertOneMinion() throws DecisionResultInvalidException, CardNotFoundException {
         Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
         initializeSimplestGame(extraCards);
 
@@ -88,7 +89,7 @@ public class ToilAtTest extends AbstractAtTest {
     }
 
     @Test
-    public void canPlayIfNotEnoughAndCanExertOneMinion() throws DecisionResultInvalidException {
+    public void canPlayIfNotEnoughAndCanExertOneMinion() throws DecisionResultInvalidException, CardNotFoundException {
         Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
         initializeSimplestGame(extraCards);
 
@@ -119,7 +120,7 @@ public class ToilAtTest extends AbstractAtTest {
     }
 
     @Test
-    public void canPlayIfEnoughAndCanExertOneMinionExertingLowers() throws DecisionResultInvalidException {
+    public void canPlayIfEnoughAndCanExertOneMinionExertingLowers() throws DecisionResultInvalidException, CardNotFoundException {
         Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
         initializeSimplestGame(extraCards);
 
@@ -158,7 +159,7 @@ public class ToilAtTest extends AbstractAtTest {
     }
 
     @Test
-    public void canPlayIfEnoughAndCanExertOneMinionNotExertingDoesntLower() throws DecisionResultInvalidException {
+    public void canPlayIfEnoughAndCanExertOneMinionNotExertingDoesntLower() throws DecisionResultInvalidException, CardNotFoundException {
         Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
         initializeSimplestGame(extraCards);
 
@@ -197,7 +198,7 @@ public class ToilAtTest extends AbstractAtTest {
     }
 
     @Test
-    public void canPlayIfEnoughAndCanExertTwoMinionsExertingBothLowers() throws DecisionResultInvalidException {
+    public void canPlayIfEnoughAndCanExertTwoMinionsExertingBothLowers() throws DecisionResultInvalidException, CardNotFoundException {
         Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
         initializeSimplestGame(extraCards);
 
@@ -239,7 +240,7 @@ public class ToilAtTest extends AbstractAtTest {
     }
 
     @Test
-    public void canPlayIfEnoughAndCanExertTwoMinionsExertingOneLowers() throws DecisionResultInvalidException {
+    public void canPlayIfEnoughAndCanExertTwoMinionsExertingOneLowers() throws DecisionResultInvalidException, CardNotFoundException {
         Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
         initializeSimplestGame(extraCards);
 
@@ -281,7 +282,7 @@ public class ToilAtTest extends AbstractAtTest {
     }
 
     @Test
-    public void canPlayIfEnoughAndCanExertMinionsBelowZero() throws DecisionResultInvalidException {
+    public void canPlayIfEnoughAndCanExertMinionsBelowZero() throws DecisionResultInvalidException, CardNotFoundException {
         Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
         initializeSimplestGame(extraCards);
 

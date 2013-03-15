@@ -3,6 +3,7 @@ package com.gempukku.lotro.at;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Zone;
+import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.game.state.Assignment;
@@ -11,16 +12,17 @@ import com.gempukku.lotro.logic.decisions.AwaitingDecisionType;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.vo.LotroDeck;
-import static junit.framework.Assert.*;
 import org.junit.Test;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static junit.framework.Assert.*;
+
 public class AssignmentAtTest extends AbstractAtTest {
     @Test
-    public void orcAssassinAssignNotToAlly() throws DecisionResultInvalidException {
+    public void orcAssassinAssignNotToAlly() throws DecisionResultInvalidException, CardNotFoundException {
         initializeSimplestGame();
 
         skipMulligans();
@@ -61,7 +63,7 @@ public class AssignmentAtTest extends AbstractAtTest {
     }
 
     @Test
-    public void sarumanAssignsToCompanion() throws DecisionResultInvalidException {
+    public void sarumanAssignsToCompanion() throws DecisionResultInvalidException, CardNotFoundException {
         initializeSimplestGame();
 
         skipMulligans();
@@ -126,7 +128,7 @@ public class AssignmentAtTest extends AbstractAtTest {
     }
 
     @Test
-    public void normalAssignment() throws DecisionResultInvalidException {
+    public void normalAssignment() throws DecisionResultInvalidException, CardNotFoundException {
         initializeSimplestGame();
 
         skipMulligans();
@@ -195,7 +197,7 @@ public class AssignmentAtTest extends AbstractAtTest {
     }
 
     @Test
-    public void assignmentsWithDefender() throws DecisionResultInvalidException {
+    public void assignmentsWithDefender() throws DecisionResultInvalidException, CardNotFoundException {
         initializeSimplestGame();
 
         skipMulligans();
@@ -261,7 +263,7 @@ public class AssignmentAtTest extends AbstractAtTest {
     }
 
     @Test
-    public void assignmentOfFierceMinions() throws DecisionResultInvalidException {
+    public void assignmentOfFierceMinions() throws DecisionResultInvalidException, CardNotFoundException {
         initializeSimplestGame();
 
         skipMulligans();
@@ -323,7 +325,7 @@ public class AssignmentAtTest extends AbstractAtTest {
     }
 
     @Test
-    public void balrogPreventingToAssign() throws DecisionResultInvalidException {
+    public void balrogPreventingToAssign() throws DecisionResultInvalidException, CardNotFoundException {
         Map<String, LotroDeck> decks = new HashMap<String, LotroDeck>();
         final LotroDeck p1Deck = createSimplestDeck();
         p1Deck.setRingBearer("9_14");
@@ -397,7 +399,7 @@ public class AssignmentAtTest extends AbstractAtTest {
     }
 
     @Test
-    public void dunlendingWarriorAssignsToAlly() throws DecisionResultInvalidException {
+    public void dunlendingWarriorAssignsToAlly() throws DecisionResultInvalidException, CardNotFoundException {
         initializeSimplestGame();
 
         skipMulligans();
@@ -440,7 +442,7 @@ public class AssignmentAtTest extends AbstractAtTest {
     }
 
     @Test
-    public void twoOrcAssassinsAtCarasGaladhon() throws DecisionResultInvalidException {
+    public void twoOrcAssassinsAtCarasGaladhon() throws DecisionResultInvalidException, CardNotFoundException {
         initializeSimplestGame();
 
         skipMulligans();
@@ -509,7 +511,7 @@ public class AssignmentAtTest extends AbstractAtTest {
     }
 
     @Test
-    public void slowKindledCourageAllowsMinionsToAssign() throws DecisionResultInvalidException {
+    public void slowKindledCourageAllowsMinionsToAssign() throws DecisionResultInvalidException, CardNotFoundException {
         initializeSimplestGame();
 
         skipMulligans();

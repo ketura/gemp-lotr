@@ -3,6 +3,7 @@ package com.gempukku.lotro.at.effects;
 import com.gempukku.lotro.at.AbstractAtTest;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.game.AbstractActionProxy;
+import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
@@ -22,7 +23,7 @@ import static org.junit.Assert.*;
 
 public class DrawEffectAtTest extends AbstractAtTest {
     @Test
-    public void drawingSuccessful() throws DecisionResultInvalidException {
+    public void drawingSuccessful() throws DecisionResultInvalidException, CardNotFoundException {
         initializeSimplestGame();
 
         skipMulligans();
@@ -60,7 +61,7 @@ public class DrawEffectAtTest extends AbstractAtTest {
     }
 
     @Test
-    public void drawingMultipleNotSuccessful() throws DecisionResultInvalidException {
+    public void drawingMultipleNotSuccessful() throws DecisionResultInvalidException, CardNotFoundException {
         initializeSimplestGame();
 
         skipMulligans();
@@ -98,7 +99,7 @@ public class DrawEffectAtTest extends AbstractAtTest {
     }
 
     @Test
-    public void drawingMultipleSuccessful() throws DecisionResultInvalidException {
+    public void drawingMultipleSuccessful() throws DecisionResultInvalidException, CardNotFoundException {
         initializeSimplestGame();
 
         skipMulligans();
@@ -139,7 +140,7 @@ public class DrawEffectAtTest extends AbstractAtTest {
     }
 
     @Test
-    public void insteadOfDraw() throws DecisionResultInvalidException {
+    public void insteadOfDraw() throws DecisionResultInvalidException, CardNotFoundException {
         initializeSimplestGame();
 
         skipMulligans();

@@ -6,6 +6,7 @@ import com.gempukku.lotro.cards.effects.NegateWoundEffect;
 import com.gempukku.lotro.cards.effects.PreventCardEffect;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.AbstractActionProxy;
+import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
@@ -25,7 +26,7 @@ import static org.junit.Assert.*;
 
 public class WoundEffectAtTest extends AbstractAtTest {
     @Test
-    public void woundSuccessful() throws DecisionResultInvalidException {
+    public void woundSuccessful() throws DecisionResultInvalidException, CardNotFoundException {
         initializeSimplestGame();
 
         skipMulligans();
@@ -61,7 +62,7 @@ public class WoundEffectAtTest extends AbstractAtTest {
     }
 
     @Test
-    public void woundUnsuccessful() throws DecisionResultInvalidException {
+    public void woundUnsuccessful() throws DecisionResultInvalidException, CardNotFoundException {
         initializeSimplestGame();
 
         skipMulligans();
@@ -97,7 +98,7 @@ public class WoundEffectAtTest extends AbstractAtTest {
     }
 
     @Test
-    public void woundPrevention() throws DecisionResultInvalidException {
+    public void woundPrevention() throws DecisionResultInvalidException, CardNotFoundException {
         initializeSimplestGame();
 
         skipMulligans();
@@ -151,7 +152,7 @@ public class WoundEffectAtTest extends AbstractAtTest {
     }
 
     @Test
-    public void insteadOfWoundWorksIfCantPrevent() throws DecisionResultInvalidException {
+    public void insteadOfWoundWorksIfCantPrevent() throws DecisionResultInvalidException, CardNotFoundException {
         initializeSimplestGame();
 
         skipMulligans();
@@ -205,7 +206,7 @@ public class WoundEffectAtTest extends AbstractAtTest {
     }
 
     @Test
-    public void cantPrevent() throws DecisionResultInvalidException {
+    public void cantPrevent() throws DecisionResultInvalidException, CardNotFoundException {
         initializeSimplestGame();
 
         skipMulligans();

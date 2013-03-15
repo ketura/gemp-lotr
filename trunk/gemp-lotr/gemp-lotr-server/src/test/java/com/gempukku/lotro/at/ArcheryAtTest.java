@@ -2,6 +2,7 @@ package com.gempukku.lotro.at;
 
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Zone;
+import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.AwaitingDecision;
 import com.gempukku.lotro.logic.decisions.AwaitingDecisionType;
@@ -16,7 +17,7 @@ import static junit.framework.Assert.assertEquals;
 
 public class ArcheryAtTest extends AbstractAtTest {
     @Test
-    public void archeryWorksBothWays() throws DecisionResultInvalidException {
+    public void archeryWorksBothWays() throws DecisionResultInvalidException, CardNotFoundException {
         Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
         initializeSimplestGame(extraCards);
 
@@ -57,7 +58,7 @@ public class ArcheryAtTest extends AbstractAtTest {
     }
 
     @Test
-    public void archeryBonusesDontLeakToOtherSide() throws DecisionResultInvalidException {
+    public void archeryBonusesDontLeakToOtherSide() throws DecisionResultInvalidException, CardNotFoundException {
         Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
         initializeSimplestGame(extraCards);
 

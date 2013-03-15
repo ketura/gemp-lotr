@@ -84,8 +84,12 @@ public class GameState {
             _stacked.put(playerId, new LinkedList<PhysicalCardImpl>());
 
             addPlayerCards(playerId, decks, library);
-            _ringBearers.put(playerId, createPhysicalCard(playerId, library, ringBearers.get(playerId)));
-            _rings.put(playerId, createPhysicalCard(playerId, library, rings.get(playerId)));
+            try {
+                _ringBearers.put(playerId, createPhysicalCard(playerId, library, ringBearers.get(playerId)));
+                _rings.put(playerId, createPhysicalCard(playerId, library, rings.get(playerId)));
+            } catch (CardNotFoundException exp) {
+                throw new RuntimeException("Unable to create game, due to either ring-bearer or ring being invalid cards");
+            }
         }
 
         for (String playerId : playerOrder.getAllPlayers())
@@ -105,18 +109,22 @@ public class GameState {
 
     private void addPlayerCards(String playerId, List<String> cards, LotroCardBlueprintLibrary library) {
         for (String blueprintId : cards) {
-            PhysicalCardImpl physicalCard = createPhysicalCard(playerId, library, blueprintId);
-            if (physicalCard.getBlueprint().getCardType() == CardType.SITE) {
-                physicalCard.setZone(Zone.ADVENTURE_DECK);
-                _adventureDecks.get(playerId).add(physicalCard);
-            } else {
-                physicalCard.setZone(Zone.DECK);
-                _decks.get(playerId).add(physicalCard);
+            try {
+                PhysicalCardImpl physicalCard = createPhysicalCard(playerId, library, blueprintId);
+                if (physicalCard.getBlueprint().getCardType() == CardType.SITE) {
+                    physicalCard.setZone(Zone.ADVENTURE_DECK);
+                    _adventureDecks.get(playerId).add(physicalCard);
+                } else {
+                    physicalCard.setZone(Zone.DECK);
+                    _decks.get(playerId).add(physicalCard);
+                }
+            } catch (CardNotFoundException exp) {
+                // Ignore the card
             }
         }
     }
 
-    private PhysicalCardImpl createPhysicalCard(String playerId, LotroCardBlueprintLibrary library, String blueprintId) {
+    private PhysicalCardImpl createPhysicalCard(String playerId, LotroCardBlueprintLibrary library, String blueprintId) throws CardNotFoundException {
         LotroCardBlueprint card = library.getLotroCardBlueprint(blueprintId);
 
         int cardId = nextCardId();

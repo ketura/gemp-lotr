@@ -320,7 +320,7 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
         return doc;
     }
 
-    private void getFormat(HttpRequest request, String format, ResponseWriter responseWriter) {
+    private void getFormat(HttpRequest request, String format, ResponseWriter responseWriter) throws CardNotFoundException {
         StringBuilder result = new StringBuilder();
         LotroFormat lotroFormat = _formatLibrary.getFormat(format);
         result.append("<b>" + lotroFormat.getName() + "</b>");
@@ -354,7 +354,7 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
         responseWriter.writeHtmlResponse(result.toString());
     }
 
-    private void getFormats(HttpRequest request, ResponseWriter responseWriter) {
+    private void getFormats(HttpRequest request, ResponseWriter responseWriter) throws CardNotFoundException {
         StringBuilder result = new StringBuilder();
         for (LotroFormat lotroFormat : _formatLibrary.getHallFormats().values()) {
             result.append("<b>" + lotroFormat.getName() + "</b>");

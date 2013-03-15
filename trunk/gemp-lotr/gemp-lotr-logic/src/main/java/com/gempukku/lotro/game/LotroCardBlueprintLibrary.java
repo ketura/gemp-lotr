@@ -83,7 +83,7 @@ public class LotroCardBlueprintLibrary {
         return false;
     }
 
-    public LotroCardBlueprint getLotroCardBlueprint(String blueprintId) {
+    public LotroCardBlueprint getLotroCardBlueprint(String blueprintId) throws CardNotFoundException {
         blueprintId = stripBlueprintModifiers(blueprintId);
 
         if (_blueprintMap.containsKey(blueprintId))
@@ -118,7 +118,7 @@ public class LotroCardBlueprintLibrary {
 
     //
 
-    private LotroCardBlueprint getBlueprint(String blueprintId) {
+    private LotroCardBlueprint getBlueprint(String blueprintId) throws CardNotFoundException {
         if (_blueprintMapping.containsKey(blueprintId))
             return getBlueprint(_blueprintMapping.get(blueprintId));
 
@@ -132,15 +132,15 @@ public class LotroCardBlueprintLibrary {
             try {
                 blueprint = tryLoadingFromPackage(packageName, setNumber, cardNumber);
             } catch (IllegalAccessException e) {
-                e.printStackTrace();
+                throw new CardNotFoundException();
             } catch (InstantiationException e) {
-                e.printStackTrace();
+                throw new CardNotFoundException();
             }
             if (blueprint != null)
                 return blueprint;
         }
 
-        throw new IllegalArgumentException("Didn't find card with blueprintId: " + blueprintId);
+        throw new CardNotFoundException();
     }
 
     private LotroCardBlueprint tryLoadingFromPackage(String packageName, String setNumber, String cardNumber) throws IllegalAccessException, InstantiationException {

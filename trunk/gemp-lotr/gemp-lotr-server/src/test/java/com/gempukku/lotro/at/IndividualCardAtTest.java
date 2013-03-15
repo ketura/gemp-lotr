@@ -3,10 +3,7 @@ package com.gempukku.lotro.at;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Token;
 import com.gempukku.lotro.common.Zone;
-import com.gempukku.lotro.game.DefaultUserFeedback;
-import com.gempukku.lotro.game.LotroFormat;
-import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.PhysicalCardImpl;
+import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.gempukku.lotro.logic.decisions.AwaitingDecision;
 import com.gempukku.lotro.logic.decisions.AwaitingDecisionType;
@@ -26,7 +23,7 @@ import static org.junit.Assert.assertFalse;
 
 public class IndividualCardAtTest extends AbstractAtTest {
     @Test
-    public void dwarvenAxeDoesNotFreeze() throws DecisionResultInvalidException {
+    public void dwarvenAxeDoesNotFreeze() throws DecisionResultInvalidException, CardNotFoundException {
         Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
         initializeSimplestGame(extraCards);
 
@@ -140,7 +137,7 @@ public class IndividualCardAtTest extends AbstractAtTest {
     }
 
     @Test
-    public void bilboRingBearerWithConsortingAndMorgulBrute() throws DecisionResultInvalidException {
+    public void bilboRingBearerWithConsortingAndMorgulBrute() throws DecisionResultInvalidException, CardNotFoundException {
         Map<String, LotroDeck> decks = new HashMap<String, LotroDeck>();
         final LotroDeck p1Deck = createSimplestDeck();
         p1Deck.setRingBearer("9_49");
@@ -187,7 +184,7 @@ public class IndividualCardAtTest extends AbstractAtTest {
     }
 
     @Test
-    public void mumakChieftainPlayingMumakForFree() throws DecisionResultInvalidException {
+    public void mumakChieftainPlayingMumakForFree() throws DecisionResultInvalidException, CardNotFoundException {
         Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
         initializeSimplestGame(extraCards);
 
@@ -222,7 +219,7 @@ public class IndividualCardAtTest extends AbstractAtTest {
     }
 
     @Test
-    public void musterFrodoAllowsToDiscardAndDraw() throws DecisionResultInvalidException {
+    public void musterFrodoAllowsToDiscardAndDraw() throws DecisionResultInvalidException, CardNotFoundException {
         Map<String, LotroDeck> decks = new HashMap<String, LotroDeck>();
         final LotroDeck p1Deck = createSimplestDeck();
         p1Deck.setRingBearer("11_164");
@@ -302,7 +299,7 @@ public class IndividualCardAtTest extends AbstractAtTest {
     }
 
     @Test
-    public void endofTheGameGivingDamagePlusOne() throws DecisionResultInvalidException {
+    public void endofTheGameGivingDamagePlusOne() throws DecisionResultInvalidException, CardNotFoundException {
         initializeSimplestGame();
 
         skipMulligans();
@@ -373,7 +370,7 @@ public class IndividualCardAtTest extends AbstractAtTest {
     }
 
     @Test
-    public void oneGoodTurnDeservesAnother() throws DecisionResultInvalidException {
+    public void oneGoodTurnDeservesAnother() throws DecisionResultInvalidException, CardNotFoundException {
         initializeSimplestGame();
 
         PhysicalCardImpl smeagol = new PhysicalCardImpl(100, "5_29", P1, _library.getLotroCardBlueprint("5_29"));
@@ -396,7 +393,7 @@ public class IndividualCardAtTest extends AbstractAtTest {
     }
 
     @Test
-    public void oElberethGilthoniel() throws DecisionResultInvalidException {
+    public void oElberethGilthoniel() throws DecisionResultInvalidException, CardNotFoundException {
         Map<String, LotroDeck> decks = new HashMap<String, LotroDeck>();
         final LotroDeck p1Deck = createSimplestDeck();
         p1Deck.setRingBearer("9_49");
@@ -467,7 +464,7 @@ public class IndividualCardAtTest extends AbstractAtTest {
     }
 
     @Test
-    public void fordOfBruinenReduce() throws DecisionResultInvalidException {
+    public void fordOfBruinenReduce() throws DecisionResultInvalidException, CardNotFoundException {
         initializeSimplestGame();
 
         skipMulligans();
@@ -507,7 +504,7 @@ public class IndividualCardAtTest extends AbstractAtTest {
     }
 
     @Test
-    public void sentBackAllowsPlayingCardInDeadPile() throws DecisionResultInvalidException {
+    public void sentBackAllowsPlayingCardInDeadPile() throws DecisionResultInvalidException, CardNotFoundException {
         initializeSimplestGame();
 
         PhysicalCardImpl sentBack = new PhysicalCardImpl(100, "9_27", P1, _library.getLotroCardBlueprint("9_27"));
@@ -532,7 +529,7 @@ public class IndividualCardAtTest extends AbstractAtTest {
     }
 
     @Test
-    public void rushOfSteeds() throws DecisionResultInvalidException {
+    public void rushOfSteeds() throws DecisionResultInvalidException, CardNotFoundException {
         initializeSimplestGame();
 
         PhysicalCardImpl rushOfSteeds = new PhysicalCardImpl(100, "11_157", P1, _library.getLotroCardBlueprint("11_157"));
@@ -565,7 +562,7 @@ public class IndividualCardAtTest extends AbstractAtTest {
     }
 
     @Test
-    public void hisFirstSeriousCheck() throws DecisionResultInvalidException {
+    public void hisFirstSeriousCheck() throws DecisionResultInvalidException, CardNotFoundException {
         initializeSimplestGame();
 
         PhysicalCardImpl gandalf = new PhysicalCardImpl(100, "1_72", P1, _library.getLotroCardBlueprint("1_72"));
@@ -591,7 +588,7 @@ public class IndividualCardAtTest extends AbstractAtTest {
     }
 
     @Test
-    public void scouringOfTheShireAndCorsairMarauder() throws DecisionResultInvalidException {
+    public void scouringOfTheShireAndCorsairMarauder() throws DecisionResultInvalidException, CardNotFoundException {
         initializeSimplestGame();
 
         PhysicalCardImpl corsairWarGalley = new PhysicalCardImpl(100, "8_59", P2, _library.getLotroCardBlueprint("8_59"));
@@ -633,7 +630,7 @@ public class IndividualCardAtTest extends AbstractAtTest {
     }
 
     @Test
-    public void returnToItsMaster() throws DecisionResultInvalidException {
+    public void returnToItsMaster() throws DecisionResultInvalidException, CardNotFoundException {
         LotroDeck p1Deck = createSimplestDeck();
         p1Deck.setRing("4_1");
         LotroDeck p2Deck = createSimplestDeck();
@@ -715,7 +712,7 @@ public class IndividualCardAtTest extends AbstractAtTest {
     }
 
     @Test
-    public void moreYetToComeWorks() throws DecisionResultInvalidException {
+    public void moreYetToComeWorks() throws DecisionResultInvalidException, CardNotFoundException {
         initializeSimplestGame();
 
         PhysicalCardImpl gimli = new PhysicalCardImpl(100, "1_12", P1, _library.getLotroCardBlueprint("1_12"));
@@ -770,7 +767,7 @@ public class IndividualCardAtTest extends AbstractAtTest {
     }
 
     @Test
-    public void treebeardEarthborn() throws DecisionResultInvalidException {
+    public void treebeardEarthborn() throws DecisionResultInvalidException, CardNotFoundException {
         initializeSimplestGame();
 
         PhysicalCardImpl treebeard = new PhysicalCardImpl(100, "4_103", P1, _library.getLotroCardBlueprint("4_103"));
