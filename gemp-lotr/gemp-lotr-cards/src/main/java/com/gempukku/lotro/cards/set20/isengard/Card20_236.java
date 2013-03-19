@@ -22,16 +22,15 @@ import java.util.List;
 /**
  * 4
  * •Saruman, The White Wizard
- * Isengard	Minion • Wizard
+ * Minion • Wizard
  * 8	4	4
- * Cunning.
  * Skirmish: Exert Saruman and discard a spell stacked on an artifact to wound a companion skirmishing Saruman.
  * The Free Peoples Player may add a threat to prevent this.
+ * http://lotrtcg.org/coreset/isengard/sarumantww(r1).png
  */
 public class Card20_236 extends AbstractMinion {
     public Card20_236() {
         super(4, 8, 4, 4, Race.WIZARD, Culture.ISENGARD, "Saruman", "The White Wizard", true);
-        addKeyword(Keyword.CUNNING);
     }
 
     @Override
