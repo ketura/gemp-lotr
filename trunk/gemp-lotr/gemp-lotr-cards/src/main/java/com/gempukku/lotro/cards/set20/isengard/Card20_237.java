@@ -24,16 +24,17 @@ import java.util.List;
 /**
  * 4
  * •Saruman, Mind of Metal
- * Isengard	Minion • Wizard
+ * Minion • Wizard
  * 8	4	4
- * Cunning.
+ * Lurker.
  * At the end of the assignment phase, add (1) for each threat.
  * Shadow: Exert Saruman to play Saruman’s Staff from your discard pile.
+ * http://lotrtcg.org/coreset/isengard/sarumanmom(r1).png
  */
 public class Card20_237 extends AbstractMinion {
     public Card20_237() {
         super(4, 8, 4, 4, Race.WIZARD, Culture.ISENGARD, "Saruman", "Mind of Metal", true);
-        addKeyword(Keyword.CUNNING);
+        addKeyword(Keyword.LURKER);
     }
 
     @Override
