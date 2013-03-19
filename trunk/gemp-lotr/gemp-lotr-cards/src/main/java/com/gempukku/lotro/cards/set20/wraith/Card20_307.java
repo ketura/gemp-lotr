@@ -16,13 +16,15 @@ import java.util.List;
 /**
  * 4
  * •Ulaire Lemenya, Twilight Spectre
- * Ringwraith	Minion • Nazgul
- * 9	3	3
- * Twilight. Regroup: Remove a burden to discard a Free Peoples condition
+ * Minion • Nazgul
+ * 9	2	3
+ * Twilight.
+ * Regroup: Remove a burden to discard a Free Peoples condition
+ * http://lotrtcg.org/coreset/ringwraith/ulairelemenyats(r1).jpg
  */
 public class Card20_307 extends AbstractMinion {
     public Card20_307() {
-        super(4, 9, 3, 3, Race.NAZGUL, Culture.WRAITH, Names.lemenya, "Twilight Spectre", true);
+        super(4, 9, 2, 3, Race.NAZGUL, Culture.WRAITH, Names.lemenya, "Twilight Spectre", true);
         addKeyword(Keyword.TWILIGHT);
     }
 
