@@ -146,7 +146,7 @@ var set20 = {
     '20_145': 'http://lotrtcg.org/coreset/fallenrealms/strikefromthesouth.png',
     '20_146': 'http://lotrtcg.org/coreset/fallenrealms/summonedbysauron.png',
     '20_147': 'http://lotrtcg.org/coreset/fallenrealms/waylayed.png',
-    '20_148': 'http://lotrtcg.org/coreset/fallenrealms/waysofthesouth.png',
+    '20_148': 'http://lotrtcg.org/coreset/fallenrealms/waysofthesouth(r1).png',
     '20_149': 'http://lotrtcg.org/coreset/fallenrealms/whirlingstrike.png',
     '20_150': 'http://lotrtcg.org/coreset/gandalf/albertdrearyefb.png',
     '20_151': 'http://lotrtcg.org/coreset/gandalf/allsaveone.png',
