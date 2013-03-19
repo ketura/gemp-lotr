@@ -242,7 +242,7 @@ var set20 = {
     '20_241': 'http://lotrtcg.org/coreset/isengard/sarumansstaffiow(r1).png',
     '20_242': 'http://lotrtcg.org/coreset/isengard/wizardsguile(r1).png',
     '20_243': 'http://lotrtcg.org/coreset/isengard/wizardswrath(r1).png',
-    '20_244': 'http://lotrtcg.org/coreset/isengard/treacheryrunsdeep.png',
+    '20_244': 'http://lotrtcg.org/coreset/isengard/treacheryrunsdeep(r1).png',
     '20_245': 'http://lotrtcg.org/coreset/isengard/voiceofsaruman.png',
     '20_246': 'http://lotrtcg.org/coreset/isengard/mightofsaruman.png',
     '20_247': 'http://lotrtcg.org/coreset/isengard/seekingmycounsel.png',
