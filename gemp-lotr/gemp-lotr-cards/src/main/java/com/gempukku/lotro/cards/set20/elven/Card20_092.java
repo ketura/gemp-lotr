@@ -12,8 +12,9 @@ import com.gempukku.lotro.game.state.LotroGame;
 /**
  * 1
  * Legacy of Elbereth
- * Elven	Event • Skirmish
- * Spot 3 Elf companions to make a minion skirmishing an Elf strength -3.
+ * Event • Skirmish
+ * Spot 3 Elves to make a minion skirmishing an Elf strength -3.
+ * http://lotrtcg.org/coreset/elven/legacyofelbereth(r1).png
  */
 public class Card20_092 extends AbstractEvent {
     public Card20_092() {
@@ -23,7 +24,7 @@ public class Card20_092 extends AbstractEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && PlayConditions.canSpot(game, 3, Race.ELF, CardType.COMPANION);
+                && PlayConditions.canSpot(game, 3, Race.ELF);
     }
 
     @Override

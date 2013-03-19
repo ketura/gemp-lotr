@@ -90,7 +90,7 @@ var set20 = {
     '20_89': 'http://lotrtcg.org/coreset/elven/legolassm(r1).png',
     '20_90': 'http://lotrtcg.org/coreset/elven/legolassot.png',
     '20_91': 'http://lotrtcg.org/coreset/elven/longknivesoflegolasdb.png',
-    '20_92': 'http://lotrtcg.org/coreset/elven/legacyofelbereth.png',
+    '20_92': 'http://lotrtcg.org/coreset/elven/legacyofelbereth(r1).png',
     '20_93': 'http://lotrtcg.org/coreset/elven/lightsofcarasgaladhon.png',
     '20_94': 'http://lotrtcg.org/coreset/elven/lorienpatrol.png',
     '20_95': 'http://lotrtcg.org/coreset/elven/mightofthelasthomelyhouse.png',
