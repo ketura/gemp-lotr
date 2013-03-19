@@ -155,7 +155,7 @@ var set20 = {
     '20_154': 'http://lotrtcg.org/coreset/gandalf/bolsteredspirits.png',
     '20_155': 'http://lotrtcg.org/coreset/gandalf/discernment.png',
     '20_156': 'http://lotrtcg.org/coreset/gandalf/gandalfdotp.png',
-    '20_157': 'http://lotrtcg.org/coreset/gandalf/gandalfwoti.png',
+    '20_157': 'http://lotrtcg.org/coreset/gandalf/gandalfwoti(r1).png',
     '20_158': 'http://lotrtcg.org/coreset/gandalf/gandalfspipe.png',
     '20_159': 'http://lotrtcg.org/coreset/gandalf/gandalfsstaffdod.png',
     '20_160': 'http://lotrtcg.org/coreset/gandalf/glamdringtb.png',
