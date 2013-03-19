@@ -87,7 +87,7 @@ var set20 = {
     '20_86': 'http://lotrtcg.org/coreset/elven/golradircoi.png',
     '20_87': 'http://lotrtcg.org/coreset/elven/gwemegilefb.png',
     '20_88': 'http://lotrtcg.org/coreset/elven/haldirge.png',
-    '20_89': 'http://lotrtcg.org/coreset/elven/legolassm.png',
+    '20_89': 'http://lotrtcg.org/coreset/elven/legolassm(r1).png',
     '20_90': 'http://lotrtcg.org/coreset/elven/legolassot.png',
     '20_91': 'http://lotrtcg.org/coreset/elven/longknivesoflegolasdb.png',
     '20_92': 'http://lotrtcg.org/coreset/elven/legacyofelbereth.png',

@@ -3,7 +3,9 @@ package com.gempukku.lotro.cards.set20.elven;
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
+import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.SelfExertEffect;
+import com.gempukku.lotro.cards.modifiers.DoesNotAddToArcheryTotalModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -17,10 +19,12 @@ import java.util.List;
 /**
  * 2
  * •Legolas, Sindarin Marksman
- * Elven	Companion • Elf
+ * Companion • Elf
  * 6	3	8
  * Archer.
- * At the beginning of the archery phase, you may exert Legolas to wound a minion.
+ * At the beginning of the archery phase, you may exert Legolas to wound a minion. If you do, Legolas does not add
+ * to the fellowship archery total.
+ * http://lotrtcg.org/coreset/elven/legolassm(r1).png
  */
 public class Card20_089 extends AbstractCompanion {
     public Card20_089() {
@@ -37,6 +41,9 @@ public class Card20_089 extends AbstractCompanion {
                     new SelfExertEffect(action, self));
             action.appendEffect(
                     new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, CardType.MINION));
+            action.appendEffect(
+                    new AddUntilEndOfPhaseModifierEffect(
+                            new DoesNotAddToArcheryTotalModifier(self, self)));
             return Collections.singletonList(action);
         }
         return null;
