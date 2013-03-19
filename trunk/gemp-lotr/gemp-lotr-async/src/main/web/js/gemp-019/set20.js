@@ -76,7 +76,7 @@ var set20 = {
     '20_75': 'http://lotrtcg.org/coreset/elven/bowofthegaladhrimgg.png',
     '20_76': 'http://lotrtcg.org/coreset/elven/bruinenunleashed.png',
     '20_77': 'http://lotrtcg.org/coreset/elven/celebornlotgw.png',
-    '20_78': 'http://lotrtcg.org/coreset/elven/coordinatedstrike.png',
+    '20_78': 'http://lotrtcg.org/coreset/elven/coordinatedstrike(r1).png',
     '20_79': 'http://lotrtcg.org/coreset/elven/cripplingarrows.png',
     '20_80': 'http://lotrtcg.org/coreset/elven/elrondp.png',
     '20_81': 'http://lotrtcg.org/coreset/elven/elvenbow.png',
