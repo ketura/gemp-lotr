@@ -2,7 +2,9 @@ package com.gempukku.lotro.cards.set20.rohan;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.actions.PlayPermanentAction;
 import com.gempukku.lotro.cards.effects.CommonEffects;
+import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -17,11 +19,12 @@ import java.util.List;
 /**
  * 2
  * •Gates of the Hornburg
- * Rohan	Possession • Support Area
+ * Possession • Support Area
  * Fortification.
- * To play spot 2 [Rohan] Men.
+ * To play, exert 2 [Rohan] companions.
  * Each minion skirmishing an unbound companion is strength -2.
  * Discard this condition at the start of the regroup phase.
+ * http://lotrtcg.org/coreset/rohan/gatesofthehornburg(r1).png
  */
 public class Card20_328 extends AbstractPermanent {
     public Card20_328() {
@@ -32,7 +35,15 @@ public class Card20_328 extends AbstractPermanent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && PlayConditions.canSpot(game, 2, Culture.ROHAN, Race.MAN);
+                && PlayConditions.canExert(self, game, 1, 2, Culture.ROHAN, CardType.COMPANION);
+    }
+
+    @Override
+    public PlayPermanentAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+        final PlayPermanentAction action = super.getPlayCardAction(playerId, game, self, twilightModifier, ignoreRoamingPenalty);
+        action.appendCost(
+                new ChooseAndExertCharactersEffect(action, playerId, 2, 2, Culture.ROHAN, CardType.COMPANION));
+        return action;
     }
 
     @Override
