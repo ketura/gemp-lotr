@@ -6,6 +6,7 @@ import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
 import com.gempukku.lotro.cards.modifiers.evaluator.CardMatchesEvaluator;
 import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filter;
@@ -24,6 +25,7 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 public class Card20_154 extends AbstractEvent {
     public Card20_154() {
         super(Side.FREE_PEOPLE, 1, Culture.GANDALF, "Bolstered Spirits", Phase.SKIRMISH);
+        addKeyword(Keyword.SPELL);
     }
 
     @Override
