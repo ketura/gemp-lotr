@@ -12,14 +12,15 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 
 /**
- * 2
+ * 1
  * Threat of Mordor
- * Sauron	Event • Skirmish
+ * Event • Skirmish
  * Make a [Sauron] minion strength +1 for each threat.
+ * http://lotrtcg.org/coreset/sauron/threatofmordor(r1).png
  */
 public class Card20_375 extends AbstractEvent {
     public Card20_375() {
-        super(Side.SHADOW, 2, Culture.SAURON, "Threat of Mordor", Phase.SKIRMISH);
+        super(Side.SHADOW, 1, Culture.SAURON, "Threat of Mordor", Phase.SKIRMISH);
     }
 
     @Override
