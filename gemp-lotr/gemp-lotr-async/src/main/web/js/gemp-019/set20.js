@@ -326,7 +326,7 @@ var set20 = {
     '20_325': 'http://lotrtcg.org/coreset/rohan/forrohan.png',
     '20_326': 'http://lotrtcg.org/coreset/rohan/fortressofrohan.png',
     '20_327': 'http://lotrtcg.org/coreset/rohan/gamlingwotm.png',
-    '20_328': 'http://lotrtcg.org/coreset/rohan/gatesofthehornburg.png',
+    '20_328': 'http://lotrtcg.org/coreset/rohan/gatesofthehornburg(r1).png',
     '20_329': 'http://lotrtcg.org/coreset/rohan/hamapotgh.png',
     '20_330': 'http://lotrtcg.org/coreset/rohan/helmsdeeparmory.png',
     '20_331': 'http://lotrtcg.org/coreset/rohan/herugrimkb.png',
