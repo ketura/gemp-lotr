@@ -20,14 +20,15 @@ import java.util.List;
 /**
  * 4
  * Southron Spearman
- * Fallen Realms	Minion • Man
- * 8	3	4
+ * Minion • Man
+ * 9	2	4
  * Southron.
- * Regroup: Remove (3) to make the free people's player wound an unbound companion.
+ * Regroup: Remove (3) to make the Free Peoples player wound an unbound companion.
+ * http://lotrtcg.org/coreset/fallenrealms/southronspearman(r1).png
  */
 public class Card20_142 extends AbstractMinion {
     public Card20_142() {
-        super(4, 8, 3, 4, Race.MAN, Culture.FALLEN_REALMS, "Southron Spearman");
+        super(4, 9, 2, 4, Race.MAN, Culture.FALLEN_REALMS, "Southron Spearman");
         addKeyword(Keyword.SOUTHRON);
     }
 
