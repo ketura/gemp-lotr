@@ -62,6 +62,8 @@ public class Card13_190 extends AbstractNewSite {
         }
 
         final Integer thisRaceCount = counts.get(race);
+        if (thisRaceCount == null)
+            return false;
         for (Map.Entry<Race, Integer> raceCount : counts.entrySet()) {
             if (raceCount.getValue() > thisRaceCount)
                 return false;
