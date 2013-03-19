@@ -285,7 +285,7 @@ var set20 = {
     '20_284': 'http://lotrtcg.org/coreset/ringwraith/blackbeastofangmardif.png',
     '20_285': 'http://lotrtcg.org/coreset/ringwraith/blackbreath.png',
     '20_286': 'http://lotrtcg.org/coreset/ringwraith/bladetip.png',
-    '20_287': 'http://lotrtcg.org/coreset/ringwraith/comingforthering.png',
+    '20_287': 'http://lotrtcg.org/coreset/ringwraith/comingforthering(r1).png',
     '20_288': 'http://lotrtcg.org/coreset/ringwraith/darkwhispers.png',
     '20_289': 'http://lotrtcg.org/coreset/ringwraith/darklyswift.png',
     '20_290': 'http://lotrtcg.org/coreset/ringwraith/falteringcourage.png',
