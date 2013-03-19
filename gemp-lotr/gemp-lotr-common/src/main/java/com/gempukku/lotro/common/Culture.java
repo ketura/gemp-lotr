@@ -1,19 +1,22 @@
 package com.gempukku.lotro.common;
 
 public enum Culture implements Filterable {
-    DWARVEN("Dwarven"), ELVEN("Elven"), GANDALF("Gandalf"), GOLLUM("Gollum"), GONDOR("Gondor"), ROHAN("Rohan"), SHIRE("Shire"),
-    DUNLAND("Dunland"), ISENGARD("Isengard"), MEN("Men"), MORIA("Moria"), ORC("Orc"), RAIDER("Raider"), SAURON("Sauron"), URUK_HAI("Uruk-hai"), WRAITH("Wraith"),
-    FALLEN_REALMS("Fallen Realms", false);
+    DWARVEN("Dwarven", true), ELVEN("Elven", true), GANDALF("Gandalf", true), GOLLUM("Gollum", true), GONDOR("Gondor", true), ROHAN("Rohan", true), SHIRE("Shire", true),
+    DUNLAND("Dunland", false), ISENGARD("Isengard", false), MEN("Men", false), MORIA("Moria", false), ORC("Orc", false), RAIDER("Raider", false),
+    SAURON("Sauron", false), URUK_HAI("Uruk-hai", false), WRAITH("Wraith", false),
+    FALLEN_REALMS("Fallen Realms", false, false);
 
     private String _humanReadable;
+    private boolean _fp;
     private boolean _official;
 
-    private Culture(String humanReadable) {
-        this(humanReadable, true);
+    private Culture(String humanReadable, boolean fp) {
+        this(humanReadable, fp, true);
     }
 
-    private Culture(String humanReadable, boolean official) {
+    private Culture(String humanReadable, boolean fp, boolean official) {
         _humanReadable = humanReadable;
+        _fp = fp;
         _official = official;
     }
 
@@ -23,6 +26,10 @@ public enum Culture implements Filterable {
 
     public String getHumanReadable() {
         return _humanReadable;
+    }
+
+    public boolean isFP() {
+        return _fp;
     }
 
     public static Culture findCultureByHumanReadable(String humanReadable) {
