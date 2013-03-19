@@ -4,8 +4,6 @@ import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayPermanentAction;
-import com.gempukku.lotro.cards.effects.ChoiceEffect;
-import com.gempukku.lotro.cards.effects.SpotEffect;
 import com.gempukku.lotro.cards.effects.choose.*;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -17,16 +15,16 @@ import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
  * 0
  * •Nine for Mortal Men
- * Ringwraith	Artifact • Support Area
- * To play, exert a Nazgul (or spot The Witch-king).
+ * Artifact • Support Area
+ * To play, exert a Nazgul.
  * Response: If a Nazgul is about to take a wound, stack a [Ringwraith] card from hand here to prevent that wound.
- * Shadow: Discard 2 cards stacked here to take a [Ringwraith] card from your discard pile into hand.
+ * Shadow: Discard 3 cards stacked here to take a [Ringwraith] card from your discard pile into hand.
+ * http://lotrtcg.org/coreset/ringwraith/nineformortalmen(r1).png
  */
 public class Card20_296 extends AbstractPermanent {
     public Card20_296() {
@@ -36,29 +34,14 @@ public class Card20_296 extends AbstractPermanent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && (PlayConditions.canSpot(game, Filters.witchKing) || PlayConditions.canExert(self, game, Race.NAZGUL));
+                && PlayConditions.canExert(self, game, Race.NAZGUL);
     }
 
     @Override
     public PlayPermanentAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         PlayPermanentAction action = super.getPlayCardAction(playerId, game, self, twilightModifier, ignoreRoamingPenalty);
-        List<Effect> possibleCosts = new LinkedList<Effect>();
-        possibleCosts.add(
-                new SpotEffect(1, Filters.witchKing) {
-                    @Override
-                    public String getText(LotroGame game) {
-                        return "Spot The Witch-king";
-                    }
-                });
-        possibleCosts.add(
-                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.NAZGUL) {
-                    @Override
-                    public String getText(LotroGame game) {
-                        return "Exert a Nazgul";
-                    }
-                });
         action.appendCost(
-                new ChoiceEffect(action, playerId, possibleCosts));
+                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.NAZGUL));
         return action;
     }
 
@@ -79,10 +62,10 @@ public class Card20_296 extends AbstractPermanent {
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SHADOW, self, 0)
-            && game.getGameState().getStackedCards(self).size()>=2) {
+            && game.getGameState().getStackedCards(self).size()>=3) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseAndDiscardStackedCardsEffect(action, playerId, 2, 2, self, Filters.any));
+                    new ChooseAndDiscardStackedCardsEffect(action, playerId, 3, 3, self, Filters.any));
             action.appendEffect(
                     new ChooseAndPutCardFromDiscardIntoHandEffect(action, playerId, 1, 1, Culture.WRAITH));
             return Collections.singletonList(action);
