@@ -348,7 +348,7 @@ var set20 = {
     '20_347': 'http://lotrtcg.org/coreset/rohan/towhateverend.png',
     '20_348': 'http://lotrtcg.org/coreset/rohan/wallneverbreached.png',
     '20_349': 'http://lotrtcg.org/coreset/sauron/baraddurcaptain(r1).png',
-    '20_350': 'http://lotrtcg.org/coreset/sauron/blackgateologhai.png',
+    '20_350': 'http://lotrtcg.org/coreset/sauron/blackgateologhai(r1).png',
     '20_351': 'http://lotrtcg.org/coreset/sauron/bladeofgorgoroth.png',
     '20_352': 'http://lotrtcg.org/coreset/sauron/bladeofmorannon.png',
     '20_353': 'http://lotrtcg.org/coreset/sauron/boundtothisfate.png',
