@@ -371,7 +371,7 @@ var set20 = {
     '20_370': 'http://lotrtcg.org/coreset/sauron/orcskulker(r1).png',
     '20_371': 'http://lotrtcg.org/coreset/sauron/orcstalker(r1).png',
     '20_372': 'http://lotrtcg.org/coreset/sauron/orcvillain.png',
-    '20_373': 'http://lotrtcg.org/coreset/sauron/sauronsforces.png',
+    '20_373': 'http://lotrtcg.org/coreset/sauron/sauronsforces(r1).png',
     '20_374': 'http://lotrtcg.org/coreset/sauron/shadowintheeast.png',
     '20_375': 'http://lotrtcg.org/coreset/sauron/threatofmordor.png',
     '20_376': 'http://lotrtcg.org/coreset/sauron/threateningologhai.png',

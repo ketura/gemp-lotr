@@ -16,15 +16,16 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * 4
+ * 3
  * •Sauron's Forces
- * Sauron	Condition • Support Area
+ * Condition • Support Area
  * To play spot a [Sauron] Orc.
  * Shadow: Exert a [Sauron] Orc and discard this condition to add (1) for each threat.
+ * http://lotrtcg.org/coreset/sauron/sauronsforces(r1).png
  */
 public class Card20_373 extends AbstractPermanent {
     public Card20_373() {
-        super(Side.SHADOW, 4, CardType.CONDITION, Culture.SAURON, Zone.SUPPORT, "Sauron's Forces", null, true);
+        super(Side.SHADOW, 3, CardType.CONDITION, Culture.SAURON, Zone.SUPPORT, "Sauron's Forces", null, true);
     }
 
     @Override
