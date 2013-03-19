@@ -294,7 +294,7 @@ var set20 = {
     '20_293': 'http://lotrtcg.org/coreset/ringwraith/itwantstobefound.png',
     '20_294': 'http://lotrtcg.org/coreset/ringwraith/liftingtheveil.png',
     '20_295': 'http://lotrtcg.org/coreset/ringwraith/morgulblade.png',
-    '20_296': 'http://lotrtcg.org/coreset/ringwraith/nineformortalmen.png',
+    '20_296': 'http://lotrtcg.org/coreset/ringwraith/nineformortalmen(r1).png',
     '20_297': 'http://lotrtcg.org/coreset/ringwraith/ominouslandscape.png',
     '20_298': 'http://lotrtcg.org/coreset/ringwraith/thepalebladew.png',
     '20_299': 'http://lotrtcg.org/coreset/ringwraith/petrifyingfear.png',
