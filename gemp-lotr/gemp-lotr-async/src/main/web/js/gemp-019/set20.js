@@ -472,5 +472,6 @@ var set20 = {
     '20_472': 'http://lotrtcg.org/coreset/gondor/sotnk.png',
     '20_473': 'http://lotrtcg.org/coreset/rohan/mightofthemark.png',
     '20_474': 'http://lotrtcg.org/coreset/rohan/notadefeat.png',
-    '20_475': 'http://lotrtcg.org/coreset/shire/halflingdexterity.png'
+    '20_475': 'http://lotrtcg.org/coreset/shire/halflingdexterity.png',
+    '20_476': 'http://lotrtcg.org/coreset/isengard/stmtn(r1).png'
 }
