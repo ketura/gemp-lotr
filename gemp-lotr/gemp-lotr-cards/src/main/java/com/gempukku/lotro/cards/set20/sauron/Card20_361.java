@@ -2,22 +2,18 @@ package com.gempukku.lotro.cards.set20.sauron;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.PreventableEffect;
+import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.decisions.IntegerAwaitingDecision;
-import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.lotro.logic.effects.RemoveThreatsEffect;
 import com.gempukku.lotro.logic.timing.Action;
-import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.Collections;
 import java.util.List;
@@ -25,10 +21,10 @@ import java.util.List;
 /**
  * 3
  * •Grond, Wolf's Head
- * Sauron	Possession • Support Area
+ * Possession • Support Area
  * Regroup: Remove X threats and exert a [Sauron] minion to discard a non-character Free Peoples card that has
- * a twilight cost of X. If the Free Peoples player can spot 3 Free Peoples cultures, he or she may exert a companion
- * of a different culture than the chosen card to prevent this.
+ * a twilight cost of X.
+ * http://lotrtcg.org/coreset/sauron/grondwh(r1).png
  */
 public class Card20_361 extends AbstractPermanent {
     public Card20_361() {
@@ -49,31 +45,7 @@ public class Card20_361 extends AbstractPermanent {
                                     action.insertCost(
                                             new RemoveThreatsEffect(self, threats));
                                     action.appendEffect(
-                                            new ChooseActiveCardEffect(self, playerId, "Choose card to discard", Filters.not(Filters.character), Side.FREE_PEOPLE, Filters.printedTwilightCost(threats), Filters.canBeDiscarded(playerId, self)) {
-                                                @Override
-                                                protected void cardSelected(LotroGame game, final PhysicalCard cardToDiscard) {
-                                                    if (PlayConditions.canSpotFPCultures(game, 3, game.getGameState().getCurrentPlayerId()))
-                                                        action.appendEffect(
-                                                                new PreventableEffect(action,
-                                                                        new DiscardCardsFromPlayEffect(playerId, self, cardToDiscard),
-                                                                        game.getGameState().getCurrentPlayerId(),
-                                                                        new PreventableEffect.PreventionCost() {
-                                                                            @Override
-                                                                            public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
-                                                                                return new ChooseAndExertCharactersEffect(action, playerId, 1, 1,
-                                                                                        CardType.COMPANION, Filters.not(cardToDiscard.getBlueprint().getCulture())) {
-                                                                                    @Override
-                                                                                    public String getText(LotroGame game) {
-                                                                                        return "Exert a companion of a different culture";
-                                                                                    }
-                                                                                };
-                                                                            }
-                                                                        }));
-                                                    else
-                                                        action.appendEffect(
-                                                                new DiscardCardsFromPlayEffect(playerId, self, cardToDiscard));
-                                                }
-                                            });
+                                            new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.not(Filters.character), Side.FREE_PEOPLE, Filters.printedTwilightCost(threats)));
                                 }
                             }));
             action.appendCost(
