@@ -14,10 +14,12 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 /**
  * 2
  * •Eowyn, Lady of the Shield-arm
- * Rohan	Companion • Man
+ * Companion • Man
  * 6	3	7
- * Valiant. While in your starting fellowship, Eowyn's twilight cost is -1.
- * While you can spot an exhausted [Rohan] Man, Eowyn is strength +3.
+ * Valiant.
+ * While in your starting fellowship, Eowyn's twilight cost is -1.
+ * While you can spot an exhausted [Rohan] Man, Eowyn is strength +2.
+ * http://lotrtcg.org/coreset/rohan/eowynlots(r1).png
  */
 public class Card20_319 extends AbstractCompanion {
     public Card20_319() {
@@ -33,6 +35,6 @@ public class Card20_319 extends AbstractCompanion {
     @Override
     public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new StrengthModifier(self, self,
-                new SpotCondition(Culture.ROHAN, Race.MAN, Filters.exhausted), 3);
+                new SpotCondition(Culture.ROHAN, Race.MAN, Filters.exhausted), 2);
     }
 }
