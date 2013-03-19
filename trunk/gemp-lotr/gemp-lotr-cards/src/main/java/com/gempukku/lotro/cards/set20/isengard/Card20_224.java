@@ -20,7 +20,7 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
  */
 public class Card20_224 extends AbstractMinion {
     public Card20_224() {
-        super(4, 8, 2, 5, Race.URUK_HAI, Culture.ISENGARD, "Relentless Uruk");
+        super(4, 9, 2, 5, Race.URUK_HAI, Culture.ISENGARD, "Relentless Uruk");
         addKeyword(Keyword.DAMAGE, 1);
     }
 
