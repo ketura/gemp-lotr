@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set20.fallenRealms;
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
+import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
@@ -14,8 +15,9 @@ import com.gempukku.lotro.logic.effects.HealCharactersEffect;
 /**
  * 0
  * Resolve of Rhun
- * Fallen Realms	Event • Shadow
- * If you have initiative, heal every Easterling.
+ * Event • Shadow
+ * Exert an Easterling to heal an Easterling.
+ * http://lotrtcg.org/coreset/fallenrealms/resolveofrhun(r1).png
  */
 public class Card20_135 extends AbstractEvent {
     public Card20_135() {
@@ -25,12 +27,14 @@ public class Card20_135 extends AbstractEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && PlayConditions.hasInitiative(game, Side.SHADOW);
+                && PlayConditions.canExert(self, game, Keyword.EASTERLING);
     }
 
     @Override
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         PlayEventAction action = new PlayEventAction(self);
+        action.appendCost(
+                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Keyword.EASTERLING));
         action.appendEffect(
                 new HealCharactersEffect(self, Keyword.EASTERLING));
         return action;
