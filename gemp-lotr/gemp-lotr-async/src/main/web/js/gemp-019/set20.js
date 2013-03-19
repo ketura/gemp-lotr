@@ -378,7 +378,7 @@ var set20 = {
     '20_377': 'http://lotrtcg.org/coreset/sauron/trollofgorgoroth(r1).png',
     '20_378': 'http://lotrtcg.org/coreset/sauron/trollofmorannon(r1).png',
     '20_379': 'http://lotrtcg.org/coreset/sauron/viciousologhai(r1).png',
-    '20_380': 'http://lotrtcg.org/coreset/sauron/warcryofmorannon.png',
+    '20_380': 'http://lotrtcg.org/coreset/sauron/warcryofmorannon(r1).png',
     '20_381': 'http://lotrtcg.org/coreset/sauron/firesrageunchecked.png',
     '20_382': 'http://lotrtcg.org/coreset/shire/bilbowph.png',
     '20_383': 'http://lotrtcg.org/coreset/shire/bilbospipe.png',
