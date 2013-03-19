@@ -11,15 +11,16 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 
 /**
- * 5
- * Orc Ravener
- * Sauron	Minion • Orc
- * 13	4	6
+ * 3
+ * Orc Raveners
+ * Minion • Orc
+ * 12	4	6
  * This minion is strength -1 for each Free Peoples culture you can spot.
+ * http://lotrtcg.org/coreset/sauron/orcraveners(r1).png
  */
 public class Card20_368 extends AbstractMinion {
     public Card20_368() {
-        super(5, 13, 4, 6, Race.ORC, Culture.SAURON, "Orc Ravener");
+        super(3, 12, 4, 6, Race.ORC, Culture.SAURON, "Orc Ravener");
     }
 
     @Override
