@@ -3,7 +3,9 @@ package com.gempukku.lotro.cards.set20.gondor;
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
+import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
+import com.gempukku.lotro.cards.modifiers.DoesNotAddToArcheryTotalModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -20,9 +22,12 @@ import java.util.List;
 /**
  * 1
  * •Aragorn's Bow, Swift and True
- * Gondor	Possession •  Ranged Weapon
- * Bearer must be Aragorn. He is an archer.
- * At the beginning of the archery phase you may exert Aragorn to wound a minion.
+ * Possession •  Ranged Weapon
+ * Bearer must be Aragorn.
+ * He is an archer.
+ * At the beginning of the archery phase you may exert Aragorn to wound a minion. If you do, Aragorn does not add
+ * to the fellowship archery total.
+ * http://lotrtcg.org/coreset/gondor/aragornsbowsat(r1).png
  */
 public class Card20_177 extends AbstractAttachableFPPossession {
     public Card20_177() {
@@ -49,6 +54,9 @@ public class Card20_177 extends AbstractAttachableFPPossession {
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.aragorn));
             action.appendEffect(
                     new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, CardType.MINION));
+            action.appendEffect(
+                    new AddUntilEndOfPhaseModifierEffect(
+                            new DoesNotAddToArcheryTotalModifier(self, Filters.aragorn)));
             return Collections.singletonList(action);
         }
         return null;
