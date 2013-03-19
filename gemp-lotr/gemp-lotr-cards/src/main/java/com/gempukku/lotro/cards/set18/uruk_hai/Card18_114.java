@@ -57,7 +57,8 @@ public class Card18_114 extends AbstractPermanent {
             return Collections.singletonList(action);
         }
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.ARCHERY, self, 0)
-                && PlayConditions.canSpot(game, Culture.URUK_HAI, CardType.MINION)) {
+                && PlayConditions.canSpot(game, Culture.URUK_HAI, CardType.MINION)
+                && self.getZone() == Zone.SUPPORT) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose a Free Peoples archer", Side.FREE_PEOPLE, Keyword.ARCHER) {
