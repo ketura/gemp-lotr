@@ -1,39 +1,36 @@
 package com.gempukku.lotro.cards.set20.sauron;
 
 import com.gempukku.lotro.cards.AbstractEvent;
-import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.cards.modifiers.conditions.CanSpotFPCulturesCondition;
+import com.gempukku.lotro.cards.modifiers.conditions.NotCondition;
+import com.gempukku.lotro.cards.modifiers.evaluator.ConditionEvaluator;
+import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 
 /**
- * 2
+ * 1
  * War Cry of Morannon
- * Sauron	Event • Skirmish
- * Make a [Sauron] minion strength +2 (and damage +1 if you cannot spot 2 Free Peoples cultures)
+ * Event • Skirmish
+ * Make a [Sauron] minion strength +3 (or strength +4 if you cannot spot 3 Free Peoples cultures).
+ * http://lotrtcg.org/coreset/sauron/warcryofmorannon(r1).png
  */
 public class Card20_380 extends AbstractEvent {
     public Card20_380() {
-        super(Side.SHADOW, 2, Culture.SAURON, "War Cry of Morannon", Phase.SKIRMISH);
+        super(Side.SHADOW, 1, Culture.SAURON, "War Cry of Morannon", Phase.SKIRMISH);
     }
 
     @Override
     public PlayEventAction getPlayCardAction(final String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
-                new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, 2, Culture.SAURON, CardType.MINION) {
-                    @Override
-                    protected void selectedCharacterCallback(PhysicalCard selectedCharacter) {
-                        if (!PlayConditions.canSpotFPCultures(game, 2, playerId))
-                            action.appendEffect(
-                                    new AddUntilEndOfPhaseModifierEffect(
-                                            new KeywordModifier(self, selectedCharacter, Keyword.DAMAGE, 1)));
-                    }
-                });
+                new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, new ConditionEvaluator(2, 3,
+                        new NotCondition(new CanSpotFPCulturesCondition(self.getOwner(), 3))), Culture.SAURON, CardType.MINION));
         return action;
     }
 }
