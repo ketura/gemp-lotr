@@ -225,7 +225,7 @@ var set20 = {
     '20_224': 'http://lotrtcg.org/coreset/isengard/relentlessuruk.png',
     '20_225': 'http://lotrtcg.org/coreset/isengard/urukreserves.png',
     '20_226': 'http://lotrtcg.org/coreset/isengard/lurtzcotwh.png',
-    '20_227': 'http://lotrtcg.org/coreset/isengard/findthehalfling.png',
+    '20_227': 'http://lotrtcg.org/coreset/isengard/findthehalfling(r1).png',
     '20_228': 'http://lotrtcg.org/coreset/isengard/myfightingurukhai.png',
     '20_229': 'http://lotrtcg.org/coreset/isengard/openwar.png',
     '20_230': 'http://lotrtcg.org/coreset/isengard/urukhaiblade.png',
