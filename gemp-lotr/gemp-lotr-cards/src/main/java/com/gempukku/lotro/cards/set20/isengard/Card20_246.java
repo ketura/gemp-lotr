@@ -4,10 +4,7 @@ import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -15,9 +12,10 @@ import com.gempukku.lotro.game.state.LotroGame;
 /**
  * 2
  * Might of Saruman
- * Isengard	Event • Skirmish
+ * Event • Skirmish
  * Spell.
- * Spot Saruman to make an unbound companion strength - 3.
+ * Spot Saruman to make a companion strength -3.
+ * http://lotrtcg.org/coreset/isengard/mightofsaruman(r1).png
  */
 public class Card20_246 extends AbstractEvent {
     public Card20_246() {
@@ -36,7 +34,7 @@ public class Card20_246 extends AbstractEvent {
         PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new ChooseAndAddUntilEOPStrengthBonusEffect(
-                        action, self, playerId, -3, Filters.unboundCompanion));
+                        action, self, playerId, -3, CardType.COMPANION));
         return action;
     }
 }
