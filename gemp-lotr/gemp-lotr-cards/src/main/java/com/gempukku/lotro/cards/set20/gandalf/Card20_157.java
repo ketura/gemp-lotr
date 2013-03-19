@@ -1,9 +1,7 @@
 package com.gempukku.lotro.cards.set20.gandalf;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
-import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
@@ -19,9 +17,10 @@ import java.util.List;
 /**
  * 4
  * •Gandalf, Wisest of the Istari
- * Gandalf	Companion • Wizard
+ * Companion • Wizard
  * 7	4	7
- * Each time you play a [Gandalf] spell, you may exert Gandalf to draw a card.
+ * Each time you play a [Gandalf] spell, you may draw a card.
+ * http://lotrtcg.org/coreset/gandalf/gandalfwoti(r1).png
  */
 public class Card20_157 extends AbstractCompanion {
     public Card20_157() {
@@ -30,11 +29,8 @@ public class Card20_157 extends AbstractCompanion {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (TriggerConditions.played(game, effectResult, Culture.GANDALF, Keyword.SPELL)
-                && PlayConditions.canSelfExert(self, game)) {
+        if (TriggerConditions.played(game, effectResult, Culture.GANDALF, Keyword.SPELL)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
-            action.appendCost(
-                    new SelfExertEffect(action, self));
             action.appendEffect(
                     new DrawCardsEffect(action, playerId, 1));
             return Collections.singletonList(action);
