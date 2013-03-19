@@ -150,7 +150,7 @@ var set20 = {
     '20_149': 'http://lotrtcg.org/coreset/fallenrealms/whirlingstrike.png',
     '20_150': 'http://lotrtcg.org/coreset/gandalf/albertdrearyefb.png',
     '20_151': 'http://lotrtcg.org/coreset/gandalf/allsaveone.png',
-    '20_152': 'http://lotrtcg.org/coreset/gandalf/barlimanbutterburji.png',
+    '20_152': 'http://lotrtcg.org/coreset/gandalf/barlimanbutterburji(r1).png',
     '20_153': 'http://lotrtcg.org/coreset/gandalf/bindinglight.png',
     '20_154': 'http://lotrtcg.org/coreset/gandalf/bolsteredspirits.png',
     '20_155': 'http://lotrtcg.org/coreset/gandalf/discernment.png',

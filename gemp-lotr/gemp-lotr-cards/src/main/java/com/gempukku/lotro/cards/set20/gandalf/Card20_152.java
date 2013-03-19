@@ -17,10 +17,11 @@ import java.util.List;
 /**
  * 0
  * •Barliman Butterbur, Jovial Innkeep
- * Gandalf	Ally • Man • Bree
+ * Ally • Man • Bree
  * 1	2
  * To play, spot Gandalf.
- * Fellowship or Regroup: If the fellowship is in region 1 or region 2, exert Barliman Butterbur to heal a companion.
+ * Fellowship or Regroup: Exert Barliman Butterbur to heal a companion.
+ * http://lotrtcg.org/coreset/gandalf/barlimanbutterburji(r1).png
  */
 public class Card20_152 extends AbstractAlly {
     public Card20_152() {
@@ -38,7 +39,6 @@ public class Card20_152 extends AbstractAlly {
     protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if ((PlayConditions.canUseFPCardDuringPhase(game, Phase.FELLOWSHIP, self)
                 || PlayConditions.canUseFPCardDuringPhase(game, Phase.REGROUP, self))
-            && PlayConditions.location(game, Filters.or(Filters.region(1), Filters.region(2)))
                 && PlayConditions.canSelfExert(self, game)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
