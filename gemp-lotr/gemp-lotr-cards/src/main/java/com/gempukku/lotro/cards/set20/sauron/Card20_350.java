@@ -5,15 +5,16 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.PreventableEffect;
 import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndAssignCharacterToMinionEffect;
+import com.gempukku.lotro.cards.modifiers.evaluator.CountFPCulturesEvaluator;
+import com.gempukku.lotro.cards.modifiers.evaluator.NegativeEvaluator;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.effects.AddThreatsEffect;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.logic.modifiers.Modifier;
+import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 
@@ -21,23 +22,25 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * 5
+ * 4
  * Black Gate Olog-hai
- * Sauron	Minion • Troll
- * 12	4	6
+ * Minion • Troll
+ * 14	4	6
  * Fierce.
- * This minion's twilight cost is +1 for each Free Peoples culture you can spot.
+ * This minion is strength -1 for each Free Peoples culture you can spot.
  * Assignment: Exert this minion to assign it to an ally. The Free Peoples player may add a threat to prevent this.
+ * http://lotrtcg.org/coreset/sauron/blackgateologhai(r1).png
  */
 public class Card20_350 extends AbstractMinion {
     public Card20_350() {
-        super(5, 12, 4, 6, Race.TROLL, Culture.SAURON, "Black Gate Olog-hai");
+        super(4, 14, 4, 6, Race.TROLL, Culture.SAURON, "Black Gate Olog-hai");
         addKeyword(Keyword.FIERCE);
     }
 
     @Override
-    public int getTwilightCostModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
-        return GameUtils.getSpottableFPCulturesCount(gameState, modifiersQuerying, self.getOwner());
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
+        return new StrengthModifier(self, self, null,
+                new NegativeEvaluator(new CountFPCulturesEvaluator(self.getOwner())));
     }
 
     @Override
