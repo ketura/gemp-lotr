@@ -14,10 +14,11 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
 /**
  * 5
  * Southron Packmaster
- * Fallen Realms	Minion • Man
+ * Minion • Man
  * 11	3	4
  * Southron. Archer.
- * While this minion is mounted, each Southron is ambush (2).
+ * While this minion is mounted, each Southron is ambush (1).
+ * http://lotrtcg.org/coreset/fallenrealms/southronpackmaster(r1).png
  */
 public class Card20_139 extends AbstractMinion {
     public Card20_139() {
@@ -29,6 +30,6 @@ public class Card20_139 extends AbstractMinion {
     @Override
     public Modifier getAlwaysOnModifier(LotroGame game, final PhysicalCard self) {
         return new KeywordModifier(self, Keyword.SOUTHRON,
-                new GameHasCondition(self, Filters.mounted), Keyword.AMBUSH, 2);
+                new GameHasCondition(self, Filters.mounted), Keyword.AMBUSH, 1);
     }
 }
