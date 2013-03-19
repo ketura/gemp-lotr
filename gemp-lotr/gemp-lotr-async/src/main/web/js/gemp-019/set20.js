@@ -133,7 +133,7 @@ var set20 = {
     '20_132': 'http://lotrtcg.org/coreset/fallenrealms/overwhelmingnumbers.png',
     '20_133': 'http://lotrtcg.org/coreset/fallenrealms/redrage.png',
     '20_134': 'http://lotrtcg.org/coreset/fallenrealms/relentlessarmies.png',
-    '20_135': 'http://lotrtcg.org/coreset/fallenrealms/resolveofrhun.png',
+    '20_135': 'http://lotrtcg.org/coreset/fallenrealms/resolveofrhun(r1).png',
     '20_136': 'http://lotrtcg.org/coreset/fallenrealms/southronbandit.png',
     '20_137': 'http://lotrtcg.org/coreset/fallenrealms/southrondeadeye.png',
     '20_138': 'http://lotrtcg.org/coreset/fallenrealms/southronnomad.png',
