@@ -358,7 +358,7 @@ var set20 = {
     '20_357': 'http://lotrtcg.org/coreset/sauron/gatheringevil(r1).png',
     '20_358': 'http://lotrtcg.org/coreset/sauron/gothmogvc.png',
     '20_359': 'http://lotrtcg.org/coreset/sauron/gothmogswargrb.png',
-    '20_360': 'http://lotrtcg.org/coreset/sauron/thegreateyel.png',
+    '20_360': 'http://lotrtcg.org/coreset/sauron/greateyel(r1).png',
     '20_361': 'http://lotrtcg.org/coreset/sauron/grondwh.png',
     '20_362': 'http://lotrtcg.org/coreset/sauron/mouthofsauronbgm.png',
     '20_363': 'http://lotrtcg.org/coreset/sauron/ologhaimalice.png',

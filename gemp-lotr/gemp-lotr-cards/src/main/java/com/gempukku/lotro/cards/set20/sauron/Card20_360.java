@@ -24,17 +24,18 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * 4
+ * 3
  * •The Great Eye, Lidless
- * Sauron	Minion
- * 8	4	6
+ * Minion
+ * 6	4	6
  * Cunning.
  * When you play this minion, spot another [Sauron] minion to add a threat for each companion over 4.
  * Shadow: Exert The Great Eye twice to make the number of Free Peoples cultures you can spot -1 until the regroup phase.
+ * http://lotrtcg.org/coreset/sauron/greateyel(r1).png
  */
 public class Card20_360 extends AbstractMinion {
     public Card20_360() {
-        super(4, 8, 4, 6, null, Culture.SAURON, "The Great Eye", "Lidless", true);
+        super(3, 6, 4, 6, null, Culture.SAURON, "The Great Eye", "Lidless", true);
         addKeyword(Keyword.CUNNING);
     }
 
