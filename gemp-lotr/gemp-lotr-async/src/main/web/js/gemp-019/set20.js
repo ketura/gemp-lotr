@@ -453,7 +453,7 @@ var set20 = {
     '20_452': 'http://lotrtcg.org/coreset/sites/7brokengate.png',
     '20_453': 'http://lotrtcg.org/coreset/sites/7dimholtroad.png',
     '20_454': 'http://lotrtcg.org/coreset/sites/7easternithilien.png',
-    '20_455': 'http://lotrtcg.org/coreset/sites/7haradroad.png',
+    '20_455': 'http://lotrtcg.org/coreset/sites/7haradroad(r1).png',
     '20_456': 'http://lotrtcg.org/coreset/sites/7orthancpinnacle.png',
     '20_457': 'http://lotrtcg.org/coreset/sites/7osgiliathruins.png',
     '20_458': 'http://lotrtcg.org/coreset/sites/8cairandros.png',

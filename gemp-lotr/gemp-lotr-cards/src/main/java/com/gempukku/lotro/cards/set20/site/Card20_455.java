@@ -11,7 +11,8 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
 /**
  * Harad Road
  * 7	7
- * Southrons are ambush (2).
+ * Southrons are ambush (1).
+ * http://lotrtcg.org/coreset/sites/7haradroad(r1).png
  */
 public class Card20_455 extends AbstractSite {
     public Card20_455() {
@@ -20,6 +21,6 @@ public class Card20_455 extends AbstractSite {
 
     @Override
     public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new KeywordModifier(self, Keyword.SOUTHRON, Keyword.AMBUSH, 2);
+        return new KeywordModifier(self, Keyword.SOUTHRON, Keyword.AMBUSH, 1);
     }
 }
