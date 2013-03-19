@@ -165,6 +165,7 @@ public class MerchantService {
             if (!success)
                 throw new MerchantException("Unable to remove the sold card from your collection");
 
+            _priceGuarantees.remove(player.getName());
             _merchant.cardBought(blueprintId, currentTime, price);
         } finally {
             lock.unlock();
@@ -187,6 +188,7 @@ public class MerchantService {
             if (!success)
                 throw new MerchantException("Unable to remove required currency from your collection");
 
+            _priceGuarantees.remove(player.getName());
             _merchant.cardSold(blueprintId, currentTime, price);
         } finally {
             lock.unlock();
