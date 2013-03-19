@@ -4,6 +4,8 @@ import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.StackCardFromPlayEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromStackedEffect;
+import com.gempukku.lotro.cards.modifiers.evaluator.CountStackedEvaluator;
+import com.gempukku.lotro.cards.modifiers.evaluator.NegativeEvaluator;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -11,17 +13,21 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.RemoveThreatsEffect;
+import com.gempukku.lotro.logic.modifiers.Modifier;
+import com.gempukku.lotro.logic.modifiers.TwilightCostModifier;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.Collections;
 import java.util.List;
 
 /**
- * 1
+ * 2
  * Throne of Orthanc
- * Isengard	Artifact • Support Area
+ * Artifact • Support Area
+ * The twilight cost of each [Isengard] event is -1 for each minion stacked on this artifact.
  * Regroup: If Saruman is not exhausted, stack him here.
  * Shadow: Remove a threat to play Saruman stacked here as if from hand.
+ * http://lotrtcg.org/coreset/isengard/throneoforthanc(r1).png
  */
 public class Card20_240 extends AbstractPermanent {
     public Card20_240() {
@@ -29,9 +35,9 @@ public class Card20_240 extends AbstractPermanent {
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && PlayConditions.canSpot(game, Filters.saruman);
+    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
+        return new TwilightCostModifier(self, Filters.and(Culture.ISENGARD, CardType.EVENT), null,
+                new NegativeEvaluator(new CountStackedEvaluator(self, CardType.MINION)));
     }
 
     @Override
