@@ -234,7 +234,7 @@ var set20 = {
     '20_233': 'http://lotrtcg.org/coreset/isengard/isengardunleashed.png',
     '20_234': 'http://lotrtcg.org/coreset/isengard/urukhaipike.png',
     '20_235': 'http://lotrtcg.org/coreset/isengard/tenthousandstrong.png',
-    '20_236': 'http://lotrtcg.org/coreset/isengard/sarumantww.png',
+    '20_236': 'http://lotrtcg.org/coreset/isengard/sarumantww(r1).png',
     '20_237': 'http://lotrtcg.org/coreset/isengard/sarumanmom.png',
     '20_238': 'http://lotrtcg.org/coreset/isengard/wizardsgrasp.png',
     '20_239': 'http://lotrtcg.org/coreset/isengard/palantiroforthancdow.png',
