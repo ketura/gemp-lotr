@@ -344,7 +344,7 @@ var set20 = {
     '20_343': 'http://lotrtcg.org/coreset/rohan/snowmaners.png',
     '20_344': 'http://lotrtcg.org/coreset/rohan/theodenkotgh.png',
     '20_345': 'http://lotrtcg.org/coreset/rohan/theodenris.png',
-    '20_346': 'http://lotrtcg.org/coreset/rohan/tothesmithy.png',
+    '20_346': 'http://lotrtcg.org/coreset/rohan/tothesmithy(r1).png',
     '20_347': 'http://lotrtcg.org/coreset/rohan/towhateverend.png',
     '20_348': 'http://lotrtcg.org/coreset/rohan/wallneverbreached.png',
     '20_349': 'http://lotrtcg.org/coreset/sauron/baraddurcaptain.png',
