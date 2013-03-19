@@ -403,7 +403,7 @@ var set20 = {
     '20_402': 'http://lotrtcg.org/coreset/shire/pippinht.png',
     '20_403': 'http://lotrtcg.org/coreset/shire/pippinspipe.png',
     '20_404': 'http://lotrtcg.org/coreset/shire/promise.png',
-    '20_405': 'http://anony.ws/i/2013/01/09/p7DWC.png',
+    '20_405': 'http://lotrtcg.org/coreset/shire/robinsmallburrowsoh(r1).png',
     '20_406': 'http://lotrtcg.org/coreset/shire/rosiecottongdb.png',
     '20_407': 'http://lotrtcg.org/coreset/shire/samdoe.png',
     '20_408': 'http://lotrtcg.org/coreset/shire/samhh.png',
