@@ -307,7 +307,7 @@ var set20 = {
     '20_306': 'http://lotrtcg.org/coreset/ringwraith/ulaireenqueama.png',
     '20_307': 'http://lotrtcg.org/coreset/ringwraith/ulairelemenyats(r1).jpg',
     '20_308': 'http://lotrtcg.org/coreset/ringwraith/ulairenelyadttr.png',
-    '20_309': 'http://lotrtcg.org/coreset/ringwraith/ulairenerteatf.png',
+    '20_309': 'http://lotrtcg.org/coreset/ringwraith/ulairenerteatf(r1).jpg',
     '20_310': 'http://lotrtcg.org/coreset/ringwraith/ulaireotseatm.png',
     '20_311': 'http://lotrtcg.org/coreset/ringwraith/ulairetoldearib.png',
     '20_312': 'http://lotrtcg.org/coreset/ringwraith/witchkingrit.png',
