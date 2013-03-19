@@ -239,7 +239,7 @@ var set20 = {
     '20_238': 'http://lotrtcg.org/coreset/isengard/wizardsgrasp.png',
     '20_239': 'http://lotrtcg.org/coreset/isengard/palantiroforthancdow.png',
     '20_240': 'http://lotrtcg.org/coreset/isengard/throneoforthanc(r1).png',
-    '20_241': 'http://lotrtcg.org/coreset/isengard/sarumansstaffiow.png',
+    '20_241': 'http://lotrtcg.org/coreset/isengard/sarumansstaffiow(r1).png',
     '20_242': 'http://lotrtcg.org/coreset/isengard/wizardsguile.png',
     '20_243': 'http://lotrtcg.org/coreset/isengard/wizardswrath.png',
     '20_244': 'http://lotrtcg.org/coreset/isengard/treacheryrunsdeep.png',
