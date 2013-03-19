@@ -6,17 +6,18 @@ import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
 
 /**
- * 4
+ * 3
  * Southron Deadeye
- * Fallen Realms	Minion • Man
- * 7	3	4
- * Southron. Ambush (2). Archer.
+ * Minion • Man
+ * 8	2	4
+ * Southron. Archer. Ambush (1).
+ * http://lotrtcg.org/coreset/fallenrealms/southrondeadeye(r1).png
  */
 public class Card20_137 extends AbstractMinion {
     public Card20_137() {
-        super(4, 7, 3, 4, Race.MAN, Culture.FALLEN_REALMS, "Southron Deadeye");
+        super(3, 8, 2, 4, Race.MAN, Culture.FALLEN_REALMS, "Southron Deadeye");
         addKeyword(Keyword.SOUTHRON);
-        addKeyword(Keyword.AMBUSH, 2);
+        addKeyword(Keyword.AMBUSH, 1);
         addKeyword(Keyword.ARCHER);
     }
 }

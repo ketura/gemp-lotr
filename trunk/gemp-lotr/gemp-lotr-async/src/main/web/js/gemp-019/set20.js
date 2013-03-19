@@ -135,7 +135,7 @@ var set20 = {
     '20_134': 'http://lotrtcg.org/coreset/fallenrealms/relentlessarmies.png',
     '20_135': 'http://lotrtcg.org/coreset/fallenrealms/resolveofrhun(r1).png',
     '20_136': 'http://lotrtcg.org/coreset/fallenrealms/southronbandit.png',
-    '20_137': 'http://lotrtcg.org/coreset/fallenrealms/southrondeadeye.png',
+    '20_137': 'http://lotrtcg.org/coreset/fallenrealms/southrondeadeye(r1).png',
     '20_138': 'http://lotrtcg.org/coreset/fallenrealms/southronnomad.png',
     '20_139': 'http://lotrtcg.org/coreset/fallenrealms/southronpackmaster.png',
     '20_140': 'http://lotrtcg.org/coreset/fallenrealms/southronrogue.png',
