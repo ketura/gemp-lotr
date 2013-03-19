@@ -839,7 +839,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
 
     @Override
     public boolean canAddBurden(GameState gameState, String performingPlayer, PhysicalCard source) {
-        for (Modifier modifier : getModifiersAffectingCard(gameState, ModifierEffect.BURDEN_MODIFIER, source)) {
+        for (Modifier modifier : getModifiers(gameState, ModifierEffect.BURDEN_MODIFIER)) {
             if (!modifier.canAddBurden(gameState, this, performingPlayer, source))
                 return false;
         }
