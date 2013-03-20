@@ -43,7 +43,7 @@ public class Card15_090 extends AbstractMinion {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new PreventableEffect(action,
-                            new LiberateASiteEffect(self), self.getOwner(),
+                            new LiberateASiteEffect(self, game.getGameState().getCurrentPlayerId(), null), self.getOwner(),
                             new PreventableEffect.PreventionCost() {
                                 @Override
                                 public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {

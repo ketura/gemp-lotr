@@ -59,7 +59,7 @@ public class Card7_117 extends AbstractEvent {
 
         List<Effect> possibleEffects = new LinkedList<Effect>();
         possibleEffects.add(
-                new LiberateASiteEffect(self));
+                new LiberateASiteEffect(self, playerId, null));
         possibleEffects.add(
                 new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 0, Integer.MAX_VALUE, Filters.any) {
                     @Override

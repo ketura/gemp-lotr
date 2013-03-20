@@ -15,20 +15,18 @@ import java.util.Set;
 
 public class LiberateASiteEffect extends AbstractEffect {
     private PhysicalCard _source;
-    private String _playerId;
+    private String _liberatingPlayer;
+    private String _liberatedSiteController;
 
-    public LiberateASiteEffect(PhysicalCard source) {
-        this(source, source.getOwner());
-    }
-
-    public LiberateASiteEffect(PhysicalCard source, String playerId) {
+    public LiberateASiteEffect(PhysicalCard source, String liberatingPlayer, String liberatedSiteController) {
         _source = source;
-        _playerId = playerId;
+        _liberatingPlayer = liberatingPlayer;
+        _liberatedSiteController = liberatedSiteController;
     }
 
     @Override
     public boolean isPlayableInFull(LotroGame game) {
-        return PlayConditions.canLiberateASite(game, _source.getOwner(), _source, _playerId);
+        return PlayConditions.canLiberateASite(game, _source.getOwner(), _source, _liberatingPlayer);
     }
 
     @Override
@@ -48,12 +46,12 @@ public class LiberateASiteEffect extends AbstractEffect {
 
         for (int i = maxUnoccupiedSite; i >= 1; i--) {
             PhysicalCard site = game.getGameState().getSite(i);
-            if (_playerId == null) {
+            if (_liberatedSiteController == null) {
                 if (site != null && site.getCardController() != null
                         && !site.getCardController().equals(game.getGameState().getCurrentPlayerId()))
                     return site;
             } else {
-                if (site != null && site.getCardController() != null && site.getCardController().equals(_playerId))
+                if (site != null && site.getCardController() != null && site.getCardController().equals(_liberatedSiteController))
                     return site;
             }
         }
@@ -85,7 +83,7 @@ public class LiberateASiteEffect extends AbstractEffect {
                 for (PhysicalCard discardedCard : discardedCards)
                     game.getActionsEnvironment().emitEffectResult(new DiscardCardsFromPlayResult(null, discardedCard));
 
-                game.getGameState().sendMessage(_playerId + " liberated a " + GameUtils.getCardLink(siteToLiberate) + " using " + GameUtils.getCardLink(_source));
+                game.getGameState().sendMessage(_liberatingPlayer + " liberated a " + GameUtils.getCardLink(siteToLiberate) + " using " + GameUtils.getCardLink(_source));
 
                 liberatedSiteCallback(siteToLiberate);
 

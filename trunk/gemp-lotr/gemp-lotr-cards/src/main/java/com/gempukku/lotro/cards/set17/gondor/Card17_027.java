@@ -57,7 +57,7 @@ public class Card17_027 extends AbstractAttachableFPPossession {
                     new ExertCharactersEffect(action, self, self.getAttachedTo()));
             List<Effect> possibleEffects = new LinkedList<Effect>();
             possibleEffects.add(
-                    new LiberateASiteEffect(self));
+                    new LiberateASiteEffect(self, playerId, null));
             possibleEffects.add(
                     new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, CardType.CONDITION, Filters.attachedTo(CardType.COMPANION)) {
                         @Override

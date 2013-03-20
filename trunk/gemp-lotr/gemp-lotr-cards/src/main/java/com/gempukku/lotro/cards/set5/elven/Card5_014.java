@@ -39,7 +39,7 @@ public class Card5_014 extends AbstractEvent {
                     }
                 });
         action.appendEffect(
-                new LiberateASiteEffect(self));
+                new LiberateASiteEffect(self, playerId, null));
         return action;
     }
 }

@@ -51,10 +51,10 @@ public class Card15_141 extends AbstractAttachableFPPossession {
             action.appendCost(
                     new SelfDiscardEffect(self));
             action.appendEffect(
-                    new LiberateASiteEffect(self));
+                    new LiberateASiteEffect(self, playerId, null));
             if (Filters.mounted.accepts(game.getGameState(), game.getModifiersQuerying(), self.getAttachedTo()))
                 action.appendEffect(
-                        new LiberateASiteEffect(self));
+                        new LiberateASiteEffect(self, playerId, null));
             return Collections.singletonList(action);
         }
         return null;

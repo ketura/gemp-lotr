@@ -65,7 +65,7 @@ public class Card7_250 extends AbstractAttachableFPPossession {
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.name(Names.theoden)));
             action.appendEffect(
                     new PreventableEffect(action,
-                            new LiberateASiteEffect(self),
+                            new LiberateASiteEffect(self, playerId, null),
                             GameUtils.getOpponents(game, playerId),
                             new PreventableEffect.PreventionCost() {
                                 @Override

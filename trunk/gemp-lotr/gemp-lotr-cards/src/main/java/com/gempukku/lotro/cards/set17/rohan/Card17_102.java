@@ -48,7 +48,7 @@ public class Card17_102 extends AbstractCompanion {
             action.appendCost(
                     new SelfExertEffect(action, self));
             action.appendEffect(
-                    new LiberateASiteEffect(self));
+                    new LiberateASiteEffect(self, playerId, null));
             return Collections.singletonList(action);
         }
         return null;

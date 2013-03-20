@@ -51,7 +51,7 @@ public class Card20_343 extends AbstractAttachableFPPossession {
         if (TriggerConditions.winsSkirmish(game, effectResult, Filters.hasAttached(self), Filters.name(Names.theoden))) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new LiberateASiteEffect(self));
+                    new LiberateASiteEffect(self, playerId, null));
             return Collections.singletonList(action);
         }
         return null;

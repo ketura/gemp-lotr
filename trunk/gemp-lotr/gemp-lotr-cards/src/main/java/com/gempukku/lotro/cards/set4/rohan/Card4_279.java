@@ -43,7 +43,7 @@ public class Card4_279 extends AbstractOldEvent {
 
         List<Effect> possibleEffects = new LinkedList<Effect>();
         possibleEffects.add(
-                new LiberateASiteEffect(self));
+                new LiberateASiteEffect(self, playerId, null));
         possibleEffects.add(
                 new DrawCardsEffect(action, playerId, 3));
 

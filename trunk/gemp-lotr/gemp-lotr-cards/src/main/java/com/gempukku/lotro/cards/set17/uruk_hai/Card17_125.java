@@ -40,7 +40,7 @@ public class Card17_125 extends AbstractMinion {
                 && PlayConditions.canLiberateASite(game, playerId, self)) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(
-                    new LiberateASiteEffect(self) {
+                    new LiberateASiteEffect(self, playerId, null) {
                         @Override
                         public void liberatedSiteCallback(PhysicalCard liberatedSite) {
                             action.appendEffect(

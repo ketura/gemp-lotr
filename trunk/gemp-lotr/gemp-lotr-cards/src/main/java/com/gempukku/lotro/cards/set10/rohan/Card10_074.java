@@ -52,7 +52,7 @@ public class Card10_074 extends AbstractResponseEvent {
                         }
                     });
             possibleEffects.add(
-                    new LiberateASiteEffect(self));
+                    new LiberateASiteEffect(self, playerId, null));
             action.appendEffect(
                     new ChoiceEffect(action, playerId, possibleEffects));
             return Collections.singletonList(action);

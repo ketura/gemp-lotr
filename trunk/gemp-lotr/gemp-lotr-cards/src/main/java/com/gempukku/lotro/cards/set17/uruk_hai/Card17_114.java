@@ -65,7 +65,7 @@ public class Card17_114 extends AbstractEvent {
 
                         SubCostToEffectAction subAction = new SubCostToEffectAction(action);
                         subAction.appendCost(
-                                new LiberateASiteEffect(self));
+                                new LiberateASiteEffect(self, playerId, null));
                         subAction.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
                                         new StrengthModifier(self, urukHai, 2)));

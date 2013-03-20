@@ -57,7 +57,7 @@ public class Card17_104 extends AbstractCompanion {
                                 AttachPermanentAction attachPermanentAction = ((AbstractAttachable) selectedCard.getBlueprint()).getPlayCardAction(playerId, game, selectedCard, Filters.and(self), 0);
                                 game.getActionsEnvironment().addActionToStack(attachPermanentAction);
                                 action.appendEffect(
-                                        new LiberateASiteEffect(self));
+                                        new LiberateASiteEffect(self, playerId, null));
                             }
                         }
                     });

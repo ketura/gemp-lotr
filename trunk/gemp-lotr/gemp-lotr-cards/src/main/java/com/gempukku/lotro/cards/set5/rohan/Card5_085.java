@@ -34,7 +34,7 @@ public class Card5_085 extends AbstractEvent {
         action.appendEffect(
                 new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 0, 2, CardType.CONDITION));
         action.appendEffect(
-                new LiberateASiteEffect(self));
+                new LiberateASiteEffect(self, playerId, null));
         return action;
     }
 }
