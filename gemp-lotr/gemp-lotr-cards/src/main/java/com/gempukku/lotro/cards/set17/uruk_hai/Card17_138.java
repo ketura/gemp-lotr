@@ -52,7 +52,7 @@ public class Card17_138 extends AbstractPermanent {
                 && PlayConditions.canLiberateASite(game, playerId, self)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new LiberateASiteEffect(self));
+                    new LiberateASiteEffect(self, playerId, null));
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose an URUK-HAI minion", Culture.URUK_HAI, CardType.MINION) {
                         @Override

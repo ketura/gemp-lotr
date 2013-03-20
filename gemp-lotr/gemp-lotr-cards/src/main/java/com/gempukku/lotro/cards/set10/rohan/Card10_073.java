@@ -37,7 +37,7 @@ public class Card10_073 extends AbstractPermanent {
         if (TriggerConditions.losesInitiative(effectResult, Side.FREE_PEOPLE)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new LiberateASiteEffect(self));
+                    new LiberateASiteEffect(self, playerId, null));
             return Collections.singletonList(action);
         }
         return null;

@@ -64,7 +64,7 @@ public class Card4_071 extends AbstractCompanion {
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.not(self), Race.ELF));
 
             action.appendEffect(
-                    new LiberateASiteEffect(self));
+                    new LiberateASiteEffect(self, playerId, null));
 
             return Collections.singletonList(action);
         }

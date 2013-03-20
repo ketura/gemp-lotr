@@ -35,7 +35,7 @@ public class Card6_025 extends AbstractEvent {
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 2, 2, Race.ENT));
         action.appendEffect(
-                new LiberateASiteEffect(self));
+                new LiberateASiteEffect(self, playerId, null));
         action.appendEffect(
                 new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Side.SHADOW, CardType.CONDITION));
         return action;

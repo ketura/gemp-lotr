@@ -62,7 +62,7 @@ public class Card15_135 extends AbstractFollower {
         if (TriggerConditions.winsSkirmish(game, effectResult, Filters.hasAttached(self))) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new LiberateASiteEffect(self));
+                    new LiberateASiteEffect(self, playerId, null));
             return Collections.singletonList(action);
         }
         return null;

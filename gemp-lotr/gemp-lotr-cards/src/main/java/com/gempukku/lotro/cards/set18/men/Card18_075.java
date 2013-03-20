@@ -44,7 +44,7 @@ public class Card18_075 extends AbstractMinion {
                 && PlayConditions.canLiberateASite(game, playerId, self, playerId)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new LiberateASiteEffect(self, playerId));
+                    new LiberateASiteEffect(self, playerId, playerId));
             action.appendEffect(
                     new AddUntilStartOfPhaseModifierEffect(
                             new StrengthModifier(self, Filters.and(Culture.MEN, CardType.MINION), 2), Phase.REGROUP));

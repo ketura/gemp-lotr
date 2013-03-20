@@ -51,7 +51,7 @@ public class Card4_079 extends AbstractResponseOldEvent {
 
                 List<Effect> possibleEffects = new LinkedList<Effect>();
                 possibleEffects.add(
-                        new LiberateASiteEffect(self));
+                        new LiberateASiteEffect(self, playerId, null));
                 possibleEffects.add(
                         new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, CardType.MINION) {
                             @Override

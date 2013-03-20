@@ -76,7 +76,7 @@ public class Card7_127 extends AbstractCompanion {
             action.appendCost(
                     new ChoiceEffect(action, playerId, possibleCosts));
             action.appendEffect(
-                    new LiberateASiteEffect(self));
+                    new LiberateASiteEffect(self, playerId, null));
             return Collections.singletonList(action);
         }
         return null;

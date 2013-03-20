@@ -49,7 +49,7 @@ public class Card9_002 extends AbstractMinion {
     public OptionalTriggerAction getKilledOptionalTrigger(String playerId, LotroGame game, PhysicalCard self) {
         if (playerId.equals(game.getGameState().getCurrentPlayerId())) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
-            action.appendEffect(new LiberateASiteEffect(self));
+            action.appendEffect(new LiberateASiteEffect(self, playerId, null));
             return action;
         }
         return null;

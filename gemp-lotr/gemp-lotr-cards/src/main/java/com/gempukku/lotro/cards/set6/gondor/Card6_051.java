@@ -61,7 +61,7 @@ public class Card6_051 extends AbstractAttachableFPPossession {
             action.appendCost(
                     new SelfDiscardEffect(self));
             action.appendEffect(
-                    new LiberateASiteEffect(self));
+                    new LiberateASiteEffect(self, playerId, null));
             return Collections.singletonList(action);
         }
         return null;
