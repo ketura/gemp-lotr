@@ -34,10 +34,17 @@ public class ResolveSkirmishEffect extends AbstractEffect {
     }
 
     public Result getUpcomingResult(LotroGame game) {
+        final Skirmish skirmish = game.getGameState().getSkirmish();
+
+        if (skirmish.getShadowCharacters().size() == 0)
+            return Result.SHADOW_LOSES;
+        if (skirmish.getFellowshipCharacter() == null)
+            return Result.FELLOWSHIP_LOSES;
+
         int fpStrength = RuleUtils.getFellowshipSkirmishStrength(game);
         int shadowStrength = RuleUtils.getShadowSkirmishStrength(game);
 
-        final PhysicalCard fellowshipCharacter = game.getGameState().getSkirmish().getFellowshipCharacter();
+        final PhysicalCard fellowshipCharacter = skirmish.getFellowshipCharacter();
 
         int multiplier = 2;
         if (fellowshipCharacter != null)
