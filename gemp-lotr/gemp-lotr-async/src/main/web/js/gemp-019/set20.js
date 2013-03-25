@@ -289,7 +289,6 @@ var set20 = {
     '20_294': 'http://lotrtcg.org/coreset/ringwraith/liftingtheveil.jpg',
     '20_295': 'http://lotrtcg.org/coreset/ringwraith/morgulblade.jpg',
     '20_296': 'http://lotrtcg.org/coreset/ringwraith/nineformortalmen(r2).jpg',
-    '20_297': 'http://lotrtcg.org/coreset/ringwraith/ominouslandscape.jpg',
     '20_298': 'http://lotrtcg.org/coreset/ringwraith/palebladew(r2).jpg',
     '20_299': 'http://lotrtcg.org/coreset/ringwraith/petrifyingfear.jpg',
     '20_300': 'http://lotrtcg.org/coreset/ringwraith/theringscompulsion.jpg',
@@ -465,7 +464,6 @@ var set20 = {
     '20_473': 'http://lotrtcg.org/coreset/rohan/mightofthemark.jpg',
     '20_474': 'http://lotrtcg.org/coreset/rohan/notadefeat.jpg',
     '20_475': 'http://lotrtcg.org/coreset/shire/halflingdexterity.jpg',
-    '20_476': 'http://lotrtcg.org/coreset/isengard/stmtn(r1).jpg',
     '20_477': 'http://lotrtcg.org/coreset/shire/dimpleboffinbots(r1).jpg',
     '20_478': 'http://www.lotrtcg.org/coreset/isengard/torturedandmutilated(r2).jpg',
     '20_479': 'http://lotrtcg.org/coreset/shire/crossingthethreshold(r2).jpg'
