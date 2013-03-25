@@ -94,7 +94,7 @@ var set20 = {
     '20_94': 'http://lotrtcg.org/coreset/elven/lorienpatrol.jpg',
     '20_95': 'http://lotrtcg.org/coreset/elven/mightofthelasthomelyhouse.jpg',
     '20_96': 'http://lotrtcg.org/coreset/elven/mirrorofgaladrielrop.jpg',
-    '20_97': 'http://lotrtcg.org/coreset/elven/naryaerop.jpg',
+    '20_97': 'http://www.lotrtcg.org/coreset/elven/naryaerop(r2).jpg',
     '20_98': 'http://lotrtcg.org/coreset/elven/nenyaroa.jpg',
     '20_99': 'http://lotrtcg.org/coreset/elven/orophinls.jpg',
     '20_100': 'http://lotrtcg.org/coreset/elven/peeringforward.jpg',
