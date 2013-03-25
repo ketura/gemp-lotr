@@ -22,7 +22,7 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
  */
 public class Card20_139 extends AbstractMinion {
     public Card20_139() {
-        super(5, 11, 3, 4, Race.MAN, Culture.FALLEN_REALMS, "Southron Packmaster");
+        super(5, 10, 3, 4, Race.MAN, Culture.FALLEN_REALMS, "Southron Packmaster");
         addKeyword(Keyword.SOUTHRON);
         addKeyword(Keyword.ARCHER);
     }
