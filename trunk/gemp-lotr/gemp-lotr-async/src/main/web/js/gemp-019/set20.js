@@ -249,7 +249,7 @@ var set20 = {
     '20_253': 'http://lotrtcg.org/coreset/moria/balrogdotaw.jpg',
     '20_254': 'http://lotrtcg.org/coreset/moria/balrogdsom.jpg',
     '20_255': 'http://lotrtcg.org/coreset/moria/balrogsswordbom.jpg',
-    '20_256': 'http://lotrtcg.org/coreset/moria/cavetrollofmoriamf.jpg',
+    '20_256': 'http://www.lotrtcg.org/coreset/moria/cavetrollofmoriamf(r2).jpg',
     '20_257': 'http://lotrtcg.org/coreset/moria/cavetrollshammer.jpg',
     '20_258': 'http://lotrtcg.org/coreset/moria/foulthings.jpg',
     '20_259': 'http://lotrtcg.org/coreset/moria/goblinarmory.jpg',
