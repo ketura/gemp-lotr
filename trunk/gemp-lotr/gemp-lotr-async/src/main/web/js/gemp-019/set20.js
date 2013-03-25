@@ -196,7 +196,7 @@ var set20 = {
     '20_199': 'http://lotrtcg.org/coreset/gondor/lyinginwait.jpg',
     '20_200': 'http://lotrtcg.org/coreset/gondor/nativecover.jpg',
     '20_201': 'http://lotrtcg.org/coreset/gondor/naturaladvantages.jpg',
-    '20_202': 'http://lotrtcg.org/coreset/gondor/rangersadaptability.jpg',
+    '20_202': 'http://www.lotrtcg.org/coreset/gondor/rangersadaptability(r2).jpg',
     '20_203': 'http://lotrtcg.org/coreset/gondor/rangersbow.jpg',
     '20_204': 'http://lotrtcg.org/coreset/gondor/rangerssword.jpg',
     '20_205': 'http://lotrtcg.org/coreset/gondor/rangersofthenorth.jpg',
