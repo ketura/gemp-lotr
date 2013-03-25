@@ -82,7 +82,7 @@ var set20 = {
     '20_82': 'http://lotrtcg.org/coreset/elven/elvenreflexes.jpg',
     '20_83': 'http://lotrtcg.org/coreset/elven/forewarned.jpg',
     '20_84': 'http://lotrtcg.org/coreset/elven/galadrielwlol.jpg',
-    '20_85': 'http://lotrtcg.org/coreset/elven/galadrielswisdom.jpg',
+    '20_85': 'http://www.lotrtcg.org/coreset/elven/galadrielswisdom(r2).jpg',
     '20_86': 'http://lotrtcg.org/coreset/elven/golradircoi.jpg',
     '20_87': 'http://lotrtcg.org/coreset/elven/gwemegilefb.jpg',
     '20_88': 'http://lotrtcg.org/coreset/elven/haldirge.jpg',
