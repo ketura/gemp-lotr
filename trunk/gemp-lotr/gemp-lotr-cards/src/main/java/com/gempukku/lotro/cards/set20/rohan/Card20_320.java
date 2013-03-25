@@ -4,6 +4,7 @@ import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -17,10 +18,11 @@ import java.util.List;
 /**
  * 2
  * •Eowyn, Noblewoman of Rohan
- * Rohan	Companion • Man
+ * Companion • Man
  * 6	3	7
- * While in your starting fellowship, Eowyn's twilight cost is -1.
+ * While you can spot a [Rohan] Man, Eowyn's twilight cost is -1.
  * Skirmish: Discard a [Rohan] fortification to heal a companion.
+ * http://lotrtcg.org/coreset/rohan/eowynnor(r2).jpg
  */
 public class Card20_320 extends AbstractCompanion {
     public Card20_320() {
@@ -29,7 +31,7 @@ public class Card20_320 extends AbstractCompanion {
 
     @Override
     public int getTwilightCostModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
-        return (gameState.getCurrentPhase() == Phase.PLAY_STARTING_FELLOWSHIP)?-1:0;
+        return Filters.canSpot(gameState, modifiersQuerying, Culture.ROHAN, Race.MAN)?-1:0;
     }
 
     @Override

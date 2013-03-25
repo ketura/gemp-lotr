@@ -311,7 +311,7 @@ var set20 = {
     '20_317': 'http://lotrtcg.org/coreset/rohan/eomerrm.jpg',
     '20_318': 'http://lotrtcg.org/coreset/rohan/eomersspear.jpg',
     '20_319': 'http://lotrtcg.org/coreset/rohan/eowynlots(r2).jpg',
-    '20_320': 'http://lotrtcg.org/coreset/rohan/eowynnor.jpg',
+    '20_320': 'http://lotrtcg.org/coreset/rohan/eowynnor(r2).jpg',
     '20_321': 'http://lotrtcg.org/coreset/rohan/eowynsswordnb.jpg',
     '20_322': 'http://lotrtcg.org/coreset/rohan/feyheseemed.jpg',
     '20_323': 'http://lotrtcg.org/coreset/rohan/firefootts.jpg',
