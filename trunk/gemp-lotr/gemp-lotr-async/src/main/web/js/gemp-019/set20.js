@@ -152,7 +152,7 @@ var set20 = {
     '20_155': 'http://lotrtcg.org/coreset/gandalf/discernment.jpg',
     '20_156': 'http://lotrtcg.org/coreset/gandalf/gandalfdotp.jpg',
     '20_157': 'http://lotrtcg.org/coreset/gandalf/gandalfwoti(r1).jpg',
-    '20_158': 'http://lotrtcg.org/coreset/gandalf/gandalfspipe.jpg',
+    '20_158': 'http://www.lotrtcg.org/coreset/gandalf/gandalfspipe(r2).jpg',
     '20_159': 'http://lotrtcg.org/coreset/gandalf/gandalfsstaffdod.jpg',
     '20_160': 'http://lotrtcg.org/coreset/gandalf/glamdringtb.jpg',
     '20_161': 'http://lotrtcg.org/coreset/gandalf/graceofthevalar.jpg',
