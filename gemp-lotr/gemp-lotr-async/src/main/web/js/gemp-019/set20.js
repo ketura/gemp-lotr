@@ -381,7 +381,7 @@ var set20 = {
     '20_388': 'http://lotrtcg.org/coreset/shire/frodoer.jpg',
     '20_389': 'http://lotrtcg.org/coreset/shire/frodospipe(r2).jpg',
     '20_390': 'http://lotrtcg.org/coreset/shire/hamfastgamgeetg(r2).jpg',
-    '20_391': 'http://lotrtcg.org/coreset/shire/herbloreoftheshire.jpg',
+    '20_391': 'http://lotrtcg.org/coreset/shire/herbloreoftheshire(r2).jpg',
     '20_392': 'http://lotrtcg.org/coreset/shire/hobbitpartyguest.jpg',
     '20_393': 'http://lotrtcg.org/coreset/shire/hobbitsword.jpg',
     '20_394': 'http://lotrtcg.org/coreset/shire/legendaryadventures.jpg',
