@@ -4,6 +4,7 @@ import com.gempukku.lotro.cards.AbstractResponseEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
+import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Side;
@@ -36,6 +37,8 @@ public class Card20_243 extends AbstractResponseEvent {
                 && checkPlayRequirements(playerId, game, self, 0, 0, false, false)
                 && PlayConditions.canExert(self, game, Filters.saruman)) {
             PlayEventAction action = new PlayEventAction(self);
+            action.appendCost(
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.saruman));
             action.appendEffect(
                     new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, Filters.unboundCompanion));
             return Collections.singletonList(action);
