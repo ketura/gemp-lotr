@@ -19,8 +19,10 @@ import java.util.List;
 /**
  * 2
  * Galadriel's Wisdom
- * Elven	Event • Regroup
- * Exert Galadriel twice to reveal the top card of your draw deck. Discard X Shadow conditions, where X is the revealed card's twilight cost.
+ * Event • Regroup
+ * Exert Galadriel and reveal the top card of your draw deck to discard a Shadow condition (or 2 Shadow conditions
+ * if you reveal an [Elven] card).
+ * http://www.lotrtcg.org/coreset/elven/galadrielswisdom(r2).jpg
  */
 public class Card20_085 extends AbstractEvent {
     public Card20_085() {
@@ -30,23 +32,25 @@ public class Card20_085 extends AbstractEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && PlayConditions.canExert(self, game, 2, 1, Filters.galadriel);
+                && PlayConditions.canExert(self, game, 1, 1, Filters.galadriel);
     }
 
     @Override
     public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self);
-        action.appendEffect(
-                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, 2, Filters.galadriel));
-        action.appendEffect(
+        action.appendCost(
+                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.galadriel));
+        action.appendCost(
                 new RevealTopCardsOfDrawDeckEffect(self, playerId, 1) {
                     @Override
                     protected void cardsRevealed(List<PhysicalCard> revealedCards) {
+                        int count = 1;
                         for (PhysicalCard revealedCard : revealedCards) {
-                            int twilightCost = revealedCard.getBlueprint().getTwilightCost();
-                            action.appendEffect(
-                                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, twilightCost, twilightCost, CardType.CONDITION, Side.SHADOW));
+                            if (revealedCard.getBlueprint().getCulture() == Culture.ELVEN)
+                                count = 2;
                         }
+                        action.appendEffect(
+                                new ChooseAndDiscardCardsFromPlayEffect(action, playerId, count, count, CardType.CONDITION, Side.SHADOW));
                     }
                 });
         return action;
