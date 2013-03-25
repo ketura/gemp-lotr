@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set20.site;
 
 import com.gempukku.lotro.cards.AbstractSite;
+import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.Block;
@@ -27,7 +28,8 @@ public class Card20_456 extends AbstractSite {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (TriggerConditions.forEachWounded(game, effectResult, CardType.COMPANION, Filters.inSkirmishAgainst(Filters.saruman))
+        if (TriggerConditions.forEachWounded(game, effectResult, CardType.COMPANION)
+                && PlayConditions.isActive(game, Filters.saruman, Filters.inSkirmish)
                 && GameUtils.isShadow(game, playerId)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
