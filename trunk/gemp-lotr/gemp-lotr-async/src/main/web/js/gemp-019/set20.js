@@ -255,7 +255,7 @@ var set20 = {
     '20_259': 'http://lotrtcg.org/coreset/moria/goblinarmory.jpg',
     '20_260': 'http://lotrtcg.org/coreset/moria/goblingrudgebearer.jpg',
     '20_261': 'http://lotrtcg.org/coreset/moria/goblinhowler.jpg',
-    '20_262': 'http://lotrtcg.org/coreset/moria/goblinmessenger.jpg',
+    '20_262': 'http://www.lotrtcg.org/coreset/moria/goblinmessenger(r2).jpg',
     '20_263': 'http://lotrtcg.org/coreset/moria/goblinpatrol.jpg',
     '20_264': 'http://lotrtcg.org/coreset/moria/goblinrallyer.jpg',
     '20_265': 'http://lotrtcg.org/coreset/moria/goblinransacker.jpg',
