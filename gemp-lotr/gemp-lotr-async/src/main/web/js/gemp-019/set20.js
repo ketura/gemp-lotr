@@ -290,7 +290,7 @@ var set20 = {
     '20_295': 'http://lotrtcg.org/coreset/ringwraith/morgulblade.jpg',
     '20_296': 'http://lotrtcg.org/coreset/ringwraith/nineformortalmen(r2).jpg',
     '20_297': 'http://lotrtcg.org/coreset/ringwraith/ominouslandscape.jpg',
-    '20_298': 'http://lotrtcg.org/coreset/ringwraith/thepalebladew.jpg',
+    '20_298': 'http://lotrtcg.org/coreset/ringwraith/palebladew(r2).jpg',
     '20_299': 'http://lotrtcg.org/coreset/ringwraith/petrifyingfear.jpg',
     '20_300': 'http://lotrtcg.org/coreset/ringwraith/theringscompulsion.jpg',
     '20_301': 'http://lotrtcg.org/coreset/ringwraith/strickendumb.jpg',

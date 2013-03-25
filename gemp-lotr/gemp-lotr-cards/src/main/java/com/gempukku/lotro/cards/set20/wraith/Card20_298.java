@@ -23,11 +23,12 @@ import java.util.List;
 /**
  * 2
  * •The Pale Blade, Wraithblade
- * Ringwraith	Possession • Hand Weapon
+ * Possession • Hand Weapon
  * 3
  * Twilight. Bearer must be a Nazgul.
  * If bearer is The Witch-king, he is damage +1.
  * Each time bearer wins a skirmish, the Free Peoples player must exert the Ring-bearer or add a burden.
+ * http://lotrtcg.org/coreset/ringwraith/palebladew(r2).jpg
  */
 public class Card20_298 extends AbstractAttachable {
     public Card20_298() {
