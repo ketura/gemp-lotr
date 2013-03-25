@@ -172,7 +172,7 @@ var set20 = {
     '20_175': 'http://lotrtcg.org/coreset/gondor/aragorndr.jpg',
     '20_176': 'http://lotrtcg.org/coreset/gondor/aragornuofp(r1).jpg',
     '20_177': 'http://lotrtcg.org/coreset/gondor/aragornsbowsat(r1).jpg',
-    '20_178': 'http://lotrtcg.org/coreset/gondor/aragornspipe.jpg',
+    '20_178': 'http://www.lotrtcg.org/coreset/gondor/aragornspipe(r2).jpg',
     '20_179': 'http://lotrtcg.org/coreset/gondor/armor.jpg',
     '20_180': 'http://lotrtcg.org/coreset/gondor/arrowsofthenorth.jpg',
     '20_181': 'http://lotrtcg.org/coreset/gondor/avoidbeingseen.jpg',
