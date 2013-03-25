@@ -17,14 +17,15 @@ import java.util.List;
 
 /**
  * 2
- * Goblin Messenger
- * Moria	Minion • Goblin
+ * •Goblin Messenger
+ * Minion • Goblin
  * 5	1	4
  * When you play this minion, you may stack a Goblin on a [Moria] condition.
+ * http://www.lotrtcg.org/coreset/moria/goblinmessenger(r2).jpg
  */
 public class Card20_262 extends AbstractMinion {
     public Card20_262() {
-        super(2, 5, 1, 4, Race.GOBLIN, Culture.MORIA, "Goblin Messenger");
+        super(2, 5, 1, 4, Race.GOBLIN, Culture.MORIA, "Goblin Messenger", null, true);
     }
 
     @Override
