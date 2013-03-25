@@ -393,7 +393,7 @@ var set20 = {
     '20_400': 'http://lotrtcg.org/coreset/shire/oldtobyfwits.jpg',
     '20_401': 'http://lotrtcg.org/coreset/shire/pippinfc(r2).jpg',
     '20_402': 'http://lotrtcg.org/coreset/shire/pippinht.jpg',
-    '20_403': 'http://lotrtcg.org/coreset/shire/pippinspipe.jpg',
+    '20_403': 'http://lotrtcg.org/coreset/shire/pippinspipe(r2).jpg',
     '20_404': 'http://lotrtcg.org/coreset/shire/promise.jpg',
     '20_405': 'http://lotrtcg.org/coreset/shire/robinsmallburrowsoh(r1).jpg',
     '20_406': 'http://lotrtcg.org/coreset/shire/rosiecottongdb.jpg',
