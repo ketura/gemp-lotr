@@ -399,7 +399,7 @@ var set20 = {
     '20_406': 'http://lotrtcg.org/coreset/shire/rosiecottongdb.jpg',
     '20_407': 'http://lotrtcg.org/coreset/shire/samdoe.jpg',
     '20_408': 'http://lotrtcg.org/coreset/shire/samhh.jpg',
-    '20_409': 'http://lotrtcg.org/coreset/shire/samspipe.jpg',
+    '20_409': 'http://lotrtcg.org/coreset/shire/samspipe(r2).jpg',
     '20_410': 'http://lotrtcg.org/coreset/shire/savetheshire.jpg',
     '20_411': 'http://lotrtcg.org/coreset/shire/shiresongs.jpg',
     '20_412': 'http://lotrtcg.org/coreset/shire/southernstarsv.jpg',
