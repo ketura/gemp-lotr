@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class Card20_194 extends AbstractAttachableFPPossession {
     public Card20_194() {
-        super(1, 1, 0, Culture.GONDOR, PossessionClass.HAND_WEAPON, "Flaming Brand", null, true);
+        super(0, 1, 0, Culture.GONDOR, PossessionClass.HAND_WEAPON, "Flaming Brand", null, true);
     }
 
     @Override
