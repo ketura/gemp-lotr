@@ -97,7 +97,7 @@ var set20 = {
     '20_97': 'http://www.lotrtcg.org/coreset/elven/naryaerop(r2).jpg',
     '20_98': 'http://lotrtcg.org/coreset/elven/nenyaroa.jpg',
     '20_99': 'http://lotrtcg.org/coreset/elven/orophinls.jpg',
-    '20_100': 'http://lotrtcg.org/coreset/elven/peeringforward.jpg',
+    '20_100': 'http://www.lotrtcg.org/coreset/elven/peeringforward(r2).jpg',
     '20_101': 'http://lotrtcg.org/coreset/elven/phialofgaladriellidp.jpg',
     '20_102': 'http://lotrtcg.org/coreset/elven/pushbackthedarkness.jpg',
     '20_103': 'http://lotrtcg.org/coreset/elven/silentscouts.jpg',
