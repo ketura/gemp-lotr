@@ -388,7 +388,7 @@ var set20 = {
     '20_395': 'http://lotrtcg.org/coreset/shire/longbottomleafhc.jpg',
     '20_396': 'http://lotrtcg.org/coreset/shire/merryhc.jpg',
     '20_397': 'http://lotrtcg.org/coreset/shire/merrypa.jpg',
-    '20_398': 'http://lotrtcg.org/coreset/shire/merryspipe.jpg',
+    '20_398': 'http://lotrtcg.org/coreset/shire/merryspipe(r2).jpg',
     '20_399': 'http://lotrtcg.org/coreset/shire/mithrilcoatakg.jpg',
     '20_400': 'http://lotrtcg.org/coreset/shire/oldtobyfwits.jpg',
     '20_401': 'http://lotrtcg.org/coreset/shire/pippinfc.jpg',
