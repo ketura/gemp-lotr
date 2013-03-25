@@ -148,7 +148,7 @@ var set20 = {
     '20_151': 'http://lotrtcg.org/coreset/gandalf/allsaveone.jpg',
     '20_152': 'http://lotrtcg.org/coreset/gandalf/barlimanbutterburji(r1).jpg',
     '20_153': 'http://lotrtcg.org/coreset/gandalf/bindinglight.jpg',
-    '20_154': 'http://lotrtcg.org/coreset/gandalf/bolsteredspirits.jpg',
+    '20_154': 'http://www.lotrtcg.org/coreset/gandalf/bolsteredspirits(r2).jpg',
     '20_155': 'http://lotrtcg.org/coreset/gandalf/discernment.jpg',
     '20_156': 'http://lotrtcg.org/coreset/gandalf/gandalfdotp.jpg',
     '20_157': 'http://lotrtcg.org/coreset/gandalf/gandalfwoti(r1).jpg',

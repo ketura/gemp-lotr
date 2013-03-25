@@ -5,10 +5,7 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
 import com.gempukku.lotro.cards.modifiers.evaluator.CardMatchesEvaluator;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -19,8 +16,9 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 /**
  * 1
  * Bolstered Spirits
- * Gandalf	Event • Skirmish
- * Spot Gandalf to make an unbound companion strength +2 (or strength +3 if that companion has 4 or more resistance).
+ * Event • Skirmish
+ * Spot Gandalf to make a companion strength +2 (or strength +3 if that companion has 4 or more resistance).
+ * http://www.lotrtcg.org/coreset/gandalf/bolsteredspirits(r2).jpg
  */
 public class Card20_154 extends AbstractEvent {
     public Card20_154() {
@@ -45,7 +43,7 @@ public class Card20_154 extends AbstractEvent {
                                     public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
                                         return modifiersQuerying.getResistance(gameState, physicalCard)>=4;
                                     }
-                                }), Filters.unboundCompanion));
+                                }), CardType.COMPANION));
         return action;
     }
 }
