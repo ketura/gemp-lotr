@@ -1,7 +1,7 @@
 var set20 = {
     '20_1': 'http://lotrtcg.org/coreset/onering/theoneringdofp.jpg',
     '20_2': 'http://lotrtcg.org/coreset/onering/theoneringtrr.jpg',
-    '20_3': 'http://lotrtcg.org/coreset/dunland/dunlendingfirebrand.jpg',
+    '20_3': 'http://www.lotrtcg.org/coreset/dunland/dunlendingfirebrand(r2).jpg',
     '20_4': 'http://lotrtcg.org/coreset/dunland/dunlendingmarauder.jpg',
     '20_5': 'http://lotrtcg.org/coreset/dunland/dunlendingtribesman(r1).jpg',
     '20_6': 'http://lotrtcg.org/coreset/dunland/dunlendingclansman(r1).jpg',
