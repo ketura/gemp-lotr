@@ -2,15 +2,15 @@ package com.gempukku.lotro.cards.set20.shire;
 
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.RemoveBurdenEffect;
+import com.gempukku.lotro.cards.effects.ForEachYouSpotEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
-import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.effects.ChooseAndHealCharactersEffect;
+import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.Collections;
 import java.util.List;
@@ -18,9 +18,11 @@ import java.util.List;
 /**
  * 1
  * •Frodo's Pipe
- * Shire	Possession • Pipe
- * Bearer must be Frodo.
- * At the beginning of the regroup phase, you may discard a pipeweed possession to remove a burden.
+ * Possession • Pipe
+ * Bearer must be a Hobbit.
+ * Fellowship: If bearer is Frodo, you may discard a pipeweed possession and spot X pipes to heal a companion bearing
+ * a pipe X times (limit once per phase).
+ * http://lotrtcg.org/coreset/shire/frodospipe(r2).jpg
  */
 public class Card20_389 extends AbstractAttachableFPPossession {
     public Card20_389() {
@@ -29,18 +31,25 @@ public class Card20_389 extends AbstractAttachableFPPossession {
 
     @Override
     protected Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
-        return Filters.frodo;
+        return Race.HOBBIT;
     }
 
     @Override
-    public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (TriggerConditions.startOfPhase(game, effectResult, Phase.REGROUP)
+    protected List<? extends Action> getExtraInPlayPhaseActions(final String playerId, LotroGame game, PhysicalCard self) {
+        if (PlayConditions.canUseFPCardDuringPhase(game, Phase.FELLOWSHIP, self)
+                && PlayConditions.isActive(game, Filters.frodo, Filters.hasAttached(self))
                 && PlayConditions.canDiscardFromPlay(self, game, CardType.POSSESSION, Keyword.PIPEWEED)) {
-            OptionalTriggerAction action = new OptionalTriggerAction(self);
+            final ActivateCardAction action =new ActivateCardAction(self);
             action.appendCost(
                     new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, CardType.POSSESSION, Keyword.PIPEWEED));
-            action.appendEffect(
-                    new RemoveBurdenEffect(playerId, self));
+            action.appendCost(
+                    new ForEachYouSpotEffect(playerId, PossessionClass.PIPE) {
+                        @Override
+                        protected void spottedCards(int spotCount) {
+                            action.appendEffect(
+                                    new ChooseAndHealCharactersEffect(action, playerId, 1, 1, spotCount, CardType.COMPANION, Filters.hasAttached(PossessionClass.PIPE)));
+                        }
+                    });
             return Collections.singletonList(action);
         }
         return null;
