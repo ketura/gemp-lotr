@@ -53,7 +53,7 @@ var set20 = {
     '20_53': 'http://lotrtcg.org/coreset/dwarven/gimlide(r1).jpg',
     '20_54': 'http://lotrtcg.org/coreset/dwarven/gimlisp.jpg',
     '20_55': 'http://lotrtcg.org/coreset/dwarven/gimlisbattleaxewoe.jpg',
-    '20_56': 'http://lotrtcg.org/coreset/dwarven/gimlispipe.jpg',
+    '20_56': 'http://www.lotrtcg.org/coreset/dwarven/gimlispipe(r2).jpg',
     '20_57': 'http://lotrtcg.org/coreset/dwarven/gloinvd(r1).jpg',
     '20_58': 'http://lotrtcg.org/coreset/dwarven/handaxe.jpg',
     '20_59': 'http://lotrtcg.org/coreset/dwarven/killingblow.jpg',
