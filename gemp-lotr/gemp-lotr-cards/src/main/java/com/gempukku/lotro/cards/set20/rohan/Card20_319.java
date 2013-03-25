@@ -1,14 +1,16 @@
 package com.gempukku.lotro.cards.set20.rohan;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Names;
+import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
-import com.gempukku.lotro.logic.modifiers.SpotCondition;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 
 /**
@@ -17,9 +19,9 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
  * Companion • Man
  * 6	3	7
  * Valiant.
- * While in your starting fellowship, Eowyn's twilight cost is -1.
- * While you can spot an exhausted [Rohan] Man, Eowyn is strength +2.
- * http://lotrtcg.org/coreset/rohan/eowynlots(r1).png
+ * While you can spot a [Rohan] Man, Eowyn's twilight cost is -1.
+ * While Eowyn is exhausted, she is strength +2.
+ * http://lotrtcg.org/coreset/rohan/eowynlots(r2).jpg
  */
 public class Card20_319 extends AbstractCompanion {
     public Card20_319() {
@@ -29,12 +31,11 @@ public class Card20_319 extends AbstractCompanion {
 
     @Override
     public int getTwilightCostModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
-        return (gameState.getCurrentPhase() == Phase.PLAY_STARTING_FELLOWSHIP)?-1:0;
+        return Filters.canSpot(gameState, modifiersQuerying, Culture.ROHAN, Race.MAN)?-1:0;
     }
 
     @Override
     public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new StrengthModifier(self, self,
-                new SpotCondition(Culture.ROHAN, Race.MAN, Filters.exhausted), 2);
+        return new StrengthModifier(self, Filters.and(self, Filters.exhausted), 2);
     }
 }
