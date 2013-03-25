@@ -2,7 +2,9 @@ package com.gempukku.lotro.cards.set20.gondor;
 
 import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.PlayNextSiteEffect;
+import com.gempukku.lotro.cards.effects.CheckPhaseLimitEffect;
+import com.gempukku.lotro.cards.effects.ForEachYouSpotEffect;
+import com.gempukku.lotro.cards.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -17,10 +19,11 @@ import java.util.List;
 /**
  * 1
  * •Aragorn's Pipe
- * Gondor	Possession •  Pipe
- * Bearer must be Aragorn.
- * Fellowship or Regroup: Spot X pipes and discard a pipeweed possession to play the fellowship's next site,
- * where X is the site number of the next site.
+ * Possession •  Pipe
+ * Bearer must be a [Gondor] Man.
+ * Skirmish: If bearer is Aragorn, discard a pipeweed possession and spot X pipes to make a companion bearing
+ * a pipe strength +X (limit once per phase).
+ * http://www.lotrtcg.org/coreset/gondor/aragornspipe(r2).jpg
  */
 public class Card20_178 extends AbstractAttachableFPPossession {
     public Card20_178() {
@@ -29,20 +32,26 @@ public class Card20_178 extends AbstractAttachableFPPossession {
 
     @Override
     protected Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
-        return Filters.aragorn;
+        return Filters.and(Culture.GONDOR, Race.MAN);
     }
 
     @Override
-    protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        if ((PlayConditions.canUseFPCardDuringPhase(game, Phase.FELLOWSHIP, self)
-                || PlayConditions.canUseFPCardDuringPhase(game, Phase.REGROUP, self))
-                && PlayConditions.canSpot(game, game.getGameState().getCurrentSiteNumber()+1, PossessionClass.PIPE)
-                && PlayConditions.canDiscardFromPlay(self, game, CardType.POSSESSION, PossessionClass.PIPEWEED)) {
-            ActivateCardAction action = new ActivateCardAction(self);
+    protected List<? extends Action> getExtraInPlayPhaseActions(final String playerId, LotroGame game, final PhysicalCard self) {
+        if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
+                && PlayConditions.isActive(game, Filters.aragorn, Filters.hasAttached(self))
+                && PlayConditions.canDiscardFromPlay(self, game, CardType.POSSESSION, Keyword.PIPEWEED)) {
+            final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, CardType.POSSESSION, PossessionClass.PIPEWEED));
-            action.appendEffect(
-                    new PlayNextSiteEffect(action, playerId));
+                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, CardType.POSSESSION, Keyword.PIPEWEED));
+            action.appendCost(
+                    new ForEachYouSpotEffect(playerId, PossessionClass.PIPE) {
+                        @Override
+                        protected void spottedCards(int spotCount) {
+                            action.appendEffect(
+                                    new CheckPhaseLimitEffect(action, self, 1,
+                                            new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, spotCount, CardType.COMPANION, Filters.hasAttached(PossessionClass.PIPE))));
+                        }
+                    });
             return Collections.singletonList(action);
         }
         return null;
