@@ -37,7 +37,7 @@ public class MerchantService {
         try {
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             format.setTimeZone(TimeZone.getTimeZone("GMT"));
-            setupDate = format.parse("2012-03-14 00:00:00");
+            setupDate = format.parse("2013-03-31 00:00:00");
         } catch (ParseException exp) {
             throw new RuntimeException("Unable to parse merchant setup date");
         }

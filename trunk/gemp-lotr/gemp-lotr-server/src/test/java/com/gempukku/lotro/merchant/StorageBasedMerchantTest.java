@@ -3,24 +3,24 @@ package com.gempukku.lotro.merchant;
 import com.gempukku.lotro.cards.CardSets;
 import com.gempukku.lotro.db.MerchantDAO;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Date;
 
-import static org.junit.Assert.*;
-
 public class StorageBasedMerchantTest {
     private StorageBasedMerchant _merchant;
     private CardSets _cardSets = new CardSets();
     private static final long DAY = 1000 * 60 * 60 * 24;
+    private MockMerchantDAO _merchantDao;
 
     @Before
     public void setup() {
         Date setupDate = new Date(0);
-        MerchantDAO merchantDao = new MockMerchantDAO();
+        _merchantDao = new MockMerchantDAO();
 
-        _merchant = new StorageBasedMerchant(new LotroCardBlueprintLibrary(), merchantDao, setupDate, _cardSets);
+        _merchant = new StorageBasedMerchant(new LotroCardBlueprintLibrary(), _merchantDao, setupDate, _cardSets);
     }
 
     @Test
@@ -75,6 +75,37 @@ public class StorageBasedMerchantTest {
             _merchant.cardBought("1_1", new Date(0), 700);
         int initialPrice = _merchant.getCardBuyPrice("1_1", new Date(0));
         assertTrue(initialPrice > _merchant.getCardBuyPrice("1_1", new Date(DAY)));
+    }
+
+    @Test
+    public void buyAndSellLosesOnValue() {
+        _merchantDao.setStock("1_1", 2);
+        
+        long time = 0;
+        // Buy 5 times the same card every 10 seconds, then sell the 5, also every 10 sec
+        int moneySpent = 0;
+        int moneyEarned = 0;
+        for (int i=0; i<5; i++) {
+            int sellPrice = _merchant.getCardSellPrice("1_1", new Date(time));
+            moneySpent+=sellPrice;
+            _merchant.cardSold("1_1", new Date(time), sellPrice);
+            System.out.println("Bought for: "+sellPrice);
+            time+=10*1000;
+        }
+
+        System.out.println("Selling for : "+_merchant.getCardSellPrice("1_1", new Date(time)));
+        System.out.println("Buying for: "+_merchant.getCardBuyPrice("1_1", new Date(time)));
+
+        for (int i=0; i<5; i++) {
+            int buyPrice = _merchant.getCardBuyPrice("1_1", new Date(time));
+            moneyEarned+=buyPrice;
+            _merchant.cardBought("1_1", new Date(time), buyPrice);
+            System.out.println("Sold for: "+buyPrice);
+            time+=10*1000;
+        }
+        System.out.println("Money spent: "+moneySpent);
+        System.out.println("Money earned: "+moneyEarned);
+        assertTrue(moneySpent>moneyEarned);
     }
 
     // @Test

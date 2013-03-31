@@ -93,7 +93,15 @@ public class StorageBasedMerchant implements Merchant {
         if (normalPrice == null)
             return null;
 
-        int price = Math.max(MIN_BUY_PRICE, (int) Math.floor(_profitMargin * normalPrice));
+        int priceWithProfit = (int) Math.floor(_profitMargin * normalPrice);
+
+        boolean outOfStock = (lastTransaction == null || lastTransaction.getStock() < OUT_OF_STOCK_MIN);
+
+        // If card is out of stock, adjust the buy price, as it might be over-inflated (due to over-selling)
+        if (outOfStock)
+            priceWithProfit = priceWithProfit / OUT_OF_STOCK_MULTIPLIER;
+
+        int price = Math.max(MIN_BUY_PRICE, priceWithProfit);
 
         if (foil)
             return FOIL_PRICE_MULTIPLIER * price;
