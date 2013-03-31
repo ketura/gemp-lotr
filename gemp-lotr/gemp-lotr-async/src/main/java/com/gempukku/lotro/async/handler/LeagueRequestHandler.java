@@ -23,6 +23,7 @@ import org.w3c.dom.Element;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.lang.reflect.Type;
+import java.net.InetSocketAddress;
 import java.text.DecimalFormat;
 import java.util.Collection;
 import java.util.List;
@@ -64,7 +65,7 @@ public class LeagueRequestHandler extends LotroServerRequestHandler implements U
         if (league == null)
             throw new HttpProcessingException(404);
 
-        if (!_leagueService.playerJoinsLeague(league, resourceOwner, e.getRemoteAddress().toString()))
+        if (!_leagueService.playerJoinsLeague(league, resourceOwner, ((InetSocketAddress) e.getRemoteAddress()).getHostName()))
             throw new HttpProcessingException(409);
 
         responseWriter.writeXmlResponse(null);

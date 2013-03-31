@@ -20,6 +20,7 @@ import org.jboss.netty.handler.codec.http.multipart.InterfaceHttpData;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.net.InetSocketAddress;
 import java.sql.SQLException;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -132,7 +133,7 @@ public class LotroServerRequestHandler {
     }
 
     protected Map<String, String> logUserReturningHeaders(MessageEvent e, String login) throws SQLException {
-        _playerDao.updateLastLoginIp(login, e.getChannel().getRemoteAddress().toString());
+        _playerDao.updateLastLoginIp(login, ((InetSocketAddress) e.getChannel().getRemoteAddress()).getHostName());
 
         CookieEncoder cookieEncoder = new CookieEncoder(true);
         for (Map.Entry<String, String> cookie : _loggedUserHolder.logUser(login).entrySet())

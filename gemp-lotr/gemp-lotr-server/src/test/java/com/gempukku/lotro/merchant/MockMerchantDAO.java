@@ -29,4 +29,8 @@ public class MockMerchantDAO implements MerchantDAO {
             return new Transaction(_dates.get(blueprintId), _prices.get(blueprintId), _transactionTypes.get(blueprintId), _stock.get(blueprintId));
         return null;
     }
+
+    public void setStock(String blueprintId, int count) {
+        _stock.put(blueprintId, count);
+    }
 }
