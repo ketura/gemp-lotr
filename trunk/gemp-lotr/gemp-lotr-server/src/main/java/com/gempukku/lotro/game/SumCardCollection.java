@@ -1,8 +1,6 @@
 package com.gempukku.lotro.game;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class SumCardCollection implements CardCollection {
     private List<CardCollection> _cardCollections;
@@ -45,5 +43,13 @@ public class SumCardCollection implements CardCollection {
             sum += cardCollection.getItemCount(blueprintId);
 
         return sum;
+    }
+
+    @Override
+    public Set<BasicCardItem> getAllCardsInCollection() {
+        Set<BasicCardItem> result = new HashSet<BasicCardItem>();
+        for (CardCollection cardCollection : _cardCollections)
+            result.addAll(cardCollection.getAllCardsInCollection());
+        return result;
     }
 }

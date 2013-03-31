@@ -10,6 +10,7 @@ import java.util.Map;
 public class CachedMerchantDAO implements MerchantDAO, Cached {
     private MerchantDAO _delegate;
     private Map<String, Transaction> _blueprintIdLastTransaction = Collections.synchronizedMap(new LRUMap(4000));
+    private Transaction _nullTransaction = new Transaction(null, 0, null, 0);
 
     public CachedMerchantDAO(MerchantDAO delegate) {
         _delegate = delegate;
@@ -33,10 +34,15 @@ public class CachedMerchantDAO implements MerchantDAO, Cached {
 
     @Override
     public Transaction getLastTransaction(String blueprintId) {
-        Transaction transaction = (Transaction) _blueprintIdLastTransaction.get(blueprintId);
+        Transaction transaction = _blueprintIdLastTransaction.get(blueprintId);
         if (transaction == null) {
             transaction = _delegate.getLastTransaction(blueprintId);
-            _blueprintIdLastTransaction.put(blueprintId, transaction);
+            if (transaction == null)
+                _blueprintIdLastTransaction.put(blueprintId, _nullTransaction);
+            else
+                _blueprintIdLastTransaction.put(blueprintId, transaction);
+        } else if (transaction == _nullTransaction) {
+            transaction = null;
         }
         return transaction;
     }

@@ -290,17 +290,4 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
 
         return cardItems;
     }
-
-    private static class BasicCardItem implements CardItem {
-        private String _blueprintId;
-
-        private BasicCardItem(String blueprintId) {
-            _blueprintId = blueprintId;
-        }
-
-        @Override
-        public String getBlueprintId() {
-            return _blueprintId;
-        }
-    }
 }

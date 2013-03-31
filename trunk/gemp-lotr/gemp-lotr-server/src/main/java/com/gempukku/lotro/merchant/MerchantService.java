@@ -5,6 +5,7 @@ import com.gempukku.lotro.cards.packs.SetDefinition;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.db.MerchantDAO;
 import com.gempukku.lotro.db.vo.CollectionType;
+import com.gempukku.lotro.game.BasicCardItem;
 import com.gempukku.lotro.game.CardItem;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.game.Player;
@@ -23,7 +24,7 @@ public class MerchantService {
     private Map<String, PriceGuarantee> _priceGuarantees = Collections.synchronizedMap(new LRUMap(100));
 
     private ReadWriteLock _lock = new ReentrantReadWriteLock(true);
-    private Set<CardItem> _merchantableItems = new HashSet<CardItem>();
+    private Set<BasicCardItem> _merchantableItems = new HashSet<BasicCardItem>();
     private Set<String> _merchantableStrings = new HashSet<String>();
 
     private Map<String, Integer> _fixedPriceItems = new HashMap<String, Integer>();
@@ -113,7 +114,7 @@ public class MerchantService {
         _merchantableStrings.add(blueprintId);
     }
 
-    public Set<CardItem> getSellableItems() {
+    public Set<BasicCardItem> getSellableItems() {
         return Collections.unmodifiableSet(_merchantableItems);
     }
 
@@ -132,6 +133,7 @@ public class MerchantService {
                     sellPrices.put(blueprintId, fixedPrice);
                 } else {
                     Integer buyPrice = _merchant.getCardBuyPrice(blueprintId, currentTime);
+
                     if (buyPrice != null)
                         buyPrices.put(blueprintId, buyPrice);
                     if (_merchantableStrings.contains(blueprintId)) {
@@ -206,37 +208,6 @@ public class MerchantService {
                 throw new MerchantException("Unable to remove the required cards or currency from your collection");
         } finally {
             lock.unlock();
-        }
-    }
-
-    private static class BasicCardItem implements CardItem {
-        private String _blueprintId;
-
-        private BasicCardItem(String blueprintId) {
-            _blueprintId = blueprintId;
-        }
-
-        @Override
-        public String getBlueprintId() {
-            return _blueprintId;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-
-            BasicCardItem that = (BasicCardItem) o;
-
-            if (_blueprintId != null ? !_blueprintId.equals(that._blueprintId) : that._blueprintId != null)
-                return false;
-
-            return true;
-        }
-
-        @Override
-        public int hashCode() {
-            return _blueprintId != null ? _blueprintId.hashCode() : 0;
         }
     }
 
