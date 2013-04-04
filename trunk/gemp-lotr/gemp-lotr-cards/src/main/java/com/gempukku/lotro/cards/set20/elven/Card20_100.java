@@ -36,7 +36,7 @@ public class Card20_100 extends AbstractPermanent {
             List<OptionalTriggerAction> actions = new LinkedList<OptionalTriggerAction>();
             final Collection<PhysicalCard> revealedCards = revealedCardsResult.getRevealedCards();
             for (PhysicalCard revealedCard : revealedCards) {
-                int penalty = revealedCard.getBlueprint().getCulture() == Culture.ELVEN ? -2 : -1;
+                final int penalty = revealedCard.getBlueprint().getCulture() == Culture.ELVEN ? -2 : -1;
                 final OptionalTriggerAction action = new OptionalTriggerAction(self);
                 action.setText("Give minion "+penalty+" strength");
                 action.setTriggerIdentifier(self.getCardId() + "-" + revealedCard.getCardId());
@@ -46,7 +46,7 @@ public class Card20_100 extends AbstractPermanent {
                             protected void cardSelected(LotroGame game, PhysicalCard card) {
                                 action.appendEffect(
                                         new AddUntilStartOfPhaseModifierEffect(
-                                                new StrengthModifier(self, card, -1), Phase.REGROUP));
+                                                new StrengthModifier(self, card, penalty), Phase.REGROUP));
                             }
                         });
                 actions.add(action);
