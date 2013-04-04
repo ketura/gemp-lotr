@@ -38,7 +38,7 @@ public class Card20_298 extends AbstractAttachable {
 
     @Override
     protected Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
-        return Race.NAZGUL;
+        return Filters.witchKing;
     }
 
     @Override
@@ -47,13 +47,13 @@ public class Card20_298 extends AbstractAttachable {
         modifiers.add(
                 new StrengthModifier(self, Filters.hasAttached(self), 3));
         modifiers.add(
-                new KeywordModifier(self, Filters.and(Filters.hasAttached(self), Filters.witchKing), Keyword.DAMAGE, 1));
+                new KeywordModifier(self, Filters.hasAttached(self), Keyword.DAMAGE, 1));
         return modifiers;
     }
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (TriggerConditions.winsSkirmish(game, effectResult, Filters.hasAttached(self))) {
+        if (TriggerConditions.winsSkirmish(game, effectResult, Filters.witchKing)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             List<Effect> possibleEffects = new LinkedList<Effect>();
             final String fpPlayer = game.getGameState().getCurrentPlayerId();
