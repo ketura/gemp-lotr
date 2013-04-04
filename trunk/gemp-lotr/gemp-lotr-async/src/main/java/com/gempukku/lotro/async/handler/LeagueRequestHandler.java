@@ -65,7 +65,7 @@ public class LeagueRequestHandler extends LotroServerRequestHandler implements U
         if (league == null)
             throw new HttpProcessingException(404);
 
-        if (!_leagueService.playerJoinsLeague(league, resourceOwner, ((InetSocketAddress) e.getRemoteAddress()).getHostName()))
+        if (!_leagueService.playerJoinsLeague(league, resourceOwner, ((InetSocketAddress) e.getRemoteAddress()).getAddress().getHostAddress()))
             throw new HttpProcessingException(409);
 
         responseWriter.writeXmlResponse(null);
