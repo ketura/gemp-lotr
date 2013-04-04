@@ -26,6 +26,7 @@ public class Card20_099 extends AbstractAlly {
     public Card20_099() {
         super(2, null, 0, 3, 3, Race.ELF, Culture.ELVEN, "Orophin", "Lorien Scount", true);
         addKeyword(Keyword.LOTHLORIEN);
+        addKeyword(Keyword.ARCHER);
     }
 
     @Override
