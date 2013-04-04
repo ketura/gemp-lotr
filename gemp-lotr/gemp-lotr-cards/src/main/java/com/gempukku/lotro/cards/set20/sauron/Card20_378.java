@@ -35,7 +35,6 @@ public class Card20_378 extends AbstractMinion {
     public Card20_378() {
         super(4, 12, 3, 6, Race.TROLL, Culture.SAURON, "Troll of Morannon", null, true);
         addKeyword(Keyword.FIERCE);
-        addKeyword(Keyword.DAMAGE, 1);
     }
 
     @Override
