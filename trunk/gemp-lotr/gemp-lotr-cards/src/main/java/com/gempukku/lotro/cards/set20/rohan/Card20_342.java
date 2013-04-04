@@ -31,7 +31,7 @@ public class Card20_342 extends AbstractAlly {
 
     @Override
     protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canUseFPCardDuringPhase(game, Phase.FELLOWSHIP, self)
+        if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
                 && PlayConditions.hasInitiative(game, Side.FREE_PEOPLE)
                 && PlayConditions.canDiscardFromHand(game, playerId, 2, Filters.any)) {
             ActivateCardAction action = new ActivateCardAction(self);
