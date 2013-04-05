@@ -672,7 +672,7 @@ public class Filters {
     public static final Filter currentRegion = new Filter() {
         @Override
         public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-            return GameUtils.getRegion(gameState.getCurrentSiteNumber()) == GameUtils.getRegion(gameState);
+            return GameUtils.getRegion(gameState) == GameUtils.getRegion(physicalCard.getSiteNumber());
         }
     };
 
