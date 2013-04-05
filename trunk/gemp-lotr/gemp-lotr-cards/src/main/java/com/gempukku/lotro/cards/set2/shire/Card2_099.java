@@ -5,6 +5,7 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfTurnModifierEffect;
 import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.TwilightCostModifier;
@@ -39,7 +40,7 @@ public class Card2_099 extends AbstractOldEvent {
         PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new AddUntilEndOfTurnModifierEffect(
-                        new TwilightCostModifier(self, CardType.SITE, -2)));
+                        new TwilightCostModifier(self, Filters.in(Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), CardType.SITE)), -2)));
         return action;
     }
 }
