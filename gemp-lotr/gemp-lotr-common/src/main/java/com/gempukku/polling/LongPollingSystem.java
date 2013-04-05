@@ -82,6 +82,8 @@ public class LongPollingSystem {
                             waitingRequest.getLongPollableResource().deregisterRequest(waitingRequest);
                             _waitingActions.remove(waitingRequest);
                             execute(waitingRequest.getLongPollingResource());
+                        } else {
+                            waitingRequest.getLongPollableResource().requestWaitingNotification();
                         }
                     }
                 }

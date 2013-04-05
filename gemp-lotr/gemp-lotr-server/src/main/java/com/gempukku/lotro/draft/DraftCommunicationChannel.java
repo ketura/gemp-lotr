@@ -34,12 +34,17 @@ public class DraftCommunicationChannel implements LongPollableResource {
     }
 
     @Override
-    public boolean registerRequest(WaitingRequest waitingRequest) {
+    public synchronized boolean registerRequest(WaitingRequest waitingRequest) {
         if (_changed)
             return true;
 
         _waitingRequest = waitingRequest;
         return false;
+    }
+
+    @Override
+    public synchronized void requestWaitingNotification() {
+        updateLastAccess();
     }
 
     public synchronized void draftChanged() {
