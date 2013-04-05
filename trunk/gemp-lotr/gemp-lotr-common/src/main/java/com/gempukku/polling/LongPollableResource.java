@@ -10,4 +10,6 @@ public interface LongPollableResource {
     public boolean registerRequest(WaitingRequest waitingRequest);
 
     public void deregisterRequest(WaitingRequest waitingRequest);
+
+    public void requestWaitingNotification();
 }

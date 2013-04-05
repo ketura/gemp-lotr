@@ -28,6 +28,11 @@ public class ChatCommunicationChannel implements ChatRoomListener, LongPollableR
     }
 
     @Override
+    public synchronized void requestWaitingNotification() {
+        updateLastAccess();
+    }
+
+    @Override
     public synchronized void messageReceived(ChatMessage message) {
         _messages.add(message);
         if (_waitingRequest != null) {

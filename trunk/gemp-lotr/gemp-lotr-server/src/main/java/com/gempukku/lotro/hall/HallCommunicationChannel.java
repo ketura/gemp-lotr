@@ -37,6 +37,11 @@ public class HallCommunicationChannel implements LongPollableResource {
         return false;
     }
 
+    @Override
+    public synchronized void requestWaitingNotification() {
+        updateLastAccess();
+    }
+
     public synchronized void hallChanged() {
         _changed = true;
         if (_waitingRequest != null) {
