@@ -50,7 +50,7 @@ public class Card15_064 extends AbstractCompanion {
             if (threats > 0)
                 action.appendEffect(
                         new AddUntilStartOfPhaseModifierEffect(
-                                new MinionSiteNumberModifier(self, CardType.MINION, null, threats), Phase.REGROUP));
+                                new MinionSiteNumberModifier(self, Filters.in(Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), CardType.MINION)), null, threats), Phase.REGROUP));
             return Collections.singletonList(action);
         }
         return null;
