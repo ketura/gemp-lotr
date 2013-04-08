@@ -35,6 +35,11 @@ public abstract class AbstractModifier implements Modifier {
     }
 
     @Override
+    public boolean isNonCardTextModifier() {
+        return false;
+    }
+
+    @Override
     public Condition getCondition() {
         return _condition;
     }

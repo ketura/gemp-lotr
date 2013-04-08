@@ -20,6 +20,8 @@ public interface Modifier {
 
     public ModifierEffect getModifierEffect();
 
+    public boolean isNonCardTextModifier();
+
     public Condition getCondition();
 
     public boolean affectsCard(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard);
