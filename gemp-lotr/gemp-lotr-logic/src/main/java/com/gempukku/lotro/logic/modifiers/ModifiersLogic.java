@@ -137,7 +137,9 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
                         _skipSet.add(modifier);
                         Condition condition = modifier.getCondition();
                         if (condition == null || condition.isFullfilled(gameState, this))
-                            if (modifierEffect == ModifierEffect.TEXT_MODIFIER || modifier.getSource() == null || !hasTextRemoved(gameState, modifier.getSource())) {
+                            if (modifierEffect == ModifierEffect.TEXT_MODIFIER || modifier.getSource() == null ||
+                                    modifier.isNonCardTextModifier() ||
+                                    !hasTextRemoved(gameState, modifier.getSource())) {
                                 if (card == null || modifier.affectsCard(gameState, this, card))
                                     liveModifiers.add(modifier);
                             }

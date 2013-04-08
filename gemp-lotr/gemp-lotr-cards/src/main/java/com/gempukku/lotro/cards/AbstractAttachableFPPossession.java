@@ -12,6 +12,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
+import com.gempukku.lotro.logic.modifiers.evaluator.ConstantEvaluator;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.LinkedList;
@@ -78,9 +79,9 @@ public abstract class AbstractAttachableFPPossession extends AbstractAttachable 
     public final List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         if (_strength != 0)
-            modifiers.add(new StrengthModifier(self, Filters.hasAttached(self), _strength));
+            modifiers.add(new StrengthModifier(self, Filters.hasAttached(self), null, new ConstantEvaluator(_strength), true));
         if (_vitality != 0)
-            modifiers.add(new VitalityModifier(self, Filters.hasAttached(self), _vitality));
+            modifiers.add(new VitalityModifier(self, Filters.hasAttached(self), _vitality, true));
 
         List<? extends Modifier> extraModifiers = getNonBasicStatsModifiers(self);
         if (extraModifiers != null)

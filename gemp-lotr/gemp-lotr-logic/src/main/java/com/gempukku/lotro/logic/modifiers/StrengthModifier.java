@@ -8,6 +8,7 @@ import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 
 public class StrengthModifier extends AbstractModifier {
     private Evaluator _evaluator;
+    private boolean _nonCardTextModifier;
 
     public StrengthModifier(PhysicalCard source, Filterable affectFilter, int modifier) {
         this(source, affectFilter, null, modifier);
@@ -18,8 +19,13 @@ public class StrengthModifier extends AbstractModifier {
     }
 
     public StrengthModifier(PhysicalCard source, Filterable affectFilter, Condition condition, Evaluator evaluator) {
+        this(source, affectFilter, condition, evaluator, false);
+    }
+
+    public StrengthModifier(PhysicalCard source, Filterable affectFilter, Condition condition, Evaluator evaluator, boolean nonCardTextModifier) {
         super(source, null, affectFilter, condition, ModifierEffect.STRENGTH_MODIFIER);
         _evaluator = evaluator;
+        _nonCardTextModifier = nonCardTextModifier;
     }
 
     @Override
@@ -34,5 +40,10 @@ public class StrengthModifier extends AbstractModifier {
     @Override
     public int getStrengthModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
         return _evaluator.evaluateExpression(gameState, modifiersQuerying, physicalCard);
+    }
+
+    @Override
+    public boolean isNonCardTextModifier() {
+        return _nonCardTextModifier;
     }
 }
