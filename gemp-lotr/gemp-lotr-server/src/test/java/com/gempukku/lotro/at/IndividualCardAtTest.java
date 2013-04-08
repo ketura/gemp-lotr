@@ -907,4 +907,37 @@ public class IndividualCardAtTest extends AbstractAtTest {
 
         assertEquals(0, _game.getGameState().getTwilightPool());
     }
+
+    @Test
+    public void trollMonstrousFiend() throws CardNotFoundException, DecisionResultInvalidException {
+        initializeSimplestGame();
+
+        PhysicalCardImpl troll = new PhysicalCardImpl(100, "20_256", P2, _library.getLotroCardBlueprint("20_256"));
+        PhysicalCardImpl runner1  = new PhysicalCardImpl(101, "20_268", P2, _library.getLotroCardBlueprint("20_268"));
+        PhysicalCardImpl runner2  = new PhysicalCardImpl(102, "20_268", P2, _library.getLotroCardBlueprint("20_268"));
+        PhysicalCardImpl runner3  = new PhysicalCardImpl(103, "20_268", P2, _library.getLotroCardBlueprint("20_268"));
+        PhysicalCardImpl runner4  = new PhysicalCardImpl(104, "20_268", P2, _library.getLotroCardBlueprint("20_268"));
+
+        skipMulligans();
+
+        _game.getGameState().addCardToZone(_game, troll, Zone.HAND);
+        _game.getGameState().addCardToZone(_game, runner1, Zone.HAND);
+        _game.getGameState().addCardToZone(_game, runner2, Zone.HAND);
+        _game.getGameState().addCardToZone(_game, runner3, Zone.HAND);
+        _game.getGameState().addCardToZone(_game, runner4, Zone.HAND);
+
+        _game.getGameState().addTwilight(7);
+        
+        // End fellowship
+        playerDecided(P1, "");
+
+        assertEquals(9, _game.getGameState().getTwilightPool());
+
+        final AwaitingDecision playShadowAction = _userFeedback.getAwaitingDecision(P2);
+        assertEquals(AwaitingDecisionType.CARD_ACTION_CHOICE, playShadowAction.getDecisionType());
+        playerDecided(P2, getCardActionId(playShadowAction, "Play Cave"));
+
+        final AwaitingDecision discardGoblins = _userFeedback.getAwaitingDecision(P2);
+        assertEquals("3", discardGoblins.getDecisionParameters().get("min"));
+    }
 }
