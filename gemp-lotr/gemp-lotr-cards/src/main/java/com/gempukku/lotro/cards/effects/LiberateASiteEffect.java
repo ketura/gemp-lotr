@@ -26,7 +26,7 @@ public class LiberateASiteEffect extends AbstractEffect {
 
     @Override
     public boolean isPlayableInFull(LotroGame game) {
-        return PlayConditions.canLiberateASite(game, _source.getOwner(), _source, _liberatingPlayer);
+        return PlayConditions.canLiberateASite(game, _source.getOwner(), _source, null);
     }
 
     @Override
