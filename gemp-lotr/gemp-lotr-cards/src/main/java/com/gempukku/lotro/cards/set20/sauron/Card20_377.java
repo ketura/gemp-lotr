@@ -42,7 +42,6 @@ public class Card20_377 extends AbstractMinion {
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.played(game, effectResult, self)
-                && PlayConditions.location(game, Filters.region(3))
                 && PlayConditions.canSpot(game, Filters.not(self), Culture.SAURON, CardType.MINION)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
