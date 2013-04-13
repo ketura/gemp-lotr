@@ -10,7 +10,7 @@ import java.util.List;
 
 public class ChatCommunicationChannel implements ChatRoomListener, LongPollableResource {
     private List<ChatMessage> _messages = new LinkedList<ChatMessage>();
-    private long _lastConsumed = System.currentTimeMillis();
+    private volatile long _lastConsumed = System.currentTimeMillis();
     private volatile WaitingRequest _waitingRequest;
 
     @Override
@@ -28,7 +28,7 @@ public class ChatCommunicationChannel implements ChatRoomListener, LongPollableR
     }
 
     @Override
-    public synchronized void requestWaitingNotification() {
+    public void requestWaitingNotification() {
         updateLastAccess();
     }
 
@@ -53,11 +53,11 @@ public class ChatCommunicationChannel implements ChatRoomListener, LongPollableR
         return _messages.size() > 0;
     }
 
-    private synchronized void updateLastAccess() {
+    private void updateLastAccess() {
         _lastConsumed = System.currentTimeMillis();
     }
 
-    public synchronized long getLastAccessed() {
+    public long getLastAccessed() {
         return _lastConsumed;
     }
 }
