@@ -10,13 +10,13 @@ import java.util.*;
 
 public class HallCommunicationChannel implements LongPollableResource {
     private int _channelNumber;
-    private long _lastConsumed;
     private String _lastMotd;
     private Map<String, Map<String, String>> _tournamentQueuePropsOnClient = new LinkedHashMap<String, Map<String, String>>();
     private Map<String, Map<String, String>> _tournamentPropsOnClient = new LinkedHashMap<String, Map<String, String>>();
     private Map<String, Map<String, String>> _tablePropsOnClient = new LinkedHashMap<String, Map<String, String>>();
     private Set<String> _playedGames = new HashSet<String>();
     private volatile boolean _changed;
+    private volatile long _lastConsumed;
     private volatile WaitingRequest _waitingRequest;
 
     public HallCommunicationChannel(int channelNumber) {
@@ -38,7 +38,7 @@ public class HallCommunicationChannel implements LongPollableResource {
     }
 
     @Override
-    public synchronized void requestWaitingNotification() {
+    public void requestWaitingNotification() {
         updateLastAccess();
     }
 

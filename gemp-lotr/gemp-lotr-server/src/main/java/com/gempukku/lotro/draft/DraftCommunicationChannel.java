@@ -6,10 +6,10 @@ import com.gempukku.polling.WaitingRequest;
 
 public class DraftCommunicationChannel implements LongPollableResource {
     private int _channelNumber;
-    private long _lastAccessed;
 
     private String _cardChoiceOnClient;
     private volatile boolean _changed;
+    private volatile long _lastAccessed;
     private volatile WaitingRequest _waitingRequest;
 
     public DraftCommunicationChannel(int channelNumber) {
@@ -43,7 +43,7 @@ public class DraftCommunicationChannel implements LongPollableResource {
     }
 
     @Override
-    public synchronized void requestWaitingNotification() {
+    public void requestWaitingNotification() {
         updateLastAccess();
     }
 
