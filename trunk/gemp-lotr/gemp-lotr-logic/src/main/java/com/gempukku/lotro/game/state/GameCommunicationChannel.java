@@ -3,14 +3,13 @@ package com.gempukku.lotro.game.state;
 import com.gempukku.lotro.common.Token;
 import com.gempukku.lotro.communication.GameStateListener;
 import com.gempukku.lotro.game.PhysicalCard;
+import static com.gempukku.lotro.game.state.GameEvent.Type.*;
 import com.gempukku.lotro.logic.decisions.AwaitingDecision;
 import com.gempukku.lotro.logic.timing.GameStats;
 import com.gempukku.polling.LongPollableResource;
 import com.gempukku.polling.WaitingRequest;
 
 import java.util.*;
-
-import static com.gempukku.lotro.game.state.GameEvent.Type.*;
 
 public class GameCommunicationChannel implements GameStateListener, LongPollableResource {
     private List<GameEvent> _events = Collections.synchronizedList(new LinkedList<GameEvent>());
@@ -48,11 +47,6 @@ public class GameCommunicationChannel implements GameStateListener, LongPollable
 
         _waitingRequest = waitingRequest;
         return false;
-    }
-
-    @Override
-    public void requestWaitingNotification() {
-        // Ignore, we do not remove user from it
     }
 
     private synchronized void appendEvent(GameEvent event) {

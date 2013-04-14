@@ -66,30 +66,24 @@ public class LongPollingSystem {
         @Override
         public void run() {
             while (true) {
-                try {
-                    Set<ResourceWaitingRequest> resourcesCopy;
-                    synchronized (_waitingActions) {
-                        resourcesCopy = new HashSet<ResourceWaitingRequest>(_waitingActions);
-                    }
+                Set<ResourceWaitingRequest> resourcesCopy;
+                synchronized (_waitingActions) {
+                    resourcesCopy = new HashSet<ResourceWaitingRequest>(_waitingActions);
+                }
 
-                    long now = System.currentTimeMillis();
-                    Iterator<ResourceWaitingRequest> iterator = resourcesCopy.iterator();
-                    while (iterator.hasNext()) {
-                        ResourceWaitingRequest waitingRequest = iterator.next();
-                        if (waitingRequest.getLongPollingResource().wasProcessed())
+                long now = System.currentTimeMillis();
+                Iterator<ResourceWaitingRequest> iterator = resourcesCopy.iterator();
+                while (iterator.hasNext()) {
+                    ResourceWaitingRequest waitingRequest = iterator.next();
+                    if (waitingRequest.getLongPollingResource().wasProcessed())
+                        _waitingActions.remove(waitingRequest);
+                    else {
+                        if (waitingRequest.getStart() + _pollingLength < now) {
+                            waitingRequest.getLongPollableResource().deregisterRequest(waitingRequest);
                             _waitingActions.remove(waitingRequest);
-                        else {
-                            if (waitingRequest.getStart() + _pollingLength < now) {
-                                waitingRequest.getLongPollableResource().deregisterRequest(waitingRequest);
-                                _waitingActions.remove(waitingRequest);
-                                execute(waitingRequest.getLongPollingResource());
-                            } else {
-                                waitingRequest.getLongPollableResource().requestWaitingNotification();
-                            }
+                            execute(waitingRequest.getLongPollingResource());
                         }
                     }
-                } catch (Exception exp) {
-                    _log.error("Failure while processing polling requests", exp);
                 }
 
                 pause();
