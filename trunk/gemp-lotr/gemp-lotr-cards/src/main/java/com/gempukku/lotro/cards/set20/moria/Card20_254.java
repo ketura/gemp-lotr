@@ -24,7 +24,7 @@ import java.util.List;
  * Damage +1. Fierce.
  * To play, spot a [Moria] minion.
  * If the fellowship has moved more than once this turn, the Balrog's twilight cost is -4.
- * Regroup: If you can spot more companions than minions, exert the Balrog four times to make the Free Peoples player
+ * Regroup: Exert the Balrog four times to make the Free Peoples player
  * discard a companion (except the Ring-bearer).
  */
 public class Card20_254 extends AbstractMinion {
@@ -48,8 +48,6 @@ public class Card20_254 extends AbstractMinion {
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.REGROUP, self, 0)
-                && Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION)>
-                Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), CardType.MINION)
             && PlayConditions.canSelfExert(self, 4, game)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
