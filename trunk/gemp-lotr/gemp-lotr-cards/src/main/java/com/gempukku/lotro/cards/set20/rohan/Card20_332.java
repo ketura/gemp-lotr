@@ -24,7 +24,7 @@ import java.util.List;
  * 2
  * •Horn of Helm Hammerhand
  * Rohan	Artifact • Support Area
- * To play exert Theoden or two Valiant [Rohan] Men.
+ * To play exert Theoden or two [Rohan] Men.
  * Each time you play a [Rohan] fortification, each mounted companion is strength +1 until the regroup phase.
  */
 public class Card20_332 extends AbstractPermanent {
@@ -50,10 +50,10 @@ public class Card20_332 extends AbstractPermanent {
                     }
                 });
         possibleCosts.add(
-                new ChooseAndExertCharactersEffect(action, playerId, 2, 2, Culture.ROHAN, Race.MAN, Keyword.VALIANT) {
+                new ChooseAndExertCharactersEffect(action, playerId, 2, 2, Culture.ROHAN, Race.MAN) {
                     @Override
                     public String getText(LotroGame game) {
-                        return "Exert two Valiant ROHAN Man";
+                        return "Exert two ROHAN Man";
                     }
                 });
         action.appendCost(
