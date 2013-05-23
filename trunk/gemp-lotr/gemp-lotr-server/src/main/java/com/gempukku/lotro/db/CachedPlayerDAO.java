@@ -6,6 +6,7 @@ import org.apache.commons.collections.map.LRUMap;
 
 import java.sql.SQLException;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 public class CachedPlayerDAO implements PlayerDAO, Cached {
@@ -26,6 +27,35 @@ public class CachedPlayerDAO implements PlayerDAO, Cached {
     @Override
     public int getItemCount() {
         return _playerById.size() + _playerByName.size();
+    }
+
+    @Override
+    public boolean banPlayerPermanently(String login) throws SQLException {
+        final boolean success = _delegate.banPlayerPermanently(login);
+        if (success)
+            clearCache();
+        return success;
+    }
+
+    @Override
+    public boolean banPlayerTemporarily(String login, long dateTo) throws SQLException {
+        final boolean success = _delegate.banPlayerTemporarily(login, dateTo);
+        if (success)
+            clearCache();
+        return success;
+    }
+
+    @Override
+    public boolean unBanPlayer(String login) throws SQLException {
+        final boolean success = _delegate.unBanPlayer(login);
+        if (success)
+            clearCache();
+        return success;
+    }
+
+    @Override
+    public List<Player> findSimilarAccounts(String login) throws SQLException {
+        return _delegate.findSimilarAccounts(login);
     }
 
     @Override

@@ -7,9 +7,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 public class DbPlayerDAO implements PlayerDAO {
     private final String validLoginChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_";
+    private final String _selectPlayer = "select id, name, password, type, last_login_reward, banned_until, create_ip, last_ip from player";
 
     private DbAccess _dbAccess;
 
@@ -17,42 +21,128 @@ public class DbPlayerDAO implements PlayerDAO {
         _dbAccess = dbAccess;
     }
 
-    public synchronized Player getPlayer(int id) {
+    @Override
+    public Player getPlayer(int id) {
         try {
-            final Player player = getPlayerFromDBById(id);
-            return player;
+            return getPlayerFromDBById(id);
         } catch (SQLException exp) {
             throw new RuntimeException("Error while retrieving player", exp);
         }
     }
 
-    public synchronized Player getPlayer(String playerName) {
+    @Override
+    public Player getPlayer(String playerName) {
         try {
-            Player player = getPlayerFromDBByName(playerName);
-            return player;
+            return getPlayerFromDBByName(playerName);
         } catch (SQLException exp) {
             throw new RuntimeException("Unable to get player from DB", exp);
         }
     }
 
-    public synchronized Player loginUser(String login, String password) throws SQLException {
+    @Override
+    public List<Player> findSimilarAccounts(String login) throws SQLException {
+        final Player player = getPlayerFromDBByName(login);
+        if (player == null)
+            return null;
+
         Connection conn = _dbAccess.getDataSource().getConnection();
         try {
-            PreparedStatement statement = conn.prepareStatement("select id, name, type, last_login_reward from player where name=? and password=?");
+            String sql = _selectPlayer + " where password=?";
+            if (player.getCreateIp() != null)
+                sql += " or create_ip=? or last_ip=?";
+            if (player.getLastIp() != null)
+                sql += " or create_ip=? or last_ip=?";
+
+            PreparedStatement statement = conn.prepareStatement(sql);
+            try {
+                statement.setString(1, player.getPassword());
+                int nextParamIndex = 2;
+                if (player.getCreateIp() != null) {
+                    statement.setString(nextParamIndex, player.getCreateIp());
+                    nextParamIndex++;
+                }
+                if (player.getLastIp() != null) {
+                    statement.setString(nextParamIndex, player.getLastIp());
+                    nextParamIndex++;
+                }
+                ResultSet rs = statement.executeQuery();
+                try {
+                    List<Player> players = new LinkedList<Player>();
+                    while (rs.next())
+                        players.add(getPlayerFromResultSet(rs));
+                    return players;
+                } finally {
+                    rs.close();
+                }
+            } finally {
+                statement.close();
+            }
+        } finally {
+            conn.close();
+        }
+    }
+
+    @Override
+    public boolean banPlayerPermanently(String login) throws SQLException {
+        Connection conn = _dbAccess.getDataSource().getConnection();
+        try {
+            PreparedStatement statement = conn.prepareStatement("update player set type='' where name=?");
+            try {
+                statement.setString(1, login);
+                return statement.executeUpdate() == 1;
+            } finally {
+                statement.close();
+            }
+        } finally {
+            conn.close();
+        }
+    }
+
+    @Override
+    public boolean banPlayerTemporarily(String login, long dateTo) throws SQLException {
+        Connection conn = _dbAccess.getDataSource().getConnection();
+        try {
+            PreparedStatement statement = conn.prepareStatement("update player set banned_until=? where name=?");
+            try {
+                statement.setLong(1, dateTo);
+                statement.setString(2, login);
+                return statement.executeUpdate() == 1;
+            } finally {
+                statement.close();
+            }
+        } finally {
+            conn.close();
+        }
+    }
+
+    @Override
+    public boolean unBanPlayer(String login) throws SQLException {
+        Connection conn = _dbAccess.getDataSource().getConnection();
+        try {
+            PreparedStatement statement = conn.prepareStatement("update player set type='un', banned_until=null where name=?");
+            try {
+                statement.setString(1, login);
+                return statement.executeUpdate() == 1;
+            } finally {
+                statement.close();
+            }
+        } finally {
+            conn.close();
+        }
+    }
+
+    @Override
+    public Player loginUser(String login, String password) throws SQLException {
+        Connection conn = _dbAccess.getDataSource().getConnection();
+        try {
+            PreparedStatement statement = conn.prepareStatement(_selectPlayer + " where name=? and password=?");
             try {
                 statement.setString(1, login);
                 statement.setString(2, encodePassword(password));
                 ResultSet rs = statement.executeQuery();
                 try {
                     if (rs.next()) {
-                        int id = rs.getInt(1);
-                        String name = rs.getString(2);
-                        String type = rs.getString(3);
-                        Integer lastLoginReward = rs.getInt(4);
-                        if (rs.wasNull())
-                            lastLoginReward = null;
-
-                        return new Player(id, name, type, lastLoginReward);
+                        return getPlayerFromResultSet(rs);
                     } else
                         return null;
                 } finally {
@@ -66,7 +156,29 @@ public class DbPlayerDAO implements PlayerDAO {
         }
     }
 
-    public synchronized void setLastReward(Player player, int currentReward) throws SQLException {
+    private Player getPlayerFromResultSet(ResultSet rs) throws SQLException {
+        int id = rs.getInt(1);
+        String name = rs.getString(2);
+        String password = rs.getString(3);
+        String type = rs.getString(4);
+        Integer lastLoginReward = rs.getInt(5);
+        if (rs.wasNull())
+            lastLoginReward = null;
+        Long bannedUntilLong = rs.getLong(6);
+        if (rs.wasNull())
+            bannedUntilLong = null;
+
+        Date bannedUntil = null;
+        if (bannedUntilLong != null)
+            bannedUntil = new Date(bannedUntilLong);
+        String createIp = rs.getString(7);
+        String lastIp = rs.getString(8);
+
+        return new Player(id, name, password, type, lastLoginReward, bannedUntil, createIp, lastIp);
+    }
+
+    @Override
+    public void setLastReward(Player player, int currentReward) throws SQLException {
         Connection conn = _dbAccess.getDataSource().getConnection();
         try {
             PreparedStatement statement = conn.prepareStatement("update player set last_login_reward =? where id=?");
@@ -83,6 +195,7 @@ public class DbPlayerDAO implements PlayerDAO {
         }
     }
 
+    @Override
     public synchronized boolean updateLastReward(Player player, int previousReward, int currentReward) throws SQLException {
         Connection conn = _dbAccess.getDataSource().getConnection();
         try {
@@ -104,6 +217,7 @@ public class DbPlayerDAO implements PlayerDAO {
         }
     }
 
+    @Override
     public synchronized boolean registerUser(String login, String password, String remoteAddr) throws SQLException, LoginInvalidException {
         boolean result = validateLogin(login);
         if (!result)
@@ -186,19 +300,13 @@ public class DbPlayerDAO implements PlayerDAO {
     private Player getPlayerFromDBById(int id) throws SQLException {
         Connection conn = _dbAccess.getDataSource().getConnection();
         try {
-            PreparedStatement statement = conn.prepareStatement("select id, name, type, last_login_reward from player where id=?");
+            PreparedStatement statement = conn.prepareStatement(_selectPlayer + " where id=?");
             try {
                 statement.setInt(1, id);
                 ResultSet rs = statement.executeQuery();
                 try {
                     if (rs.next()) {
-                        String name = rs.getString(2);
-                        String type = rs.getString(3);
-                        Integer lastLoginReward = rs.getInt(4);
-                        if (rs.wasNull())
-                            lastLoginReward = null;
-
-                        return new Player(id, name, type, lastLoginReward);
+                        return getPlayerFromResultSet(rs);
                     } else {
                         return null;
                     }
@@ -216,20 +324,13 @@ public class DbPlayerDAO implements PlayerDAO {
     private Player getPlayerFromDBByName(String playerName) throws SQLException {
         Connection conn = _dbAccess.getDataSource().getConnection();
         try {
-            PreparedStatement statement = conn.prepareStatement("select id, name, type, last_login_reward from player where name=?");
+            PreparedStatement statement = conn.prepareStatement(_selectPlayer + " where name=?");
             try {
                 statement.setString(1, playerName);
                 ResultSet rs = statement.executeQuery();
                 try {
                     if (rs.next()) {
-                        int id = rs.getInt(1);
-                        String name = rs.getString(2);
-                        String type = rs.getString(3);
-                        Integer lastLoginReward = rs.getInt(4);
-                        if (rs.wasNull())
-                            lastLoginReward = null;
-
-                        return new Player(id, name, type, lastLoginReward);
+                        return getPlayerFromResultSet(rs);
                     } else {
                         return null;
                     }
@@ -244,6 +345,7 @@ public class DbPlayerDAO implements PlayerDAO {
         }
     }
 
+    @Override
     public void updateLastLoginIp(String login, String remoteAddr) throws SQLException {
         Connection conn = _dbAccess.getDataSource().getConnection();
         try {

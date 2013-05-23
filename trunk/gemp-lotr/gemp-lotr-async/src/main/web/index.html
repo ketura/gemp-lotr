@@ -117,9 +117,13 @@
                     loginScreen();
                 },
                 "403": function() {
-                    $(".error").html("You have been banned. If you think it was a mistake, please write an e-mail to <a href='mailto:marcins78@gmail.com>marcins78@gmail.com</a>");
+                    $(".error").html("You have been permanently banned. If you think it was a mistake you can try sending a private message to CoS on <a href='http://lotrtcgwiki.com/forums/'>TLHH forums</a>.");
                     $(".interaction").html("");
                 },
+                "409": function() {
+                    $(".error").html("You have been temporarily banned. You can try logging in at a later time. If you think it was a mistake you can try sending a private message to CoS on <a href='http://lotrtcgwiki.com/forums/'>TLHH forums</a>.");
+                    $(".interaction").html("");
+                }
                 "503": function() {
                     $(".error").html("Server is down for maintenance. Please come at a later time.");
                 }

@@ -8,6 +8,7 @@ import org.jboss.netty.handler.codec.http.HttpRequest;
 import org.jboss.netty.handler.codec.http.multipart.HttpPostRequestDecoder;
 
 import java.lang.reflect.Type;
+import java.util.Date;
 import java.util.Map;
 
 public class LoginRequestHandler extends LotroServerRequestHandler implements UriRequestHandler {
@@ -25,7 +26,11 @@ public class LoginRequestHandler extends LotroServerRequestHandler implements Ur
             Player player = _playerDao.loginUser(login, password);
             if (player != null) {
                 if (player.getType().contains("u")) {
-                    responseWriter.writeXmlResponse(null, logUserReturningHeaders(e, login));
+                    final Date bannedUntil = player.getBannedUntil();
+                    if (bannedUntil != null && bannedUntil.after(new Date()))
+                        responseWriter.writeError(409);
+                    else
+                        responseWriter.writeXmlResponse(null, logUserReturningHeaders(e, login));
                 } else {
                     responseWriter.writeError(403);
                 }
