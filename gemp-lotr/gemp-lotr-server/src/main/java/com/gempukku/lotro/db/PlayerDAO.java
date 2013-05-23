@@ -3,11 +3,20 @@ package com.gempukku.lotro.db;
 import com.gempukku.lotro.game.Player;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public interface PlayerDAO {
     public Player getPlayer(int id);
 
     public Player getPlayer(String playerName);
+
+    public boolean banPlayerPermanently(String login) throws SQLException;
+
+    public boolean banPlayerTemporarily(String login, long dateTo) throws SQLException;
+
+    public boolean unBanPlayer(String login) throws SQLException;
+
+    public List<Player> findSimilarAccounts(String login) throws SQLException;
 
     public Player loginUser(String login, String password) throws SQLException;
 

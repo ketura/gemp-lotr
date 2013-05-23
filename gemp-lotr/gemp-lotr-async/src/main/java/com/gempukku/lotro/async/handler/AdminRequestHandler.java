@@ -7,6 +7,7 @@ import com.gempukku.lotro.cache.CacheManager;
 import com.gempukku.lotro.cards.CardSets;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.db.LeagueDAO;
+import com.gempukku.lotro.db.PlayerDAO;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.game.CardCollection;
 import com.gempukku.lotro.game.Player;
@@ -25,12 +26,14 @@ import org.w3c.dom.Element;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 public class AdminRequestHandler extends LotroServerRequestHandler implements UriRequestHandler {
+    public static final int DAY_IN_MILIS = 1000 * 60 * 60 * 24;
     private LeagueService _leagueService;
     private TournamentService _tournamentService;
     private CacheManager _cacheManager;
@@ -39,6 +42,7 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
     private LeagueDAO _leagueDao;
     private CollectionsManager _collectionManager;
     private CardSets _cardSets;
+    private PlayerDAO _playerDAO;
 
     public AdminRequestHandler(Map<Type, Object> context) {
         super(context);
@@ -49,6 +53,7 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
         _hallServer = extractObject(context, HallServer.class);
         _formatLibrary = extractObject(context, LotroFormatLibrary.class);
         _leagueDao = extractObject(context, LeagueDAO.class);
+        _playerDAO = extractObject(context, PlayerDAO.class);
         _collectionManager = extractObject(context, CollectionsManager.class);
     }
 
@@ -72,10 +77,101 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
             addItems(request, responseWriter);
         } else if (uri.equals("/addItemsToCollection") && request.getMethod() == HttpMethod.POST) {
             addItemsToCollection(request, responseWriter);
+        } else if (uri.equals("/banUser") && request.getMethod() == HttpMethod.POST) {
+            banUser(request, responseWriter);
+        } else if (uri.equals("/banUserTemp") && request.getMethod() == HttpMethod.POST) {
+            banUserTemp(request, responseWriter);
+        } else if (uri.equals("/unBanUser") && request.getMethod() == HttpMethod.POST) {
+            unBanUser(request, responseWriter);
+        } else if (uri.equals("/findMultipleAccounts") && request.getMethod() == HttpMethod.POST) {
+            findMultipleAccounts(request, responseWriter);
         } else {
             responseWriter.writeError(404);
         }
+    }
 
+    private void findMultipleAccounts(HttpRequest request, ResponseWriter responseWriter) throws Exception {
+        validateAdmin(request);
+
+        HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
+        String login = getFormParameterSafely(postDecoder, "login");
+
+        List<Player> similarPlayers = _playerDAO.findSimilarAccounts(login);
+        if (similarPlayers == null)
+            responseWriter.writeError(404);
+
+        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+
+        Document doc = documentBuilder.newDocument();
+        Element players = doc.createElement("players");
+
+        for (Player similarPlayer : similarPlayers) {
+            Element playerElem = doc.createElement("league");
+            playerElem.setAttribute("id", String.valueOf(similarPlayer.getId()));
+            playerElem.setAttribute("name", similarPlayer.getName());
+            playerElem.setAttribute("password", similarPlayer.getPassword());
+            playerElem.setAttribute("status", getStatus(similarPlayer));
+            playerElem.setAttribute("createIp", similarPlayer.getCreateIp());
+            playerElem.setAttribute("loginIp", similarPlayer.getLastIp());
+            players.appendChild(playerElem);
+        }
+
+        doc.appendChild(players);
+
+        responseWriter.writeXmlResponse(doc);
+    }
+
+    private String getStatus(Player similarPlayer) {
+        if (similarPlayer.getBannedUntil() != null) {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            return "Banned until " + format.format(similarPlayer.getBannedUntil());
+        }
+        if (similarPlayer.getType().contains("n"))
+            return "Unbanned";
+        if (similarPlayer.getType().equals(""))
+            return "Banned permanently";
+        return "OK";
+    }
+
+    private void banUser(HttpRequest request, ResponseWriter responseWriter) throws Exception {
+        validateAdmin(request);
+
+        HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
+        String login = getFormParameterSafely(postDecoder, "login");
+
+        final boolean success = _playerDAO.banPlayerPermanently(login);
+        if (!success)
+            throw new HttpProcessingException(404);
+
+        responseWriter.writeHtmlResponse("OK");
+    }
+
+    private void banUserTemp(HttpRequest request, ResponseWriter responseWriter) throws Exception {
+        validateAdmin(request);
+
+        HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
+        String login = getFormParameterSafely(postDecoder, "login");
+        int duration = Integer.parseInt(getFormParameterSafely(postDecoder, "duration"));
+
+        final boolean success = _playerDAO.banPlayerTemporarily(login, System.currentTimeMillis() + duration * DAY_IN_MILIS);
+        if (!success)
+            throw new HttpProcessingException(404);
+
+        responseWriter.writeHtmlResponse("OK");
+    }
+
+    private void unBanUser(HttpRequest request, ResponseWriter responseWriter) throws Exception {
+        validateAdmin(request);
+
+        HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
+        String login = getFormParameterSafely(postDecoder, "login");
+
+        final boolean success = _playerDAO.unBanPlayer(login);
+        if (!success)
+            throw new HttpProcessingException(404);
+
+        responseWriter.writeHtmlResponse("OK");
     }
 
     private void addItemsToCollection(HttpRequest request, ResponseWriter responseWriter) throws Exception {
