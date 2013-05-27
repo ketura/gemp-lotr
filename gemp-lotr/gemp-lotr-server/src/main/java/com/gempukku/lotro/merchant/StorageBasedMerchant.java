@@ -27,7 +27,7 @@ public class StorageBasedMerchant implements Merchant {
     private static final int DOUBLE_AFTER_DAYS_LOW_STOCK = 10;
     private static final int HALVE_AFTER_DAYS_IN_STOCK = 30;
 
-    private static final double PRICE_SHIFT_AFTER_TRANSACTION_PERC = 15;
+    private static final double PRICE_SHIFT_AFTER_TRANSACTION_PERC = 10;
 
     private LotroCardBlueprintLibrary _library;
     private MerchantDAO _merchantDao;
@@ -64,6 +64,10 @@ public class StorageBasedMerchant implements Merchant {
         MerchantDAO.Transaction lastTransaction = _merchantDao.getLastTransaction(blueprintId);
 
         boolean outOfStock = (lastTransaction == null || lastTransaction.getStock() <= OUT_OF_STOCK_MIN);
+
+        // If card is out of stock, do not sell it
+        if (outOfStock)
+            return null;
 
         Double normalPrice = getNormalPrice(lastTransaction, blueprintId, currentTime);
         if (normalPrice == null)

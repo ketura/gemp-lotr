@@ -4,11 +4,12 @@ import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.game.Player;
 import com.gempukku.lotro.logic.vo.LotroDeck;
-import static org.junit.Assert.*;
 import org.junit.Test;
 import org.mockito.Mockito;
 
 import java.util.Date;
+
+import static org.junit.Assert.*;
 
 public class SingleEliminationRecurringQueueTest {
     @Test
@@ -18,7 +19,7 @@ public class SingleEliminationRecurringQueueTest {
         ImmediateRecurringQueue queue = new ImmediateRecurringQueue(10, "format", CollectionType.MY_CARDS,
                 "id-", "name-", 2, false, tournamentService, new NoPrizes(), new SingleEliminationPairing("singleElimination"));
 
-        Player player = new Player(1, "p1", "u", null);
+        Player player = new Player(1, "p1", "pass", "u", null, null, null, null);
 
         CollectionsManager collectionsManager = Mockito.mock(CollectionsManager.class);
         Mockito.when(collectionsManager.removeCurrencyFromPlayerCollection(Mockito.anyString(), Mockito.eq(player), Mockito.eq(CollectionType.MY_CARDS), Mockito.eq(10)))
@@ -40,7 +41,7 @@ public class SingleEliminationRecurringQueueTest {
         ImmediateRecurringQueue queue = new ImmediateRecurringQueue(10, "format", CollectionType.MY_CARDS,
                 "id-", "name-", 2, false, tournamentService, new NoPrizes(), new SingleEliminationPairing("singleElimination"));
 
-        Player player = new Player(1, "p1", "u", null);
+        Player player = new Player(1, "p1", "pass", "u", null, null, null, null);
 
         CollectionsManager collectionsManager = Mockito.mock(CollectionsManager.class);
         Mockito.when(collectionsManager.removeCurrencyFromPlayerCollection(Mockito.anyString(), Mockito.eq(player), Mockito.eq(CollectionType.MY_CARDS), Mockito.eq(10)))
@@ -65,7 +66,7 @@ public class SingleEliminationRecurringQueueTest {
         ImmediateRecurringQueue queue = new ImmediateRecurringQueue(10, "format", CollectionType.MY_CARDS,
                 "id-", "name-", 2, false, tournamentService, new NoPrizes(), new SingleEliminationPairing("singleElimination"));
 
-        Player player = new Player(1, "p1", "u", null);
+        Player player = new Player(1, "p1", "pass", "u", null, null, null, null);
 
         CollectionsManager collectionsManager = Mockito.mock(CollectionsManager.class);
         Mockito.when(collectionsManager.removeCurrencyFromPlayerCollection(Mockito.anyString(), Mockito.eq(player), Mockito.eq(CollectionType.MY_CARDS), Mockito.eq(10)))
@@ -96,8 +97,8 @@ public class SingleEliminationRecurringQueueTest {
                 "id-", "name-", 2, false, tournamentService, new NoPrizes(), new SingleEliminationPairing("singleElimination"));
 
 
-        Player player1 = new Player(1, "p1", "u", null);
-        Player player2 = new Player(2, "p2", "u", null);
+        Player player1 = new Player(1, "p1", "pass", "u", null, null, null, null);
+        Player player2 = new Player(2, "p2", "pass", "u", null, null, null, null);
 
         CollectionsManager collectionsManager = Mockito.mock(CollectionsManager.class);
         Mockito.when(collectionsManager.removeCurrencyFromPlayerCollection(Mockito.anyString(), Mockito.<Player>any(), Mockito.eq(CollectionType.MY_CARDS), Mockito.eq(10)))
@@ -142,9 +143,9 @@ public class SingleEliminationRecurringQueueTest {
         ImmediateRecurringQueue queue = new ImmediateRecurringQueue(10, "format", CollectionType.MY_CARDS,
                 "id-", "name-", 2, false, tournamentService, new NoPrizes(), new SingleEliminationPairing("singleElimination"));
 
-        Player player1 = new Player(1, "p1", "u", null);
-        Player player2 = new Player(2, "p2", "u", null);
-        Player player3 = new Player(3, "p3", "u", null);
+        Player player1 = new Player(1, "p1", "pass", "u", null, null, null, null);
+        Player player2 = new Player(2, "p2", "pass", "u", null, null, null, null);
+        Player player3 = new Player(3, "p3", "pass", "u", null, null, null, null);
 
         CollectionsManager collectionsManager = Mockito.mock(CollectionsManager.class);
         Mockito.when(collectionsManager.removeCurrencyFromPlayerCollection(Mockito.anyString(), Mockito.<Player>any(), Mockito.eq(CollectionType.MY_CARDS), Mockito.eq(10)))
