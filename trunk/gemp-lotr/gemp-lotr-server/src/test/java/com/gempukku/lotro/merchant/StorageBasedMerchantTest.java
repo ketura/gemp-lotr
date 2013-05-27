@@ -3,11 +3,12 @@ package com.gempukku.lotro.merchant;
 import com.gempukku.lotro.cards.CardSets;
 import com.gempukku.lotro.db.MerchantDAO;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
-import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Date;
+
+import static org.junit.Assert.*;
 
 public class StorageBasedMerchantTest {
     private StorageBasedMerchant _merchant;
@@ -26,7 +27,7 @@ public class StorageBasedMerchantTest {
     @Test
     public void cardTradingWithNoStock() {
         // Now merchant sells also cards out of stock, but at double price
-        assertNotNull(_merchant.getCardSellPrice("1_1", new Date(0)));
+        assertNull(_merchant.getCardSellPrice("1_1", new Date(0)));
         assertNotNull(_merchant.getCardBuyPrice("1_1", new Date(0)));
     }
 
@@ -49,7 +50,7 @@ public class StorageBasedMerchantTest {
     public void cardPriceLowersAfterMerchantBuys() {
         _merchant.cardBought("1_1", new Date(0), 700);
         int cardInitialPrice = _merchant.getCardSellPrice("1_1", new Date(0));
-        assertEqualsMoreOrLess((int) (1000 / 1.15f), cardInitialPrice);
+        assertEqualsMoreOrLess((int) (1000 / 1.1f), cardInitialPrice);
     }
 
     @Test
@@ -60,7 +61,7 @@ public class StorageBasedMerchantTest {
 
         _merchant.cardSold("1_1", new Date(0), 1000);
         int cardInitialPrice = _merchant.getCardSellPrice("1_1", new Date(0));
-        assertEqualsMoreOrLess((int) (1000*1.15f), cardInitialPrice);
+        assertEqualsMoreOrLess((int) (1000*1.1f), cardInitialPrice);
     }
 
     @Test
@@ -79,8 +80,9 @@ public class StorageBasedMerchantTest {
 
     @Test
     public void buyAndSellLosesOnValue() {
-        _merchantDao.setStock("1_1", 2);
-        
+        _merchantDao.addTransaction("1_1", 1000, new Date(0), MerchantDAO.TransactionType.BUY);
+        _merchantDao.setStock("1_1", 5);
+
         long time = 0;
         // Buy 5 times the same card every 10 seconds, then sell the 5, also every 10 sec
         int moneySpent = 0;
