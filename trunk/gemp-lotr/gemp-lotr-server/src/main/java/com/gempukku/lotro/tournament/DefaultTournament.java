@@ -285,7 +285,7 @@ public class DefaultTournament implements Tournament {
 
         _lock.readLock().lock();
         try {
-            _currentStandings = StandingsProducer.produceStandings(_players, _finishedTournamentMatches, 1, 0, _playerByes);
+            _currentStandings = StandingsProducer.produceStandings(_players, _finishedTournamentMatches, 2, 1, _playerByes);
             return _currentStandings;
         } finally {
             _lock.readLock().unlock();
