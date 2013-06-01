@@ -25,13 +25,13 @@ public class SingleEliminationOnDemandPrizes implements TournamentPrizes{
     @Override
     public CardCollection getPrizeForTournament(PlayerStanding playerStanding, int playersCount) {
         DefaultCardCollection tournamentPrize = new DefaultCardCollection();
-        if (playerStanding.getPoints() == 3) {
+        if (playerStanding.getPoints() == 6) {
             tournamentPrize.addItem("(S)Booster Choice", 2);
             tournamentPrize.addItem(getRandom(_promos), 1);
-        } else if (playerStanding.getPoints() == 2) {
+        } else if (playerStanding.getPoints() == 5) {
             tournamentPrize.addItem("(S)Booster Choice", 1);
             tournamentPrize.addItem(getRandom(_promos), 1);
-        } else if (playerStanding.getPoints() == 1) {
+        } else if (playerStanding.getPoints() == 3) {
             tournamentPrize.addItem("(S)Booster Choice", 1);
         }
 
