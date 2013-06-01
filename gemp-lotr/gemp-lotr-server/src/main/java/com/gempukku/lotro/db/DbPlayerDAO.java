@@ -59,11 +59,13 @@ public class DbPlayerDAO implements PlayerDAO {
                 int nextParamIndex = 2;
                 if (player.getCreateIp() != null) {
                     statement.setString(nextParamIndex, player.getCreateIp());
-                    nextParamIndex++;
+                    statement.setString(nextParamIndex+1, player.getCreateIp());
+                    nextParamIndex+=2;
                 }
                 if (player.getLastIp() != null) {
                     statement.setString(nextParamIndex, player.getLastIp());
-                    nextParamIndex++;
+                    statement.setString(nextParamIndex+1, player.getLastIp());
+                    nextParamIndex+=2;
                 }
                 ResultSet rs = statement.executeQuery();
                 try {

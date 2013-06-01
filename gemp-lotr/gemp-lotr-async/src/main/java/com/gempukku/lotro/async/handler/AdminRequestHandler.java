@@ -79,6 +79,8 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
             addItemsToCollection(request, responseWriter);
         } else if (uri.equals("/banUser") && request.getMethod() == HttpMethod.POST) {
             banUser(request, responseWriter);
+        } else if (uri.equals("/banMultiple") && request.getMethod() == HttpMethod.POST) {
+            banMultiple(request, responseWriter);
         } else if (uri.equals("/banUserTemp") && request.getMethod() == HttpMethod.POST) {
             banUserTemp(request, responseWriter);
         } else if (uri.equals("/unBanUser") && request.getMethod() == HttpMethod.POST) {
@@ -98,7 +100,7 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
 
         List<Player> similarPlayers = _playerDAO.findSimilarAccounts(login);
         if (similarPlayers == null)
-            responseWriter.writeError(404);
+            throw new HttpProcessingException(404);
 
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
@@ -107,7 +109,7 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
         Element players = doc.createElement("players");
 
         for (Player similarPlayer : similarPlayers) {
-            Element playerElem = doc.createElement("league");
+            Element playerElem = doc.createElement("player");
             playerElem.setAttribute("id", String.valueOf(similarPlayer.getId()));
             playerElem.setAttribute("name", similarPlayer.getName());
             playerElem.setAttribute("password", similarPlayer.getPassword());
@@ -140,9 +142,29 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
         String login = getFormParameterSafely(postDecoder, "login");
 
+        if (login==null)
+            throw new HttpProcessingException(404);
+
         final boolean success = _playerDAO.banPlayerPermanently(login);
         if (!success)
             throw new HttpProcessingException(404);
+
+        responseWriter.writeHtmlResponse("OK");
+    }
+
+    private void banMultiple(HttpRequest request, ResponseWriter responseWriter) throws Exception {
+        validateAdmin(request);
+
+        HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
+        List<String> logins = getFormParametersSafely(postDecoder, "login");
+        if (logins == null)
+            throw new HttpProcessingException(404);
+
+        for (String login : logins) {
+            final boolean success = _playerDAO.banPlayerPermanently(login);
+            if (!success)
+                throw new HttpProcessingException(404);
+        }
 
         responseWriter.writeHtmlResponse("OK");
     }

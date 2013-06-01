@@ -11,6 +11,7 @@ import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.game.Player;
 import org.jboss.netty.channel.MessageEvent;
 import org.jboss.netty.handler.codec.http.CookieEncoder;
+import static org.jboss.netty.handler.codec.http.HttpHeaders.Names.SET_COOKIE;
 import org.jboss.netty.handler.codec.http.HttpRequest;
 import org.jboss.netty.handler.codec.http.QueryStringDecoder;
 import org.jboss.netty.handler.codec.http.multipart.Attribute;
@@ -25,8 +26,6 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
-import static org.jboss.netty.handler.codec.http.HttpHeaders.Names.SET_COOKIE;
 
 public class LotroServerRequestHandler {
     protected PlayerDAO _playerDao;
@@ -126,6 +125,20 @@ public class LotroServerRequestHandler {
         } else {
             return null;
         }
+    }
+
+    protected List<String> getFormParametersSafely(HttpPostRequestDecoder postRequestDecoder, String parameterName) throws IOException, HttpPostRequestDecoder.NotEnoughDataDecoderException {
+        List<InterfaceHttpData> datas = postRequestDecoder.getBodyHttpDatas(parameterName);
+        if (datas == null)
+            return null;
+        List<String> result = new LinkedList<String>();
+        for (InterfaceHttpData data : datas) {
+            if (data.getHttpDataType() == InterfaceHttpData.HttpDataType.Attribute) {
+                Attribute attribute = (Attribute) data;
+                result.add(attribute.getValue());
+            }
+        }
+        return result;
     }
 
     protected <T> T extractObject(Map<Type, Object> context, Class<T> clazz) {
