@@ -23,6 +23,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.*;
 import java.lang.reflect.Type;
+import java.net.InetSocketAddress;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Date;
@@ -97,6 +98,9 @@ public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
             };
 
             try {
+                String ipAddress = ((InetSocketAddress) e.getRemoteAddress()).getAddress().getHostAddress();
+                if (ipAddress.equals("108.251.13.101"))
+                    throw new HttpProcessingException(404);
                 _uriRequestHandler.handleRequest(uri, request, _objects, responseWriter, e);
             } catch (HttpProcessingException exp) {
                 responseWriter.writeError(exp.getStatus());
