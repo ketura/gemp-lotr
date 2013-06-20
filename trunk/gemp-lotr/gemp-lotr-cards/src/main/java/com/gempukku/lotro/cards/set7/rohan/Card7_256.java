@@ -11,6 +11,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.effects.ChooseAndWoundCharactersEffect;
+import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -28,8 +29,8 @@ public class Card7_256 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
-        PlayEventAction action = new PlayEventAction(self);
+    public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+        final PlayEventAction action = new PlayEventAction(self);
         final AtomicInteger exertCount = new AtomicInteger(0);
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 0, Integer.MAX_VALUE, CardType.COMPANION, Filters.mounted) {
@@ -39,7 +40,14 @@ public class Card7_256 extends AbstractEvent {
                     }
                 });
         action.appendEffect(
-                new ChooseAndWoundCharactersEffect(action, playerId, exertCount.get(), exertCount.get(), CardType.MINION));
+                new UnrespondableEffect() {
+                    @Override
+                    protected void doPlayEffect(LotroGame game) {
+                        action.appendEffect(
+                                new ChooseAndWoundCharactersEffect(action, playerId, exertCount.get(), exertCount.get(), CardType.MINION));
+                    }
+                });
+
         return action;
     }
 }

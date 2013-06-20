@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set7.elven;
 
 import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.ChoiceEffect;
+import com.gempukku.lotro.cards.effects.ReconcileHandEffect;
 import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.cards.modifiers.AddActionToCardModifier;
@@ -16,13 +16,9 @@ import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.effects.AssignmentEffect;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
-import com.gempukku.lotro.logic.timing.AbstractSuccessfulEffect;
 import com.gempukku.lotro.logic.timing.Action;
-import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.actions.PlayerReconcilesAction;
 
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -69,35 +65,10 @@ public class Card7_015 extends AbstractAttachable {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new SelfDiscardEffect(self));
-            List<Effect> possibleEffects = new LinkedList<Effect>();
-            possibleEffects.add(
-                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, CardType.MINION) {
-                        @Override
-                        public String getText(LotroGame game) {
-                            return "Discard a minion";
-                        }
-                    });
-            possibleEffects.add(
-                    new AbstractSuccessfulEffect() {
-                        @Override
-                        public String getText(LotroGame game) {
-                            return "Reconcile your hand";
-                        }
-
-                        @Override
-                        public Effect.Type getType() {
-                            return null;
-                        }
-
-                        @Override
-                        public void playEffect(LotroGame game) {
-                            game.getActionsEnvironment().addActionToStack(
-                                    new PlayerReconcilesAction(game, playerId));
-                        }
-                    });
             action.appendEffect(
-                    new ChoiceEffect(
-                            action, playerId, possibleEffects));
+                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, CardType.MINION));
+            action.appendEffect(
+                    new ReconcileHandEffect(self.getOwner()));
             return Collections.singletonList(action);
         }
         return null;
