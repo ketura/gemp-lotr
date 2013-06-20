@@ -88,7 +88,7 @@ public class DbPlayerDAO implements PlayerDAO {
     public boolean banPlayerPermanently(String login) throws SQLException {
         Connection conn = _dbAccess.getDataSource().getConnection();
         try {
-            PreparedStatement statement = conn.prepareStatement("update player set type='' where name=?");
+            PreparedStatement statement = conn.prepareStatement("update player set type='', banned_until=null where name=?");
             try {
                 statement.setString(1, login);
                 return statement.executeUpdate() == 1;
@@ -104,7 +104,7 @@ public class DbPlayerDAO implements PlayerDAO {
     public boolean banPlayerTemporarily(String login, long dateTo) throws SQLException {
         Connection conn = _dbAccess.getDataSource().getConnection();
         try {
-            PreparedStatement statement = conn.prepareStatement("update player set banned_until=? where name=?");
+            PreparedStatement statement = conn.prepareStatement("update player set banned_until=?, type='un' where name=?");
             try {
                 statement.setLong(1, dateTo);
                 statement.setString(2, login);

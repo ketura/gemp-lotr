@@ -125,14 +125,14 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
     }
 
     private String getStatus(Player similarPlayer) {
+        if (similarPlayer.getType().equals(""))
+            return "Banned permanently";
         if (similarPlayer.getBannedUntil() != null) {
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
             return "Banned until " + format.format(similarPlayer.getBannedUntil());
         }
         if (similarPlayer.getType().contains("n"))
             return "Unbanned";
-        if (similarPlayer.getType().equals(""))
-            return "Banned permanently";
         return "OK";
     }
 
