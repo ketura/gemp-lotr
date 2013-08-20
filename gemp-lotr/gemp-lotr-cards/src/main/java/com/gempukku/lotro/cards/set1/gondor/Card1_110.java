@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set1.gondor;
 
 import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
+import com.gempukku.lotro.cards.effects.PlayNextSiteEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
@@ -9,7 +10,7 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.effects.PlaySiteEffect;
+import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
 /**
  * Set: The Fellowship of the Ring
@@ -26,9 +27,17 @@ public class Card1_110 extends AbstractOldEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
-        PlayEventAction action = new PlayEventAction(self, true);
-        action.appendEffect(new PlaySiteEffect(action, playerId, null, game.getGameState().getCurrentSiteNumber() + 1));
+    public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+        final PlayEventAction action = new PlayEventAction(self, true);
+        action.appendEffect(
+                new UnrespondableEffect() {
+                    @Override
+                    protected void doPlayEffect(LotroGame game) {
+                        final PhysicalCard nextSite = game.getGameState().getSite(game.getGameState().getCurrentSiteNumber() + 1);
+                        if (nextSite == null || !nextSite.getOwner().equals(playerId))
+                            action.appendEffect(new PlayNextSiteEffect(action, playerId));
+                    }
+                });
         return action;
     }
 
