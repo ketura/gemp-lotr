@@ -50,16 +50,15 @@ public class Card1_036 extends AbstractOldEvent {
         action.appendEffect(
                 new ChooseOpponentEffect(playerId) {
                     @Override
-                    protected void opponentChosen(String opponentId) {
+                    protected void opponentChosen(final String opponentId) {
                         List<? extends PhysicalCard> hand = game.getGameState().getHand(opponentId);
-                        int orcsCount = Filters.filter(hand, game.getGameState(), game.getModifiersQuerying(), Race.ORC).size();
+                        final int orcsCount = Filters.filter(hand, game.getGameState(), game.getModifiersQuerying(), Race.ORC).size();
                         action.appendEffect(new RevealAndChooseCardsFromOpponentHandEffect(action, playerId, opponentId, self, "Opponent's hand", Filters.none, 0, 0) {
                             @Override
                             protected void cardsSelected(List<PhysicalCard> selectedCards) {
-                                // Do nothing
+                                action.appendEffect(new ChooseAndDiscardCardsFromHandEffect(action, opponentId, true, orcsCount));
                             }
                         });
-                        action.appendEffect(new ChooseAndDiscardCardsFromHandEffect(action, opponentId, true, orcsCount));
                     }
                 });
         return action;
