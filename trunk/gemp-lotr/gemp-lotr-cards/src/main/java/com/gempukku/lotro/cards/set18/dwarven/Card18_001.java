@@ -55,7 +55,7 @@ public class Card18_001 extends AbstractCompanion {
                         }
                     });
             possibleEffects.add(
-                    new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, CardType.MINION, Keyword.HUNTER) {
+                    new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, 2, CardType.MINION, Keyword.HUNTER) {
                         @Override
                         public String getText(LotroGame game) {
                             return "Wound a hunter minion twice";
