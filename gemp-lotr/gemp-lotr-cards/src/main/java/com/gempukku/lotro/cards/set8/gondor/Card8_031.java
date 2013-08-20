@@ -6,7 +6,10 @@ import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.modifiers.evaluator.ForEachThreatEvaluator;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.common.Signet;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -36,7 +39,7 @@ public class Card8_031 extends AbstractEvent {
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.aragorn));
         action.appendEffect(
-                new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, new ForEachThreatEvaluator(), CardType.COMPANION, Signet.ARAGORN));
+                new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, new ForEachThreatEvaluator(), Filters.unboundCompanion, Signet.ARAGORN));
         return action;
     }
 }
