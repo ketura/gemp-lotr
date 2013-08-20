@@ -15,7 +15,7 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
  * 0
  * War and Valor
  * Gondor	Event • Skirmish
- * Make a [Gondor] ranger strength +2 (or strength +3 and damage +1 if skirmishing a roaming minion).
+ * Make a [Gondor] Man strength +2 (or strength +3 and damage +1 if skirmishing a roaming minion).
  */
 public class Card20_207 extends AbstractEvent {
     public Card20_207() {
@@ -26,7 +26,7 @@ public class Card20_207 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
-                new ChooseActiveCardEffect(self, playerId, "Choose a GONDOR ranger", Culture.GONDOR, Keyword.RANGER) {
+                new ChooseActiveCardEffect(self, playerId, "Choose a GONDOR ranger", Culture.GONDOR, Race.MAN) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard ranger) {
                         boolean matches = Filters.inSkirmishAgainst(CardType.MINION, Keyword.ROAMING).accepts(
