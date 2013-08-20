@@ -42,7 +42,7 @@ public class Card1_155 extends AbstractMinion {
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayAfterActions(final String playerId, final LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.PUT_ON_THE_ONE_RING
-                && PlayConditions.canExert(self, game, self)) {
+                && PlayConditions.canSelfExert(self, game)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(new SelfExertEffect(action, self));
 
