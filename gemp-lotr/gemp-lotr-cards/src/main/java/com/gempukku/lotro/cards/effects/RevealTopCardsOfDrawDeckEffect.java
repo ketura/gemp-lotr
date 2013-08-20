@@ -45,8 +45,8 @@ public abstract class RevealTopCardsOfDrawDeckEffect extends AbstractEffect {
             game.getGameState().sendMessage(GameUtils.getCardLink(_source) + " revealed cards from top of " + _playerId + " deck - " + getAppendedNames(topCards));
             game.getActionsEnvironment().emitEffectResult(
                     new RevealCardFromTopOfDeckResult(_playerId, topCards));
-            cardsRevealed(topCards);
         }
+        cardsRevealed(topCards);
         return new FullEffectResult(topCards.size() == _count);
     }
 
