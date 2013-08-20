@@ -6,10 +6,7 @@ import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseActionProxyEffect;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.DiscardCardAtRandomFromHandEffect;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.common.Race;
-import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.AbstractActionProxy;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -18,12 +15,10 @@ import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.results.CharacterWonSkirmishResult;
+import com.gempukku.lotro.logic.timing.results.CharacterLostSkirmishResult;
 
-import java.util.HashSet;
-import java.util.LinkedList;
+import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Set: The Fellowship of the Ring
@@ -59,21 +54,13 @@ public class Card1_029 extends AbstractOldEvent {
                                         new AbstractActionProxy() {
                                             @Override
                                             public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame lotroGame, EffectResult effectResult) {
-                                                if (TriggerConditions.winsSkirmish(lotroGame, effectResult, elf)) {
-                                                    CharacterWonSkirmishResult skirmishResult = (CharacterWonSkirmishResult) effectResult;
-                                                    Set<PhysicalCard> losers = skirmishResult.getInvolving();
-                                                    Set<String> opponents = new HashSet<String>();
-                                                    for (PhysicalCard loser : losers)
-                                                        opponents.add(loser.getOwner());
-
-                                                    List<RequiredTriggerAction> actions = new LinkedList<RequiredTriggerAction>();
-                                                    for (String opponent : opponents) {
-                                                        RequiredTriggerAction action = new RequiredTriggerAction(self);
-                                                        action.appendEffect(new DiscardCardAtRandomFromHandEffect(self, opponent, true));
-                                                        action.appendEffect(new DiscardCardAtRandomFromHandEffect(self, opponent, true));
-                                                        actions.add(action);
-                                                    }
-                                                    return actions;
+                                                if (TriggerConditions.losesSkirmishInvolving(lotroGame, effectResult, CardType.MINION, elf)) {
+                                                    CharacterLostSkirmishResult skirmishResult = (CharacterLostSkirmishResult) effectResult;
+                                                    PhysicalCard loser = skirmishResult.getLoser();
+                                                    RequiredTriggerAction action = new RequiredTriggerAction(self);
+                                                    action.appendEffect(new DiscardCardAtRandomFromHandEffect(self, loser.getOwner(), true));
+                                                    action.appendEffect(new DiscardCardAtRandomFromHandEffect(self, loser.getOwner(), true));
+                                                    return Collections.singletonList(action);
                                                 }
                                                 return null;
                                             }
