@@ -212,11 +212,9 @@ var ChatBoxUI = Class.extend({
 
             if (this.chatListDiv != null) {
                 this.chatListDiv.html("");
-                var players = new Array();
                 for (var i = 0; i < users.length; i++) {
                     var user = users[i];
                     var userName = user.childNodes[0].nodeValue;
-                    players.push(userName);
                     this.chatListDiv.append("<div class='chatUser'>" + userName + "</div>");
                 }
             }

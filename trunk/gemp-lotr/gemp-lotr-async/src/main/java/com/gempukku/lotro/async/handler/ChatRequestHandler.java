@@ -164,8 +164,20 @@ public class ChatRequestHandler extends LotroServerRequestHandler implements Uri
 
         for (String userInRoom : usersInRoom) {
             Element user = doc.createElement("user");
-            user.appendChild(doc.createTextNode(userInRoom));
+            user.appendChild(doc.createTextNode(formatPlayerNameForChatList(userInRoom)));
             chatElem.appendChild(user);
         }
+    }
+
+    private String formatPlayerNameForChatList(String userInRoom) {
+        final Player player = _playerDao.getPlayer(userInRoom);
+        if (player != null) {
+            final String playerType = player.getType();
+            if (playerType.contains("a"))
+                return "*"+userInRoom;
+            else if (playerType.contains("l"))
+                return "+"+userInRoom;
+        }
+        return userInRoom;
     }
 }
