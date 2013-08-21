@@ -20,8 +20,6 @@ public class DailyTournamentPrizes implements TournamentPrizes {
             tournamentPrize.addItem("(S)Booster Choice", 8);
         } else if (playerStanding.getStanding() <=4) {
             tournamentPrize.addItem("(S)Booster Choice", 5);
-        } else if (playerStanding.getStanding()<=8) {
-            tournamentPrize.addItem("(S)Booster Choice", 2);
         }
 
         if (tournamentPrize.getAll().size() == 0)
@@ -36,6 +34,6 @@ public class DailyTournamentPrizes implements TournamentPrizes {
 
     @Override
     public String getPrizeDescription() {
-        return "<div class='prizeHint' value='1st place - 10 boosters, 2nd place - 8 boosters, 3rd and 4th place - 5 boosters, 5th-8th - 2 boosters each'>10-8-5-2</div>";
+        return "<div class='prizeHint' value='1st place - 10 boosters, 2nd place - 8 boosters, 3rd and 4th place - 5 boosters'>10-8-5</div>";
     }
 }
