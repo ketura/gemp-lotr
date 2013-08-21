@@ -24,9 +24,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.lang.reflect.Type;
 import java.net.URLDecoder;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ChatRequestHandler extends LotroServerRequestHandler implements UriRequestHandler {
     private ChatServer _chatServer;
@@ -162,9 +160,13 @@ public class ChatRequestHandler extends LotroServerRequestHandler implements Uri
             chatElem.appendChild(message);
         }
 
-        for (String userInRoom : usersInRoom) {
+        Set<String> users = new TreeSet<String>();
+        for (String userInRoom : usersInRoom)
+            users.add(formatPlayerNameForChatList(userInRoom));
+
+        for (String userInRoom : users) {
             Element user = doc.createElement("user");
-            user.appendChild(doc.createTextNode(formatPlayerNameForChatList(userInRoom)));
+            user.appendChild(doc.createTextNode(userInRoom));
             chatElem.appendChild(user);
         }
     }
