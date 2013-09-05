@@ -39,10 +39,10 @@ public class Card7_050 extends AbstractEvent {
     @Override
     public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self);
-        int vitality = game.getModifiersQuerying().getVitality(game.getGameState(), Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.gandalf));
+        int vitality = game.getModifiersQuerying().getVitality(game.getGameState(), Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.gandalf, Filters.canExert(self)));
         action.appendCost(
                 new PlayoutDecisionEffect(playerId,
-                        new IntegerAwaitingDecision(1, "Choose how many times you wish to exert Gandalf", 0, vitality - 1) {
+                        new IntegerAwaitingDecision(1, "Choose how many times you wish to exert Gandalf", 1, vitality - 1) {
                             @Override
                             public void decisionMade(String result) throws DecisionResultInvalidException {
                                 int exertCount = getValidatedResult(result);
