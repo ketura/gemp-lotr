@@ -6,14 +6,9 @@ import org.apache.log4j.Logger;
 import org.jboss.netty.buffer.ChannelBuffers;
 import org.jboss.netty.channel.*;
 import org.jboss.netty.handler.codec.http.DefaultHttpResponse;
-import static org.jboss.netty.handler.codec.http.HttpHeaders.Names.*;
-import static org.jboss.netty.handler.codec.http.HttpHeaders.is100ContinueExpected;
-import static org.jboss.netty.handler.codec.http.HttpHeaders.isKeepAlive;
 import org.jboss.netty.handler.codec.http.HttpRequest;
 import org.jboss.netty.handler.codec.http.HttpResponse;
 import org.jboss.netty.handler.codec.http.HttpResponseStatus;
-import static org.jboss.netty.handler.codec.http.HttpResponseStatus.*;
-import static org.jboss.netty.handler.codec.http.HttpVersion.HTTP_1_1;
 import org.jboss.netty.util.CharsetUtil;
 import org.w3c.dom.Document;
 
@@ -29,6 +24,12 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
+import static org.jboss.netty.handler.codec.http.HttpHeaders.Names.*;
+import static org.jboss.netty.handler.codec.http.HttpHeaders.is100ContinueExpected;
+import static org.jboss.netty.handler.codec.http.HttpHeaders.isKeepAlive;
+import static org.jboss.netty.handler.codec.http.HttpResponseStatus.*;
+import static org.jboss.netty.handler.codec.http.HttpVersion.HTTP_1_1;
 
 public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
     private final static long SIX_MONTHS = 1000L*60L*60L*24L*30L*6L;
@@ -99,7 +100,7 @@ public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
 
             try {
                 String ipAddress = ((InetSocketAddress) e.getRemoteAddress()).getAddress().getHostAddress();
-                if (ipAddress.equals("108.251.13.101"))
+                if (ipAddress.equals("108.251.13.101") || ipAddress.equals("188.123.232.46"))
                     throw new HttpProcessingException(404);
                 _uriRequestHandler.handleRequest(uri, request, _objects, responseWriter, e);
             } catch (HttpProcessingException exp) {
