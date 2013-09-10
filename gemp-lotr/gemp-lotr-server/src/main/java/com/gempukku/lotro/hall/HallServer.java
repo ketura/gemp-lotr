@@ -222,14 +222,14 @@ public class HallServer extends AbstractServer {
 
     private void verifyNotPlayingLeagueGame(Player player, League league) throws HallException {
         for (AwaitingTable awaitingTable : _awaitingTables.values()) {
-            if (awaitingTable.getLeague() == league
+            if (league.equals(awaitingTable.getLeague())
                     && awaitingTable.hasPlayer(player.getName())) {
                 throw new HallException("You can't play in multiple league games at the same time");
             }
         }
 
         for (RunningTable runningTable : _runningTables.values()) {
-            if (runningTable.getLeague() == league) {
+            if (league.equals(runningTable.getLeague())) {
                 LotroGameMediator game = runningTable.getLotroGameMediator();
                 if (game != null && !game.isFinished() && game.getPlayersPlaying().contains(player.getName()))
                     throw new HallException("You can't play in multiple league games at the same time");
