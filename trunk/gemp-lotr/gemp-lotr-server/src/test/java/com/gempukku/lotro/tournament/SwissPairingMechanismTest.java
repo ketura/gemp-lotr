@@ -10,15 +10,15 @@ import java.util.*;
 import static org.junit.Assert.*;
 
 public class SwissPairingMechanismTest {
-    @Test
-    public void testPairingLargeTournament() {
-        int repeatCount = 1;
-        int playerCount = 4096;
-
-        for (int repeat = 0; repeat < repeatCount; repeat++) {
-            testSwissPairingForPlayerCount(playerCount);
-        }
-    }
+//    @Test
+//    public void testPairingLargeTournament() {
+//        int repeatCount = 1;
+//        int playerCount = 4096*2;
+//
+//        for (int repeat = 0; repeat < repeatCount; repeat++) {
+//            testSwissPairingForPlayerCount(playerCount);
+//        }
+//    }
 
     @Test
     public void testPairingSmallTournament() {
