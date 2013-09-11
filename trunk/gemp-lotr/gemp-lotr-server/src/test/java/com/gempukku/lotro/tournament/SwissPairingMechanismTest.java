@@ -1,23 +1,24 @@
 package com.gempukku.lotro.tournament;
 
+import com.gempukku.lotro.competitive.BestOfOneStandingsProducer;
 import com.gempukku.lotro.competitive.PlayerStanding;
-import com.gempukku.lotro.competitive.StandingsProducer;
 import org.apache.commons.lang.StringUtils;
-import static org.junit.Assert.*;
 import org.junit.Test;
 
 import java.util.*;
 
+import static org.junit.Assert.*;
+
 public class SwissPairingMechanismTest {
-//    @Test
-//    public void testPairingLargeTournament() {
-//        int repeatCount = 1;
-//        int playerCount = 4096;
-//
-//        for (int repeat = 0; repeat < repeatCount; repeat++) {
-//            testSwissPairingForPlayerCount(playerCount);
-//        }
-//    }
+    @Test
+    public void testPairingLargeTournament() {
+        int repeatCount = 1;
+        int playerCount = 4096;
+
+        for (int repeat = 0; repeat < repeatCount; repeat++) {
+            testSwissPairingForPlayerCount(playerCount);
+        }
+    }
 
     @Test
     public void testPairingSmallTournament() {
@@ -66,7 +67,7 @@ public class SwissPairingMechanismTest {
         for (int i = 1; i < 20; i++) {
             if (!pairing.isFinished(i - 1, players, droppedPlayers)) {
                 System.out.println("Pairing round " + i);
-                List<PlayerStanding> standings = StandingsProducer.produceStandings(players, matches, 1, 0, byes);
+                List<PlayerStanding> standings = BestOfOneStandingsProducer.produceStandings(players, matches, 1, 0, byes);
                 for (PlayerStanding standing : standings) {
                     String player = standing.getPlayerName();
                     log(player +" points - "+standing.getPoints() + " played against: "+ StringUtils.join(previouslyPaired.get(player), ","));
@@ -104,6 +105,12 @@ public class SwissPairingMechanismTest {
                     matches.add(new TournamentMatch(playerOne, playerTwo, winner, i));
                 }
             }
+        }
+        System.out.println("Final standings:");
+        List<PlayerStanding> standings = BestOfOneStandingsProducer.produceStandings(players, matches, 1, 0, byes);
+        for (PlayerStanding standing : standings) {
+            String player = standing.getPlayerName();
+            System.out.println(standing.getStanding() + ". " + player + " points - " + standing.getPoints() + " played against: " + StringUtils.join(previouslyPaired.get(player), ","));
         }
     }
 

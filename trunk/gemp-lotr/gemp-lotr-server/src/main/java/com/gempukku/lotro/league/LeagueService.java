@@ -3,8 +3,8 @@ package com.gempukku.lotro.league;
 import com.gempukku.lotro.DateUtils;
 import com.gempukku.lotro.cards.CardSets;
 import com.gempukku.lotro.collection.CollectionsManager;
+import com.gempukku.lotro.competitive.BestOfOneStandingsProducer;
 import com.gempukku.lotro.competitive.PlayerStanding;
-import com.gempukku.lotro.competitive.StandingsProducer;
 import com.gempukku.lotro.db.LeagueDAO;
 import com.gempukku.lotro.db.LeagueMatchDAO;
 import com.gempukku.lotro.db.LeagueParticipationDAO;
@@ -219,7 +219,7 @@ public class LeagueService {
     }
 
     private List<PlayerStanding> createStandingsForMatchesAndPoints(Collection<String> playersParticipating, Collection<LeagueMatchResult> matches) {
-        return StandingsProducer.produceStandings(playersParticipating, matches, 2, 1, Collections.<String, Integer>emptyMap());
+        return BestOfOneStandingsProducer.produceStandings(playersParticipating, matches, 2, 1, Collections.<String, Integer>emptyMap());
     }
 
     public synchronized boolean canPlayRankedGame(League league, LeagueSerieData season, String player) {

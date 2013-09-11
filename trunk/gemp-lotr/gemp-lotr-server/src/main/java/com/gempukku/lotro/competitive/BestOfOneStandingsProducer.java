@@ -6,7 +6,7 @@ import com.gempukku.util.MultipleComparator;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class StandingsProducer {
+public class BestOfOneStandingsProducer {
     private static Comparator<PlayerStanding> LEAGUE_STANDING_COMPARATOR =
             new MultipleComparator<PlayerStanding>(
                     new DescComparator<PlayerStanding>(new PointsComparator()),
