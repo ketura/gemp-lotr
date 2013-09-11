@@ -1,8 +1,8 @@
 package com.gempukku.lotro.tournament;
 
 import com.gempukku.lotro.collection.CollectionsManager;
+import com.gempukku.lotro.competitive.BestOfOneStandingsProducer;
 import com.gempukku.lotro.competitive.PlayerStanding;
-import com.gempukku.lotro.competitive.StandingsProducer;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.draft.DefaultDraft;
 import com.gempukku.lotro.draft.Draft;
@@ -285,7 +285,7 @@ public class DefaultTournament implements Tournament {
 
         _lock.readLock().lock();
         try {
-            _currentStandings = StandingsProducer.produceStandings(_players, _finishedTournamentMatches, 2, 1, _playerByes);
+            _currentStandings = BestOfOneStandingsProducer.produceStandings(_players, _finishedTournamentMatches, 2, 1, _playerByes);
             return _currentStandings;
         } finally {
             _lock.readLock().unlock();
