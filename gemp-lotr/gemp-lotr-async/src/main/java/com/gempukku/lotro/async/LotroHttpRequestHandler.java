@@ -20,10 +20,7 @@ import java.io.*;
 import java.lang.reflect.Type;
 import java.net.InetSocketAddress;
 import java.text.SimpleDateFormat;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import static org.jboss.netty.handler.codec.http.HttpHeaders.Names.*;
 import static org.jboss.netty.handler.codec.http.HttpHeaders.is100ContinueExpected;
@@ -32,7 +29,7 @@ import static org.jboss.netty.handler.codec.http.HttpResponseStatus.*;
 import static org.jboss.netty.handler.codec.http.HttpVersion.HTTP_1_1;
 
 public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
-    private final static long SIX_MONTHS = 1000L*60L*60L*24L*30L*6L;
+    private final static long SIX_MONTHS = 1000L * 60L * 60L * 24L * 30L * 6L;
     private Logger _log = Logger.getLogger(LotroHttpRequestHandler.class);
 
     private Map<Type, Object> _objects;
@@ -42,6 +39,9 @@ public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
         _objects = objects;
         _uriRequestHandler = uriRequestHandler;
     }
+
+    private Collection<String> _bannedIps = Arrays.asList("108.251.13.101", "188.123.232.46", "193.235.73.197", "5.228.68.175");
+    private Collection<String> _bannedRanges = Arrays.asList("46.165.200.");
 
     @Override
     public void messageReceived(ChannelHandlerContext ctx, final MessageEvent e) throws Exception {
@@ -100,7 +100,7 @@ public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
 
             try {
                 String ipAddress = ((InetSocketAddress) e.getRemoteAddress()).getAddress().getHostAddress();
-                if (ipAddress.equals("108.251.13.101") || ipAddress.equals("188.123.232.46"))
+                if (isBanned(ipAddress))
                     throw new HttpProcessingException(404);
                 _uriRequestHandler.handleRequest(uri, request, _objects, responseWriter, e);
             } catch (HttpProcessingException exp) {
@@ -110,6 +110,16 @@ public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
                 responseWriter.writeError(500);
             }
         }
+    }
+
+    private boolean isBanned(String ipAddress) {
+        if (_bannedIps.contains(ipAddress))
+            return true;
+        for (String bannedRange : _bannedRanges) {
+            if (ipAddress.startsWith(bannedRange))
+                return true;
+        }
+        return false;
     }
 
     private Map<String, byte[]> _fileCache = Collections.synchronizedMap(new HashMap<String, byte[]>());
@@ -135,7 +145,7 @@ public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
                 }
             }
 
-                writeHttpByteResponse(request, fileBytes, getHeadersForFile(headers, file), e);
+            writeHttpByteResponse(request, fileBytes, getHeadersForFile(headers, file), e);
         } catch (IOException exp) {
             writeHttpErrorResponse(request, 500, null, e);
         }
@@ -177,7 +187,7 @@ public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
             fileHeaders.put(EXPIRES, String.valueOf(-1));
         } else if (cache) {
             SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz");
-            long sixMonthsFromNow = System.currentTimeMillis()+SIX_MONTHS;
+            long sixMonthsFromNow = System.currentTimeMillis() + SIX_MONTHS;
             fileHeaders.put(EXPIRES, dateFormat.format(new Date(sixMonthsFromNow)));
         }
 
