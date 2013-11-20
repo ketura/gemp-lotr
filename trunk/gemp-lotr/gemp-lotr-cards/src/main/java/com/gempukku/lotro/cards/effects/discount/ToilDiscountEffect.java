@@ -69,13 +69,14 @@ public class ToilDiscountEffect extends AbstractSubActionEffect implements Disco
             }
 
             SubAction subAction = new SubAction(_action);
-            subAction.appendEffect(
-                    new ChooseAndExertCharactersEffect(subAction, _ownerId, minimalExerts, Integer.MAX_VALUE, Filters.owner(_ownerId), _culture, Filters.character) {
-                        @Override
-                        protected void forEachCardExertedCallback(PhysicalCard character) {
-                            _exertedCount++;
-                        }
-                    });
+            final ChooseAndExertCharactersEffect effect = new ChooseAndExertCharactersEffect(subAction, _ownerId, minimalExerts, Integer.MAX_VALUE, Filters.owner(_ownerId), _culture, Filters.character) {
+                @Override
+                protected void forEachCardExertedCallback(PhysicalCard character) {
+                    _exertedCount++;
+                }
+            };
+            effect.setForToil(true);
+            subAction.appendEffect(effect);
             processSubAction(game, subAction);
         }
     }

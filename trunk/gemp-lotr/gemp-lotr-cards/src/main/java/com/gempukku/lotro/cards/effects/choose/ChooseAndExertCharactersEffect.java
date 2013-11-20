@@ -20,6 +20,8 @@ public class ChooseAndExertCharactersEffect extends ChooseActiveCardsEffect {
     private Filterable[] _filters;
     private SubAction _resultSubAction;
 
+    private boolean _forToil;
+
     public ChooseAndExertCharactersEffect(Action action, String playerId, int minimum, int maximum, Filterable... filters) {
         this(action, playerId, minimum, maximum, 1, filters);
     }
@@ -29,6 +31,10 @@ public class ChooseAndExertCharactersEffect extends ChooseActiveCardsEffect {
         _action = action;
         _times = times;
         _filters = filters;
+    }
+
+    public void setForToil(boolean forToil) {
+        _forToil = forToil;
     }
 
     @Override
@@ -66,13 +72,16 @@ public class ChooseAndExertCharactersEffect extends ChooseActiveCardsEffect {
         _resultSubAction = new SubAction(_action);
         for (int i = 0; i < _times; i++) {
             final boolean first = (i==0);
-            _resultSubAction.appendEffect(new ExertCharactersEffect(_action, _action.getActionSource(), characters.toArray(new PhysicalCard[characters.size()])) {
+            final ExertCharactersEffect effect = new ExertCharactersEffect(_action, _action.getActionSource(), characters.toArray(new PhysicalCard[characters.size()])) {
                 @Override
                 protected void forEachExertedByEffect(PhysicalCard physicalCard) {
                     if (first)
                         ChooseAndExertCharactersEffect.this.forEachCardExertedCallback(physicalCard);
                 }
-            });
+            };
+            if (_forToil)
+                effect.setForToil(true);
+            _resultSubAction.appendEffect(effect);
         }
         game.getActionsEnvironment().addActionToStack(_resultSubAction);
         cardsToBeExertedCallback(characters);
