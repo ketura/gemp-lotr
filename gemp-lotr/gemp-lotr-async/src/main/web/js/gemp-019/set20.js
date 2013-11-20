@@ -126,7 +126,7 @@ var set20 = {
     '20_128': 'http://lotrtcg.org/coreset/fallenrealms/marchingonward(r3).jpg',
     '20_129': 'http://lotrtcg.org/coreset/fallenrealms/mumak.jpg',
     '20_130': 'http://lotrtcg.org/coreset/fallenrealms/mumakchieftain.jpg',
-    '20_131': 'http://lotrtcg.org/coreset/fallenrealms/mumakcommandersots.jpg',
+    '20_131': 'http://lotrtcg.org/coreset/fallenrealms/mumakcommandersots(r3).jpg',
     '20_132': 'http://lotrtcg.org/coreset/fallenrealms/overwhelmingnumbers.jpg',
     '20_133': 'http://lotrtcg.org/coreset/fallenrealms/redrage.jpg',
     '20_134': 'http://lotrtcg.org/coreset/fallenrealms/relentlessarmies.jpg',
