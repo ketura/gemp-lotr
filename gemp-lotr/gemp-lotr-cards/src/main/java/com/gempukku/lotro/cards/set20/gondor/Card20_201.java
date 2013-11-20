@@ -2,25 +2,26 @@ package com.gempukku.lotro.cards.set20.gondor;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
+import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
 import com.gempukku.lotro.cards.modifiers.MinionSiteNumberModifier;
 import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
-import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.Collections;
 import java.util.List;
 
 /**
- * 1
- * Natural Advantages
- * Gondor	Condition • Support Area
- * To play, spot 2 [Gondor] rangers.
- * Each minion's site number is +3. Discard this condition at the beginning of the regroup phase.
+ * ❶ •Natural Advantages [Gon]
+ * Condition • Support Area
+ * To play, spot two [Gon] rangers.
+ * Maneuver: Discard this condition to make the site number of each minion in play +2
+ * <p/>
+ * http://lotrtcg.org/coreset/gondor/naturaladvantages(r3).jpg
  */
 public class Card20_201 extends AbstractPermanent {
     public Card20_201() {
@@ -34,16 +35,15 @@ public class Card20_201 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new MinionSiteNumberModifier(self, CardType.MINION, null, 2);
-    }
-
-    @Override
-    public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (TriggerConditions.startOfPhase(game, effectResult, Phase.REGROUP)) {
-            RequiredTriggerAction action = new RequiredTriggerAction(self);
-            action.appendEffect(
+    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+        if (PlayConditions.canUseFPCardDuringPhase(game, Phase.MANEUVER, self)
+            && PlayConditions.canSelfDiscard(self, game)) {
+            ActivateCardAction action = new ActivateCardAction(self);
+            action.appendCost(
                     new SelfDiscardEffect(self));
+            action.appendEffect(
+                    new AddUntilEndOfPhaseModifierEffect(
+                            new MinionSiteNumberModifier(self, Filters.and(CardType.MINION, Filters.inPlay()), null, 2)));
             return Collections.singletonList(action);
         }
         return null;
