@@ -15,16 +15,17 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * 6
- * •Mumak Commander
- * Fallen Realms	Minion • Man
- * 11	4	4
+ * ❻ •Mûmak Commander, Scourge of the Sands [Fal]
+ * Minion • Man
+ * Strength: 11   Vitality: 3   Roaming: 4
  * Southron.
- * Regroup: Remove (3) to make the free people's player wound an unbound companion (or 2 companions if you can spot 6 companions).
+ * Regroup: Remove ❸ to make the Free Peoples player wound a companion (or 2 companions if you can spot 6 companions)
+ * <p/>
+ * http://lotrtcg.org/coreset/fallenrealms/mumakcommandersots(r3).jpg
  */
 public class Card20_131 extends AbstractMinion {
     public Card20_131() {
-        super(6, 11, 4, 4, Race.MAN, Culture.FALLEN_REALMS, "Mumak Commander", null, true);
+        super(6, 11, 3, 4, Race.MAN, Culture.FALLEN_REALMS, "Mumak Commander", "Scourge of the Sands", true);
         addKeyword(Keyword.SOUTHRON);
     }
 
@@ -36,7 +37,7 @@ public class Card20_131 extends AbstractMinion {
                     new RemoveTwilightEffect(3));
             int count = (Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION) >= 6) ? 2 : 1;
             action.appendEffect(
-                    new ChooseAndWoundCharactersEffect(action, game.getGameState().getCurrentPlayerId(), count, count, Filters.unboundCompanion));
+                    new ChooseAndWoundCharactersEffect(action, game.getGameState().getCurrentPlayerId(), count, count, CardType.COMPANION));
             return Collections.singletonList(action);
         }
         return null;
