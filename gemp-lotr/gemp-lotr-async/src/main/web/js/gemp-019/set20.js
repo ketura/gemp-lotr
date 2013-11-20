@@ -123,6 +123,7 @@ var set20 = {
     '20_125': 'http://lotrtcg.org/coreset/fallenrealms/haradrimbow.jpg',
     '20_126': 'http://lotrtcg.org/coreset/fallenrealms/haradrimspear.jpg',
     '20_127': 'http://lotrtcg.org/coreset/fallenrealms/lieutenantofrhun.jpg',
+    '20_128': 'http://lotrtcg.org/coreset/fallenrealms/marchingonward(r3).jpg',
     '20_129': 'http://lotrtcg.org/coreset/fallenrealms/mumak.jpg',
     '20_130': 'http://lotrtcg.org/coreset/fallenrealms/mumakchieftain.jpg',
     '20_131': 'http://lotrtcg.org/coreset/fallenrealms/mumakcommandersots.jpg',
