@@ -59,6 +59,15 @@ public class Filters {
         _keywordFilterMap.put(Keyword.BESIEGER, Filters.and(CardType.MINION, keyword(Keyword.BESIEGER)));
     }
 
+    public static Filter inPlay() {
+        return new Filter() {
+            @Override
+            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                return physicalCard.getZone().isInPlay();
+            }
+        };
+    }
+
     public static boolean canSpot(GameState gameState, ModifiersQuerying modifiersQuerying, Filterable... filters) {
         return canSpot(gameState, modifiersQuerying, 1, filters);
     }
