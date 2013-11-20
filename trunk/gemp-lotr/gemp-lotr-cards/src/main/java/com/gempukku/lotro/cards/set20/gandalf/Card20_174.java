@@ -21,12 +21,13 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * 2
- * You Shall Not Pass!
- * Gandalf	Event • Skirmish
+ * ❷ You Shall Not Pass! [Gan]
+ * Event • Skirmish
  * Spell.
- * If you have initiative, you may play this event from your discard pile. If you do, place Gandalf in the dead pile at
- * the end of turn. Discard four cards from hand to discard all minions skirmishing Gandalf.
+ * If you have initiative, you may play this event from your discard pile. If you do, place Gandalf in the dead pile at the end of this skirmish phase.
+ * Discard four cards from hand to discard all minions skirmishing Gandalf.
+ * <p/>
+ * http://lotrtcg.org/coreset/gandalf/youshallnotpass(r3).jpg
  */
 public class Card20_174 extends AbstractEvent {
     public Card20_174() {
@@ -61,7 +62,7 @@ public class Card20_174 extends AbstractEvent {
                             new AbstractActionProxy() {
                                 @Override
                                 public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult) {
-                                    if (TriggerConditions.endOfTurn(game, effectResult)) {
+                                    if (TriggerConditions.endOfPhase(game, effectResult, Phase.SKIRMISH)) {
                                         RequiredTriggerAction action = new RequiredTriggerAction(self);
                                         PhysicalCard gandalf = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.gandalf);
                                         if (gandalf != null)
