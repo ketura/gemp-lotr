@@ -5,7 +5,6 @@ import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.modifiers.MinionSiteNumberModifier;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
@@ -15,10 +14,11 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * 1
- * •Heightened Awareness
- * Gondor	Condition • Support Area
- * Each time you play a [Gondor] event, the site number of each minion is +2 until the regroup phase.
+ * ❶ •Heightened Awareness [Gon]
+ * Condition • Support Area
+ * Each time you play a [Gon] event, the site number of each minion in play is +2 until the regroup phase
+ * <p/>
+ * http://lotrtcg.org/coreset/gondor/heightenedawareness(r3).jpg
  */
 public class Card20_195 extends AbstractPermanent {
     public Card20_195() {
@@ -31,7 +31,7 @@ public class Card20_195 extends AbstractPermanent {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new AddUntilStartOfPhaseModifierEffect(
-                            new MinionSiteNumberModifier(self, Filters.in(Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), CardType.MINION)), null, 2), Phase.REGROUP));
+                            new MinionSiteNumberModifier(self, CardType.MINION, null, 2), Phase.REGROUP));
             return Collections.singletonList(action);
         }
         return null;

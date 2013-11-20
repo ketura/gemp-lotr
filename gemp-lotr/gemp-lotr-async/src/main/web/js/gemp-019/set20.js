@@ -190,7 +190,7 @@ var set20 = {
     '20_192': 'http://lotrtcg.org/coreset/gondor/faramirsbowil.jpg',
     '20_193': 'http://lotrtcg.org/coreset/gondor/faramirscloak.jpg',
     '20_194': 'http://lotrtcg.org/coreset/gondor/flamingbrand.jpg',
-    '20_195': 'http://lotrtcg.org/coreset/gondor/heightenedawareness.jpg',
+    '20_195': 'http://lotrtcg.org/coreset/gondor/heightenedawareness(r3).jpg',
     '20_196': 'http://lotrtcg.org/coreset/gondor/hornofgondor.jpg',
     '20_197': 'http://lotrtcg.org/coreset/gondor/intothewild.jpg',
     '20_198': 'http://lotrtcg.org/coreset/gondor/legacyofnumenor.jpg',
