@@ -117,7 +117,7 @@ var set20 = {
     '20_118': 'http://lotrtcg.org/coreset/fallenrealms/easterlingregiment.jpg',
     '20_119': 'http://lotrtcg.org/coreset/fallenrealms/easterlingscout.jpg',
     '20_120': 'http://lotrtcg.org/coreset/fallenrealms/easterlingsoldier(r3).jpg',
-    '20_121': 'http://lotrtcg.org/coreset/fallenrealms/easterlingstrategist.jpg',
+    '20_121': 'http://lotrtcg.org/coreset/fallenrealms/easterlingstrategist(r3).jpg',
     '20_123': 'http://lotrtcg.org/coreset/fallenrealms/freshreinforcements.jpg',
     '20_124': 'http://lotrtcg.org/coreset/fallenrealms/halberdofrhun.jpg',
     '20_125': 'http://lotrtcg.org/coreset/fallenrealms/haradrimbow.jpg',
