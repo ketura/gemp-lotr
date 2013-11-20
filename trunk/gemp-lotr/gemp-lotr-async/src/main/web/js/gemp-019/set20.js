@@ -260,7 +260,7 @@ var set20 = {
     '20_263': 'http://lotrtcg.org/coreset/moria/goblinpatrol.jpg',
     '20_264': 'http://lotrtcg.org/coreset/moria/goblinrallyer.jpg',
     '20_265': 'http://lotrtcg.org/coreset/moria/goblinransacker.jpg',
-    '20_266': 'http://lotrtcg.org/coreset/moria/goblinreclaimer.jpg',
+    '20_266': 'http://lotrtcg.org/coreset/moria/goblinreclaimer(r3).jpg',
     '20_267': 'http://lotrtcg.org/coreset/moria/goblinreinforcements.jpg',
     '20_268': 'http://lotrtcg.org/coreset/moria/goblinrunner.jpg',
     '20_269': 'http://lotrtcg.org/coreset/moria/goblinscavengers.jpg',
