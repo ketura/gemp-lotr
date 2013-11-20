@@ -3,11 +3,7 @@ package com.gempukku.lotro.cards.set20.fallenRealms;
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.common.Race;
-import com.gempukku.lotro.filters.Filters;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
@@ -18,12 +14,13 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * 3
- * Southron Rogue
- * Fallen Realms	Minion • Man
- * 7	3	4
+ * ❸ Southron Rogue [Fal]
+ * Minion • Man
+ * Strength: 7   Vitality: 3   Roaming: 4
  * Southron.
- * Regroup: Remove (3) to make the free people's player wound an unbound companion.
+ * Regroup: Remove ❸ to make the Free Peoples player wound a companion.
+ * <p/>
+ * http://lotrtcg.org/coreset/fallenrealms/southronrogue(r3).jpg
  */
 public class Card20_140 extends AbstractMinion {
     public Card20_140() {
@@ -38,7 +35,7 @@ public class Card20_140 extends AbstractMinion {
             action.appendCost(
                     new RemoveTwilightEffect(3));
             action.appendEffect(
-                    new ChooseAndWoundCharactersEffect(action, game.getGameState().getCurrentPlayerId(), 1, 1, Filters.unboundCompanion));
+                    new ChooseAndWoundCharactersEffect(action, game.getGameState().getCurrentPlayerId(), 1, 1, CardType.COMPANION));
             return Collections.singletonList(action);
         }
         return null;
