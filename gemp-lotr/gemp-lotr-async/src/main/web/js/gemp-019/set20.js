@@ -169,7 +169,7 @@ var set20 = {
     '20_171': 'http://lotrtcg.org/coreset/gandalf/wizardisneverlate.jpg',
     '20_172': 'http://lotrtcg.org/coreset/gandalf/wizardstaff.jpg',
     '20_173': 'http://lotrtcg.org/coreset/gandalf/wizardsforethought.jpg',
-    '20_174': 'http://lotrtcg.org/coreset/gandalf/youshallnotpass.jpg',
+    '20_174': 'http://lotrtcg.org/coreset/gandalf/youshallnotpass(r3).jpg',
     '20_175': 'http://lotrtcg.org/coreset/gondor/aragorndr.jpg',
     '20_176': 'http://lotrtcg.org/coreset/gondor/aragornuofp(r1).jpg',
     '20_177': 'http://lotrtcg.org/coreset/gondor/aragornsbowsat(r1).jpg',
