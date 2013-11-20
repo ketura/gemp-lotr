@@ -20,6 +20,7 @@ public class ExertCharactersEffect extends AbstractPreventableCardEffect {
     private Action _action;
     private PhysicalCard _source;
     private Set<PhysicalCard> _placeNoWound = new HashSet<PhysicalCard>();
+    private boolean _forToil;
 
     public ExertCharactersEffect(Action action, PhysicalCard source, Filterable... filter) {
         super(filter);
@@ -31,6 +32,10 @@ public class ExertCharactersEffect extends AbstractPreventableCardEffect {
         super(cards);
         _action = action;
         _source = source;
+    }
+
+    public void setForToil(boolean forToil) {
+        _forToil = forToil;
     }
 
     @Override
@@ -63,7 +68,7 @@ public class ExertCharactersEffect extends AbstractPreventableCardEffect {
         for (PhysicalCard woundedCard : cards) {
             if (!_placeNoWound.contains(woundedCard))
                 game.getGameState().addWound(woundedCard);
-            game.getActionsEnvironment().emitEffectResult(new ExertResult(_action, woundedCard));
+            game.getActionsEnvironment().emitEffectResult(new ExertResult(_action, woundedCard, _forToil));
             forEachExertedByEffect(woundedCard);
         }
     }
