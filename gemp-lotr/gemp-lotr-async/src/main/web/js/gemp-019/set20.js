@@ -106,7 +106,7 @@ var set20 = {
     '20_106': 'http://lotrtcg.org/coreset/elven/wchshitd.jpg',
     '20_107': 'http://lotrtcg.org/coreset/fallenrealms/armoredmumak.jpg',
     '20_108': 'http://lotrtcg.org/coreset/fallenrealms/calledtomordor(r3).jpg',
-    '20_109': 'http://lotrtcg.org/coreset/fallenrealms/discipline.jpg',
+    '20_109': 'http://lotrtcg.org/coreset/fallenrealms/discipline(r3).jpg',
     '20_110': 'http://lotrtcg.org/coreset/fallenrealms/easterlingbeserker.jpg',
     '20_111': 'http://lotrtcg.org/coreset/fallenrealms/easterlingbroadshield.jpg',
     '20_112': 'http://lotrtcg.org/coreset/fallenrealms/easterlingcaptaincor.jpg',
