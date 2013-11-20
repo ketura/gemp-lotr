@@ -137,7 +137,7 @@ var set20 = {
     '20_139': 'http://lotrtcg.org/coreset/fallenrealms/southronpackmaster(r1).jpg',
     '20_140': 'http://lotrtcg.org/coreset/fallenrealms/southronrogue(r3).jpg',
     '20_141': 'http://lotrtcg.org/coreset/fallenrealms/southronsharpshooter.jpg',
-    '20_142': 'http://lotrtcg.org/coreset/fallenrealms/southronspearman(r1).jpg',
+    '20_142': 'http://lotrtcg.org/coreset/fallenrealms/southronspearman(r3).jpg',
     '20_143': 'http://lotrtcg.org/coreset/fallenrealms/southrontraveler.jpg',
     '20_144': 'http://lotrtcg.org/coreset/fallenrealms/stampede.jpg',
     '20_145': 'http://lotrtcg.org/coreset/fallenrealms/strikefromthesouth.jpg',
