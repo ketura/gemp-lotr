@@ -465,6 +465,7 @@ var set20 = {
     '20_474': 'http://lotrtcg.org/coreset/rohan/notadefeat.jpg',
     '20_475': 'http://lotrtcg.org/coreset/shire/halflingdexterity.jpg',
     '20_477': 'http://lotrtcg.org/coreset/shire/dimpleboffinbots(r1).jpg',
-    '20_478': 'http://www.lotrtcg.org/coreset/isengard/torturedandmutilated(r2).jpg',
-    '20_479': 'http://lotrtcg.org/coreset/shire/crossingthethreshold(r2).jpg'
+    '20_478': 'http://lotrtcg.org/coreset/isengard/torturedandmutilated(r2).jpg',
+    '20_479': 'http://lotrtcg.org/coreset/shire/crossingthethreshold(r2).jpg',
+    '20_480': 'http://lotrtcg.org/coreset/fallenrealms/easterlinggrunt(r3).jpg'
 }
