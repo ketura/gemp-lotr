@@ -11,11 +11,11 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.SpotCondition;
 
 /**
- * 1
- * Into the Wild
- * Gondor	Condition • Support Area
- * While you can spot a [Gondor] ranger, each minion's site number is +1 for each site from your adventure deck on the adventure path
- * in the current region.
+ * ❶ •Into the Wild [Gon]
+ * Condition • Support Area
+ * While you can spot a [Gon] ranger, the site number of each minion in play is +1 for each site from your adventure deck in the current region
+ * <p/>
+ * http://lotrtcg.org/coreset/gondor/intothewild(r3).jpg
  */
 public class Card20_197 extends AbstractPermanent {
     public Card20_197() {
@@ -25,7 +25,7 @@ public class Card20_197 extends AbstractPermanent {
     @Override
     public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return new MinionSiteNumberModifier(
-                self, CardType.MINION, new SpotCondition(Culture.GONDOR, Keyword.RANGER),
+                self, Filters.and(CardType.MINION, Filters.inPlay()), new SpotCondition(Culture.GONDOR, Keyword.RANGER),
                 new CountActiveEvaluator(CardType.SITE, Zone.ADVENTURE_PATH, Filters.owner(self.getOwner()), Filters.currentRegion));
     }
 }
