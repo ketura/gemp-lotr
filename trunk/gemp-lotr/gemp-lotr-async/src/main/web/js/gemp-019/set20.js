@@ -472,5 +472,6 @@ var set20 = {
     '20_481': 'http://lotrtcg.org/coreset/fallenrealms/easterlingplotter(r3).jpg',
     '20_482': 'http://lotrtcg.org/coreset/fallenrealms/easterlingschemer(r3).jpg',
     '20_483': 'http://lotrtcg.org/coreset/fallenrealms/rhunishhelm(r3).jpg',
-    '20_484': 'http://lotrtcg.org/coreset/fallenrealms/serratedaxe(r3).jpg'
+    '20_484': 'http://lotrtcg.org/coreset/fallenrealms/serratedaxe(r3).jpg',
+    '20_485': 'http://lotrtcg.org/coreset/fallenrealms/weaponsoftheeast(r3).jpg'
 }
