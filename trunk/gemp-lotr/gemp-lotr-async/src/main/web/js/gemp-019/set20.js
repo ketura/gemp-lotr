@@ -112,7 +112,7 @@ var set20 = {
     '20_112': 'http://lotrtcg.org/coreset/fallenrealms/easterlingcaptaincor(r3).jpg',
     '20_113': 'http://lotrtcg.org/coreset/fallenrealms/easterlingconscript(r3).jpg',
     '20_114': 'http://lotrtcg.org/coreset/fallenrealms/easterlingdetachment(r3).jpg',
-    '20_116': 'http://lotrtcg.org/coreset/fallenrealms/easterlingpikeman(r1).jpg',
+    '20_116': 'http://lotrtcg.org/coreset/fallenrealms/easterlingpikeman(r3).jpg',
     '20_117': 'http://lotrtcg.org/coreset/fallenrealms/easterlingrecruit.jpg',
     '20_118': 'http://lotrtcg.org/coreset/fallenrealms/easterlingregiment.jpg',
     '20_119': 'http://lotrtcg.org/coreset/fallenrealms/easterlingscout.jpg',
