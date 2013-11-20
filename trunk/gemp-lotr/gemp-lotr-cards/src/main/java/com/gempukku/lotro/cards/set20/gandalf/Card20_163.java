@@ -4,15 +4,18 @@ import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.AttachPermanentAction;
+import com.gempukku.lotro.cards.effects.RemoveBurdenEffect;
 import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.cards.modifiers.CantAddBurdensModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
+import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
+import com.gempukku.lotro.logic.decisions.IntegerAwaitingDecision;
+import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.timing.EffectResult;
@@ -22,14 +25,14 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * 2
- * •I Will Help You Bear This Burden
- * Gandalf	Condition • Companion
- * 2
+ * ❷ •I Will Help You Bear This Burden [Gan]
+ * Condition • Companion
+ * Strength: +2
  * Spell.
- * To play, exert Gandalf.
- * Bearer must be Frodo.
- * Burdens may not be added by shadow cards. Discard this condition at the end of the turn.
+ * To play, exert Gandalf and remove up to 2 burdens. Plays on Frodo.
+ * Discard this condition at the end of the turn.
+ * <p/>
+ * http://lotrtcg.org/coreset/gandalf/iwhybtb(r3).jpg
  */
 public class Card20_163 extends AbstractAttachable {
     public Card20_163() {
@@ -49,10 +52,20 @@ public class Card20_163 extends AbstractAttachable {
     }
 
     @Override
-    public AttachPermanentAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, Filterable additionalAttachmentFilter, int twilightModifier) {
-        AttachPermanentAction action = super.getPlayCardAction(playerId, game, self, additionalAttachmentFilter, twilightModifier);
+    public AttachPermanentAction getPlayCardAction(final String playerId, LotroGame game, final PhysicalCard self, Filterable additionalAttachmentFilter, int twilightModifier) {
+        final AttachPermanentAction action = super.getPlayCardAction(playerId, game, self, additionalAttachmentFilter, twilightModifier);
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.gandalf));
+        action.appendEffect(
+                new PlayoutDecisionEffect(playerId,
+                        new IntegerAwaitingDecision(1, "Choose number of burdens to remove", 0, Math.min(2, game.getGameState().getBurdens()), Math.min(2, game.getGameState().getBurdens())) {
+                            @Override
+                            public void decisionMade(String result) throws DecisionResultInvalidException {
+                                action.appendEffect(
+                                        new RemoveBurdenEffect(playerId, self, getValidatedResult(result)));
+                            }
+                        })
+        );
         return action;
     }
 
@@ -61,8 +74,6 @@ public class Card20_163 extends AbstractAttachable {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(
                 new StrengthModifier(self, Filters.hasAttached(self), 2));
-        modifiers.add(
-                new CantAddBurdensModifier(self, null, Side.SHADOW));
         return modifiers;
     }
 
