@@ -18,15 +18,16 @@ import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
 import java.util.Set;
 
 /**
- * 3
- * Discernment
- * Gandalf	Event • Manuever
+ * ❸ Discernment [Gan]
+ * Event • Fellowship
  * Spell.
- * Exert Gandalf twice and add X to discard up to four Shadow conditions, where X is the combined twilight cost of those conditions.
+ * Exert Gandalf twice and add (X) to discard up to four Shadow conditions, with a combined twilight cost of X or less
+ * <p/>
+ * http://lotrtcg.org/coreset/gandalf/discernment(r3).jpg
  */
 public class Card20_155 extends AbstractEvent {
     public Card20_155() {
-        super(Side.FREE_PEOPLE, 3, Culture.GANDALF, "Discernment", Phase.MANEUVER);
+        super(Side.FREE_PEOPLE, 3, Culture.GANDALF, "Discernment", Phase.FELLOWSHIP);
         addKeyword(Keyword.SPELL);
     }
 
@@ -51,16 +52,16 @@ public class Card20_155 extends AbstractEvent {
                                         new AddTwilightEffect(self, x));
                                 action.appendEffect(
                                         new PlayoutDecisionEffect(playerId,
-                                                new CardsSelectionDecision(1, "Choose up to 4 Shadow conditions with combined twilight cost of up to "+x,
+                                                new CardsSelectionDecision(1, "Choose up to 4 Shadow conditions with combined twilight cost of up to " + x,
                                                         Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Side.SHADOW, CardType.CONDITION, Filters.canBeDiscarded(self)), 0, 4) {
                                                     @Override
                                                     public void decisionMade(String result) throws DecisionResultInvalidException {
                                                         Set<PhysicalCard> selectedCardsByResponse = getSelectedCardsByResponse(result);
                                                         int twilightTotal = 0;
                                                         for (PhysicalCard physicalCard : selectedCardsByResponse)
-                                                            twilightTotal+=physicalCard.getBlueprint().getTwilightCost();
-                                                        if (twilightTotal>x)
-                                                            throw new DecisionResultInvalidException("You have chosen conditions of combined twilight cost of "+twilightTotal);
+                                                            twilightTotal += physicalCard.getBlueprint().getTwilightCost();
+                                                        if (twilightTotal > x)
+                                                            throw new DecisionResultInvalidException("You have chosen conditions of combined twilight cost of " + twilightTotal);
                                                         action.appendEffect(
                                                                 new DiscardCardsFromPlayEffect(self, Filters.in(selectedCardsByResponse)));
                                                     }
