@@ -158,7 +158,7 @@ var set20 = {
     '20_160': 'http://lotrtcg.org/coreset/gandalf/glamdringtb.jpg',
     '20_161': 'http://lotrtcg.org/coreset/gandalf/graceofthevalar.jpg',
     '20_162': 'http://lotrtcg.org/coreset/gandalf/hesremembered.jpg',
-    '20_163': 'http://lotrtcg.org/coreset/gandalf/iwhybtb.jpg',
+    '20_163': 'http://lotrtcg.org/coreset/gandalf/iwhybtb(r3).jpg',
     '20_164': 'http://lotrtcg.org/coreset/gandalf/introspection.jpg',
     '20_165': 'http://lotrtcg.org/coreset/gandalf/mightofthemaiar.jpg',
     '20_166': 'http://lotrtcg.org/coreset/gandalf/mithrandirstouch.jpg',
