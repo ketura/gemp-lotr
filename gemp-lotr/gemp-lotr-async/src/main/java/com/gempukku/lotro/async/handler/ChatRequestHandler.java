@@ -146,7 +146,6 @@ public class ChatRequestHandler extends LotroServerRequestHandler implements Uri
         }
     }
 
-
     private void serializeChatRoomData(String room, List<ChatMessage> chatMessages, Collection<String> usersInRoom, Document doc) {
         Element chatElem = doc.createElement("chat");
         chatElem.setAttribute("roomName", room);
@@ -160,7 +159,7 @@ public class ChatRequestHandler extends LotroServerRequestHandler implements Uri
             chatElem.appendChild(message);
         }
 
-        Set<String> users = new TreeSet<String>();
+        Set<String> users = new TreeSet<String>(new CaseInsensitiveStringComparator());
         for (String userInRoom : usersInRoom)
             users.add(formatPlayerNameForChatList(userInRoom));
 
@@ -168,6 +167,13 @@ public class ChatRequestHandler extends LotroServerRequestHandler implements Uri
             Element user = doc.createElement("user");
             user.appendChild(doc.createTextNode(userInRoom));
             chatElem.appendChild(user);
+        }
+    }
+
+    private class CaseInsensitiveStringComparator implements Comparator<String> {
+        @Override
+        public int compare(String o1, String o2) {
+            return o1.toLowerCase().compareTo(o2.toLowerCase());
         }
     }
 
