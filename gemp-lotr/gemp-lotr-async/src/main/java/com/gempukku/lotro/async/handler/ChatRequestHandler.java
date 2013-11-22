@@ -182,9 +182,9 @@ public class ChatRequestHandler extends LotroServerRequestHandler implements Uri
         if (player != null) {
             final String playerType = player.getType();
             if (playerType.contains("a"))
-                return "*"+userInRoom;
+                return "* "+userInRoom;
             else if (playerType.contains("l"))
-                return "+"+userInRoom;
+                return "+ "+userInRoom;
         }
         return userInRoom;
     }
