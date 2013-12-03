@@ -40,7 +40,7 @@ public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
         _uriRequestHandler = uriRequestHandler;
     }
 
-    private Collection<String> _bannedIps = Arrays.asList("108.251.13.101", "188.123.232.46", "193.235.73.197", "5.228.68.175", "89.88.173.207");
+    private Collection<String> _bannedIps = Arrays.asList("108.251.13.101", "188.123.232.46", "193.235.73.197", "5.228.68.175", "89.88.173.207", "76.171.226.172", "97.73.50.119", "108.251.13.101");
     private Collection<String> _bannedRanges = Arrays.asList("46.165.200.", "63.141.204.", "216.177.129.", "204.14.79.", "50.117.80.");
 
     @Override
