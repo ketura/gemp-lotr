@@ -148,6 +148,7 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
         final boolean success = _playerDAO.banPlayerPermanently(login);
         if (!success)
             throw new HttpProcessingException(404);
+        _loggedUserHolder.forceLogoutUser(login);
 
         responseWriter.writeHtmlResponse("OK");
     }
@@ -164,6 +165,7 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
             final boolean success = _playerDAO.banPlayerPermanently(login);
             if (!success)
                 throw new HttpProcessingException(404);
+            _loggedUserHolder.forceLogoutUser(login);
         }
 
         responseWriter.writeHtmlResponse("OK");
@@ -179,6 +181,7 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
         final boolean success = _playerDAO.banPlayerTemporarily(login, System.currentTimeMillis() + duration * DAY_IN_MILIS);
         if (!success)
             throw new HttpProcessingException(404);
+        _loggedUserHolder.forceLogoutUser(login);
 
         responseWriter.writeHtmlResponse("OK");
     }
