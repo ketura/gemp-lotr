@@ -1,19 +1,24 @@
 package com.gempukku.lotro.async;
 
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multimap;
 import org.jboss.netty.handler.codec.http.Cookie;
 import org.jboss.netty.handler.codec.http.CookieDecoder;
-import static org.jboss.netty.handler.codec.http.HttpHeaders.Names.COOKIE;
 import org.jboss.netty.handler.codec.http.HttpRequest;
 
 import java.util.*;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
+import static org.jboss.netty.handler.codec.http.HttpHeaders.Names.COOKIE;
+
 public class LoggedUserHolder {
     private long _loggedUserExpireLength = 1000 * 60 * 10; // 10 minutes session length
     private long _expireCheckInterval = 1000 * 60; // check every minute
 
-    private Map<String, String> _users = Collections.synchronizedMap(new HashMap<String, String>());
+    private Map<String, String> _sessionIdsToUsers = new HashMap<String, String>();
+    private Multimap<String, String> _usersToSessionIds = HashMultimap.create();
+
     private Map<String, Long> _lastAccess = Collections.synchronizedMap(new HashMap<String, Long>());
     private ReadWriteLock _readWriteLock = new ReentrantReadWriteLock();
     private ClearExpiredRunnable _clearExpiredRunnable;
@@ -35,7 +40,7 @@ public class LoggedUserHolder {
                     if (cookie.getName().equals("loggedUser")) {
                         String value = cookie.getValue();
                         if (value != null) {
-                            String loggedUser = _users.get(value);
+                            String loggedUser = _sessionIdsToUsers.get(value);
                             if (loggedUser != null) {
                                 _lastAccess.put(value, System.currentTimeMillis());
                                 return loggedUser;
@@ -51,7 +56,7 @@ public class LoggedUserHolder {
     }
 
     public Map<String, String> logUser(String userName) {
-        _readWriteLock.readLock().lock();
+        _readWriteLock.writeLock().lock();
         try {
             Map<String, String> cookies = new HashMap<String, String>();
             String userValue = insertValueForUser(userName);
@@ -59,23 +64,37 @@ public class LoggedUserHolder {
             _lastAccess.put(userValue, System.currentTimeMillis());
             return cookies;
         } finally {
-            _readWriteLock.readLock().unlock();
+            _readWriteLock.writeLock().unlock();
+        }
+    }
+
+    public void forceLogoutUser(String userName) {
+        _readWriteLock.writeLock().lock();
+        try {
+            final Collection<String> sessionIds = new HashSet<String>(_usersToSessionIds.get(userName));
+            for (String sessionId : sessionIds) {
+                _sessionIdsToUsers.remove(sessionId);
+                _usersToSessionIds.remove(userName, sessionId);
+            }
+        } finally {
+            _readWriteLock.writeLock().unlock();
         }
     }
 
     private char[] _chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".toCharArray();
 
-    private synchronized String insertValueForUser(String userName) {
+    private String insertValueForUser(String userName) {
         Random rnd = new Random();
-        String randomStr;
+        String sessionId;
         do {
             StringBuilder result = new StringBuilder();
             for (int i = 0; i < 20; i++)
                 result.append(_chars[rnd.nextInt(_chars.length)]);
-            randomStr = result.toString();
-        } while (_users.containsKey(randomStr));
-        _users.put(randomStr, userName);
-        return randomStr;
+            sessionId = result.toString();
+        } while (_sessionIdsToUsers.containsKey(sessionId));
+        _sessionIdsToUsers.put(sessionId, userName);
+        _usersToSessionIds.put(userName, sessionId);
+        return sessionId;
     }
 
     private class ClearExpiredRunnable implements Runnable {
@@ -90,8 +109,10 @@ public class LoggedUserHolder {
                         Map.Entry<String, Long> lastAccess = iterator.next();
                         long expireAt = lastAccess.getValue() + _loggedUserExpireLength;
                         if (expireAt < currentTime) {
-                            String userValue = lastAccess.getKey();
-                            _users.remove(userValue);
+                            String sessionId = lastAccess.getKey();
+                            final String userName = _sessionIdsToUsers.remove(sessionId);
+                            if (userName != null)
+                                _usersToSessionIds.remove(userName, sessionId);
                             iterator.remove();
                         }
                     }
