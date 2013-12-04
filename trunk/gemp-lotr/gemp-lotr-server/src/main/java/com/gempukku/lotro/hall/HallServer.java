@@ -207,7 +207,7 @@ public class HallServer extends AbstractServer {
             if (format == null)
                 throw new HallException("This format is not supported: " + type);
 
-            LotroDeck lotroDeck = validateUserAndDeck(format, player, deckName, collectionType);
+            LotroDeck lotroDeck = validateUserAndDeck(format, player, deckName, collectionType, league != null);
 
             String tableId = String.valueOf(_nextTableId++);
             AwaitingTable table = new AwaitingTable(format, collectionType, league, leagueSerie);
@@ -251,7 +251,7 @@ public class HallServer extends AbstractServer {
 
             LotroDeck lotroDeck = null;
             if (tournamentQueue.isRequiresDeck())
-                lotroDeck = validateUserAndDeck(_formatLibrary.getFormat(tournamentQueue.getFormat()), player, deckName, tournamentQueue.getCollectionType());
+                lotroDeck = validateUserAndDeck(_formatLibrary.getFormat(tournamentQueue.getFormat()), player, deckName, tournamentQueue.getCollectionType(), true);
 
             tournamentQueue.joinPlayer(_collectionsManager, player, lotroDeck);
 
@@ -282,7 +282,7 @@ public class HallServer extends AbstractServer {
             if (awaitingTable.getLeague() != null && !_leagueService.isPlayerInLeague(awaitingTable.getLeague(), player))
                 throw new HallException("You're not in that league");
 
-            LotroDeck lotroDeck = validateUserAndDeck(awaitingTable.getLotroFormat(), player, deckName, awaitingTable.getCollectionType());
+            LotroDeck lotroDeck = validateUserAndDeck(awaitingTable.getLotroFormat(), player, deckName, awaitingTable.getCollectionType(), awaitingTable.getLeague() != null);
 
             joinTableInternal(tableId, player.getName(), awaitingTable, lotroDeck);
 
@@ -377,7 +377,7 @@ public class HallServer extends AbstractServer {
             LotroFormat format = _formatLibrary.getFormat(tournament.getFormat());
 
             try {
-                validateUserAndDeck(format, player, tournament.getCollectionType(), lotroDeck);
+                validateUserAndDeck(format, player, tournament.getCollectionType(), lotroDeck, true);
 
                 tournament.playerSummittedDeck(player.getName(), lotroDeck);
             } catch (DeckInvalidException exp) {
@@ -516,13 +516,13 @@ public class HallServer extends AbstractServer {
         }
     }
 
-    private LotroDeck validateUserAndDeck(LotroFormat format, Player player, String deckName, CollectionType collectionType) throws HallException {
+    private LotroDeck validateUserAndDeck(LotroFormat format, Player player, String deckName, CollectionType collectionType, boolean competitive) throws HallException {
         LotroDeck lotroDeck = _lotroServer.getParticipantDeck(player, deckName);
         if (lotroDeck == null)
             throw new HallException("You don't have a deck registered yet");
 
         try {
-            lotroDeck = validateUserAndDeck(format, player, collectionType, lotroDeck);
+            lotroDeck = validateUserAndDeck(format, player, collectionType, lotroDeck, competitive);
         } catch (DeckInvalidException e) {
             throw new HallException("Your selected deck is not valid for this format: " + e.getMessage());
         }
@@ -530,12 +530,16 @@ public class HallServer extends AbstractServer {
         return lotroDeck;
     }
 
-    private LotroDeck validateUserAndDeck(LotroFormat format, Player player, CollectionType collectionType, LotroDeck lotroDeck) throws HallException, DeckInvalidException {
+    private LotroDeck validateUserAndDeck(LotroFormat format, Player player, CollectionType collectionType, LotroDeck lotroDeck, boolean competitive) throws HallException, DeckInvalidException {
         format.validateDeck(lotroDeck);
 
         // Now check if player owns all the cards
         if (collectionType.getCode().equals("default")) {
-            CardCollection ownedCollection = _collectionsManager.getPlayerCollection(player, "permanent+trophy");
+            CardCollection ownedCollection;
+            if (competitive)
+                ownedCollection = _collectionsManager.getPlayerCollection(player, "permanent");
+            else
+                ownedCollection = _collectionsManager.getPlayerCollection(player, "permanent+trophy");
 
             LotroDeck filteredSpecialCardsDeck = new LotroDeck(lotroDeck.getDeckName());
             filteredSpecialCardsDeck.setRing(filterCard(lotroDeck.getRing(), ownedCollection));
