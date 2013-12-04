@@ -2,6 +2,7 @@ package com.gempukku.lotro.db.vo;
 
 public final class CollectionType {
     public final static CollectionType MY_CARDS = new CollectionType("permanent", "My cards");
+    public final static CollectionType TROPHY = new CollectionType("trophy", "Trophies");
     public final static CollectionType ALL_CARDS = new CollectionType("default", "All cards");
 
     private final String _code;

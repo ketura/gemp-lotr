@@ -26,7 +26,7 @@ public class NewConstructedLeagueData implements LeagueData {
         int start = Integer.parseInt(params[0]);
         if (params[1].equals("default"))
             _collectionType = CollectionType.ALL_CARDS;
-        else if (params[1].equals("permanent"))
+        else if (params[1].equals(CollectionType.MY_CARDS.getCode()))
             _collectionType = CollectionType.MY_CARDS;
         else
             throw new IllegalArgumentException("Unkown collection type");

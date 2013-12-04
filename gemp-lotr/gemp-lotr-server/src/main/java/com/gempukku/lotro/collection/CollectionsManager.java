@@ -86,7 +86,7 @@ public class CollectionsManager {
 
             final CardCollection collection = _collectionDAO.getPlayerCollection(player.getId(), collectionType);
 
-            if (collection == null && collectionType.equals("permanent"))
+            if (collection == null && (collectionType.equals(CollectionType.MY_CARDS.getCode()) || collectionType.equals(CollectionType.TROPHY.getCode())))
                 return new DefaultCardCollection();
 
             return collection;
