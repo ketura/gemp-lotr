@@ -4,12 +4,16 @@ import com.gempukku.lotro.cards.CardSets;
 import com.gempukku.lotro.cards.packs.SetDefinition;
 import com.gempukku.lotro.game.CardCollection;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Random;
 
 public class ReflectionsPackBox implements PackBox {
     private Random _random = new Random();
     private SetDefinition _reflectionsRarity;
     private List<String> _previousSetCards = new ArrayList<String>();
+    private List<String> _reflectionSlotCards = new ArrayList<String>();
 
     public ReflectionsPackBox(CardSets cardSets) {
         _reflectionsRarity = cardSets.getSetDefinitions().get("9");
@@ -23,6 +27,12 @@ public class ReflectionsPackBox implements PackBox {
             for (int i = 0; i < 7; i++)
                 _previousSetCards.addAll(setRarity.getCardsOfRarity("C"));
         }
+
+        _reflectionSlotCards.addAll(_reflectionsRarity.getCardsOfRarity("R"));
+        _reflectionSlotCards.addAll(_reflectionsRarity.getCardsOfRarity("R"));
+        _reflectionSlotCards.addAll(_reflectionsRarity.getCardsOfRarity("R"));
+        _reflectionSlotCards.addAll(_reflectionsRarity.getCardsOfRarity("R"));
+        _reflectionSlotCards.addAll(_reflectionsRarity.getCardsOfRarity("X"));
     }
 
     @Override
@@ -47,13 +57,6 @@ public class ReflectionsPackBox implements PackBox {
     }
 
     public String getRandomReflectionsCard() {
-        List<String> possibleCards = new ArrayList<String>();
-        possibleCards.addAll(_reflectionsRarity.getCardsOfRarity("R"));
-        possibleCards.addAll(_reflectionsRarity.getCardsOfRarity("R"));
-        possibleCards.addAll(_reflectionsRarity.getCardsOfRarity("R"));
-        possibleCards.addAll(_reflectionsRarity.getCardsOfRarity("R"));
-        possibleCards.addAll(_reflectionsRarity.getCardsOfRarity("X"));
-        Collections.shuffle(possibleCards, _random);
-        return possibleCards.get(0);
+        return _reflectionSlotCards.get(_random.nextInt(_reflectionSlotCards.size()));
     }
 }

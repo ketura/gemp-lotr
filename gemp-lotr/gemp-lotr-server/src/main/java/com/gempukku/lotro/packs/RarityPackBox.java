@@ -8,9 +8,27 @@ import java.util.*;
 public class RarityPackBox implements PackBox {
     private Random _random = new Random();
     private SetDefinition _setRarity;
+    private List<String> _possibleRareCards = new ArrayList<String>();
+    private List<String> _possibleFoilRareSlot = new ArrayList<String>();
+    private List<String> _possibleFoilUncommonSlot = new ArrayList<String>();
+    private List<String> _possibleFoilCommonSlot = new ArrayList<String>();
 
     public RarityPackBox(SetDefinition setDefinition) {
         _setRarity = setDefinition;
+
+        _possibleRareCards.addAll(_setRarity.getCardsOfRarity("R"));
+        _possibleRareCards.addAll(_setRarity.getCardsOfRarity("R"));
+        _possibleRareCards.addAll(_setRarity.getCardsOfRarity("R"));
+        _possibleRareCards.addAll(_setRarity.getCardsOfRarity("A"));
+
+        _possibleFoilRareSlot.addAll(_setRarity.getCardsOfRarity("R"));
+        _possibleFoilRareSlot.addAll(_setRarity.getCardsOfRarity("P"));
+        _possibleFoilRareSlot.addAll(_setRarity.getCardsOfRarity("A"));
+
+        _possibleFoilUncommonSlot.addAll(_setRarity.getCardsOfRarity("U"));
+        _possibleFoilUncommonSlot.addAll(_setRarity.getCardsOfRarity("S"));
+
+        _possibleFoilCommonSlot.addAll(_setRarity.getCardsOfRarity("C"));
     }
 
     @Override
@@ -20,48 +38,44 @@ public class RarityPackBox implements PackBox {
         if (hasFoil) {
             int foilRarity = _random.nextInt(11);
             if (foilRarity == 0) {
-                List<String> possibleCards = new ArrayList<String>();
-                possibleCards.addAll(_setRarity.getCardsOfRarity("R"));
-                possibleCards.addAll(_setRarity.getCardsOfRarity("P"));
-                possibleCards.addAll(_setRarity.getCardsOfRarity("A"));
-                Collections.shuffle(possibleCards, _random);
-                addCards(result, possibleCards.subList(0, 1), true);
+                addRandomCardsFromList(result, 1, _possibleFoilRareSlot, true);
             } else if (foilRarity < 4) {
-                List<String> possibleCards = new ArrayList<String>();
-                possibleCards.addAll(_setRarity.getCardsOfRarity("U"));
-                possibleCards.addAll(_setRarity.getCardsOfRarity("S"));
-                Collections.shuffle(possibleCards, _random);
-                addCards(result, possibleCards.subList(0, 1), true);
+                addRandomCardsFromList(result, 1, _possibleFoilUncommonSlot, true);
             } else {
-                List<String> possibleCards = new ArrayList<String>(_setRarity.getCardsOfRarity("C"));
-                Collections.shuffle(possibleCards, _random);
-                addCards(result, possibleCards.subList(0, 1), true);
+                addRandomCardsFromList(result, 1, _possibleFoilCommonSlot, true);
             }
         }
-        addRandomRareCard(result, 1);
+
+        addCard(result, _possibleRareCards.get(_random.nextInt(_possibleRareCards.size())), false);
+
         addRandomCardsOfRarity(result, 3, "U");
         addRandomCardsOfRarity(result, hasFoil ? 6 : 7, "C");
         return result;
     }
 
-    private void addRandomRareCard(List<CardCollection.Item> result, int count) {
-        List<String> possibleCards = new ArrayList<String>();
-        possibleCards.addAll(_setRarity.getCardsOfRarity("R"));
-        possibleCards.addAll(_setRarity.getCardsOfRarity("R"));
-        possibleCards.addAll(_setRarity.getCardsOfRarity("R"));
-        possibleCards.addAll(_setRarity.getCardsOfRarity("A"));
-        Collections.shuffle(possibleCards, _random);
-        addCards(result, possibleCards.subList(0, count), false);
+    private void addCard(List<CardCollection.Item> result, String card, boolean foil) {
+        result.add(CardCollection.Item.createItem(card + (foil ? "*" : ""), 1));
     }
 
     private void addRandomCardsOfRarity(List<CardCollection.Item> result, int count, String rarity) {
-        List<String> possibleCards = new ArrayList<String>(_setRarity.getCardsOfRarity(rarity));
-        Collections.shuffle(possibleCards, _random);
-        addCards(result, possibleCards.subList(0, count), false);
+        final List<String> cardsOfRarity = _setRarity.getCardsOfRarity(rarity);
+        addRandomCardsFromList(result, count, cardsOfRarity, false);
     }
 
-    private void addCards(List<CardCollection.Item> result, Collection<String> cards, boolean foil) {
-        for (String card : cards)
-            result.add(CardCollection.Item.createItem(card + (foil ? "*" : ""), 1));
+    private void addRandomCardsFromList(List<CardCollection.Item> result, int count, List<String> cardList, boolean foil) {
+        for (Integer cardIndex : getRandomIndices(count, cardList.size()))
+            addCard(result, cardList.get(cardIndex), foil);
+    }
+
+    private Set<Integer> getRandomIndices(int count, int elementCount) {
+        Set<Integer> addedIndices = new HashSet<Integer>();
+        for (int i = 0; i < count; i++) {
+            int index;
+            do {
+                index = _random.nextInt(elementCount);
+            } while (addedIndices.contains(index));
+            addedIndices.add(index);
+        }
+        return addedIndices;
     }
 }
