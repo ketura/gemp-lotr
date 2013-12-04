@@ -263,8 +263,10 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
     }
 
     private CollectionType createCollectionType(String collectionType) {
-        if (collectionType.equals("permanent"))
+        if (collectionType.equals(CollectionType.MY_CARDS.getCode()))
             return CollectionType.MY_CARDS;
+        if (collectionType.equals(CollectionType.TROPHY.getCode()))
+            return CollectionType.TROPHY;
 
         return _leagueService.getCollectionTypeByCode(collectionType);
     }

@@ -535,7 +535,7 @@ public class HallServer extends AbstractServer {
 
         // Now check if player owns all the cards
         if (collectionType.getCode().equals("default")) {
-            CardCollection ownedCollection = _collectionsManager.getPlayerCollection(player, "permanent");
+            CardCollection ownedCollection = _collectionsManager.getPlayerCollection(player, "permanent+trophy");
 
             LotroDeck filteredSpecialCardsDeck = new LotroDeck(lotroDeck.getDeckName());
             filteredSpecialCardsDeck.setRing(filterCard(lotroDeck.getRing(), ownedCollection));
@@ -587,7 +587,7 @@ public class HallServer extends AbstractServer {
     }
 
     private String filterCard(String blueprintId, CardCollection ownedCollection) {
-        if (ownedCollection == null || ownedCollection.getItemCount(blueprintId) == 0)
+        if (ownedCollection.getItemCount(blueprintId) == 0)
             return _library.getBaseBlueprintId(blueprintId);
         return blueprintId;
     }

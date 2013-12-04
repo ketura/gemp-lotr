@@ -5,6 +5,7 @@ import com.gempukku.lotro.SubscriptionExpiredException;
 import com.gempukku.lotro.async.HttpProcessingException;
 import com.gempukku.lotro.async.ResponseWriter;
 import com.gempukku.lotro.collection.CollectionsManager;
+import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.db.vo.League;
 import com.gempukku.lotro.draft.Draft;
 import com.gempukku.lotro.draft.DraftChannelVisitor;
@@ -403,7 +404,7 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
             Document doc = documentBuilder.newDocument();
 
             Element hall = doc.createElement("hall");
-            hall.setAttribute("currency", String.valueOf(_collectionManager.getPlayerCollection(resourceOwner, "permanent").getCurrency()));
+            hall.setAttribute("currency", String.valueOf(_collectionManager.getPlayerCollection(resourceOwner, CollectionType.MY_CARDS.getCode()).getCurrency()));
 
             _hallServer.signupUserForHall(resourceOwner, new SerializeHallInfoVisitor(doc, hall));
             for (Map.Entry<String, LotroFormat> format : _formatLibrary.getHallFormats().entrySet()) {
@@ -481,7 +482,7 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
 
                     Element hall = doc.createElement("hall");
                     _hallCommunicationChannel.processCommunicationChannel(_hallServer, _resourceOwner, new SerializeHallInfoVisitor(doc, hall));
-                    hall.setAttribute("currency", String.valueOf(_collectionManager.getPlayerCollection(_resourceOwner, "permanent").getCurrency()));
+                    hall.setAttribute("currency", String.valueOf(_collectionManager.getPlayerCollection(_resourceOwner, CollectionType.MY_CARDS.getCode()).getCurrency()));
 
                     doc.appendChild(hall);
 

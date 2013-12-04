@@ -4,6 +4,7 @@ import com.gempukku.lotro.async.ResponseWriter;
 import com.gempukku.lotro.cards.CardSets;
 import com.gempukku.lotro.cards.packs.SetDefinition;
 import com.gempukku.lotro.collection.CollectionsManager;
+import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.gempukku.lotro.merchant.MerchantException;
@@ -112,7 +113,7 @@ public class MerchantRequestHandler extends LotroServerRequestHandler implements
 
         Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
-        CardCollection collection = _collectionsManager.getPlayerCollection(resourceOwner, "permanent");
+        CardCollection collection = _collectionsManager.getPlayerCollection(resourceOwner, CollectionType.MY_CARDS.getCode());
 
         Set<CardItem> cardItems = new HashSet<CardItem>();
         if (ownedMin <= 0) {
@@ -143,7 +144,7 @@ public class MerchantRequestHandler extends LotroServerRequestHandler implements
         Document doc = documentBuilder.newDocument();
 
         Element merchantElem = doc.createElement("merchant");
-        merchantElem.setAttribute("currency", String.valueOf(_collectionsManager.getPlayerCollection(resourceOwner, "permanent").getCurrency()));
+        merchantElem.setAttribute("currency", String.valueOf(_collectionsManager.getPlayerCollection(resourceOwner, CollectionType.MY_CARDS.getCode()).getCurrency()));
         merchantElem.setAttribute("count", String.valueOf(filteredResult.size()));
         doc.appendChild(merchantElem);
 
