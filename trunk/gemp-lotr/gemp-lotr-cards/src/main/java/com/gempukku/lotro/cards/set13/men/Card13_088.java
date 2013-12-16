@@ -37,7 +37,7 @@ public class Card13_088 extends AbstractMinion {
     protected int getPotentialExtraPaymentDiscount(String playerId, LotroGame game, PhysicalCard self) {
         GameState gameState = game.getGameState();
         if (Filters.canSpot(gameState, game.getModifiersQuerying(), Filters.not(self), Culture.MEN, CardType.MINION))
-            return -gameState.getWounds(gameState.getRingBearer(gameState.getCurrentPlayerId()));
+            return gameState.getWounds(gameState.getRingBearer(gameState.getCurrentPlayerId()));
         return 0;
     }
 
