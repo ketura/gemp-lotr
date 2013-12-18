@@ -35,18 +35,15 @@ public class Card2_026 extends AbstractOldEvent {
     @Override
     public PlayEventAction getPlayCardAction(final String playerId, final LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self);
-        PhysicalCard nextSite = game.getGameState().getSite(game.getGameState().getCurrentSiteNumber() + 1);
-        if (nextSite == null || !nextSite.getOwner().equals(playerId)) {
-            action.appendEffect(
-                    new PlaySiteEffect(action, playerId, null, game.getGameState().getCurrentSiteNumber() + 1) {
-                        @Override
-                        protected void sitePlayedCallback(PhysicalCard site) {
-                            if (game.getModifiersQuerying().hasKeyword(game.getGameState(), site, Keyword.UNDERGROUND))
-                                action.appendEffect(
-                                        new DrawCardsEffect(action, playerId, 1));
-                        }
-                    });
-        }
+        action.appendEffect(
+                new PlaySiteEffect(action, playerId, null, game.getGameState().getCurrentSiteNumber() + 1) {
+                    @Override
+                    protected void sitePlayedCallback(PhysicalCard site) {
+                        if (game.getModifiersQuerying().hasKeyword(game.getGameState(), site, Keyword.UNDERGROUND))
+                            action.appendEffect(
+                                    new DrawCardsEffect(action, playerId, 1));
+                    }
+                });
         return action;
     }
 
