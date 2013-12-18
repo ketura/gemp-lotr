@@ -14,7 +14,6 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.timing.Action;
-import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
 import java.util.Collections;
 import java.util.List;
@@ -45,15 +44,7 @@ public class Card5_023 extends AbstractAttachable {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.gollumOrSmeagol));
-            action.appendEffect(
-                    new UnrespondableEffect() {
-                        @Override
-                        protected void doPlayEffect(LotroGame game) {
-                            final PhysicalCard nextSite = game.getGameState().getSite(game.getGameState().getCurrentSiteNumber() + 1);
-                            if (nextSite == null || !nextSite.getOwner().equals(playerId))
-                                action.appendEffect(new PlayNextSiteEffect(action, playerId));
-                        }
-                    });
+            action.appendEffect(new PlayNextSiteEffect(action, playerId));
             return Collections.singletonList(action);
         }
         return null;

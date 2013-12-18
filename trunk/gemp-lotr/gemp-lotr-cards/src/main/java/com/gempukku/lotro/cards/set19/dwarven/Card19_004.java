@@ -39,7 +39,7 @@ public class Card19_004 extends AbstractEvent {
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, CardType.COMPANION, Keyword.FELLOWSHIP));
         for (String opponentId : GameUtils.getOpponents(game, playerId)) {
             action.appendEffect(
-                    new ChooseAndDiscardCardsFromPlayEffect(action, opponentId, 1, 1, Filters.owner(playerId), Side.SHADOW));
+                    new ChooseAndDiscardCardsFromPlayEffect(action, opponentId, 1, 1, Filters.owner(opponentId), Side.SHADOW));
         }
         return action;
     }
