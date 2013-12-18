@@ -56,6 +56,11 @@ public class FixedLeaguePrizes implements LeaguePrizes {
         }
     }
 
+    @Override
+    public CardCollection getTrophiesForLeague(int position, int playersCount, int gamesPlayed, int maxGamesPlayed, CollectionType collectionType) {
+        return null;
+    }
+
     //1st - 60 boosters, 4 tengwar, 3 foil rares
 //2nd - 55 boosters, 3 tengwar, 2 foil rares
 //3rd - 50 boosters, 2 tengwar, 1 foil rare

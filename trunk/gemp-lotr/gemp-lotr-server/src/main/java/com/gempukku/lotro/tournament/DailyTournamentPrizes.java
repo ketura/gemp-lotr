@@ -28,6 +28,11 @@ public class DailyTournamentPrizes implements TournamentPrizes {
     }
 
     @Override
+    public CardCollection getTrophyForTournament(PlayerStanding playerStanding, int playersCount) {
+        return null;
+    }
+
+    @Override
     public String getRegistryRepresentation() {
         return _registryRepresentation;
     }

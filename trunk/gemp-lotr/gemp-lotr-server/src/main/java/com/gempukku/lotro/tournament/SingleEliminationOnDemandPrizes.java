@@ -40,6 +40,11 @@ public class SingleEliminationOnDemandPrizes implements TournamentPrizes{
         return tournamentPrize;
     }
 
+    @Override
+    public CardCollection getTrophyForTournament(PlayerStanding playerStanding, int playersCount) {
+        return null;
+    }
+
     private String getRandom(List<String> list) {
         return list.get(new Random().nextInt(list.size()));
     }
