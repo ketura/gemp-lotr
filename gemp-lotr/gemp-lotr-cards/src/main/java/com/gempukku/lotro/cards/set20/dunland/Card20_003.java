@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card20_003 extends AbstractMinion {
     public Card20_003() {
-        super(3, 9, 1, 3, Race.MAN, Culture.DUNLAND, "Dunlending Firebrand");
+        super(3, 9, 1, 3, Race.MAN, Culture.DUNLAND, "Dunlending Firebrand", null, true);
     }
 
     @Override
