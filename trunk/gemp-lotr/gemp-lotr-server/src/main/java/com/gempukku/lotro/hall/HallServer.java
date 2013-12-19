@@ -279,10 +279,15 @@ public class HallServer extends AbstractServer {
             if (awaitingTable.hasPlayer(player.getName()))
                 throw new HallException("You can't play against yourself");
 
-            if (awaitingTable.getLeague() != null && !_leagueService.isPlayerInLeague(awaitingTable.getLeague(), player))
-                throw new HallException("You're not in that league");
+            final League league = awaitingTable.getLeague();
+            if (league != null) {
+                if (!_leagueService.isPlayerInLeague(league, player))
+                    throw new HallException("You're not in that league");
 
-            LotroDeck lotroDeck = validateUserAndDeck(awaitingTable.getLotroFormat(), player, deckName, awaitingTable.getCollectionType(), awaitingTable.getLeague() != null);
+                verifyNotPlayingLeagueGame(player, league);
+            }
+
+            LotroDeck lotroDeck = validateUserAndDeck(awaitingTable.getLotroFormat(), player, deckName, awaitingTable.getCollectionType(), league != null);
 
             joinTableInternal(tableId, player.getName(), awaitingTable, lotroDeck);
 
