@@ -7,6 +7,7 @@ import com.gempukku.lotro.builder.PacksStorageBuilder;
 import com.gempukku.lotro.builder.ServerBuilder;
 import com.gempukku.lotro.cards.CardSets;
 import com.gempukku.lotro.packs.PacksStorage;
+import com.gempukku.lotro.service.LoggedUserHolder;
 import com.gempukku.polling.LongPollingSystem;
 import org.jboss.netty.channel.ChannelPipeline;
 import org.jboss.netty.channel.ChannelPipelineFactory;

@@ -2,9 +2,12 @@ package com.gempukku.lotro.hall;
 
 import com.gempukku.lotro.*;
 import com.gempukku.lotro.cards.CardSets;
+import com.gempukku.lotro.chat.ChatCommandCallback;
+import com.gempukku.lotro.chat.ChatCommandErrorException;
 import com.gempukku.lotro.chat.ChatRoomMediator;
 import com.gempukku.lotro.chat.ChatServer;
 import com.gempukku.lotro.collection.CollectionsManager;
+import com.gempukku.lotro.db.IpBanDAO;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.db.vo.League;
 import com.gempukku.lotro.draft.Draft;
@@ -17,6 +20,7 @@ import com.gempukku.lotro.league.LeagueService;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.timing.GameResultListener;
 import com.gempukku.lotro.logic.vo.LotroDeck;
+import com.gempukku.lotro.service.AdminService;
 import com.gempukku.lotro.tournament.*;
 
 import java.text.ParseException;
@@ -40,6 +44,8 @@ public class HallServer extends AbstractServer {
     private LotroServer _lotroServer;
     private PairingMechanismRegistry _pairingMechanismRegistry;
     private CardSets _cardSets;
+    private IpBanDAO _ipBanDAO;
+    private AdminService _adminService;
     private TournamentPrizeSchemeRegistry _tournamentPrizeSchemeRegistry;
 
     private CollectionType _allCardsCollectionType = CollectionType.ALL_CARDS;
@@ -65,7 +71,9 @@ public class HallServer extends AbstractServer {
     private final GameResultListener _notifyHallListeners = new NotifyHallListenersGameResultListener();
 
     public HallServer(LotroServer lotroServer, ChatServer chatServer, LeagueService leagueService, TournamentService tournamentService, LotroCardBlueprintLibrary library,
-                      LotroFormatLibrary formatLibrary, CollectionsManager collectionsManager, TournamentPrizeSchemeRegistry tournamentPrizeSchemeRegistry,
+                      LotroFormatLibrary formatLibrary, CollectionsManager collectionsManager,
+                      IpBanDAO ipBanDAO, AdminService adminService,
+                      TournamentPrizeSchemeRegistry tournamentPrizeSchemeRegistry,
                       PairingMechanismRegistry pairingMechanismRegistry, CardSets cardSets) {
         _lotroServer = lotroServer;
         _chatServer = chatServer;
@@ -74,10 +82,46 @@ public class HallServer extends AbstractServer {
         _library = library;
         _formatLibrary = formatLibrary;
         _collectionsManager = collectionsManager;
+        _ipBanDAO = ipBanDAO;
+        _adminService = adminService;
         _tournamentPrizeSchemeRegistry = tournamentPrizeSchemeRegistry;
         _pairingMechanismRegistry = pairingMechanismRegistry;
         _cardSets = cardSets;
+
         _hallChat = _chatServer.createChatRoom("Game Hall", true, 15);
+        _hallChat.addChatCommandCallback("ban",
+                new ChatCommandCallback() {
+                    @Override
+                    public void commandReceived(String from, String parameters, boolean admin) throws ChatCommandErrorException {
+                        if (admin) {
+                            _adminService.banUser(parameters.trim());
+                        } else {
+                            throw new ChatCommandErrorException("Only administrator can ban users");
+                        }
+                    }
+                });
+        _hallChat.addChatCommandCallback("banIp",
+                new ChatCommandCallback() {
+                    @Override
+                    public void commandReceived(String from, String parameters, boolean admin) throws ChatCommandErrorException {
+                        if (admin) {
+                            _adminService.banIp(parameters.trim());
+                        } else {
+                            throw new ChatCommandErrorException("Only administrator can ban users");
+                        }
+                    }
+                });
+        _hallChat.addChatCommandCallback("banIpRange",
+                new ChatCommandCallback() {
+                    @Override
+                    public void commandReceived(String from, String parameters, boolean admin) throws ChatCommandErrorException {
+                        if (admin) {
+                            _adminService.banIpPrefix(parameters.trim());
+                        } else {
+                            throw new ChatCommandErrorException("Only administrator can ban users");
+                        }
+                    }
+                });
 
         _tournamentQueues.put("fotr_queue", new ImmediateRecurringQueue(635, "fotr_block",
                 CollectionType.ALL_CARDS, "fotrQueue-", "Fellowship Block", 8,
@@ -812,6 +856,8 @@ public class HallServer extends AbstractServer {
                 _hallChat.sendMessage("TournamentSystem", message, true);
             } catch (PrivateInformationException exp) {
                 // Ignore, sent as admin
+            } catch (ChatCommandErrorException e) {
+                // Ignore, no command
             }
         }
     }

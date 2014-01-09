@@ -2,6 +2,7 @@ package com.gempukku.lotro.game;
 
 import com.gempukku.lotro.AbstractServer;
 import com.gempukku.lotro.PrivateInformationException;
+import com.gempukku.lotro.chat.ChatCommandErrorException;
 import com.gempukku.lotro.chat.ChatServer;
 import com.gempukku.lotro.db.DeckDAO;
 import com.gempukku.lotro.logic.timing.GameResultListener;
@@ -55,6 +56,8 @@ public class LotroServer extends AbstractServer {
                         _chatServer.getChatRoom(getChatRoomName(gameId)).sendMessage("System", "This game is already finished and will be shortly removed, please move to the Game Hall", true);
                     } catch (PrivateInformationException exp) {
                         // Ignore, sent as admin
+                    } catch (ChatCommandErrorException e) {
+                        // Ignore, no command
                     }
                     _gameDeathWarningsSent.add(gameId);
                 }

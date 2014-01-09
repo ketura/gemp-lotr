@@ -3,16 +3,14 @@ package com.gempukku.lotro.async.handler;
 import com.gempukku.lotro.DateUtils;
 import com.gempukku.lotro.PlayerLock;
 import com.gempukku.lotro.async.HttpProcessingException;
-import com.gempukku.lotro.async.LoggedUserHolder;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.collection.TransferDAO;
 import com.gempukku.lotro.db.PlayerDAO;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.game.Player;
+import com.gempukku.lotro.service.LoggedUserHolder;
 import org.jboss.netty.channel.MessageEvent;
-import org.jboss.netty.handler.codec.http.CookieEncoder;
-import org.jboss.netty.handler.codec.http.HttpRequest;
-import org.jboss.netty.handler.codec.http.QueryStringDecoder;
+import org.jboss.netty.handler.codec.http.*;
 import org.jboss.netty.handler.codec.http.multipart.Attribute;
 import org.jboss.netty.handler.codec.http.multipart.HttpPostRequestDecoder;
 import org.jboss.netty.handler.codec.http.multipart.InterfaceHttpData;
@@ -21,11 +19,9 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.net.InetSocketAddress;
 import java.sql.SQLException;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
+import static org.jboss.netty.handler.codec.http.HttpHeaders.Names.COOKIE;
 import static org.jboss.netty.handler.codec.http.HttpHeaders.Names.SET_COOKIE;
 
 public class LotroServerRequestHandler {
@@ -66,14 +62,31 @@ public class LotroServerRequestHandler {
         }
     }
 
+    private String getLoggedUser(HttpRequest request) {
+        CookieDecoder cookieDecoder = new CookieDecoder();
+        String cookieHeader = request.getHeader(COOKIE);
+        if (cookieHeader != null) {
+            Set<Cookie> cookies = cookieDecoder.decode(cookieHeader);
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("loggedUser")) {
+                    String value = cookie.getValue();
+                    if (value != null) {
+                        _loggedUserHolder.getLoggedUser(value);
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
     protected final void processDeliveryServiceNotification(HttpRequest request, Map<String, String> headersToAdd) {
-        String logged = _loggedUserHolder.getLoggedUser(request);
+        String logged = getLoggedUser(request);
         if (logged != null && _transferDAO.hasUndeliveredPackages(logged))
             headersToAdd.put("Delivery-Service-Package", "true");
     }
 
     protected final Player getResourceOwnerSafely(HttpRequest request, String participantId) throws HttpProcessingException {
-        String loggedUser = _loggedUserHolder.getLoggedUser(request);
+        String loggedUser = getLoggedUser(request);
         if (isTest() && loggedUser == null)
             loggedUser = participantId;
 

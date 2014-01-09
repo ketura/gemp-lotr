@@ -20,6 +20,8 @@ public class ChatRoomMediator {
 
     private ReadWriteLock _lock = new ReentrantReadWriteLock();
 
+    private Map<String, ChatCommandCallback> _chatCommandCallbacks = new HashMap<String, ChatCommandCallback>();
+
     public ChatRoomMediator(String roomName, boolean muteJoinPartMessages, int secondsTimeoutPeriod) {
         this(roomName, muteJoinPartMessages, secondsTimeoutPeriod, null);
     }
@@ -29,6 +31,10 @@ public class ChatRoomMediator {
         _allowedPlayers = allowedPlayers;
         _channelInactivityTimeoutPeriod = 1000 * secondsTimeoutPeriod;
         _chatRoom = new ChatRoom(muteJoinPartMessages);
+    }
+
+    public void addChatCommandCallback(String command, ChatCommandCallback callback) {
+        _chatCommandCallbacks.put(command.toLowerCase(), callback);
     }
 
     public List<ChatMessage> joinUser(String playerId, boolean admin) throws PrivateInformationException {
@@ -68,7 +74,10 @@ public class ChatRoomMediator {
         }
     }
 
-    public void sendMessage(String playerId, String message, boolean admin) throws PrivateInformationException {
+    public void sendMessage(String playerId, String message, boolean admin) throws PrivateInformationException, ChatCommandErrorException {
+        if (processIfKnownCommand(playerId, message, admin))
+            return;
+
         _lock.writeLock().lock();
         try {
             if (!admin && _allowedPlayers != null && !_allowedPlayers.contains(playerId))
@@ -79,6 +88,28 @@ public class ChatRoomMediator {
         } finally {
             _lock.writeLock().unlock();
         }
+    }
+
+    private boolean processIfKnownCommand(String playerId, String message, boolean admin) throws ChatCommandErrorException {
+        if (message.startsWith("/")) {
+            // Maybe it's a known command
+            String commandString = message.substring(1);
+            int spaceIndex = commandString.indexOf(" ");
+            String commandName;
+            String commandParameters="";
+            if (spaceIndex>-1) {
+                commandName = commandString.substring(0, spaceIndex);
+                commandParameters = commandString.substring(spaceIndex+1);
+            } else {
+                commandName = commandString;
+            }
+            final ChatCommandCallback callbackForCommand = _chatCommandCallbacks.get(commandName.toLowerCase());
+            if (callbackForCommand != null) {
+                callbackForCommand.commandReceived(playerId, commandParameters, admin);
+                return true;
+            }
+        }
+        return false;
     }
 
     public void cleanup() {

@@ -16,6 +16,8 @@ public class ChatServer extends AbstractServer {
             chatRoom.sendMessage("System", "Welcome to room: " + name, true);
         } catch (PrivateInformationException exp) {
             // Ignore, sent as admin
+        } catch (ChatCommandErrorException e) {
+            // Ignore, no command
         }
         _chatRooms.put(name, chatRoom);
         return chatRoom;
@@ -27,6 +29,8 @@ public class ChatServer extends AbstractServer {
             chatRoom.sendMessage("System", "Welcome to private room: " + name, true);
         } catch (PrivateInformationException exp) {
             // Ignore, sent as admin
+        } catch (ChatCommandErrorException e) {
+            // Ignore, no command
         }
         _chatRooms.put(name, chatRoom);
         return chatRoom;
@@ -38,6 +42,8 @@ public class ChatServer extends AbstractServer {
                 chatRoomMediator.sendMessage("System", message, true);
         } catch (PrivateInformationException exp) {
             // Ignore, sent as admin
+        } catch (ChatCommandErrorException e) {
+            // Ignore, no command
         }
     }
 

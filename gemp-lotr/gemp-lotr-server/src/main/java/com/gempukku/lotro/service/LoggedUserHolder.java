@@ -1,16 +1,11 @@
-package com.gempukku.lotro.async;
+package com.gempukku.lotro.service;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-import org.jboss.netty.handler.codec.http.Cookie;
-import org.jboss.netty.handler.codec.http.CookieDecoder;
-import org.jboss.netty.handler.codec.http.HttpRequest;
 
 import java.util.*;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
-
-import static org.jboss.netty.handler.codec.http.HttpHeaders.Names.COOKIE;
 
 public class LoggedUserHolder {
     private long _loggedUserExpireLength = 1000 * 60 * 10; // 10 minutes session length
@@ -29,30 +24,18 @@ public class LoggedUserHolder {
         thr.start();
     }
 
-    public String getLoggedUser(HttpRequest request) {
+    public String getLoggedUser(String sessionId) {
         _readWriteLock.readLock().lock();
         try {
-            CookieDecoder cookieDecoder = new CookieDecoder();
-            String cookieHeader = request.getHeader(COOKIE);
-            if (cookieHeader != null) {
-                Set<Cookie> cookies = cookieDecoder.decode(cookieHeader);
-                for (Cookie cookie : cookies) {
-                    if (cookie.getName().equals("loggedUser")) {
-                        String value = cookie.getValue();
-                        if (value != null) {
-                            String loggedUser = _sessionIdsToUsers.get(value);
-                            if (loggedUser != null) {
-                                _lastAccess.put(value, System.currentTimeMillis());
-                                return loggedUser;
-                            }
-                        }
-                    }
-                }
+            String loggedUser = _sessionIdsToUsers.get(sessionId);
+            if (loggedUser != null) {
+                _lastAccess.put(sessionId, System.currentTimeMillis());
+                return loggedUser;
             }
-            return null;
         } finally {
             _readWriteLock.readLock().unlock();
         }
+        return null;
     }
 
     public Map<String, String> logUser(String userName) {
