@@ -14,6 +14,7 @@ import com.gempukku.lotro.game.Player;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.gempukku.lotro.hall.HallServer;
 import com.gempukku.lotro.league.*;
+import com.gempukku.lotro.service.AdminService;
 import com.gempukku.lotro.tournament.TournamentService;
 import org.jboss.netty.channel.MessageEvent;
 import org.jboss.netty.handler.codec.http.HttpMethod;
@@ -33,7 +34,6 @@ import java.util.List;
 import java.util.Map;
 
 public class AdminRequestHandler extends LotroServerRequestHandler implements UriRequestHandler {
-    public static final int DAY_IN_MILIS = 1000 * 60 * 60 * 24;
     private LeagueService _leagueService;
     private TournamentService _tournamentService;
     private CacheManager _cacheManager;
@@ -43,6 +43,7 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
     private CollectionsManager _collectionManager;
     private CardSets _cardSets;
     private PlayerDAO _playerDAO;
+    private AdminService _adminService;
 
     public AdminRequestHandler(Map<Type, Object> context) {
         super(context);
@@ -55,6 +56,7 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
         _leagueDao = extractObject(context, LeagueDAO.class);
         _playerDAO = extractObject(context, PlayerDAO.class);
         _collectionManager = extractObject(context, CollectionsManager.class);
+        _adminService = extractObject(context, AdminService.class);
     }
 
     @Override
@@ -145,10 +147,8 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
         if (login==null)
             throw new HttpProcessingException(404);
 
-        final boolean success = _playerDAO.banPlayerPermanently(login);
-        if (!success)
+        if (!_adminService.banUser(login))
             throw new HttpProcessingException(404);
-        _loggedUserHolder.forceLogoutUser(login);
 
         responseWriter.writeHtmlResponse("OK");
     }
@@ -162,10 +162,8 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
             throw new HttpProcessingException(404);
 
         for (String login : logins) {
-            final boolean success = _playerDAO.banPlayerPermanently(login);
-            if (!success)
+            if (!_adminService.banUser(login))
                 throw new HttpProcessingException(404);
-            _loggedUserHolder.forceLogoutUser(login);
         }
 
         responseWriter.writeHtmlResponse("OK");
@@ -178,10 +176,8 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
         String login = getFormParameterSafely(postDecoder, "login");
         int duration = Integer.parseInt(getFormParameterSafely(postDecoder, "duration"));
 
-        final boolean success = _playerDAO.banPlayerTemporarily(login, System.currentTimeMillis() + duration * DAY_IN_MILIS);
-        if (!success)
+        if (!_adminService.banUserTemp(login, duration))
             throw new HttpProcessingException(404);
-        _loggedUserHolder.forceLogoutUser(login);
 
         responseWriter.writeHtmlResponse("OK");
     }
@@ -192,8 +188,7 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
         HttpPostRequestDecoder postDecoder = new HttpPostRequestDecoder(request);
         String login = getFormParameterSafely(postDecoder, "login");
 
-        final boolean success = _playerDAO.unBanPlayer(login);
-        if (!success)
+        if (!_adminService.unBanUser(login))
             throw new HttpProcessingException(404);
 
         responseWriter.writeHtmlResponse("OK");

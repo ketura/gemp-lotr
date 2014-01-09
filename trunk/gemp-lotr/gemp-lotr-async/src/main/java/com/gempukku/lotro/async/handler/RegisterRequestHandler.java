@@ -9,6 +9,7 @@ import org.jboss.netty.handler.codec.http.HttpRequest;
 import org.jboss.netty.handler.codec.http.multipart.HttpPostRequestDecoder;
 
 import java.lang.reflect.Type;
+import java.net.InetSocketAddress;
 import java.util.Map;
 
 public class RegisterRequestHandler extends LotroServerRequestHandler implements UriRequestHandler {
@@ -23,7 +24,7 @@ public class RegisterRequestHandler extends LotroServerRequestHandler implements
             String login = getFormParameterSafely(postDecoder, "login");
             String password = getFormParameterSafely(postDecoder, "password");
             try {
-                if (_playerDao.registerUser(login, password, e.getRemoteAddress().toString())) {
+                if (_playerDao.registerUser(login, password, ((InetSocketAddress) e.getRemoteAddress()).getAddress().getHostAddress())) {
                     responseWriter.writeXmlResponse(null, logUserReturningHeaders(e, login));
                 } else {
                     throw new HttpProcessingException(409);

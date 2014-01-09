@@ -4,6 +4,7 @@ import com.gempukku.lotro.PrivateInformationException;
 import com.gempukku.lotro.SubscriptionExpiredException;
 import com.gempukku.lotro.async.HttpProcessingException;
 import com.gempukku.lotro.async.ResponseWriter;
+import com.gempukku.lotro.chat.ChatCommandErrorException;
 import com.gempukku.lotro.chat.ChatMessage;
 import com.gempukku.lotro.chat.ChatRoomMediator;
 import com.gempukku.lotro.chat.ChatServer;
@@ -68,14 +69,15 @@ public class ChatRequestHandler extends LotroServerRequestHandler implements Uri
                 _longPollingSystem.processLongPollingResource(polledResource, pollableResource);
             }
         } catch (SubscriptionExpiredException exp) {
-            responseWriter.writeError(410);
+            throw new HttpProcessingException(410);
         } catch (PrivateInformationException exp) {
             throw new HttpProcessingException(403);
+        } catch (ChatCommandErrorException exp) {
+            throw new HttpProcessingException(400);
         }
     }
 
     private class ChatUpdateLongPollingResource implements LongPollingResource {
-        private ChatCommunicationChannel _chatCommunicationChannel;
         private ChatRoomMediator _chatRoom;
         private String _room;
         private String _playerId;

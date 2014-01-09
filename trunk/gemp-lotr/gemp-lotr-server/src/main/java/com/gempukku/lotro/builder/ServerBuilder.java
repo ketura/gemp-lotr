@@ -15,6 +15,8 @@ import com.gempukku.lotro.league.LeagueService;
 import com.gempukku.lotro.merchant.MerchantService;
 import com.gempukku.lotro.packs.DraftPackStorage;
 import com.gempukku.lotro.packs.PacksStorage;
+import com.gempukku.lotro.service.AdminService;
+import com.gempukku.lotro.service.LoggedUserHolder;
 import com.gempukku.lotro.tournament.*;
 
 import java.lang.reflect.Type;
@@ -48,6 +50,13 @@ public class ServerBuilder {
                         extract(objectMap, LeagueParticipationDAO.class),
                         extract(objectMap, CollectionsManager.class),
                         extract(objectMap, CardSets.class)));
+
+        objectMap.put(AdminService.class,
+                new AdminService(
+                        extract(objectMap, PlayerDAO.class),
+                        extract(objectMap, IpBanDAO.class),
+                        extract(objectMap, LoggedUserHolder.class)
+                ));
 
         TournamentPrizeSchemeRegistry tournamentPrizeSchemeRegistry = new TournamentPrizeSchemeRegistry();
         PairingMechanismRegistry pairingMechanismRegistry = new PairingMechanismRegistry();
@@ -89,6 +98,8 @@ public class ServerBuilder {
                         extract(objectMap, LotroCardBlueprintLibrary.class),
                         extract(objectMap, LotroFormatLibrary.class),
                         extract(objectMap, CollectionsManager.class),
+                        extract(objectMap, IpBanDAO.class),
+                        extract(objectMap, AdminService.class),
                         tournamentPrizeSchemeRegistry,
                         pairingMechanismRegistry,
                         extract(objectMap, CardSets.class)
