@@ -33,7 +33,8 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 public class HallServer extends AbstractServer {
     private final int _playerInactivityPeriod = 1000 * 20; // 20 seconds
     private final long _scheduledTournamentLoadTime = 1000 * 60 * 60 * 24 * 7; // Week
-    private final long _repeatTournaments = 1000 * 60 * 60 * 24 * 3;
+    // Repeat tournaments every 2 days
+    private final long _repeatTournaments = 1000 * 60 * 60 * 24 * 2;
 
     private ChatServer _chatServer;
     private LeagueService _leagueService;
@@ -123,13 +124,13 @@ public class HallServer extends AbstractServer {
                     }
                 });
 
-        _tournamentQueues.put("fotr_queue", new ImmediateRecurringQueue(635, "fotr_block",
+        _tournamentQueues.put("fotr_queue", new ImmediateRecurringQueue(1000, "fotr_block",
                 CollectionType.ALL_CARDS, "fotrQueue-", "Fellowship Block", 8,
                 true, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes(cardSets, "onDemand"), _pairingMechanismRegistry.getPairingMechanism("singleElimination")));
-        _tournamentQueues.put("movie_queue", new ImmediateRecurringQueue(635, "movie",
+        _tournamentQueues.put("movie_queue", new ImmediateRecurringQueue(1000, "movie",
                 CollectionType.ALL_CARDS, "movieQueue-", "Movie Block", 8,
                 true, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes(cardSets, "onDemand"), _pairingMechanismRegistry.getPairingMechanism("singleElimination")));
-        _tournamentQueues.put("expanded_queue", new ImmediateRecurringQueue(635, "expanded",
+        _tournamentQueues.put("expanded_queue", new ImmediateRecurringQueue(1000, "expanded",
                 CollectionType.ALL_CARDS, "expandedQueue-", "Expanded", 8,
                 true, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes(cardSets, "onDemand"), _pairingMechanismRegistry.getPairingMechanism("singleElimination")));
 
@@ -137,24 +138,18 @@ public class HallServer extends AbstractServer {
         sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
 
         try {
-            _tournamentQueues.put("fotr_daily_eu", new RecurringScheduledQueue(sdf.parse("2013-01-15 19:30:00").getTime(), _repeatTournaments, "fotrDailyEu-", "Daily Gondor Fellowship Block", 0,
+            _tournamentQueues.put("fotr_daily_eu", new RecurringScheduledQueue(sdf.parse("2013-01-15 19:30:00").getTime(), _repeatTournaments, "fotrDailyEu-", "Daily Gondor Fellowship Block", 1000,
                     true, CollectionType.MY_CARDS, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes(cardSets, "daily"), _pairingMechanismRegistry.getPairingMechanism("swiss"),
                     "fotr_block", 8));
-            _tournamentQueues.put("fotr_daily_us", new RecurringScheduledQueue(sdf.parse("2013-01-16 00:30:00").getTime(), _repeatTournaments, "fotrDailyUs-", "Daily Rohan Fellowship Block", 0,
+            _tournamentQueues.put("fotr_daily_us", new RecurringScheduledQueue(sdf.parse("2013-01-16 00:30:00").getTime(), _repeatTournaments, "fotrDailyUs-", "Daily Rohan Fellowship Block", 1000,
                     true, CollectionType.MY_CARDS, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes(cardSets, "daily"), _pairingMechanismRegistry.getPairingMechanism("swiss"),
                     "fotr_block", 8));
-            _tournamentQueues.put("movie_daily_eu", new RecurringScheduledQueue(sdf.parse("2013-01-16 19:30:00").getTime(), _repeatTournaments, "movieDailyEu-", "Daily Gondor Movie Block", 0,
+            _tournamentQueues.put("movie_daily_eu", new RecurringScheduledQueue(sdf.parse("2013-01-16 19:30:00").getTime(), _repeatTournaments, "movieDailyEu-", "Daily Gondor Movie Block", 1000,
                     true, CollectionType.MY_CARDS, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes(cardSets, "daily"), _pairingMechanismRegistry.getPairingMechanism("swiss"),
                     "movie", 8));
-            _tournamentQueues.put("movie_daily_us", new RecurringScheduledQueue(sdf.parse("2013-01-17 00:30:00").getTime(), _repeatTournaments, "movieDailyUs-", "Daily Rohan Movie Block", 0,
+            _tournamentQueues.put("movie_daily_us", new RecurringScheduledQueue(sdf.parse("2013-01-17 00:30:00").getTime(), _repeatTournaments, "movieDailyUs-", "Daily Rohan Movie Block", 1000,
                     true, CollectionType.MY_CARDS, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes(cardSets, "daily"), _pairingMechanismRegistry.getPairingMechanism("swiss"),
                     "movie", 8));
-            _tournamentQueues.put("exp_daily_eu", new RecurringScheduledQueue(sdf.parse("2013-01-17 19:30:00").getTime(), _repeatTournaments, "expDailyEu-", "Daily Gondor Expanded", 0,
-                    true, CollectionType.MY_CARDS, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes(cardSets, "daily"), _pairingMechanismRegistry.getPairingMechanism("swiss"),
-                    "expanded", 8));
-            _tournamentQueues.put("exp_daily_us", new RecurringScheduledQueue(sdf.parse("2013-01-18 00:30:00").getTime(), _repeatTournaments, "expDailyUs-", "Daily Rohan Expanded", 0,
-                    true, CollectionType.MY_CARDS, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes(cardSets, "daily"), _pairingMechanismRegistry.getPairingMechanism("swiss"),
-                    "expanded", 8));
         } catch (ParseException exp) {
             // Ignore, can't happen
         }
