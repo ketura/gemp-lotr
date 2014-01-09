@@ -50,12 +50,17 @@ public class DaoBuilder {
         CachedTransferDAO transferDao = new CachedTransferDAO(dbTransferDao);
         objectMap.put(TransferDAO.class, transferDao);
 
+        DbIpBanDAO dbIpBanDao = new DbIpBanDAO(dbAccess);
+        CachedIpBanDAO ipBanDao = new CachedIpBanDAO(dbIpBanDao);
+        objectMap.put(DbIpBanDAO.class, ipBanDao);
+
         CacheManager cacheManager = new CacheManager();
         cacheManager.addCache(merchantDao);
         cacheManager.addCache(deckDao);
         cacheManager.addCache(collectionDao);
         cacheManager.addCache(playerDao);
         cacheManager.addCache(transferDao);
+        cacheManager.addCache(ipBanDao);
         objectMap.put(CacheManager.class, cacheManager);
     }
 }

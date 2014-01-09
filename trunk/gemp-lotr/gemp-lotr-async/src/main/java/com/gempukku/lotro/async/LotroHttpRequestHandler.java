@@ -1,6 +1,7 @@
 package com.gempukku.lotro.async;
 
 import com.gempukku.lotro.async.handler.UriRequestHandler;
+import com.gempukku.lotro.db.IpBanDAO;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.jboss.netty.buffer.ChannelBuffers;
@@ -34,10 +35,12 @@ public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
 
     private Map<Type, Object> _objects;
     private UriRequestHandler _uriRequestHandler;
+    private IpBanDAO _ipBanDAO;
 
     public LotroHttpRequestHandler(Map<Type, Object> objects, UriRequestHandler uriRequestHandler) {
         _objects = objects;
         _uriRequestHandler = uriRequestHandler;
+        _ipBanDAO = (IpBanDAO) _objects.get(IpBanDAO.class);
     }
 
     private Collection<String> _bannedIps = Arrays.asList("108.251.13.101", "188.123.232.46", "193.235.73.197", "5.228.68.175", "89.88.173.207", "76.171.226.172", "97.73.50.119", "108.251.13.101");
@@ -113,9 +116,9 @@ public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
     }
 
     private boolean isBanned(String ipAddress) {
-        if (_bannedIps.contains(ipAddress))
+        if (_ipBanDAO.getIpBans().contains(ipAddress))
             return true;
-        for (String bannedRange : _bannedRanges) {
+        for (String bannedRange : _ipBanDAO.getIpPrefixBans()) {
             if (ipAddress.startsWith(bannedRange))
                 return true;
         }
