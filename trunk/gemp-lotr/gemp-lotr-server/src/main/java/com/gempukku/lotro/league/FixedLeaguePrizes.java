@@ -58,6 +58,10 @@ public class FixedLeaguePrizes implements LeaguePrizes {
 
     @Override
     public CardCollection getTrophiesForLeague(int position, int playersCount, int gamesPlayed, int maxGamesPlayed, CollectionType collectionType) {
+        DefaultCardCollection prize = new DefaultCardCollection();
+        prize.addItem("(S)Tengwar", getTengwarCount(position));
+        if (prize.getAll().size() > 0)
+            return prize;
         return null;
     }
 
@@ -73,7 +77,6 @@ public class FixedLeaguePrizes implements LeaguePrizes {
     private CardCollection getPrizeForSealedLeague(int position, int playersCount, int gamesPlayed, int maxGamesPlayed) {
         DefaultCardCollection prize = new DefaultCardCollection();
         prize.addItem("(S)Booster Choice", getSealedBoosterCount(position));
-        prize.addItem("(S)Tengwar", getTengwarCount(position));
         addPrizes(prize, getRandomFoil(_rares, getRandomRareFoilCount(position)));
         if (prize.getAll().size() > 0)
             return prize;
@@ -106,7 +109,6 @@ public class FixedLeaguePrizes implements LeaguePrizes {
     private CardCollection getPrizeForCollectorsLeague(int position, int playersCount, int gamesPlayed, int maxGamesPlayed) {
         DefaultCardCollection prize = new DefaultCardCollection();
         prize.addItem("(S)Booster Choice", getCollectorsBoosterCount(position));
-        prize.addItem("(S)Tengwar", getTengwarCount(position));
         addPrizes(prize, getRandomFoil(_rares, getRandomRareFoilCount(position)));
         if (prize.getAll().size() > 0)
             return prize;
@@ -135,7 +137,6 @@ public class FixedLeaguePrizes implements LeaguePrizes {
     private CardCollection getPrizeForConstructedLeague(int position, int playersCount, int gamesPlayed, int maxGamesPlayed) {
         DefaultCardCollection prize = new DefaultCardCollection();
         prize.addItem("(S)Booster Choice", getConstructedBoosterCount(position));
-        prize.addItem("(S)Tengwar", getTengwarCount(position));
         addPrizes(prize, getRandomFoil(_rares, getRandomRareFoilCount(position)));
         if (prize.getAll().size() > 0)
             return prize;
