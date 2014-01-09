@@ -71,10 +71,10 @@ public class MerchantService {
 
         addFixedItem("TTT - Aragorn Starter", 2500);
         addFixedItem("TTT - Theoden Starter", 2500);
-        addFixedItem("BoHD - Eowyn Starter", 3500);
-        addFixedItem("BoHD - Legolas Starter", 3500);
-        addFixedItem("EoF - Faramir Starter", 3500);
-        addFixedItem("EoF - Witch-king Starter", 3500);
+        addFixedItem("BoHD - Eowyn Starter", 5500);
+        addFixedItem("BoHD - Legolas Starter", 5500);
+        addFixedItem("EoF - Faramir Starter", 5500);
+        addFixedItem("EoF - Witch-king Starter", 5500);
 
         addFixedItem("RotK - Aragorn Starter", 2500);
         addFixedItem("RotK - Eomer Starter", 2500);
