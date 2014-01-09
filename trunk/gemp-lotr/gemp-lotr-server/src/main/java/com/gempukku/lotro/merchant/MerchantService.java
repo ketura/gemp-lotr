@@ -60,7 +60,7 @@ public class MerchantService {
         addFixedItem("RoS - Booster", 1000);
         addFixedItem("TaD - Booster", 1000);
 
-        addFixedItem("REF - Booster", 2000);
+        addFixedItem("REF - Booster", 3000);
 
         addFixedItem("FotR - Gandalf Starter", 2500);
         addFixedItem("FotR - Aragorn Starter", 2500);
