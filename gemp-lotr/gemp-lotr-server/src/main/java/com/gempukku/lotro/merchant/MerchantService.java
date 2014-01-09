@@ -3,7 +3,6 @@ package com.gempukku.lotro.merchant;
 import com.gempukku.lotro.cards.CardSets;
 import com.gempukku.lotro.cards.packs.SetDefinition;
 import com.gempukku.lotro.collection.CollectionsManager;
-import com.gempukku.lotro.db.MerchantDAO;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.game.BasicCardItem;
 import com.gempukku.lotro.game.CardItem;
@@ -11,8 +10,6 @@ import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.game.Player;
 import org.apache.commons.collections.map.LRUMap;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
@@ -32,18 +29,10 @@ public class MerchantService {
     private CollectionType _permanentCollection = CollectionType.MY_CARDS;
     private CollectionsManager _collectionsManager;
 
-    public MerchantService(LotroCardBlueprintLibrary library, CollectionsManager collectionsManager, MerchantDAO merchantDAO, CardSets cardSets) {
+    public MerchantService(LotroCardBlueprintLibrary library, CollectionsManager collectionsManager, CardSets cardSets) {
         _collectionsManager = collectionsManager;
-        Date setupDate;
-        try {
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            format.setTimeZone(TimeZone.getTimeZone("GMT"));
-            setupDate = format.parse("2013-03-31 00:00:00");
-        } catch (ParseException exp) {
-            throw new RuntimeException("Unable to parse merchant setup date");
-        }
 
-        _merchant = new StorageBasedMerchant(library, merchantDAO, setupDate, cardSets);
+        _merchant = new RarityBasedMerchant(cardSets);
 
         for (SetDefinition setDefinition : cardSets.getSetDefinitions().values()) {
             if (setDefinition.hasFlag("merchantable")) {

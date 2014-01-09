@@ -77,7 +77,6 @@ public class ServerBuilder {
                 new MerchantService(
                         extract(objectMap, LotroCardBlueprintLibrary.class),
                         extract(objectMap, CollectionsManager.class),
-                        extract(objectMap, MerchantDAO.class),
                         extract(objectMap, CardSets.class)));
 
         objectMap.put(ChatServer.class, new ChatServer());
