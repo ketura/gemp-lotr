@@ -52,7 +52,7 @@ public class DaoBuilder {
 
         DbIpBanDAO dbIpBanDao = new DbIpBanDAO(dbAccess);
         CachedIpBanDAO ipBanDao = new CachedIpBanDAO(dbIpBanDao);
-        objectMap.put(DbIpBanDAO.class, ipBanDao);
+        objectMap.put(IpBanDAO.class, ipBanDao);
 
         CacheManager cacheManager = new CacheManager();
         cacheManager.addCache(merchantDao);
