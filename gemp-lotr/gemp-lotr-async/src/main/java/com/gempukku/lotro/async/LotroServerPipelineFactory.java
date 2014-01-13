@@ -28,20 +28,21 @@ public class LotroServerPipelineFactory implements ChannelPipelineFactory {
     public LotroServerPipelineFactory() {
         Map<Type, Object> objects = new HashMap<Type, Object>();
         final CardSets cardSets = new CardSets();
+
+        LoggedUserHolder loggedUserHolder = new LoggedUserHolder();
+        loggedUserHolder.start();
+        objects.put(LoggedUserHolder.class, loggedUserHolder);
+
+        LongPollingSystem longPollingSystem = new LongPollingSystem();
+        longPollingSystem.start();
+        objects.put(LongPollingSystem.class, longPollingSystem);
+
         objects.put(CardSets.class, cardSets);
         objects.put(PacksStorage.class, PacksStorageBuilder.createPacksStorage(cardSets));
         DaoBuilder.fillObjectMap(objects);
         ServerBuilder.fillObjectMap(objects);
         ServerBuilder.constructObjects(objects);
 
-
-        LoggedUserHolder loggedUserHolder = new LoggedUserHolder();
-        loggedUserHolder.start();
-        objects.put(LoggedUserHolder.class, loggedUserHolder);
-        
-        LongPollingSystem longPollingSystem = new LongPollingSystem();
-        longPollingSystem.start();
-        objects.put(LongPollingSystem.class, longPollingSystem);
 
         _context = objects;
         _uriRequestHandler = new RootUriRequestHandler(_context);
