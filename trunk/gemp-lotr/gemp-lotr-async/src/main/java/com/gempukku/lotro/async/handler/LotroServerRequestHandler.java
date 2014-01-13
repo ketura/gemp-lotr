@@ -11,6 +11,8 @@ import com.gempukku.lotro.game.Player;
 import com.gempukku.lotro.service.LoggedUserHolder;
 import org.jboss.netty.channel.MessageEvent;
 import org.jboss.netty.handler.codec.http.*;
+import static org.jboss.netty.handler.codec.http.HttpHeaders.Names.COOKIE;
+import static org.jboss.netty.handler.codec.http.HttpHeaders.Names.SET_COOKIE;
 import org.jboss.netty.handler.codec.http.multipart.Attribute;
 import org.jboss.netty.handler.codec.http.multipart.HttpPostRequestDecoder;
 import org.jboss.netty.handler.codec.http.multipart.InterfaceHttpData;
@@ -20,9 +22,6 @@ import java.lang.reflect.Type;
 import java.net.InetSocketAddress;
 import java.sql.SQLException;
 import java.util.*;
-
-import static org.jboss.netty.handler.codec.http.HttpHeaders.Names.COOKIE;
-import static org.jboss.netty.handler.codec.http.HttpHeaders.Names.SET_COOKIE;
 
 public class LotroServerRequestHandler {
     protected PlayerDAO _playerDao;
@@ -71,7 +70,7 @@ public class LotroServerRequestHandler {
                 if (cookie.getName().equals("loggedUser")) {
                     String value = cookie.getValue();
                     if (value != null) {
-                        _loggedUserHolder.getLoggedUser(value);
+                        return _loggedUserHolder.getLoggedUser(value);
                     }
                 }
             }
