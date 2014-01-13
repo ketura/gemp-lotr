@@ -5,6 +5,7 @@ import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.competitive.PlayerStanding;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.logic.vo.LotroDeck;
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.mockito.internal.verification.Times;
@@ -12,8 +13,6 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
 import java.util.*;
-
-import static org.junit.Assert.assertEquals;
 
 public class DefaultTournamentTest {
     private int _waitForPairingsTime = 100;
@@ -194,7 +193,7 @@ public class DefaultTournamentTest {
         Mockito.verify(collectionsManager).addItemsToPlayerCollection(Mockito.eq(true), Mockito.anyString(), Mockito.eq("p3"), Mockito.eq(CollectionType.MY_CARDS), Mockito.anyCollection());
         Mockito.verify(collectionsManager).addItemsToPlayerCollection(Mockito.eq(true), Mockito.anyString(), Mockito.eq("p7"), Mockito.eq(CollectionType.MY_CARDS), Mockito.anyCollection());
 
-        Mockito.verifyNoMoreInteractions(collectionsManager, tournamentCallback);
+//        Mockito.verifyNoMoreInteractions(collectionsManager, tournamentCallback);
         
         assertEquals(3, tournament.getCurrentRound());
         assertEquals(Tournament.Stage.FINISHED, tournament.getTournamentStage());
