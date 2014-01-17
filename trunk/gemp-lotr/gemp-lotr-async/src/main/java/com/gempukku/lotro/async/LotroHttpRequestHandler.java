@@ -21,7 +21,10 @@ import java.io.*;
 import java.lang.reflect.Type;
 import java.net.InetSocketAddress;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.jboss.netty.handler.codec.http.HttpHeaders.Names.*;
 import static org.jboss.netty.handler.codec.http.HttpHeaders.is100ContinueExpected;
@@ -31,7 +34,8 @@ import static org.jboss.netty.handler.codec.http.HttpVersion.HTTP_1_1;
 
 public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
     private final static long SIX_MONTHS = 1000L * 60L * 60L * 24L * 30L * 6L;
-    private Logger _log = Logger.getLogger(LotroHttpRequestHandler.class);
+    private static Logger _log = Logger.getLogger(LotroHttpRequestHandler.class);
+    private static Logger _accesslog = Logger.getLogger("access");
 
     private Map<Type, Object> _objects;
     private UriRequestHandler _uriRequestHandler;
@@ -43,8 +47,21 @@ public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
         _ipBanDAO = (IpBanDAO) _objects.get(IpBanDAO.class);
     }
 
-    private Collection<String> _bannedIps = Arrays.asList("108.251.13.101", "188.123.232.46", "193.235.73.197", "5.228.68.175", "89.88.173.207", "76.171.226.172", "97.73.50.119", "108.251.13.101");
-    private Collection<String> _bannedRanges = Arrays.asList("46.165.200.", "63.141.204.", "216.177.129.", "204.14.79.", "50.117.80.");
+    private static class RequestInformation {
+        private String uri;
+        private String remoteIp;
+        private long requestTime;
+
+        private RequestInformation(String uri, String remoteIp, long requestTime) {
+            this.uri = uri;
+            this.remoteIp = remoteIp;
+            this.requestTime = requestTime;
+        }
+
+        public void printLog(int statusCode, long finishedTime) {
+            _accesslog.debug(remoteIp+","+statusCode+","+uri+","+(finishedTime-requestTime));
+        }
+    }
 
     @Override
     public void messageReceived(ChannelHandlerContext ctx, final MessageEvent e) throws Exception {
@@ -59,45 +76,49 @@ public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
         if (uri.indexOf("?") > -1)
             uri = uri.substring(0, uri.indexOf("?"));
 
+        final RequestInformation requestInformation = new RequestInformation(request.getUri(),
+                ((InetSocketAddress) e.getRemoteAddress()).getAddress().getHostAddress(),
+                System.currentTimeMillis());
+
         if (request.isChunked()) {
-            send400Error(request, e);
+            send400Error(requestInformation, request, e);
         } else {
             ResponseWriter responseWriter = new ResponseWriter() {
                 @Override
                 public void writeError(int status) {
-                    writeHttpErrorResponse(request, status, null, e);
+                    writeHttpErrorResponse(requestInformation, request, status, null, e);
                 }
 
                 @Override
                 public void writeError(int status, Map<String, String> headers) {
-                    writeHttpErrorResponse(request, status, headers, e);
+                    writeHttpErrorResponse(requestInformation, request, status, headers, e);
                 }
 
                 @Override
                 public void writeXmlResponse(Document document) {
-                    writeHttpXmlResponse(request, document, null, e);
+                    writeHttpXmlResponse(requestInformation, request, document, null, e);
                 }
 
                 @Override
                 public void writeXmlResponse(Document document, Map<String, String> headers) {
-                    writeHttpXmlResponse(request, document, headers, e);
+                    writeHttpXmlResponse(requestInformation, request, document, headers, e);
                 }
 
                 @Override
                 public void writeHtmlResponse(String html) {
-                    writeHttpHtmlResponse(request, html, e);
+                    writeHttpHtmlResponse(requestInformation, request, html, e);
                 }
 
                 @Override
                 public void writeByteResponse(String contentType, byte[] bytes) {
                     Map<String, String> headers = new HashMap<String, String>();
                     headers.put(CONTENT_TYPE, contentType);
-                    writeHttpByteResponse(request, bytes, headers, e);
+                    writeHttpByteResponse(requestInformation, request, bytes, headers, e);
                 }
 
                 @Override
                 public void writeFile(File file, Map<String, String> headers) {
-                    writeFileResponse(request, file, headers, e);
+                    writeFileResponse(requestInformation, request, file, headers, e);
                 }
             };
 
@@ -127,13 +148,13 @@ public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
 
     private Map<String, byte[]> _fileCache = Collections.synchronizedMap(new HashMap<String, byte[]>());
 
-    private void writeFileResponse(HttpRequest request, File file, Map<String, String> headers, MessageEvent e) {
+    private void writeFileResponse(RequestInformation requestInformation, HttpRequest request, File file, Map<String, String> headers, MessageEvent e) {
         try {
             String canonicalPath = file.getCanonicalPath();
             byte[] fileBytes = _fileCache.get(canonicalPath);
             if (fileBytes == null) {
                 if (!file.exists() || !file.isFile()) {
-                    writeHttpErrorResponse(request, 404, null, e);
+                    writeHttpErrorResponse(requestInformation, request, 404, null, e);
                     return;
                 }
 
@@ -148,9 +169,9 @@ public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
                 }
             }
 
-            writeHttpByteResponse(request, fileBytes, getHeadersForFile(headers, file), e);
+            writeHttpByteResponse(requestInformation, request, fileBytes, getHeadersForFile(headers, file), e);
         } catch (IOException exp) {
-            writeHttpErrorResponse(request, 500, null, e);
+            writeHttpErrorResponse(requestInformation, request, 500, null, e);
         }
     }
 
@@ -198,7 +219,9 @@ public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
         return fileHeaders;
     }
 
-    private void writeHttpErrorResponse(HttpRequest request, int status, Map<String, String> headers, MessageEvent e) {
+    private void writeHttpErrorResponse(RequestInformation requestInformation, HttpRequest request, int status, Map<String, String> headers, MessageEvent e) {
+        requestInformation.printLog(status, System.currentTimeMillis());
+
         boolean keepAlive = isKeepAlive(request);
 
         HttpResponse response = new DefaultHttpResponse(HTTP_1_1, HttpResponseStatus.valueOf(status));
@@ -219,7 +242,9 @@ public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
         }
     }
 
-    private void writeHttpByteResponse(HttpRequest request, byte[] bytes, Map<String, String> headers, MessageEvent e) {
+    private void writeHttpByteResponse(RequestInformation requestInformation, HttpRequest request, byte[] bytes, Map<String, String> headers, MessageEvent e) {
+        requestInformation.printLog(200, System.currentTimeMillis());
+
         // Decide whether to close the connection or not.
         boolean keepAlive = isKeepAlive(request);
 
@@ -262,7 +287,9 @@ public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
         }
     }
 
-    private void writeHttpXmlResponse(HttpRequest request, Document document, Map<String, String> headers, MessageEvent e) {
+    private void writeHttpXmlResponse(RequestInformation requestInformation, HttpRequest request, Document document, Map<String, String> headers, MessageEvent e) {
+        requestInformation.printLog(200, System.currentTimeMillis());
+
         // Decide whether to close the connection or not.
         boolean keepAlive = isKeepAlive(request);
 
@@ -322,7 +349,9 @@ public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
 
     }
 
-    private void writeHttpHtmlResponse(HttpRequest request, String html, MessageEvent e) {
+    private void writeHttpHtmlResponse(RequestInformation requestInformation, HttpRequest request, String html, MessageEvent e) {
+        requestInformation.printLog(200, System.currentTimeMillis());
+
         // Decide whether to close the connection or not.
         boolean keepAlive = isKeepAlive(request);
 
@@ -361,7 +390,9 @@ public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
         }
     }
 
-    private void send400Error(HttpRequest request, MessageEvent e) {
+    private void send400Error(RequestInformation requestInformation, HttpRequest request, MessageEvent e) {
+        requestInformation.printLog(400, System.currentTimeMillis());
+
         boolean keepAlive = isKeepAlive(request);
 
         HttpResponse response = new DefaultHttpResponse(HTTP_1_1, BAD_REQUEST);
