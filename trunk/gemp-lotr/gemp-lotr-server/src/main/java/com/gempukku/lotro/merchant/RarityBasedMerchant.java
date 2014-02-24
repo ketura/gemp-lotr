@@ -66,7 +66,10 @@ public class RarityBasedMerchant implements Merchant {
     }
 
     private Integer getCardBasePrice(String blueprintId) {
-        SetDefinition rarity = _rarity.get(blueprintId.substring(0, blueprintId.indexOf("_")));
+        final int underscoreIndex = blueprintId.indexOf("_");
+        if (underscoreIndex<0)
+            return null;
+        SetDefinition rarity = _rarity.get(blueprintId.substring(0, underscoreIndex));
         if (rarity == null)
             return null;
         String cardRarity = rarity.getCardRarity(blueprintId);
