@@ -1,7 +1,12 @@
 package com.gempukku.lotro.cards;
 
 import com.gempukku.lotro.cards.actions.AttachPermanentAction;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Filterable;
+import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.PossessionClass;
+import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -12,7 +17,12 @@ import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public abstract class AbstractAttachable extends AbstractLotroCardBlueprint {
     private int _twilight;
@@ -38,6 +48,18 @@ public abstract class AbstractAttachable extends AbstractLotroCardBlueprint {
 
     public final Filter getFullValidTargetFilter(String playerId, final LotroGame game, final PhysicalCard self) {
         return Filters.and(getValidTargetFilter(playerId, game, self),
+                new Filter() {
+                    @Override
+                    public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                        final CardType thisType = getCardType();
+                        if (thisType == CardType.POSSESSION || thisType == CardType.ARTIFACT) {
+                            final CardType targetType = physicalCard.getBlueprint().getCardType();
+                            return targetType == CardType.COMPANION || targetType == CardType.ALLY
+                                    || targetType == CardType.MINION;
+                        }
+                        return true;
+                    }
+                },
                 new Filter() {
                     @Override
                     public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
