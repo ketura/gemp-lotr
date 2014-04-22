@@ -20,7 +20,7 @@ import com.gempukku.lotro.logic.modifiers.SpotCondition;
  */
 public class Card20_277 extends AbstractEvent {
     public Card20_277() {
-        super(Side.SHADOW, 1, Culture.MORIA, "Memories of Khazad-dum", Phase.SKIRMISH);
+        super(Side.SHADOW, 1, Culture.MORIA, "Memories of Moria", Phase.SKIRMISH);
     }
 
     @Override
