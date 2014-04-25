@@ -45,6 +45,8 @@ var GempLotrDeckBuildingUI = Class.extend({
 
     collectionType:null,
 
+    specialSelection:false,
+
     init:function () {
         var that = this;
 
@@ -52,6 +54,9 @@ var GempLotrDeckBuildingUI = Class.extend({
 
         this.cardFilter = new CardFilter($("#collectionDiv"), $("#collectionDiv"),
                 function (filter, start, count, callback) {
+                    if (!that.specialSelection) {
+                        filter = "cardType:-THE_ONE_RING " + filter;
+                    }
                     that.comm.getCollection(that.collectionType, filter, start, count, function (xml) {
                         callback(xml);
                     }, {
@@ -266,7 +271,7 @@ var GempLotrDeckBuildingUI = Class.extend({
 
         this.getCollectionTypes();
 
-        this.cardFilter.setFilter("cardType:-THE_ONE_RING");
+        this.cardFilter.setFilter("");
         this.cardFilter.getCollection();
 
         this.checkDeckStatsDirty();
@@ -573,6 +578,7 @@ var GempLotrDeckBuildingUI = Class.extend({
 
     showPredefinedFilter:function (filter, container) {
         this.cardFilter.enableDetailFilters(false);
+        this.specialSelection = true;
         this.cardFilter.setFilter(filter);
 
         var that = this;
@@ -588,7 +594,8 @@ var GempLotrDeckBuildingUI = Class.extend({
 
     showNormalFilter:function () {
         this.cardFilter.enableDetailFilters(true);
-        this.cardFilter.setFilter("cardType:-THE_ONE_RING");
+        this.specialSelection = false;
+        this.cardFilter.setFilter("");
 
         this.selectionFunc = this.addCardToDeckAndLayout;
     },
