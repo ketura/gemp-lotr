@@ -2,16 +2,19 @@ package com.gempukku.lotro.cards.set8.shire;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Race;
+import com.gempukku.lotro.common.Signet;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.effects.ChooseAndDiscardCardsFromHandEffect;
 import com.gempukku.lotro.logic.effects.ChooseAndWoundCharactersEffect;
-import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -47,16 +50,7 @@ public class Card8_122 extends AbstractCompanion {
             action.appendCost(
                     new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 4));
             action.appendEffect(
-                    new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, CardType.MINION, Filters.inSkirmishAgainst(self)) {
-                        @Override
-                        protected void woundedCardsCallback(Collection<PhysicalCard> cards) {
-                            for (PhysicalCard card : cards) {
-                                if (Filters.hasAttached(Keyword.FORTIFICATION).accepts(game.getGameState(), game.getModifiersQuerying(), card))
-                                    action.appendEffect(
-                                            new WoundCharactersEffect(self, card));
-                            }
-                        }
-                    });
+                    new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, 2, CardType.MINION, Filters.inSkirmishAgainst(self), Filters.hasAttached(Keyword.FORTIFICATION)));
             return Collections.singletonList(action);
         }
         return null;
