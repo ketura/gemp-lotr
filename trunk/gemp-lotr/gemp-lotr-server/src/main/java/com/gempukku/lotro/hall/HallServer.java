@@ -1,6 +1,10 @@
 package com.gempukku.lotro.hall;
 
-import com.gempukku.lotro.*;
+import com.gempukku.lotro.AbstractServer;
+import com.gempukku.lotro.DateUtils;
+import com.gempukku.lotro.PrivateInformationException;
+import com.gempukku.lotro.SubscriptionConflictException;
+import com.gempukku.lotro.SubscriptionExpiredException;
 import com.gempukku.lotro.cards.CardSets;
 import com.gempukku.lotro.chat.ChatCommandCallback;
 import com.gempukku.lotro.chat.ChatCommandErrorException;
@@ -13,7 +17,16 @@ import com.gempukku.lotro.db.vo.League;
 import com.gempukku.lotro.draft.Draft;
 import com.gempukku.lotro.draft.DraftChannelVisitor;
 import com.gempukku.lotro.draft.DraftFinishedException;
-import com.gempukku.lotro.game.*;
+import com.gempukku.lotro.game.CardCollection;
+import com.gempukku.lotro.game.CardNotFoundException;
+import com.gempukku.lotro.game.CollectionUtils;
+import com.gempukku.lotro.game.DeckInvalidException;
+import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
+import com.gempukku.lotro.game.LotroFormat;
+import com.gempukku.lotro.game.LotroGameMediator;
+import com.gempukku.lotro.game.LotroGameParticipant;
+import com.gempukku.lotro.game.LotroServer;
+import com.gempukku.lotro.game.Player;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.gempukku.lotro.league.LeagueSerieData;
 import com.gempukku.lotro.league.LeagueService;
@@ -21,11 +34,27 @@ import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.timing.GameResultListener;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 import com.gempukku.lotro.service.AdminService;
-import com.gempukku.lotro.tournament.*;
+import com.gempukku.lotro.tournament.ImmediateRecurringQueue;
+import com.gempukku.lotro.tournament.PairingMechanismRegistry;
+import com.gempukku.lotro.tournament.RecurringScheduledQueue;
+import com.gempukku.lotro.tournament.ScheduledTournamentQueue;
+import com.gempukku.lotro.tournament.Tournament;
+import com.gempukku.lotro.tournament.TournamentCallback;
+import com.gempukku.lotro.tournament.TournamentPrizeSchemeRegistry;
+import com.gempukku.lotro.tournament.TournamentQueue;
+import com.gempukku.lotro.tournament.TournamentQueueCallback;
+import com.gempukku.lotro.tournament.TournamentQueueInfo;
+import com.gempukku.lotro.tournament.TournamentService;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TimeZone;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
@@ -140,16 +169,16 @@ public class HallServer extends AbstractServer {
         try {
             _tournamentQueues.put("fotr_daily_eu", new RecurringScheduledQueue(sdf.parse("2013-01-15 19:30:00").getTime(), _repeatTournaments, "fotrDailyEu-", "Daily Gondor Fellowship Block", 0,
                     true, CollectionType.MY_CARDS, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes(cardSets, "daily"), _pairingMechanismRegistry.getPairingMechanism("swiss-3"),
-                    "fotr_block", 8));
+                    "fotr_block", 4));
             _tournamentQueues.put("fotr_daily_us", new RecurringScheduledQueue(sdf.parse("2013-01-16 00:30:00").getTime(), _repeatTournaments, "fotrDailyUs-", "Daily Rohan Fellowship Block", 0,
                     true, CollectionType.MY_CARDS, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes(cardSets, "daily"), _pairingMechanismRegistry.getPairingMechanism("swiss-3"),
-                    "fotr_block", 8));
+                    "fotr_block", 4));
             _tournamentQueues.put("movie_daily_eu", new RecurringScheduledQueue(sdf.parse("2013-01-16 19:30:00").getTime(), _repeatTournaments, "movieDailyEu-", "Daily Gondor Movie Block", 0,
                     true, CollectionType.MY_CARDS, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes(cardSets, "daily"), _pairingMechanismRegistry.getPairingMechanism("swiss-3"),
-                    "movie", 8));
+                    "movie", 4));
             _tournamentQueues.put("movie_daily_us", new RecurringScheduledQueue(sdf.parse("2013-01-17 00:30:00").getTime(), _repeatTournaments, "movieDailyUs-", "Daily Rohan Movie Block", 0,
                     true, CollectionType.MY_CARDS, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes(cardSets, "daily"), _pairingMechanismRegistry.getPairingMechanism("swiss-3"),
-                    "movie", 8));
+                    "movie", 4));
         } catch (ParseException exp) {
             // Ignore, can't happen
         }
@@ -579,11 +608,7 @@ public class HallServer extends AbstractServer {
 
         // Now check if player owns all the cards
         if (collectionType.getCode().equals("default")) {
-            CardCollection ownedCollection;
-            if (competitive)
-                ownedCollection = _collectionsManager.getPlayerCollection(player, "permanent");
-            else
-                ownedCollection = _collectionsManager.getPlayerCollection(player, "permanent+trophy");
+            CardCollection ownedCollection = _collectionsManager.getPlayerCollection(player, "permanent+trophy");
 
             LotroDeck filteredSpecialCardsDeck = new LotroDeck(lotroDeck.getDeckName());
             filteredSpecialCardsDeck.setRing(filterCard(lotroDeck.getRing(), ownedCollection));
