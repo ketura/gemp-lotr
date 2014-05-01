@@ -3,7 +3,14 @@ package com.gempukku.lotro.competitive;
 import com.gempukku.util.DescComparator;
 import com.gempukku.util.MultipleComparator;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class BestOfOneStandingsProducer {
@@ -36,17 +43,20 @@ public class BestOfOneStandingsProducer {
 
         List<PlayerStanding> leagueStandings = new LinkedList<PlayerStanding>();
         for (String playerName : participants) {
-            int points = playerWinCounts.get(playerName).intValue() * pointsForWin + playerLossCounts.get(playerName).intValue() * pointsForLoss;
-            int gamesPlayed = playerWinCounts.get(playerName).intValue() + playerLossCounts.get(playerName).intValue();
+            int playerWins = playerWinCounts.get(playerName).intValue();
+            int playerLosses = playerLossCounts.get(playerName).intValue();
+            int points = playerWins * pointsForWin + playerLosses * pointsForLoss;
+            int gamesPlayed = playerWins + playerLosses;
 
+            int byesCount = 0;
             if (playersWithByes.containsKey(playerName)) {
-                int byesCount = playersWithByes.get(playerName);
-                
+                byesCount = playersWithByes.get(playerName);
+
                 points += pointsForWin * byesCount;
                 gamesPlayed += byesCount;
             }
 
-            PlayerStanding standing = new PlayerStanding(playerName, points, gamesPlayed);
+            PlayerStanding standing = new PlayerStanding(playerName, points, gamesPlayed, playerWins, playerLosses, byesCount);
             List<String> opponents = playerOpponents.get(playerName);
             int opponentWins = 0;
             int opponentGames = 0;
@@ -54,10 +64,11 @@ public class BestOfOneStandingsProducer {
                 opponentWins += playerWinCounts.get(opponent).intValue();
                 opponentGames += playerWinCounts.get(opponent).intValue() + playerLossCounts.get(opponent).intValue();
             }
-            if (opponentGames != 0)
+            if (opponentGames != 0) {
                 standing.setOpponentWin(opponentWins * 1f / opponentGames);
-            else
+            } else {
                 standing.setOpponentWin(0f);
+            }
             leagueStandings.add(standing);
         }
 
@@ -67,8 +78,9 @@ public class BestOfOneStandingsProducer {
         int position = 1;
         PlayerStanding lastStanding = null;
         for (PlayerStanding leagueStanding : leagueStandings) {
-            if (lastStanding == null || LEAGUE_STANDING_COMPARATOR.compare(leagueStanding, lastStanding) != 0)
+            if (lastStanding == null || LEAGUE_STANDING_COMPARATOR.compare(leagueStanding, lastStanding) != 0) {
                 standing = position;
+            }
             leagueStanding.setStanding(standing);
             position++;
             lastStanding = leagueStanding;
@@ -95,10 +107,12 @@ public class BestOfOneStandingsProducer {
         @Override
         public int compare(PlayerStanding o1, PlayerStanding o2) {
             final float diff = o1.getOpponentWin() - o2.getOpponentWin();
-            if (diff < 0)
+            if (diff < 0) {
                 return -1;
-            if (diff > 0)
+            }
+            if (diff > 0) {
                 return 1;
+            }
             return 0;
         }
     }
