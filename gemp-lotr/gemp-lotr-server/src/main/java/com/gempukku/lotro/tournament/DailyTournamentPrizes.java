@@ -14,10 +14,11 @@ public class DailyTournamentPrizes implements TournamentPrizes {
     @Override
     public CardCollection getPrizeForTournament(PlayerStanding playerStanding, int playersCount) {
         DefaultCardCollection tournamentPrize = new DefaultCardCollection();
-        tournamentPrize.addItem("(S)Booster Choice", playerStanding.getPoints());
+        tournamentPrize.addItem("(S)Booster Choice", (playerStanding.getPlayerWins() + playerStanding.getPlayerByes()) * 2);
 
-        if (tournamentPrize.getAll().size() == 0)
+        if (tournamentPrize.getAll().size() == 0) {
             return null;
+        }
         return tournamentPrize;
     }
 
