@@ -42,7 +42,7 @@ public class Card18_035 extends AbstractEvent {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
                         action.insertEffect(
-                                new KillEffect(self, KillEffect.Cause.CARD_EFFECT));
+                                new KillEffect(card, KillEffect.Cause.CARD_EFFECT));
                     }
                 });
         action.appendEffect(
