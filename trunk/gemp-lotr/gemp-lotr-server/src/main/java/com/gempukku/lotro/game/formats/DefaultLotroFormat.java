@@ -4,11 +4,21 @@ import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.game.*;
+import com.gempukku.lotro.game.CardNotFoundException;
+import com.gempukku.lotro.game.DeckInvalidException;
+import com.gempukku.lotro.game.LotroCardBlueprint;
+import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
+import com.gempukku.lotro.game.LotroFormat;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class DefaultLotroFormat implements LotroFormat {
     private LotroCardBlueprintLibrary _library;
@@ -109,6 +119,11 @@ public class DefaultLotroFormat implements LotroFormat {
     @Override
     public String getSurveyUrl() {
         return _surveyUrl;
+    }
+
+    @Override
+    public int getHandSize() {
+        return 8;
     }
 
     protected void addBannedCard(String baseBlueprintId) {

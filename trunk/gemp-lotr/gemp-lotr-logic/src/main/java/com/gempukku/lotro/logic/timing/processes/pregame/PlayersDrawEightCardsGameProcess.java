@@ -16,10 +16,12 @@ public class PlayersDrawEightCardsGameProcess implements GameProcess {
 
     @Override
     public void process(LotroGame game) {
+        int handSize = game.getFormat().getHandSize();
+
         GameState gameState = game.getGameState();
         for (String player : gameState.getPlayerOrder().getAllPlayers()) {
             gameState.shuffleDeck(player);
-            for (int i = 0; i < 8; i++)
+            for (int i = 0; i < handSize; i++)
                 gameState.playerDrawsCard(player);
         }
         gameState.setCurrentPhase(Phase.BETWEEN_TURNS);

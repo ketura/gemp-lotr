@@ -3,7 +3,11 @@ package com.gempukku.lotro.game.state.actions;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.game.*;
+import com.gempukku.lotro.game.AbstractActionProxy;
+import com.gempukku.lotro.game.ActionProxy;
+import com.gempukku.lotro.game.ActionsEnvironment;
+import com.gempukku.lotro.game.CompletePhysicalCardVisitor;
+import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
@@ -17,15 +21,20 @@ import com.gempukku.lotro.logic.timing.results.AssignedToSkirmishResult;
 import com.gempukku.lotro.logic.timing.results.CharacterLostSkirmishResult;
 import com.gempukku.lotro.logic.timing.results.CharacterWonSkirmishResult;
 import com.gempukku.lotro.logic.timing.results.PlayCardResult;
-import com.gempukku.lotro.logic.timing.rules.CharacterDeathRule;
 import org.apache.log4j.Logger;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class DefaultActionsEnvironment implements ActionsEnvironment {
     private static Logger LOG = Logger.getLogger(DefaultActionsEnvironment.class);
     private LotroGame _lotroGame;
-    private CharacterDeathRule _characterDeathRule;
     private ActionStack _actionStack;
     private List<ActionProxy> _actionProxies = new LinkedList<ActionProxy>();
     private Map<Phase, List<ActionProxy>> _untilStartOfPhaseActionProxies = new HashMap<Phase, List<ActionProxy>>();
@@ -100,10 +109,6 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
     @Override
     public void emitEffectResult(EffectResult effectResult) {
         _effectResults.add(effectResult);
-    }
-
-    public boolean hasPendingEffectResults() {
-        return _effectResults.size() > 0;
     }
 
     public Set<EffectResult> consumeEffectResults() {

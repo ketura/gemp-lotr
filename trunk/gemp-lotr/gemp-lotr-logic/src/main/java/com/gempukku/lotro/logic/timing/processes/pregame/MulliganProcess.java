@@ -23,10 +23,12 @@ public class MulliganProcess implements GameProcess {
 
     @Override
     public void process(final LotroGame game) {
+        final int handSize = game.getFormat().getHandSize();
+
         final String nextPlayer = _playOrder.getNextPlayer();
         if (nextPlayer != null) {
             game.getUserFeedback().sendAwaitingDecision(nextPlayer,
-                    new MultipleChoiceAwaitingDecision(1, "Do you wish to mulligan? (Shuffle cards back and draw 6)", new String[]{"No", "Yes"}) {
+                    new MultipleChoiceAwaitingDecision(1, "Do you wish to mulligan? (Shuffle cards back and draw " + (handSize - 2) + ")", new String[]{"No", "Yes"}) {
                         @Override
                         protected void validDecisionMade(int index, String result) {
                             if (index == 1) {
@@ -38,7 +40,7 @@ public class MulliganProcess implements GameProcess {
                                     gameState.addCardToZone(game, card, Zone.DECK);
 
                                 gameState.shuffleDeck(nextPlayer);
-                                for (int i = 0; i < 6; i++)
+                                for (int i = 0; i < handSize - 2; i++)
                                     gameState.playerDrawsCard(nextPlayer);
                             } else {
                                 game.getGameState().sendMessage(nextPlayer + " decides not to mulligan");
