@@ -35,4 +35,6 @@ public interface LotroFormat {
     public Block getSiteBlock();
 
     public String getSurveyUrl();
+
+    public int getHandSize();
 }

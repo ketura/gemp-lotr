@@ -83,11 +83,13 @@ public class PlayerReconcilesAction implements Action {
             game.getGameState().sendMessage(_playerId + " reconciles");
             _effectQueue = new LinkedList<Effect>();
 
+            final int handSize = game.getFormat().getHandSize();
+
             GameState gameState = _game.getGameState();
             final Set<? extends PhysicalCard> cardsInHand = new HashSet<PhysicalCard>(gameState.getHand(_playerId));
-            if (cardsInHand.size() > 8) {
+            if (cardsInHand.size() > handSize) {
                 _effectQueue.add(new PlayoutDecisionEffect(_playerId,
-                        new CardsSelectionDecision(1, "Choose cards to discard down to 8", cardsInHand, cardsInHand.size() - 8, cardsInHand.size() - 8) {
+                        new CardsSelectionDecision(1, "Choose cards to discard down to "+handSize, cardsInHand, cardsInHand.size() - handSize, cardsInHand.size() - handSize) {
                             @Override
                             public void decisionMade(String result) throws DecisionResultInvalidException {
                                 Set<PhysicalCard> cards = getSelectedCardsByResponse(result);
@@ -106,15 +108,15 @@ public class PlayerReconcilesAction implements Action {
                                     _effectQueue.add(new DiscardCardsFromHandEffect(null, _playerId, selectedCards, false));
                                 }
                                 int cardsInHandAfterDiscard = cardsInHand.size() - selectedCards.size();
-                                if (cardsInHandAfterDiscard < 8) {
-                                    _effectQueue.add(new DrawCardsEffect(PlayerReconcilesAction.this, _playerId, 8 - cardsInHandAfterDiscard));
+                                if (cardsInHandAfterDiscard < handSize) {
+                                    _effectQueue.add(new DrawCardsEffect(PlayerReconcilesAction.this, _playerId, handSize - cardsInHandAfterDiscard));
                                 }
                                 _effectQueue.add(
                                         new TriggeringResultEffect(new ReconcileResult(_playerId), "Player reconciled"));
                             }
                         }));
             } else {
-                _effectQueue.add(new DrawCardsEffect(PlayerReconcilesAction.this, _playerId, 8));
+                _effectQueue.add(new DrawCardsEffect(PlayerReconcilesAction.this, _playerId, handSize));
                 _effectQueue.add(
                         new TriggeringResultEffect(new ReconcileResult(_playerId), "Player reconciled"));
             }
