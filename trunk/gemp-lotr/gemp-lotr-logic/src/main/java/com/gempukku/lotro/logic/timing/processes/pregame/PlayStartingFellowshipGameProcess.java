@@ -25,7 +25,7 @@ public class PlayStartingFellowshipGameProcess implements GameProcess {
 
             _nextProcess = new PlayerPlaysStartingFellowshipGameProcess(nextPlayer, new PlayStartingFellowshipGameProcess(_playOrder, _firstPlayer));
         } else {
-            _nextProcess = new PlayersDrawEightCardsGameProcess(_firstPlayer);
+            _nextProcess = new PlayersDrawStartingHandGameProcess(_firstPlayer);
         }
     }
 
