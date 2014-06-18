@@ -6,11 +6,11 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
 import com.gempukku.lotro.logic.timing.processes.turn.BetweenTurnsProcess;
 
-public class PlayersDrawEightCardsGameProcess implements GameProcess {
+public class PlayersDrawStartingHandGameProcess implements GameProcess {
     private String _firstPlayer;
     private GameProcess _followingGameProcess;
 
-    public PlayersDrawEightCardsGameProcess(String firstPlayer) {
+    public PlayersDrawStartingHandGameProcess(String firstPlayer) {
         _firstPlayer = firstPlayer;
     }
 
