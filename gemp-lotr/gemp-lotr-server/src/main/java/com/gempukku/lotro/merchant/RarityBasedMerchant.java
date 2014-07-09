@@ -77,7 +77,7 @@ public class RarityBasedMerchant implements Merchant {
             return 50;
         else if (cardRarity.equals("U") || cardRarity.equals("S"))
             return 100;
-        else if (cardRarity.equals("R") || cardRarity.equals("P"))
+        else if (cardRarity.equals("R") || cardRarity.equals("P") || cardRarity.equals("A"))
             return 1000;
         else if (cardRarity.equals("X"))
             return 2000;

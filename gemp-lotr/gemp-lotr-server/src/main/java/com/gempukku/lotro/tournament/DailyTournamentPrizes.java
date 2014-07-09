@@ -14,7 +14,7 @@ public class DailyTournamentPrizes implements TournamentPrizes {
     @Override
     public CardCollection getPrizeForTournament(PlayerStanding playerStanding, int playersCount) {
         DefaultCardCollection tournamentPrize = new DefaultCardCollection();
-        tournamentPrize.addItem("(S)Booster Choice", (playerStanding.getPlayerWins() + playerStanding.getPlayerByes()) * 2);
+        tournamentPrize.addItem("(S)Booster Choice", playerStanding.getPoints());
 
         if (tournamentPrize.getAll().size() == 0) {
             return null;
@@ -34,6 +34,6 @@ public class DailyTournamentPrizes implements TournamentPrizes {
 
     @Override
     public String getPrizeDescription() {
-        return "2 boosters per win (or bye), max 3 rounds";
+        return "2 boosters per win (or bye), 1 per loss, max 3 rounds";
     }
 }
