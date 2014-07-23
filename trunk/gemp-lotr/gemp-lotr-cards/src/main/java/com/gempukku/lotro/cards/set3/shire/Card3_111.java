@@ -2,7 +2,11 @@ package com.gempukku.lotro.cards.set3.shire;
 
 import com.gempukku.lotro.cards.AbstractAlly;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Race;
+import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -34,7 +38,8 @@ public class Card3_111 extends AbstractAlly {
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.FOR_EACH_DISCARDED_FROM_HAND) {
             DiscardCardFromHandResult discardCardsResult = (DiscardCardFromHandResult) effectResult;
-            if (discardCardsResult.isForced() && discardCardsResult.getHandPlayerId().equals(playerId)) {
+            if (discardCardsResult.isForced() && discardCardsResult.getHandPlayerId().equals(playerId)
+                    && Filters.and(Side.SHADOW).accepts(game.getGameState(), game.getModifiersQuerying(), discardCardsResult.getSource())) {
                 OptionalTriggerAction action = new OptionalTriggerAction(self);
                 action.appendEffect(
                         new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.or(CardType.MINION, Filters.and(Side.SHADOW, CardType.CONDITION))));

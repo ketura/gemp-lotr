@@ -10,7 +10,11 @@ import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.db.vo.League;
-import com.gempukku.lotro.game.*;
+import com.gempukku.lotro.game.CardCollection;
+import com.gempukku.lotro.game.LotroCardBlueprint;
+import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
+import com.gempukku.lotro.game.Player;
+import com.gempukku.lotro.game.SortAndFilterCards;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.gempukku.lotro.league.LeagueSerieData;
 import com.gempukku.lotro.league.LeagueService;
@@ -201,10 +205,9 @@ public class CollectionRequestHandler extends LotroServerRequestHandler implemen
     }
 
     private CollectionType createCollectionType(String collectionType) {
-        if (collectionType.equals(CollectionType.MY_CARDS.getCode()))
-            return CollectionType.MY_CARDS;
-        if (collectionType.equals(CollectionType.TROPHY.getCode()))
-            return CollectionType.TROPHY;
+        final CollectionType result = CollectionType.getCollectionTypeByCode(collectionType);
+        if (result != null)
+            return result;
 
         return _leagueService.getCollectionTypeByCode(collectionType);
     }

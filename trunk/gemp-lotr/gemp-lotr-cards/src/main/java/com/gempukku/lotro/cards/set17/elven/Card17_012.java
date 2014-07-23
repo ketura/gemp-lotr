@@ -3,7 +3,11 @@ package com.gempukku.lotro.cards.set17.elven;
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -34,7 +38,7 @@ import java.util.List;
  */
 public class Card17_012 extends AbstractCompanion {
     public Card17_012() {
-        super(2, 6, 3, 6, Culture.ELVEN, Race.ELF, null, "Rumil", "Silvan Elf", true);
+        super(2, 6, 3, 6, Culture.ELVEN, Race.ELF, null, "Rúmil", "Silvan Elf", true);
         addKeyword(Keyword.HUNTER, 1);
     }
 
