@@ -24,12 +24,11 @@ public class NewConstructedLeagueData implements LeagueData {
         
         String[] params = parameters.split(",");
         int start = Integer.parseInt(params[0]);
-        if (params[1].equals("default"))
-            _collectionType = CollectionType.ALL_CARDS;
-        else if (params[1].equals(CollectionType.MY_CARDS.getCode()))
-            _collectionType = CollectionType.MY_CARDS;
-        else
-            throw new IllegalArgumentException("Unkown collection type");
+
+        _collectionType = CollectionType.getCollectionTypeByCode(params[1]);
+        if (_collectionType == null)
+            throw new IllegalArgumentException("Unknown collection type");
+
         int series = Integer.parseInt(params[3]);
 
         int serieStart = start;

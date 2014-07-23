@@ -11,7 +11,6 @@ import com.gempukku.lotro.chat.ChatCommandErrorException;
 import com.gempukku.lotro.chat.ChatRoomMediator;
 import com.gempukku.lotro.chat.ChatServer;
 import com.gempukku.lotro.collection.CollectionsManager;
-import com.gempukku.lotro.db.IpBanDAO;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.db.vo.League;
 import com.gempukku.lotro.draft.Draft;
@@ -74,11 +73,11 @@ public class HallServer extends AbstractServer {
     private LotroServer _lotroServer;
     private PairingMechanismRegistry _pairingMechanismRegistry;
     private CardSets _cardSets;
-    private IpBanDAO _ipBanDAO;
     private AdminService _adminService;
     private TournamentPrizeSchemeRegistry _tournamentPrizeSchemeRegistry;
 
-    private CollectionType _allCardsCollectionType = CollectionType.ALL_CARDS;
+    private CollectionType _defaultCollectionType = CollectionType.ALL_CARDS;
+    private CollectionType _tournamentCollectionType = CollectionType.OWNED_TOURNAMENT_CARDS;
 
     private int _nextTableId = 1;
 
@@ -102,7 +101,7 @@ public class HallServer extends AbstractServer {
 
     public HallServer(LotroServer lotroServer, ChatServer chatServer, LeagueService leagueService, TournamentService tournamentService, LotroCardBlueprintLibrary library,
                       LotroFormatLibrary formatLibrary, CollectionsManager collectionsManager,
-                      IpBanDAO ipBanDAO, AdminService adminService,
+                      AdminService adminService,
                       TournamentPrizeSchemeRegistry tournamentPrizeSchemeRegistry,
                       PairingMechanismRegistry pairingMechanismRegistry, CardSets cardSets) {
         _lotroServer = lotroServer;
@@ -112,7 +111,6 @@ public class HallServer extends AbstractServer {
         _library = library;
         _formatLibrary = formatLibrary;
         _collectionsManager = collectionsManager;
-        _ipBanDAO = ipBanDAO;
         _adminService = adminService;
         _tournamentPrizeSchemeRegistry = tournamentPrizeSchemeRegistry;
         _pairingMechanismRegistry = pairingMechanismRegistry;
@@ -168,16 +166,16 @@ public class HallServer extends AbstractServer {
 
         try {
             _tournamentQueues.put("fotr_daily_eu", new RecurringScheduledQueue(sdf.parse("2013-01-15 19:30:00").getTime(), _repeatTournaments, "fotrDailyEu-", "Daily Gondor Fellowship Block", 0,
-                    true, CollectionType.MY_CARDS, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes(cardSets, "daily"), _pairingMechanismRegistry.getPairingMechanism("swiss-3"),
+                    true, _tournamentCollectionType, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes(cardSets, "daily"), _pairingMechanismRegistry.getPairingMechanism("swiss-3"),
                     "fotr_block", 4));
             _tournamentQueues.put("fotr_daily_us", new RecurringScheduledQueue(sdf.parse("2013-01-16 00:30:00").getTime(), _repeatTournaments, "fotrDailyUs-", "Daily Rohan Fellowship Block", 0,
-                    true, CollectionType.MY_CARDS, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes(cardSets, "daily"), _pairingMechanismRegistry.getPairingMechanism("swiss-3"),
+                    true, _tournamentCollectionType, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes(cardSets, "daily"), _pairingMechanismRegistry.getPairingMechanism("swiss-3"),
                     "fotr_block", 4));
             _tournamentQueues.put("movie_daily_eu", new RecurringScheduledQueue(sdf.parse("2013-01-16 19:30:00").getTime(), _repeatTournaments, "movieDailyEu-", "Daily Gondor Movie Block", 0,
-                    true, CollectionType.MY_CARDS, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes(cardSets, "daily"), _pairingMechanismRegistry.getPairingMechanism("swiss-3"),
+                    true, _tournamentCollectionType, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes(cardSets, "daily"), _pairingMechanismRegistry.getPairingMechanism("swiss-3"),
                     "movie", 4));
             _tournamentQueues.put("movie_daily_us", new RecurringScheduledQueue(sdf.parse("2013-01-17 00:30:00").getTime(), _repeatTournaments, "movieDailyUs-", "Daily Rohan Movie Block", 0,
-                    true, CollectionType.MY_CARDS, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes(cardSets, "daily"), _pairingMechanismRegistry.getPairingMechanism("swiss-3"),
+                    true, _tournamentCollectionType, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes(cardSets, "daily"), _pairingMechanismRegistry.getPairingMechanism("swiss-3"),
                     "movie", 4));
         } catch (ParseException exp) {
             // Ignore, can't happen
@@ -249,7 +247,7 @@ public class HallServer extends AbstractServer {
         try {
             League league = null;
             LeagueSerieData leagueSerie = null;
-            CollectionType collectionType = _allCardsCollectionType;
+            CollectionType collectionType = _defaultCollectionType;
             LotroFormat format = _formatLibrary.getHallFormats().get(type);
 
             if (format == null) {

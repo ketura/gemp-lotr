@@ -4,7 +4,14 @@ import com.gempukku.lotro.cards.CardSets;
 import com.gempukku.lotro.chat.ChatServer;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.collection.TransferDAO;
-import com.gempukku.lotro.db.*;
+import com.gempukku.lotro.db.CollectionDAO;
+import com.gempukku.lotro.db.DeckDAO;
+import com.gempukku.lotro.db.GameHistoryDAO;
+import com.gempukku.lotro.db.IpBanDAO;
+import com.gempukku.lotro.db.LeagueDAO;
+import com.gempukku.lotro.db.LeagueMatchDAO;
+import com.gempukku.lotro.db.LeagueParticipationDAO;
+import com.gempukku.lotro.db.PlayerDAO;
 import com.gempukku.lotro.game.GameHistoryService;
 import com.gempukku.lotro.game.GameRecorder;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
@@ -17,7 +24,12 @@ import com.gempukku.lotro.packs.DraftPackStorage;
 import com.gempukku.lotro.packs.PacksStorage;
 import com.gempukku.lotro.service.AdminService;
 import com.gempukku.lotro.service.LoggedUserHolder;
-import com.gempukku.lotro.tournament.*;
+import com.gempukku.lotro.tournament.PairingMechanismRegistry;
+import com.gempukku.lotro.tournament.TournamentDAO;
+import com.gempukku.lotro.tournament.TournamentMatchDAO;
+import com.gempukku.lotro.tournament.TournamentPlayerDAO;
+import com.gempukku.lotro.tournament.TournamentPrizeSchemeRegistry;
+import com.gempukku.lotro.tournament.TournamentService;
 
 import java.lang.reflect.Type;
 import java.util.Map;
@@ -97,7 +109,6 @@ public class ServerBuilder {
                         extract(objectMap, LotroCardBlueprintLibrary.class),
                         extract(objectMap, LotroFormatLibrary.class),
                         extract(objectMap, CollectionsManager.class),
-                        extract(objectMap, IpBanDAO.class),
                         extract(objectMap, AdminService.class),
                         tournamentPrizeSchemeRegistry,
                         pairingMechanismRegistry,

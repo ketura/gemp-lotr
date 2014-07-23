@@ -13,7 +13,11 @@ import com.gempukku.lotro.game.CardCollection;
 import com.gempukku.lotro.game.Player;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.gempukku.lotro.hall.HallServer;
-import com.gempukku.lotro.league.*;
+import com.gempukku.lotro.league.LeagueData;
+import com.gempukku.lotro.league.LeagueSerieData;
+import com.gempukku.lotro.league.LeagueService;
+import com.gempukku.lotro.league.NewConstructedLeagueData;
+import com.gempukku.lotro.league.NewSealedLeagueData;
 import com.gempukku.lotro.service.AdminService;
 import com.gempukku.lotro.tournament.TournamentService;
 import org.jboss.netty.channel.MessageEvent;
@@ -258,10 +262,9 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
     }
 
     private CollectionType createCollectionType(String collectionType) {
-        if (collectionType.equals(CollectionType.MY_CARDS.getCode()))
-            return CollectionType.MY_CARDS;
-        if (collectionType.equals(CollectionType.TROPHY.getCode()))
-            return CollectionType.TROPHY;
+        final CollectionType result = CollectionType.getCollectionTypeByCode(collectionType);
+        if (result != null)
+            return result;
 
         return _leagueService.getCollectionTypeByCode(collectionType);
     }
