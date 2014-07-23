@@ -4,7 +4,12 @@ import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.DiscardCardFromDeckEffect;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -77,7 +82,7 @@ public class Card1_055 extends AbstractPermanent {
     }
 
     private String[] opponentsHavingAtLeast7Cards(LotroGame game, String currentPlayer) {
-        String[] opponents = GameUtils.getOpponents(game, currentPlayer);
+        String[] opponents = GameUtils.getShadowPlayers(game);
         List<String> result = new LinkedList<String>();
 
         for (String shadowPlayer : opponents)

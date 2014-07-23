@@ -43,7 +43,7 @@ public class Card6_096 extends AbstractEvent {
         action.appendEffect(
                 new AddUntilEndOfTurnModifierEffect(
                         new MoveLimitModifier(self, 2)));
-        for (final String opponentId : GameUtils.getOpponents(game, playerId)) {
+        for (final String opponentId : GameUtils.getShadowPlayers(game)) {
             action.appendEffect(
                     new PlayoutDecisionEffect(opponentId,
                             new MultipleChoiceAwaitingDecision(1, "Do you want to draw 6 cards?", new String[]{"Yes", "No"}) {

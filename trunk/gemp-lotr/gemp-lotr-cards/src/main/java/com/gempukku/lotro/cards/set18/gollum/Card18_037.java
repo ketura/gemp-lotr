@@ -31,7 +31,7 @@ public class Card18_037 extends AbstractEvent {
         PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new ReinforceTokenEffect(self, playerId, Token.GOLLUM));
-        for (String shadowPlayer : GameUtils.getOpponents(game, playerId)) {
+        for (String shadowPlayer : GameUtils.getShadowPlayers(game)) {
             action.appendEffect(
                     new OptionalEffect(action, shadowPlayer,
                             new DrawCardsEffect(action, shadowPlayer, 1)));

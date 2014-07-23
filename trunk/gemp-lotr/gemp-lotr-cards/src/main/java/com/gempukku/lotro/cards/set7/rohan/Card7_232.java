@@ -8,7 +8,13 @@ import com.gempukku.lotro.cards.effects.PreventableEffect;
 import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Filterable;
+import com.gempukku.lotro.common.Names;
+import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.PossessionClass;
+import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -69,12 +75,13 @@ public class Card7_232 extends AbstractAttachableFPPossession {
                         public String getText(LotroGame game) {
                             return "Discard a condition";
                         }
-                    }, GameUtils.getOpponents(game, playerId), new PreventableEffect.PreventionCost() {
-                        @Override
-                        public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
-                            return new RemoveTwilightEffect(1);
-                        }
-                    }
+                    }, GameUtils.getShadowPlayers(game),
+                            new PreventableEffect.PreventionCost() {
+                                @Override
+                                public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
+                                    return new RemoveTwilightEffect(1);
+                                }
+                            }
                     ));
             return Collections.singletonList(action);
         }

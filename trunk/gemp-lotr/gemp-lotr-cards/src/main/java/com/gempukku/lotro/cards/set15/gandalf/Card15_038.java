@@ -9,7 +9,7 @@ import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.PlayOrder;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.RuleUtils;
@@ -43,10 +43,7 @@ public class Card15_038 extends AbstractCompanion {
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.winsSkirmish(game, effectResult, self)) {
-            final PlayOrder counterClockwisePlayOrder = game.getGameState().getPlayerOrder().getCounterClockwisePlayOrder(game.getGameState().getCurrentPlayerId(), false);
-            // FP player
-            counterClockwisePlayOrder.getNextPlayer();
-            String firstShadowPlayer = counterClockwisePlayOrder.getNextPlayer();
+            String firstShadowPlayer = GameUtils.getFirstShadowPlayer(game);
 
             int selfStr = game.getModifiersQuerying().getStrength(game.getGameState(), self);
             int oppStr = RuleUtils.getShadowSkirmishStrength(game);

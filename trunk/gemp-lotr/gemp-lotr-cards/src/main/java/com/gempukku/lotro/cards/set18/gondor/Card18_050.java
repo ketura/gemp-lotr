@@ -3,8 +3,19 @@ package com.gempukku.lotro.cards.set18.gondor;
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.*;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.cards.effects.AddTokenEffect;
+import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
+import com.gempukku.lotro.cards.effects.PreventableEffect;
+import com.gempukku.lotro.cards.effects.RemoveTokenEffect;
+import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
+import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Race;
+import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.common.Token;
+import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -68,7 +79,7 @@ public class Card18_050 extends AbstractPermanent {
                                                 public String getText(LotroGame game) {
                                                     return "Make " + GameUtils.getFullName(minion) + " not assignable to skirmish until the regroup phase";
                                                 }
-                                            }, GameUtils.getOpponents(game, playerId),
+                                            }, GameUtils.getShadowPlayers(game),
                                             new PreventableEffect.PreventionCost() {
                                                 @Override
                                                 public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {

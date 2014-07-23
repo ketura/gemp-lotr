@@ -8,7 +8,7 @@ import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.PlayOrder;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.effects.ChooseAndDiscardCardsFromHandEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
@@ -31,10 +31,7 @@ public class Card13_188 extends AbstractNewSite {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        final PlayOrder playerOrder = game.getGameState().getPlayerOrder().getCounterClockwisePlayOrder(game.getGameState().getCurrentPlayerId(), false);
-        // Skipping FP player
-        playerOrder.getNextPlayer();
-        String firstShadow = playerOrder.getNextPlayer();
+        String firstShadow = GameUtils.getFirstShadowPlayer(game);
         if (TriggerConditions.movesTo(game, effectResult, self)
                 && playerId.equals(firstShadow)
                 && PlayConditions.canDiscardFromHand(game, playerId, 2, Filters.any)) {

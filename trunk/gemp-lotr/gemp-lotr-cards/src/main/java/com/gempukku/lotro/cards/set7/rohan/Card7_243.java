@@ -46,7 +46,7 @@ public class Card7_243 extends AbstractEvent {
                                             public String getText(LotroGame game) {
                                                 return "Make " + GameUtils.getFullName(rohanMan) + " strength +4";
                                             }
-                                        }, GameUtils.getOpponents(game, playerId),
+                                        }, GameUtils.getShadowPlayers(game),
                                         new PreventableEffect.PreventionCost() {
                                             @Override
                                             public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {

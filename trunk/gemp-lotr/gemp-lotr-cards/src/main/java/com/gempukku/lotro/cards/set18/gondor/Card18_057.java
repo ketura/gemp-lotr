@@ -5,7 +5,12 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
 import com.gempukku.lotro.cards.effects.ShuffleCardsFromHandIntoDeckEffect;
 import com.gempukku.lotro.cards.modifiers.ArcheryTotalModifier;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Filterable;
+import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.PossessionClass;
+import com.gempukku.lotro.common.Race;
+import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -51,7 +56,7 @@ public class Card18_057 extends AbstractAttachableFPPossession {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new SelfDiscardEffect(self));
-            for (String opponentId : GameUtils.getOpponents(game, playerId)) {
+            for (String opponentId : GameUtils.getShadowPlayers(game)) {
                 action.appendEffect(
                         new ShuffleCardsFromHandIntoDeckEffect(self, opponentId, new HashSet<PhysicalCard>(game.getGameState().getHand(opponentId))));
                 action.appendEffect(

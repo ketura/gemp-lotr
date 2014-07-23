@@ -51,7 +51,7 @@ public class Card9_026 extends AbstractCompanion {
         if (TriggerConditions.moves(game, effectResult)
                 && PlayConditions.isPhase(game, Phase.REGROUP)) {
             List<RequiredTriggerAction> actions = new LinkedList<RequiredTriggerAction>();
-            for (final String opponent : GameUtils.getOpponents(game, self.getOwner())) {
+            for (final String opponent : GameUtils.getShadowPlayers(game)) {
                 if (PlayConditions.canDiscardFromHand(game, opponent, 2, Filters.any)) {
                     final RequiredTriggerAction action = new RequiredTriggerAction(self);
                     action.appendCost(

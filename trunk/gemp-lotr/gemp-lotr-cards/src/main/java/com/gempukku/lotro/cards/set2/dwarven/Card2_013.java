@@ -43,7 +43,7 @@ public class Card2_013 extends AbstractOldEvent {
         action.appendEffect(
                 new PreventableEffect(action,
                         new DrawCardsEffect(action, playerId, 3),
-                        Arrays.asList(GameUtils.getOpponents(game, playerId)),
+                        Arrays.asList(GameUtils.getShadowPlayers(game)),
                         new PreventableEffect.PreventionCost() {
                             @Override
                             public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {

@@ -11,7 +11,13 @@ import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
 
 public class GameUtils {
     public static boolean isSide(GameState gameState, Side side, String playerId) {
@@ -38,6 +44,25 @@ public class GameUtils {
         if (blueprint.getSubtitle() != null)
             return blueprint.getName() + ", " + blueprint.getSubtitle();
         return blueprint.getName();
+    }
+
+    public static String getFirstShadowPlayer(LotroGame game) {
+        final String fpPlayer = game.getGameState().getCurrentPlayerId();
+        final PlayOrder counterClockwisePlayOrder = game.getGameState().getPlayerOrder().getCounterClockwisePlayOrder(fpPlayer, false);
+        // Skip FP player
+        counterClockwisePlayOrder.getNextPlayer();
+        return counterClockwisePlayOrder.getNextPlayer();
+    }
+
+    public static String[] getShadowPlayers(LotroGame game) {
+        final String fpPlayer = game.getGameState().getCurrentPlayerId();
+        List<String> shadowPlayers = new LinkedList<String>(game.getGameState().getPlayerOrder().getAllPlayers());
+        shadowPlayers.remove(fpPlayer);
+        return shadowPlayers.toArray(new String[shadowPlayers.size()]);
+    }
+
+    public static String getFreePeoplePlayer(LotroGame game) {
+        return game.getGameState().getCurrentPlayerId();
     }
 
     public static String[] getOpponents(LotroGame game, String playerId) {

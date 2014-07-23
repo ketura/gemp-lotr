@@ -48,7 +48,7 @@ public class Card5_021 extends AbstractEvent {
                             public String getText(LotroGame game) {
                                 return "Discard a minion";
                             }
-                        }, GameUtils.getOpponents(game, playerId),
+                        }, GameUtils.getShadowPlayers(game),
                         new PreventableEffect.PreventionCost() {
                             @Override
                             public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
