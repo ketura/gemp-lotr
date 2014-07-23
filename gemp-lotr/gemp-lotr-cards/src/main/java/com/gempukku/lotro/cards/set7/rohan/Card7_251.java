@@ -7,7 +7,12 @@ import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPutCardFromDiscardIntoHandEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseOpponentEffect;
 import com.gempukku.lotro.cards.modifiers.MoveLimitModifier;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Race;
+import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -56,7 +61,7 @@ public class Card7_251 extends AbstractPermanent {
             action.appendEffect(
                     new AddUntilEndOfTurnModifierEffect(
                             new MoveLimitModifier(self, 1)));
-            for (String opponentId : GameUtils.getOpponents(game, playerId)) {
+            for (String opponentId : GameUtils.getShadowPlayers(game)) {
                 action.appendEffect(
                         new ChooseAndPutCardFromDiscardIntoHandEffect(action, opponentId, 0, 4, Filters.any));
             }
@@ -68,7 +73,7 @@ public class Card7_251 extends AbstractPermanent {
     }
 
     private boolean canDiscardCardsEqualToOpponentsHandSize(String playerId, LotroGame game) {
-        for (String opponentId : GameUtils.getOpponents(game, playerId)) {
+        for (String opponentId : GameUtils.getShadowPlayers(game)) {
             if (PlayConditions.canDiscardFromHand(game, playerId, game.getGameState().getHand(opponentId).size(), Filters.any))
                 return true;
         }

@@ -52,7 +52,7 @@ public class Card4_112 extends AbstractAttachableFPPossession {
             action.appendEffect(
                     new PreventableEffect(action,
                             new CancelSkirmishEffect(Filters.hasAttached(self)),
-                            GameUtils.getOpponents(game, playerId),
+                            GameUtils.getShadowPlayers(game),
                             new PreventableEffect.PreventionCost() {
                                 @Override
                                 public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {

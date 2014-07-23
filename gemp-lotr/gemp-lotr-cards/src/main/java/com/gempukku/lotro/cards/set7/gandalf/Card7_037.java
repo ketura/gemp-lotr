@@ -6,7 +6,11 @@ import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.PreventableEffect;
 import com.gempukku.lotro.cards.effects.PutCardFromHandOnTopOfDeckEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseCardsFromHandEffect;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Race;
+import com.gempukku.lotro.common.Signet;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -69,7 +73,7 @@ public class Card7_037 extends AbstractCompanion {
                                                 public String getText(LotroGame game) {
                                                     return "Make " + GameUtils.getFullName(card) + " strength -3";
                                                 }
-                                            }, GameUtils.getOpponents(game, playerId),
+                                            }, GameUtils.getShadowPlayers(game),
                                             new PreventableEffect.PreventionCost() {
                                                 @Override
                                                 public Effect createPreventionCostForPlayer(final SubAction subAction, final String opponentId) {

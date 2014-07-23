@@ -4,7 +4,12 @@ import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseOpponentEffect;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Filterable;
+import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.PossessionClass;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -67,7 +72,7 @@ public class Card7_039 extends AbstractAttachableFPPossession {
 
     private boolean hasMoreCardsThanEachOpponent(String playerId, LotroGame game) {
         int cardsInHand = game.getGameState().getHand(playerId).size();
-        for (String opponentId : GameUtils.getOpponents(game, playerId)) {
+        for (String opponentId : GameUtils.getShadowPlayers(game)) {
             if (game.getGameState().getHand(opponentId).size() >= cardsInHand)
                 return false;
         }

@@ -48,7 +48,7 @@ public class Card4_310 extends AbstractCompanion {
             action.appendEffect(
                     new PreventableEffect(action,
                             new SelfDiscardEffect(self),
-                            GameUtils.getOpponents(game, playerId),
+                            GameUtils.getShadowPlayers(game),
                             new PreventableEffect.PreventionCost() {
                                 @Override
                                 public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {

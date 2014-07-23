@@ -5,7 +5,11 @@ import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseActionProxyEffect;
 import com.gempukku.lotro.cards.effects.PreventAllWoundsActionProxy;
 import com.gempukku.lotro.cards.effects.PreventableEffect;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -13,8 +17,6 @@ import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.effects.ChooseAndWoundCharactersEffect;
 import com.gempukku.lotro.logic.timing.Effect;
-
-import java.util.Arrays;
 
 /**
  * Set: The Two Towers
@@ -49,7 +51,7 @@ public class Card4_097 extends AbstractOldEvent {
                                 return "Prevent all wounds to Gandalf";
                             }
                         },
-                        Arrays.asList(GameUtils.getOpponents(game, playerId)),
+                        GameUtils.getShadowPlayers(game),
                         new PreventableEffect.PreventionCost() {
                             @Override
                             public Effect createPreventionCostForPlayer(SubAction subAction, String shadowPlayerId) {

@@ -38,7 +38,7 @@ public class WinConditionRule {
                             }
                         } else if (game.getFormat().winOnControlling5Sites()
                                 && effectResults.getType() == EffectResult.Type.TAKE_CONTROL_OF_SITE) {
-                            for (String opponent : GameUtils.getOpponents(game, game.getGameState().getCurrentPlayerId())) {
+                            for (String opponent : GameUtils.getShadowPlayers(game)) {
                                 if (Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.SITE, Filters.siteControlled(opponent)) >= 5)
                                     game.playerWon(opponent, "Controls 5 sites");
                             }
