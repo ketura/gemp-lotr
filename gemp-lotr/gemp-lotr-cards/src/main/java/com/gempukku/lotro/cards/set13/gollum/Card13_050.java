@@ -11,8 +11,13 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.modifiers.*;
+import com.gempukku.lotro.logic.modifiers.Condition;
+import com.gempukku.lotro.logic.modifiers.KeywordModifier;
+import com.gempukku.lotro.logic.modifiers.Modifier;
+import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.Collections;
@@ -37,14 +42,14 @@ public class Card13_050 extends AbstractMinion {
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+    public List<? extends Modifier> getAlwaysOnModifiers(final LotroGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(
                 new StrengthModifier(self, self,
                         new Condition() {
                             @Override
                             public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                for (String somePlayerId : gameState.getPlayerOrder().getAllPlayers()) {
+                                for (String somePlayerId : GameUtils.getAllPlayers(game)) {
                                     if (Filters.filter(gameState.getRemoved(somePlayerId), gameState, modifiersQuerying, Filters.name("Deagol")).size() > 0)
                                         return true;
                                 }
@@ -57,7 +62,7 @@ public class Card13_050 extends AbstractMinion {
                         new Condition() {
                             @Override
                             public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                for (String somePlayerId : gameState.getPlayerOrder().getAllPlayers()) {
+                                for (String somePlayerId : GameUtils.getAllPlayers(game)) {
                                     if (Filters.filter(gameState.getRemoved(somePlayerId), gameState, modifiersQuerying, Filters.name("Deagol")).size() > 0)
                                         return true;
                                 }

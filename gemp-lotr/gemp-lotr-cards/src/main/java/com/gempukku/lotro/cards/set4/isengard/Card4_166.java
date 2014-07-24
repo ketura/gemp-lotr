@@ -5,7 +5,11 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.PutCardFromDeckOnBottomOfDeckEffect;
 import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
 import com.gempukku.lotro.cards.effects.RevealTopCardsOfDrawDeckEffect;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
@@ -44,11 +48,9 @@ public class Card4_166 extends AbstractPermanent {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new RemoveTwilightEffect(2));
-            final List<String> allPlayers = game.getGameState().getPlayerOrder().getAllPlayers();
-            final String[] players = allPlayers.toArray(new String[allPlayers.size()]);
             action.appendEffect(
                     new PlayoutDecisionEffect(playerId,
-                            new MultipleChoiceAwaitingDecision(1, "Choose player to reveal top card", players) {
+                            new MultipleChoiceAwaitingDecision(1, "Choose player to reveal top card", GameUtils.getAllPlayers(game)) {
                                 @Override
                                 protected void validDecisionMade(int index, String deckId) {
                                     action.insertEffect(
