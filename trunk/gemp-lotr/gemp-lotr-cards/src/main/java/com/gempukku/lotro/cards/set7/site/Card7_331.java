@@ -7,7 +7,7 @@ import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.PlayOrder;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.decisions.MultipleChoiceAwaitingDecision;
 import com.gempukku.lotro.logic.effects.AddTwilightEffect;
@@ -36,9 +36,7 @@ public class Card7_331 extends AbstractSite {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
                     new AddTwilightEffect(self, 2));
-            PlayOrder drawOrder = game.getGameState().getPlayerOrder().getCounterClockwisePlayOrder(game.getGameState().getCurrentPlayerId(), false);
-            String nextPlayerId;
-            while ((nextPlayerId = drawOrder.getNextPlayer()) != null) {
+            for (String nextPlayerId : GameUtils.getAllPlayers(game)) {
                 final String drawingPlayerId = nextPlayerId;
                 action.appendEffect(
                         new PlayoutDecisionEffect(drawingPlayerId,

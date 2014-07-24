@@ -72,7 +72,18 @@ public class GameUtils {
     }
 
     public static String[] getAllPlayers(LotroGame game) {
-        return game.getGameState().getPlayerOrder().getAllPlayers().toArray(new String[0]);
+        final GameState gameState = game.getGameState();
+        final PlayerOrder playerOrder = gameState.getPlayerOrder();
+        String[] result = new String[playerOrder.getPlayerCount()];
+
+        final PlayOrder counterClockwisePlayOrder = playerOrder.getCounterClockwisePlayOrder(gameState.getCurrentPlayerId(), false);
+        int index=0;
+
+        String nextPlayer;
+        while ((nextPlayer = counterClockwisePlayOrder.getNextPlayer()) != null) {
+            result[index++] = nextPlayer;
+        }
+        return result;
     }
 
     public static List<PhysicalCard> getRandomCards(List<? extends PhysicalCard> cards, int count) {

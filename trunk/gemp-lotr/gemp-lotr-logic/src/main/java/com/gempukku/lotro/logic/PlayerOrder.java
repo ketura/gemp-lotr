@@ -40,4 +40,8 @@ public class PlayerOrder {
         } while (currentPlayerIndex != nextIndex);
         return new PlayOrder(playOrder, looped);
     }
+
+    public int getPlayerCount() {
+        return _turnOrder.size();
+    }
 }
