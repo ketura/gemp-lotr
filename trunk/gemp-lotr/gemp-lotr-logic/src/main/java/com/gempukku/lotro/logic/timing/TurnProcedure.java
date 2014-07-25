@@ -5,6 +5,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.game.state.actions.DefaultActionsEnvironment;
+import com.gempukku.lotro.logic.InvalidSoloAdventureException;
 import com.gempukku.lotro.logic.PlayOrder;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.actions.SystemQueueAction;
@@ -77,9 +78,13 @@ public class TurnProcedure {
                 } else {
                     Effect effect = _actionStack.getNextEffect(_game);
                     if (effect != null) {
-                        if (effect.getType() == null)
-                            effect.playEffect(_game);
-                        else
+                        if (effect.getType() == null) {
+                            try {
+                                effect.playEffect(_game);
+                            } catch (InvalidSoloAdventureException exp) {
+                                _game.playerLost(_game.getGameState().getCurrentPlayerId(), exp.getMessage());
+                            }
+                        } else
                             _actionStack.stackAction(new PlayOutEffect(effect));
                     }
                 }
@@ -127,7 +132,11 @@ public class TurnProcedure {
 
         @Override
         protected void doPlayEffect(LotroGame game) {
-            _effect.playEffect(game);
+            try {
+                _effect.playEffect(game);
+            } catch (InvalidSoloAdventureException exp) {
+                _game.playerLost(_game.getGameState().getCurrentPlayerId(), exp.getMessage());
+            }
         }
     }
 
