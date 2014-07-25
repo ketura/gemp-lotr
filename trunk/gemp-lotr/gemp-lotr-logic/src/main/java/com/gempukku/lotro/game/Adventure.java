@@ -12,7 +12,9 @@ import java.util.Set;
 public interface Adventure {
     public void applyAdventureRules(LotroGame game, DefaultActionsEnvironment actionsEnvironment, ModifiersLogic modifiersLogic);
 
-    GameProcess getStartingGameProcess(Set<String> players, PlayerOrderFeedback playerOrderFeedback);
+    public GameProcess getStartingGameProcess(Set<String> players, PlayerOrderFeedback playerOrderFeedback);
+
+    public GameProcess getAfterFellowshipPhaseGameProcess();
 
     public void appendNextSiteAction(SystemQueueAction action);
 
@@ -20,9 +22,9 @@ public interface Adventure {
 
     public GameProcess getAfterFellowshipAssignmentGameProcess(Set<PhysicalCard> leftoverMinions, GameProcess followingProcess);
 
-    GameProcess getBeforeFellowshipChooseToMoveGameProcess(GameProcess followingProcess);
+    public GameProcess getBeforeFellowshipChooseToMoveGameProcess(GameProcess followingProcess);
 
-    GameProcess getPlayerStaysGameProcess(LotroGame game, GameProcess followingProcess);
+    public GameProcess getPlayerStaysGameProcess(LotroGame game, GameProcess followingProcess);
 
-    GameProcess getAfterFellowshipPhaseGameProcess();
+    public boolean isSolo();
 }

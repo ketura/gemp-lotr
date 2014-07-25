@@ -93,4 +93,9 @@ public class DefaultAdventure implements Adventure {
     public GameProcess getStartingGameProcess(Set<String> players, PlayerOrderFeedback playerOrderFeedback) {
         return new BiddingGameProcess(players, playerOrderFeedback);
     }
+
+    @Override
+    public boolean isSolo() {
+        return false;
+    }
 }
