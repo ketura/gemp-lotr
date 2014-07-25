@@ -20,7 +20,7 @@ public class FellowshipGameProcess implements GameProcess {
                     new PlayerPlaysPhaseActionsUntilPassesGameProcess(game.getGameState().getCurrentPlayerId(),
                             new MovementGameProcess(
                                     new EndOfPhaseGameProcess(Phase.FELLOWSHIP,
-                                            new ShadowPhasesGameProcess()))));
+                                            game.getFormat().getAdventure().getAfterFellowshipPhaseGameProcess()))));
     }
 
     @Override

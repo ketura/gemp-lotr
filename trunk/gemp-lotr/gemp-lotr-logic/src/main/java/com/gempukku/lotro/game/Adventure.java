@@ -12,6 +12,8 @@ import java.util.Set;
 public interface Adventure {
     public void applyAdventureRules(LotroGame game, DefaultActionsEnvironment actionsEnvironment, ModifiersLogic modifiersLogic);
 
+    GameProcess getStartingGameProcess(Set<String> players, PlayerOrderFeedback playerOrderFeedback);
+
     public void appendNextSiteAction(SystemQueueAction action);
 
     public GameProcess getAfterFellowshipArcheryGameProcess(int fellowshipArcheryTotal, GameProcess followingProcess);
@@ -22,5 +24,5 @@ public interface Adventure {
 
     GameProcess getPlayerStaysGameProcess(LotroGame game, GameProcess followingProcess);
 
-    GameProcess getStartingGameProcess(Set<String> players, PlayerOrderFeedback playerOrderFeedback);
+    GameProcess getAfterFellowshipPhaseGameProcess();
 }
