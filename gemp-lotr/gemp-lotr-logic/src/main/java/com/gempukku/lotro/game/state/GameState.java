@@ -1,15 +1,34 @@
 package com.gempukku.lotro.game.state;
 
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.common.Token;
+import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.communication.GameStateListener;
-import com.gempukku.lotro.game.*;
+import com.gempukku.lotro.game.CardNotFoundException;
+import com.gempukku.lotro.game.LotroCardBlueprint;
+import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
+import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.game.PhysicalCardImpl;
+import com.gempukku.lotro.game.PhysicalCardVisitor;
 import com.gempukku.lotro.logic.PlayerOrder;
 import com.gempukku.lotro.logic.decisions.AwaitingDecision;
 import com.gempukku.lotro.logic.modifiers.ModifierFlag;
 import com.gempukku.lotro.logic.timing.GameStats;
 import org.apache.log4j.Logger;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class GameState {
     private static Logger _log = Logger.getLogger(GameState.class);
@@ -85,8 +104,8 @@ public class GameState {
 
             addPlayerCards(playerId, decks, library);
             try {
-                _ringBearers.put(playerId, createPhysicalCard(playerId, library, ringBearers.get(playerId)));
-                _rings.put(playerId, createPhysicalCard(playerId, library, rings.get(playerId)));
+                _ringBearers.put(playerId, createPhysicalCardImpl(playerId, library, ringBearers.get(playerId)));
+                _rings.put(playerId, createPhysicalCardImpl(playerId, library, rings.get(playerId)));
             } catch (CardNotFoundException exp) {
                 throw new RuntimeException("Unable to create game, due to either ring-bearer or ring being invalid cards");
             }
@@ -110,7 +129,7 @@ public class GameState {
     private void addPlayerCards(String playerId, List<String> cards, LotroCardBlueprintLibrary library) {
         for (String blueprintId : cards) {
             try {
-                PhysicalCardImpl physicalCard = createPhysicalCard(playerId, library, blueprintId);
+                PhysicalCardImpl physicalCard = createPhysicalCardImpl(playerId, library, blueprintId);
                 if (physicalCard.getBlueprint().getCardType() == CardType.SITE) {
                     physicalCard.setZone(Zone.ADVENTURE_DECK);
                     _adventureDecks.get(playerId).add(physicalCard);
@@ -124,7 +143,11 @@ public class GameState {
         }
     }
 
-    private PhysicalCardImpl createPhysicalCard(String playerId, LotroCardBlueprintLibrary library, String blueprintId) throws CardNotFoundException {
+    public PhysicalCard createPhysicalCard(String ownerPlayerId, LotroCardBlueprintLibrary library, String blueprintId) throws CardNotFoundException {
+        return createPhysicalCardImpl(ownerPlayerId, library, blueprintId);
+    }
+
+    private PhysicalCardImpl createPhysicalCardImpl(String playerId, LotroCardBlueprintLibrary library, String blueprintId) throws CardNotFoundException {
         LotroCardBlueprint card = library.getLotroCardBlueprint(blueprintId);
 
         int cardId = nextCardId();
