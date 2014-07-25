@@ -1,5 +1,6 @@
 package com.gempukku.lotro.at;
 
+import com.gempukku.lotro.game.DefaultAdventureLibrary;
 import com.gempukku.lotro.game.DefaultUserFeedback;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.game.LotroFormat;
@@ -15,7 +16,12 @@ import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 import org.junit.BeforeClass;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static org.junit.Assert.fail;
 
@@ -57,7 +63,7 @@ public abstract class AbstractAtTest {
     protected void initializeGameWithDecks(Map<String, LotroDeck> decks) throws DecisionResultInvalidException {
         _userFeedback = new DefaultUserFeedback();
 
-        LotroFormatLibrary formatLibrary = new LotroFormatLibrary(_library);
+        LotroFormatLibrary formatLibrary = new LotroFormatLibrary(new DefaultAdventureLibrary(), _library);
         LotroFormat format = formatLibrary.getFormat("movie");
 
         _game = new DefaultLotroGame(format, decks, _userFeedback, _library);

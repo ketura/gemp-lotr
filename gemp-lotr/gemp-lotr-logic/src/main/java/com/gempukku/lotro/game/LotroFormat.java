@@ -37,4 +37,6 @@ public interface LotroFormat {
     public String getSurveyUrl();
 
     public int getHandSize();
+
+    public Adventure getAdventure();
 }
