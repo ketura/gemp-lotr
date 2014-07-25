@@ -47,6 +47,8 @@ public class GameUtils {
     }
 
     public static String getFirstShadowPlayer(LotroGame game) {
+        if (game.isSolo())
+            throw new InvalidSoloAdventureException("Shadow player requested");
         final String fpPlayer = game.getGameState().getCurrentPlayerId();
         final PlayOrder counterClockwisePlayOrder = game.getGameState().getPlayerOrder().getCounterClockwisePlayOrder(fpPlayer, false);
         // Skip FP player
@@ -55,6 +57,8 @@ public class GameUtils {
     }
 
     public static String[] getShadowPlayers(LotroGame game) {
+        if (game.isSolo())
+            throw new InvalidSoloAdventureException("Shadow player requested");
         final String fpPlayer = game.getGameState().getCurrentPlayerId();
         List<String> shadowPlayers = new LinkedList<String>(game.getGameState().getPlayerOrder().getAllPlayers());
         shadowPlayers.remove(fpPlayer);
@@ -66,6 +70,8 @@ public class GameUtils {
     }
 
     public static String[] getOpponents(LotroGame game, String playerId) {
+        if (game.isSolo())
+            throw new InvalidSoloAdventureException("Opponent requested");
         List<String> shadowPlayers = new LinkedList<String>(game.getGameState().getPlayerOrder().getAllPlayers());
         shadowPlayers.remove(playerId);
         return shadowPlayers.toArray(new String[shadowPlayers.size()]);
