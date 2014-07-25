@@ -3,12 +3,15 @@ package com.gempukku.lotro.game.state;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.communication.UserFeedback;
 import com.gempukku.lotro.game.ActionsEnvironment;
+import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.game.LotroFormat;
 import com.gempukku.lotro.logic.modifiers.ModifiersEnvironment;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
 public interface LotroGame {
     public GameState getGameState();
+
+    public LotroCardBlueprintLibrary getLotroCardBlueprintLibrary();
 
     public ModifiersEnvironment getModifiersEnvironment();
 

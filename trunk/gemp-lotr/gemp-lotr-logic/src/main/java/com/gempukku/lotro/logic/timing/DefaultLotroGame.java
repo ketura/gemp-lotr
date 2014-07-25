@@ -51,8 +51,10 @@ public class DefaultLotroGame implements LotroGame {
     private Set<GameResultListener> _gameResultListeners = new HashSet<GameResultListener>();
 
     private Set<String> _requestedCancel = new HashSet<String>();
+    private LotroCardBlueprintLibrary _library;
 
     public DefaultLotroGame(LotroFormat format, Map<String, LotroDeck> decks, UserFeedback userFeedback, final LotroCardBlueprintLibrary library) {
+        _library = library;
         _adventure = format.getAdventure();
         _format = format;
         _actionStack = new ActionStack();
@@ -96,6 +98,8 @@ public class DefaultLotroGame implements LotroGame {
 
         _adventure.applyAdventureRules(this, _actionsEnvironment, _modifiersLogic);
     }
+
+
 
     @Override
     public boolean shouldAutoPass(String playerId, Phase phase) {
@@ -229,6 +233,11 @@ public class DefaultLotroGame implements LotroGame {
     @Override
     public GameState getGameState() {
         return _gameState;
+    }
+
+    @Override
+    public LotroCardBlueprintLibrary getLotroCardBlueprintLibrary() {
+        return _library;
     }
 
     @Override

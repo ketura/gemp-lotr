@@ -16,8 +16,6 @@ public class ShadowPlayerAssignsArcheryDamageGameProcess implements GameProcess 
     private int _woundsToAssign;
     private GameProcess _followingGameProcess;
 
-    private GameProcess _nextProcess;
-
     public ShadowPlayerAssignsArcheryDamageGameProcess(String playerId, int woundsToAssign, GameProcess followingGameProcess) {
         _playerId = playerId;
         _woundsToAssign = woundsToAssign;
@@ -49,11 +47,10 @@ public class ShadowPlayerAssignsArcheryDamageGameProcess implements GameProcess 
 
             game.getActionsEnvironment().addActionToStack(action);
         }
-        _nextProcess = _followingGameProcess;
     }
 
     @Override
     public GameProcess getNextProcess() {
-        return _nextProcess;
+        return _followingGameProcess;
     }
 }
