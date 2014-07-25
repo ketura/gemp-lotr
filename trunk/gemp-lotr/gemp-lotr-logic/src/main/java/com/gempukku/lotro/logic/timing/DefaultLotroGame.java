@@ -5,6 +5,7 @@ import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.communication.GameStateListener;
 import com.gempukku.lotro.communication.UserFeedback;
 import com.gempukku.lotro.game.ActionsEnvironment;
+import com.gempukku.lotro.game.Adventure;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.game.LotroFormat;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -19,7 +20,12 @@ import com.gempukku.lotro.logic.timing.rules.CharacterDeathRule;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 import org.apache.log4j.Logger;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class DefaultLotroGame implements LotroGame {
     private static final Logger log = Logger.getLogger(DefaultLotroGame.class);
@@ -33,6 +39,7 @@ public class DefaultLotroGame implements LotroGame {
     private boolean _cancelled;
     private boolean _finished;
 
+    private Adventure _adventure;
     private LotroFormat _format;
 
     private Set<String> _allPlayers;
@@ -46,6 +53,7 @@ public class DefaultLotroGame implements LotroGame {
     private Set<String> _requestedCancel = new HashSet<String>();
 
     public DefaultLotroGame(LotroFormat format, Map<String, LotroDeck> decks, UserFeedback userFeedback, final LotroCardBlueprintLibrary library) {
+        _adventure = format.getAdventure();
         _format = format;
         _actionStack = new ActionStack();
 
@@ -85,6 +93,8 @@ public class DefaultLotroGame implements LotroGame {
 
         RuleSet ruleSet = new RuleSet(this, _actionsEnvironment, _modifiersLogic);
         ruleSet.applyRuleSet();
+
+        _adventure.applyAdventureRules(this, _actionsEnvironment, _modifiersLogic);
     }
 
     @Override

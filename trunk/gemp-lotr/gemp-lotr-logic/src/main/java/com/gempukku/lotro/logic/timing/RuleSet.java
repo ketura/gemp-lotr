@@ -3,7 +3,19 @@ package com.gempukku.lotro.logic.timing;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.game.state.actions.DefaultActionsEnvironment;
 import com.gempukku.lotro.logic.modifiers.ModifiersLogic;
-import com.gempukku.lotro.logic.timing.rules.*;
+import com.gempukku.lotro.logic.timing.rules.AmbushRule;
+import com.gempukku.lotro.logic.timing.rules.CunningRule;
+import com.gempukku.lotro.logic.timing.rules.DiscardedCardRule;
+import com.gempukku.lotro.logic.timing.rules.EnduringRule;
+import com.gempukku.lotro.logic.timing.rules.FrodoAndSamRule;
+import com.gempukku.lotro.logic.timing.rules.HunterRule;
+import com.gempukku.lotro.logic.timing.rules.KilledCardRule;
+import com.gempukku.lotro.logic.timing.rules.MusterRule;
+import com.gempukku.lotro.logic.timing.rules.ResolveSkirmishRule;
+import com.gempukku.lotro.logic.timing.rules.RingBearerRule;
+import com.gempukku.lotro.logic.timing.rules.RoamingRule;
+import com.gempukku.lotro.logic.timing.rules.SanctuaryRule;
+import com.gempukku.lotro.logic.timing.rules.ThreatRule;
 
 public class RuleSet {
     private LotroGame _game;
@@ -28,8 +40,6 @@ public class RuleSet {
         new ResolveSkirmishRule(_game, _actionsEnvironment).applyRule();
 
         new SanctuaryRule(_actionsEnvironment, _modifiersLogic).applyRule();
-
-        new WinConditionRule(_actionsEnvironment).applyRule();
 
         new DiscardedCardRule(_actionsEnvironment).applyRule();
 

@@ -3,7 +3,12 @@ package com.gempukku.lotro.at;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Token;
 import com.gempukku.lotro.common.Zone;
-import com.gempukku.lotro.game.*;
+import com.gempukku.lotro.game.CardNotFoundException;
+import com.gempukku.lotro.game.DefaultAdventureLibrary;
+import com.gempukku.lotro.game.DefaultUserFeedback;
+import com.gempukku.lotro.game.LotroFormat;
+import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.gempukku.lotro.logic.decisions.AwaitingDecision;
 import com.gempukku.lotro.logic.decisions.AwaitingDecisionType;
@@ -838,7 +843,7 @@ public class IndividualCardAtTest extends AbstractAtTest {
 
         _userFeedback = new DefaultUserFeedback();
 
-        LotroFormatLibrary formatLibrary = new LotroFormatLibrary(_library);
+        LotroFormatLibrary formatLibrary = new LotroFormatLibrary(new DefaultAdventureLibrary(), _library);
         LotroFormat format = formatLibrary.getFormat("movie");
 
         _game = new DefaultLotroGame(format, decks, _userFeedback, _library);
@@ -879,7 +884,7 @@ public class IndividualCardAtTest extends AbstractAtTest {
 
         _userFeedback = new DefaultUserFeedback();
 
-        LotroFormatLibrary formatLibrary = new LotroFormatLibrary(_library);
+        LotroFormatLibrary formatLibrary = new LotroFormatLibrary(new DefaultAdventureLibrary(), _library);
         LotroFormat format = formatLibrary.getFormat("movie");
 
         _game = new DefaultLotroGame(format, decks, _userFeedback, _library);

@@ -4,6 +4,7 @@ import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.game.Adventure;
 import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.DeckInvalidException;
 import com.gempukku.lotro.game.LotroCardBlueprint;
@@ -21,6 +22,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class DefaultLotroFormat implements LotroFormat {
+    private Adventure _adventure;
     private LotroCardBlueprintLibrary _library;
     private String _name;
     private Block _siteBlock;
@@ -38,10 +40,12 @@ public class DefaultLotroFormat implements LotroFormat {
     private List<Integer> _validSets = new ArrayList<Integer>();
     private String _surveyUrl;
 
-    public DefaultLotroFormat(LotroCardBlueprintLibrary library, String name, String surveyUrl,
+    public DefaultLotroFormat(Adventure adventure,
+                              LotroCardBlueprintLibrary library, String name, String surveyUrl,
                               Block siteBlock,
                               boolean validateShadowFPCount, int minimumDeckSize, int maximumSameName, boolean mulliganRule,
                               boolean canCancelRingBearerSkirmish, boolean hasRuleOfFour, boolean winAtEndOfRegroup, boolean winOnControlling5Sites) {
+        _adventure = adventure;
         _library = library;
         _name = name;
         _surveyUrl = surveyUrl;
@@ -54,6 +58,11 @@ public class DefaultLotroFormat implements LotroFormat {
         _hasRuleOfFour = hasRuleOfFour;
         _winAtEndOfRegroup = winAtEndOfRegroup;
         _winOnControlling5Sites = winOnControlling5Sites;
+    }
+
+    @Override
+    public Adventure getAdventure() {
+        return _adventure;
     }
 
     @Override
@@ -233,7 +242,7 @@ public class DefaultLotroFormat implements LotroFormat {
 
             for (Map.Entry<String, Integer> count : cardCountByName.entrySet()) {
                 if (count.getValue() > _maximumSameName)
-                    throw new DeckInvalidException("Deck contains more of the same card than allowed ("+count.getValue()+">"+_maximumSameName+"): " + count.getKey());
+                    throw new DeckInvalidException("Deck contains more of the same card than allowed (" + count.getValue() + ">" + _maximumSameName + "): " + count.getKey());
             }
 
             // Restricted cards

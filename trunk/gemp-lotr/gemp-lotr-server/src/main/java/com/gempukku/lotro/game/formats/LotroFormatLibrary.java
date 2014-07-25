@@ -1,6 +1,8 @@
 package com.gempukku.lotro.game.formats;
 
 import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.game.Adventure;
+import com.gempukku.lotro.game.AdventureLibrary;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.game.LotroFormat;
 import org.json.simple.JSONArray;
@@ -19,7 +21,7 @@ public class LotroFormatLibrary {
     private Map<String, LotroFormat> _allFormats = new HashMap<String, LotroFormat>();
     private Map<String, LotroFormat> _hallFormats = new LinkedHashMap<String, LotroFormat>();
 
-    public LotroFormatLibrary(LotroCardBlueprintLibrary library) {
+    public LotroFormatLibrary(AdventureLibrary adventureLibrary, LotroCardBlueprintLibrary library) {
         try {
             final InputStreamReader reader = new InputStreamReader(LotroFormatLibrary.class.getResourceAsStream("/lotrFormats.json"), "UTF-8");
             try {
@@ -27,6 +29,7 @@ public class LotroFormatLibrary {
                 JSONArray object = (JSONArray) parser.parse(reader);
                 for (Object formatDefObj : object) {
                     JSONObject formatDef = (JSONObject) formatDefObj;
+                    final Adventure adventure = adventureLibrary.getAdventure((String) formatDef.get("adventure"));
                     String formatCode = (String) formatDef.get("code");
                     String name = (String) formatDef.get("name");
                     String surveyUrl = (String) formatDef.get("surveyUrl");
@@ -44,7 +47,7 @@ public class LotroFormatLibrary {
                     if (winOnControlling5Sites == null)
                         winOnControlling5Sites = false;
 
-                    final DefaultLotroFormat format = new DefaultLotroFormat(library, name, surveyUrl, block, true, 60, 4, true,
+                    final DefaultLotroFormat format = new DefaultLotroFormat(adventure, library, name, surveyUrl, block, true, 60, 4, true,
                             cancelRingBearerSkirmish, hasRuleOfFour, winAtEndOfRegroup, winOnControlling5Sites);
 
                     JSONArray sets = (JSONArray) formatDef.get("set");

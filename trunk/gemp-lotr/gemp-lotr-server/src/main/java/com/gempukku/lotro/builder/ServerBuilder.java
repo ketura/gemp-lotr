@@ -12,6 +12,8 @@ import com.gempukku.lotro.db.LeagueDAO;
 import com.gempukku.lotro.db.LeagueMatchDAO;
 import com.gempukku.lotro.db.LeagueParticipationDAO;
 import com.gempukku.lotro.db.PlayerDAO;
+import com.gempukku.lotro.game.AdventureLibrary;
+import com.gempukku.lotro.game.DefaultAdventureLibrary;
 import com.gempukku.lotro.game.GameHistoryService;
 import com.gempukku.lotro.game.GameRecorder;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
@@ -36,8 +38,12 @@ import java.util.Map;
 
 public class ServerBuilder {
     public static void fillObjectMap(Map<Type, Object> objectMap) {
+        objectMap.put(AdventureLibrary.class,
+                new DefaultAdventureLibrary());
+
         objectMap.put(LotroFormatLibrary.class,
                 new LotroFormatLibrary(
+                        extract(objectMap, AdventureLibrary.class),
                         extract(objectMap, LotroCardBlueprintLibrary.class)));
 
         objectMap.put(GameHistoryService.class,
