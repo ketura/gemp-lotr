@@ -14,6 +14,7 @@ import com.gempukku.lotro.logic.timing.PlayerOrderFeedback;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
 import com.gempukku.lotro.logic.timing.processes.pregame.BiddingGameProcess;
+import com.gempukku.lotro.logic.timing.processes.turn.ShadowPhasesGameProcess;
 import com.gempukku.lotro.logic.timing.processes.turn.archery.FellowshipPlayerChoosesShadowPlayerToAssignDamageToGameProcess;
 import com.gempukku.lotro.logic.timing.processes.turn.assign.ShadowPlayersAssignTheirMinionsGameProcess;
 import com.gempukku.lotro.logic.timing.processes.turn.regroup.DiscardAllMinionsGameProcess;
@@ -81,6 +82,11 @@ public class DefaultAdventure implements Adventure {
         return new PlayerReconcilesGameProcess(game.getGameState().getCurrentPlayerId(),
                 new ReturnFollowersToSupportGameProcess(
                         new DiscardAllMinionsGameProcess(followingProcess)));
+    }
+
+    @Override
+    public GameProcess getAfterFellowshipPhaseGameProcess() {
+        return new ShadowPhasesGameProcess();
     }
 
     @Override
