@@ -9,6 +9,7 @@ public class ArcheryFireGameProcess implements GameProcess {
 
     private int _fellowshipArcheryTotal;
     private int _shadowArcheryTotal;
+    private LotroGame _game;
 
     public ArcheryFireGameProcess(GameProcess followingGameProcess) {
         _followingGameProcess = followingGameProcess;
@@ -16,6 +17,7 @@ public class ArcheryFireGameProcess implements GameProcess {
 
     @Override
     public void process(LotroGame game) {
+        _game = game;
         _fellowshipArcheryTotal = RuleUtils.calculateFellowshipArcheryTotal(game);
 
         _shadowArcheryTotal = RuleUtils.calculateShadowArcheryTotal(game);
@@ -25,6 +27,6 @@ public class ArcheryFireGameProcess implements GameProcess {
     @Override
     public GameProcess getNextProcess() {
         return new FellowshipPlayerAssignsArcheryDamageGameProcess(_shadowArcheryTotal,
-                new FellowshipPlayerChoosesShadowPlayerToAssignDamageToGameProcess(_fellowshipArcheryTotal, _followingGameProcess));
+                _game.getFormat().getAdventure().getAfterFellowshipArcheryGameProcess(_fellowshipArcheryTotal, _followingGameProcess));
     }
 }

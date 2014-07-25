@@ -26,6 +26,7 @@ import java.util.Set;
 public class FreePeoplePlayerAssignsMinionsGameProcess implements GameProcess {
     private Set<PhysicalCard> _leftoverMinions;
     private GameProcess _followingAssignments;
+    private LotroGame _game;
 
     public FreePeoplePlayerAssignsMinionsGameProcess(GameProcess followingAssignments) {
         _followingAssignments = followingAssignments;
@@ -33,6 +34,7 @@ public class FreePeoplePlayerAssignsMinionsGameProcess implements GameProcess {
 
     @Override
     public void process(LotroGame game) {
+        _game = game;
         final SystemQueueAction action = new SystemQueueAction();
         action.appendEffect(
                 new TriggeringResultEffect(new FreePlayerStartsAssigningResult(), "Free people player starts assigning"));
@@ -94,6 +96,6 @@ public class FreePeoplePlayerAssignsMinionsGameProcess implements GameProcess {
 
     @Override
     public GameProcess getNextProcess() {
-        return new ShadowPlayersAssignTheirMinionsGameProcess(_followingAssignments, _leftoverMinions);
+        return _game.getFormat().getAdventure().getAfterFellowshipAssignmentGameProcess(_leftoverMinions, _followingAssignments);
     }
 }

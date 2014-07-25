@@ -12,7 +12,6 @@ import java.util.Map;
 public class PlayRingBearerRingAndAddBurdersGameProcess implements GameProcess {
     private Map<String, Integer> _bids;
     private String _firstPlayer;
-    private GameProcess _nextProcess;
 
     public PlayRingBearerRingAndAddBurdersGameProcess(Map<String, Integer> bids, String firstPlayer) {
         _bids = bids;

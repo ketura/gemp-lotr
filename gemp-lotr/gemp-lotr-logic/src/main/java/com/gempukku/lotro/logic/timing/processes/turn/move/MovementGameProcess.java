@@ -3,14 +3,11 @@ package com.gempukku.lotro.logic.timing.processes.turn.move;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.game.LotroCardBlueprint;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.PlayOrder;
 import com.gempukku.lotro.logic.actions.SystemQueueAction;
 import com.gempukku.lotro.logic.effects.AddTwilightEffect;
-import com.gempukku.lotro.logic.effects.PlaySiteEffect;
 import com.gempukku.lotro.logic.effects.TriggeringResultEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
@@ -37,33 +34,7 @@ public class MovementGameProcess implements GameProcess {
                         game.getGameState().setMoving(true);
                     }
                 });
-        action.appendEffect(
-                new UnrespondableEffect() {
-                    @Override
-                    protected void doPlayEffect(LotroGame game) {
-                        GameState gameState = game.getGameState();
-
-                        final int nextSiteNumber = gameState.getCurrentSiteNumber() + 1;
-                        PhysicalCard nextSite = gameState.getSite(nextSiteNumber);
-
-                        if (nextSite == null) {
-                            LotroCardBlueprint.Direction nextSiteDirection = gameState.getCurrentSite().getBlueprint().getSiteDirection();
-                            String playerToPlaySite;
-                            if (nextSiteDirection == LotroCardBlueprint.Direction.LEFT) {
-                                PlayOrder order = gameState.getPlayerOrder().getClockwisePlayOrder(gameState.getCurrentPlayerId(), false);
-                                order.getNextPlayer();
-                                playerToPlaySite = order.getNextPlayer();
-                            } else {
-                                PlayOrder order = gameState.getPlayerOrder().getCounterClockwisePlayOrder(gameState.getCurrentPlayerId(), false);
-                                order.getNextPlayer();
-                                playerToPlaySite = order.getNextPlayer();
-                            }
-
-                            action.insertEffect(
-                                    new PlaySiteEffect(action, playerToPlaySite, null, nextSiteNumber));
-                        }
-                    }
-                });
+        game.getFormat().getAdventure().appendNextSiteAction(action);
         action.appendEffect(
                 new TriggeringResultEffect(new WhenMoveFromResult(currentSite), "Fellowship moved from"));
         action.appendEffect(

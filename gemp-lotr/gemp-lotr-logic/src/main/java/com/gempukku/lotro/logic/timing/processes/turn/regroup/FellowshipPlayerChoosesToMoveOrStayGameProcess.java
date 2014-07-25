@@ -7,6 +7,7 @@ import com.gempukku.lotro.logic.decisions.MultipleChoiceAwaitingDecision;
 import com.gempukku.lotro.logic.modifiers.ModifierFlag;
 import com.gempukku.lotro.logic.timing.RuleUtils;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
+import com.gempukku.lotro.logic.timing.processes.turn.EndOfTurnGameProcess;
 import com.gempukku.lotro.logic.timing.processes.turn.ShadowPhasesGameProcess;
 import com.gempukku.lotro.logic.timing.processes.turn.general.EndOfPhaseGameProcess;
 import com.gempukku.lotro.logic.timing.processes.turn.move.MovementGameProcess;
@@ -29,13 +30,13 @@ public class FellowshipPlayerChoosesToMoveOrStayGameProcess implements GameProce
                                 if (result.equals("Yes"))
                                     playerMoves();
                                 else {
-                                    playerStays(currentPlayerId);
+                                    playerStays(game);
                                 }
                             }
                         });
             }
         } else {
-            playerStays(currentPlayerId);
+            playerStays(game);
         }
     }
 
@@ -45,10 +46,10 @@ public class FellowshipPlayerChoosesToMoveOrStayGameProcess implements GameProce
                         new ShadowPhasesGameProcess()));
     }
 
-    private void playerStays(String currentPlayerId) {
-        _nextProcess = new PlayerReconcilesGameProcess(currentPlayerId,
-                new ReturnFollowersToSupportGameProcess(
-                        new DiscardAllMinionsGameProcess()));
+    private void playerStays(LotroGame game) {
+        _nextProcess = game.getFormat().getAdventure().getPlayerStaysGameProcess(game,
+                new EndOfPhaseGameProcess(Phase.REGROUP,
+                        new EndOfTurnGameProcess()));
     }
 
     @Override

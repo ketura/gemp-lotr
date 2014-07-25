@@ -105,6 +105,11 @@ public class DefaultLotroGame implements LotroGame {
         return passablePhases.contains(phase);
     }
 
+    @Override
+    public boolean isSolo() {
+        return _allPlayers.size() == 1;
+    }
+
     public void addGameResultListener(GameResultListener listener) {
         _gameResultListeners.add(listener);
     }

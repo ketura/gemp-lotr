@@ -31,4 +31,6 @@ public interface LotroGame {
     public LotroFormat getFormat();
 
     public boolean shouldAutoPass(String playerId, Phase phase);
+
+    public boolean isSolo();
 }
