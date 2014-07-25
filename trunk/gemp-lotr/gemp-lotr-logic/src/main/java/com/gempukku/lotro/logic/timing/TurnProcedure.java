@@ -12,14 +12,19 @@ import com.gempukku.lotro.logic.decisions.ActionSelectionDecision;
 import com.gempukku.lotro.logic.decisions.CardActionSelectionDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
-import com.gempukku.lotro.logic.timing.processes.pregame.BiddingGameProcess;
 import com.gempukku.lotro.logic.timing.results.DiscardCardsFromPlayResult;
 import com.gempukku.lotro.logic.timing.results.KilledResult;
 import com.gempukku.lotro.logic.timing.results.ReturnCardsToHandResult;
 import com.gempukku.lotro.logic.timing.rules.CharacterDeathRule;
 import com.gempukku.lotro.logic.timing.rules.InitiativeChangeRule;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 // Action generates multiple Effects, both costs and result of an action are Effects.
 
@@ -42,7 +47,7 @@ public class TurnProcedure {
 
         _gameStats = new GameStats();
 
-        _gameProcess = new BiddingGameProcess(players, playerOrderFeedback);
+        _gameProcess = lotroGame.getFormat().getAdventure().getStartingGameProcess(players, playerOrderFeedback);
     }
 
     public GameStats getGameStats() {
