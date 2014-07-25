@@ -14,6 +14,9 @@ import com.gempukku.lotro.logic.timing.processes.GameProcess;
 import com.gempukku.lotro.logic.timing.processes.pregame.SetupSoloAdventureGameProcess;
 import com.gempukku.lotro.logic.timing.processes.turn.ShadowPhaseOfAIPlayerGameProcess;
 import com.gempukku.lotro.logic.timing.processes.turn.ai.AIPlayerAssignsArcheryTotalGameProcess;
+import com.gempukku.lotro.logic.timing.processes.turn.ai.AIPlayerAssignsMinionsGameProcess;
+import com.gempukku.lotro.logic.timing.processes.turn.regroup.DiscardAllMinionsGameProcess;
+import com.gempukku.lotro.logic.timing.processes.turn.regroup.ReturnFollowersToSupportGameProcess;
 import com.gempukku.lotro.logic.timing.results.PlayCardResult;
 
 import java.util.Set;
@@ -74,21 +77,22 @@ public class DefaultSoloAdventure extends SoloAdventure {
 
     @Override
     public GameProcess getAfterFellowshipAssignmentGameProcess(Set<PhysicalCard> leftoverMinions, GameProcess followingProcess) {
-        return null;
+        return new AIPlayerAssignsMinionsGameProcess(leftoverMinions, followingProcess);
     }
 
     @Override
     public GameProcess getBeforeFellowshipChooseToMoveGameProcess(GameProcess followingProcess) {
-        return null;
+        return followingProcess;
     }
 
     @Override
     public GameProcess getPlayerStaysGameProcess(LotroGame game, GameProcess followingProcess) {
-        return null;
+        return new ReturnFollowersToSupportGameProcess(
+                new DiscardAllMinionsGameProcess(followingProcess));
     }
 
     @Override
     public boolean isSolo() {
-        return false;
+        return true;
     }
 }
