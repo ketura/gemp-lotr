@@ -55,7 +55,7 @@ var GempLotrDeckBuildingUI = Class.extend({
         this.cardFilter = new CardFilter($("#collectionDiv"), $("#collectionDiv"),
                 function (filter, start, count, callback) {
                     if (!that.specialSelection) {
-                        filter = "cardType:-THE_ONE_RING " + filter;
+                        filter = filter + " cardType:-THE_ONE_RING";
                     }
                     that.comm.getCollection(that.collectionType, filter, start, count, function (xml) {
                         callback(xml);
