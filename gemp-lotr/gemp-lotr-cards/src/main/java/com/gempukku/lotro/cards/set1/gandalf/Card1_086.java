@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set1.gandalf;
 
 import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.RevealAndChooseCardsFromOpponentHandEffect;
+import com.gempukku.lotro.cards.effects.RevealHandEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseOpponentEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -11,8 +11,6 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-
-import java.util.List;
 
 /**
  * Set: The Fellowship of the Ring
@@ -42,12 +40,7 @@ public class Card1_086 extends AbstractOldEvent {
                     @Override
                     protected void opponentChosen(String opponentId) {
                         action.appendEffect(
-                                new RevealAndChooseCardsFromOpponentHandEffect(action, playerId, opponentId, self, "Opponent's hand", Filters.none, 0, 0) {
-                                    @Override
-                                    protected void cardsSelected(List<PhysicalCard> selectedCards) {
-                                        // Do nothing, just revealing
-                                    }
-                                });
+                                new RevealHandEffect(self, playerId, opponentId));
                     }
                 });
         return action;

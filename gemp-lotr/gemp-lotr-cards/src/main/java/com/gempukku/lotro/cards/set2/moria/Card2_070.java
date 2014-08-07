@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set2.moria;
 
 import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.RevealCardEffect;
+import com.gempukku.lotro.cards.effects.RevealCardsFromYourHandEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromHandEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseCardsFromHandEffect;
 import com.gempukku.lotro.common.Culture;
@@ -49,7 +49,7 @@ public class Card2_070 extends AbstractOldEvent {
                     @Override
                     protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
                         action.appendEffect(
-                                new RevealCardEffect(self, selectedCards));
+                                new RevealCardsFromYourHandEffect(self, playerId, selectedCards));
                         int cardsRevealed = selectedCards.size();
                         action.appendEffect(
                                 new ChooseAndPlayCardFromHandEffect(playerId, game, -2 * cardsRevealed, Filters.balrog));

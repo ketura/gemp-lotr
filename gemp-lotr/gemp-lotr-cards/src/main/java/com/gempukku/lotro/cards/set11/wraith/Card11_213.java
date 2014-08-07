@@ -3,9 +3,14 @@ package com.gempukku.lotro.cards.set11.wraith;
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.PutCardsFromHandBeneathDrawDeckEffect;
-import com.gempukku.lotro.cards.effects.RevealCardsFromHandEffect;
+import com.gempukku.lotro.cards.effects.RevealCardsFromYourHandEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseCardsFromHandEffect;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Race;
+import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -42,7 +47,7 @@ public class Card11_213 extends AbstractPermanent {
                         @Override
                         protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
                             action.appendCost(
-                                    new RevealCardsFromHandEffect(self, playerId, selectedCards));
+                                    new RevealCardsFromYourHandEffect(self, playerId, selectedCards));
                             for (PhysicalCard selectedCard : selectedCards) {
                                 action.appendCost(
                                         new PutCardsFromHandBeneathDrawDeckEffect(action, playerId, selectedCard));

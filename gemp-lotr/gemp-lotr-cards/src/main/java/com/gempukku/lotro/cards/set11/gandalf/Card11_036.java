@@ -3,14 +3,19 @@ package com.gempukku.lotro.cards.set11.gandalf;
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.RevealCardsFromHandEffect;
+import com.gempukku.lotro.cards.effects.RevealHandEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Race;
+import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 
-import java.util.HashSet;
+import java.util.Collection;
 
 /**
  * Set: Shadows
@@ -33,14 +38,18 @@ public class Card11_036 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
-        PlayEventAction action = new PlayEventAction(self);
+    public PlayEventAction getPlayCardAction(final String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+        final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
-                new RevealCardsFromHandEffect(self, playerId, new HashSet<PhysicalCard>(game.getGameState().getHand(playerId))));
-        int companionCount = Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION).size();
-        int penalty = companionCount * (PlayConditions.location(game, Keyword.BATTLEGROUND) ? -4 : -3);
-        action.appendEffect(
-                new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, penalty, CardType.MINION));
+                new RevealHandEffect(self, playerId, playerId) {
+                    @Override
+                    protected void cardsRevealed(Collection<? extends PhysicalCard> cards) {
+                        int companionCount = Filters.filter(cards, game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION).size();
+                        int penalty = companionCount * (PlayConditions.location(game, Keyword.BATTLEGROUND) ? -4 : -3);
+                        action.appendEffect(
+                                new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, penalty, CardType.MINION));
+                    }
+                });
         return action;
     }
 }

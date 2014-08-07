@@ -3,10 +3,15 @@ package com.gempukku.lotro.cards.set9.gollum;
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.PutCardsFromHandBeneathDrawDeckEffect;
-import com.gempukku.lotro.cards.effects.RevealCardsFromHandEffect;
+import com.gempukku.lotro.cards.effects.RevealCardsFromYourHandEffect;
 import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
 import com.gempukku.lotro.cards.modifiers.conditions.LocationCondition;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -45,7 +50,7 @@ public class Card9_029 extends AbstractPermanent {
                 && PlayConditions.canSpot(game, Filters.gollum)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
-                    new RevealCardsFromHandEffect(self, playerId, new LinkedList<PhysicalCard>(game.getGameState().getHand(playerId))));
+                    new RevealCardsFromYourHandEffect(self, playerId, new LinkedList<PhysicalCard>(game.getGameState().getHand(playerId))));
             action.appendEffect(
                     new PutCardsFromHandBeneathDrawDeckEffect(action, playerId, Side.SHADOW));
             action.appendEffect(

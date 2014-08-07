@@ -4,9 +4,14 @@ import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
 import com.gempukku.lotro.cards.effects.PutCardsFromHandBeneathDrawDeckEffect;
-import com.gempukku.lotro.cards.effects.RevealCardsFromHandEffect;
+import com.gempukku.lotro.cards.effects.RevealCardsFromYourHandEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Race;
+import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -14,7 +19,6 @@ import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -41,7 +45,7 @@ public class Card8_109 extends AbstractPermanent {
             action.appendCost(
                     new AddBurdenEffect(self.getOwner(), self, 1));
             action.appendEffect(
-                    new RevealCardsFromHandEffect(self, playerId, new HashSet<PhysicalCard>(game.getGameState().getHand(playerId))));
+                    new RevealCardsFromYourHandEffect(self, playerId, game.getGameState().getHand(playerId)));
             action.appendEffect(
                     new PutCardsFromHandBeneathDrawDeckEffect(action, playerId, Side.FREE_PEOPLE));
             return Collections.singletonList(action);

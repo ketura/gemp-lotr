@@ -2,8 +2,13 @@ package com.gempukku.lotro.cards.set12.moria;
 
 import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.RevealAndChooseCardsFromOpponentHandEffect;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.cards.effects.RevealHandEffect;
+import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Filterable;
+import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.PossessionClass;
+import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -54,9 +59,9 @@ public class Card12_080 extends AbstractAttachable {
         if (TriggerConditions.played(game, effectResult, self)) {
             final RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new RevealAndChooseCardsFromOpponentHandEffect(action, self.getOwner(), game.getGameState().getCurrentPlayerId(), self, "Free Peoples player hand", Filters.none, 0, 0) {
+                    new RevealHandEffect(self, self.getOwner(), game.getGameState().getCurrentPlayerId()) {
                         @Override
-                        protected void cardsSelected(List<PhysicalCard> selectedCards) {
+                        protected void cardsRevealed(Collection<? extends PhysicalCard> cards) {
                             final Collection<PhysicalCard> cardsToDiscard = Filters.filter(game.getGameState().getHand(game.getGameState().getCurrentPlayerId()), game.getGameState(), game.getModifiersQuerying(), Side.FREE_PEOPLE, Filters.or(Filters.printedTwilightCost(1), Filters.printedTwilightCost(0)));
                             action.appendEffect(
                                     new DiscardCardsFromHandEffect(self, game.getGameState().getCurrentPlayerId(), cardsToDiscard, true));

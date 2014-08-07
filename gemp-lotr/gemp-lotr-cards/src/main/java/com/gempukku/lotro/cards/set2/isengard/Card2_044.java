@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set2.isengard;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.modifiers.OpponentsCantLookOrRevealCardsFromHand;
+import com.gempukku.lotro.cards.modifiers.FPPlayerCantLookAtShadowPlayersHandModifier;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Side;
@@ -36,6 +36,6 @@ public class Card2_044 extends AbstractPermanent {
 
     @Override
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
-        return Collections.singletonList(new OpponentsCantLookOrRevealCardsFromHand(self, null, game.getGameState().getCurrentPlayerId()));
+        return Collections.singletonList(new FPPlayerCantLookAtShadowPlayersHandModifier(self));
     }
 }

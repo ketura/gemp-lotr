@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set7.gollum;
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.RevealAndChooseCardsFromOpponentHandEffect;
+import com.gempukku.lotro.cards.effects.RevealHandEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseOpponentEffect;
 import com.gempukku.lotro.common.Culture;
@@ -14,8 +14,8 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.effects.ChooseAndDiscardCardsFromHandEffect;
 
+import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -48,11 +48,11 @@ public class Card7_066 extends AbstractEvent {
                     @Override
                     protected void opponentChosen(final String opponentId) {
                         action.insertEffect(
-                                new RevealAndChooseCardsFromOpponentHandEffect(action, playerId, opponentId, self, "Opponent's hand", Filters.none, 0, 0) {
+                                new RevealHandEffect(self, playerId, opponentId) {
                                     @Override
-                                    protected void cardsSelected(List<PhysicalCard> selectedCards) {
+                                    protected void cardsRevealed(Collection<? extends PhysicalCard> cards) {
                                         Set<Culture> cultures = new HashSet<Culture>();
-                                        for (PhysicalCard physicalCard : game.getGameState().getHand(opponentId))
+                                        for (PhysicalCard physicalCard : cards)
                                             cultures.add(physicalCard.getBlueprint().getCulture());
 
                                         int cultureCount = cultures.size();

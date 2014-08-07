@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set1.elven;
 import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.RevealAndChooseCardsFromOpponentHandEffect;
+import com.gempukku.lotro.cards.effects.RevealHandEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseOpponentEffect;
 import com.gempukku.lotro.common.Culture;
@@ -15,7 +15,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.effects.ChooseAndDiscardCardsFromHandEffect;
 
-import java.util.List;
+import java.util.Collection;
 
 /**
  * Set: The Fellowship of the Ring
@@ -51,14 +51,16 @@ public class Card1_036 extends AbstractOldEvent {
                 new ChooseOpponentEffect(playerId) {
                     @Override
                     protected void opponentChosen(final String opponentId) {
-                        List<? extends PhysicalCard> hand = game.getGameState().getHand(opponentId);
-                        final int orcsCount = Filters.filter(hand, game.getGameState(), game.getModifiersQuerying(), Race.ORC).size();
-                        action.appendEffect(new RevealAndChooseCardsFromOpponentHandEffect(action, playerId, opponentId, self, "Opponent's hand", Filters.none, 0, 0) {
-                            @Override
-                            protected void cardsSelected(List<PhysicalCard> selectedCards) {
-                                action.appendEffect(new ChooseAndDiscardCardsFromHandEffect(action, opponentId, true, orcsCount));
-                            }
-                        });
+                        action.appendEffect(
+                                new RevealHandEffect(self, playerId, opponentId) {
+                                    @Override
+                                    protected void cardsRevealed(Collection<? extends PhysicalCard> cards) {
+                                        final int orcsCount = Filters.filter(cards, game.getGameState(), game.getModifiersQuerying(), Race.ORC).size();
+
+                                        action.appendEffect(
+                                                new ChooseAndDiscardCardsFromHandEffect(action, opponentId, true, orcsCount));
+                                    }
+                                });
                     }
                 });
         return action;
