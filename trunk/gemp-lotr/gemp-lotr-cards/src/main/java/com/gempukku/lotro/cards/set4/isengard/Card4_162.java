@@ -4,7 +4,7 @@ import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.PutCardFromDiscardIntoHandEffect;
-import com.gempukku.lotro.cards.effects.RevealCardEffect;
+import com.gempukku.lotro.cards.effects.RevealHandEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseCardsFromDiscardEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
@@ -38,12 +38,16 @@ public class Card4_162 extends AbstractOldEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayCardAction(final String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new RevealCardEffect(self, Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.not(self))));
-        action.appendCost(
-                new DiscardCardsFromHandEffect(self, playerId, Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Side.FREE_PEOPLE), false));
+                new RevealHandEffect(self, playerId, playerId) {
+                    @Override
+                    protected void cardsRevealed(Collection<? extends PhysicalCard> cards) {
+                        action.appendCost(
+                                new DiscardCardsFromHandEffect(self, playerId, Filters.filter(cards, game.getGameState(), game.getModifiersQuerying(), Side.FREE_PEOPLE), false));
+                    }
+                });
         action.appendEffect(
                 new ChooseCardsFromDiscardEffect(playerId, 1, 1, Culture.ISENGARD) {
                     @Override

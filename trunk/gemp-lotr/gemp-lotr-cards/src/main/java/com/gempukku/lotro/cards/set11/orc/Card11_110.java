@@ -5,17 +5,17 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
-import com.gempukku.lotro.cards.effects.RevealAndChooseCardsFromOpponentHandEffect;
+import com.gempukku.lotro.cards.effects.RevealHandEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.effects.ChooseAndDiscardCardsFromHandEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -44,9 +44,9 @@ public class Card11_110 extends AbstractEvent {
         final PlayEventAction action = new PlayEventAction(self);
         final String fpPlayer = game.getGameState().getCurrentPlayerId();
         action.appendEffect(
-                new RevealAndChooseCardsFromOpponentHandEffect(action, playerId, fpPlayer, self, "Opponent's hand", Filters.none, 0, 0) {
+                new RevealHandEffect(self, playerId, fpPlayer) {
                     @Override
-                    protected void cardsSelected(List<PhysicalCard> selectedCards) {
+                    protected void cardsRevealed(Collection<? extends PhysicalCard> cards) {
                         List<Effect> possibleEffects = new LinkedList<Effect>();
                         possibleEffects.add(
                                 new ChooseAndDiscardCardsFromHandEffect(action, fpPlayer, false, 1, Side.FREE_PEOPLE, CardType.EVENT) {

@@ -131,7 +131,7 @@ public class GameUtils {
             return sb.substring(0, sb.length() - 2);
     }
 
-    public static String getAppendedNames(Collection<PhysicalCard> cards) {
+    public static String getAppendedNames(Collection<? extends PhysicalCard> cards) {
         StringBuilder sb = new StringBuilder();
         for (PhysicalCard card : cards)
             sb.append(GameUtils.getCardLink(card) + ", ");

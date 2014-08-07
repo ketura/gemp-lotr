@@ -1,6 +1,17 @@
 package com.gempukku.lotro.filters;
 
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Filterable;
+import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Names;
+import com.gempukku.lotro.common.PossessionClass;
+import com.gempukku.lotro.common.Race;
+import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.common.Signet;
+import com.gempukku.lotro.common.Token;
+import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.CompletePhysicalCardVisitor;
 import com.gempukku.lotro.game.LotroCardBlueprint;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -14,7 +25,14 @@ import com.gempukku.lotro.logic.modifiers.Condition;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class Filters {
     private static final Map<CardType, Filter> _typeFilterMap = new HashMap<CardType, Filter>();
@@ -754,7 +772,7 @@ public class Filters {
         };
     }
 
-    public static Filter in(final Collection<PhysicalCard> cards) {
+    public static Filter in(final Collection<? extends PhysicalCard> cards) {
         final Set<Integer> cardIds = new HashSet<Integer>();
         for (PhysicalCard card : cards)
             cardIds.add(card.getCardId());

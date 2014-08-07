@@ -3,10 +3,14 @@ package com.gempukku.lotro.cards.set13.men;
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.RevealCardEffect;
+import com.gempukku.lotro.cards.effects.RevealCardsFromYourHandEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.modifiers.conditions.NotCondition;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Race;
+import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -48,7 +52,7 @@ public class Card13_084 extends AbstractMinion {
                 && !playerId.equals(game.getGameState().getCurrentPlayerId())) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(
-                    new RevealCardEffect(self, self));
+                    new RevealCardsFromYourHandEffect(self, playerId, self));
             action.appendEffect(
                     new ChooseAndExertCharactersEffect(action, game.getGameState().getCurrentPlayerId(), 1, 1, CardType.COMPANION));
             return Collections.singletonList(action);

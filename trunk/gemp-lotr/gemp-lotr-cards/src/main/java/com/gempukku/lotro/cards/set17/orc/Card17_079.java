@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set17.orc;
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.RevealCardEffect;
+import com.gempukku.lotro.cards.effects.RevealCardsFromYourHandEffect;
 import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseCardsFromHandEffect;
 import com.gempukku.lotro.common.CardType;
@@ -39,7 +39,7 @@ public class Card17_079 extends AbstractMinion {
     }
 
     @Override
-    public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
+    public List<OptionalTriggerAction> getOptionalAfterTriggers(final String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         if (TriggerConditions.startOfPhase(game, effectResult, Phase.SKIRMISH)
                 && PlayConditions.canSpot(game, self, Filters.inSkirmish)
                 && Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Culture.ORC, CardType.CONDITION).size() > 0) {
@@ -50,7 +50,7 @@ public class Card17_079 extends AbstractMinion {
                         protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
                             for (PhysicalCard selectedCard : selectedCards) {
                                 action.appendCost(
-                                        new RevealCardEffect(self, selectedCard));
+                                        new RevealCardsFromYourHandEffect(self, playerId, selectedCard));
                             }
                         }
                     });

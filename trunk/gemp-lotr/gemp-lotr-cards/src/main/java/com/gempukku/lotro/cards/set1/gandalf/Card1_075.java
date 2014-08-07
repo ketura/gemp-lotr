@@ -4,9 +4,13 @@ import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
-import com.gempukku.lotro.cards.effects.RevealAndChooseCardsFromOpponentHandEffect;
+import com.gempukku.lotro.cards.effects.RevealHandEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseOpponentEffect;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.PossessionClass;
+import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -57,10 +61,11 @@ public class Card1_075 extends AbstractAttachableFPPossession {
                         @Override
                         protected void opponentChosen(final String opponentId) {
                             action.appendEffect(
-                                    new RevealAndChooseCardsFromOpponentHandEffect(action, playerId, opponentId, self, "Opponent's hand", Filters.none, 0, 0) {
+                                    new RevealHandEffect(self, playerId, opponentId) {
                                         @Override
-                                        protected void cardsSelected(List<PhysicalCard> selectedCards) {
+                                        protected void cardsRevealed(Collection<? extends PhysicalCard> cards) {
                                             Collection<PhysicalCard> orcs = Filters.filter(game.getGameState().getHand(opponentId), game.getGameState(), game.getModifiersQuerying(), Race.ORC);
+
                                             action.appendEffect(new RemoveTwilightEffect(orcs.size()));
                                         }
                                     });

@@ -4,7 +4,7 @@ import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.SubAction;
+import com.gempukku.lotro.logic.PlayOrder;
 import com.gempukku.lotro.logic.decisions.ArbitraryCardsSelectionDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.timing.AbstractSubActionEffect;
@@ -12,6 +12,7 @@ import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -47,21 +48,32 @@ public abstract class RevealAndChooseCardsFromOpponentHandEffect extends Abstrac
         if (game.getModifiersQuerying().canLookOrRevealCardsInHand(game.getGameState(), _opponentId, _playerId)) {
             List<PhysicalCard> opponentHand = new LinkedList<PhysicalCard>(game.getGameState().getHand(_opponentId));
 
-            SubAction subAction = new SubAction(_action);
-            subAction.appendEffect(
-                    new RevealCardsFromHandEffect(_source, _opponentId, opponentHand));
-            processSubAction(game, subAction);
+            final PlayOrder playOrder = game.getGameState().getPlayerOrder().getCounterClockwisePlayOrder(_opponentId, false);
+            // Skip hand owner (opponent)
+            playOrder.getNextPlayer();
 
-            Collection<PhysicalCard> selectable = Filters.filter(opponentHand, game.getGameState(), game.getModifiersQuerying(), _selectionFilter);
+            String nextPlayer;
+            while ((nextPlayer = playOrder.getNextPlayer()) != null) {
+                if (nextPlayer.equals(_playerId)) {
+                    Collection<PhysicalCard> selectable = Filters.filter(opponentHand, game.getGameState(), game.getModifiersQuerying(), _selectionFilter);
 
-            game.getUserFeedback().sendAwaitingDecision(_playerId,
-                    new ArbitraryCardsSelectionDecision(1, _text, opponentHand, new LinkedList<PhysicalCard>(selectable), Math.min(_minChosen, selectable.size()), Math.min(_maxChosen, selectable.size())) {
-                        @Override
-                        public void decisionMade(String result) throws DecisionResultInvalidException {
-                            List<PhysicalCard> selectedCards = getSelectedCardsByResponse(result);
-                            cardsSelected(selectedCards);
-                        }
-                    });
+                    game.getUserFeedback().sendAwaitingDecision(nextPlayer,
+                            new ArbitraryCardsSelectionDecision(1, _text, opponentHand, new LinkedList<PhysicalCard>(selectable), Math.min(_minChosen, selectable.size()), Math.min(_maxChosen, selectable.size())) {
+                                @Override
+                                public void decisionMade(String result) throws DecisionResultInvalidException {
+                                    List<PhysicalCard> selectedCards = getSelectedCardsByResponse(result);
+                                    cardsSelected(selectedCards);
+                                }
+                            });
+                } else if (!nextPlayer.equals(_opponentId)) {
+                    game.getUserFeedback().sendAwaitingDecision(nextPlayer,
+                            new ArbitraryCardsSelectionDecision(1, "Hand of " + _opponentId, opponentHand, Collections.<PhysicalCard>emptySet(), 0, 0) {
+                                @Override
+                                public void decisionMade(String result) throws DecisionResultInvalidException {
+                                }
+                            });
+                }
+            }
         }
     }
 

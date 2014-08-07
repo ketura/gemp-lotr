@@ -5,11 +5,15 @@ import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.AttachPermanentAction;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
-import com.gempukku.lotro.cards.effects.RevealAndChooseCardsFromOpponentHandEffect;
+import com.gempukku.lotro.cards.effects.RevealHandEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseOpponentEffect;
 import com.gempukku.lotro.cards.modifiers.ResistanceModifier;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Filterable;
+import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.PossessionClass;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -18,6 +22,7 @@ import com.gempukku.lotro.logic.effects.ChooseAndDiscardCardsFromHandEffect;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -73,9 +78,9 @@ public class Card13_036 extends AbstractAttachableFPPossession {
                         @Override
                         protected void opponentChosen(final String opponentId) {
                             action.appendEffect(
-                                    new RevealAndChooseCardsFromOpponentHandEffect(action, playerId, opponentId, self, "Opponent's hand", Filters.none, 0, 0) {
+                                    new RevealHandEffect(self, playerId, opponentId) {
                                         @Override
-                                        protected void cardsSelected(List<PhysicalCard> selectedCards) {
+                                        protected void cardsRevealed(Collection<? extends PhysicalCard> cards) {
                                             action.appendEffect(
                                                     new ChooseAndDiscardCardsFromHandEffect(action, opponentId, true, 1, CardType.MINION));
                                         }

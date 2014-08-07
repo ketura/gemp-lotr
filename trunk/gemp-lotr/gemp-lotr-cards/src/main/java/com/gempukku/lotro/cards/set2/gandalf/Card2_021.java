@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set2.gandalf;
 
 import com.gempukku.lotro.cards.AbstractAlly;
-import com.gempukku.lotro.cards.modifiers.OpponentsCantLookOrRevealCardsFromHand;
+import com.gempukku.lotro.cards.modifiers.ShadowPlayersCantLookAtYourHandModifier;
 import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
@@ -34,6 +34,6 @@ public class Card2_021 extends AbstractAlly {
 
     @Override
     public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new OpponentsCantLookOrRevealCardsFromHand(self, self.getOwner());
+        return new ShadowPlayersCantLookAtYourHandModifier(self, self.getOwner());
     }
 }

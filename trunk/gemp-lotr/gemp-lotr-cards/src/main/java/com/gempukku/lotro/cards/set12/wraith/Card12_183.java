@@ -2,9 +2,13 @@ package com.gempukku.lotro.cards.set12.wraith;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.RevealCardEffect;
+import com.gempukku.lotro.cards.effects.RevealCardsFromYourHandEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Names;
+import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
@@ -45,7 +49,7 @@ public class Card12_183 extends AbstractMinion {
                 && !playerId.equals(game.getGameState().getCurrentPlayerId())) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(
-                    new RevealCardEffect(self, self));
+                    new RevealCardsFromYourHandEffect(self, playerId, self));
             action.appendEffect(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.ringBearer));
             return Collections.singletonList(action);

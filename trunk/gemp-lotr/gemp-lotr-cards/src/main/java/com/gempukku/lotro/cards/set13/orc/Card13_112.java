@@ -4,7 +4,7 @@ import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
-import com.gempukku.lotro.cards.effects.RevealCardEffect;
+import com.gempukku.lotro.cards.effects.RevealCardsFromYourHandEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -56,7 +56,7 @@ public class Card13_112 extends AbstractMinion {
                 && !playerId.equals(game.getGameState().getCurrentPlayerId())) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(
-                    new RevealCardEffect(self, self));
+                    new RevealCardsFromYourHandEffect(self, playerId, self));
             action.appendEffect(
                     new AddBurdenEffect(self.getOwner(), self, 1));
             return Collections.singletonList(action);

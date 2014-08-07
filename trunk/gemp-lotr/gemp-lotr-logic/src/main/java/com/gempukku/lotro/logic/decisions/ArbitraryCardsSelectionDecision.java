@@ -7,20 +7,20 @@ import java.util.LinkedList;
 import java.util.List;
 
 public abstract class ArbitraryCardsSelectionDecision extends AbstractAwaitingDecision {
-    private Collection<PhysicalCard> _physicalCards;
-    private Collection<PhysicalCard> _selectable;
+    private Collection<? extends PhysicalCard> _physicalCards;
+    private Collection<? extends PhysicalCard> _selectable;
     private int _minimum;
     private int _maximum;
 
-    public ArbitraryCardsSelectionDecision(int id, String text, Collection<PhysicalCard> physicalCard) {
+    public ArbitraryCardsSelectionDecision(int id, String text, Collection<? extends PhysicalCard> physicalCard) {
         this(id, text, physicalCard, 0, physicalCard.size());
     }
 
-    public ArbitraryCardsSelectionDecision(int id, String text, Collection<PhysicalCard> physicalCards, int minimum, int maximum) {
+    public ArbitraryCardsSelectionDecision(int id, String text, Collection<? extends PhysicalCard> physicalCards, int minimum, int maximum) {
         this(id, text, physicalCards, physicalCards, minimum, maximum);
     }
 
-    public ArbitraryCardsSelectionDecision(int id, String text, Collection<PhysicalCard> physicalCards, Collection<PhysicalCard> selectable, int minimum, int maximum) {
+    public ArbitraryCardsSelectionDecision(int id, String text, Collection<? extends PhysicalCard> physicalCards, Collection<? extends PhysicalCard> selectable, int minimum, int maximum) {
         super(id, text, AwaitingDecisionType.ARBITRARY_CARDS);
         _physicalCards = physicalCards;
         _selectable = selectable;
@@ -33,7 +33,7 @@ public abstract class ArbitraryCardsSelectionDecision extends AbstractAwaitingDe
         setParam("selectable", getSelectable(physicalCards, selectable));
     }
 
-    private String[] getSelectable(Collection<PhysicalCard> physicalCards, Collection<PhysicalCard> selectable) {
+    private String[] getSelectable(Collection<? extends PhysicalCard> physicalCards, Collection<? extends PhysicalCard> selectable) {
         String[] result = new String[physicalCards.size()];
         int index = 0;
         for (PhysicalCard physicalCard : physicalCards) {
@@ -43,14 +43,14 @@ public abstract class ArbitraryCardsSelectionDecision extends AbstractAwaitingDe
         return result;
     }
 
-    private String[] getCardIds(Collection<PhysicalCard> physicalCards) {
+    private String[] getCardIds(Collection<? extends PhysicalCard> physicalCards) {
         String[] result = new String[physicalCards.size()];
         for (int i = 0; i < physicalCards.size(); i++)
             result[i] = "temp" + i;
         return result;
     }
 
-    private String[] getBlueprintIds(Collection<PhysicalCard> physicalCards) {
+    private String[] getBlueprintIds(Collection<? extends PhysicalCard> physicalCards) {
         String[] result = new String[physicalCards.size()];
         int index = 0;
         for (PhysicalCard physicalCard : physicalCards) {
