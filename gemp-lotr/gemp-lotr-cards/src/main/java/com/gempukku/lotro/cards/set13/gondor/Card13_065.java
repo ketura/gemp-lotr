@@ -9,7 +9,12 @@ import com.gempukku.lotro.cards.effects.SpotEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndRemoveCultureTokensFromCardEffect;
 import com.gempukku.lotro.cards.modifiers.ResistanceModifier;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Race;
+import com.gempukku.lotro.common.Token;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -43,7 +48,7 @@ public class Card13_065 extends AbstractCompanion {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && (PlayConditions.canSpot(game, 2, Culture.GONDOR, Keyword.KNIGHT) || PlayConditions.canExert(self, game, 2, Culture.GONDOR, Race.MAN));
+                && (PlayConditions.canSpot(game, 2, Culture.GONDOR, Keyword.KNIGHT) || PlayConditions.canExert(self, game, 1, 2, Culture.GONDOR, Race.MAN));
     }
 
     @Override
