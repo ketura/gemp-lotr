@@ -33,16 +33,32 @@ public class SwissPairingMechanismTest {
         // Sally has 66% chance of winning a game against Jack and 50% against anotherSally, Jack has 50% of winning
         // a game against another Jack
 
-        int repeatCount = 10000;
-        int playerCount = 260;
+        int repeatCount = 100000;
         int roundCount = 9;
 
-        int betterPlayerWin =0;
+        int betterPlayerCount = 10;
+        int worsePlayerCount = 250;
+        float chanceToWin = 0.66666f;
+
+        int playerCount = betterPlayerCount+worsePlayerCount;
+
+        int betterPlayerWins =0;
+
+        Set<String> betterPlayers = new HashSet<String>();
+        Set<String> worsePlayers = new HashSet<String>();
+
+        Random rnd = new Random();
 
         for (int repeat = 0; repeat < repeatCount; repeat++) {
             Set<String> players = new HashSet<String>();
-            for (int i = 0; i < playerCount; i++)
-                players.add(String.valueOf(i));
+            for (int i = 0; i < playerCount; i++) {
+                String playerName = String.valueOf(i);
+                players.add(playerName);
+                if (i<betterPlayerCount)
+                    betterPlayers.add(playerName);
+                else
+                    worsePlayers.add(playerName);
+            }
 
             Set<String> droppedPlayers = new HashSet<String>();
             Map<String, Integer> byes = new HashMap<String, Integer>();
@@ -71,7 +87,7 @@ public class SwissPairingMechanismTest {
                         String playerOne = newPairing.getKey();
                         String playerTwo = newPairing.getValue();
 
-                        String winner = getWinner(playerOne, playerTwo);
+                        String winner = getWinner(rnd, betterPlayers, worsePlayers, playerOne, playerTwo, chanceToWin);
 
                         previouslyPaired.get(playerOne).add(playerTwo);
                         previouslyPaired.get(playerTwo).add(playerOne);
@@ -82,39 +98,36 @@ public class SwissPairingMechanismTest {
             }
             List<PlayerStanding> standings = BestOfOneStandingsProducer.produceStandings(players, matches, 1, 0, byes);
 
-            String firstSemi = getWinner(standings.get(0).getPlayerName(), standings.get(7).getPlayerName());
-            String secondSemi = getWinner(standings.get(1).getPlayerName(), standings.get(6).getPlayerName());
-            String thirdSemi = getWinner(standings.get(2).getPlayerName(), standings.get(5).getPlayerName());
-            String fourthSemi = getWinner(standings.get(3).getPlayerName(), standings.get(4).getPlayerName());
+            String firstSemi = getWinner(rnd, betterPlayers, worsePlayers, standings.get(0).getPlayerName(), standings.get(7).getPlayerName(), chanceToWin);
+            String secondSemi = getWinner(rnd, betterPlayers, worsePlayers, standings.get(1).getPlayerName(), standings.get(6).getPlayerName(), chanceToWin);
+            String thirdSemi = getWinner(rnd, betterPlayers, worsePlayers, standings.get(2).getPlayerName(), standings.get(5).getPlayerName(), chanceToWin);
+            String fourthSemi = getWinner(rnd, betterPlayers, worsePlayers, standings.get(3).getPlayerName(), standings.get(4).getPlayerName(), chanceToWin);
 
-            String firstFinalist = getWinner(firstSemi, fourthSemi);
-            String secondFinalist = getWinner(secondSemi, thirdSemi);
+            String firstFinalist = getWinner(rnd, betterPlayers, worsePlayers, firstSemi, fourthSemi, chanceToWin);
+            String secondFinalist = getWinner(rnd, betterPlayers, worsePlayers, secondSemi, thirdSemi, chanceToWin);
 
-            String winner = getWinner(firstFinalist, secondFinalist);
+            String winner = getWinner(rnd, betterPlayers, worsePlayers, firstFinalist, secondFinalist, chanceToWin);
 
-            if (Integer.parseInt(winner)<10)
-                betterPlayerWin++;
+            if (betterPlayers.contains(winner))
+                betterPlayerWins++;
         }
 
-        System.out.println(betterPlayerWin);
+        System.out.println(betterPlayerWins);
     }
 
-    private String getWinner(String playerOne, String playerTwo) {
-        int playerOneNo = Integer.parseInt(playerOne);
-        int playerTwoNo = Integer.parseInt(playerTwo);
-
-        if (playerOneNo < 10 && playerTwoNo >= 10) {
-            if (new Random().nextFloat() < 0.66f)
+    private String getWinner(Random rnd, Set<String> betterPlayers, Set<String> worsePlayers, String playerOne, String playerTwo, float winChance) {
+        if (betterPlayers.contains(playerOne) && worsePlayers.contains(playerTwo)) {
+            if (rnd.nextFloat() < winChance)
                 return playerOne;
             else
                 return playerTwo;
-        } else if (playerTwoNo < 10 && playerOneNo >= 10) {
-            if (new Random().nextFloat() < 0.66f)
+        } else if (betterPlayers.contains(playerTwo) && worsePlayers.contains(playerOne)) {
+            if (rnd.nextFloat() < winChance)
                 return playerTwo;
             else
                 return playerOne;
         } else {
-            if (new Random().nextBoolean())
+            if (rnd.nextBoolean())
                 return playerOne;
             else
                 return playerTwo;
