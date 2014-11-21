@@ -6,7 +6,12 @@ import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.modifiers.RemoveSpecialAbilitiesModifier;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -53,6 +58,7 @@ public class Card13_075 extends AbstractPermanent {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, CardType.MINION));
+            action.setText("Exert a minion");
             return Collections.singletonList(action);
         }
         if (TriggerConditions.forEachExerted(game, effectResult, Filters.name("Faramir"))) {
@@ -66,6 +72,7 @@ public class Card13_075 extends AbstractPermanent {
                                             new RemoveSpecialAbilitiesModifier(self, card), Phase.REGROUP));
                         }
                     });
+            action.setText("Spot a minion to prevent it from using special abilities");
             return Collections.singletonList(action);
         }
         return null;
