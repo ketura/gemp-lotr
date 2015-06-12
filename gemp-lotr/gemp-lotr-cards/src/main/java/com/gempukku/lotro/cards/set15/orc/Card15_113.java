@@ -50,7 +50,7 @@ public class Card15_113 extends AbstractPermanent {
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Culture.ORC, Race.ORC));
             action.appendEffect(
-                    new RevealTopCardsOfDrawDeckEffect(self, playerId, 1) {
+                    new RevealBottomCardsOfDrawDeckEffect(self, playerId, 1) {
                         @Override
                         protected void cardsRevealed(List<PhysicalCard> revealedCards) {
                             for (PhysicalCard card : revealedCards) {
