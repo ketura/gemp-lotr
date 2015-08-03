@@ -36,6 +36,7 @@ var packBlueprints = {
 
     "(S)Booster Choice":"/gemp-lotr/images/boosters/booster_selection.png",
     "(S)Movie Booster Choice":"/gemp-lotr/images/boosters/booster_selection.png",
+    "(S)TSBoosterChoice":"/gemp-lotr/images/boosters/booster_selection.png",
 
     "FotR - League Starter":"/gemp-lotr/images/boosters/fotr_league_starter.png",
     "Random FotR Foil Common":"/gemp-lotr/images/boosters/random_foil.png",
@@ -118,6 +119,20 @@ var packBlueprints = {
     "(S)Special-1-3":"/gemp-lotr/images/boosters/starter_selection.png",
     "(S)Special-4-6":"/gemp-lotr/images/boosters/starter_selection.png",
     "(S)Special-7-9":"/gemp-lotr/images/boosters/starter_selection.png",
+
+    "TSSealedS1D1":"/gemp-lotr/images/boosters/TSS1D1.png",
+    "TSSealedS1D2":"/gemp-lotr/images/boosters/TSS1D2.png",
+    "TSSealedS1D3":"/gemp-lotr/images/boosters/TSS1D3.png",
+    "TSSealedS2D1":"/gemp-lotr/images/boosters/TSS2D1.png",
+    "TSSealedS2D2":"/gemp-lotr/images/boosters/TSS2D2.png",
+    "TSSealedS2D3":"/gemp-lotr/images/boosters/TSS2D3.png",
+    "TSSealedS3D1":"/gemp-lotr/images/boosters/TSS3D1.png",
+    "TSSealedS3D2":"/gemp-lotr/images/boosters/TSS3D2.png",
+    "TSSealedS3D3":"/gemp-lotr/images/boosters/TSS3D3.png",
+
+    "(S)TSSealed-S1":"/gemp-lotr/images/boosters/starter_selection.png",
+    "(S)TSSealed-S2":"/gemp-lotr/images/boosters/starter_selection.png",
+    "(S)TSSealed-S3":"/gemp-lotr/images/boosters/starter_selection.png",
 
     "Expanded":"/gemp-lotr/images/boosters/expanded.png",
     "Wraith":"/gemp-lotr/images/boosters/wraith.png",
