@@ -97,6 +97,21 @@ public class PacksStorageBuilder {
             packStorage.addPackBox("Special-08", new FixedPackBox("Special-08"));
             packStorage.addPackBox("Special-09", new FixedPackBox("Special-09"));
 
+            packStorage.addPackBox("(S)TSSealed-S1", new FixedPackBox("(S)TSSealed-S1"));
+            packStorage.addPackBox("TSSealedS1D1", new FixedPackBox("TSSealedS1D1"));
+            packStorage.addPackBox("TSSealedS1D2", new FixedPackBox("TSSealedS1D2"));
+            packStorage.addPackBox("TSSealedS1D3", new FixedPackBox("TSSealedS1D3"));
+
+            packStorage.addPackBox("(S)TSSealed-S2", new FixedPackBox("(S)TSSealed-S2"));
+            packStorage.addPackBox("TSSealedS2D1", new FixedPackBox("TSSealedS2D1"));
+            packStorage.addPackBox("TSSealedS2D2", new FixedPackBox("TSSealedS2D2"));
+            packStorage.addPackBox("TSSealedS2D3", new FixedPackBox("TSSealedS2D3"));
+
+            packStorage.addPackBox("(S)TSSealed-S3", new FixedPackBox("(S)TSSealed-S3"));
+            packStorage.addPackBox("TSSealedS3D1", new FixedPackBox("TSSealedS3D1"));
+            packStorage.addPackBox("TSSealedS3D2", new FixedPackBox("TSSealedS3D2"));
+            packStorage.addPackBox("TSSealedS3D3", new FixedPackBox("TSSealedS3D3"));
+
             packStorage.addPackBox("FotR - Booster", new RarityPackBox(cardSets.getSetDefinitions().get("1")));
             packStorage.addPackBox("MoM - Booster", new RarityPackBox(cardSets.getSetDefinitions().get("2")));
             packStorage.addPackBox("RotEL - Booster", new RarityPackBox(cardSets.getSetDefinitions().get("3")));

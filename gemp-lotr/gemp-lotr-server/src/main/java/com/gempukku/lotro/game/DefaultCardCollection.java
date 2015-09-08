@@ -2,7 +2,13 @@ package com.gempukku.lotro.game;
 
 import com.gempukku.lotro.packs.PacksStorage;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class DefaultCardCollection implements MutableCardCollection {
     private Map<String, Item> _counts = new LinkedHashMap<String, Item>();
@@ -76,8 +82,8 @@ public class DefaultCardCollection implements MutableCardCollection {
             return null;
         if (count.getCount() > 0) {
             List<Item> packContents = null;
-            if (selection != null && packId.startsWith("(S)")) {
-                if (hasSelection(packId, selection, packsStorage)) {
+            if (packId.startsWith("(S)")) {
+                if (selection != null && hasSelection(packId, selection, packsStorage)) {
                     packContents = new LinkedList<Item>();
                     packContents.add(Item.createItem(selection, 1));
                 }
