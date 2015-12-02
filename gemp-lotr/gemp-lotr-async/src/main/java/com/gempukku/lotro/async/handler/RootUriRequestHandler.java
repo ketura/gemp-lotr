@@ -30,6 +30,7 @@ public class RootUriRequestHandler implements UriRequestHandler {
     private ServerStatsRequestHandler _serverStatsRequestHandler;
     private PlayerStatsRequestHandler _playerStatsRequestHandler;
     private TournamentRequestHandler _tournamentRequestHandler;
+    private MtgCardsRequestHandler _mtgCardsRequestHandler;
 
     public RootUriRequestHandler(Map<Type, Object> context) {
         _webRequestHandler = new WebRequestHandler(ApplicationConfiguration.getProperty("web.path"));
@@ -50,12 +51,15 @@ public class RootUriRequestHandler implements UriRequestHandler {
         _serverStatsRequestHandler = new ServerStatsRequestHandler(context);
         _playerStatsRequestHandler = new PlayerStatsRequestHandler(context);
         _tournamentRequestHandler = new TournamentRequestHandler(context);
+        _mtgCardsRequestHandler = new MtgCardsRequestHandler(context);
     }
 
     @Override
     public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, MessageEvent e) throws Exception {
         if (uri.startsWith(_webContextPath)) {
             _webRequestHandler.handleRequest(uri.substring(_webContextPath.length()), request, context, responseWriter, e);
+        } else if (uri.equals("/mtg-cards/database.json")) {
+            _mtgCardsRequestHandler.handleRequest(uri, request, context, responseWriter, e);
         } else if (uri.equals("/gemp-lotr")) {
             responseWriter.writeError(301, Collections.singletonMap("Location", "/gemp-lotr/"));
         } else if (uri.startsWith(_serverContextPath +"hall")) {

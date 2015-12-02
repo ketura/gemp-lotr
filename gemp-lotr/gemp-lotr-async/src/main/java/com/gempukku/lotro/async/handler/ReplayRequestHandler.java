@@ -10,7 +10,10 @@ import org.jboss.netty.handler.codec.http.HttpRequest;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.lang.reflect.Type;
+import java.util.HashMap;
 import java.util.Map;
+
+import static org.jboss.netty.handler.codec.http.HttpHeaders.Names.CONTENT_TYPE;
 
 public class ReplayRequestHandler extends LotroServerRequestHandler implements UriRequestHandler {
     private GameRecorder _gameRecorder;
@@ -49,7 +52,10 @@ public class ReplayRequestHandler extends LotroServerRequestHandler implements U
                 recordedGame.close();
             }
 
-            responseWriter.writeByteResponse("application/html; charset=UTF-8", baos.toByteArray());
+            Map<String, String> headers = new HashMap<String, String>();
+            headers.put(CONTENT_TYPE, "application/html; charset=UTF-8");
+
+            responseWriter.writeByteResponse(baos.toByteArray(), headers);
         } else {
             responseWriter.writeError(404);
         }

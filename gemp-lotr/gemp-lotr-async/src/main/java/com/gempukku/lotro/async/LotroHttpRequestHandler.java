@@ -5,7 +5,12 @@ import com.gempukku.lotro.db.IpBanDAO;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.jboss.netty.buffer.ChannelBuffers;
-import org.jboss.netty.channel.*;
+import org.jboss.netty.channel.ChannelFuture;
+import org.jboss.netty.channel.ChannelFutureListener;
+import org.jboss.netty.channel.ChannelHandlerContext;
+import org.jboss.netty.channel.ExceptionEvent;
+import org.jboss.netty.channel.MessageEvent;
+import org.jboss.netty.channel.SimpleChannelUpstreamHandler;
 import org.jboss.netty.handler.codec.http.DefaultHttpResponse;
 import org.jboss.netty.handler.codec.http.HttpRequest;
 import org.jboss.netty.handler.codec.http.HttpResponse;
@@ -17,7 +22,11 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.StringWriter;
 import java.lang.reflect.Type;
 import java.net.InetSocketAddress;
 import java.text.SimpleDateFormat;
@@ -26,10 +35,16 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.jboss.netty.handler.codec.http.HttpHeaders.Names.*;
+import static org.jboss.netty.handler.codec.http.HttpHeaders.Names.CACHE_CONTROL;
+import static org.jboss.netty.handler.codec.http.HttpHeaders.Names.CONTENT_LENGTH;
+import static org.jboss.netty.handler.codec.http.HttpHeaders.Names.CONTENT_TYPE;
+import static org.jboss.netty.handler.codec.http.HttpHeaders.Names.EXPIRES;
+import static org.jboss.netty.handler.codec.http.HttpHeaders.Names.PRAGMA;
 import static org.jboss.netty.handler.codec.http.HttpHeaders.is100ContinueExpected;
 import static org.jboss.netty.handler.codec.http.HttpHeaders.isKeepAlive;
-import static org.jboss.netty.handler.codec.http.HttpResponseStatus.*;
+import static org.jboss.netty.handler.codec.http.HttpResponseStatus.BAD_REQUEST;
+import static org.jboss.netty.handler.codec.http.HttpResponseStatus.CONTINUE;
+import static org.jboss.netty.handler.codec.http.HttpResponseStatus.OK;
 import static org.jboss.netty.handler.codec.http.HttpVersion.HTTP_1_1;
 
 public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
@@ -110,9 +125,7 @@ public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
                 }
 
                 @Override
-                public void writeByteResponse(String contentType, byte[] bytes) {
-                    Map<String, String> headers = new HashMap<String, String>();
-                    headers.put(CONTENT_TYPE, contentType);
+                public void writeByteResponse(byte[] bytes, Map<String, String> headers) {
                     writeHttpByteResponse(requestInformation, request, bytes, headers, e);
                 }
 
