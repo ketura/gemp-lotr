@@ -1,8 +1,22 @@
 package com.gempukku.mtg;
 
 import com.gempukku.lotro.AbstractServer;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.nio.charset.Charset;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 public class MtgCardServer extends AbstractServer {
     private volatile CardDatabaseHolder _cardDatabaseHolder;
@@ -52,22 +66,95 @@ public class MtgCardServer extends AbstractServer {
         }
     }
 
-    private byte[] getDatabase() {
-        String exampleString = "[" +
-                "{\"id\":\"sc\",\"name\":\"Snapcaster Mage\",\"info\":\"Innistrad\",\"midPrice\":5956}," +
-                "{\"id\":\"scf\",\"name\":\"Snapcaster Mage\",\"info\":\"Innistrad · Foil\",\"midPrice\":18040}," +
-                "{\"id\":\"ara\",\"name\":\"Ancestral Recall\",\"info\":\"Alpha\",\"midPrice\":500000}," +
-                "{\"id\":\"ara\",\"name\":\"Ancestral Recall\",\"info\":\"Beta\",\"midPrice\":300000}," +
-                "{\"id\":\"ara\",\"name\":\"Ancestral Recall\",\"info\":\"Unlimited\",\"midPrice\":50000}" +
-                "]";
-        return exampleString.getBytes(Charset.forName("UTF-8"));
-    }
+    private class UpdateDatabase implements Runnable {
+        private static final int SLEEP_MINIMUM = 60 * 1000;
+        private static final int SLEEP_MAXIMUM = 120 * 1000;
 
-    public class UpdateDatabase implements Runnable {
         public void run() {
             String updateMarker = String.valueOf(System.currentTimeMillis());
 
-            _cardDatabaseHolder = new CardDatabaseHolder(getDatabase(), updateMarker);
+            try {
+                JSONArray resultArray = new JSONArray();
+                List<MtgCardSet> mtgCardSets = downloadSetList();
+                int index = 0;
+                for (MtgCardSet mtgCardSet : mtgCardSets) {
+                    downloadSet(mtgCardSet, resultArray);
+                    index++;
+                    if (index > 0)
+                        break;
+                }
+
+                String resultJson = resultArray.toJSONString();
+                _cardDatabaseHolder = new CardDatabaseHolder(resultJson.getBytes("UTF-8"), updateMarker);
+            } catch (IOException exp) {
+                StringWriter writer = new StringWriter();
+                exp.printStackTrace(new PrintWriter(writer));
+                _cardDatabaseHolder = new CardDatabaseHolder(writer.toString().getBytes(Charset.defaultCharset()), updateMarker);
+            }
         }
+
+        private List<MtgCardSet> downloadSetList() throws IOException {
+            List<MtgCardSet> results = new LinkedList<MtgCardSet>();
+            Document doc = Jsoup.connect("http://www.mtggoldfish.com/prices/paper/standard").get();
+            String[] priceListTypes = new String[]{"Standard", "Modern", "Legacy", "Special"};
+            for (String priceListType : priceListTypes) {
+                Elements cardElements = doc.select(".priceList-setMenu-" + priceListType);
+                Elements setImages = cardElements.select("li img");
+                for (Element setImage : setImages) {
+                    String uriPostfix = setImage.attr("alt");
+                    String setName = setImage.parent().text();
+                    results.add(new MtgCardSet(uriPostfix, setName));
+                }
+            }
+
+            return results;
+        }
+
+        private void downloadSet(MtgCardSet mtgCardSet, JSONArray jsonArray) throws IOException {
+            try {
+                Thread.sleep(getSleepTime());
+            } catch (InterruptedException e) {
+
+            }
+            Document doc = Jsoup.connect("http://www.mtggoldfish.com/index/" + mtgCardSet.getUrlPostfix()).get();
+            boolean isInPaper = (doc.select("#priceHistoryTabs [href=#tab-paper]").size() > 0);
+            if (isInPaper) {
+                JSONArray setArray = new JSONArray();
+
+                Map<String, Object> setObject = new LinkedHashMap<String, Object>();
+                setObject.put("name", mtgCardSet.getInfoLine());
+                setObject.put("cards", setArray);
+                jsonArray.add(setObject);
+
+                Elements cardElements = doc.select(".index-price-table-paper tbody tr");
+                for (Element cardElement : cardElements) {
+                    String cardName = cardElement.select("td:nth-of-type(1) a").text();
+                    String cardId = mtgCardSet.getUrlPostfix() + "-" + cardName;
+                    float price = Float.parseFloat(cardElement.select("td:nth-of-type(4)").text());
+                    JSONObject cardObject = new JSONObject();
+                    cardObject.put("id", cardId);
+                    cardObject.put("name", cardName);
+                    cardObject.put("price", Math.round(price * 100));
+                    setArray.add(cardObject);
+                }
+
+                boolean hasFoils = doc.select(".index-price-header-foil-switcher").size() > 0;
+                if (hasFoils) {
+                    downloadSet(new MtgCardSet(mtgCardSet.getUrlPostfix() + "_F", mtgCardSet.getInfoLine() + " · Foil"), jsonArray);
+                }
+            }
+        }
+
+        private int getSleepTime() {
+            Random rnd = new Random();
+            return SLEEP_MINIMUM + rnd.nextInt(SLEEP_MAXIMUM - SLEEP_MINIMUM);
+        }
+    }
+
+    public static void main(String[] args) {
+        MtgCardServer mtgCardServer = new MtgCardServer(0, 1);
+
+        UpdateDatabase updateDatabase = mtgCardServer.new UpdateDatabase();
+        updateDatabase.run();
     }
 }
