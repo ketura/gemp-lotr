@@ -1,6 +1,7 @@
 package com.gempukku.mtg;
 
 import com.gempukku.lotro.AbstractServer;
+import org.apache.log4j.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.jsoup.Jsoup;
@@ -19,6 +20,8 @@ import java.util.Map;
 import java.util.Random;
 
 public class MtgCardServer extends AbstractServer {
+    private static final Logger LOG = Logger.getLogger(MtgCardServer.class);
+
     private volatile CardDatabaseHolder _cardDatabaseHolder;
     private long _downloadEvery;
     private long _nextStart;
@@ -87,6 +90,9 @@ public class MtgCardServer extends AbstractServer {
                 String resultJson = resultArray.toJSONString();
                 _cardDatabaseHolder = new CardDatabaseHolder(resultJson.getBytes("UTF-8"), updateMarker);
             } catch (Exception exp) {
+                LOG.error("Error downloading card database", exp);
+
+                // Temporarily we sent the error as response
                 StringWriter writer = new StringWriter();
                 exp.printStackTrace(new PrintWriter(writer));
                 _cardDatabaseHolder = new CardDatabaseHolder(writer.toString().getBytes(Charset.defaultCharset()), updateMarker);
