@@ -86,7 +86,7 @@ public class MtgCardServer extends AbstractServer {
 
                 String resultJson = resultArray.toJSONString();
                 _cardDatabaseHolder = new CardDatabaseHolder(resultJson.getBytes("UTF-8"), updateMarker);
-            } catch (IOException exp) {
+            } catch (Exception exp) {
                 StringWriter writer = new StringWriter();
                 exp.printStackTrace(new PrintWriter(writer));
                 _cardDatabaseHolder = new CardDatabaseHolder(writer.toString().getBytes(Charset.defaultCharset()), updateMarker);
