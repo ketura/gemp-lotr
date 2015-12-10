@@ -14,7 +14,11 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.net.URL;
 import java.nio.charset.Charset;
-import java.util.*;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 public class MtgCardServer extends AbstractServer {
     private static final Logger LOG = Logger.getLogger(MtgCardServer.class);
@@ -43,8 +47,8 @@ public class MtgCardServer extends AbstractServer {
     @Override
     protected void cleanup() {
         if (_nextStart < System.currentTimeMillis()) {
-            updateDatabase();
             _nextStart += _downloadEvery;
+            updateDatabase();
         }
     }
 
