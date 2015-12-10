@@ -4,6 +4,7 @@ import com.gempukku.lotro.AbstractServer;
 import org.apache.log4j.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -14,11 +15,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.net.URL;
 import java.nio.charset.Charset;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 public class MtgCardServer extends AbstractServer {
     private static final Logger LOG = Logger.getLogger(MtgCardServer.class);
@@ -71,8 +68,8 @@ public class MtgCardServer extends AbstractServer {
     }
 
     private class UpdateDatabase implements Runnable {
-        private static final int SLEEP_MINIMUM = 60 * 1000;
-        private static final int SLEEP_MAXIMUM = 120 * 1000;
+        private static final int SLEEP_MINIMUM = 8 * 1000;
+        private static final int SLEEP_MAXIMUM = 12 * 1000;
 
         private static final int TIMEOUT = 5 * 60 * 1000;
 
@@ -121,32 +118,37 @@ public class MtgCardServer extends AbstractServer {
             } catch (InterruptedException e) {
 
             }
-            Document doc = Jsoup.parse(new URL("http://www.mtggoldfish.com/index/" + mtgCardSet.getUrlPostfix()), TIMEOUT);
-            boolean isInPaper = (doc.select("#priceHistoryTabs [href=#tab-paper]").size() > 0);
-            if (isInPaper) {
-                JSONArray setArray = new JSONArray();
+            try {
+                Document doc = Jsoup.parse(new URL("http://www.mtggoldfish.com/index/" + mtgCardSet.getUrlPostfix()), TIMEOUT);
+                boolean isInPaper = (doc.select("#priceHistoryTabs [href=#tab-paper]").size() > 0);
+                if (isInPaper) {
+                    JSONArray setArray = new JSONArray();
 
-                Map<String, Object> setObject = new LinkedHashMap<String, Object>();
-                setObject.put("name", mtgCardSet.getInfoLine());
-                setObject.put("cards", setArray);
-                jsonArray.add(setObject);
+                    Map<String, Object> setObject = new LinkedHashMap<String, Object>();
+                    setObject.put("name", mtgCardSet.getInfoLine());
+                    setObject.put("cards", setArray);
+                    jsonArray.add(setObject);
 
-                Elements cardElements = doc.select(".index-price-table-paper tbody tr");
-                for (Element cardElement : cardElements) {
-                    String cardName = cardElement.select("td:nth-of-type(1) a").text();
-                    String cardId = mtgCardSet.getUrlPostfix() + "-" + cardName;
-                    float price = Float.parseFloat(cardElement.select("td:nth-of-type(4)").text());
-                    JSONObject cardObject = new JSONObject();
-                    cardObject.put("id", cardId);
-                    cardObject.put("name", cardName);
-                    cardObject.put("price", Math.round(price * 100));
-                    setArray.add(cardObject);
+                    Elements cardElements = doc.select(".index-price-table-paper tbody tr");
+                    for (Element cardElement : cardElements) {
+                        String cardName = cardElement.select("td:nth-of-type(1) a").text();
+                        String cardId = mtgCardSet.getUrlPostfix() + "-" + cardName;
+                        float price = Float.parseFloat(cardElement.select("td:nth-of-type(4)").text().replace(",", ""));
+                        JSONObject cardObject = new JSONObject();
+                        cardObject.put("id", cardId);
+                        cardObject.put("name", cardName);
+                        cardObject.put("price", Math.round(price * 100));
+                        setArray.add(cardObject);
+                    }
+                    System.out.println("Finished set " + mtgCardSet.getInfoLine());
+
+                    boolean hasFoils = doc.select(".index-price-header-foil-switcher").size() > 0;
+                    if (hasFoils) {
+                        downloadSet(new MtgCardSet(mtgCardSet.getUrlPostfix() + "_F", mtgCardSet.getInfoLine() + " · Foil"), jsonArray);
+                    }
                 }
+            } catch (HttpStatusException exp) {
 
-                boolean hasFoils = doc.select(".index-price-header-foil-switcher").size() > 0;
-                if (hasFoils) {
-                    downloadSet(new MtgCardSet(mtgCardSet.getUrlPostfix() + "_F", mtgCardSet.getInfoLine() + " · Foil"), jsonArray);
-                }
             }
         }
 
@@ -161,5 +163,6 @@ public class MtgCardServer extends AbstractServer {
 
         UpdateDatabase updateDatabase = mtgCardServer.new UpdateDatabase();
         updateDatabase.run();
+        System.out.println(new String(mtgCardServer._cardDatabaseHolder._bytes));
     }
 }
