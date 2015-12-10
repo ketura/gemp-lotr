@@ -12,12 +12,9 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.net.URL;
 import java.nio.charset.Charset;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 public class MtgCardServer extends AbstractServer {
     private static final Logger LOG = Logger.getLogger(MtgCardServer.class);
@@ -73,18 +70,16 @@ public class MtgCardServer extends AbstractServer {
         private static final int SLEEP_MINIMUM = 60 * 1000;
         private static final int SLEEP_MAXIMUM = 120 * 1000;
 
+        private static final int TIMEOUT = 5 * 60 * 1000;
+
         public void run() {
             String updateMarker = String.valueOf(System.currentTimeMillis());
 
             try {
                 JSONArray resultArray = new JSONArray();
                 List<MtgCardSet> mtgCardSets = downloadSetList();
-                int index = 0;
                 for (MtgCardSet mtgCardSet : mtgCardSets) {
                     downloadSet(mtgCardSet, resultArray);
-                    index++;
-                    if (index > 0)
-                        break;
                 }
 
                 String resultJson = resultArray.toJSONString();
@@ -122,7 +117,7 @@ public class MtgCardServer extends AbstractServer {
             } catch (InterruptedException e) {
 
             }
-            Document doc = Jsoup.connect("http://www.mtggoldfish.com/index/" + mtgCardSet.getUrlPostfix()).get();
+            Document doc = Jsoup.parse(new URL("http://www.mtggoldfish.com/index/" + mtgCardSet.getUrlPostfix()), TIMEOUT);
             boolean isInPaper = (doc.select("#priceHistoryTabs [href=#tab-paper]").size() > 0);
             if (isInPaper) {
                 JSONArray setArray = new JSONArray();
