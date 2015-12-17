@@ -6,7 +6,13 @@ import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.PreventCardEffect;
 import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPutCardFromDiscardIntoHandEffect;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Filterable;
+import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.PossessionClass;
+import com.gempukku.lotro.common.Race;
+import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -61,7 +67,7 @@ public class Card17_001 extends AbstractAttachable {
             action.appendCost(
                     new SelfDiscardEffect(self));
             action.appendEffect(
-                    new ChooseAndPutCardFromDiscardIntoHandEffect(action, playerId, 0, 2, Culture.DWARVEN, CardType.POSSESSION));
+                    new ChooseAndPutCardFromDiscardIntoHandEffect(action, playerId, 0, 2, Culture.DWARVEN, CardType.POSSESSION, Filters.not(self)));
             return Collections.singletonList(action);
         }
         return null;
