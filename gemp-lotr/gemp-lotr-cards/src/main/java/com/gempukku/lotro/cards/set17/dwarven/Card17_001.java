@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set17.dwarven;
 
-import com.gempukku.lotro.cards.AbstractAttachable;
+import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.PreventCardEffect;
@@ -12,7 +12,6 @@ import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.PossessionClass;
 import com.gempukku.lotro.common.Race;
-import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -35,9 +34,9 @@ import java.util.List;
  * Game Text: Bearer must be a Dwarf. Each time bearer is about to take a wound, you may add a threat to prevent that.
  * Regroup: Discard this possession to take up to 2 other [DWARVEN] possessions into hand from your discard pile.
  */
-public class Card17_001 extends AbstractAttachable {
+public class Card17_001 extends AbstractAttachableFPPossession {
     public Card17_001() {
-        super(Side.FREE_PEOPLE, CardType.POSSESSION, 2, Culture.DWARVEN, PossessionClass.ARMOR, "Armor of Khazad");
+        super(2, 0, 0, Culture.DWARVEN, PossessionClass.ARMOR, "Armor of Khazad");
     }
 
     @Override
@@ -60,7 +59,7 @@ public class Card17_001 extends AbstractAttachable {
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.REGROUP, self)
                 && PlayConditions.canSelfDiscard(self, game)) {
             ActivateCardAction action = new ActivateCardAction(self);
