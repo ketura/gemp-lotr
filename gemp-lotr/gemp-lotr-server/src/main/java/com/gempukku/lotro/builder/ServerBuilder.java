@@ -35,10 +35,7 @@ import com.gempukku.lotro.tournament.TournamentService;
 import com.gempukku.mtg.MtgCardServer;
 
 import java.lang.reflect.Type;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Map;
-import java.util.TimeZone;
 
 public class ServerBuilder {
     public static void fillObjectMap(Map<Type, Object> objectMap) {
@@ -125,16 +122,7 @@ public class ServerBuilder {
                         extract(objectMap, CardSets.class)
                 ));
 
-        try {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            sdf.setTimeZone(TimeZone.getTimeZone("EST"));
-
-            long someDownloadTime = sdf.parse("2015-01-01 04:25:00").getTime();
-            objectMap.put(MtgCardServer.class,
-                    new MtgCardServer(someDownloadTime, 24L * 60 * 60 * 1000));
-        } catch (ParseException exp) {
-
-        }
+        objectMap.put(MtgCardServer.class, new MtgCardServer());
     }
 
     private static <T> T extract(Map<Type, Object> objectMap, Class<T> clazz) {

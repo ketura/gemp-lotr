@@ -5,9 +5,11 @@ import com.gempukku.mtg.MtgCardServer;
 import org.jboss.netty.channel.MessageEvent;
 import org.jboss.netty.handler.codec.http.HttpHeaders;
 import org.jboss.netty.handler.codec.http.HttpRequest;
+import org.jboss.netty.handler.codec.http.QueryStringDecoder;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.jboss.netty.handler.codec.http.HttpHeaders.Names.CONTENT_TYPE;
@@ -22,7 +24,10 @@ public class MtgCardsRequestHandler implements UriRequestHandler {
 
     @Override
     public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, MessageEvent e) throws Exception {
-        MtgCardServer.CardDatabaseHolder cardDatabaseHolder = _mtgCardServer.getCardDatabaseHolder();
+        QueryStringDecoder queryDecoder = new QueryStringDecoder(request.getUri());
+        String provider = getQueryParameterSafely(queryDecoder, "provider");
+
+        MtgCardServer.CardDatabaseHolder cardDatabaseHolder = _mtgCardServer.getCardDatabaseHolder(provider);
         if (cardDatabaseHolder == null || clientHasCurrentVersion(request, cardDatabaseHolder.getUpdateMarker())) {
             responseWriter.writeError(304);
             return;
@@ -45,5 +50,13 @@ public class MtgCardsRequestHandler implements UriRequestHandler {
             }
         }
         return false;
+    }
+
+    protected String getQueryParameterSafely(QueryStringDecoder queryStringDecoder, String parameterName) {
+        List<String> parameterValues = queryStringDecoder.getParameters().get(parameterName);
+        if (parameterValues != null && parameterValues.size() > 0)
+            return parameterValues.get(0);
+        else
+            return null;
     }
 }

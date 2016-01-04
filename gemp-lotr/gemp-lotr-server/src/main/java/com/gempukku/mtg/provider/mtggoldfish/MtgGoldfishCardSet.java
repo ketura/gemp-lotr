@@ -1,10 +1,10 @@
-package com.gempukku.mtg;
+package com.gempukku.mtg.provider.mtggoldfish;
 
-public class MtgCardSet {
+public class MtgGoldfishCardSet {
     private String _urlPostfix;
     private String _infoLine;
 
-    public MtgCardSet(String urlPostfix, String infoLine) {
+    public MtgGoldfishCardSet(String urlPostfix, String infoLine) {
         _urlPostfix = urlPostfix;
         _infoLine = infoLine;
     }
