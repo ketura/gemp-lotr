@@ -11,7 +11,6 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Consumer;
 
 public class MtgCardServer extends AbstractServer {
     private Map<String, MtgDataProvider> _dataProviders = new HashMap<String, MtgDataProvider>();
@@ -30,16 +29,12 @@ public class MtgCardServer extends AbstractServer {
 
     public byte[] getDataProvidersResponse() {
         final JSONArray providers = new JSONArray();
-        _dataProviders.entrySet().forEach(
-                new Consumer<Map.Entry<String, MtgDataProvider>>() {
-                    @Override
-                    public void accept(Map.Entry<String, MtgDataProvider> stringMtgDataProviderEntry) {
-                        Map<String, Object> provider = new LinkedHashMap<String, Object>();
-                        provider.put("id", stringMtgDataProviderEntry.getKey());
-                        provider.put("name", stringMtgDataProviderEntry.getValue().getDisplayName());
-                        providers.add(provider);
-                    }
-                });
+        for (Map.Entry<String, MtgDataProvider> stringMtgDataProviderEntry : _dataProviders.entrySet()) {
+            Map<String, Object> provider = new LinkedHashMap<String, Object>();
+            provider.put("id", stringMtgDataProviderEntry.getKey());
+            provider.put("name", stringMtgDataProviderEntry.getValue().getDisplayName());
+            providers.add(provider);
+        }
 
         return providers.toJSONString().getBytes(Charset.forName("UTF-8"));
     }
