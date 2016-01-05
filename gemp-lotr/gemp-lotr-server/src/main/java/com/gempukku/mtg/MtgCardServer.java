@@ -79,10 +79,10 @@ public class MtgCardServer extends AbstractServer {
 
             Map<String, Object> setObject = new LinkedHashMap<String, Object>();
             setObject.put("name", setCardData.getSetName());
-            setObject.put("cards", setArray);
             String setLink = setCardData.getSetLink();
             if (setLink != null)
                 setObject.put("link", setLink);
+            setObject.put("cards", setArray);
 
             allSets.add(setObject);
         }
