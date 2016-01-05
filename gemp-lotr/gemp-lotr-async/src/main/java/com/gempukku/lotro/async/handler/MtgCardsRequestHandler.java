@@ -49,6 +49,7 @@ public class MtgCardsRequestHandler implements UriRequestHandler {
             MtgCardServer.CardDatabaseHolder cardDatabaseHolder = _mtgCardServer.getCardDatabaseHolder(provider);
             if (cardDatabaseHolder == null) {
                 responseWriter.writeError(204);
+                return;
             } else if (clientHasCurrentVersion(request, cardDatabaseHolder.getUpdateMarker())) {
                 responseWriter.writeError(304);
                 return;
