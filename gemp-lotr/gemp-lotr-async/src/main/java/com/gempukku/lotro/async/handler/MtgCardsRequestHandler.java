@@ -2,6 +2,7 @@ package com.gempukku.lotro.async.handler;
 
 import com.gempukku.lotro.async.ResponseWriter;
 import com.gempukku.mtg.MtgCardServer;
+import com.gempukku.mtg.ProviderNotFoundException;
 import org.jboss.netty.channel.MessageEvent;
 import org.jboss.netty.handler.codec.http.HttpHeaders;
 import org.jboss.netty.handler.codec.http.HttpRequest;
@@ -27,17 +28,40 @@ public class MtgCardsRequestHandler implements UriRequestHandler {
         QueryStringDecoder queryDecoder = new QueryStringDecoder(request.getUri());
         String provider = getQueryParameterSafely(queryDecoder, "provider");
 
-        MtgCardServer.CardDatabaseHolder cardDatabaseHolder = _mtgCardServer.getCardDatabaseHolder(provider);
-        if (cardDatabaseHolder == null || clientHasCurrentVersion(request, cardDatabaseHolder.getUpdateMarker())) {
-            responseWriter.writeError(304);
-            return;
+        if (provider != null) {
+            processCardListRequest(request, responseWriter, provider);
+        } else {
+            processProviderListRequest(responseWriter);
         }
+    }
+
+    private void processProviderListRequest(ResponseWriter responseWriter) {
+        byte[] dataProvidersResponse = _mtgCardServer.getDataProvidersResponse();
 
         Map<String, String> headers = new HashMap<String, String>();
         headers.put(CONTENT_TYPE, "application/json; charset=UTF-8");
-        headers.put(HttpHeaders.Names.ETAG, cardDatabaseHolder.getUpdateMarker());
 
-        responseWriter.writeByteResponse(cardDatabaseHolder.getBytes(), headers);
+        responseWriter.writeByteResponse(dataProvidersResponse, headers);
+    }
+
+    private void processCardListRequest(HttpRequest request, ResponseWriter responseWriter, String provider) {
+        try {
+            MtgCardServer.CardDatabaseHolder cardDatabaseHolder = _mtgCardServer.getCardDatabaseHolder(provider);
+            if (cardDatabaseHolder == null) {
+                responseWriter.writeError(204);
+            } else if (clientHasCurrentVersion(request, cardDatabaseHolder.getUpdateMarker())) {
+                responseWriter.writeError(304);
+                return;
+            }
+
+            Map<String, String> headers = new HashMap<String, String>();
+            headers.put(CONTENT_TYPE, "application/json; charset=UTF-8");
+            headers.put(HttpHeaders.Names.ETAG, cardDatabaseHolder.getUpdateMarker());
+
+            responseWriter.writeByteResponse(cardDatabaseHolder.getBytes(), headers);
+        } catch (ProviderNotFoundException exp) {
+            responseWriter.writeError(404);
+        }
     }
 
     private boolean clientHasCurrentVersion(HttpRequest request, String version) {

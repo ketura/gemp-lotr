@@ -52,6 +52,11 @@ public class MtgGoldfishProvider implements MtgDataProvider {
     }
 
     @Override
+    public String getDisplayName() {
+        return "MtgGoldFish.com";
+    }
+
+    @Override
     public boolean shouldBeUpdated() {
         return _nextStart < System.currentTimeMillis();
     }
@@ -142,7 +147,8 @@ public class MtgGoldfishProvider implements MtgDataProvider {
         } catch (InterruptedException e) {
             // Ignore
         }
-        Document doc = Jsoup.parse(new URL("http://www.mtggoldfish.com/index/" + mtgCardSet.getUrlPostfix()), TIMEOUT);
+        String link = "http://www.mtggoldfish.com/index/" + mtgCardSet.getUrlPostfix();
+        Document doc = Jsoup.parse(new URL(link), TIMEOUT);
         boolean isInPaper = (doc.select("#priceHistoryTabs [href=#tab-paper]").size() > 0);
         if (isInPaper) {
             List<CardData> allCards = new LinkedList<CardData>();
@@ -152,14 +158,14 @@ public class MtgGoldfishProvider implements MtgDataProvider {
                 String cardName = cardElement.select("td:nth-of-type(1) a").text();
                 String cardId = mtgCardSet.getUrlPostfix() + "-" + cardName;
                 float price = Float.parseFloat(cardElement.select("td:nth-of-type(4)").text().replace(",", ""));
-                allCards.add(new CardData(cardId, cardName, Math.round(price * 100)));
+                allCards.add(new CardData(cardId, cardName, Math.round(price * 100), null));
             }
 
             boolean hasFoils = doc.select(".index-price-header-foil-switcher").size() > 0;
             if (hasFoils) {
                 downloadSet(new MtgGoldfishCardSet(mtgCardSet.getUrlPostfix() + "_F", mtgCardSet.getInfoLine() + " · Foil"), result);
             }
-            result.add(new SetCardData(mtgCardSet.getInfoLine(), allCards));
+            result.add(new SetCardData(mtgCardSet.getInfoLine(), link, allCards));
         }
     }
 

@@ -5,6 +5,8 @@ public interface MtgDataProvider {
 
     void update(UpdateCallback updateCallback);
 
+    String getDisplayName();
+
     interface UpdateCallback {
         void callback(TimestampedCardCollection result);
     }

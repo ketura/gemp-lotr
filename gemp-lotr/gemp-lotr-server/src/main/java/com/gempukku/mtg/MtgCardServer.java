@@ -11,6 +11,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 
 public class MtgCardServer extends AbstractServer {
     private Map<String, MtgDataProvider> _dataProviders = new HashMap<String, MtgDataProvider>();
@@ -21,8 +22,26 @@ public class MtgCardServer extends AbstractServer {
         _dataProviders.put("mtgGoldFish", new MtgGoldfishProvider());
     }
 
-    public CardDatabaseHolder getCardDatabaseHolder(String providerName) {
+    public CardDatabaseHolder getCardDatabaseHolder(String providerName) throws ProviderNotFoundException {
+        if (!_dataProviders.containsKey(providerName))
+            throw new ProviderNotFoundException();
         return _providersData.get(providerName);
+    }
+
+    public byte[] getDataProvidersResponse() {
+        final JSONArray providers = new JSONArray();
+        _dataProviders.entrySet().forEach(
+                new Consumer<Map.Entry<String, MtgDataProvider>>() {
+                    @Override
+                    public void accept(Map.Entry<String, MtgDataProvider> stringMtgDataProviderEntry) {
+                        Map<String, Object> provider = new LinkedHashMap<String, Object>();
+                        provider.put("id", stringMtgDataProviderEntry.getKey());
+                        provider.put("name", stringMtgDataProviderEntry.getValue().getDisplayName());
+                        providers.add(provider);
+                    }
+                });
+
+        return providers.toJSONString().getBytes(Charset.forName("UTF-8"));
     }
 
     @Override
@@ -52,12 +71,18 @@ public class MtgCardServer extends AbstractServer {
                 cardObject.put("id", cardData.getId());
                 cardObject.put("name", cardData.getName());
                 cardObject.put("price", cardData.getPrice());
+                String link = cardData.getLink();
+                if (link != null)
+                    cardObject.put("link", link);
                 setArray.add(cardObject);
             }
 
             Map<String, Object> setObject = new LinkedHashMap<String, Object>();
             setObject.put("name", setCardData.getSetName());
             setObject.put("cards", setArray);
+            String setLink = setCardData.getSetLink();
+            if (setLink != null)
+                setObject.put("link", setLink);
 
             allSets.add(setObject);
         }
