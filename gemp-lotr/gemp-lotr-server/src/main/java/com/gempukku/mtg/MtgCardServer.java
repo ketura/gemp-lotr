@@ -49,7 +49,7 @@ public class MtgCardServer extends AbstractServer {
                         new MtgDataProvider.UpdateCallback() {
                             @Override
                             public void callback(TimestampedCardCollection result) {
-                                _providersData.put(key, new CardDatabaseHolder(marshallData(result.getSetCardDataList()), result.getUpdateMarker()));
+                                _providersData.put(key, new CardDatabaseHolder(marshallData(result.getSetCardDataList()), result.getUpdateDate()));
                             }
                         });
             }
@@ -86,16 +86,16 @@ public class MtgCardServer extends AbstractServer {
     }
 
     public class CardDatabaseHolder {
-        private String _updateMarker;
+        private long _updateDate;
         private byte[] _bytes;
 
-        public CardDatabaseHolder(byte[] bytes, String updateMarker) {
+        public CardDatabaseHolder(byte[] bytes, long updateDate) {
             _bytes = bytes;
-            _updateMarker = updateMarker;
+            _updateDate = updateDate;
         }
 
-        public String getUpdateMarker() {
-            return _updateMarker;
+        public long getUpdateDate() {
+            return _updateDate;
         }
 
         public byte[] getBytes() {

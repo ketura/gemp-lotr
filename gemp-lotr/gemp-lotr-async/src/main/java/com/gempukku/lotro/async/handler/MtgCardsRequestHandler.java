@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.Map;
 
 import static org.jboss.netty.handler.codec.http.HttpHeaders.Names.CONTENT_TYPE;
-import static org.jboss.netty.handler.codec.http.HttpHeaders.Names.IF_NONE_MATCH;
 
 public class MtgCardsRequestHandler implements UriRequestHandler {
     private MtgCardServer _mtgCardServer;
@@ -27,9 +26,10 @@ public class MtgCardsRequestHandler implements UriRequestHandler {
     public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, MessageEvent e) throws Exception {
         QueryStringDecoder queryDecoder = new QueryStringDecoder(request.getUri());
         String provider = getQueryParameterSafely(queryDecoder, "provider");
+        String updateMarker = getQueryParameterSafely(queryDecoder, "update");
 
         if (provider != null) {
-            processCardListRequest(request, responseWriter, provider);
+            processCardListRequest(responseWriter, provider, updateMarker);
         } else {
             processProviderListRequest(responseWriter);
         }
@@ -44,37 +44,25 @@ public class MtgCardsRequestHandler implements UriRequestHandler {
         responseWriter.writeByteResponse(dataProvidersResponse, headers);
     }
 
-    private void processCardListRequest(HttpRequest request, ResponseWriter responseWriter, String provider) {
+    private void processCardListRequest(ResponseWriter responseWriter, String provider, String updateMarker) {
         try {
             MtgCardServer.CardDatabaseHolder cardDatabaseHolder = _mtgCardServer.getCardDatabaseHolder(provider);
             if (cardDatabaseHolder == null) {
                 responseWriter.writeError(204);
                 return;
-            } else if (clientHasCurrentVersion(request, cardDatabaseHolder.getUpdateMarker())) {
+            } else if (updateMarker != null && updateMarker.equals(String.valueOf(cardDatabaseHolder.getUpdateDate()))) {
                 responseWriter.writeError(304);
                 return;
             }
 
             Map<String, String> headers = new HashMap<String, String>();
             headers.put(CONTENT_TYPE, "application/json; charset=UTF-8");
-            headers.put(HttpHeaders.Names.ETAG, cardDatabaseHolder.getUpdateMarker());
+            headers.put(HttpHeaders.Names.ETAG, String.valueOf(cardDatabaseHolder.getUpdateDate()));
 
             responseWriter.writeByteResponse(cardDatabaseHolder.getBytes(), headers);
         } catch (ProviderNotFoundException exp) {
             responseWriter.writeError(404);
         }
-    }
-
-    private boolean clientHasCurrentVersion(HttpRequest request, String version) {
-        String ifNoneMatch = request.getHeader(IF_NONE_MATCH);
-        if (ifNoneMatch != null) {
-            String[] clientKnownVersions = ifNoneMatch.split(",");
-            for (String clientKnownVersion : clientKnownVersions) {
-                if (clientKnownVersion.trim().equals(version))
-                    return true;
-            }
-        }
-        return false;
     }
 
     protected String getQueryParameterSafely(QueryStringDecoder queryStringDecoder, String parameterName) {

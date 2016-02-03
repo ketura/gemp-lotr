@@ -75,7 +75,7 @@ public class MtgGoldfishProvider implements MtgDataProvider {
     }
 
     private TimestampedCardCollection updateDatabase() {
-        String updateMarker = String.valueOf(System.currentTimeMillis());
+        long updateDate = System.currentTimeMillis();
 
         final List<SetCardData> resultArray = new LinkedList<SetCardData>();
         try {
@@ -86,7 +86,7 @@ public class MtgGoldfishProvider implements MtgDataProvider {
         } catch (IOException exp) {
             LOG.error("Unable to download card list", exp);
         }
-        return new TimestampedCardCollection(updateMarker, resultArray);
+        return new TimestampedCardCollection(updateDate, resultArray);
     }
 
     private List<MtgGoldfishCardSet> downloadSetListWithRetry() throws IOException {

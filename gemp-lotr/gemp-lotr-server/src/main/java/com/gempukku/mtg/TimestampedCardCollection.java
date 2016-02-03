@@ -3,11 +3,11 @@ package com.gempukku.mtg;
 import java.util.List;
 
 public class TimestampedCardCollection {
-    private final String _updateMarker;
+    private final long _updateDate;
     private final List<SetCardData> _setCardDataList;
 
-    public TimestampedCardCollection(String updateMarker, List<SetCardData> setCardDataList) {
-        _updateMarker = updateMarker;
+    public TimestampedCardCollection(long updateDate, List<SetCardData> setCardDataList) {
+        _updateDate = updateDate;
         _setCardDataList = setCardDataList;
     }
 
@@ -15,7 +15,7 @@ public class TimestampedCardCollection {
         return _setCardDataList;
     }
 
-    public String getUpdateMarker() {
-        return _updateMarker;
+    public long getUpdateDate() {
+        return _updateDate;
     }
 }
