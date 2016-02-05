@@ -1,6 +1,12 @@
 package com.gempukku.lotro.cards;
 
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Filterable;
+import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.common.Token;
+import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.LotroCardBlueprint;
@@ -154,6 +160,19 @@ public class PlayConditions {
             return (getTotalCompanions(self.getOwner(), gameState, modifiersQuerying) <= 9);
         else
             return (getTotalCompanions(self.getOwner(), gameState, modifiersQuerying) < 9);
+    }
+
+    public static boolean checkPlayRingBearer(GameState gameState, PhysicalCard self) {
+        // If a character other than Frodo is your Ringbearer,
+        // you cannot play any version of Frodo
+        // with the Ring-bearer keyword during the game
+        PhysicalCard ringBearer = gameState.getRingBearer(gameState.getCurrentPlayerId());
+        boolean ringBearerIsNotFrodo = ringBearer != null && !ringBearer.getBlueprint().getName().equals("Frodo");
+        if (ringBearerIsNotFrodo) {
+            boolean isRingBearerFrodo = self.getBlueprint().getName().equals("Frodo") && self.getBlueprint().hasKeyword(Keyword.CAN_START_WITH_RING);
+            return !isRingBearerFrodo;
+        }
+        return true;
     }
 
     public static boolean canHealByDiscarding(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {

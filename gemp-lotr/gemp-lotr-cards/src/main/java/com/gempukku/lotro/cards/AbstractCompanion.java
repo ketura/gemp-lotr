@@ -1,6 +1,11 @@
 package com.gempukku.lotro.cards;
 
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Race;
+import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.common.Signet;
+import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -44,7 +49,8 @@ public abstract class AbstractCompanion extends AbstractPermanent {
 
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && PlayConditions.checkRuleOfNine(game.getGameState(), game.getModifiersQuerying(), self);
+                && PlayConditions.checkRuleOfNine(game.getGameState(), game.getModifiersQuerying(), self)
+                && PlayConditions.checkPlayRingBearer(game.getGameState(), self);
     }
 
     protected final List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
