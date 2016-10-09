@@ -4,7 +4,10 @@ public enum Culture implements Filterable {
     DWARVEN("Dwarven", true), ELVEN("Elven", true), GANDALF("Gandalf", true), GOLLUM("Gollum", true), GONDOR("Gondor", true), ROHAN("Rohan", true), SHIRE("Shire", true),
     DUNLAND("Dunland", false), ISENGARD("Isengard", false), MEN("Men", false), MORIA("Moria", false), ORC("Orc", false), RAIDER("Raider", false),
     SAURON("Sauron", false), URUK_HAI("Uruk-hai", false), WRAITH("Wraith", false),
-    FALLEN_REALMS("Fallen Realms", false, false);
+    FALLEN_REALMS("Fallen Realms", false, false),
+	
+	//Additional Hobbit Draft cultures
+	ESGAROTH("Esgaroth", true), GUNDABAD("Gundabad", false), MIRKWOOD("Mirkwood", false), SMAUG("Smaug", false), SPIDER("Spider", false), TROLL("Troll", false);
 
     private String _humanReadable;
     private boolean _fp;
