@@ -72,14 +72,14 @@ public class LotroFormatLibrary {
                             format.addValidCard((String) valid);
                         }
 						
-					//Additional Hobbit Draft deck restrictions
-					JSONArray limit2Cards = (JSONArray) formatDef.get("limit2");
+                    //Additional Hobbit Draft deck restrictions
+                    JSONArray limit2Cards = (JSONArray) formatDef.get("limit2");
                     if (limit2Cards != null)
                         for (Object limit2 : limit2Cards) {
                             format.addLimit2Card((String) limit2);
                         }
 				
-					JSONArray limit3Cards = (JSONArray) formatDef.get("limit3");
+                    JSONArray limit3Cards = (JSONArray) formatDef.get("limit3");
                     if (limit3Cards != null)
                         for (Object limit3 : limit3Cards) {
                             format.addLimit2Card((String) limit3);
