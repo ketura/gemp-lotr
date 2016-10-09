@@ -27,7 +27,10 @@ public enum Keyword implements Filterable {
 
     RANGER("Ranger", true), TRACKER("Tracker", true), VILLAGER("Villager", true), MACHINE("Machine", true), ENGINE("Engine", true),
     SOUTHRON("Southron", true), EASTERLING("Easterling", true), VALIANT("Valiant", true), KNIGHT("Knight", true), FORTIFICATION("Fortification", true),
-    WARG_RIDER("Warg-rider", true), BESIEGER("Besieger", true), CORSAIR("Corsair", true);
+    WARG_RIDER("Warg-rider", true), BESIEGER("Besieger", true), CORSAIR("Corsair", true),
+	
+	//Additional Hobbit Draft keywords
+	WISE("Wise", true), BURGLAR("Burglar", true);
 
     private String _humanReadable;
     private boolean _infoDisplayable;
