@@ -12,7 +12,10 @@ public class LotroCardBlueprintLibrary {
     private String[] _packageNames =
             new String[]{
                     "", ".dwarven", ".dunland", ".elven", ".fallenRealms", ".gandalf", ".gollum", ".gondor", ".isengard", ".men", ".orc",
-                    ".raider", ".rohan", ".moria", ".wraith", ".sauron", ".shire", ".site", ".uruk_hai"
+                    ".raider", ".rohan", ".moria", ".wraith", ".sauron", ".shire", ".site", ".uruk_hai",
+					
+					//Additional Hobbit Draft packages
+					".esgaroth", ".gundabad", ".mirkwood", ".smaug", "spider", ".troll"
             };
     private Map<String, LotroCardBlueprint> _blueprintMap = new HashMap<String, LotroCardBlueprint>();
 
