@@ -47,7 +47,7 @@ var hobbit = {
     '21_46': 'http://hobbitdraftgame.free.fr/Cards_Good_def/Bilbo_Reliable_Companion.png',
     '21_47': 'http://hobbitdraftgame.free.fr/Cards_Good_def/Sting.png',
     '21_48': 'http://hobbitdraftgame.free.fr/Cards_Good_def/The_one_ring.png',
-    '21_49': 'http://hobbitdraftgame.free.fr/Cards_Good_def/1_Bag_End.png					',
+    '21_49': 'http://hobbitdraftgame.free.fr/Cards_Good_def/1_Bag_End.png',
     '21_50': 'http://hobbitdraftgame.free.fr/Cards_Good_def/2_The_Troll_Hoard.png',
     '21_51': 'http://hobbitdraftgame.free.fr/Cards_Good_def/3_Rivendell.png',
     '21_52': 'http://hobbitdraftgame.free.fr/Cards_Good_def/4_Goblin_Town.png',
@@ -136,7 +136,7 @@ var hobbit = {
     '23_8': 'http://hobbitdraftgame.free.fr/Cards_Good_def/Roac.png'
     '23_9': 'http://hobbitdraftgame.free.fr/Cards_Good_def/Thrain.png'
     '23_10': 'http://hobbitdraftgame.free.fr/Cards_Good_def/Thror_s_Heirlooms.png'
-    '23_11': 'http://hobbitdraftgame.free.fr/Cards_Good_def/Thror_s_Keypng'
+    '23_11': 'http://hobbitdraftgame.free.fr/Cards_Good_def/Thror_s_Key.png'
     '23_12': 'http://hobbitdraftgame.free.fr/Cards_Good_def/Thror_s_Map.png'
     '23_13': 'http://hobbitdraftgame.free.fr/Cards_Good_def/Galadriel.png'
     '23_14': 'http://hobbitdraftgame.free.fr/Cards_Good_def/Nenya.png'
