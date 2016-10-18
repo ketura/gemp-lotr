@@ -7,6 +7,7 @@ import com.gempukku.lotro.cards.effects.AddBurdenEffect;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseActionProxyEffect;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
+import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.AbstractActionProxy;
@@ -67,8 +68,10 @@ public class Card22_21 extends AbstractEvent {
     public List<? extends Action> getPhaseActionsFromDiscard(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.isPhase(game, Phase.SKIRMISH)
                 && PlayConditions.canExert(self, game, 2, Filters.name("Gollum"))
-				&& PlayConditions.canPlayFromDiscard(playerId, game, self)) {
+		&& PlayConditions.canPlayFromDiscard(playerId, game, self)) {
             final PlayEventAction playCardAction = getPlayCardAction(playerId, game, self, 0, false);
+	    playCardAction.appendCost(
+		    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, 2, Filters.name("Gollum")));
             return Collections.singletonList(playCardAction);
         }
         return null;
