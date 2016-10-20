@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card22_30 extends AbstractMinion {
     public Card22_30() {
-        super(1, 5, 1, 4, Race.GOBLIN, Culture.MORIA, "Goblin Runner");
+        super(1, 5, 1, 4, Race.ORC, Culture.MORIA, "Goblin Runner");
     }
 
     @Override
