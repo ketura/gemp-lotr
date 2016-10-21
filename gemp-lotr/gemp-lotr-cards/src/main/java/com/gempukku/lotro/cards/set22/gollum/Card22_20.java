@@ -55,21 +55,23 @@ public class Card22_20 extends AbstractMinion {
 	
 	@Override
     protected List<? extends Action> getExtraPhaseActions(final String playerId, LotroGame game, final PhysicalCard self) {
-        if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.ASSIGNMENT, self, 0)
-				&& PlayConditions.canExert(self, game, self)
+	if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.ASSIGNMENT, self, 0)
+		&& PlayConditions.canExert(self, game, self)
                 && !PlayConditions.canSpot(game, self, Keyword.ROAMING)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(new SelfExertEffect(action, self));
-			action.appendCost(
-					new ChooseAndAssignCharacterToMinionEffect(action, playerId, self, Filters.name("Bilbo")));
-			action.appendEffect(
-					new ChooseActiveCardEffect(self, playerId, "Gollum", Filters.name("Gollum")) {
+	    action.appendCost(
+			new ChooseAndAssignCharacterToMinionEffect(action, playerId, self, Filters.name("Bilbo")));
+	    action.appendEffect(
+			new ChooseActiveCardEffect(self, playerId, "Gollum", Filters.name("Gollum")) {
                 @Override
                 protected void cardSelected(LotroGame game, PhysicalCard card) {
                     int bonus = game.getModifiersQuerying().hasKeyword(game.getGameState(), game.getGameState().getCurrentSite(), Keyword.UNDERGROUND) ? 3 : 1;
                     action.insertEffect(
                             new AddUntilEndOfPhaseModifierEffect(
                                     new StrengthModifier(self, Filters.sameCard(card), bonus)));
-                    }
-});
+                }
+	    });
+	}
+    }
 }
