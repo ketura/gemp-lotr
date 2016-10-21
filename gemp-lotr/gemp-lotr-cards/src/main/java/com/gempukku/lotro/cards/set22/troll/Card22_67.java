@@ -32,7 +32,6 @@ public class Card21_34 extends AbstractPermanent {
     public List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SHADOW, self, 0)
                 && game.getGameState().getHand(playerId).size() >= 2
-                // You have to be able to play an Orc from discard to use it
                 && PlayConditions.canPlayFromDiscard(playerId, game, CardType.MINION)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 2));
