@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card21_34 extends AbstractPermanent {
     public Card21_34() {
-        super(Side.SHADOW, 2, CardType.CONDITION, Culture.Troll, Zone.SUPPORT, "Troll Campfire");
+        super(Side.SHADOW, 2, CardType.CONDITION, Culture.TROLL, Zone.SUPPORT, "Troll Campfire", null, true);
     }
 
     @Override
