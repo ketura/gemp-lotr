@@ -15,7 +15,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Set: The Fellowship of the Ring
+ * Set: The Main Deck
  * Side: Shadow
  * Culture: Gundabad
  * Twilight Cost: 3
