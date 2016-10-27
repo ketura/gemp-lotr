@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class Card21_57 extends AbstractSite {
     public Card21_57() {
-        super("Palantir Chamber", Block.TWO_TOWERS, 9, 9, Direction.LEFT);
+        super("Battle of the Five Armies", Block.HOBBIT, 9, 9, Direction.RIGHT);
 		addKeyword(keyword.MOUNTAIN);
 		addKeyword(keyword.BATTLEGROUND);
     }
