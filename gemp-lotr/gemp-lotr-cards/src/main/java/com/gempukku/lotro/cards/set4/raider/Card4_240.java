@@ -47,7 +47,12 @@ public class Card4_240 extends AbstractOldEvent {
                         new PreventableEffect.PreventionCost() {
                             @Override
                             public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
-                                return new ChooseAndDiscardCardsFromPlayEffect(subAction, playerId, 2, 2, CardType.COMPANION, Filters.not(Filters.ringBearer));
+                                return new ChooseAndDiscardCardsFromPlayEffect(subAction, playerId, 2, 2, CardType.COMPANION, Filters.not(Filters.ringBearer)) {
+                                    @Override
+                                    public String getText(LotroGame game) {
+                                        return "Discard 2 companions (except the Ring-bearer)";
+                                    }
+                                }
                             }
                         }
                 ));
