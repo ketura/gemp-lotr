@@ -35,13 +35,13 @@ public class Card31_015 extends AbstractFollower {
     }
 	
     @Override
-	  public Race getRace() {
-		    return Race.EAGLE;
-	  }
+    public Race getRace() {
+	return Race.EAGLE;
+    }
 	
     @Override
     protected boolean canPayAidCost(LotroGame game, PhysicalCard self) {
-		    return (PlayConditions.canDiscardFromHand(game, self.getOwner(), 1, Culture.GANDALF));
+	return (PlayConditions.canDiscardFromHand(game, self.getOwner(), 1, Culture.GANDALF));
     }
 
     @Override
@@ -52,15 +52,16 @@ public class Card31_015 extends AbstractFollower {
     @Override
     protected List<? extends Action> getExtraPhaseActions(final String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)) {
-			      final ActivateCardAction action = new ActivateCardAction(self);
-			      PhysicalCard bearer = self.getAttachedTo();
-			      action.appendCost(new TransferToSupportEffect(self));
-			      if (Filters.and(bearer, Filters.inSkirmishAgainst(Race.ORC, Filters.mounted))) {
-				        action.appendEffect(new CancelSkirmishEffect(bearer));
-				        return Collections.singletonList(action);
-			      }
-		    }
-		    return null;
+	    final ActivateCardAction action = new ActivateCardAction(self);
+	    PhysicalCard bearer = self.getAttachedTo();
+	    action.appendCost(new TransferToSupportEffect(self));
+	    if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), bearer, Filters.inSkirmish)
+	            && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.and(Race.ORC, Filters.mounted), Filters.inSkirmish)) {
+		action.appendEffect(new CancelSkirmishEffect(bearer));
+	        return Collections.singletonList(action);
+	    }
+	}
+        return null;
     }
 }
 
