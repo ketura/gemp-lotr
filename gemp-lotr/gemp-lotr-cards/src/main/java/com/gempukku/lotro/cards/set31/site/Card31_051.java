@@ -24,9 +24,9 @@ import java.util.List;
  * Game Text: Forest. At the start of the Shadow phase, you may discard Gandalf to play a minion from
  * your discard pile.
  */
-public class Card31_054 extends AbstractSite {
-    public Card31_054() {
-        super("Ravenhill", Block.HOBBIT, 5, 6, Direction.RIGHT);
+public class Card31_051 extends AbstractSite {
+    public Card31_051() {
+        super("Old Forest Road", Block.HOBBIT, 5, 6, Direction.RIGHT);
         addKeyword(Keyword.FOREST);
     }
 
