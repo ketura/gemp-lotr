@@ -43,7 +43,7 @@ public class Card17_121 extends AbstractMinion {
             if (count > 0)
                 action.appendEffect(
                         new AddUntilEndOfPhaseModifierEffect(
-                                new ArcheryTotalModifier(self, Side.SHADOW, null, count)));
+                                new ArcheryTotalModifier(self, Side.SHADOW, null, (count * 2))));
             return Collections.singletonList(action);
         }
         return null;

@@ -52,7 +52,12 @@ public class Card5_021 extends AbstractEvent {
                         new PreventableEffect.PreventionCost() {
                             @Override
                             public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
-                                return new ChooseAndExertCharactersEffect(subAction, playerId, 1, 1, 2, CardType.MINION);
+                                return new ChooseAndExertCharactersEffect(subAction, playerId, 1, 1, 2, CardType.MINION) {
+                                    @Override
+                                    public String getText(LotroGame game) {
+                                        return "Exert a minion twice";
+                                    }
+                                }
                             }
                         }
                 ));
