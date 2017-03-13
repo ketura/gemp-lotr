@@ -111,6 +111,7 @@ var CardFilter = Class.extend({
             + "<option value='war_block'>War of the Ring Block</option>"
             + "<option value='hunter_block'>Hunters Block</option>"
             + "<option value='towers_standard'>Towers Standard</option>"
+            + "<option value='king_standard'>King Standard</option>"
             + "<option value='movie'>Movie Block</option>"
             + "<option value='war_standard'>War of the Ring standard</option>"
             + "<option value='standard'>Standard</option>"
@@ -135,6 +136,10 @@ var CardFilter = Class.extend({
             + "<option value='18'>18 - Treachery & Deceit</option>"
             + "<option value='19'>19 - Ages End</option>"
             + "<option value='20'>20 - Second Edition</option>"
+			//Additional Hobbit Draft blocks
+			+ "<option value='hobbit_main'> The Hobbit: Main Deck</option>"
+			+ "<option value='hobbit_tsr'> The Hobbit: The Short Rest</option>"
+			+ "<option value='hobbit_tcb'> The Hobbit: The Clouds Burst</option>"
             + "</select>");
         this.nameInput = $("<input type='text' value='Card name' style='width: 130px; font-size: 70%;'>");
         this.sortSelect = $("<select style='width: 80px; font-size: 80%;'>"
@@ -175,6 +180,8 @@ var CardFilter = Class.extend({
             + "<input type='checkbox' id='ROHAN'/><label for='ROHAN' id='labelROHAN'><img src='images/cultures/rohan.png'/></label>"
             + "<input type='checkbox' id='SHIRE'/><label for='SHIRE' id='labelSHIRE'><img src='images/cultures/shire.png'/></label>"
             + "<input type='checkbox' id='GOLLUM'/><label for='GOLLUM' id='labelGOLLUM'><img src='images/cultures/gollum.png'/></label>"
+            //Additional Hobbit Draft Free Peoples culture
+            + "<input type='checkbox' id='ESGAROTH'/><label for='ESGAROTH' id='labelESGAROTH'><img src='images/cultures/esgaroth.png'/></label>"
             + "</div>");
         this.filterDiv.append("<div id='culture2'>"
             + "<input type='checkbox' id='DUNLAND'/><label for='DUNLAND' id='labelDUNLAND'><img src='images/cultures/dunland.png'/></label>"
@@ -186,6 +193,12 @@ var CardFilter = Class.extend({
             + "<input type='checkbox' id='SAURON'/><label for='SAURON' id='labelSAURON'><img src='images/cultures/sauron.png'/></label>"
             + "<input type='checkbox' id='URUK_HAI'/><label for='URUK_HAI' id='labelURUK_HAI'><img src='images/cultures/uruk_hai.png'/></label>"
             + "<input type='checkbox' id='WRAITH'/><label for='WRAITH' id='labelWRAITH'><img src='images/cultures/wraith.png'/></label>"
+            //Additional Hobbit Draft Shadow cultures
+            + "<input type='checkbox' id='GUNDABAD'/><label for='GUNDABAD' id='labelGUNDABAD'><img src='images/cultures/gundabad.png'/></label>"
+            + "<input type='checkbox' id='MIRKWOOD'/><label for='MIRKWOOD' id='labelMIRKWOOD'><img src='images/cultures/mirkwood.png'/></label>"
+            + "<input type='checkbox' id='SMAUG'/><label for='SMAUG' id='labelSMAUG'><img src='images/cultures/smaug.png'/></label>"
+            + "<input type='checkbox' id='SPIDER'/><label for='SPIDER' id='labelSPIDER'><img src='images/cultures/spider.png'/></label>"
+            + "<input type='checkbox' id='TROLL'/><label for='TROLL' id='labelTROLL'><img src='images/cultures/troll.png'/></label>"
             + "</div>");
 
         var combos = $("<div></div>");
@@ -243,6 +256,8 @@ var CardFilter = Class.extend({
             + "<option value='VILLAGER'>Villager</option>"
             + "<option value='WARG_RIDER'>Warg-rider</option>"
             + "<option value='WEATHER'>Weather</option>"
+            //Additional Hobbit Draft keyword
+            + "<option value='WISE'>Wise</option>"
             + "</select>");
         combos.append(" <select id='type' style='font-size: 80%'>"
             + "<option value=''>All types</option>"
@@ -280,8 +295,9 @@ var CardFilter = Class.extend({
         $("#cardType").change(filterOut);
         $("#keyword").change(filterOut);
         $("#type").change(filterOut);
-
-        $("#labelDWARVEN,#labelELVEN,#labelGANDALF,#labelGONDOR,#labelROHAN,#labelSHIRE,#labelGOLLUM,#labelDUNLAND,#labelISENGARD,#labelMEN,#labelMORIA,#labelORC,#labelRAIDER,#labelSAURON,#labelURUK_HAI,#labelWRAITH").click(filterOut);
+        
+		//Additional Hobbit Draft labels
+        $("#labelDWARVEN,#labelELVEN,#labelGANDALF,#labelGONDOR,#labelROHAN,#labelSHIRE,#labelGOLLUM,#labelDUNLAND,#labelISENGARD,#labelMEN,#labelMORIA,#labelORC,#labelRAIDER,#labelSAURON,#labelURUK_HAI,#labelWRAITH,#labelESGAROTH,#labelGUNDABAD,#labelMIRKWOOD,#labelSMAUG,#labelSPIDER,#labelTROLL").click(filterOut);
     },
 
     layoutUi:function (x, y, width, height) {

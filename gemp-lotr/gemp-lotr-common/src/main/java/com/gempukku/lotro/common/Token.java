@@ -7,7 +7,10 @@ public enum Token {
     GONDOR(Culture.GONDOR), ISENGARD(Culture.ISENGARD), RAIDER(Culture.RAIDER), ROHAN(Culture.ROHAN), SHIRE(Culture.SHIRE),
     WRAITH(Culture.WRAITH), SAURON(Culture.SAURON), GOLLUM(Culture.GOLLUM),
 
-    URUK_HAI(Culture.URUK_HAI), MEN(Culture.MEN), ORC(Culture.ORC);
+    URUK_HAI(Culture.URUK_HAI), MEN(Culture.MEN), ORC(Culture.ORC),
+
+	//Additional Hobbit Draft cultures
+	ESGAROTH(Culture.ESGAROTH), GUNDABAD(Culture.GUNDABAD), MIRKWOOD(Culture.MIRKWOOD), SMAUG(Culture.SMAUG), SPIDER(Culture.SPIDER), TROLL(Culture.TROLL);
 
     private Culture _culture;
 

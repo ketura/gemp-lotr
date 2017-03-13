@@ -350,6 +350,20 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
         if (lotroFormat.getValidCards().size() == 0)
             result.append("none,");
         result.append("</li>");
+        //Additional Hobbit Draft format section
+        if (lotroFormat.getLimit2Cards().size() != 0) {
+            result.append("<li>Cards limited to 2 copies: ");
+            for (String blueprintId : lotroFormat.getLimit2Cards())
+                result.append(GameUtils.getCardLink(blueprintId, _library.getLotroCardBlueprint(blueprintId)) + ", ");
+            result.append("</li>");
+        }
+        if (lotroFormat.getLimit3Cards().size() != 0) {
+             result.append("<li>Cards limited to 3 copies: ");
+            for (String blueprintId : lotroFormat.getLimit3Cards())
+                result.append(GameUtils.getCardLink(blueprintId, _library.getLotroCardBlueprint(blueprintId)) + ", ");
+            result.append("</li>");
+            result.append('<a href="http://lotrtcgwiki.com/forums/index.php/topic,10735.0.html">Click here for additional information</a>');
+        }
         result.append("</ul>");
 
         responseWriter.writeHtmlResponse(result.toString());
@@ -384,6 +398,20 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
             if (lotroFormat.getValidCards().size() == 0)
                 result.append("none,");
             result.append("</li>");
+            //Additional Hobbit Draft format section
+            if (lotroFormat.getLimit2Cards().size() != 0) {
+                result.append("<li>Cards limited to 2 copies: ");
+                for (String blueprintId : lotroFormat.getLimit2Cards())
+                    result.append(GameUtils.getCardLink(blueprintId, _library.getLotroCardBlueprint(blueprintId)) + ", ");
+                result.append("</li>");
+            }
+            if (lotroFormat.getLimit3Cards().size() != 0) {
+                 result.append("<li>Cards limited to 3 copies: ");
+                for (String blueprintId : lotroFormat.getLimit3Cards())
+                    result.append(GameUtils.getCardLink(blueprintId, _library.getLotroCardBlueprint(blueprintId)) + ", ");
+                result.append("</li>");
+                result.append('<a href="http://lotrtcgwiki.com/forums/index.php/topic,10735.0.html">Click here for additional information</a>');
+            }
             result.append("</ul>");
         }
 

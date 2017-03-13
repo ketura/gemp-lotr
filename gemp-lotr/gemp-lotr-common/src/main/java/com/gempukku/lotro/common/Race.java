@@ -4,7 +4,10 @@ public enum Race implements Filterable {
     BALROG("Balrog"), CREATURE("Creature"), WRAITH("Wraith"),
     ELF("Elf"), HOBBIT("Hobbit"), DWARF("Dwarf"), MAN("Man"), WIZARD("Wizard"), TREE("Tree"),
     URUK_HAI("Uruk-Hai"), NAZGUL("Nazgul"), ORC("Orc"), TROLL("Troll"), HALF_TROLL("Half-troll"), ENT("Ent"), SPIDER("Spider"), MAIA("Maia"),
-    GOBLIN("Goblin", false);
+    GOBLIN("Goblin", false), 
+	
+	//Additional Hobbit Draft races
+	DRAGON("Dragon"), EAGLE("Eagle");
 
     private String _humanReadable;
     private boolean _official;
