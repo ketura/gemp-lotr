@@ -57,7 +57,7 @@ public class Card5_021 extends AbstractEvent {
                                     public String getText(LotroGame game) {
                                         return "Exert a minion twice";
                                     }
-                                }
+                                };
                             }
                         }
                 ));

@@ -52,7 +52,7 @@ public class Card4_240 extends AbstractOldEvent {
                                     public String getText(LotroGame game) {
                                         return "Discard 2 companions (except the Ring-bearer)";
                                     }
-                                }
+                                };
                             }
                         }
                 ));

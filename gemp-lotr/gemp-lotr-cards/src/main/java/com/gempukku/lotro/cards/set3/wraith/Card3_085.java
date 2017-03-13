@@ -70,7 +70,7 @@ public class Card3_085 extends AbstractOldEvent {
                                      public String getText(LotroGame game) {
                                         return "Discard 2 [GANDALF] cards from hand";
                                      }
-                                }
+                                };
                             }
                         }
                 ));
