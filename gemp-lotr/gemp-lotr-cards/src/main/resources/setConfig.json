@@ -108,23 +108,23 @@
         "playable":false
     },
     {
-        "setId":"21",
+        "setId":"30",
         "setName":"Main Deck",
-        "rarityFile":"/set21-rarity.txt",
+        "rarityFile":"/set30-rarity.txt",
         "originalSet":false,
         "merchantable":false
     },
     {
-        "setId":"22",
+        "setId":"31",
         "setName":"The Short Rest",
-        "rarityFile":"/set22-rarity.txt",
+        "rarityFile":"/set31-rarity.txt",
         "originalSet":false,
         "merchantable":false
     },
     {
-        "setId":"23",
+        "setId":"32",
         "setName":"The Clouds Burst",
-        "rarityFile":"/set23-rarity.txt",
+        "rarityFile":"/set32-rarity.txt",
         "originalSet":false,
         "merchantable":false
     }
