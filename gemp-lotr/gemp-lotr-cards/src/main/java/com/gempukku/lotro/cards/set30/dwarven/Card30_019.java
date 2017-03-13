@@ -49,7 +49,7 @@ public class Card30_019 extends AbstractCompanion {
 	protected List<ActivateCardAction> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.FELLOWSHIP, self)
 				&& PlayConditions.canDiscardFromPlay(self, game, 1, Culture.DWARVEN, CardType.FOLLOWER)) {
-            ActivateCardAction action = new ActivateCardAction(self);
+            final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
 					new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Culture.DWARVEN, CardType.FOLLOWER));
             action.appendEffect(

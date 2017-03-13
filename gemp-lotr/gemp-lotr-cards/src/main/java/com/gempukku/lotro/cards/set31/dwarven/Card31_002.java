@@ -40,14 +40,14 @@ public class Card31_002 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
-        PlayEventAction action = new PlayEventAction(self);
+    public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+        final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
                 new ChooseActiveCardEffect(self, playerId, "Choose an attached Dwarven follower", Filters.and(Culture.DWARVEN, CardType.FOLLOWER), Filters.attachedTo(CardType.COMPANION)) {
             @Override
             protected void cardSelected(LotroGame game, final PhysicalCard follower) {
 				action.insertCost(new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, follower));
-				int twilightCost = follower.getBlueprint().getTwilightCost();
+				final int twilightCost = follower.getBlueprint().getTwilightCost();
                 action.appendEffect(
 						new PlayoutDecisionEffect(playerId,
 								new MultipleChoiceAwaitingDecision(1, "What would you like to do", new String[]{"Play " + twilightCost + " Dwarven artifacts", "Play " + twilightCost + " Dwarven possessions"}) {

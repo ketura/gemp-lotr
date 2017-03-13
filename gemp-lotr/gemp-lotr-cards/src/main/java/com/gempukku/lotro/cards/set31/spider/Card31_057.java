@@ -41,7 +41,7 @@ public class Card31_057 extends AbstractMinion {
     }
 
 	@Override
-  public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+  public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
 	  if (TriggerConditions.forEachDiscardedFromPlay(game, effectResult, CardType.MINION, Culture.MEN)
 				&& !PlayConditions.isPhase(game, Phase.REGROUP)
 				&& PlayConditions.canPlayFromHand(playerId, game, -2, Race.SPIDER)) {

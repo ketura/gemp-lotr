@@ -15,7 +15,7 @@ public class LotroCardBlueprintLibrary {
                     ".raider", ".rohan", ".moria", ".wraith", ".sauron", ".shire", ".site", ".uruk_hai",
 					
 					//Additional Hobbit Draft packages
-					".esgaroth", ".gundabad", ".mirkwood", ".smaug", "spider", ".troll"
+					".esgaroth", ".gundabad", ".smaug", ".spider", ".troll"
             };
     private Map<String, LotroCardBlueprint> _blueprintMap = new HashMap<String, LotroCardBlueprint>();
 

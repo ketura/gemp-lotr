@@ -46,7 +46,7 @@ public class Card30_046 extends AbstractCompanion {
     }
 	
 	@Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, final PhysicalCard self) {
         return Collections.singletonList(
                 new OverwhelmedByMultiplierModifier(self, self,
                         new Condition() {
@@ -58,7 +58,7 @@ public class Card30_046 extends AbstractCompanion {
 	}
 
     @Override
-    public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<OptionalTriggerAction> getOptionalAfterTriggers(final String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.winsSkirmish(game, effectResult, self)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(

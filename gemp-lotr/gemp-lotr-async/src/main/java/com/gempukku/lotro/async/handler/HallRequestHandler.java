@@ -362,7 +362,7 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
             for (String blueprintId : lotroFormat.getLimit3Cards())
                 result.append(GameUtils.getCardLink(blueprintId, _library.getLotroCardBlueprint(blueprintId)) + ", ");
             result.append("</li>");
-            result.append('<a href="http://lotrtcgwiki.com/forums/index.php/topic,10735.0.html">Click here for additional information</a>');
+            result.append("<a href=\"http://lotrtcgwiki.com/forums/index.php/topic,10735.0.html\">Click here for additional information</a>");
         }
         result.append("</ul>");
 
@@ -410,7 +410,7 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
                 for (String blueprintId : lotroFormat.getLimit3Cards())
                     result.append(GameUtils.getCardLink(blueprintId, _library.getLotroCardBlueprint(blueprintId)) + ", ");
                 result.append("</li>");
-                result.append('<a href="http://lotrtcgwiki.com/forums/index.php/topic,10735.0.html">Click here for additional information</a>');
+                result.append("<a href=\"http://lotrtcgwiki.com/forums/index.php/topic,10735.0.html\">Click here for additional information</a>");
             }
             result.append("</ul>");
         }

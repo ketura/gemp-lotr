@@ -276,7 +276,7 @@ public class DefaultLotroFormat implements LotroFormat {
             }
 			
 			//Additional Hobbit Draft restrictions
-			if (_siteBlock == HOBBIT) {
+			if (_siteBlock == Block.HOBBIT) {
 				for (String blueprintId : _limit2Cards) {
                 Integer count = cardCountByBaseBlueprintId.get(blueprintId);
                 if (count != null && count > 2)

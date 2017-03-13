@@ -32,6 +32,10 @@ public interface LotroFormat {
 
     public List<String> getValidCards();
 
+    public List<String> getLimit2Cards();
+
+    public List<String> getLimit3Cards();
+
     public Block getSiteBlock();
 
     public String getSurveyUrl();

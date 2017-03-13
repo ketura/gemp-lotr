@@ -39,7 +39,7 @@ public class Card31_005 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    protected List<? extends Modifier> getNonBasicStatsModifiers(PhysicalCard self) {
+    protected List<? extends Modifier> getNonBasicStatsModifiers(final PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(
                 new ArcheryTotalModifier(self, Side.SHADOW, -1));

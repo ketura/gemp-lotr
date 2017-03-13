@@ -38,7 +38,7 @@ public class Card31_010 extends AbstractAlly {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.REGROUP, self)
                 && PlayConditions.canExert(self, game, self)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), CardType.MINION)) {
-            ActivateCardAction action = new ActivateCardAction(self);
+            final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new SelfExertEffect(action, self));
             action.appendEffect(
