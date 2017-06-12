@@ -376,12 +376,11 @@ public class DefaultLotroFormat implements LotroFormat {
     }
 
     private void validateRing(LotroDeck deck) throws DeckInvalidException, CardNotFoundException {
+        // No Ring needed for Hobbit
+        if (_siteBlock == Block.HOBBIT)
+            return;
         if (deck.getRing() == null)
-			//Additional Hobbit Draft exception
-			if (_siteBlock == Block.HOBBIT) {
-			} else {
             throw new DeckInvalidException("Deck doesn't have a Ring");
-			}
         LotroCardBlueprint ring = _library.getLotroCardBlueprint(deck.getRing());
         if (ring.getCardType() != CardType.THE_ONE_RING)
             throw new DeckInvalidException("Card assigned as Ring is not The One Ring");

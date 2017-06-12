@@ -26,7 +26,8 @@ public class PlayRingBearerRingAndAddBurdersGameProcess implements GameProcess {
             gameState.addCardToZone(game, ringBearer, Zone.FREE_CHARACTERS);
 
             PhysicalCard ring = game.getGameState().getRing(playerId);
-            gameState.attachCard(game, ring, ringBearer);
+            if (ring != null)
+                gameState.attachCard(game, ring, ringBearer);
 
             gameState.startPlayerTurn(playerId);
             gameState.addBurdens(_bids.get(playerId));

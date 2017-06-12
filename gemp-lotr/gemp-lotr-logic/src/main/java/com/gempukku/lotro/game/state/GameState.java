@@ -105,7 +105,9 @@ public class GameState {
             addPlayerCards(playerId, decks, library);
             try {
                 _ringBearers.put(playerId, createPhysicalCardImpl(playerId, library, ringBearers.get(playerId)));
-                _rings.put(playerId, createPhysicalCardImpl(playerId, library, rings.get(playerId)));
+                String ringBlueprintId = rings.get(playerId);
+                if (ringBlueprintId != null)
+                    _rings.put(playerId, createPhysicalCardImpl(playerId, library, ringBlueprintId));
             } catch (CardNotFoundException exp) {
                 throw new RuntimeException("Unable to create game, due to either ring-bearer or ring being invalid cards");
             }
