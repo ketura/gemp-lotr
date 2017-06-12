@@ -416,9 +416,12 @@ function layoutTokens(cardElem) {
                             if (tokenInColumnIndex == tokenInColumnMax) {
                                 tokenInColumnIndex = 0;
                                 tokenIndex++;
-                                tokenX = (tokenIndex * (width / (tokenColumns + 1))) - (tokenSize / 2)
+                                tokenX = (tokenIndex * (width / (tokenColumns + 1))) - (tokenSize / 2);
                             }
                             var tokenY = Math.floor((maxDimension / 13) * (1 + tokenInColumnIndex));
+
+                            if (i%2 == 1)
+                                tokenX += Math.floor(tokenSize / 5);
 
                             var tokenElem = $("<img class='token' src='images/tokens/" + token.toLowerCase() + ".png' width='" + tokenSize + "' height='" + tokenSize + "'></img>").css({position:"absolute", left:tokenX + "px", top:tokenY + "px"});
                             tokenOverlay.append(tokenElem);
