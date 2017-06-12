@@ -137,9 +137,8 @@ var CardFilter = Class.extend({
             + "<option value='19'>19 - Ages End</option>"
             + "<option value='20'>20 - Second Edition</option>"
 			//Additional Hobbit Draft blocks
-			+ "<option value='hobbit_main'> The Hobbit: Main Deck</option>"
-			+ "<option value='hobbit_tsr'> The Hobbit: The Short Rest</option>"
-			+ "<option value='hobbit_tcb'> The Hobbit: The Clouds Burst</option>"
+			+ "<option value='30'> The Hobbit: Main Deck</option>"
+			+ "<option value='31'> The Hobbit: The Short Rest</option>"
             + "</select>");
         this.nameInput = $("<input type='text' value='Card name' style='width: 130px; font-size: 70%;'>");
         this.sortSelect = $("<select style='width: 80px; font-size: 80%;'>"
