@@ -36,7 +36,7 @@ import java.util.List;
  */
 public class Card31_027 extends AbstractAttachable {
     public Card31_027() {
-        super(Side.SHADOW, CardType.POSSESSION, 2, Culture.GUNDABAD, PossessionClass.MOUNT, "Warg");
+        super(Side.SHADOW, CardType.POSSESSION, 2, Culture.SMAUG, PossessionClass.MOUNT, "Warg");
     }
 
     @Override
@@ -53,7 +53,7 @@ public class Card31_027 extends AbstractAttachable {
 
     @Override
     protected Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
-        return Filters.and(Culture.GUNDABAD,Race.ORC);
+        return Keyword.WARG_RIDER);
     }
 	
 	@Override
