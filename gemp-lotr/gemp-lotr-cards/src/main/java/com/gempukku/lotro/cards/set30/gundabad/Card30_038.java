@@ -38,10 +38,10 @@ public class Card30_038 extends AbstractMinion {
 	}
 	
 	@Override
-    public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
+    public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.played(game, effectResult, self)
                 && PlayConditions.canSpot(game, 4, Culture.DWARVEN, CardType.FOLLOWER)) {
-            final OptionalTriggerAction action = new OptionalTriggerAction(self);
+            OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose a companion (except Bilbo)", CardType.COMPANION, Culture.DWARVEN) {
                         @Override
