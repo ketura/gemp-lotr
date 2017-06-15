@@ -21,7 +21,7 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
  
 public class Card30_032 extends AbstractEvent {
     public Card30_032() {
-        super(Side.SHADOW, 1, Culture.GUNDABAD, "Anger", Phase.SKIRMISH);
+        super(Side.SHADOW, 1, Culture.SMAUG, "Anger", Phase.SKIRMISH);
     }
 
     @Override

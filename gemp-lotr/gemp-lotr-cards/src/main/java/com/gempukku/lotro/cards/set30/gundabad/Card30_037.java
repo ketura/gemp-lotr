@@ -34,7 +34,7 @@ import java.util.List;
  */
 public class Card30_037 extends AbstractPermanent {
     public Card30_037() {
-        super(Side.SHADOW, 2, CardType.CONDITION, Culture.GUNDABAD, Zone.SUPPORT, "Not at Home", null, true);
+        super(Side.SHADOW, 2, CardType.CONDITION, Culture.SMAUG, Zone.SUPPORT, "Not at Home", null, true);
     }
 
     @Override

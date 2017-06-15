@@ -22,7 +22,7 @@ import com.gempukku.lotro.game.state.LotroGame;
  */
 public class Card30_035 extends AbstractEvent {
     public Card30_035() {
-        super(Side.SHADOW, 0, Culture.GUNDABAD, "Host of Thousands", Phase.SHADOW);
+        super(Side.SHADOW, 0, Culture.SMAUG, "Host of Thousands", Phase.SHADOW);
     }
 
     @Override
