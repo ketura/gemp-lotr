@@ -34,7 +34,7 @@ import java.util.List;
  */
 public class Card31_060 extends AbstractMinion {
     public Card31_060() {
-        super(4, 9, 2, 5, Race.SPIDER, Culture.SPIDER, "Lazy Lob", null, true);
+        super(4, 9, 2, 5, Race.SPIDER, Culture.SMAUG, "Lazy Lob", null, true);
         addKeyword(Keyword.FIERCE);
     }
 
@@ -44,10 +44,10 @@ public class Card31_060 extends AbstractMinion {
     }
 	
 	@Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SKIRMISH, self, 0)
                 && PlayConditions.canDiscardFromPlay(self, game, Race.ORC)) {
-            ActivateCardAction action = new ActivateCardAction(self);
+            final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Race.ORC));
             action.appendEffect(

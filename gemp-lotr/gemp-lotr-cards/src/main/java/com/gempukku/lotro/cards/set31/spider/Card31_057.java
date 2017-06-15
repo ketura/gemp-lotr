@@ -36,12 +36,12 @@ import java.util.List;
  */
 public class Card31_057 extends AbstractMinion {
     public Card31_057() {
-        super(3, 9, 3, 5, Race.SPIDER, Culture.SPIDER, "Crazy Cob", null, true);
+        super(3, 9, 3, 5, Race.SPIDER, Culture.SMAUG, "Crazy Cob", null, true);
         addKeyword(Keyword.FIERCE);
     }
 
 	@Override
-  public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+  public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
 	  if (TriggerConditions.forEachDiscardedFromPlay(game, effectResult, CardType.MINION, Culture.MEN)
 				&& !PlayConditions.isPhase(game, Phase.REGROUP)
 				&& PlayConditions.canPlayFromHand(playerId, game, -2, Race.SPIDER)) {

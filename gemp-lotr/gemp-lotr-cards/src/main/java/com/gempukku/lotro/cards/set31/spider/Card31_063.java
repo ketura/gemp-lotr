@@ -30,15 +30,15 @@ import java.util.List;
  */
 public class Card31_063 extends AbstractMinion {
     public Card31_063() {
-        super(2, 7, 2, 5, Race.SPIDER, Culture.SPIDER, "Wicked Spider");
+        super(2, 7, 2, 5, Race.SPIDER, Culture.SMAUG, "Wicked Spider");
         addKeyword(Keyword.FIERCE);
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SKIRMISH, self, 0)
                 && PlayConditions.canDiscardFromPlay(self, game, Race.ORC)) {
-            ActivateCardAction action = new ActivateCardAction(self);
+            final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Race.ORC));
             action.appendEffect(
