@@ -34,7 +34,7 @@ import java.util.List;
  */
 public class Card31_062 extends AbstractPermanent {
     public Card31_062() {
-        super(Side.SHADOW, 2, CardType.CONDITION, Culture.SMAUG, Zone.SUPPORT, "Spider Nest");
+        super(Side.SHADOW, 2, CardType.CONDITION, Culture.GUNDABAD, Zone.SUPPORT, "Spider Nest");
     }
 
 	
