@@ -29,7 +29,7 @@ import java.util.List;
 public class Card31_023 extends AbstractMinion {
     public Card31_023() {
         super(4, 9, 3, 3, Race.ORC, Culture.SMAUG, "Azog", "The Defiler", true);
-        addKeyword(Keyword.DAMAGE, 1);
+                addKeyword(Keyword.DAMAGE, 1);
 		addKeyword(Keyword.WARG_RIDER);
     }
 
