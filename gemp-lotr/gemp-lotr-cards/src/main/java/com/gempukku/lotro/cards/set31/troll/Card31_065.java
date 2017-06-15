@@ -36,7 +36,7 @@ import java.util.List;
  */
 public class Card31_065 extends AbstractPermanent {
     public Card31_065() {
-        super(Side.SHADOW, 0, CardType.CONDITION, Culture.TROLL, Zone.SUPPORT, "Caught in a Sack");
+        super(Side.SHADOW, 0, CardType.CONDITION, Culture.SMAUG, Zone.SUPPORT, "Caught in a Sack");
     }
 
     @Override

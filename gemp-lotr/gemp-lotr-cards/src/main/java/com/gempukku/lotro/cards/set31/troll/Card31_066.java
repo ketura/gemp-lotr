@@ -36,7 +36,7 @@ import java.util.List;
  */
 public class Card31_066 extends AbstractMinion {
     public Card31_066() {
-        super(5, 11, 4, 2, Race.TROLL, Culture.TROLL, "Tom", "Troll of Ettenmoors", true);
+        super(5, 11, 4, 2, Race.TROLL, Culture.SMAUG, "Tom", "Troll of Ettenmoors", true);
         addKeyword(Keyword.FIERCE);
     }
 	
