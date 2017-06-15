@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class Card31_068 extends AbstractAttachable {
     public Card31_068() {
-        super(Side.SHADOW, CardType.POSSESSION, 1, Culture.SMAUG, PossessionClass.HAND_WEAPON, "Troll Knife");
+        super(Side.SHADOW, CardType.POSSESSION, 1, Culture.GUNDABAD, PossessionClass.HAND_WEAPON, "Troll Knife");
     }
 
     @Override
