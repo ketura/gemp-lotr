@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card30_033 extends AbstractMinion {
     public Card30_033() {
-        super(3, 7, 2, 3, Race.ORC, Culture.SMAUG, "Fimbul", "Orkish Assassin", true);
+        super(3, 7, 2, 3, Race.ORC, Culture.GUNDABAD, "Fimbul", "Orkish Assassin", true);
 		addKeyword(Keyword.DAMAGE, 1);
 		addKeyword(Keyword.WARG_RIDER);
     }
