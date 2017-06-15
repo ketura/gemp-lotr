@@ -30,9 +30,9 @@ import java.util.List;
  */
 public class Card31_024 extends AbstractMinion {
     public Card31_024() {
-        super(4, 9, 3, 3, null, Culture.SMAUG, "Bolg", "Son of Azog", true);
-		addKeyword(Keyword.DAMAGE, 1);
-		addKeyword(Keyword.WARG_RIDER);
+        super(4, 9, 3, 3, Race.ORC, Culture.GUNDABAD, "Bolg", "Son of Azog", true);
+			addKeyword(Keyword.DAMAGE, 1);
+			addKeyword(Keyword.WARG_RIDER);
     }
 
     @Override
