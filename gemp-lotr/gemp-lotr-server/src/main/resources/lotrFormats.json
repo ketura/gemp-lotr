@@ -138,6 +138,7 @@
         "code":"king1_block",
         "sites":"KING",
         "cancelRingBearerSkirmish":true,
+        "restricted":["7_49"],
         "set":[7],
         "hall":false
     },
@@ -146,7 +147,7 @@
         "code":"king2_block",
         "sites":"KING",
         "cancelRingBearerSkirmish":true,
-        "restricted":["7_96"],
+        "restricted":["7_49"],
         "set":[7, 8],
         "hall":false
     },
