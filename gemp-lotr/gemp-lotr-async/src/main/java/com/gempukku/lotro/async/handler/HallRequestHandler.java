@@ -350,10 +350,6 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
         if (lotroFormat.getValidCards().size() == 0)
             result.append("none,");
         result.append("</li>");
-        //Additional Hobbit Draft format section
-        if (lotroFormat.getLimit2Cards().size() != 0) {
-            result.append("<a href=\"http://lotrtcgwiki.com/forums/index.php/topic,10735.0.html\">Click here for additional information</a>");
-        }
         result.append("</ul>");
 
         responseWriter.writeHtmlResponse(result.toString());
@@ -388,10 +384,6 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
             if (lotroFormat.getValidCards().size() == 0)
                 result.append("none,");
             result.append("</li>");
-            //Additional Hobbit Draft format section
-            if (lotroFormat.getLimit2Cards().size() != 0) {
-                result.append("<a href=\"http://lotrtcgwiki.com/forums/index.php/topic,10735.0.html\">Click here for additional information</a>");
-            }
             result.append("</ul>");
         }
 
