@@ -20,7 +20,7 @@ import com.gempukku.lotro.logic.effects.ChooseAndWoundCharactersEffect;
  */
 public class Card5_018 extends AbstractEvent {
     public Card5_018() {
-        super(Side.FREE_PEOPLE, 3, Culture.GANDALF, "Fury of the White Raider", Phase.MANEUVER);
+        super(Side.FREE_PEOPLE, 3, Culture.GANDALF, "Fury of the White Rider", Phase.MANEUVER);
         addKeyword(Keyword.SPELL);
     }
 
