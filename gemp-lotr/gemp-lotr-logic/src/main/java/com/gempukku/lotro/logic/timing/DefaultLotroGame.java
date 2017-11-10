@@ -75,7 +75,8 @@ public class DefaultLotroGame implements LotroGame {
 
             cards.put(playerId, deck);
             ringBearers.put(playerId, lotroDeck.getRingBearer());
-            rings.put(playerId, lotroDeck.getRing());
+            if (lotroDeck.getRing() != null)
+                rings.put(playerId, lotroDeck.getRing());
         }
 
         _gameState = new GameState();
@@ -98,7 +99,6 @@ public class DefaultLotroGame implements LotroGame {
 
         _adventure.applyAdventureRules(this, _actionsEnvironment, _modifiersLogic);
     }
-
 
 
     @Override
