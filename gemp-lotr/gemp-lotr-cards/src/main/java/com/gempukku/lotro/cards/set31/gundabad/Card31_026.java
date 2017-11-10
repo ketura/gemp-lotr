@@ -57,7 +57,7 @@ public class Card31_026 extends AbstractAttachable {
 
     @Override
     protected Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
-        return Filters.and(Culture.GUNDABAD,Race.ORC);
+        return Keyword.WARG_RIDER;
     }
 	
 	@Override

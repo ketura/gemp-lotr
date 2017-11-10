@@ -34,7 +34,7 @@ import java.util.List;
  */
 public class Card31_060 extends AbstractMinion {
     public Card31_060() {
-        super(4, 9, 2, 5, Race.SPIDER, Culture.SPIDER, "Lazy Lob", null, true);
+        super(4, 9, 2, 5, Race.SPIDER, Culture.GUNDABAD, "Lazy Lob", null, true);
         addKeyword(Keyword.FIERCE);
     }
 
