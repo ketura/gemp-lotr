@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set3.dwarven;
 
 import com.gempukku.lotro.cards.AbstractAttachable;
+import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -24,7 +25,7 @@ import java.util.List;
  */
 public class Card3_001 extends AbstractAttachableFPPossession {
     public Card3_001() {
-        super(Side.FREE_PEOPLE, CardType.POSSESSION, 2, Culture.DWARVEN, null, "Book of Mazarbul", null, true);
+        super(2, 0, 0, Culture.DWARVEN, null, "Book of Mazarbul", null, true);
         addKeyword(Keyword.TALE);
     }
 
