@@ -258,7 +258,8 @@ public class DefaultLotroFormat implements LotroFormat {
             Map<String, Integer> cardCountByName = new HashMap<String, Integer>();
             Map<String, Integer> cardCountByBaseBlueprintId = new HashMap<String, Integer>();
 
-            processCardCounts(deck.getRing(), cardCountByName, cardCountByBaseBlueprintId);
+            if (deck.getRing() != null)
+                processCardCounts(deck.getRing(), cardCountByName, cardCountByBaseBlueprintId);
             processCardCounts(deck.getRingBearer(), cardCountByName, cardCountByBaseBlueprintId);
             for (String blueprintId : deck.getAdventureCards())
                 processCardCounts(blueprintId, cardCountByName, cardCountByBaseBlueprintId);
