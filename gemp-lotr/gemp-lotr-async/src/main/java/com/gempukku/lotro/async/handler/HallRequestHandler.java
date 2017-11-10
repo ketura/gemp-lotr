@@ -36,6 +36,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.lang.reflect.Type;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class HallRequestHandler extends LotroServerRequestHandler implements UriRequestHandler {
@@ -324,6 +325,21 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
     private void getFormat(HttpRequest request, String format, ResponseWriter responseWriter) throws CardNotFoundException {
         StringBuilder result = new StringBuilder();
         LotroFormat lotroFormat = _formatLibrary.getFormat(format);
+        appendFormat(result, lotroFormat);
+
+        responseWriter.writeHtmlResponse(result.toString());
+    }
+
+    private void getFormats(HttpRequest request, ResponseWriter responseWriter) throws CardNotFoundException {
+        StringBuilder result = new StringBuilder();
+        for (LotroFormat lotroFormat : _formatLibrary.getHallFormats().values()) {
+            appendFormat(result, lotroFormat);
+        }
+
+        responseWriter.writeHtmlResponse(result.toString());
+    }
+
+    private void appendFormat(StringBuilder result, LotroFormat lotroFormat) throws CardNotFoundException {
         result.append("<b>" + lotroFormat.getName() + "</b>");
         result.append("<ul>");
         result.append("<li>valid sets: ");
@@ -333,61 +349,38 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
         result.append("<li>sites from block: " + lotroFormat.getSiteBlock().getHumanReadable() + "</li>");
         result.append("<li>Ring-bearer skirmish can be cancelled: " + (lotroFormat.canCancelRingBearerSkirmish() ? "yes" : "no") + "</li>");
         result.append("<li>X-listed: ");
-        for (String blueprintId : lotroFormat.getBannedCards())
-            result.append(GameUtils.getCardLink(blueprintId, _library.getLotroCardBlueprint(blueprintId)) + ", ");
-        if (lotroFormat.getBannedCards().size() == 0)
-            result.append("none,");
+        appendCards(result, lotroFormat.getBannedCards());
         result.append("</li>");
         result.append("<li>R-listed: ");
-        for (String blueprintId : lotroFormat.getRestrictedCards())
-            result.append(GameUtils.getCardLink(blueprintId, _library.getLotroCardBlueprint(blueprintId)) + ", ");
-        if (lotroFormat.getRestrictedCards().size() == 0)
-            result.append("none,");
+        List<String> restrictedCards = lotroFormat.getRestrictedCards();
+        appendCards(result, restrictedCards);
         result.append("</li>");
+        if (lotroFormat.getLimit2Cards().size() > 0) {
+            result.append("<li>Limited to 2 in deck: ");
+            List<String> limit2Cards = lotroFormat.getLimit2Cards();
+            appendCards(result, limit2Cards);
+            result.append("</li>");
+        }
+        if (lotroFormat.getLimit3Cards().size() > 0) {
+            result.append("<li>Limited to 3 in deck: ");
+            List<String> limit3Cards = lotroFormat.getLimit3Cards();
+            appendCards(result, limit3Cards);
+            result.append("</li>");
+        }
         result.append("<li>Additional valid: ");
-        for (String blueprintId : lotroFormat.getValidCards())
-            result.append(GameUtils.getCardLink(blueprintId, _library.getLotroCardBlueprint(blueprintId)) + ", ");
-        if (lotroFormat.getValidCards().size() == 0)
-            result.append("none,");
+        List<String> additionalValidCards = lotroFormat.getValidCards();
+        appendCards(result, additionalValidCards);
         result.append("</li>");
         result.append("</ul>");
-
-        responseWriter.writeHtmlResponse(result.toString());
     }
 
-    private void getFormats(HttpRequest request, ResponseWriter responseWriter) throws CardNotFoundException {
-        StringBuilder result = new StringBuilder();
-        for (LotroFormat lotroFormat : _formatLibrary.getHallFormats().values()) {
-            result.append("<b>" + lotroFormat.getName() + "</b>");
-            result.append("<ul>");
-            result.append("<li>valid sets: ");
-            for (Integer integer : lotroFormat.getValidSets())
-                result.append(integer + ", ");
-            result.append("</li>");
-            result.append("<li>sites from block: " + lotroFormat.getSiteBlock().getHumanReadable() + "</li>");
-            result.append("<li>Ring-bearer skirmish can be cancelled: " + (lotroFormat.canCancelRingBearerSkirmish() ? "yes" : "no") + "</li>");
-            result.append("<li>X-listed: ");
-            for (String blueprintId : lotroFormat.getBannedCards())
+    private void appendCards(StringBuilder result, List<String> additionalValidCards) throws CardNotFoundException {
+        if (additionalValidCards.size() > 0) {
+            for (String blueprintId : additionalValidCards)
                 result.append(GameUtils.getCardLink(blueprintId, _library.getLotroCardBlueprint(blueprintId)) + ", ");
-            if (lotroFormat.getBannedCards().size() == 0)
+            if (additionalValidCards.size() == 0)
                 result.append("none,");
-            result.append("</li>");
-            result.append("<li>R-listed: ");
-            for (String blueprintId : lotroFormat.getRestrictedCards())
-                result.append(GameUtils.getCardLink(blueprintId, _library.getLotroCardBlueprint(blueprintId)) + ", ");
-            if (lotroFormat.getRestrictedCards().size() == 0)
-                result.append("none,");
-            result.append("</li>");
-            result.append("<li>Additional valid: ");
-            for (String blueprintId : lotroFormat.getValidCards())
-                result.append(GameUtils.getCardLink(blueprintId, _library.getLotroCardBlueprint(blueprintId)) + ", ");
-            if (lotroFormat.getValidCards().size() == 0)
-                result.append("none,");
-            result.append("</li>");
-            result.append("</ul>");
         }
-
-        responseWriter.writeHtmlResponse(result.toString());
     }
 
     private void getHall(HttpRequest request, ResponseWriter responseWriter) {
