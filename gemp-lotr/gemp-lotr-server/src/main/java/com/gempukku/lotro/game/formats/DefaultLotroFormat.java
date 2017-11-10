@@ -39,10 +39,10 @@ public class DefaultLotroFormat implements LotroFormat {
     private List<String> _validCards = new ArrayList<String>();
     private List<Integer> _validSets = new ArrayList<Integer>();
     private String _surveyUrl;
-	
-	//Additional Hobbit Draft parameters
-	private List<String> _limit2Cards = new ArrayList<String>();
-	private List<String> _limit3Cards = new ArrayList<String>();
+
+    //Additional Hobbit Draft parameters
+    private List<String> _limit2Cards = new ArrayList<String>();
+    private List<String> _limit3Cards = new ArrayList<String>();
 
     public DefaultLotroFormat(Adventure adventure,
                               LotroCardBlueprintLibrary library, String name, String surveyUrl,
@@ -124,13 +124,13 @@ public class DefaultLotroFormat implements LotroFormat {
         return Collections.unmodifiableList(_validCards);
     }
 
-	//Additional Hobbit Draft parameters
-	@Override
+    //Additional Hobbit Draft parameters
+    @Override
     public List<String> getLimit2Cards() {
         return Collections.unmodifiableList(_limit2Cards);
     }
-	
-	@Override
+
+    @Override
     public List<String> getLimit3Cards() {
         return Collections.unmodifiableList(_limit3Cards);
     }
@@ -189,13 +189,14 @@ public class DefaultLotroFormat implements LotroFormat {
     protected void addValidSet(int setNo) {
         _validSets.add(setNo);
     }
-	
-	//Additional Hobbit Draft card lists
-	protected void addLimit2Card(String baseBlueprintId) {
+
+    //Additional Hobbit Draft card lists
+    protected void addLimit2Card(String baseBlueprintId) {
         _limit2Cards.add(baseBlueprintId);
     }
-	protected void addLimit3Card(String baseBlueprintId) {
-         _limit3Cards.add(baseBlueprintId);
+
+    protected void addLimit3Card(String baseBlueprintId) {
+        _limit3Cards.add(baseBlueprintId);
     }
 
     @Override
@@ -241,7 +242,8 @@ public class DefaultLotroFormat implements LotroFormat {
             validateSites(deck);
 
             validateCard(deck.getRingBearer());
-            validateCard(deck.getRing());
+            if (deck.getRing() != null)
+                validateCard(deck.getRing());
             for (String site : deck.getSites())
                 validateCard(site);
             for (String card : deck.getAdventureCards())
@@ -274,20 +276,20 @@ public class DefaultLotroFormat implements LotroFormat {
                 if (count != null && count > 1)
                     throw new DeckInvalidException("Deck contains more than one copy of an R-listed card: " + GameUtils.getFullName(_library.getLotroCardBlueprint(blueprintId)));
             }
-			
-			//Additional Hobbit Draft restrictions
-			if (_siteBlock == Block.HOBBIT) {
-				for (String blueprintId : _limit2Cards) {
-                Integer count = cardCountByBaseBlueprintId.get(blueprintId);
-                if (count != null && count > 2)
-                    throw new DeckInvalidException("Deck contains more than two copies of a 2x limited card: " + GameUtils.getFullName(_library.getLotroCardBlueprint(blueprintId)));
-				}
-				for (String blueprintId : _limit3Cards) {
-                Integer count = cardCountByBaseBlueprintId.get(blueprintId);
-                if (count != null && count > 3)
-                    throw new DeckInvalidException("Deck contains more than three copies of a 3x limited card: " + GameUtils.getFullName(_library.getLotroCardBlueprint(blueprintId)));
-				}
-			}
+
+            //Additional Hobbit Draft restrictions
+            if (_siteBlock == Block.HOBBIT) {
+                for (String blueprintId : _limit2Cards) {
+                    Integer count = cardCountByBaseBlueprintId.get(blueprintId);
+                    if (count != null && count > 2)
+                        throw new DeckInvalidException("Deck contains more than two copies of a 2x limited card: " + GameUtils.getFullName(_library.getLotroCardBlueprint(blueprintId)));
+                }
+                for (String blueprintId : _limit3Cards) {
+                    Integer count = cardCountByBaseBlueprintId.get(blueprintId);
+                    if (count != null && count > 3)
+                        throw new DeckInvalidException("Deck contains more than three copies of a 3x limited card: " + GameUtils.getFullName(_library.getLotroCardBlueprint(blueprintId)));
+                }
+            }
         } catch (CardNotFoundException exp) {
             throw new DeckInvalidException("Deck contains card removed from the set");
         } catch (IllegalArgumentException exp) {
