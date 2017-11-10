@@ -19,7 +19,7 @@ import com.gempukku.lotro.game.state.LotroGame;
  */
 public class Card13_024 extends AbstractEvent {
     public Card13_024() {
-        super(Side.FREE_PEOPLE, 2, Culture.ELVEN, "Sprang Forth Nimbly", Phase.SKIRMISH);
+        super(Side.FREE_PEOPLE, 2, Culture.ELVEN, "Spring Forth Nimbly", Phase.SKIRMISH);
     }
 
     @Override

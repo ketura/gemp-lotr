@@ -45,7 +45,7 @@ public class Card7_140 extends AbstractMinion {
             boolean hasInitiative = PlayConditions.hasInitiative(game, Side.SHADOW);
             int healCount = hasInitiative ? 2 : 1;
             action.appendEffect(
-                    new ChooseAndHealCharactersEffect(action, playerId, healCount, healCount, Keyword.EASTERLING));
+                    new ChooseAndHealCharactersEffect(action, playerId, healCount, healCount, Filters.not(self), Keyword.EASTERLING));
             return Collections.singletonList(action);
         }
         return null;

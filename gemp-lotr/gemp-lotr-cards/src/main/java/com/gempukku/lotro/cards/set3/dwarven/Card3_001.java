@@ -22,7 +22,7 @@ import java.util.List;
  * Game Text: Tale. Bearer must be a Dwarf. At the start of each fellowship phase when the fellowship is at site 4
  * or higher, you may draw a card for each Dwarf companion.
  */
-public class Card3_001 extends AbstractAttachable {
+public class Card3_001 extends AbstractAttachableFPPossession {
     public Card3_001() {
         super(Side.FREE_PEOPLE, CardType.POSSESSION, 2, Culture.DWARVEN, null, "Book of Mazarbul", null, true);
         addKeyword(Keyword.TALE);

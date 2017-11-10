@@ -48,7 +48,7 @@ public class Card15_113 extends AbstractPermanent {
             action.appendCost(
                     new RemoveTwilightEffect(2));
             action.appendCost(
-                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Culture.ORC, Race.ORC));
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Culture.ORC, CardType.MINION));
             action.appendEffect(
                     new RevealBottomCardsOfDrawDeckEffect(self, playerId, 1) {
                         @Override

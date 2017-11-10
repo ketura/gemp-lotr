@@ -56,7 +56,7 @@ public class Card18_075 extends AbstractMinion {
             action.appendCost(
                     new SelfExertEffect(action, self));
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose a MEN minion", Culture.MEN, CardType.MINION) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose a MEN Man", Culture.MEN, Race.MAN) {
                         @Override
                         protected void cardSelected(LotroGame game, final PhysicalCard minion) {
                             action.appendEffect(

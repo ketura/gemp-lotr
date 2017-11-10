@@ -34,7 +34,7 @@ import java.util.List;
  */
 public class Card31_013 extends AbstractFollower {
     public Card31_013() {
-        super(Side.FREE_PEOPLE, 3, 2, 1, 0, Culture.SHIRE, "Beorn", "Skin-Changer", true);
+        super(Side.FREE_PEOPLE, 3, 2, 1, 0, Culture.GANDALF, "Beorn", "Skin-Changer", true);
     }
 	
 	@Override

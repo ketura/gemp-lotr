@@ -38,8 +38,8 @@ public class Card15_078 extends AbstractMinion {
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.startOfPhase(game, effectResult, Phase.MANEUVER)
-                && PlayConditions.canSpot(game, Filters.not(self), Culture.MEN, Race.MAN)
-                && (PlayConditions.canSpot(game, 8, Filters.character)
+                && ((PlayConditions.canSpot(game, Filters.not(self), Culture.MEN, Race.MAN)
+                && PlayConditions.canSpot(game, 8, Filters.character))
                 || new CountCulturesEvaluator(Side.FREE_PEOPLE).evaluateExpression(game.getGameState(), game.getModifiersQuerying(), null) >= 3)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(

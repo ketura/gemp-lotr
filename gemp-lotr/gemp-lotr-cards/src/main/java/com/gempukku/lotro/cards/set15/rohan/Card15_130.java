@@ -28,7 +28,7 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
  */
 public class Card15_130 extends AbstractCompanion {
     public Card15_130() {
-        super(3, 5, 3, 6, Culture.ROHAN, Race.MAN, null, "Horesman of the North");
+        super(3, 5, 3, 6, Culture.ROHAN, Race.MAN, null, "Horseman of the North");
     }
 
     @Override
