@@ -10,6 +10,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
+import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collection;
@@ -31,12 +32,10 @@ public class Card31_045 extends AbstractSite {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-		if (TriggerConditions.startOfPhase(game, effectResult, Phase.MANEUVER)) {
+        if (TriggerConditions.startOfPhase(game, effectResult, Phase.MANEUVER)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
-            for (String player : GameUtils.getAllPlayers(game)) {
-                action.appendEffect(
-						new ChooseAndPlayCardFromDeckEffect(player, Filters.weapon));
-            }
+            action.appendEffect(
+                    new ChooseAndPlayCardFromDeckEffect(playerId, PossessionClass.HAND_WEAPON));
             return Collections.singletonList(action);
         }
         return null;
