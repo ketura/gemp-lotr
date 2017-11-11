@@ -55,7 +55,7 @@ public class Card30_037 extends AbstractPermanent {
 		if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.REGROUP, self, 0)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
-                    new ChooseAndPutCardFromDiscardOnTopOfDeckEffect(action, playerId, 1, 1, Filters.not(Filters.name("Smaug"))));	
+                    new ChooseAndPutCardFromDiscardOnTopOfDeckEffect(action, playerId, 1, 1, Side.SHADOW, Filters.not(Filters.name("Smaug"))));
             action.appendEffect(
 					new SelfDiscardEffect(self));
             return Collections.singletonList(action);
