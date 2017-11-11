@@ -30,32 +30,36 @@ public class Card31_019 extends AbstractEvent {
     }
 
     @Override
+    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
+        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
+                && PlayConditions.canDiscardFromPlay(self, game, Race.ORC)
+                && PlayConditions.canPlayFromDeck(playerId, game, Filters.name("Gollum"));
+    }
+
+    @Override
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
-		PlayEventAction action = new PlayEventAction(self);       
-		if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Race.ORC)) {
-			action.appendCost(
-					new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Race.ORC));
-			List<Effect> possibleEffects = new LinkedList<Effect>();
-            possibleEffects.add(
-                    new ChooseAndPlayCardFromDeckEffect(playerId, Filters.gollum) {
-                @Override
-                public String getText(LotroGame game) {
-                    return "Play Gollum from your draw deck";
-                }
-            });
-            if (PlayConditions.canPlayFromDiscard(playerId, game, Filters.gollum)) {
-                possibleEffects.add(
-                        new ChooseAndPlayCardFromDiscardEffect(playerId, game, Filters.gollum) {
+        PlayEventAction action = new PlayEventAction(self);
+        action.appendCost(
+                new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Race.ORC));
+        List<Effect> possibleEffects = new LinkedList<Effect>();
+        possibleEffects.add(
+                new ChooseAndPlayCardFromDeckEffect(playerId, Filters.gollum) {
                     @Override
                     public String getText(LotroGame game) {
-                        return "Play Gollum from your discard pile";
+                        return "Play Gollum from your draw deck";
                     }
                 });
-            }
-            action.appendEffect(
-                    new ChoiceEffect(action, playerId, possibleEffects));
-			return action;
-		}
-		return null;
+        if (PlayConditions.canPlayFromDiscard(playerId, game, Filters.gollum)) {
+            possibleEffects.add(
+                    new ChooseAndPlayCardFromDiscardEffect(playerId, game, Filters.gollum) {
+                        @Override
+                        public String getText(LotroGame game) {
+                            return "Play Gollum from your discard pile";
+                        }
+                    });
+        }
+        action.appendEffect(
+                new ChoiceEffect(action, playerId, possibleEffects));
+        return action;
     }
 }
