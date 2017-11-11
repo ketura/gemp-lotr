@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set30.elven;
 import com.gempukku.lotro.cards.AbstractAlly;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
+import com.gempukku.lotro.cards.effects.ChoiceEffect;
 import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -17,9 +18,11 @@ import com.gempukku.lotro.logic.effects.ChooseAndHealCharactersEffect;
 import com.gempukku.lotro.logic.effects.HealCharactersEffect;
 import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -44,15 +47,23 @@ public class Card30_021 extends AbstractAlly {
     public List<OptionalTriggerAction> getOptionalAfterTriggers(final String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         if (TriggerConditions.startOfTurn(game, effectResult)) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
-            action.appendCost(
-                    new ChooseActiveCardEffect(self, playerId, "Choose a Wise ally", Filters.and(CardType.ALLY, Keyword.WISE), Filters.canHeal) {
-                @Override
-                protected void cardSelected(LotroGame game, final PhysicalCard card) {
-                    action.appendEffect(
-							new HealCharactersEffect(self, card));
-                }
-            });
-            
+            List<Effect> possibleEffects = new LinkedList<Effect>();
+            possibleEffects.add(
+                    new ChooseAndHealCharactersEffect(action, playerId, CardType.ALLY, Keyword.WISE) {
+                        @Override
+                        public String getText(LotroGame game) {
+                            return "Heal a Wise ally";
+                        }
+                    });
+            possibleEffects.add(
+                    new ChooseAndHealCharactersEffect(action, playerId, 1, 1, 2, self) {
+                        @Override
+                        public String getText(LotroGame game) {
+                            return "Heal Elrond twice";
+                        }
+                    });
+            action.appendEffect(new ChoiceEffect(action, playerId, possibleEffects));
+
             return Collections.singletonList(action);
         }
         return null;
