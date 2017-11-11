@@ -3,8 +3,10 @@ package com.gempukku.lotro.cards.set31.moria;
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
+import com.gempukku.lotro.cards.effects.RemovePlayedEventFromGameEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
+import com.gempukku.lotro.cards.effects.choose.ChooseAndRemoveFromTheGameCardsInDiscardEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -46,7 +48,7 @@ public class Card31_033 extends AbstractEvent {
 
     @Override
     public List<? extends Action> getPhaseActionsFromDiscard(String playerId, LotroGame game, final PhysicalCard self) {
-        if (PlayConditions.isPhase(game, Phase.SKIRMISH)
+        if (PlayConditions.isPhase(game, Phase.SHADOW)
                 && PlayConditions.canExert(self, game, 2, Filters.name("The Great Goblin"))
 				&& PlayConditions.canPlayFromDiscard(playerId, game, self)) {
             final PlayEventAction action = getPlayCardAction(playerId, game, self, 0, false);
