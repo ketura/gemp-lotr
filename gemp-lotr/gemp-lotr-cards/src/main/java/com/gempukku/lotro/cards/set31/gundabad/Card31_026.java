@@ -59,34 +59,34 @@ public class Card31_026 extends AbstractAttachable {
     protected Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
         return Keyword.WARG_RIDER;
     }
-	
-	@Override
+
+    @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.ASSIGNMENT, self, 0)
-					&& (PlayConditions.canExert(self, game, 2, self.getAttachedTo())
-						|| game.getGameState().getBurdens() >= 2)) {
+                && (PlayConditions.canExert(self, game, 2, self.getAttachedTo())
+                || game.getGameState().getBurdens() >= 2)) {
             ActivateCardAction action = new ActivateCardAction(self);
-			List<Effect> possibleCosts = new LinkedList<Effect>();
+            List<Effect> possibleCosts = new LinkedList<Effect>();
             possibleCosts.add(
-                    new SelfExertEffect(action, self.getAttachedTo()) {
-                @Override
-                public String getText(LotroGame game) {
-                    return "Exert bearer twice";
-                }
-            });
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, 2, self.getAttachedTo()) {
+                        @Override
+                        public String getText(LotroGame game) {
+                            return "Exert bearer twice";
+                        }
+                    });
             possibleCosts.add(
-					new RemoveBurdenEffect(playerId, self, 2) {
-                @Override
-                public String getText(LotroGame game) {
-                    return "Remove two doubts";
-                }
-            });
+                    new RemoveBurdenEffect(playerId, self, 2) {
+                        @Override
+                        public String getText(LotroGame game) {
+                            return "Remove two doubts";
+                        }
+                    });
             action.appendCost(
-					new ChoiceEffect(action, playerId, possibleCosts));
+                    new ChoiceEffect(action, playerId, possibleCosts));
             action.appendEffect(
                     new ChooseAndAssignCharacterToMinionEffect(action, playerId, self.getAttachedTo(), Filters.name("Thorin")));
             return Collections.singletonList(action);
         }
         return null;
-	}
+    }
 }
