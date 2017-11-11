@@ -32,8 +32,7 @@ public class Card31_019 extends AbstractEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && PlayConditions.canDiscardFromPlay(self, game, Race.ORC)
-                && PlayConditions.canPlayFromDeck(playerId, game, Filters.name("Gollum"));
+                && PlayConditions.canDiscardFromPlay(self, game, Race.ORC);
     }
 
     @Override
