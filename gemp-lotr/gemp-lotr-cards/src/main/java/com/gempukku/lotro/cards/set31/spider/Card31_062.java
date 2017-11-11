@@ -37,32 +37,34 @@ public class Card31_062 extends AbstractPermanent {
         super(Side.SHADOW, 2, CardType.CONDITION, Culture.GUNDABAD, Zone.SUPPORT, "Spider Nest");
     }
 
-	
+
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Race.SPIDER);
-	}
+    }
 
-	
+
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.ASSIGNMENT, self, 0)
                 && PlayConditions.canSpot(game, Race.ORC)) {
+            int reduction = Filters.and(Keyword.FOREST).accepts(game.getGameState(), game.getModifiersQuerying(), game.getGameState().getCurrentSite()) ? -4 : -2;
+
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Race.ORC));
             List<Effect> possibleEffects = new LinkedList<Effect>();
             possibleEffects.add(
-                    new ChooseAndPlayCardFromDeckEffect(playerId, Race.SPIDER) {
+                    new ChooseAndPlayCardFromDeckEffect(playerId, reduction, Race.SPIDER) {
                         @Override
                         public String getText(LotroGame game) {
                             return "Play a Spider from your draw deck";
                         }
                     });
-            if (PlayConditions.canPlayFromDiscard(playerId, game, Race.SPIDER)) {
+            if (PlayConditions.canPlayFromDiscard(playerId, game, reduction, Race.SPIDER)) {
                 possibleEffects.add(
-                        new ChooseAndPlayCardFromDiscardEffect(playerId, game, Race.SPIDER) {
+                        new ChooseAndPlayCardFromDiscardEffect(playerId, game, reduction, Race.SPIDER) {
                             @Override
                             public String getText(LotroGame game) {
                                 return "Play a Spider from your discard pile";
@@ -70,7 +72,7 @@ public class Card31_062 extends AbstractPermanent {
                         });
             }
             action.appendEffect(
-					new ChoiceEffect(action, playerId, possibleEffects));
+                    new ChoiceEffect(action, playerId, possibleEffects));
             return Collections.singletonList(action);
         }
         return null;
