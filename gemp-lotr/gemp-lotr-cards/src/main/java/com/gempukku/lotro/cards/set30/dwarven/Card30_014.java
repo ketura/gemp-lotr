@@ -38,7 +38,7 @@ public class Card30_014 extends AbstractEvent {
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, CardType.COMPANION, Filters.not(Filters.name("Bilbo"))));
          action.appendEffect(
                 new AddUntilEndOfPhaseModifierEffect(
-						new StrengthModifier(self, Filters.name("Bilbo"), 5)));
+						new StrengthModifier(self, Filters.name("Bilbo"), 3)));
         return action;
     }
 }
