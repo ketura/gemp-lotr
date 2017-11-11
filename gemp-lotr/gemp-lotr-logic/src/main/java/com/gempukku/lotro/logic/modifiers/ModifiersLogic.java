@@ -22,7 +22,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
 
     private Map<Phase, Map<String, LimitCounter>> _endOfPhaseLimitCounters = new HashMap<Phase, Map<String, LimitCounter>>();
     private Map<Phase, Map<String, LimitCounter>> _startOfPhaseLimitCounters = new HashMap<Phase, Map<String, LimitCounter>>();
-    private Map<Integer, LimitCounter> _turnLimitCounters = new HashMap<Integer, LimitCounter>();
+    private Map<String, LimitCounter> _turnLimitCounters = new HashMap<String, LimitCounter>();
 
     private int _drawnThisPhaseCount = 0;
     private Map<Integer, Integer> _woundsPerPhaseMap = new HashMap<Integer, Integer>();
@@ -69,10 +69,15 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
 
     @Override
     public LimitCounter getUntilEndOfTurnLimitCounter(PhysicalCard card) {
+        return getUntilEndOfTurnLimitCounter(card, "");
+    }
+
+    @Override
+    public LimitCounter getUntilEndOfTurnLimitCounter(PhysicalCard card, String prefix) {
         LimitCounter limitCounter = _turnLimitCounters.get(card.getCardId());
         if (limitCounter == null) {
             limitCounter = new DefaultLimitCounter();
-            _turnLimitCounters.put(card.getCardId(), limitCounter);
+            _turnLimitCounters.put(prefix + card.getCardId(), limitCounter);
         }
         return limitCounter;
     }

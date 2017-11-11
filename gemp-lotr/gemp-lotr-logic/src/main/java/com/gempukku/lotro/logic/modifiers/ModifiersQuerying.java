@@ -24,6 +24,8 @@ public interface ModifiersQuerying {
 
     public LimitCounter getUntilEndOfTurnLimitCounter(PhysicalCard card);
 
+    public LimitCounter getUntilEndOfTurnLimitCounter(PhysicalCard card, String prefix);
+
     public Collection<Modifier> getModifiersAffecting(GameState gameState, PhysicalCard card);
 
     public Evaluator getFpStrengthOverrideEvaluator(GameState gameState, PhysicalCard fpCharacter);

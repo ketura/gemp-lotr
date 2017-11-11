@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set31.site;
 import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.CheckTurnLimitEffect;
+import com.gempukku.lotro.cards.effects.CheckTurnLimitPerPlayerEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromDeckEffect;
 import com.gempukku.lotro.common.*;
@@ -34,10 +35,8 @@ public class Card31_048 extends AbstractSite {
     public List<? extends Action> getPhaseActions(final String playerId, final LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseSiteDuringPhase(game, Phase.MANEUVER, self)) {
             final ActivateCardAction action = new ActivateCardAction(self);
-			action.appendEffect(new CheckTurnLimitEffect(action, self, 1,
-					new ChooseAndPlayCardFromDeckEffect(playerId, Side.FREE_PEOPLE, Filters.name("The One Ring"))));
-            action.appendEffect(new CheckTurnLimitEffect(action, self, 1,
-                    new ChooseAndPlayCardFromDeckEffect(playerId, Side.SHADOW, CardType.CONDITION)));
+			action.appendEffect(new CheckTurnLimitPerPlayerEffect(action, self, playerId, 1,
+					new ChooseAndPlayCardFromDeckEffect(playerId, Filters.or(Filters.and(Side.SHADOW, CardType.CONDITION), Filters.name("The One Ring")))));
             return Collections.singletonList(action);
         }
         return null;
