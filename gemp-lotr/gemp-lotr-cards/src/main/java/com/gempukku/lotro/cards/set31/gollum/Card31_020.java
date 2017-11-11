@@ -71,7 +71,7 @@ public class Card31_020 extends AbstractMinion {
                     int bonus = game.getModifiersQuerying().hasKeyword(game.getGameState(), game.getGameState().getCurrentSite(), Keyword.UNDERGROUND) ? 3 : 1;
                     action.insertEffect(
                             new AddUntilEndOfPhaseModifierEffect(
-                                    new StrengthModifier(self, Filters.sameCard(card), bonus)));
+                                    new StrengthModifier(self, Filters.sameCard(card), bonus), Phase.REGROUP));
                 }
 			});
 			return Collections.singletonList(action);
