@@ -43,7 +43,7 @@ public class Card31_006 extends AbstractAttachableFPPossession {
     @Override
     protected List<? extends Modifier> getNonBasicStatsModifiers(PhysicalCard self) {
 		return Collections.singletonList(
-				new TwilightCostModifier(self, Filters.and(Culture.DWARVEN, CardType.EVENT, Filters.owner(self.getOwner())), -1));
+				new TwilightCostModifier(self, Filters.and(Culture.DWARVEN, CardType.EVENT), -1));
 	}
 
     @Override
