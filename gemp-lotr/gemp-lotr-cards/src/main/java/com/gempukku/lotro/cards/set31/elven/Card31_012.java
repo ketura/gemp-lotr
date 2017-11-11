@@ -45,13 +45,13 @@ public class Card31_012 extends AbstractAlly {
     @Override
     protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.MANEUVER, self)
-                && (PlayConditions.canExert(self, game, Race.DWARF)
-				|| PlayConditions.canDiscardFromHand(game, playerId, 1, Culture.DWARVEN))) {
+                && (PlayConditions.canExert(self, game, 2, Filters.name("Thorin"))
+                || PlayConditions.canDiscardFromPlay(self, game, Culture.DWARVEN, CardType.ARTIFACT))) {
             ActivateCardAction action = new ActivateCardAction(self);
-			 List<Effect> possibleCosts = new LinkedList<Effect>();
+            List<Effect> possibleCosts = new LinkedList<Effect>();
             possibleCosts.add(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, 2, Filters.name("Thorin")) {
-						@Override
+                        @Override
                         public String getText(LotroGame game) {
                             return "Exert Thorin twice";
                         }
@@ -64,12 +64,12 @@ public class Card31_012 extends AbstractAlly {
                         }
                     });
             action.appendCost(
-					new ChoiceEffect(action, playerId, possibleCosts));
+                    new ChoiceEffect(action, playerId, possibleCosts));
             action.appendEffect(
                     new AddUntilStartOfPhaseModifierEffect(
                             new AllyParticipatesInArcheryFireAndSkirmishesModifier(self, self), Phase.REGROUP));
             return Collections.singletonList(action);
         }
         return null;
-	}
+    }
 }
