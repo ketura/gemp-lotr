@@ -640,7 +640,7 @@ public class Filters {
 
     private static Filter race(final Race race) {
         return Filters.and(
-                Filters.or(CardType.COMPANION, CardType.ALLY, CardType.MINION),
+                Filters.or(CardType.COMPANION, CardType.ALLY, CardType.MINION, CardType.FOLLOWER),
                 new Filter() {
                     @Override
                     public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
