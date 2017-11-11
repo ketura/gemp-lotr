@@ -33,13 +33,13 @@ public class Card31_051 extends AbstractSite {
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
          if (TriggerConditions.startOfPhase(game, effectResult, Phase.SHADOW)
-                && PlayConditions.canSpot(game, Filters.gandalf)
+                && PlayConditions.canDiscardFromPlay(self, game, Filters.gandalf)
                 && PlayConditions.canPlayFromDiscard(playerId, game, CardType.MINION)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(
                     new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.gandalf));
             action.appendEffect(
-                    new ChooseAndPlayCardFromDiscardEffect(playerId, game, Race.NAZGUL));
+                    new ChooseAndPlayCardFromDiscardEffect(playerId, game, CardType.MINION));
             return Collections.singletonList(action);
         }
         return null;
