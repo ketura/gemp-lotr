@@ -48,7 +48,7 @@ public class Card31_033 extends AbstractEvent {
 
     @Override
     public List<? extends Action> getPhaseActionsFromDiscard(String playerId, LotroGame game, final PhysicalCard self) {
-        if (PlayConditions.isPhase(game, Phase.SHADOW)
+        if (PlayConditions.isPhase(game, Phase.MANEUVER)
                 && PlayConditions.canExert(self, game, 2, Filters.name("The Great Goblin"))
 				&& PlayConditions.canPlayFromDiscard(playerId, game, self)) {
             final PlayEventAction action = getPlayCardAction(playerId, game, self, 0, false);
