@@ -1,4 +1,4 @@
-package com.gempukku.lotro.cards.set31.moria;
+package com.gempukku.lotro.cards.set31.gundabad;
 
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
@@ -26,7 +26,7 @@ import java.util.List;
 
 public class Card31_029 extends AbstractPermanent {
     public Card31_029() {
-        super(Side.SHADOW, 2, CardType.CONDITION, Culture.MORIA, Zone.SUPPORT, "Ancestral Feuds", null, true);
+        super(Side.SHADOW, 2, CardType.CONDITION, Culture.GUNDABAD, Zone.SUPPORT, "Ancestral Feuds", null, true);
     }
 
     @Override
