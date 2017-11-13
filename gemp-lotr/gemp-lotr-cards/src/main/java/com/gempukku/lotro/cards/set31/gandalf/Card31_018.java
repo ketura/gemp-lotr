@@ -4,6 +4,8 @@ import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.PutCardFromDiscardIntoHandEffect;
+import com.gempukku.lotro.cards.effects.ShuffleDeckEffect;
+import com.gempukku.lotro.cards.effects.choose.ChooseAndPutCardFromDeckIntoHandEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseOpponentEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -45,15 +47,9 @@ public class Card31_018 extends AbstractAttachableFPPossession {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
 			action.appendCost(new ExertCharactersEffect(action, self, self.getAttachedTo()));
             action.appendEffect(
-                    new ChooseArbitraryCardsEffect(playerId, "Choose GANDALF spell", game.getGameState().getDiscard(playerId), Filters.and(Culture.GANDALF, Keyword.SPELL), 1, 1) {
-                        @Override
-                        protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
-                            for (PhysicalCard selectedCard : selectedCards) {
-                                action.appendEffect(
-                                        new PutCardFromDiscardIntoHandEffect(selectedCard));
-                            }
-                        }
-            });
+                    new ChooseAndPutCardFromDeckIntoHandEffect(action, playerId, 1, 1, Culture.GANDALF, Keyword.SPELL));
+            action.appendEffect(
+                    new ShuffleDeckEffect(playerId));
             return Collections.singletonList(action);
         }
         return null;
