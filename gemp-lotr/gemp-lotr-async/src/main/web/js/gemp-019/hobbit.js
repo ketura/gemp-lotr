@@ -54,7 +54,7 @@ var hobbit = {
     '30_53': 'http://hobbitdraftgame.free.fr/Cards_Good_def/5_Mirkwood.png',
     '30_54': 'http://hobbitdraftgame.free.fr/Cards_Good_def/6_Esgaroth.png',
     '30_55': 'http://hobbitdraftgame.free.fr/Cards_Good_def/7_Erebor.png',
-    '30_56': 'http://hobbitdraftgame.free.fr/Cards_Good_def/8_Smaug%27s_den.png',
+    '30_56': 'http://hobbitdraftgame.free.fr/Cards_Good_def/8_Smaug_s_den.png',
     '30_57': 'http://hobbitdraftgame.free.fr/Cards_Good_def/9_Battle_of_the_five_armies.png',
     '30_58': 'http://hobbitdraftgame.free.fr/Cards_Good_def/Smaug.png',
     '31_1': 'http://hobbitdraftgame.free.fr/Cards_Good_def/Dwarven_Axe.png',
