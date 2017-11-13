@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set31.troll;
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.AddUntilEndOfTurnModifierEffect;
+import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
 import com.gempukku.lotro.cards.effects.PreventableEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
@@ -67,7 +67,7 @@ public class Card31_065 extends AbstractPermanent {
 				protected void cardSelected(LotroGame game, final PhysicalCard card) {
 					action.appendEffect(new PreventableEffect(
 							action,
-							new AddUntilEndOfTurnModifierEffect(new CantBeAssignedToSkirmishModifier(self, card)),
+							new AddUntilEndOfPhaseModifierEffect(new CantBeAssignedToSkirmishModifier(self, card)),
 							Collections.singletonList(game.getGameState().getCurrentPlayerId()),
 							new PreventableEffect.PreventionCost() {
 						@Override
