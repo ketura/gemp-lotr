@@ -67,12 +67,22 @@ public class Card31_065 extends AbstractPermanent {
 				protected void cardSelected(LotroGame game, final PhysicalCard card) {
 					action.appendEffect(new PreventableEffect(
 							action,
-							new AddUntilEndOfPhaseModifierEffect(new CantBeAssignedToSkirmishModifier(self, card)),
+							new AddUntilEndOfPhaseModifierEffect(new CantBeAssignedToSkirmishModifier(self, card)) {
+                                @Override
+                                public String getText(LotroGame game) {
+                                    return "prevent that";
+                                }
+                            },
 							Collections.singletonList(game.getGameState().getCurrentPlayerId()),
 							new PreventableEffect.PreventionCost() {
 						@Override
 						public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
-							return new ChooseAndExertCharactersEffect(action, playerId, 1, 1, 2, Filters.name("Bilbo"));
+							return new ChooseAndExertCharactersEffect(action, playerId, 1, 1, 2, Filters.name("Bilbo")) {
+                                @Override
+                                public String getText(LotroGame game) {
+                                    return "exert Bilbo twice";
+                                }
+                            };
 						}
 					}));
 				}
