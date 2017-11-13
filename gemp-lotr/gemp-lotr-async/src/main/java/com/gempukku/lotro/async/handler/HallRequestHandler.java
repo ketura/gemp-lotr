@@ -348,13 +348,16 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
         result.append("</li>");
         result.append("<li>sites from block: " + lotroFormat.getSiteBlock().getHumanReadable() + "</li>");
         result.append("<li>Ring-bearer skirmish can be cancelled: " + (lotroFormat.canCancelRingBearerSkirmish() ? "yes" : "no") + "</li>");
-        result.append("<li>X-listed: ");
-        appendCards(result, lotroFormat.getBannedCards());
-        result.append("</li>");
-        result.append("<li>R-listed: ");
-        List<String> restrictedCards = lotroFormat.getRestrictedCards();
-        appendCards(result, restrictedCards);
-        result.append("</li>");
+        if (lotroFormat.getBannedCards().size() > 0) {
+            result.append("<li>X-listed (can't be played): ");
+            appendCards(result, lotroFormat.getBannedCards());
+            result.append("</li>");
+        }
+        if (lotroFormat.getRestrictedCards().size() > 0) {
+            result.append("<li>R-listed (can play just one copy): ");
+            appendCards(result, lotroFormat.getRestrictedCards());
+            result.append("</li>");
+        }
         if (lotroFormat.getLimit2Cards().size() > 0) {
             result.append("<li>Limited to 2 in deck: ");
             List<String> limit2Cards = lotroFormat.getLimit2Cards();
