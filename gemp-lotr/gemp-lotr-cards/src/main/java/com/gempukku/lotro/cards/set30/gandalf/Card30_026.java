@@ -10,6 +10,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.effects.DrawCardsEffect;
 import com.gempukku.lotro.logic.modifiers.CantDiscardFromPlayModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.SpotCondition;
@@ -28,8 +29,8 @@ import java.util.List;
  * Strength: 7
  * Vitality: 4
  * Resitance: 6
- * Game Text: The twilight cost of Thorin is -2. Fellowship: Discard 2 Dwarf followers to prevent
- * Gandalf from being discarded until the end of turn.
+ * Game Text: Wise. The twilight cost of Thorin is -2. While you can spot 2 Dwarf followers, Gandalf cannot be discarded.
+ * Fellowship: Discard a Dwarf follower and add a doubt to draw 3 cards.
  */
 public class Card30_026 extends AbstractCompanion {
     public Card30_026() {
@@ -42,19 +43,20 @@ public class Card30_026 extends AbstractCompanion {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(
                 new TwilightCostModifier(self, Filters.name("Thorin"), -2));
+        modifiers.add(
+                new CantDiscardFromPlayModifier(self, "Cannot be discarded", new SpotCondition(2, Race.DWARF, CardType.FOLLOWER), self, Filters.any));
         return modifiers;
 	}
-	
+
 	@Override
     protected List<ActivateCardAction> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.FELLOWSHIP, self)
-                && PlayConditions.canDiscardFromPlay(self, game, 2, Race.DWARF, CardType.FOLLOWER)) {
+                && PlayConditions.canDiscardFromPlay(self, game, Race.DWARF, CardType.FOLLOWER)) {
             ActivateCardAction action = new ActivateCardAction(self);
 
-            action.appendCost(new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 2, 2, Race.DWARF, CardType.FOLLOWER));
-            
-			action.appendEffect(new AddUntilEndOfTurnModifierEffect(
-				new CantDiscardFromPlayModifier(self, "Cannot be discarded until end of turn", Filters.gandalf, Filters.any)));
+            action.appendCost(new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Race.DWARF, CardType.FOLLOWER));
+            action.appendEffect(
+                    new DrawCardsEffect(action, playerId, 3));
 
             return Collections.singletonList(action);
         }
