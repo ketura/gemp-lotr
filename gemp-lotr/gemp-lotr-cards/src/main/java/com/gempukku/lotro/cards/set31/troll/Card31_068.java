@@ -17,14 +17,14 @@ import java.util.List;
  * Set: The Short Rest
  * Side: Shadow
  * Culture: Troll
- * Twilight Cost: 1
+ * Twilight Cost: 2
  * Type: Possession • Hand Weapon
  * Strength: +3
  * Game Text: Bearer must be a Troll. Bearer is damage +1.
  */
 public class Card31_068 extends AbstractAttachable {
     public Card31_068() {
-        super(Side.SHADOW, CardType.POSSESSION, 1, Culture.GUNDABAD, PossessionClass.HAND_WEAPON, "Troll Knife");
+        super(Side.SHADOW, CardType.POSSESSION, 2, Culture.GUNDABAD, PossessionClass.HAND_WEAPON, "Troll Knife");
     }
 
     @Override
