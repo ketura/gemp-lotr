@@ -38,6 +38,7 @@ public class DefaultLotroFormat implements LotroFormat {
     private List<String> _restrictedCards = new ArrayList<String>();
     private List<String> _validCards = new ArrayList<String>();
     private List<Integer> _validSets = new ArrayList<Integer>();
+    private List<String> _restrictedCardNames = new ArrayList<String>();
     private String _surveyUrl;
 
     //Additional Hobbit Draft parameters
@@ -120,6 +121,11 @@ public class DefaultLotroFormat implements LotroFormat {
     }
 
     @Override
+    public List<String> getRestrictedCardNames() {
+        return Collections.unmodifiableList(_restrictedCardNames);
+    }
+
+    @Override
     public List<String> getValidCards() {
         return Collections.unmodifiableList(_validCards);
     }
@@ -150,7 +156,7 @@ public class DefaultLotroFormat implements LotroFormat {
         return 8;
     }
 
-    protected void addBannedCard(String baseBlueprintId) {
+    public void addBannedCard(String baseBlueprintId) {
         if (baseBlueprintId.contains("-")) {
             String[] parts = baseBlueprintId.split("_");
             String set = parts[0];
@@ -162,7 +168,7 @@ public class DefaultLotroFormat implements LotroFormat {
             _bannedCards.add(baseBlueprintId);
     }
 
-    protected void addRestrictedCard(String baseBlueprintId) {
+    public void addRestrictedCard(String baseBlueprintId) {
         if (baseBlueprintId.contains("-")) {
             String[] parts = baseBlueprintId.split("_");
             String set = parts[0];
@@ -174,7 +180,7 @@ public class DefaultLotroFormat implements LotroFormat {
             _restrictedCards.add(baseBlueprintId);
     }
 
-    protected void addValidCard(String baseBlueprintId) {
+    public void addValidCard(String baseBlueprintId) {
         if (baseBlueprintId.contains("-")) {
             String[] parts = baseBlueprintId.split("_");
             String set = parts[0];
@@ -186,17 +192,21 @@ public class DefaultLotroFormat implements LotroFormat {
             _validCards.add(baseBlueprintId);
     }
 
-    protected void addValidSet(int setNo) {
+    public void addValidSet(int setNo) {
         _validSets.add(setNo);
     }
 
     //Additional Hobbit Draft card lists
-    protected void addLimit2Card(String baseBlueprintId) {
+    public void addLimit2Card(String baseBlueprintId) {
         _limit2Cards.add(baseBlueprintId);
     }
 
-    protected void addLimit3Card(String baseBlueprintId) {
+    public void addLimit3Card(String baseBlueprintId) {
         _limit3Cards.add(baseBlueprintId);
+    }
+
+    public void addRestrictedCardName(String cardName) {
+        _restrictedCardNames.add(cardName);
     }
 
     @Override
@@ -268,7 +278,7 @@ public class DefaultLotroFormat implements LotroFormat {
 
             for (Map.Entry<String, Integer> count : cardCountByName.entrySet()) {
                 if (count.getValue() > _maximumSameName)
-                    throw new DeckInvalidException("Deck contains more of the same card than allowed (" + count.getValue() + ">" + _maximumSameName + "): " + count.getKey());
+                    throw new DeckInvalidException("Deck contains more of the same card than allowed - " + count.getKey() + " (" + count.getValue() + ">" + _maximumSameName + "): " + count.getKey());
             }
 
             // Restricted cards
@@ -278,19 +288,24 @@ public class DefaultLotroFormat implements LotroFormat {
                     throw new DeckInvalidException("Deck contains more than one copy of an R-listed card: " + GameUtils.getFullName(_library.getLotroCardBlueprint(blueprintId)));
             }
 
-            //Additional Hobbit Draft restrictions
-            if (_siteBlock == Block.HOBBIT) {
-                for (String blueprintId : _limit2Cards) {
-                    Integer count = cardCountByBaseBlueprintId.get(blueprintId);
-                    if (count != null && count > 2)
-                        throw new DeckInvalidException("Deck contains more than two copies of a 2x limited card: " + GameUtils.getFullName(_library.getLotroCardBlueprint(blueprintId)));
-                }
-                for (String blueprintId : _limit3Cards) {
-                    Integer count = cardCountByBaseBlueprintId.get(blueprintId);
-                    if (count != null && count > 3)
-                        throw new DeckInvalidException("Deck contains more than three copies of a 3x limited card: " + GameUtils.getFullName(_library.getLotroCardBlueprint(blueprintId)));
-                }
+            // New Hobbit Draft restrictions
+            for (String blueprintId : _limit2Cards) {
+                Integer count = cardCountByBaseBlueprintId.get(blueprintId);
+                if (count != null && count > 2)
+                    throw new DeckInvalidException("Deck contains more than two copies of a 2x limited card: " + GameUtils.getFullName(_library.getLotroCardBlueprint(blueprintId)));
             }
+            for (String blueprintId : _limit3Cards) {
+                Integer count = cardCountByBaseBlueprintId.get(blueprintId);
+                if (count != null && count > 3)
+                    throw new DeckInvalidException("Deck contains more than three copies of a 3x limited card: " + GameUtils.getFullName(_library.getLotroCardBlueprint(blueprintId)));
+            }
+
+            for (String restrictedCardName : _restrictedCardNames) {
+                Integer count = cardCountByName.get(restrictedCardName);
+                if (count != null && count > 1)
+                    throw new DeckInvalidException("Deck contains more than one copy of a card restricted by name: " + restrictedCardName);
+            }
+
         } catch (CardNotFoundException exp) {
             throw new DeckInvalidException("Deck contains card removed from the set");
         } catch (IllegalArgumentException exp) {

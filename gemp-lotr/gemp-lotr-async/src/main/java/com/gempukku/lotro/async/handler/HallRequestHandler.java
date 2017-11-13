@@ -367,10 +367,23 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
             appendCards(result, limit3Cards);
             result.append("</li>");
         }
-        result.append("<li>Additional valid: ");
-        List<String> additionalValidCards = lotroFormat.getValidCards();
-        appendCards(result, additionalValidCards);
-        result.append("</li>");
+        if (lotroFormat.getRestrictedCardNames().size() > 0) {
+            result.append("<li>Restricted by card name: ");
+            boolean first = true;
+            for (String cardName : lotroFormat.getRestrictedCardNames()) {
+                if (!first)
+                    result.append(", ");
+                result.append(cardName);
+                first = false;
+            }
+            result.append("</li>");
+        }
+        if (lotroFormat.getValidCards().size() > 0) {
+            result.append("<li>Additional valid: ");
+            List<String> additionalValidCards = lotroFormat.getValidCards();
+            appendCards(result, additionalValidCards);
+            result.append("</li>");
+        }
         result.append("</ul>");
     }
 
