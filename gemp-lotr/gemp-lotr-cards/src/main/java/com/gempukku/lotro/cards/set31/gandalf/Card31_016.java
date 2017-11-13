@@ -16,6 +16,13 @@ import com.gempukku.lotro.logic.timing.Effect;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * His Wrath Was Redoubled [Gandalf]
+ * Event • Assignment
+ * Twilight Cost 3
+ * 'Spell.
+ * Discard Beorn (or 2 [Dwarven] followers) to make a Shadow player assign 3 wounds to minions (except Smaug).'
+ */
 public class Card31_016 extends AbstractEvent {
     public Card31_016() {
         super(Side.FREE_PEOPLE, 3, Culture.GANDALF, "His Wrath Was Redoubled", Phase.ASSIGNMENT);

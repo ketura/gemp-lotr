@@ -18,6 +18,16 @@ import com.gempukku.lotro.logic.timing.Action;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * •Radagast, The Brown [Gandalf]
+ * Ally • Home 5 • Wizard
+ * Twilight Cost 4
+ * Strength 8
+ * Vitality 4
+ * Wise.
+ * Fellowship: Play Gandalf from your discard pile to make the move limit for this turn +1. Choose an opponent who may
+ * draw 2 cards.
+ */
 public class Card31_017 extends AbstractAlly {
     public Card31_017() {
         super(4, Block.HOBBIT, 5, 8, 4, Race.WIZARD, Culture.GANDALF, "Radagast", "The Brown", true);
@@ -41,7 +51,7 @@ public class Card31_017 extends AbstractAlly {
                         protected void opponentChosen(String opponentId) {
                             action.appendEffect(
                                     new OptionalEffect(action, opponentId,
-                                            new DrawCardsEffect(action, opponentId, 3)));
+                                            new DrawCardsEffect(action, opponentId, 2)));
                         }
                     });
 

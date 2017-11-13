@@ -24,6 +24,14 @@ import com.gempukku.lotro.logic.timing.EffectResult;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * •Ancestral Feuds [Mirkwood] (Gundabad)
+ * Condition • Support Area
+ * Twilight Cost 2
+ * 'Each time the fellowship moves to site 5, discard each weapon borne by a [Dwarven] companion.
+ * Skirmish: Remove 3 to make a [Dwarven] character strength -X (limit -3), where X is the number of [Elven]
+ * allies you spot.'
+ */
 public class Card31_029 extends AbstractPermanent {
     public Card31_029() {
         super(Side.SHADOW, 2, CardType.CONDITION, Culture.GUNDABAD, Zone.SUPPORT, "Ancestral Feuds", null, true);

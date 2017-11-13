@@ -18,6 +18,14 @@ import com.gempukku.lotro.logic.timing.Effect;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * The Eagles Are Coming [Gandalf]
+ * Event • Skirmish
+ * Twilight Cost 3
+ * 'Spell.
+ * Exert Gandalf to play a [Gandalf] follower from your draw deck or discard pile.
+ * You may attach a [Gandalf] follower from your support area to a companion (without paying the aid cost).'
+ */
 public class Card31_014 extends AbstractEvent {
     public Card31_014() {
         super(Side.FREE_PEOPLE, 3, Culture.GANDALF, "The Eagles Are Coming", Phase.SKIRMISH);
