@@ -46,7 +46,7 @@ public class Card31_010 extends AbstractAlly {
                         @Override
                         protected void opponentChosen(String opponentId) {
                             action.appendEffect(
-                                    new ChooseAndReturnCardsToHandEffect(action, opponentId, 1, 1, Race.ORC, Filters.lessStrengthThan(7)));
+                                    new ChooseAndReturnCardsToHandEffect(action, opponentId, 1, 1, Race.ORC, Filters.lessStrengthThan(8)));
                         }
                     });
             return Collections.singletonList(action);
