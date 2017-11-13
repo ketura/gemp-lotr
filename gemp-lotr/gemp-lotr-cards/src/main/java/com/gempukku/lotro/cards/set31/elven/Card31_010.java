@@ -25,7 +25,7 @@ import java.util.List;
  * Strength: 6
  * Vitality: 3
  * Site: 5
- * Game Text: To play, spot an Elf. Regroup: Exert Tauriel and spot a minion to return that minion to its owner's hand.
+ * Game Text: Archer. Maneuver: Exert Tauriel to return an Orc with strength 7 or less to its owner's hand.
  */
 public class Card31_010 extends AbstractAlly {
     public Card31_010() {
@@ -35,7 +35,7 @@ public class Card31_010 extends AbstractAlly {
 
     @Override
     protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canUseFPCardDuringPhase(game, Phase.REGROUP, self)
+        if (PlayConditions.canUseFPCardDuringPhase(game, Phase.MANEUVER, self)
                 && PlayConditions.canExert(self, game, self)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), CardType.MINION)) {
             final ActivateCardAction action = new ActivateCardAction(self);
@@ -46,7 +46,7 @@ public class Card31_010 extends AbstractAlly {
                         @Override
                         protected void opponentChosen(String opponentId) {
                             action.appendEffect(
-                                    new ChooseAndReturnCardsToHandEffect(action, opponentId, 1, 1, CardType.MINION, Filters.lessStrengthThan(7)));
+                                    new ChooseAndReturnCardsToHandEffect(action, opponentId, 1, 1, Race.ORC, Filters.lessStrengthThan(7)));
                         }
                     });
             return Collections.singletonList(action);
