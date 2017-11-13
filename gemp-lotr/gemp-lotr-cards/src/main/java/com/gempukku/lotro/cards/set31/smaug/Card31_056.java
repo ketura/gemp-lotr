@@ -39,7 +39,7 @@ import java.util.List;
  */
 public class Card31_056 extends AbstractAttachable {
     public Card31_056() {
-        super(Side.SHADOW, CardType.ARTIFACT, 2, Culture.SMAUG, null, "The Arkenstone", "King's Jewel", true);
+        super(Side.SHADOW, CardType.ARTIFACT, 2, Culture.GUNDABAD, null, "The Arkenstone", "King's Jewel", true);
     }
 
     @Override
