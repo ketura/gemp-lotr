@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set31.troll;
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.AddUntilEndOfTurnModifierEffect;
+import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
 import com.gempukku.lotro.cards.effects.PreventableEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
@@ -28,7 +28,7 @@ import java.util.List;
  * Set: The Short Rest
  * Side: Shadow
  * Culture: Troll
- * Twilight Cost: 0
+ * Twilight Cost: 2
  * Type: Condition • Support Area
  * Game Text: At the start of each assignment phase, you may discard a minion (or exert 
  * a [TROLL] Troll) to spot a [DWARVEN] or [SHIRE] companion. That companion cannot be
@@ -36,17 +36,17 @@ import java.util.List;
  */
 public class Card31_065 extends AbstractPermanent {
     public Card31_065() {
-        super(Side.SHADOW, 0, CardType.CONDITION, Culture.GUNDABAD, Zone.SUPPORT, "Caught in a Sack");
+        super(Side.SHADOW, 2, CardType.CONDITION, Culture.GUNDABAD, Zone.SUPPORT, "Caught in a Sack");
     }
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         if (TriggerConditions.startOfPhase(game, effectResult, Phase.ASSIGNMENT)
-                && (PlayConditions.canExert(self, game, 1, Culture.TROLL, Race.TROLL) || PlayConditions.canDiscardFromPlay(self, game, CardType.MINION))) {
+                && (PlayConditions.canExert(self, game, 1, Culture.GUNDABAD, Race.TROLL) || PlayConditions.canDiscardFromPlay(self, game, CardType.MINION))) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
 			List<Effect> possibleCosts = new LinkedList<Effect>();
             possibleCosts.add(
-                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, 1, Culture.TROLL, Race.TROLL) {
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, 1, Culture.GUNDABAD, Race.TROLL) {
                 @Override
                 public String getText(LotroGame game) {
                     return "Exert a [TROLL] Troll";
@@ -67,7 +67,7 @@ public class Card31_065 extends AbstractPermanent {
 				protected void cardSelected(LotroGame game, final PhysicalCard card) {
 					action.appendEffect(new PreventableEffect(
 							action,
-							new AddUntilEndOfTurnModifierEffect(new CantBeAssignedToSkirmishModifier(self, card)),
+							new AddUntilEndOfPhaseModifierEffect(new CantBeAssignedToSkirmishModifier(self, card)),
 							Collections.singletonList(game.getGameState().getCurrentPlayerId()),
 							new PreventableEffect.PreventionCost() {
 						@Override

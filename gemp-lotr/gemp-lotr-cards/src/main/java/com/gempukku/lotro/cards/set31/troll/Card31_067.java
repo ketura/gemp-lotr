@@ -20,13 +20,20 @@ import java.util.List;
  * Culture: Troll
  * Twilight Cost: 2
  * Type: Condition
- * Game Text: Plays to your support area. Shadow: Discard 2 cards from hand to play a minion from your discard
+ * Game Text: To play, spot a Troll. Shadow: Discard 2 cards from hand to play a minion from your discard
  * pile.
  */
 public class Card31_067 extends AbstractPermanent {
     public Card31_067() {
         super(Side.SHADOW, 2, CardType.CONDITION, Culture.GUNDABAD, Zone.SUPPORT, "Troll Campfire", null, true);
     }
+    
+    
+    @Override
+    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
+        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
+                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Race.TROLL);
+}
 
     @Override
     public List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {

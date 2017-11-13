@@ -31,7 +31,7 @@ import java.util.List;
  * Set: Main Deck
  * Side: Free
  * Culture: Shire
- * Twilight Cost: 2
+ * Twilight Cost: 0
  * Type: Artifact • Ring
  * Vitality: +1
  * Resistance: +1
@@ -40,7 +40,7 @@ import java.util.List;
  */
 public class Card30_048 extends AbstractAttachableFPPossession {
     public Card30_048() {
-        super(2, 0, 1, Culture.SHIRE, CardType.ARTIFACT, PossessionClass.RING, "The One Ring", null, true);
+        super(0, 0, 1, Culture.SHIRE, CardType.ARTIFACT, PossessionClass.RING, "The One Ring", null, true);
     }
 
     @Override
