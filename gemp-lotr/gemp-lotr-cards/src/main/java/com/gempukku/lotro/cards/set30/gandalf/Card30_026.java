@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set30.gandalf;
 
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.PlayConditions;
+import com.gempukku.lotro.cards.effects.AddBurdenEffect;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfTurnModifierEffect;
 import com.gempukku.lotro.cards.effects.PreventCardEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
@@ -51,10 +52,13 @@ public class Card30_026 extends AbstractCompanion {
 	@Override
     protected List<ActivateCardAction> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.FELLOWSHIP, self)
-                && PlayConditions.canDiscardFromPlay(self, game, Race.DWARF, CardType.FOLLOWER)) {
+                && PlayConditions.canDiscardFromPlay(self, game, Race.DWARF, CardType.FOLLOWER)
+                && PlayConditions.canAddBurdens(game, playerId, self)) {
             ActivateCardAction action = new ActivateCardAction(self);
 
             action.appendCost(new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Race.DWARF, CardType.FOLLOWER));
+            action.appendCost(
+                    new AddBurdenEffect(playerId, self, 1));
             action.appendEffect(
                     new DrawCardsEffect(action, playerId, 3));
 
