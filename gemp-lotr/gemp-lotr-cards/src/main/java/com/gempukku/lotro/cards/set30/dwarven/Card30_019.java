@@ -34,7 +34,7 @@ import java.util.List;
  */
 public class Card30_019 extends AbstractCompanion {
     public Card30_019() {
-        super(2, 7, 4, 0, Culture.DWARVEN, Race.DWARF, null, "Thorin", "Oakenshield", true);
+        super(2, 7, 4, 6, Culture.DWARVEN, Race.DWARF, null, "Thorin", "Oakenshield", true);
         addKeyword(Keyword.DAMAGE, 1);
     }
 
