@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card30_024 extends AbstractEvent {
     public Card30_024() {
-        super(Side.FREE_PEOPLE, 3, Culture.GANDALF, "Dawn Take You All", Phase.MANEUVER);
+        super(Side.FREE_PEOPLE, 3, Culture.GANDALF, "Dawn Take You All", Phase.SKIRMISH);
         addKeyword(Keyword.SPELL);
     }
 
