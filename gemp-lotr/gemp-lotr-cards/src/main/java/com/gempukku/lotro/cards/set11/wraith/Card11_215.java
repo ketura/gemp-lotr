@@ -37,13 +37,14 @@ public class Card11_215 extends AbstractEvent {
                 new RevealHandEffect(self, playerId, playerId) {
                     @Override
                     protected void cardsRevealed(final Collection<? extends PhysicalCard> cards) {
-                        new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId,
-                                new Evaluator() {
-                                    @Override
-                                    public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard cardAffected) {
-                                        return Filters.filter(cards, game.getGameState(), game.getModifiersQuerying(), Culture.WRAITH, CardType.MINION).size();
-                                    }
-                                }, Culture.WRAITH, CardType.MINION);
+                        action.appendEffect(
+                                new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId,
+                                        new Evaluator() {
+                                            @Override
+                                            public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard cardAffected) {
+                                                return Filters.filter(cards, game.getGameState(), game.getModifiersQuerying(), Culture.WRAITH, CardType.MINION).size();
+                                            }
+                                        }, Culture.WRAITH, CardType.MINION));
                     }
                 });
         return action;
