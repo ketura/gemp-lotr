@@ -40,24 +40,40 @@ public class Card31_057 extends AbstractMinion {
         addKeyword(Keyword.FIERCE);
     }
 
-	@Override
-  public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
-	  if (TriggerConditions.forEachDiscardedFromPlay(game, effectResult, Race.ORC)
-				&& !PlayConditions.isPhase(game, Phase.REGROUP)
-				&& PlayConditions.canPlayFromHand(playerId, game, -2, Race.SPIDER)) {
-			final OptionalTriggerAction action = new OptionalTriggerAction(self);
-      action.setTriggerIdentifier(self.getCardId()+"-"+((DiscardCardsFromPlayResult) effectResult).getDiscardedCard().getCardId());
-      action.appendEffect(
-              new ChooseAndPlayCardFromHandEffect(playerId, game, -2, Race.SPIDER) {
-          @Override
-          protected void afterCardPlayed(PhysicalCard cardPlayed) {
-              action.appendEffect(
-                      new AddUntilStartOfPhaseModifierEffect(
-                              new StrengthModifier(self, cardPlayed, 2), Phase.REGROUP));
-          }
-      });
-      return Collections.singletonList(action);
+    @Override
+    public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
+        if (TriggerConditions.forEachDiscardedFromPlay(game, effectResult, Race.ORC)
+                && !PlayConditions.isPhase(game, Phase.REGROUP)
+                && PlayConditions.canPlayFromHand(playerId, game, -2, Race.SPIDER)) {
+            final OptionalTriggerAction action = new OptionalTriggerAction(self);
+            action.setTriggerIdentifier(self.getCardId() + "-" + ((DiscardCardsFromPlayResult) effectResult).getDiscardedCard().getCardId());
+            action.appendEffect(
+                    new ChooseAndPlayCardFromHandEffect(playerId, game, -2, Race.SPIDER) {
+                        @Override
+                        protected void afterCardPlayed(PhysicalCard cardPlayed) {
+                            action.appendEffect(
+                                    new AddUntilStartOfPhaseModifierEffect(
+                                            new StrengthModifier(self, cardPlayed, 2), Phase.REGROUP));
+                        }
+                    });
+            return Collections.singletonList(action);
+        }
+        if (TriggerConditions.forEachKilled(game, effectResult, Race.ORC)
+                && !PlayConditions.isPhase(game, Phase.REGROUP)
+                && PlayConditions.canPlayFromHand(playerId, game, -2, Race.SPIDER)) {
+            final OptionalTriggerAction action = new OptionalTriggerAction(self);
+            action.setTriggerIdentifier(self.getCardId() + "-" + ((DiscardCardsFromPlayResult) effectResult).getDiscardedCard().getCardId());
+            action.appendEffect(
+                    new ChooseAndPlayCardFromHandEffect(playerId, game, -2, Race.SPIDER) {
+                        @Override
+                        protected void afterCardPlayed(PhysicalCard cardPlayed) {
+                            action.appendEffect(
+                                    new AddUntilStartOfPhaseModifierEffect(
+                                            new StrengthModifier(self, cardPlayed, 2), Phase.REGROUP));
+                        }
+                    });
+            return Collections.singletonList(action);
+        }
+        return null;
     }
-    return null;
-  }	
 }
