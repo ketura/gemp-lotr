@@ -41,10 +41,10 @@ public class Card31_011 extends AbstractEvent {
 
     @Override
     public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
-		if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), CardType.ALLY)) { 
+		if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Culture.ELVEN, Keyword.ARCHER, CardType.ALLY)) {
 			final PlayEventAction action = new PlayEventAction(self);
 			action.appendEffect(
-					new ChooseActiveCardEffect(self, playerId, "Choose an Ally", CardType.ALLY) {
+					new ChooseActiveCardEffect(self, playerId, "Choose an Ally", Culture.ELVEN, Keyword.ARCHER, CardType.ALLY) {
 				@Override
 				protected void cardSelected(LotroGame game, PhysicalCard card) {
 					action.insertEffect(
@@ -52,7 +52,7 @@ public class Card31_011 extends AbstractEvent {
 									new StrengthModifier(self, Filters.sameCard(card), 2), Phase.REGROUP));
 					action.insertEffect(
 							new AddUntilStartOfPhaseModifierEffect(
-									new AllyParticipatesInArcheryFireAndSkirmishesModifier(self, Filters.sameCard(card)), Phase.REGROUP));
+									new AllyParticipatesInArcheryFireAndSkirmishesModifier(self, card), Phase.REGROUP));
 				}
 			});
 			action.appendEffect(
