@@ -41,14 +41,14 @@ public class Card31_004 extends AbstractPermanent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && PlayConditions.canExert(self, game, Race.DWARF, CardType.COMPANION);
+                && PlayConditions.canExert(self, game, Culture.DWARVEN, CardType.COMPANION);
 	}
 	
 	@Override
     public PlayPermanentAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         PlayPermanentAction permanentAction = super.getPlayCardAction(playerId, game, self, twilightModifier, ignoreRoamingPenalty);
         permanentAction.appendCost(
-                new ChooseAndExertCharactersEffect(permanentAction, playerId, 1, 1, Race.DWARF, CardType.COMPANION));
+                new ChooseAndExertCharactersEffect(permanentAction, playerId, 1, 1, Culture.DWARVEN, CardType.COMPANION));
         return permanentAction;
 	}
 
