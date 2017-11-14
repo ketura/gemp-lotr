@@ -27,14 +27,14 @@ import java.util.List;
  * Set: The Short Rest
  * Side: Shadow
  * Culture: Gollum
- * Twilight Cost: 1
+ * Twilight Cost: 2
  * Type: Event • Skirmish
  * Game Text: You may exert Gollum twice to play this event from your discard pile. Make a minion strength +2. If
  * that minion wins this skirmish, you may add a doubt.
  */
 public class Card31_021 extends AbstractEvent {
     public Card31_021() {
-        super(Side.SHADOW, 1, Culture.GOLLUM, "If He Loses", Phase.SKIRMISH);
+        super(Side.SHADOW, 2, Culture.GOLLUM, "If He Loses", Phase.SKIRMISH);
     }
 
     @Override
