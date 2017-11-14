@@ -38,19 +38,20 @@ public class Card31_003 extends AbstractPermanent {
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.FELLOWSHIP, self)) {
-			final ActivateCardAction action = new ActivateCardAction(self);
+	    final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
-					new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.ELF));
-			action.appendEffect(
-					 new ChooseAndHealCharactersEffect(action, playerId, 1, 1, Race.MAN));
-			return Collections.singletonList(action);
-		}
-        if (PlayConditions.canUseFPCardDuringPhase(game, Phase.REGROUP, self)) {
-			final ActivateCardAction action = new ActivateCardAction(self);
-			action.appendCost(
-					new ChooseAndExertCharactersEffect(action, playerId, 1, 1,  Race.MAN));
-			action.appendCost(
-					new SelfDiscardEffect(self));
+	            new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.ELF));
+	    action.appendEffect(
+	            new ChooseAndHealCharactersEffect(action, playerId, 1, 1, Race.MAN));
+	    return Collections.singletonList(action);
+	}
+        if (PlayConditions.canUseFPCardDuringPhase(game, Phase.REGROUP, self)
+	        && PlayConditions.canExert(self, game, Race.MAN)) {
+	    final ActivateCardAction action = new ActivateCardAction(self);
+	    action.appendCost(
+	        new ChooseAndExertCharactersEffect(action, playerId, 1, 1,  Race.MAN));
+	    action.appendCost(
+	        new SelfDiscardEffect(self));
             List<Effect> possibleEffects = new LinkedList<Effect>();
             possibleEffects.add(
                     new ChooseAndPlayCardFromDeckEffect(playerId, Race.ELF) {
@@ -70,7 +71,7 @@ public class Card31_003 extends AbstractPermanent {
             }
             action.appendEffect(
                     new ChoiceEffect(action, playerId, possibleEffects));
-			return Collections.singletonList(action);
+	    return Collections.singletonList(action);
         }
 	return null;
     }
