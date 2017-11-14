@@ -70,6 +70,7 @@ public class Card31_041 extends AbstractAttachableFPPossession {
                                                     new StrengthModifier(self, card, 2))));
                         }
                     });
+            return Collections.singletonList(action);
         }
         return null;
     }
