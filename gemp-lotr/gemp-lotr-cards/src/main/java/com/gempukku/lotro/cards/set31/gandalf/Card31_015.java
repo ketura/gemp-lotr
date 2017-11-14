@@ -19,7 +19,7 @@ import com.gempukku.lotro.logic.timing.EffectResult;
 import java.util.Collections;
 import java.util.List;
 
- /**
+/**
  * Set: The Short Rest
  * Side: Free
  * Culture: Gandalf
@@ -33,15 +33,15 @@ public class Card31_015 extends AbstractFollower {
     public Card31_015() {
         super(Side.FREE_PEOPLE, 1, 1, 0, 0, Culture.GANDALF, "Gwaihir", "Lord of the Eagles", true);
     }
-	
+
     @Override
     public Race getRace() {
-	return Race.EAGLE;
+        return Race.EAGLE;
     }
-	
+
     @Override
     protected boolean canPayAidCost(LotroGame game, PhysicalCard self) {
-	return (PlayConditions.canDiscardFromHand(game, self.getOwner(), 1, Culture.GANDALF));
+        return (PlayConditions.canDiscardFromHand(game, self.getOwner(), 1, Culture.GANDALF));
     }
 
     @Override
@@ -51,16 +51,14 @@ public class Card31_015 extends AbstractFollower {
 
     @Override
     protected List<? extends Action> getExtraPhaseActions(final String playerId, LotroGame game, final PhysicalCard self) {
-        if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)) {
-	    final ActivateCardAction action = new ActivateCardAction(self);
-	    PhysicalCard bearer = self.getAttachedTo();
-	    action.appendCost(new TransferToSupportEffect(self));
-	    if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), bearer, Filters.inSkirmish)
-	            && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.and(Race.ORC, Filters.mounted), Filters.inSkirmish)) {
-		action.appendEffect(new CancelSkirmishEffect(bearer));
-	        return Collections.singletonList(action);
-	    }
-	}
+        if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
+                && self.getAttachedTo() != null) {
+            final ActivateCardAction action = new ActivateCardAction(self);
+            PhysicalCard bearer = self.getAttachedTo();
+            action.appendCost(new TransferToSupportEffect(self));
+            action.appendEffect(new CancelSkirmishEffect(bearer, Filters.inSkirmishAgainst(Race.ORC, Filters.mounted)));
+            return Collections.singletonList(action);
+        }
         return null;
     }
 }
