@@ -60,10 +60,12 @@ public class Card31_064 extends AbstractMinion {
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.forEachDiscardedFromPlay(game, effectResult, CardType.CONDITION)) {
-            OptionalTriggerAction action = new OptionalTriggerAction(self);
-            action.appendEffect(
-					new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, CardType.ALLY));
-            return Collections.singletonList(action);
+	    if (!discardEffect.getPerformingPlayer().equals(self.getOwner())) {
+                OptionalTriggerAction action = new OptionalTriggerAction(self);
+                action.appendEffect(
+		        new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, CardType.ALLY));
+                return Collections.singletonList(action);
+	    }
         }
         return null;
     }
