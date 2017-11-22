@@ -49,6 +49,7 @@ public class Card31_042 extends AbstractFollower {
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.MANEUVER, self)
+                && PlayConditions.canSpot(game, Filters.hasAttached(self))
                 && PlayConditions.canSelfDiscard(self, game)) {
             ActivateCardAction action= new ActivateCardAction(self);
             action.appendCost(
