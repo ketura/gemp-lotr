@@ -50,7 +50,9 @@ public class DiscardCardsFromPlayEffect extends AbstractPreventableCardEffect {
         final String performingPlayer = _performingPlayer;
         if (performingPlayer != null)
             return performingPlayer;
-        return _source.getOwner();
+        if (_source != null)
+            return _source.getOwner();
+        return null;
     }
 
     @Override
