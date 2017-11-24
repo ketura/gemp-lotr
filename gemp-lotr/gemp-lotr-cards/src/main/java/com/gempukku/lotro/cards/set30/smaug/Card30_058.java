@@ -67,7 +67,7 @@ public class Card30_058 extends AbstractMinion {
 			action.appendCost(
 					new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, CardType.MINION, Filters.not(self)));
 			action.appendEffect(
-					new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Side.FREE_PEOPLE, Filters.not(CardType.COMPANION, PossessionClass.RING, Filters.name("Bard"))));
+					new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Side.FREE_PEOPLE, Filters.and(Filters.not(CardType.COMPANION), Filters.not(PossessionClass.RING), Filters.not(Filters.name("Bard")))));
             return Collections.singletonList(action);
 		}
 		return null;

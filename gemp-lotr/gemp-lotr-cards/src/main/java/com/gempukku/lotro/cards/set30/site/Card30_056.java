@@ -39,15 +39,13 @@ public class Card30_056 extends AbstractSite {
             ActivateCardAction action = new ActivateCardAction(self);
 
             List<Effect> possibleEffects = new LinkedList<Effect>();
-            if (Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.name("Smaug")).size() > 0) {
-                possibleEffects.add(
+            possibleEffects.add(
                     new ChooseAndPlayCardFromDeckEffect(playerId, Filters.name("Smaug")) {
-                        @Override
-                        public String getText(LotroGame game) {
-                            return "Play Smaug from your draw deck";
-                        }
-                    });
-			}
+                @Override
+                public String getText(LotroGame game) {
+                    return "Play Smaug from your draw deck";
+                }
+            });
             if (PlayConditions.canPlayFromDiscard(playerId, game, Filters.name("Smaug"))) {
                 possibleEffects.add(
                         new ChooseAndPlayCardFromDiscardEffect(playerId, game, Filters.name("Smaug")) {

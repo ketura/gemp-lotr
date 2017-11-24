@@ -34,7 +34,7 @@ import java.util.List;
  * Twilight Cost 2
  * Strength bonus: -2
  * 'Plays on Bilbo.
- * At sites 7 to 9, wound bearer at the start of the maneuver phase. (If bearer is Bilbo, add a doubt instead.)
+ * At sites 7 to 9, wound bearer at the end of the maneuver phase. (If bearer is Bilbo, add a doubt instead.)
  * Thorin gains this ability: "Maneuver: Add a doubt to transfer the Arkenstone to Thorin (or add 3 doubts to discard it)"
  */
 public class Card31_056 extends AbstractAttachable {
@@ -88,7 +88,7 @@ public class Card31_056 extends AbstractAttachable {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (TriggerConditions.startOfPhase(game, effectResult, Phase.MANEUVER)
+        if (TriggerConditions.endOfPhase(game, effectResult, Phase.MANEUVER)
                 && (game.getGameState().getCurrentSiteNumber() == 7 || game.getGameState().getCurrentSiteNumber()==9)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             if (Filters.name("Bilbo").accepts(game.getGameState(), game.getModifiersQuerying(), self.getAttachedTo())) {
