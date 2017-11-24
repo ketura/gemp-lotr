@@ -18,6 +18,7 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.DiscardCardsFromPlayResult;
+import com.gempukku.lotro.logic.timing.results.ForEachKilledResult;
 
 import java.util.Collections;
 import java.util.List;
@@ -62,7 +63,7 @@ public class Card31_057 extends AbstractMinion {
                 && !PlayConditions.isPhase(game, Phase.REGROUP)
                 && PlayConditions.canPlayFromHand(playerId, game, -2, Race.SPIDER)) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
-            action.setTriggerIdentifier(self.getCardId() + "-" + ((DiscardCardsFromPlayResult) effectResult).getDiscardedCard().getCardId());
+            action.setTriggerIdentifier(self.getCardId() + "-" + ((ForEachKilledResult) effectResult).getKilledCard().getCardId());
             action.appendEffect(
                     new ChooseAndPlayCardFromHandEffect(playerId, game, -2, Race.SPIDER) {
                         @Override
