@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set1.gondor;
 import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
+import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -35,14 +36,7 @@ public class Card1_106 extends AbstractOldEvent {
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Keyword.RANGER, CardType.COMPANION));
         action.appendEffect(
-                new ChooseActiveCardEffect(self, playerId, "Choose a minion", CardType.MINION) {
-                    @Override
-                    protected void cardSelected(LotroGame game, PhysicalCard minion) {
-                        action.appendEffect(
-                                new DiscardCardsFromPlayEffect(self, minion));
-                    }
-                }
-        );
+                new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, CardType.MINION));
         return action;
     }
 

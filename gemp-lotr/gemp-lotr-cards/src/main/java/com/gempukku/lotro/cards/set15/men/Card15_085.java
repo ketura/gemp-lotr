@@ -79,7 +79,7 @@ public class Card15_085 extends AbstractEvent {
                                             public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
                                                 return new AddBurdenEffect(game.getGameState().getCurrentPlayerId(), self, 1);
                                             }
-                                        }, new DiscardCardsFromPlayEffect(self, Side.FREE_PEOPLE, Filters.attachedTo(card))
+                                        }, new DiscardCardsFromPlayEffect(self.getOwner(), self, Side.FREE_PEOPLE, Filters.attachedTo(card))
                                 ));
                     }
                 });

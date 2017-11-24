@@ -52,7 +52,7 @@ public class Card12_148 extends AbstractPermanent {
                 && PlayConditions.canSpot(game, CardType.COMPANION, Filters.maxResistance(2))) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
-                    new DiscardCardsFromPlayEffect(self, CardType.CONDITION, Zone.SUPPORT));
+                    new DiscardCardsFromPlayEffect(self.getOwner(), self, CardType.CONDITION, Zone.SUPPORT));
             return Collections.singletonList(action);
         }
         return null;

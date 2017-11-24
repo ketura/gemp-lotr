@@ -66,7 +66,7 @@ public class Card4_094 extends AbstractAttachable {
         if (TriggerConditions.played(game, effectResult, self)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new DiscardCardsFromPlayEffect(self, Filters.and(Side.SHADOW, CardType.CONDITION, Filters.attachedTo(Filters.hasAttached(self)))));
+                    new DiscardCardsFromPlayEffect(self.getOwner(), self, Filters.and(Side.SHADOW, CardType.CONDITION, Filters.attachedTo(Filters.hasAttached(self)))));
             return Collections.singletonList(action);
         }
         return null;

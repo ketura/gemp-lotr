@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set1.isengard;
 import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
+import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -45,13 +46,7 @@ public class Card1_123 extends AbstractOldEvent {
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Culture.ISENGARD, CardType.MINION));
         action.appendEffect(
-                new ChooseActiveCardEffect(self, playerId, "Choose non Ring-bearer exhausted companion", CardType.COMPANION, Filters.not(Filters.ringBearer), Filters.exhausted) {
-                    @Override
-                    protected void cardSelected(LotroGame game, PhysicalCard exhaustedCompanion) {
-                        action.appendEffect(new DiscardCardsFromPlayEffect(self, exhaustedCompanion));
-                    }
-                }
-        );
+                new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, CardType.COMPANION, Filters.not(Filters.ringBearer), Filters.exhausted));
         return action;
     }
 }

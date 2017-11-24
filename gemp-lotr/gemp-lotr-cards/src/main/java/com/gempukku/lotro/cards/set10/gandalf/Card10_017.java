@@ -43,7 +43,7 @@ public class Card10_017 extends AbstractResponseEvent {
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.owner(playerId), Race.WIZARD));
             action.appendEffect(
-                    new DiscardCardsFromPlayEffect(self, CardType.MINION));
+                    new DiscardCardsFromPlayEffect(self.getOwner(), self, CardType.MINION));
             return Collections.singletonList(action);
         }
         return null;

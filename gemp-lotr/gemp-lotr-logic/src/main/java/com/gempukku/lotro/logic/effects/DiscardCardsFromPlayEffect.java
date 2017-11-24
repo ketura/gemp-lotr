@@ -19,16 +19,6 @@ public class DiscardCardsFromPlayEffect extends AbstractPreventableCardEffect {
     private PhysicalCard _source;
     private String _performingPlayer;
 
-    public DiscardCardsFromPlayEffect(PhysicalCard source, PhysicalCard... cards) {
-        super(cards);
-        _source = source;
-    }
-
-    public DiscardCardsFromPlayEffect(PhysicalCard source, Filterable... filters) {
-        super(filters);
-        _source = source;
-    }
-
     public DiscardCardsFromPlayEffect(String performingPlayer, PhysicalCard source, Filterable... filters) {
         super(filters);
         _performingPlayer = performingPlayer;
@@ -47,12 +37,7 @@ public class DiscardCardsFromPlayEffect extends AbstractPreventableCardEffect {
     }
 
     public String getPerformingPlayer() {
-        final String performingPlayer = _performingPlayer;
-        if (performingPlayer != null)
-            return performingPlayer;
-        if (_source != null)
-            return _source.getOwner();
-        return null;
+        return _performingPlayer;
     }
 
     @Override

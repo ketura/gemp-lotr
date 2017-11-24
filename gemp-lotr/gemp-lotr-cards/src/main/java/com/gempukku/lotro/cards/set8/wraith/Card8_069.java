@@ -48,7 +48,7 @@ public class Card8_069 extends AbstractPermanent {
                                     transferPermanentEffect);
                             if (transferPermanentEffect.isPlayableInFull(game))
                                 action.appendEffect(
-                                        new DiscardCardsFromPlayEffect(self, PossessionClass.MOUNT, Filters.attachedTo(card)));
+                                        new DiscardCardsFromPlayEffect(self.getOwner(), self, PossessionClass.MOUNT, Filters.attachedTo(card)));
                         }
                     });
             return Collections.singletonList(action);

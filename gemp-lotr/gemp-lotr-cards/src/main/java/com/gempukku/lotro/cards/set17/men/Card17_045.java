@@ -46,7 +46,7 @@ public class Card17_045 extends AbstractEvent {
                                                                 Filters.filter(game.getGameState().getStackedCards(possession), game.getGameState(), game.getModifiersQuerying(), CardType.MINION).size())));
                                         SubCostToEffectAction subAction = new SubCostToEffectAction(action);
                                         subAction.appendCost(
-                                                new DiscardCardsFromPlayEffect(self, possession));
+                                                new DiscardCardsFromPlayEffect(playerId, self, possession));
                                         subAction.appendEffect(
                                                 new AddUntilEndOfPhaseModifierEffect(
                                                         new KeywordModifier(self, minion, Keyword.DAMAGE, 1)));

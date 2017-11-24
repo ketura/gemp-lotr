@@ -53,7 +53,7 @@ public class Card12_001 extends AbstractEvent {
                                     @Override
                                     protected void cardSelected(LotroGame game, PhysicalCard card) {
                                         action.insertEffect(
-                                                new DiscardCardsFromPlayEffect(self, hasRace, CardType.MINION, Filters.not(card.getBlueprint().getRace())));
+                                                new DiscardCardsFromPlayEffect(self.getOwner(), self, hasRace, CardType.MINION, Filters.not(card.getBlueprint().getRace())));
                                     }
                                 });
                     }

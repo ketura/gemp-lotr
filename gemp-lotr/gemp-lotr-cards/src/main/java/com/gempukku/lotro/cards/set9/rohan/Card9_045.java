@@ -55,7 +55,7 @@ public class Card9_045 extends AbstractAttachableFPPossession {
             action.appendCost(
                     new ExertCharactersEffect(action, self, self.getAttachedTo()));
             action.appendEffect(
-                    new DiscardCardsFromPlayEffect(self, CardType.MINION, Filters.inSkirmish));
+                    new DiscardCardsFromPlayEffect(self.getOwner(), self, CardType.MINION, Filters.inSkirmish));
             return Collections.singletonList(action);
         }
         return null;

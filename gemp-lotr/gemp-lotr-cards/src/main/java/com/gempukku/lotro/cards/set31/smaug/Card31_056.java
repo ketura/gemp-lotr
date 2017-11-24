@@ -71,7 +71,7 @@ public class Card31_056 extends AbstractAttachable {
                             discardAction.appendCost(
                                     new AddBurdenEffect(thorin.getOwner(), thorin, 3));
                             discardAction.appendEffect(
-                                    new DiscardCardsFromPlayEffect(thorin, arkenstone));
+                                    new DiscardCardsFromPlayEffect(thorin.getOwner(), thorin, arkenstone));
                             return Arrays.asList(transferAction, discardAction);
                         }
                         return null;

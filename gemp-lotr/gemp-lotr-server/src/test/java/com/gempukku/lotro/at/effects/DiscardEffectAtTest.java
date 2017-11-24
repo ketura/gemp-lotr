@@ -51,7 +51,7 @@ public class DiscardEffectAtTest extends AbstractAtTest {
                     }
                 });
 
-        DiscardCardsFromPlayEffect discardEffect = new DiscardCardsFromPlayEffect(merry, merry);
+        DiscardCardsFromPlayEffect discardEffect = new DiscardCardsFromPlayEffect(merry.getOwner(), merry, merry);
 
         carryOutEffectInPhaseActionByPlayer(P1, discardEffect);
 
@@ -94,7 +94,7 @@ public class DiscardEffectAtTest extends AbstractAtTest {
                     }
                 });
 
-        DiscardCardsFromPlayEffect discardEffect = new DiscardCardsFromPlayEffect(merry, merry);
+        DiscardCardsFromPlayEffect discardEffect = new DiscardCardsFromPlayEffect(merry.getOwner(), merry, merry);
 
         carryOutEffectInPhaseActionByPlayer(P1, discardEffect);
 
@@ -137,7 +137,7 @@ public class DiscardEffectAtTest extends AbstractAtTest {
                     }
                 });
 
-        DiscardCardsFromPlayEffect discardEffect = new DiscardCardsFromPlayEffect(merry, merry);
+        DiscardCardsFromPlayEffect discardEffect = new DiscardCardsFromPlayEffect(merry.getOwner(), merry, merry);
 
         carryOutEffectInPhaseActionByPlayer(P1, discardEffect);
 

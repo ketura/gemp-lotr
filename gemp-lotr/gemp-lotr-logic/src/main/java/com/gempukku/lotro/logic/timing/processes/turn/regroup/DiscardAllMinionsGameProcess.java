@@ -17,7 +17,7 @@ public class DiscardAllMinionsGameProcess implements GameProcess {
     public void process(LotroGame game) {
         SystemQueueAction action = new SystemQueueAction();
         action.appendEffect(
-                new DiscardCardsFromPlayEffect(null, CardType.MINION));
+                new DiscardCardsFromPlayEffect(null, null, CardType.MINION));
         game.getActionsEnvironment().addActionToStack(action);
     }
 

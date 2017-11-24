@@ -63,7 +63,7 @@ public class Card20_155 extends AbstractEvent {
                                                         if (twilightTotal > x)
                                                             throw new DecisionResultInvalidException("You have chosen conditions of combined twilight cost of " + twilightTotal);
                                                         action.appendEffect(
-                                                                new DiscardCardsFromPlayEffect(self, Filters.in(selectedCardsByResponse)));
+                                                                new DiscardCardsFromPlayEffect(self.getOwner(), self, Filters.in(selectedCardsByResponse)));
                                                     }
                                                 }));
                             }

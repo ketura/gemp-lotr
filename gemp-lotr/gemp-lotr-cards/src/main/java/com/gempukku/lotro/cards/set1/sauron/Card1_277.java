@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set1.sauron;
 import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
+import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -35,13 +36,7 @@ public class Card1_277 extends AbstractOldEvent {
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Culture.SAURON, Race.ORC));
         action.appendEffect(
-                new ChooseActiveCardEffect(self, playerId, "Choose a Free Peoples condition", Side.FREE_PEOPLE, CardType.CONDITION) {
-                    @Override
-                    protected void cardSelected(LotroGame game, PhysicalCard fpCondition) {
-                        action.appendEffect(
-                                new DiscardCardsFromPlayEffect(self, fpCondition));
-                    }
-                });
+                new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Side.FREE_PEOPLE, CardType.CONDITION));
         return action;
     }
 

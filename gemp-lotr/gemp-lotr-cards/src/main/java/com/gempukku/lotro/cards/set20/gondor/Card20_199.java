@@ -28,7 +28,7 @@ public class Card20_199 extends AbstractEvent {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
                         action.appendEffect(
-                                new DiscardCardsFromPlayEffect(self, Side.SHADOW, Filters.attachedTo(card)));
+                                new DiscardCardsFromPlayEffect(self.getOwner(), self, Side.SHADOW, Filters.attachedTo(card)));
                     }
                 });
         return action;

@@ -39,7 +39,7 @@ public class Card2_033 extends AbstractResponseOldEvent {
     }
 
     @Override
-    public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
+    public List<PlayEventAction> getOptionalAfterActions(final String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         if (PlayConditions.canPlayCardDuringPhase(game, (Phase) null, self)
                 && TriggerConditions.winsSkirmish(game, effectResult, Filters.and(Culture.GONDOR, CardType.COMPANION))
                 && checkPlayRequirements(playerId, game, self, 0, 0, false, false)) {
@@ -50,7 +50,7 @@ public class Card2_033 extends AbstractResponseOldEvent {
                         protected void cardSelected(LotroGame game, final PhysicalCard orc) {
                             action.insertEffect(
                                     new PreventableEffect(action,
-                                            new DiscardCardsFromPlayEffect(self, orc),
+                                            new DiscardCardsFromPlayEffect(playerId, self, orc),
                                             Collections.singletonList(orc.getOwner()),
                                             new PreventableEffect.PreventionCost() {
                                                 @Override

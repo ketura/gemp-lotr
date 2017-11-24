@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set1.moria;
 
 import com.gempukku.lotro.cards.AbstractMinion;
 import com.gempukku.lotro.cards.TriggerConditions;
+import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
@@ -37,12 +38,7 @@ public class Card1_185 extends AbstractMinion {
         if (TriggerConditions.played(game, effectResult, self)) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose DWARVEN ally or DWARVEN condition", Culture.DWARVEN, Filters.or(CardType.ALLY, CardType.CONDITION)) {
-                        @Override
-                        protected void cardSelected(LotroGame game, PhysicalCard dwarvenCard) {
-                            action.appendEffect(new DiscardCardsFromPlayEffect(self, dwarvenCard));
-                        }
-                    });
+                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Culture.DWARVEN, Filters.or(CardType.ALLY, CardType.CONDITION)));
             return Collections.singletonList(action);
         }
         return null;

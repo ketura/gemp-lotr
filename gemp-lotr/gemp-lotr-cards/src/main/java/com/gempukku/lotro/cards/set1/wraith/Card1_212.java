@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set1.wraith;
 import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
+import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -38,13 +39,7 @@ public class Card1_212 extends AbstractOldEvent {
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.owner(playerId), Race.NAZGUL));
         action.appendEffect(
-                new ChooseActiveCardEffect(self, playerId, "Choose an ally", CardType.ALLY) {
-                    @Override
-                    protected void cardSelected(LotroGame game, PhysicalCard ally) {
-                        action.appendEffect(
-                                new DiscardCardsFromPlayEffect(self, ally));
-                    }
-                });
+                new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, CardType.ALLY));
 
         return action;
     }

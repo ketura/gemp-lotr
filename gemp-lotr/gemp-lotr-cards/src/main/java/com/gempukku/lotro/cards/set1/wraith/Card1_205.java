@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set1.wraith;
 import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
+import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -39,22 +40,10 @@ public class Card1_205 extends AbstractOldEvent {
         boolean firstEffect = Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Side.FREE_PEOPLE, Filters.or(CardType.POSSESSION, CardType.CONDITION));
         if (firstEffect) {
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose a Free Peoples possession or condition", Side.FREE_PEOPLE, Filters.or(CardType.POSSESSION, CardType.CONDITION)) {
-                        @Override
-                        protected void cardSelected(LotroGame game, PhysicalCard fpCard) {
-                            action.appendEffect(
-                                    new DiscardCardsFromPlayEffect(self, fpCard));
-                        }
-                    });
+                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Side.FREE_PEOPLE, Filters.or(CardType.POSSESSION, CardType.CONDITION)));
         } else {
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose an ally or non Ring-Bearer companion", Filters.or(CardType.ALLY, CardType.COMPANION), Filters.not(Filters.ringBearer)) {
-                        @Override
-                        protected void cardSelected(LotroGame game, PhysicalCard fpCard) {
-                            action.appendEffect(
-                                    new DiscardCardsFromPlayEffect(self, fpCard));
-                        }
-                    });
+                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.or(CardType.ALLY, CardType.COMPANION), Filters.not(Filters.ringBearer)));
         }
 
         return action;

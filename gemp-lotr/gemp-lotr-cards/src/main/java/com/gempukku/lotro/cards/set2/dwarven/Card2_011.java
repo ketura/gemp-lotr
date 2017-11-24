@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set2.dwarven;
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.DiscardTopCardFromDeckEffect;
+import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -41,16 +42,10 @@ public class Card2_011 extends AbstractPermanent {
             action.appendCost(
                     new DiscardTopCardFromDeckEffect(self, playerId, 3, false));
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose condition",
+                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1,
                             Filters.or(
                                     Filters.and(Side.SHADOW, CardType.CONDITION, Filters.attachedTo(Race.DWARF)),
-                                    Filters.and(Keyword.WEATHER, CardType.CONDITION))) {
-                        @Override
-                        protected void cardSelected(LotroGame game, PhysicalCard card) {
-                            action.appendEffect(
-                                    new DiscardCardsFromPlayEffect(self, card));
-                        }
-                    });
+                                    Filters.and(Keyword.WEATHER, CardType.CONDITION))));
             return Collections.singletonList(action);
         }
         return null;

@@ -42,7 +42,7 @@ public class Card19_021 extends AbstractMinion {
         if (PlayConditions.canSpot(game, CardType.MINION, Filters.not(Keyword.TENTACLE), Filters.not(self))) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new DiscardCardsFromPlayEffect(self, CardType.MINION, Filters.not(Keyword.TENTACLE), Filters.not(self)));
+                    new DiscardCardsFromPlayEffect(self.getOwner(), self, CardType.MINION, Filters.not(Keyword.TENTACLE), Filters.not(self)));
             return Collections.singletonList(action);
         }
         return null;

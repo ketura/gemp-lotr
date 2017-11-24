@@ -60,7 +60,7 @@ public class Card18_091 extends AbstractMinion {
             action.appendCost(
                     new ChoiceEffect(subAction, fpPlayer, possibleCosts));
             action.appendEffect(
-                    new DiscardCardsFromPlayEffect(self, self));
+                    new DiscardCardsFromPlayEffect(playerId, self, self));
             action.appendEffect(
                     new OptionalEffect(action, game.getGameState().getCurrentPlayerId(),
                             new StackActionEffect(subAction) {

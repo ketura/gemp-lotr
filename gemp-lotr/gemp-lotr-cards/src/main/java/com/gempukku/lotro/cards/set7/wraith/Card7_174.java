@@ -47,7 +47,7 @@ public class Card7_174 extends AbstractPermanent {
                             action.insertEffect(
                                     new ChooseActiveCardEffect(self, playerId, "Choose a companion", CardType.COMPANION, Filters.not(Filters.ringBearer), Filters.assignableToSkirmishAgainst(Side.SHADOW, nazgul, false, false)) {
                                         @Override
-                                        protected void cardSelected(LotroGame game, final PhysicalCard card) {
+                                        protected void cardSelected(final LotroGame game, final PhysicalCard card) {
                                             action.appendEffect(
                                                     new PreventableEffect(action,
                                                             new AssignmentEffect(playerId, card, nazgul),
@@ -55,7 +55,7 @@ public class Card7_174 extends AbstractPermanent {
                                                             new PreventableEffect.PreventionCost() {
                                                                 @Override
                                                                 public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
-                                                                    return new DiscardCardsFromPlayEffect(self, card);
+                                                                    return new DiscardCardsFromPlayEffect(game.getGameState().getCurrentPlayerId(), self, card);
                                                                 }
                                                             }));
                                         }

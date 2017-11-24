@@ -43,7 +43,7 @@ public class Card31_029 extends AbstractPermanent {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
 
             action.appendEffect(
-                    new DiscardCardsFromPlayEffect(
+                    new DiscardCardsFromPlayEffect(self.getOwner(),
                             self, Filters.weapon, Filters.attachedTo(Culture.DWARVEN, CardType.COMPANION)));
 
             return Collections.singletonList(action);

@@ -49,7 +49,7 @@ public class Card7_107 extends AbstractCompanion {
                         new RemoveTwilightEffect(1));
             else
                 action.appendEffect(
-                        new DiscardCardsFromPlayEffect(self, playResult.getPlayedCard()));
+                        new DiscardCardsFromPlayEffect(playerId, self, playResult.getPlayedCard()));
             return Collections.singletonList(action);
         }
         return null;

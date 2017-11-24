@@ -47,7 +47,7 @@ public class Card2_051 extends AbstractMinion {
         if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), CardType.MINION, Filters.not(self))) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new DiscardCardsFromPlayEffect(self, Filters.and(CardType.MINION, Filters.not(self))));
+                    new DiscardCardsFromPlayEffect(self.getOwner(), self, Filters.and(CardType.MINION, Filters.not(self))));
             actions.add(action);
         }
         if (!game.getModifiersQuerying().hasKeyword(game.getGameState(), game.getGameState().getCurrentSite(), Keyword.UNDERGROUND)) {

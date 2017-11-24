@@ -54,7 +54,7 @@ public class Card19_013 extends AbstractCompanion {
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.unboundCompanion, Race.HOBBIT));
             action.appendEffect(
-                    new DiscardCardsFromPlayEffect(self, CardType.MINION, Filters.inSkirmishAgainst(self)));
+                    new DiscardCardsFromPlayEffect(self.getOwner(), self, CardType.MINION, Filters.inSkirmishAgainst(self)));
             return Collections.singletonList(action);
         }
         return null;

@@ -44,7 +44,7 @@ public class Card17_103 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
                 new ChooseActiveCardEffect(self, playerId, "Choose a ROHAN companion", Culture.ROHAN, CardType.COMPANION) {
@@ -61,7 +61,7 @@ public class Card17_103 extends AbstractEvent {
                                                 if (TriggerConditions.losesSkirmish(game, effectResult, Filters.frodo)) {
                                                     RequiredTriggerAction action = new RequiredTriggerAction(self);
                                                     action.appendEffect(
-                                                            new DiscardCardsFromPlayEffect(self, card));
+                                                            new DiscardCardsFromPlayEffect(playerId, self, card));
                                                     return Collections.singletonList(action);
                                                 }
                                                 return null;

@@ -5,6 +5,6 @@ import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 
 public class SelfDiscardEffect extends DiscardCardsFromPlayEffect {
     public SelfDiscardEffect(PhysicalCard source) {
-        super(source, source);
+        super(source.getOwner(), source, source);
     }
 }

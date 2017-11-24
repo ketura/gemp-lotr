@@ -26,7 +26,7 @@ public class Card20_025 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new ChooseActiveCardEffect(self, playerId, "Choose a possession", CardType.POSSESSION, Filters.attachedTo(CardType.COMPANION, Filters.inSkirmishAgainst(Culture.DUNLAND, Race.MAN))) {
@@ -34,7 +34,7 @@ public class Card20_025 extends AbstractEvent {
                     protected void cardSelected(LotroGame game, final PhysicalCard possession) {
                         action.appendEffect(
                                 new PreventableEffect(action,
-                                        new DiscardCardsFromPlayEffect(self, possession), game.getGameState().getCurrentPlayerId(),
+                                        new DiscardCardsFromPlayEffect(playerId, self, possession), game.getGameState().getCurrentPlayerId(),
                                         new PreventableEffect.PreventionCost() {
                                             @Override
                                             public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {

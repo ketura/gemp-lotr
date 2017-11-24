@@ -40,7 +40,7 @@ public class Card1_136 extends AbstractOldEvent {
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Culture.ISENGARD, CardType.MINION));
         action.appendEffect(
-                new DiscardCardsFromPlayEffect(self, CardType.CONDITION));
+                new DiscardCardsFromPlayEffect(self.getOwner(), self, CardType.CONDITION));
         return action;
     }
 }

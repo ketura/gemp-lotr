@@ -58,7 +58,7 @@ public class Card17_024 extends AbstractAttachableFPPossession {
         if (PlayConditions.canSpot(game, CardType.POSSESSION, Filters.not(self), Filters.attachedTo(Filters.hasAttached(self)))) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new DiscardCardsFromPlayEffect(self, CardType.POSSESSION, Filters.not(self), Filters.attachedTo(Filters.hasAttached(self))));
+                    new DiscardCardsFromPlayEffect(self.getOwner(), self, CardType.POSSESSION, Filters.not(self), Filters.attachedTo(Filters.hasAttached(self))));
             return Collections.singletonList(action);
         }
         return null;

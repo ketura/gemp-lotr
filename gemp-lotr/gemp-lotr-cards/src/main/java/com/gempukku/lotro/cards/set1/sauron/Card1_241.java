@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set1.sauron;
 
 import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
+import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -33,13 +34,7 @@ public class Card1_241 extends AbstractOldEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
-                new ChooseActiveCardEffect(self, playerId, "Choose an ELVEN condition", Culture.ELVEN, CardType.CONDITION) {
-                    @Override
-                    protected void cardSelected(LotroGame game, PhysicalCard elvenCondition) {
-                        action.appendEffect(
-                                new DiscardCardsFromPlayEffect(self, elvenCondition));
-                    }
-                });
+                new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Culture.ELVEN, CardType.CONDITION));
         return action;
     }
 
