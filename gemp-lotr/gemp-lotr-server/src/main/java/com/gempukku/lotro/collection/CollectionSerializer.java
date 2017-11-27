@@ -3,6 +3,10 @@ package com.gempukku.lotro.collection;
 import com.gempukku.lotro.game.CardCollection;
 import com.gempukku.lotro.game.DefaultCardCollection;
 import com.gempukku.lotro.game.MutableCardCollection;
+import com.gempukku.lotro.game.formats.LotroFormatLibrary;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -96,7 +100,7 @@ public class CollectionSerializer {
     }
 
     public void serializeCollection(CardCollection collection, OutputStream outputStream) throws IOException {
-        byte version = 3;
+        byte version = 4;
         outputStream.write(version);
 
         int currency = collection.getCurrency();
@@ -129,6 +133,14 @@ public class CollectionSerializer {
                 printInt(outputStream, cardCount, 1);
             }
         }
+
+        Map<String, Object> extraInformation = collection.getExtraInformation();
+        JSONObject json= new JSONObject();
+        json.putAll(extraInformation);
+
+        OutputStreamWriter writer = new OutputStreamWriter(outputStream, "UTF-8");
+        writer.write(json.toJSONString());
+        writer.flush();
     }
 
     public MutableCardCollection deserializeCollection(InputStream inputStream) throws IOException {
@@ -141,6 +153,8 @@ public class CollectionSerializer {
             return deserializeCollectionVer2(new BufferedInputStream(inputStream));
         } else if (version == 3) {
             return deserializeCollectionVer3(new BufferedInputStream(inputStream));
+        } else if (version == 4) {
+            return deserializeCollectionVer4(new BufferedInputStream(inputStream));
         } else {
             throw new IllegalStateException("Unkown version of serialized collection: " + version);
         }
@@ -273,10 +287,58 @@ public class CollectionSerializer {
             throw new IllegalArgumentException("Under-read the cards information");
         for (int i = 0; i < cards.length; i++) {
             int count = convertToInt(cards[i]);
-            if (count>0) {
+            if (count > 0) {
                 final String blueprintId = _singleByteCountItems.get(i);
                 collection.addItem(blueprintId, count);
             }
+        }
+
+        return collection;
+    }
+
+    private MutableCardCollection deserializeCollectionVer4(BufferedInputStream inputStream) throws IOException {
+        DefaultCardCollection collection = new DefaultCardCollection();
+
+        int byte1 = inputStream.read();
+        int byte2 = inputStream.read();
+        int byte3 = inputStream.read();
+        int currency = convertToInt(byte1, byte2, byte3);
+        collection.addCurrency(currency);
+
+        int packTypes = convertToInt(inputStream.read());
+
+        byte[] packs = new byte[packTypes * 2];
+
+        int read = inputStream.read(packs);
+        if (read != packTypes * 2)
+            throw new IllegalStateException("Under-read the packs information");
+        for (int i = 0; i < packTypes; i++) {
+            int count = convertToInt(packs[i * 2], packs[i * 2 + 1]);
+            if (count > 0)
+                collection.addItem(_doubleByteCountItems.get(i), count);
+        }
+
+        int cardBytes = convertToInt(inputStream.read(), inputStream.read());
+        byte[] cards = new byte[cardBytes];
+        read = inputStream.read(cards);
+        if (read != cardBytes)
+            throw new IllegalArgumentException("Under-read the cards information");
+        for (int i = 0; i < cards.length; i++) {
+            int count = convertToInt(cards[i]);
+            if (count > 0) {
+                final String blueprintId = _singleByteCountItems.get(i);
+                collection.addItem(blueprintId, count);
+            }
+        }
+
+        Reader reader = new InputStreamReader(inputStream, "UTF-8");
+
+        JSONParser parser = new JSONParser();
+        try {
+            JSONObject object = (JSONObject) parser.parse(reader);
+            collection.setExtraInformation(object);
+        } catch (ParseException exp) {
+            throw new IOException(exp);
         }
 
         return collection;
@@ -287,7 +349,7 @@ public class CollectionSerializer {
         for (int i = 0; i < bytes.length; i++) {
             int value = bytes[i] << ((bytes.length - i - 1) * 8);
             if (value < 0)
-                value +=256;
+                value += 256;
             result += value;
         }
         return result;

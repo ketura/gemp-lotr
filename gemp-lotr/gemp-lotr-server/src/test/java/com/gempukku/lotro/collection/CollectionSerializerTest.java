@@ -9,6 +9,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Collections;
 import java.util.Map;
 
 import static junit.framework.Assert.assertEquals;
@@ -59,6 +60,22 @@ public class CollectionSerializerTest {
         } finally {
             IOUtils.closeQuietly(is);
         }
+    }
+
+    @Test
+    public void testExtraInfo() throws IOException {
+        DefaultCardCollection collection = new DefaultCardCollection();
+        collection.addCurrency(12);
+        collection.addItem("15_4*", 2);
+
+        collection.setExtraInformation(Collections.singletonMap("a", (Object)"b"));
+
+        CardCollection resultCollection = serializeAndDeserialize(collection);
+        assertEquals(12, resultCollection.getCurrency());
+        assertEquals(1, resultCollection.getAll().size());
+        assertEquals(2, resultCollection.getAll().get("15_4*").getCount());
+        assertEquals(1, resultCollection.getExtraInformation().size());
+        assertEquals("b", resultCollection.getExtraInformation().get("a"));
     }
 
     @Test

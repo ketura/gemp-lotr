@@ -1,5 +1,7 @@
 package com.gempukku.lotro.game;
 
+import org.apache.commons.collections.map.HashedMap;
+
 import java.util.*;
 
 public class SumCardCollection implements CardCollection {
@@ -16,6 +18,15 @@ public class SumCardCollection implements CardCollection {
             sum += cardCollection.getCurrency();
 
         return sum;
+    }
+
+    @Override
+    public Map<String, Object> getExtraInformation() {
+        Map<String, Object> result = new HashMap<String, Object>();
+        for (CardCollection cardCollection : _cardCollections) {
+            result.putAll(cardCollection.getExtraInformation());
+        }
+        return result;
     }
 
     @Override
