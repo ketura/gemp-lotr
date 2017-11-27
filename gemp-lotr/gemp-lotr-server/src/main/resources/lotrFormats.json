@@ -323,5 +323,13 @@
         "set":[30, 31],
         "restrictedName":["Gandalf", "Bilbo"],
         "hall":true
+    },
+    {
+        "name":"Limited",
+        "code":"limited_hobbit",
+        "sites":"HOBBIT",
+        "cancelRingBearerSkirmish":true,
+        "set":[30, 31],
+        "hall":false
     }
 ]

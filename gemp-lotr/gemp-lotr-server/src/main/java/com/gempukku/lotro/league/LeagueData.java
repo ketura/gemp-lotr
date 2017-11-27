@@ -8,6 +8,8 @@ import com.gempukku.lotro.game.Player;
 import java.util.List;
 
 public interface LeagueData {
+    public boolean isDraftLeague();
+
     public List<LeagueSerieData> getSeries();
 
     public CardCollection joinLeague(CollectionsManager collecionsManager, Player player, int currentTime);

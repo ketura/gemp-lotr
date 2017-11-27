@@ -12,6 +12,7 @@ import com.gempukku.lotro.db.LeagueDAO;
 import com.gempukku.lotro.db.LeagueMatchDAO;
 import com.gempukku.lotro.db.LeagueParticipationDAO;
 import com.gempukku.lotro.db.PlayerDAO;
+import com.gempukku.lotro.draft2.SoloDraftDefinitions;
 import com.gempukku.lotro.game.AdventureLibrary;
 import com.gempukku.lotro.game.DefaultAdventureLibrary;
 import com.gempukku.lotro.game.GameHistoryService;
@@ -68,7 +69,8 @@ public class ServerBuilder {
                         extract(objectMap, LeagueMatchDAO.class),
                         extract(objectMap, LeagueParticipationDAO.class),
                         extract(objectMap, CollectionsManager.class),
-                        extract(objectMap, CardSets.class)));
+                        extract(objectMap, CardSets.class),
+                        extract(objectMap, SoloDraftDefinitions.class)));
 
         objectMap.put(AdminService.class,
                 new AdminService(

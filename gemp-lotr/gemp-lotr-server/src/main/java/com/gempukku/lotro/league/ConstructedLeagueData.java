@@ -5,6 +5,7 @@ import com.gempukku.lotro.cards.CardSets;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.competitive.PlayerStanding;
 import com.gempukku.lotro.db.vo.CollectionType;
+import com.gempukku.lotro.draft2.SoloDraftDefinitions;
 import com.gempukku.lotro.game.CardCollection;
 import com.gempukku.lotro.game.Player;
 
@@ -22,7 +23,7 @@ public class ConstructedLeagueData implements LeagueData {
     // serie1 format, serie1 prize pool,
     // serie2 format, serie2 prize pool,
     // serie3 format, serie3 prize pool,
-    public ConstructedLeagueData(CardSets cardSets, String parameters) {
+    public ConstructedLeagueData(CardSets cardSets, SoloDraftDefinitions soloDraftDefinitions, String parameters) {
         _leaguePrizes = new FixedLeaguePrizes(cardSets);
         
         String[] params = parameters.split(",");
@@ -39,6 +40,11 @@ public class ConstructedLeagueData implements LeagueData {
                     matchCount, format, _collectionType);
             _series.add(data);
         }
+    }
+
+    @Override
+    public boolean isDraftLeague() {
+        return false;
     }
 
     @Override

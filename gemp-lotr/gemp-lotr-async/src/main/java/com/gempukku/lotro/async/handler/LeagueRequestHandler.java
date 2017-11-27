@@ -7,6 +7,7 @@ import com.gempukku.lotro.cards.CardSets;
 import com.gempukku.lotro.competitive.PlayerStanding;
 import com.gempukku.lotro.db.vo.League;
 import com.gempukku.lotro.db.vo.LeagueMatchResult;
+import com.gempukku.lotro.draft2.SoloDraftDefinitions;
 import com.gempukku.lotro.game.Player;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.gempukku.lotro.league.LeagueData;
@@ -30,6 +31,7 @@ import java.util.List;
 import java.util.Map;
 
 public class LeagueRequestHandler extends LotroServerRequestHandler implements UriRequestHandler {
+    private final SoloDraftDefinitions _soloDraftDefinitions;
     private LeagueService _leagueService;
     private LotroFormatLibrary _formatLibrary;
     private CardSets _cardSets;
@@ -38,6 +40,7 @@ public class LeagueRequestHandler extends LotroServerRequestHandler implements U
         super(context);
 
         _cardSets = extractObject(context, CardSets.class);
+        _soloDraftDefinitions = extractObject(context, SoloDraftDefinitions.class);
         _leagueService = extractObject(context, LeagueService.class);
         _formatLibrary = extractObject(context, LotroFormatLibrary.class);
     }
@@ -87,7 +90,7 @@ public class LeagueRequestHandler extends LotroServerRequestHandler implements U
         if (league == null)
             throw new HttpProcessingException(404);
 
-        final LeagueData leagueData = league.getLeagueData(_cardSets);
+        final LeagueData leagueData = league.getLeagueData(_cardSets, _soloDraftDefinitions);
         final List<LeagueSerieData> series = leagueData.getSeries();
 
         int end = series.get(series.size() - 1).getEnd();
@@ -97,6 +100,7 @@ public class LeagueRequestHandler extends LotroServerRequestHandler implements U
 
         leagueElem.setAttribute("member", String.valueOf(inLeague));
         leagueElem.setAttribute("joinable", String.valueOf(!inLeague && end >= DateUtils.getCurrentDate()));
+        leagueElem.setAttribute("draftable", String.valueOf(inLeague && leagueData.isDraftLeague()));
         leagueElem.setAttribute("type", league.getType());
         leagueElem.setAttribute("name", league.getName());
         leagueElem.setAttribute("cost", String.valueOf(league.getCost()));
@@ -154,7 +158,7 @@ public class LeagueRequestHandler extends LotroServerRequestHandler implements U
         Element leagues = doc.createElement("leagues");
 
         for (League league : _leagueService.getActiveLeagues()) {
-            final LeagueData leagueData = league.getLeagueData(_cardSets);
+            final LeagueData leagueData = league.getLeagueData(_cardSets, _soloDraftDefinitions);
             final List<LeagueSerieData> series = leagueData.getSeries();
 
             int end = series.get(series.size() - 1).getEnd();
