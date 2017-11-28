@@ -48,7 +48,7 @@ public class Card11_216 extends AbstractPermanent {
             action.appendCost(
                     new RemoveTwilightEffect(5));
             action.appendEffect(
-                    new DiscardCardsFromPlayEffect(self, Filters.attachedTo(self)));
+                    new DiscardCardsFromPlayEffect(self.getOwner(), self, Filters.attachedTo(self)));
             action.appendEffect(
                     new TransferToShadowEffect(self) {
                         @Override

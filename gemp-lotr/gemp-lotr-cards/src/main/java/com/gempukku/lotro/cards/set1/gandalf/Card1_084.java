@@ -36,7 +36,7 @@ public class Card1_084 extends AbstractOldEvent {
         PhysicalCard gandalf = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.gandalf);
         action.appendCost(new ExertCharactersEffect(action, self, gandalf));
         action.appendEffect(
-                new DiscardCardsFromPlayEffect(self, CardType.CONDITION));
+                new DiscardCardsFromPlayEffect(self.getOwner(), self, CardType.CONDITION));
         return action;
     }
 

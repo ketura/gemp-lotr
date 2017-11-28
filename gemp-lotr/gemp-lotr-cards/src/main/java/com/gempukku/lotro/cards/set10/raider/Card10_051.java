@@ -42,7 +42,7 @@ public class Card10_051 extends AbstractResponseEvent {
             final PhysicalCard playedCard = playResult.getPlayedCard();
             PlayEventAction action = new PlayEventAction(self);
             action.appendEffect(
-                    new DiscardCardsFromPlayEffect(self, playedCard));
+                    new DiscardCardsFromPlayEffect(playerId, self, playedCard));
             final Culture possessionCulture = playedCard.getBlueprint().getCulture();
             if (possessionCulture == Culture.GONDOR || possessionCulture == Culture.ROHAN)
                 action.appendEffect(

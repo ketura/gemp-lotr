@@ -44,7 +44,7 @@ public class Card31_005 extends AbstractAttachableFPPossession {
         modifiers.add(
                 new ArcheryTotalModifier(self, Side.SHADOW, -1));
         modifiers.add(
-                new TwilightCostModifier(self, Filters.and(Side.SHADOW, CardType.POSSESSION),
+                new TwilightCostModifier(self, Filters.and(Side.SHADOW, CardType.EVENT),
                         new Condition() {
             @Override
             public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {

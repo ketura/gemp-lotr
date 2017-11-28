@@ -4,6 +4,7 @@ import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
 import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
+import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
@@ -56,15 +57,10 @@ public class Card1_094 extends AbstractAttachableFPPossession {
                     });
 
             possibleEffects.add(
-                    new ChooseActiveCardEffect(self, playerId, "Choose Shadow condition attached to companion", Side.SHADOW, CardType.CONDITION, Filters.attachedTo(CardType.COMPANION)) {
+                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Side.SHADOW, CardType.CONDITION, Filters.attachedTo(CardType.COMPANION)) {
                         @Override
                         public String getText(LotroGame game) {
                             return "Discard Shadow condition attached to a companion";
-                        }
-
-                        @Override
-                        protected void cardSelected(LotroGame game, PhysicalCard shadowCondition) {
-                            action.appendEffect(new DiscardCardsFromPlayEffect(self, shadowCondition));
                         }
                     });
 

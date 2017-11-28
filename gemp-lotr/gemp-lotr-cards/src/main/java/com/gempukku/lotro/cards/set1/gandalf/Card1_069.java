@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set1.gandalf;
 import com.gempukku.lotro.cards.AbstractAlly;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.SelfExertEffect;
+import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -44,13 +45,7 @@ public class Card1_069 extends AbstractAlly {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(new SelfExertEffect(action, self));
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose ISENGARD or MORIA condition", Filters.or(Culture.ISENGARD, Culture.MORIA), CardType.CONDITION) {
-                        @Override
-                        protected void cardSelected(LotroGame game, PhysicalCard condition) {
-                            action.appendEffect(new DiscardCardsFromPlayEffect(self, condition));
-                        }
-                    }
-            );
+                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.or(Culture.ISENGARD, Culture.MORIA), CardType.CONDITION));
             return Collections.singletonList(action);
         }
         return null;

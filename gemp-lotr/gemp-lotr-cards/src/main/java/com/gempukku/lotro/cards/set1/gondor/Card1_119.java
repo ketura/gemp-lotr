@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set1.gondor;
 
 import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
+import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -27,13 +28,7 @@ public class Card1_119 extends AbstractOldEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self, true);
         action.appendEffect(
-                new ChooseActiveCardEffect(self, playerId, "Choose a roaming minion", Keyword.ROAMING, CardType.MINION) {
-                    @Override
-                    protected void cardSelected(LotroGame game, PhysicalCard roamingMinion) {
-                        action.appendEffect(
-                                new DiscardCardsFromPlayEffect(self, roamingMinion));
-                    }
-                });
+                new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Keyword.ROAMING, CardType.MINION));
         return action;
     }
 

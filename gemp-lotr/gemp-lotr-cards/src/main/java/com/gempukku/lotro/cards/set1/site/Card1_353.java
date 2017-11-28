@@ -32,7 +32,7 @@ public class Card1_353 extends AbstractSite {
         if (TriggerConditions.movesTo(game, effectResult, self)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new DiscardCardsFromPlayEffect(self, CardType.ALLY));
+                    new DiscardCardsFromPlayEffect(self.getOwner(), self, CardType.ALLY));
             return Collections.singletonList(action);
         }
         return null;

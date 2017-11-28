@@ -54,7 +54,7 @@ public class Card15_152 extends AbstractPermanent {
                     });
             if (addBurdenEffect.getSource().getZone().isInPlay())
                 action.appendEffect(
-                        new DiscardCardsFromPlayEffect(self, addBurdenEffect.getSource()));
+                        new DiscardCardsFromPlayEffect(playerId, self, addBurdenEffect.getSource()));
             return Collections.singletonList(action);
         }
         return null;

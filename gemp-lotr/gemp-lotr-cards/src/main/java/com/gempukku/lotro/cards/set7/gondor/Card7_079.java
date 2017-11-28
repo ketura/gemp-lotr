@@ -70,7 +70,7 @@ public class Card7_079 extends AbstractAttachableFPPossession {
         if (TriggerConditions.played(game, effectResult, self)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new DiscardCardsFromPlayEffect(self, Filters.weapon, Filters.attachedTo(Filters.hasAttached(self)), Filters.not(self)));
+                    new DiscardCardsFromPlayEffect(self.getOwner(), self, Filters.weapon, Filters.attachedTo(Filters.hasAttached(self)), Filters.not(self)));
             return Collections.singletonList(action);
         }
         return null;

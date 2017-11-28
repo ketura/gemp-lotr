@@ -38,7 +38,7 @@ public class Card15_119 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayCardAction(final String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new ChooseActiveCardEffect(self, playerId, "Choose a card to discard", Side.FREE_PEOPLE, CardType.CONDITION, Filters.canBeDiscarded(self)) {
@@ -46,7 +46,7 @@ public class Card15_119 extends AbstractEvent {
                     protected void cardSelected(final LotroGame game, PhysicalCard card) {
                         action.appendEffect(
                                 new PreventableEffect(action,
-                                        new DiscardCardsFromPlayEffect(self, card),
+                                        new DiscardCardsFromPlayEffect(playerId, self, card),
                                         game.getGameState().getCurrentPlayerId(),
                                         new PreventableEffect.PreventionCost() {
                                             @Override

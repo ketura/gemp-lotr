@@ -15,6 +15,7 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.TwilightCostModifier;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.results.DiscardCardsFromPlayResult;
 
 import java.util.Collections;
 import java.util.List;
@@ -36,33 +37,35 @@ public class Card31_064 extends AbstractMinion {
         super(5, 11, 4, 2, Race.TROLL, Culture.GUNDABAD, "Bert", "Troll of Ettenmoors", true);
         addKeyword(Keyword.FIERCE);
     }
-	
+
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
                 && PlayConditions.canDiscardFromPlay(self, game, Race.ORC);
-	}
-	
+    }
+
     @Override
     public PlayPermanentAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayPermanentAction playCardAction = super.getPlayCardAction(playerId, game, self, twilightModifier, ignoreRoamingPenalty);
         playCardAction.appendCost(
                 new ChooseAndDiscardCardsFromPlayEffect(playCardAction, playerId, 1, 1, Race.ORC));
         return playCardAction;
-	}
-	
+    }
+
     @Override
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
                 new TwilightCostModifier(self, Race.TROLL, -2));
-	}
+    }
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (TriggerConditions.forEachDiscardedFromPlay(game, effectResult, CardType.CONDITION)) {
+        if (TriggerConditions.forEachDiscardedFromPlay(game, effectResult, CardType.CONDITION)
+                && ((DiscardCardsFromPlayResult) effectResult).getPerformingPlayer() != null
+                && !((DiscardCardsFromPlayResult) effectResult).getPerformingPlayer().equals(self.getOwner())) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-					new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, CardType.ALLY));
+                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, CardType.ALLY));
             return Collections.singletonList(action);
         }
         return null;

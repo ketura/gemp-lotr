@@ -43,7 +43,7 @@ public class Card2_039 extends AbstractOldEvent {
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.URUK_HAI));
         if (PlayConditions.canSpot(game, 6, CardType.COMPANION))
             action.appendEffect(
-                    new DiscardCardsFromPlayEffect(self,
+                    new DiscardCardsFromPlayEffect(self.getOwner(), self,
                             Filters.and(
                                     Side.FREE_PEOPLE,
                                     CardType.POSSESSION,

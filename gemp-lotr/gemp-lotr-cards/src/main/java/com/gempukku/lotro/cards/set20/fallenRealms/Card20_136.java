@@ -38,7 +38,7 @@ public class Card20_136 extends AbstractMinion {
             boolean all = Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION)>=6;
             if (all)
                 action.appendEffect(
-                        new DiscardCardsFromPlayEffect(self, Side.FREE_PEOPLE, CardType.POSSESSION));
+                        new DiscardCardsFromPlayEffect(self.getOwner(), self, Side.FREE_PEOPLE, CardType.POSSESSION));
             else
                 action.appendEffect(
                         new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Side.FREE_PEOPLE, CardType.POSSESSION));

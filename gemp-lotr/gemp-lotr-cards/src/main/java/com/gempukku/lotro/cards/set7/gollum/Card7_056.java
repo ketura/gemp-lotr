@@ -38,7 +38,7 @@ public class Card7_056 extends AbstractAttachable {
                 && game.getGameState().getCurrentPhase() == Phase.SKIRMISH) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new DiscardCardsFromPlayEffect(self, Filters.hasAttached(self)));
+                    new DiscardCardsFromPlayEffect(self.getOwner(), self, Filters.hasAttached(self)));
             return Collections.singletonList(action);
         }
         return null;

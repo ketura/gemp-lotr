@@ -58,7 +58,7 @@ public class Card9_031 extends AbstractCompanion {
         if (TriggerConditions.winsSkirmish(game, effectResult, self)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new DiscardCardsFromPlayEffect(self, CardType.MINION, Filters.inSkirmishAgainst(self)));
+                    new DiscardCardsFromPlayEffect(self.getOwner(), self, CardType.MINION, Filters.inSkirmishAgainst(self)));
             return Collections.singletonList(action);
         }
         return null;

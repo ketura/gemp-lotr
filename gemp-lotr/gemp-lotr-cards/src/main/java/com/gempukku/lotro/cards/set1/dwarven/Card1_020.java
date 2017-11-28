@@ -34,7 +34,7 @@ public class Card1_020 extends AbstractPermanent {
 		if (TriggerConditions.winsSkirmish(game, effectResult, Race.DWARF) && PlayConditions.isActive(game, Filters.inSkirmish, Race.ORC)) {
 			RequiredTriggerAction action = new RequiredTriggerAction(self);
 			action.appendEffect(
-							new DiscardCardsFromPlayEffect(self, Filters.inSkirmish, Race.ORC));
+							new DiscardCardsFromPlayEffect(self.getOwner(), self, Filters.inSkirmish, Race.ORC));
 			return Collections.singletonList(action);
 		}
 		if (TriggerConditions.losesSkirmish(game, effectResult, Race.DWARF)) {

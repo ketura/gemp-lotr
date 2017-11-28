@@ -47,7 +47,7 @@ public class Card30_030 extends AbstractEvent {
 					action.appendCost(
 							new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.gandalf));
 					action.appendCost(
-							new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Keyword.WISE, CardType.ALLY));
+							new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Keyword.WISE, Culture.ELVEN, CardType.ALLY));
 					action.appendEffect(
 							new RemoveBurdenEffect(playerId, self, 2));
 				};

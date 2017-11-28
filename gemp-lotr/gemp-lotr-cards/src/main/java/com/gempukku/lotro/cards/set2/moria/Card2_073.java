@@ -56,7 +56,7 @@ public class Card2_073 extends AbstractMinion {
         if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), CardType.MINION, Filters.not(self), Filters.not(Keyword.TENTACLE))) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new DiscardCardsFromPlayEffect(self, Filters.and(CardType.MINION, Filters.not(self), Filters.not(Keyword.TENTACLE))));
+                    new DiscardCardsFromPlayEffect(self.getOwner(), self, Filters.and(CardType.MINION, Filters.not(self), Filters.not(Keyword.TENTACLE))));
             actions.add(action);
         }
         if (!game.getModifiersQuerying().hasKeyword(game.getGameState(), game.getGameState().getCurrentSite(), Keyword.MARSH)) {

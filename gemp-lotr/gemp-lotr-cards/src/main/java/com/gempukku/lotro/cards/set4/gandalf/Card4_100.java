@@ -51,7 +51,7 @@ public class Card4_100 extends AbstractAttachableFPPossession {
         if (TriggerConditions.played(game, effectResult, self)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new DiscardCardsFromPlayEffect(self, Filters.and(Filters.attachedTo(Filters.hasAttached(self)), PossessionClass.HAND_WEAPON)));
+                    new DiscardCardsFromPlayEffect(self.getOwner(), self, Filters.and(Filters.attachedTo(Filters.hasAttached(self)), PossessionClass.HAND_WEAPON)));
             return Collections.singletonList(action);
         }
         if (TriggerConditions.startOfPhase(game, effectResult, Phase.SKIRMISH)) {

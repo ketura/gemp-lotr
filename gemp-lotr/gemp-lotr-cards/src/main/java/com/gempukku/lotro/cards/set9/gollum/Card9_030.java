@@ -74,7 +74,7 @@ public class Card9_030 extends AbstractCompanion {
             action.appendCost(
                     new AddBurdenEffect(self.getOwner(), self, 2));
             action.appendEffect(
-                    new DiscardCardsFromPlayEffect(self, CardType.MINION));
+                    new DiscardCardsFromPlayEffect(self.getOwner(), self, CardType.MINION));
             return Collections.singletonList(action);
         }
         return null;

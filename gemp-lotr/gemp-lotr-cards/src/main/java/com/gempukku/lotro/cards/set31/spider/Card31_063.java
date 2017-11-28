@@ -45,7 +45,7 @@ public class Card31_063 extends AbstractMinion {
                 new ChooseActiveCardEffect(self, playerId, "Choose a Spider", Race.SPIDER) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard spider) {
-                        if (PlayConditions.canSpot(game, 5, CardType.COMPANION)) {
+                        if (PlayConditions.canSpot(game, 6, CardType.COMPANION)) {
                             action.appendEffect(
                                     new AddUntilStartOfPhaseModifierEffect(
                                             new StrengthModifier(self, Filters.sameCard(spider), 5), Phase.REGROUP));

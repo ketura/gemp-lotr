@@ -72,7 +72,7 @@ public class Card10_060 extends AbstractAttachable {
                                                 @Override
                                                 protected void no() {
                                                     action.appendEffect(
-                                                            new DiscardCardsFromPlayEffect(self, card));
+                                                            new DiscardCardsFromPlayEffect(playerId, self, card));
                                                 }
                                             }));
                         }

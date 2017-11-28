@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set1.elven;
 import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
+import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -40,13 +41,7 @@ public class Card1_058 extends AbstractOldEvent {
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 2, 2, Race.ELF));
         action.appendEffect(
-                new ChooseActiveCardEffect(self, playerId, "Choose condition", CardType.CONDITION) {
-                    @Override
-                    protected void cardSelected(LotroGame game, PhysicalCard condition) {
-                        action.appendEffect(
-                                new DiscardCardsFromPlayEffect(self, condition));
-                    }
-                });
+                new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, CardType.CONDITION));
         return action;
     }
 }

@@ -57,7 +57,7 @@ public class Card18_046 extends AbstractPermanent {
         if (TriggerConditions.transferredCard(game, effectResult, self, null, Filters.any)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new DiscardCardsFromPlayEffect(self, Filters.attachedTo(Filters.hasAttached(self)), Side.SHADOW));
+                    new DiscardCardsFromPlayEffect(self.getOwner(), self, Filters.attachedTo(Filters.hasAttached(self)), Side.SHADOW));
             return Collections.singletonList(action);
         }
         return null;

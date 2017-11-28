@@ -49,7 +49,7 @@ public class Card8_033 extends AbstractResponseEvent {
                     PlayEventAction action = new PlayEventAction(self);
                     action.setText("Discard " + GameUtils.getFullName(killedWraith));
                     action.appendCost(
-                            new DiscardCardsFromPlayEffect(self, killedWraith));
+                            new DiscardCardsFromPlayEffect(playerId, self, killedWraith));
                     List<Effect> possibleCosts = new LinkedList<Effect>();
                     possibleCosts.add(
                             new ChooseAndExhaustCharactersEffect(action, playerId, 1, 1, Filters.not(killedWraith), Culture.GONDOR, Race.WRAITH) {

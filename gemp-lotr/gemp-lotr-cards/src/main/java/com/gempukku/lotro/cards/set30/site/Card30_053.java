@@ -33,7 +33,7 @@ public class Card30_053 extends AbstractSite {
         if (TriggerConditions.movesTo(game, effectResult, self)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-				new DiscardCardsFromPlayEffect(self, Filters.gandalf));
+				new DiscardCardsFromPlayEffect(self.getOwner(), self, Filters.gandalf));
             return Collections.singletonList(action);
         }
         return null;

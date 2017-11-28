@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.set1.elven;
 import com.gempukku.lotro.cards.AbstractOldEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
+import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -41,14 +42,8 @@ public class Card1_063 extends AbstractOldEvent {
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.ELF));
         action.appendEffect(
-                new ChooseActiveCardEffect(self, playerId, "Choose SAURON minion, condition or possession", Culture.SAURON,
-                        Filters.or(CardType.MINION, CardType.CONDITION, CardType.POSSESSION)) {
-                    @Override
-                    protected void cardSelected(LotroGame game, PhysicalCard sauronCard) {
-                        action.appendEffect(new DiscardCardsFromPlayEffect(self, sauronCard));
-                    }
-                }
-        );
+                new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Culture.SAURON,
+                        Filters.or(CardType.MINION, CardType.CONDITION, CardType.POSSESSION)));
         return action;
     }
 }

@@ -4,6 +4,7 @@ import com.gempukku.lotro.cards.AbstractAttachable;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
+import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
@@ -59,13 +60,7 @@ public class Card1_221 extends AbstractAttachable {
             action.appendCost(
                     new ExertCharactersEffect(action, self, self.getAttachedTo()));
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose a Free Peoples condition", Side.FREE_PEOPLE, CardType.CONDITION) {
-                        @Override
-                        protected void cardSelected(LotroGame game, PhysicalCard condition) {
-                            action.appendEffect(
-                                    new DiscardCardsFromPlayEffect(self, condition));
-                        }
-                    });
+                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Side.FREE_PEOPLE, CardType.CONDITION));
             return Collections.singletonList(action);
         }
         return null;

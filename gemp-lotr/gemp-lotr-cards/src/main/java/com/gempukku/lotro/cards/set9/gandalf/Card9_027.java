@@ -39,7 +39,7 @@ public class Card9_027 extends AbstractPermanent {
             action.appendCost(
                     new SelfDiscardEffect(self));
             action.appendEffect(
-                    new DiscardCardsFromPlayEffect(self, CardType.MINION, Filters.inSkirmishAgainst(Race.WIZARD)));
+                    new DiscardCardsFromPlayEffect(self.getOwner(), self, CardType.MINION, Filters.inSkirmishAgainst(Race.WIZARD)));
             action.appendEffect(
                     new UnrespondableEffect() {
                         @Override

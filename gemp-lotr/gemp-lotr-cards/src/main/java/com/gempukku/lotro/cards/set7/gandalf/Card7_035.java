@@ -51,7 +51,7 @@ public class Card7_035 extends AbstractEvent {
                                     @Override
                                     protected void cardsSelected(LotroGame game, Collection<PhysicalCard> cards) {
                                         action.insertEffect(
-                                                new DiscardCardsFromPlayEffect(self, Side.SHADOW, CardType.CONDITION, Filters.not(Filters.in(cards))));
+                                                new DiscardCardsFromPlayEffect(self.getOwner(), self, Side.SHADOW, CardType.CONDITION, Filters.not(Filters.in(cards))));
                                     }
                                 });
                     }

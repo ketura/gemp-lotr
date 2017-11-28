@@ -47,7 +47,7 @@ public class Card20_174 extends AbstractEvent {
         action.appendCost(
                 new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 4, Filters.any));
         action.appendEffect(
-                new DiscardCardsFromPlayEffect(self, CardType.MINION, Filters.inSkirmishAgainst(Filters.gandalf)));
+                new DiscardCardsFromPlayEffect(self.getOwner(), self, CardType.MINION, Filters.inSkirmishAgainst(Filters.gandalf)));
         return action;
     }
 

@@ -83,7 +83,7 @@ public class Card7_101 extends AbstractPermanent {
                         }
                     });
             possibleEffects.add(
-                    new DiscardCardsFromPlayEffect(self, CardType.MINION, Keyword.ROAMING) {
+                    new DiscardCardsFromPlayEffect(self.getOwner(), self, CardType.MINION, Keyword.ROAMING) {
                         @Override
                         public String getText(LotroGame game) {
                             return "Discard all roaming minions";

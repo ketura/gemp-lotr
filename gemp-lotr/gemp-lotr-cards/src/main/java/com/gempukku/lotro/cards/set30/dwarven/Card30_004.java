@@ -32,14 +32,14 @@ public class Card30_004 extends AbstractEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && PlayConditions.canExert(self, game, Race.DWARF);
+                && PlayConditions.canExert(self, game, Race.DWARF, Filters.character);
     }
 
     @Override
     public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.DWARF));
+                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.DWARF, Filters.character));
         action.appendEffect(
                 new ChooseActiveCardsEffect(self, playerId, "Choose Orc(s) to wound", 1, 2, Race.ORC) {
                     @Override

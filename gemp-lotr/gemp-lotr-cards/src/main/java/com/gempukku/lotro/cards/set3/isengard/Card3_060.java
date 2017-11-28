@@ -41,7 +41,7 @@ public class Card3_060 extends AbstractMinion {
                     new SelfExertEffect(action, self));
             if (PlayConditions.canSpot(game, 5, CardType.COMPANION)) {
                 action.appendEffect(
-                        new DiscardCardsFromPlayEffect(self, Filters.and(Side.FREE_PEOPLE, CardType.POSSESSION)));
+                        new DiscardCardsFromPlayEffect(self.getOwner(), self, Filters.and(Side.FREE_PEOPLE, CardType.POSSESSION)));
             } else {
                 action.appendEffect(
                         new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.weapon));

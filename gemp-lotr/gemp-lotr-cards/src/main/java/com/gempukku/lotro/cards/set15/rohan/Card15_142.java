@@ -37,7 +37,7 @@ public class Card15_142 extends AbstractEvent {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
                         action.appendEffect(
-                                new DiscardCardsFromPlayEffect(self, CardType.POSSESSION, Filters.attachedTo(card)));
+                                new DiscardCardsFromPlayEffect(self.getOwner(), self, CardType.POSSESSION, Filters.attachedTo(card)));
                     }
                 });
         return action;
