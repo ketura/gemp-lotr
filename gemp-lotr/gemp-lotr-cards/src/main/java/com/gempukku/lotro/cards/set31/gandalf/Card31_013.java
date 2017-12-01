@@ -13,6 +13,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.modifiers.CantDiscardFromPlayModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
+import com.gempukku.lotro.logic.modifiers.SpotCondition;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
@@ -44,7 +45,8 @@ public class Card31_013 extends AbstractFollower {
 
     @Override
     public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new CantDiscardFromPlayModifier(self, "Cannot be discarded from play by Shadow cards", self, Side.SHADOW);
+        return new CantDiscardFromPlayModifier(self, "Cannot be discarded from play by Shadow cards",
+	        new SpotCondition(Filters.hasAttached(self)), self, Side.SHADOW);
     }
 	
     @Override
