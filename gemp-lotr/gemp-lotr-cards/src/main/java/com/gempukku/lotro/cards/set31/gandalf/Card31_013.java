@@ -11,7 +11,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
-import com.gempukku.lotro.logic.modifiers.CantDiscardFromPlayByPlayerModifier;
+import com.gempukku.lotro.logic.modifiers.CantDiscardFromPlayModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
