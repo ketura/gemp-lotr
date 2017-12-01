@@ -8,6 +8,7 @@ import com.gempukku.lotro.cards.effects.DiscardBottomCardFromDeckEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.modifiers.AllyParticipatesInArcheryFireAndSkirmishesModifier;
+import com.gempukku.lotro.cards.modifiers.CantTakeArcheryWoundsModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -68,7 +69,8 @@ public class Card31_012 extends AbstractAlly {
                     new AddUntilStartOfPhaseModifierEffect(
                             new AllyParticipatesInArcheryFireAndSkirmishesModifier(self, self), Phase.REGROUP));
             action.appendEffect(
-                    new CantTakeWoundsModifier(self, new PhaseCondition(Phase.ARCHERY), self));
+                    new AddUntilStartOfPhaseModifierEffect(
+                    		new CantTakeArcheryWoundsModifier(self, self), Phase.ASSIGNMENT));
             return Collections.singletonList(action);
         }
         return null;
