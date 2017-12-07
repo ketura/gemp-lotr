@@ -7,8 +7,7 @@ import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
 import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
-import com.gempukku.lotro.cards.modifiers.evaluator.CountSpottableEvaluator;
-import com.gempukku.lotro.cards.modifiers.evaluator.MultiplyEvaluator;
+import com.gempukku.lotro.cards.modifiers.evaluator.*;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -58,7 +57,8 @@ public class Card31_029 extends AbstractPermanent {
             action.appendCost(new RemoveTwilightEffect(3));
             action.appendEffect(
                     new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId,
-                            new MultiplyEvaluator(-1, new CountSpottableEvaluator(3, CardType.ALLY, Culture.ELVEN)), Culture.DWARVEN, Filters.character));
+                            new NegativeEvaluator(new CardPhaseLimitEvaluator(game, self, Phase.SKIRMISH, 3,
+                                    new CountActiveEvaluator(CardType.ALLY, Culture.ELVEN))), Filters.and(Culture.DWARVEN, Filters.character)));
             return Collections.singletonList(action);
         }
         return null;

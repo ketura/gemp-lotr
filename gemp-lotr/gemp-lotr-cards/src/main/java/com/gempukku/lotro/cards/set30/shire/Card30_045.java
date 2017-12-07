@@ -6,6 +6,7 @@ import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.cards.modifiers.evaluator.CardPhaseLimitEvaluator;
+import com.gempukku.lotro.cards.modifiers.evaluator.NegativeEvaluator;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -65,11 +66,12 @@ public class Card30_045 extends AbstractCompanion {
                             action.insertEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
                                         new StrengthModifier(self, Filters.sameCard(card), null,
-											new CardPhaseLimitEvaluator(game, self, Phase.SKIRMISH, -4, new ConstantEvaluator(-2)))));
+					    new NegativeEvaluator(new CardPhaseLimitEvaluator(
+						    game, self, Phase.SKIRMISH, 4, new ConstantEvaluator(2))))));
                         }
-			});
+	    });
             return Collections.singletonList(action);
         }
         return null;
-	}
+    }
 }

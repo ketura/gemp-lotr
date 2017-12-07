@@ -29,7 +29,7 @@ public class Card30_003 extends AbstractEvent {
         final PlayEventAction action = new PlayEventAction(self);
            action.appendEffect(
                 new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId,
-                        new CardMatchesEvaluator(3, 4, Filters.hasAttached(CardType.FOLLOWER)), Race.DWARF, Filters.or(CardType.COMPANION, CardType.ALLY)));
+                        new CardMatchesEvaluator(3, 4, Filters.hasAttached(Filters.and(CardType.FOLLOWER, Culture.DWARVEN))), Race.DWARF, Filters.or(CardType.COMPANION, CardType.ALLY)));
 return action;
     }
 }

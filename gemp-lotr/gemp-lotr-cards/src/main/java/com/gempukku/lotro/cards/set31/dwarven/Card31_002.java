@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class Card31_002 extends AbstractEvent {
     public Card31_002() {
-        super(Side.FREE_PEOPLE, 1, Culture.DWARVEN, "Dwarven Song", Phase.REGROUP);
+        super(Side.FREE_PEOPLE, 3, Culture.DWARVEN, "Dwarven Song", Phase.REGROUP);
     }
 
     @Override
