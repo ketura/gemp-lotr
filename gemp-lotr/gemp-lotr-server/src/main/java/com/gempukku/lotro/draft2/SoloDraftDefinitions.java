@@ -15,7 +15,7 @@ import java.util.Map;
 public class SoloDraftDefinitions {
     private Map<String, SoloDraft> draftTypes = new HashMap<String, SoloDraft>();
 
-    public SoloDraftDefinitions(LotroCardBlueprintLibrary library) {
+    public SoloDraftDefinitions() {
         try {
             final InputStreamReader reader = new InputStreamReader(LotroFormatLibrary.class.getResourceAsStream("/lotrDrafts.json"), "UTF-8");
             try {

@@ -1,21 +1,20 @@
 package com.gempukku.lotro.draft2;
 
 import com.gempukku.lotro.game.CardCollection;
+import com.gempukku.lotro.game.DefaultCardCollection;
 
 public class DefaultSoloDraft implements SoloDraft {
     private String _format;
-    private SoloDraftStartingPool _startingPool;
     private SoloDraftPicks _picks;
 
-    public DefaultSoloDraft(String format, SoloDraftStartingPool startingPool, SoloDraftPicks picks) {
+    public DefaultSoloDraft(String format, SoloDraftPicks picks) {
         _format = format;
-        _startingPool = startingPool;
         _picks = picks;
     }
 
     @Override
     public CardCollection initializeNewCollection(long seed) {
-        return _startingPool.getCardCollection(seed);
+        return new DefaultCardCollection();
     }
 
     @Override
