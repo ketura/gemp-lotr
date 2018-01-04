@@ -1,0 +1,71 @@
+{
+  "format": "limited_hobbit",
+  "startingPool": [
+    {
+      "type": "random",
+      "data": [
+        {
+          "type": "cardPool",
+          "data": [
+            "card1", "card2"
+          ]
+        },
+        {
+          "type": "cardPool",
+          "data": [
+            "card1", "card2"
+          ]
+        }
+      ]
+    }
+  ],
+  "picks": [
+    {
+      "type": "random",
+      "data": [
+        {
+          "type": "sequence",
+          "data": [
+            {
+              "type": "multiple",
+              "data": {
+                "count": 10,
+                "type": "randomPick",
+                "data": ["card1", "card2"]
+              }
+            },
+            {
+              "type": "multiple",
+              "data": {
+                "count": 5,
+                "type": "randomPick",
+                "data": ["card1", "card2"]
+              }
+            }
+          ]
+        },
+        {
+          "type": "sequence",
+          "data": [
+            {
+              "type": "multiple",
+              "data": {
+                "count": 10,
+                "type": "randomPick",
+                "data": ["card1", "card2"]
+              }
+            },
+            {
+              "type": "multiple",
+              "data": {
+                "count": 5,
+                "type": "randomPick",
+                "data": ["card1", "card2"]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
