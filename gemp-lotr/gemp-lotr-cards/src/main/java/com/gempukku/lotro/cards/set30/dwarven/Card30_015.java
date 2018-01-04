@@ -22,7 +22,7 @@ import java.util.List;
  * Strength: 7
  * Vitality: 3
  * Resistance: 6
- * Game Text: Skirmish: Exert Nori twice and discard a [DWARVEN] follower to discard a possession
+ * Game Text: Maneuver: Exert Nori twice and discard a [DWARVEN] follower to discard a possession
  */
 public class Card30_015 extends AbstractCompanion {
     public Card30_015() {
@@ -32,7 +32,7 @@ public class Card30_015 extends AbstractCompanion {
 
     @Override
     protected List<ActivateCardAction> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
+        if (PlayConditions.canUseFPCardDuringPhase(game, Phase.MANEUVER, self)
                 && PlayConditions.canExert(self, game, 2, self)
 				&& PlayConditions.canDiscardFromPlay(self, game, Culture.DWARVEN, CardType.FOLLOWER)) {
             ActivateCardAction action = new ActivateCardAction(self);

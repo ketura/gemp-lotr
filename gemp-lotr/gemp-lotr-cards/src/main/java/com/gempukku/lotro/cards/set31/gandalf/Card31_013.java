@@ -11,8 +11,9 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
-import com.gempukku.lotro.logic.modifiers.CantDiscardFromPlayByPlayerModifier;
+import com.gempukku.lotro.logic.modifiers.CantDiscardFromPlayModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
+import com.gempukku.lotro.logic.modifiers.SpotCondition;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
@@ -37,19 +38,20 @@ public class Card31_013 extends AbstractFollower {
         super(Side.FREE_PEOPLE, 3, 2, 1, 0, Culture.GANDALF, "Beorn", "Skin-Changer", true);
     }
 	
-	@Override
-	public Race getRace() {
-		return Race.MAN;
-	}
+    @Override
+    public Race getRace() {
+        return Race.MAN;
+    }
 
-	@Override
+    @Override
     public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new CantDiscardFromPlayByPlayerModifier(self, "Can't be discarded by opponent", self, self.getOwner());
-	}
+        return new CantDiscardFromPlayModifier(self, "Cannot be discarded from play by Shadow cards",
+	        new SpotCondition(Filters.hasAttached(self)), self, Side.SHADOW);
+    }
 	
     @Override
     protected boolean canPayAidCost(LotroGame game, PhysicalCard self) {
-		return PlayConditions.canExert(self, game, Filters.gandalf);		
+	return PlayConditions.canExert(self, game, Filters.gandalf);		
     }
 
     @Override
