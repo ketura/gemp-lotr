@@ -2,18 +2,13 @@ package com.gempukku.lotro.game;
 
 import com.gempukku.lotro.packs.PacksStorage;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class DefaultCardCollection implements MutableCardCollection {
     private Map<String, Item> _counts = new LinkedHashMap<String, Item>();
     private Set<BasicCardItem> _basicItems = new HashSet<BasicCardItem>();
     private int _currency;
+    private Map<String, Object> _extraInformation = new HashMap<String, Object>();
 
     public DefaultCardCollection() {
 
@@ -23,6 +18,15 @@ public class DefaultCardCollection implements MutableCardCollection {
         _counts.putAll(cardCollection.getAll());
         _basicItems.addAll(cardCollection.getAllCardsInCollection());
         _currency = cardCollection.getCurrency();
+    }
+
+    public synchronized void setExtraInformation(Map<String, Object> extraInformation) {
+        _extraInformation = extraInformation;
+    }
+
+    @Override
+    public synchronized Map<String, Object> getExtraInformation() {
+        return Collections.unmodifiableMap(_extraInformation);
     }
 
     @Override

@@ -8,6 +8,7 @@ import com.gempukku.lotro.cards.effects.DiscardBottomCardFromDeckEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.modifiers.AllyParticipatesInArcheryFireAndSkirmishesModifier;
+import com.gempukku.lotro.cards.modifiers.CantTakeArcheryWoundsModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -15,8 +16,7 @@ import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
-import com.gempukku.lotro.logic.modifiers.StrengthModifier;
+import com.gempukku.lotro.logic.modifiers.*;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.Action;
 
@@ -35,7 +35,7 @@ import java.util.List;
  * Vitality: 4
  * Site: 5
  * Game Text: Maneuver: Exert Thorin twice or discard a [DWARVEN] artifact to allow Thranduil
- * to participate in archery fire and skirmishes until the regroup phase.
+ * to participate in skirmishes until the regroup phase.
  */
 public class Card31_012 extends AbstractAlly {
     public Card31_012() {
@@ -68,6 +68,9 @@ public class Card31_012 extends AbstractAlly {
             action.appendEffect(
                     new AddUntilStartOfPhaseModifierEffect(
                             new AllyParticipatesInArcheryFireAndSkirmishesModifier(self, self), Phase.REGROUP));
+            action.appendEffect(
+                    new AddUntilStartOfPhaseModifierEffect(
+                    		new CantTakeArcheryWoundsModifier(self, self), Phase.ASSIGNMENT));
             return Collections.singletonList(action);
         }
         return null;

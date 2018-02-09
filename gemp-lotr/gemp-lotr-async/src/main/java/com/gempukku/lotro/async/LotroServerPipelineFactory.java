@@ -6,6 +6,7 @@ import com.gempukku.lotro.builder.DaoBuilder;
 import com.gempukku.lotro.builder.PacksStorageBuilder;
 import com.gempukku.lotro.builder.ServerBuilder;
 import com.gempukku.lotro.cards.CardSets;
+import com.gempukku.lotro.draft2.SoloDraftDefinitions;
 import com.gempukku.lotro.packs.PacksStorage;
 import com.gempukku.lotro.service.LoggedUserHolder;
 import com.gempukku.polling.LongPollingSystem;
@@ -28,6 +29,7 @@ public class LotroServerPipelineFactory implements ChannelPipelineFactory {
     public LotroServerPipelineFactory() {
         Map<Type, Object> objects = new HashMap<Type, Object>();
         final CardSets cardSets = new CardSets();
+        SoloDraftDefinitions soloDraftDefinitions = new SoloDraftDefinitions();
 
         LoggedUserHolder loggedUserHolder = new LoggedUserHolder();
         loggedUserHolder.start();
@@ -38,6 +40,7 @@ public class LotroServerPipelineFactory implements ChannelPipelineFactory {
         objects.put(LongPollingSystem.class, longPollingSystem);
 
         objects.put(CardSets.class, cardSets);
+        objects.put(SoloDraftDefinitions.class, soloDraftDefinitions);
         objects.put(PacksStorage.class, PacksStorageBuilder.createPacksStorage(cardSets));
         DaoBuilder.fillObjectMap(objects);
         ServerBuilder.fillObjectMap(objects);

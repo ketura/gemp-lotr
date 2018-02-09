@@ -5,6 +5,7 @@ import com.gempukku.lotro.cards.CardSets;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.competitive.PlayerStanding;
 import com.gempukku.lotro.db.vo.CollectionType;
+import com.gempukku.lotro.draft2.SoloDraftDefinitions;
 import com.gempukku.lotro.game.CardCollection;
 import com.gempukku.lotro.game.DefaultCardCollection;
 import com.gempukku.lotro.game.MutableCardCollection;
@@ -23,7 +24,7 @@ public class SealedLeagueData implements LeagueData {
     private LeaguePrizes _leaguePrizes;
     private SealedLeagueProduct _leagueProduct;
 
-    public SealedLeagueData(CardSets cardSets, String parameters) {
+    public SealedLeagueData(CardSets cardSets, SoloDraftDefinitions soloDraftDefinitions, String parameters) {
         _leaguePrizes = new FixedLeaguePrizes(cardSets);
         
         String[] params = parameters.split(",");
@@ -43,6 +44,11 @@ public class SealedLeagueData implements LeagueData {
                             DateUtils.offsetDate(start, i * serieDuration), DateUtils.offsetDate(start, (i + 1) * serieDuration - 1), maxMatches,
                             _format, _collectionType));
         }
+    }
+
+    @Override
+    public boolean isDraftLeague() {
+        return false;
     }
 
     @Override

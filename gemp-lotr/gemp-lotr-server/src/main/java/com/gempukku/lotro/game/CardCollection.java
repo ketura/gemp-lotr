@@ -4,13 +4,15 @@ import java.util.Map;
 import java.util.Set;
 
 public interface CardCollection extends OwnershipCheck {
-    public int getCurrency();
+    int getCurrency();
 
-    public Map<String, Item> getAll();
+    Map<String, Item> getAll();
 
-    public int getItemCount(String blueprintId);
+    int getItemCount(String blueprintId);
 
-    public Set<BasicCardItem> getAllCardsInCollection();
+    Set<BasicCardItem> getAllCardsInCollection();
+
+    Map<String, Object> getExtraInformation();
 
     public static class Item implements CardItem {
         public enum Type {
