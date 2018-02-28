@@ -48,7 +48,7 @@
         "code":"open_legacy",
         "sites":"TWO_TOWERS",
         "cancelRingBearerSkirmish":true,
-        "set":[4],
+        "set":[1, 2, 3, 4],
         "hall":false
     },
     {
