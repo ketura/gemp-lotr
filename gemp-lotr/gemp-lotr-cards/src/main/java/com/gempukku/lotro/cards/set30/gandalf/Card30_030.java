@@ -38,7 +38,7 @@ public class Card30_030 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
 		final PlayEventAction action = new PlayEventAction(self);
 		if ((PlayConditions.canExert(self, game, Filters.gandalf))
-				&& (PlayConditions.canExert(self, game, Keyword.WISE, CardType.ALLY))) {
+				&& (PlayConditions.canExert(self, game, Keyword.WISE, Culture.ELVEN, CardType.ALLY))) {
 			action.appendCost(
 					new PlayoutDecisionEffect(playerId,
 							new YesNoDecision("Do you want to exert Gandalf and a Wise ally?") {
