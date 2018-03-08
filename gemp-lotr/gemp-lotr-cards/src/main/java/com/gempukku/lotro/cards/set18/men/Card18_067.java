@@ -61,7 +61,7 @@ public class Card18_067 extends AbstractMinion {
             }
             if (game.getGameState().getTwilightPool() >= 4) {
                 ActivateCardAction action = new ActivateCardAction(self);
-                action.setText("Remove (4) to exert and unbound companion");
+                action.setText("Remove (4) to exert an unbound companion");
                 action.appendCost(
                         new RemoveTwilightEffect(4));
                 action.appendEffect(
