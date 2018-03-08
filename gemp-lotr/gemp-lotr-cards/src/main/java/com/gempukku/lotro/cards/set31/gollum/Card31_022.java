@@ -49,38 +49,42 @@ public class Card31_022 extends AbstractPermanent {
         }
         return null;
     }
-	
+    
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayAfterActions(final String playerId, final LotroGame game, EffectResult effectResult, final PhysicalCard self) {
-		if (TriggerConditions.forEachExerted(game, effectResult, Filters.name("Bilbo")) || TriggerConditions.forEachWounded(game, effectResult, Filters.name("Bilbo"))) {
-			final ActivateCardAction action = new ActivateCardAction(self);
-			action.appendCost(
-					new ChooseAndExertCharactersEffect(action, playerId, 1, 1, CardType.MINION));
-			action.appendCost(
-					new ChooseAndDiscardCardsFromHandEffect(action, playerId, true, 1, 1));
+        if (TriggerConditions.forEachExerted(game, effectResult, Filters.name("Bilbo")) || TriggerConditions.forEachWounded(game, effectResult, Filters.name("Bilbo"))) {
+            final ActivateCardAction action = new ActivateCardAction(self);
+            action.appendCost(
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, CardType.MINION));
+            action.appendCost(
+                    new ChooseAndDiscardCardsFromHandEffect(action, playerId, true, 1, 1));
             action.appendEffect(
-					new PreventableEffect(action,
-							new UnrespondableEffect() {
-				@Override
-				public String getText(LotroGame game) {
-					return "Choose a SHIRE card";
-				}
-				
-				@Override
-				protected void doPlayEffect(LotroGame game) {
-					action.appendEffect(
-							new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Culture.SHIRE));
-				}
+                    new PreventableEffect(action,
+                    new UnrespondableEffect() {
+                @Override
+                public String getText(LotroGame game) {
+                    return "a SHIRE card from being discarded";
+                }
+                
+                @Override
+                protected void doPlayEffect(LotroGame game) {
+                    action.appendEffect(
+                            new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Culture.SHIRE));
+                }
             }, Collections.singletonList(game.getGameState().getCurrentPlayerId()),
-					new PreventableEffect.PreventionCost() {
-				@Override
-				public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
-					return new ChooseAndDiscardCardsFromHandEffect(subAction, playerId, true, 2, 2);
-				}
-            }
-			));
-			return Collections.singletonList(action);
+                    new PreventableEffect.PreventionCost() {
+                @Override
+                public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
+                    return new ChooseAndDiscardCardsFromHandEffect(subAction, playerId, false, 2, 2) {
+                        @Override
+                        public String getText(LotroGame game) {
+                            return "Discard 2 cards from hand";
+                        }
+                    };
+                }
+            }));
+            return Collections.singletonList(action);
         }
-		return null;
-	}
+        return null;
+    }
 }
