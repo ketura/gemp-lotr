@@ -52,16 +52,18 @@ public class Card30_025 extends AbstractCompanion {
         return null;
     }
 	
-	@Override
-	public List<? extends Action> getPhaseActionsFromDiscard(String playerId, LotroGame game, final PhysicalCard self) {
+    @Override
+    public List<? extends Action> getPhaseActionsFromDiscard(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.isPhase(game, Phase.MANEUVER)
-                && (PlayConditions.canDiscardFromPlay(self, game, 2, Race.DWARF, CardType.FOLLOWER))
-				&& (PlayConditions.canPlayFromDiscard(playerId, game, self))) {
-            ActivateCardAction action = new ActivateCardAction(self);			
-			action.appendCost(
-					new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 2, 2, Race.DWARF, CardType.FOLLOWER));					
-            return Collections.singletonList(getPlayCardAction(playerId, game, self, 0, false));
+            && (PlayConditions.canDiscardFromPlay(self, game, 2, Race.DWARF, CardType.FOLLOWER))
+            && (PlayConditions.canPlayFromDiscard(playerId, game, self))) {
+                ActivateCardAction replayGandalf = new ActivateCardAction(self);			
+                replayGandalf.appendCost(
+                        new ChooseAndDiscardCardsFromPlayEffect(replayGandalf, playerId, 2, 2, Race.DWARF, CardType.FOLLOWER));
+                replayGandalf.appendEffect(
+                        new ChooseAndPlayCardFromDiscardEffect(playerId, game, self));
+                return Collections.singletonList(replayGandalf);
         }
         return null;
-	}
+    }
 }
