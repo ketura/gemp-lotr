@@ -33,6 +33,7 @@ import java.util.List;
 public class Card30_028 extends AbstractCompanion {
     public Card30_028() {
         super(4, 7, 4, 6, Culture.GANDALF, Race.WIZARD, null, "Gandalf", "Leader of the Company", true);
+        addKeyword(Keyword.WISE);
     }
 	
 	@Override
