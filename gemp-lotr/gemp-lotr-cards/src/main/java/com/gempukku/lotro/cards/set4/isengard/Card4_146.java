@@ -4,11 +4,11 @@ import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.modifiers.AllyParticipatesInArcheryFireModifier;
+import com.gempukku.lotro.cards.modifiers.CantTakeArcheryWoundsModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.modifiers.CantTakeWoundsModifier;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.Collections;
@@ -38,7 +38,7 @@ public class Card4_146 extends AbstractPermanent {
                             new AllyParticipatesInArcheryFireModifier(self, CardType.ALLY)));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new CantTakeWoundsModifier(self, CardType.COMPANION)));
+                            new CantTakeArcheryWoundsModifier(self, CardType.COMPANION)));
             return Collections.singletonList(action);
         }
         return null;
