@@ -43,7 +43,9 @@ public class Card8_054 extends AbstractMinion {
                 && PlayConditions.canRemoveAnyCultureTokens(game, 2, Filters.any)) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(
-                    new ChooseAndRemoveCultureTokensFromCardEffect(self, playerId, null, 2, Filters.any));
+                    new ChooseAndRemoveCultureTokensFromCardEffect(self, playerId, null, 1, Filters.any));
+            action.appendCost(
+                    new ChooseAndRemoveCultureTokensFromCardEffect(self, playerId, null, 1, Filters.any));
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose a card to add tokens to", Filters.hasToken(Token.RAIDER)) {
                         @Override
