@@ -37,6 +37,7 @@ public class Card7_022 extends AbstractPermanent {
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.played(game, effectResult, Culture.ELVEN, CardType.EVENT, Keyword.SKIRMISH)
+                && game.getGameState().getCurrentPhase() == Phase.SKIRMISH
                 && PlayConditions.canSelfDiscard(self, game)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
