@@ -1,6 +1,7 @@
 package com.gempukku.lotro.game;
 
 import com.gempukku.lotro.cards.packs.SetDefinition;
+import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -90,7 +91,7 @@ public class SortAndFilterCards {
                 final LotroCardBlueprint blueprint = cardBlueprint.get(blueprintId);
                 if (side == null || blueprint.getSide() == side)
                     if (rarity == null || isRarity(blueprintId, rarity, library, rarities))
-                        if (sets == null || isInSets(blueprintId, sets, library, formatLibrary))
+                        if (sets == null || isInSets(blueprintId, sets, library, formatLibrary, cardBlueprint))
                             if (cardTypes == null || cardTypes.contains(blueprint.getCardType()))
                                 if (cultures == null || cultures.contains(blueprint.getCulture()))
                                     if (containsAllKeywords(blueprint, keywords))
@@ -144,15 +145,39 @@ public class SortAndFilterCards {
         return true;
     }
 
-    private boolean isInSets(String blueprintId, String[] sets, LotroCardBlueprintLibrary library, LotroFormatLibrary formatLibrary) {
+    private boolean isInSets(String blueprintId, String[] sets, LotroCardBlueprintLibrary library, LotroFormatLibrary formatLibrary,  Map<String, LotroCardBlueprint> cardBlueprint) {
         for (String set : sets) {
             LotroFormat format = formatLibrary.getFormat(set);
+            
             if (format != null) {
                 try {
                     format.validateCard(blueprintId);
-                    return true;
                 } catch (DeckInvalidException exp) {
                     return false;
+                }
+                final LotroCardBlueprint blueprint = cardBlueprint.get(blueprintId);
+                if (blueprint.getCardType() == CardType.SITE) {
+                    if (blueprint.getSiteBlock() == Block.FELLOWSHIP) {
+                        if ("fotr_block".contains(set)) {
+                            return true;
+                        }
+                        return false;
+                    }
+                    if (blueprint.getSiteBlock() == Block.TWO_TOWERS) {
+                        if ("towers_standard,ttt_block".contains(set)) {
+                            return true;
+                        }
+                        return false;
+                    }
+                    if (blueprint.getSiteBlock() == Block.KING) {
+                        if ("king_block,rotk_sta,movie".contains(set)) {
+                            return true;
+                        }
+                        return false;
+                    }
+                    return true;
+                } else {
+                    return true;
                 }
             } else {
                 if (blueprintId.startsWith(set + "_") || library.hasAlternateInSet(blueprintId, Integer.parseInt(set)))
