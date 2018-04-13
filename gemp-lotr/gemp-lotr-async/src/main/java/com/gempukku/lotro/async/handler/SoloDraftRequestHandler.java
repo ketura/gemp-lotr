@@ -88,18 +88,7 @@ public class SoloDraftRequestHandler extends LotroServerRequestHandler implement
         Element availablePicksElem = doc.createElement("availablePicks");
         doc.appendChild(availablePicksElem);
 
-        for (SoloDraft.DraftChoice availableChoice : availableChoices) {
-            String choiceId = availableChoice.getChoiceId();
-            String blueprintId = availableChoice.getBlueprintId();
-            String choiceUrl = availableChoice.getChoiceUrl();
-            Element availablePick = doc.createElement("availablePick");
-            availablePick.setAttribute("id", choiceId);
-            if (blueprintId != null)
-                availablePick.setAttribute("blueprintId", blueprintId);
-            if (choiceUrl != null)
-                availablePick.setAttribute("url", choiceUrl);
-            availablePicksElem.appendChild(availablePick);
-        }
+        appendAvailablePics(doc, availablePicksElem, availableChoices);
 
         responseWriter.writeXmlResponse(doc);
     }
@@ -172,21 +161,25 @@ public class SoloDraftRequestHandler extends LotroServerRequestHandler implement
 
         if (hasNextStage) {
             Iterable<SoloDraft.DraftChoice> availableChoices = soloDraft.getAvailableChoices(playerSeed, stage+1);
-            for (SoloDraft.DraftChoice availableChoice : availableChoices) {
-                String choiceId = availableChoice.getChoiceId();
-                String blueprintId = availableChoice.getBlueprintId();
-                String choiceUrl = availableChoice.getChoiceUrl();
-                Element availablePick = doc.createElement("availablePick");
-                availablePick.setAttribute("id", choiceId);
-                if (blueprintId != null)
-                    availablePick.setAttribute("blueprintId", blueprintId);
-                if (choiceUrl != null)
-                    availablePick.setAttribute("url", choiceUrl);
-                pickResultElem.appendChild(availablePick);
-            }
+            appendAvailablePics(doc, pickResultElem, availableChoices);
         }
 
         responseWriter.writeXmlResponse(doc);
+    }
+
+    private void appendAvailablePics(Document doc, Element rootElem, Iterable<SoloDraft.DraftChoice> availablePics) {
+        for (SoloDraft.DraftChoice availableChoice : availablePics) {
+            String choiceId = availableChoice.getChoiceId();
+            String blueprintId = availableChoice.getBlueprintId();
+            String choiceUrl = availableChoice.getChoiceUrl();
+            Element availablePick = doc.createElement("availablePick");
+            availablePick.setAttribute("id", choiceId);
+            if (blueprintId != null)
+                availablePick.setAttribute("blueprintId", blueprintId);
+            if (choiceUrl != null)
+                availablePick.setAttribute("url", choiceUrl);
+            rootElem.appendChild(availablePick);
+        }
     }
 
     private SoloDraft.DraftChoice getSelectedDraftChoice(String choiceId, Iterable<SoloDraft.DraftChoice> availableChoices) {
