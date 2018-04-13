@@ -8,7 +8,7 @@ import com.gempukku.lotro.game.Player;
 import java.util.List;
 
 public interface LeagueData {
-    public boolean isDraftLeague();
+    public boolean isSoloDraftLeague();
 
     public List<LeagueSerieData> getSeries();
 

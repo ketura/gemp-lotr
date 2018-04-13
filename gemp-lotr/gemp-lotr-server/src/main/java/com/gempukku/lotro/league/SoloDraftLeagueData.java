@@ -14,14 +14,14 @@ import com.gempukku.lotro.game.Player;
 
 import java.util.*;
 
-public class DraftLeagueData implements LeagueData {
+public class SoloDraftLeagueData implements LeagueData {
     private SoloDraft _draft;
     private CollectionType _collectionType;
     private CollectionType _prizeCollectionType = CollectionType.MY_CARDS;
     private LeaguePrizes _leaguePrizes;
     private LeagueSerieData _serie;
 
-    public DraftLeagueData(CardSets cardSets, SoloDraftDefinitions soloDraftDefinitions, String parameters) {
+    public SoloDraftLeagueData(CardSets cardSets, SoloDraftDefinitions soloDraftDefinitions, String parameters) {
         _leaguePrizes = new FixedLeaguePrizes(cardSets);
 
         String[] params = parameters.split(",");
@@ -37,8 +37,16 @@ public class DraftLeagueData implements LeagueData {
                 _draft.getFormat(), _collectionType);
     }
 
+    public CollectionType getCollectionType() {
+        return _collectionType;
+    }
+
+    public SoloDraft getSoloDraft() {
+        return _draft;
+    }
+
     @Override
-    public boolean isDraftLeague() {
+    public boolean isSoloDraftLeague() {
         return true;
     }
 
@@ -54,22 +62,24 @@ public class DraftLeagueData implements LeagueData {
     @Override
     public CardCollection joinLeague(CollectionsManager collectionsManager, Player player, int currentTime) {
         MutableCardCollection startingCollection = new DefaultCardCollection();
+        long seed = getSeed(player);
         if (currentTime >= _serie.getStart()) {
-            CardCollection leagueProduct = _draft.initializeNewCollection(getSeed(player));
+            CardCollection leagueProduct = _draft.initializeNewCollection(seed);
 
             for (Map.Entry<String, CardCollection.Item> serieCollectionItem : leagueProduct.getAll().entrySet())
                 startingCollection.addItem(serieCollectionItem.getKey(), serieCollectionItem.getValue().getCount());
         }
 
-        startingCollection.setExtraInformation(createExtraInformation());
+        startingCollection.setExtraInformation(createExtraInformation(seed));
         collectionsManager.addPlayerCollection(false, "Sealed league product", player, _collectionType, startingCollection);
         return startingCollection;
     }
 
-    private Map<String, Object> createExtraInformation() {
+    private Map<String, Object> createExtraInformation(long seed) {
         Map<String, Object> extraInformation = new HashMap<String, Object>();
         extraInformation.put("finished", false);
         extraInformation.put("stage", 0);
+        extraInformation.put("seed", seed);
         return extraInformation;
     }
 

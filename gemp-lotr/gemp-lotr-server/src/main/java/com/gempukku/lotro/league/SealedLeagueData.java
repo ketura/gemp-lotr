@@ -47,7 +47,7 @@ public class SealedLeagueData implements LeagueData {
     }
 
     @Override
-    public boolean isDraftLeague() {
+    public boolean isSoloDraftLeague() {
         return false;
     }
 
