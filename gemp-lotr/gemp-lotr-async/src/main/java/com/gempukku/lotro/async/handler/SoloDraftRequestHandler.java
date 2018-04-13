@@ -26,13 +26,13 @@ import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DraftRequestHandler extends LotroServerRequestHandler implements UriRequestHandler {
+public class SoloDraftRequestHandler extends LotroServerRequestHandler implements UriRequestHandler {
     private CollectionsManager _collectionsManager;
     private SoloDraftDefinitions _soloDraftDefinitions;
     private CardSets _cardSets;
     private LeagueService _leagueService;
 
-    public DraftRequestHandler(Map<Type, Object> context) {
+    public SoloDraftRequestHandler(Map<Type, Object> context) {
         super(context);
         _leagueService = extractObject(context, LeagueService.class);
         _cardSets = extractObject(context, CardSets.class);
