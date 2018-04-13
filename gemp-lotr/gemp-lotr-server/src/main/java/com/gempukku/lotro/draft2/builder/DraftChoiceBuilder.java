@@ -72,8 +72,9 @@ public class DraftChoiceBuilder {
             public CardCollection getCardsForChoiceId(String choiceId, long seed, int stage) {
                 List<String> cardIds = cardsMap.get(choiceId);
                 DefaultCardCollection cardCollection = new DefaultCardCollection();
-                for (String cardId : cardIds)
-                    cardCollection.addItem(cardId, 1);
+                if (cardIds != null)
+                    for (String cardId : cardIds)
+                        cardCollection.addItem(cardId, 1);
 
                 return cardCollection;
             }
@@ -95,7 +96,7 @@ public class DraftChoiceBuilder {
                 final List<String> shuffledCards = getShuffledCards(seed, stage);
 
                 List<SoloDraft.DraftChoice> draftableCards = new ArrayList<SoloDraft.DraftChoice>(count);
-                for (int i=0; i<count; i++) {
+                for (int i = 0; i < count; i++) {
                     final int finalI = i;
                     draftableCards.add(
                             new SoloDraft.DraftChoice() {
@@ -122,10 +123,11 @@ public class DraftChoiceBuilder {
             public CardCollection getCardsForChoiceId(String choiceId, long seed, int stage) {
                 List<String> shuffledCards = getShuffledCards(seed, stage);
 
-                for (int i=0; i<count; i++) {
+                for (int i = 0; i < count; i++) {
                     if (shuffledCards.get(i).equals(choiceId)) {
                         DefaultCardCollection result = new DefaultCardCollection();
                         result.addItem(choiceId, 1);
+                        return result;
                     }
                 }
 
