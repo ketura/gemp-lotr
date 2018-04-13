@@ -1,30 +1,39 @@
 package com.gempukku.lotro.draft2;
 
+import com.gempukku.lotro.draft2.builder.CardCollectionProducer;
 import com.gempukku.lotro.game.CardCollection;
-import com.gempukku.lotro.game.DefaultCardCollection;
+
+import java.util.List;
 
 public class DefaultSoloDraft implements SoloDraft {
     private String _format;
-    private SoloDraftPicks _picks;
+    private CardCollectionProducer _newCollection;
+    private List<DraftChoiceDefinition> _draftChoiceDefinitions;
 
-    public DefaultSoloDraft(String format, SoloDraftPicks picks) {
+    public DefaultSoloDraft(String format, CardCollectionProducer newCollection, List<DraftChoiceDefinition> draftChoiceDefinitions) {
         _format = format;
-        _picks = picks;
+        _newCollection = newCollection;
+        _draftChoiceDefinitions = draftChoiceDefinitions;
     }
 
     @Override
     public CardCollection initializeNewCollection(long seed) {
-        return new DefaultCardCollection();
+        return (_newCollection != null) ? _newCollection.getCardCollection(seed) : null;
     }
 
     @Override
-    public CardCollection getAvailableChoices(long seed, int stage) {
-        return _picks.getChoices(seed, stage);
+    public Iterable<DraftChoice> getAvailableChoices(long seed, int stage) {
+        return _draftChoiceDefinitions.get(stage).getDraftChoice(seed, stage);
+    }
+
+    @Override
+    public CardCollection getCardsForChoiceId(String choiceId, long seed, int stage) {
+        return _draftChoiceDefinitions.get(stage).getCardsForChoiceId(choiceId, seed, stage);
     }
 
     @Override
     public boolean hasNextStage(long seed, int stage) {
-        return _picks.hasNextStage(seed, stage);
+        return stage + 1 < _draftChoiceDefinitions.size();
     }
 
     @Override

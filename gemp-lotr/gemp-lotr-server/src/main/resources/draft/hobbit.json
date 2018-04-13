@@ -1,71 +1,58 @@
 {
   "format": "limited_hobbit",
-  "startingPool": [
-    {
-      "type": "random",
-      "data": [
-        {
-          "type": "cardPool",
-          "data": [
-            "card1", "card2"
-          ]
-        },
-        {
-          "type": "cardPool",
-          "data": [
-            "card1", "card2"
-          ]
-        }
+  "startingPool": {
+    "type": "randomCardPool",
+    "data": {
+      "seed": 0,
+      "randomResult": [
+        ["card1", "card2"],
+        ["card1", "card2"]
       ]
     }
-  ],
-  "picks": [
+  },
+  "choices": [
     {
-      "type": "random",
-      "data": [
-        {
-          "type": "sequence",
-          "data": [
-            {
-              "type": "multiple",
-              "data": {
-                "count": 10,
-                "type": "randomPick",
-                "data": ["card1", "card2"]
-              }
-            },
-            {
-              "type": "multiple",
-              "data": {
-                "count": 5,
-                "type": "randomPick",
-                "data": ["card1", "card2"]
-              }
+      "type": "singleCollectionPick",
+      "repeat": 1,
+      "data": {
+        "possiblePicks": [
+          {
+            "choiceId": "starter1",
+            "url": "/images/draft1_starter1.jpg",
+            "cards": ["card1", "card2"]
+          },
+          {
+            "choiceId": "starter2",
+            "url": "/images/draft1_starter2.jpg",
+            "cards": ["card1", "card2"]
+          }
+        ]
+      }
+    },
+    {
+      "type": "randomSwitch",
+      "repeat": 10,
+      "data": {
+        "seed": 0,
+        "switchResult": [
+          {
+            "type": "multipleCardPick",
+            "data": {
+              "seed": 2,
+              "count": 3,
+              "availableCards": ["card1", "card2", "card3", "card4"]
             }
-          ]
-        },
-        {
-          "type": "sequence",
-          "data": [
-            {
-              "type": "multiple",
-              "data": {
-                "count": 10,
-                "type": "randomPick",
-                "data": ["card1", "card2"]
-              }
-            },
-            {
-              "type": "multiple",
-              "data": {
-                "count": 5,
-                "type": "randomPick",
-                "data": ["card1", "card2"]
-              }
+          },
+          {
+            "type": "multipleCardPick",
+            "data": {
+              "seed": 2,
+              "count": 3,
+              "availableCards": ["card1", "card2", "card3", "card4"]
             }
-          ]
-        }
-      ]
+          }
+        ]
+      }
     }
   ]
 }

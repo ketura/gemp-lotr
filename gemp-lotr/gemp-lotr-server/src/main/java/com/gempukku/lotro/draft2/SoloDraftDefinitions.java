@@ -1,6 +1,8 @@
 package com.gempukku.lotro.draft2;
 
-import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
+import com.gempukku.lotro.draft2.builder.CardCollectionProducer;
+import com.gempukku.lotro.draft2.builder.DraftChoiceBuilder;
+import com.gempukku.lotro.draft2.builder.StartingPoolBuilder;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -9,11 +11,12 @@ import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class SoloDraftDefinitions {
     private Map<String, SoloDraft> draftTypes = new HashMap<String, SoloDraft>();
+    private StartingPoolBuilder startingPoolBuilder = new StartingPoolBuilder();
+    private DraftChoiceBuilder draftChoiceBuilder = new DraftChoiceBuilder();
 
     public SoloDraftDefinitions() {
         try {
@@ -22,7 +25,7 @@ public class SoloDraftDefinitions {
                 JSONParser parser = new JSONParser();
                 JSONArray object = (JSONArray) parser.parse(reader);
                 for (Object draftDefObj : object) {
-                    String type = (String)((JSONObject) draftDefObj).get("type");
+                    String type = (String) ((JSONObject) draftDefObj).get("type");
                     String location = (String) ((JSONObject) draftDefObj).get("location");
                     draftTypes.put(type, loadDraft(location));
                 }
@@ -41,12 +44,29 @@ public class SoloDraftDefinitions {
                 JSONParser parser = new JSONParser();
                 JSONObject object = (JSONObject) parser.parse(reader);
                 String format = (String) object.get("format");
-                return null;
+
+                CardCollectionProducer cardCollectionProducer = null;
+                JSONObject startingPool = (JSONObject) object.get("startingPool");
+                if (startingPool != null)
+                    cardCollectionProducer = startingPoolBuilder.buildCardCollectionProducer(startingPool);
+
+                List<DraftChoiceDefinition> draftChoiceDefinitions = new ArrayList<DraftChoiceDefinition>();
+                JSONArray choices = (JSONArray) object.get("choices");
+                Iterator<JSONObject> choicesIterator = choices.iterator();
+                while (choicesIterator.hasNext()) {
+                    JSONObject choice = choicesIterator.next();
+                    DraftChoiceDefinition draftChoiceDefinition = draftChoiceBuilder.buildDraftChoiceDefinition(choice);
+                    int repeatCount = ((Number) choice.get("repeat")).intValue();
+                    for (int i = 0; i < repeatCount; i++)
+                        draftChoiceDefinitions.add(draftChoiceDefinition);
+                }
+
+                return new DefaultSoloDraft(format, cardCollectionProducer, draftChoiceDefinitions);
             } catch (ParseException exp) {
-                throw new RuntimeException("Problem loading solo draft "+file, exp);
+                throw new RuntimeException("Problem loading solo draft " + file, exp);
             }
         } catch (IOException exp) {
-            throw new RuntimeException("Problem loading solo draft "+file, exp);
+            throw new RuntimeException("Problem loading solo draft " + file, exp);
         }
     }
 
