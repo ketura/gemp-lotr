@@ -146,11 +146,8 @@ public class DraftChoiceBuilder {
         JSONArray switchResult = (JSONArray) data.get("switchResult");
 
         final List<DraftChoiceDefinition> draftChoiceDefinitionList = new ArrayList<DraftChoiceDefinition>();
-        Iterator<JSONObject> switchResultIterator = switchResult.iterator();
-        while (switchResultIterator.hasNext()) {
-            JSONObject switchResultObject = switchResultIterator.next();
+        for (JSONObject switchResultObject : (Iterable<JSONObject>) switchResult)
             draftChoiceDefinitionList.add(constructDraftChoiceDefinition(switchResultObject));
-        }
 
         return new DraftChoiceDefinition() {
             @Override

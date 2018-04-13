@@ -81,15 +81,10 @@ public class DraftLeagueData implements LeagueData {
             if (currentTime >= _serie.getStart()) {
                 Map<Player, CardCollection> map = collectionsManager.getPlayersCollection(_collectionType.getCode());
                 for (Map.Entry<Player, CardCollection> playerCardCollectionEntry : map.entrySet()) {
-                    MutableCardCollection startingCollection = new DefaultCardCollection();
 
                     Player player = playerCardCollectionEntry.getKey();
                     CardCollection leagueProduct = _draft.initializeNewCollection(getSeed(player));
 
-                    for (Map.Entry<String, CardCollection.Item> serieCollectionItem : leagueProduct.getAll().entrySet())
-                        startingCollection.addItem(serieCollectionItem.getKey(), serieCollectionItem.getValue().getCount());
-
-                    startingCollection.setExtraInformation(createExtraInformation());
                     collectionsManager.addItemsToPlayerCollection(false, "New sealed league product", player, _collectionType, leagueProduct.getAll().values());
                 }
                 status = 1;
