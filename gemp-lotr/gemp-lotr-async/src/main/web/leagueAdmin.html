@@ -150,6 +150,13 @@
                                 previewDialog.dialog("open");
                             });
 
+                    $("#previewSoloDraft").click(
+                            function () {
+                                submitFormToAddress("/gemp-lotr-server/admin/previewSoloDraftLeague", $("#addSoloDraftForm").eq(0), displayPreview, previewError);
+                                previewDialog.html("");
+                                previewDialog.dialog("open");
+                            });
+
                     $("#previewConstructed").click(
                             function () {
                                 submitFormToAddress("/gemp-lotr-server/admin/previewConstructedLeague", $("#addConstructedForm").eq(0), displayPreview, previewError);
@@ -185,6 +192,22 @@
     Series duration in days: <input type="text" name="serieDuration"><br/>
     Maximum matches in series: <input type="text" name="maxMatches"><br/>
     <input id="previewSealed" type="button" value="Preview sealed league">
+    <input type="submit" value="Add sealed league">
+</form>
+
+<h2>Add solo-draft league</h2>
+
+<form id="addSoloDraftForm" method="POST" action="/gemp-lotr-server/admin/addSoloDraftLeague">
+    Name: <input type="text" name="name"><br/>
+    Cost (in silver): <input type="text" name="cost"><br/>
+    Start (YYYYMMDD): <input type="text" name="start"><br/>
+    Format:
+    <select name="format">
+        <option value="hobbit_draft">Hobbit Draft</option>
+    </select><br/>
+    Series duration in days: <input type="text" name="serieDuration"><br/>
+    Maximum matches in series: <input type="text" name="maxMatches"><br/>
+    <input id="previewSoloDraft" type="button" value="Preview sealed league">
     <input type="submit" value="Add sealed league">
 </form>
 

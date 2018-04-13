@@ -53,15 +53,28 @@ var LeagueResultsUI = Class.extend({
             var end = league.getAttribute("end");
             var member = league.getAttribute("member");
             var joinable = league.getAttribute("joinable");
+            var draftable = league.getAttribute("draftable");
 
             $("#leagueExtraInfo").append("<div class='leagueName'>" + leagueName + "</div>");
 
             var costStr = formatPrice(cost);
             $("#leagueExtraInfo").append("<div class='leagueCost'><b>Cost:</b> " + costStr + "</div>");
 
-            if (member == "true")
-                $("#leagueExtraInfo").append("<div class='leagueMembership'>You are already a member of this league.</div>");
-            else if (joinable == "true") {
+            if (member == "true") {
+                var memberDiv = $("<div class='leagueMembership'>You are already a member of this league. </div>");
+                if (draftable == "true") {
+                    var draftBut = $("<button>Go to draft</button>").button();
+                    var draftFunc = (function (leagueCode) {
+                        return function() {
+                            var participantId = getUrlParam("participantId");
+                            location.href = "/gemp-lotr/soloDraft.html?leagueType="+leagueCode+"&participantId="+participantId;
+                        };
+                    })(leagueType);
+                    draftBut.click(draftFunc);
+                    memberDiv.append(draftBut);
+                }
+                $("#leagueExtraInfo").append(memberDiv);
+            } else if (joinable == "true") {
                 var joinBut = $("<button>Join league</button>").button();
 
                 var joinFunc = (function (leagueCode, costString) {
