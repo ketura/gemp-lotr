@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Gemp-LotR</title>
+
+    <link rel="stylesheet" type="text/css" href="css/gemp-001/deckBuild.css">
+
+    <link rel="stylesheet" type="text/css" href="css/dark-hive/jquery-ui-1.8.16.custom.css">
+    <link rel="stylesheet" type="text/css" href="css/jquery.contextMenu.css">
+    <link rel="stylesheet" type="text/css" href="js/jquery/styles/jquery.spinnercontrol.css">
+
+    <script type="text/javascript" src="js/jquery/jquery-1.6.2.js"></script>
+    <script type="text/javascript" src="js/jquery/jquery-ui-1.8.16.custom.min.js"></script>
+    <script type="text/javascript" src="js/jquery/jquery.cookie.js"></script>
+    <script type="text/javascript" src="js/jquery/jquery.spinnercontrol.js"></script>
+    <script type="text/javascript" src="js/jquery/jquery.layout.js"></script>
+    <script type="text/javascript" src="js/jquery/jquery.touchSwipe.js"></script>
+
+    <script type="text/javascript" src="js/gemp-019/inheritance.js"></script>
+    <script type="text/javascript" src="js/gemp-019/common.js"></script>
+    <script type="text/javascript" src="js/gemp-019/logging.js"></script>
+    <script type="text/javascript" src="js/gemp-019/chat.js"></script>
+    <script type="text/javascript" src="js/gemp-019/communication.js"></script>
+    <script type="text/javascript" src="js/gemp-019/deliveryService.js"></script>
+    <script type="text/javascript" src="js/gemp-019/commonUi.js"></script>
+    <script type="text/javascript" src="js/gemp-019/cardFilter.js"></script>
+
+    <script type="text/javascript" src="js/gemp-019/jCardGroup.js"></script>
+    <script type="text/javascript" src="js/gemp-019/set20.js"></script>
+    <script type="text/javascript" src="js/gemp-019/hobbit.js"></script>
+    <script type="text/javascript" src="js/gemp-019/jCards.js"></script>
+
+    <script type="text/javascript" src="js/gemp-019/hallUi.js"></script>
+    <script type="text/javascript" src="js/gemp-019/leagueResultsUi.js"></script>
+    <script type="text/javascript" src="js/gemp-019/tournamentResultsUi.js"></script>
+    <script type="text/javascript" src="js/gemp-019/statsUi.js"></script>
+    <script type="text/javascript" src="js/gemp-019/playerStatsUi.js"></script>
+    <script type="text/javascript" src="js/gemp-019/gameHistoryUi.js"></script>
+    <script type="text/javascript" src="js/gemp-019/deckBuildingUi.js"></script>
+    <script type="text/javascript" src="js/gemp-019/gameUi.js"></script>
+    <script type="text/javascript" src="js/gemp-019/gameAnimations.js"></script>
+    <script type="text/javascript" src="js/gemp-019/merchantUi.js"></script>
+    <script type="text/javascript" src="js/gemp-019/soloDraftUi.js"></script>
+
+    <script type="text/javascript">
+
+        $(document).ready(
+                function () {
+                    var ui = new GempLotrSoloDraftUI();
+
+                    $('body').layout({
+                        applyDefaultStyles:true,
+                        onresize:function () {
+                            ui.layoutUI(true);
+                        },
+                        north__minSize:"30%"
+                    });
+
+                    $(".ui-layout-pane").css({"background-color":"#000000"});
+
+                    $(window).resize(function () {
+                        ui.layoutUI(true);
+                    });
+
+                    ui.layoutUI(true);
+                });
+    </script>
+
+</head>
+<body>
+
+<div id="topDiv" class="ui-layout-north">
+    <div id="messageDiv"></div>
+    <div id="picksDiv"></div>
+</div>
+<div id="bottomDiv" class="ui-layout-center">
+    <div id="draftedDiv"></div>
+</div>
+</body>
+</html>

@@ -66,8 +66,7 @@ var LeagueResultsUI = Class.extend({
                     var draftBut = $("<button>Go to draft</button>").button();
                     var draftFunc = (function (leagueCode) {
                         return function() {
-                            var participantId = getUrlParam("participantId");
-                            location.href = "/gemp-lotr/soloDraft.html?leagueType="+leagueCode+"&participantId="+participantId;
+                            location.href = "/gemp-lotr/soloDraft.html?leagueType="+leagueCode;
                         };
                     })(leagueType);
                     draftBut.click(draftFunc);

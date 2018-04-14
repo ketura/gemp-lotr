@@ -23,6 +23,7 @@ import org.w3c.dom.Element;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.lang.reflect.Type;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -70,16 +71,19 @@ public class SoloDraftRequestHandler extends LotroServerRequestHandler implement
         Player resourceOwner = getResourceOwnerSafely(request, participantId);
 
         CardCollection collection = _collectionsManager.getPlayerCollection(resourceOwner, collectionType.getCode());
+
+        Iterable<SoloDraft.DraftChoice> availableChoices;
+
         boolean finished = (Boolean) collection.getExtraInformation().get("finished");
-        if (finished)
-            responseWriter.writeError(404);
+        if (!finished) {
+            int stage = ((Number) collection.getExtraInformation().get("stage")).intValue();
+            long playerSeed = ((Number) collection.getExtraInformation().get("seed")).longValue();
 
-        int stage = ((Number) collection.getExtraInformation().get("stage")).intValue();
-        long playerSeed = ((Number) collection.getExtraInformation().get("seed")).longValue();
-
-        SoloDraft soloDraft = soloDraftLeagueData.getSoloDraft();
-        Iterable<SoloDraft.DraftChoice> availableChoices = soloDraft.getAvailableChoices(playerSeed, stage);
-
+            SoloDraft soloDraft = soloDraftLeagueData.getSoloDraft();
+            availableChoices = soloDraft.getAvailableChoices(playerSeed, stage);
+        } else {
+            availableChoices = Collections.emptyList();
+        }
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
 

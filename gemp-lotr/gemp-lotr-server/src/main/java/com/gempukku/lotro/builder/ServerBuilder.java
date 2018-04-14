@@ -4,6 +4,7 @@ import com.gempukku.lotro.cards.CardSets;
 import com.gempukku.lotro.chat.ChatServer;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.collection.TransferDAO;
+import com.gempukku.lotro.common.ApplicationConfiguration;
 import com.gempukku.lotro.db.CollectionDAO;
 import com.gempukku.lotro.db.DeckDAO;
 import com.gempukku.lotro.db.GameHistoryDAO;
@@ -135,14 +136,21 @@ public class ServerBuilder {
     }
 
     public static void constructObjects(Map<Type, Object> objectMap) {
-        extract(objectMap, MtgCardServer.class).startServer();
+        if (isMtgEnabled())
+            extract(objectMap, MtgCardServer.class).startServer();
         extract(objectMap, HallServer.class).startServer();
         extract(objectMap, LotroServer.class).startServer();
         extract(objectMap, ChatServer.class).startServer();
     }
 
+    private static boolean isMtgEnabled() {
+        String mtgEnabled = ApplicationConfiguration.getProperty("mtg.enabled");
+        return mtgEnabled == null || mtgEnabled.equals("true");
+    }
+
     public static void destroyObjects(Map<Type, Object> objectMap) {
-        extract(objectMap, MtgCardServer.class).stopServer();
+        if (isMtgEnabled())
+            extract(objectMap, MtgCardServer.class).stopServer();
         extract(objectMap, HallServer.class).stopServer();
         extract(objectMap, LotroServer.class).stopServer();
         extract(objectMap, ChatServer.class).stopServer();
