@@ -29,7 +29,6 @@ public class LotroServerPipelineFactory implements ChannelPipelineFactory {
     public LotroServerPipelineFactory() {
         Map<Type, Object> objects = new HashMap<Type, Object>();
         final CardSets cardSets = new CardSets();
-        SoloDraftDefinitions soloDraftDefinitions = new SoloDraftDefinitions();
 
         LoggedUserHolder loggedUserHolder = new LoggedUserHolder();
         loggedUserHolder.start();
@@ -40,7 +39,6 @@ public class LotroServerPipelineFactory implements ChannelPipelineFactory {
         objects.put(LongPollingSystem.class, longPollingSystem);
 
         objects.put(CardSets.class, cardSets);
-        objects.put(SoloDraftDefinitions.class, soloDraftDefinitions);
         objects.put(PacksStorage.class, PacksStorageBuilder.createPacksStorage(cardSets));
         DaoBuilder.fillObjectMap(objects);
         ServerBuilder.fillObjectMap(objects);

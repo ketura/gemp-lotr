@@ -15,6 +15,7 @@ import com.gempukku.lotro.game.Player;
 import java.util.*;
 
 public class SoloDraftLeagueData implements LeagueData {
+    public static final int HIGH_ENOUGH_PRIME_NUMBER = 8963;
     private SoloDraft _draft;
     private CollectionType _collectionType;
     private CollectionType _prizeCollectionType = CollectionType.MY_CARDS;
@@ -56,7 +57,7 @@ public class SoloDraftLeagueData implements LeagueData {
     }
 
     private long getSeed(Player player) {
-        return _collectionType.getCode().hashCode() + player.getId();
+        return _collectionType.getCode().hashCode() + player.getId() * HIGH_ENOUGH_PRIME_NUMBER;
     }
 
     @Override

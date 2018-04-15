@@ -1,8 +1,11 @@
 package com.gempukku.lotro.draft2;
 
+import com.gempukku.lotro.cards.packs.SetDefinition;
+import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.draft2.builder.CardCollectionProducer;
 import com.gempukku.lotro.draft2.builder.DraftChoiceBuilder;
 import com.gempukku.lotro.draft2.builder.StartingPoolBuilder;
+import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -16,9 +19,11 @@ import java.util.*;
 public class SoloDraftDefinitions {
     private Map<String, SoloDraft> draftTypes = new HashMap<String, SoloDraft>();
     private StartingPoolBuilder startingPoolBuilder = new StartingPoolBuilder();
-    private DraftChoiceBuilder draftChoiceBuilder = new DraftChoiceBuilder();
+    private DraftChoiceBuilder draftChoiceBuilder;
 
-    public SoloDraftDefinitions() {
+    public SoloDraftDefinitions(CollectionsManager collectionsManager, LotroCardBlueprintLibrary cardLibrary,
+                                LotroFormatLibrary formatLibrary, Map<String, SetDefinition> rarities) {
+        draftChoiceBuilder = new DraftChoiceBuilder(collectionsManager, cardLibrary, formatLibrary, rarities);
         try {
             final InputStreamReader reader = new InputStreamReader(LotroFormatLibrary.class.getResourceAsStream("/lotrDrafts.json"), "UTF-8");
             try {

@@ -1,6 +1,6 @@
 [
   {
-    "type": "hobbit_draft",
-    "location": "/draft/hobbit.json"
+    "type": "test_draft",
+    "location": "/draft/testDraft.json"
   }
 ]

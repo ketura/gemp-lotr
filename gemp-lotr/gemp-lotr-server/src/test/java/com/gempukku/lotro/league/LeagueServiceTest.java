@@ -20,9 +20,11 @@ import java.util.Set;
 import static org.junit.Assert.*;
 
 public class LeagueServiceTest {
+    private SoloDraftDefinitions soloDraftDefinitions = new SoloDraftDefinitions(null, null, null, null);
     private CardSets _cardSets = new CardSets();
     @Test
     public void testJoiningLeagueAfterMaxGamesPlayed() throws Exception {
+
         LeagueDAO leagueDao = Mockito.mock(LeagueDAO.class);
 
         StringBuilder sb = new StringBuilder();
@@ -35,7 +37,7 @@ public class LeagueServiceTest {
         League league = new League(5000, "League name", "leagueType", NewConstructedLeagueData.class.getName(), sb.toString(), 0);
         leagues.add(league);
 
-        LeagueSerieData leagueSerie = league.getLeagueData(_cardSets, new SoloDraftDefinitions()).getSeries().get(0);
+        LeagueSerieData leagueSerie = league.getLeagueData(_cardSets, soloDraftDefinitions).getSeries().get(0);
 
         Mockito.when(leagueDao.loadActiveLeagues(Mockito.anyInt())).thenReturn(leagues);
 
@@ -48,7 +50,7 @@ public class LeagueServiceTest {
         LeagueParticipationDAO leagueParticipationDAO = Mockito.mock(LeagueParticipationDAO.class);
         CollectionsManager collectionsManager = Mockito.mock(CollectionsManager.class);
 
-        LeagueService leagueService = new LeagueService(leagueDao, leagueMatchDAO, leagueParticipationDAO, collectionsManager, _cardSets, new SoloDraftDefinitions());
+        LeagueService leagueService = new LeagueService(leagueDao, leagueMatchDAO, leagueParticipationDAO, collectionsManager, _cardSets, soloDraftDefinitions);
 
         assertTrue(leagueService.canPlayRankedGame(league, leagueSerie, "player1"));
         assertTrue(leagueService.canPlayRankedGameAgainst(league, leagueSerie, "player1", "player2"));
@@ -88,7 +90,7 @@ public class LeagueServiceTest {
         League league = new League(5000, "League name", "leagueType", NewConstructedLeagueData.class.getName(), sb.toString(), 0);
         leagues.add(league);
 
-        LeagueSerieData leagueSerie = league.getLeagueData(_cardSets, new SoloDraftDefinitions()).getSeries().get(0);
+        LeagueSerieData leagueSerie = league.getLeagueData(_cardSets, soloDraftDefinitions).getSeries().get(0);
 
         Mockito.when(leagueDao.loadActiveLeagues(Mockito.anyInt())).thenReturn(leagues);
 
@@ -102,7 +104,7 @@ public class LeagueServiceTest {
         LeagueParticipationDAO leagueParticipationDAO = Mockito.mock(LeagueParticipationDAO.class);
         CollectionsManager collectionsManager = Mockito.mock(CollectionsManager.class);
 
-        LeagueService leagueService = new LeagueService(leagueDao, leagueMatchDAO, leagueParticipationDAO, collectionsManager, _cardSets, new SoloDraftDefinitions());
+        LeagueService leagueService = new LeagueService(leagueDao, leagueMatchDAO, leagueParticipationDAO, collectionsManager, _cardSets, soloDraftDefinitions);
 
         assertTrue(leagueService.canPlayRankedGame(league, leagueSerie, "player1"));
         assertFalse(leagueService.canPlayRankedGameAgainst(league, leagueSerie, "player1", "player2"));
@@ -134,7 +136,7 @@ public class LeagueServiceTest {
         League league = new League(5000, "League name", "leagueType", NewConstructedLeagueData.class.getName(), sb.toString(), 0);
         leagues.add(league);
 
-        LeagueSerieData leagueSerie = league.getLeagueData(_cardSets, new SoloDraftDefinitions()).getSeries().get(0);
+        LeagueSerieData leagueSerie = league.getLeagueData(_cardSets, soloDraftDefinitions).getSeries().get(0);
 
         Mockito.when(leagueDao.loadActiveLeagues(Mockito.anyInt())).thenReturn(leagues);
 
@@ -152,7 +154,7 @@ public class LeagueServiceTest {
         Mockito.when(leagueParticipationDAO.getUsersParticipating(league.getType())).thenReturn(players);
         CollectionsManager collectionsManager = Mockito.mock(CollectionsManager.class);
 
-        LeagueService leagueService = new LeagueService(leagueDao, leagueMatchDAO, leagueParticipationDAO, collectionsManager, _cardSets, new SoloDraftDefinitions());
+        LeagueService leagueService = new LeagueService(leagueDao, leagueMatchDAO, leagueParticipationDAO, collectionsManager, _cardSets, soloDraftDefinitions);
 
         leagueService.reportLeagueGameResult(league, leagueSerie, "player1", "player2");
         leagueService.reportLeagueGameResult(league, leagueSerie, "player1", "player3");

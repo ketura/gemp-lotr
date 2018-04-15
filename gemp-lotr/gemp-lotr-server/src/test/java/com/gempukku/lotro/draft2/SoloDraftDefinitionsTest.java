@@ -8,12 +8,12 @@ import static org.junit.Assert.*;
 public class SoloDraftDefinitionsTest {
     @Test
     public void loadSoloDraftDefinitions() {
-        SoloDraftDefinitions soloDraftDefinitions = new SoloDraftDefinitions();
+        SoloDraftDefinitions soloDraftDefinitions = new SoloDraftDefinitions(null, null, null, null);
     }
 
     @Test
     public void playerDrafting() {
-        SoloDraftDefinitions soloDraftDefinitions = new SoloDraftDefinitions();
+        SoloDraftDefinitions soloDraftDefinitions = new SoloDraftDefinitions(null, null, null, null);
         SoloDraft soloDraft = soloDraftDefinitions.getSoloDraft("hobbit_draft");
         assertTrue(soloDraft.hasNextStage(0, 0));
         Iterable<SoloDraft.DraftChoice> availableChoices = soloDraft.getAvailableChoices(0, 0);

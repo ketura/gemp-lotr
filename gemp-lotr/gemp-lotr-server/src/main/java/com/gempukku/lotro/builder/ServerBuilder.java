@@ -64,6 +64,13 @@ public class ServerBuilder {
                         extract(objectMap, LotroCardBlueprintLibrary.class),
                         extract(objectMap, CardSets.class)));
 
+        objectMap.put(SoloDraftDefinitions.class,
+                new SoloDraftDefinitions(
+                        extract(objectMap, CollectionsManager.class),
+                        extract(objectMap, LotroCardBlueprintLibrary.class),
+                        extract(objectMap, LotroFormatLibrary.class),
+                        extract(objectMap, CardSets.class).getSetDefinitions()));
+
         objectMap.put(LeagueService.class,
                 new LeagueService(
                         extract(objectMap, LeagueDAO.class),

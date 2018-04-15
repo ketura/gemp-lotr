@@ -20,7 +20,6 @@ public class StartingPoolBuilder {
     }
 
     private CardCollectionProducer buildRandomCardPool(JSONObject randomCardPool) {
-        final long selectionSeed = ((Number) randomCardPool.get("seed")).longValue();
         JSONArray cardPools = (JSONArray) randomCardPool.get("randomResult");
 
         final List<CardCollection> cardCollections = new ArrayList<CardCollection>();
@@ -39,7 +38,7 @@ public class StartingPoolBuilder {
         return new CardCollectionProducer() {
             @Override
             public CardCollection getCardCollection(long seed) {
-                Random rnd = new Random(seed+selectionSeed);
+                Random rnd = new Random(seed);
                 return cardCollections.get(rnd.nextInt(cardCollections.size()));
             }
         };

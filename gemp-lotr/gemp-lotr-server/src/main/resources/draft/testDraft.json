@@ -1,0 +1,230 @@
+{
+  "format": "limited_fotr",
+  "startingPool": {
+    "type": "randomCardPool",
+    "data": {
+      "randomResult": [
+        ["1_2", "1_290"],
+        ["1_2", "1_290"]
+      ]
+    }
+  },
+  "choices": [
+    {
+      "type": "filterPick",
+      "repeat": 1,
+      "data": {
+        "optionCount": 3,
+        "filter": "side:FREE_PEOPLE cardType:POSSESSION,ARTIFACT set:1 rarity:R"
+      }
+    },
+    {
+      "type": "weightedSwitch",
+      "repeat": 4,
+      "data": {
+        "switchResult": [
+          {
+            "weight": 0.1,
+            "type": "filterPick",
+            "data": {
+              "optionCount": 3,
+              "filter": "side:FREE_PEOPLE cardType:COMPANION set:1 rarity:R"
+            }
+          },
+          {
+            "weight": 0.3,
+            "type": "filterPick",
+            "data": {
+              "optionCount": 4,
+              "filter": "side:FREE_PEOPLE cardType:COMPANION set:1 rarity:U,P"
+            }
+          },
+          {
+            "weight": 0.6,
+            "type": "filterPick",
+            "data": {
+              "optionCount": 5,
+              "filter": "side:FREE_PEOPLE cardType:COMPANION set:1 rarity:C"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "weightedSwitch",
+      "repeat": 30,
+      "data": {
+        "switchResult": [
+          {
+            "weight": 0.1,
+            "type": "filterPick",
+            "data": {
+              "optionCount": 5,
+              "filter": "side:FREE_PEOPLE set:1 rarity:R"
+            }
+          },
+          {
+            "weight": 0.3,
+            "type": "filterPick",
+            "data": {
+              "optionCount": 8,
+              "filter": "side:FREE_PEOPLE set:1 rarity:U,P"
+            }
+          },
+          {
+            "weight": 0.6,
+            "type": "filterPick",
+            "data": {
+              "optionCount": 10,
+              "filter": "side:FREE_PEOPLE set:1 rarity:C"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "filterPick",
+      "repeat": 1,
+      "data": {
+        "optionCount": 3,
+        "filter": "side:SHADOW cardType:MINION set:1 rarity:R"
+      }
+    },
+    {
+      "type": "weightedSwitch",
+      "repeat": 14,
+      "data": {
+        "switchResult": [
+          {
+            "weight": 0.1,
+            "type": "filterPick",
+            "data": {
+              "optionCount": 3,
+              "filter": "side:SHADOW cardType:MINION set:1 rarity:R"
+            }
+          },
+          {
+            "weight": 0.3,
+            "type": "filterPick",
+            "data": {
+              "optionCount": 4,
+              "filter": "side:SHADOW cardType:MINION set:1 rarity:U,P"
+            }
+          },
+          {
+            "weight": 0.6,
+            "type": "filterPick",
+            "data": {
+              "optionCount": 5,
+              "filter": "side:SHADOW cardType:MINION set:1 rarity:C"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "weightedSwitch",
+      "repeat": 20,
+      "data": {
+        "switchResult": [
+          {
+            "weight": 0.1,
+            "type": "filterPick",
+            "data": {
+              "optionCount": 5,
+              "filter": "side:SHADOW set:1 rarity:R"
+            }
+          },
+          {
+            "weight": 0.3,
+            "type": "filterPick",
+            "data": {
+              "optionCount": 8,
+              "filter": "side:SHADOW set:1 rarity:U,P"
+            }
+          },
+          {
+            "weight": 0.6,
+            "type": "filterPick",
+            "data": {
+              "optionCount": 10,
+              "filter": "side:SHADOW set:1 rarity:C"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "filterPick",
+      "repeat": 1,
+      "data": {
+        "optionCount": 3,
+        "filter": "cardType:SITE set:1 siteNumber:1"
+      }
+    },
+    {
+      "type": "filterPick",
+      "repeat": 1,
+      "data": {
+        "optionCount": 3,
+        "filter": "cardType:SITE set:1 siteNumber:2"
+      }
+    },
+    {
+      "type": "filterPick",
+      "repeat": 1,
+      "data": {
+        "optionCount": 3,
+        "filter": "cardType:SITE set:1 siteNumber:3"
+      }
+    },
+    {
+      "type": "filterPick",
+      "repeat": 1,
+      "data": {
+        "optionCount": 3,
+        "filter": "cardType:SITE set:1 siteNumber:4"
+      }
+    },
+    {
+      "type": "filterPick",
+      "repeat": 1,
+      "data": {
+        "optionCount": 3,
+        "filter": "cardType:SITE set:1 siteNumber:5"
+      }
+    },
+    {
+      "type": "filterPick",
+      "repeat": 1,
+      "data": {
+        "optionCount": 3,
+        "filter": "cardType:SITE set:1 siteNumber:6"
+      }
+    },
+    {
+      "type": "filterPick",
+      "repeat": 1,
+      "data": {
+        "optionCount": 3,
+        "filter": "cardType:SITE set:1 siteNumber:7"
+      }
+    },
+    {
+      "type": "filterPick",
+      "repeat": 1,
+      "data": {
+        "optionCount": 3,
+        "filter": "cardType:SITE set:1 siteNumber:8"
+      }
+    },
+    {
+      "type": "filterPick",
+      "repeat": 1,
+      "data": {
+        "optionCount": 3,
+        "filter": "cardType:SITE set:1 siteNumber:9"
+      }
+    }
+  ]
+}

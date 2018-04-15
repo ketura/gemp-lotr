@@ -19,7 +19,7 @@ public class SortAndFilterCards {
 
         Side side = getSideFilter(filterParams);
         String type = getTypeFilter(filterParams);
-        String rarity = getRarityFilter(filterParams);
+        String[] rarity = getRarityFilter(filterParams);
         String[] sets = getSetFilter(filterParams);
         List<String> words = getWords(filterParams);
         Set<CardType> cardTypes = getEnumFilter(CardType.values(), CardType.class, "cardType", null, filterParams);
@@ -76,7 +76,7 @@ public class SortAndFilterCards {
     }
 
     private boolean acceptsFilters(
-            LotroCardBlueprintLibrary library, Map<String, LotroCardBlueprint> cardBlueprint, LotroFormatLibrary formatLibrary, Map<String, SetDefinition> rarities, String blueprintId, Side side, String type, String rarity, String[] sets,
+            LotroCardBlueprintLibrary library, Map<String, LotroCardBlueprint> cardBlueprint, LotroFormatLibrary formatLibrary, Map<String, SetDefinition> rarities, String blueprintId, Side side, String type, String[] rarity, String[] sets,
             Set<CardType> cardTypes, Set<Culture> cultures, Set<Keyword> keywords, List<String> words, Integer siteNumber) {
         if (isPack(blueprintId)) {
             if (type == null || type.equals("pack"))
@@ -118,10 +118,10 @@ public class SortAndFilterCards {
         return null;
     }
 
-    private String getRarityFilter(String[] filterParams) {
+    private String[] getRarityFilter(String[] filterParams) {
         for (String filterParam : filterParams) {
             if (filterParam.startsWith("rarity:"))
-                return filterParam.substring("rarity:".length());
+                return filterParam.substring("rarity:".length()).split(",");
         }
         return null;
     }
@@ -134,11 +134,16 @@ public class SortAndFilterCards {
         return sets;
     }
 
-    private boolean isRarity(String blueprintId, String rarity, LotroCardBlueprintLibrary library, Map<String, SetDefinition> rarities) {
+    private boolean isRarity(String blueprintId, String[] rarity, LotroCardBlueprintLibrary library, Map<String, SetDefinition> rarities) {
         if (blueprintId.contains("_")) {
             SetDefinition setRarity = rarities.get(blueprintId.substring(0, blueprintId.indexOf("_")));
-            if (setRarity != null && setRarity.getCardRarity(library.stripBlueprintModifiers(blueprintId)).equals(rarity))
-                return true;
+            if (setRarity != null) {
+                String cardRarity = setRarity.getCardRarity(library.stripBlueprintModifiers(blueprintId));
+                for (String r : rarity) {
+                    if (cardRarity.equals(r))
+                        return true;
+                }
+            }
             return false;
         }
         return true;

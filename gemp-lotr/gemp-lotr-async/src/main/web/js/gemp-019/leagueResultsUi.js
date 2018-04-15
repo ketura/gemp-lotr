@@ -37,6 +37,18 @@ var LeagueResultsUI = Class.extend({
             });
     },
 
+    loadResultsWithLeague:function (type) {
+        var that = this;
+        this.communication.getLeagues(
+            function (xml) {
+                that.loadedLeagueResults(xml);
+                that.communication.getLeague(type,
+                    function (xml) {
+                        that.loadedLeague(xml);
+                    });
+            });
+    },
+
     loadedLeague:function (xml) {
         var that = this;
         log(xml);
@@ -81,7 +93,7 @@ var LeagueResultsUI = Class.extend({
                         that.displayBuyAction("Do you want to join the league by paying " + costString + "?",
                             function () {
                                 that.communication.joinLeague(leagueCode, function () {
-                                    that.loadResults();
+                                    that.loadResultsWithLeague(leagueCode);
                                 }, {
                                     "409":function () {
                                         alert("You don't have enough funds to join this league.");
