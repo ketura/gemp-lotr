@@ -11,6 +11,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.results.SkirmishAboutToEndResult;
 
 import java.util.Collections;
 import java.util.List;
@@ -32,12 +33,17 @@ public class Card7_182 extends AbstractResponseEvent {
     @Override
     public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.SKIRMISH_ABOUT_TO_END
-                && checkPlayRequirements(playerId, game, self, 0, 0, false, false)
-                && Filters.filter(game.getGameState().getSkirmish().getShadowCharacters(), game.getGameState(), game.getModifiersQuerying(), Race.NAZGUL).size() > 0) {
-            PlayEventAction action = new PlayEventAction(self);
-            action.appendEffect(
-                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, CardType.POSSESSION, Filters.attachedTo(CardType.COMPANION, Filters.inSkirmish)));
-            return Collections.singletonList(action);
+                && checkPlayRequirements(playerId, game, self, 0, 0, false, false)) {
+            SkirmishAboutToEndResult checkSkirmish = (SkirmishAboutToEndResult) effectResult;
+            for (PhysicalCard minion: checkSkirmish.getMinionsInvolved()) {
+                if (minion.getBlueprint().getRace() == Race.NAZGUL) {
+                    PlayEventAction action = new PlayEventAction(self);
+                    action.appendEffect(
+                            new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, CardType.POSSESSION, Filters.attachedTo(
+                            CardType.COMPANION, Filters.inSkirmish)));
+                    return Collections.singletonList(action);
+                }
+            }
         }
         return null;
     }

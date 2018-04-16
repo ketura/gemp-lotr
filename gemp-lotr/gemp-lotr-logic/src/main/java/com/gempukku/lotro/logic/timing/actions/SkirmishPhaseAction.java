@@ -45,12 +45,12 @@ public class SkirmishPhaseAction extends SystemQueueAction {
                     protected void doPlayEffect(LotroGame game) {
                         if (!game.getGameState().getSkirmish().isCancelled()) {
                             insertEffect(
-                                    new ResolveSkirmishEffect(),
-                                    new TriggeringResultEffect(new SkirmishAboutToEndResult(), "Skirmish about to end"));
+                                    new ResolveSkirmishEffect());
                         }
                     }
                 });
-
+        appendEffect(
+                new TriggeringResultEffect(null, new SkirmishAboutToEndResult(shadowCharacters), "Skirmish about to end"));
         appendEffect(
                 new TriggeringResultEffect(null, new EndOfPhaseResult(Phase.SKIRMISH), "End of skirmish phase"));
         appendEffect(

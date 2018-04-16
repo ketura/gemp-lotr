@@ -50,8 +50,6 @@ public class Card8_087 extends AbstractCompanion {
                                     new PlayAnyNumberOfCardsFromDeckEffect(action, playerId, rohanPossessions));
                         }
                     });
-            action.appendEffect(
-                    new ShuffleDeckEffect(playerId));
             return Collections.singletonList(action);
         }
         return null;

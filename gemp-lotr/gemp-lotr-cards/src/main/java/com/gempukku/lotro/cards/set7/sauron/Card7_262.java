@@ -11,6 +11,8 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.decisions.MultipleChoiceAwaitingDecision;
+import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.LinkedList;
@@ -33,29 +35,43 @@ public class Card7_262 extends AbstractEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && PlayConditions.canPlayFromDiscard(playerId, game, Culture.SAURON, Race.ORC)
-                && (PlayConditions.canRemoveBurdens(game, self, 1)
-                || PlayConditions.canPlayFromStacked(playerId, game, Filters.siteControlled(playerId), Keyword.BESIEGER));
+                && (PlayConditions.canPlayFromDiscard(playerId, game, Culture.SAURON, Race.ORC)
+                && PlayConditions.canRemoveBurdens(game, self, 1))
+                || PlayConditions.canPlayFromStacked(playerId, game, Filters.siteControlled(playerId), Keyword.BESIEGER);
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayCardAction(final String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self);
-        List<Effect> possibleCosts = new LinkedList<Effect>();
-        possibleCosts.add(
-                new ChooseAndPlayCardFromStackedEffect(playerId, Filters.siteControlled(playerId), Keyword.BESIEGER) {
-                    @Override
-                    public String getText(LotroGame game) {
-                        return "Play a besieger stacked on a site you control";
+        if (PlayConditions.canPlayFromStacked(playerId, game, Filters.siteControlled(playerId), Keyword.BESIEGER)
+                && PlayConditions.canRemoveBurdens(game, self, 1)
+                && PlayConditions.canPlayFromDiscard(playerId, game, Culture.SAURON, Race.ORC)) {
+            action.appendEffect(
+                    new PlayoutDecisionEffect(playerId,
+                            new MultipleChoiceAwaitingDecision(1, "Which would you like to do?", new String[]{"Play a besieger stacked on a site you control", "Remove a burden to play a SAURON Orc from Discard"}) {
+                @Override
+                protected void validDecisionMade(int index, String result) {
+                    if (result.equals("Play a besieger stacked on a site you control")) {
+                        action.appendEffect(
+                        new ChooseAndPlayCardFromStackedEffect(playerId, Filters.siteControlled(playerId), Keyword.BESIEGER));
+                    } else {
+                        action.appendCost(
+                                new RemoveBurdenEffect(playerId, self));
+                        action.appendEffect(
+                                new ChooseAndPlayCardFromDiscardEffect(playerId, game, Culture.SAURON, Race.ORC));
                     }
-                });
-        possibleCosts.add(
-                new RemoveBurdenEffect(playerId, self));
-        action.appendCost(
-                new ChoiceEffect(action, playerId, possibleCosts));
-
-        action.appendEffect(
-                new ChooseAndPlayCardFromDiscardEffect(playerId, game, Culture.SAURON, Race.ORC));
+                }
+            }));
+        } else if (PlayConditions.canPlayFromStacked(playerId, game, Filters.siteControlled(playerId), Keyword.BESIEGER)) {
+            action.appendEffect(
+                    new ChooseAndPlayCardFromStackedEffect(playerId, Filters.siteControlled(playerId), Keyword.BESIEGER));
+        } else if (PlayConditions.canRemoveBurdens(game, self, 1)
+                && PlayConditions.canPlayFromDiscard(playerId, game, Culture.SAURON, Race.ORC)) {
+            action.appendCost(
+                    new RemoveBurdenEffect(playerId, self));
+            action.appendEffect(
+                    new ChooseAndPlayCardFromDiscardEffect(playerId, game, Culture.SAURON, Race.ORC));
+        }
         return action;
     }
 }

@@ -27,24 +27,27 @@ import java.util.List;
  */
 public class Card5_096 extends AbstractEvent {
     public Card5_096() {
-        super(Side.SHADOW, 0, Culture.SAURON, "Eye of Barad-Dur", Phase.SKIRMISH);
+        super(Side.SHADOW, 0, Culture.SAURON, "Eye of Barad-Dur", Phase.FELLOWSHIP, Phase.MANEUVER, Phase.SKIRMISH, Phase.REGROUP);
     }
 
     @Override
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
-        final PlayEventAction action = new PlayEventAction(self);
-        action.appendEffect(
-                new ChooseActiveCardEffect(self, playerId, "Choose companion or ally",
-                        Filters.or(CardType.COMPANION, CardType.ALLY), Filters.inSkirmishAgainst(Culture.SAURON, Race.ORC)) {
-                    @Override
-                    protected void cardSelected(LotroGame game, PhysicalCard card) {
-                        int ringBoundCompanions = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION, Keyword.RING_BOUND);
-                        action.insertEffect(
-                                new AddUntilEndOfPhaseModifierEffect(
-                                        new StrengthModifier(self, Filters.sameCard(card), -ringBoundCompanions)));
-                    }
-                });
-        return action;
+        if (game.getGameState().getCurrentPhase() == Phase.SKIRMISH) {
+            final PlayEventAction action = new PlayEventAction(self);
+            action.appendEffect(
+                    new ChooseActiveCardEffect(self, playerId, "Choose companion or ally",
+                            Filters.or(CardType.COMPANION, CardType.ALLY), Filters.inSkirmishAgainst(Culture.SAURON, Race.ORC)) {
+                        @Override
+                        protected void cardSelected(LotroGame game, PhysicalCard card) {
+                            int ringBoundCompanions = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION, Keyword.RING_BOUND);
+                            action.insertEffect(
+                                    new AddUntilEndOfPhaseModifierEffect(
+                                            new StrengthModifier(self, Filters.sameCard(card), -ringBoundCompanions)));
+                        }
+                    });
+            return action;
+        }
+        return null;
     }
 
     @Override

@@ -44,7 +44,7 @@ public class Card19_024 extends AbstractAttachable {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (TriggerConditions.winsSkirmish(game, effectResult, self.getAttachedTo())) {
+        if (TriggerConditions.startOfPhase(game, effectResult, Phase.SKIRMISH)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
                     new ChooseAndTransferAttachableEffect(action, playerId, self, Filters.any, Filters.and(Culture.ROHAN, Race.MAN)));

@@ -4,8 +4,8 @@ import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.AddTokenEffect;
-import com.gempukku.lotro.cards.effects.RemoveTokenEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
+import com.gempukku.lotro.cards.effects.choose.ChooseAndRemoveCultureTokensFromCardEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -45,10 +45,10 @@ public class Card17_113 extends AbstractPermanent {
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.winsSkirmish(game, effectResult, CardType.MINION, Culture.URUK_HAI)
-                && PlayConditions.canRemoveTokens(game, self, Token.URUK_HAI)) {
+                && PlayConditions.canRemoveTokens(game, Token.URUK_HAI, 1, CardType.CONDITION)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(
-                    new RemoveTokenEffect(self, self, Token.URUK_HAI));
+                    new ChooseAndRemoveCultureTokensFromCardEffect(self, playerId, Token.URUK_HAI, 1, CardType.CONDITION));
             action.appendEffect(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, CardType.COMPANION));
             return Collections.singletonList(action);

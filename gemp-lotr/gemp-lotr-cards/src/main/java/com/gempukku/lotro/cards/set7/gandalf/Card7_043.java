@@ -4,6 +4,7 @@ import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
+import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Side;
@@ -46,7 +47,7 @@ public class Card7_043 extends AbstractEvent {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
                         game.getModifiersEnvironment().addUntilStartOfPhaseModifier(
-                                new StrengthModifier(self, card.getBlueprint().getCulture(), 3), Phase.REGROUP);
+                                new StrengthModifier(self, Filters.and(card.getBlueprint().getCulture(), Filters.unboundCompanion), 3), Phase.REGROUP);
                     }
                 });
         return action;

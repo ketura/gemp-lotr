@@ -3,8 +3,8 @@ package com.gempukku.lotro.cards.set15.gollum;
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.AddUntilEndOfTurnModifierEffect;
 import com.gempukku.lotro.cards.effects.PreventableEffect;
+import com.gempukku.lotro.cards.effects.SnapshotAndApplyStrengthModifierUntilStartOfPhaseEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
@@ -15,7 +15,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
-import com.gempukku.lotro.logic.modifiers.StrengthModifier;
+import com.gempukku.lotro.logic.modifiers.evaluator.ConstantEvaluator;
 import com.gempukku.lotro.logic.timing.Effect;
 
 /**
@@ -53,8 +53,8 @@ public class Card15_052 extends AbstractEvent {
 
                                             @Override
                                             public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
-                                                return new AddUntilEndOfTurnModifierEffect(
-                                                        new StrengthModifier(self, CardType.MINION, -2)) {
+                                                return new SnapshotAndApplyStrengthModifierUntilStartOfPhaseEffect(
+                                                        self, new ConstantEvaluator(-2), Phase.FELLOWSHIP, CardType.MINION) {
                                                     @Override
                                                     public String getText(LotroGame game) {
                                                         return "Make each minion strength -2";
