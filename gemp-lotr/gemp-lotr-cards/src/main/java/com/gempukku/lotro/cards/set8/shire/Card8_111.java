@@ -25,7 +25,7 @@ import com.gempukku.lotro.logic.effects.AddThreatsEffect;
  */
 public class Card8_111 extends AbstractEvent {
     public Card8_111() {
-        super(Side.FREE_PEOPLE, 1, Culture.SHIRE, "So Fair, So Desparate", Phase.SKIRMISH);
+        super(Side.FREE_PEOPLE, 1, Culture.SHIRE, "So Fair, So Desperate", Phase.SKIRMISH);
     }
 
     @Override

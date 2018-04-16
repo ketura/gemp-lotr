@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class Card2_017 extends AbstractResponseOldEvent {
     public Card2_017() {
-        super(Side.FREE_PEOPLE, Culture.ELVEN, "Dismay Our Enemiers");
+        super(Side.FREE_PEOPLE, Culture.ELVEN, "Dismay Our Enemies");
     }
 
     @Override
