@@ -49,7 +49,7 @@ public class FixedLeaguePrizes implements LeaguePrizes {
     public CardCollection getPrizeForLeague(int position, int playersCount, int gamesPlayed, int maxGamesPlayed, CollectionType collectionType) {
         if (collectionType.equals(CollectionType.ALL_CARDS)) {
             return getPrizeForConstructedLeague(position, playersCount, gamesPlayed, maxGamesPlayed);
-        } else if (collectionType.equals(CollectionType.MY_CARDS)) {
+        } else if (collectionType.equals(CollectionType.MY_CARDS) || collectionType.equals(CollectionType.OWNED_TOURNAMENT_CARDS)) {
             return getPrizeForCollectorsLeague(position, playersCount, gamesPlayed, maxGamesPlayed);
         } else {
             return getPrizeForSealedLeague(position, playersCount, gamesPlayed, maxGamesPlayed);
