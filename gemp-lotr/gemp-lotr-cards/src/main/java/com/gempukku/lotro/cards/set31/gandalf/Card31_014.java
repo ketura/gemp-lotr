@@ -3,18 +3,23 @@ package com.gempukku.lotro.cards.set31.gandalf;
 import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
+import com.gempukku.lotro.cards.actions.SubCostToEffectAction;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
 import com.gempukku.lotro.cards.effects.OptionalEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromDeckEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromDiscardEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndTransferAttachableEffect;
+import com.gempukku.lotro.cards.effects.TransferPermanentEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
+import com.gempukku.lotro.logic.effects.StackActionEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -39,8 +44,8 @@ public class Card31_014 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
-        PlayEventAction action = new PlayEventAction(self);
+    public PlayEventAction getPlayCardAction(final String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+        final PlayEventAction action = new PlayEventAction(self);
 
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.name("Gandalf")));
@@ -53,15 +58,30 @@ public class Card31_014 extends AbstractEvent {
 
         action.appendEffect(
                 new ChoiceEffect(action, playerId, possibleEffects));
-        action.appendEffect(
-                new OptionalEffect(action, playerId,
-                        new ChooseAndTransferAttachableEffect(action, playerId, true, Filters.and(Culture.GANDALF, CardType.FOLLOWER, Zone.SUPPORT), Filters.any, CardType.COMPANION)) {
+
+        SubCostToEffectAction subAction = new SubCostToEffectAction(action);
+        subAction.appendEffect(
+                new ChooseActiveCardEffect(self, playerId, "Choose a [GANDALF] follower", Culture.GANDALF, CardType.FOLLOWER, Zone.SUPPORT) {
+            @Override
+            protected void cardSelected(LotroGame game, final PhysicalCard follower) {
+                action.appendEffect(
+                        new ChooseActiveCardEffect(self, playerId, "Choose a companion", CardType.COMPANION) { 
                     @Override
-                    public String getText(LotroGame game) {
-                        return "Attach a [GANDALF] follower";
+                    protected void cardSelected(LotroGame game, PhysicalCard companion) {
+                        action.appendEffect(new TransferPermanentEffect(follower, companion));
                     }
                 });
-
-        return action;
+            }
+        });
+		
+        action.appendEffect(
+                new OptionalEffect(action, playerId,
+                new StackActionEffect(subAction) {
+            @Override
+            public String getText(LotroGame game) {
+                return "Attach a [GANDALF] follower";
+            }
+	}));
+    return action;
     }
 }

@@ -13,6 +13,7 @@ import com.gempukku.lotro.cards.effects.ChoiceEffect;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.ChooseAndWoundCharactersEffect;
 import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
+import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.LinkedList;
@@ -39,25 +40,38 @@ public class Card30_024 extends AbstractEvent {
 	}
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
-        PlayEventAction action = new PlayEventAction(self);
+    public PlayEventAction getPlayCardAction(String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+        final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, 2, Filters.gandalf));
         List<Effect> possibleEffects = new LinkedList<Effect>();
+        if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), CardType.MINION, Filters.moreVitalityThan(1))) {
+            possibleEffects.add(
+                    new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, 2, CardType.MINION, Filters.moreVitalityThan(1)) {
+                @Override
+                public String getText(LotroGame game) {
+                    return "Wound a minion twice";
+                }
+            });
+        } else if (!Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Race.TROLL)) {
+            possibleEffects.add(
+                    new ChooseActiveCardEffect(self, playerId, "Choose minion", CardType.MINION, Filters.canTakeWounds(self, 1)) {
+                @Override
+                protected void cardSelected(LotroGame game, PhysicalCard card) {
+                    action.insertEffect(
+                            new WoundCharactersEffect(self, card));
+                    action.insertEffect(
+                            new WoundCharactersEffect(self, card));
+                }
+            });
+        }
         possibleEffects.add(
-                new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, 2, CardType.MINION) {
-                    @Override
-                    public String getText(LotroGame game) {
-                        return "Wound a minion twice";
-                    }
-                });
-		possibleEffects.add(
                 new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Race.TROLL) {
-                    @Override
-                    public String getText(LotroGame game) {
-                        return "Discard a Troll";
-                    }
-				});
+            @Override
+            public String getText(LotroGame game) {
+                return "Discard a Troll";
+            }
+        });
         action.appendEffect(
                 new ChoiceEffect(action, playerId, possibleEffects));
         return action;

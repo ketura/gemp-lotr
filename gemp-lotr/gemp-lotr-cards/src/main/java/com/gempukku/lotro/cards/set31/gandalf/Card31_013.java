@@ -44,9 +44,10 @@ public class Card31_013 extends AbstractFollower {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new CantDiscardFromPlayModifier(self, "Cannot be discarded from play by Shadow cards",
-	        new SpotCondition(Filters.hasAttached(self)), self, Side.SHADOW);
+    protected List<? extends Modifier> getNonBasicStatsModifiers(PhysicalCard self) {
+        return Collections.singletonList(
+                new CantDiscardFromPlayModifier(self, "Cannot be discarded from play by Shadow cards",
+                new SpotCondition(Filters.hasAttached(self)), self, Side.SHADOW));
     }
 	
     @Override

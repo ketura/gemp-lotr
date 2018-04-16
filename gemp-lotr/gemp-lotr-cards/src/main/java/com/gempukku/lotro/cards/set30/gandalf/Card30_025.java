@@ -6,6 +6,7 @@ import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.effects.SelfExertEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseCardsFromDeckEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
+import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromDiscardEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromDeckEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -36,6 +37,7 @@ import java.util.List;
 public class Card30_025 extends AbstractCompanion {
     public Card30_025() {
         super(4, 7, 4, 6, Culture.GANDALF, Race.WIZARD, null, "Gandalf", "Leader of Dwarves", true);
+        addKeyword(Keyword.WISE);
     }
 
     @Override
@@ -51,16 +53,18 @@ public class Card30_025 extends AbstractCompanion {
         return null;
     }
 	
-	@Override
-	public List<? extends Action> getPhaseActionsFromDiscard(String playerId, LotroGame game, final PhysicalCard self) {
+    @Override
+    public List<? extends Action> getPhaseActionsFromDiscard(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.isPhase(game, Phase.MANEUVER)
-                && (PlayConditions.canDiscardFromPlay(self, game, 2, Race.DWARF, CardType.FOLLOWER))
-				&& (PlayConditions.canPlayFromDiscard(playerId, game, self))) {
-            ActivateCardAction action = new ActivateCardAction(self);			
-			action.appendCost(
-					new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 2, 2, Race.DWARF, CardType.FOLLOWER));					
-            return Collections.singletonList(getPlayCardAction(playerId, game, self, 0, false));
+            && (PlayConditions.canDiscardFromPlay(self, game, 2, Race.DWARF, CardType.FOLLOWER))
+            && (PlayConditions.canPlayFromDiscard(playerId, game, self))) {
+                ActivateCardAction replayGandalf = new ActivateCardAction(self);			
+                replayGandalf.appendCost(
+                        new ChooseAndDiscardCardsFromPlayEffect(replayGandalf, playerId, 2, 2, Race.DWARF, CardType.FOLLOWER));
+                replayGandalf.appendEffect(
+                        new ChooseAndPlayCardFromDiscardEffect(playerId, game, self));
+                return Collections.singletonList(replayGandalf);
         }
         return null;
-	}
+    }
 }

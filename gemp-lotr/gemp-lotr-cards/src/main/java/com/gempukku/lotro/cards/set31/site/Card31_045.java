@@ -31,11 +31,13 @@ public class Card31_045 extends AbstractSite {
     }
 
     @Override
-    public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.startOfPhase(game, effectResult, Phase.MANEUVER)) {
-            OptionalTriggerAction action = new OptionalTriggerAction(self);
-            action.appendEffect(
-                    new ChooseAndPlayCardFromDeckEffect(playerId, PossessionClass.HAND_WEAPON));
+            RequiredTriggerAction action = new RequiredTriggerAction(self);
+            for (String playerId : GameUtils.getAllPlayers(game)) {
+                action.appendEffect(new OptionalEffect(action, playerId,
+                    new ChooseAndPlayCardFromDeckEffect(playerId, PossessionClass.HAND_WEAPON)));
+            }
             return Collections.singletonList(action);
         }
         return null;
