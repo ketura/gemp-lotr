@@ -45,7 +45,7 @@ public class StartingPoolBuilder {
     }
 
     private CardCollectionProducer buildBoosterDraftRun(JSONObject boosterDraftRun) {
-        final int runLengthInput = ((Number) boosterDraftRun.get("runLength")).intValue();
+        final int runLength = ((Number) boosterDraftRun.get("runLength")).intValue();
         final JSONArray coreCards = (JSONArray) boosterDraftRun.get("coreCards");
         final JSONArray freePeoplesRuns = (JSONArray) boosterDraftRun.get("freePeoplesRuns");
         final JSONArray shadowRuns = (JSONArray) boosterDraftRun.get("shadowRuns");
@@ -62,15 +62,6 @@ public class StartingPoolBuilder {
 
                 int shadowLength = shadowRun.size();
                 int shadowStart = rnd.nextInt(shadowLength);
-
-                int runLength;
-                if (freePeopleLength > 0 && shadowLength > 0) {
-                    runLength = Math.min(runLengthInput, Math.min(freePeopleLength, shadowLength));
-                } else if (freePeopleLength > 0) {
-                    runLength = Math.min(runLengthInput, freePeopleLength);
-                } else {
-                    runLength = Math.min(runLengthInput, shadowLength);
-                }
 
                 Iterable<String> freePeopleIterable = getCyclingIterable(freePeoplesRun, freePeopleStart, runLength);
                 Iterable<String> shadowIterable = getCyclingIterable(shadowRun, shadowStart, runLength);
