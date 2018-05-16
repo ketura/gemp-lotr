@@ -245,6 +245,7 @@
         "code":"limited_fotr",
         "sites":"FELLOWSHIP",
         "cancelRingBearerSkirmish":true,
+        "limited":true,
         "set":[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
         "hall":false
     },
@@ -253,6 +254,7 @@
         "code":"limited_ttt",
         "sites":"TWO_TOWERS",
         "cancelRingBearerSkirmish":true,
+        "limited":true,
         "set":[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
         "hall":false
     },
@@ -261,6 +263,7 @@
         "code":"limited_king",
         "sites":"KING",
         "cancelRingBearerSkirmish":true,
+        "limited":true,
         "set":[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
         "hall":false
     },
@@ -269,6 +272,7 @@
         "code":"limited_shadows",
         "sites":"SHADOWS",
         "cancelRingBearerSkirmish":false,
+        "limited":true,
         "set":[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
         "hall":false
     },
@@ -345,6 +349,7 @@
         "code":"limited_hobbit",
         "sites":"HOBBIT",
         "cancelRingBearerSkirmish":true,
+        "limited":true,
         "set":[30, 31],
         "hall":false
     }
