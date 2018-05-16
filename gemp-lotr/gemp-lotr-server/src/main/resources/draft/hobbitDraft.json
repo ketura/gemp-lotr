@@ -1,0 +1,133 @@
+{
+  "format": "limited_hobbit",
+  "startingPool": {
+    "type": "randomCardPool",
+    "data": {
+      "randomResult": [
+        ["30_1", "30_2", "30_3", "30_4", "30_5", "30_6", "30_7", "30_8", "30_9", "30_10", "30_11", "30_12", "30_13", "30_14", "30_15", "30_16", "30_17", "30_18", "30_19", "30_20", "30_21", "30_22", "30_23", "30_24", "30_29", "30_30", "30_31", "30_47", "30_48", "30_32", "30_32", "30_32", "30_33", "30_33", "30_34", "30_34", "30_35", "30_35", "30_35", "30_35", "30_36", "30_36", "30_37", "30_37", "30_38", "30_38", "30_39", "30_39", "30_39", "30_40", "30_40", "30_40", "30_41", "30_41", "30_42", "30_42", "30_42", "30_42", "30_58", "30_49", "30_50", "30_51", "30_52", "30_53", "30_54", "30_55", "30_56", "30_57"]
+      ]
+    }
+  },
+  "choices": [
+    {
+      "type": "filterPick",
+      "repeat": 1,
+      "data": {
+        "optionCount": 1,
+        "filter": "side:FREE_PEOPLE name:Bilbo set:30"
+      }
+    },
+    {
+      "type": "filterPick",
+      "repeat": 1,
+      "data": {
+        "optionCount": 1,
+        "filter": "side:FREE_PEOPLE name:Gandalf set:30"
+      }
+    },
+    {
+      "type": "weightedSwitch",
+      "repeat": 22,
+      "data": {
+        "switchResult": [
+          {
+            "weight": 0.05,
+            "type": "filterPick",
+            "data": {
+              "optionCount": 2,
+              "filter": "side:SHADOW set:30,31 rarity:X"
+            }
+          },
+          {
+            "weight": 0.1,
+            "type": "filterPick",
+            "data": {
+              "optionCount": 2,
+              "filter": "side:SHADOW set:30,31 rarity:R"
+            }
+          },
+          {
+            "weight": 0.13,
+            "type": "filterPick",
+            "data": {
+              "optionCount": 3,
+              "filter": "side:SHADOW set:30,31 rarity:P"
+            }
+          },
+          {
+            "weight": 0.36,
+            "type": "filterPick",
+            "data": {
+              "optionCount": 4,
+              "filter": "side:SHADOW set:30,31 rarity:U"
+            }
+          },
+          {
+            "weight": 0.36,
+            "type": "filterPick",
+            "data": {
+              "optionCount": 5,
+              "filter": "side:SHADOW set:30,31 rarity:C"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "weightedSwitch",
+      "repeat": 18,
+      "data": {
+        "switchResult": [
+          {
+            "weight": 0.15,
+            "type": "filterPick",
+            "data": {
+              "optionCount": 4,
+              "filter": "side:FREE_PEOPLE set:30,31 rarity:X"
+            }
+          },
+          {
+            "weight": 0.25,
+            "type": "filterPick",
+            "data": {
+              "optionCount": 6,
+              "filter": "side:FREE_PEOPLE set:30,31 rarity:R"
+            }
+          },
+          {
+            "weight": 0.6,
+            "type": "filterPick",
+            "data": {
+              "optionCount": 5,
+              "filter": "side:FREE_PEOPLE set:30,31 rarity:C"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "weightedSwitch",
+      "repeat": 5,
+      "data": {
+        "switchResult": [
+          {
+            "weight": 0.2,
+            "type": "filterPick",
+            "data": {
+              "optionCount": 3,
+              "filter": "cardType:SITE set:30,31 rarity:X"
+            }
+          },
+          {
+            "weight": 0.8,
+            "type": "filterPick",
+            "data": {
+              "optionCount": 4,
+              "filter": "cardType:SITE set:30,31 rarity:P"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
