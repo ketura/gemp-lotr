@@ -58,7 +58,10 @@ public class StartingPoolBuilder {
                 List<String> shadowRun = (List<String>) shadowRuns.get(rnd.nextInt(shadowRuns.size()));
 
                 int freePeopleLength = freePeoplesRun.size();
+                int freePeopleStart = rnd.nextInt(freePeopleLength);
+
                 int shadowLength = shadowRun.size();
+                int shadowStart = rnd.nextInt(shadowLength);
 
                 int runLength;
                 if (freePeopleLength > 0 && shadowLength > 0) {
@@ -69,15 +72,12 @@ public class StartingPoolBuilder {
                     runLength = Math.min(runLengthInput, shadowLength);
                 }
 
-                int freePeopleStart = rnd.nextInt(freePeopleLength);
-                int shadowStart = rnd.nextInt(shadowLength);
-
-                Iterable<String> freePeopleIterator = getCyclingIterable(freePeoplesRun, freePeopleStart, runLength);
-                Iterable<String> shadowIterator = getCyclingIterable(shadowRun, shadowStart, runLength);
+                Iterable<String> freePeopleIterable = getCyclingIterable(freePeoplesRun, freePeopleStart, runLength);
+                Iterable<String> shadowIterable = getCyclingIterable(shadowRun, shadowStart, runLength);
 
                 final DefaultCardCollection startingCollection = new DefaultCardCollection();
 
-                for (String card : Iterables.concat((List<String>) coreCards, freePeopleIterator, shadowIterator))
+                for (String card : Iterables.concat((List<String>) coreCards, freePeopleIterable, shadowIterable))
                     startingCollection.addItem(card, 1);
 
                 return startingCollection;
