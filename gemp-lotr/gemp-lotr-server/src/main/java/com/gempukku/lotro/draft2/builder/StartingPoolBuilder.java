@@ -2,7 +2,7 @@ package com.gempukku.lotro.draft2.builder;
 
 import com.gempukku.lotro.game.CardCollection;
 import com.gempukku.lotro.game.DefaultCardCollection;
-import com.google.common.collect.Iterators;
+import com.google.common.collect.Iterables;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -54,8 +54,8 @@ public class StartingPoolBuilder {
             @Override
             public CardCollection getCardCollection(long seed) {
                 Random rnd = new Random(seed);
-                List<String> freePeoplesRun = ((List<List<String>>) freePeoplesRuns).get(rnd.nextInt(freePeoplesRuns.size()));
-                List<String> shadowRun = ((List<List<String>>) shadowRuns).get(rnd.nextInt(shadowRuns.size()));
+                List<String> freePeoplesRun = (List<String>) freePeoplesRuns.get(rnd.nextInt(freePeoplesRuns.size()));
+                List<String> shadowRun = (List<String>) shadowRuns.get(rnd.nextInt(shadowRuns.size()));
 
                 int freePeopleLength = freePeoplesRun.size();
                 int shadowLength = shadowRun.size();
@@ -72,28 +72,20 @@ public class StartingPoolBuilder {
                 int freePeopleStart = rnd.nextInt(freePeopleLength);
                 int shadowStart = rnd.nextInt(shadowLength);
 
-                Iterator<String> freePeopleIterator = getCyclingIterator(freePeoplesRun, freePeopleStart, runLength);
-                Iterator<String> shadowIterator = getCyclingIterator(shadowRun, shadowStart, runLength);
+                Iterable<String> freePeopleIterator = getCyclingIterable(freePeoplesRun, freePeopleStart, runLength);
+                Iterable<String> shadowIterator = getCyclingIterable(shadowRun, shadowStart, runLength);
 
-                final DefaultCardCollection draftCollection = new DefaultCardCollection();
+                final DefaultCardCollection startingCollection = new DefaultCardCollection();
 
-                for (String coreCard : (List<String>) coreCards) {
-                    draftCollection.addItem(coreCard, 1);
-                }
-                while (freePeopleIterator.hasNext()) {
-                    draftCollection.addItem(freePeopleIterator.next(), 1);
-                }
-                while (shadowIterator.hasNext()) {
-                    draftCollection.addItem(shadowIterator.next(), 1);
-                }
-                return draftCollection;
+                for (String card : Iterables.concat((List<String>) coreCards, freePeopleIterator, shadowIterator))
+                    startingCollection.addItem(card, 1);
+
+                return startingCollection;
             }
         };
     }
 
-    private static Iterator<String> getCyclingIterator(List<String> list, int start, int length) {
-        Iterator<String> cycleListIterator = Iterators.cycle(list);
-        Iterators.skip(cycleListIterator, start);
-        return Iterators.limit(cycleListIterator, length);
+    private static Iterable<String> getCyclingIterable(List<String> list, int start, int length) {
+        return Iterables.limit(Iterables.skip(Iterables.cycle(list), start), length);
     }
 }

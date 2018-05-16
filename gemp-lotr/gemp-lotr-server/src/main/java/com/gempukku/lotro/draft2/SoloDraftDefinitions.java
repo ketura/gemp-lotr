@@ -7,6 +7,7 @@ import com.gempukku.lotro.draft2.builder.DraftChoiceBuilder;
 import com.gempukku.lotro.draft2.builder.StartingPoolBuilder;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
+import org.apache.log4j.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -17,6 +18,7 @@ import java.io.InputStreamReader;
 import java.util.*;
 
 public class SoloDraftDefinitions {
+    private static Logger _logger = Logger.getLogger(SoloDraftDefinitions.class);
     private Map<String, SoloDraft> draftTypes = new HashMap<String, SoloDraft>();
     private StartingPoolBuilder startingPoolBuilder = new StartingPoolBuilder();
     private DraftChoiceBuilder draftChoiceBuilder;
@@ -66,6 +68,7 @@ public class SoloDraftDefinitions {
                         draftChoiceDefinitions.add(draftChoiceDefinition);
                 }
 
+                _logger.debug("Loaded draft definition: "+file);
                 return new DefaultSoloDraft(format, cardCollectionProducer, draftChoiceDefinitions);
             } catch (ParseException exp) {
                 throw new RuntimeException("Problem loading solo draft " + file, exp);
