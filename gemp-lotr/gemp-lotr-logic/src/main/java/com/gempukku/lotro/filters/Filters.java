@@ -689,6 +689,27 @@ public class Filters {
                 }
             });
 
+    public static Filter allyWithSameHome(final PhysicalCard card) {
+        return Filters.and(
+                CardType.ALLY,
+                new Filter() {
+                    @Override
+                    public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                        LotroCardBlueprint blueprint = card.getBlueprint();
+                        if (blueprint.getCardType() == CardType.ALLY) {
+                            Block homeBlock = blueprint.getAllyHomeSiteBlock();
+                            int[] homeSites = blueprint.getAllyHomeSiteNumbers();
+                            for (int homeSite : homeSites) {
+                                if (physicalCard.getBlueprint().isAllyAtHome(homeSite, homeBlock)) {
+                                    return true;
+                                }
+                            }
+                        }
+                        return false;
+                    }
+                });
+    }
+
     public static final Filter currentSite = new Filter() {
         @Override
         public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {

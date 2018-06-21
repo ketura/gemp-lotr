@@ -32,7 +32,8 @@ public class Card12_009 extends AbstractPermanent {
 
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
-        if (PlayConditions.canDiscardFromHand(game, playerId, 1, Culture.DWARVEN)
+        if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
+                && PlayConditions.canDiscardFromHand(game, playerId, 1, Culture.DWARVEN)
                 && PlayConditions.canSpot(game, CardType.MINION, Filters.inSkirmishAgainst(Race.DWARF))) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(

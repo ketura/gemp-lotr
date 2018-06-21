@@ -16,7 +16,9 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.decisions.YesNoDecision;
 import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
+import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.lotro.logic.effects.StackActionEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
@@ -50,27 +52,32 @@ public class Card18_091 extends AbstractMinion {
             action.appendEffect(
                     new ChooseAndAssignCharacterToMinionEffect(action, playerId, self, Filters.ringBearer, Filters.not(Culture.SHIRE)));
 
-            String fpPlayer = game.getGameState().getCurrentPlayerId();
-            List<Effect> possibleCosts = new LinkedList<Effect>();
-            possibleCosts.add(
-                    new AddBurdenEffect(fpPlayer, self, 1));
-            possibleCosts.add(
-                    new ChooseAndExertCharactersEffect(action, fpPlayer, 1, 1, 2, Filters.ringBearer));
-            SubCostToEffectAction subAction = new SubCostToEffectAction(action);
-            action.appendCost(
-                    new ChoiceEffect(subAction, fpPlayer, possibleCosts));
+            final String fpPlayer = game.getGameState().getCurrentPlayerId();
+
             action.appendEffect(
-                    new DiscardCardsFromPlayEffect(playerId, self, self));
-            action.appendEffect(
-                    new OptionalEffect(action, game.getGameState().getCurrentPlayerId(),
-                            new StackActionEffect(subAction) {
-                                @Override
-                                public String getText(LotroGame game) {
-                                    return "Add burden or exert the Ring-bearer twice to discard " + GameUtils.getFullName(self);
-                                }
-                            }));
+                    new PlayoutDecisionEffect(fpPlayer,
+                    new YesNoDecision("Do you want to add burden or exert the Ring-bearer twice to discard " + GameUtils.getFullName(self) + "?") {
+                @Override
+                protected void yes() {
+                    List<Effect> possibleCosts = new LinkedList<Effect>();
+                    possibleCosts.add(
+                            new AddBurdenEffect(fpPlayer, self, 1));
+                    possibleCosts.add(
+                            new ChooseAndExertCharactersEffect(action, fpPlayer, 1, 1, 2, Filters.ringBearer) {
+                        @Override
+                        public String getText(LotroGame game) {
+                            return "Exert the Ring-bearer twice";
+                        }
+                    });
+                    SubCostToEffectAction subAction = new SubCostToEffectAction(action);
+                    action.appendCost(
+                            new ChoiceEffect(subAction, fpPlayer, possibleCosts));
+                    action.appendEffect(
+                            new DiscardCardsFromPlayEffect(playerId, self, self));
+                }
+            }));
             return Collections.singletonList(action);
-        }
-        return null;
+        };
+    return null;
     }
 }

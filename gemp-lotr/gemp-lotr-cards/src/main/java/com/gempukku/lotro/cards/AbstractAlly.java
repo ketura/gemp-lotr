@@ -72,6 +72,16 @@ public class AbstractAlly extends AbstractPermanent {
     }
 
     @Override
+    public int[] getAllyHomeSiteNumbers() {
+        return _siteNumbers;
+    }
+
+    @Override
+    public Block getAllyHomeSiteBlock() {
+        return _siteBlock;
+    }
+
+    @Override
     public final boolean isAllyAtHome(int siteNumber, Block block) {
         if (block != _siteBlock)
             return false;
