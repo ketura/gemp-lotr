@@ -150,7 +150,7 @@ public class MtgGoldfishProvider implements MtgDataProvider {
         String link = "http://www.mtggoldfish.com/index/" + mtgCardSet.getUrlPostfix();
         Document doc = Jsoup.parse(new URL(link), TIMEOUT);
         boolean isInPaper = (doc.select("#priceHistoryTabs [href=#tab-paper]").size() > 0);
-        if (isInPaper) {
+        if (isInPaper && !containsLinkSet(result, link)) {
             List<CardData> allCards = new LinkedList<CardData>();
 
             Elements cardElements = doc.select(".index-price-table-paper tbody tr");
@@ -167,6 +167,14 @@ public class MtgGoldfishProvider implements MtgDataProvider {
             }
             result.add(new SetCardData(mtgCardSet.getInfoLine(), link, allCards));
         }
+    }
+
+    private boolean containsLinkSet(List<SetCardData> result, String link) {
+        for (SetCardData setCardData : result) {
+            if (setCardData.getSetLink().equals(link))
+                return true;
+        }
+        return false;
     }
 
     private int getSleepTime() {
