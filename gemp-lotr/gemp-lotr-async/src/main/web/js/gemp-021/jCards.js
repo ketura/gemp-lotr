@@ -418,7 +418,7 @@ function createCardDiv(image, text, foil, tokens, noBorder, errata) {
     }
 
     if (foil) {
-        var foilDiv = $("<div class='foilOverlay'><img src='/gemp-lotr/images/foil.gif' width='100%' height='100%'></div>");
+        var foilDiv = $("<div class='foilOverlay'><img src='/gemp-lotr/images/"+getFoilImg()+"' width='100%' height='100%'></div>");
         cardDiv.append(foilDiv);
     }
 
@@ -432,6 +432,15 @@ function createCardDiv(image, text, foil, tokens, noBorder, errata) {
     cardDiv.append(borderDiv);
 
     return cardDiv;
+}
+
+function getFoilImg() {
+    var foilPresentation = $.cookie("foilPresentation");
+    if (foilPresentation == "true" || foilPresentation == null) {
+        return "foil.gif";
+    } else {
+        return "holo.jpg";
+    }
 }
 
 function createFullCardDiv(image, foil, horizontal, noBorder) {
@@ -448,7 +457,7 @@ function createFullCardDiv(image, foil, horizontal, noBorder) {
         }
 
         if (foil) {
-            var foilDiv = $("<div class='foilOverlay' style='position:absolute;width:497px;height:357px'><img src='/gemp-lotr/images/foil.gif' width='100%' height='100%'></div>");
+            var foilDiv = $("<div class='foilOverlay' style='position:absolute;width:497px;height:357px'><img src='/gemp-lotr/images/"+getFoilImg()+"' width='100%' height='100%'></div>");
             cardDiv.append(foilDiv);
         }
     } else {
@@ -464,7 +473,7 @@ function createFullCardDiv(image, foil, horizontal, noBorder) {
         }
 
         if (foil) {
-            var foilDiv = $("<div class='foilOverlay' style='position:absolute;width:357px;height:497px'><img src='/gemp-lotr/images/foil.gif' width='100%' height='100%'></div>");
+            var foilDiv = $("<div class='foilOverlay' style='position:absolute;width:357px;height:497px'><img src='/gemp-lotr/images/"+getFoilImg()+"' width='100%' height='100%'></div>");
             cardDiv.append(foilDiv);
         }
     }

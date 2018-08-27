@@ -99,9 +99,7 @@ public class LotroFormatLibrary {
                     _allFormats.put(formatCode, format);
 
                     Boolean hallFormat = (Boolean) formatDef.get("hall");
-                    if (hallFormat == null)
-                        hallFormat = true;
-                    if (hallFormat)
+                    if (hallFormat == null || hallFormat)
                         _hallFormats.put(formatCode, format);
                 }
             } catch (ParseException exp) {

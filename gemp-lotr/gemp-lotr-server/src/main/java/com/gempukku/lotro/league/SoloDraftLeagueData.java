@@ -64,12 +64,11 @@ public class SoloDraftLeagueData implements LeagueData {
     public CardCollection joinLeague(CollectionsManager collectionsManager, Player player, int currentTime) {
         MutableCardCollection startingCollection = new DefaultCardCollection();
         long seed = getSeed(player);
-        if (currentTime >= _serie.getStart()) {
-            CardCollection leagueProduct = _draft.initializeNewCollection(seed);
 
-            for (Map.Entry<String, CardCollection.Item> serieCollectionItem : leagueProduct.getAll().entrySet())
-                startingCollection.addItem(serieCollectionItem.getKey(), serieCollectionItem.getValue().getCount());
-        }
+        CardCollection leagueProduct = _draft.initializeNewCollection(seed);
+
+        for (Map.Entry<String, CardCollection.Item> serieCollectionItem : leagueProduct.getAll().entrySet())
+            startingCollection.addItem(serieCollectionItem.getKey(), serieCollectionItem.getValue().getCount());
 
         startingCollection.setExtraInformation(createExtraInformation(seed));
         collectionsManager.addPlayerCollection(false, "Sealed league product", player, _collectionType, startingCollection);
@@ -88,23 +87,9 @@ public class SoloDraftLeagueData implements LeagueData {
     public int process(CollectionsManager collectionsManager, List<PlayerStanding> leagueStandings, int oldStatus, int currentTime) {
         int status = oldStatus;
 
-        if (status == 0) {
-            if (currentTime >= _serie.getStart()) {
-                Map<Player, CardCollection> map = collectionsManager.getPlayersCollection(_collectionType.getCode());
-                for (Map.Entry<Player, CardCollection> playerCardCollectionEntry : map.entrySet()) {
-
-                    Player player = playerCardCollectionEntry.getKey();
-                    CardCollection leagueProduct = _draft.initializeNewCollection(getSeed(player));
-
-                    collectionsManager.addItemsToPlayerCollection(false, "New sealed league product", player, _collectionType, leagueProduct.getAll().values());
-                }
-                status = 1;
-            }
-        }
-
         int maxGamesTotal = _serie.getMaxMatches();
 
-        if (status == 1) {
+        if (status == 0) {
             if (currentTime > DateUtils.offsetDate(_serie.getEnd(), 1)) {
                 for (PlayerStanding leagueStanding : leagueStandings) {
                     CardCollection leaguePrize = _leaguePrizes.getPrizeForLeague(leagueStanding.getStanding(), leagueStandings.size(), leagueStanding.getGamesPlayed(), maxGamesTotal, _collectionType);

@@ -152,7 +152,7 @@ public class ServerBuilder {
 
     private static boolean isMtgEnabled() {
         String mtgEnabled = ApplicationConfiguration.getProperty("mtg.enabled");
-        return mtgEnabled == null || mtgEnabled.equals("true");
+        return mtgEnabled != null && mtgEnabled.equals("true");
     }
 
     public static void destroyObjects(Map<Type, Object> objectMap) {

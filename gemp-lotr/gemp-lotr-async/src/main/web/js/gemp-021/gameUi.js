@@ -56,6 +56,7 @@ var GempLotrGameUI = Class.extend({
     communication:null,
     channelNumber:null,
 
+    settingsFoilPresentation:false,
     settingsAutoPass:false,
     settingsAutoAccept:false,
     settingsAlwaysDropDown:false,
@@ -396,6 +397,20 @@ var GempLotrGameUI = Class.extend({
         $("#main").append(this.tabPane);
 
         this.chatBoxDiv = $("#chatBox");
+
+        $("#settingsBox").append("<input id='foilPresentation' type='checkbox' value='selected' /><label for='foilPresentation'>Use animated foiling</label><br />");
+
+        var foilPresentation = $.cookie("foilPresentation");
+        if (foilPresentation == "true" || foilPresentation == null) {
+            $("#foilPresentation").prop("checked", true);
+            this.settingsFoilPresentation = true;
+        }
+
+        $("#foilPresentation").bind("change", function () {
+            var selected = $("#foilPresentation").prop("checked");
+            that.settingsFoilPresentation = selected;
+            $.cookie("foilPresentation", "" + selected, { expires:365 });
+        });
 
         $("#settingsBox").append("<input id='autoAccept' type='checkbox' value='selected' /><label for='autoAccept'>Auto-accept after selecting action or card</label><br />");
 

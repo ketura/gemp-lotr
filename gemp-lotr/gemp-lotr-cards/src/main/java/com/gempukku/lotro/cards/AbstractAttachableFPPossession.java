@@ -44,7 +44,8 @@ public abstract class AbstractAttachableFPPossession extends AbstractAttachable 
 
             Filter validTransferFilter;
 
-            LotroCardBlueprint attachedTo = self.getAttachedTo().getBlueprint();
+            PhysicalCard attachedToCard = self.getAttachedTo();
+            LotroCardBlueprint attachedTo = attachedToCard.getBlueprint();
             if (attachedTo.getCardType() == CardType.COMPANION) {
                 validTransferFilter = Filters.and(validTargetFilter,
                         Filters.or(
@@ -54,11 +55,10 @@ public abstract class AbstractAttachableFPPossession extends AbstractAttachable 
                 validTransferFilter = Filters.and(validTargetFilter,
                         Filters.or(
                                 CardType.COMPANION,
-                                Filters.allyAtHome));
+                                Filters.allyWithSameHome(attachedToCard)));
             } else {
                 validTransferFilter = Filters.and(validTargetFilter,
-                        CardType.ALLY, Filters.allyAtHome
-                );
+                        Filters.allyWithSameHome(attachedToCard));
             }
 
             validTransferFilter = Filters.and(validTransferFilter,
