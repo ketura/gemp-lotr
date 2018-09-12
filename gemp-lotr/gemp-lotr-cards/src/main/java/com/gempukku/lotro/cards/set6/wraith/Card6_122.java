@@ -10,6 +10,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.effects.ChooseAndWoundCharactersEffect;
+import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
@@ -52,7 +53,13 @@ public class Card6_122 extends AbstractMinion {
             } else if (!Filters.canSpot(game.getGameState(), game.getModifiersQuerying(),
                     CardType.COMPANION, Filters.moreVitalityThan(1))) {
                 possibleEffects.add(
-                        new ChooseAndWoundCharactersEffect(action, self.getOwner(), 1, 1, 1, CardType.ALLY));
+                        new ChooseAndWoundCharactersEffect(action, self.getOwner(), 1, 1, 1, CardType.ALLY) {
+                    @Override
+                    protected void woundedCardsCallback(Collection<PhysicalCard> cards) {
+                        for (PhysicalCard card : cards)
+                            action.appendEffect(new WoundCharactersEffect(self, card));
+                    }
+                });
             }
             possibleEffects.add(
                     new ChooseAndExertCharactersEffect(action, self.getOwner(), 1, 1, CardType.COMPANION) {
