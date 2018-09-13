@@ -44,7 +44,7 @@ public class ChatRequestHandler extends LotroServerRequestHandler implements Uri
         } else if (uri.startsWith("/") && request.getMethod() == HttpMethod.POST) {
             postMessages(request, URLDecoder.decode(uri.substring(1)), responseWriter);
         } else {
-            responseWriter.writeError(404);
+            throw new HttpProcessingException(404);
         }
     }
 

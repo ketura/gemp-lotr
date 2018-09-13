@@ -65,7 +65,7 @@ public class CollectionRequestHandler extends LotroServerRequestHandler implemen
         } else if (uri.startsWith("/") && request.getMethod() == HttpMethod.GET) {
             getCollection(request, uri.substring(1), responseWriter);
         } else {
-            responseWriter.writeError(404);
+            throw new HttpProcessingException(404);
         }
     }
 

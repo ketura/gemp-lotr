@@ -97,7 +97,7 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
         } else if (uri.equals("/findMultipleAccounts") && request.getMethod() == HttpMethod.POST) {
             findMultipleAccounts(request, responseWriter);
         } else {
-            responseWriter.writeError(404);
+            throw new HttpProcessingException(404);
         }
     }
 

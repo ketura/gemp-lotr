@@ -42,6 +42,7 @@ public class SoloDraftLeagueData implements LeagueData {
         return _collectionType;
     }
 
+    @Override
     public SoloDraft getSoloDraft() {
         return _draft;
     }
@@ -64,11 +65,12 @@ public class SoloDraftLeagueData implements LeagueData {
     public CardCollection joinLeague(CollectionsManager collectionsManager, Player player, int currentTime) {
         MutableCardCollection startingCollection = new DefaultCardCollection();
         long seed = getSeed(player);
+        if (currentTime >= _serie.getStart()) {
+            CardCollection leagueProduct = _draft.initializeNewCollection(seed);
 
-        CardCollection leagueProduct = _draft.initializeNewCollection(seed);
-
-        for (Map.Entry<String, CardCollection.Item> serieCollectionItem : leagueProduct.getAll().entrySet())
-            startingCollection.addItem(serieCollectionItem.getKey(), serieCollectionItem.getValue().getCount());
+            for (Map.Entry<String, CardCollection.Item> serieCollectionItem : leagueProduct.getAll().entrySet())
+                startingCollection.addItem(serieCollectionItem.getKey(), serieCollectionItem.getValue().getCount());
+        }
 
         startingCollection.setExtraInformation(createExtraInformation(seed));
         collectionsManager.addPlayerCollection(false, "Sealed league product", player, _collectionType, startingCollection);
@@ -86,17 +88,21 @@ public class SoloDraftLeagueData implements LeagueData {
     @Override
     public int process(CollectionsManager collectionsManager, List<PlayerStanding> leagueStandings, int oldStatus, int currentTime) {
         int status = oldStatus;
-        
+
         if (status == 0) {
-            Map<Player, CardCollection> map = collectionsManager.getPlayersCollection(_collectionType.getCode());
-            for (Map.Entry<Player, CardCollection> playerCardCollectionEntry : map.entrySet()) {
-                Player player = playerCardCollectionEntry.getKey();
-                CardCollection leagueProduct = _draft.initializeNewCollection(getSeed(player));
-                collectionsManager.addItemsToPlayerCollection(false, "New sealed league product", player, _collectionType, leagueProduct.getAll().values());
+            if (currentTime >= _serie.getStart()) {
+                Map<Player, CardCollection> map = collectionsManager.getPlayersCollection(_collectionType.getCode());
+                for (Map.Entry<Player, CardCollection> playerCardCollectionEntry : map.entrySet()) {
+
+                    Player player = playerCardCollectionEntry.getKey();
+                    CardCollection leagueProduct = _draft.initializeNewCollection(getSeed(player));
+
+                    collectionsManager.addItemsToPlayerCollection(false, "New sealed league product", player, _collectionType, leagueProduct.getAll().values());
+                }
+                status = 1;
             }
-            status = 1;
         }
-        
+
         int maxGamesTotal = _serie.getMaxMatches();
 
         if (status == 1) {

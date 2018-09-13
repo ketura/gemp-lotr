@@ -5,6 +5,7 @@ import com.gempukku.lotro.cards.CardSets;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.competitive.PlayerStanding;
 import com.gempukku.lotro.db.vo.CollectionType;
+import com.gempukku.lotro.draft2.SoloDraft;
 import com.gempukku.lotro.draft2.SoloDraftDefinitions;
 import com.gempukku.lotro.game.CardCollection;
 import com.gempukku.lotro.game.Player;
@@ -48,6 +49,11 @@ public class NewConstructedLeagueData implements LeagueData {
     @Override
     public boolean isSoloDraftLeague() {
         return false;
+    }
+
+    @Override
+    public SoloDraft getSoloDraft() {
+        return null;
     }
 
     @Override

@@ -29,7 +29,7 @@ public class DeliveryRequestHandler extends LotroServerRequestHandler implements
         if (uri.equals("") && request.getMethod() == HttpMethod.GET) {
             getDelivery(request, responseWriter);
         } else {
-            responseWriter.writeError(404);
+            throw new HttpProcessingException(404);
         }
     }
 

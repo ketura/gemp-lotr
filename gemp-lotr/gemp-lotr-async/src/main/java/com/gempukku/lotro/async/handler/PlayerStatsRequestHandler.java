@@ -1,5 +1,6 @@
 package com.gempukku.lotro.async.handler;
 
+import com.gempukku.lotro.async.HttpProcessingException;
 import com.gempukku.lotro.async.ResponseWriter;
 import com.gempukku.lotro.db.PlayerStatistic;
 import com.gempukku.lotro.game.GameHistoryService;
@@ -56,7 +57,7 @@ public class PlayerStatsRequestHandler extends LotroServerRequestHandler impleme
 
             responseWriter.writeXmlResponse(doc);
         } else {
-            responseWriter.writeError(404);
+            throw new HttpProcessingException(404);
         }
     }
 

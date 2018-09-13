@@ -81,7 +81,7 @@ public class GameHistoryRequestHandler extends LotroServerRequestHandler impleme
 
             responseWriter.writeXmlResponse(doc);
         } else {
-            responseWriter.writeError(404);
+            throw new HttpProcessingException(404);
         }
     }
 }

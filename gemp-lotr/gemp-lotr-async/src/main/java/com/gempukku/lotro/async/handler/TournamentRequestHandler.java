@@ -52,7 +52,7 @@ public class TournamentRequestHandler extends LotroServerRequestHandler implemen
         } else if (uri.startsWith("/") && request.getMethod() == HttpMethod.GET) {
             getTournamentInfo(request, uri.substring(1), responseWriter);
         } else {
-            responseWriter.writeError(404);
+            throw new HttpProcessingException(404);
         }
     }
 

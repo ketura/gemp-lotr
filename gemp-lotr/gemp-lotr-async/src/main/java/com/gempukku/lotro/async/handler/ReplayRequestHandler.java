@@ -57,7 +57,7 @@ public class ReplayRequestHandler extends LotroServerRequestHandler implements U
 
             responseWriter.writeByteResponse(baos.toByteArray(), headers);
         } else {
-            responseWriter.writeError(404);
+            throw new HttpProcessingException(404);
         }
     }
 }

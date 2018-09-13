@@ -1,5 +1,7 @@
 package com.gempukku.lotro.async.handler;
 
+import com.gempukku.lotro.DateUtils;
+import com.gempukku.lotro.async.HttpProcessingException;
 import com.gempukku.lotro.async.ResponseWriter;
 import com.gempukku.lotro.cards.CardSets;
 import com.gempukku.lotro.collection.CollectionsManager;
@@ -48,7 +50,7 @@ public class SoloDraftRequestHandler extends LotroServerRequestHandler implement
         } else if (uri.startsWith("/") && request.getMethod() == HttpMethod.GET) {
             getAvailablePicks(request, uri.substring(1), responseWriter);
         } else {
-            responseWriter.writeError(404);
+            throw new HttpProcessingException(404);
         }
     }
 
@@ -59,11 +61,13 @@ public class SoloDraftRequestHandler extends LotroServerRequestHandler implement
         League league = findLeagueByType(leagueType);
 
         if (league == null)
-            responseWriter.writeError(404);
+            throw new HttpProcessingException(404);
 
         LeagueData leagueData = league.getLeagueData(_cardSets, _soloDraftDefinitions);
-        if (!leagueData.isSoloDraftLeague())
-            responseWriter.writeError(404);
+        int leagueStart = leagueData.getSeries().get(0).getStart();
+
+        if (!leagueData.isSoloDraftLeague() || DateUtils.getCurrentDate() < leagueStart)
+            throw new HttpProcessingException(404);
 
         SoloDraftLeagueData soloDraftLeagueData = (SoloDraftLeagueData) leagueData;
         CollectionType collectionType = soloDraftLeagueData.getCollectionType();
@@ -113,11 +117,13 @@ public class SoloDraftRequestHandler extends LotroServerRequestHandler implement
         League league = findLeagueByType(leagueType);
 
         if (league == null)
-            responseWriter.writeError(404);
+            throw new HttpProcessingException(404);
 
         LeagueData leagueData = league.getLeagueData(_cardSets, _soloDraftDefinitions);
-        if (!leagueData.isSoloDraftLeague())
-            responseWriter.writeError(404);
+        int leagueStart = leagueData.getSeries().get(0).getStart();
+
+        if (!leagueData.isSoloDraftLeague() || DateUtils.getCurrentDate() < leagueStart)
+            throw new HttpProcessingException(404);
 
         SoloDraftLeagueData soloDraftLeagueData = (SoloDraftLeagueData) leagueData;
         CollectionType collectionType = soloDraftLeagueData.getCollectionType();
@@ -127,7 +133,7 @@ public class SoloDraftRequestHandler extends LotroServerRequestHandler implement
         CardCollection collection = _collectionsManager.getPlayerCollection(resourceOwner, collectionType.getCode());
         boolean finished = (Boolean) collection.getExtraInformation().get("finished");
         if (finished)
-            responseWriter.writeError(404);
+            throw new HttpProcessingException(404);
 
         int stage = ((Number) collection.getExtraInformation().get("stage")).intValue();
         long playerSeed = ((Number) collection.getExtraInformation().get("seed")).longValue();
@@ -137,12 +143,12 @@ public class SoloDraftRequestHandler extends LotroServerRequestHandler implement
 
         SoloDraft.DraftChoice draftChoice = getSelectedDraftChoice(selectedChoiceId, possibleChoices);
         if (draftChoice == null)
-            responseWriter.writeError(400);
+            throw new HttpProcessingException(400);
 
         CardCollection selectedCards = soloDraft.getCardsForChoiceId(selectedChoiceId, playerSeed, stage);
         Map<String, Object> extraInformationChanges = new HashMap<String, Object>();
         boolean hasNextStage = soloDraft.hasNextStage(playerSeed, stage);
-        extraInformationChanges.put("stage", stage+1);
+        extraInformationChanges.put("stage", stage + 1);
         if (!hasNextStage)
             extraInformationChanges.put("finished", true);
 
@@ -164,7 +170,7 @@ public class SoloDraftRequestHandler extends LotroServerRequestHandler implement
         }
 
         if (hasNextStage) {
-            Iterable<SoloDraft.DraftChoice> availableChoices = soloDraft.getAvailableChoices(playerSeed, stage+1);
+            Iterable<SoloDraft.DraftChoice> availableChoices = soloDraft.getAvailableChoices(playerSeed, stage + 1);
             appendAvailablePics(doc, pickResultElem, availableChoices);
         }
 
