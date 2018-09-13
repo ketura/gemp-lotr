@@ -39,12 +39,12 @@ public class Card6_122 extends AbstractMinion {
     }
 
     @Override
-    public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         if (TriggerConditions.forEachKilledInASkirmish(game, effectResult, Race.NAZGUL, CardType.COMPANION)) {
-            RequiredTriggerAction action = new RequiredTriggerAction(self);
+            final RequiredTriggerAction action = new RequiredTriggerAction(self);
             List<Effect> possibleEffects = new LinkedList<Effect>();
             if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(),
-                    CardType.ALLY, Filters.moreVitalityThan(1))) {
+                    CardType.ALLY, Filters.canTakeWounds(self, 2))) {
                 possibleEffects.add(
                         new ChooseAndWoundCharactersEffect(action, self.getOwner(), 1, 1, 2, CardType.ALLY) {
                     @Override
@@ -53,7 +53,7 @@ public class Card6_122 extends AbstractMinion {
                     }
                 });
             } else if (!Filters.canSpot(game.getGameState(), game.getModifiersQuerying(),
-                    CardType.COMPANION, Filters.moreVitalityThan(1))) {
+                    CardType.COMPANION, Filters.canExert(self))) {
                 possibleEffects.add(
                         new ChooseAndWoundCharactersEffect(action, self.getOwner(), 1, 1, 1, CardType.ALLY) {
                     @Override
