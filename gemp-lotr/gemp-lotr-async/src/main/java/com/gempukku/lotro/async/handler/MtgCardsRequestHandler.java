@@ -1,5 +1,6 @@
 package com.gempukku.lotro.async.handler;
 
+import com.gempukku.lotro.async.HttpProcessingException;
 import com.gempukku.lotro.async.ResponseWriter;
 import com.gempukku.mtg.MtgCardServer;
 import com.gempukku.mtg.ProviderNotFoundException;
@@ -44,16 +45,13 @@ public class MtgCardsRequestHandler implements UriRequestHandler {
         responseWriter.writeByteResponse(dataProvidersResponse, headers);
     }
 
-    private void processCardListRequest(ResponseWriter responseWriter, String provider, String updateMarker) {
+    private void processCardListRequest(ResponseWriter responseWriter, String provider, String updateMarker) throws Exception {
         try {
             MtgCardServer.CardDatabaseHolder cardDatabaseHolder = _mtgCardServer.getCardDatabaseHolder(provider);
-            if (cardDatabaseHolder == null) {
-                responseWriter.writeError(204);
-                return;
-            } else if (updateMarker != null && updateMarker.equals(String.valueOf(cardDatabaseHolder.getUpdateDate()))) {
-                responseWriter.writeError(304);
-                return;
-            }
+            if (cardDatabaseHolder == null)
+                throw new HttpProcessingException(204);
+            else if (updateMarker != null && updateMarker.equals(String.valueOf(cardDatabaseHolder.getUpdateDate())))
+                throw new HttpProcessingException(304);
 
             Map<String, String> headers = new HashMap<String, String>();
             headers.put(CONTENT_TYPE, "application/json; charset=UTF-8");
@@ -61,7 +59,7 @@ public class MtgCardsRequestHandler implements UriRequestHandler {
 
             responseWriter.writeByteResponse(cardDatabaseHolder.getBytes(), headers);
         } catch (ProviderNotFoundException exp) {
-            responseWriter.writeError(404);
+            throw new HttpProcessingException(404);
         }
     }
 

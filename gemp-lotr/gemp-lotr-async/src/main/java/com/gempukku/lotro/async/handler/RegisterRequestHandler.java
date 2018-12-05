@@ -34,7 +34,7 @@ public class RegisterRequestHandler extends LotroServerRequestHandler implements
             }
 
         } else {
-            responseWriter.writeError(404);
+            throw new HttpProcessingException(404);
         }
     }
 }

@@ -10,6 +10,7 @@ import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
@@ -50,6 +51,7 @@ public class Card10_023 extends AbstractMinion {
                             action.appendEffect(
                                     new AddUntilEndOfTurnModifierEffect(
                                             new CantBeAssignedToSkirmishModifier(self, card)));
+                            game.getGameState().sendMessage(self.getOwner() +" has chosen "+ card.getBlueprint().getName());
                         }
                     });
             return Collections.singletonList(action);

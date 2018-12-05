@@ -42,6 +42,7 @@ public class SoloDraftLeagueData implements LeagueData {
         return _collectionType;
     }
 
+    @Override
     public SoloDraft getSoloDraft() {
         return _draft;
     }
@@ -87,10 +88,10 @@ public class SoloDraftLeagueData implements LeagueData {
     public int process(CollectionsManager collectionsManager, List<PlayerStanding> leagueStandings, int oldStatus, int currentTime) {
         int status = oldStatus;
 
-        int maxGamesTotal = _serie.getMaxMatches();
-
         if (status == 0) {
             if (currentTime > DateUtils.offsetDate(_serie.getEnd(), 1)) {
+                int maxGamesTotal = _serie.getMaxMatches();
+
                 for (PlayerStanding leagueStanding : leagueStandings) {
                     CardCollection leaguePrize = _leaguePrizes.getPrizeForLeague(leagueStanding.getStanding(), leagueStandings.size(), leagueStanding.getGamesPlayed(), maxGamesTotal, _collectionType);
                     if (leaguePrize != null)

@@ -1,5 +1,6 @@
 package com.gempukku.lotro.async.handler;
 
+import com.gempukku.lotro.async.HttpProcessingException;
 import com.gempukku.lotro.async.ResponseWriter;
 import com.gempukku.lotro.common.ApplicationConfiguration;
 import org.jboss.netty.channel.MessageEvent;
@@ -101,7 +102,7 @@ public class RootUriRequestHandler implements UriRequestHandler {
         } else if (uri.equals(_serverContextPath)) {
             _statusRequestHandler.handleRequest(uri.substring(_serverContextPath.length()), request, context, responseWriter, e);
         } else {
-            responseWriter.writeError(404);
+            throw new HttpProcessingException(404);
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.gempukku.lotro.async.handler;
 
+import com.gempukku.lotro.async.HttpProcessingException;
 import com.gempukku.lotro.async.ResponseWriter;
 import com.gempukku.lotro.cards.CardSets;
 import com.gempukku.lotro.cards.packs.SetDefinition;
@@ -55,7 +56,7 @@ public class MerchantRequestHandler extends LotroServerRequestHandler implements
         } else if (uri.equals("/tradeFoil") && request.getMethod() == HttpMethod.POST) {
             tradeInFoil(request, responseWriter);
         } else {
-            responseWriter.writeError(404);
+            throw new HttpProcessingException(404);
         }
     }
 

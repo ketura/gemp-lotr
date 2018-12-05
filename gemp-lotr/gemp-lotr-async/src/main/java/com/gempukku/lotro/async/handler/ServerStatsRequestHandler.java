@@ -86,7 +86,7 @@ public class ServerStatsRequestHandler extends LotroServerRequestHandler impleme
                 throw new HttpProcessingException(400);
             }
         } else {
-            responseWriter.writeError(404);
+            throw new HttpProcessingException(404);
         }
     }
 }

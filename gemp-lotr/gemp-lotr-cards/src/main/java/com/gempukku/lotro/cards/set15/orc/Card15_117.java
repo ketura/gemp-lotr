@@ -56,23 +56,28 @@ public class Card15_117 extends AbstractMinion {
                     new SelfExertEffect(action, self));
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose companion", CardType.COMPANION, Filters.not(Filters.ringBearer), Filters.assignableToSkirmishAgainst(Side.SHADOW, self)) {
-                        @Override
-                        protected void cardSelected(LotroGame game, PhysicalCard companion) {
-                            if (PlayConditions.canSpot(game, 6, CardType.COMPANION))
-                                action.appendEffect(
-                                        new AssignmentEffect(playerId, companion, self));
-                            else
-                                action.appendEffect(
-                                        new PreventableEffect(action,
-                                                new AssignmentEffect(playerId, companion, self), game.getGameState().getCurrentPlayerId(),
-                                                new PreventableEffect.PreventionCost() {
-                                                    @Override
-                                                    public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
-                                                        return new ChooseAndExertCharactersEffect(action, playerId, 1, 1, CardType.COMPANION);
-                                                    }
-                                                }));
-                        }
-                    });
+                @Override
+                protected void cardSelected(LotroGame game, PhysicalCard companion) {
+                    if (PlayConditions.canSpot(game, 6, CardType.COMPANION))
+                        action.appendEffect(
+                                new AssignmentEffect(playerId, companion, self));
+                    else
+                        action.appendEffect(
+                                new PreventableEffect(action,
+                                        new AssignmentEffect(playerId, companion, self), game.getGameState().getCurrentPlayerId(),
+                                        new PreventableEffect.PreventionCost() {
+                            @Override
+                            public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
+                                return new ChooseAndExertCharactersEffect(action, playerId, 1, 1, CardType.COMPANION) {
+                                    @Override
+                                    public String getText(LotroGame game) {
+                                        return "Exert a companion";
+                                    }
+                                };
+                            }
+                        }));
+                }
+            });
             return Collections.singletonList(action);
         }
         return null;

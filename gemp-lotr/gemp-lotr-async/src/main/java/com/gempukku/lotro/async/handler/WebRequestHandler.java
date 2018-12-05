@@ -1,9 +1,12 @@
 package com.gempukku.lotro.async.handler;
 
+import com.gempukku.lotro.async.HttpProcessingException;
 import com.gempukku.lotro.async.ResponseWriter;
 import org.jboss.netty.channel.MessageEvent;
 import org.jboss.netty.handler.codec.http.HttpHeaders;
+
 import static org.jboss.netty.handler.codec.http.HttpHeaders.Names.IF_NONE_MATCH;
+
 import org.jboss.netty.handler.codec.http.HttpRequest;
 
 import java.io.File;
@@ -22,10 +25,8 @@ public class WebRequestHandler implements UriRequestHandler {
 
     @Override
     public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, MessageEvent e) throws Exception {
-        if (clientHasCurrentVersion(request)) {
-            responseWriter.writeError(304);
-            return;
-        }
+        if (clientHasCurrentVersion(request))
+            throw new HttpProcessingException(304);
 
         if (uri.equals(""))
             uri = "index.html";
@@ -34,16 +35,14 @@ public class WebRequestHandler implements UriRequestHandler {
 
         if ((uri.contains(".."))
                 || uri.contains(File.separator + ".")
-                || uri.startsWith(".") || uri.endsWith(".")) {
-            responseWriter.writeError(403);
-        } else {
-            File file = new File(_root + uri);
-            if (!file.getCanonicalPath().startsWith(_root))
-                responseWriter.writeError(403);
-            else {
-                responseWriter.writeFile(file, Collections.singletonMap(HttpHeaders.Names.ETAG, _uniqueEtag));
-            }
-        }
+                || uri.startsWith(".") || uri.endsWith("."))
+            throw new HttpProcessingException(403);
+
+        File file = new File(_root + uri);
+        if (!file.getCanonicalPath().startsWith(_root))
+            throw new HttpProcessingException(403);
+
+        responseWriter.writeFile(file, Collections.singletonMap(HttpHeaders.Names.ETAG, _uniqueEtag));
     }
 
     private boolean clientHasCurrentVersion(HttpRequest request) {

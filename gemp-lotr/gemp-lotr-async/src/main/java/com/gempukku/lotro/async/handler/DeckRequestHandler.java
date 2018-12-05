@@ -56,7 +56,7 @@ public class DeckRequestHandler extends LotroServerRequestHandler implements Uri
         } else if (uri.equals("/stats") && request.getMethod() == HttpMethod.POST) {
             getDeckStats(request, responseWriter);
         } else {
-            responseWriter.writeError(404);
+            throw new HttpProcessingException(404);
         }
     }
 

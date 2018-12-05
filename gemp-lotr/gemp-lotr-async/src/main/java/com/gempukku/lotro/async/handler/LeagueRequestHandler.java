@@ -54,7 +54,7 @@ public class LeagueRequestHandler extends LotroServerRequestHandler implements U
         } else if (uri.startsWith("/") && request.getMethod() == HttpMethod.POST) {
             joinLeague(request, uri.substring(1), responseWriter, e);
         } else {
-            responseWriter.writeError(404);
+            throw new HttpProcessingException(404);
         }
     }
 
@@ -94,13 +94,15 @@ public class LeagueRequestHandler extends LotroServerRequestHandler implements U
         final List<LeagueSerieData> series = leagueData.getSeries();
 
         int end = series.get(series.size() - 1).getEnd();
+        int start = series.get(0).getStart();
+        int currentDate = DateUtils.getCurrentDate();
 
         Element leagueElem = doc.createElement("league");
         boolean inLeague = _leagueService.isPlayerInLeague(league, resourceOwner);
 
         leagueElem.setAttribute("member", String.valueOf(inLeague));
-        leagueElem.setAttribute("joinable", String.valueOf(!inLeague && end >= DateUtils.getCurrentDate()));
-        leagueElem.setAttribute("draftable", String.valueOf(inLeague && leagueData.isSoloDraftLeague()));
+        leagueElem.setAttribute("joinable", String.valueOf(!inLeague && end >= currentDate));
+        leagueElem.setAttribute("draftable", String.valueOf(inLeague && leagueData.isSoloDraftLeague() && start >= currentDate));
         leagueElem.setAttribute("type", league.getType());
         leagueElem.setAttribute("name", league.getName());
         leagueElem.setAttribute("cost", String.valueOf(league.getCost()));

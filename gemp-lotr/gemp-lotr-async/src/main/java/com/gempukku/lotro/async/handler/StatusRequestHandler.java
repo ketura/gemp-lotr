@@ -1,5 +1,6 @@
 package com.gempukku.lotro.async.handler;
 
+import com.gempukku.lotro.async.HttpProcessingException;
 import com.gempukku.lotro.async.ResponseWriter;
 import com.gempukku.lotro.chat.ChatServer;
 import com.gempukku.lotro.game.GameHistoryService;
@@ -36,7 +37,7 @@ public class StatusRequestHandler extends LotroServerRequestHandler implements U
 
             responseWriter.writeHtmlResponse(sb.toString());
         } else {
-            responseWriter.writeError(404);
+            throw new HttpProcessingException(404);
         }
     }
 }

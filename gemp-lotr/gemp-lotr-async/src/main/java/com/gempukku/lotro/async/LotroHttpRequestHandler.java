@@ -74,7 +74,7 @@ public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
         }
 
         public void printLog(int statusCode, long finishedTime) {
-            _accesslog.debug(remoteIp+","+statusCode+","+uri+","+(finishedTime-requestTime));
+            _accesslog.debug(remoteIp + "," + statusCode + "," + uri + "," + (finishedTime - requestTime));
         }
     }
 
@@ -138,8 +138,9 @@ public class LotroHttpRequestHandler extends SimpleChannelUpstreamHandler {
             try {
                 String ipAddress = ((InetSocketAddress) e.getRemoteAddress()).getAddress().getHostAddress();
                 if (isBanned(ipAddress))
-                    throw new HttpProcessingException(404);
-                _uriRequestHandler.handleRequest(uri, request, _objects, responseWriter, e);
+                    responseWriter.writeError(404);
+                else
+                    _uriRequestHandler.handleRequest(uri, request, _objects, responseWriter, e);
             } catch (HttpProcessingException exp) {
                 responseWriter.writeError(exp.getStatus());
             } catch (Exception exp) {
