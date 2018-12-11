@@ -36,8 +36,6 @@ import java.util.List;
  * event and add a doubt to play a Dwarf from your draw deck. Skirmish: Play a [DWARVEN] skirmish
  * event to make an Orc skirmishing Bilbo strength -2.
  */
-
-/** updated text:   */
 public class Card30_025 extends AbstractCompanion {
     public Card30_025() {
         super(2, 7, 4, 6, Culture.GANDALF, Race.WIZARD, null, "Gandalf", "Leader of Dwarves", true);
