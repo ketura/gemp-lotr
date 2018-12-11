@@ -24,8 +24,9 @@ import java.util.List;
  * Strength: 9
  * Vitality: 3
  * Site: 3
- * Game Text: Damage +1. Each time you play a mount, you may make the Free Peoples player exert a companion.
+ * Game Text: Damage +1. Each time you play a mount, you may make the Free Peoples player exert a [DWARVEN] companion.
  */
+
 public class Card31_023 extends AbstractMinion {
     public Card31_023() {
         super(4, 9, 3, 3, Race.ORC, Culture.GUNDABAD, "Azog", "The Defiler", true);
@@ -38,7 +39,7 @@ public class Card31_023 extends AbstractMinion {
         if (TriggerConditions.played(game, effectResult, PossessionClass.MOUNT)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new ChooseAndExertCharactersEffect(action, game.getGameState().getCurrentPlayerId(), 1, 1, CardType.COMPANION));
+                    new ChooseAndExertCharactersEffect(action, game.getGameState().getCurrentPlayerId(), 1, 1, CardType.COMPANION, Culture.DWARVEN));
             return Collections.singletonList(action);
         }
         return null;
