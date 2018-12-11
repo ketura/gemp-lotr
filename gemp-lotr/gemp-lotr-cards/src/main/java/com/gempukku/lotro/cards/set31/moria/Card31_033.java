@@ -43,7 +43,7 @@ public class Card31_033 extends AbstractEvent {
 	action.appendCost(
 		new ChooseAndExertCharactersEffect(action, playerId, 2, 2, Race.ORC));
         action.appendEffect(
-                new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.and(Culture.DWARVEN, Filters.or(CardType.POSSESSION, CardType.ARTIFACT)), Filters.attachedTo(Filters.and(CardType.COMPANION))));
+                new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.and(Culture.DWARVEN, Filters.or(CardType.POSSESSION, CardType.ARTIFACT)), Filters.attachedTo(CardType.COMPANION)));
         return action;
     }
 
@@ -60,7 +60,7 @@ public class Card31_033 extends AbstractEvent {
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 2, 2, Race.ORC));
             action.appendEffect(
-                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.or(CardType.POSSESSION, CardType.ARTIFACT), Filters.attachedTo(Filters.and(CardType.COMPANION, Race.DWARF))));
+                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.and(Culture.DWARVEN, Filters.or(CardType.POSSESSION, CardType.ARTIFACT)), Filters.attachedTo(CardType.COMPANION)));
             return Collections.singletonList(action);
         }
         return null;
