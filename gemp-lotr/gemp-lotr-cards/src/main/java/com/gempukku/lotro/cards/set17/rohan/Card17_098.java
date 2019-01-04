@@ -58,7 +58,7 @@ public class Card17_098 extends AbstractPermanent {
             for (PhysicalCard woundedCharacter : woundedCharacters) {
                 if (PlayConditions.canExert(self, game, Culture.ROHAN, Race.MAN, Filters.not(woundedCharacter))) {
                     ActivateCardAction action = new ActivateCardAction(self);
-                    action.setText("Prevent for " + GameUtils.getFullName(woundedCharacter));
+                    action.setText("Prevent to " + GameUtils.getFullName(woundedCharacter));
                     action.appendCost(
                             new AddTwilightEffect(self, 2));
                     action.appendCost(
