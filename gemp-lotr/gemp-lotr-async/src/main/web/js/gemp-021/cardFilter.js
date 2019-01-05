@@ -179,9 +179,6 @@ var CardFilter = Class.extend({
             + "<input type='checkbox' id='ROHAN'/><label for='ROHAN' id='labelROHAN'><img src='images/cultures/rohan.png'/></label>"
             + "<input type='checkbox' id='SHIRE'/><label for='SHIRE' id='labelSHIRE'><img src='images/cultures/shire.png'/></label>"
             + "<input type='checkbox' id='GOLLUM'/><label for='GOLLUM' id='labelGOLLUM'><img src='images/cultures/gollum.png'/></label>"
-            //Additional Hobbit Draft cultures
-            + "<input type='checkbox' id='ESGAROTH'/><label for='ESGAROTH' id='labelESGAROTH'><img src='images/cultures/esgaroth.png'/></label>"
-            + "<input type='checkbox' id='GUNDABAD'/><label for='GUNDABAD' id='labelGUNDABAD'><img src='images/cultures/gundabad.png'/></label>"
             + "</div>");
         this.filterDiv.append("<div id='culture2'>"
             + "<input type='checkbox' id='DUNLAND'/><label for='DUNLAND' id='labelDUNLAND'><img src='images/cultures/dunland.png'/></label>"
@@ -193,7 +190,9 @@ var CardFilter = Class.extend({
             + "<input type='checkbox' id='SAURON'/><label for='SAURON' id='labelSAURON'><img src='images/cultures/sauron.png'/></label>"
             + "<input type='checkbox' id='URUK_HAI'/><label for='URUK_HAI' id='labelURUK_HAI'><img src='images/cultures/uruk_hai.png'/></label>"
             + "<input type='checkbox' id='WRAITH'/><label for='WRAITH' id='labelWRAITH'><img src='images/cultures/wraith.png'/></label>"
-            //Additional Hobbit Draft Shadow cultures
+            //Additional Hobbit Draft cultures
+            + "<input type='checkbox' id='ESGAROTH'/><label for='ESGAROTH' id='labelESGAROTH'><img src='images/cultures/esgaroth.png'/></label>"
+            + "<input type='checkbox' id='GUNDABAD'/><label for='GUNDABAD' id='labelGUNDABAD'><img src='images/cultures/gundabad.png'/></label>"
             //+ "<input type='checkbox' id='MIRKWOOD'/><label for='MIRKWOOD' id='labelMIRKWOOD'><img src='images/cultures/mirkwood.png'/></label>"
             //+ "<input type='checkbox' id='SMAUG'/><label for='SMAUG' id='labelSMAUG'><img src='images/cultures/smaug.png'/></label>"
             //+ "<input type='checkbox' id='SPIDER'/><label for='SPIDER' id='labelSPIDER'><img src='images/cultures/spider.png'/></label>"
@@ -300,10 +299,10 @@ var CardFilter = Class.extend({
     },
 
     layoutUi:function (x, y, width, height) {
-        this.pageDiv.css({ position:"absolute", left:x, top:y, width:width, height:50 });
+        this.pageDiv.css({ position:"absolute", left:x, top:y, width:width, height:34 });
         this.countSlider.css({width:width - 100});
-        this.fullFilterDiv.css({position:"absolute", left:x, top:y + 50, width:width, height:32});
-        this.filterDiv.css({ position:"absolute", left:x, top:y + 82, width:width, height:80 });
+        this.fullFilterDiv.css({position:"absolute", left:x, top:y + 34, width:width, height:34});
+        this.filterDiv.css({ position:"absolute", left:x, top:y + 68, width:width, height:80 });
     },
 
     layoutPageUi: function(x, y, width) {
