@@ -104,7 +104,7 @@ var CardFilter = Class.extend({
 
         this.fullFilterDiv = $("<div></div>");
         this.setSelect = $("<select style='width: 130px; font-size: 80%;'>"
-            + "<option value=''>All Sets</option>"
+            + "<option value='lotr'>All Sets</option>"
             + "<option value='fotr_block'>Fellowship Block</option>"
             + "<option value='ttt_block'>Towers Block</option>"
             + "<option value='king_block'>King Block</option>"
