@@ -24,7 +24,7 @@ import java.util.List;
  * Twilight Cost: 1
  * Type: Event
  * Game Text: You may exert The Great Goblin twice to play this event from your discard pile. Exert 2 Orcs
- * to discard a possession or artifact borne by a [DWARVEN] companion.
+ * to discard a [DWARVEN] possession or [DWARVEN] artifact borne by a companion.
  */
 public class Card31_033 extends AbstractEvent {
     public Card31_033() {
@@ -43,7 +43,7 @@ public class Card31_033 extends AbstractEvent {
 	action.appendCost(
 		new ChooseAndExertCharactersEffect(action, playerId, 2, 2, Race.ORC));
         action.appendEffect(
-                new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.or(CardType.POSSESSION, CardType.ARTIFACT), Filters.attachedTo(Filters.and(CardType.COMPANION, Race.DWARF))));
+                new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.and(Culture.DWARVEN, Filters.or(CardType.POSSESSION, CardType.ARTIFACT)), Filters.attachedTo(CardType.COMPANION)));
         return action;
     }
 
@@ -60,7 +60,7 @@ public class Card31_033 extends AbstractEvent {
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 2, 2, Race.ORC));
             action.appendEffect(
-                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.or(CardType.POSSESSION, CardType.ARTIFACT), Filters.attachedTo(Filters.and(CardType.COMPANION, Race.DWARF))));
+                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.and(Culture.DWARVEN, Filters.or(CardType.POSSESSION, CardType.ARTIFACT)), Filters.attachedTo(CardType.COMPANION)));
             return Collections.singletonList(action);
         }
         return null;

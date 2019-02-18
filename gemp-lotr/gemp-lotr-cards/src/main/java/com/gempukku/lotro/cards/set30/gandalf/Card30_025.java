@@ -3,23 +3,24 @@ package com.gempukku.lotro.cards.set30.gandalf;
 import com.gempukku.lotro.cards.AbstractCompanion;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
+import com.gempukku.lotro.cards.effects.AddBurdenEffect;
+import com.gempukku.lotro.cards.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
 import com.gempukku.lotro.cards.effects.SelfExertEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseCardsFromDeckEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromDiscardEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromDeckEffect;
+import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromHandEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
-import com.gempukku.lotro.logic.effects.AddTwilightEffect;
+import com.gempukku.lotro.logic.effects.DrawCardsEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
  
  /**
@@ -31,39 +32,49 @@ import java.util.List;
  * Strength: 7
  * Vitality: 4
  * Resistance: 6
- * Game Text: Wise. At the start of each of your turns, you may exert Gandalf to play a Dwarf companion
- * from your draw deck. Maneuver: Discard 2 Dwarf followers to play Gandalf from your discard pile.
+ * Game Text: Wise. Each time you reconcile, you may draw 2 cards. Skirmish: Play a [GANDALF] skirmish
+ * event and add a doubt to play a Dwarf from your draw deck. Skirmish: Play a [DWARVEN] skirmish
+ * event to make an Orc skirmishing Bilbo strength -2.
  */
 public class Card30_025 extends AbstractCompanion {
     public Card30_025() {
-        super(4, 7, 4, 6, Culture.GANDALF, Race.WIZARD, null, "Gandalf", "Leader of Dwarves", true);
+        super(2, 7, 4, 6, Culture.GANDALF, Race.WIZARD, null, "Gandalf", "Leader of Dwarves", true);
         addKeyword(Keyword.WISE);
     }
 
     @Override
-    public List<OptionalTriggerAction> getOptionalAfterTriggers(final String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
-        if (TriggerConditions.startOfTurn(game, effectResult)) {
-            final OptionalTriggerAction action = new OptionalTriggerAction(self);
-            action.appendCost(
-					new SelfExertEffect(action, self));
+    public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+        if (TriggerConditions.reconciles(game, effectResult, playerId)) {
+            OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new ChooseAndPlayCardFromDeckEffect(self.getOwner(), Race.DWARF, CardType.COMPANION));
+                    new DrawCardsEffect(action, playerId, 2));
             return Collections.singletonList(action);
         }
         return null;
     }
 	
     @Override
-    public List<? extends Action> getPhaseActionsFromDiscard(String playerId, LotroGame game, final PhysicalCard self) {
-        if (PlayConditions.isPhase(game, Phase.MANEUVER)
-            && (PlayConditions.canDiscardFromPlay(self, game, 2, Race.DWARF, CardType.FOLLOWER))
-            && (PlayConditions.canPlayFromDiscard(playerId, game, self))) {
-                ActivateCardAction replayGandalf = new ActivateCardAction(self);			
-                replayGandalf.appendCost(
-                        new ChooseAndDiscardCardsFromPlayEffect(replayGandalf, playerId, 2, 2, Race.DWARF, CardType.FOLLOWER));
-                replayGandalf.appendEffect(
-                        new ChooseAndPlayCardFromDiscardEffect(playerId, game, self));
-                return Collections.singletonList(replayGandalf);
+    protected List<ActivateCardAction> getExtraInPlayPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
+        List<ActivateCardAction> actions = new LinkedList<ActivateCardAction>();
+        if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)) {
+
+            if (PlayConditions.canPlayFromHand(playerId, game, Culture.GANDALF, CardType.EVENT, Keyword.SKIRMISH)) {
+                final ActivateCardAction action = new ActivateCardAction(self);
+                action.setText("Play a [GANDALF] event");
+                action.appendCost(new ChooseAndPlayCardFromHandEffect(playerId, game, Culture.GANDALF, CardType.EVENT, Keyword.SKIRMISH));
+                action.appendCost(new AddBurdenEffect(playerId, self, 1));
+                action.appendEffect(new ChooseAndPlayCardFromDeckEffect(self.getOwner(), Race.DWARF));
+                actions.add(action);
+            }
+            if (PlayConditions.canPlayFromHand(playerId, game, Culture.DWARVEN, CardType.EVENT, Keyword.SKIRMISH)) {
+                final ActivateCardAction action = new ActivateCardAction(self);
+                action.setText("Play a [DWARVEN] event");
+                action.appendCost(new ChooseAndPlayCardFromHandEffect(playerId, game, Culture.DWARVEN, CardType.EVENT, Keyword.SKIRMISH));
+                action.appendEffect(new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, -2,
+                        CardType.MINION, Race.ORC, Filters.inSkirmishAgainst(Filters.name("Bilbo"))));
+                actions.add(action);
+            }
+            return actions;
         }
         return null;
     }

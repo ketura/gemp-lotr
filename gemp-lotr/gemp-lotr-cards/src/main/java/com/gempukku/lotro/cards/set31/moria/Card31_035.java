@@ -3,7 +3,9 @@ package com.gempukku.lotro.cards.set31.moria;
 import com.gempukku.lotro.cards.AbstractPermanent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
+import com.gempukku.lotro.cards.effects.ChoiceEffect;
 import com.gempukku.lotro.cards.effects.PreventCardEffect;
+import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
 import com.gempukku.lotro.cards.effects.SelfDiscardEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -19,6 +21,7 @@ import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -28,8 +31,9 @@ import java.util.List;
  * Twilight Cost: 0
  * Type: Condition
  * Game Text: To play, spot a [MORIA] card. Each time you play a weapon, add (1). Response: If an Orc is
- * about to take a wound, discard this condition to prevent that wound.
+ * about to take a wound, discard this condition or remove (3) to prevent that wound.
  */
+
 public class Card31_035 extends AbstractPermanent {
     public Card31_035() {
         super(Side.SHADOW, 0, CardType.CONDITION, Culture.MORIA, Zone.SUPPORT, "Great Goblin's Power");
@@ -52,19 +56,26 @@ public class Card31_035 extends AbstractPermanent {
     }
 
     @Override
-    public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, final Effect effect, final PhysicalCard self) {
+    public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
         if (TriggerConditions.isGettingWounded(effect, game, Race.ORC)) {
             final WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
-            final Collection<PhysicalCard> cardsToBeWounded = woundEffect.getAffectedCardsMinusPrevented(game);
+            Collection<PhysicalCard> woundedCharacters = woundEffect.getAffectedCardsMinusPrevented(game);
             final ActivateCardAction action = new ActivateCardAction(self);
-            action.appendCost(
+
+            List<Effect> possibleCosts = new LinkedList<Effect>();
+            possibleCosts.add(
+                    new RemoveTwilightEffect(3));
+            possibleCosts.add(
                     new SelfDiscardEffect(self));
+
+            action.appendCost(
+                    new ChoiceEffect(action, playerId, possibleCosts));
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose an Orc", Race.ORC, Filters.in(cardsToBeWounded)) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose an Orc", Filters.in(woundedCharacters), Race.ORC) {
                         @Override
-                        protected void cardSelected(LotroGame game, PhysicalCard woundedOrc) {
-                            action.appendEffect(
-                                    new PreventCardEffect(woundEffect, woundedOrc));
+                        protected void cardSelected(LotroGame game, PhysicalCard card) {
+                            action.insertEffect(
+                                    new PreventCardEffect(woundEffect, card));
                         }
                     });
             return Collections.singletonList(action);

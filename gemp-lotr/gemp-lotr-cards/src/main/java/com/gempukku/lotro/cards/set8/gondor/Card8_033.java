@@ -33,7 +33,7 @@ import java.util.List;
  */
 public class Card8_033 extends AbstractResponseEvent {
     public Card8_033() {
-        super(Side.FREE_PEOPLE, 1, Culture.GONDOR, "Ellesar's Edict");
+        super(Side.FREE_PEOPLE, 1, Culture.GONDOR, "Elessar's Edict");
     }
 
     @Override

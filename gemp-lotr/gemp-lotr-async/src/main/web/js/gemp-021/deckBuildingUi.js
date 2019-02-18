@@ -573,6 +573,7 @@ var GempLotrDeckBuildingUI = Class.extend({
         var cardDiv = createCardDiv(card.imageUrl, null, card.isFoil(), tokens, card.isPack(), card.hasErrata());
         cardDiv.data("card", card);
         container.append(cardDiv);
+        this.deckDirty = true;
         return cardDiv;
     },
 
@@ -587,7 +588,6 @@ var GempLotrDeckBuildingUI = Class.extend({
             cardDiv.addClass("cardInDeck");
             that.showNormalFilter();
             that.layoutSpecialGroups();
-            that.deckDirty = true;
             that.deckModified(true);
         };
     },
