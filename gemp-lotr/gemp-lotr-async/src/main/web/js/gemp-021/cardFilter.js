@@ -104,7 +104,7 @@ var CardFilter = Class.extend({
 
         this.fullFilterDiv = $("<div></div>");
         this.setSelect = $("<select style='width: 130px; font-size: 80%;'>"
-            + "<option value=''>All Sets</option>"
+            + "<option value='lotr'>All Sets</option>"
             + "<option value='fotr_block'>Fellowship Block</option>"
             + "<option value='ttt_block'>Towers Block</option>"
             + "<option value='king_block'>King Block</option>"
@@ -136,11 +136,11 @@ var CardFilter = Class.extend({
             + "<option value='18'>18 - Treachery & Deceit</option>"
             + "<option value='19'>19 - Ages End</option>"
             + "<option value='20'>20 - Second Edition</option>"
-			//Additional Hobbit Draft blocks
-			+ "<option value='30'> The Hobbit: Main Deck</option>"
-			+ "<option value='hobbit_tsr'> The Hobbit: The Short Rest</option>"
+            //Additional Hobbit Draft blocks
+            + "<option value='30'> The Hobbit: Main Deck</option>"
+            + "<option value='hobbit_tsr'> The Hobbit: The Short Rest</option>"
             + "</select>");
-        this.nameInput = $("<input type='text' value='Card name' style='width: 130px; font-size: 70%;'>");
+        this.nameInput = $("<input type='text' value='Card name' style='width: 110px; font-size: 70%;'>");
         this.sortSelect = $("<select style='width: 80px; font-size: 80%;'>"
             + "<option value=''>Sort by:</option>"
             + "<option value='name'>Name</option>"
@@ -179,8 +179,6 @@ var CardFilter = Class.extend({
             + "<input type='checkbox' id='ROHAN'/><label for='ROHAN' id='labelROHAN'><img src='images/cultures/rohan.png'/></label>"
             + "<input type='checkbox' id='SHIRE'/><label for='SHIRE' id='labelSHIRE'><img src='images/cultures/shire.png'/></label>"
             + "<input type='checkbox' id='GOLLUM'/><label for='GOLLUM' id='labelGOLLUM'><img src='images/cultures/gollum.png'/></label>"
-            //Additional Hobbit Draft Free Peoples culture
-            + "<input type='checkbox' id='ESGAROTH'/><label for='ESGAROTH' id='labelESGAROTH'><img src='images/cultures/esgaroth.png'/></label>"
             + "</div>");
         this.filterDiv.append("<div id='culture2'>"
             + "<input type='checkbox' id='DUNLAND'/><label for='DUNLAND' id='labelDUNLAND'><img src='images/cultures/dunland.png'/></label>"
@@ -192,7 +190,8 @@ var CardFilter = Class.extend({
             + "<input type='checkbox' id='SAURON'/><label for='SAURON' id='labelSAURON'><img src='images/cultures/sauron.png'/></label>"
             + "<input type='checkbox' id='URUK_HAI'/><label for='URUK_HAI' id='labelURUK_HAI'><img src='images/cultures/uruk_hai.png'/></label>"
             + "<input type='checkbox' id='WRAITH'/><label for='WRAITH' id='labelWRAITH'><img src='images/cultures/wraith.png'/></label>"
-            //Additional Hobbit Draft Shadow cultures
+            //Additional Hobbit Draft cultures
+            + "<input type='checkbox' id='ESGAROTH'/><label for='ESGAROTH' id='labelESGAROTH'><img src='images/cultures/esgaroth.png'/></label>"
             + "<input type='checkbox' id='GUNDABAD'/><label for='GUNDABAD' id='labelGUNDABAD'><img src='images/cultures/gundabad.png'/></label>"
             //+ "<input type='checkbox' id='MIRKWOOD'/><label for='MIRKWOOD' id='labelMIRKWOOD'><img src='images/cultures/mirkwood.png'/></label>"
             //+ "<input type='checkbox' id='SMAUG'/><label for='SMAUG' id='labelSMAUG'><img src='images/cultures/smaug.png'/></label>"
@@ -295,15 +294,15 @@ var CardFilter = Class.extend({
         $("#keyword").change(filterOut);
         $("#type").change(filterOut);
         
-		//Additional Hobbit Draft labels
+        //Additional Hobbit Draft labels
         $("#labelDWARVEN,#labelELVEN,#labelGANDALF,#labelGONDOR,#labelROHAN,#labelSHIRE,#labelGOLLUM,#labelDUNLAND,#labelISENGARD,#labelMEN,#labelMORIA,#labelORC,#labelRAIDER,#labelSAURON,#labelURUK_HAI,#labelWRAITH,#labelESGAROTH,#labelGUNDABAD").click(filterOut);
     },
 
     layoutUi:function (x, y, width, height) {
-        this.pageDiv.css({ position:"absolute", left:x, top:y, width:width, height:50 });
+        this.pageDiv.css({ position:"absolute", left:x, top:y, width:width, height:34 });
         this.countSlider.css({width:width - 100});
-        this.fullFilterDiv.css({position:"absolute", left:x, top:y + 50, width:width, height:30});
-        this.filterDiv.css({ position:"absolute", left:x, top:y + 80, width:width, height:80 });
+        this.fullFilterDiv.css({position:"absolute", left:x, top:y + 34, width:width, height:34});
+        this.filterDiv.css({ position:"absolute", left:x, top:y + 68, width:width, height:80 });
     },
 
     layoutPageUi: function(x, y, width) {
