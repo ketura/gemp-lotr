@@ -8,6 +8,7 @@ import org.jboss.netty.handler.codec.http.HttpMethod;
 import org.jboss.netty.handler.codec.http.HttpRequest;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.util.HashMap;
@@ -48,6 +49,8 @@ public class ReplayRequestHandler extends LotroServerRequestHandler implements U
                 int count;
                 while ((count = recordedGame.read(bytes)) != -1)
                     baos.write(bytes, 0, count);
+            } catch (IOException exp) {
+                throw new HttpProcessingException(404);
             } finally {
                 recordedGame.close();
             }
