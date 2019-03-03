@@ -163,19 +163,19 @@ public class SortAndFilterCards {
                 final LotroCardBlueprint blueprint = cardBlueprint.get(blueprintId);
                 if (blueprint.getCardType() == CardType.SITE) {
                     if (blueprint.getSiteBlock() == Block.FELLOWSHIP) {
-                        if ("fotr_block".contains(set)) {
+                        if ("fotr_block,lotr".contains(set)) {
                             return true;
                         }
                         return false;
                     }
                     if (blueprint.getSiteBlock() == Block.TWO_TOWERS) {
-                        if ("towers_standard,ttt_block".contains(set)) {
+                        if ("towers_standard,ttt_block,lotr".contains(set)) {
                             return true;
                         }
                         return false;
                     }
                     if (blueprint.getSiteBlock() == Block.KING) {
-                        if ("king_block,rotk_sta,movie".contains(set)) {
+                        if ("king_block,rotk_sta,movie,lotr".contains(set)) {
                             return true;
                         }
                         return false;
