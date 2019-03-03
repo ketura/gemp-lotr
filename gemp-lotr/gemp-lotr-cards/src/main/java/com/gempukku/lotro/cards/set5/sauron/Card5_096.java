@@ -1,6 +1,8 @@
 package com.gempukku.lotro.cards.set5.sauron;
 
 import com.gempukku.lotro.cards.AbstractEvent;
+import com.gempukku.lotro.cards.AbstractResponseEvent;
+import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
@@ -56,7 +58,7 @@ public class Card5_096 extends AbstractEvent {
             RevealCardFromHandResult revealResult = (RevealCardFromHandResult) effectResult;
             if (revealResult.getSource().getOwner().equals(game.getGameState().getCurrentPlayerId())
                     && revealResult.getRevealedCard() == self
-                    && checkPlayRequirements(playerId, game, self, 0, 0, false, false)) {
+                    && checkResponsePlayRequirements(playerId, game, self, 0, 0, false, false)) {
                 PlayEventAction action = new PlayEventAction(self);
                 action.appendEffect(
                         new AddBurdenEffect(self.getOwner(), self, 2));
@@ -64,5 +66,15 @@ public class Card5_096 extends AbstractEvent {
             }
         }
         return null;
+    }
+
+    private boolean checkResponsePlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
+        if (!game.getModifiersQuerying().canPayExtraCostsToPlay(game.getGameState(), self))
+            return false;
+
+        int toilCount = game.getModifiersQuerying().getKeywordCount(game.getGameState(), self, Keyword.TOIL);
+        if (toilCount > 0)
+            twilightModifier -= toilCount * Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.owner(playerId), getCulture(), Filters.character, Filters.canExert(self));
+        return (getSide() != Side.SHADOW || PlayConditions.canPayForShadowCard(game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty));
     }
 }
