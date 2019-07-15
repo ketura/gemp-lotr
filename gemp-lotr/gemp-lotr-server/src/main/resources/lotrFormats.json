@@ -330,7 +330,7 @@
         "winAtEndOfRegroup":true,
         "ruleOfFour":false,
         "winOnControlling5Sites":true,
-        "hall":true
+        "hall":false
     },
     {
         "name":"Hobbit: The Short Rest",
