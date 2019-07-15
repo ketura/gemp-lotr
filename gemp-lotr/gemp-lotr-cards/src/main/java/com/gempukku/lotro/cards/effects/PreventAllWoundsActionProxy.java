@@ -28,10 +28,9 @@ public class PreventAllWoundsActionProxy extends AbstractActionProxy {
     public List<? extends RequiredTriggerAction> getRequiredBeforeTriggers(LotroGame game, Effect effect) {
         if (TriggerConditions.isGettingWounded(effect, game, _filters)) {
             WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
-            Collection<PhysicalCard> toPreventOn = Filters.filter(woundEffect.getAffectedCardsMinusPrevented(game), game.getGameState(), game.getModifiersQuerying(), _filters);
             RequiredTriggerAction action = new RequiredTriggerAction(_source);
             action.appendEffect(
-                    new PreventCardEffect(woundEffect, toPreventOn));
+                    new PreventCardEffect(woundEffect, _filters));
             return Collections.singletonList(action);
         }
         return null;

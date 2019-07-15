@@ -52,10 +52,11 @@ public class Card40_003 extends AbstractPermanent {
     public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
         if (TriggerConditions.isGettingDiscardedBy(effect, game, Side.SHADOW, Filters.and(Culture.DWARVEN, CardType.CONDITION))
                 && PlayConditions.canSelfDiscard(self, game)) {
+            DiscardCardsFromPlayEffect discardEffect = (DiscardCardsFromPlayEffect) effect;
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(new SelfDiscardEffect(self));
             action.appendEffect(
-                    new PreventCardEffect((DiscardCardsFromPlayEffect) effect, self));
+                    new PreventCardEffect(discardEffect, Culture.DWARVEN, CardType.CONDITION));
             return Collections.singletonList(action);
         }
         return null;

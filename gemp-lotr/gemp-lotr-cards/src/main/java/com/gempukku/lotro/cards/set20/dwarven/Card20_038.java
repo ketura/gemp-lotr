@@ -56,8 +56,7 @@ public class Card20_038 extends AbstractPermanent {
             action.appendCost(
                     new SelfDiscardEffect(self));
             action.appendEffect(
-                    new PreventCardEffect(discardEffect, Filters.filter(discardEffect.getAffectedCardsMinusPrevented(game),
-                            game.getGameState(), game.getModifiersQuerying(), Culture.DWARVEN, CardType.CONDITION)));
+                    new PreventCardEffect(discardEffect, Culture.DWARVEN, CardType.CONDITION));
             return Collections.singletonList(action);
         }
         return null;
