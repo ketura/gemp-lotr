@@ -99,13 +99,13 @@ public class PlayConditions {
     public static boolean canPlayCardDuringPhase(LotroGame game, Phase phase, PhysicalCard self) {
         return (phase == null || game.getGameState().getCurrentPhase() == phase)
                 && self.getZone() == Zone.HAND
-                && (!self.getBlueprint().isUnique() || Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.name(self.getBlueprint().getName()))==0);
+                && (!self.getBlueprint().isUnique() || Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.name(self.getBlueprint().getName())) == 0);
     }
 
     public static boolean canPlayCardFromHandDuringPhase(LotroGame game, Phase[] phases, PhysicalCard self) {
         return (phases == null || containsPhase(phases, game.getGameState().getCurrentPhase()))
                 && self.getZone() == Zone.HAND
-                && (!self.getBlueprint().isUnique() || Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.name(self.getBlueprint().getName()))==0);
+                && (!self.getBlueprint().isUnique() || Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.name(self.getBlueprint().getName())) == 0);
     }
 
     public static boolean canUseFPCardDuringPhase(LotroGame game, Phase phase, PhysicalCard self) {
@@ -146,7 +146,7 @@ public class PlayConditions {
         LotroCardBlueprint blueprint = self.getBlueprint();
         return (!blueprint.isUnique()
                 || (
-                Filters.countActive(gameState, modifiersQuerying, Filters.name(blueprint.getName()))==0
+                Filters.countActive(gameState, modifiersQuerying, Filters.name(blueprint.getName())) == 0
                         && (ignoreCheckingDeadPile || (Filters.filter(gameState.getDeadPile(self.getOwner()), gameState, modifiersQuerying, Filters.name(blueprint.getName())).size() == 0))));
     }
 
@@ -223,12 +223,17 @@ public class PlayConditions {
                 });
     }
 
+    public static boolean canStackDeckTopCards(LotroGame game, String playerId, int cardCount, Filterable... onto) {
+        return game.getGameState().getDeck(playerId).size() >= cardCount
+                && canSpot(game, onto);
+    }
+
     public static boolean canSpot(LotroGame game, Filterable... filters) {
         return canSpot(game, 1, filters);
     }
 
     public static boolean isActive(LotroGame game, Filterable... filters) {
-        return Filters.countActive(game.getGameState(), game.getModifiersQuerying(), filters)>0;
+        return Filters.countActive(game.getGameState(), game.getModifiersQuerying(), filters) > 0;
     }
 
     public static boolean canSpot(LotroGame game, int count, Filterable... filters) {
@@ -244,7 +249,7 @@ public class PlayConditions {
     }
 
     public static boolean canSpotFPCultures(LotroGame game, int count, String playerId) {
-        return GameUtils.getSpottableFPCulturesCount(game.getGameState(), game.getModifiersQuerying(), playerId)>=count;
+        return GameUtils.getSpottableFPCulturesCount(game.getGameState(), game.getModifiersQuerying(), playerId) >= count;
     }
 
     public static boolean hasInitiative(LotroGame game, Side side) {
@@ -279,7 +284,7 @@ public class PlayConditions {
                     public boolean visitPhysicalCard(PhysicalCard physicalCard) {
                         if (filter.accepts(gameState, modifiersQuerying, physicalCard)
                                 && modifiersQuerying.getVitality(gameState, physicalCard) >= times
-                                && modifiersQuerying.canTakeWounds(gameState, (source != null)?Collections.singleton(source):Collections.<PhysicalCard>emptySet(), physicalCard, times))
+                                && modifiersQuerying.canTakeWounds(gameState, (source != null) ? Collections.singleton(source) : Collections.<PhysicalCard>emptySet(), physicalCard, times))
                             _woundableCount++;
                         return _woundableCount >= count;
                     }
@@ -406,7 +411,7 @@ public class PlayConditions {
 
     public static boolean canRemoveAnyCultureTokens(LotroGame game, int count, Filterable... fromFilters) {
         return !game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.CANT_TOUCH_CULTURE_TOKENS)
-                && Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.and(fromFilters, Filters.hasAnyCultureTokens(count)))>0;
+                && Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.and(fromFilters, Filters.hasAnyCultureTokens(count))) > 0;
     }
 
     public static boolean canRemoveTokens(LotroGame game, PhysicalCard from, Token token) {
