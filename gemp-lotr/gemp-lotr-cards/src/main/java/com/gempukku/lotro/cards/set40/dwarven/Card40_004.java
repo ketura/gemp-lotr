@@ -23,7 +23,7 @@ import com.gempukku.lotro.logic.effects.ChooseAndWoundCharactersEffect;
  * Game Text: Exert a Dwarf to wound up to two Goblins.
  */
 public class Card40_004 extends AbstractEvent{
-    public Card40_004(Side side, int twilightCost, Culture culture, String name, Phase playableInPhase, Phase... additionalPlayableInPhases) {
+    public Card40_004() {
         super(Side.FREE_PEOPLE, 0, Culture.DWARVEN, "Balin's Revenge", Phase.SKIRMISH);
     }
 

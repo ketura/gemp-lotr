@@ -22,14 +22,14 @@ import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
  * Game Text: Stack the top 3 cards of your draw deck onto a [DWARVEN] support area condition to make a Dwarf take no more than one wound in a skirmish.
  */
 public class Card40_006 extends AbstractEvent{
-    public Card40_006(Side side, int twilightCost, Culture culture, String name, Phase playableInPhase, Phase... additionalPlayableInPhases) {
+    public Card40_006() {
         super(Side.FREE_PEOPLE, 0, Culture.DWARVEN, "Battle Tested", Phase.SKIRMISH);
     }
 
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && PlayConditions.canStackDeckTopCards(game, self.getOwner(), 3, Culture.DWARVEN, Zone.SUPPORT, CardType.CONDITION);
+                && PlayConditions.canStackDeckTopCards(self, game, self.getOwner(), 3, Culture.DWARVEN, Zone.SUPPORT, CardType.CONDITION);
     }
 
     @Override

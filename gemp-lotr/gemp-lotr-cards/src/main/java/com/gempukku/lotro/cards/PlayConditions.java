@@ -223,9 +223,13 @@ public class PlayConditions {
                 });
     }
 
-    public static boolean canStackDeckTopCards(LotroGame game, String playerId, int cardCount, Filterable... onto) {
+    public static boolean canStackDeckTopCards(PhysicalCard source, LotroGame game, String playerId, int cardCount, Filterable... onto) {
         return game.getGameState().getDeck(playerId).size() >= cardCount
                 && canSpot(game, onto);
+    }
+
+    public static boolean canDiscardFromStacked(PhysicalCard source, LotroGame game, String playerId, final int cardCount, Filterable from, Filterable... stackedFilter) {
+        return Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.and(from, Filters.hasStacked(cardCount, stackedFilter)));
     }
 
     public static boolean canSpot(LotroGame game, Filterable... filters) {

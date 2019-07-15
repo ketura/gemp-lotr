@@ -32,7 +32,7 @@ import java.util.List;
  * Response: If a Shadow card is about to discard any number of your [DWARVEN] conditions, discard this condition to prevent that.
  */
 public class Card40_003 extends AbstractPermanent {
-    public Card40_003(Side side, int twilightCost, CardType cardType, Culture culture, Zone playedToZone, String name) {
+    public Card40_003() {
         super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.DWARVEN, Zone.SUPPORT, "Balin's Lament", null, true);
         addKeyword(Keyword.TALE);
     }

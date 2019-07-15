@@ -763,13 +763,17 @@ public class Filters {
     }
 
     public static Filter hasStacked(final Filterable... filter) {
+        return hasStacked(1, filter);
+    }
+
+    public static Filter hasStacked(final int count, final Filterable... filter) {
         return new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
                 List<PhysicalCard> physicalCardList = gameState.getStackedCards(physicalCard);
                 if (filter.length == 1 && filter[0] == Filters.any)
-                    return physicalCardList.size() > 0;
-                return (Filters.filter(physicalCardList, gameState, modifiersQuerying, Filters.and(filter, activeSide)).size() > 0);
+                    return physicalCardList.size() >= count;
+                return (Filters.filter(physicalCardList, gameState, modifiersQuerying, Filters.and(filter, activeSide)).size() >= count);
             }
         };
     }
