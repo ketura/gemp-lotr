@@ -20,6 +20,7 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 public class PlayConditions {
@@ -221,6 +222,19 @@ public class PlayConditions {
                         return _exertableCount >= count;
                     }
                 });
+    }
+
+    public static boolean canStackCardFromHand(PhysicalCard source, LotroGame game, String playerId, int cardCount, Filterable onto, Filterable... card) {
+        Filter cardFilter = Filters.and(card);
+        List<? extends PhysicalCard> hand = game.getGameState().getHand(playerId);
+        int count = 0;
+        for (PhysicalCard cardInHand : hand) {
+            if (cardFilter.accepts(game.getGameState(), game.getModifiersQuerying(), cardInHand))
+                count++;
+        }
+
+        return count >= cardCount
+                && canSpot(game, onto);
     }
 
     public static boolean canStackDeckTopCards(PhysicalCard source, LotroGame game, String playerId, int cardCount, Filterable... onto) {
