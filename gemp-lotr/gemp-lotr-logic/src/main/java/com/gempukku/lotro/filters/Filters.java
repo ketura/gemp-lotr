@@ -725,10 +725,15 @@ public class Filters {
     };
 
     public static Filter siteNumber(final int siteNumber) {
+        return siteNumberBetweenInclusive(siteNumber, siteNumber);
+    }
+
+    public static Filter siteNumberBetweenInclusive(final int minSiteNumber, final int maxSiteNumber) {
         return new Filter() {
             @Override
             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                return (physicalCard.getSiteNumber() != null) && (physicalCard.getSiteNumber() == siteNumber);
+                return (physicalCard.getSiteNumber()!=null)
+                        && (physicalCard.getSiteNumber()>=minSiteNumber) && (physicalCard.getSiteNumber()<=maxSiteNumber);
             }
         };
     }
