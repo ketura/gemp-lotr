@@ -231,3 +231,4 @@ gl_theOneRing,1_2
 # Second edition
 40_2,1_2
 40_59,1_66
+40_84,1_78
