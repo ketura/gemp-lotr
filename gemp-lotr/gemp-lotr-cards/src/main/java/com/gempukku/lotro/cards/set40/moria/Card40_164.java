@@ -29,6 +29,11 @@ public class Card40_164 extends AbstractMinion {
 
     @Override
     public int getTwilightCostModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
-        return -Filters.countSpottable(gameState, modifiersQuerying, Filters.stackedOn(Culture.MORIA, CardType.CONDITION), Race.GOBLIN);
+        int count = 0;
+        for (PhysicalCard physicalCard : Filters.filterActive(gameState, modifiersQuerying, Culture.MORIA, CardType.CONDITION)) {
+            count += Filters.filter(gameState.getStackedCards(physicalCard), gameState, modifiersQuerying, Race.GOBLIN).size();
+        }
+
+        return -count;
     }
 }
