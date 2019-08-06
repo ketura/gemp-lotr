@@ -365,6 +365,17 @@ public class TriggerConditions {
         return false;
     }
 
+    public static boolean playedFromStacked(LotroGame game, EffectResult effectResult, Filterable stackedOnFilter, Filterable... filters) {
+        if (effectResult.getType() == EffectResult.Type.PLAY) {
+            final PlayCardResult playResult = (PlayCardResult) effectResult;
+            PhysicalCard playedCard = playResult.getPlayedCard();
+            return (playResult.getPlayedFrom() == Zone.STACKED
+                    && Filters.and(stackedOnFilter).accepts(game.getGameState(), game.getModifiersQuerying(), playResult.getAttachedOrStackedPlayedFrom())
+                    && Filters.and(filters).accepts(game.getGameState(), game.getModifiersQuerying(), playedCard));
+        }
+        return false;
+    }
+
     public static boolean playedOn(LotroGame game, EffectResult effectResult, Filterable targetFilter, Filterable... filters) {
         if (effectResult.getType() == EffectResult.Type.PLAY) {
             final PlayCardResult playResult = (PlayCardResult) effectResult;
