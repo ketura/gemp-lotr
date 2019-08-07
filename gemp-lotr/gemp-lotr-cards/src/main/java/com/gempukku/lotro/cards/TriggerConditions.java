@@ -418,4 +418,12 @@ public class TriggerConditions {
         }
         return false;
     }
+
+    public static boolean skirmishCancelled(LotroGame game, EffectResult effectResult, Filterable ... fpCharacterFilter) {
+        if (effectResult.getType() == EffectResult.Type.SKIRMISH_CANCELLED) {
+            SkirmishCancelledResult cancelledResult = (SkirmishCancelledResult) effectResult;
+            return Filters.and(fpCharacterFilter).accepts(game.getGameState(), game.getModifiersQuerying(), cancelledResult.getFpCharacter());
+        }
+        return false;
+    }
 }

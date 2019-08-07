@@ -34,6 +34,8 @@ public abstract class EffectResult {
 
         RECONCILE,
 
+        SKIRMISH_CANCELLED,
+
         ZERO_VITALITY,
 
         PLAY, ACTIVATE,

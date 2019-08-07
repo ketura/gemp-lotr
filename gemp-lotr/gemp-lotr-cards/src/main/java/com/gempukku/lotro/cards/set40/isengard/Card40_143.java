@@ -37,13 +37,14 @@ public class Card40_143 extends AbstractResponseEvent {
     @Override
     public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.forEachWounded(game, effectResult, self)
-                && PlayConditions.canExert(self, game, Filters.saruman)) {
+                && PlayConditions.canExert(self, game, Filters.saruman)
+                && checkPlayRequirements(playerId, game, self, 0, 0, false, false)) {
             WoundResult woundResult = (WoundResult) effectResult;
             final PhysicalCard woundedCard = woundResult.getWoundedCard();
             PlayEventAction action = new PlayEventAction(self);
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.saruman));
-            action.setText("Wound "+ GameUtils.getFullName(woundedCard));
+            action.setText("Wound " + GameUtils.getFullName(woundedCard));
             action.appendEffect(
                     new WoundCharactersEffect(self, woundedCard));
             return Collections.singletonList(action);
