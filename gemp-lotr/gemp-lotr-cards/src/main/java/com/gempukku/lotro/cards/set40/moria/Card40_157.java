@@ -33,7 +33,7 @@ public class Card40_157 extends AbstractMinion {
         addKeyword(Keyword.DAMAGE, 1);
         addKeyword(Keyword.FIERCE);
     }
-C
+
     @Override
     protected int getPotentialExtraPaymentDiscount(String playerId, LotroGame game, PhysicalCard self) {
         return Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Culture.MORIA, Race.GOBLIN).size();

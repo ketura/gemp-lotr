@@ -54,7 +54,9 @@ public abstract class EffectResult {
 
         ASSIGNED_AGAINST, ASSIGNED_TO_SKIRMISH, CARD_TRANSFERRED,
 
-        REPLACE_SITE, TAKE_CONTROL_OF_SITE
+        REPLACE_SITE, TAKE_CONTROL_OF_SITE,
+
+        FINISHED_PLAYING_FELLOWSHIP
     }
 
     private Type _type;

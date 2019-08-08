@@ -12,6 +12,7 @@ import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
+import com.gempukku.lotro.logic.timing.results.FinishedPlayingFellowshipResult;
 
 import java.util.Collection;
 import java.util.LinkedList;
@@ -32,7 +33,7 @@ public class PlayerPlaysStartingFellowshipGameProcess implements GameProcess {
     public void process(LotroGame game) {
         Collection<PhysicalCard> possibleCharacters = getPossibleCharacters(game, _playerId);
         if (possibleCharacters.size() == 0) {
-            game.getGameState().stopAffectingCardsForCurrentPlayer();
+            game.getActionsEnvironment().emitEffectResult(new FinishedPlayingFellowshipResult(_playerId));
             _nextProcess = _followingGameProcess;
         } else
             game.getUserFeedback().sendAwaitingDecision(_playerId, createChooseNextCharacterDecision(game, _playerId, possibleCharacters));
@@ -59,7 +60,7 @@ public class PlayerPlaysStartingFellowshipGameProcess implements GameProcess {
             public void decisionMade(String result) throws DecisionResultInvalidException {
                 List<PhysicalCard> selectedCharacters = getSelectedCardsByResponse(result);
                 if (selectedCharacters.size() == 0) {
-                    game.getGameState().stopAffectingCardsForCurrentPlayer();
+                    game.getActionsEnvironment().emitEffectResult(new FinishedPlayingFellowshipResult(_playerId));
                     _nextProcess = _followingGameProcess;
                 } else {
                     PhysicalCard selectedPhysicalCard = selectedCharacters.get(0);
