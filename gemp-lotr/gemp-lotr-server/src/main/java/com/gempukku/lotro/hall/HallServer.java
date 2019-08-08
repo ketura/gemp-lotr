@@ -301,7 +301,7 @@ public class HallServer extends AbstractServer {
             if (timer.equals("default")) {
                 return new GameTimer(false, "Default", 60 * 80, 60 * 5);
             } else if (timer.equals("blitz")) {
-                return new GameTimer(false, "Blitz", 60 * 40, 60 * 5);
+                return new GameTimer(false, "Blitz", 60 * 30, 60 * 2);
             } else if (timer.equals("slow")) {
                 return new GameTimer(false, "Slow", 60 * 120, 60 * 5);
             } else if (timer.equals("glacial")) {
@@ -699,7 +699,7 @@ public class HallServer extends AbstractServer {
         if (league != null)
             return league.getName() + " - " + table.getGameSettings().getLeagueSerie().getName();
         else
-            return "Casual " + table.getGameSettings().getTimerName();
+            return "Casual - " + table.getGameSettings().getTimerName();
     }
 
     private void createGameFromAwaitingTable(String tableId, AwaitingTable awaitingTable) {

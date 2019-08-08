@@ -91,8 +91,8 @@ var GempLotrHallUI = Class.extend({
         this.decksSelect = $("<select style='width: 220px'></select>");
         this.decksSelect.hide();
 
-        this.timerSelect = $("<select style='width: 220px'></select>");
-        this.addTimer("default", "Default");
+        this.timerSelect = $("<select style='width: 170px'></select>");
+        this.addTimer("default", "Default Speed");
         this.addTimer("blitz", "Blitz!");
         this.addTimer("slow", "Slow");
         this.addTimer("glacial", "Glacial");
