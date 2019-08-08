@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.wraith;
 
-import com.gempukku.lotro.cards.AbstractResponseOldEvent;
+import com.gempukku.lotro.cards.AbstractResponseEvent;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
@@ -27,14 +27,9 @@ import java.util.List;
  * Game Text: Response: If a Nazgul wins a skirmish, the Free Peoples player chooses to either exert the Ring-bearer or
  * add a burden.
  */
-public class Card1_214 extends AbstractResponseOldEvent {
+public class Card1_214 extends AbstractResponseEvent {
     public Card1_214() {
-        super(Side.SHADOW, Culture.WRAITH, "In the Ringwraith's Wake");
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 0;
+        super(Side.SHADOW, 0, Culture.WRAITH, "In the Ringwraith's Wake");
     }
 
     @Override

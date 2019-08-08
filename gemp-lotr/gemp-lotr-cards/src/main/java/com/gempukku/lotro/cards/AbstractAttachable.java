@@ -25,7 +25,6 @@ import java.util.Map;
 import java.util.Set;
 
 public abstract class AbstractAttachable extends AbstractLotroCardBlueprint {
-    private int _twilight;
     private PossessionClass _possessionClass;
 
     public AbstractAttachable(Side side, CardType cardType, int twilight, Culture culture, PossessionClass possessionClass, String name) {
@@ -33,8 +32,7 @@ public abstract class AbstractAttachable extends AbstractLotroCardBlueprint {
     }
 
     public AbstractAttachable(Side side, CardType cardType, int twilight, Culture culture, PossessionClass possessionClass, String name, String subTitle, boolean unique) {
-        super(side, cardType, culture, name, subTitle, unique);
-        _twilight = twilight;
+        super(twilight, side, cardType, culture, name, subTitle, unique);
         _possessionClass = possessionClass;
     }
 
@@ -140,11 +138,6 @@ public abstract class AbstractAttachable extends AbstractLotroCardBlueprint {
 
     protected Map<Filter, Integer> getAttachCostModifiers(String playerId, LotroGame game, PhysicalCard self) {
         return Collections.emptyMap();
-    }
-
-    @Override
-    public final int getTwilightCost() {
-        return _twilight;
     }
 
     @Override

@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set4.gandalf;
 
-import com.gempukku.lotro.cards.AbstractResponseOldEvent;
+import com.gempukku.lotro.cards.AbstractResponseEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
@@ -28,15 +28,10 @@ import java.util.List;
  * Response: If you play a [GANDALF] event, exert Gandalf twice to place that event in your hand instead of your
  * discard pile.
  */
-public class Card4_095 extends AbstractResponseOldEvent {
+public class Card4_095 extends AbstractResponseEvent {
     public Card4_095() {
-        super(Side.FREE_PEOPLE, Culture.GANDALF, "Into Dark Tunnels");
+        super(Side.FREE_PEOPLE, 3, Culture.GANDALF, "Into Dark Tunnels");
         addKeyword(Keyword.SPELL);
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 3;
     }
 
     @Override

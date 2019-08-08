@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.sauron;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.ForEachBurdenYouSpotEffect;
@@ -22,9 +22,9 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
  * Type: Event
  * Game Text: Skirmish: Spot X burdens to make a character skirmishing a [SAURON] Orc strength -X.
  */
-public class Card1_246 extends AbstractOldEvent {
+public class Card1_246 extends AbstractEvent {
     public Card1_246() {
-        super(Side.SHADOW, Culture.SAURON, "Enduring Evil", Phase.SKIRMISH);
+        super(Side.SHADOW, 0, Culture.SAURON, "Enduring Evil", Phase.SKIRMISH);
     }
 
     @Override
@@ -45,10 +45,5 @@ public class Card1_246 extends AbstractOldEvent {
                     });
         }
         return action;
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 0;
     }
 }

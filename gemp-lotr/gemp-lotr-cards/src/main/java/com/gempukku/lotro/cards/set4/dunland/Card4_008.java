@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set4.dunland;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.common.*;
@@ -18,14 +18,9 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
  * Type: Event
  * Game Text: Skirmish: Make a [DUNLAND] Man strength +1 for each companion you spot.
  */
-public class Card4_008 extends AbstractOldEvent {
+public class Card4_008 extends AbstractEvent {
     public Card4_008() {
-        super(Side.SHADOW, Culture.DUNLAND, "Death to the Strawheads", Phase.SKIRMISH);
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 3;
+        super(Side.SHADOW, 3, Culture.DUNLAND, "Death to the Strawheads", Phase.SKIRMISH);
     }
 
     @Override

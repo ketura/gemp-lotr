@@ -7,16 +7,11 @@ import com.gempukku.lotro.logic.actions.CostToEffectAction;
 
 public class AbstractAdventure extends AbstractLotroCardBlueprint {
     public AbstractAdventure(String name, String subTitle) {
-        super(null, CardType.ADVENTURE, null, name, subTitle, true);
+        super(0, null, CardType.ADVENTURE, null, name, subTitle, true);
     }
 
     @Override
     public CostToEffectAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         return null;
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 0;
     }
 }

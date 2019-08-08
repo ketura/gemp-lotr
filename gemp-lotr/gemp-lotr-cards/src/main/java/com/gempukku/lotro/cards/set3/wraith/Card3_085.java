@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set3.wraith;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.PreventableEffect;
 import com.gempukku.lotro.common.Culture;
@@ -27,20 +27,15 @@ import java.util.Collections;
  * Game Text: Maneuver: Spot a Nazgul to wound Gandalf twice. The Free Peoples player may discard 2 [GANDALF] cards
  * from hand to prevent this.
  */
-public class Card3_085 extends AbstractOldEvent {
+public class Card3_085 extends AbstractEvent {
     public Card3_085() {
-        super(Side.SHADOW, Culture.WRAITH, "Too Great and Terrible", Phase.MANEUVER);
+        super(Side.SHADOW, 0, Culture.WRAITH, "Too Great and Terrible", Phase.MANEUVER);
     }
 
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Race.NAZGUL);
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 0;
     }
 
     @Override

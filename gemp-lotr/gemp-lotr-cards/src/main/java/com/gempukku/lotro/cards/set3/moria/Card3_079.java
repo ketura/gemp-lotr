@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set3.moria;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -16,9 +16,9 @@ import com.gempukku.lotro.logic.effects.ChooseAndWoundCharactersEffect;
  * Type: Event
  * Game Text: Archery: Spot a [MORIA] Orc and a [SAURON] Orc to wound an archer.
  */
-public class Card3_079 extends AbstractOldEvent {
+public class Card3_079 extends AbstractEvent {
     public Card3_079() {
-        super(Side.SHADOW, Culture.MORIA, "Malice", Phase.ARCHERY);
+        super(Side.SHADOW, 0, Culture.MORIA, "Malice", Phase.ARCHERY);
     }
 
     @Override
@@ -26,11 +26,6 @@ public class Card3_079 extends AbstractOldEvent {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Culture.MORIA, Race.ORC)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Culture.SAURON, Race.ORC);
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 0;
     }
 
     @Override

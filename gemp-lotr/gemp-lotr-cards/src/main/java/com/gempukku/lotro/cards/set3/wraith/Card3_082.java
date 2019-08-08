@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set3.wraith;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.common.*;
@@ -18,20 +18,15 @@ import com.gempukku.lotro.logic.modifiers.KeywordModifier;
  * Type: Event
  * Game Text: Skirmish: Spot an [ISENGARD] minion to make a Nazgul damage +1.
  */
-public class Card3_082 extends AbstractOldEvent {
+public class Card3_082 extends AbstractEvent {
     public Card3_082() {
-        super(Side.SHADOW, Culture.WRAITH, "News of Mordor", Phase.SKIRMISH);
+        super(Side.SHADOW, 1, Culture.WRAITH, "News of Mordor", Phase.SKIRMISH);
     }
 
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Culture.ISENGARD, CardType.MINION);
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 1;
     }
 
     @Override

@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set4.isengard;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
@@ -22,9 +22,9 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
  * Type: Event
  * Game Text: Skirmish: Spot Saruman or an [ISENGARD] Man to make an unbound companion strength -2.
  */
-public class Card4_161 extends AbstractOldEvent {
+public class Card4_161 extends AbstractEvent {
     public Card4_161() {
-        super(Side.SHADOW, Culture.ISENGARD, "Men Will Fall", Phase.SKIRMISH);
+        super(Side.SHADOW, 1, Culture.ISENGARD, "Men Will Fall", Phase.SKIRMISH);
     }
 
     @Override
@@ -46,10 +46,5 @@ public class Card4_161 extends AbstractOldEvent {
                     }
                 });
         return action;
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 1;
     }
 }

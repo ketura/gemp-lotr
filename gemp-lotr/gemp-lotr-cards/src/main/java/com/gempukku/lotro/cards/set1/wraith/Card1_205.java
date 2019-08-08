@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.wraith;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
@@ -9,8 +9,6 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 
 /**
  * Set: The Fellowship of the Ring
@@ -21,9 +19,9 @@ import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
  * Game Text: Maneuver: Exert a Nazgul to discard a Free Peoples possession or Free Peoples condition. If you can spot
  * no such card, discard an ally or companion (except the Ring-bearer) instead.
  */
-public class Card1_205 extends AbstractOldEvent {
+public class Card1_205 extends AbstractEvent {
     public Card1_205() {
-        super(Side.SHADOW, Culture.WRAITH, "Beauty Is Fading", Phase.MANEUVER);
+        super(Side.SHADOW, 5, Culture.WRAITH, "Beauty Is Fading", Phase.MANEUVER);
     }
 
     @Override
@@ -47,10 +45,5 @@ public class Card1_205 extends AbstractOldEvent {
         }
 
         return action;
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 5;
     }
 }

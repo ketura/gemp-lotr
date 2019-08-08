@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set3.gondor;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
@@ -19,20 +19,15 @@ import com.gempukku.lotro.logic.modifiers.KeywordModifier;
  * Type: Event
  * Game Text: Maneuver: Exert Aragorn to make each companion with the Aragorn signet damage +1 until the regroup phase.
  */
-public class Card3_047 extends AbstractOldEvent {
+public class Card3_047 extends AbstractEvent {
     public Card3_047() {
-        super(Side.FREE_PEOPLE, Culture.GONDOR, "Voice of Rauros", Phase.MANEUVER);
+        super(Side.FREE_PEOPLE, 0, Culture.GONDOR, "Voice of Rauros", Phase.MANEUVER);
     }
 
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
                 && PlayConditions.canExert(self, game, Filters.aragorn);
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 0;
     }
 
     @Override

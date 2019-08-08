@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set4.dwarven;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.common.*;
@@ -19,14 +19,9 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
  * Type: Event
  * Game Text: Skirmish: Make a Dwarf strength +2 (or strength +3 and damage +1 if you spot Legolas).
  */
-public class Card4_051 extends AbstractOldEvent {
+public class Card4_051 extends AbstractEvent {
     public Card4_051() {
-        super(Side.FREE_PEOPLE, Culture.DWARVEN, "Khazad Ai-menu", Phase.SKIRMISH);
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 1;
+        super(Side.FREE_PEOPLE, 1, Culture.DWARVEN, "Khazad Ai-menu", Phase.SKIRMISH);
     }
 
     @Override

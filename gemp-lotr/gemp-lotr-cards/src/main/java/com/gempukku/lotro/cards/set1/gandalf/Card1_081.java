@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.gandalf;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.PutCardsFromDeckIntoHandDiscardRestEffect;
 import com.gempukku.lotro.common.Culture;
@@ -23,9 +23,9 @@ import java.util.List;
  * Game Text: Spell. Fellowship: If the twilight pool has fewer than 3 twilight tokens, spot Gandalf to look at the top
  * 4 cards of your draw deck. Take 2 of those cards into hand and discard the rest.
  */
-public class Card1_081 extends AbstractOldEvent {
+public class Card1_081 extends AbstractEvent {
     public Card1_081() {
-        super(Side.FREE_PEOPLE, Culture.GANDALF, "Questions That Need Answering", Phase.FELLOWSHIP);
+        super(Side.FREE_PEOPLE, 3, Culture.GANDALF, "Questions That Need Answering", Phase.FELLOWSHIP);
         addKeyword(Keyword.SPELL);
     }
 
@@ -44,10 +44,5 @@ public class Card1_081 extends AbstractOldEvent {
         action.appendEffect(
                 new PutCardsFromDeckIntoHandDiscardRestEffect(action, self, playerId, cards, 2, Filters.any));
         return action;
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 3;
     }
 }

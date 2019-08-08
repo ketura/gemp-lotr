@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.dwarven;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
@@ -24,14 +24,9 @@ import java.util.Collection;
  * Type: Event
  * Game Text: Maneuver: Exert a Dwarf to wound 2 Orcs or to wound 1 Orc twice.
  */
-public class Card1_019 extends AbstractOldEvent {
+public class Card1_019 extends AbstractEvent {
     public Card1_019() {
-        super(Side.FREE_PEOPLE, Culture.DWARVEN, "Here Lies Balin, Son of Fundin", Phase.MANEUVER);
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 0;
+        super(Side.FREE_PEOPLE, 0, Culture.DWARVEN, "Here Lies Balin, Son of Fundin", Phase.MANEUVER);
     }
 
     @Override

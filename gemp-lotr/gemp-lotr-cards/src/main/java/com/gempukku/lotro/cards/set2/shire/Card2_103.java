@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set2.shire;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.PreventableEffect;
@@ -26,20 +26,15 @@ import java.util.Collections;
  * Game Text: Maneuver: Exert a Hobbit bearing a weapon to wound a minion. That minion's owner may remove (3)
  * to prevent this.
  */
-public class Card2_103 extends AbstractOldEvent {
+public class Card2_103 extends AbstractEvent {
     public Card2_103() {
-        super(Side.FREE_PEOPLE, Culture.SHIRE, "Hobbit Sword-play", Phase.MANEUVER);
+        super(Side.FREE_PEOPLE, 0, Culture.SHIRE, "Hobbit Sword-play", Phase.MANEUVER);
     }
 
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
                 && PlayConditions.canExert(self, game, Race.HOBBIT, Filters.hasAttached(Filters.weapon));
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 0;
     }
 
     @Override

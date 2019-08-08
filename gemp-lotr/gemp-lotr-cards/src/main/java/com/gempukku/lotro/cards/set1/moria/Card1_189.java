@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.moria;
 
-import com.gempukku.lotro.cards.AbstractResponseOldEvent;
+import com.gempukku.lotro.cards.AbstractResponseEvent;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.decisions.ForEachYouSpotDecision;
@@ -28,14 +28,9 @@ import java.util.List;
  * Game Text: Response: If the Ring-bearer exerts or takes a wound, discard a card from the top of your draw deck for
  * each [MORIA] minion you spot. For each Shadow card discarded in this way, add a burden (limit 3 burdens).
  */
-public class Card1_189 extends AbstractResponseOldEvent {
+public class Card1_189 extends AbstractResponseEvent {
     public Card1_189() {
-        super(Side.SHADOW, Culture.MORIA, "Lost to the Goblins");
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 0;
+        super(Side.SHADOW, 0, Culture.MORIA, "Lost to the Goblins");
     }
 
     @Override

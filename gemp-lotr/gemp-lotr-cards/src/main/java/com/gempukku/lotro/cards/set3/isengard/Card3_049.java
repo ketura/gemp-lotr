@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set3.isengard;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
@@ -22,20 +22,15 @@ import java.util.Collection;
  * Type: Event
  * Game Text: Shadow: Spot an [ISENGARD] minion to discard up to 3 cards from hand and draw an equal number of cards.
  */
-public class Card3_049 extends AbstractOldEvent {
+public class Card3_049 extends AbstractEvent {
     public Card3_049() {
-        super(Side.SHADOW, Culture.ISENGARD, "Abandoning Reason for Madness", Phase.SHADOW);
+        super(Side.SHADOW, 1, Culture.ISENGARD, "Abandoning Reason for Madness", Phase.SHADOW);
     }
 
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Culture.ISENGARD, CardType.MINION);
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 1;
     }
 
     @Override

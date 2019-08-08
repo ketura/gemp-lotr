@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set4.rohan;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
@@ -20,9 +20,9 @@ import com.gempukku.lotro.logic.modifiers.KeywordModifier;
  * Type: Event
  * Game Text: Maneuver: Exert Theoden to make a companion who has the Theoden signet defender +1 until the regroup phase.
  */
-public class Card4_275 extends AbstractOldEvent {
+public class Card4_275 extends AbstractEvent {
     public Card4_275() {
-        super(Side.FREE_PEOPLE, Culture.ROHAN, "Forth Eorlingas!", Phase.MANEUVER);
+        super(Side.FREE_PEOPLE, 1, Culture.ROHAN, "Forth Eorlingas!", Phase.MANEUVER);
     }
 
     @Override
@@ -46,10 +46,5 @@ public class Card4_275 extends AbstractOldEvent {
                     }
                 });
         return action;
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 1;
     }
 }

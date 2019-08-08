@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set3.elven;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.common.CardType;
@@ -20,9 +20,9 @@ import com.gempukku.lotro.logic.effects.ChooseAndHealCharactersEffect;
  * Type: Event
  * Game Text: Fellowship or Regroup: Spot Elrond (or 2 [ELVEN] allies) to heal a companion or ally.
  */
-public class Card3_022 extends AbstractOldEvent {
+public class Card3_022 extends AbstractEvent {
     public Card3_022() {
-        super(Side.FREE_PEOPLE, Culture.ELVEN, "Master of Healing", Phase.FELLOWSHIP, Phase.REGROUP);
+        super(Side.FREE_PEOPLE, 1, Culture.ELVEN, "Master of Healing", Phase.FELLOWSHIP, Phase.REGROUP);
     }
 
     @Override
@@ -30,11 +30,6 @@ public class Card3_022 extends AbstractOldEvent {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
                 && (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name("Elrond"))
                 || PlayConditions.canSpot(game, 2, Culture.ELVEN, CardType.ALLY));
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 1;
     }
 
     @Override

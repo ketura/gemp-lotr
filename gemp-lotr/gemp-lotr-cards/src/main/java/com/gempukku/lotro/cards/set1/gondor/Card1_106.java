@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.gondor;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
@@ -8,8 +8,6 @@ import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 
 /**
  * Set: The Fellowship of the Ring
@@ -19,9 +17,9 @@ import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
  * Type: Event
  * Game Text: Regroup: Exert a ranger companion to discard a minion.
  */
-public class Card1_106 extends AbstractOldEvent {
+public class Card1_106 extends AbstractEvent {
     public Card1_106() {
-        super(Side.FREE_PEOPLE, Culture.GONDOR, "Gondor's Vengeance", Phase.REGROUP);
+        super(Side.FREE_PEOPLE, 0, Culture.GONDOR, "Gondor's Vengeance", Phase.REGROUP);
     }
 
     @Override
@@ -38,10 +36,5 @@ public class Card1_106 extends AbstractOldEvent {
         action.appendEffect(
                 new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, CardType.MINION));
         return action;
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 0;
     }
 }

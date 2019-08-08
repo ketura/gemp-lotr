@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set3.gondor;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.common.*;
@@ -19,20 +19,15 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
  * Type: Event
  * Game Text: Skirmish: Spot The Shards of Narsil to make a [GONDOR] companion strength +3 and damage +1.
  */
-public class Card3_046 extends AbstractOldEvent {
+public class Card3_046 extends AbstractEvent {
     public Card3_046() {
-        super(Side.FREE_PEOPLE, Culture.GONDOR, "Still Sharp", Phase.SKIRMISH);
+        super(Side.FREE_PEOPLE, 0, Culture.GONDOR, "Still Sharp", Phase.SKIRMISH);
     }
 
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name("The Shards of Narsil"));
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 0;
     }
 
     @Override

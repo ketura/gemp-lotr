@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set4.dunland;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.common.Culture;
@@ -21,14 +21,9 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
  * Type: Event
  * Game Text: Skirmish: Make a [DUNLAND] Man strength +2 (or +4 if you control a site).
  */
-public class Card4_005 extends AbstractOldEvent {
+public class Card4_005 extends AbstractEvent {
     public Card4_005() {
-        super(Side.SHADOW, Culture.DUNLAND, "Burn Every Village", Phase.SKIRMISH);
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 0;
+        super(Side.SHADOW, 0, Culture.DUNLAND, "Burn Every Village", Phase.SKIRMISH);
     }
 
     @Override

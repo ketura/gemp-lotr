@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set3.gandalf;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
 import com.gempukku.lotro.common.*;
@@ -20,9 +20,9 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
  * Game Text: Stealth. Maneuver: At sites 1 to 5, spot Gandalf to prevent Hobbits from being assigned to skirmishes
  * until the regroup phase. At any other site, spot Gandalf to make a Hobbit strength +3 until the regroup phase.
  */
-public class Card3_031 extends AbstractOldEvent {
+public class Card3_031 extends AbstractEvent {
     public Card3_031() {
-        super(Side.FREE_PEOPLE, Culture.GANDALF, "Depart Silently", Phase.MANEUVER);
+        super(Side.FREE_PEOPLE, 1, Culture.GANDALF, "Depart Silently", Phase.MANEUVER);
         addKeyword(Keyword.STEALTH);
     }
 
@@ -30,11 +30,6 @@ public class Card3_031 extends AbstractOldEvent {
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.gandalf);
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 1;
     }
 
     @Override

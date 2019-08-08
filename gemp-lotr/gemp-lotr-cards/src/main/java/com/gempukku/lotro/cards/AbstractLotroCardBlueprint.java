@@ -17,6 +17,7 @@ import com.gempukku.lotro.logic.timing.EffectResult;
 import java.util.*;
 
 public abstract class AbstractLotroCardBlueprint implements LotroCardBlueprint {
+    private int _twilightCost;
     private String _name;
     private String _subTitle;
     private CardType _cardType;
@@ -25,11 +26,12 @@ public abstract class AbstractLotroCardBlueprint implements LotroCardBlueprint {
     private boolean _unique;
     private Map<Keyword, Integer> _keywords = new HashMap<Keyword, Integer>();
 
-    public AbstractLotroCardBlueprint(Side side, CardType cardType, Culture culture, String name) {
-        this(side, cardType, culture, name, null, false);
+    public AbstractLotroCardBlueprint(int twilightCost, Side side, CardType cardType, Culture culture, String name) {
+        this(twilightCost, side, cardType, culture, name, null, false);
     }
 
-    public AbstractLotroCardBlueprint(Side side, CardType cardType, Culture culture, String name, String subTitle, boolean unique) {
+    public AbstractLotroCardBlueprint(int twilightCost, Side side, CardType cardType, Culture culture, String name, String subTitle, boolean unique) {
+        _twilightCost = twilightCost;
         _side = side;
         _cardType = cardType;
         _culture = culture;
@@ -58,12 +60,17 @@ public abstract class AbstractLotroCardBlueprint implements LotroCardBlueprint {
     }
 
     @Override
-    public boolean hasKeyword(Keyword keyword) {
+    public final int getTwilightCost() {
+        return _twilightCost;
+    }
+
+    @Override
+    public final boolean hasKeyword(Keyword keyword) {
         return _keywords.containsKey(keyword);
     }
 
     @Override
-    public int getKeywordCount(Keyword keyword) {
+    public final int getKeywordCount(Keyword keyword) {
         Integer count = _keywords.get(keyword);
         if (count == null)
             return 0;
@@ -72,32 +79,32 @@ public abstract class AbstractLotroCardBlueprint implements LotroCardBlueprint {
     }
 
     @Override
-    public Culture getCulture() {
+    public final Culture getCulture() {
         return _culture;
     }
 
     @Override
-    public CardType getCardType() {
+    public final CardType getCardType() {
         return _cardType;
     }
 
     @Override
-    public Side getSide() {
+    public final Side getSide() {
         return _side;
     }
 
     @Override
-    public String getName() {
+    public final String getName() {
         return _name;
     }
 
     @Override
-    public String getSubtitle() {
+    public final String getSubtitle() {
         return _subTitle;
     }
 
     @Override
-    public boolean isUnique() {
+    public final boolean isUnique() {
         return _unique;
     }
 

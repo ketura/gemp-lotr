@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set4.isengard;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
@@ -20,20 +20,15 @@ import com.gempukku.lotro.game.state.LotroGame;
  * Type: Event
  * Game Text: Maneuver: Exert 2 Uruk-hai to add a burden for each card in the dead pile.
  */
-public class Card4_140 extends AbstractOldEvent {
+public class Card4_140 extends AbstractEvent {
     public Card4_140() {
-        super(Side.SHADOW, Culture.ISENGARD, "Beyond All Hope", Phase.MANEUVER);
+        super(Side.SHADOW, 5, Culture.ISENGARD, "Beyond All Hope", Phase.MANEUVER);
     }
 
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
                 && PlayConditions.canExert(self, game, 1, 2, Race.URUK_HAI);
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 5;
     }
 
     @Override

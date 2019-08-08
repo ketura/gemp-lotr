@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set2.dwarven;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.PreventableEffect;
 import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
@@ -26,9 +26,9 @@ import java.util.Arrays;
  * Type: Event
  * Game Text: Regroup: Spot a Dwarf to draw 3 cards. Any Shadow player may remove (3) to prevent this.
  */
-public class Card2_013 extends AbstractOldEvent {
+public class Card2_013 extends AbstractEvent {
     public Card2_013() {
-        super(Side.FREE_PEOPLE, Culture.DWARVEN, "Tidings of Erebor", Phase.REGROUP);
+        super(Side.FREE_PEOPLE, 0, Culture.DWARVEN, "Tidings of Erebor", Phase.REGROUP);
     }
 
     @Override
@@ -52,10 +52,5 @@ public class Card2_013 extends AbstractOldEvent {
                         }
                 ));
         return action;
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 0;
     }
 }

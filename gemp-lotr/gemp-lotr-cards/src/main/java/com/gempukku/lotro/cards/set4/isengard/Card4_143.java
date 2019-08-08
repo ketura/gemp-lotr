@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set4.isengard;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
@@ -24,9 +24,9 @@ import com.gempukku.lotro.logic.timing.Effect;
  * Game Text: Search. Assignment: Exert an [ISENGARD] tracker to assign it to an unbound companion. That companion may
  * exert to prevent this (unless that companion is a Hobbit).
  */
-public class Card4_143 extends AbstractOldEvent {
+public class Card4_143 extends AbstractEvent {
     public Card4_143() {
-        super(Side.SHADOW, Culture.ISENGARD, "Brought Back Alive", Phase.ASSIGNMENT);
+        super(Side.SHADOW, 0, Culture.ISENGARD, "Brought Back Alive", Phase.ASSIGNMENT);
         addKeyword(Keyword.SEARCH);
     }
 
@@ -34,11 +34,6 @@ public class Card4_143 extends AbstractOldEvent {
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
                 && PlayConditions.canExert(self, game, Culture.ISENGARD, Keyword.TRACKER);
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 0;
     }
 
     @Override

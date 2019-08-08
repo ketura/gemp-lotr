@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set3.sauron;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.PreventableEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
@@ -24,20 +24,15 @@ import java.util.Collections;
  * Game Text: Maneuver: Spot a [SAURON] minion to wound Galadriel 3 times. The Free Peoples player may discard 2 Elves
  * to prevent this.
  */
-public class Card3_103 extends AbstractOldEvent {
+public class Card3_103 extends AbstractEvent {
     public Card3_103() {
-        super(Side.SHADOW, Culture.SAURON, "Terrible as the Dawn", Phase.MANEUVER);
+        super(Side.SHADOW, 0, Culture.SAURON, "Terrible as the Dawn", Phase.MANEUVER);
     }
 
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Culture.SAURON, CardType.MINION);
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 0;
     }
 
     @Override

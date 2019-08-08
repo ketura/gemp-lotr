@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.elven;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromDeckEffect;
 import com.gempukku.lotro.common.*;
@@ -16,14 +16,9 @@ import com.gempukku.lotro.game.state.LotroGame;
  * Type: Event
  * Game Text: Fellowship: Spot an Elf to play a tale from your draw deck.
  */
-public class Card1_035 extends AbstractOldEvent {
+public class Card1_035 extends AbstractEvent {
     public Card1_035() {
-        super(Side.FREE_PEOPLE, Culture.ELVEN, "The Council of Elrond", Phase.FELLOWSHIP);
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 2;
+        super(Side.FREE_PEOPLE, 2, Culture.ELVEN, "The Council of Elrond", Phase.FELLOWSHIP);
     }
 
     @Override

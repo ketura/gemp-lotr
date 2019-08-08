@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set4.dwarven;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -16,9 +16,9 @@ import com.gempukku.lotro.logic.effects.ChooseAndWoundCharactersEffect;
  * Type: Event
  * Game Text: Maneuver: Spot a Dwarf companion and an Elf companion to wound a minion.
  */
-public class Card4_053 extends AbstractOldEvent {
+public class Card4_053 extends AbstractEvent {
     public Card4_053() {
-        super(Side.FREE_PEOPLE, Culture.DWARVEN, "Quick As May Be", Phase.MANEUVER);
+        super(Side.FREE_PEOPLE, 1, Culture.DWARVEN, "Quick As May Be", Phase.MANEUVER);
     }
 
     @Override
@@ -26,11 +26,6 @@ public class Card4_053 extends AbstractOldEvent {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Race.DWARF, CardType.COMPANION)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Race.ELF, CardType.COMPANION);
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 1;
     }
 
     @Override

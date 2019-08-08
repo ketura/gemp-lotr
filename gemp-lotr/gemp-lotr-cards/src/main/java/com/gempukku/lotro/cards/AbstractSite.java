@@ -18,7 +18,7 @@ public abstract class AbstractSite extends AbstractLotroCardBlueprint {
     private Direction _siteDirection;
 
     public AbstractSite(String name, Block block, int siteNumber, int twilight, Direction siteDirection) {
-        super(null, CardType.SITE, null, name);
+        super(twilight, null, CardType.SITE, null, name);
         _block = block;
         _siteNumber = siteNumber;
         _twilight = twilight;
@@ -43,11 +43,6 @@ public abstract class AbstractSite extends AbstractLotroCardBlueprint {
     @Override
     public Direction getSiteDirection() {
         return _siteDirection;
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return _twilight;
     }
 
     @Override

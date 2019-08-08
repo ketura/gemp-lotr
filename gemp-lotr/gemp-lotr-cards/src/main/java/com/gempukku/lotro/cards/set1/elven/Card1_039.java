@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.elven;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.RemoveBurdenEffect;
 import com.gempukku.lotro.common.Culture;
@@ -19,14 +19,9 @@ import com.gempukku.lotro.game.state.LotroGame;
  * Type: Event
  * Game Text: Fellowship: Spot an Elf to remove a burden.
  */
-public class Card1_039 extends AbstractOldEvent {
+public class Card1_039 extends AbstractEvent {
     public Card1_039() {
-        super(Side.FREE_PEOPLE, Culture.ELVEN, "Elf-song", Phase.FELLOWSHIP);
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 1;
+        super(Side.FREE_PEOPLE, 1, Culture.ELVEN, "Elf-song", Phase.FELLOWSHIP);
     }
 
     @Override

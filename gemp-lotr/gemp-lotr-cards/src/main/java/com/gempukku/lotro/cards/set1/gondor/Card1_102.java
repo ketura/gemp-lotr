@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.gondor;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.common.*;
@@ -19,9 +19,9 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
  * Type: Event
  * Game Text: Skirmish: Make a [GONDOR] or [SHIRE] companion bearing a hand weapon strength +2 and damage +1.
  */
-public class Card1_102 extends AbstractOldEvent {
+public class Card1_102 extends AbstractEvent {
     public Card1_102() {
-        super(Side.FREE_PEOPLE, Culture.GONDOR, "Dagger Strike", Phase.SKIRMISH);
+        super(Side.FREE_PEOPLE, 0, Culture.GONDOR, "Dagger Strike", Phase.SKIRMISH);
     }
 
     @Override
@@ -41,10 +41,5 @@ public class Card1_102 extends AbstractOldEvent {
                 }
         );
         return action;
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 0;
     }
 }

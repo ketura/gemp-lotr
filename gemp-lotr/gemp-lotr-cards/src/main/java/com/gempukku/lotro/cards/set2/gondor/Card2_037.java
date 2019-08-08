@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set2.gondor;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.common.CardType;
@@ -21,14 +21,9 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
  * Type: Event
  * Game Text: Skirmish: Make a [GONDOR] companion strength +2 (or +4 if in a fierce skirmish).
  */
-public class Card2_037 extends AbstractOldEvent {
+public class Card2_037 extends AbstractEvent {
     public Card2_037() {
-        super(Side.FREE_PEOPLE, Culture.GONDOR, "Sentinels of Numenor", Phase.SKIRMISH);
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 0;
+        super(Side.FREE_PEOPLE, 0, Culture.GONDOR, "Sentinels of Numenor", Phase.SKIRMISH);
     }
 
     @Override

@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.gondor;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.SnapshotAndApplyStrengthModifierUntilStartOfPhaseEffect;
@@ -18,9 +18,9 @@ import com.gempukku.lotro.logic.modifiers.evaluator.ConstantEvaluator;
  * Type: Event
  * Game Text: Maneuver: Exert a ranger to make each roaming minion strength -3 until the regroup phase.
  */
-public class Card1_104 extends AbstractOldEvent {
+public class Card1_104 extends AbstractEvent {
     public Card1_104() {
-        super(Side.FREE_PEOPLE, Culture.GONDOR, "Eregion's Trails", Phase.MANEUVER);
+        super(Side.FREE_PEOPLE, 1, Culture.GONDOR, "Eregion's Trails", Phase.MANEUVER);
     }
 
     @Override
@@ -38,10 +38,5 @@ public class Card1_104 extends AbstractOldEvent {
                 new SnapshotAndApplyStrengthModifierUntilStartOfPhaseEffect(
                         self, new ConstantEvaluator(-3), Phase.REGROUP, CardType.MINION, Keyword.ROAMING));
         return action;
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 1;
     }
 }

@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set2.gandalf;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
 import com.gempukku.lotro.common.*;
@@ -19,9 +19,9 @@ import com.gempukku.lotro.logic.modifiers.RemoveKeywordModifier;
  * Game Text: Spell. Maneuver: Spot Gandalf bearing a staff to prevent a minion from being fierce until the regroup
  * phase.
  */
-public class Card2_030 extends AbstractOldEvent {
+public class Card2_030 extends AbstractEvent {
     public Card2_030() {
-        super(Side.FREE_PEOPLE, Culture.GANDALF, "You Cannot Pass!", Phase.MANEUVER);
+        super(Side.FREE_PEOPLE, 1, Culture.GANDALF, "You Cannot Pass!", Phase.MANEUVER);
         addKeyword(Keyword.SPELL);
     }
 
@@ -44,10 +44,5 @@ public class Card2_030 extends AbstractOldEvent {
                     }
                 });
         return action;
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 1;
     }
 }

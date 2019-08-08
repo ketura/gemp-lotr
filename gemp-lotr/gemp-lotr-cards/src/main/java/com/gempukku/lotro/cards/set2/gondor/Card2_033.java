@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set2.gondor;
 
-import com.gempukku.lotro.cards.AbstractResponseOldEvent;
+import com.gempukku.lotro.cards.AbstractResponseEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
@@ -28,14 +28,9 @@ import java.util.List;
  * Game Text: Response: If a [GONDOR] companion wins a skirmish, discard an exhausted Orc. That minion's owner may
  * remove (3) to prevent this.
  */
-public class Card2_033 extends AbstractResponseOldEvent {
+public class Card2_033 extends AbstractResponseEvent {
     public Card2_033() {
-        super(Side.FREE_PEOPLE, Culture.GONDOR, "Flee in Terror");
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 0;
+        super(Side.FREE_PEOPLE, 0, Culture.GONDOR, "Flee in Terror");
     }
 
     @Override

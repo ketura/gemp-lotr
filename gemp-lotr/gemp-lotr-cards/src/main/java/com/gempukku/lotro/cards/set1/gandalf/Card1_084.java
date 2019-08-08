@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.gandalf;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
@@ -18,9 +18,9 @@ import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
  * Type: Event
  * Game Text: Spell. Fellowship: Exert Gandalf to discard every condition.
  */
-public class Card1_084 extends AbstractOldEvent {
+public class Card1_084 extends AbstractEvent {
     public Card1_084() {
-        super(Side.FREE_PEOPLE, Culture.GANDALF, "Sleep Caradhras", Phase.FELLOWSHIP);
+        super(Side.FREE_PEOPLE, 3, Culture.GANDALF, "Sleep Caradhras", Phase.FELLOWSHIP);
         addKeyword(Keyword.SPELL);
     }
 
@@ -38,10 +38,5 @@ public class Card1_084 extends AbstractOldEvent {
         action.appendEffect(
                 new DiscardCardsFromPlayEffect(self.getOwner(), self, CardType.CONDITION));
         return action;
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 3;
     }
 }

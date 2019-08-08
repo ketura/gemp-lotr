@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.isengard;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
@@ -17,15 +17,10 @@ import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
  * Type: Event
  * Game Text: Spell. Shadow: Exert a [ISENGARD] minion to discard all conditions.
  */
-public class Card1_136 extends AbstractOldEvent {
+public class Card1_136 extends AbstractEvent {
     public Card1_136() {
-        super(Side.SHADOW, Culture.ISENGARD, "Saruman's Power", Phase.SHADOW);
+        super(Side.SHADOW, 2, Culture.ISENGARD, "Saruman's Power", Phase.SHADOW);
         addKeyword(Keyword.SPELL);
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 2;
     }
 
     @Override

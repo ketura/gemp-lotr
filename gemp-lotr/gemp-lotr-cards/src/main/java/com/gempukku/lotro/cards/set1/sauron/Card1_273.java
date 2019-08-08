@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.sauron;
 
-import com.gempukku.lotro.cards.AbstractResponseOldEvent;
+import com.gempukku.lotro.cards.AbstractResponseEvent;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
@@ -24,14 +24,9 @@ import java.util.List;
  * Type: Event
  * Game Text: Response: If a [SAURON] Orc kills a companion, add 1 burden (or 3 if the Ring-bearer wears The One Ring).
  */
-public class Card1_273 extends AbstractResponseOldEvent {
+public class Card1_273 extends AbstractResponseEvent {
     public Card1_273() {
-        super(Side.SHADOW, Culture.SAURON, "The Ring's Oppression");
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 3;
+        super(Side.SHADOW, 3, Culture.SAURON, "The Ring's Oppression");
     }
 
     @Override

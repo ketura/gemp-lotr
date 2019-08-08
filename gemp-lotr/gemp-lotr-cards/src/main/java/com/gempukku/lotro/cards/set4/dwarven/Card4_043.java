@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set4.dwarven;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.StackTopCardsFromDeckEffect;
 import com.gempukku.lotro.common.CardType;
@@ -20,9 +20,9 @@ import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
  * Type: Event
  * Game Text: Fellowship: Stack the top 2 cards from your draw deck on a [DWARVEN] condition that has a card already stacked on it.
  */
-public class Card4_043 extends AbstractOldEvent {
+public class Card4_043 extends AbstractEvent {
     public Card4_043() {
-        super(Side.FREE_PEOPLE, Culture.DWARVEN, "Come Here Lad", Phase.FELLOWSHIP);
+        super(Side.FREE_PEOPLE, 0, Culture.DWARVEN, "Come Here Lad", Phase.FELLOWSHIP);
     }
 
     @Override
@@ -37,10 +37,5 @@ public class Card4_043 extends AbstractOldEvent {
                     }
                 });
         return action;
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 0;
     }
 }

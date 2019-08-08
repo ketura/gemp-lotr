@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.dwarven;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.PutCardsFromDeckIntoHandDiscardRestEffect;
 import com.gempukku.lotro.cards.effects.RevealTopCardsOfDrawDeckEffect;
@@ -23,14 +23,9 @@ import java.util.List;
  * Game Text: Fellowship: Spot a Dwarf to reveal the top 3 cards of your draw deck. Take all Free Peoples cards
  * revealed into hand and discard the rest.
  */
-public class Card1_028 extends AbstractOldEvent {
+public class Card1_028 extends AbstractEvent {
     public Card1_028() {
-        super(Side.FREE_PEOPLE, Culture.DWARVEN, "Wealth of Moria", Phase.FELLOWSHIP);
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 2;
+        super(Side.FREE_PEOPLE, 2, Culture.DWARVEN, "Wealth of Moria", Phase.FELLOWSHIP);
     }
 
     @Override

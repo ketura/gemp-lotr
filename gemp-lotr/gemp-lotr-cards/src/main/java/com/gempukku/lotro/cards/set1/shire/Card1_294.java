@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.shire;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -19,14 +19,9 @@ import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
  * Type: Event
  * Game Text: Fellowship: Add (X) to heal a Hobbit companion X times.
  */
-public class Card1_294 extends AbstractOldEvent {
+public class Card1_294 extends AbstractEvent {
     public Card1_294() {
-        super(Side.FREE_PEOPLE, Culture.SHIRE, "Hobbit Appetite", Phase.FELLOWSHIP);
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 0;
+        super(Side.FREE_PEOPLE, 0, Culture.SHIRE, "Hobbit Appetite", Phase.FELLOWSHIP);
     }
 
     @Override

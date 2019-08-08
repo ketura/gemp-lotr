@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set3.gondor;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
@@ -21,9 +21,9 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
  * Game Text: Tale. Maneuver: Exert a [GONDOR] companion to make that companion strength +3 and defender +1 until
  * the regroup phase.
  */
-public class Card3_039 extends AbstractOldEvent {
+public class Card3_039 extends AbstractEvent {
     public Card3_039() {
-        super(Side.FREE_PEOPLE, Culture.GONDOR, "Banner of the White Tree", Phase.MANEUVER);
+        super(Side.FREE_PEOPLE, 0, Culture.GONDOR, "Banner of the White Tree", Phase.MANEUVER);
         addKeyword(Keyword.TALE);
     }
 
@@ -31,11 +31,6 @@ public class Card3_039 extends AbstractOldEvent {
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
                 && PlayConditions.canExert(self, game, Culture.GONDOR, CardType.COMPANION);
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 0;
     }
 
     @Override

@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set2.sauron;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
@@ -22,20 +22,15 @@ import java.util.List;
  * Type: Event
  * Game Text: Maneuver: Exert a [SAURON] Orc to discard an ally (or 2 [ELVEN] allies).
  */
-public class Card2_088 extends AbstractOldEvent {
+public class Card2_088 extends AbstractEvent {
     public Card2_088() {
-        super(Side.SHADOW, Culture.SAURON, "Memory of Many Things", Phase.MANEUVER);
+        super(Side.SHADOW, 2, Culture.SAURON, "Memory of Many Things", Phase.MANEUVER);
     }
 
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
                 && PlayConditions.canExert(self, game, Culture.SAURON, Race.ORC);
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 2;
     }
 
     @Override

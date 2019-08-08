@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set3.sauron;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.RevealRandomCardsFromHandEffect;
@@ -24,20 +24,15 @@ import java.util.List;
  * Game Text: Regroup: Exert a [SAURON] minion to reveal a card at random from the Free Peoples player's hand. That
  * player must discard X cards from hand, where X is the twilight cost of the card revealed.
  */
-public class Card3_087 extends AbstractOldEvent {
+public class Card3_087 extends AbstractEvent {
     public Card3_087() {
-        super(Side.SHADOW, Culture.SAURON, "The Dark Lord Advances", Phase.REGROUP);
+        super(Side.SHADOW, 2, Culture.SAURON, "The Dark Lord Advances", Phase.REGROUP);
     }
 
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
                 && PlayConditions.canExert(self, game, Culture.SAURON, CardType.MINION);
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 2;
     }
 
     @Override

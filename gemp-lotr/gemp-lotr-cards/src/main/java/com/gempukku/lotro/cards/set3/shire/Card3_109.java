@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set3.shire;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
 import com.gempukku.lotro.cards.effects.RevealRandomCardsFromHandEffect;
@@ -21,20 +21,15 @@ import java.util.List;
  * Game Text: Fellowship: Spot a Hobbit companion (except the Ring-bearer) to reveal a card at random from
  * an opponent's hand. Remove (X), where X is the twilight cost of the card revealed.
  */
-public class Card3_109 extends AbstractOldEvent {
+public class Card3_109 extends AbstractEvent {
     public Card3_109() {
-        super(Side.FREE_PEOPLE, Culture.SHIRE, "Meant to Be Alone", Phase.FELLOWSHIP);
+        super(Side.FREE_PEOPLE, 1, Culture.SHIRE, "Meant to Be Alone", Phase.FELLOWSHIP);
     }
 
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Race.HOBBIT, CardType.COMPANION, Filters.not(Filters.ringBearer));
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 1;
     }
 
     @Override

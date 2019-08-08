@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.gondor;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
 import com.gempukku.lotro.cards.modifiers.evaluator.CardMatchesEvaluator;
@@ -16,9 +16,9 @@ import com.gempukku.lotro.game.state.LotroGame;
  * Type: Event
  * Game Text: Skirmish: Make a [GONDOR] companion strength +2 (or +4 if he is defender +1).
  */
-public class Card1_116 extends AbstractOldEvent {
+public class Card1_116 extends AbstractEvent {
     public Card1_116() {
-        super(Side.FREE_PEOPLE, Culture.GONDOR, "Swordarm of the White Tower", Phase.SKIRMISH);
+        super(Side.FREE_PEOPLE, 0, Culture.GONDOR, "Swordarm of the White Tower", Phase.SKIRMISH);
     }
 
     @Override
@@ -30,10 +30,5 @@ public class Card1_116 extends AbstractOldEvent {
                         new CardMatchesEvaluator(2, 4, Keyword.DEFENDER),
                         Culture.GONDOR, CardType.COMPANION));
         return action;
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 0;
     }
 }

@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set4.gandalf;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.ForEachTwilightTokenYouSpotEffect;
@@ -20,14 +20,9 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
  * Type: Event
  * Game Text: Skirmish: Make Gandalf strength +1 for each twilight token you spot (limit +5).
  */
-public class Card4_105 extends AbstractOldEvent {
+public class Card4_105 extends AbstractEvent {
     public Card4_105() {
-        super(Side.FREE_PEOPLE, Culture.GANDALF, "Under the Living Earth", Phase.SKIRMISH);
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 1;
+        super(Side.FREE_PEOPLE, 1, Culture.GANDALF, "Under the Living Earth", Phase.SKIRMISH);
     }
 
     @Override

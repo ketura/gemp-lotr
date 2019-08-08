@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set2.shire;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfTurnModifierEffect;
@@ -18,9 +18,9 @@ import com.gempukku.lotro.logic.modifiers.TwilightCostModifier;
  * Type: Event
  * Game Text: Stealth. Regroup: Spot 2 Hobbits to make each site's Shadow number -2 until the end of the turn.
  */
-public class Card2_099 extends AbstractOldEvent {
+public class Card2_099 extends AbstractEvent {
     public Card2_099() {
-        super(Side.FREE_PEOPLE, Culture.SHIRE, "Deft in Their Movements", Phase.REGROUP);
+        super(Side.FREE_PEOPLE, 0, Culture.SHIRE, "Deft in Their Movements", Phase.REGROUP);
         addKeyword(Keyword.STEALTH);
     }
 
@@ -28,11 +28,6 @@ public class Card2_099 extends AbstractOldEvent {
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
                 && PlayConditions.canSpot(game, 2, Race.HOBBIT);
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 0;
     }
 
     @Override

@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.shire;
 
-import com.gempukku.lotro.cards.AbstractResponseOldEvent;
+import com.gempukku.lotro.cards.AbstractResponseEvent;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.PreventCardEffect;
@@ -24,14 +24,9 @@ import java.util.List;
  * Type: Event
  * Game Text: Response: If the Ring-bearer is about to heal, remove a burden instead.
  */
-public class Card1_287 extends AbstractResponseOldEvent {
+public class Card1_287 extends AbstractResponseEvent {
     public Card1_287() {
-        super(Side.FREE_PEOPLE, Culture.SHIRE, "Extraordinary Resilience");
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 0;
+        super(Side.FREE_PEOPLE, 0, Culture.SHIRE, "Extraordinary Resilience");
     }
 
     @Override

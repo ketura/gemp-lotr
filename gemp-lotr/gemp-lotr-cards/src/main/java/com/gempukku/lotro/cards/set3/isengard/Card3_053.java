@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set3.isengard;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -16,9 +16,9 @@ import com.gempukku.lotro.logic.effects.DrawCardsEffect;
  * Type: Event
  * Game Text: Shadow: Spot an Uruk-hai and a [MORIA] minion to draw 3 cards.
  */
-public class Card3_053 extends AbstractOldEvent {
+public class Card3_053 extends AbstractEvent {
     public Card3_053() {
-        super(Side.SHADOW, Culture.ISENGARD, "Hate and Anger", Phase.SHADOW);
+        super(Side.SHADOW, 2, Culture.ISENGARD, "Hate and Anger", Phase.SHADOW);
     }
 
     @Override
@@ -26,11 +26,6 @@ public class Card3_053 extends AbstractOldEvent {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Race.URUK_HAI)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Culture.MORIA, CardType.MINION);
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 2;
     }
 
     @Override

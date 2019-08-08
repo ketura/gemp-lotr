@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.sauron;
 
-import com.gempukku.lotro.cards.AbstractResponseOldEvent;
+import com.gempukku.lotro.cards.AbstractResponseEvent;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.DiscardTopCardFromDeckEffect;
@@ -25,14 +25,9 @@ import java.util.List;
  * Game Text: Response: If a companion is killed by a [SAURON] Orc, the Free Peoples player must discard 3 cards from
  * the top of his draw deck for each card in the dead pile.
  */
-public class Card1_265 extends AbstractResponseOldEvent {
+public class Card1_265 extends AbstractResponseEvent {
     public Card1_265() {
-        super(Side.SHADOW, Culture.SAURON, "Orc Butchery");
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 0;
+        super(Side.SHADOW, 0, Culture.SAURON, "Orc Butchery");
     }
 
     @Override

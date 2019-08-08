@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set4.isengard;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.common.Culture;
@@ -21,9 +21,9 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
  * Type: Event
  * Game Text: Skirmish: Make an [ISENGARD] tracker strength +2 (or +4 if skirmishing a character bearing a search card).
  */
-public class Card4_156 extends AbstractOldEvent {
+public class Card4_156 extends AbstractEvent {
     public Card4_156() {
-        super(Side.SHADOW, Culture.ISENGARD, "Kill Them Now", Phase.SKIRMISH);
+        super(Side.SHADOW, 0, Culture.ISENGARD, "Kill Them Now", Phase.SKIRMISH);
     }
 
     @Override
@@ -41,10 +41,5 @@ public class Card4_156 extends AbstractOldEvent {
                     }
                 });
         return action;
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 0;
     }
 }

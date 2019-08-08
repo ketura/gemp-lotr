@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.wraith;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
@@ -18,9 +18,9 @@ import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
  * Type: Event
  * Game Text: Maneuver: Exert a Nazgul to wound every archer companion.
  */
-public class Card1_223 extends AbstractOldEvent {
+public class Card1_223 extends AbstractEvent {
     public Card1_223() {
-        super(Side.SHADOW, Culture.WRAITH, "Relentless Charge", Phase.MANEUVER);
+        super(Side.SHADOW, 0, Culture.WRAITH, "Relentless Charge", Phase.MANEUVER);
     }
 
     @Override
@@ -37,10 +37,5 @@ public class Card1_223 extends AbstractOldEvent {
         action.appendEffect(
                 new WoundCharactersEffect(self, Filters.and(CardType.COMPANION, Keyword.ARCHER)));
         return action;
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 0;
     }
 }

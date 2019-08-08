@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set4.gondor;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.common.*;
@@ -19,14 +19,9 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
  * Type: Event
  * Game Text: Skirmish: Make a [GONDOR] Man strength +2 (or +3 and damage +1 if skirmishing a roaming minion).
  */
-public class Card4_135 extends AbstractOldEvent {
+public class Card4_135 extends AbstractEvent {
     public Card4_135() {
-        super(Side.FREE_PEOPLE, Culture.GONDOR, "War and Valor", Phase.SKIRMISH);
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 0;
+        super(Side.FREE_PEOPLE, 0, Culture.GONDOR, "War and Valor", Phase.SKIRMISH);
     }
 
     @Override

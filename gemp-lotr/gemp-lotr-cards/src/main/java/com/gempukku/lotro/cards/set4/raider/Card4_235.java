@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set4.raider;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
@@ -17,9 +17,9 @@ import com.gempukku.lotro.game.state.LotroGame;
  * Type: Event
  * Game Text: Skirmish: Spot a [RAIDER] Man skirmishing a Ring-bound companion to add a burden.
  */
-public class Card4_235 extends AbstractOldEvent {
+public class Card4_235 extends AbstractEvent {
     public Card4_235() {
-        super(Side.SHADOW, Culture.RAIDER, "Gathering to the Summons", Phase.SKIRMISH);
+        super(Side.SHADOW, 0, Culture.RAIDER, "Gathering to the Summons", Phase.SKIRMISH);
     }
 
     @Override
@@ -34,10 +34,5 @@ public class Card4_235 extends AbstractOldEvent {
         action.appendEffect(
                 new AddBurdenEffect(self.getOwner(), self, 1));
         return action;
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 0;
     }
 }

@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.isengard;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.common.*;
@@ -19,14 +19,9 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
  * Type: Event
  * Game Text: Skirmish: Make an Uruk-hai strength -1 and damage +1.
  */
-public class Card1_128 extends AbstractOldEvent {
+public class Card1_128 extends AbstractEvent {
     public Card1_128() {
-        super(Side.SHADOW, Culture.ISENGARD, "Lurtz's Battle Cry", Phase.SKIRMISH);
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 1;
+        super(Side.SHADOW, 1, Culture.ISENGARD, "Lurtz's Battle Cry", Phase.SKIRMISH);
     }
 
     @Override

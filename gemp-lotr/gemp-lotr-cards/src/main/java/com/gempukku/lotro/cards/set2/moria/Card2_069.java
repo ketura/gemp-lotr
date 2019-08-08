@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set2.moria;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.common.Culture;
@@ -22,14 +22,9 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
  * Game Text: Skirmish: Make an Elf or Dwarf skirmishing a [MORIA] Orc strength -1 (or -3 if you spot an Elf and
  * a Dwarf).
  */
-public class Card2_069 extends AbstractOldEvent {
+public class Card2_069 extends AbstractEvent {
     public Card2_069() {
-        super(Side.SHADOW, Culture.MORIA, "Old Differences", Phase.SKIRMISH);
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 0;
+        super(Side.SHADOW, 0, Culture.MORIA, "Old Differences", Phase.SKIRMISH);
     }
 
     @Override

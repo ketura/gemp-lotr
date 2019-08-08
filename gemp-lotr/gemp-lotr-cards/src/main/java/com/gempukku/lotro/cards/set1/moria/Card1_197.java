@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.moria;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
@@ -20,9 +20,9 @@ import com.gempukku.lotro.logic.effects.DrawCardsEffect;
  * Type: Event
  * Game Text: Shadow: Exert your [MORIA] Orc to draw 2 cards.
  */
-public class Card1_197 extends AbstractOldEvent {
+public class Card1_197 extends AbstractEvent {
     public Card1_197() {
-        super(Side.SHADOW, Culture.MORIA, "Threat of the Unknown", Phase.SHADOW);
+        super(Side.SHADOW, 0, Culture.MORIA, "Threat of the Unknown", Phase.SHADOW);
     }
 
     @Override
@@ -39,10 +39,5 @@ public class Card1_197 extends AbstractOldEvent {
         action.appendEffect(
                 new DrawCardsEffect(action, playerId, 2));
         return action;
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 0;
     }
 }

@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.isengard;
 
-import com.gempukku.lotro.cards.AbstractResponseOldEvent;
+import com.gempukku.lotro.cards.AbstractResponseEvent;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.PutCardFromDiscardOnBottomOfDeckEffect;
@@ -26,14 +26,9 @@ import java.util.List;
  * Game Text: Response: If you play an Uruk-hai, take all copies of that card in your discard pile and place them
  * beneath your draw deck.
  */
-public class Card1_122 extends AbstractResponseOldEvent {
+public class Card1_122 extends AbstractResponseEvent {
     public Card1_122() {
-        super(Side.SHADOW, Culture.ISENGARD, "Breeding Pit");
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 1;
+        super(Side.SHADOW, 1, Culture.ISENGARD, "Breeding Pit");
     }
 
     @Override

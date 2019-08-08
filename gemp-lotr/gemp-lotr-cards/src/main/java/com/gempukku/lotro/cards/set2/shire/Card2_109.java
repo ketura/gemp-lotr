@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set2.shire;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
@@ -23,20 +23,15 @@ import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
  * Type: Event
  * Game Text: Maneuver: Spot Sting or Glamdring and exert its bearer X times to wound X Orcs or X Uruk-hai.
  */
-public class Card2_109 extends AbstractOldEvent {
+public class Card2_109 extends AbstractEvent {
     public Card2_109() {
-        super(Side.FREE_PEOPLE, Culture.SHIRE, "Orc-bane", Phase.MANEUVER);
+        super(Side.FREE_PEOPLE, 0, Culture.SHIRE, "Orc-bane", Phase.MANEUVER);
     }
 
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
                 && PlayConditions.canExert(self, game, Filters.hasAttached(Filters.or(Filters.name("Sting"), Filters.name("Glamdring"))));
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 0;
     }
 
     @Override

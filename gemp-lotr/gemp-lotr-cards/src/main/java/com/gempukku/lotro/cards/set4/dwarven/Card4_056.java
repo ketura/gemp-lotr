@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set4.dwarven;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.DiscardTopCardFromDeckEffect;
 import com.gempukku.lotro.common.Culture;
@@ -20,14 +20,9 @@ import com.gempukku.lotro.logic.effects.DrawCardsEffect;
  * Type: Event
  * Game Text: Fellowship: Spot a Dwarf and discard the top card of your draw deck to draw 2 cards.
  */
-public class Card4_056 extends AbstractOldEvent {
+public class Card4_056 extends AbstractEvent {
     public Card4_056() {
-        super(Side.FREE_PEOPLE, Culture.DWARVEN, "Search Far and Wide", Phase.FELLOWSHIP);
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 0;
+        super(Side.FREE_PEOPLE, 0, Culture.DWARVEN, "Search Far and Wide", Phase.FELLOWSHIP);
     }
 
     @Override

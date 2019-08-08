@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set2.moria;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.ForEachBurdenYouSpotEffect;
@@ -21,20 +21,15 @@ import com.gempukku.lotro.logic.effects.AddTwilightEffect;
  * Type: Event
  * Game Text: Shadow: Exert a [MORIA] minion and spot X burdens to add (X) (limit (5)).
  */
-public class Card2_072 extends AbstractOldEvent {
+public class Card2_072 extends AbstractEvent {
     public Card2_072() {
-        super(Side.SHADOW, Culture.MORIA, "Troubled Mountains", Phase.SHADOW);
+        super(Side.SHADOW, 0, Culture.MORIA, "Troubled Mountains", Phase.SHADOW);
     }
 
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
                 && PlayConditions.canExert(self, game, Culture.MORIA, CardType.MINION);
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 0;
     }
 
     @Override

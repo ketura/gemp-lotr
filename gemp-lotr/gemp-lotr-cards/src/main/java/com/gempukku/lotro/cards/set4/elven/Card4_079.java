@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set4.elven;
 
-import com.gempukku.lotro.cards.AbstractResponseOldEvent;
+import com.gempukku.lotro.cards.AbstractResponseEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
@@ -30,14 +30,9 @@ import java.util.List;
  * Type: Event
  * Game Text: Response: If an Elf wins a skirmish, exert that Elf to liberate a site or wound a minion.
  */
-public class Card4_079 extends AbstractResponseOldEvent {
+public class Card4_079 extends AbstractResponseEvent {
     public Card4_079() {
-        super(Side.FREE_PEOPLE, Culture.ELVEN, "Night Without End");
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 1;
+        super(Side.FREE_PEOPLE, 1, Culture.ELVEN, "Night Without End");
     }
 
     @Override

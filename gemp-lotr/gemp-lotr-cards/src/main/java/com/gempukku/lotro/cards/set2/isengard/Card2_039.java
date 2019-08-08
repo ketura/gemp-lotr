@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set2.isengard;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
@@ -20,20 +20,15 @@ import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
  * Game Text: Maneuver: Exert an Uruk-hai to discard an armor possession, helm possession, or shield possession (or all
  * such Free Peoples possessions if you can spot 6 companions).
  */
-public class Card2_039 extends AbstractOldEvent {
+public class Card2_039 extends AbstractEvent {
     public Card2_039() {
-        super(Side.SHADOW, Culture.ISENGARD, "Beyond the Height of Men", Phase.MANEUVER);
+        super(Side.SHADOW, 2, Culture.ISENGARD, "Beyond the Height of Men", Phase.MANEUVER);
     }
 
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
                 && PlayConditions.canExert(self, game, Race.URUK_HAI);
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 2;
     }
 
     @Override

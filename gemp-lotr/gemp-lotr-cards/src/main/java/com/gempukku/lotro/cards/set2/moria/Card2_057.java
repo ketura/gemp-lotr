@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set2.moria;
 
-import com.gempukku.lotro.cards.AbstractResponseOldEvent;
+import com.gempukku.lotro.cards.AbstractResponseEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.common.CardType;
@@ -26,14 +26,9 @@ import java.util.List;
  * Game Text: Response: If a skirmish that involved The Balrog bearing Whip of Many Thongs is about to end, wound
  * a companion in that skirmish twice.
  */
-public class Card2_057 extends AbstractResponseOldEvent {
+public class Card2_057 extends AbstractResponseEvent {
     public Card2_057() {
-        super(Side.SHADOW, Culture.MORIA, "Final Cry");
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 1;
+        super(Side.SHADOW, 1, Culture.MORIA, "Final Cry");
     }
 
     @Override

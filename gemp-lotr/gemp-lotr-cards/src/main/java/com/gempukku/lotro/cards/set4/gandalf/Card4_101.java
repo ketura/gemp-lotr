@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set4.gandalf;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.modifiers.AllyParticipatesInArcheryFireAndSkirmishesModifier;
@@ -20,9 +20,9 @@ import com.gempukku.lotro.logic.modifiers.KeywordModifier;
  * Game Text: Maneuver: Spot an [ISENGARD] minion and an Ent ally. Until the regroup phase, that ally is damage +2
  * and participates in archery fire and skirmishes.
  */
-public class Card4_101 extends AbstractOldEvent {
+public class Card4_101 extends AbstractEvent {
     public Card4_101() {
-        super(Side.FREE_PEOPLE, Culture.GANDALF, "Stump and Bramble", Phase.MANEUVER);
+        super(Side.FREE_PEOPLE, 1, Culture.GANDALF, "Stump and Bramble", Phase.MANEUVER);
     }
 
     @Override
@@ -30,11 +30,6 @@ public class Card4_101 extends AbstractOldEvent {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Culture.ISENGARD, CardType.MINION)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Race.ENT, CardType.ALLY);
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 1;
     }
 
     @Override

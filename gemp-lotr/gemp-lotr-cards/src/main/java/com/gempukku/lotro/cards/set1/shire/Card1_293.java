@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.shire;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
@@ -22,14 +22,9 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
  * Type: Event
  * Game Text: Skirmish: Exert a Hobbit to make him strength +3.
  */
-public class Card1_293 extends AbstractOldEvent {
+public class Card1_293 extends AbstractEvent {
     public Card1_293() {
-        super(Side.FREE_PEOPLE, Culture.SHIRE, "Halfling Deftness", Phase.SKIRMISH);
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 0;
+        super(Side.FREE_PEOPLE, 0, Culture.SHIRE, "Halfling Deftness", Phase.SKIRMISH);
     }
 
     @Override

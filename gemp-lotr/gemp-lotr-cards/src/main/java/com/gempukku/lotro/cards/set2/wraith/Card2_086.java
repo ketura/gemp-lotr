@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set2.wraith;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
 import com.gempukku.lotro.common.*;
@@ -16,9 +16,9 @@ import com.gempukku.lotro.game.state.LotroGame;
  * Type: Event
  * Game Text: Skirmish: Spot a twilight Nazgul and the Ring-bearer wearing The One Ring to add 3 burdens.
  */
-public class Card2_086 extends AbstractOldEvent {
+public class Card2_086 extends AbstractEvent {
     public Card2_086() {
-        super(Side.SHADOW, Culture.WRAITH, "Wraith-world", Phase.SKIRMISH);
+        super(Side.SHADOW, 1, Culture.WRAITH, "Wraith-world", Phase.SKIRMISH);
     }
 
     @Override
@@ -26,11 +26,6 @@ public class Card2_086 extends AbstractOldEvent {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Race.NAZGUL, Keyword.TWILIGHT)
                 && game.getGameState().isWearingRing();
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 1;
     }
 
     @Override

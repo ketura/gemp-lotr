@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.dwarven;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
 import com.gempukku.lotro.cards.modifiers.evaluator.CardMatchesEvaluator;
@@ -17,9 +17,9 @@ import com.gempukku.lotro.game.state.LotroGame;
  * Type: Event
  * Game Text: Skirmish: Make a Dwarf strength +2 (or +3 if bearing a [DWARVEN] hand weapon).
  */
-public class Card1_003 extends AbstractOldEvent {
+public class Card1_003 extends AbstractEvent {
     public Card1_003() {
-        super(Side.FREE_PEOPLE, Culture.DWARVEN, "Axe Strike", Phase.SKIRMISH);
+        super(Side.FREE_PEOPLE, 0, Culture.DWARVEN, "Axe Strike", Phase.SKIRMISH);
     }
 
     @Override
@@ -32,10 +32,5 @@ public class Card1_003 extends AbstractOldEvent {
                         Race.DWARF));
 
         return action;
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 0;
     }
 }

@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set4.gandalf;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
@@ -21,9 +21,9 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
  * Type: Event
  * Game Text: Spell. Maneuver: Exert Gandalf to wound each minion who has strength of 6 or less.
  */
-public class Card4_098 extends AbstractOldEvent {
+public class Card4_098 extends AbstractEvent {
     public Card4_098() {
-        super(Side.FREE_PEOPLE, Culture.GANDALF, "Mithrandir, Mithrandir!", Phase.MANEUVER);
+        super(Side.FREE_PEOPLE, 3, Culture.GANDALF, "Mithrandir, Mithrandir!", Phase.MANEUVER);
         addKeyword(Keyword.SPELL);
     }
 
@@ -31,11 +31,6 @@ public class Card4_098 extends AbstractOldEvent {
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
                 && PlayConditions.canExert(self, game, Filters.gandalf);
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 3;
     }
 
     @Override

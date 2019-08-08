@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.gandalf;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromDeckEffect;
 import com.gempukku.lotro.common.CardType;
@@ -19,9 +19,9 @@ import com.gempukku.lotro.game.state.LotroGame;
  * Type: Event
  * Game Text: Fellowship: Play a [GANDALF] character from your draw deck.
  */
-public class Card1_087 extends AbstractOldEvent {
+public class Card1_087 extends AbstractEvent {
     public Card1_087() {
-        super(Side.FREE_PEOPLE, Culture.GANDALF, "A Wizard Is Never Late", Phase.FELLOWSHIP);
+        super(Side.FREE_PEOPLE, 1, Culture.GANDALF, "A Wizard Is Never Late", Phase.FELLOWSHIP);
     }
 
     @Override
@@ -30,10 +30,5 @@ public class Card1_087 extends AbstractOldEvent {
         action.appendEffect(
                 new ChooseAndPlayCardFromDeckEffect(playerId, Filters.and(Culture.GANDALF, Filters.or(CardType.COMPANION, CardType.ALLY))));
         return action;
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 1;
     }
 }

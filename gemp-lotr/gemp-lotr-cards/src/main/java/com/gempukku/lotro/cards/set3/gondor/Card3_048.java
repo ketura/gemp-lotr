@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set3.gondor;
 
-import com.gempukku.lotro.cards.AbstractResponseOldEvent;
+import com.gempukku.lotro.cards.AbstractResponseEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
@@ -27,14 +27,9 @@ import java.util.List;
  * Game Text: Response: If the fellowship moves in the regroup phase, exert a [GONDOR] companion twice to make each
  * minion's twilight cost +1 until the next regroup phase.
  */
-public class Card3_048 extends AbstractResponseOldEvent {
+public class Card3_048 extends AbstractResponseEvent {
     public Card3_048() {
-        super(Side.FREE_PEOPLE, Culture.GONDOR, "We Must Go Warily");
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 0;
+        super(Side.FREE_PEOPLE, 0, Culture.GONDOR, "We Must Go Warily");
     }
 
     @Override

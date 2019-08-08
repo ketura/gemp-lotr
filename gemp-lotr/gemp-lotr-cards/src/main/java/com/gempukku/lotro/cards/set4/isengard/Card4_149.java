@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set4.isengard;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
@@ -20,9 +20,9 @@ import com.gempukku.lotro.game.state.LotroGame;
  * Type: Event
  * Game Text: Archery: Spot 2 [ISENGARD] archers to make the minion archery total +1 for each card in the dead pile.
  */
-public class Card4_149 extends AbstractOldEvent {
+public class Card4_149 extends AbstractEvent {
     public Card4_149() {
-        super(Side.SHADOW, Culture.ISENGARD, "Driven Back", Phase.ARCHERY);
+        super(Side.SHADOW, 3, Culture.ISENGARD, "Driven Back", Phase.ARCHERY);
     }
 
     @Override
@@ -39,10 +39,5 @@ public class Card4_149 extends AbstractOldEvent {
                 new AddUntilEndOfPhaseModifierEffect(
                         new ArcheryTotalModifier(self, Side.SHADOW, deadPileSize)));
         return action;
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 3;
     }
 }

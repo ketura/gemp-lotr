@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.wraith;
 
-import com.gempukku.lotro.cards.AbstractResponseOldEvent;
+import com.gempukku.lotro.cards.AbstractResponseEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddBurdenEffect;
@@ -23,14 +23,9 @@ import java.util.List;
  * Type: Event
  * Game Text: Response: If Ring-bearer puts on The One Ring, exert a Nazgul to add 2 burdens.
  */
-public class Card1_228 extends AbstractResponseOldEvent {
+public class Card1_228 extends AbstractResponseEvent {
     public Card1_228() {
-        super(Side.SHADOW, Culture.WRAITH, "The Twilight World");
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 0;
+        super(Side.SHADOW, 0, Culture.WRAITH, "The Twilight World");
     }
 
     @Override

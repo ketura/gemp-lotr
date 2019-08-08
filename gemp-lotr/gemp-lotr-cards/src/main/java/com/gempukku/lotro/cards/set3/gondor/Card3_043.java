@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set3.gondor;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.RevealRandomCardsFromHandEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseOpponentEffect;
@@ -21,9 +21,9 @@ import java.util.List;
  * Game Text: Tale. Maneuver: Spot a [GONDOR] companion to reveal a card at random from an opponent's hand. Heal
  * X companions, where X is the twilight cost of the card revealed.
  */
-public class Card3_043 extends AbstractOldEvent {
+public class Card3_043 extends AbstractEvent {
     public Card3_043() {
-        super(Side.FREE_PEOPLE, Culture.GONDOR, "Might of Numenor", Phase.MANEUVER);
+        super(Side.FREE_PEOPLE, 1, Culture.GONDOR, "Might of Numenor", Phase.MANEUVER);
         addKeyword(Keyword.TALE);
     }
 
@@ -31,11 +31,6 @@ public class Card3_043 extends AbstractOldEvent {
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Culture.GONDOR, CardType.COMPANION);
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 1;
     }
 
     @Override

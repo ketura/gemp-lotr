@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.wraith;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.common.Culture;
@@ -21,9 +21,9 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
  * Type: Event
  * Game Text: Skirmish: Make a Nazgul strength +2 (or +4 if you spot 5 burdens).
  */
-public class Card1_227 extends AbstractOldEvent {
+public class Card1_227 extends AbstractEvent {
     public Card1_227() {
-        super(Side.SHADOW, Culture.WRAITH, "Threshold of Shadow", Phase.SKIRMISH);
+        super(Side.SHADOW, 1, Culture.WRAITH, "Threshold of Shadow", Phase.SKIRMISH);
     }
 
     @Override
@@ -40,10 +40,5 @@ public class Card1_227 extends AbstractOldEvent {
                     }
                 });
         return action;
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 1;
     }
 }

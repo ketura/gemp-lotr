@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.dwarven;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.PutCardFromDiscardIntoHandEffect;
@@ -24,14 +24,9 @@ import com.gempukku.lotro.logic.timing.UnrespondableEffect;
  * Game Text: Maneuver: Exert a Dwarf to discard cards from the top of your draw deck until you choose to stop
  * (limit 5). Add (1) for each card discarded in this way. Take the last card discarded into hand.
  */
-public class Card1_022 extends AbstractOldEvent {
+public class Card1_022 extends AbstractEvent {
     public Card1_022() {
-        super(Side.FREE_PEOPLE, Culture.DWARVEN, "Mithril Shaft", Phase.MANEUVER);
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 0;
+        super(Side.FREE_PEOPLE, 0, Culture.DWARVEN, "Mithril Shaft", Phase.MANEUVER);
     }
 
     @Override

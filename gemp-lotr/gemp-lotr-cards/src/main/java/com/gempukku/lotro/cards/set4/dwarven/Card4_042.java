@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set4.dwarven;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.common.*;
@@ -18,14 +18,9 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
  * Type: Event
  * Game Text: Skirmish: Make a Dwarf strength +2 (or +4 if at a battleground).
  */
-public class Card4_042 extends AbstractOldEvent {
+public class Card4_042 extends AbstractEvent {
     public Card4_042() {
-        super(Side.FREE_PEOPLE, Culture.DWARVEN, "Best Company", Phase.SKIRMISH);
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 0;
+        super(Side.FREE_PEOPLE, 0, Culture.DWARVEN, "Best Company", Phase.SKIRMISH);
     }
 
     @Override

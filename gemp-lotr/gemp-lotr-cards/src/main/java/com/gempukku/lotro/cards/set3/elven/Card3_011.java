@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set3.elven;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
@@ -26,20 +26,15 @@ import java.util.concurrent.atomic.AtomicInteger;
  * Game Text: Maneuver: Spot an Elf to make each opponent discard a card from his or her hand. Draw a card for each
  * card discarded in this way.
  */
-public class Card3_011 extends AbstractOldEvent {
+public class Card3_011 extends AbstractEvent {
     public Card3_011() {
-        super(Side.FREE_PEOPLE, Culture.ELVEN, "Cast It Into the Fire!", Phase.MANEUVER);
+        super(Side.FREE_PEOPLE, 1, Culture.ELVEN, "Cast It Into the Fire!", Phase.MANEUVER);
     }
 
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Race.ELF);
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 1;
     }
 
     @Override

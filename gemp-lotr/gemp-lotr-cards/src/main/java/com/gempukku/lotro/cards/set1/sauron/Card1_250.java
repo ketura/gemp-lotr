@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.sauron;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
@@ -18,9 +18,9 @@ import com.gempukku.lotro.logic.effects.ChooseAndWoundCharactersEffect;
  * Type: Event
  * Game Text: Maneuver: Exert a [SAURON] Orc to wound a companion (except the Ring-bearer).
  */
-public class Card1_250 extends AbstractOldEvent {
+public class Card1_250 extends AbstractEvent {
     public Card1_250() {
-        super(Side.SHADOW, Culture.SAURON, "Hate", Phase.MANEUVER);
+        super(Side.SHADOW, 0, Culture.SAURON, "Hate", Phase.MANEUVER);
     }
 
     @Override
@@ -37,10 +37,5 @@ public class Card1_250 extends AbstractOldEvent {
         action.appendEffect(
                 new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, CardType.COMPANION, Filters.not(Filters.ringBearer)));
         return action;
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 0;
     }
 }

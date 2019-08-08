@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set2.moria;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromDiscardEffect;
@@ -19,14 +19,9 @@ import com.gempukku.lotro.game.state.LotroGame;
  * Type: Event
  * Game Text: Shadow: Play a [MORIA] minion from your discard pile.
  */
-public class Card2_059 extends AbstractOldEvent {
+public class Card2_059 extends AbstractEvent {
     public Card2_059() {
-        super(Side.SHADOW, Culture.MORIA, "Foul Things", Phase.SHADOW);
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 2;
+        super(Side.SHADOW, 2, Culture.MORIA, "Foul Things", Phase.SHADOW);
     }
 
     @Override

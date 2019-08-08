@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set2.gandalf;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
@@ -19,9 +19,9 @@ import com.gempukku.lotro.game.state.LotroGame;
  * Game Text: Spell. Skirmish: Discard a staff Gandalf is bearing and then exert him twice to discard a minion he
  * is skirmishing.
  */
-public class Card2_027 extends AbstractOldEvent {
+public class Card2_027 extends AbstractEvent {
     public Card2_027() {
-        super(Side.FREE_PEOPLE, Culture.GANDALF, "Staff Asunder", Phase.SKIRMISH);
+        super(Side.FREE_PEOPLE, 0, Culture.GANDALF, "Staff Asunder", Phase.SKIRMISH);
         addKeyword(Keyword.SPELL);
     }
 
@@ -47,10 +47,5 @@ public class Card2_027 extends AbstractOldEvent {
                     new ChooseAndDiscardCardsFromPlayEffect(
                             action, playerId, 1, 1, CardType.MINION, Filters.inSkirmish));
         return action;
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 0;
     }
 }

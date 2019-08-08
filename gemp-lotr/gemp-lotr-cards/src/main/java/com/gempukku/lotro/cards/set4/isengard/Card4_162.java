@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set4.isengard;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.PutCardFromDiscardIntoHandEffect;
@@ -26,9 +26,9 @@ import java.util.Collection;
  * Game Text: Regroup: Spot Saruman or an [ISENGARD] Man, reveal your hand, and discard all Free Peoples cards revealed
  * to take an [ISENGARD] card into hand from your discard pile.
  */
-public class Card4_162 extends AbstractOldEvent {
+public class Card4_162 extends AbstractEvent {
     public Card4_162() {
-        super(Side.SHADOW, Culture.ISENGARD, "New Power Rising", Phase.REGROUP);
+        super(Side.SHADOW, 2, Culture.ISENGARD, "New Power Rising", Phase.REGROUP);
     }
 
     @Override
@@ -59,10 +59,5 @@ public class Card4_162 extends AbstractOldEvent {
                     }
                 });
         return action;
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 2;
     }
 }

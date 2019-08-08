@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.gondor;
 
-import com.gempukku.lotro.cards.AbstractResponseOldEvent;
+import com.gempukku.lotro.cards.AbstractResponseEvent;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.CancelEventEffect;
@@ -22,14 +22,9 @@ import java.util.List;
  * Type: Event
  * Game Text: Response: If a Skirmish event is played during a skirmish involving a [GONDOR] Man, cancel that event.
  */
-public class Card1_115 extends AbstractResponseOldEvent {
+public class Card1_115 extends AbstractResponseEvent {
     public Card1_115() {
-        super(Side.FREE_PEOPLE, Culture.GONDOR, "Strength of Kings");
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 0;
+        super(Side.FREE_PEOPLE, 0, Culture.GONDOR, "Strength of Kings");
     }
 
     @Override

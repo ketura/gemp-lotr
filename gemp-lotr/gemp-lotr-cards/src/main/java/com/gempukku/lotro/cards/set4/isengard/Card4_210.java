@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set4.isengard;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.common.*;
@@ -19,9 +19,9 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
  * Type: Event
  * Game Text: Skirmish: Make an Uruk-hai strength +2 (and damage +1 if you control a site).
  */
-public class Card4_210 extends AbstractOldEvent {
+public class Card4_210 extends AbstractEvent {
     public Card4_210() {
-        super(Side.SHADOW, Culture.ISENGARD, "We Are the Fighting Uruk-hai", Phase.SKIRMISH);
+        super(Side.SHADOW, 1, Culture.ISENGARD, "We Are the Fighting Uruk-hai", Phase.SKIRMISH);
     }
 
     @Override
@@ -42,10 +42,5 @@ public class Card4_210 extends AbstractOldEvent {
                     }
                 });
         return action;
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 1;
     }
 }

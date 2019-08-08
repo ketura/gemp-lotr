@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set4.raider;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.common.Culture;
@@ -20,9 +20,9 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
  * Type: Event
  * Game Text: Skirmish: Make a [RAIDER] Man strength +3 (or +4 if you spot 4 burdens).
  */
-public class Card4_239 extends AbstractOldEvent {
+public class Card4_239 extends AbstractEvent {
     public Card4_239() {
-        super(Side.SHADOW, Culture.RAIDER, "Men of Rhun", Phase.SKIRMISH);
+        super(Side.SHADOW, 2, Culture.RAIDER, "Men of Rhun", Phase.SKIRMISH);
     }
 
     @Override
@@ -39,10 +39,5 @@ public class Card4_239 extends AbstractOldEvent {
                     }
                 });
         return action;
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 2;
     }
 }

@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set3.dwarven;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.RevealRandomCardsFromHandEffect;
 import com.gempukku.lotro.cards.effects.ShuffleCardsFromDiscardIntoDeckEffect;
@@ -24,14 +24,9 @@ import java.util.List;
  * Game Text: Fellowship: Reveal a card at random from an opponent's hand. Shuffle up to X [DWARVEN] cards from your
  * discard pile into your draw deck, where X is the twilight cost of the card revealed.
  */
-public class Card3_006 extends AbstractOldEvent {
+public class Card3_006 extends AbstractEvent {
     public Card3_006() {
-        super(Side.FREE_PEOPLE, Culture.DWARVEN, "Storm of Argument", Phase.FELLOWSHIP);
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 1;
+        super(Side.FREE_PEOPLE, 1, Culture.DWARVEN, "Storm of Argument", Phase.FELLOWSHIP);
     }
 
     @Override

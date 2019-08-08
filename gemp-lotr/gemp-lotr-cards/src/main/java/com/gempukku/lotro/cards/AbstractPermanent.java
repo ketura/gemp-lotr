@@ -14,7 +14,6 @@ import java.util.Collections;
 import java.util.List;
 
 public class AbstractPermanent extends AbstractLotroCardBlueprint {
-    private int _twilightCost;
     private Zone _playedToZone;
 
     public AbstractPermanent(Side side, int twilightCost, CardType cardType, Culture culture, Zone playedToZone, String name) {
@@ -22,9 +21,8 @@ public class AbstractPermanent extends AbstractLotroCardBlueprint {
     }
 
     public AbstractPermanent(Side side, int twilightCost, CardType cardType, Culture culture, Zone playedToZone, String name, String subTitle, boolean unique) {
-        super(side, cardType, culture, name, subTitle, unique);
+        super(twilightCost, side, cardType, culture, name, subTitle, unique);
         _playedToZone = playedToZone;
-        _twilightCost = twilightCost;
         if (playedToZone == Zone.SUPPORT)
             addKeyword(Keyword.SUPPORT_AREA);
     }
@@ -48,11 +46,6 @@ public class AbstractPermanent extends AbstractLotroCardBlueprint {
         twilightModifier -= getPotentialExtraPaymentDiscount(playerId, game, self);
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
                 && PlayConditions.checkUniqueness(game.getGameState(), game.getModifiersQuerying(), self, ignoreCheckingDeadPile);
-    }
-
-    @Override
-    public final int getTwilightCost() {
-        return _twilightCost;
     }
 
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {

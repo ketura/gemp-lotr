@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set4.elven;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
@@ -22,20 +22,15 @@ import java.util.List;
  * Type: Event
  * Game Text: Skirmish or Regroup: Spot 3 Elf companions to liberate a site or exert a minion.
  */
-public class Card4_084 extends AbstractOldEvent {
+public class Card4_084 extends AbstractEvent {
     public Card4_084() {
-        super(Side.FREE_PEOPLE, Culture.ELVEN, "Sword-wall", Phase.SKIRMISH, Phase.REGROUP);
+        super(Side.FREE_PEOPLE, 2, Culture.ELVEN, "Sword-wall", Phase.SKIRMISH, Phase.REGROUP);
     }
 
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
                 && PlayConditions.canSpot(game, 3, CardType.COMPANION, Race.ELF);
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 2;
     }
 
     @Override

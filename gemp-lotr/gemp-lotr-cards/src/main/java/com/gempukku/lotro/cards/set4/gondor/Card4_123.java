@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set4.gondor;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
@@ -16,20 +16,15 @@ import com.gempukku.lotro.logic.effects.ChooseAndHealCharactersEffect;
  * Type: Event
  * Game Text: Fellowship: Spot Aragorn to heal a companion who has the Aragorn signet twice.
  */
-public class Card4_123 extends AbstractOldEvent {
+public class Card4_123 extends AbstractEvent {
     public Card4_123() {
-        super(Side.FREE_PEOPLE, Culture.GONDOR, "Hard Choice", Phase.FELLOWSHIP);
+        super(Side.FREE_PEOPLE, 1, Culture.GONDOR, "Hard Choice", Phase.FELLOWSHIP);
     }
 
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.aragorn);
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 1;
     }
 
     @Override

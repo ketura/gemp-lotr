@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set3.isengard;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.common.*;
@@ -18,14 +18,9 @@ import java.util.Collection;
  * Type: Event
  * Game Text: Regroup: Discard X [ISENGARD] Orcs to make the Free Peoples player wound X companions.
  */
-public class Card3_073 extends AbstractOldEvent {
+public class Card3_073 extends AbstractEvent {
     public Card3_073() {
-        super(Side.SHADOW, Culture.ISENGARD, "The Trees Are Strong", Phase.REGROUP);
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 1;
+        super(Side.SHADOW, 1, Culture.ISENGARD, "The Trees Are Strong", Phase.REGROUP);
     }
 
     @Override

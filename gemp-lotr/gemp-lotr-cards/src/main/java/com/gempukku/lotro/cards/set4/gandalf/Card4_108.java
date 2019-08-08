@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set4.gandalf;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
@@ -23,9 +23,9 @@ import com.gempukku.lotro.game.state.LotroGame;
  * Game Text: Maneuver: If you can spot more minions than companions, exert Gandalf to make an opponent discard
  * a minion.
  */
-public class Card4_108 extends AbstractOldEvent {
+public class Card4_108 extends AbstractEvent {
     public Card4_108() {
-        super(Side.FREE_PEOPLE, Culture.GANDALF, "Wizardry Indeed", Phase.MANEUVER);
+        super(Side.FREE_PEOPLE, 4, Culture.GANDALF, "Wizardry Indeed", Phase.MANEUVER);
     }
 
     @Override
@@ -34,11 +34,6 @@ public class Card4_108 extends AbstractOldEvent {
                 && PlayConditions.canExert(self, game, Filters.gandalf)
                 && Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.MINION)
                 > Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION);
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 4;
     }
 
     @Override

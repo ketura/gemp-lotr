@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set4.isengard;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
@@ -20,9 +20,9 @@ import com.gempukku.lotro.game.state.LotroGame;
  * Type: Event
  * Game Text: Maneuver: Spot Grima to discard a possession borne by an ally or unbound companion.
  */
-public class Card4_214 extends AbstractOldEvent {
+public class Card4_214 extends AbstractEvent {
     public Card4_214() {
-        super(Side.SHADOW, Culture.ISENGARD, "Where Has Grima Stowed It?", Phase.MANEUVER);
+        super(Side.SHADOW, 2, Culture.ISENGARD, "Where Has Grima Stowed It?", Phase.MANEUVER);
     }
 
     @Override
@@ -37,10 +37,5 @@ public class Card4_214 extends AbstractOldEvent {
         action.appendEffect(
                 new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, CardType.POSSESSION, Filters.attachedTo(Filters.or(CardType.ALLY, Filters.unboundCompanion))));
         return action;
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 2;
     }
 }

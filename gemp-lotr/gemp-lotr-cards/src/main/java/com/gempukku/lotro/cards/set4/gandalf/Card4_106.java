@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set4.gandalf;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromDeadPileEffect;
 import com.gempukku.lotro.common.Culture;
@@ -19,9 +19,9 @@ import com.gempukku.lotro.game.state.LotroGame;
  * Type: Event
  * Game Text: Fellowship: Spot an Elf, a [GONDOR] Man, and a Dwarf to play Gandalf from your dead pile.
  */
-public class Card4_106 extends AbstractOldEvent {
+public class Card4_106 extends AbstractEvent {
     public Card4_106() {
-        super(Side.FREE_PEOPLE, Culture.GANDALF, "Well Met Indeed", Phase.FELLOWSHIP);
+        super(Side.FREE_PEOPLE, 5, Culture.GANDALF, "Well Met Indeed", Phase.FELLOWSHIP);
     }
 
     @Override
@@ -30,11 +30,6 @@ public class Card4_106 extends AbstractOldEvent {
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Race.ELF)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Culture.GONDOR, Race.MAN)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Race.DWARF);
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 5;
     }
 
     @Override

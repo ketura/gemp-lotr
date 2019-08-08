@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.gondor;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
@@ -25,9 +25,9 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
  * Game Text: Maneuver: Exert Aragorn to spot an ally. Until the regroup phase, that ally is strength +2 and
  * participates in archery fire and skirmishes.
  */
-public class Card1_109 extends AbstractOldEvent {
+public class Card1_109 extends AbstractEvent {
     public Card1_109() {
-        super(Side.FREE_PEOPLE, Culture.GONDOR, "One Whom Men Would Follow", Phase.MANEUVER);
+        super(Side.FREE_PEOPLE, 0, Culture.GONDOR, "One Whom Men Would Follow", Phase.MANEUVER);
     }
 
     @Override
@@ -62,10 +62,5 @@ public class Card1_109 extends AbstractOldEvent {
                 }
         );
         return action;
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 0;
     }
 }

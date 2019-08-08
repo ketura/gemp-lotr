@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.isengard;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
@@ -9,8 +9,6 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 
 /**
  * Set: The Fellowship of the Ring
@@ -21,16 +19,11 @@ import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
  * Game Text: Spell. Weather. Maneuver: Exert a [ISENGARD] minion and spot 5 companions to discard an exhausted
  * companion (except the Ring-bearer).
  */
-public class Card1_123 extends AbstractOldEvent {
+public class Card1_123 extends AbstractEvent {
     public Card1_123() {
-        super(Side.SHADOW, Culture.ISENGARD, "Caradhras Has Not Forgiven Us", Phase.MANEUVER);
+        super(Side.SHADOW, 3, Culture.ISENGARD, "Caradhras Has Not Forgiven Us", Phase.MANEUVER);
         addKeyword(Keyword.WEATHER);
         addKeyword(Keyword.SPELL);
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 3;
     }
 
     @Override

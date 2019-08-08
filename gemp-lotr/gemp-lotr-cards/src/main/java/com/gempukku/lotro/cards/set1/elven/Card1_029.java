@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.elven;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseActionProxyEffect;
@@ -29,14 +29,9 @@ import java.util.List;
  * Game Text: Skirmish: Make an Elf strength +1. If a minion loses this skirmish to that Elf, that minion's owner
  * discards 2 cards at random from hand.
  */
-public class Card1_029 extends AbstractOldEvent {
+public class Card1_029 extends AbstractEvent {
     public Card1_029() {
-        super(Side.FREE_PEOPLE, Culture.ELVEN, "Ancient Enmity", Phase.SKIRMISH);
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 0;
+        super(Side.FREE_PEOPLE, 0, Culture.ELVEN, "Ancient Enmity", Phase.SKIRMISH);
     }
 
     @Override

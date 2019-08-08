@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set4.gondor;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
@@ -18,20 +18,15 @@ import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
  * Type: Event
  * Game Text: Archery or Skirmish: Exert 2 Ring-bound Men to wound each roaming minion.
  */
-public class Card4_110 extends AbstractOldEvent {
+public class Card4_110 extends AbstractEvent {
     public Card4_110() {
-        super(Side.FREE_PEOPLE, Culture.GONDOR, "Arrows Thick in the Air", Phase.ARCHERY, Phase.SKIRMISH);
+        super(Side.FREE_PEOPLE, 3, Culture.GONDOR, "Arrows Thick in the Air", Phase.ARCHERY, Phase.SKIRMISH);
     }
 
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
                 && PlayConditions.canExert(self, game, 1, 2, Keyword.RING_BOUND, Race.MAN);
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 3;
     }
 
     @Override

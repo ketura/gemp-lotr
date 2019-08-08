@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set3.elven;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.CancelSkirmishEffect;
@@ -18,9 +18,9 @@ import com.gempukku.lotro.game.state.Skirmish;
  * Type: Event
  * Game Text: Tale. Skirmish: Exert an Elf at a river or forest to cancel a skirmish involving that Elf.
  */
-public class Card3_028 extends AbstractOldEvent {
+public class Card3_028 extends AbstractEvent {
     public Card3_028() {
-        super(Side.FREE_PEOPLE, Culture.ELVEN, "Voice of Nimrodel", Phase.SKIRMISH);
+        super(Side.FREE_PEOPLE, 2, Culture.ELVEN, "Voice of Nimrodel", Phase.SKIRMISH);
         addKeyword(Keyword.TALE);
     }
 
@@ -30,11 +30,6 @@ public class Card3_028 extends AbstractOldEvent {
                 && PlayConditions.canExert(self, game, Race.ELF)
                 && (game.getModifiersQuerying().hasKeyword(game.getGameState(), game.getGameState().getCurrentSite(), Keyword.RIVER)
                 || game.getModifiersQuerying().hasKeyword(game.getGameState(), game.getGameState().getCurrentSite(), Keyword.FOREST));
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 2;
     }
 
     @Override

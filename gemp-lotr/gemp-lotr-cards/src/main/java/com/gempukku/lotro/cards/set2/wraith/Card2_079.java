@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set2.wraith;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
@@ -29,20 +29,15 @@ import java.util.List;
  * Game Text: Maneuver: Exert a twilight Nazgul to exert the Ring-bearer. If the Ring-bearer is then exhausted, he puts
  * on The One Ring until the regroup phase.
  */
-public class Card2_079 extends AbstractOldEvent {
+public class Card2_079 extends AbstractEvent {
     public Card2_079() {
-        super(Side.SHADOW, Culture.WRAITH, "Resistance Becomes Unbearable", Phase.MANEUVER);
+        super(Side.SHADOW, 1, Culture.WRAITH, "Resistance Becomes Unbearable", Phase.MANEUVER);
     }
 
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
                 && PlayConditions.canExert(self, game, Race.NAZGUL, Keyword.TWILIGHT);
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 1;
     }
 
     @Override

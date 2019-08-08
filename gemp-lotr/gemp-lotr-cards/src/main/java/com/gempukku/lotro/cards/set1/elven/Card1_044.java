@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.elven;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.RevealAndChooseCardsFromOpponentHandEffect;
@@ -24,14 +24,9 @@ import java.util.List;
  * Game Text: Fellowship: Exert an Elf to reveal an opponent's hand. You may discard a [ISENGARD] minion revealed to
  * draw 2 cards.
  */
-public class Card1_044 extends AbstractOldEvent {
+public class Card1_044 extends AbstractEvent {
     public Card1_044() {
-        super(Side.FREE_PEOPLE, Culture.ELVEN, "Foul Creation", Phase.FELLOWSHIP);
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 1;
+        super(Side.FREE_PEOPLE, 1, Culture.ELVEN, "Foul Creation", Phase.FELLOWSHIP);
     }
 
     @Override

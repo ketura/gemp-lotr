@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set2.wraith;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.ForEachBurdenYouSpotEffect;
@@ -17,20 +17,15 @@ import com.gempukku.lotro.game.state.LotroGame;
  * Type: Event
  * Game Text: Maneuver: Exert 2 Nazgul and spot X burdens to exert X companions.
  */
-public class Card2_081 extends AbstractOldEvent {
+public class Card2_081 extends AbstractEvent {
     public Card2_081() {
-        super(Side.SHADOW, Culture.WRAITH, "They Will Find the Ring", Phase.MANEUVER);
+        super(Side.SHADOW, 1, Culture.WRAITH, "They Will Find the Ring", Phase.MANEUVER);
     }
 
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
                 && PlayConditions.canExert(self, game, 1, 2, Race.NAZGUL);
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 1;
     }
 
     @Override

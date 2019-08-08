@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set4.raider;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
@@ -18,9 +18,9 @@ import com.gempukku.lotro.game.state.LotroGame;
  * Game Text: Maneuver: Exert a [RAIDER] Man to discard a Free Peoples condition (or 2 Free Peoples conditions if
  * you spot 3 burdens).
  */
-public class Card4_223 extends AbstractOldEvent {
+public class Card4_223 extends AbstractEvent {
     public Card4_223() {
-        super(Side.SHADOW, Culture.RAIDER, "Discovered", Phase.MANEUVER);
+        super(Side.SHADOW, 1, Culture.RAIDER, "Discovered", Phase.MANEUVER);
     }
 
     @Override
@@ -38,10 +38,5 @@ public class Card4_223 extends AbstractOldEvent {
         action.appendEffect(
                 new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, maxDiscard, Side.FREE_PEOPLE, CardType.CONDITION));
         return action;
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 1;
     }
 }

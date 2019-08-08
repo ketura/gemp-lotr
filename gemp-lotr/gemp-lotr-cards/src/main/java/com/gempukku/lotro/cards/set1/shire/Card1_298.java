@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.shire;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.cards.effects.CancelSkirmishEffect;
@@ -21,15 +21,10 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
  * Game Text: Stealth. Skirmish: At sites 1 to 5, cancel a skirmish involving a Hobbit. At any other site, make a
  * Hobbit strength +2.
  */
-public class Card1_298 extends AbstractOldEvent {
+public class Card1_298 extends AbstractEvent {
     public Card1_298() {
-        super(Side.FREE_PEOPLE, Culture.SHIRE, "Hobbit Stealth", Phase.SKIRMISH);
+        super(Side.FREE_PEOPLE, 1, Culture.SHIRE, "Hobbit Stealth", Phase.SKIRMISH);
         addKeyword(Keyword.STEALTH);
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 1;
     }
 
     @Override

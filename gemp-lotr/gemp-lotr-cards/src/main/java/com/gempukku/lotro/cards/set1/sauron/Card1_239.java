@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.sauron;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndExertCharactersEffect;
@@ -18,9 +18,9 @@ import com.gempukku.lotro.game.state.LotroGame;
  * Game Text: Search. Maneuver: Spot a [SAURON] Orc and 5 companions to make the Free Peoples player exert a companion
  * for each companion over 4.
  */
-public class Card1_239 extends AbstractOldEvent {
+public class Card1_239 extends AbstractEvent {
     public Card1_239() {
-        super(Side.SHADOW, Culture.SAURON, "All Thought Bent on It", Phase.MANEUVER);
+        super(Side.SHADOW, 2, Culture.SAURON, "All Thought Bent on It", Phase.MANEUVER);
         addKeyword(Keyword.SEARCH);
     }
 
@@ -39,10 +39,5 @@ public class Card1_239 extends AbstractOldEvent {
             action.appendEffect(
                     new ChooseAndExertCharactersEffect(action, game.getGameState().getCurrentPlayerId(), 1, 1, CardType.COMPANION));
         return action;
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 2;
     }
 }

@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set3.isengard;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.RevealRandomCardsFromHandEffect;
 import com.gempukku.lotro.common.CardType;
@@ -22,14 +22,9 @@ import java.util.List;
  * Game Text: Regroup: Reveal a card at random from the Free Peoples player's hand. Heal X [ISENGARD] minions, where X
  * is the twilight cost of the card revealed.
  */
-public class Card3_051 extends AbstractOldEvent {
+public class Card3_051 extends AbstractEvent {
     public Card3_051() {
-        super(Side.SHADOW, Culture.ISENGARD, "Coming for the Ring", Phase.REGROUP);
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 2;
+        super(Side.SHADOW, 2, Culture.ISENGARD, "Coming for the Ring", Phase.REGROUP);
     }
 
     @Override

@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set4.rohan;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.ChoiceEffect;
@@ -26,9 +26,9 @@ import java.util.List;
  * Type: Event
  * Game Text: Regroup: Spot 2 mounted [ROHAN] Men to liberate a site or draw 3 cards.
  */
-public class Card4_279 extends AbstractOldEvent {
+public class Card4_279 extends AbstractEvent {
     public Card4_279() {
-        super(Side.FREE_PEOPLE, Culture.ROHAN, "Helm! Helm!", Phase.REGROUP);
+        super(Side.FREE_PEOPLE, 2, Culture.ROHAN, "Helm! Helm!", Phase.REGROUP);
     }
 
     @Override
@@ -50,10 +50,5 @@ public class Card4_279 extends AbstractOldEvent {
         action.appendEffect(
                 new ChoiceEffect(action, playerId, possibleEffects));
         return action;
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 2;
     }
 }

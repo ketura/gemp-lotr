@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set3.shire;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
@@ -19,9 +19,9 @@ import com.gempukku.lotro.logic.modifiers.RemoveKeywordModifier;
  * Type: Event
  * Game Text: Stealth. Skirmish: Spot 2 [SHIRE] companions to make a minion lose all damage bonuses.
  */
-public class Card3_112 extends AbstractOldEvent {
+public class Card3_112 extends AbstractEvent {
     public Card3_112() {
-        super(Side.FREE_PEOPLE, Culture.SHIRE, "Seek and Hide", Phase.SKIRMISH);
+        super(Side.FREE_PEOPLE, 1, Culture.SHIRE, "Seek and Hide", Phase.SKIRMISH);
         addKeyword(Keyword.STEALTH);
     }
 
@@ -29,11 +29,6 @@ public class Card3_112 extends AbstractOldEvent {
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
                 && PlayConditions.canSpot(game, 2, Culture.SHIRE, CardType.COMPANION);
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 1;
     }
 
     @Override

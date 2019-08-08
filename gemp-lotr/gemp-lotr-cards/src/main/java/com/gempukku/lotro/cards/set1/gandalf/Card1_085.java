@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.gandalf;
 
-import com.gempukku.lotro.cards.AbstractResponseOldEvent;
+import com.gempukku.lotro.cards.AbstractResponseEvent;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
@@ -26,15 +26,10 @@ import java.util.List;
  * Type: Event
  * Game Text: Spell. Response: If a companion is about to exert, spot Gandalf to place no token for that exertion.
  */
-public class Card1_085 extends AbstractResponseOldEvent {
+public class Card1_085 extends AbstractResponseEvent {
     public Card1_085() {
-        super(Side.FREE_PEOPLE, Culture.GANDALF, "Strength of Spirit");
+        super(Side.FREE_PEOPLE, 1, Culture.GANDALF, "Strength of Spirit");
         addKeyword(Keyword.SPELL);
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 1;
     }
 
     @Override

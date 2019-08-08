@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set4.gandalf;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseActionProxyEffect;
 import com.gempukku.lotro.cards.effects.PreventAllWoundsActionProxy;
@@ -19,9 +19,9 @@ import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
  * Game Text: Skirmish: Spot Gandalf and 3 twilight tokens to prevent all wounds to a companion who has
  * the Gandalf signet.
  */
-public class Card4_096 extends AbstractOldEvent {
+public class Card4_096 extends AbstractEvent {
     public Card4_096() {
-        super(Side.FREE_PEOPLE, Culture.GANDALF, "Keep Your Forked Tongue", Phase.SKIRMISH);
+        super(Side.FREE_PEOPLE, 1, Culture.GANDALF, "Keep Your Forked Tongue", Phase.SKIRMISH);
     }
 
     @Override
@@ -44,10 +44,5 @@ public class Card4_096 extends AbstractOldEvent {
                     }
                 });
         return action;
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 1;
     }
 }

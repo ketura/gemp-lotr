@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set3.elven;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.RevealRandomCardsFromHandEffect;
 import com.gempukku.lotro.cards.effects.choose.ChooseOpponentEffect;
@@ -23,14 +23,9 @@ import java.util.List;
  * Game Text: Fellowship: Reveal a card at random from an opponent's hand. Heal X [ELVEN] allies, where X is
  * the twilight cost of the card revealed.
  */
-public class Card3_016 extends AbstractOldEvent {
+public class Card3_016 extends AbstractEvent {
     public Card3_016() {
-        super(Side.FREE_PEOPLE, Culture.ELVEN, "Friends of Old", Phase.FELLOWSHIP);
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 1;
+        super(Side.FREE_PEOPLE, 1, Culture.ELVEN, "Friends of Old", Phase.FELLOWSHIP);
     }
 
     @Override

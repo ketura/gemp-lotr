@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set3.sauron;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.DiscardTopCardFromDeckEffect;
@@ -19,20 +19,15 @@ import com.gempukku.lotro.game.state.LotroGame;
  * Game Text: Regroup: Exert a [SAURON] minion to discard a card from the top of the Free Peoples player's draw deck
  * for each of these races you can spot in the fellowship: Dwarf, Elf, Man, and Wizard.
  */
-public class Card3_092 extends AbstractOldEvent {
+public class Card3_092 extends AbstractEvent {
     public Card3_092() {
-        super(Side.SHADOW, Culture.SAURON, "Massing in the East", Phase.REGROUP);
+        super(Side.SHADOW, 1, Culture.SAURON, "Massing in the East", Phase.REGROUP);
     }
 
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
                 && PlayConditions.canExert(self, game, Culture.SAURON, CardType.MINION);
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 1;
     }
 
     @Override

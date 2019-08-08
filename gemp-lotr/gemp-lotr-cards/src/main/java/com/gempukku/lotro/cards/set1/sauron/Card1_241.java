@@ -1,14 +1,12 @@
 package com.gempukku.lotro.cards.set1.sauron;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 
 
 /**
@@ -19,9 +17,9 @@ import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
  * Type: Event
  * Game Text: Shadow: Spot a [SAURON] Orc to discard an [ELVEN] condition.
  */
-public class Card1_241 extends AbstractOldEvent {
+public class Card1_241 extends AbstractEvent {
     public Card1_241() {
-        super(Side.SHADOW, Culture.SAURON, "Curse From Mordor", Phase.SHADOW);
+        super(Side.SHADOW, 0, Culture.SAURON, "Curse From Mordor", Phase.SHADOW);
     }
 
     @Override
@@ -36,10 +34,5 @@ public class Card1_241 extends AbstractOldEvent {
         action.appendEffect(
                 new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Culture.ELVEN, CardType.CONDITION));
         return action;
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 0;
     }
 }

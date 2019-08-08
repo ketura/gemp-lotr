@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set4.elven;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.common.*;
@@ -18,9 +18,9 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
  * Type: Event
  * Game Text: Skirmish: Make an Elf strength +2 (or +3 if skirmishing a wounded minion).
  */
-public class Card4_087 extends AbstractOldEvent {
+public class Card4_087 extends AbstractEvent {
     public Card4_087() {
-        super(Side.FREE_PEOPLE, Culture.ELVEN, "Valor", Phase.SKIRMISH);
+        super(Side.FREE_PEOPLE, 1, Culture.ELVEN, "Valor", Phase.SKIRMISH);
     }
 
     @Override
@@ -38,10 +38,5 @@ public class Card4_087 extends AbstractOldEvent {
                     }
                 });
         return action;
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 1;
     }
 }

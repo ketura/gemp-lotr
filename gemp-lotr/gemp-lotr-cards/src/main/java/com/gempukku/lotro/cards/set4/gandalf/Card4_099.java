@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set4.gandalf;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.common.CardType;
@@ -19,9 +19,9 @@ import com.gempukku.lotro.game.state.LotroGame;
  * Type: Event
  * Game Text: Fellowship or Maneuver: Spot Gandalf to discard a Shadow possession or Shadow artifact.
  */
-public class Card4_099 extends AbstractOldEvent {
+public class Card4_099 extends AbstractEvent {
     public Card4_099() {
-        super(Side.FREE_PEOPLE, Culture.GANDALF, "Roll of Thunder", Phase.FELLOWSHIP, Phase.MANEUVER);
+        super(Side.FREE_PEOPLE, 3, Culture.GANDALF, "Roll of Thunder", Phase.FELLOWSHIP, Phase.MANEUVER);
     }
 
     @Override
@@ -36,10 +36,5 @@ public class Card4_099 extends AbstractOldEvent {
         action.appendEffect(
                 new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Side.SHADOW, Filters.or(CardType.POSSESSION, CardType.ARTIFACT)));
         return action;
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 3;
     }
 }

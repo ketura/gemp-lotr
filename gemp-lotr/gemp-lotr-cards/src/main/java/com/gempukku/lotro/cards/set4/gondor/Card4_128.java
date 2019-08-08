@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set4.gondor;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.TriggerConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseActionProxyEffect;
@@ -28,20 +28,15 @@ import java.util.List;
  * Game Text: Skirmish: Spot a Ring-bound Man to make a minion's site number +2. If that minion loses this skirmish,
  * you may wound a minion.
  */
-public class Card4_128 extends AbstractOldEvent {
+public class Card4_128 extends AbstractEvent {
     public Card4_128() {
-        super(Side.FREE_PEOPLE, Culture.GONDOR, "New Errand", Phase.SKIRMISH);
+        super(Side.FREE_PEOPLE, 1, Culture.GONDOR, "New Errand", Phase.SKIRMISH);
     }
 
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Race.MAN, Keyword.RING_BOUND);
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 1;
     }
 
     @Override

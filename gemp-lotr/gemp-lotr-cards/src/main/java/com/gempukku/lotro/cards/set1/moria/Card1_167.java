@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set1.moria;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.common.Culture;
@@ -21,9 +21,9 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
  * Type: Event
  * Game Text: Skirmish: Make a [MORIA] Orc strength +1 for each other [MORIA] Orc you spot (limit +4).
  */
-public class Card1_167 extends AbstractOldEvent {
+public class Card1_167 extends AbstractEvent {
     public Card1_167() {
-        super(Side.SHADOW, Culture.MORIA, "Denizens Enraged", Phase.SKIRMISH);
+        super(Side.SHADOW, 1, Culture.MORIA, "Denizens Enraged", Phase.SKIRMISH);
     }
 
     @Override
@@ -42,10 +42,5 @@ public class Card1_167 extends AbstractOldEvent {
         );
 
         return action;
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 1;
     }
 }

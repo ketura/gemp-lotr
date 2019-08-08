@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set2.dwarven;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilStartOfPhaseModifierEffect;
@@ -20,9 +20,9 @@ import com.gempukku.lotro.logic.modifiers.KeywordModifier;
  * Game Text: Maneuver: Exert a Dwarf to make that Dwarf defender +1 (or defender +2 if you spot an Orc) until
  * the regroup phase.
  */
-public class Card2_002 extends AbstractOldEvent {
+public class Card2_002 extends AbstractEvent {
     public Card2_002() {
-        super(Side.FREE_PEOPLE, Culture.DWARVEN, "Disquiet of Our People", Phase.MANEUVER);
+        super(Side.FREE_PEOPLE, 1, Culture.DWARVEN, "Disquiet of Our People", Phase.MANEUVER);
     }
 
     @Override
@@ -45,10 +45,5 @@ public class Card2_002 extends AbstractOldEvent {
                     }
                 });
         return action;
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 1;
     }
 }

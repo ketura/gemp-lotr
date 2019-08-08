@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set2.elven;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
@@ -20,14 +20,9 @@ import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
  * Type: Event
  * Game Text: Maneuver: Exert an Elf ally to discard a condition (or 2 conditions if you spot an Orc).
  */
-public class Card2_020 extends AbstractOldEvent {
+public class Card2_020 extends AbstractEvent {
     public Card2_020() {
-        super(Side.FREE_PEOPLE, Culture.ELVEN, "Secret Sentinels", Phase.MANEUVER);
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 2;
+        super(Side.FREE_PEOPLE, 2, Culture.ELVEN, "Secret Sentinels", Phase.MANEUVER);
     }
 
     @Override

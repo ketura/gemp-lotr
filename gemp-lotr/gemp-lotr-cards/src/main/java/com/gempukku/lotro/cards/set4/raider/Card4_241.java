@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set4.raider;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.AddUntilEndOfPhaseModifierEffect;
@@ -19,9 +19,9 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
  * Type: Event
  * Game Text: Skirmish: Make a [RAIDER] Man strength +3 (or +5 if you spot 6 companions).
  */
-public class Card4_241 extends AbstractOldEvent {
+public class Card4_241 extends AbstractEvent {
     public Card4_241() {
-        super(Side.SHADOW, Culture.RAIDER, "On the March", Phase.SKIRMISH);
+        super(Side.SHADOW, 2, Culture.RAIDER, "On the March", Phase.SKIRMISH);
     }
 
     @Override
@@ -38,10 +38,5 @@ public class Card4_241 extends AbstractOldEvent {
                     }
                 });
         return action;
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 2;
     }
 }

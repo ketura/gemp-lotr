@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set3.wraith;
 
-import com.gempukku.lotro.cards.AbstractOldEvent;
+import com.gempukku.lotro.cards.AbstractEvent;
 import com.gempukku.lotro.cards.actions.PlayEventAction;
 import com.gempukku.lotro.cards.effects.ExertCharactersEffect;
 import com.gempukku.lotro.cards.effects.RevealRandomCardsFromHandEffect;
@@ -21,20 +21,15 @@ import java.util.List;
  * Game Text: Maneuver: Spot a Nazgul to reveal a card at random from the Free Peoples player's hand. Exert a companion
  * bearing a ranged weapon X times, where X is the twilight cost of the card revealed.
  */
-public class Card3_084 extends AbstractOldEvent {
+public class Card3_084 extends AbstractEvent {
     public Card3_084() {
-        super(Side.SHADOW, Culture.WRAITH, "They Will Never Stop Hunting You", Phase.MANEUVER);
+        super(Side.SHADOW, 2, Culture.WRAITH, "They Will Never Stop Hunting You", Phase.MANEUVER);
     }
 
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
                 && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Race.NAZGUL);
-    }
-
-    @Override
-    public int getTwilightCost() {
-        return 2;
     }
 
     @Override
