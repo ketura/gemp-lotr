@@ -43,8 +43,6 @@ public class Card40_138 extends AbstractEvent {
         PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
                 new ChooseAndPlayCardFromDeckEffect(playerId, Filters.saruman));
-        action.appendCost(
-                new ShuffleDeckEffect(playerId));
         action.appendEffect(
                 new AddThreatsEffect(playerId, self,
                         new Evaluator() {

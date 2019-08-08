@@ -52,8 +52,6 @@ public class Card40_206 extends AbstractMinion {
                             }
                         }
                     });
-            action.appendEffect(
-                    new ShuffleDeckEffect(playerId));
             return Collections.singletonList(action);
         }
         return null;
