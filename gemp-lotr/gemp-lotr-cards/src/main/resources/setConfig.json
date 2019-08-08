@@ -120,5 +120,12 @@
         "rarityFile":"/set31-rarity.txt",
         "originalSet":false,
         "merchantable":false
+    },
+    {
+        "setId":"40",
+        "setName":"Second Edition",
+        "rarityFile":"/set40-rarity.txt",
+        "originalSet":false,
+        "merchantable":false
     }
 ]
