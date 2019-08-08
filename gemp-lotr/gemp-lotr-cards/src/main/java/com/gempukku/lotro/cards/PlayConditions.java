@@ -467,4 +467,8 @@ public class PlayConditions {
 
         return false;
     }
+
+    public static boolean checkTurnLimit(LotroGame game, PhysicalCard card, int max) {
+        return game.getModifiersQuerying().getUntilEndOfTurnLimitCounter(card).getUsedLimit() < max;
+    }
 }

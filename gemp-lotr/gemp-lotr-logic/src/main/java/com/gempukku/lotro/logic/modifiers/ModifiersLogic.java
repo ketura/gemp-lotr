@@ -584,9 +584,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
                     return false;
             }
             return true;
-        } finally
-
-        {
+        } finally {
             LoggingThreadLocal.logMethodEnd();
         }
     }
@@ -1061,6 +1059,15 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
                 return false;
 
         return true;
+    }
+
+    @Override
+    public int getSanctuaryHealModifier(GameState gameState) {
+        int result = 0;
+        for (Modifier modifier : getModifiers(gameState, ModifierEffect.SANCTUARY_HEAL_MODIFIER))
+            result += modifier.getSanctuaryHealModifier(gameState, this);
+
+        return result;
     }
 
     private class ModifierHookImpl implements ModifierHook {

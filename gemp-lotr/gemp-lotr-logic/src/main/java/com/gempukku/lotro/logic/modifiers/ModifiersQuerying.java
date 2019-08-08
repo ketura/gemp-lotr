@@ -152,4 +152,6 @@ public interface ModifiersQuerying {
     public boolean canReplaceSite(GameState gameState, String playerId, PhysicalCard siteToReplace);
 
     public boolean canPlaySite(GameState gameState, String playerId);
+
+    int getSanctuaryHealModifier(GameState gameState);
 }

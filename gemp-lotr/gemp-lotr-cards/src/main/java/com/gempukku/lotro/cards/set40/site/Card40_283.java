@@ -30,7 +30,6 @@ public class Card40_283 extends AbstractSite {
     public Card40_283() {
         super("Banks of Nen Hithoel", Block.SECOND_ED, 3, 0, Direction.LEFT);
         addKeyword(Keyword.RIVER);
-        addKeyword(Keyword.SANCTUARY);
     }
 
     @Override

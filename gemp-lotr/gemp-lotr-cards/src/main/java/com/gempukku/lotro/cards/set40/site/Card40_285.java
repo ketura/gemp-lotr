@@ -26,7 +26,6 @@ import java.util.List;
 public class Card40_285 extends AbstractSite {
     public Card40_285() {
         super("Gates of Moria", Block.SECOND_ED, 3, 0, Direction.LEFT);
-        addKeyword(Keyword.SANCTUARY);
         addKeyword(Keyword.UNDERGROUND);
     }
 

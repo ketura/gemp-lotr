@@ -373,4 +373,9 @@ public abstract class AbstractModifier implements Modifier {
     public int getFPCulturesSpotCountModifier(GameState gameState, ModifiersQuerying modifiersQuerying, String playerId) {
         return 0;
     }
+
+    @Override
+    public int getSanctuaryHealModifier(GameState gameState, ModifiersQuerying modifiersQuerying) {
+        return 0;
+    }
 }

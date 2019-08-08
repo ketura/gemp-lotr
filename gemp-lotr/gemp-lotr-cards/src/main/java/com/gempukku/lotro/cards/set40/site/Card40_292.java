@@ -20,36 +20,37 @@ import com.gempukku.lotro.logic.timing.EffectResult;
 import java.util.List;
 
 /**
- * Title: Ford of Bruinen
+ * Title: Deep of Helm
  * Set: Second Edition
  * Side: None
- * Site Number: 3
- * Shadow Number: 0
- * Card Number: 1U284
- * Game Text: River. Sanctuary. The twilight cost of the first Nazgul played at this site each turn is -5.
+ * Site Number: 5
+ * Shadow Number: 6
+ * Card Number: 1U292
+ * Game Text: Battleground. Plains. The twilight cost of the first Uruk-hai played at this site each turn is -3.
  */
-public class Card40_284 extends AbstractSite {
-    public Card40_284() {
-        super("Ford of Bruinen", Block.SECOND_ED, 3, 0, Direction.LEFT);
-        addKeyword(Keyword.RIVER);
+public class Card40_292 extends AbstractSite {
+    public Card40_292() {
+        super("Deep of Helm", Block.SECOND_ED, 5, 6, Direction.LEFT);
+        addKeyword(Keyword.BATTLEGROUND);
+        addKeyword(Keyword.PLAINS);
     }
 
     @Override
     public Modifier getAlwaysOnModifier(LotroGame game, final PhysicalCard self) {
         return new TwilightCostModifier(self,
                 Filters.and(
-                        Race.NAZGUL,
+                        Race.URUK_HAI,
                         new Filter() {
                             @Override
                             public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
                                 return modifiersQuerying.getUntilEndOfTurnLimitCounter(self).getUsedLimit() < 1;
                             }
-                        }), -5);
+                        }), -3);
     }
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (TriggerConditions.played(game, effectResult, Race.NAZGUL)
+        if (TriggerConditions.played(game, effectResult, Race.URUK_HAI)
                 && PlayConditions.location(game, self))
             game.getModifiersQuerying().getUntilEndOfTurnLimitCounter(self).incrementToLimit(1, 1);
         return null;

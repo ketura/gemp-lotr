@@ -149,4 +149,6 @@ public interface Modifier {
     public boolean canSpotCulture(GameState gameState, ModifiersQuerying modifiersQuerying, Culture culture, String playerId);
 
     public int getFPCulturesSpotCountModifier(GameState gameState, ModifiersQuerying modifiersQuerying, String playerId);
+
+    int getSanctuaryHealModifier(GameState gameState, ModifiersQuerying modifiersQuerying);
 }

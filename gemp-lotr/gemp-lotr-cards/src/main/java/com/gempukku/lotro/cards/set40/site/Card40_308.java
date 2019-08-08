@@ -3,42 +3,45 @@ package com.gempukku.lotro.cards.set40.site;
 import com.gempukku.lotro.cards.AbstractSite;
 import com.gempukku.lotro.cards.PlayConditions;
 import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.RemoveBurdenEffect;
+import com.gempukku.lotro.cards.effects.AddBurdenEffect;
 import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
+import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
+import com.gempukku.lotro.logic.effects.RemoveThreatsEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collections;
 import java.util.List;
 
 /**
- * Title: Lothlorien
+ * Title: Mount Doom
  * Set: Second Edition
  * Side: None
- * Site Number: 3
- * Shadow Number: 0
- * Card Number: 1C286
- * Game Text: Forest. Sanctuary. When the fellowship moves to this site, the Free Peoples player may spot 2 Elves to remove a burden.
+ * Site Number: 9
+ * Shadow Number: 9
+ * Card Number: 1U308
+ * Game Text: Mountain. When the fellowship moves to this site, the Shadow player may remove 2 threats to add 2 burdens.
  */
-public class Card40_286 extends AbstractSite {
-    public Card40_286() {
-        super("Lothlorien", Block.SECOND_ED, 3, 0, Direction.LEFT);
-        addKeyword(Keyword.FOREST);
+public class Card40_308 extends AbstractSite {
+    public Card40_308() {
+        super("Mount Doom", Block.SECOND_ED, 9, 9, Direction.LEFT);
+        addKeyword(Keyword.MOUNTAIN);
     }
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.movesTo(game, effectResult, self)
-        && GameUtils.isFP(game, playerId)
-        && PlayConditions.canSpot(game, 2, Race.ELF)) {
+                && GameUtils.isShadow(game, playerId)
+                && PlayConditions.canRemoveThreat(game, self, 2)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
+            action.appendCost(
+                    new RemoveThreatsEffect(self, 2));
             action.appendEffect(
-                    new RemoveBurdenEffect(playerId, self));
+                    new AddBurdenEffect(playerId, self, 2));
             return Collections.singletonList(action);
         }
         return null;

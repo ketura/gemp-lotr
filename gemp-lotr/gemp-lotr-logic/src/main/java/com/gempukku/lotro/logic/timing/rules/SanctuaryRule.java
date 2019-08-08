@@ -36,8 +36,9 @@ public class SanctuaryRule {
                                 && game.getModifiersQuerying().hasKeyword(game.getGameState(), game.getGameState().getCurrentSite(), Keyword.SANCTUARY)) {
                             RequiredTriggerAction action = new RequiredTriggerAction(game.getGameState().getCurrentSite());
                             action.setText("Sanctuary healing");
-                            for (int i = 0; i < 5; i++) {
-                                final int remainingHeals = 5 - i;
+                            int healCount = 5 + game.getModifiersQuerying().getSanctuaryHealModifier(game.getGameState());
+                            for (int i = 0; i < healCount; i++) {
+                                final int remainingHeals = healCount - i;
                                 ChooseAndHealCharactersEffect healEffect = new ChooseAndHealCharactersEffect(action, game.getGameState().getCurrentPlayerId(), 0, 1, CardType.COMPANION);
                                 healEffect.setChoiceText("Sanctuary healing - Choose companion to heal - remaining heals: " + remainingHeals);
                                 action.appendEffect(healEffect);
