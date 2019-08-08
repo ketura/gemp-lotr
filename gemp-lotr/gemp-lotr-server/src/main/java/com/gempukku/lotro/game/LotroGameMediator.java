@@ -31,11 +31,11 @@ public class LotroGameMediator {
     private Set<String> _playersPlaying = new HashSet<String>();
 
     private String _gameId;
-    private int _maxSecondsForGamePerPlayer = 60 * 80; // 80 minutes
+    private int _maxSecondsForGamePerPlayer;
+    private int _maxSecondsPerDecision;
     private boolean _allowSpectators;
     private boolean _cancellable;
-    //    private final int _maxSecondsForGamePerPlayer = 60 * 40; // 40 minutes
-    private final int _playerDecisionTimeoutPeriod = 1000 * 60 * 10; // 10 minutes
+    private boolean privateGame;
 
     private ReentrantReadWriteLock _lock = new ReentrantReadWriteLock(true);
     private ReentrantReadWriteLock.ReadLock _readLock = _lock.readLock();
@@ -44,11 +44,13 @@ public class LotroGameMediator {
     private volatile boolean _destroyed;
 
     public LotroGameMediator(String gameId, LotroFormat lotroFormat, LotroGameParticipant[] participants, LotroCardBlueprintLibrary library, int maxSecondsForGamePerPlayer,
-                             boolean allowSpectators, boolean cancellable) {
+                             int maxSecondsPerDecision, boolean allowSpectators, boolean cancellable, boolean privateGame) {
         _gameId = gameId;
         _maxSecondsForGamePerPlayer = maxSecondsForGamePerPlayer;
+        _maxSecondsPerDecision = maxSecondsPerDecision;
         _allowSpectators = allowSpectators;
         _cancellable = cancellable;
+        this.privateGame = privateGame;
         if (participants.length < 1)
             throw new IllegalArgumentException("Game can't have less than one participant");
 
@@ -64,6 +66,10 @@ public class LotroGameMediator {
         _userFeedback = new DefaultUserFeedback();
         _lotroGame = new DefaultLotroGame(lotroFormat, decks, _userFeedback, library);
         _userFeedback.setGame(_lotroGame);
+    }
+
+    public boolean isVisibleToUser(String username) {
+        return !privateGame || _playersPlaying.contains(username);
     }
 
     public boolean isDestroyed() {
@@ -251,7 +257,7 @@ public class LotroGameMediator {
                 // Channel is stale (user no longer connected to game, to save memory, we remove the channel
                 // User can always reconnect and establish a new channel
                 GameCommunicationChannel channel = playerChannels.getValue();
-                if (currentTime > channel.getLastAccessed() + _playerDecisionTimeoutPeriod) {
+                if (currentTime > channel.getLastAccessed() + _maxSecondsPerDecision*1000) {
                     _lotroGame.removeGameStateListener(channel);
                     _communicationChannels.remove(playerId);
                 }
@@ -261,7 +267,7 @@ public class LotroGameMediator {
                 for (Map.Entry<String, Long> playerDecision : new HashMap<String, Long>(_decisionQuerySentTimes).entrySet()) {
                     String playerId = playerDecision.getKey();
                     long decisionSent = playerDecision.getValue();
-                    if (currentTime > decisionSent + _playerDecisionTimeoutPeriod) {
+                    if (currentTime > decisionSent + _maxSecondsPerDecision*1000) {
                         addTimeSpentOnDecisionToUserClock(playerId);
                         _lotroGame.playerLost(playerId, "Player decision timed-out");
                     }

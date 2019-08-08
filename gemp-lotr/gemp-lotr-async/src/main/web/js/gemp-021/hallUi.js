@@ -5,6 +5,7 @@ var GempLotrHallUI = Class.extend({
     supportedFormatsInitialized:false,
     supportedFormatsSelect:null,
     decksSelect:null,
+    timerSelect:null,
     createTableButton:null,
 
     tablesDiv:null,
@@ -79,8 +80,9 @@ var GempLotrHallUI = Class.extend({
                 that.createTableButton.hide();
                 var format = that.supportedFormatsSelect.val();
                 var deck = that.decksSelect.val();
+                var timer = that.timerSelect.val();
                 if (deck != null)
-                    that.comm.createTable(format, deck, function (xml) {
+                    that.comm.createTable(format, deck, timer, function (xml) {
                         that.processResponse(xml);
                     });
             });
@@ -89,14 +91,28 @@ var GempLotrHallUI = Class.extend({
         this.decksSelect = $("<select style='width: 220px'></select>");
         this.decksSelect.hide();
 
+        this.timerSelect = $("<select style='width: 220px'></select>");
+        this.addTimer("default", "Default");
+        this.addTimer("blitz", "Blitz!");
+        this.addTimer("slow", "Slow");
+        this.addTimer("glacial", "Glacial");
+
         this.buttonsDiv.append(this.supportedFormatsSelect);
         this.buttonsDiv.append(this.decksSelect);
+        this.buttonsDiv.append(this.timerSelect);
         this.buttonsDiv.append(this.createTableButton);
 
         this.div.append(this.buttonsDiv);
 
         this.getHall();
         this.updateDecks();
+    },
+
+    addTimer: function(value, text) {
+        var timerElem = $("<option></option>");
+        timerElem.attr("value", value);
+        timerElem.text(text);
+        this.timerSelect.append(timerElem);
     },
 
     addQueuesTable: function(displayed) {
