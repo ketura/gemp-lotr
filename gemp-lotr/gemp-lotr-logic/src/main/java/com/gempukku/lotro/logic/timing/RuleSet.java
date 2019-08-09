@@ -44,5 +44,7 @@ public class RuleSet {
         new ToilRule(_modifiersLogic).applyRule();
 
         new HealByDiscardRule(_modifiersLogic).applyRule();
+
+        new TransferItemRule(_modifiersLogic).applyRule();
     }
 }
