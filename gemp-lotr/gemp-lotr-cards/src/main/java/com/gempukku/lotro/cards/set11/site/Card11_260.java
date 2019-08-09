@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set11.site;
 
-import com.gempukku.lotro.logic.cardtype.AbstractNewSite;
+import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
@@ -21,7 +21,7 @@ import java.util.List;
  * Type: Site
  * Game Text: Forest. Each time you play an artifact or possession on your companion, you may draw a card.
  */
-public class Card11_260 extends AbstractNewSite {
+public class Card11_260 extends AbstractShadowsSite {
     public Card11_260() {
         super("Trollshaw Forest", 3, Direction.RIGHT);
         addKeyword(Keyword.FOREST);

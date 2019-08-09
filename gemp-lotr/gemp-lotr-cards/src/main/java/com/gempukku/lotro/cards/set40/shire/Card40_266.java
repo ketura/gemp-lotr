@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class Card40_266 extends AbstractAlly {
     public Card40_266() {
-        super(1, Block.SECOND_ED, 0, 2, 2, Race.HOBBIT, Culture.SHIRE, "Rosie Cotton",
+        super(1, SitesBlock.SECOND_ED, 0, 2, 2, Race.HOBBIT, Culture.SHIRE, "Rosie Cotton",
                 "Green Dragon Barkeep", true);
         addKeyword(Keyword.SHIRE);
     }

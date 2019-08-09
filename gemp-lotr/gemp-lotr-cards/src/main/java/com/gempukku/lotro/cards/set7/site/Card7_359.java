@@ -1,10 +1,10 @@
 package com.gempukku.lotro.cards.set7.site;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.AddBurdenEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDiscardEffect;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card7_359 extends AbstractSite {
     public Card7_359() {
-        super("Northern Ithilien", Block.KING, 8, 8, Direction.RIGHT);
+        super("Northern Ithilien", SitesBlock.KING, 8, 8, Direction.RIGHT);
     }
 
     @Override

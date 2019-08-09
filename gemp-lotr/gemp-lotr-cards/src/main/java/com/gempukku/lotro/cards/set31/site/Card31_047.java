@@ -6,7 +6,7 @@ import com.gempukku.lotro.logic.effects.AddUntilEndOfTurnModifierEffect;
 import com.gempukku.lotro.logic.effects.ChoiceEffect;
 import com.gempukku.lotro.logic.effects.SpotEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDeckEffect;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.PossessionClass;
@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class Card31_047 extends AbstractSite {
     public Card31_047() {
-        super("Beorn's House", Block.HOBBIT, 4, 4, Direction.RIGHT);
+        super("Beorn's House", SitesBlock.HOBBIT, 4, 4, Direction.RIGHT);
     }
 
     @Override

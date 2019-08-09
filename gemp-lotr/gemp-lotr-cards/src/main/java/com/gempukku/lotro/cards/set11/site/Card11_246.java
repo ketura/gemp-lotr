@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set11.site;
 
-import com.gempukku.lotro.logic.cardtype.AbstractNewSite;
+import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.Keyword;
@@ -21,7 +21,7 @@ import java.util.List;
  * Type: Site
  * Game Text: Marsh. Regroup: Exert your Gollum or your Smeagol to play the fellowship's next site.
  */
-public class Card11_246 extends AbstractNewSite {
+public class Card11_246 extends AbstractShadowsSite {
     public Card11_246() {
         super("Mere of Dead Faces", 2, Direction.LEFT);
         addKeyword(Keyword.MARSH);

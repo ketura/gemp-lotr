@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card40_065 extends AbstractAlly {
     public Card40_065() {
-        super(0, Block.SECOND_ED, 0, 1, 2, Race.MAN, Culture.GANDALF, "Barliman Butterbur",
+        super(0, SitesBlock.SECOND_ED, 0, 1, 2, Race.MAN, Culture.GANDALF, "Barliman Butterbur",
                 "Forgetful Innkeep", true);
         addKeyword(Keyword.BREE);
     }

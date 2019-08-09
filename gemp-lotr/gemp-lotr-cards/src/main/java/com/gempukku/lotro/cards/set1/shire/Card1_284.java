@@ -1,10 +1,10 @@
 package com.gempukku.lotro.cards.set1.shire;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractAlly;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.SelfExertEffect;
 import com.gempukku.lotro.logic.effects.ShuffleCardsFromDiscardIntoDeckEffect;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class Card1_284 extends AbstractAlly {
     public Card1_284() {
-        super(2, Block.FELLOWSHIP, 3, 2, 3, Race.HOBBIT, Culture.SHIRE, "Bilbo", "Retired Adventurer", true);
+        super(2, SitesBlock.FELLOWSHIP, 3, 2, 3, Race.HOBBIT, Culture.SHIRE, "Bilbo", "Retired Adventurer", true);
     }
 
     @Override

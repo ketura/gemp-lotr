@@ -42,7 +42,7 @@ public class Card8_104 extends AbstractPermanent {
                 new HasInitiativeModifier(self,
                         new AndCondition(
                                 new SpotCondition(Culture.SAURON, CardType.MINION),
-                                new LocationCondition(Filters.siteNumber(5), Filters.siteBlock(Block.KING))
+                                new LocationCondition(Filters.siteNumber(5), Filters.siteBlock(SitesBlock.KING))
                         ), Side.SHADOW));
     }
 

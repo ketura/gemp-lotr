@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class Card30_054 extends AbstractSite {
     public Card30_054() {
-        super("Esgaroth", Block.HOBBIT, 6, 3, Direction.RIGHT);
+        super("Esgaroth", SitesBlock.HOBBIT, 6, 3, Direction.RIGHT);
         addKeyword(Keyword.RIVER);
     }
 

@@ -1,9 +1,9 @@
 package com.gempukku.lotro.cards.set4.site;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDeckEffect;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.filters.Filters;
@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class Card4_332 extends AbstractSite {
     public Card4_332() {
-        super("Fangorn Forest", Block.TWO_TOWERS, 2, 2, Direction.LEFT);
+        super("Fangorn Forest", SitesBlock.TWO_TOWERS, 2, 2, Direction.LEFT);
         addKeyword(Keyword.FOREST);
     }
 

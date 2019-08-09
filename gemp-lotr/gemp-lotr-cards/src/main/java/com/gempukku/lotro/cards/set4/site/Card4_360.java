@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set4.site;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.filters.Filters;
@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class Card4_360 extends AbstractSite {
     public Card4_360() {
-        super("Fortress of Orthanc", Block.TWO_TOWERS, 9, 9, Direction.LEFT);
+        super("Fortress of Orthanc", SitesBlock.TWO_TOWERS, 9, 9, Direction.LEFT);
         addKeyword(Keyword.BATTLEGROUND);
     }
 

@@ -1,9 +1,9 @@
 package com.gempukku.lotro.cards.set1.site;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromHandEffect;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card1_341 extends AbstractSite {
     public Card1_341() {
-        super("Rivendell Valley", Block.FELLOWSHIP, 3, 0, Direction.RIGHT);
+        super("Rivendell Valley", SitesBlock.FELLOWSHIP, 3, 0, Direction.RIGHT);
 
     }
 

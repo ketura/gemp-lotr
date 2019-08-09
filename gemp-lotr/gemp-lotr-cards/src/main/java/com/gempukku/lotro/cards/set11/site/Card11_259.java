@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set11.site;
 
-import com.gempukku.lotro.logic.cardtype.AbstractNewSite;
+import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
@@ -24,7 +24,7 @@ import java.util.List;
  * Game Text: At the start of your fellowship phase, you may exert a [ROHAN] Man to play a [ROHAN] mount from your
  * draw deck.
  */
-public class Card11_259 extends AbstractNewSite {
+public class Card11_259 extends AbstractShadowsSite {
     public Card11_259() {
         super("Stables", 2, Direction.LEFT);
     }

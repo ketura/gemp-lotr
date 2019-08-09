@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set20.site;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class Card20_453 extends AbstractSite {
     public Card20_453() {
-        super("Dimholt Road", Block.SECOND_ED, 7, 6, null);
+        super("Dimholt Road", SitesBlock.SECOND_ED, 7, 6, null);
         addKeyword(Keyword.MOUNTAIN);
     }
 

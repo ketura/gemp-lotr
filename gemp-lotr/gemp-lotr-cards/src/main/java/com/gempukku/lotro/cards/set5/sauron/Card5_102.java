@@ -9,14 +9,12 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.effects.ChooseAndDiscardCardsFromHandEffect;
 import com.gempukku.lotro.logic.effects.DrawCardsEffect;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.TwilightCostModifier;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
@@ -50,13 +48,13 @@ public class Card5_102 extends AbstractPermanent {
                                 return game.getModifiersQuerying().getUntilEndOfTurnLimitCounter(self).getUsedLimit() < 1;
                             }
                         }),
-                new LocationCondition(Filters.siteNumber(4), Filters.siteBlock(Block.TWO_TOWERS)), -3);
+                new LocationCondition(Filters.siteNumber(4), Filters.siteBlock(SitesBlock.TWO_TOWERS)), -3);
     }
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.played(game, effectResult, Culture.SAURON, Race.ORC)
-                && Filters.and(Filters.siteNumber(4), Filters.siteBlock(Block.TWO_TOWERS)).accepts(game, game.getGameState().getCurrentSite()))
+                && Filters.and(Filters.siteNumber(4), Filters.siteBlock(SitesBlock.TWO_TOWERS)).accepts(game, game.getGameState().getCurrentSite()))
             game.getModifiersQuerying().getUntilEndOfTurnLimitCounter(self).incrementToLimit(1, 1);
         return null;
     }

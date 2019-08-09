@@ -1,9 +1,9 @@
 package com.gempukku.lotro.cards.set20.site;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card20_450 extends AbstractSite {
     public Card20_450() {
-        super("Streets of Minas Tirith", Block.SECOND_ED, 6, 3, null);
+        super("Streets of Minas Tirith", SitesBlock.SECOND_ED, 6, 3, null);
         addKeyword(Keyword.SANCTUARY);
     }
 

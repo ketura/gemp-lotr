@@ -1,6 +1,6 @@
 package com.gempukku.lotro.game.formats;
 
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.game.Adventure;
 import com.gempukku.lotro.game.AdventureLibrary;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
@@ -33,7 +33,7 @@ public class LotroFormatLibrary {
                     String formatCode = (String) formatDef.get("code");
                     String name = (String) formatDef.get("name");
                     String surveyUrl = (String) formatDef.get("surveyUrl");
-                    Block block = Block.valueOf((String) formatDef.get("sites"));
+                    SitesBlock block = SitesBlock.valueOf((String) formatDef.get("sites"));
                     Boolean cancelRingBearerSkirmish = (Boolean) formatDef.get("cancelRingBearerSkirmish");
                     if (cancelRingBearerSkirmish == null)
                         cancelRingBearerSkirmish = false;

@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card2_101 extends AbstractAlly {
     public Card2_101() {
-        super(1, Block.FELLOWSHIP, 1, 1, 2, Race.HOBBIT, Culture.SHIRE, "Filibert Bolger", "Wily Rascal", true);
+        super(1, SitesBlock.FELLOWSHIP, 1, 1, 2, Race.HOBBIT, Culture.SHIRE, "Filibert Bolger", "Wily Rascal", true);
     }
 
     @Override

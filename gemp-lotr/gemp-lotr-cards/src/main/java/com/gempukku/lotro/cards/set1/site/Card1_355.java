@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set1.site;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.logic.effects.ExertCharactersEffect;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.filters.Filters;
@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class Card1_355 extends AbstractSite {
     public Card1_355() {
-        super("Silverlode Banks", Block.FELLOWSHIP, 7, 6, Direction.RIGHT);
+        super("Silverlode Banks", SitesBlock.FELLOWSHIP, 7, 6, Direction.RIGHT);
         addKeyword(Keyword.RIVER);
     }
 

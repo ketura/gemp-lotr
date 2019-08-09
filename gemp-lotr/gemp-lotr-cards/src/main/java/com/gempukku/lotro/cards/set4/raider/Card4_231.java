@@ -34,7 +34,7 @@ public class Card4_231 extends AbstractPermanent {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (TriggerConditions.movesFrom(game, effectResult, Filters.siteBlock(Block.TWO_TOWERS), Filters.siteNumber(2))) {
+        if (TriggerConditions.movesFrom(game, effectResult, Filters.siteBlock(SitesBlock.TWO_TOWERS), Filters.siteNumber(2))) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new ExertCharactersEffect(action, self, Filters.and(CardType.COMPANION, Keyword.RING_BOUND)));

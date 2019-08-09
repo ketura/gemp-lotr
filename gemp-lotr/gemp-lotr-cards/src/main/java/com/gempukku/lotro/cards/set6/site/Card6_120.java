@@ -1,10 +1,10 @@
 package com.gempukku.lotro.cards.set6.site;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.logic.effects.PreventCardEffect;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card6_120 extends AbstractSite {
     public Card6_120() {
-        super("Saruman's Laboratory", Block.TWO_TOWERS, 9, 9, Direction.LEFT);
+        super("Saruman's Laboratory", SitesBlock.TWO_TOWERS, 9, 9, Direction.LEFT);
     }
 
     @Override

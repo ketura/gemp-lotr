@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set17.site;
 
-import com.gempukku.lotro.logic.cardtype.AbstractNewSite;
+import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
@@ -23,7 +23,7 @@ import java.util.List;
  * Game Text: Regroup: Exert your minion and remove a threat to make the Free Peoples player discard one of his or her
  * conditions.
  */
-public class Card17_145 extends AbstractNewSite {
+public class Card17_145 extends AbstractShadowsSite {
     public Card17_145() {
         super("Dol Guldur", 0, Direction.LEFT);
     }

@@ -4,7 +4,7 @@ import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.ChoiceEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class Card1_343 extends AbstractSite {
     public Card1_343() {
-        super("Balin's Tomb", Block.FELLOWSHIP, 4, 3, Direction.RIGHT);
+        super("Balin's Tomb", SitesBlock.FELLOWSHIP, 4, 3, Direction.RIGHT);
         addKeyword(Keyword.UNDERGROUND);
     }
 

@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set40.site;
 
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card40_293 extends AbstractSite {
     public Card40_293() {
-        super("Morannon", Block.SECOND_ED, 5, 6, Direction.LEFT);
+        super("Morannon", SitesBlock.SECOND_ED, 5, 6, Direction.LEFT);
     }
 
     @Override

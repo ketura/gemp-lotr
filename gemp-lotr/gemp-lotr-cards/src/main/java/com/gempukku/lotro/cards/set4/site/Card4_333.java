@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set4.site;
 
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class Card4_333 extends AbstractSite {
     public Card4_333() {
-        super("Plains of Rohan Camp", Block.TWO_TOWERS, 2, 1, Direction.LEFT);
+        super("Plains of Rohan Camp", SitesBlock.TWO_TOWERS, 2, 1, Direction.LEFT);
         addKeyword(Keyword.PLAINS);
     }
 

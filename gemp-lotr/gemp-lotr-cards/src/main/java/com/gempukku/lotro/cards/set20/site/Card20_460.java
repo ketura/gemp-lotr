@@ -1,11 +1,11 @@
 package com.gempukku.lotro.cards.set20.site;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.ChoiceEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDeckEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromHandEffect;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.filters.Filters;
@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card20_460 extends AbstractSite {
     public Card20_460() {
-        super("Fiery Terrace", Block.SECOND_ED, 8, 8, null);
+        super("Fiery Terrace", SitesBlock.SECOND_ED, 8, 8, null);
         addKeyword(Keyword.BATTLEGROUND);
     }
 

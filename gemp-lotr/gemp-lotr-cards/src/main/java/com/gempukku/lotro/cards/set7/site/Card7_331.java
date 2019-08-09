@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set7.site;
 
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card7_331 extends AbstractSite {
     public Card7_331() {
-        super("Isengard Ruined", Block.KING, 1, 0, Direction.LEFT);
+        super("Isengard Ruined", SitesBlock.KING, 1, 0, Direction.LEFT);
     }
 
     @Override

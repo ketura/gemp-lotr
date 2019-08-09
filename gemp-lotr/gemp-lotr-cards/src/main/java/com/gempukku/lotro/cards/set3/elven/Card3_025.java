@@ -1,10 +1,10 @@
 package com.gempukku.lotro.cards.set3.elven;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractAlly;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.logic.effects.SelfExertEffect;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class Card3_025 extends AbstractAlly {
     public Card3_025() {
-        super(2, Block.FELLOWSHIP, 3, 4, 3, Race.ELF, Culture.ELVEN, "Saelbeth", "Elven Councilor", true);
+        super(2, SitesBlock.FELLOWSHIP, 3, 4, 3, Race.ELF, Culture.ELVEN, "Saelbeth", "Elven Councilor", true);
     }
 
     @Override

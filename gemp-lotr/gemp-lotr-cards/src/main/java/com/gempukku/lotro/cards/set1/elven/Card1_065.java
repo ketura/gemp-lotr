@@ -29,14 +29,14 @@ public class Card1_065 extends AbstractEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && PlayConditions.canExert(self, game, Race.ELF, CardType.ALLY, Filters.isAllyHome(6, Block.FELLOWSHIP));
+                && PlayConditions.canExert(self, game, Race.ELF, CardType.ALLY, Filters.isAllyHome(6, SitesBlock.FELLOWSHIP));
     }
 
     @Override
     public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
-                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.ELF, CardType.ALLY, Filters.isAllyHome(6, Block.FELLOWSHIP)) {
+                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.ELF, CardType.ALLY, Filters.isAllyHome(6, SitesBlock.FELLOWSHIP)) {
                     @Override
                     protected void forEachCardExertedCallback(PhysicalCard elfAlly) {
                         action.appendEffect(

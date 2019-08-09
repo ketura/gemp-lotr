@@ -21,7 +21,7 @@ import java.util.List;
  */
 public class Card7_329 extends AbstractSite {
     public Card7_329() {
-        super("Dunharrow Plateau", Block.KING, 1, 0, Direction.LEFT);
+        super("Dunharrow Plateau", SitesBlock.KING, 1, 0, Direction.LEFT);
     }
 
     @Override

@@ -1,10 +1,10 @@
 package com.gempukku.lotro.cards.set31.site;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.logic.effects.ChoiceEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.filters.Filters;
@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card31_049 extends AbstractSite {
     public Card31_049() {
-        super("Wooded Steep Cliff", Block.HOBBIT, 4, 3, Direction.RIGHT);
+        super("Wooded Steep Cliff", SitesBlock.HOBBIT, 4, 3, Direction.RIGHT);
         addKeyword(Keyword.MOUNTAIN);
 		addKeyword(Keyword.FOREST);
     }

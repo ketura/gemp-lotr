@@ -1,11 +1,8 @@
 package com.gempukku.lotro.game;
 
 import com.gempukku.lotro.cards.packs.SetDefinition;
-import com.gempukku.lotro.common.Block;
-import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.util.MultipleComparator;
@@ -162,19 +159,19 @@ public class SortAndFilterCards {
                 }
                 final LotroCardBlueprint blueprint = cardBlueprint.get(blueprintId);
                 if (blueprint.getCardType() == CardType.SITE) {
-                    if (blueprint.getSiteBlock() == Block.FELLOWSHIP) {
+                    if (blueprint.getSiteBlock() == SitesBlock.FELLOWSHIP) {
                         if ("fotr_block,lotr".contains(set)) {
                             return true;
                         }
                         return false;
                     }
-                    if (blueprint.getSiteBlock() == Block.TWO_TOWERS) {
+                    if (blueprint.getSiteBlock() == SitesBlock.TWO_TOWERS) {
                         if ("towers_standard,ttt_block,lotr".contains(set)) {
                             return true;
                         }
                         return false;
                     }
-                    if (blueprint.getSiteBlock() == Block.KING) {
+                    if (blueprint.getSiteBlock() == SitesBlock.KING) {
                         if ("king_block,rotk_sta,movie,lotr".contains(set)) {
                             return true;
                         }

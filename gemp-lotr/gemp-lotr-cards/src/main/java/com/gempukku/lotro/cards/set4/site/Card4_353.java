@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set4.site;
 
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.modifiers.AllyParticipatesInArcheryFireAndSkirmishesModifier;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class Card4_353 extends AbstractSite {
     public Card4_353() {
-        super("Great Hall", Block.TWO_TOWERS, 6, 3, Direction.LEFT);
+        super("Great Hall", SitesBlock.TWO_TOWERS, 6, 3, Direction.LEFT);
 
         addKeyword(Keyword.BATTLEGROUND);
     }

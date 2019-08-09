@@ -5,7 +5,7 @@ import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.logic.effects.AddUntilEndOfTurnModifierEffect;
 import com.gempukku.lotro.logic.modifiers.MoveLimitModifier;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card40_302 extends AbstractSite {
     public Card40_302() {
-        super("Osgiliath", Block.SECOND_ED, 7, 7, Direction.LEFT);
+        super("Osgiliath", SitesBlock.SECOND_ED, 7, 7, Direction.LEFT);
         addKeyword(Keyword.BATTLEGROUND);
     }
 

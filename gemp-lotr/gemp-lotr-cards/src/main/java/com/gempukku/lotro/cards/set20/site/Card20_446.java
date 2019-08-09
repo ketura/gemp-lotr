@@ -1,9 +1,9 @@
 package com.gempukku.lotro.cards.set20.site;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card20_446 extends AbstractSite {
     public Card20_446() {
-        super("Great Feasting Hall", Block.SECOND_ED, 6, 3, null);
+        super("Great Feasting Hall", SitesBlock.SECOND_ED, 6, 3, null);
         addKeyword(Keyword.SANCTUARY);
     }
 

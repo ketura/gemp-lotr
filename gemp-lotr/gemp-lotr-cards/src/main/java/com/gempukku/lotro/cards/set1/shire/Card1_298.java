@@ -36,7 +36,7 @@ public class Card1_298 extends AbstractEvent {
     @Override
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self);
-        if (game.getGameState().getCurrentSiteNumber() > 5 || game.getGameState().getCurrentSiteBlock() != Block.FELLOWSHIP) {
+        if (game.getGameState().getCurrentSiteNumber() > 5 || game.getGameState().getCurrentSiteBlock() != SitesBlock.FELLOWSHIP) {
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose a Hobbit", Race.HOBBIT) {
                         @Override

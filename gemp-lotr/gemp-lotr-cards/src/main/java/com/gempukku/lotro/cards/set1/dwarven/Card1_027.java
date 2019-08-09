@@ -1,11 +1,11 @@
 package com.gempukku.lotro.cards.set1.dwarven;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractAlly;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.AddUntilStartOfPhaseModifierEffect;
 import com.gempukku.lotro.logic.effects.SelfExertEffect;
 import com.gempukku.lotro.logic.modifiers.AllyParticipatesInArcheryFireAndSkirmishesModifier;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class Card1_027 extends AbstractAlly {
     public Card1_027() {
-        super(1, Block.FELLOWSHIP, 3, 4, 2, Race.DWARF, Culture.DWARVEN, "Thrarin", "Dwarven Smith", true);
+        super(1, SitesBlock.FELLOWSHIP, 3, 4, 2, Race.DWARF, Culture.DWARVEN, "Thrarin", "Dwarven Smith", true);
     }
 
     @Override

@@ -1,8 +1,8 @@
 package com.gempukku.lotro.cards.set4.site;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class Card4_362 extends AbstractSite {
     public Card4_362() {
-        super("Orthanc Library", Block.TWO_TOWERS, 9, 9, Direction.LEFT);
+        super("Orthanc Library", SitesBlock.TWO_TOWERS, 9, 9, Direction.LEFT);
     }
 
     @Override

@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set40.site;
 
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Side;
@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class Card40_306 extends AbstractSite {
     public Card40_306() {
-        super("The Black Gate", Block.SECOND_ED, 9, 9, Direction.LEFT);
+        super("The Black Gate", SitesBlock.SECOND_ED, 9, 9, Direction.LEFT);
         addKeyword(Keyword.BATTLEGROUND);
     }
 

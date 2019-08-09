@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set10.site;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.modifiers.CantHealModifier;
 import com.gempukku.lotro.logic.modifiers.CantRemoveBurdensModifier;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class Card10_119 extends AbstractSite {
     public Card10_119() {
-        super("Steward's Tomb", Block.KING, 5, 8, Direction.LEFT);
+        super("Steward's Tomb", SitesBlock.KING, 5, 8, Direction.LEFT);
     }
 
     @Override

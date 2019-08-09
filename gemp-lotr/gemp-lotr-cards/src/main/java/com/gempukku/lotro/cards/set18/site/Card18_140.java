@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set18.site;
 
-import com.gempukku.lotro.logic.cardtype.AbstractNewSite;
+import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
 import com.gempukku.lotro.logic.modifiers.CantBeTransferredModifier;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
@@ -14,7 +14,7 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
  * Type: Site
  * Game Text: Dwelling. While the fellowship is at this site, followers cannot be transfered to a character.
  */
-public class Card18_140 extends AbstractNewSite {
+public class Card18_140 extends AbstractShadowsSite {
     public Card18_140() {
         super("Streets of Bree", 0, Direction.LEFT);
         addKeyword(Keyword.DWELLING);

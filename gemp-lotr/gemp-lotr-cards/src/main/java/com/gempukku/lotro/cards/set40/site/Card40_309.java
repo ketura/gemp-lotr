@@ -1,5 +1,6 @@
 package com.gempukku.lotro.cards.set40.site;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.AddUntilEndOfPhaseModifierEffect;
@@ -7,7 +8,6 @@ import com.gempukku.lotro.logic.effects.ChoiceEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDeckEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDiscardEffect;
 import com.gempukku.lotro.logic.modifiers.PlayersCantPlayPhaseEventsOrPhaseSpecialAbilitiesModifier;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class Card40_309 extends AbstractSite {
     public Card40_309() {
-        super("Tower of Barad-dur", Block.SECOND_ED, 9, 10, Direction.LEFT);
+        super("Tower of Barad-dur", SitesBlock.SECOND_ED, 9, 10, Direction.LEFT);
     }
 
     @Override

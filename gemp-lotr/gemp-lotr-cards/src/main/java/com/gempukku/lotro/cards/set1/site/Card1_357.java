@@ -1,9 +1,9 @@
 package com.gempukku.lotro.cards.set1.site;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.modifiers.ArcheryTotalModifier;
 import com.gempukku.lotro.logic.modifiers.evaluator.CountActiveEvaluator;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Side;
@@ -20,7 +20,7 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
  */
 public class Card1_357 extends AbstractSite {
     public Card1_357() {
-        super("Brown Lands", Block.FELLOWSHIP, 8, 6, Direction.RIGHT);
+        super("Brown Lands", SitesBlock.FELLOWSHIP, 8, 6, Direction.RIGHT);
         addKeyword(Keyword.RIVER);
     }
 

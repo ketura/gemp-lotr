@@ -36,7 +36,7 @@ public class Card7_318 extends AbstractCompanion {
     @Override
     protected List<ActivateCardAction> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
-                && Filters.and(Filters.siteBlock(Block.KING), Filters.or(Filters.siteNumber(6), Filters.siteNumber(7), Filters.siteNumber(8)))
+                && Filters.and(Filters.siteBlock(SitesBlock.KING), Filters.or(Filters.siteNumber(6), Filters.siteNumber(7), Filters.siteNumber(8)))
                 .accepts(game, game.getGameState().getCurrentSite())) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(

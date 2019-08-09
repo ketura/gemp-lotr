@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set20.site;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card20_442 extends AbstractSite {
     public Card20_442() {
-        super("Ithilien Wildwood", Block.SECOND_ED, 5, 7, null);
+        super("Ithilien Wildwood", SitesBlock.SECOND_ED, 5, 7, null);
         addKeyword(Keyword.FOREST);
     }
 

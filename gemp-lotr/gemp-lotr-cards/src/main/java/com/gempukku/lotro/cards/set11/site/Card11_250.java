@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set11.site;
 
-import com.gempukku.lotro.logic.cardtype.AbstractNewSite;
+import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
 import com.gempukku.lotro.logic.modifiers.ArcheryTotalModifier;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Side;
@@ -14,7 +14,7 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
  * Type: Site
  * Game Text: River. The minion archery total is -3.
  */
-public class Card11_250 extends AbstractNewSite {
+public class Card11_250 extends AbstractShadowsSite {
     public Card11_250() {
         super("North Undeep", 3, Direction.RIGHT);
         addKeyword(Keyword.RIVER);

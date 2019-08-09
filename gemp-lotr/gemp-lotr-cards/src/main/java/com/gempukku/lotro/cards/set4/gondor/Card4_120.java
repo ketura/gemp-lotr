@@ -36,7 +36,7 @@ public class Card4_120 extends AbstractPermanent {
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
                 new CantTakeMoreThanXWoundsModifier(self, Phase.SKIRMISH, 1,
-                        new LocationCondition(Filters.siteNumber(6), Filters.siteBlock(Block.TWO_TOWERS)),
+                        new LocationCondition(Filters.siteNumber(6), Filters.siteBlock(SitesBlock.TWO_TOWERS)),
                         Race.MAN, Keyword.RING_BOUND));
     }
 

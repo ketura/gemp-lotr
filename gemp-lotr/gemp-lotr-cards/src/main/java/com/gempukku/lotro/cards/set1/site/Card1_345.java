@@ -4,7 +4,7 @@ import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.RemoveTwilightEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDiscardEffect;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Side;
@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card1_345 extends AbstractSite {
     public Card1_345() {
-        super("Mithril Mine", Block.FELLOWSHIP, 4, 3, Direction.RIGHT);
+        super("Mithril Mine", SitesBlock.FELLOWSHIP, 4, 3, Direction.RIGHT);
         addKeyword(Keyword.UNDERGROUND);
     }
 

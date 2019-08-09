@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set12.site;
 
-import com.gempukku.lotro.logic.cardtype.AbstractNewSite;
+import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
@@ -23,7 +23,7 @@ import java.util.List;
  * Type: Site
  * Game Text: Plains. Skirmish: Exert your Man (except an enduring Man) to make him or her damage +1.
  */
-public class Card12_194 extends AbstractNewSite {
+public class Card12_194 extends AbstractShadowsSite {
     public Card12_194() {
         super("Wold Battlefield", 2, Direction.LEFT);
         addKeyword(Keyword.PLAINS);

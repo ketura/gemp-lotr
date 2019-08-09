@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set7.site;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.filters.Filters;
@@ -21,7 +21,7 @@ import java.util.List;
  */
 public class Card7_330 extends AbstractSite {
     public Card7_330() {
-        super("Edoras Hall", Block.KING, 1, 0, Direction.LEFT);
+        super("Edoras Hall", SitesBlock.KING, 1, 0, Direction.LEFT);
     }
 
     @Override

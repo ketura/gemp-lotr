@@ -4,7 +4,7 @@ import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.logic.effects.RemoveBurdenEffect;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class Card3_119 extends AbstractSite {
     public Card3_119() {
-        super("House of Elrond", Block.FELLOWSHIP, 3, 0, Direction.RIGHT);
+        super("House of Elrond", SitesBlock.FELLOWSHIP, 3, 0, Direction.RIGHT);
 
     }
 

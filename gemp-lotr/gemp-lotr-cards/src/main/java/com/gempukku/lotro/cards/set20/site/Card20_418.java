@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set20.site;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -17,7 +17,7 @@ import com.gempukku.lotro.logic.modifiers.TwilightCostModifier;
  */
 public class Card20_418 extends AbstractSite {
     public Card20_418() {
-        super("East Road", Block.SECOND_ED, 1, 0, null);
+        super("East Road", SitesBlock.SECOND_ED, 1, 0, null);
         addKeyword(Keyword.FOREST);
     }
 

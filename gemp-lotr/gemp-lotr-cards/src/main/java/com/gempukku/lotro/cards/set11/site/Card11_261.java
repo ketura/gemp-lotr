@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set11.site;
 
-import com.gempukku.lotro.logic.cardtype.AbstractNewSite;
+import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
@@ -22,7 +22,7 @@ import java.util.List;
  * Type: Site
  * Game Text: Dwelling. River. When your fellowship moves to this site, you may heal each Hobbit companion.
  */
-public class Card11_261 extends AbstractNewSite {
+public class Card11_261 extends AbstractShadowsSite {
     public Card11_261() {
         super("Valley of the Silverlode", 3, Direction.RIGHT);
         addKeyword(Keyword.DWELLING);

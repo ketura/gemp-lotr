@@ -1,11 +1,11 @@
 package com.gempukku.lotro.cards.set3.shire;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractAlly;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.logic.effects.AddBurdenEffect;
 import com.gempukku.lotro.logic.effects.SelfExertEffect;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.common.Side;
@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class Card3_110 extends AbstractAlly {
     public Card3_110() {
-        super(1, Block.FELLOWSHIP, 1, 2, 2, Race.HOBBIT, Culture.SHIRE, "Melilot Brandybuck", "Merry Dancer", true);
+        super(1, SitesBlock.FELLOWSHIP, 1, 2, 2, Race.HOBBIT, Culture.SHIRE, "Melilot Brandybuck", "Merry Dancer", true);
     }
 
     @Override

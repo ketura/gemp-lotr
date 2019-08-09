@@ -1,8 +1,8 @@
 package com.gempukku.lotro.cards.set7.site;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class Card7_338 extends AbstractSite {
     public Card7_338() {
-        super("Beacon of Minas Tirith", Block.KING, 3, 0, Direction.RIGHT);
+        super("Beacon of Minas Tirith", SitesBlock.KING, 3, 0, Direction.RIGHT);
 
     }
 

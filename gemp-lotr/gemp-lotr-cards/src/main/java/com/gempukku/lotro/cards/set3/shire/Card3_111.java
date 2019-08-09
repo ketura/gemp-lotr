@@ -1,12 +1,9 @@
 package com.gempukku.lotro.cards.set3.shire;
 
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.logic.cardtype.AbstractAlly;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
-import com.gempukku.lotro.common.Block;
-import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Race;
-import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -31,7 +28,7 @@ import java.util.List;
  */
 public class Card3_111 extends AbstractAlly {
     public Card3_111() {
-        super(1, Block.FELLOWSHIP, 1, 1, 2, Race.HOBBIT, Culture.SHIRE, "Old Noakes", "Purveyor of Wisdoms", true);
+        super(1, SitesBlock.FELLOWSHIP, 1, 1, 2, Race.HOBBIT, Culture.SHIRE, "Old Noakes", "Purveyor of Wisdoms", true);
     }
 
     @Override

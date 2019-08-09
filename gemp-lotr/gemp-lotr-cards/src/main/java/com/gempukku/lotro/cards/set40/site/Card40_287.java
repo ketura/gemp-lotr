@@ -5,7 +5,7 @@ import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.AddUntilEndOfTurnModifierEffect;
 import com.gempukku.lotro.logic.effects.IncrementTurnLimitEffect;
 import com.gempukku.lotro.logic.modifiers.MoveLimitModifier;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class Card40_287 extends AbstractSite {
     public Card40_287() {
-        super("Eastemnet Plains", Block.SECOND_ED, 4, 4, Direction.LEFT);
+        super("Eastemnet Plains", SitesBlock.SECOND_ED, 4, 4, Direction.LEFT);
         addKeyword(Keyword.PLAINS);
     }
 

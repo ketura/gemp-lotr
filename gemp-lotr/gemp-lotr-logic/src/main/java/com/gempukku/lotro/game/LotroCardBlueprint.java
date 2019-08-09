@@ -46,9 +46,9 @@ public interface LotroCardBlueprint {
 
     public int[] getAllyHomeSiteNumbers();
 
-    public Block getAllyHomeSiteBlock();
+    public SitesBlock getAllyHomeSiteBlock();
 
-    public boolean isAllyAtHome(int siteNumber, Block siteBlock);
+    public boolean isAllyAtHome(int siteNumber, SitesBlock siteBlock);
 
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self);
 
@@ -88,7 +88,7 @@ public interface LotroCardBlueprint {
 
     public OptionalTriggerAction getKilledOptionalTrigger(String playerId, LotroGame game, PhysicalCard self);
 
-    public Block getSiteBlock();
+    public SitesBlock getSiteBlock();
 
     public int getSiteNumber();
 

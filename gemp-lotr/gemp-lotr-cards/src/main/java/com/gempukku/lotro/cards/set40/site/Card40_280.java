@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set40.site;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.modifiers.RoamingPenaltyModifier;
 import com.gempukku.lotro.logic.modifiers.condition.LocationCondition;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class Card40_280 extends AbstractSite {
     public Card40_280() {
-        super("Chetwood", Block.SECOND_ED, 2, 3, Direction.LEFT);
+        super("Chetwood", SitesBlock.SECOND_ED, 2, 3, Direction.LEFT);
         addKeyword(Keyword.FOREST);
     }
 

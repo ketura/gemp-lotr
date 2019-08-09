@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class Card31_054 extends AbstractSite {
     public Card31_054() {
-        super("Ravenhill", Block.HOBBIT, 9, 8, Direction.RIGHT);
+        super("Ravenhill", SitesBlock.HOBBIT, 9, 8, Direction.RIGHT);
         addKeyword(Keyword.MOUNTAIN);
     }
 

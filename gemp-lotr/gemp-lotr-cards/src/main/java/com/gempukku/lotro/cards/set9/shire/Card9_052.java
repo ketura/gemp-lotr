@@ -7,7 +7,7 @@ import com.gempukku.lotro.logic.effects.CancelSkirmishEffect;
 import com.gempukku.lotro.logic.effects.ChoiceEffect;
 import com.gempukku.lotro.logic.effects.RemoveBurdenEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
@@ -36,7 +36,7 @@ import java.util.List;
  */
 public class Card9_052 extends AbstractAlly {
     public Card9_052() {
-        super(5, Block.FELLOWSHIP, 2, 14, 9, null, Culture.SHIRE, "Tom Bombadil", "The Master", true);
+        super(5, SitesBlock.FELLOWSHIP, 2, 14, 9, null, Culture.SHIRE, "Tom Bombadil", "The Master", true);
     }
 
     @Override

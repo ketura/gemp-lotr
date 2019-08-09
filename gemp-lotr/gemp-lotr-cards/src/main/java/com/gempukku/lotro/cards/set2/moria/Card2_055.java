@@ -53,7 +53,7 @@ public class Card2_055 extends AbstractPermanent {
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             int siteNumber = card.getSiteNumber();
                             action.appendEffect(
-                                    new PlaySiteEffect(action, playerId, Block.FELLOWSHIP, siteNumber, Filters.or(Keyword.MARSH, Keyword.UNDERGROUND)));
+                                    new PlaySiteEffect(action, playerId, SitesBlock.FELLOWSHIP, siteNumber, Filters.or(Keyword.MARSH, Keyword.UNDERGROUND)));
                         }
                     });
             return Collections.singletonList(action);

@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set13.site;
 
-import com.gempukku.lotro.logic.cardtype.AbstractNewSite;
+import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -14,7 +14,7 @@ import com.gempukku.lotro.logic.modifiers.SpecialFlagModifier;
  * Type: Site
  * Game Text: Mountain. Culture tokens cannot be added, removed, or reinforced.
  */
-public class Card13_194 extends AbstractNewSite {
+public class Card13_194 extends AbstractShadowsSite {
     public Card13_194() {
         super("Redhorn Pass", 2, Direction.LEFT);
         addKeyword(Keyword.MOUNTAIN);

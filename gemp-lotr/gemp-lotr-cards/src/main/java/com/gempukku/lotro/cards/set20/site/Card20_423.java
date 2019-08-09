@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class Card20_423 extends AbstractSite {
     public Card20_423() {
-        super("Buckleberry Ferry", Block.SECOND_ED, 2, 1, null);
+        super("Buckleberry Ferry", SitesBlock.SECOND_ED, 2, 1, null);
         addKeyword(Keyword.RIVER);
     }
 

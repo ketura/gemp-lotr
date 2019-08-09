@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set18.site;
 
-import com.gempukku.lotro.logic.cardtype.AbstractNewSite;
+import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -14,7 +14,7 @@ import com.gempukku.lotro.logic.modifiers.SpecialFlagModifier;
  * Type: Site
  * Game Text: Mountain. Each card that is about to be placed into the discard pile is removed from the game instead.
  */
-public class Card18_135 extends AbstractNewSite {
+public class Card18_135 extends AbstractShadowsSite {
     public Card18_135() {
         super("Foot of Mount Doom", 2, Direction.LEFT);
         addKeyword(Keyword.MOUNTAIN);

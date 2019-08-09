@@ -41,7 +41,7 @@ public class Card8_061 extends AbstractPermanent {
         return Collections.singletonList(
                 new HasInitiativeModifier(self,
                         new AndCondition(
-                                new LocationCondition(Filters.siteNumber(4), Filters.siteBlock(Block.KING)),
+                                new LocationCondition(Filters.siteNumber(4), Filters.siteBlock(SitesBlock.KING)),
                                 new SpotCondition(Culture.RAIDER, CardType.MINION)
                         ), Side.SHADOW));
     }

@@ -1,9 +1,9 @@
 package com.gempukku.lotro.cards.set7.site;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card7_353 extends AbstractSite {
     public Card7_353() {
-        super("Osgiliath Crossing", Block.KING, 7, 6, Direction.RIGHT);
+        super("Osgiliath Crossing", SitesBlock.KING, 7, 6, Direction.RIGHT);
         addKeyword(Keyword.RIVER);
     }
 

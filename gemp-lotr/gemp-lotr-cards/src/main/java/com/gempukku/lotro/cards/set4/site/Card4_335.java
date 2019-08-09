@@ -1,9 +1,9 @@
 package com.gempukku.lotro.cards.set4.site;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.logic.effects.ExertCharactersEffect;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class Card4_335 extends AbstractSite {
     public Card4_335() {
-        super("Uruk Camp", Block.TWO_TOWERS, 2, 1, Direction.LEFT);
+        super("Uruk Camp", SitesBlock.TWO_TOWERS, 2, 1, Direction.LEFT);
         addKeyword(Keyword.PLAINS);
         addKeyword(Keyword.BATTLEGROUND);
     }

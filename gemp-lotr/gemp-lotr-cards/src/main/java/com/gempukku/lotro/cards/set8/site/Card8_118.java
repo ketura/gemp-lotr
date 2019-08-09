@@ -6,7 +6,7 @@ import com.gempukku.lotro.logic.effects.ChoiceEffect;
 import com.gempukku.lotro.logic.effects.RemoveBurdenEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDeckEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDiscardEffect;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card8_118 extends AbstractSite {
     public Card8_118() {
-        super("City of the Dead", Block.KING, 4, 4, Direction.RIGHT);
+        super("City of the Dead", SitesBlock.KING, 4, 4, Direction.RIGHT);
         addKeyword(Keyword.UNDERGROUND);
     }
 

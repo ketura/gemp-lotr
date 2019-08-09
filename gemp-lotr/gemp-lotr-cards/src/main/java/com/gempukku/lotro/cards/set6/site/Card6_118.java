@@ -1,8 +1,8 @@
 package com.gempukku.lotro.cards.set6.site;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Signet;
@@ -27,7 +27,7 @@ import java.util.Set;
  */
 public class Card6_118 extends AbstractSite {
     public Card6_118() {
-        super("Hornburg Hall", Block.TWO_TOWERS, 6, 3, Direction.LEFT);
+        super("Hornburg Hall", SitesBlock.TWO_TOWERS, 6, 3, Direction.LEFT);
 
     }
 

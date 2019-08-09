@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class Card30_052 extends AbstractSite {
     public Card30_052() {
-        super("Goblin Town", Block.HOBBIT, 4, 4, Direction.RIGHT);
+        super("Goblin Town", SitesBlock.HOBBIT, 4, 4, Direction.RIGHT);
 		addKeyword(Keyword.UNDERGROUND);
 
     }

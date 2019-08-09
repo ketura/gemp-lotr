@@ -21,7 +21,7 @@ import java.util.List;
  */
 public class Card30_050 extends AbstractSite {
     public Card30_050() {
-        super("The Troll Hoard", Block.HOBBIT, 2, 3, Direction.RIGHT);
+        super("The Troll Hoard", SitesBlock.HOBBIT, 2, 3, Direction.RIGHT);
         addKeyword(Keyword.FOREST);
 		addKeyword(Keyword.UNDERGROUND);
     }

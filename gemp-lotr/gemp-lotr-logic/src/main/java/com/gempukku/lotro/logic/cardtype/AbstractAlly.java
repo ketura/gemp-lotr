@@ -8,25 +8,25 @@ import com.gempukku.lotro.logic.timing.Action;
 import java.util.List;
 
 public class AbstractAlly extends AbstractPermanent {
-    private Block _siteBlock;
+    private SitesBlock _siteBlock;
     private int[] _siteNumbers;
     private int _strength;
     private int _vitality;
     private Race _race;
 
-    public AbstractAlly(int twilight, Block siteBlock, int siteNumber, int strength, int vitality, Race race, Culture culture, String name) {
+    public AbstractAlly(int twilight, SitesBlock siteBlock, int siteNumber, int strength, int vitality, Race race, Culture culture, String name) {
         this(twilight, siteBlock, siteNumber, strength, vitality, race, culture, name, null, false);
     }
 
-    public AbstractAlly(int twilight, Block siteBlock, int siteNumber, int strength, int vitality, Race race, Culture culture, String name, String subTitle, boolean unique) {
+    public AbstractAlly(int twilight, SitesBlock siteBlock, int siteNumber, int strength, int vitality, Race race, Culture culture, String name, String subTitle, boolean unique) {
         this(twilight, siteBlock, new int[]{siteNumber}, strength, vitality, race, culture, name, subTitle, unique);
     }
 
-    public AbstractAlly(int twilight, Block siteBlock, int[] siteNumbers, int strength, int vitality, Race race, Culture culture, String name) {
+    public AbstractAlly(int twilight, SitesBlock siteBlock, int[] siteNumbers, int strength, int vitality, Race race, Culture culture, String name) {
         this(twilight, siteBlock, siteNumbers, strength, vitality, race, culture, name, null, false);
     }
 
-    public AbstractAlly(int twilight, Block siteBlock, int[] siteNumbers, int strength, int vitality, Race race, Culture culture, String name, String subTitle, boolean unique) {
+    public AbstractAlly(int twilight, SitesBlock siteBlock, int[] siteNumbers, int strength, int vitality, Race race, Culture culture, String name, String subTitle, boolean unique) {
         super(Side.FREE_PEOPLE, twilight, CardType.ALLY, culture, Zone.SUPPORT, name, subTitle, unique);
         _siteBlock = siteBlock;
         _siteNumbers = siteNumbers;
@@ -53,12 +53,12 @@ public class AbstractAlly extends AbstractPermanent {
     }
 
     @Override
-    public Block getAllyHomeSiteBlock() {
+    public SitesBlock getAllyHomeSiteBlock() {
         return _siteBlock;
     }
 
     @Override
-    public final boolean isAllyAtHome(int siteNumber, Block block) {
+    public final boolean isAllyAtHome(int siteNumber, SitesBlock block) {
         if (block != _siteBlock)
             return false;
         for (int number : _siteNumbers)

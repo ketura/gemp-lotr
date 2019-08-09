@@ -4,7 +4,7 @@ import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.AddUntilEndOfTurnModifierEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card7_332 extends AbstractSite {
     public Card7_332() {
-        super("Rohirrim Road", Block.KING, 1, 0, Direction.LEFT);
+        super("Rohirrim Road", SitesBlock.KING, 1, 0, Direction.LEFT);
     }
 
     @Override

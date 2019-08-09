@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class Card20_417 extends AbstractSite {
     public Card20_417() {
-        super("Bree Stables", Block.SECOND_ED, 1, 0, null);
+        super("Bree Stables", SitesBlock.SECOND_ED, 1, 0, null);
     }
 
     @Override

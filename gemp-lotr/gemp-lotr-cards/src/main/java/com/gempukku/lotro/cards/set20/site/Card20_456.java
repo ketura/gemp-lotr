@@ -1,10 +1,10 @@
 package com.gempukku.lotro.cards.set20.site;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class Card20_456 extends AbstractSite {
     public Card20_456() {
-        super("Orthanc Pinnacle", Block.SECOND_ED, 7, 6, null);
+        super("Orthanc Pinnacle", SitesBlock.SECOND_ED, 7, 6, null);
     }
 
     @Override

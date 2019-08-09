@@ -4,7 +4,7 @@ import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.logic.effects.RemoveTwilightEffect;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.filters.Filters;
@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card5_118 extends AbstractSite {
     public Card5_118() {
-        super("Hornburg Wall", Block.TWO_TOWERS, 7, 6, Direction.RIGHT);
+        super("Hornburg Wall", SitesBlock.TWO_TOWERS, 7, 6, Direction.RIGHT);
     }
 
     @Override

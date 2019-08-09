@@ -1,8 +1,8 @@
 package com.gempukku.lotro.cards.set20.site;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.modifiers.FPCulturesSideSpotCountModifier;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -15,7 +15,7 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
  */
 public class Card20_459 extends AbstractSite {
     public Card20_459() {
-        super("Citadel of Cirith Ungol", Block.SECOND_ED, 8, 8, null);
+        super("Citadel of Cirith Ungol", SitesBlock.SECOND_ED, 8, 8, null);
     }
 
     @Override

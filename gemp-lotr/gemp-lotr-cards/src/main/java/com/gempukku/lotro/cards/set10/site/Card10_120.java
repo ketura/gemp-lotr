@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set10.site;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card10_120 extends AbstractSite {
     public Card10_120() {
-        super("Watchers of Cirith Ungol", Block.KING, 8, 8, Direction.RIGHT);
+        super("Watchers of Cirith Ungol", SitesBlock.KING, 8, 8, Direction.RIGHT);
     }
 
     @Override

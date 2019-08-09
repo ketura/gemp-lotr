@@ -5,7 +5,7 @@ import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.ChoiceEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDeckEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromHandEffect;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.filters.Filters;
@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class Card40_304 extends AbstractSite {
     public Card40_304() {
-        super("Fiery Terrace", Block.SECOND_ED, 8, 8, Direction.LEFT);
+        super("Fiery Terrace", SitesBlock.SECOND_ED, 8, 8, Direction.LEFT);
         addKeyword(Keyword.BATTLEGROUND);
     }
 

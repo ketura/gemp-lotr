@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set7.site;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card7_357 extends AbstractSite {
     public Card7_357() {
-        super("Morgul Vale", Block.KING, 8, 8, Direction.RIGHT);
+        super("Morgul Vale", SitesBlock.KING, 8, 8, Direction.RIGHT);
     }
 
     @Override

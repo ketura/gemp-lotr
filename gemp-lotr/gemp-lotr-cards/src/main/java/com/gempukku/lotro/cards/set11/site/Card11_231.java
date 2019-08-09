@@ -1,16 +1,14 @@
 package com.gempukku.lotro.cards.set11.site;
 
-import com.gempukku.lotro.logic.cardtype.AbstractNewSite;
+import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.Assignment;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.AbstractModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.ModifierEffect;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
 import java.util.Collections;
 import java.util.List;
@@ -23,7 +21,7 @@ import java.util.Set;
  * Type: Site
  * Game Text: Forest. No more than 1 minion can be assigned to each skirmish.
  */
-public class Card11_231 extends AbstractNewSite {
+public class Card11_231 extends AbstractShadowsSite {
     public Card11_231() {
         super("Caras Galadhon", 2, Direction.LEFT);
         addKeyword(Keyword.FOREST);

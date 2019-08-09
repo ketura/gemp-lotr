@@ -4,7 +4,7 @@ import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.logic.effects.RemoveBurdenEffect;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class Card20_433 extends AbstractSite {
     public Card20_433() {
-        super("Lothlorien", Block.SECOND_ED, 3, 0, null);
+        super("Lothlorien", SitesBlock.SECOND_ED, 3, 0, null);
         addKeyword(Keyword.FOREST);
         addKeyword(Keyword.SANCTUARY);
     }

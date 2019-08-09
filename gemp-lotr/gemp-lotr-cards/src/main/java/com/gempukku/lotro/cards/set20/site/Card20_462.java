@@ -1,10 +1,10 @@
 package com.gempukku.lotro.cards.set20.site;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.logic.effects.AddBurdenEffect;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -21,7 +21,7 @@ import java.util.List;
  */
 public class Card20_462 extends AbstractSite {
     public Card20_462() {
-        super("Morgul Vale", Block.SECOND_ED, 8, 8, null);
+        super("Morgul Vale", SitesBlock.SECOND_ED, 8, 8, null);
     }
 
     @Override

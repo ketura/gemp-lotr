@@ -1,17 +1,7 @@
 package com.gempukku.lotro.filters;
 
-import com.gempukku.lotro.common.Block;
-import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Filterable;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.Names;
-import com.gempukku.lotro.common.PossessionClass;
-import com.gempukku.lotro.common.Race;
-import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.common.Signet;
-import com.gempukku.lotro.common.Token;
-import com.gempukku.lotro.common.Zone;
+import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.game.CompletePhysicalCardVisitor;
 import com.gempukku.lotro.game.LotroCardBlueprint;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -405,7 +395,7 @@ public class Filters {
                 });
     }
 
-    public static Filter siteBlock(final Block block) {
+    public static Filter siteBlock(final SitesBlock block) {
         return new Filter() {
             @Override
             public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
@@ -667,7 +657,7 @@ public class Filters {
         };
     }
 
-    public static Filter isAllyHome(final int siteNumber, final Block siteBlock) {
+    public static Filter isAllyHome(final int siteNumber, final SitesBlock siteBlock) {
         return Filters.and(
                 CardType.ALLY,
                 new Filter() {
@@ -695,7 +685,7 @@ public class Filters {
                     public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
                         LotroCardBlueprint blueprint = card.getBlueprint();
                         if (blueprint.getCardType() == CardType.ALLY) {
-                            Block homeBlock = blueprint.getAllyHomeSiteBlock();
+                            SitesBlock homeBlock = blueprint.getAllyHomeSiteBlock();
                             int[] homeSites = blueprint.getAllyHomeSiteNumbers();
                             for (int homeSite : homeSites) {
                                 if (physicalCard.getBlueprint().isAllyAtHome(homeSite, homeBlock)) {

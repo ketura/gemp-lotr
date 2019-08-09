@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set2.site;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromHandEffect;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card2_117 extends AbstractSite {
     public Card2_117() {
-        super("Town Center", Block.FELLOWSHIP, 1, 0, Direction.LEFT);
+        super("Town Center", SitesBlock.FELLOWSHIP, 1, 0, Direction.LEFT);
     }
 
     @Override

@@ -8,10 +8,8 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.TwilightCostModifier;
 
 /**
@@ -51,7 +49,7 @@ public class Card1_202 extends AbstractPermanent {
                         new Filter() {
                             @Override
                             public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
-                                return game.getGameState().getCurrentSiteNumber() >= 5 && game.getGameState().getCurrentSiteBlock() == Block.FELLOWSHIP;
+                                return game.getGameState().getCurrentSiteNumber() >= 5 && game.getGameState().getCurrentSiteBlock() == SitesBlock.FELLOWSHIP;
                             }
                         }
                 )

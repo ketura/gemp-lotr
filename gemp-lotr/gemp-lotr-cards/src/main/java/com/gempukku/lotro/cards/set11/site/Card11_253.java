@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set11.site;
 
-import com.gempukku.lotro.logic.cardtype.AbstractNewSite;
+import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -16,7 +16,7 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
  * Type: Site
  * Game Text: Plains. Each [MEN] minion gains ambush 1.
  */
-public class Card11_253 extends AbstractNewSite {
+public class Card11_253 extends AbstractShadowsSite {
     public Card11_253() {
         super("Pelennor Fields", 1, Direction.RIGHT);
         addKeyword(Keyword.PLAINS);

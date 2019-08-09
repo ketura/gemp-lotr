@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card40_243 extends AbstractAlly {
     public Card40_243() {
-        super(2, Block.SECOND_ED, 0, 3, 3, Race.HOBBIT, Culture.SHIRE, "Bilbo", "Well-preserved Hobbit", true);
+        super(2, SitesBlock.SECOND_ED, 0, 3, 3, Race.HOBBIT, Culture.SHIRE, "Bilbo", "Well-preserved Hobbit", true);
         addKeyword(Keyword.SHIRE);
     }
 

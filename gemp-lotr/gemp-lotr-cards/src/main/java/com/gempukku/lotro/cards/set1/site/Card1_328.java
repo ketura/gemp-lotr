@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set1.site;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.modifiers.RoamingPenaltyModifier;
 import com.gempukku.lotro.logic.modifiers.condition.LocationCondition;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -18,7 +18,7 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
  */
 public class Card1_328 extends AbstractSite {
     public Card1_328() {
-        super("Bree Streets", Block.FELLOWSHIP, 2, 1, Direction.LEFT);
+        super("Bree Streets", SitesBlock.FELLOWSHIP, 2, 1, Direction.LEFT);
     }
 
     @Override

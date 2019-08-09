@@ -1,10 +1,10 @@
 package com.gempukku.lotro.cards.set7.site;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.RemoveBurdenEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card7_341 extends AbstractSite {
     public Card7_341() {
-        super("Anduin Banks", Block.KING, 4, 3, Direction.RIGHT);
+        super("Anduin Banks", SitesBlock.KING, 4, 3, Direction.RIGHT);
         addKeyword(Keyword.RIVER);
     }
 

@@ -1,8 +1,8 @@
 package com.gempukku.lotro.cards.set31.site;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.modifiers.condition.CantSpotCondition;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -20,7 +20,7 @@ import com.gempukku.lotro.logic.modifiers.TwilightCostModifier;
  */
 public class Card31_055 extends AbstractSite {
     public Card31_055() {
-        super("Thrór's Throne", Block.HOBBIT, 9, 9, Direction.RIGHT);
+        super("Thrór's Throne", SitesBlock.HOBBIT, 9, 9, Direction.RIGHT);
         addKeyword(Keyword.MOUNTAIN);
         addKeyword(Keyword.UNDERGROUND);
     }

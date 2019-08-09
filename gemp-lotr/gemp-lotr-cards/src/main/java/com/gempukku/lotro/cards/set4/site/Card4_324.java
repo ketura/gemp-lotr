@@ -1,8 +1,8 @@
 package com.gempukku.lotro.cards.set4.site;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -21,7 +21,7 @@ import java.util.List;
  */
 public class Card4_324 extends AbstractSite {
     public Card4_324() {
-        super("Eastemnet Downs", Block.TWO_TOWERS, 1, 0, Direction.LEFT);
+        super("Eastemnet Downs", SitesBlock.TWO_TOWERS, 1, 0, Direction.LEFT);
     }
 
     @Override

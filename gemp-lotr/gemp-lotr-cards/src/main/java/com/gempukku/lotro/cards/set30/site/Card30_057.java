@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class Card30_057 extends AbstractSite {
     public Card30_057() {
-        super("Battle of the Five Armies", Block.HOBBIT, 9, 9, Direction.RIGHT);
+        super("Battle of the Five Armies", SitesBlock.HOBBIT, 9, 9, Direction.RIGHT);
 		addKeyword(Keyword.MOUNTAIN);
 		addKeyword(Keyword.BATTLEGROUND);
 	}

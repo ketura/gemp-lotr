@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set11.site;
 
-import com.gempukku.lotro.logic.cardtype.AbstractNewSite;
+import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.logic.effects.AddBurdenEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDeckEffect;
@@ -20,7 +20,7 @@ import java.util.List;
  * Type: Site
  * Game Text: Dwelling. At the start of your fellowship phase, you may add a burden to play a ranger from your draw deck.
  */
-public class Card11_256 extends AbstractNewSite {
+public class Card11_256 extends AbstractShadowsSite {
     public Card11_256() {
         super("The Prancing Pony", 3, Direction.RIGHT);
         addKeyword(Keyword.DWELLING);

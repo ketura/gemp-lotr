@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set20.site;
 
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.modifiers.ResistanceModifier;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
@@ -19,7 +19,7 @@ import com.gempukku.lotro.logic.modifiers.SpotCondition;
  */
 public class Card20_454 extends AbstractSite {
     public Card20_454() {
-        super("Eastern Ithilien", Block.SECOND_ED, 7, 6, null);
+        super("Eastern Ithilien", SitesBlock.SECOND_ED, 7, 6, null);
         addKeyword(Keyword.FOREST);
     }
 

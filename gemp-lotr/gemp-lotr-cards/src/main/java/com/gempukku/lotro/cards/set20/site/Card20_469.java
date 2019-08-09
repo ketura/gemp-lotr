@@ -1,12 +1,12 @@
 package com.gempukku.lotro.cards.set20.site;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.ChoiceEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDeckEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDiscardEffect;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.filters.Filters;
@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card20_469 extends AbstractSite {
     public Card20_469() {
-        super("Tower of Barad-dur", Block.SECOND_ED, 9, 9, null);
+        super("Tower of Barad-dur", SitesBlock.SECOND_ED, 9, 9, null);
     }
 
     @Override

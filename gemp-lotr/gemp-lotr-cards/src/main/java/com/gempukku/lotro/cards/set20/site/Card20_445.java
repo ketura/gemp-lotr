@@ -17,7 +17,7 @@ import com.gempukku.lotro.logic.modifiers.condition.PhaseCondition;
  */
 public class Card20_445 extends AbstractSite {
     public Card20_445() {
-        super("Westfold Village", Block.SECOND_ED, 5, 6, null);
+        super("Westfold Village", SitesBlock.SECOND_ED, 5, 6, null);
         addKeyword(Keyword.PLAINS);
     }
 

@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set1.site;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.filters.Filters;
@@ -19,7 +19,7 @@ import com.gempukku.lotro.logic.modifiers.TwilightCostModifier;
  */
 public class Card1_361 extends AbstractSite {
     public Card1_361() {
-        super("Slopes of Amon Hen", Block.FELLOWSHIP, 9, 9, Direction.LEFT);
+        super("Slopes of Amon Hen", SitesBlock.FELLOWSHIP, 9, 9, Direction.LEFT);
     }
 
     @Override

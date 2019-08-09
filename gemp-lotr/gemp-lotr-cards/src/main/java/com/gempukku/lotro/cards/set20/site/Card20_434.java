@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set20.site;
 
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.filters.Filters;
@@ -19,7 +19,7 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
  */
 public class Card20_434 extends AbstractSite {
     public Card20_434() {
-        super("Dead Marshes", Block.SECOND_ED, 4, 3, null);
+        super("Dead Marshes", SitesBlock.SECOND_ED, 4, 3, null);
         addKeyword(Keyword.MARSH);
     }
 

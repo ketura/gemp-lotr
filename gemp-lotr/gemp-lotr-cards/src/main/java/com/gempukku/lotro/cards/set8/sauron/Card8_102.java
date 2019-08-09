@@ -40,7 +40,7 @@ public class Card8_102 extends AbstractMinion {
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.played(game, effectResult, self)
-                && game.getGameState().getCurrentSiteBlock() == Block.KING
+                && game.getGameState().getCurrentSiteBlock() == SitesBlock.KING
                 && game.getGameState().getCurrentSiteNumber() >= 5 && game.getGameState().getCurrentSiteNumber() <= 9) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(

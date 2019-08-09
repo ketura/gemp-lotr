@@ -6,7 +6,7 @@ import com.gempukku.lotro.logic.effects.AddBurdenEffect;
 import com.gempukku.lotro.logic.effects.CancelSkirmishEffect;
 import com.gempukku.lotro.logic.effects.RemoveBurdenEffect;
 import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.PossessionClass;
@@ -43,7 +43,7 @@ public class Card4_303 extends AbstractAttachableFPPossession {
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)) {
-            boolean firstOption = (game.getGameState().getCurrentSiteNumber() <= 4 && game.getGameState().getCurrentSiteBlock() == Block.TWO_TOWERS);
+            boolean firstOption = (game.getGameState().getCurrentSiteNumber() <= 4 && game.getGameState().getCurrentSiteBlock() == SitesBlock.TWO_TOWERS);
             ActivateCardAction action = new ActivateCardAction(self);
             if (firstOption) {
                 action.appendCost(

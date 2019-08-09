@@ -1,8 +1,8 @@
 package com.gempukku.lotro.cards.set20.site;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class Card20_428 extends AbstractSite {
     public Card20_428() {
-        super("Banks of Nen Hithoel", Block.SECOND_ED, 3, 0, null);
+        super("Banks of Nen Hithoel", SitesBlock.SECOND_ED, 3, 0, null);
         addKeyword(Keyword.RIVER);
         addKeyword(Keyword.SANCTUARY);
     }

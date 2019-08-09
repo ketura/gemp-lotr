@@ -1,14 +1,12 @@
 package com.gempukku.lotro.cards.set11.site;
 
-import com.gempukku.lotro.logic.cardtype.AbstractNewSite;
+import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 
 /**
@@ -17,7 +15,7 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
  * Type: Site
  * Game Text: Plains. Each unbound companion skirmishing more than 1 minion is strength +3.
  */
-public class Card11_240 extends AbstractNewSite {
+public class Card11_240 extends AbstractShadowsSite {
     public Card11_240() {
         super("Flats of Rohan", 2, Direction.LEFT);
         addKeyword(Keyword.PLAINS);

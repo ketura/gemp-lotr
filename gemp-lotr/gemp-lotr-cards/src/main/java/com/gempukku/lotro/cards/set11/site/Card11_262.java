@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set11.site;
 
-import com.gempukku.lotro.logic.cardtype.AbstractNewSite;
+import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.DiscardCardAtRandomFromHandEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
@@ -24,7 +24,7 @@ import java.util.List;
  * Game Text: Mountain. Maneuver: Exert your [ORC] minion to discard a card at random from the Free Peoples
  * player's hand.
  */
-public class Card11_262 extends AbstractNewSite {
+public class Card11_262 extends AbstractShadowsSite {
     public Card11_262() {
         super("Watch-tower of Cirith Ungol", 1, Direction.RIGHT);
         addKeyword(Keyword.MOUNTAIN);

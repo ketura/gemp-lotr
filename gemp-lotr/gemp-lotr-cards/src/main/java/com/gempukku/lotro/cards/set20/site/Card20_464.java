@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set20.site;
 
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Side;
@@ -18,7 +18,7 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
  */
 public class Card20_464 extends AbstractSite {
     public Card20_464() {
-        super("The Black Gate", Block.SECOND_ED, 9, 9, null);
+        super("The Black Gate", SitesBlock.SECOND_ED, 9, 9, null);
         addKeyword(Keyword.BATTLEGROUND);
     }
 

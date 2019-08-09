@@ -1,9 +1,9 @@
 package com.gempukku.lotro.cards.set4.site;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.logic.effects.ExertCharactersEffect;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class Card4_329 extends AbstractSite {
     public Card4_329() {
-        super("Western Emyn Muil", Block.TWO_TOWERS, 1, 0, Direction.LEFT);
+        super("Western Emyn Muil", SitesBlock.TWO_TOWERS, 1, 0, Direction.LEFT);
     }
 
     @Override

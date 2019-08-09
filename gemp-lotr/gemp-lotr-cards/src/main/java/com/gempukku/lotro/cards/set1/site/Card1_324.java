@@ -4,7 +4,7 @@ import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.AddBurdenEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDeckEffect;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class Card1_324 extends AbstractSite {
     public Card1_324() {
-        super("The Prancing Pony", Block.FELLOWSHIP, 1, 0, Direction.LEFT);
+        super("The Prancing Pony", SitesBlock.FELLOWSHIP, 1, 0, Direction.LEFT);
     }
 
     @Override

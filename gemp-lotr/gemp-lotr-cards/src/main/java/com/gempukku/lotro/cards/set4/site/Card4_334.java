@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set4.site;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class Card4_334 extends AbstractSite {
     public Card4_334() {
-        super("Rohirrim Village", Block.TWO_TOWERS, 2, 3, Direction.LEFT);
+        super("Rohirrim Village", SitesBlock.TWO_TOWERS, 2, 3, Direction.LEFT);
     }
 
     @Override

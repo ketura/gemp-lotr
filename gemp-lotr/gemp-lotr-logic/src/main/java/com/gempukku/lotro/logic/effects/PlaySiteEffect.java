@@ -1,6 +1,6 @@
 package com.gempukku.lotro.logic.effects;
 
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filter;
@@ -11,7 +11,6 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.modifiers.ModifierFlag;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.SpecialFlagModifier;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.Action;
@@ -27,15 +26,15 @@ import java.util.List;
 public class PlaySiteEffect extends AbstractEffect {
     private Action _action;
     private String _playerId;
-    private Block _siteBlock;
+    private SitesBlock _siteBlock;
     private int _siteNumber;
     private Filterable[] _extraSiteFilters;
 
-    public PlaySiteEffect(Action action, String playerId, Block siteBlock, int siteNumber) {
+    public PlaySiteEffect(Action action, String playerId, SitesBlock siteBlock, int siteNumber) {
         this(action, playerId, siteBlock, siteNumber, Filters.any);
     }
 
-    public PlaySiteEffect(Action action, String playerId, Block siteBlock, int siteNumber, Filterable... extraSiteFilters) {
+    public PlaySiteEffect(Action action, String playerId, SitesBlock siteBlock, int siteNumber, Filterable... extraSiteFilters) {
         _action = action;
         _playerId = playerId;
         _siteBlock = siteBlock;

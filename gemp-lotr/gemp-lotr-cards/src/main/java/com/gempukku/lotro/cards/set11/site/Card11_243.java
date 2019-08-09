@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set11.site;
 
-import com.gempukku.lotro.logic.cardtype.AbstractNewSite;
+import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
 import com.gempukku.lotro.logic.effects.AddUntilStartOfPhaseModifierEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
@@ -27,7 +27,7 @@ import java.util.Set;
  * Game Text: Plains. Until the regroup phase, each minion skirmishing a [ROHAN] companion loses fierce and cannot gain
  * fierce.
  */
-public class Card11_243 extends AbstractNewSite {
+public class Card11_243 extends AbstractShadowsSite {
     public Card11_243() {
         super("Harrowdale", 3, Direction.RIGHT);
         addKeyword(Keyword.PLAINS);

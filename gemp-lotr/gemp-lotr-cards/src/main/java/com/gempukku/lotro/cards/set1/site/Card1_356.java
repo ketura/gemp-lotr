@@ -4,7 +4,7 @@ import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.modifiers.ArcheryTotalModifier;
 import com.gempukku.lotro.logic.modifiers.evaluator.CountActiveEvaluator;
 import com.gempukku.lotro.logic.modifiers.evaluator.MultiplyEvaluator;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Side;
@@ -21,7 +21,7 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
  */
 public class Card1_356 extends AbstractSite {
     public Card1_356() {
-        super("Anduin Banks", Block.FELLOWSHIP, 8, 6, Direction.RIGHT);
+        super("Anduin Banks", SitesBlock.FELLOWSHIP, 8, 6, Direction.RIGHT);
         addKeyword(Keyword.RIVER);
     }
 

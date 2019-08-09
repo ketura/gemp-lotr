@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set7.site;
 
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.modifiers.condition.InitiativeCondition;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class Card7_337 extends AbstractSite {
     public Card7_337() {
-        super("West Road", Block.KING, 2, 3, Direction.LEFT);
+        super("West Road", SitesBlock.KING, 2, 3, Direction.LEFT);
         addKeyword(Keyword.PLAINS);
     }
 

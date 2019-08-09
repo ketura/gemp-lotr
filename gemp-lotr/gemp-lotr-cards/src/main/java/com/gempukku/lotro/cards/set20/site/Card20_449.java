@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set20.site;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card20_449 extends AbstractSite {
     public Card20_449() {
-        super("Steward's Chamber", Block.SECOND_ED, 6, 3, null);
+        super("Steward's Chamber", SitesBlock.SECOND_ED, 6, 3, null);
         addKeyword(Keyword.SANCTUARY);
     }
 

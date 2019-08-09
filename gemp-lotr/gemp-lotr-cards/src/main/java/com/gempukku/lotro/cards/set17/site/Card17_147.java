@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set17.site;
 
-import com.gempukku.lotro.logic.cardtype.AbstractNewSite;
+import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.logic.effects.RemoveBurdenEffect;
 import com.gempukku.lotro.common.Keyword;
@@ -18,7 +18,7 @@ import java.util.List;
  * Type: Site
  * Game Text: River. When the fellowship moves to this site, if it is a Sanctuary, remove 2 burdens.
  */
-public class Card17_147 extends AbstractNewSite {
+public class Card17_147 extends AbstractShadowsSite {
     public Card17_147() {
         super("Imladris", 3, Direction.LEFT);
         addKeyword(Keyword.RIVER);

@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set7.site;
 
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card7_356 extends AbstractSite {
     public Card7_356() {
-        super("Cross Roads", Block.KING, 8, 8, Direction.RIGHT);
+        super("Cross Roads", SitesBlock.KING, 8, 8, Direction.RIGHT);
     }
 
     @Override

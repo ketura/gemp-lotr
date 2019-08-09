@@ -28,7 +28,7 @@ public class Card4_321 extends AbstractEvent {
     @Override
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self);
-        boolean firstOption = (game.getGameState().getCurrentSiteNumber() <= 5 && game.getGameState().getCurrentSiteBlock() == Block.TWO_TOWERS);
+        boolean firstOption = (game.getGameState().getCurrentSiteNumber() <= 5 && game.getGameState().getCurrentSiteBlock() == SitesBlock.TWO_TOWERS);
         if (firstOption) {
             action.appendEffect(
                     new CancelSkirmishEffect(Race.HOBBIT));

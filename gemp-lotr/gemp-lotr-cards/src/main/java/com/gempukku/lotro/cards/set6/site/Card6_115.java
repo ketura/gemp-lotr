@@ -1,10 +1,10 @@
 package com.gempukku.lotro.cards.set6.site;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.RemoveBurdenEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromHandEffect;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Signet;
@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class Card6_115 extends AbstractSite {
     public Card6_115() {
-        super("Rocks of Emyn Muil", Block.TWO_TOWERS, 1, 0, Direction.LEFT);
+        super("Rocks of Emyn Muil", SitesBlock.TWO_TOWERS, 1, 0, Direction.LEFT);
     }
 
     @Override

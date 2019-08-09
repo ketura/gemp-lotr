@@ -4,7 +4,7 @@ import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDeckEffect;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Signet;
@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card6_116 extends AbstractSite {
     public Card6_116() {
-        super("Westfold", Block.TWO_TOWERS, 1, 0, Direction.LEFT);
+        super("Westfold", SitesBlock.TWO_TOWERS, 1, 0, Direction.LEFT);
     }
 
     @Override

@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class Card40_276 extends AbstractSite {
     public Card40_276() {
-        super("Green Hill Country", Block.SECOND_ED, 1, 0, Direction.LEFT);
+        super("Green Hill Country", SitesBlock.SECOND_ED, 1, 0, Direction.LEFT);
     }
 
     @Override

@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card31_010 extends AbstractAlly {
     public Card31_010() {
-        super(2, Block.HOBBIT, 5, 6, 3, Race.ELF, Culture.ELVEN, "Tauriel", "Staunch Defender", true);
+        super(2, SitesBlock.HOBBIT, 5, 6, 3, Race.ELF, Culture.ELVEN, "Tauriel", "Staunch Defender", true);
 		addKeyword(Keyword.ARCHER);
     }
 

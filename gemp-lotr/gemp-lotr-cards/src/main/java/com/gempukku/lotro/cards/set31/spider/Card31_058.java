@@ -38,7 +38,7 @@ public class Card31_058 extends AbstractPermanent {
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.played(game, effectResult, Filters.or(CardType.COMPANION, CardType.FOLLOWER))
-                && game.getGameState().getCurrentSiteNumber() == 5 && game.getGameState().getCurrentSiteBlock() == Block.HOBBIT) {
+                && game.getGameState().getCurrentSiteNumber() == 5 && game.getGameState().getCurrentSiteBlock() == SitesBlock.HOBBIT) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
 				new ChooseAndExertCharactersEffect(action, game.getGameState().getCurrentPlayerId(), 2, 2, CardType.COMPANION, Culture.DWARVEN));

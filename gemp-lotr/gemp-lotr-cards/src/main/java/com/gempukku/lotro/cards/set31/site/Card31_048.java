@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class Card31_048 extends AbstractSite {
     public Card31_048() {
-        super("Underground Lake", Block.HOBBIT, 4, 2, Direction.RIGHT);
+        super("Underground Lake", SitesBlock.HOBBIT, 4, 2, Direction.RIGHT);
         addKeyword(Keyword.UNDERGROUND);
 		addKeyword(Keyword.RIVER);
     }

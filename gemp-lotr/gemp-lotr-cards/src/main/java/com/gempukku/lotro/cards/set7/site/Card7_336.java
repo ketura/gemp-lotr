@@ -1,8 +1,8 @@
 package com.gempukku.lotro.cards.set7.site;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.modifiers.condition.InitiativeCondition;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Side;
@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class Card7_336 extends AbstractSite {
     public Card7_336() {
-        super("Rohirrim Camp", Block.KING, 2, 2, Direction.LEFT);
+        super("Rohirrim Camp", SitesBlock.KING, 2, 2, Direction.LEFT);
         addKeyword(Keyword.PLAINS);
     }
 

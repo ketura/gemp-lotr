@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class Card20_432 extends AbstractSite {
     public Card20_432() {
-        super("Gates of Moria", Block.SECOND_ED, 3, 1, null);
+        super("Gates of Moria", SitesBlock.SECOND_ED, 3, 1, null);
         addKeyword(Keyword.SANCTUARY);
         addKeyword(Keyword.UNDERGROUND);
     }

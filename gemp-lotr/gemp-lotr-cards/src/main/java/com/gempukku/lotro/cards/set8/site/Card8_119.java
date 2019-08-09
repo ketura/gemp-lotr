@@ -6,7 +6,7 @@ import com.gempukku.lotro.logic.effects.ChoiceEffect;
 import com.gempukku.lotro.logic.effects.OptionalEffect;
 import com.gempukku.lotro.logic.effects.TakeControlOfASiteEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseOpponentEffect;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card8_119 extends AbstractSite {
     public Card8_119() {
-        super("Crashed Gate", Block.KING, 5, 7, Direction.LEFT);
+        super("Crashed Gate", SitesBlock.KING, 5, 7, Direction.LEFT);
     }
 
     @Override

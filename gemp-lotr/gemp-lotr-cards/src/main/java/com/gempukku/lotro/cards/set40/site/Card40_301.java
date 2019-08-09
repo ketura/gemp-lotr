@@ -1,8 +1,8 @@
 package com.gempukku.lotro.cards.set40.site;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.modifiers.ResistanceModifier;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card40_301 extends AbstractSite {
     public Card40_301() {
-        super("Eastern Ithilien", Block.SECOND_ED, 7, 6, Direction.LEFT);
+        super("Eastern Ithilien", SitesBlock.SECOND_ED, 7, 6, Direction.LEFT);
         addKeyword(Keyword.FOREST);
     }
 

@@ -33,7 +33,7 @@ import java.util.List;
  */
 public class Card30_021 extends AbstractAlly {
     public Card30_021() {
-        super(4, Block.HOBBIT, 3, 8, 4, Race.ELF, Culture.ELVEN, "Elrond", "Elven Lord", true);
+        super(4, SitesBlock.HOBBIT, 3, 8, 4, Race.ELF, Culture.ELVEN, "Elrond", "Elven Lord", true);
 		addKeyword(Keyword.WISE);
     }
 

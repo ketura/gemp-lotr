@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class Card1_359 extends AbstractSite {
     public Card1_359() {
-        super("Shores of Nen Hithoel", Block.FELLOWSHIP, 8, 9, Direction.RIGHT);
+        super("Shores of Nen Hithoel", SitesBlock.FELLOWSHIP, 8, 9, Direction.RIGHT);
         addKeyword(Keyword.RIVER);
     }
 

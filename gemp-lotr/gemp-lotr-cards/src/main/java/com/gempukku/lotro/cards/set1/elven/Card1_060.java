@@ -1,8 +1,8 @@
 package com.gempukku.lotro.cards.set1.elven;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractAlly;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
@@ -33,11 +33,11 @@ import java.util.List;
  */
 public class Card1_060 extends AbstractAlly {
     public Card1_060() {
-        super(2, Block.FELLOWSHIP, 3, 5, 2, Race.ELF, Culture.ELVEN, "Silinde", "Elf of Mirkwood", true);
+        super(2, SitesBlock.FELLOWSHIP, 3, 5, 2, Race.ELF, Culture.ELVEN, "Silinde", "Elf of Mirkwood", true);
     }
 
     private Filter getFilter(PhysicalCard self) {
-        return Filters.and(CardType.SITE, Filters.owner(self.getOwner()), Filters.siteNumber(3), Filters.siteBlock(Block.FELLOWSHIP));
+        return Filters.and(CardType.SITE, Filters.owner(self.getOwner()), Filters.siteNumber(3), Filters.siteBlock(SitesBlock.FELLOWSHIP));
     }
 
     private LotroCardBlueprint getCopied(LotroGame game, PhysicalCard self) {

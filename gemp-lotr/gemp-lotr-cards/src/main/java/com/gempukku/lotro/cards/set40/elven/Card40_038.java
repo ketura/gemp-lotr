@@ -33,7 +33,7 @@ import java.util.List;
  */
 public class Card40_038 extends AbstractAlly{
     public Card40_038() {
-        super(2, Block.SECOND_ED, 0, 6, 3, Race.ELF, Culture.ELVEN, "Celeborn",
+        super(2, SitesBlock.SECOND_ED, 0, 6, 3, Race.ELF, Culture.ELVEN, "Celeborn",
                 "Lord of the Golden Wood", true);
         addKeyword(Keyword.LOTHLORIEN);
     }

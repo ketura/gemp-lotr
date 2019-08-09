@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set4.site;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDiscardEffect;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.filters.Filters;
@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class Card4_361 extends AbstractSite {
     public Card4_361() {
-        super("Orthanc Balcony", Block.TWO_TOWERS, 9, 8, Direction.LEFT);
+        super("Orthanc Balcony", SitesBlock.TWO_TOWERS, 9, 8, Direction.LEFT);
         addKeyword(Keyword.BATTLEGROUND);
     }
 

@@ -1,8 +1,8 @@
 package com.gempukku.lotro.cards.set2.site;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card2_120 extends AbstractSite {
     public Card2_120() {
-        super("Valley of the Silverlode", Block.FELLOWSHIP, 6, 3, Direction.LEFT);
+        super("Valley of the Silverlode", SitesBlock.FELLOWSHIP, 6, 3, Direction.LEFT);
         addKeyword(Keyword.RIVER);
 
     }

@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set12.site;
 
-import com.gempukku.lotro.logic.cardtype.AbstractNewSite;
+import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.AddUntilStartOfPhaseModifierEffect;
 import com.gempukku.lotro.logic.effects.RemoveTwilightEffect;
@@ -25,7 +25,7 @@ import java.util.List;
  * Game Text: Mountain. Maneuver: Remove 2 and exert your minion that is not fierce to make that minion fierce until
  * the regroup phase.
  */
-public class Card12_187 extends AbstractNewSite {
+public class Card12_187 extends AbstractShadowsSite {
     public Card12_187() {
         super("Emyn Muil", 0, Direction.LEFT);
         addKeyword(Keyword.MOUNTAIN);

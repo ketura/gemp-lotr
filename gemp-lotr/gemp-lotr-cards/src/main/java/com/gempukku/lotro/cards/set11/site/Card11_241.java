@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set11.site;
 
-import com.gempukku.lotro.logic.cardtype.AbstractNewSite;
+import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
@@ -20,7 +20,7 @@ import java.util.List;
  * Type: Site
  * Game Text: Battleground. When the fellowship moves to the site, add 2 for each companion over 5.
  */
-public class Card11_241 extends AbstractNewSite {
+public class Card11_241 extends AbstractShadowsSite {
     public Card11_241() {
         super("Fortress of Orthanc", 0, Direction.LEFT);
         addKeyword(Keyword.BATTLEGROUND);

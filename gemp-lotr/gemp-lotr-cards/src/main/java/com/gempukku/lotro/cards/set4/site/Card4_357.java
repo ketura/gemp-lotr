@@ -1,9 +1,9 @@
 package com.gempukku.lotro.cards.set4.site;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.logic.effects.ExertCharactersEffect;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.filters.Filters;
@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class Card4_357 extends AbstractSite {
     public Card4_357() {
-        super("King's Room", Block.TWO_TOWERS, 7, 6, Direction.RIGHT);
+        super("King's Room", SitesBlock.TWO_TOWERS, 7, 6, Direction.RIGHT);
     }
 
     @Override

@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set12.site;
 
-import com.gempukku.lotro.logic.cardtype.AbstractNewSite;
+import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.ChoiceEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromHandEffect;
@@ -27,7 +27,7 @@ import java.util.List;
  * Type: Site
  * Game Text: Forest. Shadow: Play a Nazgul (or spot 6 companions and discard 2 cards from hand) to draw a card.
  */
-public class Card12_185 extends AbstractNewSite {
+public class Card12_185 extends AbstractShadowsSite {
     public Card12_185() {
         super("The Angle", 0, Direction.LEFT);
         addKeyword(Keyword.FOREST);

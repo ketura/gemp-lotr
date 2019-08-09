@@ -4,7 +4,7 @@ import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.DiscardCardFromDeckEffect;
 import com.gempukku.lotro.logic.effects.ExertCharactersEffect;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
@@ -78,7 +78,7 @@ public class Card1_055 extends AbstractPermanent {
 
     @Override
     public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new StrengthModifier(self, Filters.and(CardType.ALLY, Filters.isAllyHome(6, Block.FELLOWSHIP)), 1);
+        return new StrengthModifier(self, Filters.and(CardType.ALLY, Filters.isAllyHome(6, SitesBlock.FELLOWSHIP)), 1);
     }
 
     private String[] opponentsHavingAtLeast7Cards(LotroGame game, String currentPlayer) {

@@ -40,7 +40,7 @@ public class Card5_095 extends AbstractPermanent {
         return Collections.singletonList(
                 new StrengthModifier(self,
                         Filters.and(CardType.COMPANION, Keyword.RING_BOUND, Filters.inSkirmishAgainst(Culture.SAURON, Race.ORC)),
-                        new LocationCondition(Filters.siteNumber(4), Filters.siteBlock(Block.TWO_TOWERS)), -1));
+                        new LocationCondition(Filters.siteNumber(4), Filters.siteBlock(SitesBlock.TWO_TOWERS)), -1));
     }
 
     @Override

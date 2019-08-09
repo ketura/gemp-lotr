@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set11.site;
 
-import com.gempukku.lotro.logic.cardtype.AbstractNewSite;
+import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Side;
@@ -20,7 +20,7 @@ import java.util.List;
  * Type: Site
  * Game Text: Forest. When the fellowship moves to this site, add (1) for each Free Peoples weapon.
  */
-public class Card11_239 extends AbstractNewSite {
+public class Card11_239 extends AbstractShadowsSite {
     public Card11_239() {
         super("Fangorn Glade", 0, Direction.LEFT);
         addKeyword(Keyword.FOREST);

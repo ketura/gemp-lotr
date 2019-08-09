@@ -21,7 +21,7 @@ import java.util.List;
  */
 public class Card4_342 extends AbstractSite {
     public Card4_342() {
-        super("Westemnet Plains", Block.TWO_TOWERS, 3, 1, Direction.RIGHT);
+        super("Westemnet Plains", SitesBlock.TWO_TOWERS, 3, 1, Direction.RIGHT);
         addKeyword(Keyword.PLAINS);
 
     }

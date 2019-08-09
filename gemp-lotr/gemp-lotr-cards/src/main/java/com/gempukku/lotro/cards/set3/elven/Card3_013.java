@@ -36,7 +36,7 @@ import java.util.List;
  */
 public class Card3_013 extends AbstractAlly {
     public Card3_013() {
-        super(4, Block.FELLOWSHIP, 3, 8, 4, Race.ELF, Culture.ELVEN, "Elrond", "Herald to Gil-galad", true);
+        super(4, SitesBlock.FELLOWSHIP, 3, 8, 4, Race.ELF, Culture.ELVEN, "Elrond", "Herald to Gil-galad", true);
     }
 
     @Override
@@ -44,7 +44,7 @@ public class Card3_013 extends AbstractAlly {
         if (TriggerConditions.startOfTurn(game, effectResult)) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(
-                    new ChooseActiveCardEffect(self, playerId, "Choose an ally", CardType.ALLY, Filters.isAllyHome(3, Block.FELLOWSHIP), Filters.canHeal) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose an ally", CardType.ALLY, Filters.isAllyHome(3, SitesBlock.FELLOWSHIP), Filters.canHeal) {
                         @Override
                         protected void cardSelected(LotroGame game, final PhysicalCard card) {
                             action.appendEffect(

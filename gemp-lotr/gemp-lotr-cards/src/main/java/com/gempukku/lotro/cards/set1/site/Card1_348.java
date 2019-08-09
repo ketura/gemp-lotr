@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class Card1_348 extends AbstractSite {
     public Card1_348() {
-        super("Pass of Caradhras", Block.FELLOWSHIP, 4, 2, Direction.RIGHT);
+        super("Pass of Caradhras", SitesBlock.FELLOWSHIP, 4, 2, Direction.RIGHT);
         addKeyword(Keyword.MOUNTAIN);
     }
 

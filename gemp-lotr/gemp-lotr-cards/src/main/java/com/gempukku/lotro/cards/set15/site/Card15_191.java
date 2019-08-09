@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set15.site;
 
-import com.gempukku.lotro.logic.cardtype.AbstractNewSite;
+import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.logic.modifiers.evaluator.CountCulturesEvaluator;
 import com.gempukku.lotro.common.Keyword;
@@ -20,7 +20,7 @@ import java.util.List;
  * Type: Site
  * Game Text: Battleground. Each time the fellowship moves to this site add (1) for each culture you can spot.
  */
-public class Card15_191 extends AbstractNewSite {
+public class Card15_191 extends AbstractShadowsSite {
     public Card15_191() {
         super("Gate of Mordor", 0, Direction.LEFT);
         addKeyword(Keyword.BATTLEGROUND);

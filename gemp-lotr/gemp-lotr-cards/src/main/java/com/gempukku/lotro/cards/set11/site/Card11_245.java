@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set11.site;
 
-import com.gempukku.lotro.logic.cardtype.AbstractNewSite;
+import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.PossessionClass;
 import com.gempukku.lotro.filters.Filters;
@@ -15,7 +15,7 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
  * Type: Site
  * Game Text: Battleground. Each character bearing a hand weapon is strength +2.
  */
-public class Card11_245 extends AbstractNewSite {
+public class Card11_245 extends AbstractShadowsSite {
     public Card11_245() {
         super("Helm's Gate", 2, Direction.LEFT);
         addKeyword(Keyword.BATTLEGROUND);

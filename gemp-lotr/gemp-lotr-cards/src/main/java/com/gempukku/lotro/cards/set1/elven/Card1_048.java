@@ -1,16 +1,14 @@
 package com.gempukku.lotro.cards.set1.elven;
 
 import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 
 /**
@@ -44,7 +42,7 @@ public class Card1_048 extends AbstractCompanion {
                             @Override
                             public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
                                 int currentSiteNumber = game.getGameState().getCurrentSiteNumber();
-                                return game.getGameState().getCurrentSiteBlock() == Block.FELLOWSHIP && (currentSiteNumber == 6 || currentSiteNumber == 7 || currentSiteNumber == 8);
+                                return game.getGameState().getCurrentSiteBlock() == SitesBlock.FELLOWSHIP && (currentSiteNumber == 6 || currentSiteNumber == 7 || currentSiteNumber == 8);
                             }
                         }), 2);
     }

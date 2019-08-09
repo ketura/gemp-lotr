@@ -4,7 +4,7 @@ import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.logic.effects.AddBurdenEffect;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card40_303 extends AbstractSite {
     public Card40_303() {
-        super("Citadel of Cirith Ungol", Block.SECOND_ED, 8, 8, Direction.LEFT);
+        super("Citadel of Cirith Ungol", SitesBlock.SECOND_ED, 8, 8, Direction.LEFT);
     }
 
     @Override

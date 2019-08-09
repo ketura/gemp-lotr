@@ -1,8 +1,8 @@
 package com.gempukku.lotro.cards.set1.site;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
@@ -21,7 +21,7 @@ import java.util.List;
  */
 public class Card1_362 extends AbstractSite {
     public Card1_362() {
-        super("Summit of Amon Hen", Block.FELLOWSHIP, 9, 8, Direction.LEFT);
+        super("Summit of Amon Hen", SitesBlock.FELLOWSHIP, 9, 8, Direction.LEFT);
     }
 
     @Override

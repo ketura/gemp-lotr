@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set11.site;
 
-import com.gempukku.lotro.logic.cardtype.AbstractNewSite;
+import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.RemoveBurdenEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDiscardEffect;
@@ -21,7 +21,7 @@ import java.util.List;
  * Type: Site
  * Game Text: Forest. Shadow: Remove a burden to play a Nazgul from your discard pile.
  */
-public class Card11_266 extends AbstractNewSite {
+public class Card11_266 extends AbstractShadowsSite {
     public Card11_266() {
         super("Woody-End", 0, Direction.LEFT);
         addKeyword(Keyword.FOREST);

@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card31_008 extends AbstractAlly {
     public Card31_008() {
-        super(3, Block.HOBBIT, 5, 7, 4, Race.ELF, Culture.ELVEN, "Elf Army", null, true);
+        super(3, SitesBlock.HOBBIT, 5, 7, 4, Race.ELF, Culture.ELVEN, "Elf Army", null, true);
 		addKeyword(Keyword.ARCHER);
     }
 

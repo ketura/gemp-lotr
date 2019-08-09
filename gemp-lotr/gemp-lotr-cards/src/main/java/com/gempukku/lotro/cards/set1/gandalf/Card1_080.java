@@ -4,7 +4,7 @@ import com.gempukku.lotro.logic.cardtype.AbstractAlly;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.SelfExertEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseCardsFromHandEffect;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
@@ -34,7 +34,7 @@ import java.util.List;
  */
 public class Card1_080 extends AbstractAlly {
     public Card1_080() {
-        super(1, Block.FELLOWSHIP, 3, 2, 2, Race.MAN, Culture.GANDALF, "Ottar", "Man of Laketown", true);
+        super(1, SitesBlock.FELLOWSHIP, 3, 2, 2, Race.MAN, Culture.GANDALF, "Ottar", "Man of Laketown", true);
     }
 
     @Override

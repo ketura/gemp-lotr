@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set12.site;
 
-import com.gempukku.lotro.logic.cardtype.AbstractNewSite;
+import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
 import com.gempukku.lotro.logic.modifiers.ResistanceModifier;
 import com.gempukku.lotro.logic.modifiers.condition.OrCondition;
 import com.gempukku.lotro.common.CardType;
@@ -18,7 +18,7 @@ import com.gempukku.lotro.logic.modifiers.SpotCondition;
  * Game Text: Battleground. Forest. While you can spot 3 minions (or 6 companions), each unbound companion
  * is resistance -2.
  */
-public class Card12_188 extends AbstractNewSite {
+public class Card12_188 extends AbstractShadowsSite {
     public Card12_188() {
         super("Hill of Sight", 1, Direction.RIGHT);
         addKeyword(Keyword.BATTLEGROUND);

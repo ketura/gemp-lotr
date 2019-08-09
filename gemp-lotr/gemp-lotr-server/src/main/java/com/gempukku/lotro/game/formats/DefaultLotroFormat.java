@@ -1,6 +1,6 @@
 package com.gempukku.lotro.game.formats;
 
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Side;
@@ -25,7 +25,7 @@ public class DefaultLotroFormat implements LotroFormat {
     private Adventure _adventure;
     private LotroCardBlueprintLibrary _library;
     private String _name;
-    private Block _siteBlock;
+    private SitesBlock _siteBlock;
     private boolean _validateShadowFPCount = true;
     private int _maximumSameName = 4;
     private boolean _mulliganRule;
@@ -47,7 +47,7 @@ public class DefaultLotroFormat implements LotroFormat {
 
     public DefaultLotroFormat(Adventure adventure,
                               LotroCardBlueprintLibrary library, String name, String surveyUrl,
-                              Block siteBlock,
+                              SitesBlock siteBlock,
                               boolean validateShadowFPCount, int minimumDeckSize, int maximumSameName, boolean mulliganRule,
                               boolean canCancelRingBearerSkirmish, boolean hasRuleOfFour, boolean winAtEndOfRegroup, boolean winOnControlling5Sites) {
         _adventure = adventure;
@@ -72,7 +72,7 @@ public class DefaultLotroFormat implements LotroFormat {
 
     @Override
     public final boolean isOrderedSites() {
-        return _siteBlock != Block.SHADOWS;
+        return _siteBlock != SitesBlock.SHADOWS;
     }
 
     @Override
@@ -142,7 +142,7 @@ public class DefaultLotroFormat implements LotroFormat {
     }
 
     @Override
-    public Block getSiteBlock() {
+    public SitesBlock getSiteBlock() {
         return _siteBlock;
     }
 
@@ -375,16 +375,16 @@ public class DefaultLotroFormat implements LotroFormat {
             LotroCardBlueprint siteBlueprint = _library.getLotroCardBlueprint(site);
             if (siteBlueprint.getCardType() != CardType.SITE)
                 throw new DeckInvalidException("Card assigned as Site is not really a site");
-            if (siteBlueprint.getSiteBlock() != _siteBlock && _siteBlock != Block.SPECIAL)
+            if (siteBlueprint.getSiteBlock() != _siteBlock && _siteBlock != SitesBlock.SPECIAL)
                 throw new DeckInvalidException("Invalid site: " + GameUtils.getFullName(siteBlueprint));
-            if (_siteBlock == Block.SPECIAL && siteBlueprint.getSiteBlock() == Block.SHADOWS)
+            if (_siteBlock == SitesBlock.SPECIAL && siteBlueprint.getSiteBlock() == SitesBlock.SHADOWS)
                 throw new DeckInvalidException("Invalid site: " + GameUtils.getFullName(siteBlueprint));
         }
-        if (_siteBlock == Block.SPECIAL) {
-            Block usedBlock = null;
+        if (_siteBlock == SitesBlock.SPECIAL) {
+            SitesBlock usedBlock = null;
             for (String site : deck.getSites()) {
                 LotroCardBlueprint siteBlueprint = _library.getLotroCardBlueprint(site);
-                Block block = siteBlueprint.getSiteBlock();
+                SitesBlock block = siteBlueprint.getSiteBlock();
                 if (usedBlock == null)
                     usedBlock = block;
                 else if (usedBlock != block)
@@ -395,7 +395,7 @@ public class DefaultLotroFormat implements LotroFormat {
 
     private void validateRing(LotroDeck deck) throws DeckInvalidException, CardNotFoundException {
         // No Ring needed for Hobbit
-        if (_siteBlock == Block.HOBBIT)
+        if (_siteBlock == SitesBlock.HOBBIT)
             return;
         if (deck.getRing() == null)
             throw new DeckInvalidException("Deck doesn't have a Ring");

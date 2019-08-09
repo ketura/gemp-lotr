@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class Card1_040 extends AbstractAlly {
     public Card1_040() {
-        super(4, Block.FELLOWSHIP, 3, 8, 4, Race.ELF, Culture.ELVEN, "Elrond", "Lord of Rivendell", true);
+        super(4, SitesBlock.FELLOWSHIP, 3, 8, 4, Race.ELF, Culture.ELVEN, "Elrond", "Lord of Rivendell", true);
     }
 
     @Override
@@ -58,7 +58,7 @@ public class Card1_040 extends AbstractAlly {
         if (TriggerConditions.startOfTurn(game, effectResult)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new HealCharactersEffect(self, Filters.and(CardType.ALLY, Filters.isAllyHome(3, Block.FELLOWSHIP))));
+                    new HealCharactersEffect(self, Filters.and(CardType.ALLY, Filters.isAllyHome(3, SitesBlock.FELLOWSHIP))));
 
             return Collections.singletonList(action);
         }

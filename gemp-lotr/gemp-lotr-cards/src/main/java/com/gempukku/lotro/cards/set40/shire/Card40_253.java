@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class Card40_253 extends AbstractAlly {
     public Card40_253() {
-        super(1, Block.SECOND_ED, 0, 2, 2, Race.HOBBIT, Culture.SHIRE, "Hobbit Party Guest");
+        super(1, SitesBlock.SECOND_ED, 0, 2, 2, Race.HOBBIT, Culture.SHIRE, "Hobbit Party Guest");
         addKeyword(Keyword.SHIRE);
     }
 

@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set11.site;
 
-import com.gempukku.lotro.logic.cardtype.AbstractNewSite;
+import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
@@ -24,7 +24,7 @@ import java.util.List;
  * Game Text: Mountain. At the start of your fellowship phase, you may exert 3 companions to play a Wizard from your
  * dead pile.
  */
-public class Card11_255 extends AbstractNewSite {
+public class Card11_255 extends AbstractShadowsSite {
     public Card11_255() {
         super("Pinnacle of Zirakzigil", 3, Direction.RIGHT);
         addKeyword(Keyword.MOUNTAIN);

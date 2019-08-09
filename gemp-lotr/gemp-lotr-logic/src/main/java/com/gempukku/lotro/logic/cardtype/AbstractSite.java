@@ -1,6 +1,6 @@
 package com.gempukku.lotro.logic.cardtype;
 
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -13,15 +13,13 @@ import java.util.List;
 
 public abstract class AbstractSite extends AbstractLotroCardBlueprint {
     private int _siteNumber;
-    private Block _block;
-    private int _twilight;
+    private SitesBlock _block;
     private Direction _siteDirection;
 
-    public AbstractSite(String name, Block block, int siteNumber, int twilight, Direction siteDirection) {
+    public AbstractSite(String name, SitesBlock block, int siteNumber, int twilight, Direction siteDirection) {
         super(twilight, null, CardType.SITE, null, name);
         _block = block;
         _siteNumber = siteNumber;
-        _twilight = twilight;
         _siteDirection = siteDirection;
     }
 
@@ -31,7 +29,7 @@ public abstract class AbstractSite extends AbstractLotroCardBlueprint {
     }
 
     @Override
-    public Block getSiteBlock() {
+    public SitesBlock getSiteBlock() {
         return _block;
     }
 

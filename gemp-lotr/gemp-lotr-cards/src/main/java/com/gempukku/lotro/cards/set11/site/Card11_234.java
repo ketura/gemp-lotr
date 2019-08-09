@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set11.site;
 
-import com.gempukku.lotro.logic.cardtype.AbstractNewSite;
+import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.common.CardType;
@@ -23,7 +23,7 @@ import java.util.List;
  * Game Text: Mountain. If this site is in region 2 when the fellowship moves from it during the regroup phase, wound
  * each companion.
  */
-public class Card11_234 extends AbstractNewSite {
+public class Card11_234 extends AbstractShadowsSite {
     public Card11_234() {
         super("Crags of Emyn Muil", 0, Direction.LEFT);
         addKeyword(Keyword.MOUNTAIN);

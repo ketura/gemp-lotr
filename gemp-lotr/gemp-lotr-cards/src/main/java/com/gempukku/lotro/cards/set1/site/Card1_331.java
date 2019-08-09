@@ -4,7 +4,7 @@ import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card1_331 extends AbstractSite {
     public Card1_331() {
-        super("Ettenmoors", Block.FELLOWSHIP, 2, 2, Direction.LEFT);
+        super("Ettenmoors", SitesBlock.FELLOWSHIP, 2, 2, Direction.LEFT);
         addKeyword(Keyword.PLAINS);
     }
 

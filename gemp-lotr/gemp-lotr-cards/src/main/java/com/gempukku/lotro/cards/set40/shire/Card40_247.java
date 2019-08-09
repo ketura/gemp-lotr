@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card40_247 extends AbstractAlly {
     public Card40_247() {
-        super(1, Block.SECOND_ED, 0, 2, 3, Race.HOBBIT, Culture.SHIRE, "Farmer Maggot", "Chaser of Rascals", true);
+        super(1, SitesBlock.SECOND_ED, 0, 2, 3, Race.HOBBIT, Culture.SHIRE, "Farmer Maggot", "Chaser of Rascals", true);
         addKeyword(Keyword.SHIRE);
     }
 

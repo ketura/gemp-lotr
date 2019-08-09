@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set7.site;
 
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.filters.Filters;
@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card7_361 extends AbstractSite {
     public Card7_361() {
-        super("Haunted Pass", Block.KING, 9, 9, Direction.LEFT);
+        super("Haunted Pass", SitesBlock.KING, 9, 9, Direction.LEFT);
     }
 
     @Override

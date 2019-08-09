@@ -1,8 +1,8 @@
 package com.gempukku.lotro.at;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Token;
 import com.gempukku.lotro.common.Zone;
@@ -234,7 +234,7 @@ public class TimingAtTest extends AbstractAtTest {
         final AtomicInteger moveTo = new AtomicInteger(0);
 
         PhysicalCardImpl moveFromSite = new PhysicalCardImpl(100, "0_1234", P1,
-                new AbstractSite("Blah", Block.FELLOWSHIP, 1, 0, LotroCardBlueprint.Direction.LEFT) {
+                new AbstractSite("Blah", SitesBlock.FELLOWSHIP, 1, 0, LotroCardBlueprint.Direction.LEFT) {
                     @Override
                     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
                         if (TriggerConditions.movesFrom(game, effectResult, self)) {
@@ -247,7 +247,7 @@ public class TimingAtTest extends AbstractAtTest {
                 });
         moveFromSite.setSiteNumber(1);
         PhysicalCardImpl moveToSite = new PhysicalCardImpl(100, "0_1235", P1,
-                new AbstractSite("Blah", Block.FELLOWSHIP, 2, 0, LotroCardBlueprint.Direction.LEFT) {
+                new AbstractSite("Blah", SitesBlock.FELLOWSHIP, 2, 0, LotroCardBlueprint.Direction.LEFT) {
                     @Override
                     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
                         if (TriggerConditions.movesTo(game, effectResult, self)) {
@@ -281,7 +281,7 @@ public class TimingAtTest extends AbstractAtTest {
         skipMulligans();
 
         PhysicalCardImpl moveFromSite = new PhysicalCardImpl(100, "0_1234", P1,
-                new AbstractSite("Blah", Block.FELLOWSHIP, 1, 0, LotroCardBlueprint.Direction.LEFT) {
+                new AbstractSite("Blah", SitesBlock.FELLOWSHIP, 1, 0, LotroCardBlueprint.Direction.LEFT) {
                     @Override
                     public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
                         return new SpecialFlagModifier(self, ModifierFlag.RING_TEXT_INACTIVE);
@@ -289,7 +289,7 @@ public class TimingAtTest extends AbstractAtTest {
                 });
         moveFromSite.setSiteNumber(1);
         PhysicalCardImpl moveToSite = new PhysicalCardImpl(100, "0_1235", P1,
-                new AbstractSite("Blah", Block.FELLOWSHIP, 2, 0, LotroCardBlueprint.Direction.LEFT) {
+                new AbstractSite("Blah", SitesBlock.FELLOWSHIP, 2, 0, LotroCardBlueprint.Direction.LEFT) {
                     @Override
                     public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
                         return new SpecialFlagModifier(self, ModifierFlag.CANT_PREVENT_WOUNDS);

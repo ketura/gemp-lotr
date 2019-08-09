@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set11.site;
 
-import com.gempukku.lotro.logic.cardtype.AbstractNewSite;
+import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.PossessionClass;
 import com.gempukku.lotro.filters.Filters;
@@ -15,7 +15,7 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
  * Type: Site
  * Game Text: Underground. Each character bearing a hand weapon is damage +1.
  */
-public class Card11_248 extends AbstractNewSite {
+public class Card11_248 extends AbstractShadowsSite {
     public Card11_248() {
         super("Moria Stairway", 2, Direction.LEFT);
         addKeyword(Keyword.UNDERGROUND);

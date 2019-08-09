@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set7.site;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.PutOnTheOneRingEffect;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class Card7_362 extends AbstractSite {
     public Card7_362() {
-        super("Narchost", Block.KING, 9, 9, Direction.LEFT);
+        super("Narchost", SitesBlock.KING, 9, 9, Direction.LEFT);
     }
 
     @Override

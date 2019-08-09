@@ -3,17 +3,15 @@ package com.gempukku.lotro.cards.set20.site;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.TwilightCostModifier;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
@@ -27,7 +25,7 @@ import java.util.List;
  */
 public class Card20_429 extends AbstractSite {
     public Card20_429() {
-        super("Ford of Bruinen", Block.SECOND_ED, 3, 0, null);
+        super("Ford of Bruinen", SitesBlock.SECOND_ED, 3, 0, null);
         addKeyword(Keyword.RIVER);
         addKeyword(Keyword.SANCTUARY);
     }

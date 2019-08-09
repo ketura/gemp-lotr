@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set40.site;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card40_275 extends AbstractSite {
     public Card40_275() {
-        super("East Road", Block.SECOND_ED, 1, 0, Direction.LEFT);
+        super("East Road", SitesBlock.SECOND_ED, 1, 0, Direction.LEFT);
         addKeyword(Keyword.FOREST);
     }
 

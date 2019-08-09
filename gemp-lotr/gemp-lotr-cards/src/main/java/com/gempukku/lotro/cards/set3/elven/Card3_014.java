@@ -1,10 +1,10 @@
 package com.gempukku.lotro.cards.set3.elven;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractAlly;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.logic.effects.PreventCardEffect;
 import com.gempukku.lotro.logic.effects.SelfExertEffect;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
@@ -34,7 +34,7 @@ import java.util.List;
  */
 public class Card3_014 extends AbstractAlly {
     public Card3_014() {
-        super(2, Block.FELLOWSHIP, 3, 5, 2, Race.ELF, Culture.ELVEN, "Erestor", "Chief Advisor to Elrond", true);
+        super(2, SitesBlock.FELLOWSHIP, 3, 5, 2, Race.ELF, Culture.ELVEN, "Erestor", "Chief Advisor to Elrond", true);
     }
 
     @Override

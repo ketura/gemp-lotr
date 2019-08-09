@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set10.site;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDeckEffect;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card10_117 extends AbstractSite {
     public Card10_117() {
-        super("Base of Mindolluin", Block.KING, 3, 0, Direction.RIGHT);
+        super("Base of Mindolluin", SitesBlock.KING, 3, 0, Direction.RIGHT);
     }
 
     @Override

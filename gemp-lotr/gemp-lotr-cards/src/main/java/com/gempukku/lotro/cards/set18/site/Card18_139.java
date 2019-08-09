@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set18.site;
 
-import com.gempukku.lotro.logic.cardtype.AbstractNewSite;
+import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
 import com.gempukku.lotro.logic.modifiers.CantHealModifier;
 import com.gempukku.lotro.logic.modifiers.CantRemoveBurdensModifier;
 import com.gempukku.lotro.filters.Filters;
@@ -19,7 +19,7 @@ import java.util.List;
  * Type: Site
  * Game Text: Wounds cannot be prevented or healed. Burdens cannot be removed.
  */
-public class Card18_139 extends AbstractNewSite {
+public class Card18_139 extends AbstractShadowsSite {
     public Card18_139() {
         super("Steward's Tomb", 1, Direction.RIGHT);
     }

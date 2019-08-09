@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set3.site;
 
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.modifiers.condition.LocationCondition;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class Card3_118 extends AbstractSite {
     public Card3_118() {
-        super("The Great River", Block.FELLOWSHIP, 7, 6, Direction.RIGHT);
+        super("The Great River", SitesBlock.FELLOWSHIP, 7, 6, Direction.RIGHT);
         addKeyword(Keyword.RIVER);
     }
 

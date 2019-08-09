@@ -47,7 +47,7 @@ public class Card1_188 extends AbstractPermanent {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (TriggerConditions.movesTo(game, effectResult, Filters.siteBlock(Block.FELLOWSHIP), Filters.or(Filters.siteNumber(4), Filters.siteNumber(5)))) {
+        if (TriggerConditions.movesTo(game, effectResult, Filters.siteBlock(SitesBlock.FELLOWSHIP), Filters.or(Filters.siteNumber(4), Filters.siteNumber(5)))) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             int dwarfCompanions = Filters.countActive(game, Race.DWARF, CardType.COMPANION);
             action.appendEffect(new AddTwilightEffect(self, dwarfCompanions * 2));

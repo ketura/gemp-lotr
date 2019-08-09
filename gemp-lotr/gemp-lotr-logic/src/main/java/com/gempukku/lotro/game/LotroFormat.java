@@ -1,6 +1,6 @@
 package com.gempukku.lotro.game;
 
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 
 import java.util.List;
@@ -38,7 +38,7 @@ public interface LotroFormat {
 
     public List<String> getRestrictedCardNames();
 
-    public Block getSiteBlock();
+    public SitesBlock getSiteBlock();
 
     public String getSurveyUrl();
 

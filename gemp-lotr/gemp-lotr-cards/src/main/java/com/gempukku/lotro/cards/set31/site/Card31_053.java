@@ -1,9 +1,9 @@
 package com.gempukku.lotro.cards.set31.site;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.AddUntilEndOfPhaseModifierEffect;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card31_053 extends AbstractSite {
     public Card31_053() {
-        super("Dale", Block.HOBBIT, 7, 6, Direction.RIGHT);
+        super("Dale", SitesBlock.HOBBIT, 7, 6, Direction.RIGHT);
         addKeyword(Keyword.MOUNTAIN);
     }
 

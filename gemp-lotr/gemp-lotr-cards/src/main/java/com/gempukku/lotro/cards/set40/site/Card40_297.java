@@ -1,10 +1,10 @@
 package com.gempukku.lotro.cards.set40.site;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.logic.modifiers.evaluator.ForEachThreatEvaluator;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card40_297 extends AbstractSite {
     public Card40_297() {
-        super("Minas Tirith Balcony", Block.SECOND_ED, 6, 3, Direction.LEFT);
+        super("Minas Tirith Balcony", SitesBlock.SECOND_ED, 6, 3, Direction.LEFT);
         addKeyword(Keyword.BATTLEGROUND);
     }
 

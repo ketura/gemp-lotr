@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set13.site;
 
-import com.gempukku.lotro.logic.cardtype.AbstractNewSite;
+import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
 import com.gempukku.lotro.logic.modifiers.condition.NotCondition;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
@@ -9,10 +9,8 @@ import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.modifiers.condition.PhaseCondition;
 
@@ -25,7 +23,7 @@ import java.util.Map;
  * Type: Site
  * Game Text: Marsh. Each companion of a race that has the most companions is strength -1 until the regroup phase.
  */
-public class Card13_190 extends AbstractNewSite {
+public class Card13_190 extends AbstractShadowsSite {
     public Card13_190() {
         super("Doors of Durin", 0, Direction.LEFT);
         addKeyword(Keyword.MARSH);

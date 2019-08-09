@@ -1,9 +1,9 @@
 package com.gempukku.lotro.cards.set40.site;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card40_300 extends AbstractSite {
     public Card40_300() {
-        super("Dimholt Road", Block.SECOND_ED, 7, 6, Direction.LEFT);
+        super("Dimholt Road", SitesBlock.SECOND_ED, 7, 6, Direction.LEFT);
         addKeyword(Keyword.MOUNTAIN);
     }
 

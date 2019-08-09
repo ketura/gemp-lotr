@@ -1,8 +1,8 @@
 package com.gempukku.lotro.cards.set20.site;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.filters.Filters;
@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class Card20_420 extends AbstractSite {
     public Card20_420() {
-        super("Trollshaw Forest", Block.SECOND_ED, 1, 0, null);
+        super("Trollshaw Forest", SitesBlock.SECOND_ED, 1, 0, null);
         addKeyword(Keyword.FOREST);
     }
 

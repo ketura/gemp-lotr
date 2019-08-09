@@ -1,10 +1,10 @@
 package com.gempukku.lotro.cards.set4.site;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.AddUntilStartOfPhaseModifierEffect;
 import com.gempukku.lotro.logic.effects.RemoveTwilightEffect;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card4_352 extends AbstractSite {
     public Card4_352() {
-        super("Caves of Aglarond", Block.TWO_TOWERS, 6, 3, Direction.LEFT);
+        super("Caves of Aglarond", SitesBlock.TWO_TOWERS, 6, 3, Direction.LEFT);
         addKeyword(Keyword.UNDERGROUND);
 
     }

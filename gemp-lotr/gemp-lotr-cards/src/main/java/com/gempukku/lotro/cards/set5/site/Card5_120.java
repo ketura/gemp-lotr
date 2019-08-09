@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set5.site;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class Card5_120 extends AbstractSite {
     public Card5_120() {
-        super("Caverns of Isengard", Block.TWO_TOWERS, 9, 9, Direction.LEFT);
+        super("Caverns of Isengard", SitesBlock.TWO_TOWERS, 9, 9, Direction.LEFT);
         addKeyword(Keyword.UNDERGROUND);
     }
 

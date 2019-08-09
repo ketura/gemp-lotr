@@ -34,7 +34,7 @@ import java.util.List;
  */
 public class Card40_045 extends AbstractAlly {
     public Card40_045() {
-        super(3, Block.SECOND_ED, 0, 3, 3, Race.ELF, Culture.ELVEN, "Galadriel", "White Lady of Lorien", true);
+        super(3, SitesBlock.SECOND_ED, 0, 3, 3, Race.ELF, Culture.ELVEN, "Galadriel", "White Lady of Lorien", true);
         addKeyword(Keyword.LOTHLORIEN);
     }
 

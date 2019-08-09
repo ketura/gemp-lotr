@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set20.site;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.SnapshotAndApplyStrengthModifierUntilStartOfPhaseEffect;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.filters.Filters;
@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card20_416 extends AbstractSite {
     public Card20_416() {
-        super("Bag End", Block.SECOND_ED, 1, 0, null);
+        super("Bag End", SitesBlock.SECOND_ED, 1, 0, null);
         addKeyword(Keyword.DWELLING);
     }
 

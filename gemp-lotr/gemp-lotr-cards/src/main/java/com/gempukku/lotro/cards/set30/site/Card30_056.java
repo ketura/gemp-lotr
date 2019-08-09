@@ -5,7 +5,7 @@ import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.ChoiceEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDeckEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDiscardEffect;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.filters.Filters;
@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card30_056 extends AbstractSite {
     public Card30_056() {
-        super("Smaug's Den", Block.HOBBIT, 8, 8, Direction.RIGHT);
+        super("Smaug's Den", SitesBlock.HOBBIT, 8, 8, Direction.RIGHT);
 		addKeyword(Keyword.MOUNTAIN);
         addKeyword(Keyword.UNDERGROUND);
     }

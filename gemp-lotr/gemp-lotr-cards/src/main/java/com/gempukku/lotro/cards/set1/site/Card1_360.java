@@ -1,10 +1,10 @@
 package com.gempukku.lotro.cards.set1.site;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.AddUntilStartOfPhaseModifierEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card1_360 extends AbstractSite {
     public Card1_360() {
-        super("Emyn Muil", Block.FELLOWSHIP, 9, 9, Direction.LEFT);
+        super("Emyn Muil", SitesBlock.FELLOWSHIP, 9, 9, Direction.LEFT);
     }
 
     @Override

@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set2.site;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -21,7 +21,7 @@ import java.util.List;
  */
 public class Card2_119 extends AbstractSite {
     public Card2_119() {
-        super("Hollin", Block.FELLOWSHIP, 4, 3, Direction.RIGHT);
+        super("Hollin", SitesBlock.FELLOWSHIP, 4, 3, Direction.RIGHT);
         addKeyword(Keyword.PLAINS);
     }
 

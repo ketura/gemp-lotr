@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class Card31_045 extends AbstractSite {
     public Card31_045() {
-        super("Trollshaw Forest", Block.HOBBIT, 2, 2, Direction.RIGHT);
+        super("Trollshaw Forest", SitesBlock.HOBBIT, 2, 2, Direction.RIGHT);
         addKeyword(Keyword.FOREST);
     }
 

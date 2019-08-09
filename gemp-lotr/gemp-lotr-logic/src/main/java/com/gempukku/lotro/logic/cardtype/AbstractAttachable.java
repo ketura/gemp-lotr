@@ -100,9 +100,8 @@ public abstract class AbstractAttachable extends AbstractLotroCardBlueprint {
     @Override
     public final List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         List<Action> actions = new LinkedList<Action>();
-        Side side = self.getBlueprint().getSide();
-        if (((side == Side.FREE_PEOPLE && PlayConditions.canPlayCardDuringPhase(game, Phase.FELLOWSHIP, self))
-                || (side == Side.SHADOW && PlayConditions.canPlayCardDuringPhase(game, Phase.SHADOW, self)))
+        final Phase phase = (getSide() == Side.FREE_PEOPLE) ? Phase.FELLOWSHIP : Phase.SHADOW;
+        if (PlayConditions.canPlayCardDuringPhase(game, phase, self)
                 && checkPlayRequirements(playerId, game, self, 0, 0, false, false)) {
             actions.add(getPlayCardAction(playerId, game, self, 0, false));
         }

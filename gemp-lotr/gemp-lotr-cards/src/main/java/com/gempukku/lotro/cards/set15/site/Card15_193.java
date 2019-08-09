@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set15.site;
 
-import com.gempukku.lotro.logic.cardtype.AbstractNewSite;
+import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
 import com.gempukku.lotro.logic.modifiers.CantReplaceSiteModifier;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
@@ -20,7 +20,7 @@ import java.util.List;
  * Type: Site
  * Game Text: Battleground. Mountain. Underground. Until the end of the game, sites in this region cannot be replaced.
  */
-public class Card15_193 extends AbstractNewSite {
+public class Card15_193 extends AbstractShadowsSite {
     public Card15_193() {
         super("Mount Doom", 3, Direction.LEFT);
         addKeyword(Keyword.BATTLEGROUND);

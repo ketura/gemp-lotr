@@ -1,10 +1,10 @@
 package com.gempukku.lotro.cards.set4.site;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDeckEffect;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.filters.Filters;
@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class Card4_328 extends AbstractSite {
     public Card4_328() {
-        super("The Riddermark", Block.TWO_TOWERS, 1, 0, Direction.LEFT);
+        super("The Riddermark", SitesBlock.TWO_TOWERS, 1, 0, Direction.LEFT);
         addKeyword(Keyword.PLAINS);
     }
 

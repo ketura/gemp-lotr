@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class Card7_343 extends AbstractSite {
     public Card7_343() {
-        super("Pelennor Plain", Block.KING, 4, 4, Direction.RIGHT);
+        super("Pelennor Plain", SitesBlock.KING, 4, 4, Direction.RIGHT);
         addKeyword(Keyword.PLAINS);
     }
 

@@ -4,7 +4,7 @@ import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.logic.effects.RemoveBurdenEffect;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card40_286 extends AbstractSite {
     public Card40_286() {
-        super("Lothlorien", Block.SECOND_ED, 3, 0, Direction.LEFT);
+        super("Lothlorien", SitesBlock.SECOND_ED, 3, 0, Direction.LEFT);
         addKeyword(Keyword.FOREST);
     }
 

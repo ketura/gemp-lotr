@@ -1,10 +1,10 @@
 package com.gempukku.lotro.cards.set7.site;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.AddUntilEndOfTurnModifierEffect;
 import com.gempukku.lotro.logic.modifiers.MoveLimitModifier;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card7_340 extends AbstractSite {
     public Card7_340() {
-        super("Tower of Ecthelion", Block.KING, 3, 0, Direction.RIGHT);
+        super("Tower of Ecthelion", SitesBlock.KING, 3, 0, Direction.RIGHT);
 
     }
 

@@ -1,9 +1,9 @@
 package com.gempukku.lotro.cards.set4.site;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDeckEffect;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.filters.Filters;
@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class Card4_348 extends AbstractSite {
     public Card4_348() {
-        super("Deeping Wall", Block.TWO_TOWERS, 5, 7, Direction.LEFT);
+        super("Deeping Wall", SitesBlock.TWO_TOWERS, 5, 7, Direction.LEFT);
         addKeyword(Keyword.BATTLEGROUND);
     }
 

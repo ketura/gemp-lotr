@@ -1,7 +1,8 @@
 package com.gempukku.lotro.common;
 
-public enum Block {
-    FELLOWSHIP("Fellowship"), TWO_TOWERS("Towers"), KING("King"), SHADOWS("Shadows and onwards"), SPECIAL("Special"),
+public enum SitesBlock {
+    FELLOWSHIP("Fellowship"), TWO_TOWERS("Towers"), KING("King"),
+    SHADOWS("Shadows and onwards"), SPECIAL("Special"),
     SECOND_ED("2nd edition"),
 	
 	//Additional Hobbit Draft block
@@ -9,7 +10,7 @@ public enum Block {
 
     private String _humanReadable;
 
-    private Block(String humanReadable) {
+    private SitesBlock(String humanReadable) {
         _humanReadable = humanReadable;
     }
 

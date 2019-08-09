@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class Card20_451 extends AbstractSite {
     public Card20_451() {
-        super("Theoden's Tent", Block.SECOND_ED, 6, 3, null);
+        super("Theoden's Tent", SitesBlock.SECOND_ED, 6, 3, null);
         addKeyword(Keyword.SANCTUARY);
     }
 

@@ -68,9 +68,11 @@ public class AbstractPermanent extends AbstractLotroCardBlueprint {
 
     @Override
     public final List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canPlayCardDuringPhase(game, (getSide() == Side.FREE_PEOPLE) ? Phase.FELLOWSHIP : Phase.SHADOW, self)
+        final Phase phase = (getSide() == Side.FREE_PEOPLE) ? Phase.FELLOWSHIP : Phase.SHADOW;
+        if (PlayConditions.canPlayCardDuringPhase(game, phase, self)
                 && checkPlayRequirements(playerId, game, self, 0, 0, false, false))
             return Collections.singletonList(getPlayCardAction(playerId, game, self, 0, false));
+
         Phase extraPhase = getExtraPlayableInPhase(game);
         if (extraPhase != null)
             if (PlayConditions.canPlayCardDuringPhase(game, extraPhase, self)

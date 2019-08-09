@@ -1,11 +1,7 @@
 package com.gempukku.lotro.game.state;
 
-import com.gempukku.lotro.common.Block;
-import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.common.Token;
-import com.gempukku.lotro.common.Zone;
+import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.communication.GameStateListener;
 import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.LotroCardBlueprint;
@@ -991,7 +987,7 @@ public class GameState {
         return getSite(getCurrentSiteNumber());
     }
 
-    public Block getCurrentSiteBlock() {
+    public SitesBlock getCurrentSiteBlock() {
         return getCurrentSite().getBlueprint().getSiteBlock();
     }
 

@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set1.site;
 
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -16,7 +16,7 @@ import com.gempukku.lotro.logic.modifiers.TwilightCostModifier;
  */
 public class Card1_323 extends AbstractSite {
     public Card1_323() {
-        super("Green Hill Country", Block.FELLOWSHIP, 1, 0, Direction.LEFT);
+        super("Green Hill Country", SitesBlock.FELLOWSHIP, 1, 0, Direction.LEFT);
     }
 
     @Override

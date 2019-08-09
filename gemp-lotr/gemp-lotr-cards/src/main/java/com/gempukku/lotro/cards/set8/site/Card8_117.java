@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set8.site;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDeckEffect;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card8_117 extends AbstractSite {
     public Card8_117() {
-        super("The Dimholt", Block.KING, 3, 1, Direction.RIGHT);
+        super("The Dimholt", SitesBlock.KING, 3, 1, Direction.RIGHT);
         addKeyword(Keyword.UNDERGROUND);
     }
 

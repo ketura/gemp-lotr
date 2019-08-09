@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set15.site;
 
-import com.gempukku.lotro.logic.cardtype.AbstractNewSite;
+import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.common.CardType;
@@ -9,11 +9,9 @@ import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.TwilightCostModifier;
 import com.gempukku.lotro.logic.modifiers.condition.PhaseCondition;
 import com.gempukku.lotro.logic.timing.EffectResult;
@@ -26,7 +24,7 @@ import java.util.List;
  * Type: Site
  * Game Text: Underground. The twilight cost of the first hunter minion played each shadow phase is -2.
  */
-public class Card15_188 extends AbstractNewSite {
+public class Card15_188 extends AbstractShadowsSite {
     public Card15_188() {
         super("Breeding Pit of Isengard", 0, Direction.LEFT);
         addKeyword(Keyword.UNDERGROUND);

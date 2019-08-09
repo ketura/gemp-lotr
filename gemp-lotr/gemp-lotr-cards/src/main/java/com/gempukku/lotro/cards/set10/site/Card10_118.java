@@ -1,11 +1,11 @@
 package com.gempukku.lotro.cards.set10.site;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.RemoveBurdenEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card10_118 extends AbstractSite {
     public Card10_118() {
-        super("Pelennor Prairie", Block.KING, 4, 3, Direction.RIGHT);
+        super("Pelennor Prairie", SitesBlock.KING, 4, 3, Direction.RIGHT);
         addKeyword(Keyword.PLAINS);
     }
 

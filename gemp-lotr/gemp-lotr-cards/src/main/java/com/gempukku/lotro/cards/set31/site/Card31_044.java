@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class Card31_044 extends AbstractSite {
     public Card31_044() {
-        super("Bilbo's Kitchen", Block.HOBBIT, 1, 0, Direction.RIGHT);
+        super("Bilbo's Kitchen", SitesBlock.HOBBIT, 1, 0, Direction.RIGHT);
     }
 
     @Override

@@ -5,7 +5,7 @@ import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.logic.effects.SelfExertEffect;
 import com.gempukku.lotro.logic.modifiers.OverwhelmedByMultiplierModifier;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
@@ -33,7 +33,7 @@ import java.util.List;
  */
 public class Card1_286 extends AbstractAlly {
     public Card1_286() {
-        super(1, Block.FELLOWSHIP, 2, 2, 2, Race.HOBBIT, Culture.SHIRE, "Bounder");
+        super(1, SitesBlock.FELLOWSHIP, 2, 2, 2, Race.HOBBIT, Culture.SHIRE, "Bounder");
     }
 
     @Override

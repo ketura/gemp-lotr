@@ -1,9 +1,9 @@
 package com.gempukku.lotro.cards.set30.site;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card30_055 extends AbstractSite {
     public Card30_055() {
-        super("Erebor", Block.HOBBIT, 7, 6, Direction.RIGHT);
+        super("Erebor", SitesBlock.HOBBIT, 7, 6, Direction.RIGHT);
 		addKeyword(Keyword.MOUNTAIN);
         addKeyword(Keyword.RIVER);
     }

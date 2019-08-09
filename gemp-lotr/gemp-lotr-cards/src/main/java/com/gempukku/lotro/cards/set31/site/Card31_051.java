@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card31_051 extends AbstractSite {
     public Card31_051() {
-        super("Old Forest Road", Block.HOBBIT, 5, 6, Direction.RIGHT);
+        super("Old Forest Road", SitesBlock.HOBBIT, 5, 6, Direction.RIGHT);
         addKeyword(Keyword.FOREST);
     }
 

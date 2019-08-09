@@ -1,8 +1,8 @@
 package com.gempukku.lotro.cards.set40.site;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card40_307 extends AbstractSite {
     public Card40_307() {
-        super("Dagorlad", Block.SECOND_ED, 9, 9, Direction.LEFT);
+        super("Dagorlad", SitesBlock.SECOND_ED, 9, 9, Direction.LEFT);
         addKeyword(Keyword.PLAINS);
     }
 

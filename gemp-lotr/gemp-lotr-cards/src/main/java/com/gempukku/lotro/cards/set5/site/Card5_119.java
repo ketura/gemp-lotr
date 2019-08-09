@@ -1,10 +1,10 @@
 package com.gempukku.lotro.cards.set5.site;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.logic.effects.PreventCardEffect;
 import com.gempukku.lotro.logic.effects.RemoveTwilightEffect;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.filters.Filters;
@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card5_119 extends AbstractSite {
     public Card5_119() {
-        super("Nan Curunir", Block.TWO_TOWERS, 8, 8, Direction.RIGHT);
+        super("Nan Curunir", SitesBlock.TWO_TOWERS, 8, 8, Direction.RIGHT);
         addKeyword(Keyword.PLAINS);
     }
 

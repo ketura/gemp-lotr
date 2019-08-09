@@ -4,7 +4,7 @@ import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.AddUntilEndOfTurnModifierEffect;
 import com.gempukku.lotro.logic.modifiers.MoveLimitModifier;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Side;
@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card7_335 extends AbstractSite {
     public Card7_335() {
-        super("King's Tent", Block.KING, 2, 1, Direction.LEFT);
+        super("King's Tent", SitesBlock.KING, 2, 1, Direction.LEFT);
     }
 
     @Override

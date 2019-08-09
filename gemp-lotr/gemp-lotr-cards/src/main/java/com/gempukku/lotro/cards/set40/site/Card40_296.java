@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set40.site;
 
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card40_296 extends AbstractSite {
     public Card40_296() {
-        super("Henneth Annun", Block.SECOND_ED, 6, 3, Direction.LEFT);
+        super("Henneth Annun", SitesBlock.SECOND_ED, 6, 3, Direction.LEFT);
         addKeyword(Keyword.MOUNTAIN);
     }
 

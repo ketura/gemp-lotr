@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set4.site;
 
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.modifiers.evaluator.CountActiveEvaluator;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.filters.Filters;
@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class Card4_346 extends AbstractSite {
     public Card4_346() {
-        super("White Rocks", Block.TWO_TOWERS, 4, 3, Direction.RIGHT);
+        super("White Rocks", SitesBlock.TWO_TOWERS, 4, 3, Direction.RIGHT);
         addKeyword(Keyword.BATTLEGROUND);
     }
 

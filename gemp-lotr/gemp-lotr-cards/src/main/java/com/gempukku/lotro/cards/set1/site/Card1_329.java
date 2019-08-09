@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set1.site;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -18,7 +18,7 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
  */
 public class Card1_329 extends AbstractSite {
     public Card1_329() {
-        super("Breeland Forest", Block.FELLOWSHIP, 2, 1, Direction.LEFT);
+        super("Breeland Forest", SitesBlock.FELLOWSHIP, 2, 1, Direction.LEFT);
         addKeyword(Keyword.FOREST);
     }
 

@@ -4,7 +4,7 @@ import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.logic.effects.RemoveBurdenEffect;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card7_342 extends AbstractSite {
     public Card7_342() {
-        super("Osgiliath Fallen", Block.KING, 4, 2, Direction.RIGHT);
+        super("Osgiliath Fallen", SitesBlock.KING, 4, 2, Direction.RIGHT);
     }
 
     @Override

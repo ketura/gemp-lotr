@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set20.site;
 
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class Card20_457 extends AbstractSite {
     public Card20_457() {
-        super("Osgiliath Ruins", Block.SECOND_ED, 7, 6, null);
+        super("Osgiliath Ruins", SitesBlock.SECOND_ED, 7, 6, null);
         addKeyword(Keyword.BATTLEGROUND);
     }
 

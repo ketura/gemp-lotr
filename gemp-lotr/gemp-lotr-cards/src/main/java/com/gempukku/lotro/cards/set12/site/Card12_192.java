@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set12.site;
 
-import com.gempukku.lotro.logic.cardtype.AbstractNewSite;
+import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.RemoveTwilightEffect;
 import com.gempukku.lotro.common.Keyword;
@@ -22,7 +22,7 @@ import java.util.List;
  * Type: Site
  * Game Text: Mountain. Shadow: Remove 2 and discard 2 Free Peoples cards from hand to draw a card.
  */
-public class Card12_192 extends AbstractNewSite {
+public class Card12_192 extends AbstractShadowsSite {
     public Card12_192() {
         super("Slopes of Orodruin", 1, Direction.RIGHT);
         addKeyword(Keyword.MOUNTAIN);

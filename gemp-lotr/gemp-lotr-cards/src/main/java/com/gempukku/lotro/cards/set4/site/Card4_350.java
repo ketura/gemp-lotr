@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set4.site;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class Card4_350 extends AbstractSite {
     public Card4_350() {
-        super("Hornburg Courtyard", Block.TWO_TOWERS, 5, 8, Direction.LEFT);
+        super("Hornburg Courtyard", SitesBlock.TWO_TOWERS, 5, 8, Direction.LEFT);
         addKeyword(Keyword.BATTLEGROUND);
     }
 

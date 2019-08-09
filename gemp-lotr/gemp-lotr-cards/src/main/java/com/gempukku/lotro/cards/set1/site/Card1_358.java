@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class Card1_358 extends AbstractSite {
     public Card1_358() {
-        super("Pillars of the Kings", Block.FELLOWSHIP, 8, 6, Direction.RIGHT);
+        super("Pillars of the Kings", SitesBlock.FELLOWSHIP, 8, 6, Direction.RIGHT);
         addKeyword(Keyword.RIVER);
     }
 

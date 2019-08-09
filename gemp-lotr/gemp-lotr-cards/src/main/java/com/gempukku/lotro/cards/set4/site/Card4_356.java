@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set4.site;
 
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.modifiers.ArcheryTotalModifier;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class Card4_356 extends AbstractSite {
     public Card4_356() {
-        super("Hornburg Causeway", Block.TWO_TOWERS, 7, 6, Direction.RIGHT);
+        super("Hornburg Causeway", SitesBlock.TWO_TOWERS, 7, 6, Direction.RIGHT);
         addKeyword(Keyword.BATTLEGROUND);
     }
 

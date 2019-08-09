@@ -1,19 +1,17 @@
 package com.gempukku.lotro.cards.set3.site;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.modifiers.condition.LocationCondition;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.Assignment;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.AbstractModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.ModifierEffect;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
 import java.util.Collections;
 import java.util.List;
@@ -30,7 +28,7 @@ import java.util.Set;
  */
 public class Card3_115 extends AbstractSite {
     public Card3_115() {
-        super("Caras Galadhon", Block.FELLOWSHIP, 6, 3, Direction.LEFT);
+        super("Caras Galadhon", SitesBlock.FELLOWSHIP, 6, 3, Direction.LEFT);
         addKeyword(Keyword.FOREST);
 
     }

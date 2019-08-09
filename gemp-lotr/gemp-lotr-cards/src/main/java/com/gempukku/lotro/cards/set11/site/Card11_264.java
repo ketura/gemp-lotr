@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set11.site;
 
-import com.gempukku.lotro.logic.cardtype.AbstractNewSite;
+import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
@@ -21,7 +21,7 @@ import java.util.List;
  * Game Text: Dwelling. When the fellowship moves to this site, the Free Peoples player wounds a companion
  * for each ally.
  */
-public class Card11_264 extends AbstractNewSite {
+public class Card11_264 extends AbstractShadowsSite {
     public Card11_264() {
         super("Westemnet Village", 2, Direction.LEFT);
         addKeyword(Keyword.DWELLING);

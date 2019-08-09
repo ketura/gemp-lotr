@@ -4,7 +4,7 @@ import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDeckEffect;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class Card4_325 extends AbstractSite {
     public Card4_325() {
-        super("Eastemnet Gullies", Block.TWO_TOWERS, 1, 0, Direction.LEFT);
+        super("Eastemnet Gullies", SitesBlock.TWO_TOWERS, 1, 0, Direction.LEFT);
     }
 
     @Override

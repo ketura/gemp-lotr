@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set20.site;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class Card20_458 extends AbstractSite {
     public Card20_458() {
-        super("Cair Andros", Block.SECOND_ED, 8, 8, null);
+        super("Cair Andros", SitesBlock.SECOND_ED, 8, 8, null);
         addKeyword(Keyword.RIVER);
     }
 

@@ -1,10 +1,10 @@
 package com.gempukku.lotro.cards.set40.site;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDeckEffect;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card40_274 extends AbstractSite {
     public Card40_274() {
-        super("Bywater Bridge", Block.SECOND_ED, 1, 0, Direction.LEFT);
+        super("Bywater Bridge", SitesBlock.SECOND_ED, 1, 0, Direction.LEFT);
         addKeyword(Keyword.RIVER);
     }
 

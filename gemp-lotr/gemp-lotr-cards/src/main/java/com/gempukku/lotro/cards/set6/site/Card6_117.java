@@ -4,7 +4,7 @@ import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDeadPileEffect;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Signet;
@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card6_117 extends AbstractSite {
     public Card6_117() {
-        super("Meduseld", Block.TWO_TOWERS, 3, 0, Direction.RIGHT);
+        super("Meduseld", SitesBlock.TWO_TOWERS, 3, 0, Direction.RIGHT);
 
     }
 

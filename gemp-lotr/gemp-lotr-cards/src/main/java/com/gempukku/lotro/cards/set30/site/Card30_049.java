@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set30.site;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromHandEffect;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card30_049 extends AbstractSite {
     public Card30_049() {
-        super("Bag End", Block.HOBBIT, 1, 0, Direction.RIGHT);
+        super("Bag End", SitesBlock.HOBBIT, 1, 0, Direction.RIGHT);
     }
 
     @Override

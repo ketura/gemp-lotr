@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set11.site;
 
-import com.gempukku.lotro.logic.cardtype.AbstractNewSite;
+import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromHandEffect;
@@ -22,7 +22,7 @@ import java.util.List;
  * Type: Site
  * Game Text: Dwelling. Shadow: Play a Nazgul to discard a condition from play.
  */
-public class Card11_230 extends AbstractNewSite {
+public class Card11_230 extends AbstractShadowsSite {
     public Card11_230() {
         super("Buckland Homestead", 0, Direction.LEFT);
         addKeyword(Keyword.DWELLING);

@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set13.site;
 
-import com.gempukku.lotro.logic.cardtype.AbstractNewSite;
+import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
@@ -22,7 +22,7 @@ import java.util.List;
  * Game Text: Battleground. Plains. At the start of the regroup phase, each Shadow player may exert a minion to exert
  * a companion.
  */
-public class Card13_193 extends AbstractNewSite {
+public class Card13_193 extends AbstractShadowsSite {
     public Card13_193() {
         super("Isenwash", 0, Direction.LEFT);
         addKeyword(Keyword.BATTLEGROUND);

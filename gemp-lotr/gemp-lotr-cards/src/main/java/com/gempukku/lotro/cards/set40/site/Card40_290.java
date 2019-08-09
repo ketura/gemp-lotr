@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set40.site;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDiscardEffect;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card40_290 extends AbstractSite {
     public Card40_290() {
-        super("Moria Caverns", Block.SECOND_ED, 4, 4, Direction.LEFT);
+        super("Moria Caverns", SitesBlock.SECOND_ED, 4, 4, Direction.LEFT);
         addKeyword(Keyword.UNDERGROUND);
     }
 

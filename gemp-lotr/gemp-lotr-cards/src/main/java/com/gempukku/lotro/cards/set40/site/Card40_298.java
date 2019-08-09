@@ -1,10 +1,10 @@
 package com.gempukku.lotro.cards.set40.site;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card40_298 extends AbstractSite {
     public Card40_298() {
-        super("Steward's Chamber", Block.SECOND_ED, 6, 3, Direction.LEFT);
+        super("Steward's Chamber", SitesBlock.SECOND_ED, 6, 3, Direction.LEFT);
     }
 
     @Override

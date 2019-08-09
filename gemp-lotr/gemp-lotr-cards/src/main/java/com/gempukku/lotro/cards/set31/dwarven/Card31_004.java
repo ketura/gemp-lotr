@@ -9,12 +9,10 @@ import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.modifiers.Condition;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
@@ -67,7 +65,7 @@ public class Card31_004 extends AbstractPermanent {
                             @Override
                             public boolean isFullfilled(LotroGame game) {
                                 return (game.getGameState().getCurrentSiteNumber() == 7 || game.getGameState().getCurrentSiteNumber() == 8)
-										&& game.getGameState().getCurrentSiteBlock() == Block.HOBBIT;
+										&& game.getGameState().getCurrentSiteBlock() == SitesBlock.HOBBIT;
                             }
                         }, -3));
     }

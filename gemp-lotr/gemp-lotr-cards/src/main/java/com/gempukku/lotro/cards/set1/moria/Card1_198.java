@@ -47,7 +47,7 @@ public class Card1_198 extends AbstractPermanent {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (TriggerConditions.movesTo(game, effectResult, Filters.siteBlock(Block.FELLOWSHIP), Filters.or(
+        if (TriggerConditions.movesTo(game, effectResult, Filters.siteBlock(SitesBlock.FELLOWSHIP), Filters.or(
                 Filters.siteNumber(4), Filters.siteNumber(5), Filters.siteNumber(6)))
                 && Filters.canSpot(game, CardType.COMPANION, Filters.or(Race.ELF, Race.DWARF))) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);

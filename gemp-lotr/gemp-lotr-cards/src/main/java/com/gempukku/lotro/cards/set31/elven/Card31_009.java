@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class Card31_009 extends AbstractAlly {
     public Card31_009() {
-        super(2, Block.HOBBIT, 5, 6, 3, Race.ELF, Culture.ELVEN, "Legolas", "Prince of Mirkwood", true);
+        super(2, SitesBlock.HOBBIT, 5, 6, 3, Race.ELF, Culture.ELVEN, "Legolas", "Prince of Mirkwood", true);
 		addKeyword(Keyword.ARCHER);
     }
 

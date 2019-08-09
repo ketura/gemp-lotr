@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set1.site;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.modifiers.ShouldSkipPhaseModifier;
 import com.gempukku.lotro.logic.modifiers.condition.LocationCondition;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -19,7 +19,7 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
  */
 public class Card1_354 extends AbstractSite {
     public Card1_354() {
-        super("Anduin Wilderland", Block.FELLOWSHIP, 7, 6, Direction.RIGHT);
+        super("Anduin Wilderland", SitesBlock.FELLOWSHIP, 7, 6, Direction.RIGHT);
         addKeyword(Keyword.FOREST);
         addKeyword(Keyword.RIVER);
     }

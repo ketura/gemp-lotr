@@ -1,9 +1,9 @@
 package com.gempukku.lotro.cards.set1.shire;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractAlly;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.SelfExertEffect;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class Card1_309 extends AbstractAlly {
     public Card1_309() {
-        super(1, Block.FELLOWSHIP, 1, 1, 2, Race.HOBBIT, Culture.SHIRE, "Rosie Cotton", "Hobbiton Lass", true);
+        super(1, SitesBlock.FELLOWSHIP, 1, 1, 2, Race.HOBBIT, Culture.SHIRE, "Rosie Cotton", "Hobbiton Lass", true);
     }
 
     @Override

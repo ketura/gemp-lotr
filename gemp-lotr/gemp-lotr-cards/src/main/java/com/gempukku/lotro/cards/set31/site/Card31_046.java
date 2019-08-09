@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class Card31_046 extends AbstractSite {
     public Card31_046() {
-        super("Rhudaur", Block.HOBBIT, 3, 1, Direction.RIGHT);
+        super("Rhudaur", SitesBlock.HOBBIT, 3, 1, Direction.RIGHT);
         addKeyword(Keyword.PLAINS);
     }
 

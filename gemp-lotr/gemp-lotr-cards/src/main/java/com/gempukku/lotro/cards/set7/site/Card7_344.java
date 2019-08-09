@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set7.site;
 
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class Card7_344 extends AbstractSite {
     public Card7_344() {
-        super("City Gates", Block.KING, 5, 6, Direction.LEFT);
+        super("City Gates", SitesBlock.KING, 5, 6, Direction.LEFT);
     }
 
     @Override

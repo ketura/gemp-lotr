@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set11.site;
 
-import com.gempukku.lotro.logic.cardtype.AbstractNewSite;
+import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromHandEffect;
 import com.gempukku.lotro.common.CardType;
@@ -22,7 +22,7 @@ import java.util.List;
  * Game Text: Marsh. Shadow: If the total number of minions and twilight tokens is 3 or fewer, play a minion at twilight
  * cost -3.
  */
-public class Card11_238 extends AbstractNewSite {
+public class Card11_238 extends AbstractShadowsSite {
     public Card11_238() {
         super("Expanding Marshland", 1, Direction.RIGHT);
         addKeyword(Keyword.MARSH);

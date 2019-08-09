@@ -4,7 +4,7 @@ import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDeckEffect;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class Card2_115 extends AbstractSite {
     public Card2_115() {
-        super("Hobbiton Party Field", Block.FELLOWSHIP, 1, 0, Direction.LEFT);
+        super("Hobbiton Party Field", SitesBlock.FELLOWSHIP, 1, 0, Direction.LEFT);
     }
 
     @Override

@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set12.site;
 
-import com.gempukku.lotro.logic.cardtype.AbstractNewSite;
+import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.AddUntilStartOfPhaseModifierEffect;
 import com.gempukku.lotro.common.CardType;
@@ -23,7 +23,7 @@ import java.util.List;
  * Type: Site
  * Game Text: Battleground. Plains. Shadow: Make your lurker minion lose lurker until the regroup phase.
  */
-public class Card12_190 extends AbstractNewSite {
+public class Card12_190 extends AbstractShadowsSite {
     public Card12_190() {
         super("Northern Pelennor", 1, Direction.RIGHT);
         addKeyword(Keyword.BATTLEGROUND);

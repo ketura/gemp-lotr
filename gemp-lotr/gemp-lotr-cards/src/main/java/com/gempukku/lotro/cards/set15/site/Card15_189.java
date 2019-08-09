@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set15.site;
 
-import com.gempukku.lotro.logic.cardtype.AbstractNewSite;
+import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.common.CardType;
@@ -22,7 +22,7 @@ import java.util.List;
  * Game Text: When the Fellowship moves to this site, add a threat (or 2 if you can spot a hunter minion)
  * for each companion over 4.
  */
-public class Card15_189 extends AbstractNewSite {
+public class Card15_189 extends AbstractShadowsSite {
     public Card15_189() {
         super("City Gates", 1, Direction.RIGHT);
     }

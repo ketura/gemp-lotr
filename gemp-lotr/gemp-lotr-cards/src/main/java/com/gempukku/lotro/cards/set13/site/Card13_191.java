@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set13.site;
 
-import com.gempukku.lotro.logic.cardtype.AbstractNewSite;
+import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -15,7 +15,7 @@ import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
  * Type: Site
  * Game Text: River. Each character is strength +1 for each card borne by that character.
  */
-public class Card13_191 extends AbstractNewSite {
+public class Card13_191 extends AbstractShadowsSite {
     public Card13_191() {
         super("Fords of Isen", 2, Direction.LEFT);
         addKeyword(Keyword.RIVER);

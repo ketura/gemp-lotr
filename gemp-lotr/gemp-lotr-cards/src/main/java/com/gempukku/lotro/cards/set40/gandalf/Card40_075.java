@@ -7,7 +7,7 @@ import com.gempukku.lotro.logic.effects.CancelSkirmishEffect;
 import com.gempukku.lotro.logic.effects.SelfExertEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.logic.modifiers.AllyParticipatesInArcheryFireAndSkirmishesModifier;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
@@ -36,7 +36,7 @@ import java.util.List;
  */
 public class Card40_075 extends AbstractAlly{
     public Card40_075() {
-        super(4, Block.SECOND_ED, 0, 7, 4, Race.EAGLE, Culture.GANDALF, "Gwaihir", "Great Eagle", true);
+        super(4, SitesBlock.SECOND_ED, 0, 7, 4, Race.EAGLE, Culture.GANDALF, "Gwaihir", "Great Eagle", true);
     }
 
     @Override

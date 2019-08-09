@@ -158,17 +158,17 @@ public abstract class AbstractLotroCardBlueprint implements LotroCardBlueprint {
     }
 
     @Override
-    public Block getAllyHomeSiteBlock() {
+    public SitesBlock getAllyHomeSiteBlock() {
         throw new UnsupportedOperationException("This method should not be called on this card");
     }
 
     @Override
-    public boolean isAllyAtHome(int siteNumber, Block siteBlock) {
+    public boolean isAllyAtHome(int siteNumber, SitesBlock siteBlock) {
         throw new UnsupportedOperationException("This method should not be called on this card");
     }
 
     @Override
-    public Block getSiteBlock() {
+    public SitesBlock getSiteBlock() {
         throw new UnsupportedOperationException("This method should not be called on this card");
     }
 

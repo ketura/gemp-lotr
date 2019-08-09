@@ -1,8 +1,8 @@
 package com.gempukku.lotro.cards.set7.site;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class Card7_339 extends AbstractSite {
     public Card7_339() {
-        super("Hall of the Kings", Block.KING, 3, 1, Direction.RIGHT);
+        super("Hall of the Kings", SitesBlock.KING, 3, 1, Direction.RIGHT);
 
     }
 

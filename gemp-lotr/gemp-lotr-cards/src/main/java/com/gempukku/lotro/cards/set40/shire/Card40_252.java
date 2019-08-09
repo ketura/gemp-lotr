@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card40_252 extends AbstractAlly {
     public Card40_252() {
-        super(1, Block.SECOND_ED, 0, 2, 2, Race.HOBBIT, Culture.SHIRE, "Hamfast Gamgee", "The Gaffer", true);
+        super(1, SitesBlock.SECOND_ED, 0, 2, 2, Race.HOBBIT, Culture.SHIRE, "Hamfast Gamgee", "The Gaffer", true);
         addKeyword(Keyword.SHIRE);
     }
 

@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set13.site;
 
-import com.gempukku.lotro.logic.cardtype.AbstractNewSite;
+import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.logic.effects.AddBurdenEffect;
@@ -23,7 +23,7 @@ import java.util.List;
  * Game Text: Dwelling. When the fellowship moves to this site, the first Shadow player may discard 2 cards from hand
  * to add a burden.
  */
-public class Card13_188 extends AbstractNewSite {
+public class Card13_188 extends AbstractShadowsSite {
     public Card13_188() {
         super("Courtyard Parapet", 0, Direction.LEFT);
         addKeyword(Keyword.DWELLING);

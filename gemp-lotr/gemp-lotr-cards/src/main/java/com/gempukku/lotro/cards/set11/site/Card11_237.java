@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set11.site;
 
-import com.gempukku.lotro.logic.cardtype.AbstractNewSite;
+import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
@@ -22,7 +22,7 @@ import java.util.List;
  * Type: Site
  * Game Text: Plains. Skirmish: Exert your character, (except an enduring character) to make it strength +2.
  */
-public class Card11_237 extends AbstractNewSite {
+public class Card11_237 extends AbstractShadowsSite {
     public Card11_237() {
         super("Ettenmoors", 1, Direction.RIGHT);
         addKeyword(Keyword.PLAINS);

@@ -41,7 +41,7 @@ public class Card1_222 extends AbstractPermanent {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(new RemoveTwilightEffect(3));
             action.appendEffect(
-                    new PlaySiteEffect(action, playerId, Block.FELLOWSHIP, game.getGameState().getCurrentSiteNumber()));
+                    new PlaySiteEffect(action, playerId, SitesBlock.FELLOWSHIP, game.getGameState().getCurrentSiteNumber()));
             return Collections.singletonList(action);
         }
         return null;

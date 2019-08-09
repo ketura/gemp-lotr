@@ -29,7 +29,7 @@ public class Card8_014 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self);
         final PhysicalCard currentSite = game.getGameState().getCurrentSite();
-        if (currentSite.getBlueprint().getSiteBlock() == Block.KING
+        if (currentSite.getBlueprint().getSiteBlock() == SitesBlock.KING
                 && currentSite.getSiteNumber() >= 1 && currentSite.getSiteNumber() <= 5) {
             action.appendEffect(
                     new HealCharactersEffect(self, Filters.gandalf));

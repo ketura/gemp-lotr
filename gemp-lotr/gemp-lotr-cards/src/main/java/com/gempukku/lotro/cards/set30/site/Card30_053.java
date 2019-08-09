@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set30.site;
 
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class Card30_053 extends AbstractSite {
     public Card30_053() {
-        super("Mirkwood", Block.HOBBIT, 5, 6, Direction.RIGHT);
+        super("Mirkwood", SitesBlock.HOBBIT, 5, 6, Direction.RIGHT);
         addKeyword(Keyword.FOREST);
     }
 

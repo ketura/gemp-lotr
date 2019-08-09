@@ -1,10 +1,10 @@
 package com.gempukku.lotro.cards.set1.site;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromHandEffect;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card1_326 extends AbstractSite {
     public Card1_326() {
-        super("Westfarthing", Block.FELLOWSHIP, 1, 0, Direction.LEFT);
+        super("Westfarthing", SitesBlock.FELLOWSHIP, 1, 0, Direction.LEFT);
     }
 
     @Override

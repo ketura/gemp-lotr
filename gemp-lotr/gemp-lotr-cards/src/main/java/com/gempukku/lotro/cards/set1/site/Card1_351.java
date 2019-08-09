@@ -1,11 +1,11 @@
 package com.gempukku.lotro.cards.set1.site;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.LookAtOpponentsHandEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseOpponentEffect;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card1_351 extends AbstractSite {
     public Card1_351() {
-        super("Galadriel's Glade", Block.FELLOWSHIP, 6, 3, Direction.LEFT);
+        super("Galadriel's Glade", SitesBlock.FELLOWSHIP, 6, 3, Direction.LEFT);
 
     }
 

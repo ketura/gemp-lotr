@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set4.site;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.PossessionClass;
@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class Card4_349 extends AbstractSite {
     public Card4_349() {
-        super("Helm's Gate", Block.TWO_TOWERS, 5, 6, Direction.LEFT);
+        super("Helm's Gate", SitesBlock.TWO_TOWERS, 5, 6, Direction.LEFT);
         addKeyword(Keyword.BATTLEGROUND);
     }
 

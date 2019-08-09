@@ -1,10 +1,10 @@
 package com.gempukku.lotro.cards.set4.site;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.AddUntilEndOfTurnModifierEffect;
 import com.gempukku.lotro.logic.modifiers.MoveLimitModifier;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card4_331 extends AbstractSite {
     public Card4_331() {
-        super("Eastfold", Block.TWO_TOWERS, 2, 2, Direction.LEFT);
+        super("Eastfold", SitesBlock.TWO_TOWERS, 2, 2, Direction.LEFT);
         addKeyword(Keyword.PLAINS);
     }
 

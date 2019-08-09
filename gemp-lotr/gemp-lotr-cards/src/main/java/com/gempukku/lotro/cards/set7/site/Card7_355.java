@@ -1,10 +1,10 @@
 package com.gempukku.lotro.cards.set7.site;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.AddUntilEndOfTurnModifierEffect;
 import com.gempukku.lotro.logic.modifiers.MoveLimitModifier;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card7_355 extends AbstractSite {
     public Card7_355() {
-        super("Ruined Capitol", Block.KING, 7, 6, Direction.RIGHT);
+        super("Ruined Capitol", SitesBlock.KING, 7, 6, Direction.RIGHT);
         addKeyword(Keyword.RIVER);
     }
 

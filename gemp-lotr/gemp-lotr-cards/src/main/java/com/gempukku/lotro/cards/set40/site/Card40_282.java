@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set40.site;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.logic.effects.ExertCharactersEffect;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card40_282 extends AbstractSite {
     public Card40_282() {
-        super("Midgewater Marshes", Block.SECOND_ED, 2, 1, Direction.LEFT);
+        super("Midgewater Marshes", SitesBlock.SECOND_ED, 2, 1, Direction.LEFT);
         addKeyword(Keyword.MARSH);
     }
 

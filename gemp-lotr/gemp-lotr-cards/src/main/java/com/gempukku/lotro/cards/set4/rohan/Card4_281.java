@@ -33,7 +33,7 @@ import java.util.List;
  */
 public class Card4_281 extends AbstractAlly {
     public Card4_281() {
-        super(1, Block.TWO_TOWERS, 4, 4, 2, Race.MAN, Culture.ROHAN, "Hlafwine", "Village Farmhand", true);
+        super(1, SitesBlock.TWO_TOWERS, 4, 4, 2, Race.MAN, Culture.ROHAN, "Hlafwine", "Village Farmhand", true);
         addKeyword(Keyword.VILLAGER);
     }
 
@@ -63,7 +63,7 @@ public class Card4_281 extends AbstractAlly {
         if (Filters.countActive(game,
                 Filters.siteControlledByShadowPlayer(self.getOwner()),
                 Filters.siteNumber(4),
-                Filters.siteBlock(Block.TWO_TOWERS)) > 0) {
+                Filters.siteBlock(SitesBlock.TWO_TOWERS)) > 0) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new SelfDiscardEffect(self));

@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set4.site;
 
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.modifiers.ArcheryTotalModifier;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -21,7 +21,7 @@ import java.util.List;
  */
 public class Card4_351 extends AbstractSite {
     public Card4_351() {
-        super("Hornburg Parapet", Block.TWO_TOWERS, 5, 8, Direction.LEFT);
+        super("Hornburg Parapet", SitesBlock.TWO_TOWERS, 5, 8, Direction.LEFT);
         addKeyword(Keyword.BATTLEGROUND);
     }
 

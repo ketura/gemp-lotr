@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set4.site;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromHandEffect;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card4_358 extends AbstractSite {
     public Card4_358() {
-        super("Ring of Isengard", Block.TWO_TOWERS, 8, 7, Direction.RIGHT);
+        super("Ring of Isengard", SitesBlock.TWO_TOWERS, 8, 7, Direction.RIGHT);
     }
 
     @Override

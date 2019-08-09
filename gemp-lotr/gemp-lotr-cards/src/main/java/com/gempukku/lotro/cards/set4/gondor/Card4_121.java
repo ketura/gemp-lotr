@@ -9,12 +9,10 @@ import com.gempukku.lotro.logic.modifiers.MinionSiteNumberModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.modifiers.Condition;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.Collections;
@@ -41,7 +39,7 @@ public class Card4_121 extends AbstractPermanent {
                         new Condition() {
                             @Override
                             public boolean isFullfilled(LotroGame game) {
-                                return game.getGameState().getCurrentSiteNumber() == 5 && game.getGameState().getCurrentSiteBlock() == Block.TWO_TOWERS;
+                                return game.getGameState().getCurrentSiteNumber() == 5 && game.getGameState().getCurrentSiteBlock() == SitesBlock.TWO_TOWERS;
                             }
                         }, 2));
     }

@@ -42,7 +42,7 @@ import java.util.List;
  */
 public class Card40_041 extends AbstractAlly{
     public Card40_041() {
-        super(4, Block.SECOND_ED, 0, 8, 4, Race.ELF, Culture.ELVEN, "Elrond", "Peredhil", true);
+        super(4, SitesBlock.SECOND_ED, 0, 8, 4, Race.ELF, Culture.ELVEN, "Elrond", "Peredhil", true);
         addKeyword(Keyword.RIVENDELL);
     }
 

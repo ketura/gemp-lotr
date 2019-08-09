@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class Card40_299 extends AbstractSite {
     public Card40_299() {
-        super("Broken Gate", Block.SECOND_ED, 7, 6, Direction.LEFT);
+        super("Broken Gate", SitesBlock.SECOND_ED, 7, 6, Direction.LEFT);
         addKeyword(Keyword.BATTLEGROUND);
     }
 

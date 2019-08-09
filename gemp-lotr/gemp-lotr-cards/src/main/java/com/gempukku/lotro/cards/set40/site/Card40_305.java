@@ -4,7 +4,7 @@ import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.AddUntilEndOfTurnModifierEffect;
 import com.gempukku.lotro.logic.modifiers.MoveLimitModifier;
-import com.gempukku.lotro.common.Block;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class Card40_305 extends AbstractSite {
     public Card40_305() {
-        super("Pelennor Battlefield", Block.SECOND_ED, 8, 8, Direction.LEFT);
+        super("Pelennor Battlefield", SitesBlock.SECOND_ED, 8, 8, Direction.LEFT);
         addKeyword(Keyword.BATTLEGROUND);
         addKeyword(Keyword.PLAINS);
     }

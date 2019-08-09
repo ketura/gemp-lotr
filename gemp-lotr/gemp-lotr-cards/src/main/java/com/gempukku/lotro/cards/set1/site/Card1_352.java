@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set1.site;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.filters.Filters;
@@ -19,13 +19,13 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
  */
 public class Card1_352 extends AbstractSite {
     public Card1_352() {
-        super("Lothlorien Woods", Block.FELLOWSHIP, 6, 3, Direction.LEFT);
+        super("Lothlorien Woods", SitesBlock.FELLOWSHIP, 6, 3, Direction.LEFT);
         addKeyword(Keyword.FOREST);
 
     }
 
     @Override
     public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new StrengthModifier(self, Filters.and(CardType.ALLY, Filters.isAllyHome(6, Block.FELLOWSHIP)), 3);
+        return new StrengthModifier(self, Filters.and(CardType.ALLY, Filters.isAllyHome(6, SitesBlock.FELLOWSHIP)), 3);
     }
 }

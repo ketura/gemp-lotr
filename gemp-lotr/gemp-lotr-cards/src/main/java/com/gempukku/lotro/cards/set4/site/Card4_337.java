@@ -1,9 +1,9 @@
 package com.gempukku.lotro.cards.set4.site;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.PutCardsFromHandBeneathDrawDeckEffect;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class Card4_337 extends AbstractSite {
     public Card4_337() {
-        super("Barrows of Edoras", Block.TWO_TOWERS, 3, 0, Direction.RIGHT);
+        super("Barrows of Edoras", SitesBlock.TWO_TOWERS, 3, 0, Direction.RIGHT);
 
     }
 

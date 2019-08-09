@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card40_063 extends AbstractAlly{
     public Card40_063() {
-        super(1, Block.SECOND_ED, 0, 3, 3, Race.MAN, Culture.GANDALF, "Albert Dreary",
+        super(1, SitesBlock.SECOND_ED, 0, 3, 3, Race.MAN, Culture.GANDALF, "Albert Dreary",
                 "Entertainer from Bree", true);
         addKeyword(Keyword.BREE);
     }

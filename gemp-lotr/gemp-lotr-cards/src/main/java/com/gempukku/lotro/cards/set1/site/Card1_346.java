@@ -1,12 +1,12 @@
 package com.gempukku.lotro.cards.set1.site;
 
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.logic.effects.ChoiceEffect;
 import com.gempukku.lotro.logic.effects.ExertCharactersEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.filters.Filters;
@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card1_346 extends AbstractSite {
     public Card1_346() {
-        super("Moria Lake", Block.FELLOWSHIP, 4, 3, Direction.RIGHT);
+        super("Moria Lake", SitesBlock.FELLOWSHIP, 4, 3, Direction.RIGHT);
         addKeyword(Keyword.MARSH);
     }
 
