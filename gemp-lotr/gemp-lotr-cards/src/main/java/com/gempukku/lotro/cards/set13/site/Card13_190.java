@@ -1,7 +1,5 @@
 package com.gempukku.lotro.cards.set13.site;
 
-import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
-import com.gempukku.lotro.logic.modifiers.condition.NotCondition;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
@@ -10,8 +8,10 @@ import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
+import com.gempukku.lotro.logic.modifiers.condition.NotCondition;
 import com.gempukku.lotro.logic.modifiers.condition.PhaseCondition;
 
 import java.util.Collections;
@@ -32,7 +32,7 @@ public class Card13_190 extends AbstractShadowsSite {
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(new StrengthModifier(self,
                 Filters.and(CardType.COMPANION,
                         new Filter() {

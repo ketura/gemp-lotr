@@ -1,27 +1,23 @@
 package com.gempukku.lotro.cards.set7.gollum;
 
-import com.gempukku.lotro.logic.actions.AbstractCostToEffectAction;
-import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
-import com.gempukku.lotro.logic.modifiers.AbstractExtraPlayCostModifier;
-import com.gempukku.lotro.logic.modifiers.cost.AddUpToThreatsExtraPlayCostModifier;
-import com.gempukku.lotro.logic.modifiers.cost.SpotExtraPlayCostModifier;
-import com.gempukku.lotro.logic.timing.PlayConditions;
-import com.gempukku.lotro.logic.timing.TriggerConditions;
-import com.gempukku.lotro.logic.actions.PlayPermanentAction;
-import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
-import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.logic.decisions.IntegerAwaitingDecision;
-import com.gempukku.lotro.logic.effects.AddThreatsEffect;
-import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.logic.effects.RemoveThreatsEffect;
+import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
+import com.gempukku.lotro.logic.modifiers.AbstractExtraPlayCostModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
+import com.gempukku.lotro.logic.modifiers.cost.AddUpToThreatsExtraPlayCostModifier;
+import com.gempukku.lotro.logic.modifiers.cost.SpotExtraPlayCostModifier;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -49,7 +45,7 @@ public class Card7_067 extends AbstractPermanent {
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, final PhysicalCard self) {
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, final PhysicalCard self) {
         return Arrays.asList(
                 new StrengthModifier(self, Filters.gollum, 2));
     }

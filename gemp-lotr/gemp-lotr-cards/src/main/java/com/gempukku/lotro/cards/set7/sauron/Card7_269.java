@@ -1,16 +1,16 @@
 package com.gempukku.lotro.cards.set7.sauron;
 
-import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
-import com.gempukku.lotro.logic.modifiers.MinionSiteNumberModifier;
-import com.gempukku.lotro.logic.modifiers.condition.MinThreatCondition;
-import com.gempukku.lotro.logic.modifiers.evaluator.ForEachThreatEvaluator;
-import com.gempukku.lotro.logic.modifiers.evaluator.NegativeEvaluator;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.modifiers.MinionSiteNumberModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
+import com.gempukku.lotro.logic.modifiers.condition.MinThreatCondition;
+import com.gempukku.lotro.logic.modifiers.evaluator.ForEachThreatEvaluator;
+import com.gempukku.lotro.logic.modifiers.evaluator.NegativeEvaluator;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -30,7 +30,7 @@ public class Card7_269 extends AbstractPermanent {
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(
                 new MinionSiteNumberModifier(self, Filters.and(Culture.SAURON, Race.ORC), null, new NegativeEvaluator(new ForEachThreatEvaluator())));

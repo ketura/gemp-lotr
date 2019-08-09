@@ -1,13 +1,13 @@
 package com.gempukku.lotro.cards.set40.isengard;
 
-import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
-import com.gempukku.lotro.logic.modifiers.condition.NotCondition;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
 import com.gempukku.lotro.logic.modifiers.CantTakeWoundsModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
+import com.gempukku.lotro.logic.modifiers.condition.NotCondition;
 import com.gempukku.lotro.logic.modifiers.condition.PhaseCondition;
 
 import java.util.Collections;
@@ -35,7 +35,7 @@ public class Card40_139 extends AbstractAttachable {
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         CantTakeWoundsModifier modifier = new CantTakeWoundsModifier(self,
                 new NotCondition(new PhaseCondition(Phase.SKIRMISH)), Filters.hasAttached(self));
         return Collections.singletonList(modifier);

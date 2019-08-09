@@ -1,12 +1,12 @@
 package com.gempukku.lotro.cards.set3.site;
 
-import com.gempukku.lotro.common.SitesBlock;
-import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.modifiers.AbstractModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.ModifierEffect;
@@ -29,7 +29,7 @@ public class Card3_117 extends AbstractSite {
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
                 new AbstractModifier(self, "Maneuver events may not be played", null, ModifierEffect.ACTION_MODIFIER) {
                     @Override

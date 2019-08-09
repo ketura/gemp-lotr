@@ -1,17 +1,15 @@
 package com.gempukku.lotro.cards.set1.shire;
 
-import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
-import com.gempukku.lotro.logic.modifiers.*;
-import com.gempukku.lotro.logic.modifiers.cost.ExertExtraPlayCostModifier;
-import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
-import com.gempukku.lotro.logic.timing.PlayConditions;
-import com.gempukku.lotro.logic.actions.PlayPermanentAction;
-import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.modifiers.AbstractExtraPlayCostModifier;
+import com.gempukku.lotro.logic.modifiers.Modifier;
+import com.gempukku.lotro.logic.modifiers.TwilightCostModifier;
+import com.gempukku.lotro.logic.modifiers.cost.ExertExtraPlayCostModifier;
+import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -39,7 +37,7 @@ public class Card1_316 extends AbstractPermanent {
     }
 
         @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+        public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         return Arrays.asList(
                 new TwilightCostModifier(self, CardType.SITE, null,
                         new Evaluator() {

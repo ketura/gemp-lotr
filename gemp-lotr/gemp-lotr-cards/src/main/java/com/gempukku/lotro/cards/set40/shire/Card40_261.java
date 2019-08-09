@@ -1,6 +1,5 @@
 package com.gempukku.lotro.cards.set40.shire;
 
-import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.PossessionClass;
@@ -8,6 +7,7 @@ import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 
@@ -34,7 +34,7 @@ public class Card40_261 extends AbstractCompanion {
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         StrengthModifier modifier1 = new StrengthModifier(self, Filters.and(CardType.COMPANION, Filters.hasAttached(PossessionClass.PIPE)), 1);
         StrengthModifier modifier2= new StrengthModifier(self, Filters.and(self, Filters.hasAttached(PossessionClass.PIPE)), 1);
         return Arrays.asList(modifier1, modifier2);

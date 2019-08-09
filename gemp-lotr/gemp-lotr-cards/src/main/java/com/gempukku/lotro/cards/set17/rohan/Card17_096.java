@@ -1,20 +1,20 @@
 package com.gempukku.lotro.cards.set17.rohan;
 
-import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
-import com.gempukku.lotro.logic.timing.PlayConditions;
-import com.gempukku.lotro.logic.effects.AddUntilStartOfPhaseModifierEffect;
-import com.gempukku.lotro.logic.effects.SelfExertEffect;
-import com.gempukku.lotro.logic.effects.choose.ChooseAndAssignMinionToCompanionEffect;
-import com.gempukku.lotro.logic.modifiers.LoseAllKeywordsModifier;
-import com.gempukku.lotro.logic.modifiers.condition.AndCondition;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
+import com.gempukku.lotro.logic.effects.AddUntilStartOfPhaseModifierEffect;
+import com.gempukku.lotro.logic.effects.SelfExertEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndAssignMinionToCompanionEffect;
 import com.gempukku.lotro.logic.modifiers.CantTakeWoundsModifier;
+import com.gempukku.lotro.logic.modifiers.LoseAllKeywordsModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.SpotCondition;
+import com.gempukku.lotro.logic.modifiers.condition.AndCondition;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -38,7 +38,7 @@ public class Card17_096 extends AbstractCompanion {
     }
 
     @Override
-    public java.util.List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+    public java.util.List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
 return java.util.Collections.singletonList(new CantTakeWoundsModifier(self,
 new AndCondition(
 new SpotCondition(Filters.ringBearer, Filters.assignedToSkirmish),

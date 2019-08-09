@@ -1,9 +1,11 @@
 package com.gempukku.lotro.cards.set40.site;
 
-import com.gempukku.lotro.logic.cardtype.AbstractSite;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Race;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.TwilightCostModifier;
 import com.gempukku.lotro.logic.modifiers.condition.PhaseCondition;
@@ -26,7 +28,7 @@ public class Card40_276 extends AbstractSite {
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         TwilightCostModifier modifier = new TwilightCostModifier(self, Race.HOBBIT,
                 new PhaseCondition(Phase.FELLOWSHIP), -1);
         return Collections.singletonList(modifier);

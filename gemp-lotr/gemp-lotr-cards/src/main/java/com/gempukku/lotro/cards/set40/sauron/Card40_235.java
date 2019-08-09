@@ -1,14 +1,14 @@
 package com.gempukku.lotro.cards.set40.sauron;
 
-import com.gempukku.lotro.logic.cardtype.AbstractMinion;
-import com.gempukku.lotro.logic.modifiers.SidePlayerCantPlayPhaseEventsOrSpecialAbilitiesModifier;
-import com.gempukku.lotro.logic.modifiers.condition.AndCondition;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
 import com.gempukku.lotro.logic.modifiers.Modifier;
+import com.gempukku.lotro.logic.modifiers.SidePlayerCantPlayPhaseEventsOrSpecialAbilitiesModifier;
 import com.gempukku.lotro.logic.modifiers.SpotCondition;
+import com.gempukku.lotro.logic.modifiers.condition.AndCondition;
 
 import java.util.Collections;
 import java.util.List;
@@ -35,7 +35,7 @@ public class Card40_235 extends AbstractMinion {
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         SidePlayerCantPlayPhaseEventsOrSpecialAbilitiesModifier modifier = new SidePlayerCantPlayPhaseEventsOrSpecialAbilitiesModifier(
                 self, new AndCondition(new SpotCondition(3, Keyword.TRACKER), new SpotCondition(self, Filters.inSkirmish)),
                 Side.FREE_PEOPLE, Phase.SKIRMISH);

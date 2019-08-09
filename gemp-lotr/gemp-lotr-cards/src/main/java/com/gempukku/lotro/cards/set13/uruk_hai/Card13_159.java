@@ -1,17 +1,18 @@
 package com.gempukku.lotro.cards.set13.uruk_hai;
-import java.util.List;
-import java.util.Collections;
-import java.util.List;
-import java.util.Collections;import com.gempukku.lotro.logic.cardtype.AbstractMinion;
-import com.gempukku.lotro.logic.modifiers.evaluator.CountCultureTokensEvaluator;
+
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
+import com.gempukku.lotro.logic.modifiers.evaluator.CountCultureTokensEvaluator;
+
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Set: Bloodlines
@@ -31,7 +32,7 @@ public class Card13_159 extends AbstractMinion {
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
 return Collections.singletonList(new StrengthModifier(self, self, null, new CountCultureTokensEvaluator(Side.FREE_PEOPLE)));
 }
 }

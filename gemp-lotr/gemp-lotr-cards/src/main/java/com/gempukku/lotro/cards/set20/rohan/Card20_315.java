@@ -1,18 +1,15 @@
 package com.gempukku.lotro.cards.set20.rohan;
 
-import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
-import com.gempukku.lotro.logic.modifiers.AbstractExtraPlayCostModifier;
-import com.gempukku.lotro.logic.modifiers.cost.ExertExtraPlayCostModifier;
-import com.gempukku.lotro.logic.timing.PlayConditions;
-import com.gempukku.lotro.logic.actions.PlayPermanentAction;
-import com.gempukku.lotro.logic.effects.CommonEffects;
-import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.logic.modifiers.CantTakeMoreThanXWoundsModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.effects.CommonEffects;
+import com.gempukku.lotro.logic.modifiers.AbstractExtraPlayCostModifier;
+import com.gempukku.lotro.logic.modifiers.CantTakeMoreThanXWoundsModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
+import com.gempukku.lotro.logic.modifiers.cost.ExertExtraPlayCostModifier;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Arrays;
@@ -41,7 +38,7 @@ public class Card20_315 extends AbstractPermanent {
     }
 
         @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+        public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         return Arrays.asList(
                 new CantTakeMoreThanXWoundsModifier(self, Phase.SKIRMISH, 1, Culture.ROHAN, Race.MAN));
     }

@@ -1,28 +1,18 @@
 package com.gempukku.lotro.cards.set4;
 
-import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
-import com.gempukku.lotro.logic.timing.PlayConditions;
-import com.gempukku.lotro.logic.timing.TriggerConditions;
-import com.gempukku.lotro.logic.effects.AddBurdenEffect;
-import com.gempukku.lotro.logic.effects.NegateWoundEffect;
-import com.gempukku.lotro.logic.effects.PutOnTheOneRingEffect;
-import com.gempukku.lotro.logic.effects.TakeOffTheOneRingEffect;
-import com.gempukku.lotro.logic.modifiers.VitalityModifier;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
-import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
+import com.gempukku.lotro.logic.effects.*;
 import com.gempukku.lotro.logic.modifiers.*;
-import com.gempukku.lotro.logic.timing.Action;
-import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.*;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -46,7 +36,7 @@ public class Card4_001 extends AbstractAttachable {
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(
                 new VitalityModifier(self, Filters.hasAttached(self), 2));

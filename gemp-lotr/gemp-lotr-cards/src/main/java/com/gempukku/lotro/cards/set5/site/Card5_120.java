@@ -1,10 +1,10 @@
 package com.gempukku.lotro.cards.set5.site;
 
-import com.gempukku.lotro.common.SitesBlock;
-import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.ModifierFlag;
 import com.gempukku.lotro.logic.modifiers.SpecialFlagModifier;
@@ -27,7 +27,7 @@ public class Card5_120 extends AbstractSite {
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
                 new SpecialFlagModifier(self, ModifierFlag.WIN_CHECK_AFTER_SHADOW_RECONCILE));
     }

@@ -1,14 +1,14 @@
 package com.gempukku.lotro.cards.set40.gandalf;
 
-import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
-import com.gempukku.lotro.logic.modifiers.evaluator.CountSpottableEvaluator;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
+import com.gempukku.lotro.logic.modifiers.evaluator.CountSpottableEvaluator;
 
 import java.util.Collections;
 import java.util.List;
@@ -33,7 +33,7 @@ public class Card40_069 extends AbstractCompanion{
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         StrengthModifier modifier = new StrengthModifier(self, self, null,
                 new CountSpottableEvaluator(Race.HOBBIT, CardType.COMPANION));
         return Collections.singletonList(modifier);

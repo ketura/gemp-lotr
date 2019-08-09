@@ -1,13 +1,13 @@
 package com.gempukku.lotro.cards.set1.site;
 
-import com.gempukku.lotro.logic.cardtype.AbstractSite;
-import com.gempukku.lotro.logic.modifiers.ShouldSkipPhaseModifier;
-import com.gempukku.lotro.logic.modifiers.condition.CantSpotCondition;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.modifiers.Modifier;
+import com.gempukku.lotro.logic.modifiers.ShouldSkipPhaseModifier;
+import com.gempukku.lotro.logic.modifiers.condition.CantSpotCondition;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -27,7 +27,7 @@ public class Card1_330 extends AbstractSite {
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(
                 new ShouldSkipPhaseModifier(self, new CantSpotCondition(CardType.COMPANION, Filters.not(Race.HOBBIT)), Phase.ASSIGNMENT));

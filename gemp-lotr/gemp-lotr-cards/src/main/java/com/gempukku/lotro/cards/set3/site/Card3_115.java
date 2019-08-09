@@ -1,17 +1,17 @@
 package com.gempukku.lotro.cards.set3.site;
 
-import com.gempukku.lotro.common.SitesBlock;
-import com.gempukku.lotro.logic.cardtype.AbstractSite;
-import com.gempukku.lotro.logic.modifiers.condition.LocationCondition;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.Assignment;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.modifiers.AbstractModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.ModifierEffect;
+import com.gempukku.lotro.logic.modifiers.condition.LocationCondition;
 
 import java.util.Collections;
 import java.util.List;
@@ -34,7 +34,7 @@ public class Card3_115 extends AbstractSite {
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
                 new AbstractModifier(self, "No more than one minion may be assigned to each skirmish", null, new LocationCondition(Filters.name(getName())), ModifierEffect.ASSIGNMENT_MODIFIER) {
                     @Override

@@ -1,7 +1,5 @@
 package com.gempukku.lotro.cards.set40.isengard;
 
-import com.gempukku.lotro.logic.cardtype.AbstractMinion;
-import com.gempukku.lotro.logic.modifiers.ShouldSkipPhaseModifier;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
@@ -9,8 +7,10 @@ import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
+import com.gempukku.lotro.logic.modifiers.ShouldSkipPhaseModifier;
 import com.gempukku.lotro.logic.modifiers.SpotCondition;
 
 import java.util.Arrays;
@@ -36,7 +36,7 @@ public class Card40_148 extends AbstractMinion {
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         KeywordModifier fierce = new KeywordModifier(self, self,
                 new SpotCondition(Race.URUK_HAI, Filters.not(self)), Keyword.FIERCE, 1);
         ShouldSkipPhaseModifier skipArchery = new ShouldSkipPhaseModifier(self,

@@ -53,7 +53,7 @@ public interface LotroCardBlueprint {
 
     public boolean isAllyAtHome(int siteNumber, SitesBlock siteBlock);
 
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self);
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self);
 
     public List<? extends Modifier> getStackedOnModifiers(LotroGame game, PhysicalCard self);
 

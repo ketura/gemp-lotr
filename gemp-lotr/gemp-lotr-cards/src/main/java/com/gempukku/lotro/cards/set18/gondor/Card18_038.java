@@ -1,15 +1,15 @@
 package com.gempukku.lotro.cards.set18.gondor;
 
-import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
-import com.gempukku.lotro.logic.modifiers.condition.CanSpotFPCulturesCondition;
-import com.gempukku.lotro.logic.modifiers.condition.CanSpotShadowCulturesCondition;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
+import com.gempukku.lotro.logic.modifiers.condition.CanSpotFPCulturesCondition;
+import com.gempukku.lotro.logic.modifiers.condition.CanSpotShadowCulturesCondition;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -33,7 +33,7 @@ public class Card18_038 extends AbstractCompanion {
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(
                 new KeywordModifier(self, self, new CanSpotFPCulturesCondition(self.getOwner(), 3), Keyword.DEFENDER, 1));

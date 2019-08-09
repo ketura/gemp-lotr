@@ -1,14 +1,14 @@
 package com.gempukku.lotro.cards.set20.site;
 
-import com.gempukku.lotro.logic.cardtype.AbstractSite;
-import com.gempukku.lotro.logic.modifiers.ResistanceModifier;
-import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.modifiers.Modifier;
+import com.gempukku.lotro.logic.modifiers.ResistanceModifier;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 
 /**
@@ -24,7 +24,7 @@ public class Card20_468 extends AbstractSite {
     }
 
     @Override
-    public java.util.List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+    public java.util.List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         return java.util.Collections.singletonList(new ResistanceModifier(self, Filters.ringBearer,
                 new Evaluator() {
                     @Override

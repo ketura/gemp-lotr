@@ -1,8 +1,5 @@
 package com.gempukku.lotro.cards.set19.wraith;
 
-import com.gempukku.lotro.logic.cardtype.AbstractMinion;
-import com.gempukku.lotro.logic.modifiers.condition.AndCondition;
-import com.gempukku.lotro.logic.modifiers.condition.CanSpotTwilightCondition;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Names;
@@ -10,9 +7,12 @@ import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.SpotCondition;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
+import com.gempukku.lotro.logic.modifiers.condition.AndCondition;
+import com.gempukku.lotro.logic.modifiers.condition.CanSpotTwilightCondition;
 
 /**
  * Set: Ages End
@@ -33,7 +33,7 @@ public class Card19_035 extends AbstractMinion {
     }
 
     @Override
-    public java.util.List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+    public java.util.List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
 return java.util.Collections.singletonList(new StrengthModifier(self, self,
 new AndCondition(
 new CanSpotTwilightCondition(5),

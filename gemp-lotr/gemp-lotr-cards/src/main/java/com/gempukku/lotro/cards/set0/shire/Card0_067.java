@@ -1,15 +1,13 @@
 package com.gempukku.lotro.cards.set0.shire;
 
-import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
 import com.gempukku.lotro.logic.modifiers.AbstractModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.ModifierEffect;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
 import java.util.Collections;
 import java.util.List;
@@ -34,7 +32,7 @@ public class Card0_067 extends AbstractCompanion {
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, final PhysicalCard self) {
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, final PhysicalCard self) {
         return Collections.singletonList(
                 new AbstractModifier(self, "The cost of each artifact, possession, and [SHIRE] tale played on Frodo  is -1.", Filters.or(CardType.ARTIFACT, CardType.POSSESSION, Filters.and(Culture.SHIRE, Keyword.TALE)), ModifierEffect.TWILIGHT_COST_MODIFIER) {
                     @Override

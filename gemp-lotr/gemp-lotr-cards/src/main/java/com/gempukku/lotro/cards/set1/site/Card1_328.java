@@ -1,13 +1,13 @@
 package com.gempukku.lotro.cards.set1.site;
 
-import com.gempukku.lotro.logic.cardtype.AbstractSite;
-import com.gempukku.lotro.logic.modifiers.RoamingPenaltyModifier;
-import com.gempukku.lotro.logic.modifiers.condition.LocationCondition;
-import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.Race;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.modifiers.Modifier;
+import com.gempukku.lotro.logic.modifiers.RoamingPenaltyModifier;
+import com.gempukku.lotro.logic.modifiers.condition.LocationCondition;
 
 import java.util.Collections;
 import java.util.List;
@@ -25,7 +25,7 @@ public class Card1_328 extends AbstractSite {
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(new RoamingPenaltyModifier(self,
                 Race.NAZGUL, new LocationCondition(self), -2));
     }

@@ -1,14 +1,12 @@
 package com.gempukku.lotro.cards.set7.gondor;
 
-import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
 import com.gempukku.lotro.logic.modifiers.Condition;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 
 import java.util.Collections;
@@ -31,7 +29,7 @@ public class Card7_082 extends AbstractCompanion {
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(final LotroGame game, final PhysicalCard self) {
+    public List<? extends Modifier> getInPlayModifiers(final LotroGame game, final PhysicalCard self) {
         return Collections.singletonList(
                 new StrengthModifier(self, self, new Condition() {
                     @Override

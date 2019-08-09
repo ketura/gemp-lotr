@@ -1,11 +1,11 @@
 package com.gempukku.lotro.cards.set4.site;
 
-import com.gempukku.lotro.common.SitesBlock;
-import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.SpotCondition;
 import com.gempukku.lotro.logic.modifiers.TwilightCostModifier;
@@ -27,7 +27,7 @@ public class Card4_350 extends AbstractSite {
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
                 new TwilightCostModifier(self, self, new SpotCondition(Filters.aragorn), -2));
     }

@@ -1,16 +1,16 @@
 package com.gempukku.lotro.cards.set20.shire;
 
-import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
-import com.gempukku.lotro.logic.modifiers.condition.AndCondition;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.SpotCondition;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
+import com.gempukku.lotro.logic.modifiers.condition.AndCondition;
 
 /**
  * 0
@@ -24,7 +24,7 @@ public class Card20_404 extends AbstractPermanent {
     }
 
     @Override
-    public java.util.List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+    public java.util.List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
 return java.util.Collections.singletonList(new StrengthModifier(self, Filters.or(Filters.frodo, Filters.sam),
 new AndCondition(
 new SpotCondition(Filters.frodo, Filters.not(Filters.exhausted)),

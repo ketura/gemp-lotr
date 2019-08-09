@@ -1,11 +1,14 @@
 package com.gempukku.lotro.cards.set40.dwarven;
 
-import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
-import com.gempukku.lotro.logic.modifiers.CantExertWithCardModifier;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Race;
+import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.modifiers.CantExertWithCardModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.condition.CardStackedCondition;
 
@@ -28,7 +31,7 @@ public class Card40_029 extends AbstractPermanent{
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         CantExertWithCardModifier modifier = new CantExertWithCardModifier(
                 self, Side.SHADOW, new CardStackedCondition(3, self, Filters.any), Race.DWARF);
         return Collections.singletonList(modifier);

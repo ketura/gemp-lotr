@@ -1,18 +1,16 @@
 package com.gempukku.lotro.cards.set15.gollum;
 
-import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
-import com.gempukku.lotro.logic.modifiers.*;
-import com.gempukku.lotro.logic.modifiers.cost.AddBurdenExtraPlayCostModifier;
-import com.gempukku.lotro.logic.timing.PlayConditions;
-import com.gempukku.lotro.logic.actions.PlayPermanentAction;
-import com.gempukku.lotro.logic.effects.AddBurdenEffect;
-import com.gempukku.lotro.logic.effects.AddUntilEndOfPhaseModifierEffect;
-import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
+import com.gempukku.lotro.logic.effects.AddUntilEndOfPhaseModifierEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
+import com.gempukku.lotro.logic.modifiers.*;
+import com.gempukku.lotro.logic.modifiers.cost.AddBurdenExtraPlayCostModifier;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -44,7 +42,7 @@ public class Card15_049 extends AbstractCompanion {
     }
 
         @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+        public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         return Arrays.asList(
                 new ResistanceModifier(self, Filters.and(CardType.COMPANION, Keyword.RING_BOUND), 1));
     }

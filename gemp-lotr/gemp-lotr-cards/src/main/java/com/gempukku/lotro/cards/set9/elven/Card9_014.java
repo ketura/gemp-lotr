@@ -1,8 +1,5 @@
 package com.gempukku.lotro.cards.set9.elven;
 
-import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
-import com.gempukku.lotro.logic.modifiers.ResistanceModifier;
-import com.gempukku.lotro.logic.modifiers.evaluator.CountActiveEvaluator;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -10,7 +7,10 @@ import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
 import com.gempukku.lotro.logic.modifiers.Modifier;
+import com.gempukku.lotro.logic.modifiers.ResistanceModifier;
+import com.gempukku.lotro.logic.modifiers.evaluator.CountActiveEvaluator;
 
 import java.util.Collections;
 import java.util.List;
@@ -34,7 +34,7 @@ public class Card9_014 extends AbstractCompanion {
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
                 new ResistanceModifier(self, Filters.and(self, Filters.hasAttached(Filters.or(CardType.THE_ONE_RING, CardType.ARTIFACT))), new CountActiveEvaluator(Culture.ELVEN, CardType.COMPANION)));
     }

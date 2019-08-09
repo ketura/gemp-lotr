@@ -1,15 +1,13 @@
 package com.gempukku.lotro.cards.set9.dwarven;
 
-import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
 import com.gempukku.lotro.logic.modifiers.AbstractModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.ModifierEffect;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.condition.PhaseCondition;
 import com.gempukku.lotro.logic.timing.Action;
 
@@ -33,7 +31,7 @@ public class Card9_010 extends AbstractCompanion {
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(final LotroGame game, PhysicalCard self) {
+    public List<? extends Modifier> getInPlayModifiers(final LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
                 new AbstractModifier(self, null, Filters.and(Culture.DWARVEN, CardType.EVENT, Keyword.SKIRMISH, Filters.stackedOn(Culture.DWARVEN, CardType.CONDITION)), new PhaseCondition(Phase.SKIRMISH), ModifierEffect.EXTRA_ACTION_MODIFIER) {
                     @Override

@@ -1,14 +1,14 @@
 package com.gempukku.lotro.cards.set40.moria;
 
-import com.gempukku.lotro.logic.cardtype.AbstractMinion;
-import com.gempukku.lotro.logic.modifiers.CantBeAssignedAgainstModifier;
-import com.gempukku.lotro.logic.modifiers.ShouldSkipPhaseModifier;
-import com.gempukku.lotro.logic.modifiers.condition.LocationCondition;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
+import com.gempukku.lotro.logic.modifiers.CantBeAssignedAgainstModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
+import com.gempukku.lotro.logic.modifiers.ShouldSkipPhaseModifier;
+import com.gempukku.lotro.logic.modifiers.condition.LocationCondition;
 
 import java.util.Arrays;
 import java.util.List;
@@ -35,7 +35,7 @@ public class Card40_156 extends AbstractMinion {
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         ShouldSkipPhaseModifier skipManeuver = new ShouldSkipPhaseModifier(self, new LocationCondition(Keyword.UNDERGROUND), Phase.MANEUVER);
         ShouldSkipPhaseModifier skipArchery = new ShouldSkipPhaseModifier(self, new LocationCondition(Keyword.UNDERGROUND), Phase.ARCHERY);
         CantBeAssignedAgainstModifier assignment = new CantBeAssignedAgainstModifier(self, null,

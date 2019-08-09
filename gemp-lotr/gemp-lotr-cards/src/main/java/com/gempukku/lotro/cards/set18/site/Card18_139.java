@@ -1,14 +1,10 @@
 package com.gempukku.lotro.cards.set18.site;
 
-import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
-import com.gempukku.lotro.logic.modifiers.CantHealModifier;
-import com.gempukku.lotro.logic.modifiers.CantRemoveBurdensModifier;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifierFlag;
-import com.gempukku.lotro.logic.modifiers.SpecialFlagModifier;
+import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
+import com.gempukku.lotro.logic.modifiers.*;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -25,7 +21,7 @@ public class Card18_139 extends AbstractShadowsSite {
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(
                 new SpecialFlagModifier(self, ModifierFlag.CANT_PREVENT_WOUNDS));

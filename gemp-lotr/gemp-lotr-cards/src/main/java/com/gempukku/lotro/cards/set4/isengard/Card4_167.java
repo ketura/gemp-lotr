@@ -1,13 +1,13 @@
 package com.gempukku.lotro.cards.set4.isengard;
 
-import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
-import com.gempukku.lotro.logic.modifiers.SidePlayerCantPlayPhaseEventsOrSpecialAbilitiesModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
 import com.gempukku.lotro.logic.modifiers.Modifier;
+import com.gempukku.lotro.logic.modifiers.SidePlayerCantPlayPhaseEventsOrSpecialAbilitiesModifier;
 import com.gempukku.lotro.logic.modifiers.SpotCondition;
 
 import java.util.Collections;
@@ -33,7 +33,7 @@ public class Card4_167 extends AbstractAttachable {
     }
 
     @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, final PhysicalCard self) {
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, final PhysicalCard self) {
         return Collections.singletonList(
                 new SidePlayerCantPlayPhaseEventsOrSpecialAbilitiesModifier(self,
                         new SpotCondition(Filters.hasAttached(self), Filters.hasStacked(Race.URUK_HAI)), Side.FREE_PEOPLE, Phase.SKIRMISH));
