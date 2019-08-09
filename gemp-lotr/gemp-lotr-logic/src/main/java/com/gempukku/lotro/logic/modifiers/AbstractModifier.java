@@ -378,4 +378,9 @@ public abstract class AbstractModifier implements Modifier {
     public int getSanctuaryHealModifier(GameState gameState, ModifiersQuerying modifiersQuerying) {
         return 0;
     }
+
+    @Override
+    public int getPotentialDiscount(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard discountCard) {
+        return 0;
+    }
 }

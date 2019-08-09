@@ -1070,6 +1070,16 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
         return result;
     }
 
+    @Override
+    public int getPotentialDiscount(GameState gameState, PhysicalCard playedCard) {
+        int result = 0;
+        for (Modifier modifier : getModifiers(gameState, ModifierEffect.POTENTIAL_DISCOUNT_MODIFIER)) {
+            result+=modifier.getPotentialDiscount(gameState, this, playedCard);
+        }
+
+        return result;
+    }
+
     private class ModifierHookImpl implements ModifierHook {
         private Modifier _modifier;
 

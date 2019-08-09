@@ -151,4 +151,6 @@ public interface Modifier {
     public int getFPCulturesSpotCountModifier(GameState gameState, ModifiersQuerying modifiersQuerying, String playerId);
 
     int getSanctuaryHealModifier(GameState gameState, ModifiersQuerying modifiersQuerying);
+
+    int getPotentialDiscount(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard discountCard);
 }

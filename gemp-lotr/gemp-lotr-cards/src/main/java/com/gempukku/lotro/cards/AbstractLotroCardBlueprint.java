@@ -45,9 +45,8 @@ public abstract class AbstractLotroCardBlueprint implements LotroCardBlueprint {
         if (!game.getModifiersQuerying().canPayExtraCostsToPlay(game.getGameState(), self))
             return false;
 
-        int toilCount = game.getModifiersQuerying().getKeywordCount(game.getGameState(), self, Keyword.TOIL);
-        if (toilCount > 0)
-            twilightModifier -= toilCount * Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.owner(playerId), getCulture(), Filters.character, Filters.canExert(self));
+        twilightModifier-= game.getModifiersQuerying().getPotentialDiscount(game.getGameState(), self);
+
         return (getSide() != Side.SHADOW || PlayConditions.canPayForShadowCard(game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty));
     }
 
