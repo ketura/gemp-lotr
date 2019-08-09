@@ -1,8 +1,8 @@
 package com.gempukku.lotro.cards.set20.moria;
 
-import com.gempukku.lotro.cards.AbstractAttachable;
-import com.gempukku.lotro.cards.modifiers.CantExertWithCardModifier;
-import com.gempukku.lotro.cards.modifiers.CantWoundWithCardModifier;
+import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
+import com.gempukku.lotro.logic.modifiers.CantExertWithCardModifier;
+import com.gempukku.lotro.logic.modifiers.CantWoundWithCardModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;

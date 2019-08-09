@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set2.gandalf;
 
-import com.gempukku.lotro.cards.AbstractAlly;
+import com.gempukku.lotro.logic.cardtype.AbstractAlly;
 import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.PossessionClass;

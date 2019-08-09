@@ -1,7 +1,7 @@
 package com.gempukku.lotro.at;
 
-import com.gempukku.lotro.cards.modifiers.MinionSiteNumberModifier;
-import com.gempukku.lotro.cards.modifiers.RoamingPenaltyModifier;
+import com.gempukku.lotro.logic.modifiers.MinionSiteNumberModifier;
+import com.gempukku.lotro.logic.modifiers.RoamingPenaltyModifier;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Zone;

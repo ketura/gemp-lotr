@@ -1,8 +1,8 @@
 package com.gempukku.lotro.cards.set18.uruk_hai;
 
-import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.modifiers.conditions.AndCondition;
-import com.gempukku.lotro.cards.modifiers.conditions.NotCondition;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
+import com.gempukku.lotro.logic.modifiers.conditions.AndCondition;
+import com.gempukku.lotro.logic.modifiers.conditions.NotCondition;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;

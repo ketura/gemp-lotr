@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set20.sauron;
 
-import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.modifiers.PlayersCantUseCardPhaseSpecialAbilitiesModifier;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
+import com.gempukku.lotro.logic.modifiers.PlayersCantUseCardPhaseSpecialAbilitiesModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.game.PhysicalCard;

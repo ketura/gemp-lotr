@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set20.shire;
 
-import com.gempukku.lotro.cards.AbstractCompanion;
+import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.PossessionClass;

@@ -1,8 +1,8 @@
 package com.gempukku.lotro.cards.set20.elven;
 
-import com.gempukku.lotro.cards.AbstractCompanion;
-import com.gempukku.lotro.cards.modifiers.ArcheryTotalModifier;
-import com.gempukku.lotro.cards.modifiers.conditions.LocationCondition;
+import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
+import com.gempukku.lotro.logic.modifiers.ArcheryTotalModifier;
+import com.gempukku.lotro.logic.modifiers.conditions.LocationCondition;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;

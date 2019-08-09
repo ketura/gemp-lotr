@@ -1,9 +1,9 @@
 package com.gempukku.lotro.cards.set14.men;
 
-import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.AddUntilEndOfTurnModifierEffect;
-import com.gempukku.lotro.cards.modifiers.MoveLimitModifier;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.effects.AddUntilEndOfTurnModifierEffect;
+import com.gempukku.lotro.logic.modifiers.MoveLimitModifier;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;

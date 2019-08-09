@@ -1,8 +1,8 @@
 package com.gempukku.lotro.cards.set2.gondor;
 
-import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
-import com.gempukku.lotro.cards.modifiers.ArcheryTotalModifier;
-import com.gempukku.lotro.cards.modifiers.CancelStrengthBonusTargetModifier;
+import com.gempukku.lotro.logic.cardtype.AbstractAttachableFPPossession;
+import com.gempukku.lotro.logic.modifiers.ArcheryTotalModifier;
+import com.gempukku.lotro.logic.modifiers.CancelStrengthBonusTargetModifier;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.PossessionClass;

@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set2.gandalf;
 
-import com.gempukku.lotro.cards.AbstractAlly;
-import com.gempukku.lotro.cards.modifiers.ShadowPlayersCantLookAtYourHandModifier;
+import com.gempukku.lotro.logic.cardtype.AbstractAlly;
+import com.gempukku.lotro.logic.modifiers.ShadowPlayersCantLookAtYourHandModifier;
 import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;

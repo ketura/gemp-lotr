@@ -1,9 +1,9 @@
 package com.gempukku.lotro.cards.set31.dwarven;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.PutCardFromStackedIntoHandEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndStackCardsFromHandEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.effects.PutCardFromStackedIntoHandEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndStackCardsFromHandEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -17,7 +17,6 @@ import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
 /**

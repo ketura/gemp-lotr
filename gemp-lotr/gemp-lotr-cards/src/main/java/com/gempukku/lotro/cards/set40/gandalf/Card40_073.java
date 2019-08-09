@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set40.gandalf;
 
-import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
+import com.gempukku.lotro.logic.cardtype.AbstractAttachableFPPossession;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
@@ -11,7 +11,6 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 
 /**

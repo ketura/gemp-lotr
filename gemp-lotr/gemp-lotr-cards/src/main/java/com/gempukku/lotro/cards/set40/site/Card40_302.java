@@ -1,10 +1,10 @@
 package com.gempukku.lotro.cards.set40.site;
 
-import com.gempukku.lotro.cards.AbstractSite;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.AddUntilEndOfTurnModifierEffect;
-import com.gempukku.lotro.cards.modifiers.MoveLimitModifier;
+import com.gempukku.lotro.logic.cardtype.AbstractSite;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.effects.AddUntilEndOfTurnModifierEffect;
+import com.gempukku.lotro.logic.modifiers.MoveLimitModifier;
 import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
@@ -15,7 +15,6 @@ import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
-import javax.swing.text.html.Option;
 import java.util.Collections;
 import java.util.List;
 

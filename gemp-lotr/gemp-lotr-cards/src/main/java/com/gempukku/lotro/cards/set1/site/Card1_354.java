@@ -1,8 +1,8 @@
 package com.gempukku.lotro.cards.set1.site;
 
-import com.gempukku.lotro.cards.AbstractSite;
-import com.gempukku.lotro.cards.modifiers.ShouldSkipPhaseModifier;
-import com.gempukku.lotro.cards.modifiers.conditions.LocationCondition;
+import com.gempukku.lotro.logic.cardtype.AbstractSite;
+import com.gempukku.lotro.logic.modifiers.ShouldSkipPhaseModifier;
+import com.gempukku.lotro.logic.modifiers.conditions.LocationCondition;
 import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;

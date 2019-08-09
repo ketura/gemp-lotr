@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set11.gandalf;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;

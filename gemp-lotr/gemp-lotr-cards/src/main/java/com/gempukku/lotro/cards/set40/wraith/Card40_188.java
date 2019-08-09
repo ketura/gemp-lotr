@@ -1,11 +1,11 @@
 package com.gempukku.lotro.cards.set40.wraith;
 
-import com.gempukku.lotro.cards.AbstractEvent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.AddBurdenEffect;
-import com.gempukku.lotro.cards.effects.PreventableEffect;
-import com.gempukku.lotro.cards.effects.TakeOffTheOneRingEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.effects.AddBurdenEffect;
+import com.gempukku.lotro.logic.effects.PreventableEffect;
+import com.gempukku.lotro.logic.effects.TakeOffTheOneRingEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
@@ -18,8 +18,6 @@ import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.effects.CorruptRingBearerEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.Effect;
-
-import java.util.Collections;
 
 /**
  * Title: Its Master's Call

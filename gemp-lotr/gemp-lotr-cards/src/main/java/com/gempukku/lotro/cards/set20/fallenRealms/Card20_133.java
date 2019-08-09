@@ -1,10 +1,10 @@
 package com.gempukku.lotro.cards.set20.fallenRealms;
 
-import com.gempukku.lotro.cards.AbstractEvent;
-import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
-import com.gempukku.lotro.cards.modifiers.evaluator.ForEachTwilightEvaluator;
-import com.gempukku.lotro.cards.modifiers.evaluator.LimitEvaluator;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
+import com.gempukku.lotro.logic.modifiers.evaluator.ForEachTwilightEvaluator;
+import com.gempukku.lotro.logic.modifiers.evaluator.LimitEvaluator;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;

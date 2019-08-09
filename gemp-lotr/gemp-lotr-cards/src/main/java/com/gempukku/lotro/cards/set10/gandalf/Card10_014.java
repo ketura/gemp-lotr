@@ -1,12 +1,12 @@
 package com.gempukku.lotro.cards.set10.gandalf;
 
-import com.gempukku.lotro.cards.AbstractEvent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.ChoiceEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseCardsFromDeadPileEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseCardsFromDiscardEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseCardsFromHandEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.effects.ChoiceEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseCardsFromDeadPileEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseCardsFromDiscardEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseCardsFromHandEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;

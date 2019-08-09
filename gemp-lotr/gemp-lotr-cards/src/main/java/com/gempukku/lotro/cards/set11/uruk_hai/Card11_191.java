@@ -1,8 +1,8 @@
 package com.gempukku.lotro.cards.set11.uruk_hai;
 
-import com.gempukku.lotro.cards.AbstractAttachable;
-import com.gempukku.lotro.cards.modifiers.VitalityModifier;
-import com.gempukku.lotro.cards.modifiers.conditions.LocationCondition;
+import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
+import com.gempukku.lotro.logic.modifiers.VitalityModifier;
+import com.gempukku.lotro.logic.modifiers.conditions.LocationCondition;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;

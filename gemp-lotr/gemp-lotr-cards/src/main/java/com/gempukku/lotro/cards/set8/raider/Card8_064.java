@@ -1,9 +1,9 @@
 package com.gempukku.lotro.cards.set8.raider;
 
-import com.gempukku.lotro.cards.AbstractAttachable;
-import com.gempukku.lotro.cards.modifiers.conditions.InitiativeCondition;
-import com.gempukku.lotro.cards.modifiers.conditions.MinThreatCondition;
-import com.gempukku.lotro.cards.modifiers.conditions.OrCondition;
+import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
+import com.gempukku.lotro.logic.modifiers.conditions.InitiativeCondition;
+import com.gempukku.lotro.logic.modifiers.conditions.MinThreatCondition;
+import com.gempukku.lotro.logic.modifiers.conditions.OrCondition;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;

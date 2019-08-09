@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set17.site;
 
-import com.gempukku.lotro.cards.AbstractNewSite;
+import com.gempukku.lotro.logic.cardtype.AbstractNewSite;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.filters.Filters;

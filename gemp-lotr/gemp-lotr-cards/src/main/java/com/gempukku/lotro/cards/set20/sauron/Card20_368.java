@@ -1,8 +1,8 @@
 package com.gempukku.lotro.cards.set20.sauron;
 
-import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.modifiers.evaluator.CountFPCulturesEvaluator;
-import com.gempukku.lotro.cards.modifiers.evaluator.MultiplyEvaluator;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
+import com.gempukku.lotro.logic.modifiers.evaluator.CountFPCulturesEvaluator;
+import com.gempukku.lotro.logic.modifiers.evaluator.MultiplyEvaluator;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.game.PhysicalCard;

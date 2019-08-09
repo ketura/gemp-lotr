@@ -1,8 +1,8 @@
 package com.gempukku.lotro.cards.set18.men;
 
-import com.gempukku.lotro.cards.AbstractAttachable;
-import com.gempukku.lotro.cards.modifiers.evaluator.CountCultureTokensEvaluator;
-import com.gempukku.lotro.cards.modifiers.evaluator.LimitEvaluator;
+import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
+import com.gempukku.lotro.logic.modifiers.evaluator.CountCultureTokensEvaluator;
+import com.gempukku.lotro.logic.modifiers.evaluator.LimitEvaluator;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;

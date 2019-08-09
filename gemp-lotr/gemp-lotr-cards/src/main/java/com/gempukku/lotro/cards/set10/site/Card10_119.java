@@ -1,8 +1,8 @@
 package com.gempukku.lotro.cards.set10.site;
 
-import com.gempukku.lotro.cards.AbstractSite;
-import com.gempukku.lotro.cards.modifiers.CantHealModifier;
-import com.gempukku.lotro.cards.modifiers.CantRemoveBurdensModifier;
+import com.gempukku.lotro.logic.cardtype.AbstractSite;
+import com.gempukku.lotro.logic.modifiers.CantHealModifier;
+import com.gempukku.lotro.logic.modifiers.CantRemoveBurdensModifier;
 import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;

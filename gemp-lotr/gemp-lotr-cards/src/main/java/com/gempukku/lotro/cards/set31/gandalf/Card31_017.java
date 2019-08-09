@@ -1,12 +1,12 @@
 package com.gempukku.lotro.cards.set31.gandalf;
 
-import com.gempukku.lotro.cards.AbstractAlly;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.AddUntilEndOfTurnModifierEffect;
-import com.gempukku.lotro.cards.effects.OptionalEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromDiscardEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseOpponentEffect;
-import com.gempukku.lotro.cards.modifiers.MoveLimitModifier;
+import com.gempukku.lotro.logic.cardtype.AbstractAlly;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.effects.AddUntilEndOfTurnModifierEffect;
+import com.gempukku.lotro.logic.effects.OptionalEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDiscardEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseOpponentEffect;
+import com.gempukku.lotro.logic.modifiers.MoveLimitModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;

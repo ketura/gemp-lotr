@@ -1,10 +1,10 @@
 package com.gempukku.lotro.cards.set40.sauron;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.modifiers.MinionSiteNumberModifier;
-import com.gempukku.lotro.cards.modifiers.conditions.MinThreatCondition;
-import com.gempukku.lotro.cards.modifiers.evaluator.ForEachThreatEvaluator;
-import com.gempukku.lotro.cards.modifiers.evaluator.NegativeEvaluator;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.modifiers.MinionSiteNumberModifier;
+import com.gempukku.lotro.logic.modifiers.conditions.MinThreatCondition;
+import com.gempukku.lotro.logic.modifiers.evaluator.ForEachThreatEvaluator;
+import com.gempukku.lotro.logic.modifiers.evaluator.NegativeEvaluator;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -13,7 +13,6 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 /**

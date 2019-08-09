@@ -1,9 +1,9 @@
 package com.gempukku.lotro.cards.set40.moria;
 
-import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.modifiers.CantBeAssignedAgainstModifier;
-import com.gempukku.lotro.cards.modifiers.ShouldSkipPhaseModifier;
-import com.gempukku.lotro.cards.modifiers.conditions.LocationCondition;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
+import com.gempukku.lotro.logic.modifiers.CantBeAssignedAgainstModifier;
+import com.gempukku.lotro.logic.modifiers.ShouldSkipPhaseModifier;
+import com.gempukku.lotro.logic.modifiers.conditions.LocationCondition;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;

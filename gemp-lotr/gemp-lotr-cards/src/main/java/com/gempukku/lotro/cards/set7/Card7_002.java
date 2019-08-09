@@ -1,12 +1,12 @@
 package com.gempukku.lotro.cards.set7;
 
-import com.gempukku.lotro.cards.AbstractAttachable;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.AddBurdenEffect;
-import com.gempukku.lotro.cards.effects.NegateWoundEffect;
-import com.gempukku.lotro.cards.effects.PutOnTheOneRingEffect;
-import com.gempukku.lotro.cards.effects.TakeOffTheOneRingEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.effects.AddBurdenEffect;
+import com.gempukku.lotro.logic.effects.NegateWoundEffect;
+import com.gempukku.lotro.logic.effects.PutOnTheOneRingEffect;
+import com.gempukku.lotro.logic.effects.TakeOffTheOneRingEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;

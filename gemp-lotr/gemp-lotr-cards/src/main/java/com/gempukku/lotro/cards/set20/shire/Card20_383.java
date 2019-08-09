@@ -1,10 +1,10 @@
 package com.gempukku.lotro.cards.set20.shire;
 
-import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.decisions.ForEachYouSpotDecision;
-import com.gempukku.lotro.cards.effects.ShuffleCardsFromDiscardIntoDeckEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractAttachableFPPossession;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.decisions.ForEachYouSpotDecision;
+import com.gempukku.lotro.logic.effects.ShuffleCardsFromDiscardIntoDeckEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;

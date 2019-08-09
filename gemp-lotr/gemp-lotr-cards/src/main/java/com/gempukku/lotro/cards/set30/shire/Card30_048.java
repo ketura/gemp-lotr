@@ -1,16 +1,14 @@
 package com.gempukku.lotro.cards.set30.shire;
 
-import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.AddBurdenEffect;
-import com.gempukku.lotro.cards.effects.NegateWoundEffect;
-import com.gempukku.lotro.cards.effects.PutOnTheOneRingEffect;
-import com.gempukku.lotro.cards.effects.TakeOffTheOneRingEffect;
-import com.gempukku.lotro.cards.modifiers.VitalityModifier;
-import com.gempukku.lotro.cards.modifiers.ResistanceModifier;
+import com.gempukku.lotro.logic.cardtype.AbstractAttachableFPPossession;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.effects.AddBurdenEffect;
+import com.gempukku.lotro.logic.effects.NegateWoundEffect;
+import com.gempukku.lotro.logic.effects.PutOnTheOneRingEffect;
+import com.gempukku.lotro.logic.effects.TakeOffTheOneRingEffect;
+import com.gempukku.lotro.logic.modifiers.ResistanceModifier;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;

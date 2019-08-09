@@ -1,8 +1,8 @@
 package com.gempukku.lotro.cards.set17.rohan;
 
-import com.gempukku.lotro.cards.AbstractCompanion;
-import com.gempukku.lotro.cards.modifiers.CancelKeywordBonusTargetModifier;
-import com.gempukku.lotro.cards.modifiers.CancelStrengthBonusTargetModifier;
+import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
+import com.gempukku.lotro.logic.modifiers.CancelKeywordBonusTargetModifier;
+import com.gempukku.lotro.logic.modifiers.CancelStrengthBonusTargetModifier;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;

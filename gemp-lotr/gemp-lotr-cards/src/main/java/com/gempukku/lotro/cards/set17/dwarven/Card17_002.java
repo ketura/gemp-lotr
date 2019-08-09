@@ -1,12 +1,12 @@
 package com.gempukku.lotro.cards.set17.dwarven;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.AddTokenEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndRemoveFromTheGameCardsInDiscardEffect;
-import com.gempukku.lotro.cards.modifiers.AbstractExtraPlayCostModifier;
-import com.gempukku.lotro.cards.modifiers.conditions.AndCondition;
-import com.gempukku.lotro.cards.modifiers.conditions.CanSpotCultureTokensCondition;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.effects.AddTokenEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndRemoveFromTheGameCardsInDiscardEffect;
+import com.gempukku.lotro.logic.modifiers.AbstractExtraPlayCostModifier;
+import com.gempukku.lotro.logic.modifiers.conditions.AndCondition;
+import com.gempukku.lotro.logic.modifiers.conditions.CanSpotCultureTokensCondition;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;

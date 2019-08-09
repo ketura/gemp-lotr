@@ -1,9 +1,9 @@
 package com.gempukku.lotro.cards.set13.sauron;
 
-import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.actions.PlayPermanentAction;
-import com.gempukku.lotro.cards.effects.DiscountEffect;
-import com.gempukku.lotro.cards.effects.discount.ExertCharactersDiscountEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
+import com.gempukku.lotro.logic.actions.PlayPermanentAction;
+import com.gempukku.lotro.logic.effects.DiscountEffect;
+import com.gempukku.lotro.logic.effects.discount.ExertCharactersDiscountEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;

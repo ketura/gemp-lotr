@@ -1,8 +1,8 @@
 package com.gempukku.lotro.cards.set10.dwarven;
 
-import com.gempukku.lotro.cards.AbstractResponseEvent;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.actions.PlayEventAction;
+import com.gempukku.lotro.logic.cardtype.AbstractResponseEvent;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
@@ -13,7 +13,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.effects.ChooseAndWoundCharactersEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
-import com.gempukku.lotro.logic.timing.actions.ResolveSkirmishDamageAction;
+import com.gempukku.lotro.logic.actions.ResolveSkirmishDamageAction;
 
 import java.util.Collections;
 import java.util.List;

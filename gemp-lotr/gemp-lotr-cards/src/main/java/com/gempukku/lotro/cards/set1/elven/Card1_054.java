@@ -1,9 +1,9 @@
 package com.gempukku.lotro.cards.set1.elven;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.PutCardFromHandOnBottomOfDeckEffect;
-import com.gempukku.lotro.cards.effects.RevealCardsFromYourHandEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.effects.PutCardFromHandOnBottomOfDeckEffect;
+import com.gempukku.lotro.logic.effects.RevealCardsFromYourHandEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;

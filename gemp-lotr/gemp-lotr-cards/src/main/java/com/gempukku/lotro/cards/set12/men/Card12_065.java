@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set12.men;
 
-import com.gempukku.lotro.cards.AbstractMinion;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;

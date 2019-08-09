@@ -1,10 +1,10 @@
 package com.gempukku.lotro.cards.set0.gondor;
 
-import com.gempukku.lotro.cards.AbstractCompanion;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.SnapshotAndApplyStrengthModifierUntilEndOfCurrentPhaseEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndPlayCardFromHandEffect;
-import com.gempukku.lotro.cards.modifiers.evaluator.VitalityEvaluator;
+import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.effects.SnapshotAndApplyStrengthModifierUntilEndOfCurrentPhaseEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromHandEffect;
+import com.gempukku.lotro.logic.modifiers.evaluator.VitalityEvaluator;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;

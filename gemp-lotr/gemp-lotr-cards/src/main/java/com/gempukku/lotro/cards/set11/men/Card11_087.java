@@ -1,9 +1,9 @@
 package com.gempukku.lotro.cards.set11.men;
 
-import com.gempukku.lotro.cards.AbstractAttachable;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.modifiers.CancelKeywordBonusTargetModifier;
-import com.gempukku.lotro.cards.modifiers.CancelStrengthBonusTargetModifier;
+import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.modifiers.CancelKeywordBonusTargetModifier;
+import com.gempukku.lotro.logic.modifiers.CancelStrengthBonusTargetModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;

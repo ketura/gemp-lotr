@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set0.shire;
 
-import com.gempukku.lotro.cards.AbstractCompanion;
+import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;

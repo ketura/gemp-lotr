@@ -1,8 +1,8 @@
 package com.gempukku.lotro.cards.set19.shire;
 
-import com.gempukku.lotro.cards.AbstractCompanion;
-import com.gempukku.lotro.cards.modifiers.CantDiscardCardsFromHandOrTopOfDeckModifier;
-import com.gempukku.lotro.cards.modifiers.MaxThreatCondition;
+import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
+import com.gempukku.lotro.logic.modifiers.CantDiscardCardsFromHandOrTopOfDeckModifier;
+import com.gempukku.lotro.logic.modifiers.MaxThreatCondition;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;

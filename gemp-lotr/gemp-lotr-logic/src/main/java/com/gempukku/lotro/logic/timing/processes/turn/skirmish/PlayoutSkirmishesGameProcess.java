@@ -11,7 +11,7 @@ import com.gempukku.lotro.logic.PlayOrder;
 import com.gempukku.lotro.logic.actions.SystemQueueAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.modifiers.ModifierFlag;
-import com.gempukku.lotro.logic.timing.actions.SkirmishPhaseAction;
+import com.gempukku.lotro.logic.actions.SkirmishPhaseAction;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
 
 import java.util.HashSet;

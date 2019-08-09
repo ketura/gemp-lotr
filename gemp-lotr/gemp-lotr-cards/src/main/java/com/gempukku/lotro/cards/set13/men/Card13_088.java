@@ -1,9 +1,9 @@
 package com.gempukku.lotro.cards.set13.men;
 
-import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.actions.PlayPermanentAction;
-import com.gempukku.lotro.cards.effects.DiscountEffect;
-import com.gempukku.lotro.cards.modifiers.conditions.NotCondition;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
+import com.gempukku.lotro.logic.actions.PlayPermanentAction;
+import com.gempukku.lotro.logic.effects.DiscountEffect;
+import com.gempukku.lotro.logic.modifiers.conditions.NotCondition;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;

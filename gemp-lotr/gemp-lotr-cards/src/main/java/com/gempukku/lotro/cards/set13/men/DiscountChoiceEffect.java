@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set13.men;
 
-import com.gempukku.lotro.cards.effects.DiscountEffect;
+import com.gempukku.lotro.logic.effects.DiscountEffect;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.AbstractCostToEffectAction;
 import com.gempukku.lotro.logic.decisions.YesNoDecision;

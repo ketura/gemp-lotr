@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set2.dwarven;
 
-import com.gempukku.lotro.cards.AbstractCompanion;
+import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filter;

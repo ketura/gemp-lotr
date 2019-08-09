@@ -1,21 +1,15 @@
 package com.gempukku.lotro.cards.set40.gondor;
 
-import com.gempukku.lotro.cards.AbstractEvent;
-import com.gempukku.lotro.cards.actions.PlayEventAction;
-import com.gempukku.lotro.cards.effects.ChoiceEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
-import com.gempukku.lotro.cards.modifiers.conditions.FierceSkirmishCondition;
-import com.gempukku.lotro.cards.modifiers.evaluator.ConditionEvaluator;
-import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
+import com.gempukku.lotro.logic.modifiers.conditions.FierceSkirmishCondition;
+import com.gempukku.lotro.logic.modifiers.evaluator.ConditionEvaluator;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.timing.Effect;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Title: Sentinels of Numenor

@@ -1,9 +1,9 @@
 package com.gempukku.lotro.at.effects;
 
 import com.gempukku.lotro.at.AbstractAtTest;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.NegateWoundEffect;
-import com.gempukku.lotro.cards.effects.PreventCardEffect;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.effects.NegateWoundEffect;
+import com.gempukku.lotro.logic.effects.PreventCardEffect;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.AbstractActionProxy;
 import com.gempukku.lotro.game.CardNotFoundException;

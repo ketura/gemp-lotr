@@ -1,10 +1,10 @@
 package com.gempukku.lotro.cards.set6.isengard;
 
-import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.DiscardStackedCardsEffect;
-import com.gempukku.lotro.cards.effects.ExhaustCharacterEffect;
-import com.gempukku.lotro.cards.effects.RemoveTwilightEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.effects.DiscardStackedCardsEffect;
+import com.gempukku.lotro.logic.effects.ExhaustCharacterEffect;
+import com.gempukku.lotro.logic.effects.RemoveTwilightEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;

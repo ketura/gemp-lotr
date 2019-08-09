@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set6.dunland;
 
-import com.gempukku.lotro.cards.AbstractMinion;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;

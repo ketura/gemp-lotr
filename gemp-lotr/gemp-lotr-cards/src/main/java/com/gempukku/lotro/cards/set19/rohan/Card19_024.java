@@ -1,9 +1,9 @@
 package com.gempukku.lotro.cards.set19.rohan;
 
-import com.gempukku.lotro.cards.AbstractAttachable;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.ReturnCardsToHandEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndTransferAttachableEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.effects.ReturnCardsToHandEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndTransferAttachableEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;

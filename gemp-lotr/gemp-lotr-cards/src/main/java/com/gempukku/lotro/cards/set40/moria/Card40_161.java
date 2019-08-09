@@ -1,8 +1,7 @@
 package com.gempukku.lotro.cards.set40.moria;
 
-import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.modifiers.evaluator.CountSpottableEvaluator;
-import com.gempukku.lotro.cards.set40.isengard.Card40_130;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
+import com.gempukku.lotro.logic.modifiers.evaluator.CountSpottableEvaluator;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.game.PhysicalCard;

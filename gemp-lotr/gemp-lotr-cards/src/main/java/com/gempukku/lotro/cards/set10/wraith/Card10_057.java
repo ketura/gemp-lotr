@@ -1,8 +1,8 @@
 package com.gempukku.lotro.cards.set10.wraith;
 
-import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.modifiers.CancelKeywordBonusTargetModifier;
-import com.gempukku.lotro.cards.modifiers.CancelStrengthBonusTargetModifier;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
+import com.gempukku.lotro.logic.modifiers.CancelKeywordBonusTargetModifier;
+import com.gempukku.lotro.logic.modifiers.CancelStrengthBonusTargetModifier;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;

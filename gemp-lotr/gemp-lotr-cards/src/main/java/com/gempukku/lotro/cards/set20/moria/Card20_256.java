@@ -1,9 +1,9 @@
 package com.gempukku.lotro.cards.set20.moria;
 
-import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.actions.PlayPermanentAction;
-import com.gempukku.lotro.cards.effects.DiscountEffect;
-import com.gempukku.lotro.cards.effects.discount.DiscardCardFromHandDiscountEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
+import com.gempukku.lotro.logic.actions.PlayPermanentAction;
+import com.gempukku.lotro.logic.effects.DiscountEffect;
+import com.gempukku.lotro.logic.effects.discount.DiscardCardFromHandDiscountEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Names;

@@ -42,5 +42,7 @@ public class RuleSet {
         new CunningRule(_modifiersLogic).applyRule();
 
         new ToilRule(_modifiersLogic).applyRule();
+
+        new HealByDiscardRule(_modifiersLogic).applyRule();
     }
 }

@@ -1,9 +1,9 @@
 package com.gempukku.lotro.cards.set17.men;
 
-import com.gempukku.lotro.cards.AbstractAttachable;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.StackCardFromPlayEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndTransferAttachableEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.effects.StackCardFromPlayEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndTransferAttachableEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;

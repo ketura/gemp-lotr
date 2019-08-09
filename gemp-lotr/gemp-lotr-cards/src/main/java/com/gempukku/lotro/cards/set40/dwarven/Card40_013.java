@@ -1,8 +1,7 @@
 package com.gempukku.lotro.cards.set40.dwarven;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.modifiers.evaluator.CountStackedEvaluator;
-import com.gempukku.lotro.cards.modifiers.evaluator.LimitEvaluator;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.modifiers.evaluator.CountStackedEvaluator;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;

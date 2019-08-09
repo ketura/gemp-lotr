@@ -1,9 +1,9 @@
 package com.gempukku.lotro.cards.set20.rohan;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.CommonEffects;
-import com.gempukku.lotro.cards.modifiers.ShouldSkipPhaseModifier;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.effects.CommonEffects;
+import com.gempukku.lotro.logic.modifiers.ShouldSkipPhaseModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;

@@ -1,12 +1,12 @@
 package com.gempukku.lotro.cards.set20.isengard;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.effects.PutCardFromStackedIntoHandEffect;
-import com.gempukku.lotro.cards.effects.StackPlayedEventOnACardEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseStackedCardsEffect;
-import com.gempukku.lotro.cards.results.PlayEventResult;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.effects.PutCardFromStackedIntoHandEffect;
+import com.gempukku.lotro.logic.effects.StackPlayedEventOnACardEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseStackedCardsEffect;
+import com.gempukku.lotro.logic.timing.results.PlayEventResult;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;

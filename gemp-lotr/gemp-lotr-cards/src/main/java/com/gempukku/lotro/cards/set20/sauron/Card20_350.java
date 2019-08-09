@@ -1,12 +1,12 @@
 package com.gempukku.lotro.cards.set20.sauron;
 
-import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.PlayConditions;
-import com.gempukku.lotro.cards.effects.PreventableEffect;
-import com.gempukku.lotro.cards.effects.SelfExertEffect;
-import com.gempukku.lotro.cards.effects.choose.ChooseAndAssignCharacterToMinionEffect;
-import com.gempukku.lotro.cards.modifiers.evaluator.CountFPCulturesEvaluator;
-import com.gempukku.lotro.cards.modifiers.evaluator.NegativeEvaluator;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.effects.PreventableEffect;
+import com.gempukku.lotro.logic.effects.SelfExertEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndAssignCharacterToMinionEffect;
+import com.gempukku.lotro.logic.modifiers.evaluator.CountFPCulturesEvaluator;
+import com.gempukku.lotro.logic.modifiers.evaluator.NegativeEvaluator;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;

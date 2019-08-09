@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set20.gandalf;
 
-import com.gempukku.lotro.cards.AbstractAttachableFPPossession;
+import com.gempukku.lotro.logic.cardtype.AbstractAttachableFPPossession;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;

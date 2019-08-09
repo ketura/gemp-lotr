@@ -1,10 +1,6 @@
 package com.gempukku.lotro.cards.set40.dwarven;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
-import com.gempukku.lotro.cards.modifiers.evaluator.AddEvaluator;
-import com.gempukku.lotro.cards.modifiers.evaluator.LimitEvaluator;
-import com.gempukku.lotro.cards.modifiers.evaluator.MinEvaluator;
-import com.gempukku.lotro.cards.modifiers.evaluator.VitalityEvaluator;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;

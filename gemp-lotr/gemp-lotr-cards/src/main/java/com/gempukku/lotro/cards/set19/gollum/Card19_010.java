@@ -1,8 +1,8 @@
 package com.gempukku.lotro.cards.set19.gollum;
 
-import com.gempukku.lotro.cards.AbstractMinion;
-import com.gempukku.lotro.cards.TriggerConditions;
-import com.gempukku.lotro.cards.modifiers.evaluator.ForEachThreatEvaluator;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.modifiers.evaluator.ForEachThreatEvaluator;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;

@@ -1,8 +1,8 @@
 package com.gempukku.lotro.cards.set7.shire;
 
-import com.gempukku.lotro.cards.AbstractCompanion;
-import com.gempukku.lotro.cards.modifiers.MaxThreatCondition;
-import com.gempukku.lotro.cards.modifiers.evaluator.ForEachThreatEvaluator;
+import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
+import com.gempukku.lotro.logic.modifiers.MaxThreatCondition;
+import com.gempukku.lotro.logic.modifiers.evaluator.ForEachThreatEvaluator;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.common.Signet;

@@ -1,6 +1,6 @@
 package com.gempukku.lotro.cards.set20.fallenRealms;
 
-import com.gempukku.lotro.cards.AbstractPermanent;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;

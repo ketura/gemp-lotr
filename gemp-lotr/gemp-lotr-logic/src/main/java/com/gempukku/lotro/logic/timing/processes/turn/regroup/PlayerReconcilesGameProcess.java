@@ -1,7 +1,7 @@
 package com.gempukku.lotro.logic.timing.processes.turn.regroup;
 
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.timing.actions.PlayerReconcilesAction;
+import com.gempukku.lotro.logic.actions.PlayerReconcilesAction;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
 
 public class PlayerReconcilesGameProcess implements GameProcess {

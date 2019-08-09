@@ -1,8 +1,7 @@
 package com.gempukku.lotro.cards.set31.troll;
 
-import com.gempukku.lotro.cards.AbstractAttachable;
+import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
