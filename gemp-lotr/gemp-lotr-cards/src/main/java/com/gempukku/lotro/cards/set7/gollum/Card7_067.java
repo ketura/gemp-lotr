@@ -1,6 +1,10 @@
 package com.gempukku.lotro.cards.set7.gollum;
 
+import com.gempukku.lotro.logic.actions.AbstractCostToEffectAction;
 import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.modifiers.AbstractExtraPlayCostModifier;
+import com.gempukku.lotro.logic.modifiers.cost.AddUpToThreatsExtraPlayCostModifier;
+import com.gempukku.lotro.logic.modifiers.cost.SpotExtraPlayCostModifier;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.logic.actions.PlayPermanentAction;
@@ -19,6 +23,7 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -37,32 +42,15 @@ public class Card7_067 extends AbstractPermanent {
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && PlayConditions.canSpot(game, Filters.gollum);
+    public List<? extends AbstractExtraPlayCostModifier> getExtraCostToPlayModifiers(LotroGame game, PhysicalCard self) {
+        return Arrays.asList(
+                new SpotExtraPlayCostModifier(self, self, null, Filters.gollum),
+                new AddUpToThreatsExtraPlayCostModifier(self, 9, null, self));
     }
 
     @Override
-    public PlayPermanentAction getPlayCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
-        final PlayPermanentAction playCardAction = super.getPlayCardAction(playerId, game, self, twilightModifier, ignoreRoamingPenalty);
-        int maxThreats = Math.min(9, Filters.countActive(game, CardType.COMPANION) - game.getGameState().getThreats());
-        playCardAction.appendCost(
-                new PlayoutDecisionEffect(playerId,
-                        new IntegerAwaitingDecision(1, "Choose how many threats to add", 0, maxThreats) {
-                            @Override
-                            public void decisionMade(String result) throws DecisionResultInvalidException {
-                                int threats = getValidatedResult(result);
-                                playCardAction.appendCost(
-                                        new AddThreatsEffect(playerId, self, threats));
-                            }
-                        })
-        );
-        return playCardAction;
-    }
-
-    @Override
-    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
-        return Collections.singletonList(
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, final PhysicalCard self) {
+        return Arrays.asList(
                 new StrengthModifier(self, Filters.gollum, 2));
     }
 

@@ -3,6 +3,7 @@ package com.gempukku.lotro.logic.modifiers;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.AbstractCostToEffectAction;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 import com.gempukku.lotro.logic.timing.Action;
@@ -120,7 +121,7 @@ public interface ModifiersQuerying {
 
     public boolean canPayExtraCostsToPlay(LotroGame game, PhysicalCard target);
 
-    public List<? extends Effect> getExtraCostsToPlay(LotroGame game, Action action, PhysicalCard target);
+    public void appendExtraCosts(LotroGame game, AbstractCostToEffectAction action, PhysicalCard target);
 
     // Others
     public boolean canBeDiscardedFromPlay(LotroGame game, String performingPlayer, PhysicalCard card, PhysicalCard source);

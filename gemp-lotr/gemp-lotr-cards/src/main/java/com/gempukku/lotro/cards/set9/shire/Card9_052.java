@@ -1,6 +1,9 @@
 package com.gempukku.lotro.cards.set9.shire;
 
+import com.gempukku.lotro.logic.actions.AbstractCostToEffectAction;
 import com.gempukku.lotro.logic.cardtype.AbstractAlly;
+import com.gempukku.lotro.logic.modifiers.AbstractExtraPlayCostModifier;
+import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.actions.PlayPermanentAction;
 import com.gempukku.lotro.logic.effects.CancelSkirmishEffect;
@@ -40,25 +43,25 @@ public class Card9_052 extends AbstractAlly {
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && (PlayConditions.canRemoveBurdens(game, self, 2) || PlayConditions.canRemoveThreat(game, self, 2));
-    }
+    public List<? extends AbstractExtraPlayCostModifier> getExtraCostToPlayModifiers(LotroGame game, final PhysicalCard self) {
+        return Collections.singletonList(
+                new AbstractExtraPlayCostModifier(self, "Extra cost to play", self) {
+                    @Override
+                    public void appendExtraCosts(LotroGame game, AbstractCostToEffectAction action, PhysicalCard card) {
+                        List<Effect> possibleCosts = new LinkedList<Effect>();
+                        possibleCosts.add(
+                                new RemoveBurdenEffect(self.getOwner(), self, 2));
+                        possibleCosts.add(
+                                new RemoveThreatsEffect(self, 2));
+                        action.appendCost(
+                                new ChoiceEffect(action, self.getOwner(), possibleCosts));
+                    }
 
-    @Override
-    public PlayPermanentAction getPlayCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
-        final PlayPermanentAction action = super.getPlayCardAction(playerId, game, self, twilightModifier, ignoreRoamingPenalty);
-        List<Effect> possibleCosts = new LinkedList<Effect>();
-
-        if (PlayConditions.canRemoveBurdens(game, self, 2)) {
-            possibleCosts.add(
-                    new RemoveBurdenEffect(playerId, self, 2));
-        }
-        possibleCosts.add(
-                new RemoveThreatsEffect(self, 2));
-        action.appendCost(
-                new ChoiceEffect(action, playerId, possibleCosts));
-        return action;
+                    @Override
+                    public boolean canPayExtraCostsToPlay(LotroGame game, PhysicalCard card) {
+                        return (PlayConditions.canRemoveBurdens(game, self, 2) || PlayConditions.canRemoveThreat(game, self, 2));
+                    }
+                });
     }
 
     @Override

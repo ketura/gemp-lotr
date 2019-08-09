@@ -1,6 +1,8 @@
 package com.gempukku.lotro.cards.set40.gandalf;
 
 import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.modifiers.AbstractExtraPlayCostModifier;
+import com.gempukku.lotro.logic.modifiers.cost.ExertExtraPlayCostModifier;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.logic.actions.PlayPermanentAction;
@@ -20,6 +22,7 @@ import com.gempukku.lotro.logic.modifiers.SpotCondition;
 import com.gempukku.lotro.logic.modifiers.TwilightCostModifier;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -41,26 +44,18 @@ public class Card40_080 extends AbstractPermanent {
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && PlayConditions.canExert(self, game, Filters.gandalf);
+    public List<? extends AbstractExtraPlayCostModifier> getExtraCostToPlayModifiers(LotroGame game, PhysicalCard self) {
+        return Collections.singletonList(
+                new ExertExtraPlayCostModifier(self, self, null, Filters.gandalf));
     }
 
-    @Override
-    public PlayPermanentAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
-        final PlayPermanentAction playCardAction = super.getPlayCardAction(playerId, game, self, twilightModifier, ignoreRoamingPenalty);
-        playCardAction.appendCost(
-                new ChooseAndExertCharactersEffect(playCardAction, playerId, 1, 1, Filters.gandalf));
-        return playCardAction;
-    }
-
-    @Override
+        @Override
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
-        TwilightCostModifier modifier = new TwilightCostModifier(
-                self, Filters.and(Side.FREE_PEOPLE, Filters.or(CardType.ARTIFACT, CardType.CONDITION, CardType.POSSESSION)),
-                new AndCondition(new SpotCondition(Filters.gandalf), new InitiativeCondition(Side.FREE_PEOPLE)),
-                -1);
-        return Collections.singletonList(modifier);
+        return Arrays.asList(
+                new TwilightCostModifier(
+                        self, Filters.and(Side.FREE_PEOPLE, Filters.or(CardType.ARTIFACT, CardType.CONDITION, CardType.POSSESSION)),
+                        new AndCondition(new SpotCondition(Filters.gandalf), new InitiativeCondition(Side.FREE_PEOPLE)),
+                        -1));
     }
 
     @Override

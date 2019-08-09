@@ -1,6 +1,8 @@
 package com.gempukku.lotro.cards.set31.dwarven;
 
 import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.modifiers.AbstractExtraPlayCostModifier;
+import com.gempukku.lotro.logic.modifiers.cost.ExertExtraPlayCostModifier;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.logic.actions.PlayPermanentAction;
@@ -16,6 +18,7 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -33,24 +36,16 @@ public class Card31_004 extends AbstractPermanent {
         super(Side.FREE_PEOPLE, 2, CardType.POSSESSION, Culture.DWARVEN, "Great Barricade", null, true);
 		addKeyword(Keyword.FORTIFICATION);
 	}
-	
+
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && PlayConditions.canExert(self, game, Culture.DWARVEN, CardType.COMPANION);
-	}
-	
-	@Override
-    public PlayPermanentAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
-        PlayPermanentAction permanentAction = super.getPlayCardAction(playerId, game, self, twilightModifier, ignoreRoamingPenalty);
-        permanentAction.appendCost(
-                new ChooseAndExertCharactersEffect(permanentAction, playerId, 1, 1, Culture.DWARVEN, CardType.COMPANION));
-        return permanentAction;
-	}
+    public List<? extends AbstractExtraPlayCostModifier> getExtraCostToPlayModifiers(LotroGame game, PhysicalCard self) {
+        return Collections.singletonList(
+                new ExertExtraPlayCostModifier(self, self, null, Culture.DWARVEN, CardType.COMPANION));
+    }
 
     @Override
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
-        return Collections.singletonList(
+        return Arrays.asList(
                 new StrengthModifier(self,
                         Filters.and(
                                 CardType.MINION,

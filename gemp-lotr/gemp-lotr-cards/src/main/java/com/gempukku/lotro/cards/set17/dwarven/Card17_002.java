@@ -1,5 +1,6 @@
 package com.gempukku.lotro.cards.set17.dwarven;
 
+import com.gempukku.lotro.logic.actions.AbstractCostToEffectAction;
 import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.logic.effects.AddTokenEffect;
@@ -60,8 +61,8 @@ public class Card17_002 extends AbstractPermanent {
             }
 
             @Override
-            public List<? extends Effect> getExtraCostsToPlay(LotroGame game, Action action, PhysicalCard card) {
-                return Collections.singletonList(
+            public void appendExtraCosts(LotroGame game, AbstractCostToEffectAction action, PhysicalCard card) {
+                action.appendCost(
                         new ChooseAndRemoveFromTheGameCardsInDiscardEffect(action, card, card.getOwner(), 1, 1, Culture.ORC));
             }
         };

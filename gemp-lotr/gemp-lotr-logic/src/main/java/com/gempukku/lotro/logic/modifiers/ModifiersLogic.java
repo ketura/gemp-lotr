@@ -4,6 +4,7 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.AbstractCostToEffectAction;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 import com.gempukku.lotro.logic.timing.Action;
@@ -764,6 +765,12 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
 
     @Override
     public boolean canPayExtraCostsToPlay(LotroGame game, PhysicalCard target) {
+        for (AbstractExtraPlayCostModifier modifier : target.getBlueprint().getExtraCostToPlayModifiers(game, target)) {
+            final Condition condition = modifier.getCondition();
+            if ((condition == null || condition.isFullfilled(game)) && !modifier.canPayExtraCostsToPlay(game, target))
+                return false;
+        }
+
         for (Modifier modifier : getModifiersAffectingCard(game, ModifierEffect.EXTRA_COST_MODIFIER, target)) {
             if (!modifier.canPayExtraCostsToPlay(game, target))
                 return false;
@@ -773,16 +780,16 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     }
 
     @Override
-    public List<? extends Effect> getExtraCostsToPlay(LotroGame game, Action action, PhysicalCard target) {
-        List<Effect> extraCardActions = new LinkedList<Effect>();
-
-        for (Modifier modifier : getModifiersAffectingCard(game, ModifierEffect.EXTRA_COST_MODIFIER, target)) {
-            List<? extends Effect> effects = modifier.getExtraCostsToPlay(game, action, target);
-            if (effects != null)
-                extraCardActions.addAll(effects);
+    public void appendExtraCosts(LotroGame game, AbstractCostToEffectAction action, PhysicalCard target) {
+        for (AbstractExtraPlayCostModifier modifier : target.getBlueprint().getExtraCostToPlayModifiers(game, target)) {
+            final Condition condition = modifier.getCondition();
+            if (condition == null || condition.isFullfilled(game))
+                modifier.appendExtraCosts(game, action, target);
         }
 
-        return extraCardActions;
+        for (Modifier modifier : getModifiersAffectingCard(game, ModifierEffect.EXTRA_COST_MODIFIER, target)) {
+            modifier.appendExtraCosts(game, action, target);
+        }
     }
 
     @Override
@@ -1083,7 +1090,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     public int getPotentialDiscount(LotroGame game, PhysicalCard playedCard) {
         int result = 0;
         for (Modifier modifier : getModifiers(game, ModifierEffect.POTENTIAL_DISCOUNT_MODIFIER)) {
-            result+=modifier.getPotentialDiscount(game, playedCard);
+            result += modifier.getPotentialDiscount(game, playedCard);
         }
 
         return result;

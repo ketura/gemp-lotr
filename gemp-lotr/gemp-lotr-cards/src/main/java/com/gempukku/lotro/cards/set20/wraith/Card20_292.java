@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set20.wraith;
 
 import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.modifiers.cost.ExertExtraPlayCostModifier;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.actions.PlayPermanentAction;
 import com.gempukku.lotro.logic.effects.ChoiceEffect;
@@ -37,20 +38,6 @@ public class Card20_292 extends AbstractPermanent {
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && PlayConditions.canExert(self, game, Race.NAZGUL);
-    }
-
-    @Override
-    public PlayPermanentAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
-        PlayPermanentAction action = super.getPlayCardAction(playerId, game, self, twilightModifier, ignoreRoamingPenalty);
-        action.appendCost(
-                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.NAZGUL));
-        return action;
-    }
-
-    @Override
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         Condition wearRingCondition = new Condition() {
@@ -63,6 +50,8 @@ public class Card20_292 extends AbstractPermanent {
                 new KeywordModifier(self, Race.NAZGUL, wearRingCondition, Keyword.FIERCE, 1));
         modifiers.add(
                 new KeywordModifier(self, Race.NAZGUL, wearRingCondition, Keyword.TWILIGHT, 1));
+        modifiers.add(
+                new ExertExtraPlayCostModifier(self, self, null, Race.NAZGUL));
         return modifiers;
     }
 

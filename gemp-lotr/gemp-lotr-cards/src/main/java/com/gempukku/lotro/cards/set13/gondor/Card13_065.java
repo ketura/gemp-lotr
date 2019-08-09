@@ -1,6 +1,8 @@
 package com.gempukku.lotro.cards.set13.gondor;
 
+import com.gempukku.lotro.logic.actions.AbstractCostToEffectAction;
 import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
+import com.gempukku.lotro.logic.modifiers.AbstractExtraPlayCostModifier;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.actions.PlayPermanentAction;
 import com.gempukku.lotro.logic.effects.AddUntilStartOfPhaseModifierEffect;
@@ -46,32 +48,36 @@ public class Card13_065 extends AbstractCompanion {
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && (PlayConditions.canSpot(game, 2, Culture.GONDOR, Keyword.KNIGHT) || PlayConditions.canExert(self, game, 1, 2, Culture.GONDOR, Race.MAN));
-    }
+    public List<? extends AbstractExtraPlayCostModifier> getExtraCostToPlayModifiers(LotroGame game, final PhysicalCard self) {
+        return Collections.singletonList(
+                new AbstractExtraPlayCostModifier(self, "Extra cost to play", self) {
+                    @Override
+                    public boolean canPayExtraCostsToPlay(LotroGame game, PhysicalCard card) {
+                        return (PlayConditions.canSpot(game, 2, Culture.GONDOR, Keyword.KNIGHT) || PlayConditions.canExert(self, game, 1, 2, Culture.GONDOR, Race.MAN));
+                    }
 
-    @Override
-    public PlayPermanentAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
-        final PlayPermanentAction playCardAction = super.getPlayCardAction(playerId, game, self, twilightModifier, ignoreRoamingPenalty);
-        List<Effect> possibleCosts = new LinkedList<Effect>();
-        possibleCosts.add(
-                new SpotEffect(2, Culture.GONDOR, Keyword.KNIGHT) {
                     @Override
-                    public String getText(LotroGame game) {
-                        return "Spot 2 GONDOR knights";
+                    public void appendExtraCosts(LotroGame game, AbstractCostToEffectAction action, PhysicalCard card) {
+                        List<Effect> possibleCosts = new LinkedList<Effect>();
+                        possibleCosts.add(
+                                new SpotEffect(2, Culture.GONDOR, Keyword.KNIGHT) {
+                                    @Override
+                                    public String getText(LotroGame game) {
+                                        return "Spot 2 GONDOR knights";
+                                    }
+                                });
+                        possibleCosts.add(
+                                new ChooseAndExertCharactersEffect(action, card.getOwner(), 2, 2, Culture.GONDOR, Race.MAN) {
+                                    @Override
+                                    public String getText(LotroGame game) {
+                                        return "Exert 2 GONDOR Men";
+                                    }
+                                });
+                        action.appendCost(
+                                new ChoiceEffect(action, card.getOwner(), possibleCosts));
+
                     }
                 });
-        possibleCosts.add(
-                new ChooseAndExertCharactersEffect(playCardAction, playerId, 2, 2, Culture.GONDOR, Race.MAN) {
-                    @Override
-                    public String getText(LotroGame game) {
-                        return "Exert 2 GONDOR Men";
-                    }
-                });
-        playCardAction.appendCost(
-                new ChoiceEffect(playCardAction, playerId, possibleCosts));
-        return playCardAction;
     }
 
     @Override

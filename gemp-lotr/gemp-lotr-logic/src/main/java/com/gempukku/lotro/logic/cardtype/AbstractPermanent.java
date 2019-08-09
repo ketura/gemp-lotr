@@ -38,15 +38,13 @@ public class AbstractPermanent extends AbstractLotroCardBlueprint {
     }
 
     @Override
-    public PlayPermanentAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public final PlayPermanentAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         PlayPermanentAction action = new PlayPermanentAction(self, getPlayToZone(), twilightModifier, ignoreRoamingPenalty);
         DiscountEffect discountEffect = getDiscountEffect(action, playerId, game, self);
         if (discountEffect != null)
             action.setDiscountEffect(discountEffect);
 
-        List<? extends Effect> extraCosts = game.getModifiersQuerying().getExtraCostsToPlay(game, action, self);
-        for (Effect extraCost : extraCosts)
-            action.appendCost(extraCost);
+        game.getModifiersQuerying().appendExtraCosts(game, action, self);
 
         return action;
     }
