@@ -62,7 +62,7 @@ public class Card7_250 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.REGROUP, self)
                 && self.getAttachedTo().getBlueprint().getName().equals(Names.theoden)
                 && PlayConditions.canExert(self, game, Filters.name(Names.theoden))) {

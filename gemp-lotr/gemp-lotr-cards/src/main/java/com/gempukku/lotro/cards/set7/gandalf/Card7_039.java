@@ -50,7 +50,7 @@ public class Card7_039 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    protected List<? extends Action> getExtraInPlayPhaseActions(final String playerId, LotroGame game, PhysicalCard self) {
+    protected List<? extends Action> getExtraPhaseActions(final String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
                 && hasMoreCardsThanEachOpponent(playerId, game)
                 && PlayConditions.canDiscardFromHand(game, playerId, 2, Filters.any)) {

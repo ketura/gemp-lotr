@@ -11,7 +11,6 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.modifiers.VitalityModifier;
 import com.gempukku.lotro.logic.modifiers.evaluator.ConstantEvaluator;
-import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -56,18 +55,5 @@ public abstract class AbstractAttachableFPPossession extends AbstractAttachable 
 
     protected List<? extends Modifier> getNonBasicStatsModifiers(PhysicalCard self) {
         return null;
-    }
-
-    protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        return null;
-    }
-
-    @Override
-    protected final List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        List<Action> actions = new LinkedList<Action>();
-        List<? extends Action> extraActions = getExtraInPlayPhaseActions(playerId, game, self);
-        if (extraActions != null)
-            actions.addAll(extraActions);
-        return actions;
     }
 }

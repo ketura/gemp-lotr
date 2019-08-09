@@ -44,7 +44,7 @@ public class Card40_104 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.REGROUP, self)
         && PlayConditions.canSpot(game, Filters.hasAttached(self), Filters.boromir)
         && PlayConditions.canSelfDiscard(self, game)) {

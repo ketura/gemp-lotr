@@ -35,7 +35,7 @@ public class Card4_131 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
                 && PlayConditions.canExert(self, game, self.getAttachedTo())
                 && Filters.countActive(game, Filters.inSkirmishAgainst(Filters.hasAttached(self)), Filters.or(Race.MAN, Filters.roamingMinion)) > 0) {
