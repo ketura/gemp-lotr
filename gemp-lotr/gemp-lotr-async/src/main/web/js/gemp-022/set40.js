@@ -262,7 +262,7 @@ var set40 = {
     '40_261': 'http://lotrtcgwiki.com/images/2E1C261.jpg',
     '40_262': 'http://lotrtcgwiki.com/images/2E1R262.jpg',
     '40_263': 'http://lotrtcgwiki.com/images/2E1U263.jpg',
-    '40_264': 'http://lotrtcgwiki.com/images/2E1C264.jpg',
+    '40_264': 'http://lotrtcgwiki.com/images/2E1R264.jpg',
     '40_265': 'http://lotrtcgwiki.com/images/2E1R265.jpg',
     '40_266': 'http://lotrtcgwiki.com/images/2E1C266.jpg',
     '40_267': 'http://lotrtcgwiki.com/images/2E1C267.jpg',
