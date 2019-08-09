@@ -36,7 +36,7 @@ public class Card4_163 extends AbstractEvent {
         PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.URUK_HAI));
-        int controlledSites = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.siteControlled(playerId));
+        int controlledSites = Filters.countActive(game, Filters.siteControlled(playerId));
         action.appendEffect(
                 new ChooseAndExertCharactersEffect(action, playerId, controlledSites, controlledSites, Filters.unboundCompanion));
         return action;

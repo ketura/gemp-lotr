@@ -51,7 +51,7 @@ public class Card15_119 extends AbstractEvent {
                                         new PreventableEffect.PreventionCost() {
                                             @Override
                                             public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
-                                                return new AddTwilightEffect(self, 2 * Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Side.FREE_PEOPLE, CardType.CONDITION));
+                                                return new AddTwilightEffect(self, 2 * Filters.countActive(game, Side.FREE_PEOPLE, CardType.CONDITION));
                                             }
                                         }
                                 ));

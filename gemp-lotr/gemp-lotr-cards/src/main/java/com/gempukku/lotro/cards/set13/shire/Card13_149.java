@@ -42,9 +42,9 @@ public class Card13_149 extends AbstractCompanion {
         return new OverwhelmedByMultiplierModifier(self, self,
                 new Condition() {
                     @Override
-                    public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                        return Filters.countActive(gameState, modifiersQuerying, CardType.MINION)
-                                > Filters.countActive(gameState, modifiersQuerying, CardType.COMPANION);
+                    public boolean isFullfilled(LotroGame game) {
+                        return Filters.countActive(game, CardType.MINION)
+                                > Filters.countActive(game, CardType.COMPANION);
                     }
                 }, 3);
     }

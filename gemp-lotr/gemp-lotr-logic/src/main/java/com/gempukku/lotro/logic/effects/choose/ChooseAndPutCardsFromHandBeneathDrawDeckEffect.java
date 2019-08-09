@@ -1,12 +1,12 @@
 package com.gempukku.lotro.logic.effects.choose;
 
-import com.gempukku.lotro.logic.effects.PutCardFromHandOnBottomOfDeckEffect;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.effects.ChooseArbitraryCardsEffect;
+import com.gempukku.lotro.logic.effects.PutCardFromHandOnBottomOfDeckEffect;
 import com.gempukku.lotro.logic.timing.AbstractSubActionEffect;
 import com.gempukku.lotro.logic.timing.Action;
 
@@ -37,12 +37,12 @@ public class ChooseAndPutCardsFromHandBeneathDrawDeckEffect extends AbstractSubA
 
     @Override
     public boolean isPlayableInFull(LotroGame game) {
-        return Filters.filter(game.getGameState().getHand(_playerId), game.getGameState(), game.getModifiersQuerying(), _filters).size() >= _count;
+        return Filters.filter(game.getGameState().getHand(_playerId), game, _filters).size() >= _count;
     }
 
     @Override
     public void playEffect(LotroGame game) {
-        final Collection<PhysicalCard> cards = Filters.filter(game.getGameState().getHand(_playerId), game.getGameState(), game.getModifiersQuerying(), _filters);
+        final Collection<PhysicalCard> cards = Filters.filter(game.getGameState().getHand(_playerId), game, _filters);
         SubAction subAction = new SubAction(_action);
         subAction.appendEffect(
                 new ChooseAndPutNextCardFromHandOnBottomOfLibrary(subAction, Math.min(_count, cards.size()), cards));

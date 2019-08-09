@@ -67,19 +67,19 @@ public class ChooseAndDiscardCardsFromHandEffect extends AbstractSubActionEffect
 
     @Override
     public boolean isPlayableInFull(LotroGame game) {
-        return Filters.filter(game.getGameState().getHand(_playerId), game.getGameState(), game.getModifiersQuerying(), _filter).size()
-                >= _minimum.evaluateExpression(game.getGameState(), game.getModifiersQuerying(), null);
+        return Filters.filter(game.getGameState().getHand(_playerId), game, _filter).size()
+                >= _minimum.evaluateExpression(game, null);
     }
 
     @Override
     public void playEffect(final LotroGame game) {
-        if (_forced && !game.getModifiersQuerying().canDiscardCardsFromHand(game.getGameState(), _playerId, _action.getActionSource()))
+        if (_forced && !game.getModifiersQuerying().canDiscardCardsFromHand(game, _playerId, _action.getActionSource()))
             return;
 
-        Collection<PhysicalCard> hand = Filters.filter(game.getGameState().getHand(_playerId), game.getGameState(), game.getModifiersQuerying(), _filter);
-        int maximum = Math.min(_maximum.evaluateExpression(game.getGameState(), game.getModifiersQuerying(), null), hand.size());
+        Collection<PhysicalCard> hand = Filters.filter(game.getGameState().getHand(_playerId), game, _filter);
+        int maximum = Math.min(_maximum.evaluateExpression(game, null), hand.size());
 
-        int minimum = _minimum.evaluateExpression(game.getGameState(), game.getModifiersQuerying(), null);
+        int minimum = _minimum.evaluateExpression(game, null);
         if (maximum == 0) {
             cardsBeingDiscardedCallback(Collections.<PhysicalCard>emptySet());
         } else if (hand.size() <= minimum) {

@@ -1,6 +1,6 @@
 package com.gempukku.lotro.logic.modifiers;
 
-import com.gempukku.lotro.game.state.GameState;
+import com.gempukku.lotro.game.state.LotroGame;
 
 public class SpotBurdensCondition implements Condition {
     private int _count;
@@ -10,7 +10,7 @@ public class SpotBurdensCondition implements Condition {
     }
 
     @Override
-    public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-        return gameState.getBurdens() >= _count;
+    public boolean isFullfilled(LotroGame game) {
+        return game.getGameState().getBurdens() >= _count;
     }
 }

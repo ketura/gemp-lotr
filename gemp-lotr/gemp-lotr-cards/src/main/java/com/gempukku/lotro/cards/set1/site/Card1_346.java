@@ -42,7 +42,7 @@ public class Card1_346 extends AbstractSite {
             if (frodoCanExert && twoOtherCanExert) {
                 final RequiredTriggerAction action = new RequiredTriggerAction(self);
 
-                PhysicalCard frodo = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.frodo);
+                PhysicalCard frodo = Filters.findFirstActive(game, Filters.frodo);
                 List<Effect> possibleEffects = new LinkedList<Effect>();
                 possibleEffects.add(new ExertCharactersEffect(action, self, frodo) {
                     @Override
@@ -63,7 +63,7 @@ public class Card1_346 extends AbstractSite {
             }
             if (frodoCanExert) {
                 RequiredTriggerAction action = new RequiredTriggerAction(self);
-                PhysicalCard frodo = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.frodo);
+                PhysicalCard frodo = Filters.findFirstActive(game, Filters.frodo);
                 action.appendEffect(new ExertCharactersEffect(action, self, frodo));
                 return Collections.singletonList(action);
             }

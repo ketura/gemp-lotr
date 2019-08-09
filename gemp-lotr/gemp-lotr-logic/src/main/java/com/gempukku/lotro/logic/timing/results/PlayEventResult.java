@@ -1,9 +1,8 @@
 package com.gempukku.lotro.logic.timing.results;
 
-import com.gempukku.lotro.logic.actions.PlayEventAction;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.logic.timing.results.PlayCardResult;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
 
 public class PlayEventResult extends PlayCardResult {
     private boolean _eventCancelled;

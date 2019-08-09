@@ -28,7 +28,7 @@ public class Card20_229 extends AbstractEvent {
         action.appendEffect(
                 new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId,
                         new MultiplyEvaluator(2,
-                        new CountActiveEvaluator(CardType.SITE, Keyword.BATTLEGROUND, Filters.region(GameUtils.getRegion(game.getGameState())))), Race.URUK_HAI));
+                        new CountActiveEvaluator(CardType.SITE, Keyword.BATTLEGROUND, Filters.region(GameUtils.getRegion(game)))), Race.URUK_HAI));
         return action;
     }
 }

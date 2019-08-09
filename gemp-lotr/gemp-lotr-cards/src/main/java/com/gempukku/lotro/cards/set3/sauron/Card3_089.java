@@ -27,7 +27,7 @@ public class Card3_089 extends AbstractEvent {
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
                 && PlayConditions.canExert(self, game, Culture.SAURON, Race.ORC)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Culture.GONDOR, CardType.COMPANION);
+                && Filters.canSpot(game, Culture.GONDOR, CardType.COMPANION);
     }
 
     @Override

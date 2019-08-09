@@ -34,7 +34,7 @@ public class Card40_215 extends AbstractEvent {
         final PlayEventAction action = new PlayEventAction(self);
         final Skirmish skirmish = game.getGameState().getSkirmish();
         if (skirmish != null
-                && Filters.filter(skirmish.getShadowCharacters(), game.getGameState(), game.getModifiersQuerying(), Culture.SAURON, Race.ORC).size() > 0
+                && Filters.filter(skirmish.getShadowCharacters(), game, Culture.SAURON, Race.ORC).size() > 0
                 && skirmish.getFellowshipCharacter() != null) {
             action.appendEffect(
                     new ForEachBurdenYouSpotEffect(playerId) {

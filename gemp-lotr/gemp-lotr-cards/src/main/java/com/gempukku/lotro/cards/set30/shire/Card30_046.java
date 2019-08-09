@@ -46,8 +46,8 @@ public class Card30_046 extends AbstractCompanion {
                 new OverwhelmedByMultiplierModifier(self, self,
                         new Condition() {
                             @Override
-                            public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return Filters.inSkirmishAgainst(Filters.gollum).accepts(gameState, modifiersQuerying, self);
+                            public boolean isFullfilled(LotroGame game) {
+                                return Filters.inSkirmishAgainst(Filters.gollum).accepts(game, self);
                             }
                         }, 3));
 	}

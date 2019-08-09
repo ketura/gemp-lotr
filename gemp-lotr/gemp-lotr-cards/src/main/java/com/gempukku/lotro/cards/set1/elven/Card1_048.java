@@ -32,7 +32,7 @@ public class Card1_048 extends AbstractCompanion {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Race.ELF);
+                && Filters.canSpot(game, Race.ELF);
     }
 
     @Override
@@ -42,9 +42,9 @@ public class Card1_048 extends AbstractCompanion {
                         self,
                         new Filter() {
                             @Override
-                            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                int currentSiteNumber = gameState.getCurrentSiteNumber();
-                                return gameState.getCurrentSiteBlock() == Block.FELLOWSHIP && (currentSiteNumber == 6 || currentSiteNumber == 7 || currentSiteNumber == 8);
+                            public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
+                                int currentSiteNumber = game.getGameState().getCurrentSiteNumber();
+                                return game.getGameState().getCurrentSiteBlock() == Block.FELLOWSHIP && (currentSiteNumber == 6 || currentSiteNumber == 7 || currentSiteNumber == 8);
                             }
                         }), 2);
     }

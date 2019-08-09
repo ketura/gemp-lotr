@@ -47,7 +47,7 @@ public class Card13_042 extends AbstractPermanent {
         if (TriggerConditions.played(game, effectResult, self)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new AddTokenEffect(self, self, Token.GANDALF, GameUtils.getRegion(game.getGameState())));
+                    new AddTokenEffect(self, self, Token.GANDALF, GameUtils.getRegion(game)));
             return Collections.singletonList(action);
         }
         return null;

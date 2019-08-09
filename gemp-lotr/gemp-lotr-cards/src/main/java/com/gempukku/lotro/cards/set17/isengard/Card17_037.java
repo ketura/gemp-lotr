@@ -43,8 +43,8 @@ public class Card17_037 extends AbstractMinion {
         return new CantBeAssignedToSkirmishModifier(self,
                 new Condition() {
                     @Override
-                    public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                        return !modifiersQuerying.hasFlagActive(gameState, ModifierFlag.SARUMAN_FIRST_SENTENCE_INACTIVE);
+                    public boolean isFullfilled(LotroGame game) {
+                        return !game.getModifiersQuerying().hasFlagActive(game, ModifierFlag.SARUMAN_FIRST_SENTENCE_INACTIVE);
                     }
                 }, self);
     }
@@ -56,8 +56,8 @@ public class Card17_037 extends AbstractMinion {
                 new CantBeAssignedToSkirmishModifier(self,
                         new Condition() {
                             @Override
-                            public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return !modifiersQuerying.hasFlagActive(gameState, ModifierFlag.SARUMAN_FIRST_SENTENCE_INACTIVE);
+                            public boolean isFullfilled(LotroGame game) {
+                                return !game.getModifiersQuerying().hasFlagActive(game, ModifierFlag.SARUMAN_FIRST_SENTENCE_INACTIVE);
                             }
                         }, self));
         modifiers.add(

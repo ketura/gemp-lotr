@@ -1,8 +1,8 @@
 package com.gempukku.lotro.cards.set18.gondor;
 
 import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
-import com.gempukku.lotro.logic.modifiers.conditions.CanSpotFPCulturesCondition;
-import com.gempukku.lotro.logic.modifiers.conditions.CanSpotShadowCulturesCondition;
+import com.gempukku.lotro.logic.modifiers.condition.CanSpotFPCulturesCondition;
+import com.gempukku.lotro.logic.modifiers.condition.CanSpotShadowCulturesCondition;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;

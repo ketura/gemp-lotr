@@ -34,12 +34,12 @@ public class ExhaustCharacterEffect extends AbstractSubActionEffect {
 
     @Override
     public String getText(LotroGame game) {
-        return "Exhaust " + GameUtils.getAppendedNames(Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), _filters));
+        return "Exhaust " + GameUtils.getAppendedNames(Filters.filterActive(game, _filters));
     }
 
     @Override
     public boolean isPlayableInFull(LotroGame game) {
-        return Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), _filters).size() > 0;
+        return Filters.filterActive(game, _filters).size() > 0;
     }
 
     @Override
@@ -47,7 +47,7 @@ public class ExhaustCharacterEffect extends AbstractSubActionEffect {
         SubAction subAction = new SubAction(_action);
         subAction.appendEffect(new InfiniteExertionEffect(_source, subAction, _filters));
         processSubAction(game, subAction);
-        final Collection<PhysicalCard> cards = Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), _filters);
+        final Collection<PhysicalCard> cards = Filters.filterActive(game, _filters);
         if (cards.size() > 0)
             game.getGameState().sendMessage(GameUtils.getCardLink(_source) + " exhausts " + GameUtils.getAppendedNames(cards));
     }

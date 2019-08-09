@@ -40,7 +40,7 @@ public class Card17_100 extends AbstractPermanent {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.ASSIGNMENT, self)
                 && PlayConditions.canSpot(game, CardType.MINION, Filters.assignableToSkirmishAgainst(Side.FREE_PEOPLE, Filters.frodo))) {
             final ActivateCardAction action = new ActivateCardAction(self);
-            PhysicalCard frodo = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.frodo);
+            PhysicalCard frodo = Filters.findFirstActive(game, Filters.frodo);
             action.appendCost(
                     new ChooseAndAssignMinionToCompanionEffect(action, playerId, frodo, CardType.MINION) {
                         @Override

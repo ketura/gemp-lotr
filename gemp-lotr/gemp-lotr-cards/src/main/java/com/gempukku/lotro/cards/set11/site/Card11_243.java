@@ -45,7 +45,7 @@ public class Card11_243 extends AbstractNewSite {
                         public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult) {
                             Set<PhysicalCard> toLose = new HashSet<PhysicalCard>();
                             final Set<Integer> toLoseInts = new HashSet<Integer>();
-                            for (PhysicalCard minion : Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Filters.inSkirmishAgainst(Culture.ROHAN, CardType.COMPANION))) {
+                            for (PhysicalCard minion : Filters.filterActive(game, Filters.inSkirmishAgainst(Culture.ROHAN, CardType.COMPANION))) {
                                 if (!_minionsMarked.contains(minion.getCardId())) {
                                     toLose.add(minion);
                                     toLoseInts.add(minion.getCardId());

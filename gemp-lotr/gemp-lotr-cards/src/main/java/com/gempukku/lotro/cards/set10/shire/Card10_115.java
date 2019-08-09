@@ -29,15 +29,15 @@ public class Card10_115 extends AbstractEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && Filters.filter(game.getGameState().getDiscard(playerId), game.getGameState(), game.getModifiersQuerying(), Culture.SHIRE).size() >= 6;
+                && Filters.filter(game.getGameState().getDiscard(playerId), game, Culture.SHIRE).size() >= 6;
     }
 
     @Override
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         PlayEventAction action = new PlayEventAction(self);
         Skirmish skirmish = game.getGameState().getSkirmish();
-        if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.inSkirmish, Filters.owner(playerId), Race.HOBBIT)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.inSkirmish, CardType.MINION, Filters.not(Keyword.FIERCE)))
+        if (Filters.canSpot(game, Filters.inSkirmish, Filters.owner(playerId), Race.HOBBIT)
+                && Filters.canSpot(game, Filters.inSkirmish, CardType.MINION, Filters.not(Keyword.FIERCE)))
             action.appendEffect(
                     new CancelSkirmishEffect());
         action.appendEffect(

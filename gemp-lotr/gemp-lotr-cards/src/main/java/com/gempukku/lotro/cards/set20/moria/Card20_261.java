@@ -30,7 +30,7 @@ public class Card20_261 extends AbstractMinion{
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.playedFromZone(game, effectResult, Zone.STACKED, Culture.MORIA, CardType.MINION)
-                && Filters.and(Culture.MORIA, CardType.CONDITION).accepts(game.getGameState(), game.getModifiersQuerying(), ((PlayCardResult) effectResult).getAttachedOrStackedPlayedFrom())) {
+                && Filters.and(Culture.MORIA, CardType.CONDITION).accepts(game, ((PlayCardResult) effectResult).getAttachedOrStackedPlayedFrom())) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
                     new AddUntilStartOfPhaseModifierEffect(

@@ -51,8 +51,8 @@ public class Card10_040 extends AbstractMinion {
         return Collections.singletonList(
                 new KeywordModifier(self, self, new Condition() {
                     @Override
-                    public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                        return gameState.getWounds(self) == 0;
+                    public boolean isFullfilled(LotroGame game) {
+                        return game.getGameState().getWounds(self) == 0;
                     }
                 }, Keyword.DAMAGE, 2));
     }

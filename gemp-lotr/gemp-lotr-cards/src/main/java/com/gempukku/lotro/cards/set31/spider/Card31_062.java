@@ -36,7 +36,7 @@ public class Card31_062 extends AbstractPermanent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Race.SPIDER);
+                && Filters.canSpot(game, Race.SPIDER);
     }
 
 
@@ -44,7 +44,7 @@ public class Card31_062 extends AbstractPermanent {
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.ASSIGNMENT, self, 0)
                 && PlayConditions.canSpot(game, Race.ORC)) {
-            int reduction = Filters.and(Keyword.FOREST).accepts(game.getGameState(), game.getModifiersQuerying(), game.getGameState().getCurrentSite()) ? -4 : -2;
+            int reduction = Filters.and(Keyword.FOREST).accepts(game, game.getGameState().getCurrentSite()) ? -4 : -2;
 
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(

@@ -31,7 +31,7 @@ public class Card15_032 extends AbstractEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && (Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Race.ENT) + game.getModifiersQuerying().getSpotBonus(game.getGameState(), Race.ENT)) >= 1;
+                && (Filters.countActive(game, Race.ENT) + game.getModifiersQuerying().getSpotBonus(game, Race.ENT)) >= 1;
     }
 
     @Override
@@ -45,7 +45,7 @@ public class Card15_032 extends AbstractEvent {
                         return "Take a GANDALF companion into hand from your draw deck";
                     }
                 });
-        if ((Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Race.ENT) + game.getModifiersQuerying().getSpotBonus(game.getGameState(), Race.ENT)) >= 2) {
+        if ((Filters.countActive(game, Race.ENT) + game.getModifiersQuerying().getSpotBonus(game, Race.ENT)) >= 2) {
             possibleEffects.add(
                     new ChooseAndPutCardFromDeckIntoHandEffect(action, playerId, 1, 1, Culture.GANDALF, CardType.COMPANION) {
                         @Override

@@ -4,10 +4,7 @@ import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
-import com.gempukku.lotro.logic.modifiers.AbstractModifier;
-import com.gempukku.lotro.logic.modifiers.ModifierEffect;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.game.state.LotroGame;
 
 import java.util.Set;
 
@@ -20,9 +17,9 @@ public class CantTakeWoundsFromLosingSkirmishModifier extends AbstractModifier {
     }
 
     @Override
-    public boolean canTakeWoundsFromLosingSkirmish(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, Set<PhysicalCard> winners) {
+    public boolean canTakeWoundsFromLosingSkirmish(LotroGame game, PhysicalCard physicalCard, Set<PhysicalCard> winners) {
         if (_winnersFilter == null
-                || Filters.filter(winners, gameState, modifiersQuerying, _winnersFilter).size() > 0)
+                || Filters.filter(winners, game, _winnersFilter).size() > 0)
             return false;
         return true;
     }

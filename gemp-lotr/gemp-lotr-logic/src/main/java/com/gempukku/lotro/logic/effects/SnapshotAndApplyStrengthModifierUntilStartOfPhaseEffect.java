@@ -31,9 +31,9 @@ public class SnapshotAndApplyStrengthModifierUntilStartOfPhaseEffect extends Abs
 
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
-        final Collection<PhysicalCard> affectedCards = Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), _filters);
+        final Collection<PhysicalCard> affectedCards = Filters.filterActive(game, _filters);
         for (PhysicalCard physicalCard : affectedCards) {
-            final int modifier = _evaluator.evaluateExpression(game.getGameState(), game.getModifiersQuerying(), physicalCard);
+            final int modifier = _evaluator.evaluateExpression(game, physicalCard);
             if (modifier != 0)
                 game.getModifiersEnvironment().addUntilStartOfPhaseModifier(
                         new StrengthModifier(_source, Filters.sameCard(physicalCard), modifier), _phase);

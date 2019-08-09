@@ -44,7 +44,7 @@ public class Card10_072 extends AbstractCompanion {
                         @Override
                         protected void opponentChosen(String opponentId) {
                             int wounds = 0;
-                            for (PhysicalCard minion : Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), CardType.MINION, Filters.inSkirmishAgainst(self)))
+                            for (PhysicalCard minion : Filters.filterActive(game, CardType.MINION, Filters.inSkirmishAgainst(self)))
                                 wounds += game.getGameState().getWounds(minion);
                             for (int i = 0; i < wounds; i++)
                                 action.appendEffect(

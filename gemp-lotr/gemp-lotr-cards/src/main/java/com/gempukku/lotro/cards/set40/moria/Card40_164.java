@@ -1,13 +1,12 @@
 package com.gempukku.lotro.cards.set40.moria;
 
+import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.cardtype.AbstractMinion;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
 /**
  * Title: Goblin Parol
@@ -28,10 +27,10 @@ public class Card40_164 extends AbstractMinion {
     }
 
     @Override
-    public int getTwilightCostModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
+    public int getTwilightCostModifier(LotroGame game, PhysicalCard self) {
         int count = 0;
-        for (PhysicalCard physicalCard : Filters.filterActive(gameState, modifiersQuerying, Culture.MORIA, CardType.CONDITION)) {
-            count += Filters.filter(gameState.getStackedCards(physicalCard), gameState, modifiersQuerying, Race.GOBLIN).size();
+        for (PhysicalCard physicalCard : Filters.filterActive(game, Culture.MORIA, CardType.CONDITION)) {
+            count += Filters.filter(game.getGameState().getStackedCards(physicalCard), game, Race.GOBLIN).size();
         }
 
         return -count;

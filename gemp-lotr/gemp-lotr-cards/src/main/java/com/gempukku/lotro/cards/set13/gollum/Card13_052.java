@@ -31,7 +31,7 @@ public class Card13_052 extends AbstractEvent {
 
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        int region = GameUtils.getRegion(game.getGameState());
+        int region = GameUtils.getRegion(game);
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
                 && (
                 ((region == 1 || region == 2) && PlayConditions.canSpot(game, Filters.gollum))
@@ -41,7 +41,7 @@ public class Card13_052 extends AbstractEvent {
     @Override
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         PlayEventAction action = new PlayEventAction(self);
-        int region = GameUtils.getRegion(game.getGameState());
+        int region = GameUtils.getRegion(game);
         if (region == 1)
             action.appendEffect(
                     new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, CardType.COMPANION));

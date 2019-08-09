@@ -33,7 +33,7 @@ public class Card4_021 extends AbstractMinion {
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.moves(game, effectResult)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.not(self), Culture.DUNLAND, Race.MAN)) {
+                && Filters.canSpot(game, Filters.not(self), Culture.DUNLAND, Race.MAN)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
                     new TakeControlOfASiteEffect(self, playerId));

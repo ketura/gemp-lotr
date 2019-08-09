@@ -1,11 +1,7 @@
 package com.gempukku.lotro.logic.modifiers;
 
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
-import com.gempukku.lotro.logic.modifiers.AbstractModifier;
-import com.gempukku.lotro.logic.modifiers.Condition;
-import com.gempukku.lotro.logic.modifiers.ModifierEffect;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.game.state.LotroGame;
 
 public class FPCulturesSpotCountModifier extends AbstractModifier {
     private String _playerId;
@@ -22,7 +18,7 @@ public class FPCulturesSpotCountModifier extends AbstractModifier {
     }
 
     @Override
-    public int getFPCulturesSpotCountModifier(GameState gameState, ModifiersQuerying modifiersQuerying, String playerId) {
+    public int getFPCulturesSpotCountModifier(LotroGame game, String playerId) {
         if (playerId.equals(_playerId))
             return _modifier;
         return 0;

@@ -9,9 +9,7 @@ import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 
 /**
@@ -33,11 +31,11 @@ public class Card20_108 extends AbstractEvent {
                         action, self, playerId,
                         new Evaluator() {
                             @Override
-                            public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard cardAffected) {
+                            public int evaluateExpression(LotroGame game, PhysicalCard cardAffected) {
                                 int wounds = 0;
-                                if (Filters.inSkirmish.accepts(gameState, modifiersQuerying, cardAffected)) {
-                                    for (PhysicalCard physicalCard : Filters.filterActive(gameState, modifiersQuerying, Filters.character, Filters.inSkirmish, Filters.wounded)) {
-                                        wounds += gameState.getWounds(physicalCard);
+                                if (Filters.inSkirmish.accepts(game, cardAffected)) {
+                                    for (PhysicalCard physicalCard : Filters.filterActive(game, Filters.character, Filters.inSkirmish, Filters.wounded)) {
+                                        wounds += game.getGameState().getWounds(physicalCard);
                                     }
                                 }
                                 return wounds;

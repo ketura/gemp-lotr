@@ -38,8 +38,8 @@ public class Card4_185 extends AbstractMinion {
                 new KeywordModifier(self, self,
                         new Condition() {
                             @Override
-                            public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return gameState.getDeadPile(gameState.getCurrentPlayerId()).size() >= 3;
+                            public boolean isFullfilled(LotroGame game) {
+                                return game.getGameState().getDeadPile(game.getGameState().getCurrentPlayerId()).size() >= 3;
                             }
                         }, Keyword.FIERCE, 1));
     }

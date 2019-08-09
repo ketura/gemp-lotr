@@ -49,7 +49,7 @@ public class Card12_054 extends AbstractMinion {
         return new StrengthModifier(self, Filters.and(CardType.COMPANION,
                 new Filter() {
                     @Override
-                    public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                    public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
                         return self.getWhileInZoneData() != null && physicalCard.getBlueprint().getCulture() == (Culture) self.getWhileInZoneData();
                     }
                 }), -1);

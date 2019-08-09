@@ -5,11 +5,7 @@ import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
-
-import java.util.Collection;
-import java.util.Collections;
 
 public class NegateWoundEffect extends UnrespondableEffect {
     private WoundCharactersEffect _effect;
@@ -23,7 +19,7 @@ public class NegateWoundEffect extends UnrespondableEffect {
     @Override
     protected void doPlayEffect(LotroGame game) {
         for (PhysicalCard affectedCard : _effect.getAffectedCardsMinusPrevented(game)) {
-            if (_filter.accepts(game.getGameState(), game.getModifiersQuerying(), affectedCard))
+            if (_filter.accepts(game, affectedCard))
                 _effect.negateWound(game, affectedCard);
         }
     }

@@ -1,7 +1,7 @@
 package com.gempukku.lotro.logic.modifiers;
 
-import com.gempukku.lotro.game.state.GameState;
+import com.gempukku.lotro.game.state.LotroGame;
 
 public interface Condition {
-    public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying);
+    boolean isFullfilled(LotroGame game);
 }

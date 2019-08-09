@@ -1,6 +1,5 @@
 package com.gempukku.lotro.logic.effects.choose;
 
-import com.gempukku.lotro.logic.effects.DiscardStackedCardsEffect;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -8,6 +7,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.decisions.CardsSelectionDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
+import com.gempukku.lotro.logic.effects.DiscardStackedCardsEffect;
 import com.gempukku.lotro.logic.timing.AbstractSubActionEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
@@ -46,15 +46,15 @@ public class ChooseAndDiscardStackedCardsEffect extends AbstractSubActionEffect 
 
     @Override
     public boolean isPlayableInFull(LotroGame game) {
-        return Filters.countActive(game.getGameState(), game.getModifiersQuerying(), _stackedOnFilter, Filters.hasStacked(_stackedCardFilter)) > 0;
+        return Filters.countActive(game, _stackedOnFilter, Filters.hasStacked(_stackedCardFilter)) > 0;
     }
 
     @Override
     public void playEffect(final LotroGame game) {
         List<PhysicalCard> discardableCards = new LinkedList<PhysicalCard>();
 
-        for (PhysicalCard stackedOnCard : Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), _stackedOnFilter))
-            discardableCards.addAll(Filters.filter(game.getGameState().getStackedCards(stackedOnCard), game.getGameState(), game.getModifiersQuerying(), _stackedCardFilter));
+        for (PhysicalCard stackedOnCard : Filters.filterActive(game, _stackedOnFilter))
+            discardableCards.addAll(Filters.filter(game.getGameState().getStackedCards(stackedOnCard), game, _stackedCardFilter));
 
         if (discardableCards.size() <= _minimum) {
             SubAction subAction = new SubAction(_action);

@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set18.elven;
 
 import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
-import com.gempukku.lotro.logic.modifiers.conditions.CanSpotCultureTokensCondition;
+import com.gempukku.lotro.logic.modifiers.condition.CanSpotCultureTokensCondition;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.common.Token;

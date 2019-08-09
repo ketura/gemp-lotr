@@ -42,14 +42,14 @@ public class DiscardCardsFromHandEffect extends AbstractEffect {
             if (card.getZone() != Zone.HAND)
                 return false;
         }
-        if (_forced && !game.getModifiersQuerying().canDiscardCardsFromHand(game.getGameState(), _playerId, _source))
+        if (_forced && !game.getModifiersQuerying().canDiscardCardsFromHand(game, _playerId, _source))
             return false;
         return true;
     }
 
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
-        if (!_forced || game.getModifiersQuerying().canDiscardCardsFromHand(game.getGameState(), _playerId, _source)) {
+        if (!_forced || game.getModifiersQuerying().canDiscardCardsFromHand(game, _playerId, _source)) {
             GameState gameState = game.getGameState();
 
             Set<PhysicalCard> discardedCards = new HashSet<PhysicalCard>();

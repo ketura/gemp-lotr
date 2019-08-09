@@ -42,7 +42,7 @@ public class Card17_115 extends AbstractMinion {
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.winsSkirmish(game, effectResult, Culture.URUK_HAI, Keyword.HUNTER)
-                && !game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.SARUMAN_FIRST_SENTENCE_INACTIVE)) {
+                && !game.getModifiersQuerying().hasFlagActive(game, ModifierFlag.SARUMAN_FIRST_SENTENCE_INACTIVE)) {
             final CharacterWonSkirmishResult winResult = (CharacterWonSkirmishResult) effectResult;
             final PhysicalCard winner = winResult.getWinner();
             RequiredTriggerAction action = new RequiredTriggerAction(self);

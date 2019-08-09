@@ -5,9 +5,9 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.game.state.actions.DefaultActionsEnvironment;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
+import com.gempukku.lotro.logic.actions.ResolveSkirmishDamageAction;
 import com.gempukku.lotro.logic.effects.KillEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.actions.ResolveSkirmishDamageAction;
 import com.gempukku.lotro.logic.timing.results.NormalSkirmishResult;
 import com.gempukku.lotro.logic.timing.results.OverwhelmSkirmishResult;
 

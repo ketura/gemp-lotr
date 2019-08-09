@@ -1,7 +1,5 @@
 package com.gempukku.lotro.logic.timing.results;
 
-import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 public class FinishedPlayingFellowshipResult extends EffectResult {

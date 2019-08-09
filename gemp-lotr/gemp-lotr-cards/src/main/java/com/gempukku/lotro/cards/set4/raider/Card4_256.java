@@ -51,7 +51,7 @@ public class Card4_256 extends AbstractMinion {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
                     new PreventableEffect(action,
-                            new AssignmentEffect(playerId, Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.ringBearer), self),
+                            new AssignmentEffect(playerId, Filters.findFirstActive(game, Filters.ringBearer), self),
                             game.getGameState().getCurrentPlayerId(),
                             new PreventableEffect.PreventionCost() {
                                 @Override

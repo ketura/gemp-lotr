@@ -43,7 +43,7 @@ public class Card40_067 extends AbstractEvent {
                 new ChooseActiveCardEffect(self, playerId, "Choose an unbound companion", Filters.unboundCompanion) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
-                        int bonus = (game.getModifiersQuerying().getResistance(game.getGameState(), card)>=4)?3:2;
+                        int bonus = (game.getModifiersQuerying().getResistance(game, card)>=4)?3:2;
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
                                         new StrengthModifier(self, card, bonus)));

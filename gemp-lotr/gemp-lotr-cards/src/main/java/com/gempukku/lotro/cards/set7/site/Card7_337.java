@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set7.site;
 
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
-import com.gempukku.lotro.logic.modifiers.conditions.InitiativeCondition;
+import com.gempukku.lotro.logic.modifiers.condition.InitiativeCondition;
 import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Side;

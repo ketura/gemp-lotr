@@ -31,7 +31,7 @@ public class Card30_049 extends AbstractSite {
     @Override
     public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseSiteDuringPhase(game, Phase.FELLOWSHIP, self)
-                && Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Culture.DWARVEN, CardType.FOLLOWER, Filters.playable(game)).size() > 0) {
+                && Filters.filter(game.getGameState().getHand(playerId), game, Culture.DWARVEN, CardType.FOLLOWER, Filters.playable(game)).size() > 0) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new ChooseAndPlayCardFromHandEffect(playerId, game, Filters.and(Culture.DWARVEN, CardType.FOLLOWER)));

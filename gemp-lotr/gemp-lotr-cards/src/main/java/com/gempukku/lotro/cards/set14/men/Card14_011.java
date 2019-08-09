@@ -48,10 +48,10 @@ public class Card14_011 extends AbstractMinion {
     }
 
     private boolean hasMoreOrEqualCharactersInAnyRaceThanMen(LotroGame game) {
-        int menCount = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.character, Race.MAN);
+        int menCount = Filters.countActive(game, Filters.character, Race.MAN);
         for (Race race : Race.values()) {
             if (race != Race.MAN) {
-                if (Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.character, race) >= menCount)
+                if (Filters.countActive(game, Filters.character, race) >= menCount)
                     return true;
             }
         }

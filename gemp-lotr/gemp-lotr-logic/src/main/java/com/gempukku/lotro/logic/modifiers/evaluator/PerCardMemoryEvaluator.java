@@ -1,8 +1,7 @@
 package com.gempukku.lotro.logic.modifiers.evaluator;
 
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.game.state.LotroGame;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,10 +15,10 @@ public class PerCardMemoryEvaluator implements Evaluator {
     }
 
     @Override
-    public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard cardAffected) {
+    public int evaluateExpression(LotroGame game, PhysicalCard cardAffected) {
         Integer value = _rememberedValue.get(cardAffected.getCardId());
         if (value == null) {
-            value = _evaluator.evaluateExpression(gameState, modifiersQuerying, cardAffected);
+            value = _evaluator.evaluateExpression(game, cardAffected);
             _rememberedValue.put(cardAffected.getCardId(), value);
         }
         return value;

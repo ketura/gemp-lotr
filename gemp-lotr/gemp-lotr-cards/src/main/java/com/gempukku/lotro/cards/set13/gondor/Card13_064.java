@@ -11,11 +11,9 @@ import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 
 import java.util.Collections;
@@ -43,8 +41,8 @@ public class Card13_064 extends AbstractCompanion {
         return new ResistanceModifier(self, self,
                 new Evaluator() {
                     @Override
-                    public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard cardAffected) {
-                        return Filters.filter(gameState.getDiscard(self.getOwner()), gameState, modifiersQuerying, Culture.GONDOR, CardType.POSSESSION).size();
+                    public int evaluateExpression(LotroGame game, PhysicalCard cardAffected) {
+                        return Filters.filter(game.getGameState().getDiscard(self.getOwner()), game, Culture.GONDOR, CardType.POSSESSION).size();
                     }
                 });
     }

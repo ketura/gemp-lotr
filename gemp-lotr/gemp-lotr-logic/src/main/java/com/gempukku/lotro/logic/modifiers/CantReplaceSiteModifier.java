@@ -2,11 +2,7 @@ package com.gempukku.lotro.logic.modifiers;
 
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
-import com.gempukku.lotro.logic.modifiers.AbstractModifier;
-import com.gempukku.lotro.logic.modifiers.Condition;
-import com.gempukku.lotro.logic.modifiers.ModifierEffect;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.game.state.LotroGame;
 
 public class CantReplaceSiteModifier extends AbstractModifier {
     public CantReplaceSiteModifier(PhysicalCard source, Condition condition, Filterable affectFilter) {
@@ -14,7 +10,7 @@ public class CantReplaceSiteModifier extends AbstractModifier {
     }
 
     @Override
-    public boolean isSiteReplaceable(GameState gameState, ModifiersQuerying modifiersQuerying, String playerId) {
+    public boolean isSiteReplaceable(LotroGame game, String playerId) {
         return false;
     }
 }

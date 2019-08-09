@@ -34,7 +34,7 @@ public class Card20_428 extends AbstractSite {
         if (TriggerConditions.startOfPhase(game, effectResult, Phase.FELLOWSHIP)
                 && GameUtils.isFP(game, playerId)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
-            int count = GameUtils.getSpottableFPCulturesCount(game.getGameState(), game.getModifiersQuerying(), playerId)-2;
+            int count = GameUtils.getSpottableFPCulturesCount(game, playerId)-2;
             for (int i=0; i<count; i++)
                 action.appendEffect(
                         new ChooseAndHealCharactersEffect(action, playerId, CardType.COMPANION));

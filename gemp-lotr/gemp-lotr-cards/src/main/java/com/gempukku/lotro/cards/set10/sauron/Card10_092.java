@@ -46,7 +46,7 @@ public class Card10_092 extends AbstractMinion {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new SelfExertEffect(action, self));
-            int cultures = GameUtils.getSpottableCulturesCount(game.getGameState(), game.getModifiersQuerying(), Side.FREE_PEOPLE);
+            int cultures = GameUtils.getSpottableCulturesCount(game, Side.FREE_PEOPLE);
             if (cultures < 3)
                 action.appendEffect(
                         new PreventableEffect(action, new TakeControlOfASiteEffect(self, playerId), game.getGameState().getCurrentPlayerId(),

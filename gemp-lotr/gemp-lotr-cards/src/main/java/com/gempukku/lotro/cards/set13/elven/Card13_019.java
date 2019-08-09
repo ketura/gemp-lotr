@@ -34,7 +34,7 @@ public class Card13_019 extends AbstractEvent {
                 && PlayConditions.canSpot(game, 3, Race.ELF) && PlayConditions.canSpot(game, Side.SHADOW,
                 new Filter() {
                     @Override
-                    public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                    public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
                         return physicalCard.getBlueprint().getRace() != null;
                     }
                 });
@@ -47,7 +47,7 @@ public class Card13_019 extends AbstractEvent {
                 new ChooseActiveCardEffect(self, playerId, "Choose a race to spare", CardType.MINION,
                         new Filter() {
                             @Override
-                            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                            public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
                                 return physicalCard.getBlueprint().getRace() != null;
                             }
                         }) {

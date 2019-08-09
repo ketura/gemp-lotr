@@ -20,7 +20,7 @@ public class FellowshipPlayerChoosesToMoveOrStayGameProcess implements GameProce
         final GameState gameState = game.getGameState();
         final String currentPlayerId = gameState.getCurrentPlayerId();
         if (gameState.getMoveCount() < RuleUtils.calculateMoveLimit(game)) {
-            if (game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.HAS_TO_MOVE_IF_POSSIBLE)) {
+            if (game.getModifiersQuerying().hasFlagActive(game, ModifierFlag.HAS_TO_MOVE_IF_POSSIBLE)) {
                 playerMoves();
             } else {
                 game.getUserFeedback().sendAwaitingDecision(currentPlayerId,

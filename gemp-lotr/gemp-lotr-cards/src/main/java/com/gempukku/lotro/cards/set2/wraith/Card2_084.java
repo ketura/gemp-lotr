@@ -41,16 +41,16 @@ public class Card2_084 extends AbstractMinion {
                 new KeywordModifier(self, self,
                         new Condition() {
                             @Override
-                            public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return gameState.getBurdens() >= 2 || gameState.getWounds(gameState.getRingBearer(gameState.getCurrentPlayerId())) >= 2;
+                            public boolean isFullfilled(LotroGame game) {
+                                return game.getGameState().getBurdens() >= 2 || game.getGameState().getWounds(game.getGameState().getRingBearer(game.getGameState().getCurrentPlayerId())) >= 2;
                             }
                         }, Keyword.DAMAGE, 1));
         modifiers.add(
                 new KeywordModifier(self, self,
                         new Condition() {
                             @Override
-                            public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return gameState.getBurdens() >= 2 || gameState.getWounds(gameState.getRingBearer(gameState.getCurrentPlayerId())) >= 2;
+                            public boolean isFullfilled(LotroGame game) {
+                                return game.getGameState().getBurdens() >= 2 || game.getGameState().getWounds(game.getGameState().getRingBearer(game.getGameState().getCurrentPlayerId())) >= 2;
                             }
                         }, Keyword.FIERCE, 1));
         return modifiers;

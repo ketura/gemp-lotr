@@ -7,10 +7,8 @@ import com.gempukku.lotro.logic.modifiers.MinionSiteNumberModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.Collections;
@@ -36,8 +34,8 @@ public class Card15_064 extends AbstractCompanion {
     }
 
     @Override
-    public int getTwilightCostModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
-        if (Filters.canSpot(gameState, modifiersQuerying, 2, Culture.GONDOR, Keyword.RANGER))
+    public int getTwilightCostModifier(LotroGame game, PhysicalCard self) {
+        if (Filters.canSpot(game, 2, Culture.GONDOR, Keyword.RANGER))
             return -2;
         return 0;
     }
@@ -50,7 +48,7 @@ public class Card15_064 extends AbstractCompanion {
             if (threats > 0)
                 action.appendEffect(
                         new AddUntilStartOfPhaseModifierEffect(
-                                new MinionSiteNumberModifier(self, Filters.and(Filters.in(Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), CardType.MINION)), Filters.inPlay()), null, threats), Phase.REGROUP));
+                                new MinionSiteNumberModifier(self, Filters.and(Filters.in(Filters.filterActive(game, CardType.MINION)), Filters.inPlay()), null, threats), Phase.REGROUP));
             return Collections.singletonList(action);
         }
         return null;

@@ -35,7 +35,7 @@ public class Card10_104 extends AbstractPermanent {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new AddBurdenEffect(playerId, self, 1));
-            Collection<PhysicalCard> shireEvents = Filters.filter(game.getGameState().getDiscard(playerId), game.getGameState(), game.getModifiersQuerying(), Culture.SHIRE, CardType.EVENT);
+            Collection<PhysicalCard> shireEvents = Filters.filter(game.getGameState().getDiscard(playerId), game, Culture.SHIRE, CardType.EVENT);
             action.appendEffect(
                     new ChooseArbitraryCardsEffect(playerId, "Choose events", filterUniqueNames(shireEvents), 2, 2) {
                         @Override

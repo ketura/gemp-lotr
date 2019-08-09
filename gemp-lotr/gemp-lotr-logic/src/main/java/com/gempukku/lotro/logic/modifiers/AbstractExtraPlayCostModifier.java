@@ -2,11 +2,7 @@ package com.gempukku.lotro.logic.modifiers;
 
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
-import com.gempukku.lotro.logic.modifiers.AbstractModifier;
-import com.gempukku.lotro.logic.modifiers.Condition;
-import com.gempukku.lotro.logic.modifiers.ModifierEffect;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 
@@ -23,8 +19,8 @@ public abstract class AbstractExtraPlayCostModifier extends AbstractModifier {
     }
 
     @Override
-    public abstract List<? extends Effect> getExtraCostsToPlay(GameState gameState, ModifiersQuerying modifiersQueirying, Action action, PhysicalCard card);
+    public abstract List<? extends Effect> getExtraCostsToPlay(LotroGame game, Action action, PhysicalCard card);
 
     @Override
-    public abstract boolean canPayExtraCostsToPlay(GameState gameState, ModifiersQuerying modifiersQueirying, PhysicalCard card);
+    public abstract boolean canPayExtraCostsToPlay(LotroGame game, PhysicalCard card);
 }

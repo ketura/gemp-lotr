@@ -37,7 +37,7 @@ public class Card15_043 extends AbstractMinion {
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.startOfPhase(game, effectResult, Phase.SKIRMISH)
                 && PlayConditions.canSpot(game, self, Filters.inSkirmish)) {
-            int rbStr = game.getModifiersQuerying().getStrength(game.getGameState(),
+            int rbStr = game.getModifiersQuerying().getStrength(game,
                     game.getGameState().getRingBearer(game.getGameState().getCurrentPlayerId()));
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(

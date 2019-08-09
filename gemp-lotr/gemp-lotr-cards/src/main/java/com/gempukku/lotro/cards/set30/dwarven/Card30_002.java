@@ -40,7 +40,7 @@ public class Card30_002 extends AbstractCompanion{
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(new SelfExertEffect(action, self));
 
-            Collection<PhysicalCard> discardedFreePeoplesEvents = Filters.filter(game.getGameState().getDiscard(playerId), game.getGameState(), game.getModifiersQuerying(), Side.FREE_PEOPLE, CardType.EVENT);
+            Collection<PhysicalCard> discardedFreePeoplesEvents = Filters.filter(game.getGameState().getDiscard(playerId), game, Side.FREE_PEOPLE, CardType.EVENT);
 
             action.appendEffect(
                     new ChooseArbitraryCardsEffect(playerId, "Choose card to shuffle into draw deck", new LinkedList<PhysicalCard>(discardedFreePeoplesEvents), 1, 1) {

@@ -4,8 +4,7 @@ import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.game.state.LotroGame;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -30,9 +29,9 @@ public class CountCulturesEvaluator implements Evaluator {
     }
 
     @Override
-    public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
+    public int evaluateExpression(LotroGame game, PhysicalCard self) {
         Set<Culture> cultures = new HashSet<Culture>();
-        for (PhysicalCard physicalCard : Filters.filterActive(gameState, modifiersQuerying, _filters)) {
+        for (PhysicalCard physicalCard : Filters.filterActive(game, _filters)) {
             Culture culture = physicalCard.getBlueprint().getCulture();
             if (culture != null)
                 cultures.add(culture);

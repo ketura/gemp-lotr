@@ -1,8 +1,8 @@
 package com.gempukku.lotro.logic.effects;
 
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.actions.PlayerReconcilesAction;
+import com.gempukku.lotro.logic.timing.AbstractEffect;
 
 public class ReconcileHandEffect extends AbstractEffect {
     private String _playerId;

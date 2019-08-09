@@ -36,7 +36,7 @@ public class Card40_239 extends AbstractEvent {
     @Override
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         PlayEventAction action = new PlayEventAction(self);
-        int fpCulturesCount = GameUtils.getSpottableFPCulturesCount(game.getGameState(), game.getModifiersQuerying(), playerId);
+        int fpCulturesCount = GameUtils.getSpottableFPCulturesCount(game, playerId);
         int threatCount = 1 + Math.max(0, 4 - fpCulturesCount);
         action.appendEffect(
                 new AddThreatsEffect(playerId, self, threatCount));

@@ -39,8 +39,8 @@ public class Card4_347 extends AbstractSite {
                         Race.URUK_HAI,
                         new Filter() {
                             @Override
-                            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                return gameState.getCurrentSite() == self && modifiersQuerying.getUntilEndOfTurnLimitCounter(self).getUsedLimit() < 1;
+                            public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
+                                return game.getGameState().getCurrentSite() == self && game.getModifiersQuerying().getUntilEndOfTurnLimitCounter(self).getUsedLimit() < 1;
                             }
                         }), -3);
     }

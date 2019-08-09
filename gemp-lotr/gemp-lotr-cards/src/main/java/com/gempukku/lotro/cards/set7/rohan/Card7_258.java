@@ -36,7 +36,7 @@ public class Card7_258 extends AbstractEvent {
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
                                         new StrengthModifier(self, card, null, new CountActiveEvaluator(CardType.COMPANION, Filters.mounted))));
-                        boolean skirmishingRaider = Filters.inSkirmishAgainst(Culture.RAIDER, CardType.MINION).accepts(game.getGameState(), game.getModifiersQuerying(), card);
+                        boolean skirmishingRaider = Filters.inSkirmishAgainst(Culture.RAIDER, CardType.MINION).accepts(game, card);
                         if (skirmishingRaider) {
                             action.appendEffect(
                                     new AddUntilEndOfPhaseModifierEffect(

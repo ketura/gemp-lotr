@@ -40,10 +40,10 @@ public class Card2_032 extends AbstractAttachableFPPossession {
     protected List<? extends Modifier> getNonBasicStatsModifiers(final PhysicalCard self) {
         Condition condition = new Condition() {
             @Override
-            public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                return gameState.getSkirmish() != null
-                        && gameState.getSkirmish().getFellowshipCharacter() == self.getAttachedTo()
-                        && Filters.filter(gameState.getSkirmish().getShadowCharacters(), gameState, modifiersQuerying, Race.NAZGUL).size() > 0;
+            public boolean isFullfilled(LotroGame game) {
+                return game.getGameState().getSkirmish() != null
+                        && game.getGameState().getSkirmish().getFellowshipCharacter() == self.getAttachedTo()
+                        && Filters.filter(game.getGameState().getSkirmish().getShadowCharacters(), game, Race.NAZGUL).size() > 0;
             }
         };
 

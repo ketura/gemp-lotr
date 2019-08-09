@@ -48,9 +48,9 @@ public class Card13_050 extends AbstractMinion {
                 new StrengthModifier(self, self,
                         new Condition() {
                             @Override
-                            public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
+                            public boolean isFullfilled(LotroGame game) {
                                 for (String somePlayerId : GameUtils.getAllPlayers(game)) {
-                                    if (Filters.filter(gameState.getRemoved(somePlayerId), gameState, modifiersQuerying, Filters.name("Deagol")).size() > 0)
+                                    if (Filters.filter(game.getGameState().getRemoved(somePlayerId), game, Filters.name("Deagol")).size() > 0)
                                         return true;
                                 }
 
@@ -61,9 +61,9 @@ public class Card13_050 extends AbstractMinion {
                 new KeywordModifier(self, self,
                         new Condition() {
                             @Override
-                            public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
+                            public boolean isFullfilled(LotroGame game) {
                                 for (String somePlayerId : GameUtils.getAllPlayers(game)) {
-                                    if (Filters.filter(gameState.getRemoved(somePlayerId), gameState, modifiersQuerying, Filters.name("Deagol")).size() > 0)
+                                    if (Filters.filter(game.getGameState().getRemoved(somePlayerId), game, Filters.name("Deagol")).size() > 0)
                                         return true;
                                 }
 

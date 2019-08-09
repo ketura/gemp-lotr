@@ -50,8 +50,8 @@ public class Card1_202 extends AbstractPermanent {
                         CardType.COMPANION,
                         new Filter() {
                             @Override
-                            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                return gameState.getCurrentSiteNumber() >= 5 && gameState.getCurrentSiteBlock() == Block.FELLOWSHIP;
+                            public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
+                                return game.getGameState().getCurrentSiteNumber() >= 5 && game.getGameState().getCurrentSiteBlock() == Block.FELLOWSHIP;
                             }
                         }
                 )

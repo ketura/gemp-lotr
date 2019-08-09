@@ -44,7 +44,7 @@ public class Card40_244 extends AbstractAttachableFPPossession {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, CardType.POSSESSION, Keyword.PIPEWEED));
-            final int pipeCount = Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), PossessionClass.PIPE);
+            final int pipeCount = Filters.countSpottable(game, PossessionClass.PIPE);
             action.appendEffect(
                     new ChooseCardsFromDiscardEffect(playerId, 0, pipeCount, Keyword.TALE) {
                         @Override

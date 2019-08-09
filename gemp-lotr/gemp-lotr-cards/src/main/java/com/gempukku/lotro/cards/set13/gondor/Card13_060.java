@@ -52,7 +52,7 @@ public class Card13_060 extends AbstractPermanent {
                                     new KillEffect(card, KillEffect.Cause.CARD_EFFECT));
                         }
                     });
-            PhysicalCard faramir = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name("Faramir"));
+            PhysicalCard faramir = Filters.findFirstActive(game, Filters.name("Faramir"));
             if (faramir != null) {
                 action.appendEffect(
                         new PreventCardEffect((WoundCharactersEffect) effect, faramir));

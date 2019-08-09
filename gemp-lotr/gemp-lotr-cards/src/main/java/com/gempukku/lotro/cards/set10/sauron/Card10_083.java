@@ -1,5 +1,6 @@
 package com.gempukku.lotro.cards.set10.sauron;
 
+import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.cardtype.AbstractMinion;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
@@ -7,8 +8,6 @@ import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
 /**
  * Set: Mount Doom
@@ -29,9 +28,9 @@ public class Card10_083 extends AbstractMinion {
     }
 
     @Override
-    public int getTwilightCostModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
-        if (Filters.canSpot(gameState, modifiersQuerying, Filters.not(self), Culture.SAURON, Race.URUK_HAI))
-            return -Filters.countActive(gameState, modifiersQuerying, CardType.POSSESSION);
+    public int getTwilightCostModifier(LotroGame game, PhysicalCard self) {
+        if (Filters.canSpot(game, Filters.not(self), Culture.SAURON, Race.URUK_HAI))
+            return -Filters.countActive(game, CardType.POSSESSION);
         return 0;
     }
 }

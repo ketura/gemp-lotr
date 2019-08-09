@@ -35,7 +35,7 @@ public class Card3_117 extends AbstractSite {
         return Collections.singletonList(
                 new AbstractModifier(self, "Maneuver events may not be played", null, ModifierEffect.ACTION_MODIFIER) {
                     @Override
-                    public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, Action action) {
+                    public boolean canPlayAction(LotroGame game, String performingPlayer, Action action) {
                         PhysicalCard source = action.getActionSource();
                         if (source != null && action.getActionTimeword() == Phase.MANEUVER && source.getBlueprint().getCardType() == CardType.EVENT)
                             return false;

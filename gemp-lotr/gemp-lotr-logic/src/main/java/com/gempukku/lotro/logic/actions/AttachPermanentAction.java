@@ -1,9 +1,5 @@
 package com.gempukku.lotro.logic.actions;
 
-import com.gempukku.lotro.logic.effects.DiscountEffect;
-import com.gempukku.lotro.logic.effects.ExertCharactersEffect;
-import com.gempukku.lotro.logic.effects.PayPlayOnTwilightCostEffect;
-import com.gempukku.lotro.logic.effects.discount.ToilDiscountEffect;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.common.Zone;
@@ -11,8 +7,8 @@ import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
-import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.effects.PlayCardEffect;
+import com.gempukku.lotro.logic.effects.*;
+import com.gempukku.lotro.logic.effects.discount.ToilDiscountEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.Collections;
@@ -59,7 +55,7 @@ public class AttachPermanentAction extends AbstractCostToEffectAction implements
 
                         int modifier = twilightModifier;
                         for (Map.Entry<Filter, Integer> filterIntegerEntry : attachCostModifiers.entrySet())
-                            if (filterIntegerEntry.getKey().accepts(game.getGameState(), game.getModifiersQuerying(), target))
+                            if (filterIntegerEntry.getKey().accepts(game, target))
                                 modifier += filterIntegerEntry.getValue();
 
                         _twilightModifier = modifier;
@@ -124,7 +120,7 @@ public class AttachPermanentAction extends AbstractCostToEffectAction implements
         if (!_discountResolved) {
             _discountResolved = true;
             if (_discountEffect == null) {
-                int toilCount = game.getModifiersQuerying().getKeywordCount(game.getGameState(), _cardToAttach, Keyword.TOIL);
+                int toilCount = game.getModifiersQuerying().getKeywordCount(game, _cardToAttach, Keyword.TOIL);
                 if (toilCount > 0) {
                     _discountEffect = new ToilDiscountEffect(this, _cardToAttach, _cardToAttach.getOwner(), _cardToAttach.getBlueprint().getCulture(), toilCount);
                 }
@@ -132,7 +128,7 @@ public class AttachPermanentAction extends AbstractCostToEffectAction implements
             if (_discountEffect != null) {
                 int requiredDiscount = 0;
                 if (_cardToAttach.getBlueprint().getSide() == Side.SHADOW) {
-                    int twilightCost = game.getModifiersQuerying().getPlayOnTwilightCost(game.getGameState(), _cardToAttach, _target, _twilightModifier);
+                    int twilightCost = game.getModifiersQuerying().getPlayOnTwilightCost(game, _cardToAttach, _target, _twilightModifier);
                     int underPool = twilightCost - game.getGameState().getTwilightPool();
                     if (underPool > 0)
                         requiredDiscount = underPool;

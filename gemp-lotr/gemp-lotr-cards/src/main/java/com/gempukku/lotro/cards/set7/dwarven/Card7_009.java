@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set7.dwarven;
 
 import com.gempukku.lotro.logic.cardtype.AbstractAttachableFPPossession;
 import com.gempukku.lotro.logic.modifiers.ArcheryTotalModifier;
-import com.gempukku.lotro.logic.modifiers.conditions.MinThreatCondition;
+import com.gempukku.lotro.logic.modifiers.condition.MinThreatCondition;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;

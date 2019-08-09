@@ -38,7 +38,7 @@ public class Card9_019 extends AbstractAttachableFPPossession {
     protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.FELLOWSHIP, self)) {
             ActivateCardAction action = new ActivateCardAction(self);
-            int vitality = game.getModifiersQuerying().getVitality(game.getGameState(), self.getAttachedTo());
+            int vitality = game.getModifiersQuerying().getVitality(game, self.getAttachedTo());
             for (int i = 0; i < vitality; i++)
                 action.appendEffect(
                         new ChooseAndRemoveCultureTokensFromCardEffect(self, playerId, null, 1, Filters.any));

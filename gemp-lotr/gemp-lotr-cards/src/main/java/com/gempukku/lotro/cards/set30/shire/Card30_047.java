@@ -38,7 +38,7 @@ public class Card30_047 extends AbstractAttachableFPPossession {
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.winsSkirmish(game, effectResult, self.getAttachedTo())
-                && Filters.filter(game.getActionsEnvironment().getPlayedCardsInCurrentPhase(), game.getGameState(), game.getModifiersQuerying(), Filters.owner(playerId), Culture.DWARVEN, CardType.EVENT).size() > 0) {
+                && Filters.filter(game.getActionsEnvironment().getPlayedCardsInCurrentPhase(), game, Filters.owner(playerId), Culture.DWARVEN, CardType.EVENT).size() > 0) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
 			action.setText("Choose a condition");
             action.appendEffect(

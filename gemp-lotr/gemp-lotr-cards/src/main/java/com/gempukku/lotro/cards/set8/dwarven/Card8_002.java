@@ -35,7 +35,7 @@ public class Card8_002 extends AbstractEvent {
                 new ChooseActiveCardEffect(self, playerId, "Choose a Dwarf", Race.DWARF, Keyword.DAMAGE) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
-                        int count = game.getModifiersQuerying().getKeywordCount(game.getGameState(), card, Keyword.DAMAGE);
+                        int count = game.getModifiersQuerying().getKeywordCount(game, card, Keyword.DAMAGE);
                         for (int i = 0; i < count; i++)
                             action.appendEffect(
                                     new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, CardType.MINION));

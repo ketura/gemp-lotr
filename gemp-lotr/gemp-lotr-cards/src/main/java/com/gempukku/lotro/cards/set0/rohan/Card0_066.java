@@ -1,5 +1,6 @@
 package com.gempukku.lotro.cards.set0.rohan;
 
+import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -7,8 +8,6 @@ import com.gempukku.lotro.common.Names;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
 /**
  * Set: Promotional
@@ -29,8 +28,8 @@ public class Card0_066 extends AbstractCompanion {
     }
 
     @Override
-    public int getTwilightCostModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
-        if (Filters.canSpot(gameState, modifiersQuerying, Culture.ROHAN, Race.MAN))
+    public int getTwilightCostModifier(LotroGame game, PhysicalCard self) {
+        if (Filters.canSpot(game, Culture.ROHAN, Race.MAN))
             return -1;
         return 0;
     }

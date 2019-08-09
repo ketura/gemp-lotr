@@ -38,7 +38,7 @@ public class Card2_002 extends AbstractEvent {
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.DWARF) {
                     @Override
                     protected void forEachCardExertedCallback(PhysicalCard character) {
-                        boolean spotsOrc = Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Race.ORC);
+                        boolean spotsOrc = Filters.canSpot(game, Race.ORC);
                         action.appendEffect(
                                 new AddUntilStartOfPhaseModifierEffect(
                                         new KeywordModifier(self, Filters.sameCard(character), Keyword.DEFENDER, spotsOrc ? 2 : 1), Phase.REGROUP));

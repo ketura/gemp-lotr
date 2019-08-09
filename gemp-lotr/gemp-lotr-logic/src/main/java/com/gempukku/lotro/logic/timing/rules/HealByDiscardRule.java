@@ -1,7 +1,10 @@
 package com.gempukku.lotro.logic.timing.rules;
 
+import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filters;
+import com.gempukku.lotro.game.LotroCardBlueprint;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -12,7 +15,7 @@ import com.gempukku.lotro.logic.modifiers.AbstractModifier;
 import com.gempukku.lotro.logic.modifiers.ModifierEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersLogic;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
-import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.modifiers.condition.PhaseCondition;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
 import java.util.Collections;
@@ -27,10 +30,11 @@ public class HealByDiscardRule {
 
     public void applyRule() {
         modifiersLogic.addAlwaysOnModifier(
-                new AbstractModifier(null, "Heal by discarding", Zone.HAND, ModifierEffect.EXTRA_ACTION_MODIFIER) {
+                new AbstractModifier(null, "Heal by discarding", Zone.HAND,
+                        new PhaseCondition(Phase.FELLOWSHIP), ModifierEffect.EXTRA_ACTION_MODIFIER) {
                     @Override
-                    public List<? extends ActivateCardAction> getExtraPhaseAction(GameState gameState, ModifiersQuerying modifiersQuerying, final PhysicalCard card) {
-                        if (PlayConditions.canHealByDiscarding(gameState, modifiersQuerying, card)) {
+                    public List<? extends ActivateCardAction> getExtraPhaseAction(LotroGame game, final PhysicalCard card) {
+                        if (canHealByDiscarding(game, card)) {
                             ActivateCardAction action = new ActivateCardAction(card);
                             action.setText("Heal by discarding");
                             action.appendCost(new DiscardCardsFromHandEffect(null, card.getOwner(), Collections.singleton(card), false));
@@ -42,15 +46,26 @@ public class HealByDiscardRule {
                                         }
                                     });
 
-                            PhysicalCard active = Filters.findFirstActive(gameState, modifiersQuerying, Filters.name(card.getBlueprint().getName()));
+                            PhysicalCard active = Filters.findFirstActive(game, Filters.name(card.getBlueprint().getName()));
                             if (active != null)
                                 action.appendEffect(new HealCharactersEffect(card, active));
 
                             return Collections.singletonList(action);
                         }
 
-                        return super.getExtraPhaseAction(gameState, modifiersQuerying, card);
+                        return super.getExtraPhaseAction(game, card);
                     }
                 });
+    }
+
+    private static boolean canHealByDiscarding(LotroGame game, PhysicalCard self) {
+        LotroCardBlueprint blueprint = self.getBlueprint();
+        if ((blueprint.getCardType() == CardType.COMPANION || blueprint.getCardType() == CardType.ALLY)
+                && blueprint.isUnique()) {
+            PhysicalCard matchingName = Filters.findFirstActive(game, Filters.name(blueprint.getName()));
+            if (matchingName != null)
+                return game.getGameState().getWounds(matchingName) > 0;
+        }
+        return false;
     }
 }

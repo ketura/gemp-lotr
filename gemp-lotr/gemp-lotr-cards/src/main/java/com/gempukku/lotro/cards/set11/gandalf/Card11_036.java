@@ -44,7 +44,7 @@ public class Card11_036 extends AbstractEvent {
                 new RevealHandEffect(self, playerId, playerId) {
                     @Override
                     protected void cardsRevealed(Collection<? extends PhysicalCard> cards) {
-                        int companionCount = Filters.filter(cards, game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION).size();
+                        int companionCount = Filters.filter(cards, game, CardType.COMPANION).size();
                         int penalty = companionCount * (PlayConditions.location(game, Keyword.BATTLEGROUND) ? -4 : -3);
                         action.appendEffect(
                                 new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, penalty, CardType.MINION));

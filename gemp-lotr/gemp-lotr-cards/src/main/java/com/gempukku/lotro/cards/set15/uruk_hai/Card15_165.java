@@ -40,7 +40,7 @@ public class Card15_165 extends AbstractMinion {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new SelfExertEffect(action, self));
-            int count = new CountCulturesEvaluator(2, Side.FREE_PEOPLE).evaluateExpression(game.getGameState(), game.getModifiersQuerying(), self);
+            int count = new CountCulturesEvaluator(2, Side.FREE_PEOPLE).evaluateExpression(game, self);
             if (count > 0)
                 action.appendEffect(
                         new ChooseAndExertCharactersEffect(action, playerId, count, count, CardType.COMPANION));

@@ -149,17 +149,17 @@ public class LotroGameMediator {
 
                 if (card.getZone() == Zone.HAND)
                     sb.append("<b>Card is in hand - stats are only provisional</b><br><br>");
-                else if (Filters.filterActive(_lotroGame.getGameState(), _lotroGame.getModifiersQuerying(), card).size() == 0)
+                else if (Filters.filterActive(_lotroGame, card).size() == 0)
                     sb.append("<b>Card is inactive - current stats may be inaccurate</b><br><br>");
 
                 sb.append("<b>Affecting card:</b>");
-                Collection<Modifier> modifiers = _lotroGame.getModifiersQuerying().getModifiersAffecting(_lotroGame.getGameState(), card);
+                Collection<Modifier> modifiers = _lotroGame.getModifiersQuerying().getModifiersAffecting(_lotroGame, card);
                 for (Modifier modifier : modifiers) {
                     PhysicalCard source = modifier.getSource();
                     if (source != null)
-                        sb.append("<br><b>" + GameUtils.getCardLink(source) + ":</b> " + modifier.getText(_lotroGame.getGameState(), _lotroGame.getModifiersQuerying(), card));
+                        sb.append("<br><b>" + GameUtils.getCardLink(source) + ":</b> " + modifier.getText(_lotroGame, card));
                     else
-                        sb.append("<br><b><i>System</i>:</b> " + modifier.getText(_lotroGame.getGameState(), _lotroGame.getModifiersQuerying(), card));
+                        sb.append("<br><b><i>System</i>:</b> " + modifier.getText(_lotroGame, card));
                 }
                 if (modifiers.size() == 0)
                     sb.append("<br><i>nothing</i>");
@@ -188,27 +188,27 @@ public class LotroGameMediator {
 
                 sb.append("<br><br><b>Effective stats:</b>");
                 try {
-                    int twilightCost = _lotroGame.getModifiersQuerying().getTwilightCost(_lotroGame.getGameState(), card, 0, false);
+                    int twilightCost = _lotroGame.getModifiersQuerying().getTwilightCost(_lotroGame, card, 0, false);
                     sb.append("<br><b>Twilight cost:</b> " + twilightCost);
                 } catch (UnsupportedOperationException exp) {
                 }
                 try {
-                    int strength = _lotroGame.getModifiersQuerying().getStrength(_lotroGame.getGameState(), card);
+                    int strength = _lotroGame.getModifiersQuerying().getStrength(_lotroGame, card);
                     sb.append("<br><b>Strength:</b> " + strength);
                 } catch (UnsupportedOperationException exp) {
                 }
                 try {
-                    int vitality = _lotroGame.getModifiersQuerying().getVitality(_lotroGame.getGameState(), card);
+                    int vitality = _lotroGame.getModifiersQuerying().getVitality(_lotroGame, card);
                     sb.append("<br><b>Vitality:</b> " + vitality);
                 } catch (UnsupportedOperationException exp) {
                 }
                 try {
-                    int resistance = _lotroGame.getModifiersQuerying().getResistance(_lotroGame.getGameState(), card);
+                    int resistance = _lotroGame.getModifiersQuerying().getResistance(_lotroGame, card);
                     sb.append("<br><b>Resistance:</b> " + resistance);
                 } catch (UnsupportedOperationException exp) {
                 }
                 try {
-                    int siteNumber = _lotroGame.getModifiersQuerying().getMinionSiteNumber(_lotroGame.getGameState(), card);
+                    int siteNumber = _lotroGame.getModifiersQuerying().getMinionSiteNumber(_lotroGame, card);
                     sb.append("<br><b>Site number:</b> " + siteNumber);
                 } catch (UnsupportedOperationException exp) {
                 }
@@ -217,11 +217,11 @@ public class LotroGameMediator {
                 for (Keyword keyword : Keyword.values()) {
                     if (keyword.isInfoDisplayable()) {
                         if (keyword.isMultiples()) {
-                            int count = _lotroGame.getModifiersQuerying().getKeywordCount(_lotroGame.getGameState(), card, keyword);
+                            int count = _lotroGame.getModifiersQuerying().getKeywordCount(_lotroGame, card, keyword);
                             if (count > 0)
                                 keywords.append(keyword.getHumanReadable() + " +" + count + ", ");
                         } else {
-                            if (_lotroGame.getModifiersQuerying().hasKeyword(_lotroGame.getGameState(), card, keyword))
+                            if (_lotroGame.getModifiersQuerying().hasKeyword(_lotroGame, card, keyword))
                                 keywords.append(keyword.getHumanReadable() + ", ");
                         }
                     }
@@ -263,7 +263,7 @@ public class LotroGameMediator {
                 }
             }
 
-            if (_lotroGame.getGameState() != null && _lotroGame.getWinnerPlayerId() == null) {
+            if (_lotroGame != null && _lotroGame.getWinnerPlayerId() == null) {
                 for (Map.Entry<String, Long> playerDecision : new HashMap<String, Long>(_decisionQuerySentTimes).entrySet()) {
                     String playerId = playerDecision.getKey();
                     long decisionSent = playerDecision.getValue();

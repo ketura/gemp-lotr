@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set13.men;
 import com.gempukku.lotro.logic.cardtype.AbstractMinion;
 import com.gempukku.lotro.logic.actions.PlayPermanentAction;
 import com.gempukku.lotro.logic.effects.DiscountEffect;
-import com.gempukku.lotro.logic.modifiers.conditions.NotCondition;
+import com.gempukku.lotro.logic.modifiers.condition.NotCondition;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -36,16 +36,16 @@ public class Card13_088 extends AbstractMinion {
     @Override
     protected int getPotentialExtraPaymentDiscount(String playerId, LotroGame game, PhysicalCard self) {
         GameState gameState = game.getGameState();
-        if (Filters.canSpot(gameState, game.getModifiersQuerying(), Filters.not(self), Culture.MEN, CardType.MINION))
-            return gameState.getWounds(gameState.getRingBearer(gameState.getCurrentPlayerId()));
+        if (Filters.canSpot(game, Filters.not(self), Culture.MEN, CardType.MINION))
+            return game.getGameState().getWounds(game.getGameState().getRingBearer(game.getGameState().getCurrentPlayerId()));
         return 0;
     }
 
     @Override
     protected DiscountEffect getDiscountEffect(PlayPermanentAction action, String playerId, LotroGame game, PhysicalCard self) {
         GameState gameState = game.getGameState();
-        if (Filters.canSpot(gameState, game.getModifiersQuerying(), Filters.not(self), Culture.MEN, CardType.MINION)) {
-            int wounds = gameState.getWounds(gameState.getRingBearer(gameState.getCurrentPlayerId()));
+        if (Filters.canSpot(game, Filters.not(self), Culture.MEN, CardType.MINION)) {
+            int wounds = game.getGameState().getWounds(game.getGameState().getRingBearer(game.getGameState().getCurrentPlayerId()));
             if (wounds > 0)
                 return new DiscountChoiceEffect(playerId, wounds);
         }

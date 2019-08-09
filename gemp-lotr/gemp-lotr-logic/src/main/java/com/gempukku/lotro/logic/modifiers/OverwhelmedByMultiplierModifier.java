@@ -2,11 +2,7 @@ package com.gempukku.lotro.logic.modifiers;
 
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
-import com.gempukku.lotro.logic.modifiers.AbstractModifier;
-import com.gempukku.lotro.logic.modifiers.Condition;
-import com.gempukku.lotro.logic.modifiers.ModifierEffect;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.game.state.LotroGame;
 
 public class OverwhelmedByMultiplierModifier extends AbstractModifier {
     private int _multiplier;
@@ -21,7 +17,7 @@ public class OverwhelmedByMultiplierModifier extends AbstractModifier {
     }
 
     @Override
-    public int getOverwhelmMultiplier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+    public int getOverwhelmMultiplier(LotroGame game, PhysicalCard physicalCard) {
         return _multiplier;
     }
 }

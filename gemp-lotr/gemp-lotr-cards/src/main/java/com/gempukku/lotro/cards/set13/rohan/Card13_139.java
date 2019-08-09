@@ -39,7 +39,7 @@ public class Card13_139 extends AbstractPermanent {
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.played(game, effectResult, self)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
-            int count = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Zone.ADVENTURE_PATH, CardType.SITE, Filters.or(Keyword.PLAINS, Keyword.BATTLEGROUND));
+            int count = Filters.countActive(game, Zone.ADVENTURE_PATH, CardType.SITE, Filters.or(Keyword.PLAINS, Keyword.BATTLEGROUND));
             if (count > 0)
                 action.appendEffect(
                         new AddTokenEffect(self, self, Token.ROHAN, count));
@@ -47,7 +47,7 @@ public class Card13_139 extends AbstractPermanent {
         }
         if (TriggerConditions.startOfPhase(game, effectResult, Phase.REGROUP)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
-            int count = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION, Keyword.MUSTER);
+            int count = Filters.countActive(game, CardType.COMPANION, Keyword.MUSTER);
             if (count > 0)
                 action.appendEffect(
                         new AddTokenEffect(self, self, Token.ROHAN, count));

@@ -36,7 +36,7 @@ public class Card10_091 extends AbstractMinion {
                 && !PlayConditions.canSpot(game, Filters.not(self), CardType.MINION)
                 && game.getGameState().getTwilightPool() <= 3) {
             ActivateCardAction action = new ActivateCardAction(self);
-            int count = game.getModifiersQuerying().hasKeyword(game.getGameState(), self, Keyword.ROAMING) ? 5 : 3;
+            int count = game.getModifiersQuerying().hasKeyword(game, self, Keyword.ROAMING) ? 5 : 3;
             action.appendEffect(
                     new AddTwilightEffect(self, count));
             return Collections.singletonList(action);

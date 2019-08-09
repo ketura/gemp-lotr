@@ -1,10 +1,7 @@
 package com.gempukku.lotro.logic.modifiers;
 
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
-import com.gempukku.lotro.logic.modifiers.AbstractModifier;
-import com.gempukku.lotro.logic.modifiers.ModifierEffect;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.evaluator.ConstantEvaluator;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 
@@ -17,7 +14,7 @@ public class MoveLimitModifier extends AbstractModifier {
     }
 
     @Override
-    public int getMoveLimitModifier(GameState gameState, ModifiersQuerying modifiersQuerying) {
-        return _moveLimitModifier.evaluateExpression(gameState, modifiersQuerying, null);
+    public int getMoveLimitModifier(LotroGame game) {
+        return _moveLimitModifier.evaluateExpression(game, null);
     }
 }

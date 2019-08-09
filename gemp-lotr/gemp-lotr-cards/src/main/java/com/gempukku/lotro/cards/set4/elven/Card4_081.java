@@ -37,7 +37,7 @@ public class Card4_081 extends AbstractCompanion {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Race.ELF);
+                && Filters.canSpot(game, Race.ELF);
     }
 
     @Override
@@ -47,16 +47,16 @@ public class Card4_081 extends AbstractCompanion {
                 new StrengthModifier(self, self,
                         new Condition() {
                             @Override
-                            public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return Filters.countActive(gameState, modifiersQuerying, self, Filters.hasAttached(PossessionClass.RANGED_WEAPON)) > 0;
+                            public boolean isFullfilled(LotroGame game) {
+                                return Filters.countActive(game, self, Filters.hasAttached(PossessionClass.RANGED_WEAPON)) > 0;
                             }
                         }, 2));
         modifiers.add(
                 new DoesNotAddToArcheryTotalModifier(self, self,
                         new Condition() {
                             @Override
-                            public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return Filters.countActive(gameState, modifiersQuerying, self, Filters.hasAttached(PossessionClass.RANGED_WEAPON)) > 0;
+                            public boolean isFullfilled(LotroGame game) {
+                                return Filters.countActive(game, self, Filters.hasAttached(PossessionClass.RANGED_WEAPON)) > 0;
                             }
                         }));
         return modifiers;

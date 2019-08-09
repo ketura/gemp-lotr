@@ -34,8 +34,8 @@ public class Card4_029 extends AbstractPermanent {
                 new TwilightCostModifier(self, CardType.SITE,
                         new Condition() {
                             @Override
-                            public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return Filters.countActive(gameState, modifiersQuerying, CardType.SITE,
+                            public boolean isFullfilled(LotroGame game) {
+                                return Filters.countActive(game, CardType.SITE,
                                         Filters.hasStacked(Filters.and(Culture.DUNLAND, Race.MAN))) > 0;
                             }
                         }, 5));

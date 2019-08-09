@@ -10,9 +10,7 @@ import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 
 import java.util.concurrent.atomic.AtomicInteger;
@@ -49,7 +47,7 @@ public class Card13_121 extends AbstractEvent {
                 new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId,
                         new Evaluator() {
                             @Override
-                            public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard cardAffected) {
+                            public int evaluateExpression(LotroGame game, PhysicalCard cardAffected) {
                                 return bonus.get();
                             }
                         }, Culture.ORC, Race.ORC));

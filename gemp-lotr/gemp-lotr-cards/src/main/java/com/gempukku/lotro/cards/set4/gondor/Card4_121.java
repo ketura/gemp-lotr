@@ -40,8 +40,8 @@ public class Card4_121 extends AbstractPermanent {
                 new MinionSiteNumberModifier(self, Filters.and(Race.MAN, Filters.inSkirmish),
                         new Condition() {
                             @Override
-                            public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return gameState.getCurrentSiteNumber() == 5 && gameState.getCurrentSiteBlock() == Block.TWO_TOWERS;
+                            public boolean isFullfilled(LotroGame game) {
+                                return game.getGameState().getCurrentSiteNumber() == 5 && game.getGameState().getCurrentSiteBlock() == Block.TWO_TOWERS;
                             }
                         }, 2));
     }

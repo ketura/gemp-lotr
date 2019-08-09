@@ -18,7 +18,7 @@ public class AfterSkirmishesGameProcess implements GameProcess {
         if (gameState.isExtraSkirmishes()) {
             gameState.setExtraSkirmishes(false);
             _followingGameProcess = new RegroupGameProcess();
-        } else if (!gameState.isFierceSkirmishes() && Filters.countActive(gameState, game.getModifiersQuerying(), CardType.MINION, Keyword.FIERCE)>0) {
+        } else if (!gameState.isFierceSkirmishes() && Filters.countActive(game, CardType.MINION, Keyword.FIERCE)>0) {
             gameState.setFierceSkirmishes(true);
             _followingGameProcess = new AssignmentGameProcess();
         } else {

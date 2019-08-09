@@ -47,7 +47,7 @@ public class Card40_012 extends AbstractEvent {
                                         }
                                     }
                                 });
-                        if (Filters.or(Keyword.MOUNTAIN, Keyword.UNDERGROUND).accepts(game.getGameState(), game.getModifiersQuerying(), game.getGameState().getCurrentSite())) {
+                        if (Filters.or(Keyword.MOUNTAIN, Keyword.UNDERGROUND).accepts(game, game.getGameState().getCurrentSite())) {
                             action.appendEffect(
                                     new DrawCardsEffect(action, playerId, exertedDwarves));
                         }

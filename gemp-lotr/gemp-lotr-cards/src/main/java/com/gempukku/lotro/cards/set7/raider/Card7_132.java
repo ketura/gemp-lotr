@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set7.raider;
 
 import com.gempukku.lotro.logic.cardtype.AbstractMinion;
-import com.gempukku.lotro.logic.modifiers.conditions.MinThreatCondition;
+import com.gempukku.lotro.logic.modifiers.condition.MinThreatCondition;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;

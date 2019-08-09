@@ -39,8 +39,8 @@ public class Card20_265 extends AbstractMinion {
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         Filter attachedThreeFPCardsFilter = new Filter() {
             @Override
-            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                return Filters.filter(gameState.getAttachedCards(physicalCard), gameState, modifiersQuerying, Side.FREE_PEOPLE).size() >= 3;
+            public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
+                return Filters.filter(game.getGameState().getAttachedCards(physicalCard), game, Side.FREE_PEOPLE).size() >= 3;
             }
         };
         if (TriggerConditions.played(game, effectResult, self)

@@ -50,7 +50,7 @@ public class Card13_153 extends AbstractAttachableFPPossession {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.hasAttached(self)));
-            final Collection<PhysicalCard> skirmishingAgainst = Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Filters.inSkirmishAgainst(Filters.hasAttached(self)));
+            final Collection<PhysicalCard> skirmishingAgainst = Filters.filterActive(game, Filters.inSkirmishAgainst(Filters.hasAttached(self)));
             action.appendEffect(
                     new AddUntilStartOfPhaseModifierEffect(
                             new RemoveKeywordModifier(self, Filters.in(skirmishingAgainst), Keyword.FIERCE), Phase.REGROUP));

@@ -33,7 +33,7 @@ public class Card20_386 extends AbstractEvent {
                 && (PlayConditions.location(game,
                 new Filter() {
                     @Override
-                    public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                    public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
                         return physicalCard.getSiteNumber() > 5;
                     }
                 }) || (PlayConditions.canSpot(game, 2, Race.HOBBIT) && PlayConditions.canDiscardFromPlay(self, game, CardType.POSSESSION, Keyword.PIPEWEED)));

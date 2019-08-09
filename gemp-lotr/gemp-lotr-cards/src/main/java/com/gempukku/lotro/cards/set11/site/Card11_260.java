@@ -31,7 +31,7 @@ public class Card11_260 extends AbstractNewSite {
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.played(game, effectResult, Filters.or(CardType.ARTIFACT, CardType.POSSESSION))) {
             PlayCardResult playResult = (PlayCardResult) effectResult;
-            if (playResult.getAttachedTo() != null && Filters.and(CardType.COMPANION, Filters.owner(playerId)).accepts(game.getGameState(), game.getModifiersQuerying(), playResult.getAttachedTo())) {
+            if (playResult.getAttachedTo() != null && Filters.and(CardType.COMPANION, Filters.owner(playerId)).accepts(game, playResult.getAttachedTo())) {
                 OptionalTriggerAction action = new OptionalTriggerAction(self);
                 action.appendEffect(
                         new DrawCardsEffect(action, playerId, 1));

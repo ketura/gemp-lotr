@@ -45,9 +45,9 @@ public class Card12_182 extends AbstractPermanent {
                             int bonus = 0;
                             if (PlayConditions.location(game, Filters.or(Keyword.BATTLEGROUND, Keyword.FOREST)))
                                 bonus++;
-                            if (Filters.inSkirmishAgainst(CardType.COMPANION, Filters.maxResistance(4)).accepts(game.getGameState(), game.getModifiersQuerying(), card))
+                            if (Filters.inSkirmishAgainst(CardType.COMPANION, Filters.maxResistance(4)).accepts(game, card))
                                 bonus++;
-                            if (Filters.hasAttached(CardType.POSSESSION).accepts(game.getGameState(), game.getModifiersQuerying(), card))
+                            if (Filters.hasAttached(CardType.POSSESSION).accepts(game, card))
                                 bonus++;
                             if (game.getGameState().isFierceSkirmishes())
                                 bonus++;

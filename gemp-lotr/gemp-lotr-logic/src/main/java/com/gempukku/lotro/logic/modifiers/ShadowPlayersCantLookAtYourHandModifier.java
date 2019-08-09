@@ -1,10 +1,7 @@
 package com.gempukku.lotro.logic.modifiers;
 
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
-import com.gempukku.lotro.logic.modifiers.AbstractModifier;
-import com.gempukku.lotro.logic.modifiers.ModifierEffect;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.game.state.LotroGame;
 
 public class ShadowPlayersCantLookAtYourHandModifier extends AbstractModifier {
     private String _revealingPlayerId;
@@ -15,9 +12,9 @@ public class ShadowPlayersCantLookAtYourHandModifier extends AbstractModifier {
     }
 
     @Override
-    public boolean canLookOrRevealCardsInHand(GameState gameState, ModifiersQuerying modifiersQuerying, String revealingPlayerId, String actingPlayerId) {
+    public boolean canLookOrRevealCardsInHand(LotroGame game, String revealingPlayerId, String actingPlayerId) {
         if (_revealingPlayerId != null && _revealingPlayerId.equals(revealingPlayerId)
-                && actingPlayerId != null && !actingPlayerId.equals(gameState.getCurrentPlayerId()))
+                && actingPlayerId != null && !actingPlayerId.equals(game.getGameState().getCurrentPlayerId()))
             return false;
         return true;
     }

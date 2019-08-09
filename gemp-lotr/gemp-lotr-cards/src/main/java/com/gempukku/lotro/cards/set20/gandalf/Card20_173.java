@@ -63,7 +63,7 @@ public class Card20_173 extends AbstractPermanent {
             action.appendCost(
                     new SelfDiscardEffect(self));
             action.appendEffect(
-                    new DrawCardsEffect(action, playerId, Filters.filter(game.getGameState().getStackedCards(self), game.getGameState(), game.getModifiersQuerying(), Side.FREE_PEOPLE).size()));
+                    new DrawCardsEffect(action, playerId, Filters.filter(game.getGameState().getStackedCards(self), game, Side.FREE_PEOPLE).size()));
             return Collections.singletonList(action);
         }
         return null;

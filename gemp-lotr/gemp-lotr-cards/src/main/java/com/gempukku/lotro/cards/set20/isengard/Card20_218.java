@@ -29,7 +29,7 @@ public class Card20_218 extends AbstractEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && PlayConditions.canPlayFromHand(playerId, game, -Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Culture.ISENGARD, Race.ORC), Race.URUK_HAI);
+                && PlayConditions.canPlayFromHand(playerId, game, -Filters.countActive(game, Culture.ISENGARD, Race.ORC), Race.URUK_HAI);
     }
 
     @Override

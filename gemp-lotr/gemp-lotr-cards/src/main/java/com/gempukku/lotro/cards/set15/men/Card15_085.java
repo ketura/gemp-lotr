@@ -45,8 +45,8 @@ public class Card15_085 extends AbstractEvent {
                 && PlayConditions.canSpot(game, Filters.unboundCompanion,
                 new Filter() {
                     @Override
-                    public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                        return gameState.getAttachedCards(physicalCard).size() >= 3;
+                    public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
+                        return game.getGameState().getAttachedCards(physicalCard).size() >= 3;
                     }
                 });
     }
@@ -60,8 +60,8 @@ public class Card15_085 extends AbstractEvent {
                 new ChooseActiveCardEffect(self, playerId, "Choose an unbound companion", Filters.unboundCompanion,
                         new Filter() {
                             @Override
-                            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                return gameState.getAttachedCards(physicalCard).size() >= 3;
+                            public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
+                                return game.getGameState().getAttachedCards(physicalCard).size() >= 3;
                             }
                         }) {
                     @Override

@@ -54,7 +54,7 @@ public class Card13_013 extends AbstractPermanent {
                                                     new AddUntilStartOfPhaseModifierEffect(
                                                             new AbstractModifier(self, "Can't use skirmish special abilities", null, ModifierEffect.ACTION_MODIFIER) {
                                                                 @Override
-                                                                public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, Action action) {
+                                                                public boolean canPlayAction(LotroGame game, String performingPlayer, Action action) {
                                                                     if (action.getActionTimeword() == Phase.SKIRMISH && action.getType() == Action.Type.SPECIAL_ABILITY
                                                                             && (action.getActionSource() == minion || action.getActionSource() == companion))
                                                                         return false;

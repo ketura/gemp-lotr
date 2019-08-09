@@ -1,11 +1,11 @@
 package com.gempukku.lotro.logic.cardtype;
 
-import com.gempukku.lotro.logic.actions.PlayPermanentAction;
-import com.gempukku.lotro.logic.effects.DiscountEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.actions.PlayPermanentAction;
+import com.gempukku.lotro.logic.effects.DiscountEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
@@ -35,7 +35,7 @@ public class AbstractPermanent extends AbstractLotroCardBlueprint {
         if (discountEffect != null)
             action.setDiscountEffect(discountEffect);
 
-        List<? extends Effect> extraCosts = game.getModifiersQuerying().getExtraCostsToPlay(game.getGameState(), action, self);
+        List<? extends Effect> extraCosts = game.getModifiersQuerying().getExtraCostsToPlay(game, action, self);
         for (Effect extraCost : extraCosts)
             action.appendCost(extraCost);
 
@@ -46,7 +46,7 @@ public class AbstractPermanent extends AbstractLotroCardBlueprint {
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         twilightModifier -= getPotentialExtraPaymentDiscount(playerId, game, self);
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && PlayConditions.checkUniqueness(game.getGameState(), game.getModifiersQuerying(), self, ignoreCheckingDeadPile);
+                && PlayConditions.checkUniqueness(game, self, ignoreCheckingDeadPile);
     }
 
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {

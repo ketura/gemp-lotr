@@ -54,8 +54,8 @@ public class Card30_048 extends AbstractAttachableFPPossession {
                 new StrengthModifier(self, Filters.hasAttached(self),
                         new Condition() {
                             @Override
-                            public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return !modifiersQuerying.hasFlagActive(gameState, ModifierFlag.RING_TEXT_INACTIVE) && gameState.isWearingRing();
+                            public boolean isFullfilled(LotroGame game) {
+                                return !game.getModifiersQuerying().hasFlagActive(game, ModifierFlag.RING_TEXT_INACTIVE) && game.getGameState().isWearingRing();
                             }
                         }, 2));
 
@@ -65,7 +65,7 @@ public class Card30_048 extends AbstractAttachableFPPossession {
     @Override
 	protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
-                && !game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.RING_TEXT_INACTIVE)) {
+                && !game.getModifiersQuerying().hasFlagActive(game, ModifierFlag.RING_TEXT_INACTIVE)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new AddBurdenEffect(self.getOwner(), self, 1));
@@ -80,7 +80,7 @@ public class Card30_048 extends AbstractAttachableFPPossession {
     public List<RequiredTriggerAction> getRequiredBeforeTriggers(LotroGame game, Effect effect, PhysicalCard self) {
         if (TriggerConditions.isGettingWounded(effect, game, Filters.hasAttached(self))
                 && game.getGameState().isWearingRing()
-                && !game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.RING_TEXT_INACTIVE)) {
+                && !game.getModifiersQuerying().hasFlagActive(game, ModifierFlag.RING_TEXT_INACTIVE)) {
             WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(new NegateWoundEffect(woundEffect, self.getAttachedTo()));

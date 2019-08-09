@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set20.sauron;
 
 import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.logic.modifiers.MinionSiteNumberModifier;
-import com.gempukku.lotro.logic.modifiers.conditions.MinThreatCondition;
+import com.gempukku.lotro.logic.modifiers.condition.MinThreatCondition;
 import com.gempukku.lotro.logic.modifiers.evaluator.ForEachThreatEvaluator;
 import com.gempukku.lotro.logic.modifiers.evaluator.MultiplyEvaluator;
 import com.gempukku.lotro.common.*;

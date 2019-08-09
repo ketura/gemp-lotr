@@ -30,12 +30,12 @@ public class AIPlayerAssignsMinionsGameProcess implements GameProcess {
         GameState gameState = game.getGameState();
         Filter minionFilter = Filters.and(CardType.MINION, Filters.owner("AI"), Filters.in(_leftoverMinions));
 
-        final Set<PhysicalCard> minions = new HashSet<PhysicalCard>(Filters.filterActive(gameState, game.getModifiersQuerying(), minionFilter, Filters.assignableToSkirmish(Side.SHADOW, true, false)));
+        final Set<PhysicalCard> minions = new HashSet<PhysicalCard>(Filters.filterActive(game, minionFilter, Filters.assignableToSkirmish(Side.SHADOW, true, false)));
         if (minions.size() > 0) {
             final PhysicalCard ringBearer = game.getGameState().getRingBearer(game.getGameState().getCurrentPlayerId());
             Map<PhysicalCard, Set<PhysicalCard>> assignments = Collections.singletonMap(ringBearer, minions);
 
-            if (game.getModifiersQuerying().isValidAssignments(game.getGameState(), Side.SHADOW, assignments)) {
+            if (game.getModifiersQuerying().isValidAssignments(game, Side.SHADOW, assignments)) {
                 SystemQueueAction action = new SystemQueueAction();
                 action.appendEffect(
                         new AssignmentPhaseEffect("AI", assignments, "Shadow player assignments"));

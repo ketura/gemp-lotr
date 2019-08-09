@@ -40,8 +40,8 @@ public class Card20_154 extends AbstractEvent {
                         new CardMatchesEvaluator(2, 3,
                                 new Filter() {
                                     @Override
-                                    public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                        return modifiersQuerying.getResistance(gameState, physicalCard)>=4;
+                                    public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
+                                        return game.getModifiersQuerying().getResistance(game, physicalCard)>=4;
                                     }
                                 }), CardType.COMPANION));
         return action;

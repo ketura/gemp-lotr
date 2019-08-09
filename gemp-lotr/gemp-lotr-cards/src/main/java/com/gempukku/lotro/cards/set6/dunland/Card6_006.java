@@ -38,7 +38,7 @@ public class Card6_006 extends AbstractMinion {
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         if (TriggerConditions.winsSkirmish(game, effectResult, self)
-                && Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Culture.DUNLAND, Race.MAN, Filters.playable(game)).size() > 0) {
+                && Filters.filter(game.getGameState().getHand(playerId), game, Culture.DUNLAND, Race.MAN, Filters.playable(game)).size() > 0) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
                     new ChooseAndPlayCardFromHandEffect(playerId, game, Filters.and(Culture.DUNLAND, Race.MAN)) {

@@ -32,7 +32,7 @@ public class Card1_326 extends AbstractSite {
     public List<? extends Action> getPhaseActions(final String playerId, final LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseSiteDuringPhase(game, Phase.FELLOWSHIP, self)
                 && PlayConditions.canExert(self, game, Race.HOBBIT)
-                && Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.or(CardType.COMPANION, CardType.ALLY), Filters.playable(game, -1)).size() > 0) {
+                && Filters.filter(game.getGameState().getHand(playerId), game, Filters.or(CardType.COMPANION, CardType.ALLY), Filters.playable(game, -1)).size() > 0) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.HOBBIT));

@@ -32,8 +32,8 @@ public class Card4_108 extends AbstractEvent {
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
                 && PlayConditions.canExert(self, game, Filters.gandalf)
-                && Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.MINION)
-                > Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION);
+                && Filters.countActive(game, CardType.MINION)
+                > Filters.countActive(game, CardType.COMPANION);
     }
 
     @Override

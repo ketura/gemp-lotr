@@ -4,7 +4,6 @@ import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.PlayEventAction;
-import com.gempukku.lotro.logic.effects.PlayCardEffect;
 import com.gempukku.lotro.logic.timing.results.PlayEventResult;
 
 import java.util.Collections;

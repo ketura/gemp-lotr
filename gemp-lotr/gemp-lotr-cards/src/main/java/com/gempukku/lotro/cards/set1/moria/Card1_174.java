@@ -39,12 +39,12 @@ public class Card1_174 extends AbstractMinion {
                         self,
                         new Filter() {
                             @Override
-                            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                Skirmish skirmish = gameState.getSkirmish();
+                            public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
+                                Skirmish skirmish = game.getGameState().getSkirmish();
                                 if (skirmish != null) {
                                     Set<PhysicalCard> shadowChars = skirmish.getShadowCharacters();
                                     if (shadowChars.contains(self)
-                                            && Filters.filter(shadowChars, gameState, modifiersQuerying, Culture.MORIA, Race.ORC, Filters.not(self)).size() > 0)
+                                            && Filters.filter(shadowChars, game, Culture.MORIA, Race.ORC, Filters.not(self)).size() > 0)
                                         return true;
                                 }
                                 return false;

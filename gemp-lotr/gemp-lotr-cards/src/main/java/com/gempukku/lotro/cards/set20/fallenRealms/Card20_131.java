@@ -35,7 +35,7 @@ public class Card20_131 extends AbstractMinion {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new RemoveTwilightEffect(3));
-            int count = (Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION) >= 6) ? 2 : 1;
+            int count = (Filters.countSpottable(game, CardType.COMPANION) >= 6) ? 2 : 1;
             action.appendEffect(
                     new ChooseAndWoundCharactersEffect(action, game.getGameState().getCurrentPlayerId(), count, count, CardType.COMPANION));
             return Collections.singletonList(action);

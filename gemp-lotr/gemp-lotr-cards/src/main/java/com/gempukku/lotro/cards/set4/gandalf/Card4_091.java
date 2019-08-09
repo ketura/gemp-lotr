@@ -43,8 +43,8 @@ public class Card4_091 extends AbstractAttachableFPPossession {
                 new KeywordModifier(self, Filters.gandalf,
                         new Condition() {
                             @Override
-                            public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return gameState.getTwilightPool() >= 2;
+                            public boolean isFullfilled(LotroGame game) {
+                                return game.getGameState().getTwilightPool() >= 2;
                             }
                         }, Keyword.DAMAGE, 2));
     }

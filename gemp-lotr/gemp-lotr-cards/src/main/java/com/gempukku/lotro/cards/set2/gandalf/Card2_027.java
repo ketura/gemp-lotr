@@ -42,7 +42,7 @@ public class Card2_027 extends AbstractEvent {
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.gandalf));
 
-        if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.gandalf, Filters.inSkirmish))
+        if (Filters.canSpot(game, Filters.gandalf, Filters.inSkirmish))
             action.appendEffect(
                     new ChooseAndDiscardCardsFromPlayEffect(
                             action, playerId, 1, 1, CardType.MINION, Filters.inSkirmish));

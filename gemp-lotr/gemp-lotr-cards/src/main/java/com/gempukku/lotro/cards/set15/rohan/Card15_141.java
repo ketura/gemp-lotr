@@ -4,7 +4,7 @@ import com.gempukku.lotro.logic.cardtype.AbstractAttachableFPPossession;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.LiberateASiteEffect;
 import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
-import com.gempukku.lotro.logic.modifiers.conditions.NotCondition;
+import com.gempukku.lotro.logic.modifiers.condition.NotCondition;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -52,7 +52,7 @@ public class Card15_141 extends AbstractAttachableFPPossession {
                     new SelfDiscardEffect(self));
             action.appendEffect(
                     new LiberateASiteEffect(self, playerId, null));
-            if (Filters.mounted.accepts(game.getGameState(), game.getModifiersQuerying(), self.getAttachedTo()))
+            if (Filters.mounted.accepts(game, self.getAttachedTo()))
                 action.appendEffect(
                         new LiberateASiteEffect(self, playerId, null));
             return Collections.singletonList(action);

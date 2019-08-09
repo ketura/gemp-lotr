@@ -42,7 +42,7 @@ public class Card7_112 extends AbstractPermanent {
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.played(game, effectResult, self)) {
-            int countActive = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.or(Filters.aragorn, Filters.boromir, Filters.name("Denethor"), Filters.name("Faramir")));
+            int countActive = Filters.countActive(game, Filters.or(Filters.aragorn, Filters.boromir, Filters.name("Denethor"), Filters.name("Faramir")));
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new AddTokenEffect(self, self, Token.GONDOR, countActive));

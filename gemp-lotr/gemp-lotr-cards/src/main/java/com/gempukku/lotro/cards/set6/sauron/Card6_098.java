@@ -45,7 +45,7 @@ public class Card6_098 extends AbstractAttachable {
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.winsSkirmish(game, effectResult, self.getAttachedTo())) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
-            int count = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.siteControlled(playerId));
+            int count = Filters.countActive(game, Filters.siteControlled(playerId));
             action.appendEffect(
                     new AddTwilightEffect(self, count));
             return Collections.singletonList(action);

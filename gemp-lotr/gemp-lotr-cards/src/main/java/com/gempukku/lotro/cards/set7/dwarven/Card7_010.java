@@ -45,7 +45,7 @@ public class Card7_010 extends AbstractPermanent {
                     new ChooseAndStackCardsFromHandEffect(action, playerId, 2, 2, self, Filters.any) {
                         @Override
                         public void stackFromHandCallback(Collection<PhysicalCard> cardsStacked) {
-                            int count = Filters.filter(cardsStacked, game.getGameState(), game.getModifiersQuerying(), Culture.DWARVEN).size();
+                            int count = Filters.filter(cardsStacked, game, Culture.DWARVEN).size();
                             if (count > 0)
                                 action.appendEffect(
                                         new DrawCardsEffect(action, playerId, count));
@@ -66,7 +66,7 @@ public class Card7_010 extends AbstractPermanent {
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             game.getModifiersEnvironment().addUntilEndOfPhaseModifier(
                                     new StrengthModifier(self, card, 2), Phase.SKIRMISH);
-                            int stackedDwarf = Filters.filter(game.getGameState().getStackedCards(self), game.getGameState(), game.getModifiersQuerying(), Culture.DWARVEN).size();
+                            int stackedDwarf = Filters.filter(game.getGameState().getStackedCards(self), game, Culture.DWARVEN).size();
                             if (stackedDwarf > 0)
                                 game.getModifiersEnvironment().addUntilEndOfPhaseModifier(
                                         new KeywordModifier(self, card, Keyword.DAMAGE, stackedDwarf * 2), Phase.SKIRMISH);

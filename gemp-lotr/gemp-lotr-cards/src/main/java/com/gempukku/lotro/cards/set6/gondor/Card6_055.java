@@ -38,7 +38,7 @@ public class Card6_055 extends AbstractAttachableFPPossession {
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.startOfTurn(game, effectResult)) {
             final Set<Culture> cultureTokens = new HashSet<Culture>();
-            for (PhysicalCard physicalCard : Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Filters.hasAnyCultureTokens(1))) {
+            for (PhysicalCard physicalCard : Filters.filterActive(game, Filters.hasAnyCultureTokens(1))) {
                 Map<Token, Integer> tokens = game.getGameState().getTokens(physicalCard);
                 for (Map.Entry<Token, Integer> tokenIntegerEntry : tokens.entrySet()) {
                     if (tokenIntegerEntry.getValue() > 0) {
@@ -55,7 +55,7 @@ public class Card6_055 extends AbstractAttachableFPPossession {
                         new ChooseAndHealCharactersEffect(action, playerId, CardType.COMPANION,
                                 new Filter() {
                                     @Override
-                                    public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                                    public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
                                         return cultureTokens.contains(physicalCard.getBlueprint().getCulture());
                                     }
                                 }));

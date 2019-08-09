@@ -50,7 +50,7 @@ public class Card11_224 extends AbstractMinion {
                                     new RevealTopCardsOfDrawDeckEffect(self, playerId, wounds) {
                                         @Override
                                         protected void cardsRevealed(List<PhysicalCard> revealedCards) {
-                                            for (PhysicalCard wraithCard : Filters.filter(revealedCards, game.getGameState(), game.getModifiersQuerying(), Culture.WRAITH)) {
+                                            for (PhysicalCard wraithCard : Filters.filter(revealedCards, game, Culture.WRAITH)) {
                                                 action.appendEffect(
                                                         new PutCardFromDeckIntoHandEffect(wraithCard));
                                             }

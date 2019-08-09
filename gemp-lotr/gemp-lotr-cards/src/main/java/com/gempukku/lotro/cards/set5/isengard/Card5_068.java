@@ -34,7 +34,7 @@ public class Card5_068 extends AbstractEvent {
                 new ChooseActiveCardEffect(self, playerId, "Choose ISENGARD Orc", Culture.ISENGARD, Race.ORC) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
-                        boolean isMounted = Filters.mounted.accepts(game.getGameState(), game.getModifiersQuerying(), card);
+                        boolean isMounted = Filters.mounted.accepts(game, card);
                         action.insertEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
                                         new StrengthModifier(self, Filters.sameCard(card), 2)));

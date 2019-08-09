@@ -35,7 +35,7 @@ public class Card1_287 extends AbstractResponseEvent {
             final HealCharactersEffect healEffect = (HealCharactersEffect) effect;
             final PlayEventAction action = new PlayEventAction(self);
             action.appendCost(
-                    new PreventCardEffect(healEffect, Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.ringBearer)));
+                    new PreventCardEffect(healEffect, Filters.findFirstActive(game, Filters.ringBearer)));
             action.appendEffect(
                     new RemoveBurdenEffect(playerId, self));
             return Collections.singletonList(action);

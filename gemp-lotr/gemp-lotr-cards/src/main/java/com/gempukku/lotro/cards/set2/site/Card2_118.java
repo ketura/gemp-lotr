@@ -43,8 +43,8 @@ public class Card2_118 extends AbstractSite {
                                 Keyword.ARCHER,
                                 new Filter() {
                                     @Override
-                                    public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                        return gameState.getCurrentPhase() == Phase.SHADOW && modifiersQuerying.getUntilEndOfPhaseLimitCounter(self, Phase.SHADOW).getUsedLimit() < 1;
+                                    public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
+                                        return game.getGameState().getCurrentPhase() == Phase.SHADOW && game.getModifiersQuerying().getUntilEndOfPhaseLimitCounter(self, Phase.SHADOW).getUsedLimit() < 1;
                                     }
                                 }
                         ), -2));

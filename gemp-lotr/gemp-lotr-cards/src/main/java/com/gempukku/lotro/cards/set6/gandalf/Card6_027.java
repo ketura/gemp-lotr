@@ -33,9 +33,9 @@ public class Card6_027 extends AbstractCompanion {
         return new StrengthModifier(self, self,
                 new Condition() {
                     @Override
-                    public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                        return Filters.countActive(gameState, modifiersQuerying, Race.ENT)
-                                + modifiersQuerying.getSpotBonus(gameState, Race.ENT) >= 3;
+                    public boolean isFullfilled(LotroGame game) {
+                        return Filters.countActive(game, Race.ENT)
+                                + game.getModifiersQuerying().getSpotBonus(game, Race.ENT) >= 3;
                     }
                 }, 2);
     }

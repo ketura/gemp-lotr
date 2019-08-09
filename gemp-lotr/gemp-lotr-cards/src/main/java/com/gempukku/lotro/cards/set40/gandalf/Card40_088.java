@@ -31,7 +31,7 @@ public class Card40_088 extends AbstractEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.gandalf);
+                && Filters.canSpot(game, Filters.gandalf);
     }
 
     @Override
@@ -41,7 +41,7 @@ public class Card40_088 extends AbstractEvent {
                 new PlaySiteEffect(action, playerId, null, game.getGameState().getCurrentSiteNumber() + 1) {
                     @Override
                     protected void sitePlayedCallback(PhysicalCard site) {
-                        if (game.getModifiersQuerying().hasKeyword(game.getGameState(), site, Keyword.UNDERGROUND))
+                        if (game.getModifiersQuerying().hasKeyword(game, site, Keyword.UNDERGROUND))
                             action.appendEffect(
                                     new DrawCardsEffect(action, playerId, 1));
                     }

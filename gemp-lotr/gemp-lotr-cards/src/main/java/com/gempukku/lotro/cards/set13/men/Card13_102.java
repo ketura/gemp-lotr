@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set13.men;
 
 import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
-import com.gempukku.lotro.logic.modifiers.conditions.CanSpotCultureTokensCondition;
+import com.gempukku.lotro.logic.modifiers.condition.CanSpotCultureTokensCondition;
 import com.gempukku.lotro.logic.modifiers.evaluator.CountActiveEvaluator;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;

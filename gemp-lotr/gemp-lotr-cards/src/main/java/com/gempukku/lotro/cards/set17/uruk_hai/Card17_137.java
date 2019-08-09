@@ -27,7 +27,7 @@ public class Card17_137 extends AbstractEvent {
     @Override
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         PlayEventAction action = new PlayEventAction(self);
-        int count = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Culture.URUK_HAI, CardType.MINION);
+        int count = Filters.countActive(game, Culture.URUK_HAI, CardType.MINION);
         action.appendEffect(
                 new ChooseAndDiscardCardsFromPlayEffect(action, playerId, count, count, CardType.CONDITION));
         return action;

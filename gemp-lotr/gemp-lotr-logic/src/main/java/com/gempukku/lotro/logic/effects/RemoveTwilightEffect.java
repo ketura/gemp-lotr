@@ -20,7 +20,7 @@ public class RemoveTwilightEffect extends AbstractEffect {
 
     @Override
     public String getText(LotroGame game) {
-        return "Remove (" + _twilight.evaluateExpression(game.getGameState(), game.getModifiersQuerying(), null) + ")";
+        return "Remove (" + _twilight.evaluateExpression(game, null) + ")";
     }
 
     @Override
@@ -30,12 +30,12 @@ public class RemoveTwilightEffect extends AbstractEffect {
 
     @Override
     public boolean isPlayableInFull(LotroGame game) {
-        return game.getGameState().getTwilightPool() >= _twilight.evaluateExpression(game.getGameState(), game.getModifiersQuerying(), null);
+        return game.getGameState().getTwilightPool() >= _twilight.evaluateExpression(game, null);
     }
 
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
-        int requestedToRemove = _twilight.evaluateExpression(game.getGameState(), game.getModifiersQuerying(), null);
+        int requestedToRemove = _twilight.evaluateExpression(game, null);
         int toRemove = Math.min(game.getGameState().getTwilightPool(), requestedToRemove);
         game.getGameState().sendMessage(GameUtils.formatNumber(toRemove, requestedToRemove) + " twilight gets removed from twilight pool");
         game.getGameState().removeTwilight(toRemove);

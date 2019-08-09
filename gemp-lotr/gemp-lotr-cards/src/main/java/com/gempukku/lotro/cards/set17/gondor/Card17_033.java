@@ -38,12 +38,12 @@ public class Card17_033 extends AbstractCompanion {
     }
 
     @Override
-    public int getTwilightCostModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
-        if (gameState.getCurrentPhase() == Phase.PLAY_STARTING_FELLOWSHIP
-                && Filters.canSpot(gameState, modifiersQuerying, Culture.GONDOR, Filters.unboundCompanion,
+    public int getTwilightCostModifier(LotroGame game, PhysicalCard self) {
+        if (game.getGameState().getCurrentPhase() == Phase.PLAY_STARTING_FELLOWSHIP
+                && Filters.canSpot(game, Culture.GONDOR, Filters.unboundCompanion,
                 new Filter() {
                     @Override
-                    public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                    public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
                         return physicalCard.getBlueprint().getTwilightCost() >= 3;
                     }
                 })) {

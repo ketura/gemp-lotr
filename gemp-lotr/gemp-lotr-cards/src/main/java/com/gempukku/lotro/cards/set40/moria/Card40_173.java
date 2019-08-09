@@ -39,7 +39,7 @@ public class Card40_173 extends AbstractEvent {
                 new ChooseActiveCardEffect(self, playerId, "Choose companion", CardType.COMPANION) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
-                        final int cardCount = Filters.filter(game.getGameState().getAttachedCards(card), game.getGameState(), game.getModifiersQuerying(), Side.FREE_PEOPLE).size();
+                        final int cardCount = Filters.filter(game.getGameState().getAttachedCards(card), game, Side.FREE_PEOPLE).size();
                         action.appendEffect(
                                 new AddTwilightEffect(self, cardCount));
                     }

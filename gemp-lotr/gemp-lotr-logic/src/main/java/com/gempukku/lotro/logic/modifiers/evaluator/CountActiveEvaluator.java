@@ -3,8 +3,7 @@ package com.gempukku.lotro.logic.modifiers.evaluator;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.game.state.LotroGame;
 
 public class CountActiveEvaluator implements Evaluator {
     private int _over;
@@ -26,8 +25,8 @@ public class CountActiveEvaluator implements Evaluator {
     }
 
     @Override
-    public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
-        final int active = Math.max(0, Filters.countActive(gameState, modifiersQuerying, _filters) - _over);
+    public int evaluateExpression(LotroGame game, PhysicalCard self) {
+        final int active = Math.max(0, Filters.countActive(game, _filters) - _over);
         if (_limit == null)
             return active;
         return Math.min(_limit, active);

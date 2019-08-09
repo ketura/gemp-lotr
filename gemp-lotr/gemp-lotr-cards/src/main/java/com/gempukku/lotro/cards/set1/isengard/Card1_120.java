@@ -55,8 +55,8 @@ public class Card1_120 extends AbstractPermanent {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SHADOW, self, 3)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(new RemoveTwilightEffect(3));
-            final String fpPlayer = gameState.getCurrentPlayerId();
-            if (game.getModifiersQuerying().canLookOrRevealCardsInHand(game.getGameState(), fpPlayer, playerId)) {
+            final String fpPlayer = game.getGameState().getCurrentPlayerId();
+            if (game.getModifiersQuerying().canLookOrRevealCardsInHand(game, fpPlayer, playerId)) {
                 action.appendEffect(
                         new ForEachBurdenYouSpotEffect(playerId) {
                             @Override

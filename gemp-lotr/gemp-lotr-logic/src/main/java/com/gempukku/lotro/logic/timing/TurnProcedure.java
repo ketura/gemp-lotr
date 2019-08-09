@@ -19,13 +19,7 @@ import com.gempukku.lotro.logic.timing.results.ReturnCardsToHandResult;
 import com.gempukku.lotro.logic.timing.rules.CharacterDeathRule;
 import com.gempukku.lotro.logic.timing.rules.InitiativeChangeRule;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 // Action generates multiple Effects, both costs and result of an action are Effects.
 
@@ -174,7 +168,7 @@ public class TurnProcedure {
             for (EffectResult effectResult : _effectResults) {
                 if (effectResult.getType() == EffectResult.Type.ANY_NUMBER_KILLED) {
                     KilledResult killResult = (KilledResult) effectResult;
-                    if (Filters.filter(killResult.getKilledCards(), _game.getGameState(), _game.getModifiersQuerying(), Filters.ringBearer).size() > 0)
+                    if (Filters.filter(killResult.getKilledCards(), _game, Filters.ringBearer).size() > 0)
                         return true;
                 }
                 if (effectResult.getType() == EffectResult.Type.FOR_EACH_RETURNED_TO_HAND) {

@@ -31,7 +31,7 @@ public class DrawCardsEffect extends AbstractSubActionEffect {
 
     @Override
     public String getText(LotroGame game) {
-        return "Draw " + _count + " card" + ((_count.evaluateExpression(game.getGameState(), game.getModifiersQuerying(), null) > 1) ? "s" : "");
+        return "Draw " + _count + " card" + ((_count.evaluateExpression(game, null) > 1) ? "s" : "");
     }
 
     @Override
@@ -41,14 +41,14 @@ public class DrawCardsEffect extends AbstractSubActionEffect {
 
     @Override
     public boolean isPlayableInFull(LotroGame game) {
-        return game.getGameState().getDeck(_playerId).size() >= _count.evaluateExpression(game.getGameState(), game.getModifiersQuerying(), null);
+        return game.getGameState().getDeck(_playerId).size() >= _count.evaluateExpression(game, null);
     }
 
     @Override
     public void playEffect(LotroGame game) {
         SubAction subAction = new SubAction(_action);
         final List<DrawOneCardEffect> drawEffects = new LinkedList<DrawOneCardEffect>();
-        final int drawCount = _count.evaluateExpression(game.getGameState(), game.getModifiersQuerying(), null);
+        final int drawCount = _count.evaluateExpression(game, null);
         for (int i = 0; i < drawCount; i++) {
             final DrawOneCardEffect effect = new DrawOneCardEffect(_playerId);
             subAction.appendEffect(effect);

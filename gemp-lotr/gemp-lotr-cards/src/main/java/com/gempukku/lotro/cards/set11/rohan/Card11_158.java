@@ -36,7 +36,7 @@ public class Card11_158 extends AbstractPermanent {
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.forEachDiscardedFromPlay(game, effectResult, Culture.ROHAN, CardType.POSSESSION)
-                && Filters.filter(game.getGameState().getStackedCards(self), game.getGameState(), game.getModifiersQuerying(), CardType.POSSESSION).size() <= 1) {
+                && Filters.filter(game.getGameState().getStackedCards(self), game, CardType.POSSESSION).size() <= 1) {
             DiscardCardsFromPlayResult discardResult = (DiscardCardsFromPlayResult) effectResult;
             ActivateCardAction action = new ActivateCardAction(self);
             action.setText("Stack " + GameUtils.getFullName(discardResult.getDiscardedCard()));

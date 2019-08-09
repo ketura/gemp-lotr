@@ -45,8 +45,8 @@ public class Card17_116 extends AbstractMinion {
         return new ResistanceModifier(self, CardType.COMPANION,
                 new Condition() {
                     @Override
-                    public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                        return !modifiersQuerying.hasFlagActive(gameState, ModifierFlag.SARUMAN_FIRST_SENTENCE_INACTIVE);
+                    public boolean isFullfilled(LotroGame game) {
+                        return !game.getModifiersQuerying().hasFlagActive(game, ModifierFlag.SARUMAN_FIRST_SENTENCE_INACTIVE);
                     }
                 }, -1);
     }

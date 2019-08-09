@@ -47,10 +47,10 @@ public class Card8_027 extends AbstractCompanion {
     @Override
     protected List<ActivateCardAction> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
-                && Filters.inSkirmish.accepts(game.getGameState(), game.getModifiersQuerying(), self)) {
+                && Filters.inSkirmish.accepts(game, self)) {
             int totalVitality = 0;
-            for (PhysicalCard minion : Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), CardType.MINION, Filters.inSkirmishAgainst(self))) {
-                totalVitality += game.getModifiersQuerying().getVitality(game.getGameState(), minion);
+            for (PhysicalCard minion : Filters.filterActive(game, CardType.MINION, Filters.inSkirmishAgainst(self))) {
+                totalVitality += game.getModifiersQuerying().getVitality(game, minion);
             }
             if (PlayConditions.canAddThreat(game, self, totalVitality)) {
                 ActivateCardAction action = new ActivateCardAction(self);

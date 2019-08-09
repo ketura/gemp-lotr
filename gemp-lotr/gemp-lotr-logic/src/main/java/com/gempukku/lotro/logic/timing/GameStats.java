@@ -104,7 +104,7 @@ public class GameStats {
         if (skirmish != null) {
             PhysicalCard fpChar = skirmish.getFellowshipCharacter();
             if (fpChar != null) {
-                int multiplier = game.getModifiersQuerying().getOverwhelmMultiplier(game.getGameState(), fpChar);
+                int multiplier = game.getModifiersQuerying().getOverwhelmMultiplier(game, fpChar);
                 if (newFellowshipStrength * multiplier <= newShadowStrength && newShadowStrength != 0)
                     newFpOverwhelmed = true;
             }
@@ -137,14 +137,14 @@ public class GameStats {
         Map<Integer, Integer> newCharVitalities = new HashMap<Integer, Integer>();
         Map<Integer, Integer> newSiteNumbers = new HashMap<Integer, Integer>();
         Map<Integer, String> newCharResistances = new HashMap<Integer, String>();
-        for (PhysicalCard character : Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Filters.or(CardType.COMPANION, CardType.ALLY, CardType.MINION))) {
-            newCharStrengths.put(character.getCardId(), game.getModifiersQuerying().getStrength(game.getGameState(), character));
-            newCharVitalities.put(character.getCardId(), game.getModifiersQuerying().getVitality(game.getGameState(), character));
+        for (PhysicalCard character : Filters.filterActive(game, Filters.or(CardType.COMPANION, CardType.ALLY, CardType.MINION))) {
+            newCharStrengths.put(character.getCardId(), game.getModifiersQuerying().getStrength(game, character));
+            newCharVitalities.put(character.getCardId(), game.getModifiersQuerying().getVitality(game, character));
             final LotroCardBlueprint blueprint = character.getBlueprint();
-            if (blueprint.getCardType() == CardType.MINION || game.getModifiersQuerying().isAdditionalCardType(game.getGameState(), character, CardType.MINION))
-                newSiteNumbers.put(character.getCardId(), game.getModifiersQuerying().getMinionSiteNumber(game.getGameState(), character));
+            if (blueprint.getCardType() == CardType.MINION || game.getModifiersQuerying().isAdditionalCardType(game, character, CardType.MINION))
+                newSiteNumbers.put(character.getCardId(), game.getModifiersQuerying().getMinionSiteNumber(game, character));
             else {
-                final int resistance = game.getModifiersQuerying().getResistance(game.getGameState(), character);
+                final int resistance = game.getModifiersQuerying().getResistance(game, character);
                 if (blueprint.getCardType() == CardType.COMPANION) {
                     Signet signet = blueprint.getSignet();
                     String resistanceStr;

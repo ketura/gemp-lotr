@@ -47,7 +47,7 @@ public class Card9_039 extends AbstractPermanent {
             return Collections.singletonList(action);
         }
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SKIRMISH, self, 1)
-                && Filters.filter(game.getGameState().getStackedCards(self), game.getGameState(), game.getModifiersQuerying(), Side.FREE_PEOPLE).size() > 0) {
+                && Filters.filter(game.getGameState().getStackedCards(self), game, Side.FREE_PEOPLE).size() > 0) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new RemoveTwilightEffect(1));

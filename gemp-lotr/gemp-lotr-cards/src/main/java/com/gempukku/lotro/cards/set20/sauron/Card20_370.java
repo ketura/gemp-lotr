@@ -32,8 +32,8 @@ public class Card20_370 extends AbstractMinion {
                 CardType.COMPANION,
                 new Filter() {
                     @Override
-                    public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                        final Skirmish skirmish = gameState.getSkirmish();
+                    public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
+                        final Skirmish skirmish = game.getGameState().getSkirmish();
                         if (skirmish != null) {
                             final PhysicalCard fellowshipCharacter = skirmish.getFellowshipCharacter();
                             if (fellowshipCharacter != null)

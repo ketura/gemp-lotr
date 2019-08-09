@@ -44,9 +44,9 @@ public class Card15_036 extends AbstractCompanion {
         return new StrengthModifier(self, self,
                 new Condition() {
                     @Override
-                    public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                        return Filters.countActive(gameState, modifiersQuerying, Race.ENT)
-                                + modifiersQuerying.getSpotBonus(gameState, Race.ENT) >= 4;
+                    public boolean isFullfilled(LotroGame game) {
+                        return Filters.countActive(game, Race.ENT)
+                                + game.getModifiersQuerying().getSpotBonus(game, Race.ENT) >= 4;
                     }
                 }, 3);
     }
@@ -68,7 +68,7 @@ public class Card15_036 extends AbstractCompanion {
                                 action.appendEffect(
                                         new RevealCardEffect(self, bottomCard));
                                 if (Filters.and(Culture.GANDALF, Filters.character)
-                                        .accepts(game.getGameState(), game.getModifiersQuerying(), bottomCard)
+                                        .accepts(game, bottomCard)
                                         && PlayConditions.canPlayFromDeck(playerId, game, bottomCard)) {
                                     action.appendEffect(
                                             new ChooseAndPlayCardFromDeckEffect(playerId, bottomCard));

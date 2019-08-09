@@ -1,9 +1,8 @@
 package com.gempukku.lotro.logic.modifiers.evaluator;
 
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
+import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.Condition;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
 public class ConditionEvaluator implements Evaluator {
     private int _default;
@@ -17,8 +16,8 @@ public class ConditionEvaluator implements Evaluator {
     }
 
     @Override
-    public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
-        if (_condition.isFullfilled(gameState, modifiersQuerying))
+    public int evaluateExpression(LotroGame game, PhysicalCard self) {
+        if (_condition.isFullfilled(game))
             return _conditionFullfilled;
         return _default;
     }

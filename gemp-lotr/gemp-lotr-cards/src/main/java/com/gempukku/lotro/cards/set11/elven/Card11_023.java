@@ -50,7 +50,7 @@ public class Card11_023 extends AbstractAttachableFPPossession {
             ExertResult exertResult = (ExertResult) effectResult;
             if (exertResult.getAction() != null && exertResult.getAction().getType() == Action.Type.PLAY_CARD) {
                 PhysicalCard playedCard = exertResult.getAction().getActionSource();
-                if (playedCard != null && Filters.and(Culture.ELVEN, Filters.or(CardType.CONDITION, CardType.EVENT)).accepts(game.getGameState(), game.getModifiersQuerying(), playedCard)) {
+                if (playedCard != null && Filters.and(Culture.ELVEN, Filters.or(CardType.CONDITION, CardType.EVENT)).accepts(game, playedCard)) {
                     OptionalTriggerAction action = new OptionalTriggerAction(self);
                     action.appendEffect(
                             new CheckPhaseLimitEffect(action, self, 1,

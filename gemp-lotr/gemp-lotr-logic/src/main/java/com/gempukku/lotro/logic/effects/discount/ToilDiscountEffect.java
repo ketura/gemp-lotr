@@ -1,13 +1,13 @@
 package com.gempukku.lotro.logic.effects.discount;
 
-import com.gempukku.lotro.logic.effects.DiscountEffect;
-import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.AbstractCostToEffectAction;
 import com.gempukku.lotro.logic.actions.SubAction;
+import com.gempukku.lotro.logic.effects.DiscountEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.logic.timing.AbstractSubActionEffect;
 import com.gempukku.lotro.logic.timing.Action;
 
@@ -55,7 +55,7 @@ public class ToilDiscountEffect extends AbstractSubActionEffect implements Disco
 
     @Override
     public boolean isPlayableInFull(LotroGame game) {
-        return _minimalDiscount <= _toilCount * (_paidToil + Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.owner(_ownerId), _culture, Filters.character, Filters.canExert(_payingFor)));
+        return _minimalDiscount <= _toilCount * (_paidToil + Filters.countActive(game, Filters.owner(_ownerId), _culture, Filters.character, Filters.canExert(_payingFor)));
     }
 
     @Override

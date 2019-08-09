@@ -27,14 +27,14 @@ public class Card1_251 extends AbstractEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Culture.SAURON, Race.ORC)
+                && Filters.canSpot(game, Culture.SAURON, Race.ORC)
                 && PlayConditions.canSpot(game, 6, CardType.COMPANION);
     }
 
     @Override
     public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self);
-        int companionCount = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION);
+        int companionCount = Filters.countActive(game, CardType.COMPANION);
         int woundCount = companionCount - 5;
         for (int i = 0; i < woundCount; i++) {
             action.appendEffect(

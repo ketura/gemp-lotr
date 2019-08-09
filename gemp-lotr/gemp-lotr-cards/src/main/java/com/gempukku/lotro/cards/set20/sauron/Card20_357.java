@@ -32,12 +32,12 @@ public class Card20_357 extends AbstractPermanent {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SHADOW, self, 0)
                 && PlayConditions.canExert(self, game, Culture.SAURON, Race.ORC)
                 && PlayConditions.canPlayFromDiscard(playerId, game,
-                Math.max(0, GameUtils.getSpottableFPCulturesCount(game.getGameState(), game.getModifiersQuerying(), playerId)-3), Culture.SAURON, CardType.MINION)) {
+                Math.max(0, GameUtils.getSpottableFPCulturesCount(game, playerId)-3), Culture.SAURON, CardType.MINION)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Culture.SAURON, Race.ORC));
             action.appendEffect(
-                    new ChooseAndPlayCardFromDiscardEffect(playerId, game, Math.max(0, GameUtils.getSpottableFPCulturesCount(game.getGameState(), game.getModifiersQuerying(), playerId)-3),
+                    new ChooseAndPlayCardFromDiscardEffect(playerId, game, Math.max(0, GameUtils.getSpottableFPCulturesCount(game, playerId)-3),
                             Culture.SAURON, CardType.MINION));
             return Collections.singletonList(action);
         }

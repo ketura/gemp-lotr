@@ -6,7 +6,6 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
-import com.gempukku.lotro.logic.effects.AbstractPreventableCardEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
@@ -42,9 +41,9 @@ public class ExertCharactersEffect extends AbstractPreventableCardEffect {
     protected Filter getExtraAffectableFilter() {
         return new Filter() {
             @Override
-            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                return modifiersQuerying.canBeExerted(gameState, _source, physicalCard)
-                        && modifiersQuerying.getVitality(gameState, physicalCard) > 1;
+            public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
+                return game.getModifiersQuerying().canBeExerted(game, _source, physicalCard)
+                        && game.getModifiersQuerying().getVitality(game, physicalCard) > 1;
             }
         };
     }

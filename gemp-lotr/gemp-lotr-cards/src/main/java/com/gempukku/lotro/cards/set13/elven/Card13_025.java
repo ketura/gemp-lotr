@@ -43,9 +43,9 @@ public class Card13_025 extends AbstractPermanent {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             int penalty = 0;
-                            if (Filters.inSkirmishAgainst(CardType.COMPANION, Filters.minResistance(4)).accepts(game.getGameState(), game.getModifiersQuerying(), card))
+                            if (Filters.inSkirmishAgainst(CardType.COMPANION, Filters.minResistance(4)).accepts(game, card))
                                 penalty--;
-                            if (Filters.wounded.accepts(game.getGameState(), game.getModifiersQuerying(), card))
+                            if (Filters.wounded.accepts(game, card))
                                 penalty--;
                             if (PlayConditions.canSpot(game, Race.ELF, Keyword.ARCHER))
                                 penalty--;

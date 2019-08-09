@@ -38,7 +38,7 @@ public class Card7_272 extends AbstractMinion {
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.played(game, effectResult, self)) {
             PlayCardResult playResult = (PlayCardResult) effectResult;
-            if (playResult.getPlayedFrom() == Zone.STACKED && Filters.siteControlled(self.getOwner()).accepts(game.getGameState(), game.getModifiersQuerying(), playResult.getAttachedOrStackedPlayedFrom())) {
+            if (playResult.getPlayedFrom() == Zone.STACKED && Filters.siteControlled(self.getOwner()).accepts(game, playResult.getAttachedOrStackedPlayedFrom())) {
                 RequiredTriggerAction action = new RequiredTriggerAction(self);
                 action.appendEffect(
                         new AddThreatsEffect(self.getOwner(), self, 2));

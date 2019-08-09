@@ -4,7 +4,7 @@ import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
+import com.gempukku.lotro.game.state.LotroGame;
 
 public class CantDiscardFromPlayModifier extends AbstractModifier {
     private Filter _sourceFilter;
@@ -19,8 +19,8 @@ public class CantDiscardFromPlayModifier extends AbstractModifier {
     }
 
     @Override
-    public boolean canBeDiscardedFromPlay(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, PhysicalCard card, PhysicalCard source) {
-        if (_sourceFilter.accepts(gameState, modifiersQuerying, source))
+    public boolean canBeDiscardedFromPlay(LotroGame game, String performingPlayer, PhysicalCard card, PhysicalCard source) {
+        if (_sourceFilter.accepts(game, source))
             return false;
         return true;
     }

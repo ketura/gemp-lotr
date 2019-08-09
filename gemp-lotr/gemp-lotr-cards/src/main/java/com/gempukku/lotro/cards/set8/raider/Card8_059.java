@@ -6,7 +6,7 @@ import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.logic.effects.AddTokenEffect;
 import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
 import com.gempukku.lotro.logic.modifiers.HasInitiativeModifier;
-import com.gempukku.lotro.logic.modifiers.conditions.AndCondition;
+import com.gempukku.lotro.logic.modifiers.condition.AndCondition;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
@@ -48,8 +48,8 @@ public class Card8_059 extends AbstractPermanent {
                                 new SpotCondition(Culture.RAIDER, Race.MAN),
                                 new Condition() {
                                     @Override
-                                    public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                        return GameUtils.getSpottableTokensTotal(gameState, modifiersQuerying, Token.RAIDER) >= 6;
+                                    public boolean isFullfilled(LotroGame game) {
+                                        return GameUtils.getSpottableTokensTotal(game, Token.RAIDER) >= 6;
                                     }
                                 }
                         ), Side.SHADOW));
@@ -72,7 +72,7 @@ public class Card8_059 extends AbstractPermanent {
             ActivateCardAction action = new ActivateCardAction(self);
 
             action.appendEffect(
-                    new AddTwilightEffect(self, GameUtils.getSpottableTokensTotal(game.getGameState(), game.getModifiersQuerying(), Token.RAIDER)));
+                    new AddTwilightEffect(self, GameUtils.getSpottableTokensTotal(game, Token.RAIDER)));
             action.appendEffect(
                     new SelfDiscardEffect(self));
             return Collections.singletonList(action);

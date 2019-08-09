@@ -45,7 +45,7 @@ public class Card15_038 extends AbstractCompanion {
         if (TriggerConditions.winsSkirmish(game, effectResult, self)) {
             String firstShadowPlayer = GameUtils.getFirstShadowPlayer(game);
 
-            int selfStr = game.getModifiersQuerying().getStrength(game.getGameState(), self);
+            int selfStr = game.getModifiersQuerying().getStrength(game, self);
             int oppStr = RuleUtils.getShadowSkirmishStrength(game);
 
             int diff = selfStr - oppStr;

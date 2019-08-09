@@ -51,7 +51,7 @@ public class Card40_038 extends AbstractAlly{
                         protected void cardsRevealed(List<PhysicalCard> revealedCards) {
                             if (revealedCards.size()>0) {
                                 PhysicalCard revealedCard = revealedCards.get(0);
-                                if (Filters.and(Culture.ELVEN).accepts(game.getGameState(), game.getModifiersQuerying(), revealedCard)) {
+                                if (Filters.and(Culture.ELVEN).accepts(game, revealedCard)) {
                                     action.appendEffect(
                                             new PlayoutDecisionEffect(playerId, new YesNoDecision("Would you like to discard the card") {
                                                 @Override

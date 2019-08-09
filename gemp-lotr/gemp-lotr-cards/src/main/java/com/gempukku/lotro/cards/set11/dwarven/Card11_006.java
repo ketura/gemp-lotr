@@ -42,7 +42,7 @@ public class Card11_006 extends AbstractEvent {
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.DWARF, Filters.not(Filters.ringBearer)) {
                     @Override
                     protected void forEachCardExertedCallback(PhysicalCard character) {
-                        int resistance = game.getModifiersQuerying().getResistance(game.getGameState(), character);
+                        int resistance = game.getModifiersQuerying().getResistance(game, character);
                         if (resistance > 0)
                             action.appendEffect(
                                     new AddUntilEndOfPhaseModifierEffect(

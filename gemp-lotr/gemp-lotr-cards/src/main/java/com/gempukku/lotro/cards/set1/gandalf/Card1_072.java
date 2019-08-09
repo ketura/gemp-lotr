@@ -7,10 +7,8 @@ import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.common.Signet;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 
@@ -37,15 +35,15 @@ public class Card1_072 extends AbstractCompanion {
         return new StrengthModifier(self, self, null,
                 new Evaluator() {
                     @Override
-                    public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
+                    public int evaluateExpression(LotroGame game, PhysicalCard self) {
                         int result = 0;
-                        if (Filters.canSpot(gameState, modifiersQuerying, CardType.COMPANION, Race.HOBBIT))
+                        if (Filters.canSpot(game, CardType.COMPANION, Race.HOBBIT))
                             result++;
-                        if (Filters.canSpot(gameState, modifiersQuerying, CardType.COMPANION, Race.DWARF))
+                        if (Filters.canSpot(game, CardType.COMPANION, Race.DWARF))
                             result++;
-                        if (Filters.canSpot(gameState, modifiersQuerying, CardType.COMPANION, Race.ELF))
+                        if (Filters.canSpot(game, CardType.COMPANION, Race.ELF))
                             result++;
-                        if (Filters.canSpot(gameState, modifiersQuerying, CardType.COMPANION, Race.MAN))
+                        if (Filters.canSpot(game, CardType.COMPANION, Race.MAN))
                             result++;
                         return result;
                     }

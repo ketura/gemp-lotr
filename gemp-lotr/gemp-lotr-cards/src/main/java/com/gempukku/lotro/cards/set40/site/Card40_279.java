@@ -1,11 +1,10 @@
 package com.gempukku.lotro.cards.set40.site;
 
+import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
 /**
  * Title: Barrow-downs
@@ -22,8 +21,8 @@ public class Card40_279 extends AbstractSite {
     }
 
     @Override
-    public int getTwilightCostModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
-        if (modifiersQuerying.hasInitiative(gameState) == Side.SHADOW)
+    public int getTwilightCostModifier(LotroGame game, PhysicalCard self) {
+        if (game.getModifiersQuerying().hasInitiative(game) == Side.SHADOW)
             return 3;
         return 0;
     }

@@ -56,19 +56,19 @@ public class PlaySiteEffect extends AbstractEffect {
         if (game.getFormat().isOrderedSites()) {
             Filter printedSiteNumber = new Filter() {
                 @Override
-                public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
                     return physicalCard.getBlueprint().getSiteNumber() == siteNumber;
                 }
             };
             if (_siteBlock != null)
-                return Filters.filter(game.getGameState().getAdventureDeck(_playerId), game.getGameState(), game.getModifiersQuerying(), Filters.and(_extraSiteFilters, printedSiteNumber, Filters.siteBlock(_siteBlock)));
+                return Filters.filter(game.getGameState().getAdventureDeck(_playerId), game, Filters.and(_extraSiteFilters, printedSiteNumber, Filters.siteBlock(_siteBlock)));
             else
-                return Filters.filter(game.getGameState().getAdventureDeck(_playerId), game.getGameState(), game.getModifiersQuerying(), Filters.and(_extraSiteFilters, printedSiteNumber));
+                return Filters.filter(game.getGameState().getAdventureDeck(_playerId), game, Filters.and(_extraSiteFilters, printedSiteNumber));
         } else {
             if (_siteBlock != null)
-                return Filters.filter(game.getGameState().getAdventureDeck(_playerId), game.getGameState(), game.getModifiersQuerying(), Filters.and(_extraSiteFilters, Filters.siteBlock(_siteBlock)));
+                return Filters.filter(game.getGameState().getAdventureDeck(_playerId), game, Filters.and(_extraSiteFilters, Filters.siteBlock(_siteBlock)));
             else
-                return Filters.filter(game.getGameState().getAdventureDeck(_playerId), game.getGameState(), game.getModifiersQuerying(), _extraSiteFilters);
+                return Filters.filter(game.getGameState().getAdventureDeck(_playerId), game, _extraSiteFilters);
         }
     }
 
@@ -95,8 +95,8 @@ public class PlaySiteEffect extends AbstractEffect {
 
         PhysicalCard currentSite = game.getGameState().getSite(siteNumber);
 
-        if (newSite.size() > 0 && (currentSite == null || game.getModifiersQuerying().canReplaceSite(game.getGameState(), _playerId, currentSite))
-                && game.getModifiersQuerying().canPlaySite(game.getGameState(), _playerId)) {
+        if (newSite.size() > 0 && (currentSite == null || game.getModifiersQuerying().canReplaceSite(game, _playerId, currentSite))
+                && game.getModifiersQuerying().canPlaySite(game, _playerId)) {
             SubAction subAction = new SubAction(_action);
             subAction.appendEffect(
                     new ChooseArbitraryCardsEffect(_playerId, "Choose site to play", newSite, 1, 1) {

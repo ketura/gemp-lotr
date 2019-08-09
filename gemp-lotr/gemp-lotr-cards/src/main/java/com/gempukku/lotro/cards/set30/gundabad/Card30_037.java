@@ -36,7 +36,7 @@ public class Card30_037 extends AbstractPermanent {
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
 		if (TriggerConditions.played(game, effectResult, CardType.COMPANION, Culture.DWARVEN)
-                && Filters.filter(game.getGameState().getDeadPile(game.getGameState().getCurrentPlayerId()), game.getGameState(), game.getModifiersQuerying(), Filters.and(CardType.COMPANION, Culture.DWARVEN)).size() > 0) {
+                && Filters.filter(game.getGameState().getDeadPile(game.getGameState().getCurrentPlayerId()), game, Filters.and(CardType.COMPANION, Culture.DWARVEN)).size() > 0) {
             PlayCardResult playCardResult = (PlayCardResult) effectResult;
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(

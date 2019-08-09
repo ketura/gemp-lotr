@@ -31,7 +31,7 @@ public class Card4_210 extends AbstractEvent {
                 new ChooseActiveCardEffect(self, playerId, "Choose an Uruk-hai", Race.URUK_HAI) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
-                        boolean controlsSite = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.siteControlled(playerId)) > 0;
+                        boolean controlsSite = Filters.countActive(game, Filters.siteControlled(playerId)) > 0;
                         action.insertEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
                                         new StrengthModifier(self, card, 2)));

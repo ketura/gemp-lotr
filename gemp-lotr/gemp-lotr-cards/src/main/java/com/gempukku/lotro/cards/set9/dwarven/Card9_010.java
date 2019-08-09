@@ -37,7 +37,7 @@ public class Card9_010 extends AbstractCompanion {
         return Collections.singletonList(
                 new AbstractModifier(self, null, Filters.and(Culture.DWARVEN, CardType.EVENT, Keyword.SKIRMISH, Filters.stackedOn(Culture.DWARVEN, CardType.CONDITION)), new PhaseCondition(Phase.SKIRMISH), ModifierEffect.EXTRA_ACTION_MODIFIER) {
                     @Override
-                    public List<? extends Action> getExtraPhaseActionFromStacked(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card) {
+                    public List<? extends Action> getExtraPhaseActionFromStacked(LotroGame game, PhysicalCard card) {
                         if (card.getBlueprint().checkPlayRequirements(card.getOwner(), game, card, 0, 0, false, false))
                             return Collections.singletonList(
                                     card.getBlueprint().getPlayCardAction(card.getOwner(), game, card, 0, false));

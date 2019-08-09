@@ -34,7 +34,7 @@ public class Card13_148 extends AbstractPermanent {
             CharacterWonSkirmishResult winResult = (CharacterWonSkirmishResult) effectResult;
             int times = 1;
             final PhysicalCard winner = winResult.getWinner();
-            if (Filters.or(Filters.frodo, Filters.name("Bilbo")).accepts(game.getGameState(), game.getModifiersQuerying(), winner))
+            if (Filters.or(Filters.frodo, Filters.name("Bilbo")).accepts(game, winner))
                 times = 2;
 
             OptionalTriggerAction action = new OptionalTriggerAction(self);

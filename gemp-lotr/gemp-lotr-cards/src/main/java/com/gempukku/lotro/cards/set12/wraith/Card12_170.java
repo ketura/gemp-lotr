@@ -44,7 +44,7 @@ public class Card12_170 extends AbstractAttachable {
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.endOfPhase(game, effectResult, Phase.ASSIGNMENT)
-                && Filters.notAssignedToSkirmish.accepts(game.getGameState(), game.getModifiersQuerying(), self.getAttachedTo())
+                && Filters.notAssignedToSkirmish.accepts(game, self.getAttachedTo())
                 && PlayConditions.canSpot(game, CardType.COMPANION, Filters.assignedToSkirmish, Filters.not(Filters.hasAttached(Culture.WRAITH, CardType.CONDITION)))) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(

@@ -48,7 +48,7 @@ public class Card10_098 extends AbstractResponseEvent {
                     new AddUntilEndOfPhaseModifierEffect(
                             new AbstractModifier(self, null, null, ModifierEffect.ACTION_MODIFIER) {
                                 @Override
-                                public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, Action action) {
+                                public boolean canPlayAction(LotroGame game, String performingPlayer, Action action) {
                                     if (action.getPerformingPlayer().equals(game.getGameState().getCurrentPlayerId()) && action.getType() == Action.Type.PLAY_CARD)
                                         return false;
                                     return true;

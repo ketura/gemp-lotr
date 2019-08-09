@@ -44,7 +44,7 @@ public class Card1_295 extends AbstractAlly {
     }
 
     private LotroCardBlueprint getCopied(LotroGame game, PhysicalCard self) {
-        PhysicalCard firstActive = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), getFilter(self));
+        PhysicalCard firstActive = Filters.findFirstActive(game, getFilter(self));
         if (firstActive != null)
             return firstActive.getBlueprint();
         return null;

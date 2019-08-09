@@ -7,12 +7,10 @@ import com.gempukku.lotro.logic.effects.choose.ChooseAndRemoveCultureTokensFromC
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 import com.gempukku.lotro.logic.timing.Action;
@@ -45,10 +43,10 @@ public class Card5_047 extends AbstractMinion {
                         null,
                         new Evaluator() {
                             @Override
-                            public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
+                            public int evaluateExpression(LotroGame game, PhysicalCard self) {
                                 int wounds = 0;
-                                for (PhysicalCard physicalCard : Filters.filterActive(gameState, modifiersQuerying, Filters.inSkirmish))
-                                    wounds += gameState.getWounds(physicalCard);
+                                for (PhysicalCard physicalCard : Filters.filterActive(game, Filters.inSkirmish))
+                                    wounds += game.getGameState().getWounds(physicalCard);
                                 return wounds * 2;
                             }
                         }));

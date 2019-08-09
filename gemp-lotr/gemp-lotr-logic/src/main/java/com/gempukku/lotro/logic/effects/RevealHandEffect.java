@@ -36,12 +36,12 @@ public class RevealHandEffect extends AbstractEffect {
 
     @Override
     public boolean isPlayableInFull(LotroGame game) {
-        return game.getModifiersQuerying().canLookOrRevealCardsInHand(game.getGameState(), _handPlayerId, _actingPlayer);
+        return game.getModifiersQuerying().canLookOrRevealCardsInHand(game, _handPlayerId, _actingPlayer);
     }
 
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
-        if (game.getModifiersQuerying().canLookOrRevealCardsInHand(game.getGameState(), _handPlayerId, _actingPlayer)) {
+        if (game.getModifiersQuerying().canLookOrRevealCardsInHand(game, _handPlayerId, _actingPlayer)) {
             final List<? extends PhysicalCard> hand = game.getGameState().getHand(_handPlayerId);
             game.getGameState().sendMessage(GameUtils.getCardLink(_source) + " revealed " + _handPlayerId + " cards in hand - " + getAppendedNames(hand));
 

@@ -2,7 +2,7 @@ package com.gempukku.lotro.logic.modifiers;
 
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.game.state.GameState;
+import com.gempukku.lotro.game.state.LotroGame;
 
 public class SpotCondition implements Condition {
     private Filterable[] _filter;
@@ -18,8 +18,8 @@ public class SpotCondition implements Condition {
     }
 
     @Override
-    public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-        return Filters.canSpot(gameState, modifiersQuerying, _count, _filter);
+    public boolean isFullfilled(LotroGame game) {
+        return Filters.canSpot(game, _count, _filter);
     }
 }
 

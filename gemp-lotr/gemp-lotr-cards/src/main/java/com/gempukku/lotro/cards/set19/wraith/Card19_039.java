@@ -46,7 +46,7 @@ public class Card19_039 extends AbstractMinion {
         return new CantBeAssignedAgainstModifier(self, null,
                 new Filter() {
                     @Override
-                    public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                    public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
                         final Set<Integer> data = (Set<Integer>) self.getWhileInZoneData();
                         if (data == null)
                             return false;
@@ -55,8 +55,8 @@ public class Card19_039 extends AbstractMinion {
                 },
                 new Condition() {
                     @Override
-                    public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                        return gameState.isFierceSkirmishes();
+                    public boolean isFullfilled(LotroGame game) {
+                        return game.getGameState().isFierceSkirmishes();
                     }
                 }, self
         );

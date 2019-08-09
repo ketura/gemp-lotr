@@ -27,7 +27,7 @@ public class Card30_013 extends AbstractEvent {
     @Override
 	public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
 		final PlayEventAction action = new PlayEventAction(self);
-		if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name("Elrond")))
+		if (Filters.canSpot(game, Filters.name("Elrond")))
             action.appendEffect(
                     new PlayoutDecisionEffect(playerId,
 							new MultipleChoiceAwaitingDecision(1, "Do you want to spot Elrond to heal 2 Dwarf companions?", new String[]{"Yes", "No"}) {

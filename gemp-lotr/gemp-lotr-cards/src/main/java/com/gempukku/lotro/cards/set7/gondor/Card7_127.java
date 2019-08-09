@@ -47,8 +47,8 @@ public class Card7_127 extends AbstractCompanion {
                 new StrengthModifier(self, self,
                         new Condition() {
                             @Override
-                            public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return Filters.countActive(gameState, modifiersQuerying, Filters.siteControlledByShadowPlayer(self.getOwner())) == 0;
+                            public boolean isFullfilled(LotroGame game) {
+                                return Filters.countActive(game, Filters.siteControlledByShadowPlayer(self.getOwner())) == 0;
                             }
                         }, 2));
     }

@@ -4,11 +4,9 @@ import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.logic.modifiers.evaluator.LimitEvaluator;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 
 /**
@@ -28,8 +26,8 @@ public class Card20_047 extends AbstractPermanent {
                 new LimitEvaluator(
                         new Evaluator() {
                             @Override
-                            public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard cardAffected) {
-                                return gameState.getStackedCards(self).size();
+                            public int evaluateExpression(LotroGame game, PhysicalCard cardAffected) {
+                                return game.getGameState().getStackedCards(self).size();
                             }
                         }, 2));
     }

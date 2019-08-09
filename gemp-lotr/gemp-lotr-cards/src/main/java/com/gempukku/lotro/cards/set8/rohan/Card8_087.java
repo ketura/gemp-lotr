@@ -44,7 +44,7 @@ public class Card8_087 extends AbstractCompanion {
                     new RevealTopCardsOfDrawDeckEffect(self, playerId, 10) {
                         @Override
                         protected void cardsRevealed(List<PhysicalCard> revealedCards) {
-                            Collection<PhysicalCard> rohanPossessions = Filters.filter(revealedCards, game.getGameState(), game.getModifiersQuerying(), Culture.ROHAN, CardType.POSSESSION);
+                            Collection<PhysicalCard> rohanPossessions = Filters.filter(revealedCards, game, Culture.ROHAN, CardType.POSSESSION);
                             action.insertEffect(
                                     new PlayAnyNumberOfCardsFromDeckEffect(action, playerId, rohanPossessions));
                         }

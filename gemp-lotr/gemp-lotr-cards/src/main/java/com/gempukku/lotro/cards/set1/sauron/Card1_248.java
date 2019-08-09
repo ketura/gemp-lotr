@@ -30,7 +30,7 @@ public class Card1_248 extends AbstractEvent {
     @Override
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self);
-        int sauronMinions = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Culture.SAURON, CardType.MINION);
+        int sauronMinions = Filters.countActive(game, Culture.SAURON, CardType.MINION);
         if (sauronMinions > 0)
             action.appendEffect(
                     new PlayoutDecisionEffect(playerId,

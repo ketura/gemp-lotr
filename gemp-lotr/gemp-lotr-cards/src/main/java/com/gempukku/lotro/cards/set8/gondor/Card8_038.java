@@ -61,7 +61,7 @@ public class Card8_038 extends AbstractCompanion {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new SelfExertEffect(action, self));
-            PhysicalCard aragorn = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.aragorn);
+            PhysicalCard aragorn = Filters.findFirstActive(game, Filters.aragorn);
             if (aragorn != null) {
                 action.appendEffect(
                         new PreventCardEffect(woundEffect, aragorn));

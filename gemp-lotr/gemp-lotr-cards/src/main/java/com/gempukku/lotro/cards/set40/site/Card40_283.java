@@ -36,7 +36,7 @@ public class Card40_283 extends AbstractSite {
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.startOfPhase(game, effectResult, Phase.FELLOWSHIP)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
-            int cultureCount = GameUtils.getSpottableCulturesCount(game.getGameState(), game.getModifiersQuerying(), Filters.any);
+            int cultureCount = GameUtils.getSpottableCulturesCount(game, Filters.any);
             int healCount = Math.max(0, cultureCount - 2);
             action.appendEffect(
                     new ChooseAndHealCharactersEffect(action, GameUtils.getFreePeoplePlayer(game), healCount, healCount, CardType.COMPANION));

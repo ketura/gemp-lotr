@@ -94,7 +94,7 @@ public class Card40_041 extends AbstractAlly{
                                                 protected void cardsRevealed(List<PhysicalCard> revealedCards) {
                                                     if (revealedCards.size()>0) {
                                                         PhysicalCard firstCard = revealedCards.get(0);
-                                                        if (Filters.and(Side.FREE_PEOPLE).accepts(game.getGameState(), game.getModifiersQuerying(),
+                                                        if (Filters.and(Side.FREE_PEOPLE).accepts(game,
                                                                 firstCard)) {
                                                             action.appendEffect(
                                                                     new OptionalEffect(action, playerId,

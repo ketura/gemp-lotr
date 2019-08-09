@@ -64,7 +64,7 @@ public class Card20_174 extends AbstractEvent {
                                 public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult) {
                                     if (TriggerConditions.endOfPhase(game, effectResult, Phase.SKIRMISH)) {
                                         RequiredTriggerAction action = new RequiredTriggerAction(self);
-                                        PhysicalCard gandalf = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.gandalf);
+                                        PhysicalCard gandalf = Filters.findFirstActive(game, Filters.gandalf);
                                         if (gandalf != null)
                                             action.appendEffect(
                                                     new KillEffect(gandalf, KillEffect.Cause.CARD_EFFECT));

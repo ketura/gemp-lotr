@@ -33,7 +33,7 @@ public class Card6_036 extends AbstractEvent {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
                         int wounds = 0;
-                        for (PhysicalCard character : Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Filters.inSkirmish, Filters.wounded))
+                        for (PhysicalCard character : Filters.filterActive(game, Filters.inSkirmish, Filters.wounded))
                             wounds += game.getGameState().getWounds(character);
 
                         action.insertEffect(

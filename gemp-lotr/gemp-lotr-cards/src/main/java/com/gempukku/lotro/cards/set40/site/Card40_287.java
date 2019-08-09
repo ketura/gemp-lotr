@@ -43,7 +43,7 @@ public class Card40_287 extends AbstractSite {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
                     new IncrementTurnLimitEffect(self, 1));
-            int countCultures = GameUtils.getSpottableCulturesCount(game.getGameState(), game.getModifiersQuerying(),
+            int countCultures = GameUtils.getSpottableCulturesCount(game,
                     CardType.COMPANION);
             if (countCultures > 2)
                 action.appendEffect(

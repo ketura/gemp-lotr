@@ -36,7 +36,7 @@ public class Card40_128 extends AbstractEvent {
         PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.URUK_HAI));
-        int count = Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Keyword.BATTLEGROUND, Filters.currentRegion);
+        int count = Filters.countSpottable(game, Keyword.BATTLEGROUND, Filters.currentRegion);
         action.appendEffect(
                 new ChooseAndDiscardCardsFromPlayEffect(action, playerId, count, count, Side.FREE_PEOPLE, CardType.CONDITION));
         return action;

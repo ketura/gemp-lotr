@@ -12,6 +12,7 @@ import com.gempukku.lotro.logic.modifiers.Condition;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
+import com.gempukku.lotro.logic.modifiers.condition.FierceSkirmishCondition;
 
 import java.util.Collections;
 import java.util.List;
@@ -38,11 +39,6 @@ public class Card4_193 extends AbstractMinion {
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
                 new StrengthModifier(self, Filters.and(self, Filters.inSkirmish),
-                        new Condition() {
-                            @Override
-                            public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return gameState.isFierceSkirmishes();
-                            }
-                        }, 2));
+                        new FierceSkirmishCondition(), 2));
     }
 }

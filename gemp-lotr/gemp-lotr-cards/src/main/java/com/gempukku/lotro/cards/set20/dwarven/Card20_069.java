@@ -26,8 +26,8 @@ public class Card20_069 extends AbstractPermanent {
         return new CantExertWithCardModifier(self, Race.DWARF,
                 new Condition() {
                     @Override
-                    public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                        return gameState.getStackedCards(self).size()>=3;
+                    public boolean isFullfilled(LotroGame game) {
+                        return game.getGameState().getStackedCards(self).size()>=3;
                     }
                 }, Side.SHADOW);
     }

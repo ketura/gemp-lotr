@@ -6,11 +6,9 @@ import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.GameHasCondition;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 
@@ -33,10 +31,10 @@ public class Card20_184 extends AbstractCompanion {
         return new StrengthModifier(self, self, new GameHasCondition(self, Filters.inSkirmish),
                 new Evaluator() {
                     @Override
-                    public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard cardAffected) {
+                    public int evaluateExpression(LotroGame game, PhysicalCard cardAffected) {
                         int woundCount = 0;
-                        for (PhysicalCard physicalCard : Filters.filterActive(gameState, modifiersQuerying, Filters.character, Filters.inSkirmish, Filters.wounded)) {
-                            woundCount+=gameState.getWounds(physicalCard);
+                        for (PhysicalCard physicalCard : Filters.filterActive(game, Filters.character, Filters.inSkirmish, Filters.wounded)) {
+                            woundCount+=game.getGameState().getWounds(physicalCard);
                         }
                         return woundCount;
                     }

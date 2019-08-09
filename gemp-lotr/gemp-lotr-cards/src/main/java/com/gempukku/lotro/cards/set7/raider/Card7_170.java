@@ -1,8 +1,8 @@
 package com.gempukku.lotro.cards.set7.raider;
 
 import com.gempukku.lotro.logic.cardtype.AbstractMinion;
-import com.gempukku.lotro.logic.modifiers.conditions.AndCondition;
-import com.gempukku.lotro.logic.modifiers.conditions.InitiativeCondition;
+import com.gempukku.lotro.logic.modifiers.condition.AndCondition;
+import com.gempukku.lotro.logic.modifiers.condition.InitiativeCondition;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;

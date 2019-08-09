@@ -2,10 +2,8 @@ package com.gempukku.lotro.logic.modifiers.evaluator;
 
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.LimitCounter;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
 public class CardPhaseLimitEvaluator implements Evaluator {
     private Integer _evaluated;
@@ -25,16 +23,16 @@ public class CardPhaseLimitEvaluator implements Evaluator {
         _evaluator = evaluator;
     }
 
-    private int evaluateOnce(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard cardAffected) {
-        LimitCounter limitCounter = modifiersQuerying.getUntilEndOfPhaseLimitCounter(_source, _phase);
-        int internalResult = _evaluator.evaluateExpression(gameState, modifiersQuerying, cardAffected);
+    private int evaluateOnce(LotroGame game, PhysicalCard cardAffected) {
+        LimitCounter limitCounter = game.getModifiersQuerying().getUntilEndOfPhaseLimitCounter(_source, _phase);
+        int internalResult = _evaluator.evaluateExpression(game, cardAffected);
         return limitCounter.incrementToLimit(_limit, internalResult);
     }
 
     @Override
-    public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard cardAffected) {
+    public int evaluateExpression(LotroGame game, PhysicalCard cardAffected) {
         if (_evaluated == null)
-            _evaluated = evaluateOnce(gameState, modifiersQuerying, cardAffected);
+            _evaluated = evaluateOnce(game, cardAffected);
         return _evaluated;
     }
 }

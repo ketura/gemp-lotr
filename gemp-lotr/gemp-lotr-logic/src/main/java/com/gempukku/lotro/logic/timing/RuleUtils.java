@@ -14,7 +14,7 @@ import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 
 public class RuleUtils {
     public static int calculateFellowshipArcheryTotal(LotroGame game) {
-        int normalArcheryTotal = Filters.countActive(game.getGameState(), game.getModifiersQuerying(),
+        int normalArcheryTotal = Filters.countActive(game,
                 Filters.or(
                         CardType.COMPANION,
                         Filters.and(
@@ -24,14 +24,14 @@ public class RuleUtils {
                                                 Filters.allyAtHome,
                                                 new Filter() {
                                                     @Override
-                                                    public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                                        return !modifiersQuerying.isAllyPreventedFromParticipatingInArcheryFire(gameState, physicalCard);
+                                                    public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
+                                                        return !game.getModifiersQuerying().isAllyPreventedFromParticipatingInArcheryFire(game, physicalCard);
                                                     }
                                                 }),
                                         new Filter() {
                                             @Override
-                                            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                                return modifiersQuerying.isAllyAllowedToParticipateInArcheryFire(gameState, physicalCard);
+                                            public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
+                                                return game.getModifiersQuerying().isAllyAllowedToParticipateInArcheryFire(game, physicalCard);
                                             }
                                         })
                         )
@@ -39,30 +39,30 @@ public class RuleUtils {
                 Keyword.ARCHER,
                 new Filter() {
                     @Override
-                    public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                        return modifiersQuerying.addsToArcheryTotal(gameState, physicalCard);
+                    public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
+                        return game.getModifiersQuerying().addsToArcheryTotal(game, physicalCard);
                     }
                 });
 
-        return game.getModifiersQuerying().getArcheryTotal(game.getGameState(), Side.FREE_PEOPLE, normalArcheryTotal);
+        return game.getModifiersQuerying().getArcheryTotal(game, Side.FREE_PEOPLE, normalArcheryTotal);
     }
 
     public static int calculateShadowArcheryTotal(LotroGame game) {
-        int normalArcheryTotal = Filters.countActive(game.getGameState(), game.getModifiersQuerying(),
+        int normalArcheryTotal = Filters.countActive(game,
                 CardType.MINION,
                 Keyword.ARCHER,
                 new Filter() {
                     @Override
-                    public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                        return modifiersQuerying.addsToArcheryTotal(gameState, physicalCard);
+                    public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
+                        return game.getModifiersQuerying().addsToArcheryTotal(game, physicalCard);
                     }
                 });
 
-        return game.getModifiersQuerying().getArcheryTotal(game.getGameState(), Side.SHADOW, normalArcheryTotal);
+        return game.getModifiersQuerying().getArcheryTotal(game, Side.SHADOW, normalArcheryTotal);
     }
 
     public static int calculateMoveLimit(LotroGame game) {
-        return game.getModifiersQuerying().getMoveLimit(game.getGameState(), 2);
+        return game.getModifiersQuerying().getMoveLimit(game, 2);
     }
 
     public static int getFellowshipSkirmishStrength(LotroGame game) {
@@ -74,15 +74,15 @@ public class RuleUtils {
         if (fpChar == null)
             return 0;
 
-        final Evaluator fpStrengthOverrideEvaluator = game.getModifiersQuerying().getFpStrengthOverrideEvaluator(game.getGameState(), fpChar);
+        final Evaluator fpStrengthOverrideEvaluator = game.getModifiersQuerying().getFpStrengthOverrideEvaluator(game, fpChar);
         if (fpStrengthOverrideEvaluator != null)
-            return fpStrengthOverrideEvaluator.evaluateExpression(game.getGameState(), game.getModifiersQuerying(), fpChar);
+            return fpStrengthOverrideEvaluator.evaluateExpression(game, fpChar);
 
         final Evaluator overrideEvaluator = skirmish.getFpStrengthOverrideEvaluator();
         if (overrideEvaluator != null)
-            return overrideEvaluator.evaluateExpression(game.getGameState(), game.getModifiersQuerying(), fpChar);
+            return overrideEvaluator.evaluateExpression(game, fpChar);
 
-        return game.getModifiersQuerying().getStrength(game.getGameState(), fpChar);
+        return game.getModifiersQuerying().getStrength(game, fpChar);
     }
 
     public static int getShadowSkirmishStrength(LotroGame game) {
@@ -94,13 +94,13 @@ public class RuleUtils {
         if (overrideEvaluator != null) {
             int total = 0;
             for (PhysicalCard physicalCard : skirmish.getShadowCharacters())
-                total += overrideEvaluator.evaluateExpression(game.getGameState(), game.getModifiersQuerying(), physicalCard);
+                total += overrideEvaluator.evaluateExpression(game, physicalCard);
             return total;
         }
 
         int totalStrength = 0;
         for (PhysicalCard physicalCard : skirmish.getShadowCharacters())
-            totalStrength += game.getModifiersQuerying().getStrength(game.getGameState(), physicalCard);
+            totalStrength += game.getModifiersQuerying().getStrength(game, physicalCard);
 
         return totalStrength;
     }
@@ -113,7 +113,7 @@ public class RuleUtils {
         if (fpChar == null)
             return 0;
 
-        return game.getModifiersQuerying().getKeywordCount(game.getGameState(), fpChar, Keyword.DAMAGE);
+        return game.getModifiersQuerying().getKeywordCount(game, fpChar, Keyword.DAMAGE);
     }
 
     public static int getShadowSkirmishDamageBonus(LotroGame game) {
@@ -123,7 +123,7 @@ public class RuleUtils {
         int totalBonus = 0;
 
         for (PhysicalCard physicalCard : game.getGameState().getSkirmish().getShadowCharacters())
-            totalBonus += game.getModifiersQuerying().getKeywordCount(game.getGameState(), physicalCard, Keyword.DAMAGE);
+            totalBonus += game.getModifiersQuerying().getKeywordCount(game, physicalCard, Keyword.DAMAGE);
 
         return totalBonus;
     }

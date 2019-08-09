@@ -50,7 +50,7 @@ public class Card1_036 extends AbstractEvent {
                                 new RevealHandEffect(self, playerId, opponentId) {
                                     @Override
                                     protected void cardsRevealed(Collection<? extends PhysicalCard> cards) {
-                                        final int orcsCount = Filters.filter(cards, game.getGameState(), game.getModifiersQuerying(), Race.ORC).size();
+                                        final int orcsCount = Filters.filter(cards, game, Race.ORC).size();
 
                                         action.appendEffect(
                                                 new ChooseAndDiscardCardsFromHandEffect(action, opponentId, true, orcsCount));

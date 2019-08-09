@@ -54,8 +54,8 @@ public class Card17_059 extends AbstractMinion {
                 && PlayConditions.canSelfDiscard(self, game)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             int count = 0;
-            for (PhysicalCard possession : Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Culture.MEN, CardType.POSSESSION, Filters.hasStacked(Culture.MEN, CardType.MINION))) {
-                count += Filters.filter(game.getGameState().getStackedCards(possession), game.getGameState(), game.getModifiersQuerying(), Culture.MEN, CardType.MINION).size();
+            for (PhysicalCard possession : Filters.filterActive(game, Culture.MEN, CardType.POSSESSION, Filters.hasStacked(Culture.MEN, CardType.MINION))) {
+                count += Filters.filter(game.getGameState().getStackedCards(possession), game, Culture.MEN, CardType.MINION).size();
             }
             action.appendCost(
                     new PlayoutDecisionEffect(playerId,

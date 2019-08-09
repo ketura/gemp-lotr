@@ -7,14 +7,12 @@ import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.effects.DrawCardsEffect;
 import com.gempukku.lotro.logic.effects.KillEffect;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
@@ -44,8 +42,8 @@ public class Card13_071 extends AbstractCompanion {
         return new ResistanceModifier(self, self, null,
                 new Evaluator() {
                     @Override
-                    public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard cardAffected) {
-                        return gameState.getHand(self.getOwner()).size();
+                    public int evaluateExpression(LotroGame game, PhysicalCard cardAffected) {
+                        return game.getGameState().getHand(self.getOwner()).size();
                     }
                 });
     }
@@ -53,7 +51,7 @@ public class Card13_071 extends AbstractCompanion {
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.endOfPhase(game, effectResult, null)
-                && game.getModifiersQuerying().getResistance(game.getGameState(), self) == 0) {
+                && game.getModifiersQuerying().getResistance(game, self) == 0) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new KillEffect(self, KillEffect.Cause.CARD_EFFECT));

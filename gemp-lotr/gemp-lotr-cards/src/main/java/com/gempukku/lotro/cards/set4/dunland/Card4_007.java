@@ -30,7 +30,7 @@ public class Card4_007 extends AbstractEvent {
                 new ChooseActiveCardEffect(self, playerId, "Choose DUNLAND Man", Culture.DUNLAND, Race.MAN) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
-                        int bonus = (game.getModifiersQuerying().hasKeyword(game.getGameState(), game.getGameState().getCurrentSite(), Keyword.SANCTUARY)) ? 4 : 2;
+                        int bonus = (game.getModifiersQuerying().hasKeyword(game, game.getGameState().getCurrentSite(), Keyword.SANCTUARY)) ? 4 : 2;
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
                                         new StrengthModifier(self, Filters.sameCard(card), bonus)));

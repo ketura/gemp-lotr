@@ -56,7 +56,7 @@ public class Card8_068 extends AbstractEvent {
                                 new AddUntilEndOfPhaseModifierEffect(
                                         new KeywordModifier(self, character, Keyword.DAMAGE, 1)));
 
-                        final Collection<PhysicalCard> againstNazgulCollection = Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Filters.inSkirmishAgainst(character));
+                        final Collection<PhysicalCard> againstNazgulCollection = Filters.filterActive(game, Filters.inSkirmishAgainst(character));
                         if (againstNazgulCollection.size() > 0) {
                             final PhysicalCard againstNazgul = againstNazgulCollection.iterator().next();
                             action.appendEffect(

@@ -36,7 +36,7 @@ public class Card1_161 extends AbstractResponseEvent {
     @Override
     public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.played(game, effectResult, CardType.EVENT, Keyword.STEALTH)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Race.URUK_HAI)
+                && Filters.canSpot(game, Race.URUK_HAI)
                 && checkPlayRequirements(playerId, game, self, 0, 0, false, false)) {
 
             final PlayEventAction action = new PlayEventAction(self);

@@ -4,9 +4,7 @@ import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
-import com.gempukku.lotro.logic.GameUtils;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.game.state.LotroGame;
 
 public class LocationEvaluator implements Evaluator {
     private int defaultValue;
@@ -20,7 +18,7 @@ public class LocationEvaluator implements Evaluator {
     }
 
     @Override
-    public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard cardAffected) {
-        return locationFilter.accepts(gameState, modifiersQuerying, gameState.getCurrentSite()) ? locationValue : defaultValue;
+    public int evaluateExpression(LotroGame game, PhysicalCard cardAffected) {
+        return locationFilter.accepts(game, game.getGameState().getCurrentSite()) ? locationValue : defaultValue;
     }
 }

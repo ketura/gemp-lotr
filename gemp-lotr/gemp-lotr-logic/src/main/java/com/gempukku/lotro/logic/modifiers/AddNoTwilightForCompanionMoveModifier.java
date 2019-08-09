@@ -3,9 +3,7 @@ package com.gempukku.lotro.logic.modifiers;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
-import com.gempukku.lotro.logic.modifiers.AbstractModifier;
-import com.gempukku.lotro.logic.modifiers.ModifierEffect;
-import com.gempukku.lotro.logic.modifiers.ModifiersLogic;
+import com.gempukku.lotro.game.state.LotroGame;
 
 public class AddNoTwilightForCompanionMoveModifier extends AbstractModifier {
     public AddNoTwilightForCompanionMoveModifier(PhysicalCard source, Filterable affectFilter) {
@@ -13,7 +11,7 @@ public class AddNoTwilightForCompanionMoveModifier extends AbstractModifier {
     }
 
     @Override
-    public boolean addsTwilightForCompanionMove(GameState gameState, ModifiersLogic modifiersLogic, PhysicalCard companion) {
+    public boolean addsTwilightForCompanionMove(LotroGame game, PhysicalCard companion) {
         return false;
     }
 }

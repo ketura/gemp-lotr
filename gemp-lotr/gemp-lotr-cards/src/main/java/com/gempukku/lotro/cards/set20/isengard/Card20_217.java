@@ -29,7 +29,7 @@ public class Card20_217 extends AbstractEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && PlayConditions.canPlayFromDiscard(playerId, game, -Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Culture.ISENGARD, Race.ORC), Race.URUK_HAI);
+                && PlayConditions.canPlayFromDiscard(playerId, game, -Filters.countActive(game, Culture.ISENGARD, Race.ORC), Race.URUK_HAI);
     }
 
     @Override
@@ -47,7 +47,7 @@ public class Card20_217 extends AbstractEvent {
                                         action.appendEffect(
                                                 new AddUntilStartOfPhaseModifierEffect(
                                                         new KeywordModifier(self, cardPlayed, Keyword.FIERCE), Phase.REGROUP));
-                                        if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), 6, CardType.COMPANION))
+                                        if (Filters.canSpot(game, 6, CardType.COMPANION))
                                             action.appendEffect(
                                                     new AddUntilStartOfPhaseModifierEffect(
                                                             new KeywordModifier(self, cardPlayed, Keyword.DAMAGE, 1), Phase.REGROUP));

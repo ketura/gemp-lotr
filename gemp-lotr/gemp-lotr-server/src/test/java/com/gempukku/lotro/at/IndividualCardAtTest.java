@@ -350,7 +350,7 @@ public class IndividualCardAtTest extends AbstractAtTest {
         assertEquals(AwaitingDecisionType.CARD_ACTION_CHOICE, playSkirmishEvent.getDecisionType());
         playerDecided(P1, "0");
 
-        assertEquals(10, _game.getModifiersQuerying().getStrength(_game.getGameState(), aragorn));
+        assertEquals(10, _game.getModifiersQuerying().getStrength(_game, aragorn));
 
         // End skirmish phase
         playerDecided(P2, "");
@@ -505,7 +505,7 @@ public class IndividualCardAtTest extends AbstractAtTest {
         // End fellowship
         playerDecided(P2, "");
 
-        assertEquals(8, _game.getModifiersQuerying().getTwilightCost(_game.getGameState(), attea, 0, false));
+        assertEquals(8, _game.getModifiersQuerying().getTwilightCost(_game, attea, 0, false));
     }
 
     @Test

@@ -36,7 +36,7 @@ public class Card13_076 extends AbstractPermanent {
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.played(game, effectResult, self)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
-            int count = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Culture.GONDOR, CardType.COMPANION, Filters.minResistance(7));
+            int count = Filters.countActive(game, Culture.GONDOR, CardType.COMPANION, Filters.minResistance(7));
             if (count > 0)
                 action.appendEffect(
                         new AddTokenEffect(self, self, Token.GONDOR, count));

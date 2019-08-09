@@ -47,7 +47,7 @@ public class Card5_009 extends AbstractPermanent {
             }
 
             if (PlayConditions.canSpot(game, Race.DWARF)
-                    && Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Culture.DWARVEN, CardType.CONDITION, Filters.hasStacked(Filters.any)) > 0) {
+                    && Filters.countActive(game, Culture.DWARVEN, CardType.CONDITION, Filters.hasStacked(Filters.any)) > 0) {
                 final ActivateCardAction action = new ActivateCardAction(self);
                 action.appendCost(
                         new ChooseAndDiscardStackedCardsEffect(action, playerId, 1, 1, Filters.and(Culture.DWARVEN, CardType.CONDITION), Filters.any));

@@ -34,8 +34,8 @@ public class Card40_295 extends AbstractSite {
         SanctuaryHealModifier modifier = new SanctuaryHealModifier(self,
                 new Condition() {
                     @Override
-                    public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                        return Filters.filter(gameState.getDeadPile(gameState.getCurrentPlayerId()), game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION).size() > 0;
+                    public boolean isFullfilled(LotroGame game) {
+                        return Filters.filter(game.getGameState().getDeadPile(game.getGameState().getCurrentPlayerId()), game, CardType.COMPANION).size() > 0;
                     }
                 }, 2);
         return Collections.singletonList(modifier);

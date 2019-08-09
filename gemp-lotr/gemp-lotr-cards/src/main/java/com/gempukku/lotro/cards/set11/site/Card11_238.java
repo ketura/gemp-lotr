@@ -31,7 +31,7 @@ public class Card11_238 extends AbstractNewSite {
     @Override
     public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseSiteDuringPhase(game, Phase.SHADOW, self)
-                && (Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.MINION) + game.getGameState().getTwilightPool()) <= 3
+                && (Filters.countActive(game, CardType.MINION) + game.getGameState().getTwilightPool()) <= 3
                 && PlayConditions.canPlayFromHand(playerId, game, -3, CardType.MINION)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(

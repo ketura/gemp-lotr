@@ -36,7 +36,7 @@ public class Card12_034 extends AbstractEvent {
         final PlayEventAction action = new PlayEventAction(self);
 
         action.appendEffect(
-                new ChooseActiveCardEffect(self, playerId, "Choose site to replace", CardType.SITE, Filters.region(GameUtils.getRegion(game.getGameState()))) {
+                new ChooseActiveCardEffect(self, playerId, "Choose site to replace", CardType.SITE, Filters.region(GameUtils.getRegion(game))) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
                         action.appendEffect(

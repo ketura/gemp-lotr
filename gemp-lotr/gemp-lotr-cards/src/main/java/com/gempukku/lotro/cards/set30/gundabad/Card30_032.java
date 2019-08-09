@@ -32,7 +32,7 @@ public class Card30_032 extends AbstractEvent {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
                         int bonus =
-                                (Filters.inSkirmishAgainst(Filters.hasAttached(CardType.FOLLOWER)).accepts(game.getGameState(), game.getModifiersQuerying(), card)) ? 4 : 2;
+                                (Filters.inSkirmishAgainst(Filters.hasAttached(CardType.FOLLOWER)).accepts(game, card)) ? 4 : 2;
                         action.insertEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
                                         new StrengthModifier(self, Filters.sameCard(card), bonus)));

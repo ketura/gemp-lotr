@@ -37,7 +37,7 @@ public class DiscardCardAtRandomFromHandEffect extends AbstractEffect {
     @Override
     public boolean isPlayableInFull(LotroGame game) {
         return game.getGameState().getHand(_playerId).size() > 0
-                && (!_forced || game.getModifiersQuerying().canDiscardCardsFromHand(game.getGameState(), _playerId, _source));
+                && (!_forced || game.getModifiersQuerying().canDiscardCardsFromHand(game, _playerId, _source));
     }
 
     @Override

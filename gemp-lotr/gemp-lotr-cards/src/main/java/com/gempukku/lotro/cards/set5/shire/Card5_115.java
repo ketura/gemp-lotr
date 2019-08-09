@@ -46,9 +46,9 @@ public class Card5_115 extends AbstractCompanion {
                 new OverwhelmedByMultiplierModifier(self, self,
                         new Condition() {
                             @Override
-                            public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return Filters.canSpot(gameState, modifiersQuerying, Filters.frodo)
-                                        && Filters.canSpot(gameState, modifiersQuerying, Filters.smeagol);
+                            public boolean isFullfilled(LotroGame game) {
+                                return Filters.canSpot(game, Filters.frodo)
+                                        && Filters.canSpot(game, Filters.smeagol);
                             }
                         }, 3));
     }

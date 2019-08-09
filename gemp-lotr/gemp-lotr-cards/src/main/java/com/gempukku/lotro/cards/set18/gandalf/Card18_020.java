@@ -31,14 +31,14 @@ public class Card18_020 extends AbstractEvent {
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
                 &&
-                ((GameUtils.getRegion(game.getGameState()) == 3 && PlayConditions.canSpot(game, Culture.GANDALF, CardType.COMPANION))
-                        || ((GameUtils.getRegion(game.getGameState()) == 1 || GameUtils.getRegion(game.getGameState()) == 2) && PlayConditions.canExert(self, game, 1, 2, Race.ENT)));
+                ((GameUtils.getRegion(game) == 3 && PlayConditions.canSpot(game, Culture.GANDALF, CardType.COMPANION))
+                        || ((GameUtils.getRegion(game) == 1 || GameUtils.getRegion(game) == 2) && PlayConditions.canExert(self, game, 1, 2, Race.ENT)));
     }
 
     @Override
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayEventAction action = new PlayEventAction(self);
-        if (GameUtils.getRegion(game.getGameState()) == 3)
+        if (GameUtils.getRegion(game) == 3)
             action.appendEffect(
                     new DrawCardsEffect(action, playerId, 1));
         else {

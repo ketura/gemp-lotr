@@ -30,7 +30,7 @@ public class Card11_241 extends AbstractNewSite {
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.movesTo(game, effectResult, self)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
-            int count = Math.max(0, Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION) - 5);
+            int count = Math.max(0, Filters.countActive(game, CardType.COMPANION) - 5);
             action.appendEffect(
                     new AddTwilightEffect(self, 2 * count));
             return Collections.singletonList(action);

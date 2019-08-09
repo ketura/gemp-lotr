@@ -29,8 +29,8 @@ public class Card11_240 extends AbstractNewSite {
                 Filters.and(Filters.unboundCompanion, Filters.inSkirmish,
                         new Filter() {
                             @Override
-                            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                return gameState.getSkirmish().getShadowCharacters().size() > 1;
+                            public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
+                                return game.getGameState().getSkirmish().getShadowCharacters().size() > 1;
                             }
                         }), 3);
     }

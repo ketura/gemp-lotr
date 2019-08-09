@@ -44,10 +44,10 @@ public class Card5_054 extends AbstractAttachable {
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.played(game, effectResult, self)
-                && Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.siteControlled(playerId)) > 0) {
+                && Filters.countActive(game, Filters.siteControlled(playerId)) > 0) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new AddTwilightEffect(self, Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.siteControlled(playerId))));
+                    new AddTwilightEffect(self, Filters.countActive(game, Filters.siteControlled(playerId))));
             return Collections.singletonList(action);
         }
         return null;

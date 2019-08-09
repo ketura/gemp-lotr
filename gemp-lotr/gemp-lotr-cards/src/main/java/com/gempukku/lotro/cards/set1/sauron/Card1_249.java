@@ -41,8 +41,8 @@ public class Card1_249 extends AbstractPermanent {
                         Race.ORC,
                         new Filter() {
                             @Override
-                            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                Skirmish skirmish = gameState.getSkirmish();
+                            public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
+                                Skirmish skirmish = game.getGameState().getSkirmish();
                                 return (skirmish != null && skirmish.getShadowCharacters().contains(physicalCard)
                                         && skirmish.getFellowshipCharacter() != null
                                         && skirmish.getFellowshipCharacter().getBlueprint().getCulture() == Culture.GONDOR);

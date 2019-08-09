@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set12.site;
 
 import com.gempukku.lotro.logic.cardtype.AbstractNewSite;
 import com.gempukku.lotro.logic.modifiers.ResistanceModifier;
-import com.gempukku.lotro.logic.modifiers.conditions.OrCondition;
+import com.gempukku.lotro.logic.modifiers.condition.OrCondition;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.filters.Filters;

@@ -34,7 +34,7 @@ public class Card7_173 extends AbstractEvent {
     @Override
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         PlayEventAction action = new PlayEventAction(self);
-        int companionCount = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION);
+        int companionCount = Filters.countActive(game, CardType.COMPANION);
         int threats = 1 + (Math.max(0, companionCount - 4));
         action.appendEffect(
                 new AddThreatsEffect(playerId, self, threats));

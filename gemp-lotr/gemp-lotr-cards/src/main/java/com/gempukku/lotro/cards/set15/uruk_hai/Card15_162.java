@@ -38,7 +38,7 @@ public class Card15_162 extends AbstractMinion {
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.winsSkirmish(game, effectResult, self)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
-            int regionNumber = GameUtils.getRegion(game.getGameState());
+            int regionNumber = GameUtils.getRegion(game);
             action.appendEffect(
                     new ChooseAndExertCharactersEffect(action, game.getGameState().getCurrentPlayerId(), regionNumber, regionNumber, CardType.COMPANION));
             return Collections.singletonList(action);

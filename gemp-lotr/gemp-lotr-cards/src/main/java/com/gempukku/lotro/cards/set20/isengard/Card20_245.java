@@ -39,8 +39,8 @@ public class Card20_245 extends AbstractEvent {
                     @Override
                     protected void doPlayEffect(LotroGame game) {
                         int count = 0;
-                        for (PhysicalCard artifact : Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Culture.ISENGARD, CardType.ARTIFACT, Filters.hasStacked(Culture.ISENGARD, Keyword.SPELL))) {
-                            count+=Filters.filter(game.getGameState().getStackedCards(artifact), game.getGameState(), game.getModifiersQuerying(), Culture.ISENGARD, Keyword.SPELL).size();
+                        for (PhysicalCard artifact : Filters.filterActive(game, Culture.ISENGARD, CardType.ARTIFACT, Filters.hasStacked(Culture.ISENGARD, Keyword.SPELL))) {
+                            count+=Filters.filter(game.getGameState().getStackedCards(artifact), game, Culture.ISENGARD, Keyword.SPELL).size();
                         }
                         count = Math.min(3, count);
                         for (int i=0; i<count; i++)

@@ -35,7 +35,7 @@ public class Card40_157 extends AbstractMinion {
 
     @Override
     protected int getPotentialExtraPaymentDiscount(String playerId, LotroGame game, PhysicalCard self) {
-        return Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Culture.MORIA, Race.GOBLIN).size();
+        return Filters.filter(game.getGameState().getHand(playerId), game, Culture.MORIA, Race.GOBLIN).size();
     }
 
     @Override

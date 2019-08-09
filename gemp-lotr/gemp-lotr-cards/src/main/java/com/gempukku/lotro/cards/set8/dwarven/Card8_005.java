@@ -6,11 +6,9 @@ import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.common.Signet;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 
@@ -41,15 +39,15 @@ public class Card8_005 extends AbstractCompanion {
         modifiers.add(
                 new StrengthModifier(self, self, null, new Evaluator() {
                     @Override
-                    public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard cardAffected) {
-                        return gameState.getWounds(cardAffected);
+                    public int evaluateExpression(LotroGame game, PhysicalCard cardAffected) {
+                        return game.getGameState().getWounds(cardAffected);
                     }
                 }));
         modifiers.add(
                 new KeywordModifier(self, self, null, Keyword.DAMAGE, new Evaluator() {
                     @Override
-                    public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard cardAffected) {
-                        return gameState.getWounds(cardAffected);
+                    public int evaluateExpression(LotroGame game, PhysicalCard cardAffected) {
+                        return game.getGameState().getWounds(cardAffected);
                     }
                 }));
         return modifiers;

@@ -36,7 +36,7 @@ public class Card3_044 extends AbstractPermanent {
         List<Action> actions = new LinkedList<Action>();
 
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.FELLOWSHIP, self)) {
-            if (Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Culture.GONDOR).size() > 0) {
+            if (PlayConditions.canStackCardFromHand(self, game, playerId, 1, self, Culture.GONDOR)) {
                 final ActivateCardAction action = new ActivateCardAction(self);
                 action.setText("Stack a GONDOR card from hand here");
                 action.appendEffect(

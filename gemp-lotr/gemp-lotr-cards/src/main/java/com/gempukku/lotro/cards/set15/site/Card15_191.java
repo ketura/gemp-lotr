@@ -31,7 +31,7 @@ public class Card15_191 extends AbstractNewSite {
         if (TriggerConditions.movesTo(game, effectResult, self)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
-                    new AddTwilightEffect(self, new CountCulturesEvaluator(Filters.any).evaluateExpression(game.getGameState(), game.getModifiersQuerying(), null)));
+                    new AddTwilightEffect(self, new CountCulturesEvaluator(Filters.any).evaluateExpression(game, null)));
             return Collections.singletonList(action);
         }
         return null;

@@ -6,6 +6,7 @@ import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
+import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.ModifiersLogic;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
@@ -20,8 +21,8 @@ public class RoamingRule {
     public void applyRule() {
         Filter roamingFilter = Filters.and(CardType.MINION, new Filter() {
             @Override
-            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                return (modifiersQuerying.getMinionSiteNumber(gameState, physicalCard) > gameState.getCurrentSiteNumber());
+            public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
+                return (game.getModifiersQuerying().getMinionSiteNumber(game, physicalCard) > game.getGameState().getCurrentSiteNumber());
             }
         });
 

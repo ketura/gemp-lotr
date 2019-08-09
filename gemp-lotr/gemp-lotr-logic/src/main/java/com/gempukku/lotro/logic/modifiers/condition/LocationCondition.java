@@ -1,11 +1,10 @@
-package com.gempukku.lotro.logic.modifiers.conditions;
+package com.gempukku.lotro.logic.modifiers.condition;
 
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.game.state.GameState;
+import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.Condition;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
 public class LocationCondition implements Condition {
     private Filter _filter;
@@ -15,7 +14,7 @@ public class LocationCondition implements Condition {
     }
 
     @Override
-    public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-        return _filter.accepts(gameState, modifiersQuerying, gameState.getCurrentSite());
+    public boolean isFullfilled(LotroGame game) {
+        return _filter.accepts(game, game.getGameState().getCurrentSite());
     }
 }

@@ -3,8 +3,6 @@ package com.gempukku.lotro.logic.decisions;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.logic.decisions.IntegerAwaitingDecision;
 
 import java.util.Map;
 
@@ -24,9 +22,9 @@ public abstract class ForEachYouSpotDecision extends IntegerAwaitingDecision {
     @Override
     public Map<String, Object> getDecisionParameters() {
         Map<String, Object> result = super.getDecisionParameters();
-        int count = Filters.countActive(_lotroGame.getGameState(), _lotroGame.getModifiersQuerying(), _filters);
+        int count = Filters.countActive(_lotroGame, _filters);
         if (_filters.length == 1)
-            count += _lotroGame.getModifiersQuerying().getSpotBonus(_lotroGame.getGameState(), _filters[0]);
+            count += _lotroGame.getModifiersQuerying().getSpotBonus(_lotroGame, _filters[0]);
         _max = count;
         result.put("max", String.valueOf(count));
         if (_defaultValue > _max)

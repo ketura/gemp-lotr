@@ -43,9 +43,9 @@ public class Card7_036 extends AbstractCompanion {
                 new StrengthModifier(self, self,
                         new Condition() {
                             @Override
-                            public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
+                            public boolean isFullfilled(LotroGame game) {
                                 Set<Culture> companionCultures = new HashSet<Culture>();
-                                for (PhysicalCard companion : Filters.filterActive(gameState, modifiersQuerying, CardType.COMPANION))
+                                for (PhysicalCard companion : Filters.filterActive(game, CardType.COMPANION))
                                     companionCultures.add(companion.getBlueprint().getCulture());
 
                                 for (Culture companionCulture : companionCultures) {

@@ -7,11 +7,9 @@ import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
 /**
  * Set: Bloodlines
@@ -31,11 +29,11 @@ public class Card13_066 extends AbstractCompanion {
     }
 
     @Override
-    public int getTwilightCostModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
+    public int getTwilightCostModifier(LotroGame game, PhysicalCard self) {
         int modifier = 0;
-        if (Filters.canSpot(gameState, modifiersQuerying, Filters.boromir))
+        if (Filters.canSpot(game, Filters.boromir))
             modifier--;
-        if (Filters.canSpot(gameState, modifiersQuerying, Filters.name("Denethor")))
+        if (Filters.canSpot(game, Filters.name("Denethor")))
             modifier--;
         return modifier;
     }

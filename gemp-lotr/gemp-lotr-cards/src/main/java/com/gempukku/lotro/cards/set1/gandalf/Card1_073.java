@@ -37,8 +37,8 @@ public class Card1_073 extends AbstractPermanent {
     public List<? extends Action> getExtraPhaseActions(final String playerId, final LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.FELLOWSHIP, self)
                 && (
-                Filters.filter(game.getGameState().getStackedCards(self), game.getGameState(), game.getModifiersQuerying(), Filters.playable(game)).size() > 0
-                        || Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Side.FREE_PEOPLE, Filters.or(CardType.ARTIFACT, CardType.POSSESSION)).size() > 0)) {
+                Filters.filter(game.getGameState().getStackedCards(self), game, Filters.playable(game)).size() > 0
+                        || Filters.filter(game.getGameState().getHand(playerId), game, Side.FREE_PEOPLE, Filters.or(CardType.ARTIFACT, CardType.POSSESSION)).size() > 0)) {
             final ActivateCardAction action = new ActivateCardAction(self);
 
             List<Effect> possibleChoices = new LinkedList<Effect>();

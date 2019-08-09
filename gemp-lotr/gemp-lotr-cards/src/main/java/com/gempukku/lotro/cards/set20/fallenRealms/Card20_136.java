@@ -35,7 +35,7 @@ public class Card20_136 extends AbstractMinion {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new RemoveTwilightEffect(5));
-            boolean all = Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION)>=6;
+            boolean all = Filters.countSpottable(game, CardType.COMPANION)>=6;
             if (all)
                 action.appendEffect(
                         new DiscardCardsFromPlayEffect(self.getOwner(), self, Side.FREE_PEOPLE, CardType.POSSESSION));

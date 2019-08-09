@@ -7,10 +7,8 @@ import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.common.Signet;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 
@@ -37,8 +35,8 @@ public class Card4_267 extends AbstractCompanion {
     }
 
     @Override
-    public int getTwilightCostModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
-        if (Filters.canSpot(gameState, modifiersQuerying, Culture.ROHAN, Race.MAN))
+    public int getTwilightCostModifier(LotroGame game, PhysicalCard self) {
+        if (Filters.canSpot(game, Culture.ROHAN, Race.MAN))
             return -1;
         return 0;
     }
@@ -49,11 +47,11 @@ public class Card4_267 extends AbstractCompanion {
                 new StrengthModifier(self, self, null,
                         new Evaluator() {
                             @Override
-                            public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
-                                final Collection<PhysicalCard> minions = Filters.filterActive(gameState, modifiersQuerying, Filters.inSkirmishAgainst(self));
+                            public int evaluateExpression(LotroGame game, PhysicalCard self) {
+                                final Collection<PhysicalCard> minions = Filters.filterActive(game, Filters.inSkirmishAgainst(self));
                                 int wounds = 0;
                                 for (PhysicalCard minion : minions)
-                                    wounds += gameState.getWounds(minion);
+                                    wounds += game.getGameState().getWounds(minion);
                                 return 2 * wounds;
                             }
                         }));

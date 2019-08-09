@@ -28,7 +28,7 @@ public class ChooseAndAddUntilEOPStrengthBonusEffect extends ChooseActiveCardEff
 
     @Override
     protected void cardSelected(LotroGame game, PhysicalCard card) {
-        final int bonus = _bonusEvaluator.evaluateExpression(game.getGameState(), game.getModifiersQuerying(), card);
+        final int bonus = _bonusEvaluator.evaluateExpression(game, card);
         final StrengthModifier modifier = new StrengthModifier(_source, Filters.sameCard(card), bonus);
 
         game.getModifiersEnvironment().addUntilEndOfPhaseModifier(modifier, game.getGameState().getCurrentPhase());

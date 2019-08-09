@@ -45,11 +45,11 @@ public class Card12_052 extends AbstractPermanent {
                             int bonus = 0;
                             if (PlayConditions.location(game, Keyword.BATTLEGROUND))
                                 bonus++;
-                            if (Filters.minResistance(4).accepts(game.getGameState(), game.getModifiersQuerying(), card))
+                            if (Filters.minResistance(4).accepts(game, card))
                                 bonus++;
-                            if (Filters.hasAttached(PossessionClass.HAND_WEAPON).accepts(game.getGameState(), game.getModifiersQuerying(), card))
+                            if (Filters.hasAttached(PossessionClass.HAND_WEAPON).accepts(game, card))
                                 bonus++;
-                            if (Filters.inSkirmishAgainst(Filters.roamingMinion).accepts(game.getGameState(), game.getModifiersQuerying(), card))
+                            if (Filters.inSkirmishAgainst(Filters.roamingMinion).accepts(game, card))
                                 bonus++;
                             action.appendEffect(
                                     new AddUntilEndOfPhaseModifierEffect(

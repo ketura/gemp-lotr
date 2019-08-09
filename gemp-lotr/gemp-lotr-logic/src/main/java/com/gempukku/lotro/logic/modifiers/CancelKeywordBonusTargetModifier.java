@@ -5,8 +5,7 @@ import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
-import com.gempukku.lotro.logic.modifiers.*;
+import com.gempukku.lotro.game.state.LotroGame;
 
 public class CancelKeywordBonusTargetModifier extends AbstractModifier implements KeywordAffectingModifier {
     private Keyword _keyword;
@@ -23,9 +22,9 @@ public class CancelKeywordBonusTargetModifier extends AbstractModifier implement
     }
 
     @Override
-    public boolean appliesKeywordModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard modifierSource, Keyword keyword) {
+    public boolean appliesKeywordModifier(LotroGame game, PhysicalCard modifierSource, Keyword keyword) {
         if (keyword == _keyword
-                && (_sourceFilter == null || (modifierSource != null && _sourceFilter.accepts(gameState, modifiersQuerying, modifierSource))))
+                && (_sourceFilter == null || (modifierSource != null && _sourceFilter.accepts(game, modifierSource))))
             return false;
         return true;
     }

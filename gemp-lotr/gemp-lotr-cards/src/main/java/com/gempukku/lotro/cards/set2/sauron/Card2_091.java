@@ -35,7 +35,7 @@ public class Card2_091 extends AbstractResponseEvent {
     public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.PUT_ON_THE_ONE_RING
                 && PlayConditions.canPlayCardDuringPhase(game, (Phase) null, self)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Culture.SAURON, CardType.MINION)
+                && Filters.canSpot(game, Culture.SAURON, CardType.MINION)
                 && checkPlayRequirements(playerId, game, self, 0, 0, false, false)) {
             PlayEventAction action = new PlayEventAction(self);
             action.appendEffect(

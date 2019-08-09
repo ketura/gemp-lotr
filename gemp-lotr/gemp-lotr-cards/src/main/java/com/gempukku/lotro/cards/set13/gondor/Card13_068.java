@@ -36,7 +36,7 @@ public class Card13_068 extends AbstractEvent {
                 new ChooseActiveCardEffect(self, playerId, "Choose a GONDOR companion", Culture.GONDOR, CardType.COMPANION) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
-                        int count = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.POSSESSION, Filters.attachedTo(card));
+                        int count = Filters.countActive(game, CardType.POSSESSION, Filters.attachedTo(card));
                         for (int i = 0; i < count; i++)
                             action.appendEffect(
                                     new ReinforceTokenEffect(self, playerId, Token.GONDOR));

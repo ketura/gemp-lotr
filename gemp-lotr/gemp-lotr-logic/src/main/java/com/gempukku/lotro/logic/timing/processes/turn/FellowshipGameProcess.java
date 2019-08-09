@@ -13,7 +13,7 @@ public class FellowshipGameProcess implements GameProcess {
 
     @Override
     public void process(LotroGame game) {
-        if (game.getModifiersQuerying().shouldSkipPhase(game.getGameState(), Phase.FELLOWSHIP, game.getGameState().getCurrentPlayerId()))
+        if (game.getModifiersQuerying().shouldSkipPhase(game, Phase.FELLOWSHIP, game.getGameState().getCurrentPlayerId()))
             _followingGameProcess = new ShadowPhasesGameProcess();
         else
             _followingGameProcess = new StartOfPhaseGameProcess(Phase.FELLOWSHIP,

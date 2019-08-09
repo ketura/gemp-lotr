@@ -42,10 +42,10 @@ public class Card6_028 extends AbstractCompanion {
     }
 
     @Override
-    public int getTwilightCostModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
+    public int getTwilightCostModifier(LotroGame game, PhysicalCard self) {
         return -2 * (
-                Filters.countActive(gameState, modifiersQuerying, Filters.or(Race.ENT, Filters.and(Race.HOBBIT, Filters.unboundCompanion)))
-                        + modifiersQuerying.getSpotBonus(gameState, Race.ENT));
+                Filters.countActive(game, Filters.or(Race.ENT, Filters.and(Race.HOBBIT, Filters.unboundCompanion)))
+                        + game.getModifiersQuerying().getSpotBonus(game, Race.ENT));
     }
 
     @Override
@@ -53,9 +53,9 @@ public class Card6_028 extends AbstractCompanion {
         return Collections.singletonList(
                 new KeywordModifier(self, self, new Condition() {
                     @Override
-                    public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                        return Filters.countActive(gameState, modifiersQuerying, CardType.MINION) >
-                                Filters.countActive(gameState, modifiersQuerying, CardType.COMPANION);
+                    public boolean isFullfilled(LotroGame game) {
+                        return Filters.countActive(game, CardType.MINION) >
+                                Filters.countActive(game, CardType.COMPANION);
                     }
                 }, Keyword.DEFENDER, 1));
     }

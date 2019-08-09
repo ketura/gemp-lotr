@@ -9,11 +9,9 @@ import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 import com.gempukku.lotro.logic.timing.EffectResult;
@@ -43,10 +41,10 @@ public class Card17_057 extends AbstractMinion {
         return new StrengthModifier(self, self, null,
                 new Evaluator() {
                     @Override
-                    public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard cardAffected) {
+                    public int evaluateExpression(LotroGame game, PhysicalCard cardAffected) {
                         int count = 0;
-                        for (PhysicalCard possession : Filters.filterActive(gameState, modifiersQuerying, Culture.MEN, CardType.POSSESSION, Filters.hasStacked(Culture.MEN, CardType.MINION))) {
-                            count += Filters.filter(gameState.getStackedCards(possession), gameState, modifiersQuerying, Culture.MEN, CardType.MINION).size();
+                        for (PhysicalCard possession : Filters.filterActive(game, Culture.MEN, CardType.POSSESSION, Filters.hasStacked(Culture.MEN, CardType.MINION))) {
+                            count += Filters.filter(game.getGameState().getStackedCards(possession), game, Culture.MEN, CardType.MINION).size();
                         }
                         return count;
                     }

@@ -4,10 +4,8 @@ import com.gempukku.lotro.logic.cardtype.AbstractMinion;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 
@@ -32,8 +30,8 @@ public class Card11_090 extends AbstractMinion {
         return new StrengthModifier(self, self, null,
                 new Evaluator() {
                     @Override
-                    public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard cardAffected) {
-                        return gameState.getHand(gameState.getCurrentPlayerId()).size();
+                    public int evaluateExpression(LotroGame game, PhysicalCard cardAffected) {
+                        return game.getGameState().getHand(game.getGameState().getCurrentPlayerId()).size();
                     }
                 });
     }

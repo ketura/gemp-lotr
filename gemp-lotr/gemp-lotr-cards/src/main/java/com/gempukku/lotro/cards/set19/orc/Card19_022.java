@@ -55,7 +55,7 @@ public class Card19_022 extends AbstractMinion {
                             new PreventableEffect.PreventionCost() {
                                 @Override
                                 public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
-                                    final PhysicalCard ringBearer = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.ringBearer);
+                                    final PhysicalCard ringBearer = Filters.findFirstActive(game, Filters.ringBearer);
                                     return new ExertCharactersEffect(action, self, ringBearer);
                                 }
                             }));

@@ -60,8 +60,8 @@ public class Card40_190 extends AbstractAttachable {
             action.appendCost(
                     new SelfDiscardEffect(self));
 
-            final PhysicalCard bladeTipInSupport = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name("Blade Tip"), Filters.owner(playerId), Zone.SUPPORT);
-            final Collection<PhysicalCard> bladeTipsInDiscard = Filters.filter(game.getGameState().getDiscard(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.name("Blade Tip"));
+            final PhysicalCard bladeTipInSupport = Filters.findFirstActive(game, Filters.name("Blade Tip"), Filters.owner(playerId), Zone.SUPPORT);
+            final Collection<PhysicalCard> bladeTipsInDiscard = Filters.filter(game.getGameState().getDiscard(playerId), game, Filters.name("Blade Tip"));
 
             List<Effect> possibleEffects = new LinkedList<Effect>();
             if (bladeTipInSupport != null) {

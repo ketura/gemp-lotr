@@ -27,7 +27,7 @@ public class ReplaceInSkirmishEffect extends AbstractEffect {
 
     @Override
     public boolean isPlayableInFull(LotroGame game) {
-        return Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.and(_replacingFilter, Filters.inSkirmish))>0;
+        return Filters.countActive(game, Filters.and(_replacingFilter, Filters.inSkirmish))>0;
     }
 
     @Override

@@ -54,7 +54,7 @@ public class Card15_113 extends AbstractPermanent {
                         @Override
                         protected void cardsRevealed(List<PhysicalCard> revealedCards) {
                             for (PhysicalCard card : revealedCards) {
-                                if (Filters.and(Culture.ORC, Race.ORC).accepts(game.getGameState(), game.getModifiersQuerying(), card))
+                                if (Filters.and(Culture.ORC, Race.ORC).accepts(game, card))
                                     action.appendEffect(
                                             new PutCardFromDeckIntoHandEffect(card));
                                 else

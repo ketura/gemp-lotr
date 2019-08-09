@@ -8,12 +8,10 @@ import com.gempukku.lotro.logic.modifiers.OverwhelmedByMultiplierModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 import com.gempukku.lotro.logic.timing.Action;
@@ -42,8 +40,8 @@ public class Card9_050 extends AbstractPermanent {
                 new StrengthModifier(self, Filters.and(Race.HOBBIT, Filters.unboundCompanion), null,
                         new Evaluator() {
                             @Override
-                            public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard cardAffected) {
-                                return Math.max(0, modifiersQuerying.getVitality(gameState, cardAffected) - 3);
+                            public int evaluateExpression(LotroGame game, PhysicalCard cardAffected) {
+                                return Math.max(0, game.getModifiersQuerying().getVitality(game, cardAffected) - 3);
                             }
                         }));
     }

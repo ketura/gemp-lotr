@@ -42,7 +42,7 @@ public class Card20_093 extends AbstractPermanent {
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.ELF) {
                         @Override
                         protected void forEachCardExertedCallback(PhysicalCard character) {
-                            int count = Filters.galadriel.accepts(game.getGameState(), game.getModifiersQuerying(), character)?2:1;
+                            int count = Filters.galadriel.accepts(game, character)?2:1;
                             action.appendEffect(
                                     new RemoveBurdenEffect(playerId, self, count));
                         }

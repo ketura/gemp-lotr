@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set4.gandalf;
 
 import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
-import com.gempukku.lotro.logic.modifiers.conditions.CanSpotTwilightCondition;
+import com.gempukku.lotro.logic.modifiers.condition.CanSpotTwilightCondition;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.common.Signet;

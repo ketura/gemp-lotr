@@ -47,15 +47,15 @@ public class Card14_005 extends AbstractCompanion {
                 new ArcheryTotalModifier(self, Side.FREE_PEOPLE,
                         new Condition() {
                             @Override
-                            public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return Filters.countActive(gameState, modifiersQuerying, CardType.MINION)
-                                        > Filters.countActive(gameState, modifiersQuerying, CardType.COMPANION);
+                            public boolean isFullfilled(LotroGame game) {
+                                return Filters.countActive(game, CardType.MINION)
+                                        > Filters.countActive(game, CardType.COMPANION);
                             }
                         }, new Evaluator() {
                             @Override
-                            public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard cardAffected) {
-                                return Filters.countActive(gameState, modifiersQuerying, CardType.MINION)
-                                        - Filters.countActive(gameState, modifiersQuerying, CardType.COMPANION);
+                            public int evaluateExpression(LotroGame game, PhysicalCard cardAffected) {
+                                return Filters.countActive(game, CardType.MINION)
+                                        - Filters.countActive(game, CardType.COMPANION);
                             }
                         }
                 ));

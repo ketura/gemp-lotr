@@ -28,7 +28,7 @@ public class RemoveTokenEffect extends AbstractEffect {
     @Override
     public boolean isPlayableInFull(LotroGame game) {
         return game.getGameState().getTokenCount(_target, _token) >= _count
-                && !game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.CANT_TOUCH_CULTURE_TOKENS);
+                && !game.getModifiersQuerying().hasFlagActive(game, ModifierFlag.CANT_TOUCH_CULTURE_TOKENS);
     }
 
     @Override
@@ -43,7 +43,7 @@ public class RemoveTokenEffect extends AbstractEffect {
 
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
-        if (!game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.CANT_TOUCH_CULTURE_TOKENS)) {
+        if (!game.getModifiersQuerying().hasFlagActive(game, ModifierFlag.CANT_TOUCH_CULTURE_TOKENS)) {
             int tokenCount = game.getGameState().getTokenCount(_target, _token);
             int removeTokens = Math.min(tokenCount, _count);
             if (removeTokens > 0) {

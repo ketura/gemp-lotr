@@ -44,7 +44,7 @@ public class Card30_024 extends AbstractEvent {
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, 2, Filters.gandalf));
         List<Effect> possibleEffects = new LinkedList<Effect>();
-        if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), CardType.MINION, Filters.moreVitalityThan(1))) {
+        if (Filters.canSpot(game, CardType.MINION, Filters.moreVitalityThan(1))) {
             possibleEffects.add(
                     new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, 2, CardType.MINION, Filters.moreVitalityThan(1)) {
                 @Override
@@ -52,7 +52,7 @@ public class Card30_024 extends AbstractEvent {
                     return "Wound a minion twice";
                 }
             });
-        } else if (!Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Race.TROLL)) {
+        } else if (!Filters.canSpot(game, Race.TROLL)) {
             possibleEffects.add(
                     new ChooseActiveCardEffect(self, playerId, "Choose minion", CardType.MINION, Filters.canTakeWounds(self, 1)) {
                 @Override

@@ -35,7 +35,7 @@ public class Card1_205 extends AbstractEvent {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.NAZGUL));
-        boolean firstEffect = Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Side.FREE_PEOPLE, Filters.or(CardType.POSSESSION, CardType.CONDITION));
+        boolean firstEffect = Filters.canSpot(game, Side.FREE_PEOPLE, Filters.or(CardType.POSSESSION, CardType.CONDITION));
         if (firstEffect) {
             action.appendEffect(
                     new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Side.FREE_PEOPLE, Filters.or(CardType.POSSESSION, CardType.CONDITION)));

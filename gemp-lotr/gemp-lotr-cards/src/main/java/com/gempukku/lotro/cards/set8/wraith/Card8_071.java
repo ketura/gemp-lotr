@@ -52,7 +52,7 @@ public class Card8_071 extends AbstractPermanent {
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.REGROUP, self, 0)
-                && Filters.filter(game.getGameState().getStackedCards(self), game.getGameState(), game.getModifiersQuerying(), CardType.MINION).size() == 0
+                && Filters.filter(game.getGameState().getStackedCards(self), game, CardType.MINION).size() == 0
                 && PlayConditions.canSpot(game, Filters.owner(playerId), Culture.WRAITH, CardType.MINION)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(

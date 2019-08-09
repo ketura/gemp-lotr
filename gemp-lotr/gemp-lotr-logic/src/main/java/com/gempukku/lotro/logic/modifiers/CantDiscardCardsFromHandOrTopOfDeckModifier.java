@@ -4,11 +4,7 @@ import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
-import com.gempukku.lotro.logic.modifiers.AbstractModifier;
-import com.gempukku.lotro.logic.modifiers.Condition;
-import com.gempukku.lotro.logic.modifiers.ModifierEffect;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.game.state.LotroGame;
 
 public class CantDiscardCardsFromHandOrTopOfDeckModifier extends AbstractModifier {
     private Filter _discardSourceAffected;
@@ -21,17 +17,17 @@ public class CantDiscardCardsFromHandOrTopOfDeckModifier extends AbstractModifie
     }
 
     @Override
-    public boolean canDiscardCardsFromHand(GameState gameState, ModifiersQuerying modifiersQuerying, String playerId, PhysicalCard source) {
+    public boolean canDiscardCardsFromHand(LotroGame game, String playerId, PhysicalCard source) {
         if (playerId.equals(_playerId))
-            if (source == null || _discardSourceAffected.accepts(gameState, modifiersQuerying, source))
+            if (source == null || _discardSourceAffected.accepts(game, source))
                 return false;
         return true;
     }
 
     @Override
-    public boolean canDiscardCardsFromTopOfDeck(GameState gameState, ModifiersQuerying modifiersQuerying, String playerId, PhysicalCard source) {
+    public boolean canDiscardCardsFromTopOfDeck(LotroGame game, String playerId, PhysicalCard source) {
         if (playerId.equals(_playerId))
-            if (source == null || _discardSourceAffected.accepts(gameState, modifiersQuerying, source))
+            if (source == null || _discardSourceAffected.accepts(game, source))
                 return false;
         return true;
     }

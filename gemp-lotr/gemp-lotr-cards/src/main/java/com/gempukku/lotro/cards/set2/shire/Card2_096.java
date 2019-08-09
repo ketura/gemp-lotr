@@ -34,7 +34,7 @@ public class Card2_096 extends AbstractAlly {
     protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.FELLOWSHIP, self)
                 && PlayConditions.canExert(self, game, self)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Keyword.TALE)) {
+                && Filters.canSpot(game, Keyword.TALE)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new SelfExertEffect(action, self));

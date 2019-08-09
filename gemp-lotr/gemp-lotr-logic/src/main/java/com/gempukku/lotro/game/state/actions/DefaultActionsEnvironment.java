@@ -216,7 +216,7 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
 
         for (Action action : gatherActions.getActions()) {
             action.setPerformingPlayer(playerId);
-            if (_lotroGame.getModifiersQuerying().canPlayAction(_lotroGame.getGameState(), playerId, action))
+            if (_lotroGame.getModifiersQuerying().canPlayAction(_lotroGame, playerId, action))
                 result.add(action);
         }
 
@@ -294,7 +294,7 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
 
         for (Action action : gatherAfterActions.getActions()) {
             action.setPerformingPlayer(playerId);
-            if (_lotroGame.getModifiersQuerying().canPlayAction(_lotroGame.getGameState(), playerId, action))
+            if (_lotroGame.getModifiersQuerying().canPlayAction(_lotroGame, playerId, action))
                 result.add(action);
         }
 
@@ -317,21 +317,21 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
         for (Action action : visitor.getActions()) {
             action.setActionTimeword(_lotroGame.getGameState().getCurrentPhase());
             action.setPerformingPlayer(playerId);
-            if (_lotroGame.getModifiersQuerying().canPlayAction(_lotroGame.getGameState(), playerId, action))
+            if (_lotroGame.getModifiersQuerying().canPlayAction(_lotroGame, playerId, action))
                 playableActions.add(action);
         }
 
         for (Action action : stackedVisitor.getActions()) {
             action.setActionTimeword(_lotroGame.getGameState().getCurrentPhase());
             action.setPerformingPlayer(playerId);
-            if (_lotroGame.getModifiersQuerying().canPlayAction(_lotroGame.getGameState(), playerId, action))
+            if (_lotroGame.getModifiersQuerying().canPlayAction(_lotroGame, playerId, action))
                 playableActions.add(action);
         }
 
         for (Action action : discardVisitor.getActions()) {
             action.setActionTimeword(_lotroGame.getGameState().getCurrentPhase());
             action.setPerformingPlayer(playerId);
-            if (_lotroGame.getModifiersQuerying().canPlayAction(_lotroGame.getGameState(), playerId, action))
+            if (_lotroGame.getModifiersQuerying().canPlayAction(_lotroGame, playerId, action))
                 playableActions.add(action);
         }
 
@@ -360,17 +360,17 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
 
     @Override
     public boolean hasWonSkirmishThisTurn(LotroGame game, Filterable... filters) {
-        return Filters.filter(_wonSkirmishesInTurn, game.getGameState(), game.getModifiersQuerying(), filters).size() > 0;
+        return Filters.filter(_wonSkirmishesInTurn, game, filters).size() > 0;
     }
 
     @Override
     public boolean hasLostSkirmishThisTurn(LotroGame game, Filterable... filters) {
-        return Filters.filter(_lostSkirmishesInTurn, game.getGameState(), game.getModifiersQuerying(), filters).size() > 0;
+        return Filters.filter(_lostSkirmishesInTurn, game, filters).size() > 0;
     }
 
     @Override
     public boolean wasAssignedThisTurn(LotroGame game, Filterable... filters) {
-        return Filters.filter(_assignedInTurn, game.getGameState(), game.getModifiersQuerying(), filters).size() > 0;
+        return Filters.filter(_assignedInTurn, game, filters).size() > 0;
     }
 
     private class GatherRequiredAfterTriggers extends CompletePhysicalCardVisitor {
@@ -383,7 +383,7 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
 
         @Override
         protected void doVisitPhysicalCard(PhysicalCard physicalCard) {
-            if (!_lotroGame.getModifiersQuerying().hasTextRemoved(_lotroGame.getGameState(), physicalCard)) {
+            if (!_lotroGame.getModifiersQuerying().hasTextRemoved(_lotroGame, physicalCard)) {
                 if (_effectResults != null)
                     for (EffectResult effectResult : _effectResults) {
                         List<? extends Action> actions = physicalCard.getBlueprint().getRequiredAfterTriggers(_lotroGame, effectResult, physicalCard);
@@ -408,7 +408,7 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
 
         @Override
         public void doVisitPhysicalCard(PhysicalCard physicalCard) {
-            if (!_lotroGame.getModifiersQuerying().hasTextRemoved(_lotroGame.getGameState(), physicalCard)) {
+            if (!_lotroGame.getModifiersQuerying().hasTextRemoved(_lotroGame, physicalCard)) {
                 List<? extends Action> actions = physicalCard.getBlueprint().getRequiredBeforeTriggers(_lotroGame, _effect, physicalCard);
                 if (actions != null)
                     _actions.addAll(actions);
@@ -432,7 +432,7 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
 
         @Override
         public void doVisitPhysicalCard(PhysicalCard physicalCard) {
-            if (!_lotroGame.getModifiersQuerying().hasTextRemoved(_lotroGame.getGameState(), physicalCard)) {
+            if (!_lotroGame.getModifiersQuerying().hasTextRemoved(_lotroGame, physicalCard)) {
                 List<? extends Action> actions = physicalCard.getBlueprint().getOptionalBeforeActions(_playerId, _lotroGame, _effect, physicalCard);
                 if (actions != null)
                     _actions.addAll(actions);
@@ -456,7 +456,7 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
 
         @Override
         protected void doVisitPhysicalCard(PhysicalCard physicalCard) {
-            if (!_lotroGame.getModifiersQuerying().hasTextRemoved(_lotroGame.getGameState(), physicalCard)) {
+            if (!_lotroGame.getModifiersQuerying().hasTextRemoved(_lotroGame, physicalCard)) {
                 if (_effectResults != null)
                     for (EffectResult effectResult : _effectResults) {
                         List<OptionalTriggerAction> actions = physicalCard.getBlueprint().getOptionalAfterTriggers(_playerId, _lotroGame, effectResult, physicalCard);
@@ -486,7 +486,7 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
 
         @Override
         protected void doVisitPhysicalCard(PhysicalCard physicalCard) {
-            if (!_lotroGame.getModifiersQuerying().hasTextRemoved(_lotroGame.getGameState(), physicalCard)) {
+            if (!_lotroGame.getModifiersQuerying().hasTextRemoved(_lotroGame, physicalCard)) {
                 List<? extends Action> actions = physicalCard.getBlueprint().getOptionalBeforeTriggers(_playerId, _lotroGame, _effect, physicalCard);
                 if (actions != null)
                     _actions.addAll(actions);
@@ -510,7 +510,7 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
 
         @Override
         protected void doVisitPhysicalCard(PhysicalCard physicalCard) {
-            if (!_lotroGame.getModifiersQuerying().hasTextRemoved(_lotroGame.getGameState(), physicalCard)) {
+            if (!_lotroGame.getModifiersQuerying().hasTextRemoved(_lotroGame, physicalCard)) {
                 if (_effectResults != null)
                     for (EffectResult effectResult : _effectResults) {
                         List<? extends Action> actions = physicalCard.getBlueprint().getOptionalAfterActions(_playerId, _lotroGame, effectResult, physicalCard);
@@ -538,7 +538,7 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
 
         @Override
         protected void doVisitPhysicalCard(PhysicalCard physicalCard) {
-            if (!_lotroGame.getModifiersQuerying().hasTextRemoved(_lotroGame.getGameState(), physicalCard)) {
+            if (!_lotroGame.getModifiersQuerying().hasTextRemoved(_lotroGame, physicalCard)) {
                 List<? extends Action> normalActions = physicalCard.getBlueprint().getPhaseActions(_playerId, _game, physicalCard);
                 if (normalActions != null) {
                     for (Action action : normalActions) {
@@ -548,7 +548,7 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
                             LOG.error("Null action from: " + physicalCard.getBlueprint().getName());
                     }
                 }
-                final List<? extends ActivateCardAction> extraActions = _game.getModifiersQuerying().getExtraPhaseActions(_game.getGameState(), physicalCard);
+                final List<? extends ActivateCardAction> extraActions = _game.getModifiersQuerying().getExtraPhaseActions(_game, physicalCard);
                 if (extraActions != null) {
                     for (Action action : extraActions) {
                         if (action != null)
@@ -581,7 +581,7 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
             List<? extends Action> list = physicalCard.getBlueprint().getPhaseActionsFromStacked(_playerId, _game, physicalCard);
             if (list != null)
                 _actions.addAll(list);
-            final List<? extends Action> extraActions = _game.getModifiersQuerying().getExtraPhaseActionsFromStacked(_game.getGameState(), physicalCard);
+            final List<? extends Action> extraActions = _game.getModifiersQuerying().getExtraPhaseActionsFromStacked(_game, physicalCard);
             if (extraActions != null) {
                 for (Action action : extraActions) {
                     if (action != null)

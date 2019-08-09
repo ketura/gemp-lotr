@@ -1,8 +1,8 @@
 package com.gempukku.lotro.cards.set19.wraith;
 
 import com.gempukku.lotro.logic.cardtype.AbstractMinion;
-import com.gempukku.lotro.logic.modifiers.conditions.AndCondition;
-import com.gempukku.lotro.logic.modifiers.conditions.CanSpotTwilightCondition;
+import com.gempukku.lotro.logic.modifiers.condition.AndCondition;
+import com.gempukku.lotro.logic.modifiers.condition.CanSpotTwilightCondition;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Names;

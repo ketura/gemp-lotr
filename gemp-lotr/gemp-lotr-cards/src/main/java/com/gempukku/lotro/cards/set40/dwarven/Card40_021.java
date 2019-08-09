@@ -36,7 +36,7 @@ public class Card40_021 extends AbstractEvent{
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
                                         new StrengthModifier(self, card, 2)));
-                        if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Culture.DWARVEN, CardType.CONDITION, Filters.hasStacked(Filters.any))) {
+                        if (Filters.canSpot(game, Culture.DWARVEN, CardType.CONDITION, Filters.hasStacked(Filters.any))) {
                             action.appendEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
                                             new KeywordModifier(self, card, Keyword.DAMAGE, 1)));

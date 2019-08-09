@@ -37,7 +37,7 @@ public class Card15_107 extends AbstractMinion {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && (new CountCulturesEvaluator(Side.FREE_PEOPLE).evaluateExpression(game.getGameState(), game.getModifiersQuerying(), null) >= 3
+                && (new CountCulturesEvaluator(Side.FREE_PEOPLE).evaluateExpression(game, null) >= 3
                 || PlayConditions.canDiscardFromPlay(self, game, 2, Culture.ORC, CardType.CONDITION));
     }
 
@@ -45,7 +45,7 @@ public class Card15_107 extends AbstractMinion {
     public PlayPermanentAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayPermanentAction playCardAction = super.getPlayCardAction(playerId, game, self, twilightModifier, ignoreRoamingPenalty);
         List<Effect> possibleCosts = new LinkedList<Effect>();
-        if (new CountCulturesEvaluator(Side.FREE_PEOPLE).evaluateExpression(game.getGameState(), game.getModifiersQuerying(), null) >= 3)
+        if (new CountCulturesEvaluator(Side.FREE_PEOPLE).evaluateExpression(game, null) >= 3)
             possibleCosts.add(
                     new UnrespondableEffect() {
                         @Override

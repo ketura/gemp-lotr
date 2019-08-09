@@ -3,7 +3,7 @@ package com.gempukku.lotro.logic.modifiers;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
+import com.gempukku.lotro.game.state.LotroGame;
 
 public class CantBeLiberatedModifier extends AbstractModifier {
     private Side _side;
@@ -22,9 +22,9 @@ public class CantBeLiberatedModifier extends AbstractModifier {
     }
 
     @Override
-    public boolean canBeLiberated(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, PhysicalCard card, PhysicalCard source) {
+    public boolean canBeLiberated(LotroGame game, String performingPlayer, PhysicalCard card, PhysicalCard source) {
         return !(_side == null ||
-                (_side == Side.SHADOW && !performingPlayer.equals(gameState.getCurrentPlayerId())) ||
-                (_side == Side.FREE_PEOPLE && performingPlayer.equals(gameState.getCurrentPlayerId())));
+                (_side == Side.SHADOW && !performingPlayer.equals(game.getGameState().getCurrentPlayerId())) ||
+                (_side == Side.FREE_PEOPLE && performingPlayer.equals(game.getGameState().getCurrentPlayerId())));
     }
 }

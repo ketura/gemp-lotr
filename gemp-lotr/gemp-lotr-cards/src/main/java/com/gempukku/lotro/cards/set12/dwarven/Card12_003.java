@@ -29,7 +29,7 @@ public class Card12_003 extends AbstractPermanent {
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.winsSkirmish(game, effectResult, Race.DWARF)
-                && Filters.filter(game.getActionsEnvironment().getPlayedCardsInCurrentPhase(), game.getGameState(), game.getModifiersQuerying(), Filters.owner(playerId), Culture.DWARVEN, CardType.EVENT).size() > 0) {
+                && Filters.filter(game.getActionsEnvironment().getPlayedCardsInCurrentPhase(), game, Filters.owner(playerId), Culture.DWARVEN, CardType.EVENT).size() > 0) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
                     new DrawCardsEffect(action, playerId, 1));

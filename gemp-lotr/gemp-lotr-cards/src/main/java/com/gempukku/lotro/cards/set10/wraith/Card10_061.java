@@ -37,9 +37,9 @@ public class Card10_061 extends AbstractEvent {
                         new CardMatchesEvaluator(2, 4, Filters.inSkirmishAgainst(CardType.COMPANION,
                                 new Filter() {
                                     @Override
-                                    public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                                    public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
                                         final Culture companionCulture = physicalCard.getBlueprint().getCulture();
-                                        return Filters.filter(gameState.getDeadPile(gameState.getCurrentPlayerId()), gameState, modifiersQuerying, companionCulture).size() > 0;
+                                        return Filters.filter(game.getGameState().getDeadPile(game.getGameState().getCurrentPlayerId()), game, companionCulture).size() > 0;
                                     }
                                 })), Culture.WRAITH, CardType.MINION));
         return action;

@@ -41,7 +41,7 @@ public class Card10_039 extends AbstractMinion {
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         if (TriggerConditions.played(game, effectResult, self)
                 && PlayConditions.canSpot(game, Filters.not(self), Keyword.CORSAIR)
-                && game.getModifiersQuerying().canDiscardCardsFromTopOfDeck(game.getGameState(), game.getGameState().getCurrentPlayerId(), self)
+                && game.getModifiersQuerying().canDiscardCardsFromTopOfDeck(game, game.getGameState().getCurrentPlayerId(), self)
                 && game.getGameState().getDeck(game.getGameState().getCurrentPlayerId()).size() > 0) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(

@@ -45,9 +45,9 @@ public class Card31_005 extends AbstractAttachableFPPossession {
                 new TwilightCostModifier(self, Filters.and(Side.SHADOW, CardType.EVENT),
                         new Condition() {
             @Override
-            public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                return gameState.getSkirmish() != null
-				&& gameState.getSkirmish().getFellowshipCharacter() == self.getAttachedTo();
+            public boolean isFullfilled(LotroGame game) {
+                return game.getGameState().getSkirmish() != null
+				&& game.getGameState().getSkirmish().getFellowshipCharacter() == self.getAttachedTo();
 			}
 		}, 2));
         return modifiers;

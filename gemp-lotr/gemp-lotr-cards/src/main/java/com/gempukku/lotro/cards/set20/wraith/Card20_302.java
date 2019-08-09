@@ -41,7 +41,7 @@ public class Card20_302 extends AbstractResponseEvent {
                 action.setText("Play Succumb to Despair exerting " + GameUtils.getFullName(winner));
                 action.appendCost(
                         new ChooseAndExertCharactersEffect(action, playerId, 1, 1, 2, winner));
-                PhysicalCard loser = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION, Filters.maxResistance(0), Filters.inSkirmish);
+                PhysicalCard loser = Filters.findFirstActive(game, CardType.COMPANION, Filters.maxResistance(0), Filters.inSkirmish);
                 if (loser != null)
                     action.appendEffect(
                             new KillEffect(loser, KillEffect.Cause.CARD_EFFECT));

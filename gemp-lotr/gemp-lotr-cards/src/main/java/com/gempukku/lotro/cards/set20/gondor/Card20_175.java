@@ -10,12 +10,10 @@ import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
@@ -49,11 +47,11 @@ public class Card20_175 extends AbstractCompanion {
                             new KeywordModifier(self, self, null, Keyword.DEFENDER,
                                     new Evaluator() {
                                         @Override
-                                        public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard cardAffected) {
+                                        public int evaluateExpression(LotroGame game, PhysicalCard cardAffected) {
                                             int count = 0;
                                             for (int i=1; i<=9; i++) {
-                                                if (GameUtils.getRegion(i) == GameUtils.getRegion(gameState)) {
-                                                    final PhysicalCard site = gameState.getSite(i);
+                                                if (GameUtils.getRegion(i) == GameUtils.getRegion(game)) {
+                                                    final PhysicalCard site = game.getGameState().getSite(i);
                                                     if (site != null && site.getOwner().equals(self.getOwner()))
                                                         count++;
                                                 }

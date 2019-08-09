@@ -32,7 +32,7 @@ public class Card20_358 extends AbstractMinion {
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.played(game, effectResult, self)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
-            int count = 4-GameUtils.getSpottableFPCulturesCount(game.getGameState(), game.getModifiersQuerying(), playerId);
+            int count = 4-GameUtils.getSpottableFPCulturesCount(game, playerId);
             for (int i=0; i<count; i++)
                 action.appendEffect(
                         new ChooseAndExertCharactersEffect(action, game.getGameState().getCurrentPlayerId(), 1, 1, CardType.COMPANION));

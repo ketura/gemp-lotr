@@ -59,7 +59,7 @@ public class Card4_157 extends AbstractAttachable {
         modifiers.add(
                 new AbstractModifier(self, null, null, ModifierEffect.ACTION_MODIFIER) {
                     @Override
-                    public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, Action action) {
+                    public boolean canPlayAction(LotroGame game, String performingPlayer, Action action) {
                         if (action.getActionSource() == self.getAttachedTo())
                             return false;
                         return true;

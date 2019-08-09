@@ -29,7 +29,7 @@ public class Card20_205 extends AbstractEvent {
                 new ChooseAndAddUntilEOPStrengthBonusEffect(
                         action, self, playerId,
                         new MultiplyEvaluator(2,
-                                new CountActiveEvaluator(CardType.SITE, Filters.owner(playerId), Filters.region(GameUtils.getRegion(game.getGameState())))), Culture.GONDOR, Keyword.RANGER));
+                                new CountActiveEvaluator(CardType.SITE, Filters.owner(playerId), Filters.region(GameUtils.getRegion(game)))), Culture.GONDOR, Keyword.RANGER));
         return action;
     }
 }

@@ -41,9 +41,9 @@ public class Card1_051 extends AbstractCompanion {
                         Filters.inSkirmish,
                         new Filter() {
                             @Override
-                            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                Skirmish activeSkirmish = gameState.getSkirmish();
-                                return Filters.filter(activeSkirmish.getShadowCharacters(), gameState, modifiersQuerying, Race.NAZGUL).size() > 0;
+                            public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
+                                Skirmish activeSkirmish = game.getGameState().getSkirmish();
+                                return Filters.filter(activeSkirmish.getShadowCharacters(), game, Race.NAZGUL).size() > 0;
                             }
                         }), 3);
     }

@@ -9,9 +9,7 @@ import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 
 /**
@@ -32,9 +30,9 @@ public class Card20_475 extends AbstractEvent {
                 new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId,
                         new Evaluator() {
                             @Override
-                            public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard cardAffected) {
-                                if (Filters.inSkirmish.accepts(gameState, modifiersQuerying, cardAffected) &&
-                                        gameState.getSkirmish().getShadowCharacters().size()>1)
+                            public int evaluateExpression(LotroGame game, PhysicalCard cardAffected) {
+                                if (Filters.inSkirmish.accepts(game, cardAffected) &&
+                                        game.getGameState().getSkirmish().getShadowCharacters().size()>1)
                                     return 4;
                                 return 2;
                             }

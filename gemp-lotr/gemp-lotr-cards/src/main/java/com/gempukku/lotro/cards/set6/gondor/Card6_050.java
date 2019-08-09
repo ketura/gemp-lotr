@@ -67,7 +67,7 @@ public class Card6_050 extends AbstractCompanion {
             actions.add(action);
         }
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.REGROUP, self)
-                && Filters.mounted.accepts(game.getGameState(), game.getModifiersQuerying(), self)
+                && Filters.mounted.accepts(game, self)
                 && PlayConditions.canRemoveTokens(game, Token.ROHAN, 1, Filters.any)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(

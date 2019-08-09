@@ -43,7 +43,7 @@ public class Card17_083 extends AbstractMinion {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new SelfExertEffect(action, self));
-            int region = GameUtils.getRegion(game.getGameState());
+            int region = GameUtils.getRegion(game);
             action.appendEffect(
                     new AddTwilightEffect(self, region));
             return Collections.singletonList(action);

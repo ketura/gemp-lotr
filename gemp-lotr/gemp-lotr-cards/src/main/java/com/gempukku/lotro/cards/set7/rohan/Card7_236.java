@@ -52,7 +52,7 @@ public class Card7_236 extends AbstractAttachableFPPossession {
                 && !PlayConditions.canSpotThreat(game, 3)
                 && PlayConditions.canAddThreat(game, self, 2)) {
 
-            PhysicalCard theoden = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.name(Names.theoden));
+            PhysicalCard theoden = Filters.findFirstActive(game, Filters.name(Names.theoden));
             WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
 
             ActivateCardAction action = new ActivateCardAction(self);

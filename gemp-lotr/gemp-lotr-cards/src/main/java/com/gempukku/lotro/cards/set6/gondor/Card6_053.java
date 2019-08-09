@@ -32,7 +32,7 @@ public class Card6_053 extends AbstractEvent {
         PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, 2, Culture.GONDOR, Race.MAN));
-        if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.hasToken(Token.ROHAN)))
+        if (Filters.canSpot(game, Filters.hasToken(Token.ROHAN)))
             action.appendEffect(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, CardType.MINION));
         return action;

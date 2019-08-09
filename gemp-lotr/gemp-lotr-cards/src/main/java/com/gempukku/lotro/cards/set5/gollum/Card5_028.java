@@ -55,7 +55,7 @@ public class Card5_028 extends AbstractCompanion {
                     new RevealTopCardsOfDrawDeckEffect(self, playerId, 4) {
                         @Override
                         protected void cardsRevealed(List<PhysicalCard> revealedCards) {
-                            int shadowCards = Filters.filter(revealedCards, game.getGameState(), game.getModifiersQuerying(), Side.SHADOW).size();
+                            int shadowCards = Filters.filter(revealedCards, game, Side.SHADOW).size();
                             action.appendEffect(
                                     new PutCardsFromDeckBeneathDrawDeckEffect(action, self, playerId, revealedCards));
                             for (int i = 0; i < shadowCards; i++)

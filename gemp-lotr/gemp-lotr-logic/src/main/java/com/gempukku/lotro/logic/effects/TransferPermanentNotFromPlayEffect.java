@@ -22,7 +22,7 @@ public class TransferPermanentNotFromPlayEffect extends AbstractEffect {
     public boolean isPlayableInFull(LotroGame game) {
         return _targetCard.getZone().isInPlay()
                 && !_physicalCard.getZone().isInPlay()
-                && game.getModifiersQuerying().canHaveTransferredOn(game.getGameState(), _physicalCard, _targetCard);
+                && game.getModifiersQuerying().canHaveTransferredOn(game, _physicalCard, _targetCard);
     }
 
     @Override

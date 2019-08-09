@@ -58,7 +58,7 @@ public class Card13_141 extends AbstractAttachable {
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.winsSkirmish(game, effectResult, Filters.hasAttached(self))
                 && PlayConditions.canSpot(game, CardType.COMPANION, Filters.inSkirmish)) {
-            int region = GameUtils.getRegion(game.getGameState());
+            int region = GameUtils.getRegion(game);
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             for (int i = 0; i < region; i++)
                 action.appendEffect(

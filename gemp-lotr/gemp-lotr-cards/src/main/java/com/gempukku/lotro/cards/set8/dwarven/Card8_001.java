@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set8.dwarven;
 import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
-import com.gempukku.lotro.logic.modifiers.conditions.InitiativeCondition;
+import com.gempukku.lotro.logic.modifiers.condition.InitiativeCondition;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -46,7 +46,7 @@ public class Card8_001 extends AbstractPermanent {
                     new ChooseActiveCardEffect(self, playerId, "Choose a Dwarf", Race.DWARF, Keyword.DAMAGE) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
-                            int count = game.getModifiersQuerying().getKeywordCount(game.getGameState(), card, Keyword.DAMAGE);
+                            int count = game.getModifiersQuerying().getKeywordCount(game, card, Keyword.DAMAGE);
                             action.insertEffect(
                                     new DrawCardsEffect(action, playerId, count));
                         }

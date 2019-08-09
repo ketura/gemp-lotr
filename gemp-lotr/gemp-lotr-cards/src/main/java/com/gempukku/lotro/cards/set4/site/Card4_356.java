@@ -7,10 +7,8 @@ import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 
 import java.util.Collections;
@@ -35,8 +33,8 @@ public class Card4_356 extends AbstractSite {
                 new ArcheryTotalModifier(self, Side.SHADOW, null,
                         new Evaluator() {
                             @Override
-                            public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
-                                return 2 * Math.max(0, Filters.countActive(game.getGameState(), modifiersQuerying, Filters.unboundCompanion) - 3);
+                            public int evaluateExpression(LotroGame game, PhysicalCard self) {
+                                return 2 * Math.max(0, Filters.countActive(game, Filters.unboundCompanion) - 3);
                             }
                         }));
     }

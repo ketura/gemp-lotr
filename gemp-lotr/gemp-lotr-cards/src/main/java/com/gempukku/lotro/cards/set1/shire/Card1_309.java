@@ -46,7 +46,7 @@ public class Card1_309 extends AbstractAlly {
                 && PlayConditions.canExert(self, game, self)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(new SelfExertEffect(action, self));
-            PhysicalCard sam = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.sam);
+            PhysicalCard sam = Filters.findFirstActive(game, Filters.sam);
             if (sam != null) {
                 action.appendEffect(new HealCharactersEffect(self, sam));
             }

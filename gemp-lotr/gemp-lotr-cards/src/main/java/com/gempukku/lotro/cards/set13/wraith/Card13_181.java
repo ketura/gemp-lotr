@@ -41,7 +41,7 @@ public class Card13_181 extends AbstractPermanent {
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.played(game, effectResult, self)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
-            int count = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.owner(playerId), Culture.WRAITH, Zone.SUPPORT);
+            int count = Filters.countActive(game, Filters.owner(playerId), Culture.WRAITH, Zone.SUPPORT);
             if (count > 0)
                 action.appendEffect(
                         new AddTokenEffect(self, self, Token.WRAITH, count));
@@ -61,7 +61,7 @@ public class Card13_181 extends AbstractPermanent {
                     new SelfDiscardEffect(self));
             action.appendCost(
                     new ChoiceEffect(action, playerId, possibleCosts));
-            if (!game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.CANT_PLAY_FROM_DISCARD_OR_DECK)) {
+            if (!game.getModifiersQuerying().hasFlagActive(game, ModifierFlag.CANT_PLAY_FROM_DISCARD_OR_DECK)) {
                 final Filter additionalAttachmentFilter = Filters.and(Filters.owner(self.getOwner()), Culture.WRAITH, CardType.MINION);
 
                 action.appendEffect(

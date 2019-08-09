@@ -4,11 +4,7 @@ import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
-import com.gempukku.lotro.logic.modifiers.AbstractModifier;
-import com.gempukku.lotro.logic.modifiers.Condition;
-import com.gempukku.lotro.logic.modifiers.ModifierEffect;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.game.state.LotroGame;
 
 public class CantExertWithCardModifier extends AbstractModifier {
     private Filter _preventExertWithFilter;
@@ -23,8 +19,8 @@ public class CantExertWithCardModifier extends AbstractModifier {
     }
 
     @Override
-    public boolean canBeExerted(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard source, PhysicalCard card) {
-        if (_preventExertWithFilter.accepts(gameState, modifiersQuerying, source))
+    public boolean canBeExerted(LotroGame game, PhysicalCard source, PhysicalCard card) {
+        if (_preventExertWithFilter.accepts(game, source))
             return false;
         return true;
     }

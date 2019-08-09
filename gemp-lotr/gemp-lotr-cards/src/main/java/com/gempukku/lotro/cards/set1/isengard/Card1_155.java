@@ -46,7 +46,7 @@ public class Card1_155 extends AbstractMinion {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(new SelfExertEffect(action, self));
 
-            int isengardMinionCount = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Culture.ISENGARD, CardType.MINION);
+            int isengardMinionCount = Filters.countActive(game, Culture.ISENGARD, CardType.MINION);
             if (isengardMinionCount > 0) {
                 action.appendEffect(
                         new PlayoutDecisionEffect(playerId,
@@ -59,7 +59,7 @@ public class Card1_155 extends AbstractMinion {
                                                     new DiscardTopCardFromDeckEffect(self, playerId, spotted, false) {
                                                         @Override
                                                         protected void cardsDiscardedCallback(Collection<PhysicalCard> cards) {
-                                                            int shadow = Filters.filter(cards, game.getGameState(), game.getModifiersQuerying(), Side.SHADOW).size();
+                                                            int shadow = Filters.filter(cards, game, Side.SHADOW).size();
                                                             if (shadow > 0)
                                                                 action.appendEffect(
                                                                         new AddBurdenEffect(playerId, self, shadow));

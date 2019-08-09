@@ -52,7 +52,7 @@ public class Card17_098 extends AbstractPermanent {
         if (TriggerConditions.isGettingWounded(effect, game, Culture.ROHAN, Race.MAN)
                 && PlayConditions.canExert(self, game, Culture.ROHAN, Race.MAN)) {
             final WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
-            Collection<PhysicalCard> woundedCharacters = Filters.filter(woundEffect.getAffectedCardsMinusPrevented(game), game.getGameState(), game.getModifiersQuerying(), Culture.ROHAN, Race.MAN);
+            Collection<PhysicalCard> woundedCharacters = Filters.filter(woundEffect.getAffectedCardsMinusPrevented(game), game, Culture.ROHAN, Race.MAN);
             List<ActivateCardAction> actions = new LinkedList<ActivateCardAction>();
             for (PhysicalCard woundedCharacter : woundedCharacters) {
                 if (PlayConditions.canExert(self, game, Culture.ROHAN, Race.MAN, Filters.not(woundedCharacter))) {

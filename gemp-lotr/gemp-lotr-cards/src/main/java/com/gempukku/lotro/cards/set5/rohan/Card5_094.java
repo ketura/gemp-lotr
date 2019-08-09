@@ -42,7 +42,7 @@ public class Card5_094 extends AbstractPermanent {
                     new ChooseActiveCardEffect(self, playerId, "Choose ROHAN Man", Culture.ROHAN, Race.MAN, Filters.mounted) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
-                            boolean atPlains = game.getModifiersQuerying().hasKeyword(game.getGameState(), game.getGameState().getCurrentSite(), Keyword.PLAINS);
+                            boolean atPlains = game.getModifiersQuerying().hasKeyword(game, game.getGameState().getCurrentSite(), Keyword.PLAINS);
                             action.insertEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
                                             new StrengthModifier(self, Filters.sameCard(card), 3)));

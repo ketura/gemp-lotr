@@ -49,8 +49,8 @@ public class ChooseAndPlayCardFromStackedEffect implements Effect {
 
     private Collection<PhysicalCard> getPlayableFromStacked(LotroGame game) {
         Set<PhysicalCard> possibleCards = new HashSet<PhysicalCard>();
-        for (PhysicalCard stackedOnCard : Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), _stackedOn))
-            possibleCards.addAll(Filters.filter(game.getGameState().getStackedCards(stackedOnCard), game.getGameState(), game.getModifiersQuerying(), _filter, Filters.playable(game, _twilightModifier)));
+        for (PhysicalCard stackedOnCard : Filters.filterActive(game, _stackedOn))
+            possibleCards.addAll(Filters.filter(game.getGameState().getStackedCards(stackedOnCard), game, _filter, Filters.playable(game, _twilightModifier)));
 
         return possibleCards;
     }

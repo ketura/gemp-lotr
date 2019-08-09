@@ -1,6 +1,5 @@
 package com.gempukku.lotro.logic.effects.choose;
 
-import com.gempukku.lotro.logic.effects.ExertCharactersEffect;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
@@ -9,6 +8,7 @@ import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardsEffect;
+import com.gempukku.lotro.logic.effects.ExertCharactersEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.Action;
 
@@ -44,12 +44,12 @@ public class ChooseAndExertCharactersEffect extends ChooseActiveCardsEffect {
             final int exertTimes = times;
             Filter filter = new Filter() {
                 @Override
-                public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                    return modifiersQuerying.canBeExerted(gameState, _action.getActionSource(), physicalCard)
-                            && modifiersQuerying.getVitality(gameState, physicalCard) > exertTimes;
+                public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
+                    return game.getModifiersQuerying().canBeExerted(game, _action.getActionSource(), physicalCard)
+                            && game.getModifiersQuerying().getVitality(game, physicalCard) > exertTimes;
                 }
             };
-            if (Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.and(_filters, filter))>0)
+            if (Filters.countActive(game, Filters.and(_filters, filter))>0)
                 return filter;
             times--;
         } while (times > 0);
@@ -60,9 +60,9 @@ public class ChooseAndExertCharactersEffect extends ChooseActiveCardsEffect {
     protected Filter getExtraFilterForPlayabilityCheck(LotroGame game) {
         return new Filter() {
             @Override
-            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                return modifiersQuerying.canBeExerted(gameState, _action.getActionSource(), physicalCard)
-                        && modifiersQuerying.getVitality(gameState, physicalCard) > _times;
+            public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
+                return game.getModifiersQuerying().canBeExerted(game, _action.getActionSource(), physicalCard)
+                        && game.getModifiersQuerying().getVitality(game, physicalCard) > _times;
             }
         };
     }

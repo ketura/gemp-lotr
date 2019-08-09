@@ -4,7 +4,7 @@ import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
+import com.gempukku.lotro.game.state.LotroGame;
 
 public class CantReturnToHandModifier extends AbstractModifier {
     private Filter _sourceFilter;
@@ -15,8 +15,8 @@ public class CantReturnToHandModifier extends AbstractModifier {
     }
 
     @Override
-    public boolean canBeReturnedToHand(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card, PhysicalCard source) {
-        if (_sourceFilter.accepts(gameState, modifiersQuerying, source))
+    public boolean canBeReturnedToHand(LotroGame game, PhysicalCard card, PhysicalCard source) {
+        if (_sourceFilter.accepts(game, source))
             return false;
         return true;
     }

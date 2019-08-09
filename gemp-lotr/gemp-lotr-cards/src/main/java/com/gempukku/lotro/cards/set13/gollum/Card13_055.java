@@ -11,11 +11,9 @@ import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 import com.gempukku.lotro.logic.timing.EffectResult;
@@ -58,16 +56,16 @@ public class Card13_055 extends AbstractCompanion {
                 new StrengthModifier(self, self, null,
                         new Evaluator() {
                             @Override
-                            public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard cardAffected) {
-                                return Filters.filter(gameState.getDiscard(self.getOwner()), gameState, modifiersQuerying, Filters.name("Deagol")).size() * 2;
+                            public int evaluateExpression(LotroGame game, PhysicalCard cardAffected) {
+                                return Filters.filter(game.getGameState().getDiscard(self.getOwner()), game, Filters.name("Deagol")).size() * 2;
                             }
                         }));
         modifiers.add(
                 new ResistanceModifier(self, self, null,
                         new Evaluator() {
                             @Override
-                            public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard cardAffected) {
-                                return -Filters.filter(gameState.getDiscard(self.getOwner()), gameState, modifiersQuerying, Filters.name("Deagol")).size();
+                            public int evaluateExpression(LotroGame game, PhysicalCard cardAffected) {
+                                return -Filters.filter(game.getGameState().getDiscard(self.getOwner()), game, Filters.name("Deagol")).size();
                             }
                         }));
         return modifiers;

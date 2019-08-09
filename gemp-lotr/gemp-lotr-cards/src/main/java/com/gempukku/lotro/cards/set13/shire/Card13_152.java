@@ -43,7 +43,7 @@ public class Card13_152 extends AbstractPermanent {
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.played(game, effectResult, self)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
-            int count = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.SITE, Zone.ADVENTURE_PATH, Filters.or(Keyword.FOREST, Keyword.DWELLING));
+            int count = Filters.countActive(game, CardType.SITE, Zone.ADVENTURE_PATH, Filters.or(Keyword.FOREST, Keyword.DWELLING));
             action.appendEffect(
                     new AddTokenEffect(self, self, Token.SHIRE, count));
             return Collections.singletonList(action);

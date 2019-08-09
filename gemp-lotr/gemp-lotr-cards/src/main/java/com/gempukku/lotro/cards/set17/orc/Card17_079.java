@@ -42,7 +42,7 @@ public class Card17_079 extends AbstractMinion {
     public List<OptionalTriggerAction> getOptionalAfterTriggers(final String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         if (TriggerConditions.startOfPhase(game, effectResult, Phase.SKIRMISH)
                 && PlayConditions.canSpot(game, self, Filters.inSkirmish)
-                && Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Culture.ORC, CardType.CONDITION).size() > 0) {
+                && Filters.filter(game.getGameState().getHand(playerId), game, Culture.ORC, CardType.CONDITION).size() > 0) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(
                     new ChooseCardsFromHandEffect(playerId, 1, 1, Culture.ORC, CardType.CONDITION) {

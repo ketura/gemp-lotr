@@ -32,9 +32,9 @@ public class Card20_043 extends AbstractEvent {
                         new ConditionEvaluator(2, 3,
                                 new Condition() {
                                     @Override
-                                    public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                        for (PhysicalCard physicalCard : Filters.filterActive(gameState, modifiersQuerying, Culture.DWARVEN, CardType.CONDITION)) {
-                                            if (gameState.getStackedCards(physicalCard).size()>0)
+                                    public boolean isFullfilled(LotroGame game) {
+                                        for (PhysicalCard physicalCard : Filters.filterActive(game, Culture.DWARVEN, CardType.CONDITION)) {
+                                            if (game.getGameState().getStackedCards(physicalCard).size()>0)
                                                 return true;
                                         }
                                         return false;

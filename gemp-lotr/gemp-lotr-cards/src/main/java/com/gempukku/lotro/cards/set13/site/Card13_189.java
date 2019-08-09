@@ -41,7 +41,7 @@ public class Card13_189 extends AbstractNewSite {
                 && playerId.equals(game.getGameState().getCurrentPlayerId())) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
             Set<Culture> companionCultures = new HashSet<Culture>();
-            for (PhysicalCard companion : Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION)) {
+            for (PhysicalCard companion : Filters.filterActive(game, CardType.COMPANION)) {
                 if (companion.getBlueprint().getCulture() != null)
                     companionCultures.add(companion.getBlueprint().getCulture());
             }

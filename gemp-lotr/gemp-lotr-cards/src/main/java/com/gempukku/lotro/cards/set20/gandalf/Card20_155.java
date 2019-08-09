@@ -53,7 +53,7 @@ public class Card20_155 extends AbstractEvent {
                                 action.appendEffect(
                                         new PlayoutDecisionEffect(playerId,
                                                 new CardsSelectionDecision(1, "Choose up to 4 Shadow conditions with combined twilight cost of up to " + x,
-                                                        Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Side.SHADOW, CardType.CONDITION, Filters.canBeDiscarded(self)), 0, 4) {
+                                                        Filters.filterActive(game, Side.SHADOW, CardType.CONDITION, Filters.canBeDiscarded(self)), 0, 4) {
                                                     @Override
                                                     public void decisionMade(String result) throws DecisionResultInvalidException {
                                                         Set<PhysicalCard> selectedCardsByResponse = getSelectedCardsByResponse(result);

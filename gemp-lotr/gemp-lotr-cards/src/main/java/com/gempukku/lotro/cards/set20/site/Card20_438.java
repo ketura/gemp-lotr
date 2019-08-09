@@ -39,8 +39,8 @@ public class Card20_438 extends AbstractSite {
                         Culture.DUNLAND, Race.MAN,
                         new Filter() {
                             @Override
-                            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                return modifiersQuerying.getUntilEndOfTurnLimitCounter(self).getUsedLimit() < 1;
+                            public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
+                                return game.getModifiersQuerying().getUntilEndOfTurnLimitCounter(self).getUsedLimit() < 1;
                             }
                         }), -2);
     }

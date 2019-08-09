@@ -56,7 +56,7 @@ public class Card31_025 extends AbstractAttachable {
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.winsSkirmish(game, effectResult, self.getAttachedTo())) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
-            int gandalfCardsSpotted = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Culture.GANDALF);
+            int gandalfCardsSpotted = Filters.countActive(game, Culture.GANDALF);
             for (int i = 1; i < gandalfCardsSpotted; i += 2)
                 action.appendEffect(
                         new ChooseAndExertCharactersEffect(action, game.getGameState().getCurrentPlayerId(), 1, 1, Race.DWARF, CardType.COMPANION));

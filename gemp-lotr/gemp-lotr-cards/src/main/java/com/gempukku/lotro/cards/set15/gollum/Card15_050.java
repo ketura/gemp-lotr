@@ -44,7 +44,7 @@ public class Card15_050 extends AbstractEvent {
                 new ChooseAndPlayCardFromDeckEffect(playerId, Side.FREE_PEOPLE, CardType.CONDITION) {
                     @Override
                     protected void afterCardPlayed(PhysicalCard cardPlayed) {
-                        if (Filters.and(Culture.GOLLUM, CardType.CONDITION).accepts(game.getGameState(), game.getModifiersQuerying(), cardPlayed))
+                        if (Filters.and(Culture.GOLLUM, CardType.CONDITION).accepts(game, cardPlayed))
                             action.insertEffect(
                                     new OptionalEffect(action, playerId,
                                             new ChooseOpponentEffect(playerId) {

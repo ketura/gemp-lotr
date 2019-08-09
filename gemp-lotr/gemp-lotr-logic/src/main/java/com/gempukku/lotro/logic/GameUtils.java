@@ -9,22 +9,15 @@ import com.gempukku.lotro.game.LotroCardBlueprint;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class GameUtils {
-    public static boolean isSide(GameState gameState, Side side, String playerId) {
+    public static boolean isSide(LotroGame game, Side side, String playerId) {
         if (side == Side.FREE_PEOPLE)
-            return gameState.getCurrentPlayerId().equals(playerId);
+            return game.getGameState().getCurrentPlayerId().equals(playerId);
         else
-            return !gameState.getCurrentPlayerId().equals(playerId);
+            return !game.getGameState().getCurrentPlayerId().equals(playerId);
     }
 
     public static boolean isFP(LotroGame game, String playerId) {
@@ -142,18 +135,18 @@ public class GameUtils {
             return sb.substring(0, sb.length() - 2);
     }
 
-    public static int getSpottableTokensTotal(GameState gameState, ModifiersQuerying modifiersQuerying, Token token) {
+    public static int getSpottableTokensTotal(LotroGame game, Token token) {
         int tokensTotal = 0;
 
-        for (PhysicalCard physicalCard : Filters.filterActive(gameState, modifiersQuerying, Filters.hasToken(token)))
-            tokensTotal += gameState.getTokenCount(physicalCard, token);
+        for (PhysicalCard physicalCard : Filters.filterActive(game, Filters.hasToken(token)))
+            tokensTotal += game.getGameState().getTokenCount(physicalCard, token);
 
         return tokensTotal;
     }
 
-    public static int getSpottableCulturesCount(GameState gameState, ModifiersQuerying modifiersQuerying, Filterable... filters) {
+    public static int getSpottableCulturesCount(LotroGame game, Filterable... filters) {
         Set<Culture> cultures = new HashSet<Culture>();
-        for (PhysicalCard physicalCard : Filters.filterActive(gameState, modifiersQuerying, filters))
+        for (PhysicalCard physicalCard : Filters.filterActive(game, filters))
             cultures.add(physicalCard.getBlueprint().getCulture());
         return cultures.size();
     }
@@ -165,19 +158,19 @@ public class GameUtils {
             return String.valueOf(effective);
     }
 
-    public static int getRegion(GameState gameState) {
-        return getRegion(gameState.getCurrentSiteNumber());
+    public static int getRegion(LotroGame game) {
+        return getRegion(game.getGameState().getCurrentSiteNumber());
     }
 
     public static int getRegion(int siteNumber) {
         return 1 + ((siteNumber - 1) / 3);
     }
 
-    public static int getSpottableFPCulturesCount(GameState gameState, ModifiersQuerying modifiersQuerying, String playerId) {
-        return modifiersQuerying.getNumberOfSpottableFPCultures(gameState, playerId);
+    public static int getSpottableFPCulturesCount(LotroGame game, String playerId) {
+        return game.getModifiersQuerying().getNumberOfSpottableFPCultures(game, playerId);
     }
 
-    public static int getSpottableShadowCulturesCount(GameState gameState, ModifiersQuerying modifiersQuerying, String playerId) {
-        return modifiersQuerying.getNumberOfSpottableShadowCultures(gameState, playerId);
+    public static int getSpottableShadowCulturesCount(LotroGame game, String playerId) {
+        return game.getModifiersQuerying().getNumberOfSpottableShadowCultures(game, playerId);
     }
 }

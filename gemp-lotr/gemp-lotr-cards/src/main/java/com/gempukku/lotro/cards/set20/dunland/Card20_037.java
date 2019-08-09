@@ -5,11 +5,9 @@ import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.SpotCondition;
 import com.gempukku.lotro.logic.modifiers.TwilightCostModifier;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
@@ -38,8 +36,8 @@ public class Card20_037 extends AbstractPermanent {
         return new TwilightCostModifier(self, CardType.SITE, new SpotCondition(Filters.or(Filters.saruman, Filters.and(Culture.DUNLAND, Race.MAN))),
                 new Evaluator() {
                     @Override
-                    public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard cardAffected) {
-                        return GameUtils.getRegion(gameState);
+                    public int evaluateExpression(LotroGame game, PhysicalCard cardAffected) {
+                        return GameUtils.getRegion(game);
                     }
                 });
     }

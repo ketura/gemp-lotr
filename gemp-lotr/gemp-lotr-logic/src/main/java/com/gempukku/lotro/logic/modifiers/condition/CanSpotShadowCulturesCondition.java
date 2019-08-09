@@ -1,9 +1,8 @@
-package com.gempukku.lotro.logic.modifiers.conditions;
+package com.gempukku.lotro.logic.modifiers.condition;
 
-import com.gempukku.lotro.game.state.GameState;
+import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.modifiers.Condition;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
 public class CanSpotShadowCulturesCondition implements Condition {
     private String _playerId;
@@ -15,7 +14,7 @@ public class CanSpotShadowCulturesCondition implements Condition {
     }
 
     @Override
-    public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-        return GameUtils.getSpottableShadowCulturesCount(gameState, modifiersQuerying, _playerId)>=_count;
+    public boolean isFullfilled(LotroGame game) {
+        return GameUtils.getSpottableShadowCulturesCount(game, _playerId)>=_count;
     }
 }

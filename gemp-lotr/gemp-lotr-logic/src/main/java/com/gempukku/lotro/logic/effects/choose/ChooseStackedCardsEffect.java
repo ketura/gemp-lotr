@@ -44,15 +44,15 @@ public abstract class ChooseStackedCardsEffect extends AbstractEffect {
 
     @Override
     public boolean isPlayableInFull(LotroGame game) {
-        return Filters.countActive(game.getGameState(), game.getModifiersQuerying(), _stackedOnFilter, Filters.hasStacked(_stackedCardFilter)) > 0;
+        return Filters.countActive(game, _stackedOnFilter, Filters.hasStacked(_stackedCardFilter)) > 0;
     }
 
     @Override
     protected FullEffectResult playEffectReturningResult(final LotroGame game) {
         List<PhysicalCard> stackedCards = new LinkedList<PhysicalCard>();
 
-        for (PhysicalCard stackedOnCard : Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), _stackedOnFilter))
-            stackedCards.addAll(Filters.filter(game.getGameState().getStackedCards(stackedOnCard), game.getGameState(), game.getModifiersQuerying(), _stackedCardFilter));
+        for (PhysicalCard stackedOnCard : Filters.filterActive(game, _stackedOnFilter))
+            stackedCards.addAll(Filters.filter(game.getGameState().getStackedCards(stackedOnCard), game, _stackedCardFilter));
 
         int maximum = Math.min(_maximum, stackedCards.size());
 

@@ -65,9 +65,9 @@ public class Card31_004 extends AbstractPermanent {
                         ),
                         new Condition() {
                             @Override
-                            public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return (gameState.getCurrentSiteNumber() == 7 || gameState.getCurrentSiteNumber() == 8)
-										&& gameState.getCurrentSiteBlock() == Block.HOBBIT;
+                            public boolean isFullfilled(LotroGame game) {
+                                return (game.getGameState().getCurrentSiteNumber() == 7 || game.getGameState().getCurrentSiteNumber() == 8)
+										&& game.getGameState().getCurrentSiteBlock() == Block.HOBBIT;
                             }
                         }, -3));
     }

@@ -51,7 +51,7 @@ public class Card7_283 extends AbstractPermanent {
     @Override
     public PlayPermanentAction getPlayCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final PlayPermanentAction permanentAction = super.getPlayCardAction(playerId, game, self, twilightModifier, ignoreRoamingPenalty);
-        int maxThreats = Math.min(3, Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION) - game.getGameState().getThreats());
+        int maxThreats = Math.min(3, Filters.countActive(game, CardType.COMPANION) - game.getGameState().getThreats());
         permanentAction.appendCost(
                 new PlayoutDecisionEffect(playerId,
                         new IntegerAwaitingDecision(1, "Choose how many threats to add", 0, maxThreats) {
@@ -70,7 +70,7 @@ public class Card7_283 extends AbstractPermanent {
     public List<OptionalTriggerAction> getOptionalBeforeTriggers(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
         if (TriggerConditions.isGettingKilled(effect, game, CardType.COMPANION)) {
             KillEffect killEffect = (KillEffect) effect;
-            Collection<PhysicalCard> companionsKilled = Filters.filter(killEffect.getCharactersToBeKilled(), game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION);
+            Collection<PhysicalCard> companionsKilled = Filters.filter(killEffect.getCharactersToBeKilled(), game, CardType.COMPANION);
             List<OptionalTriggerAction> actions = new LinkedList<OptionalTriggerAction>();
             for (PhysicalCard physicalCard : companionsKilled) {
                 OptionalTriggerAction action = new OptionalTriggerAction(self);

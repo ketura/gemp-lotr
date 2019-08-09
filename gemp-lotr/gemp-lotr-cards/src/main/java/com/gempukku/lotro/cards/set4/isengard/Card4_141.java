@@ -44,7 +44,7 @@ public class Card4_141 extends AbstractResponseEvent {
             action.setText(GameUtils.getFullName(killResult.getKilledCard()) + " was killed");
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Culture.ISENGARD, CardType.MINION));
-            boolean hasSpecific = Filters.or(Filters.aragorn, Filters.gandalf, Filters.name(Names.theoden)).accepts(game.getGameState(), game.getModifiersQuerying(), killResult.getKilledCard());
+            boolean hasSpecific = Filters.or(Filters.aragorn, Filters.gandalf, Filters.name(Names.theoden)).accepts(game, killResult.getKilledCard());
             action.appendEffect(
                     new AddBurdenEffect(self.getOwner(), self, hasSpecific ? 2 : 1));
             return Collections.singletonList(action);

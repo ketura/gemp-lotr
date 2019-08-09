@@ -41,7 +41,7 @@ public class Card15_066 extends AbstractEvent {
                 new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, CardType.MINION) {
                     @Override
                     protected void woundedCardsCallback(Collection<PhysicalCard> cards) {
-                        for (PhysicalCard physicalCard : Filters.filter(cards, game.getGameState(), game.getModifiersQuerying(), Keyword.HUNTER)) {
+                        for (PhysicalCard physicalCard : Filters.filter(cards, game, Keyword.HUNTER)) {
                             action.appendEffect(
                                     new WoundCharactersEffect(self, physicalCard));
                         }

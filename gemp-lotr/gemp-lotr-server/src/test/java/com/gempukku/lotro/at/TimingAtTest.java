@@ -221,7 +221,7 @@ public class TimingAtTest extends AbstractAtTest {
         _game.getGameState().addCardToZone(_game, letThemCome, Zone.SUPPORT);
         _game.getGameState().stackCard(_game, tossMe, letThemCome);
 
-        assertEquals(7, _game.getModifiersQuerying().getStrength(_game.getGameState(), gimli));
+        assertEquals(7, _game.getModifiersQuerying().getStrength(_game, gimli));
     }
 
     @Test
@@ -301,8 +301,8 @@ public class TimingAtTest extends AbstractAtTest {
         _game.getGameState().addCardToZone(_game, moveFromSite, Zone.ADVENTURE_PATH);
         _game.getGameState().addCardToZone(_game, moveToSite, Zone.ADVENTURE_PATH);
 
-        assertTrue(_game.getModifiersQuerying().hasFlagActive(_game.getGameState(), ModifierFlag.RING_TEXT_INACTIVE));
-        assertFalse(_game.getModifiersQuerying().hasFlagActive(_game.getGameState(), ModifierFlag.CANT_PREVENT_WOUNDS));
+        assertTrue(_game.getModifiersQuerying().hasFlagActive(_game, ModifierFlag.RING_TEXT_INACTIVE));
+        assertFalse(_game.getModifiersQuerying().hasFlagActive(_game, ModifierFlag.CANT_PREVENT_WOUNDS));
 
         // End fellowship phase
         playerDecided(P1, "");
@@ -310,8 +310,8 @@ public class TimingAtTest extends AbstractAtTest {
         // End shadow phase
         playerDecided(P2, "");
 
-        assertFalse(_game.getModifiersQuerying().hasFlagActive(_game.getGameState(), ModifierFlag.RING_TEXT_INACTIVE));
-        assertTrue(_game.getModifiersQuerying().hasFlagActive(_game.getGameState(), ModifierFlag.CANT_PREVENT_WOUNDS));
+        assertFalse(_game.getModifiersQuerying().hasFlagActive(_game, ModifierFlag.RING_TEXT_INACTIVE));
+        assertTrue(_game.getModifiersQuerying().hasFlagActive(_game, ModifierFlag.CANT_PREVENT_WOUNDS));
 
         // Pass in Regroup phase
         assertEquals(Phase.REGROUP, _game.getGameState().getCurrentPhase());
@@ -324,8 +324,8 @@ public class TimingAtTest extends AbstractAtTest {
         playerDecided(P1, getMultipleDecisionIndex(_userFeedback.getAwaitingDecision(P1), "No"));
 
         // Fellowship of player2
-        assertTrue(_game.getModifiersQuerying().hasFlagActive(_game.getGameState(), ModifierFlag.RING_TEXT_INACTIVE));
-        assertFalse(_game.getModifiersQuerying().hasFlagActive(_game.getGameState(), ModifierFlag.CANT_PREVENT_WOUNDS));
+        assertTrue(_game.getModifiersQuerying().hasFlagActive(_game, ModifierFlag.RING_TEXT_INACTIVE));
+        assertFalse(_game.getModifiersQuerying().hasFlagActive(_game, ModifierFlag.CANT_PREVENT_WOUNDS));
 
         // End fellowship phase
         playerDecided(P2, "");
@@ -333,8 +333,8 @@ public class TimingAtTest extends AbstractAtTest {
         // End shadow phase
         playerDecided(P1, "");
 
-        assertFalse(_game.getModifiersQuerying().hasFlagActive(_game.getGameState(), ModifierFlag.RING_TEXT_INACTIVE));
-        assertTrue(_game.getModifiersQuerying().hasFlagActive(_game.getGameState(), ModifierFlag.CANT_PREVENT_WOUNDS));
+        assertFalse(_game.getModifiersQuerying().hasFlagActive(_game, ModifierFlag.RING_TEXT_INACTIVE));
+        assertTrue(_game.getModifiersQuerying().hasFlagActive(_game, ModifierFlag.CANT_PREVENT_WOUNDS));
     }
 
     @Test

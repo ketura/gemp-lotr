@@ -43,10 +43,10 @@ public class Card13_015 extends AbstractCompanion {
         if (TriggerConditions.moves(game, effectResult) && PlayConditions.isPhase(game, Phase.REGROUP)) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new RevealTopCardsOfDrawDeckEffect(self, playerId, Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.SITE, Zone.ADVENTURE_PATH, Keyword.FOREST)) {
+                    new RevealTopCardsOfDrawDeckEffect(self, playerId, Filters.countActive(game, CardType.SITE, Zone.ADVENTURE_PATH, Keyword.FOREST)) {
                         @Override
                         protected void cardsRevealed(List<PhysicalCard> revealedCards) {
-                            for (PhysicalCard revealedElvenCard : Filters.filter(revealedCards, game.getGameState(), game.getModifiersQuerying(), Culture.ELVEN)) {
+                            for (PhysicalCard revealedElvenCard : Filters.filter(revealedCards, game, Culture.ELVEN)) {
                                 action.appendEffect(
                                         new ChooseAndHealCharactersEffect(action, playerId, Race.ELF));
                             }

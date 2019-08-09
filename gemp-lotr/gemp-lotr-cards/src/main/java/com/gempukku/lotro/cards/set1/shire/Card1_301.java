@@ -53,7 +53,7 @@ public class Card1_301 extends AbstractAlly {
                                     new UnrespondableEffect() {
                                         @Override
                                         protected void doPlayEffect(LotroGame game) {
-                                            Collection<PhysicalCard> cardsToDiscard = Filters.filter(revealedCards, game.getGameState(), game.getModifiersQuerying(), Zone.DECK);
+                                            Collection<PhysicalCard> cardsToDiscard = Filters.filter(revealedCards, game, Zone.DECK);
                                             for (PhysicalCard cardToDiscard : cardsToDiscard) {
                                                 action.appendEffect(
                                                         new DiscardCardFromDeckEffect(cardToDiscard));

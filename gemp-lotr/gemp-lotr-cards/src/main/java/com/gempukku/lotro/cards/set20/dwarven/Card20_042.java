@@ -8,9 +8,7 @@ import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 
 /**
@@ -41,10 +39,10 @@ public class Card20_042 extends AbstractEvent {
                                 new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId,
                                         new Evaluator() {
                                             @Override
-                                            public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard cardAffected) {
+                                            public int evaluateExpression(LotroGame game, PhysicalCard cardAffected) {
                                                 int count = 0;
-                                                for (PhysicalCard dwarvenCondition : Filters.filterActive(gameState, modifiersQuerying, Culture.DWARVEN, CardType.CONDITION)) {
-                                                    count += Filters.filter(gameState.getStackedCards(dwarvenCondition), gameState, modifiersQuerying, Culture.DWARVEN).size();
+                                                for (PhysicalCard dwarvenCondition : Filters.filterActive(game, Culture.DWARVEN, CardType.CONDITION)) {
+                                                    count += Filters.filter(game.getGameState().getStackedCards(dwarvenCondition), game, Culture.DWARVEN).size();
                                                 }
                                                 return count;
                                             }

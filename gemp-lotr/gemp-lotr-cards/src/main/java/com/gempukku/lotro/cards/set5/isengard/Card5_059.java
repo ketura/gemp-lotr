@@ -59,7 +59,7 @@ public class Card5_059 extends AbstractAttachable {
     public List<? extends Action> getOptionalInPlayAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.activated(game, effectResult, Filters.any)) {
             ActivateCardResult activateEffect = (ActivateCardResult) effectResult;
-            if (Filters.inSkirmish.accepts(game.getGameState(), game.getModifiersQuerying(), self.getAttachedTo())
+            if (Filters.inSkirmish.accepts(game, self.getAttachedTo())
                     && activateEffect.getActionTimeword() == Phase.SKIRMISH
                     && PlayConditions.canExert(self, game, Filters.hasAttached(self))) {
                 ActivateCardAction action = new ActivateCardAction(self);

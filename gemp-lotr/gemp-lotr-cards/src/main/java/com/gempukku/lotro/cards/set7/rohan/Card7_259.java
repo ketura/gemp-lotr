@@ -39,7 +39,7 @@ public class Card7_259 extends AbstractEvent {
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
                                         new StrengthModifier(self, card, 2)));
-                        boolean mounted = Filters.mounted.accepts(game.getGameState(), game.getModifiersQuerying(), card);
+                        boolean mounted = Filters.mounted.accepts(game, card);
                         if (mounted)
                             action.appendEffect(
                                     new ChooseOpponentEffect(playerId) {

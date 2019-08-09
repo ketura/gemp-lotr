@@ -57,7 +57,7 @@ public class Card40_214 extends AbstractPermanent {
                             new PreventableEffect.PreventionCost() {
                                 @Override
                                 public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
-                                    final Collection<PhysicalCard> losers = Filters.filter(winResult.getInvolving(), game.getGameState(), game.getModifiersQuerying(), Side.FREE_PEOPLE, CardType.COMPANION);
+                                    final Collection<PhysicalCard> losers = Filters.filter(winResult.getInvolving(), game, Side.FREE_PEOPLE, CardType.COMPANION);
                                     List<Culture> loserCultures = new LinkedList<Culture>();
                                     for (PhysicalCard loser : losers) {
                                         loserCultures.add(loser.getBlueprint().getCulture());

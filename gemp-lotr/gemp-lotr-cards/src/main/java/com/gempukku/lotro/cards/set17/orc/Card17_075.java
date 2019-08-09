@@ -40,7 +40,7 @@ public class Card17_075 extends AbstractMinion {
         if (TriggerConditions.played(game, effectResult, self)
                 && PlayConditions.canSpot(game, Filters.not(self), Culture.ORC, CardType.MINION)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
-            int count = new CountCulturesEvaluator(2, Side.FREE_PEOPLE).evaluateExpression(game.getGameState(), game.getModifiersQuerying(), null);
+            int count = new CountCulturesEvaluator(2, Side.FREE_PEOPLE).evaluateExpression(game, null);
             for (int i = 0; i < count; i++)
                 action.appendEffect(
                         new ChooseAndExertCharactersEffect(action, playerId, 1, 1, CardType.COMPANION));

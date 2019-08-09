@@ -46,16 +46,16 @@ public class Card5_013 extends AbstractCompanion {
                 new TwilightCostModifier(self, Filters.and(Side.SHADOW, CardType.POSSESSION),
                         new Condition() {
                             @Override
-                            public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return Filters.countActive(gameState, modifiersQuerying, self, Filters.hasAttached(PossessionClass.RANGED_WEAPON)) > 0;
+                            public boolean isFullfilled(LotroGame game) {
+                                return Filters.countActive(game, self, Filters.hasAttached(PossessionClass.RANGED_WEAPON)) > 0;
                             }
                         }, 2));
         modifiers.add(
                 new DoesNotAddToArcheryTotalModifier(self, self,
                         new Condition() {
                             @Override
-                            public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return Filters.countActive(gameState, modifiersQuerying, self, Filters.hasAttached(PossessionClass.RANGED_WEAPON)) > 0;
+                            public boolean isFullfilled(LotroGame game) {
+                                return Filters.countActive(game, self, Filters.hasAttached(PossessionClass.RANGED_WEAPON)) > 0;
                             }
                         }));
         return modifiers;

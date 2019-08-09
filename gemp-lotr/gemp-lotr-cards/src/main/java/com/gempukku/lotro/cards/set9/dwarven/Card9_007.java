@@ -51,7 +51,7 @@ public class Card9_007 extends AbstractAttachableFPPossession {
                     new ChooseActiveCardEffect(self, playerId, "Choose a Dwarf with damage +X", Race.DWARF, Keyword.DAMAGE) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
-                            int damageCount = game.getModifiersQuerying().getKeywordCount(game.getGameState(), card, Keyword.DAMAGE);
+                            int damageCount = game.getModifiersQuerying().getKeywordCount(game, card, Keyword.DAMAGE);
                             action.insertEffect(
                                     new ChooseAndHealCharactersEffect(action, playerId, damageCount, damageCount, Race.DWARF));
                         }

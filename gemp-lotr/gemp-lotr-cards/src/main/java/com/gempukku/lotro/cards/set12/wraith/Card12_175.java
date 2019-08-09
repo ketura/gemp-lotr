@@ -41,7 +41,7 @@ public class Card12_175 extends AbstractMinion {
                 && PlayConditions.canSelfExert(self, game)) {
             final ToilDiscountEffect toilEffect = (ToilDiscountEffect) effect;
             PhysicalCard payingFor = toilEffect.getPayingFor();
-            if (Filters.and(Filters.owner(playerId), Culture.WRAITH, CardType.EVENT).accepts(game.getGameState(), game.getModifiersQuerying(), payingFor)) {
+            if (Filters.and(Filters.owner(playerId), Culture.WRAITH, CardType.EVENT).accepts(game, payingFor)) {
                 ActivateCardAction action = new ActivateCardAction(self);
                 action.appendCost(
                         new SelfExertEffect(action, self));

@@ -2,11 +2,7 @@ package com.gempukku.lotro.logic.modifiers;
 
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
-import com.gempukku.lotro.logic.modifiers.AbstractModifier;
-import com.gempukku.lotro.logic.modifiers.Condition;
-import com.gempukku.lotro.logic.modifiers.ModifierEffect;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.game.state.LotroGame;
 
 public class HasInitiativeModifier extends AbstractModifier {
     private Side _side;
@@ -17,7 +13,7 @@ public class HasInitiativeModifier extends AbstractModifier {
     }
 
     @Override
-    public Side hasInitiative(GameState gameState, ModifiersQuerying modifiersQuerying) {
+    public Side hasInitiative(LotroGame game) {
         return _side;
     }
 }

@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set40.gondor;
 import com.gempukku.lotro.logic.cardtype.AbstractEvent;
 import com.gempukku.lotro.logic.actions.PlayEventAction;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
-import com.gempukku.lotro.logic.modifiers.conditions.FierceSkirmishCondition;
+import com.gempukku.lotro.logic.modifiers.condition.FierceSkirmishCondition;
 import com.gempukku.lotro.logic.modifiers.evaluator.ConditionEvaluator;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;

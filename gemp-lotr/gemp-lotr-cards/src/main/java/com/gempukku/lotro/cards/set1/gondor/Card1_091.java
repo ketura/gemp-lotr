@@ -41,7 +41,7 @@ public class Card1_091 extends AbstractAttachableFPPossession {
     protected List<? extends Action> getExtraInPlayPhaseActions(final String playerId, final LotroGame game, final PhysicalCard self) {
 
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.FELLOWSHIP, self)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Keyword.PIPEWEED, CardType.POSSESSION)) {
+                && Filters.canSpot(game, Keyword.PIPEWEED, CardType.POSSESSION)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Keyword.PIPEWEED, CardType.POSSESSION));
@@ -51,7 +51,7 @@ public class Card1_091 extends AbstractAttachableFPPossession {
                                 @Override
                                 public void decisionMade(String result) throws DecisionResultInvalidException {
                                     int spotCount = getValidatedResult(result);
-                                    int companionsCount = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION);
+                                    int companionsCount = Filters.countActive(game, CardType.COMPANION);
                                     spotCount = Math.min(spotCount, companionsCount);
                                     action.appendEffect(
                                             new ChooseAndHealCharactersEffect(action, playerId, spotCount, spotCount, CardType.COMPANION));

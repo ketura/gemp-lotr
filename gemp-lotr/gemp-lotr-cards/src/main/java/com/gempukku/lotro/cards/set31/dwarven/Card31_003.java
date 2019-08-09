@@ -57,7 +57,7 @@ public class Card31_003 extends AbstractPermanent {
 
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.REGROUP, self)
             && PlayConditions.canExert(self, game, CardType.ALLY)) {
-            if (Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(),
+            if (Filters.filter(game.getGameState().getHand(playerId), game,
                     Culture.DWARVEN, CardType.EVENT).size() > 0) {
                 final ActivateCardAction action = new ActivateCardAction(self);
                 action.appendCost(new ChooseAndExertCharactersEffect(action, playerId, 1, 1, CardType.ALLY));

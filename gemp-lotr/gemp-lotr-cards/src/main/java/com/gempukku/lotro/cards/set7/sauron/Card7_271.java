@@ -39,7 +39,7 @@ public class Card7_271 extends AbstractMinion {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new SelfDiscardEffect(self));
-            int bonus = (PlayConditions.hasInitiative(game, Side.SHADOW) ? 2 : 1) * Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.siteControlled(playerId));
+            int bonus = (PlayConditions.hasInitiative(game, Side.SHADOW) ? 2 : 1) * Filters.countActive(game, Filters.siteControlled(playerId));
             action.appendEffect(
                     new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, bonus, Culture.SAURON, CardType.MINION));
             return Collections.singletonList(action);

@@ -39,7 +39,7 @@ public class Card20_335 extends AbstractEvent {
                 new ChooseAndPlayCardFromHandEffect(playerId, game, Culture.ROHAN, Race.MAN, Keyword.VALIANT) {
                     @Override
                     protected void afterCardPlayed(final PhysicalCard cardPlayed) {
-                        if (!game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.CANT_PLAY_FROM_DISCARD_OR_DECK))
+                        if (!game.getModifiersQuerying().hasFlagActive(game, ModifierFlag.CANT_PLAY_FROM_DISCARD_OR_DECK))
                         action.appendEffect(
                                 new ChooseArbitraryCardsEffect(playerId, "Choose card to play", game.getGameState().getDeck(playerId),
                                         Filters.and(

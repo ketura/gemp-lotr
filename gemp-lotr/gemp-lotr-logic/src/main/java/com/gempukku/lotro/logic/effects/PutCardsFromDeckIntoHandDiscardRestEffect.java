@@ -79,9 +79,9 @@ public class PutCardsFromDeckIntoHandDiscardRestEffect extends AbstractSubAction
 
         @Override
         protected void doPlayEffect(LotroGame game) {
-            if (game.getModifiersQuerying().canDrawCardNoIncrement(game.getGameState(), _playerId)
+            if (game.getModifiersQuerying().canDrawCardNoIncrement(game, _playerId)
                     && _drawn < _maxCount
-                    && Filters.filter(_remainingCards, game.getGameState(), game.getModifiersQuerying(), _filters).size() > 0) {
+                    && Filters.filter(_remainingCards, game, _filters).size() > 0) {
                 _subAction.insertEffect(
                         new ChooseArbitraryCardsEffect(_playerId, "Put next card to put into your hand", _remainingCards, Filters.and(_filters), 1, 1) {
                             @Override

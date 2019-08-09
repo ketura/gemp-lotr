@@ -43,16 +43,16 @@ public class Card5_050 extends AbstractMinion {
                 new KeywordModifier(self, self,
                         new Condition() {
                             @Override
-                            public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return modifiersQuerying.getVitality(gameState, self) >= 3;
+                            public boolean isFullfilled(LotroGame game) {
+                                return game.getModifiersQuerying().getVitality(game, self) >= 3;
                             }
                         }, Keyword.AMBUSH, 1));
         modifiers.add(
                 new KeywordModifier(self, self,
                         new Condition() {
                             @Override
-                            public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return modifiersQuerying.getVitality(gameState, self) >= 4;
+                            public boolean isFullfilled(LotroGame game) {
+                                return game.getModifiersQuerying().getVitality(game, self) >= 4;
                             }
                         }, Keyword.DAMAGE, 1));
         return modifiers;

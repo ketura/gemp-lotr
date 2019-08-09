@@ -43,7 +43,7 @@ public class Card15_027 extends AbstractEvent {
                 new ChooseActiveCardEffect(self, playerId, "Choose your GANDALF companion", Filters.owner(playerId), Culture.GANDALF, CardType.COMPANION, Filters.canExert(self)) {
                     @Override
                     protected void cardSelected(final LotroGame game, final PhysicalCard card) {
-                        int vitality = game.getModifiersQuerying().getVitality(game.getGameState(), card);
+                        int vitality = game.getModifiersQuerying().getVitality(game, card);
                         action.appendCost(
                                 new PlayoutDecisionEffect(playerId,
                                         new IntegerAwaitingDecision(1, "Choose how many times you wish to exert that companion", 0, vitality - 1) {

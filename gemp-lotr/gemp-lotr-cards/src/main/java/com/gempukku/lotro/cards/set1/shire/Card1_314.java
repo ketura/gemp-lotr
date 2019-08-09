@@ -35,7 +35,7 @@ public class Card1_314 extends AbstractAttachable {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, Filter additionalAttachmentFilter, int twilightModifier) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, additionalAttachmentFilter, twilightModifier)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.name("Bilbo"));
+                && Filters.canSpot(game, Filters.name("Bilbo"));
     }
 
     @Override
@@ -45,11 +45,11 @@ public class Card1_314 extends AbstractAttachable {
                         Filters.hasAttached(self),
                         new Filter() {
                             @Override
-                            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                Skirmish skirmish = gameState.getSkirmish();
+                            public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
+                                Skirmish skirmish = game.getGameState().getSkirmish();
                                 return skirmish != null
                                         && skirmish.getFellowshipCharacter() == self.getAttachedTo()
-                                        && Filters.filter(skirmish.getShadowCharacters(), gameState, modifiersQuerying,
+                                        && Filters.filter(skirmish.getShadowCharacters(), game,
                                         Filters.or(
                                                 Race.URUK_HAI,
                                                 Race.TROLL)).size() > 0;

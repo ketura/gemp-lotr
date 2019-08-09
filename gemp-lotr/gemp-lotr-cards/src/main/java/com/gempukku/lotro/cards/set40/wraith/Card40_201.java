@@ -46,7 +46,7 @@ public class Card40_201 extends AbstractResponseEvent {
             final PhysicalCard winner = wonSkirmishResult.getWinner();
             if (PlayConditions.canExert(self, game, 2, winner)) {
                 final Set<PhysicalCard> involving = wonSkirmishResult.getInvolving();
-                final Collection<PhysicalCard> toKill = Filters.filter(involving, game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION, Filters.maxResistance(0));
+                final Collection<PhysicalCard> toKill = Filters.filter(involving, game, CardType.COMPANION, Filters.maxResistance(0));
 
                 PlayEventAction action = new PlayEventAction(self);
                 action.setText("Play exerting " + GameUtils.getFullName(winner));

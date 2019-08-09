@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set13.site;
 
 import com.gempukku.lotro.logic.cardtype.AbstractNewSite;
-import com.gempukku.lotro.logic.modifiers.conditions.NotCondition;
+import com.gempukku.lotro.logic.modifiers.condition.NotCondition;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
@@ -37,21 +37,21 @@ public class Card13_190 extends AbstractNewSite {
                 Filters.and(CardType.COMPANION,
                         new Filter() {
                             @Override
-                            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                            public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
                                 final Race race = physicalCard.getBlueprint().getRace();
-                                if (race != null && isRaceMostCommonRaceAmongCompanions(gameState, modifiersQuerying, race))
+                                if (race != null && isRaceMostCommonRaceAmongCompanions(game, race))
                                     return true;
                                 return false;
                             }
                         }), new NotCondition(new PhaseCondition(Phase.REGROUP)), -1);
     }
 
-    private boolean isRaceMostCommonRaceAmongCompanions(GameState gameState, ModifiersQuerying modifiersQuerying, Race race) {
+    private boolean isRaceMostCommonRaceAmongCompanions(LotroGame game, Race race) {
         if (race == null)
             return false;
 
         Map<Race, Integer> counts = new HashMap<Race, Integer>();
-        for (PhysicalCard companion : Filters.filterActive(gameState, modifiersQuerying, CardType.COMPANION)) {
+        for (PhysicalCard companion : Filters.filterActive(game, CardType.COMPANION)) {
             final Race companionRace = companion.getBlueprint().getRace();
             if (companionRace != null) {
                 Integer count = counts.get(companionRace);

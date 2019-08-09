@@ -36,8 +36,8 @@ public class Card2_069 extends AbstractEvent {
                         Filters.inSkirmishAgainst(Culture.MORIA, Race.ORC)) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard elfOrDwarf) {
-                        boolean canSpotElf = Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Race.ELF);
-                        boolean canSpotDwarf = Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Race.DWARF);
+                        boolean canSpotElf = Filters.canSpot(game, Race.ELF);
+                        boolean canSpotDwarf = Filters.canSpot(game, Race.DWARF);
                         int penalty = (canSpotElf && canSpotDwarf) ? -3 : -1;
                         action.insertEffect(
                                 new AddUntilEndOfPhaseModifierEffect(

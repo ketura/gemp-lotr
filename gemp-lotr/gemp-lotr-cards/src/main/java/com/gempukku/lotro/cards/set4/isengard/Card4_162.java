@@ -45,7 +45,7 @@ public class Card4_162 extends AbstractEvent {
                     @Override
                     protected void cardsRevealed(Collection<? extends PhysicalCard> cards) {
                         action.appendCost(
-                                new DiscardCardsFromHandEffect(self, playerId, Filters.filter(cards, game.getGameState(), game.getModifiersQuerying(), Side.FREE_PEOPLE), false));
+                                new DiscardCardsFromHandEffect(self, playerId, Filters.filter(cards, game, Side.FREE_PEOPLE), false));
                     }
                 });
         action.appendEffect(

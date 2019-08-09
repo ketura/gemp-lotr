@@ -38,7 +38,7 @@ public class Card17_064 extends AbstractMinion {
             PlayCardResult playResult = (PlayCardResult) effectResult;
             if (playResult.getPlayedFrom() == Zone.DECK ||
                     (playResult.getPlayedFrom() == Zone.STACKED
-                            && Filters.and(Culture.MEN, CardType.POSSESSION).accepts(game.getGameState(), game.getModifiersQuerying(), playResult.getAttachedOrStackedPlayedFrom()))) {
+                            && Filters.and(Culture.MEN, CardType.POSSESSION).accepts(game, playResult.getAttachedOrStackedPlayedFrom()))) {
                 RequiredTriggerAction action = new RequiredTriggerAction(self);
                 action.appendEffect(
                         new AddUntilStartOfPhaseModifierEffect(

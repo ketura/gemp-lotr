@@ -27,7 +27,7 @@ public class Card20_145 extends AbstractEvent {
                 new ChooseActiveCardEffect(self, playerId, "Choose a companion", CardType.COMPANION, Filters.inSkirmishAgainst(Keyword.SOUTHRON), Filters.canTakeWounds(self, 1)) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
-                        int count = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Side.FREE_PEOPLE, Filters.attachedTo(card));
+                        int count = Filters.countActive(game, Side.FREE_PEOPLE, Filters.attachedTo(card));
                         for (int i=0; i< count; i++)
                             action.appendEffect(
                                     new WoundCharactersEffect(self, card));

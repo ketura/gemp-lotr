@@ -50,7 +50,7 @@ public class Card20_383 extends AbstractAttachableFPPossession {
                                 @Override
                                 public void decisionMade(String result) throws DecisionResultInvalidException {
                                     int spotCount = getValidatedResult(result);
-                                    Collection<PhysicalCard> talesInDiscard = Filters.filter(game.getGameState().getDiscard(playerId), game.getGameState(), game.getModifiersQuerying(), Keyword.TALE);
+                                    Collection<PhysicalCard> talesInDiscard = Filters.filter(game.getGameState().getDiscard(playerId), game, Keyword.TALE);
 
                                     int shufflableTales = Math.min(spotCount, talesInDiscard.size());
                                     action.appendEffect(

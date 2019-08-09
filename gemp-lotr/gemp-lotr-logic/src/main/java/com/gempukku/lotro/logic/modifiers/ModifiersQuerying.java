@@ -2,7 +2,7 @@ package com.gempukku.lotro.logic.modifiers;
 
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
+import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 import com.gempukku.lotro.logic.timing.Action;
@@ -26,134 +26,134 @@ public interface ModifiersQuerying {
 
     public LimitCounter getUntilEndOfTurnLimitCounter(PhysicalCard card, String prefix);
 
-    public Collection<Modifier> getModifiersAffecting(GameState gameState, PhysicalCard card);
+    public Collection<Modifier> getModifiersAffecting(LotroGame game, PhysicalCard card);
 
-    public Evaluator getFpStrengthOverrideEvaluator(GameState gameState, PhysicalCard fpCharacter);
+    public Evaluator getFpStrengthOverrideEvaluator(LotroGame game, PhysicalCard fpCharacter);
 
-    public boolean hasTextRemoved(GameState gameState, PhysicalCard card);
+    public boolean hasTextRemoved(LotroGame game, PhysicalCard card);
 
     // Keywords
-    public boolean hasKeyword(GameState gameState, PhysicalCard physicalCard, Keyword keyword);
+    public boolean hasKeyword(LotroGame game, PhysicalCard physicalCard, Keyword keyword);
 
-    public int getKeywordCount(GameState gameState, PhysicalCard physicalCard, Keyword keyword);
+    public int getKeywordCount(LotroGame game, PhysicalCard physicalCard, Keyword keyword);
 
-    public boolean hasSignet(GameState gameState, PhysicalCard physicalCard, Signet signet);
+    public boolean hasSignet(LotroGame game, PhysicalCard physicalCard, Signet signet);
 
     // Archery
-    public int getArcheryTotal(GameState gameState, Side side, int baseArcheryTotal);
+    public int getArcheryTotal(LotroGame game, Side side, int baseArcheryTotal);
 
-    public boolean addsToArcheryTotal(GameState gameState, PhysicalCard card);
+    public boolean addsToArcheryTotal(LotroGame game, PhysicalCard card);
 
     // Movement
-    public int getMoveLimit(GameState gameState, int baseMoveLimit);
+    public int getMoveLimit(LotroGame game, int baseMoveLimit);
 
-    public boolean addsTwilightForCompanionMove(GameState gameState, PhysicalCard companion);
+    public boolean addsTwilightForCompanionMove(LotroGame game, PhysicalCard companion);
 
     // Twilight cost
-    public int getTwilightCost(GameState gameState, PhysicalCard physicalCard, int twilightCostModifier, boolean ignoreRoamingPenalty);
+    public int getTwilightCost(LotroGame game, PhysicalCard physicalCard, int twilightCostModifier, boolean ignoreRoamingPenalty);
 
-    public int getPlayOnTwilightCost(GameState gameState, PhysicalCard physicalCard, PhysicalCard target, int twilightCostModifier);
+    public int getPlayOnTwilightCost(LotroGame game, PhysicalCard physicalCard, PhysicalCard target, int twilightCostModifier);
 
-    public int getRoamingPenalty(GameState gameState, PhysicalCard physicalCard);
+    public int getRoamingPenalty(LotroGame game, PhysicalCard physicalCard);
 
     // Stats
-    public int getStrength(GameState gameState, PhysicalCard physicalCard);
+    public int getStrength(LotroGame game, PhysicalCard physicalCard);
 
-    public int getVitality(GameState gameState, PhysicalCard physicalCard);
+    public int getVitality(LotroGame game, PhysicalCard physicalCard);
 
-    public int getResistance(GameState gameState, PhysicalCard physicalCard);
+    public int getResistance(LotroGame game, PhysicalCard physicalCard);
 
-    public int getMinionSiteNumber(GameState gameState, PhysicalCard physicalCard);
+    public int getMinionSiteNumber(LotroGame game, PhysicalCard physicalCard);
 
-    public int getOverwhelmMultiplier(GameState gameState, PhysicalCard card);
+    public int getOverwhelmMultiplier(LotroGame game, PhysicalCard card);
 
-    public boolean isAdditionalCardType(GameState gameState, PhysicalCard card, CardType cardType);
+    public boolean isAdditionalCardType(LotroGame game, PhysicalCard card, CardType cardType);
 
     // Wounds/exertions
-    public boolean canTakeWounds(GameState gameState, Collection<PhysicalCard> woundSources, PhysicalCard card, int woundsToTake);
+    public boolean canTakeWounds(LotroGame game, Collection<PhysicalCard> woundSources, PhysicalCard card, int woundsToTake);
 
-    public boolean canTakeWoundsFromLosingSkirmish(GameState gameState, PhysicalCard card, Set<PhysicalCard> winners);
+    public boolean canTakeWoundsFromLosingSkirmish(LotroGame game, PhysicalCard card, Set<PhysicalCard> winners);
 
-    public boolean canTakeArcheryWound(GameState gameState, PhysicalCard card);
+    public boolean canTakeArcheryWound(LotroGame game, PhysicalCard card);
 
-    public boolean canBeExerted(GameState gameState, PhysicalCard exertionSource, PhysicalCard card);
+    public boolean canBeExerted(LotroGame game, PhysicalCard exertionSource, PhysicalCard card);
 
-    public boolean canBeHealed(GameState gameState, PhysicalCard card);
+    public boolean canBeHealed(LotroGame game, PhysicalCard card);
 
-    public boolean canAddBurden(GameState gameState, String performingPlayer, PhysicalCard source);
+    public boolean canAddBurden(LotroGame game, String performingPlayer, PhysicalCard source);
 
-    public boolean canRemoveBurden(GameState gameState, PhysicalCard source);
+    public boolean canRemoveBurden(LotroGame game, PhysicalCard source);
 
-    public boolean canRemoveThreat(GameState gameState, PhysicalCard source);
+    public boolean canRemoveThreat(LotroGame game, PhysicalCard source);
 
     // Assignments
-    public boolean canBeAssignedToSkirmish(GameState gameState, Side playerSide, PhysicalCard card);
+    public boolean canBeAssignedToSkirmish(LotroGame game, Side playerSide, PhysicalCard card);
 
-    public boolean isUnhastyCompanionAllowedToParticipateInSkirmishes(GameState gameState, PhysicalCard card);
+    public boolean isUnhastyCompanionAllowedToParticipateInSkirmishes(LotroGame game, PhysicalCard card);
 
-    public boolean isAllyAllowedToParticipateInArcheryFire(GameState gameState, PhysicalCard card);
+    public boolean isAllyAllowedToParticipateInArcheryFire(LotroGame game, PhysicalCard card);
 
-    public boolean isAllyAllowedToParticipateInSkirmishes(GameState gameState, Side sidePlayer, PhysicalCard card);
+    public boolean isAllyAllowedToParticipateInSkirmishes(LotroGame game, Side sidePlayer, PhysicalCard card);
 
-    public boolean isAllyPreventedFromParticipatingInSkirmishes(GameState gameState, Side sidePlayer, PhysicalCard card);
+    public boolean isAllyPreventedFromParticipatingInSkirmishes(LotroGame game, Side sidePlayer, PhysicalCard card);
 
-    public boolean isAllyPreventedFromParticipatingInArcheryFire(GameState gameState, PhysicalCard card);
+    public boolean isAllyPreventedFromParticipatingInArcheryFire(LotroGame game, PhysicalCard card);
 
-    public boolean isValidAssignments(GameState gameState, Side side, Map<PhysicalCard, Set<PhysicalCard>> assignments);
+    public boolean isValidAssignments(LotroGame game, Side side, Map<PhysicalCard, Set<PhysicalCard>> assignments);
 
     // Playing actions
-    public boolean canPlayAction(GameState gameState, String performingPlayer, Action action);
+    public boolean canPlayAction(LotroGame game, String performingPlayer, Action action);
 
-    public boolean canHavePlayedOn(GameState gameState, PhysicalCard playedCard, PhysicalCard target);
+    public boolean canHavePlayedOn(LotroGame game, PhysicalCard playedCard, PhysicalCard target);
 
-    public boolean canHaveTransferredOn(GameState gameState, PhysicalCard playedCard, PhysicalCard target);
+    public boolean canHaveTransferredOn(LotroGame game, PhysicalCard playedCard, PhysicalCard target);
 
-    public boolean canBeTransferred(GameState gameState, PhysicalCard attachment);
+    public boolean canBeTransferred(LotroGame game, PhysicalCard attachment);
 
-    public boolean shouldSkipPhase(GameState gameState, Phase phase, String playerId);
+    public boolean shouldSkipPhase(LotroGame game, Phase phase, String playerId);
 
-    public List<? extends ActivateCardAction> getExtraPhaseActions(GameState gameState, PhysicalCard target);
+    public List<? extends ActivateCardAction> getExtraPhaseActions(LotroGame game, PhysicalCard target);
 
-    public List<? extends Action> getExtraPhaseActionsFromStacked(GameState gameState, PhysicalCard target);
+    public List<? extends Action> getExtraPhaseActionsFromStacked(LotroGame game, PhysicalCard target);
 
-    public boolean canPayExtraCostsToPlay(GameState gameState, PhysicalCard target);
+    public boolean canPayExtraCostsToPlay(LotroGame game, PhysicalCard target);
 
-    public List<? extends Effect> getExtraCostsToPlay(GameState gameState, Action action, PhysicalCard target);
+    public List<? extends Effect> getExtraCostsToPlay(LotroGame game, Action action, PhysicalCard target);
 
     // Others
-    public boolean canBeDiscardedFromPlay(GameState gameState, String performingPlayer, PhysicalCard card, PhysicalCard source);
+    public boolean canBeDiscardedFromPlay(LotroGame game, String performingPlayer, PhysicalCard card, PhysicalCard source);
 
-    public boolean canBeReturnedToHand(GameState gameState, PhysicalCard card, PhysicalCard source);
+    public boolean canBeReturnedToHand(LotroGame game, PhysicalCard card, PhysicalCard source);
 
-    public boolean canDrawCardNoIncrement(GameState gameState, String playerId);
+    public boolean canDrawCardNoIncrement(LotroGame game, String playerId);
 
-    public boolean canDrawCardAndIncrementForRuleOfFour(GameState gameState, String playerId);
+    public boolean canDrawCardAndIncrementForRuleOfFour(LotroGame game, String playerId);
 
-    public boolean canLookOrRevealCardsInHand(GameState gameState, String revealingPlayerId, String performingPlayerId);
+    public boolean canLookOrRevealCardsInHand(LotroGame game, String revealingPlayerId, String performingPlayerId);
 
-    public boolean canDiscardCardsFromHand(GameState gameState, String playerId, PhysicalCard source);
+    public boolean canDiscardCardsFromHand(LotroGame game, String playerId, PhysicalCard source);
 
-    public boolean canDiscardCardsFromTopOfDeck(GameState gameState, String playerId, PhysicalCard source);
+    public boolean canDiscardCardsFromTopOfDeck(LotroGame game, String playerId, PhysicalCard source);
 
-    public boolean canBeLiberated(GameState gameState, String playerId, PhysicalCard card, PhysicalCard source);
+    public boolean canBeLiberated(LotroGame game, String playerId, PhysicalCard card, PhysicalCard source);
 
-    public Side hasInitiative(GameState gameState);
+    public Side hasInitiative(LotroGame game);
 
-    public boolean canBeSpotted(GameState gameState, PhysicalCard card);
+    public boolean canBeSpotted(LotroGame game, PhysicalCard card);
 
-    public int getNumberOfSpottableFPCultures(GameState gameState, String playerId);
+    public int getNumberOfSpottableFPCultures(LotroGame game, String playerId);
     
-    public int getNumberOfSpottableShadowCultures(GameState gameState, String playerId);
+    public int getNumberOfSpottableShadowCultures(LotroGame game, String playerId);
 
-    public int getSpotBonus(GameState gameState, Filterable filter);
+    public int getSpotBonus(LotroGame game, Filterable filter);
 
-    public boolean hasFlagActive(GameState gameState, ModifierFlag modifierFlag);
+    public boolean hasFlagActive(LotroGame game, ModifierFlag modifierFlag);
 
-    public boolean canReplaceSite(GameState gameState, String playerId, PhysicalCard siteToReplace);
+    public boolean canReplaceSite(LotroGame game, String playerId, PhysicalCard siteToReplace);
 
-    public boolean canPlaySite(GameState gameState, String playerId);
+    public boolean canPlaySite(LotroGame game, String playerId);
 
-    int getSanctuaryHealModifier(GameState gameState);
+    int getSanctuaryHealModifier(LotroGame game);
 
-    int getPotentialDiscount(GameState gameState, PhysicalCard playedCard);
+    int getPotentialDiscount(LotroGame game, PhysicalCard playedCard);
 }

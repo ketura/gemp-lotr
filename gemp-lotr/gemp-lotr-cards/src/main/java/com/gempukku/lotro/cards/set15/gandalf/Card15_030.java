@@ -29,9 +29,9 @@ public class Card15_030 extends AbstractCompanion {
     }
 
     @Override
-    public int getTwilightCostModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
-        return -Filters.countActive(gameState, modifiersQuerying, Race.ENT)
-                - modifiersQuerying.getSpotBonus(gameState, Race.ENT);
+    public int getTwilightCostModifier(LotroGame game, PhysicalCard self) {
+        return -Filters.countActive(game, Race.ENT)
+                - game.getModifiersQuerying().getSpotBonus(game, Race.ENT);
     }
 
     @Override
@@ -39,9 +39,9 @@ public class Card15_030 extends AbstractCompanion {
         return new StrengthModifier(self, self,
                 new Condition() {
                     @Override
-                    public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                        return Filters.countActive(gameState, modifiersQuerying, Filters.not(self), Race.ENT)
-                                + modifiersQuerying.getSpotBonus(gameState, Race.ENT) >= 4;
+                    public boolean isFullfilled(LotroGame game) {
+                        return Filters.countActive(game, Filters.not(self), Race.ENT)
+                                + game.getModifiersQuerying().getSpotBonus(game, Race.ENT) >= 4;
                     }
                 }, 4);
     }

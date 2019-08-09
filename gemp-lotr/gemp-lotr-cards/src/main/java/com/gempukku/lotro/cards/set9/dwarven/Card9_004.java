@@ -11,12 +11,10 @@ import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.effects.AddThreatsEffect;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
@@ -49,8 +47,8 @@ public class Card9_004 extends AbstractCompanion {
         return Collections.singletonList(
                 new ResistanceModifier(self, self, new Evaluator() {
                     @Override
-                    public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard cardAffected) {
-                        return modifiersQuerying.getKeywordCount(gameState, cardAffected, Keyword.DAMAGE);
+                    public int evaluateExpression(LotroGame game, PhysicalCard cardAffected) {
+                        return game.getModifiersQuerying().getKeywordCount(game, cardAffected, Keyword.DAMAGE);
                     }
                 }));
     }
@@ -58,7 +56,7 @@ public class Card9_004 extends AbstractCompanion {
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.startOfPhase(game, effectResult, Phase.SKIRMISH)
-                && Filters.and(Filters.inSkirmish, Filters.ringBearer).accepts(game.getGameState(), game.getModifiersQuerying(), self)) {
+                && Filters.and(Filters.inSkirmish, Filters.ringBearer).accepts(game, self)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             List<Effect> possibleEffects = new LinkedList<Effect>();
             possibleEffects.add(

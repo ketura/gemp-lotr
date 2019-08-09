@@ -44,7 +44,7 @@ public class Card40_071 extends AbstractAttachableFPPossession{
                     new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, CardType.POSSESSION, Keyword.PIPEWEED));
             action.appendEffect(
                     new CheckPhaseLimitEffect(action, self, 1,
-                            new DrawCardsEffect(action, playerId, Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), PossessionClass.PIPE))));
+                            new DrawCardsEffect(action, playerId, Filters.countSpottable(game, PossessionClass.PIPE))));
             return Collections.singletonList(action);
         }
         return null;

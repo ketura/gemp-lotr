@@ -5,10 +5,8 @@ import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 
@@ -37,8 +35,8 @@ public class Card10_059 extends AbstractMinion {
                 new StrengthModifier(self, Filters.and(Culture.WRAITH, Race.ORC), null,
                         new Evaluator() {
                             @Override
-                            public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard cardAffected) {
-                                return gameState.getWounds(gameState.getRingBearer(game.getGameState().getCurrentPlayerId()));
+                            public int evaluateExpression(LotroGame game, PhysicalCard cardAffected) {
+                                return game.getGameState().getWounds(game.getGameState().getRingBearer(game.getGameState().getCurrentPlayerId()));
                             }
                         }));
     }

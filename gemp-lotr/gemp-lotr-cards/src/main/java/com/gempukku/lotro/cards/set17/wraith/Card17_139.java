@@ -8,11 +8,9 @@ import com.gempukku.lotro.logic.modifiers.ResistanceModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 import com.gempukku.lotro.logic.timing.Action;
 
@@ -42,8 +40,8 @@ public class Card17_139 extends AbstractMinion {
         return new ResistanceModifier(self, Filters.unboundCompanion, null,
                 new Evaluator() {
                     @Override
-                    public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard cardAffected) {
-                        return -Filters.countActive(gameState, modifiersQuerying, Filters.attachedTo(cardAffected));
+                    public int evaluateExpression(LotroGame game, PhysicalCard cardAffected) {
+                        return -Filters.countActive(game, Filters.attachedTo(cardAffected));
                     }
                 });
     }

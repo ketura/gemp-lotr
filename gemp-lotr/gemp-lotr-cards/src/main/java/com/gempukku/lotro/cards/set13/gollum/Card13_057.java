@@ -66,7 +66,7 @@ public class Card13_057 extends AbstractEvent {
 
         @Override
         protected void doPlayEffect(LotroGame game) {
-            if (GameUtils.getRegion(game.getGameState()) != 1
+            if (GameUtils.getRegion(game) != 1
                     && PlayConditions.canHeal(_self, game, Filters.ringBearer)) {
                 _action.appendEffect(
                         new PlayoutDecisionEffect(_playerId, new YesNoDecision("Do you want to repeat the effect?") {

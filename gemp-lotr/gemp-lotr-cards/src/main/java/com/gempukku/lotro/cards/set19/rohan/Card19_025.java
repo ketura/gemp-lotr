@@ -4,10 +4,8 @@ import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 
@@ -33,10 +31,10 @@ public class Card19_025 extends AbstractCompanion {
         return new StrengthModifier(self, self, null,
                 new Evaluator() {
                     @Override
-                    public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
+                    public int evaluateExpression(LotroGame game, PhysicalCard self) {
                         int wounds = 0;
-                        for (PhysicalCard woundedMinion : Filters.filterActive(gameState, modifiersQuerying, CardType.MINION, Filters.wounded, Filters.inSkirmishAgainst(self))) {
-                            wounds += gameState.getWounds(woundedMinion);
+                        for (PhysicalCard woundedMinion : Filters.filterActive(game, CardType.MINION, Filters.wounded, Filters.inSkirmishAgainst(self))) {
+                            wounds += game.getGameState().getWounds(woundedMinion);
                         }
                         return wounds * 2;
                     }

@@ -38,7 +38,7 @@ public class PutCardsFromHandBeneathDrawDeckEffect extends AbstractSubActionEffe
 
     @Override
     public void playEffect(LotroGame game) {
-        final Collection<PhysicalCard> cards = Filters.filter(game.getGameState().getHand(_playerId), game.getGameState(), game.getModifiersQuerying(), _filters);
+        final Collection<PhysicalCard> cards = Filters.filter(game.getGameState().getHand(_playerId), game, _filters);
         SubAction subAction = new SubAction(_action);
         subAction.appendEffect(
                 new ChooseAndPutNextCardFromHandOnBottomOfLibrary(subAction, cards));

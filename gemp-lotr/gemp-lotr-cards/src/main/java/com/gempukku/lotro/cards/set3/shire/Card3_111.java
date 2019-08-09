@@ -39,7 +39,7 @@ public class Card3_111 extends AbstractAlly {
         if (effectResult.getType() == EffectResult.Type.FOR_EACH_DISCARDED_FROM_HAND) {
             DiscardCardFromHandResult discardCardsResult = (DiscardCardFromHandResult) effectResult;
             if (discardCardsResult.isForced() && discardCardsResult.getHandPlayerId().equals(playerId)
-                    && Filters.and(Side.SHADOW).accepts(game.getGameState(), game.getModifiersQuerying(), discardCardsResult.getSource())) {
+                    && Filters.and(Side.SHADOW).accepts(game, discardCardsResult.getSource())) {
                 OptionalTriggerAction action = new OptionalTriggerAction(self);
                 action.appendEffect(
                         new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Filters.or(CardType.MINION, Filters.and(Side.SHADOW, CardType.CONDITION))));

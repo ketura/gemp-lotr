@@ -7,11 +7,9 @@ import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 
@@ -34,8 +32,8 @@ public class Card20_219 extends AbstractMinion {
         return new StrengthModifier(self, self, null,
                 new Evaluator() {
                     @Override
-                    public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard cardAffected) {
-                        return Filters.countActive(gameState, modifiersQuerying, CardType.SITE, Keyword.BATTLEGROUND, Filters.region(GameUtils.getRegion(gameState)));
+                    public int evaluateExpression(LotroGame game, PhysicalCard cardAffected) {
+                        return Filters.countActive(game, CardType.SITE, Keyword.BATTLEGROUND, Filters.region(GameUtils.getRegion(game)));
                     }
                 });
     }

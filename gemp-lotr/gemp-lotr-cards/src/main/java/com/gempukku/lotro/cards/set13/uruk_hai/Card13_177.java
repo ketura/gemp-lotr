@@ -40,7 +40,7 @@ public class Card13_177 extends AbstractPermanent {
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.played(game, effectResult, self)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
-            int count = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION, Filters.wounded);
+            int count = Filters.countActive(game, CardType.COMPANION, Filters.wounded);
             if (count > 0)
                 action.appendEffect(
                         new AddTokenEffect(self, self, Token.URUK_HAI, count));

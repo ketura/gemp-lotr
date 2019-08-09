@@ -10,7 +10,7 @@ public class InitiativeChangeRule {
 
     public void checkInitiativeChange(LotroGame game) {
         if (game.getGameState().getCurrentPhase() != Phase.PUT_RING_BEARER) {
-            Side initiativeSide = game.getModifiersQuerying().hasInitiative(game.getGameState());
+            Side initiativeSide = game.getModifiersQuerying().hasInitiative(game);
             if (initiativeSide != _initiativeSide) {
                 _initiativeSide = initiativeSide;
                 game.getActionsEnvironment().emitEffectResult(new InitiativeChangeResult(_initiativeSide));

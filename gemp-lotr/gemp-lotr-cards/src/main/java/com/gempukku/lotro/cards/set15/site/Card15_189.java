@@ -32,7 +32,7 @@ public class Card15_189 extends AbstractNewSite {
         if (TriggerConditions.movesTo(game, effectResult, self)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             int threats = PlayConditions.canSpot(game, CardType.MINION, Keyword.HUNTER) ? 2 : 1;
-            int companions = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION);
+            int companions = Filters.countActive(game, CardType.COMPANION);
             if (companions > 4)
                 action.appendEffect(
                         new AddThreatsEffect(game.getGameState().getCurrentPlayerId(), self, (companions - 4) * threats));

@@ -51,7 +51,7 @@ public abstract class ChooseActiveCardsEffect extends AbstractEffect {
 
     @Override
     public boolean isPlayableInFull(LotroGame game) {
-        return Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.and(_filters, getExtraFilterForPlayabilityCheck(game))) >= _minimum;
+        return Filters.countActive(game, Filters.and(_filters, getExtraFilterForPlayabilityCheck(game))) >= _minimum;
     }
 
     @Override
@@ -66,7 +66,7 @@ public abstract class ChooseActiveCardsEffect extends AbstractEffect {
 
     @Override
     protected FullEffectResult playEffectReturningResult(final LotroGame game) {
-        final Collection<PhysicalCard> matchingCards = Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Filters.and(_filters, getExtraFilterForPlaying(game)));
+        final Collection<PhysicalCard> matchingCards = Filters.filterActive(game, Filters.and(_filters, getExtraFilterForPlaying(game)));
         // Lets get the count realistic
         int maximum = Math.min(_maximum, matchingCards.size());
 

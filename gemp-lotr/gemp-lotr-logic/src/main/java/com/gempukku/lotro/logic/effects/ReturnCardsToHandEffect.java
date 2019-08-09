@@ -8,7 +8,6 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
-import com.gempukku.lotro.logic.effects.DiscardUtils;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.Effect;
@@ -30,7 +29,7 @@ public class ReturnCardsToHandEffect extends AbstractEffect {
 
     @Override
     public String getText(LotroGame game) {
-        Collection<PhysicalCard> cards = Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), _filter);
+        Collection<PhysicalCard> cards = Filters.filterActive(game, _filter);
         return "Return " + getAppendedNames(cards) + " to hand";
     }
 
@@ -41,11 +40,11 @@ public class ReturnCardsToHandEffect extends AbstractEffect {
 
     @Override
     public boolean isPlayableInFull(LotroGame game) {
-        return Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), _filter,
+        return Filters.filterActive(game, _filter,
                 new Filter() {
                     @Override
-                    public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                        return (_source == null || modifiersQuerying.canBeReturnedToHand(gameState, physicalCard, _source));
+                    public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
+                        return (_source == null || game.getModifiersQuerying().canBeReturnedToHand(game, physicalCard, _source));
                     }
                 }).size() > 0;
     }
@@ -53,13 +52,13 @@ public class ReturnCardsToHandEffect extends AbstractEffect {
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
         GameState gameState = game.getGameState();
-        Collection<PhysicalCard> cardsToReturnToHand = Filters.filterActive(gameState, game.getModifiersQuerying(), _filter);
+        Collection<PhysicalCard> cardsToReturnToHand = Filters.filterActive(game, _filter);
 
         // Preparation, figure out, what's going where...
         Set<PhysicalCard> discardedFromPlay = new HashSet<PhysicalCard>();
         Set<PhysicalCard> toGoToDiscardCards = new HashSet<PhysicalCard>();
 
-        DiscardUtils.cardsToChangeZones(gameState, cardsToReturnToHand, discardedFromPlay, toGoToDiscardCards);
+        DiscardUtils.cardsToChangeZones(game, cardsToReturnToHand, discardedFromPlay, toGoToDiscardCards);
 
         Set<PhysicalCard> cardsToRemoveFromZones = new HashSet<PhysicalCard>(toGoToDiscardCards);
         cardsToRemoveFromZones.addAll(cardsToReturnToHand);

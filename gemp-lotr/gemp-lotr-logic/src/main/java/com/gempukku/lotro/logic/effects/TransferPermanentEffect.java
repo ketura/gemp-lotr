@@ -21,8 +21,8 @@ public class TransferPermanentEffect extends AbstractEffect {
     public boolean isPlayableInFull(LotroGame game) {
         return _targetCard.getZone().isInPlay()
                 && _physicalCard.getZone().isInPlay()
-                && game.getModifiersQuerying().canBeTransferred(game.getGameState(), _physicalCard)
-                && game.getModifiersQuerying().canHaveTransferredOn(game.getGameState(), _physicalCard, _targetCard);
+                && game.getModifiersQuerying().canBeTransferred(game, _physicalCard)
+                && game.getModifiersQuerying().canHaveTransferredOn(game, _physicalCard, _targetCard);
     }
 
     @Override

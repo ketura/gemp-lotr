@@ -44,7 +44,7 @@ public class Card9_027 extends AbstractPermanent {
                     new UnrespondableEffect() {
                         @Override
                         protected void doPlayEffect(LotroGame game) {
-                            PhysicalCard wizard = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Race.WIZARD, Filters.inSkirmish);
+                            PhysicalCard wizard = Filters.findFirstActive(game, Race.WIZARD, Filters.inSkirmish);
                             if (wizard != null)
                                 action.appendEffect(
                                         new KillEffect(wizard, KillEffect.Cause.CARD_EFFECT));

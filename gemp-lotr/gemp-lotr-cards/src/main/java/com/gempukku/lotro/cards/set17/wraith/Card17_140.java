@@ -57,7 +57,7 @@ public class Card17_140 extends AbstractMinion {
                     new SelfExertEffect(action, self));
             action.appendCost(
                     new SelfExertEffect(action, self));
-            int count = Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), 5, Side.FREE_PEOPLE, CardType.CONDITION) ? 2 : 1;
+            int count = Filters.canSpot(game, 5, Side.FREE_PEOPLE, CardType.CONDITION) ? 2 : 1;
             action.appendEffect(
                     new ChooseAndDiscardCardsFromPlayEffect(action, playerId, count, count, CardType.CONDITION));
             return Collections.singletonList(action);

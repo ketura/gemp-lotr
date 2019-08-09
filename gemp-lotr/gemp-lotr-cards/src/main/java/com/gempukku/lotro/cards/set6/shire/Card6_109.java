@@ -43,7 +43,7 @@ public class Card6_109 extends AbstractAttachable {
     @Override
     public List<RequiredTriggerAction> getRequiredBeforeTriggers(LotroGame game, Effect effect, PhysicalCard self) {
         if (TriggerConditions.isGettingWounded(effect, game, Filters.hasAttached(self))
-                && Filters.exhausted.accepts(game.getGameState(), game.getModifiersQuerying(), self.getAttachedTo())) {
+                && Filters.exhausted.accepts(game, self.getAttachedTo())) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new PreventCardEffect((WoundCharactersEffect) effect, self.getAttachedTo()));

@@ -48,7 +48,7 @@ public class Card12_105 extends AbstractMinion {
                     new RevealHandEffect(self, playerId, playerId) {
                         @Override
                         protected void cardsRevealed(Collection<? extends PhysicalCard> cards) {
-                            int count = Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Culture.ORC, Race.TROLL).size();
+                            int count = Filters.filter(game.getGameState().getHand(playerId), game, Culture.ORC, Race.TROLL).size();
                             action.appendEffect(
                                     new AddTwilightEffect(self, count));
                         }

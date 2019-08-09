@@ -43,9 +43,9 @@ public class Card17_025 extends AbstractEvent {
                         new ConditionEvaluator(3, 4,
                                 new Condition() {
                                     @Override
-                                    public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                        return Filters.countActive(gameState, modifiersQuerying, Race.ENT)
-                                                + modifiersQuerying.getSpotBonus(gameState, Race.ENT) >= 3;
+                                    public boolean isFullfilled(LotroGame game) {
+                                        return Filters.countActive(game, Race.ENT)
+                                                + game.getModifiersQuerying().getSpotBonus(game, Race.ENT) >= 3;
                                     }
                                 }), Culture.GANDALF, CardType.COMPANION));
         return action;

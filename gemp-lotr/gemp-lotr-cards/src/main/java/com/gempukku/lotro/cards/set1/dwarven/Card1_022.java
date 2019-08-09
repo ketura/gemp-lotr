@@ -60,10 +60,10 @@ public class Card1_022 extends AbstractEvent {
         @Override
         public void doPlayEffect(LotroGame game) {
             final GameState gameState = game.getGameState();
-            PhysicalCard card = gameState.removeTopDeckCard(_player);
+            PhysicalCard card = game.getGameState().removeTopDeckCard(_player);
             if (card != null) {
-                gameState.addCardToZone(game, card, Zone.DISCARD);
-                gameState.addTwilight(1);
+                game.getGameState().addCardToZone(game, card, Zone.DISCARD);
+                game.getGameState().addTwilight(1);
                 _lastCard = card;
             }
             if (card != null && _count < 5) {

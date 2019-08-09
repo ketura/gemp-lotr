@@ -39,8 +39,8 @@ public class Card40_150 extends AbstractEvent {
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.saruman));
         int count = 0;
-        for (PhysicalCard physicalCard : Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Culture.ISENGARD, CardType.ARTIFACT)) {
-            count += Filters.filter(game.getGameState().getStackedCards(physicalCard), game.getGameState(), game.getModifiersQuerying(), Culture.ISENGARD, Keyword.SPELL).size();
+        for (PhysicalCard physicalCard : Filters.filterActive(game, Culture.ISENGARD, CardType.ARTIFACT)) {
+            count += Filters.filter(game.getGameState().getStackedCards(physicalCard), game, Culture.ISENGARD, Keyword.SPELL).size();
         }
 
         int exertCount = Math.min(3, count);

@@ -44,7 +44,7 @@ public class Card10_001 extends AbstractResponseEvent {
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.DWARF, Keyword.DAMAGE) {
                         @Override
                         protected void forEachCardExertedCallback(PhysicalCard character) {
-                            int damageCount = game.getModifiersQuerying().getKeywordCount(game.getGameState(), character, Keyword.DAMAGE);
+                            int damageCount = game.getModifiersQuerying().getKeywordCount(game, character, Keyword.DAMAGE);
                             for (int i = 0; i < damageCount; i++)
                                 action.appendEffect(
                                         new ExertCharactersEffect(action, self, playedMinion));

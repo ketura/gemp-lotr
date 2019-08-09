@@ -47,9 +47,9 @@ public class Card10_043 extends AbstractPermanent {
                                 CardType.COMPANION,
                                 new Filter() {
                                     @Override
-                                    public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                                    public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
                                         Culture culture = physicalCard.getBlueprint().getCulture();
-                                        return Filters.filter(gameState.getDeadPile(gameState.getCurrentPlayerId()), gameState, modifiersQuerying, culture).size() > 0;
+                                        return Filters.filter(game.getGameState().getDeadPile(game.getGameState().getCurrentPlayerId()), game, culture).size() > 0;
                                     }
                                 }
                         ), -1));

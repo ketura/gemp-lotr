@@ -36,7 +36,7 @@ public class PutCardFromStackedIntoHandEffect extends AbstractEffect {
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
         if (_card.getZone() == Zone.STACKED
-                && (!game.getFormat().hasRuleOfFour() || game.getModifiersQuerying().canDrawCardAndIncrementForRuleOfFour(game.getGameState(), _card.getOwner()))) {
+                && (!game.getFormat().hasRuleOfFour() || game.getModifiersQuerying().canDrawCardAndIncrementForRuleOfFour(game, _card.getOwner()))) {
             GameState gameState = game.getGameState();
             gameState.sendMessage(_card.getOwner() + " puts " + GameUtils.getCardLink(_card) + " from " + GameUtils.getCardLink(_card.getStackedOn()) + " into his or her hand");
             gameState.removeCardsFromZone(_card.getOwner(), Collections.singleton(_card));

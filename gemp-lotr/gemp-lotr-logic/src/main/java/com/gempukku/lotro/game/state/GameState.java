@@ -482,7 +482,7 @@ public class GameState {
     }
 
     private void addCardToZone(LotroGame game, PhysicalCard card, Zone zone, boolean end) {
-        if (zone == Zone.DISCARD && game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.REMOVE_CARDS_GOING_TO_DISCARD))
+        if (zone == Zone.DISCARD && game.getModifiersQuerying().hasFlagActive(game, ModifierFlag.REMOVE_CARDS_GOING_TO_DISCARD))
             zone = Zone.REMOVED;
 
         if (zone.isInPlay())

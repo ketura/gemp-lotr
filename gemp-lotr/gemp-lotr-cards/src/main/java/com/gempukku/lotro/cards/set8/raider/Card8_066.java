@@ -37,7 +37,7 @@ public class Card8_066 extends AbstractEvent {
                 new ChooseActiveCardEffect(self, playerId, "Choose Corsair", Keyword.CORSAIR) {
                     @Override
                     protected void cardSelected(final LotroGame game, final PhysicalCard card) {
-                        int count = Math.min(6, GameUtils.getSpottableTokensTotal(game.getGameState(), game.getModifiersQuerying(), Token.RAIDER));
+                        int count = Math.min(6, GameUtils.getSpottableTokensTotal(game, Token.RAIDER));
 
                         IntegerAwaitingDecision spotDecision = new IntegerAwaitingDecision(1, "How many RAIDER tokens you wish to spot?", 0, count) {
                             @Override

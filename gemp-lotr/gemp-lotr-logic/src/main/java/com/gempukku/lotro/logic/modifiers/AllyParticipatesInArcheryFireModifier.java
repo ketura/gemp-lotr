@@ -2,10 +2,7 @@ package com.gempukku.lotro.logic.modifiers;
 
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
-import com.gempukku.lotro.logic.modifiers.AbstractModifier;
-import com.gempukku.lotro.logic.modifiers.ModifierEffect;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.game.state.LotroGame;
 
 public class AllyParticipatesInArcheryFireModifier extends AbstractModifier {
     public AllyParticipatesInArcheryFireModifier(PhysicalCard source, Filterable affectFilter) {
@@ -13,7 +10,7 @@ public class AllyParticipatesInArcheryFireModifier extends AbstractModifier {
     }
 
     @Override
-    public boolean isAllyParticipateInArcheryFire(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card) {
+    public boolean isAllyParticipateInArcheryFire(LotroGame game, PhysicalCard card) {
         return true;
     }
 }

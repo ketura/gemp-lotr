@@ -27,7 +27,7 @@ public class Card6_056 extends AbstractEvent {
         PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, 2, Culture.GONDOR, Race.MAN));
-        if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.hasToken(Token.ELVEN)))
+        if (Filters.canSpot(game, Filters.hasToken(Token.ELVEN)))
             action.appendEffect(
                     new ChooseAndHealCharactersEffect(action, playerId, CardType.COMPANION));
         return action;

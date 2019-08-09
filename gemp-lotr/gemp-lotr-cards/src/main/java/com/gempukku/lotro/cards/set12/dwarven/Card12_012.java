@@ -7,12 +7,10 @@ import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDiscardEffec
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 import com.gempukku.lotro.logic.timing.Action;
 
@@ -38,8 +36,8 @@ public class Card12_012 extends AbstractPermanent {
         return new KeywordModifier(self, Race.DWARF, null, Keyword.DAMAGE,
                 new Evaluator() {
                     @Override
-                    public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard cardAffected) {
-                        return Filters.countActive(gameState, modifiersQuerying, CardType.POSSESSION, Filters.attachedTo(cardAffected));
+                    public int evaluateExpression(LotroGame game, PhysicalCard cardAffected) {
+                        return Filters.countActive(game, CardType.POSSESSION, Filters.attachedTo(cardAffected));
                     }
                 });
     }

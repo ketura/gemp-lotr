@@ -5,8 +5,8 @@ import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.logic.effects.AddTokenEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndRemoveFromTheGameCardsInDiscardEffect;
 import com.gempukku.lotro.logic.modifiers.AbstractExtraPlayCostModifier;
-import com.gempukku.lotro.logic.modifiers.conditions.AndCondition;
-import com.gempukku.lotro.logic.modifiers.conditions.CanSpotCultureTokensCondition;
+import com.gempukku.lotro.logic.modifiers.condition.AndCondition;
+import com.gempukku.lotro.logic.modifiers.condition.CanSpotCultureTokensCondition;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -57,12 +57,12 @@ public class Card17_002 extends AbstractPermanent {
                         new CanSpotCultureTokensCondition(4, Token.DWARVEN),
                         new SpotCondition(2, Race.DWARF))) {
             @Override
-            public boolean canPayExtraCostsToPlay(GameState gameState, ModifiersQuerying modifiersQueirying, PhysicalCard card) {
-                return Filters.filter(gameState.getDiscard(card.getOwner()), gameState, modifiersQueirying, Culture.ORC).size() > 0;
+            public boolean canPayExtraCostsToPlay(LotroGame game, PhysicalCard card) {
+                return Filters.filter(game.getGameState().getDiscard(card.getOwner()), game, Culture.ORC).size() > 0;
             }
 
             @Override
-            public List<? extends Effect> getExtraCostsToPlay(GameState gameState, ModifiersQuerying modifiersQueirying, Action action, PhysicalCard card) {
+            public List<? extends Effect> getExtraCostsToPlay(LotroGame game, Action action, PhysicalCard card) {
                 return Collections.singletonList(
                         new ChooseAndRemoveFromTheGameCardsInDiscardEffect(action, card, card.getOwner(), 1, 1, Culture.ORC));
             }

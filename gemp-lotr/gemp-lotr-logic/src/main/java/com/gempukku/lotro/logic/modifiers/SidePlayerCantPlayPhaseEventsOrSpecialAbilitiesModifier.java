@@ -3,11 +3,7 @@ package com.gempukku.lotro.logic.modifiers;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
-import com.gempukku.lotro.logic.modifiers.AbstractModifier;
-import com.gempukku.lotro.logic.modifiers.Condition;
-import com.gempukku.lotro.logic.modifiers.ModifierEffect;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.timing.Action;
 
 public class SidePlayerCantPlayPhaseEventsOrSpecialAbilitiesModifier extends AbstractModifier {
@@ -25,11 +21,11 @@ public class SidePlayerCantPlayPhaseEventsOrSpecialAbilitiesModifier extends Abs
     }
 
     @Override
-    public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, Action action) {
+    public boolean canPlayAction(LotroGame game, String performingPlayer, Action action) {
         if (action.getActionTimeword() == _phase
                 && (
-                (_side == Side.FREE_PEOPLE && action.getPerformingPlayer().equals(gameState.getCurrentPlayerId()))
-                        || (_side == Side.SHADOW && !action.getPerformingPlayer().equals(gameState.getCurrentPlayerId()))))
+                (_side == Side.FREE_PEOPLE && action.getPerformingPlayer().equals(game.getGameState().getCurrentPlayerId()))
+                        || (_side == Side.SHADOW && !action.getPerformingPlayer().equals(game.getGameState().getCurrentPlayerId()))))
             return false;
         return true;
     }

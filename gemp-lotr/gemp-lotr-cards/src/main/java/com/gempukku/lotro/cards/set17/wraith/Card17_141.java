@@ -43,7 +43,7 @@ public class Card17_141 extends AbstractMinion {
                 && PlayConditions.canSpot(game, Filters.not(self), Race.NAZGUL)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
-                    new DrawCardsEffect(action, playerId, Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION, Filters.wounded)));
+                    new DrawCardsEffect(action, playerId, Filters.countActive(game, CardType.COMPANION, Filters.wounded)));
             return Collections.singletonList(action);
         }
         return null;

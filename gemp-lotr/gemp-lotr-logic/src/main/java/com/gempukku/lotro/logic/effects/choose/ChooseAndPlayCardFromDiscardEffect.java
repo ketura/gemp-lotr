@@ -50,12 +50,12 @@ public class ChooseAndPlayCardFromDiscardEffect implements Effect {
     }
 
     private Collection<PhysicalCard> getPlayableInDiscard(LotroGame game) {
-        return Filters.filter(game.getGameState().getDiscard(_playerId), game.getGameState(), game.getModifiersQuerying(), _filter, Filters.playable(game, _twilightModifier));
+        return Filters.filter(game.getGameState().getDiscard(_playerId), game, _filter, Filters.playable(game, _twilightModifier));
     }
 
     @Override
     public void playEffect(final LotroGame game) {
-        if (game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.CANT_PLAY_FROM_DISCARD_OR_DECK))
+        if (game.getModifiersQuerying().hasFlagActive(game, ModifierFlag.CANT_PLAY_FROM_DISCARD_OR_DECK))
             return;
         Collection<PhysicalCard> discard = getPlayableInDiscard(game);
         if (discard.size() > 0) {

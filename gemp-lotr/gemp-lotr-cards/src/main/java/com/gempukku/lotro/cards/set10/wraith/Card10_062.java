@@ -35,8 +35,8 @@ public class Card10_062 extends AbstractMinion {
     public List<? extends Modifier> getAlwaysOnModifiers(final LotroGame game, final PhysicalCard self) {
         Condition con = new Condition() {
             @Override
-            public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                return Filters.countActive(gameState, modifiersQuerying, Filters.not(self), CardType.MINION) + gameState.getTwilightPool() <= 3;
+            public boolean isFullfilled(LotroGame game) {
+                return Filters.countActive(game, Filters.not(self), CardType.MINION) + game.getGameState().getTwilightPool() <= 3;
             }
         };
 

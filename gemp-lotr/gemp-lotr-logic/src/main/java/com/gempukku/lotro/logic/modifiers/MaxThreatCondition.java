@@ -1,8 +1,6 @@
 package com.gempukku.lotro.logic.modifiers;
 
-import com.gempukku.lotro.game.state.GameState;
-import com.gempukku.lotro.logic.modifiers.Condition;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.game.state.LotroGame;
 
 public class MaxThreatCondition implements Condition {
     private int _count;
@@ -12,7 +10,7 @@ public class MaxThreatCondition implements Condition {
     }
 
     @Override
-    public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-        return gameState.getThreats() <= _count;
+    public boolean isFullfilled(LotroGame game) {
+        return game.getGameState().getThreats() <= _count;
     }
 }

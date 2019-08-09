@@ -61,7 +61,7 @@ public class Card31_007 extends AbstractPermanent {
         }
 		
 		if (PlayConditions.canUseFPCardDuringPhase(game, Phase.MANEUVER, self)) {
-			if (Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Culture.DWARVEN).size() > 0) {
+			if (Filters.filter(game.getGameState().getHand(playerId), game, Culture.DWARVEN).size() > 0) {
                 final ActivateCardAction action = new ActivateCardAction(self);
                 action.appendEffect(
                         new ChooseAndStackCardsFromHandEffect(action, playerId, 1, 1, self, Culture.DWARVEN));

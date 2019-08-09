@@ -53,13 +53,13 @@ public class Card2_073 extends AbstractMinion {
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         List<RequiredTriggerAction> actions = new LinkedList<RequiredTriggerAction>();
-        if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), CardType.MINION, Filters.not(self), Filters.not(Keyword.TENTACLE))) {
+        if (Filters.canSpot(game, CardType.MINION, Filters.not(self), Filters.not(Keyword.TENTACLE))) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new DiscardCardsFromPlayEffect(self.getOwner(), self, Filters.and(CardType.MINION, Filters.not(self), Filters.not(Keyword.TENTACLE))));
             actions.add(action);
         }
-        if (!game.getModifiersQuerying().hasKeyword(game.getGameState(), game.getGameState().getCurrentSite(), Keyword.MARSH)) {
+        if (!game.getModifiersQuerying().hasKeyword(game, game.getGameState().getCurrentSite(), Keyword.MARSH)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new SelfDiscardEffect(self));

@@ -37,9 +37,9 @@ public class Card2_112 extends AbstractPermanent {
                 new StrengthModifier(self, Filters.or(Filters.frodo, Filters.sam),
                         new Condition() {
                             @Override
-                            public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return Filters.canSpot(gameState, modifiersQuerying, Filters.frodo, Filters.not(Filters.exhausted))
-                                        && Filters.canSpot(gameState, modifiersQuerying, Filters.sam, Filters.not(Filters.exhausted));
+                            public boolean isFullfilled(LotroGame game) {
+                                return Filters.canSpot(game, Filters.frodo, Filters.not(Filters.exhausted))
+                                        && Filters.canSpot(game, Filters.sam, Filters.not(Filters.exhausted));
                             }
                         }, 1));
     }

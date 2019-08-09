@@ -41,7 +41,7 @@ public class Card8_033 extends AbstractResponseEvent {
         if (TriggerConditions.isGettingKilled(effect, game, Culture.GONDOR, Race.WRAITH)
                 && checkPlayRequirements(playerId, game, self, 0, 0, false, false)) {
             KillEffect killEffect = (KillEffect) effect;
-            Collection<PhysicalCard> killedWraiths = Filters.filter(killEffect.getCharactersToBeKilled(), game.getGameState(), game.getModifiersQuerying(), Culture.GONDOR, Race.WRAITH);
+            Collection<PhysicalCard> killedWraiths = Filters.filter(killEffect.getCharactersToBeKilled(), game, Culture.GONDOR, Race.WRAITH);
             List<PlayEventAction> actions = new LinkedList<PlayEventAction>();
             for (PhysicalCard killedWraith : killedWraiths) {
                 if (PlayConditions.canExert(self, game, Filters.not(killedWraith), Culture.GONDOR, Race.WRAITH)

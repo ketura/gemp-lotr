@@ -30,7 +30,7 @@ public class Card20_207 extends AbstractEvent {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard ranger) {
                         boolean matches = Filters.inSkirmishAgainst(CardType.MINION, Keyword.ROAMING).accepts(
-                                game.getGameState(), game.getModifiersQuerying(), ranger);
+                                game, ranger);
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
                                         new StrengthModifier(self, ranger, matches?3:2)));

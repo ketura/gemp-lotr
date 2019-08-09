@@ -36,8 +36,8 @@ public class Card31_052 extends AbstractSite {
         return new TwilightCostModifier(self, Filters.and(Race.ORC,
                 new Filter() {
                     @Override
-                    public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                        return modifiersQuerying.getUntilEndOfPhaseLimitCounter(self, Phase.SHADOW).getUsedLimit() < 1;
+                    public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
+                        return game.getModifiersQuerying().getUntilEndOfPhaseLimitCounter(self, Phase.SHADOW).getUsedLimit() < 1;
                     }
                 }), new PhaseCondition(Phase.SHADOW), -2);
     }

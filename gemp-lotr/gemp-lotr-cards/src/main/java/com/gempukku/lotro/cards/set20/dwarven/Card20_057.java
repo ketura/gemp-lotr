@@ -11,7 +11,6 @@ import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.modifiers.*;
@@ -36,8 +35,8 @@ public class Card20_057 extends AbstractCompanion {
     }
 
     @Override
-    public int getTwilightCostModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
-        if (Filters.canSpot(gameState, modifiersQuerying, Filters.gimli))
+    public int getTwilightCostModifier(LotroGame game, PhysicalCard self) {
+        if (Filters.canSpot(game, Filters.gimli))
             return -1;
         return 0;
     }
@@ -58,7 +57,7 @@ public class Card20_057 extends AbstractCompanion {
                     new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, 2, Race.DWARF) {
                         @Override
                         protected void selectedCharacterCallback(PhysicalCard selectedCharacter) {
-                            if (Filters.gimli.accepts(game.getGameState(), game.getModifiersQuerying(), selectedCharacter)) {
+                            if (Filters.gimli.accepts(game, selectedCharacter)) {
                                 action.appendEffect(
                                         new AddUntilEndOfPhaseModifierEffect(
                                                 new KeywordModifier(self, selectedCharacter, Keyword.DAMAGE, 1)));

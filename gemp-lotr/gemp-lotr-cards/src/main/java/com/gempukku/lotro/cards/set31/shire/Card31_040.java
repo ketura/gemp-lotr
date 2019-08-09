@@ -40,7 +40,7 @@ public class Card31_040 extends AbstractEvent {
                 new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 0, 2, CardType.MINION, Filters.not(Filters.name("Smaug"))));
         action.appendEffect(
                 new DrawCardsEffect(action, playerId, 3));
-        if (game.getModifiersQuerying().hasKeyword(game.getGameState(), game.getGameState().getCurrentSite(), Keyword.RIVER)) {
+        if (game.getModifiersQuerying().hasKeyword(game, game.getGameState().getCurrentSite(), Keyword.RIVER)) {
             action.appendEffect(
                     new AddUntilEndOfTurnModifierEffect(
                             new MoveLimitModifier(self, 1)));

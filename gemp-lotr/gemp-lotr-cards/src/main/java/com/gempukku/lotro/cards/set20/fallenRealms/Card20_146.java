@@ -37,8 +37,8 @@ public class Card20_146 extends AbstractPermanent {
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.endOfPhase(game, effectResult, Phase.SHADOW)
-                && Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION)>
-                Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), CardType.MINION)
+                && Filters.countSpottable(game, CardType.COMPANION)>
+                Filters.countSpottable(game, CardType.MINION)
             && PlayConditions.canExert(self, game, Keyword.EASTERLING)
                 && PlayConditions.canPlayFromDiscard(self.getOwner(), game, Keyword.EASTERLING)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);

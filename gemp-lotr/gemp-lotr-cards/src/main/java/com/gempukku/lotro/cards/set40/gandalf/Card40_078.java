@@ -47,10 +47,10 @@ public class Card40_078 extends AbstractEvent{
                     protected void cardsRevealed(List<PhysicalCard> revealedCards) {
                         if (revealedCards.size()>0) {
                             PhysicalCard revealedCard = revealedCards.get(0);
-                            if (Filters.and(Side.FREE_PEOPLE).accepts(game.getGameState(), game.getModifiersQuerying(), revealedCard))
+                            if (Filters.and(Side.FREE_PEOPLE).accepts(game, revealedCard))
                                 action.appendEffect(
                                         new ChooseAndHealCharactersEffect(action, playerId, CardType.COMPANION));
-                            if (Filters.and(Side.SHADOW).accepts(game.getGameState(), game.getModifiersQuerying(), revealedCard))
+                            if (Filters.and(Side.SHADOW).accepts(game, revealedCard))
                                 action.appendEffect(
                                         new ChooseAndExertCharactersEffect(action, playerId, 1, 1, CardType.MINION));
                         }

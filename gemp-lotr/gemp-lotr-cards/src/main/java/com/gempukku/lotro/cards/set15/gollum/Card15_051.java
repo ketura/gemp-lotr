@@ -40,7 +40,7 @@ public class Card15_051 extends AbstractEvent {
                 new ChooseAndPlayCardFromDeckEffect(playerId, CardType.MINION) {
                     @Override
                     protected void afterCardPlayed(PhysicalCard cardPlayed) {
-                        if (Filters.and(Culture.GOLLUM, CardType.MINION).accepts(game.getGameState(), game.getModifiersQuerying(), cardPlayed)) {
+                        if (Filters.and(Culture.GOLLUM, CardType.MINION).accepts(game, cardPlayed)) {
                             action.insertEffect(
                                     new ChooseAndPlayCardFromDeckEffect(playerId, Side.SHADOW, Filters.or(CardType.POSSESSION, CardType.CONDITION)));
                         }

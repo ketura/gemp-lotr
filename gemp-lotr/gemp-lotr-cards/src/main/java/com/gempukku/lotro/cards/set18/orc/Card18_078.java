@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.set18.orc;
 import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.AddUntilStartOfPhaseModifierEffect;
-import com.gempukku.lotro.logic.modifiers.conditions.AndCondition;
+import com.gempukku.lotro.logic.modifiers.condition.AndCondition;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -38,9 +38,9 @@ public class Card18_078 extends AbstractPermanent {
                         new SpotCondition(Culture.ORC, CardType.MINION),
                         new Condition() {
                             @Override
-                            public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return Filters.countActive(gameState, modifiersQuerying, CardType.MINION)
-                                        < Filters.countActive(gameState, modifiersQuerying, CardType.COMPANION);
+                            public boolean isFullfilled(LotroGame game) {
+                                return Filters.countActive(game, CardType.MINION)
+                                        < Filters.countActive(game, CardType.COMPANION);
                             }
                         }), Keyword.DEFENDER);
     }

@@ -6,7 +6,6 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.Effect;
@@ -47,8 +46,8 @@ public class ResolveSkirmishDamageAction extends RequiredTriggerAction {
             return new WoundCharactersEffect(_skirmishResult.getWinners(), Filters.in(_skirmishResult.getInSkirmishLosers()),
                     new Filter() {
                         @Override
-                        public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                            return modifiersQuerying.canTakeWoundsFromLosingSkirmish(gameState, physicalCard, _skirmishResult.getWinners());
+                        public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
+                            return game.getModifiersQuerying().canTakeWoundsFromLosingSkirmish(game, physicalCard, _skirmishResult.getWinners());
                         }
                     });
         }
@@ -68,9 +67,8 @@ public class ResolveSkirmishDamageAction extends RequiredTriggerAction {
         Set<PhysicalCard> winners = _skirmishResult.getWinners();
         int dmg = 1;
         ModifiersQuerying modifiersQuerying = game.getModifiersQuerying();
-        GameState gameState = game.getGameState();
         for (PhysicalCard winner : winners)
-            dmg += modifiersQuerying.getKeywordCount(gameState, winner, Keyword.DAMAGE);
+            dmg += game.getModifiersQuerying().getKeywordCount(game, winner, Keyword.DAMAGE);
 
         return dmg;
     }

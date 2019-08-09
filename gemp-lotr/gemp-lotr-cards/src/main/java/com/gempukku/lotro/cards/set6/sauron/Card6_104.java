@@ -50,7 +50,7 @@ public class Card6_104 extends AbstractMinion {
                     new UnrespondableEffect() {
                         @Override
                         protected void doPlayEffect(LotroGame game) {
-                            int x = new CountCulturesEvaluator(2, 1, Side.FREE_PEOPLE).evaluateExpression(game.getGameState(), game.getModifiersQuerying(), null);
+                            int x = new CountCulturesEvaluator(2, 1, Side.FREE_PEOPLE).evaluateExpression(game, null);
                             if (x > 0)
                                 action.appendEffect(
                                         new PlayoutDecisionEffect(playerId,

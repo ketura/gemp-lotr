@@ -37,7 +37,7 @@ public class Card1_302 extends AbstractCompanion {
     protected List<ActivateCardAction> getExtraInPlayPhaseActions(String playerId, final LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
                 && PlayConditions.canExert(self, game, 2, self)
-                && Filters.notAssignedToSkirmish.accepts(game.getGameState(), game.getModifiersQuerying(), self)) {
+                && Filters.notAssignedToSkirmish.accepts(game, self)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new SelfExertEffect(action, self));
@@ -47,7 +47,7 @@ public class Card1_302 extends AbstractCompanion {
                     new ChooseActiveCardEffect(self, playerId, "Choose another companion", CardType.COMPANION, Filters.not(self)) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard anotherCompanion) {
-                            int merryStrength = game.getModifiersQuerying().getStrength(game.getGameState(), self);
+                            int merryStrength = game.getModifiersQuerying().getStrength(game, self);
                             action.appendEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
                                             new StrengthModifier(self, Filters.sameCard(anotherCompanion), merryStrength)));

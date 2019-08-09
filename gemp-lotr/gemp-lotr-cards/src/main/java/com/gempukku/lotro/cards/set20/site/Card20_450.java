@@ -35,7 +35,7 @@ public class Card20_450 extends AbstractSite {
         if (TriggerConditions.movesTo(game, effectResult, self)
                 && GameUtils.isFP(game, playerId)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
-            int count = Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Culture.GONDOR, CardType.COMPANION);
+            int count = Filters.countSpottable(game, Culture.GONDOR, CardType.COMPANION);
             for (int i=0; i<count; i++)
                 action.appendEffect(
                         new ChooseAndExertCharactersEffect(action, playerId, 1, 1, CardType.MINION));

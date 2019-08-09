@@ -48,7 +48,7 @@ public class Card13_142 extends AbstractCompanion {
         if (TriggerConditions.startOfPhase(game, effectResult, Phase.SKIRMISH)
                 && PlayConditions.canSpot(game, self, Filters.inSkirmish)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
-            int otherRingBoundHobbitCount = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.not(self), Race.HOBBIT, Keyword.RING_BOUND);
+            int otherRingBoundHobbitCount = Filters.countActive(game, Filters.not(self), Race.HOBBIT, Keyword.RING_BOUND);
             if (otherRingBoundHobbitCount > 0)
                 action.appendEffect(
                         new RemoveBurdenEffect(playerId, self, otherRingBoundHobbitCount));

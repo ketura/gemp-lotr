@@ -48,7 +48,7 @@ public class Card7_152 extends AbstractMinion {
         if (TriggerConditions.winsSkirmishInvolving(game, effectResult, self, CardType.COMPANION)
                 && game.getGameState().getThreats() >= 6) {
             CharacterWonSkirmishResult skirmishResult = (CharacterWonSkirmishResult) effectResult;
-            final Collection<PhysicalCard> losingCompanion = Filters.filter(skirmishResult.getInvolving(), game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION);
+            final Collection<PhysicalCard> losingCompanion = Filters.filter(skirmishResult.getInvolving(), game, CardType.COMPANION);
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(
                     new KillEffect(losingCompanion, KillEffect.Cause.CARD_EFFECT));

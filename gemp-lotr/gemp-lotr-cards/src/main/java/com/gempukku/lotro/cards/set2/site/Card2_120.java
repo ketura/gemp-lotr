@@ -35,7 +35,7 @@ public class Card2_120 extends AbstractSite {
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.movesTo(game, effectResult, self)
                 && playerId.equals(game.getGameState().getCurrentPlayerId())) {
-            Collection<PhysicalCard> hobbitCompanions = Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Race.HOBBIT, CardType.COMPANION);
+            Collection<PhysicalCard> hobbitCompanions = Filters.filterActive(game, Race.HOBBIT, CardType.COMPANION);
             if (hobbitCompanions.size() > 0) {
                 OptionalTriggerAction action = new OptionalTriggerAction(self);
                 action.appendEffect(

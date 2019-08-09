@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.set1.site;
 
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.modifiers.ShouldSkipPhaseModifier;
-import com.gempukku.lotro.logic.modifiers.conditions.CantSpotCondition;
+import com.gempukku.lotro.logic.modifiers.condition.CantSpotCondition;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;

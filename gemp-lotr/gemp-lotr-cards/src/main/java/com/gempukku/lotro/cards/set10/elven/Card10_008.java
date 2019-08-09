@@ -10,10 +10,8 @@ import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 
 import java.util.Collections;
@@ -53,8 +51,8 @@ public class Card10_008 extends AbstractCompanion {
                     new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId,
                             new Evaluator() {
                                 @Override
-                                public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard cardAffected) {
-                                    return -Filters.filter(gameState.getDiscard(playerId), gameState, modifiersQuerying, CardType.EVENT, Culture.ELVEN).size();
+                                public int evaluateExpression(LotroGame game, PhysicalCard cardAffected) {
+                                    return -Filters.filter(game.getGameState().getDiscard(playerId), game, CardType.EVENT, Culture.ELVEN).size();
                                 }
                             }, CardType.MINION, Filters.inSkirmishAgainst(self)));
             return Collections.singletonList(action);

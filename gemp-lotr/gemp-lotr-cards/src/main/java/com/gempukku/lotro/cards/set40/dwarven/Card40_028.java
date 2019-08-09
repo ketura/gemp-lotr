@@ -64,7 +64,7 @@ public class Card40_028 extends AbstractPermanent{
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, 2, Race.DWARF) {
                         @Override
                         protected void forEachCardExertedCallback(PhysicalCard character) {
-                            int damageCount = game.getModifiersQuerying().getKeywordCount(game.getGameState(), character, Keyword.DAMAGE);
+                            int damageCount = game.getModifiersQuerying().getKeywordCount(game, character, Keyword.DAMAGE);
                             if (damageCount>0) {
                                 action.appendEffect(
                                         new CheckPhaseLimitEffect(action, self, 1,

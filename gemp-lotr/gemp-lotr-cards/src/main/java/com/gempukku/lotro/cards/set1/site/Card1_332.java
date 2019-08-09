@@ -32,7 +32,7 @@ public class Card1_332 extends AbstractSite {
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.movesTo(game, effectResult, self)) {
-            if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Race.HOBBIT, CardType.COMPANION)) {
+            if (Filters.canSpot(game, Race.HOBBIT, CardType.COMPANION)) {
                 RequiredTriggerAction action = new RequiredTriggerAction(self);
                 action.appendEffect(new ExertCharactersEffect(action, self, Filters.and(Race.HOBBIT, CardType.COMPANION)));
                 return Collections.singletonList(action);

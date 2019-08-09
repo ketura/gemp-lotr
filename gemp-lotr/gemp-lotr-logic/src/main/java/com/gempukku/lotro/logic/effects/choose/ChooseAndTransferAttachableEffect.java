@@ -1,7 +1,5 @@
 package com.gempukku.lotro.logic.effects.choose;
 
-import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
-import com.gempukku.lotro.logic.effects.TransferPermanentEffect;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
@@ -9,8 +7,10 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.SubAction;
+import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
 import com.gempukku.lotro.logic.decisions.CardsSelectionDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
+import com.gempukku.lotro.logic.effects.TransferPermanentEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.Action;
@@ -56,8 +56,8 @@ public class ChooseAndTransferAttachableEffect extends AbstractEffect {
                     Filters.not(attachment.getAttachedTo()),
                     new Filter() {
                         @Override
-                        public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard target) {
-                            return modifiersQuerying.canHaveTransferredOn(gameState, attachment, target);
+                        public boolean accepts(LotroGame game, PhysicalCard target) {
+                            return game.getModifiersQuerying().canHaveTransferredOn(game, attachment, target);
                         }
                     });
         } else {
@@ -67,28 +67,28 @@ public class ChooseAndTransferAttachableEffect extends AbstractEffect {
                     Filters.not(attachment.getAttachedTo()),
                     new Filter() {
                         @Override
-                        public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard target) {
-                            return modifiersQuerying.canHaveTransferredOn(gameState, attachment, target);
+                        public boolean accepts(LotroGame game, PhysicalCard target) {
+                            return game.getModifiersQuerying().canHaveTransferredOn(game, attachment, target);
                         }
                     });
         }
     }
 
     protected Collection<PhysicalCard> getPossibleAttachmentsToTransfer(final LotroGame game) {
-        return Filters.filterActive(game.getGameState(), game.getModifiersQuerying(),
+        return Filters.filterActive(game,
                 _attachedCard,
                 Filters.attachedTo(_attachedTo),
                 new Filter() {
                     @Override
-                    public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, final PhysicalCard transferredCard) {
+                    public boolean accepts(LotroGame game, final PhysicalCard transferredCard) {
                         if (!(transferredCard.getBlueprint() instanceof AbstractAttachable))
                             return false;
 
-                        if (!modifiersQuerying.canBeTransferred(gameState, transferredCard))
+                        if (!game.getModifiersQuerying().canBeTransferred(game, transferredCard))
                             return false;
 
                         AbstractAttachable attachable = (AbstractAttachable) transferredCard.getBlueprint();
-                        return Filters.countActive(game.getGameState(), game.getModifiersQuerying(), getValidTargetFilter(game, transferredCard, attachable))>0;
+                        return Filters.countActive(game, getValidTargetFilter(game, transferredCard, attachable))>0;
                     }
                 });
     }
@@ -111,7 +111,7 @@ public class ChooseAndTransferAttachableEffect extends AbstractEffect {
                                 final PhysicalCard attachment = selectedAttachments.iterator().next();
                                 final PhysicalCard transferredFrom = attachment.getAttachedTo();
                                 AbstractAttachable attachable = (AbstractAttachable) attachment.getBlueprint();
-                                final Collection<PhysicalCard> validTargets = Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), getValidTargetFilter(game, attachment, attachable));
+                                final Collection<PhysicalCard> validTargets = Filters.filterActive(game, getValidTargetFilter(game, attachment, attachable));
                                 game.getUserFeedback().sendAwaitingDecision(
                                         _playerId,
                                         new CardsSelectionDecision(1, "Choose transfer target", validTargets, 1, 1) {

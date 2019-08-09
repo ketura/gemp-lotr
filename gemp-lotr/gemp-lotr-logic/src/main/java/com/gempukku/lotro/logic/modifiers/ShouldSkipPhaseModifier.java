@@ -2,11 +2,7 @@ package com.gempukku.lotro.logic.modifiers;
 
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
-import com.gempukku.lotro.logic.modifiers.AbstractModifier;
-import com.gempukku.lotro.logic.modifiers.Condition;
-import com.gempukku.lotro.logic.modifiers.ModifierEffect;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.game.state.LotroGame;
 
 public class ShouldSkipPhaseModifier extends AbstractModifier {
     private Phase _phase;
@@ -27,7 +23,7 @@ public class ShouldSkipPhaseModifier extends AbstractModifier {
     }
 
     @Override
-    public boolean shouldSkipPhase(GameState gameState, ModifiersQuerying modifiersQuerying, Phase phase, String playerId) {
+    public boolean shouldSkipPhase(LotroGame game, Phase phase, String playerId) {
         if (phase == _phase && (_playerId == null || _playerId.equals(playerId)))
             return true;
         return false;

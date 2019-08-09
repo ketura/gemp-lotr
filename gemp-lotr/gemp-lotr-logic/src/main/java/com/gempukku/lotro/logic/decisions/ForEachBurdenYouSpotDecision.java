@@ -1,8 +1,5 @@
 package com.gempukku.lotro.logic.decisions;
 
-import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.logic.decisions.IntegerAwaitingDecision;
-
 import java.util.Map;
 
 public abstract class ForEachBurdenYouSpotDecision extends IntegerAwaitingDecision {

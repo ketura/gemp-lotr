@@ -37,7 +37,7 @@ public class Card20_208 extends AbstractEvent {
         PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Culture.GONDOR, Keyword.RANGER));
-        int region = GameUtils.getRegion(game.getGameState());
+        int region = GameUtils.getRegion(game);
         if (region == 1) {
             action.appendEffect(
                     new PlaySiteEffect(action, playerId, null, game.getGameState().getCurrentSiteNumber() + 1));

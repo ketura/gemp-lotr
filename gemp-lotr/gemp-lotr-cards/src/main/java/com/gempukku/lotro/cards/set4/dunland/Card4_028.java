@@ -45,7 +45,7 @@ public class Card4_028 extends AbstractPermanent {
         }
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SKIRMISH, self, 0)
                 && PlayConditions.canRemoveTokens(game, self, Token.DUNLAND)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Culture.DUNLAND, Race.MAN)) {
+                && Filters.canSpot(game, Culture.DUNLAND, Race.MAN)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new RemoveTokenEffect(self, self, Token.DUNLAND));

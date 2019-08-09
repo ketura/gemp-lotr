@@ -29,7 +29,7 @@ public class Card30_036 extends AbstractMinion {
 
     @Override
     public OptionalTriggerAction getDiscardedFromPlayOptionalTrigger(String playerId, LotroGame game, PhysicalCard self) {
-        if ((game.getGameState().getCurrentPhase() != Phase.REGROUP) 
+        if ((game.getGameState().getCurrentPhase() != Phase.REGROUP)
 				&& (game.getGameState().getTwilightPool() >= 3)) {
 			OptionalTriggerAction action = new OptionalTriggerAction(self);
 			action.appendCost(

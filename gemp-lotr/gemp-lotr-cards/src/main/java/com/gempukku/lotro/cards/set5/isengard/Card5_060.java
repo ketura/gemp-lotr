@@ -65,7 +65,7 @@ public class Card5_060 extends AbstractPermanent {
                 action.appendCost(
                         new SelfDiscardEffect(self));
 
-                Collection<PhysicalCard> machines = Filters.filter(discardEffect.getAffectedCardsMinusPrevented(game), game.getGameState(), game.getModifiersQuerying(), Keyword.MACHINE);
+                Collection<PhysicalCard> machines = Filters.filter(discardEffect.getAffectedCardsMinusPrevented(game), game, Keyword.MACHINE);
                 for (PhysicalCard machine : machines)
                     action.appendEffect(
                             new PreventCardEffect(discardEffect, machine));

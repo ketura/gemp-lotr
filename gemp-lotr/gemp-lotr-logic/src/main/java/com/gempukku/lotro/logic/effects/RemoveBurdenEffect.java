@@ -38,13 +38,13 @@ public class RemoveBurdenEffect extends AbstractEffect {
 
     @Override
     public boolean isPlayableInFull(LotroGame game) {
-        return game.getModifiersQuerying().canRemoveBurden(game.getGameState(), _source)
+        return game.getModifiersQuerying().canRemoveBurden(game, _source)
                 && game.getGameState().getBurdens() >= _count;
     }
 
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
-        if (game.getModifiersQuerying().canRemoveBurden(game.getGameState(), _source)) {
+        if (game.getModifiersQuerying().canRemoveBurden(game, _source)) {
             int toRemove = Math.min(_count, game.getGameState().getBurdens());
             if (toRemove > 0) {
                 game.getGameState().sendMessage(_performingPlayerId + " removed " + GameUtils.formatNumber(toRemove, _count) + " burden" + ((toRemove > 1) ? "s" : "") + " with " + GameUtils.getCardLink(_source));

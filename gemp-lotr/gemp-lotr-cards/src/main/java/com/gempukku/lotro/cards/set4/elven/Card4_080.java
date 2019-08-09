@@ -35,7 +35,7 @@ public class Card4_080 extends AbstractCompanion {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Race.ELF);
+                && Filters.canSpot(game, Race.ELF);
     }
 
     @Override
@@ -43,7 +43,7 @@ public class Card4_080 extends AbstractCompanion {
         return Collections.singletonList(
                 new AbstractModifier(self, "The twilight cost of each ranged weapon played on Ordulus is -1.", PossessionClass.RANGED_WEAPON, ModifierEffect.TWILIGHT_COST_MODIFIER) {
                     @Override
-                    public int getPlayOnTwilightCostModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, PhysicalCard target) {
+                    public int getPlayOnTwilightCostModifier(LotroGame game, PhysicalCard physicalCard, PhysicalCard target) {
                         if (target == self)
                             return -1;
                         return 0;

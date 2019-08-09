@@ -40,13 +40,13 @@ public abstract class RevealAndChooseCardsFromOpponentHandEffect extends Abstrac
 
     @Override
     public boolean isPlayableInFull(LotroGame game) {
-        return (game.getModifiersQuerying().canLookOrRevealCardsInHand(game.getGameState(), _opponentId, _playerId))
+        return (game.getModifiersQuerying().canLookOrRevealCardsInHand(game, _opponentId, _playerId))
                 && game.getGameState().getHand(_opponentId).size() >= _minChosen;
     }
 
     @Override
     public void playEffect(LotroGame game) {
-        if (game.getModifiersQuerying().canLookOrRevealCardsInHand(game.getGameState(), _opponentId, _playerId)) {
+        if (game.getModifiersQuerying().canLookOrRevealCardsInHand(game, _opponentId, _playerId)) {
             List<PhysicalCard> opponentHand = new LinkedList<PhysicalCard>(game.getGameState().getHand(_opponentId));
             game.getGameState().sendMessage(GameUtils.getCardLink(_source) + " revealed " + _opponentId + " cards in hand - " + getAppendedNames(opponentHand));
 
@@ -57,7 +57,7 @@ public abstract class RevealAndChooseCardsFromOpponentHandEffect extends Abstrac
             String nextPlayer;
             while ((nextPlayer = playOrder.getNextPlayer()) != null) {
                 if (nextPlayer.equals(_playerId)) {
-                    Collection<PhysicalCard> selectable = Filters.filter(opponentHand, game.getGameState(), game.getModifiersQuerying(), _selectionFilter);
+                    Collection<PhysicalCard> selectable = Filters.filter(opponentHand, game, _selectionFilter);
 
                     game.getUserFeedback().sendAwaitingDecision(nextPlayer,
                             new ArbitraryCardsSelectionDecision(1, _text, opponentHand, new LinkedList<PhysicalCard>(selectable), Math.min(_minChosen, selectable.size()), Math.min(_maxChosen, selectable.size())) {

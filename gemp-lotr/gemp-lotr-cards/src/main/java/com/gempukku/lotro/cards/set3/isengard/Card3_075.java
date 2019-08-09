@@ -35,7 +35,7 @@ public class Card3_075 extends AbstractMinion {
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.played(game, effectResult, self)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.saruman)) {
+                && Filters.canSpot(game, Filters.saruman)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
                     new AddTwilightEffect(self, 2));

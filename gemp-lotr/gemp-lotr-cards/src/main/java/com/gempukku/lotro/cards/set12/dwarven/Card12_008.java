@@ -7,10 +7,8 @@ import com.gempukku.lotro.logic.effects.choose.ChooseAndAddUntilEOPStrengthBonus
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 import com.gempukku.lotro.logic.timing.Action;
 
@@ -43,15 +41,15 @@ public class Card12_008 extends AbstractPermanent {
                     new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId,
                             new Evaluator() {
                                 @Override
-                                public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard cardAffected) {
+                                public int evaluateExpression(LotroGame game, PhysicalCard cardAffected) {
                                     int bonus = 0;
                                     if (PlayConditions.location(game, Filters.or(Keyword.MOUNTAIN, Keyword.UNDERGROUND)))
                                         bonus++;
-                                    if (Filters.minResistance(3).accepts(gameState, modifiersQuerying, cardAffected))
+                                    if (Filters.minResistance(3).accepts(game, cardAffected))
                                         bonus++;
-                                    if (Filters.hasAttached(CardType.POSSESSION).accepts(gameState, modifiersQuerying, cardAffected))
+                                    if (Filters.hasAttached(CardType.POSSESSION).accepts(game, cardAffected))
                                         bonus++;
-                                    if (Filters.inSkirmishAgainst(CardType.MINION, Keyword.FIERCE).accepts(gameState, modifiersQuerying, cardAffected))
+                                    if (Filters.inSkirmishAgainst(CardType.MINION, Keyword.FIERCE).accepts(game, cardAffected))
                                         bonus++;
                                     return bonus;
                                 }

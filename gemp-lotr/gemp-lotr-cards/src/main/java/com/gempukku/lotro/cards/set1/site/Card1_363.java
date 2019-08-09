@@ -46,7 +46,7 @@ public class Card1_363 extends AbstractSite {
                                     Keyword.TRACKER,
                                     new Filter() {
                                         @Override
-                                        public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                                        public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
                                             return physicalCard.getBlueprint().checkPlayRequirements(playerId, game, physicalCard, 0, 0, false, false);
                                         }
                                     }), 0, 1));

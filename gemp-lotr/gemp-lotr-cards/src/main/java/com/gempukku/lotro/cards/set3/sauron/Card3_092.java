@@ -36,13 +36,13 @@ public class Card3_092 extends AbstractEvent {
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Culture.SAURON, CardType.MINION));
         int cardsCount = 0;
-        if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION, Race.DWARF))
+        if (Filters.canSpot(game, CardType.COMPANION, Race.DWARF))
             cardsCount++;
-        if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION, Race.ELF))
+        if (Filters.canSpot(game, CardType.COMPANION, Race.ELF))
             cardsCount++;
-        if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION, Race.MAN))
+        if (Filters.canSpot(game, CardType.COMPANION, Race.MAN))
             cardsCount++;
-        if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION, Race.WIZARD))
+        if (Filters.canSpot(game, CardType.COMPANION, Race.WIZARD))
             cardsCount++;
         if (cardsCount > 0)
             action.appendEffect(

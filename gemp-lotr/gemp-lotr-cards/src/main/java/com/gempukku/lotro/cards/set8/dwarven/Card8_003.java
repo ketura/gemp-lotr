@@ -36,7 +36,7 @@ public class Card8_003 extends AbstractEvent {
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, 2, Race.DWARF, Keyword.DAMAGE) {
                     @Override
                     protected void forEachCardExertedCallback(PhysicalCard character) {
-                        final int count = game.getModifiersQuerying().getKeywordCount(game.getGameState(), character, Keyword.DAMAGE);
+                        final int count = game.getModifiersQuerying().getKeywordCount(game, character, Keyword.DAMAGE);
                         action.appendEffect(
                                 new ChooseOpponentEffect(playerId) {
                                     @Override

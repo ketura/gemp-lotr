@@ -6,7 +6,7 @@ import com.gempukku.lotro.logic.effects.SelfExertEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.logic.modifiers.FreePeoplePlayerMayNotAssignCharacterModifier;
-import com.gempukku.lotro.logic.modifiers.conditions.AndCondition;
+import com.gempukku.lotro.logic.modifiers.condition.AndCondition;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -52,7 +52,7 @@ public class Card7_197 extends AbstractMinion {
                                 new SpotCondition(Race.NAZGUL),
                                 new Condition() {
                                     @Override
-                                    public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
+                                    public boolean isFullfilled(LotroGame game) {
                                         return self.getWhileInZoneData() == null;
                                     }
                                 }), self));
@@ -62,19 +62,19 @@ public class Card7_197 extends AbstractMinion {
     public List<RequiredTriggerAction> getRequiredAfterTriggers(final LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         final GameState gameState = game.getGameState();
         if (effectResult.getType() == EffectResult.Type.FREE_PEOPLE_PLAYER_STARTS_ASSIGNING
-                && (gameState.isNormalSkirmishes() || (gameState.isFierceSkirmishes() && game.getModifiersQuerying().hasKeyword(gameState, self, Keyword.FIERCE)))
+                && (game.getGameState().isNormalSkirmishes() || (game.getGameState().isFierceSkirmishes() && game.getModifiersQuerying().hasKeyword(game, self, Keyword.FIERCE)))
                 && PlayConditions.canSpot(game, Race.NAZGUL)) {
             final RequiredTriggerAction action = new RequiredTriggerAction(self);
-            final int count = Filters.countActive(gameState, game.getModifiersQuerying(), Race.NAZGUL);
+            final int count = Filters.countActive(game, Race.NAZGUL);
             action.appendCost(
-                    new PlayoutDecisionEffect(gameState.getCurrentPlayerId(),
+                    new PlayoutDecisionEffect(game.getGameState().getCurrentPlayerId(),
                             new MultipleChoiceAwaitingDecision(1, "Do you wish to exert a companion for each Nazgul you can spot (" + count + ") to be able to assign this minion?", new String[]{"Yes", "No"}) {
                                 @Override
                                 protected void validDecisionMade(int index, String result) {
                                     if (index == 0) {
                                         for (int i = 0; i < count; i++)
                                             action.appendCost(
-                                                    new ChooseAndExertCharactersEffect(action, gameState.getCurrentPlayerId(), 1, 1, CardType.COMPANION));
+                                                    new ChooseAndExertCharactersEffect(action, game.getGameState().getCurrentPlayerId(), 1, 1, CardType.COMPANION));
                                         action.appendEffect(
                                                 new UnrespondableEffect() {
                                                     @Override

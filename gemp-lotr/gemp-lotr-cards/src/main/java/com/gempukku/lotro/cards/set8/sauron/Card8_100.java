@@ -49,8 +49,8 @@ public class Card8_100 extends AbstractMinion {
                     new AddUntilEndOfPhaseModifierEffect(
                             new AbstractModifier(self, null, null, ModifierEffect.ACTION_MODIFIER) {
                                 @Override
-                                public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, Action action) {
-                                    if (performingPlayer.equals(gameState.getCurrentPlayerId())
+                                public boolean canPlayAction(LotroGame game, String performingPlayer, Action action) {
+                                    if (performingPlayer.equals(game.getGameState().getCurrentPlayerId())
                                             && action.getType() == Action.Type.SPECIAL_ABILITY
                                             && action.getActionTimeword() == Phase.ARCHERY)
                                         return false;

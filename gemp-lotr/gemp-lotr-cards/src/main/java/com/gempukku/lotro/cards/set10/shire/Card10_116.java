@@ -47,8 +47,8 @@ public class Card10_116 extends AbstractPermanent {
                                             new CantBeOverwhelmedModifier(self, card,
                                                     new Condition() {
                                                         @Override
-                                                        public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                                            return Filters.filter(game.getActionsEnvironment().getPlayedCardsInCurrentPhase(), gameState, modifiersQuerying, Side.SHADOW, CardType.EVENT).size() == 0;
+                                                        public boolean isFullfilled(LotroGame game) {
+                                                            return Filters.filter(game.getActionsEnvironment().getPlayedCardsInCurrentPhase(), game, Side.SHADOW, CardType.EVENT).size() == 0;
                                                         }
                                                     })));
                         }

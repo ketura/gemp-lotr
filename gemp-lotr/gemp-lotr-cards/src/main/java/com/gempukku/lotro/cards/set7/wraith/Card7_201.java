@@ -4,7 +4,7 @@ import com.gempukku.lotro.logic.cardtype.AbstractMinion;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.logic.modifiers.FreePeoplePlayerMayNotAssignCharacterModifier;
-import com.gempukku.lotro.logic.modifiers.conditions.AndCondition;
+import com.gempukku.lotro.logic.modifiers.condition.AndCondition;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -50,7 +50,7 @@ public class Card7_201 extends AbstractMinion {
                                 new SpotCondition(Race.NAZGUL),
                                 new Condition() {
                                     @Override
-                                    public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
+                                    public boolean isFullfilled(LotroGame game) {
                                         return self.getWhileInZoneData() == null;
                                     }
                                 }), self));
@@ -60,17 +60,17 @@ public class Card7_201 extends AbstractMinion {
     public List<RequiredTriggerAction> getRequiredAfterTriggers(final LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         final GameState gameState = game.getGameState();
         if (effectResult.getType() == EffectResult.Type.FREE_PEOPLE_PLAYER_STARTS_ASSIGNING
-                && (gameState.isNormalSkirmishes() || (gameState.isFierceSkirmishes() && game.getModifiersQuerying().hasKeyword(gameState, self, Keyword.FIERCE)))
+                && (game.getGameState().isNormalSkirmishes() || (game.getGameState().isFierceSkirmishes() && game.getModifiersQuerying().hasKeyword(game, self, Keyword.FIERCE)))
                 && PlayConditions.canSpot(game, Race.NAZGUL)) {
             final RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendCost(
-                    new PlayoutDecisionEffect(gameState.getCurrentPlayerId(),
+                    new PlayoutDecisionEffect(game.getGameState().getCurrentPlayerId(),
                             new MultipleChoiceAwaitingDecision(1, "Do you wish to exert a companion to be able to assign this minion?", new String[]{"Yes", "No"}) {
                                 @Override
                                 protected void validDecisionMade(int index, String result) {
                                     if (index == 0) {
                                         action.appendCost(
-                                                new ChooseAndExertCharactersEffect(action, gameState.getCurrentPlayerId(), 1, 1, CardType.COMPANION));
+                                                new ChooseAndExertCharactersEffect(action, game.getGameState().getCurrentPlayerId(), 1, 1, CardType.COMPANION));
                                         action.appendEffect(
                                                 new UnrespondableEffect() {
                                                     @Override

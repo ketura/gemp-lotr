@@ -18,7 +18,7 @@ public class ExtraFilters {
         return Filters.and(Filters.playable(game, twilightModifier),
                 new Filter() {
                     @Override
-                    public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                    public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
                         if (!(physicalCard.getBlueprint() instanceof AbstractAttachable))
                             return false;
                         AbstractAttachable weapon = (AbstractAttachable) physicalCard.getBlueprint();

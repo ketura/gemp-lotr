@@ -32,7 +32,7 @@ public class Card1_079 extends AbstractPermanent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.gandalf);
+                && Filters.canSpot(game, Filters.gandalf);
     }
 
     @Override
@@ -42,10 +42,10 @@ public class Card1_079 extends AbstractPermanent {
                         CardType.COMPANION,
                         new Filter() {
                             @Override
-                            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                            public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
                                 AbstractCompanion companion = (AbstractCompanion) physicalCard.getBlueprint();
                                 if (companion.getRace() != null) {
-                                    return !Filters.canSpot(gameState, modifiersQuerying, companion.getRace());
+                                    return !Filters.canSpot(game, companion.getRace());
                                 }
                                 return false;
                             }

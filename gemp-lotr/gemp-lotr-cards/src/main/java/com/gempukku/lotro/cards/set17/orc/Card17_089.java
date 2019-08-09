@@ -55,7 +55,7 @@ public class Card17_089 extends AbstractAttachable {
                 new StrengthModifier(self, Filters.and(Filters.hasAttached(self), Filters.inSkirmishAgainst(CardType.COMPANION,
                         new Filter() {
                             @Override
-                            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                            public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
                                 return self.getWhileInZoneData() != null && physicalCard.getBlueprint().getRace() == self.getWhileInZoneData();
                             }
                         })), 3));
@@ -63,7 +63,7 @@ public class Card17_089 extends AbstractAttachable {
                 new KeywordModifier(self, Filters.and(Filters.hasAttached(self), Filters.inSkirmishAgainst(CardType.COMPANION,
                         new Filter() {
                             @Override
-                            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                            public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
                                 return self.getWhileInZoneData() != null && physicalCard.getBlueprint().getRace() == self.getWhileInZoneData();
                             }
                         })), Keyword.DAMAGE, 1));
@@ -78,7 +78,7 @@ public class Card17_089 extends AbstractAttachable {
                     new ChooseActiveCardEffect(self, self.getOwner(), "Choose character with race", Filters.character,
                             new Filter() {
                                 @Override
-                                public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                                public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
                                     return physicalCard.getBlueprint().getRace() != null;
                                 }
                             }) {

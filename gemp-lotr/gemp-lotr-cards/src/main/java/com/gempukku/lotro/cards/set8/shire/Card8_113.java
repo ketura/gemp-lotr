@@ -41,7 +41,7 @@ public class Card8_113 extends AbstractAttachableFPPossession {
     @Override
     public List<? extends Action> getOptionalInPlayAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.SKIRMISH_ABOUT_TO_END
-                && Filters.inSkirmish.accepts(game.getGameState(), game.getModifiersQuerying(), self.getAttachedTo())
+                && Filters.inSkirmish.accepts(game, self.getAttachedTo())
                 && PlayConditions.canAddThreat(game, self, 1)
                 && game.getGameState().isFierceSkirmishes()) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);

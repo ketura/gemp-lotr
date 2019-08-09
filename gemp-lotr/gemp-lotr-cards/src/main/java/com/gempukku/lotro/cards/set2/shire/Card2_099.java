@@ -35,7 +35,7 @@ public class Card2_099 extends AbstractEvent {
         PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new AddUntilEndOfTurnModifierEffect(
-                        new TwilightCostModifier(self, Filters.in(Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), CardType.SITE)), -2)));
+                        new TwilightCostModifier(self, Filters.in(Filters.filterActive(game, CardType.SITE)), -2)));
         return action;
     }
 }

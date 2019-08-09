@@ -45,7 +45,7 @@ public class Card13_114 extends AbstractMinion {
                     new SelfDiscardEffect(self));
             PhysicalCard nextSite = game.getGameState().getSite(game.getGameState().getCurrentSiteNumber() + 1);
             if (nextSite != null
-                    && Filters.and(Keyword.UNDERGROUND).accepts(game.getGameState(), game.getModifiersQuerying(), nextSite)
+                    && Filters.and(Keyword.UNDERGROUND).accepts(game, nextSite)
                     && PlayConditions.canSelfExert(self, game))
                 possibleCosts.add(
                         new SelfExertEffect(action, self));

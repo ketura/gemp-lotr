@@ -38,7 +38,7 @@ public class Card1_349 extends AbstractSite {
             ActivateCardAction action = new ActivateCardAction(self);
 
             List<Effect> possibleEffects = new LinkedList<Effect>();
-            if (Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.balrog, Filters.playable(game, -6)).size() > 0) {
+            if (Filters.filter(game.getGameState().getHand(playerId), game, Filters.balrog, Filters.playable(game, -6)).size() > 0) {
                 // Play from hand
                 possibleEffects.add(
                         new ChooseAndPlayCardFromHandEffect(playerId, game, -6, Filters.balrog) {

@@ -45,7 +45,7 @@ public class Card7_015 extends AbstractAttachable {
         return Collections.singletonList(
                 new AddActionToCardModifier(self, null, CardType.MINION) {
                     @Override
-                    protected ActivateCardAction createExtraPhaseAction(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard matchingCard) {
+                    protected ActivateCardAction createExtraPhaseAction(LotroGame game, PhysicalCard matchingCard) {
                         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.ASSIGNMENT, matchingCard, 0)) {
                             ActivateCardAction action = new ActivateCardAction(matchingCard);
                             action.setText("Assign to " + GameUtils.getFullName(self.getAttachedTo()));

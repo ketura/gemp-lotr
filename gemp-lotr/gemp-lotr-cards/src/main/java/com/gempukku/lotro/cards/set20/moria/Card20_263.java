@@ -1,5 +1,6 @@
 package com.gempukku.lotro.cards.set20.moria;
 
+import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.cardtype.AbstractMinion;
 import com.gempukku.lotro.logic.modifiers.evaluator.CountStackedEvaluator;
 import com.gempukku.lotro.common.CardType;
@@ -7,8 +8,6 @@ import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
 /**
  * 5
@@ -23,7 +22,7 @@ public class Card20_263 extends AbstractMinion {
     }
 
     @Override
-    public int getTwilightCostModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
-        return -(new CountStackedEvaluator(Filters.and(Culture.MORIA, CardType.CONDITION), Race.GOBLIN).evaluateExpression(gameState, modifiersQuerying, self));
+    public int getTwilightCostModifier(LotroGame game, PhysicalCard self) {
+        return -(new CountStackedEvaluator(Filters.and(Culture.MORIA, CardType.CONDITION), Race.GOBLIN).evaluateExpression(game, self));
     }
 }

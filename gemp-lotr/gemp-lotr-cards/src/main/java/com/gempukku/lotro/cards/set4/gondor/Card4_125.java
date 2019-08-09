@@ -50,8 +50,8 @@ public class Card4_125 extends AbstractPermanent {
                         ),
                         new Condition() {
                             @Override
-                            public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return gameState.getCurrentSiteNumber() == 6 && gameState.getCurrentSiteBlock() == Block.TWO_TOWERS;
+                            public boolean isFullfilled(LotroGame game) {
+                                return game.getGameState().getCurrentSiteNumber() == 6 && game.getGameState().getCurrentSiteBlock() == Block.TWO_TOWERS;
                             }
                         }, -2));
     }
@@ -59,7 +59,7 @@ public class Card4_125 extends AbstractPermanent {
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Culture.GONDOR, Race.MAN)) {
+                && Filters.canSpot(game, Culture.GONDOR, Race.MAN)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new SelfDiscardEffect(self));

@@ -87,7 +87,7 @@ public class KillEffect extends AbstractSuccessfulEffect {
             }
         }
 
-        DiscardUtils.cardsToChangeZones(gameState, toBeKilled, discardedCards, toAddToDiscard);
+        DiscardUtils.cardsToChangeZones(game, toBeKilled, discardedCards, toAddToDiscard);
         toRemoveFromZone.addAll(toAddToDiscard);
 
         gameState.removeCardsFromZone(null, toRemoveFromZone);

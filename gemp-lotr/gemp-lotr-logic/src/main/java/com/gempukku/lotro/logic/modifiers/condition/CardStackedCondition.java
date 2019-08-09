@@ -3,9 +3,8 @@ package com.gempukku.lotro.logic.modifiers.condition;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.game.state.GameState;
+import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.Condition;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
 public class CardStackedCondition implements Condition {
     private Filter _stackedOn;
@@ -19,7 +18,7 @@ public class CardStackedCondition implements Condition {
     }
 
     @Override
-    public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-        return Filters.findFirstActive(gameState, modifiersQuerying, _stackedOn, Filters.hasStacked(_minimumCount, _cardStacked)) != null;
+    public boolean isFullfilled(LotroGame game) {
+        return Filters.findFirstActive(game, _stackedOn, Filters.hasStacked(_minimumCount, _cardStacked)) != null;
     }
 }

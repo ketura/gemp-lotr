@@ -39,7 +39,7 @@ public class ChooseAndPlayCardFromDeckEffect implements Effect {
 
     @Override
     public boolean isPlayableInFull(LotroGame game) {
-        return !game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.CANT_PLAY_FROM_DISCARD_OR_DECK);
+        return !game.getModifiersQuerying().hasFlagActive(game, ModifierFlag.CANT_PLAY_FROM_DISCARD_OR_DECK);
     }
 
     @Override
@@ -50,7 +50,7 @@ public class ChooseAndPlayCardFromDeckEffect implements Effect {
     @Override
     public void playEffect(final LotroGame game) {
         if (isPlayableInFull(game)) {
-            Collection<PhysicalCard> deck = Filters.filter(game.getGameState().getDeck(_playerId), game.getGameState(), game.getModifiersQuerying(), Filters.and(_filter, Filters.playable(game, _twilightModifier)));
+            Collection<PhysicalCard> deck = Filters.filter(game.getGameState().getDeck(_playerId), game, Filters.and(_filter, Filters.playable(game, _twilightModifier)));
             game.getUserFeedback().sendAwaitingDecision(_playerId,
                     new ArbitraryCardsSelectionDecision(1, "Choose a card to play", new LinkedList<PhysicalCard>(deck), 0, 1) {
                         @Override

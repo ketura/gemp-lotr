@@ -35,7 +35,7 @@ public class Card31_032 extends AbstractMinion {
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.played(game, effectResult, self)) {
             final OptionalTriggerAction action = new OptionalTriggerAction(self);
-			int checkUnderground = game.getModifiersQuerying().hasKeyword(game.getGameState(), game.getGameState().getCurrentSite(), Keyword.UNDERGROUND) ? 2 : 1;
+			int checkUnderground = game.getModifiersQuerying().hasKeyword(game, game.getGameState().getCurrentSite(), Keyword.UNDERGROUND) ? 2 : 1;
             action.appendEffect(
                     new ChooseArbitraryCardsEffect(playerId, "Choose Orc (or two if at an underground site)", game.getGameState().getDiscard(playerId), Race.ORC, checkUnderground, checkUnderground) {
                         @Override

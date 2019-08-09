@@ -28,13 +28,13 @@ public class Card20_048 extends AbstractPermanent {
         return new StrengthModifier(self, Race.DWARF,
                 new Condition() {
                     @Override
-                    public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                        return Filters.filter(gameState.getStackedCards(self), gameState, modifiersQuerying, Culture.DWARVEN).size() > 0;
+                    public boolean isFullfilled(LotroGame game) {
+                        return Filters.filter(game.getGameState().getStackedCards(self), game, Culture.DWARVEN).size() > 0;
                     }
                 }, new Evaluator() {
             @Override
-            public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard cardAffected) {
-                return Math.max(0, modifiersQuerying.getVitality(gameState, cardAffected) - 3);
+            public int evaluateExpression(LotroGame game, PhysicalCard cardAffected) {
+                return Math.max(0, game.getModifiersQuerying().getVitality(game, cardAffected) - 3);
             }
         }
         );

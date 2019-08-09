@@ -33,7 +33,7 @@ public class Card20_267 extends AbstractMinion {
         if (TriggerConditions.played(game, effectResult, self)
                 && PlayConditions.canPlayFromDiscard(playerId, game, Culture.MORIA, CardType.MINION)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
-            int companions = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION);
+            int companions = Filters.countActive(game, CardType.COMPANION);
             int minions = Math.max(0, companions - 5);
             for (int i=0; i<minions; i++) {
                 action.appendEffect(

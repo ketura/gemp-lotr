@@ -38,7 +38,7 @@ public class Card20_287 extends AbstractResponseEvent {
 
             final PlayEventAction action = new PlayEventAction(self);
             action.setText("Play " + GameUtils.getFullName(self) + " for " + GameUtils.getFullName(winResult.getWinner()));
-            if (Filters.and(Keyword.TWILIGHT).accepts(game.getGameState(), game.getModifiersQuerying(), winResult.getWinner()))
+            if (Filters.and(Keyword.TWILIGHT).accepts(game, winResult.getWinner()))
                 action.appendEffect(
                         new AddBurdenEffect(playerId, self, 1));
             else

@@ -47,7 +47,7 @@ public class Card40_175 extends AbstractPermanent {
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayAfterActions(String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         if (TriggerConditions.winsSkirmish(game, effectResult, Filters.and(Culture.MORIA, Race.GOBLIN))
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Culture.MORIA, Race.GOBLIN, Filters.inSkirmish)) {
+                && Filters.canSpot(game, Culture.MORIA, Race.GOBLIN, Filters.inSkirmish)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
                     new ChooseAndStackCardFromPlayEffect(action, playerId, self, Culture.MORIA, Race.GOBLIN, Filters.inSkirmish));

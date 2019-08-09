@@ -5,7 +5,6 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
-import com.gempukku.lotro.logic.effects.DiscardUtils;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.results.DiscardCardsFromPlayResult;
 
@@ -31,7 +30,7 @@ public class PutCardFromPlayOnBottomOfDeckEffect extends AbstractEffect {
             Set<PhysicalCard> discardedCards = new HashSet<PhysicalCard>();
             Set<PhysicalCard> toGoToDiscardCards = new HashSet<PhysicalCard>();
 
-            DiscardUtils.cardsToChangeZones(game.getGameState(), Collections.singleton(_physicalCard), discardedCards, toGoToDiscardCards);
+            DiscardUtils.cardsToChangeZones(game, Collections.singleton(_physicalCard), discardedCards, toGoToDiscardCards);
 
             GameState gameState = game.getGameState();
 

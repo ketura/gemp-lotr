@@ -41,12 +41,12 @@ public class DiscardTopCardFromDeckEffect extends AbstractEffect {
     @Override
     public boolean isPlayableInFull(LotroGame game) {
         return game.getGameState().getDeck(_playerId).size() >= _count
-                && (!_forced || game.getModifiersQuerying().canDiscardCardsFromTopOfDeck(game.getGameState(), _playerId, _source));
+                && (!_forced || game.getModifiersQuerying().canDiscardCardsFromTopOfDeck(game, _playerId, _source));
     }
 
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
-        if (!_forced || game.getModifiersQuerying().canDiscardCardsFromTopOfDeck(game.getGameState(), _playerId, _source)) {
+        if (!_forced || game.getModifiersQuerying().canDiscardCardsFromTopOfDeck(game, _playerId, _source)) {
             GameState gameState = game.getGameState();
             List<PhysicalCard> cardsDiscarded = new LinkedList<PhysicalCard>();
             for (int i = 0; i < _count; i++) {

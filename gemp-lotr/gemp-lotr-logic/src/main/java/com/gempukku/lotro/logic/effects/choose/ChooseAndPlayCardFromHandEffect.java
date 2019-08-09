@@ -50,7 +50,7 @@ public class ChooseAndPlayCardFromHandEffect implements Effect {
     }
 
     private Collection<PhysicalCard> getPlayableInHandCards(LotroGame game) {
-        return Filters.filter(game.getGameState().getHand(_playerId), game.getGameState(), game.getModifiersQuerying(), _filter, Filters.playable(game, _twilightModifier, _ignoreRoamingPenalty, _ignoreCheckingDeadPile));
+        return Filters.filter(game.getGameState().getHand(_playerId), game, _filter, Filters.playable(game, _twilightModifier, _ignoreRoamingPenalty, _ignoreCheckingDeadPile));
     }
 
     @Override

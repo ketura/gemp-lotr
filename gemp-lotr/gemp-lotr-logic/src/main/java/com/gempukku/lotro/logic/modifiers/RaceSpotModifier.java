@@ -3,10 +3,7 @@ package com.gempukku.lotro.logic.modifiers;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
-import com.gempukku.lotro.logic.modifiers.AbstractModifier;
-import com.gempukku.lotro.logic.modifiers.ModifierEffect;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.game.state.LotroGame;
 
 public class RaceSpotModifier extends AbstractModifier {
     private Race _race;
@@ -18,7 +15,7 @@ public class RaceSpotModifier extends AbstractModifier {
 
 
     @Override
-    public int getSpotCountModifier(GameState gameState, ModifiersQuerying modifiersQuerying, Filterable filter) {
+    public int getSpotCountModifier(LotroGame game, Filterable filter) {
         if (filter == _race)
             return 1;
         return 0;

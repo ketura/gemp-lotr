@@ -11,11 +11,9 @@ import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
@@ -63,8 +61,8 @@ public class Card12_028 extends AbstractAttachableFPPossession {
                     new RemoveTwilightEffect(
                             new Evaluator() {
                                 @Override
-                                public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard cardAffected) {
-                                    return gameState.getTwilightPool();
+                                public int evaluateExpression(LotroGame game, PhysicalCard cardAffected) {
+                                    return game.getGameState().getTwilightPool();
                                 }
                             }));
             return Collections.singletonList(action);

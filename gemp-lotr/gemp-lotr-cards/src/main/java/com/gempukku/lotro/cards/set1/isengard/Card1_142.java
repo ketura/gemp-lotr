@@ -29,13 +29,13 @@ public class Card1_142 extends AbstractPermanent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Race.URUK_HAI);
+                && Filters.canSpot(game, Race.URUK_HAI);
     }
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (game.getModifiersQuerying().getUntilEndOfTurnLimitCounter(self).getUsedLimit() < 1
-                && (game.getGameState().getBurdens() >= 5 || Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.ringBearer, Filters.exhausted))) {
+                && (game.getGameState().getBurdens() >= 5 || Filters.canSpot(game, Filters.ringBearer, Filters.exhausted))) {
             game.getModifiersEnvironment().addUntilEndOfTurnModifier(
                     new MoveLimitModifier(self,-1));
             game.getModifiersQuerying().getUntilEndOfTurnLimitCounter(self).incrementToLimit(1, 1);

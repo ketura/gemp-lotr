@@ -43,7 +43,7 @@ public class Card8_093 extends AbstractPermanent {
                     new ChooseActiveCardEffect(self, playerId, "Choose a companion", CardType.COMPANION, Filters.not(Filters.ringBearer), Filters.lessVitalityThan(game.getGameState().getBurdens() + 1)) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
-                            int vitality = game.getModifiersQuerying().getVitality(game.getGameState(), card);
+                            int vitality = game.getModifiersQuerying().getVitality(game, card);
                             if (vitality > 0)
                                 action.insertCost(
                                         new RemoveBurdenEffect(playerId, self, vitality));

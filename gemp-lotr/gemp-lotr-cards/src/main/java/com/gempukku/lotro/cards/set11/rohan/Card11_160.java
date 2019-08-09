@@ -41,7 +41,7 @@ public class Card11_160 extends AbstractEvent {
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
                                         new StrengthModifier(self, character, 3)));
-                        if (game.getModifiersQuerying().getResistance(game.getGameState(), character) >= 5)
+                        if (game.getModifiersQuerying().getResistance(game, character) >= 5)
                             action.appendEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
                                             new KeywordModifier(self, character, Keyword.DAMAGE, 1)));

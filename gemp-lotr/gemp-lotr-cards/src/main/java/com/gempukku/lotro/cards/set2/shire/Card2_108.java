@@ -83,8 +83,8 @@ public class Card2_108 extends AbstractAttachable {
         @Override
         public boolean isPlayableInFull(LotroGame game) {
             return super.isPlayableInFull(game)
-                    && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Race.NAZGUL, Filters.inSkirmish)
-                    && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.ringBearer, Filters.inSkirmish);
+                    && Filters.canSpot(game, Race.NAZGUL, Filters.inSkirmish)
+                    && Filters.canSpot(game, Filters.ringBearer, Filters.inSkirmish);
         }
     }
 }

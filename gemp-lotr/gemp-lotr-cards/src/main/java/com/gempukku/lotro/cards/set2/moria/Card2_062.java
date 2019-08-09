@@ -36,8 +36,8 @@ public class Card2_062 extends AbstractMinion {
                 new StrengthModifier(self, self,
                         new Condition() {
                             @Override
-                            public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return gameState.getMoveCount() > 1;
+                            public boolean isFullfilled(LotroGame game) {
+                                return game.getGameState().getMoveCount() > 1;
                             }
                         }, 3));
     }

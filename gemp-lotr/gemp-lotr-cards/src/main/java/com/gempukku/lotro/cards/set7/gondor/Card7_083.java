@@ -42,7 +42,7 @@ public class Card7_083 extends AbstractEvent {
                     protected void cardSelected(LotroGame game, final PhysicalCard card) {
                         game.getModifiersEnvironment().addUntilEndOfPhaseModifier(
                                 new StrengthModifier(self, card, 2), Phase.SKIRMISH);
-                        final Collection<PhysicalCard> sauronMinions = Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Culture.SAURON, CardType.MINION, Filters.inSkirmishAgainst(card));
+                        final Collection<PhysicalCard> sauronMinions = Filters.filterActive(game, Culture.SAURON, CardType.MINION, Filters.inSkirmishAgainst(card));
                         if (sauronMinions.size() > 0) {
                             action.appendEffect(
                                     new AddUntilEndOfPhaseActionProxyEffect(

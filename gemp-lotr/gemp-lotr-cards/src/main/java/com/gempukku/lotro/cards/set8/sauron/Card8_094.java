@@ -47,7 +47,7 @@ public class Card8_094 extends AbstractMinion {
         if (TriggerConditions.played(game, effectResult, self)
                 && PlayConditions.canSpot(game, Filters.not(self), Keyword.BESIEGER)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
-            int count = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION) - 4;
+            int count = Filters.countActive(game, CardType.COMPANION) - 4;
             if (count > 0)
                 action.appendEffect(
                         new AddThreatsEffect(playerId, self, count));

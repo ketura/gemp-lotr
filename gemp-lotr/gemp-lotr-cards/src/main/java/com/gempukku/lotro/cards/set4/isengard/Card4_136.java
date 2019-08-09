@@ -38,8 +38,8 @@ public class Card4_136 extends AbstractMinion {
                 new KeywordModifier(self, self,
                         new Condition() {
                             @Override
-                            public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return modifiersQuerying.hasKeyword(gameState, gameState.getCurrentSite(), Keyword.BATTLEGROUND);
+                            public boolean isFullfilled(LotroGame game) {
+                                return game.getModifiersQuerying().hasKeyword(game, game.getGameState().getCurrentSite(), Keyword.BATTLEGROUND);
                             }
                         }, Keyword.FIERCE, 1));
         modifiers.add(

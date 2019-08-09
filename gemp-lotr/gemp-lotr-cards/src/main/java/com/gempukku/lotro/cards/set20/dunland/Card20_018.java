@@ -33,8 +33,8 @@ public class Card20_018 extends AbstractMinion {
     public List<? extends Action> getPhaseActionsFromStacked(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseStackedShadowCardDuringPhase(game, Phase.SHADOW, self, 0)
                 && PlayConditions.stackedOn(self, game, Filters.siteControlled(self.getOwner()))
-                && checkPlayRequirements(playerId, game, self, 0, -Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Side.FREE_PEOPLE, CardType.POSSESSION), false, false)) {
-            return Collections.singletonList(getPlayCardAction(playerId, game, self, -Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Side.FREE_PEOPLE, CardType.POSSESSION), false));
+                && checkPlayRequirements(playerId, game, self, 0, -Filters.countSpottable(game, Side.FREE_PEOPLE, CardType.POSSESSION), false, false)) {
+            return Collections.singletonList(getPlayCardAction(playerId, game, self, -Filters.countSpottable(game, Side.FREE_PEOPLE, CardType.POSSESSION), false));
         }
         return null;
     }

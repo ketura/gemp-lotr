@@ -55,7 +55,7 @@ public class Card20_394 extends AbstractAttachable {
         return new CantAddBurdensModifier(self,
                 new Condition() {
                     @Override
-                    public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
+                    public boolean isFullfilled(LotroGame game) {
                         return game.getActionsEnvironment().getPlayedCardsInCurrentTurn().contains(self);
                     }
                 }, Side.SHADOW);

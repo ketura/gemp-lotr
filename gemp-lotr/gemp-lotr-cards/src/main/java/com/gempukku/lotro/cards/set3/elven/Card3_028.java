@@ -28,8 +28,8 @@ public class Card3_028 extends AbstractEvent {
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
                 && PlayConditions.canExert(self, game, Race.ELF)
-                && (game.getModifiersQuerying().hasKeyword(game.getGameState(), game.getGameState().getCurrentSite(), Keyword.RIVER)
-                || game.getModifiersQuerying().hasKeyword(game.getGameState(), game.getGameState().getCurrentSite(), Keyword.FOREST));
+                && (game.getModifiersQuerying().hasKeyword(game, game.getGameState().getCurrentSite(), Keyword.RIVER)
+                || game.getModifiersQuerying().hasKeyword(game, game.getGameState().getCurrentSite(), Keyword.FOREST));
     }
 
     @Override

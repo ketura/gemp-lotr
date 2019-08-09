@@ -21,7 +21,7 @@ public class ChooseAndRemoveCultureTokensFromCardEffect extends ChooseActiveCard
 
     @Override
     protected Filter getExtraFilterForPlaying(LotroGame game) {
-        if (game.getModifiersQuerying().hasFlagActive(game.getGameState(), ModifierFlag.CANT_TOUCH_CULTURE_TOKENS))
+        if (game.getModifiersQuerying().hasFlagActive(game, ModifierFlag.CANT_TOUCH_CULTURE_TOKENS))
             return Filters.none;
 
         if (_token != null)

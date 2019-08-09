@@ -44,8 +44,8 @@ public class Card4_098 extends AbstractEvent {
                                 CardType.MINION,
                                 new Filter() {
                                     @Override
-                                    public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                        return modifiersQuerying.getStrength(gameState, physicalCard) <= 6;
+                                    public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
+                                        return game.getModifiersQuerying().getStrength(game, physicalCard) <= 6;
                                     }
                                 })));
         return action;

@@ -43,9 +43,9 @@ public class Card15_103 extends AbstractMinion {
         return new StrengthModifier(self, self,
                 new Condition() {
                     @Override
-                    public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                        return Filters.countActive(gameState, modifiersQuerying, CardType.SITE, Zone.ADVENTURE_PATH)
-                                > Filters.countActive(gameState, modifiersQuerying, CardType.MINION);
+                    public boolean isFullfilled(LotroGame game) {
+                        return Filters.countActive(game, CardType.SITE, Zone.ADVENTURE_PATH)
+                                > Filters.countActive(game, CardType.MINION);
                     }
                 }, 5);
     }

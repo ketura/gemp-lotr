@@ -59,7 +59,7 @@ public class Card1_018 extends AbstractEvent {
                                             @Override
                                             protected void cardsRevealed(final List<PhysicalCard> revealedCards) {
                                                 if (revealedCards.size() > 0) {
-                                                    Collection<PhysicalCard> shadowCards = Filters.filter(revealedCards, game.getGameState(), game.getModifiersQuerying(), Side.SHADOW);
+                                                    Collection<PhysicalCard> shadowCards = Filters.filter(revealedCards, game, Side.SHADOW);
 
                                                     if (shadowCards.size() > 0) {
                                                         action.appendEffect(

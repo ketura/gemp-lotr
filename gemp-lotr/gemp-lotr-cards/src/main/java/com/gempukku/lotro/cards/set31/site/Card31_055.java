@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set31.site;
 
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
-import com.gempukku.lotro.logic.modifiers.conditions.CantSpotCondition;
+import com.gempukku.lotro.logic.modifiers.condition.CantSpotCondition;
 import com.gempukku.lotro.common.Block;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;

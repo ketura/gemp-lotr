@@ -40,7 +40,7 @@ public class Card5_096 extends AbstractEvent {
                             Filters.or(CardType.COMPANION, CardType.ALLY), Filters.inSkirmishAgainst(Culture.SAURON, Race.ORC)) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
-                            int ringBoundCompanions = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION, Keyword.RING_BOUND);
+                            int ringBoundCompanions = Filters.countActive(game, CardType.COMPANION, Keyword.RING_BOUND);
                             action.insertEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
                                             new StrengthModifier(self, Filters.sameCard(card), -ringBoundCompanions)));
@@ -68,12 +68,12 @@ public class Card5_096 extends AbstractEvent {
     }
 
     private boolean checkResponsePlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        if (!game.getModifiersQuerying().canPayExtraCostsToPlay(game.getGameState(), self))
+        if (!game.getModifiersQuerying().canPayExtraCostsToPlay(game, self))
             return false;
 
-        int toilCount = game.getModifiersQuerying().getKeywordCount(game.getGameState(), self, Keyword.TOIL);
+        int toilCount = game.getModifiersQuerying().getKeywordCount(game, self, Keyword.TOIL);
         if (toilCount > 0)
-            twilightModifier -= toilCount * Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.owner(playerId), getCulture(), Filters.character, Filters.canExert(self));
+            twilightModifier -= toilCount * Filters.countActive(game, Filters.owner(playerId), getCulture(), Filters.character, Filters.canExert(self));
         return (getSide() != Side.SHADOW || PlayConditions.canPayForShadowCard(game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty));
     }
 }

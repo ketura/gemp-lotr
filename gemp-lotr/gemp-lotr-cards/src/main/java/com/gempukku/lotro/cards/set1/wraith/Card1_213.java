@@ -34,7 +34,7 @@ public class Card1_213 extends AbstractEvent {
                 new ChooseActiveCardEffect(self, playerId, "Choose a Nazgul", Race.NAZGUL) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard nazgul) {
-                        boolean notAssigned = Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.ringBearer, Filters.notAssignedToSkirmish);
+                        boolean notAssigned = Filters.canSpot(game, Filters.ringBearer, Filters.notAssignedToSkirmish);
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
                                         new StrengthModifier(self, Filters.sameCard(nazgul), notAssigned ? 2 : 3)));

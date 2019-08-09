@@ -37,7 +37,7 @@ public class Card20_103 extends AbstractPermanent {
                         @Override
                         protected void cardsRevealed(List<PhysicalCard> revealedCards) {
                             for (PhysicalCard revealedCard : revealedCards) {
-                                if (Filters.and(Culture.ELVEN).accepts(game.getGameState(), game.getModifiersQuerying(), revealedCard))
+                                if (Filters.and(Culture.ELVEN).accepts(game, revealedCard))
                                     action.appendEffect(
                                             new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, CardType.MINION));
                             }

@@ -36,8 +36,8 @@ public class Card12_147 extends AbstractMinion {
         return new ResistanceModifier(self, Filters.unboundCompanion,
                 new Condition() {
                     @Override
-                    public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                        return Filters.filter(gameState.getDeadPile(gameState.getCurrentPlayerId()), gameState, modifiersQuerying, CardType.COMPANION).size() > 0;
+                    public boolean isFullfilled(LotroGame game) {
+                        return Filters.filter(game.getGameState().getDeadPile(game.getGameState().getCurrentPlayerId()), game, CardType.COMPANION).size() > 0;
                     }
                 }, -4);
     }

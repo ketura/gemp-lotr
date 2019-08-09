@@ -35,8 +35,8 @@ public class Card7_082 extends AbstractCompanion {
         return Collections.singletonList(
                 new StrengthModifier(self, self, new Condition() {
                     @Override
-                    public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                        int handSize = gameState.getHand(self.getOwner()).size();
+                    public boolean isFullfilled(LotroGame game) {
+                        int handSize = game.getGameState().getHand(self.getOwner()).size();
                         return (handSize >= 4 && handSize <= 5);
                     }
                 }, 2));

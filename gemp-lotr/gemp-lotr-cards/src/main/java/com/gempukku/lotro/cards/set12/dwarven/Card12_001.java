@@ -38,7 +38,7 @@ public class Card12_001 extends AbstractEvent {
     public PlayEventAction getPlayCardAction(final String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         final Filter hasRace = new Filter() {
             @Override
-            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+            public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
                 return physicalCard.getBlueprint().getRace() != null;
             }
         };

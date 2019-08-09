@@ -39,7 +39,7 @@ public class Card17_121 extends AbstractMinion {
         if (TriggerConditions.startOfPhase(game, effectResult, Phase.ARCHERY)
                 && PlayConditions.canSpot(game, Filters.siteControlled(playerId))) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
-            int count = new CountCulturesEvaluator(2, Side.FREE_PEOPLE).evaluateExpression(game.getGameState(), game.getModifiersQuerying(), null);
+            int count = new CountCulturesEvaluator(2, Side.FREE_PEOPLE).evaluateExpression(game, null);
             if (count > 0)
                 action.appendEffect(
                         new AddUntilEndOfPhaseModifierEffect(

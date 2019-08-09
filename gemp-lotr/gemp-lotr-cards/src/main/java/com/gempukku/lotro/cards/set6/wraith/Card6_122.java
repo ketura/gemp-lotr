@@ -43,7 +43,7 @@ public class Card6_122 extends AbstractMinion {
         if (TriggerConditions.forEachKilledInASkirmish(game, effectResult, Race.NAZGUL, CardType.COMPANION)) {
             final RequiredTriggerAction action = new RequiredTriggerAction(self);
             List<Effect> possibleEffects = new LinkedList<Effect>();
-            if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(),
+            if (Filters.canSpot(game,
                     CardType.ALLY, Filters.canTakeWounds(self, 2))) {
                 possibleEffects.add(
                         new ChooseAndWoundCharactersEffect(action, self.getOwner(), 1, 1, 2, CardType.ALLY) {
@@ -52,7 +52,7 @@ public class Card6_122 extends AbstractMinion {
                         return "Wound an ally twice";
                     }
                 });
-            } else if (!Filters.canSpot(game.getGameState(), game.getModifiersQuerying(),
+            } else if (!Filters.canSpot(game,
                     CardType.COMPANION, Filters.canExert(self))) {
                 possibleEffects.add(
                         new ChooseAndWoundCharactersEffect(action, self.getOwner(), 1, 1, 1, CardType.ALLY) {

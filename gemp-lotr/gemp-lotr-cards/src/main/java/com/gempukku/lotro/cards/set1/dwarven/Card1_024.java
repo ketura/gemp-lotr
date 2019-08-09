@@ -33,8 +33,8 @@ public class Card1_024 extends AbstractPermanent {
                         Filters.inSkirmish,
                         new Filter() {
                             @Override
-                            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                return Filters.canSpot(gameState, modifiersQuerying, Culture.MORIA, CardType.MINION, Filters.inSkirmish);
+                            public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
+                                return Filters.canSpot(game, Culture.MORIA, CardType.MINION, Filters.inSkirmish);
                             }
                         }), 1);
     }

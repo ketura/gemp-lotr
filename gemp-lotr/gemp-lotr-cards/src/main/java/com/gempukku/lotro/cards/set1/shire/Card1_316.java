@@ -50,14 +50,14 @@ public class Card1_316 extends AbstractPermanent {
                         CardType.SITE,
                         new Filter() {
                             @Override
-                            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                return gameState.getCurrentSite() == physicalCard;
+                            public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
+                                return game.getGameState().getCurrentSite() == physicalCard;
                             }
                         }
                 ), ModifierEffect.TWILIGHT_COST_MODIFIER) {
             @Override
-            public int getTwilightCostModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, boolean ignoreRoamingPenalty) {
-                int hobbitsCount = Filters.countActive(gameState, modifiersQuerying, CardType.COMPANION, Race.HOBBIT);
+            public int getTwilightCostModifier(LotroGame game, PhysicalCard physicalCard, boolean ignoreRoamingPenalty) {
+                int hobbitsCount = Filters.countActive(game, CardType.COMPANION, Race.HOBBIT);
                 if (hobbitsCount >= 4)
                     return -2;
                 if (hobbitsCount >= 2)

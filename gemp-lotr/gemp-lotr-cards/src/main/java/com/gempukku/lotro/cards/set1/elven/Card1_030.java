@@ -40,8 +40,8 @@ public class Card1_030 extends AbstractCompanion {
                         Filters.inSkirmish,
                         new Filter() {
                             @Override
-                            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                return Filters.canSpot(gameState, modifiersQuerying, Race.NAZGUL, Filters.inSkirmish);
+                            public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
+                                return Filters.canSpot(game, Race.NAZGUL, Filters.inSkirmish);
                             }
                         }), 3);
     }

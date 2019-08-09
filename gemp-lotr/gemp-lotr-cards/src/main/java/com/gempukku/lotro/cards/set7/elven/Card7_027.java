@@ -43,7 +43,7 @@ public class Card7_027 extends AbstractEvent {
                 new DiscardTopCardFromDeckEffect(self, playerId, 3, false) {
                     @Override
                     protected void cardsDiscardedCallback(Collection<PhysicalCard> cards) {
-                        int elvenCount = Filters.filter(cards, game.getGameState(), game.getModifiersQuerying(), Culture.ELVEN).size();
+                        int elvenCount = Filters.filter(cards, game, Culture.ELVEN).size();
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
                                         new ArcheryTotalModifier(self, Side.FREE_PEOPLE, elvenCount)));

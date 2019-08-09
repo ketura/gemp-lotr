@@ -51,7 +51,7 @@ public class Card4_285 extends AbstractAlly {
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (Filters.countActive(game.getGameState(), game.getModifiersQuerying(),
+        if (Filters.countActive(game,
                 Filters.siteControlledByShadowPlayer(self.getOwner()),
                 Filters.siteNumber(4),
                 Filters.siteBlock(Block.TWO_TOWERS)) > 0) {

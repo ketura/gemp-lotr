@@ -38,16 +38,16 @@ public class Card4_197 extends AbstractMinion {
                 new StrengthModifier(self, self,
                         new Condition() {
                             @Override
-                            public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return Filters.filter(gameState.getDeadPile(gameState.getCurrentPlayerId()), gameState, modifiersQuerying, CardType.ALLY).size() > 0;
+                            public boolean isFullfilled(LotroGame game) {
+                                return Filters.filter(game.getGameState().getDeadPile(game.getGameState().getCurrentPlayerId()), game, CardType.ALLY).size() > 0;
                             }
                         }, 3));
         modifiers.add(
                 new KeywordModifier(self, self,
                         new Condition() {
                             @Override
-                            public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return Filters.filter(gameState.getDeadPile(gameState.getCurrentPlayerId()), gameState, modifiersQuerying, CardType.ALLY).size() > 0;
+                            public boolean isFullfilled(LotroGame game) {
+                                return Filters.filter(game.getGameState().getDeadPile(game.getGameState().getCurrentPlayerId()), game, CardType.ALLY).size() > 0;
                             }
                         }, Keyword.FIERCE, 1));
         return modifiers;

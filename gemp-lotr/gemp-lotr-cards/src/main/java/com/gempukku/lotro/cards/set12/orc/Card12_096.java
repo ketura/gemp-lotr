@@ -48,7 +48,7 @@ public class Card12_096 extends AbstractAttachable {
         if (TriggerConditions.playedOn(game, effectResult,
                 new Filter() {
                     @Override
-                    public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                    public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
                         return physicalCard.getBlueprint().getTwilightCost() >= 4;
                     }
                 }, self)) {

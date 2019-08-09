@@ -7,10 +7,8 @@ import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.TwilightCostModifier;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 
@@ -51,10 +49,10 @@ public class Card5_101 extends AbstractPermanent {
                 new TwilightCostModifier(self, CardType.SITE, null,
                         new Evaluator() {
                             @Override
-                            public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
+                            public int evaluateExpression(LotroGame game, PhysicalCard self) {
                                 int wounds = 0;
-                                for (PhysicalCard hobbit : Filters.filterActive(gameState, modifiersQuerying, Race.HOBBIT, Filters.wounded)) {
-                                    wounds += gameState.getWounds(hobbit);
+                                for (PhysicalCard hobbit : Filters.filterActive(game, Race.HOBBIT, Filters.wounded)) {
+                                    wounds += game.getGameState().getWounds(hobbit);
                                 }
 
                                 return Math.min(3, wounds);

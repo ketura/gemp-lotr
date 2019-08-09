@@ -39,7 +39,7 @@ public class Card3_027 extends AbstractAttachableFPPossession {
     protected List<? extends Action> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.MANEUVER, self)
                 && PlayConditions.canExert(self, game, 2, Filters.hasAttached(self))
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Side.SHADOW, CardType.CONDITION)) {
+                && Filters.canSpot(game, Side.SHADOW, CardType.CONDITION)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new ExertCharactersEffect(action, self, self.getAttachedTo()));

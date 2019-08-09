@@ -34,11 +34,11 @@ public class Card13_140 extends AbstractMinion {
 
     @Override
     protected int getPotentialExtraPaymentDiscount(String playerId, LotroGame game, PhysicalCard self) {
-        return Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.MINION, Filters.canExert(self)) * GameUtils.getRegion(game.getGameState());
+        return Filters.countActive(game, CardType.MINION, Filters.canExert(self)) * GameUtils.getRegion(game);
     }
 
     @Override
     protected DiscountEffect getDiscountEffect(PlayPermanentAction action, String playerId, LotroGame game, PhysicalCard self) {
-        return new ExertCharactersDiscountEffect(action, self, playerId, GameUtils.getRegion(game.getGameState()), CardType.MINION);
+        return new ExertCharactersDiscountEffect(action, self, playerId, GameUtils.getRegion(game), CardType.MINION);
     }
 }

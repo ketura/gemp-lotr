@@ -37,7 +37,7 @@ public class Card40_183 extends AbstractPermanent {
     public List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SKIRMISH, self, 0)
                 && self.getZone() == Zone.SUPPORT
-                && Filters.filter(game.getGameState().getSkirmish().getShadowCharacters(), game.getGameState(), game.getModifiersQuerying(), Race.NAZGUL).size() > 0
+                && Filters.filter(game.getGameState().getSkirmish().getShadowCharacters(), game, Race.NAZGUL).size() > 0
                 && game.getGameState().getSkirmish().getFellowshipCharacter() != null) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(

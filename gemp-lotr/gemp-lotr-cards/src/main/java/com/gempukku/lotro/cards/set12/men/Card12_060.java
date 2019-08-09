@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.set12.men;
 
 import com.gempukku.lotro.logic.cardtype.AbstractMinion;
-import com.gempukku.lotro.logic.modifiers.conditions.FierceSkirmishCondition;
+import com.gempukku.lotro.logic.modifiers.condition.FierceSkirmishCondition;
 import com.gempukku.lotro.logic.modifiers.evaluator.CardMatchesEvaluator;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;

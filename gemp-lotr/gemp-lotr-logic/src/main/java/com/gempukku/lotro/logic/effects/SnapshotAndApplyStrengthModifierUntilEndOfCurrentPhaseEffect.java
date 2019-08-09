@@ -31,8 +31,8 @@ public class SnapshotAndApplyStrengthModifierUntilEndOfCurrentPhaseEffect extend
 
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
-        for (PhysicalCard physicalCard : Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), _filters)) {
-            final int modifier = _evaluator.evaluateExpression(game.getGameState(), game.getModifiersQuerying(), physicalCard);
+        for (PhysicalCard physicalCard : Filters.filterActive(game, _filters)) {
+            final int modifier = _evaluator.evaluateExpression(game, physicalCard);
             if (modifier != 0)
                 game.getModifiersEnvironment().addUntilEndOfPhaseModifier(
                         new StrengthModifier(_source, Filters.sameCard(physicalCard), modifier), game.getGameState().getCurrentPhase());

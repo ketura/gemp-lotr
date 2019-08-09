@@ -57,8 +57,8 @@ public class Card20_292 extends AbstractPermanent {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         Condition wearRingCondition = new Condition() {
             @Override
-            public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                return gameState.isWearingRing();
+            public boolean isFullfilled(LotroGame game) {
+                return game.getGameState().isWearingRing();
             }
         };
         modifiers.add(

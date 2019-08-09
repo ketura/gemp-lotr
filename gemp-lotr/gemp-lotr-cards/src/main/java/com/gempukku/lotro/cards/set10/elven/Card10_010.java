@@ -29,7 +29,7 @@ public class Card10_010 extends AbstractEvent {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, -2, CardType.MINION, Filters.inSkirmishAgainst(Race.ELF)));
-        if (Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), CardType.SITE, Zone.SUPPORT))
+        if (Filters.canSpot(game, CardType.SITE, Zone.SUPPORT))
             action.appendEffect(
                     new OptionalEffect(action, playerId,
                             new PutPlayedEventOnTopOfDeckEffect(action)));

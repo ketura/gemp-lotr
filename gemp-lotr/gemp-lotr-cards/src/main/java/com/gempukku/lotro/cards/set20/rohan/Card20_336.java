@@ -49,7 +49,7 @@ public class Card20_336 extends AbstractPermanent {
 
         Set<PhysicalCard> toLose = new HashSet<PhysicalCard>();
         final Set<Integer> toLoseInts = new HashSet<Integer>();
-        for (PhysicalCard minion : Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), Filters.inSkirmishAgainst(Culture.ROHAN, Race.MAN))) {
+        for (PhysicalCard minion : Filters.filterActive(game, Filters.inSkirmishAgainst(Culture.ROHAN, Race.MAN))) {
             if (!minionsMarked.contains(minion.getCardId())) {
                 toLose.add(minion);
                 toLoseInts.add(minion.getCardId());

@@ -46,8 +46,8 @@ public class Card6_023 extends AbstractCompanion {
                 new DoesNotAddToArcheryTotalModifier(self, self,
                         new Condition() {
                             @Override
-                            public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return Filters.countActive(gameState, modifiersQuerying, self, Filters.hasAttached(PossessionClass.RANGED_WEAPON)) > 0;
+                            public boolean isFullfilled(LotroGame game) {
+                                return Filters.countActive(game, self, Filters.hasAttached(PossessionClass.RANGED_WEAPON)) > 0;
                             }
                         }));
         modifiers.add(

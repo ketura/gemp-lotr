@@ -6,9 +6,7 @@ import com.gempukku.lotro.logic.effects.choose.ChooseAndAddUntilEOPStrengthBonus
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 
 /**
@@ -33,9 +31,9 @@ public class Card15_127 extends AbstractEvent {
                         action, self, playerId,
                         new Evaluator() {
                             @Override
-                            public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard cardAffected) {
-                                int hunters = Filters.countActive(gameState, modifiersQuerying, Keyword.HUNTER);
-                                int valiantMen = Filters.countActive(gameState, modifiersQuerying, Race.MAN, Keyword.VALIANT);
+                            public int evaluateExpression(LotroGame game, PhysicalCard cardAffected) {
+                                int hunters = Filters.countActive(game, Keyword.HUNTER);
+                                int valiantMen = Filters.countActive(game, Race.MAN, Keyword.VALIANT);
                                 return Math.max(hunters, valiantMen);
                             }
                         }, Culture.ROHAN, Race.MAN));

@@ -36,7 +36,7 @@ public class Card7_018 extends AbstractAttachableFPPossession {
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.played(game, effectResult, Culture.ELVEN, CardType.EVENT, Keyword.SKIRMISH)
-                && Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Filters.hasAttached(self), Filters.inSkirmish) > 0) {
+                && Filters.countActive(game, Filters.hasAttached(self), Filters.inSkirmish) > 0) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
                     new HealCharactersEffect(self, Filters.hasAttached(self)));

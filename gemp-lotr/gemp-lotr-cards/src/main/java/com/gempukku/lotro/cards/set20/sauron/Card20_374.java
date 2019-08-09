@@ -9,10 +9,8 @@ import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.effects.AddThreatsEffect;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 
 /**
@@ -42,8 +40,8 @@ public class Card20_374 extends AbstractEvent {
                             private Evaluator _eval = new CountFPCulturesEvaluator(self.getOwner());
 
                             @Override
-                            public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard cardAffected) {
-                                return 1 + Math.max(0, 4 - _eval.evaluateExpression(gameState, modifiersQuerying, cardAffected));
+                            public int evaluateExpression(LotroGame game, PhysicalCard cardAffected) {
+                                return 1 + Math.max(0, 4 - _eval.evaluateExpression(game, cardAffected));
                             }
                         }));
         return action;

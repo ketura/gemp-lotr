@@ -44,12 +44,12 @@ public class Card7_284 extends AbstractMinion {
             ThreatWoundsEffect threatWoundsEffect = (ThreatWoundsEffect) effect;
             KilledResult killResult = threatWoundsEffect.getKillResult();
             if (killResult.getCause() == KillEffect.Cause.OVERWHELM
-                    && Filters.filter(killResult.getKilledCards(), game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION).size() > 0
-                    && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Filters.inSkirmish, Culture.SAURON, Race.ORC)) {
+                    && Filters.filter(killResult.getKilledCards(), game, CardType.COMPANION).size() > 0
+                    && Filters.canSpot(game, Filters.inSkirmish, Culture.SAURON, Race.ORC)) {
                 ActivateCardAction action = new ActivateCardAction(self);
                 action.appendCost(
                         new RemoveThreatsEffect(self, 1));
-                PhysicalCard ringBearer = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.ringBearer);
+                PhysicalCard ringBearer = Filters.findFirstActive(game, Filters.ringBearer);
                 AssignmentEffect assignmentEffect = new AssignmentEffect(playerId, ringBearer, self);
                 assignmentEffect.setIgnoreSingleMinionRestriction(true);
                 action.appendEffect(assignmentEffect);

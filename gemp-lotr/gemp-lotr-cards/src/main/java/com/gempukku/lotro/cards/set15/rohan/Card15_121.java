@@ -30,7 +30,7 @@ public class Card15_121 extends AbstractEvent {
                 new ChooseActiveCardEffect(self, playerId, "Choose a ROHAN companion", Culture.ROHAN, CardType.COMPANION) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
-                        boolean isHunter = game.getModifiersQuerying().hasKeyword(game.getGameState(), card, Keyword.HUNTER);
+                        boolean isHunter = game.getModifiersQuerying().hasKeyword(game, card, Keyword.HUNTER);
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
                                         new StrengthModifier(self, card, isHunter ? 3 : 2)));

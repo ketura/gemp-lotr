@@ -43,7 +43,7 @@ public class Card7_012 extends AbstractPermanent {
         }
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)) {
             ActivateCardAction action = new ActivateCardAction(self);
-            int count = Filters.filter(game.getGameState().getStackedCards(self), game.getGameState(), game.getModifiersQuerying(), Culture.DWARVEN).size();
+            int count = Filters.filter(game.getGameState().getStackedCards(self), game, Culture.DWARVEN).size();
             for (int i = 0; i < count; i++)
                 action.appendEffect(
                         new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, CardType.MINION, Filters.inSkirmishAgainst(Race.DWARF)));

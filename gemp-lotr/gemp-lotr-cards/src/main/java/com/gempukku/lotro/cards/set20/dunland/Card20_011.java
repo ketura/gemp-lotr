@@ -5,10 +5,8 @@ import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 
@@ -34,10 +32,10 @@ public class Card20_011 extends AbstractMinion {
                 new StrengthModifier(self, self, null,
                         new Evaluator() {
                             @Override
-                            public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard cardAffected) {
+                            public int evaluateExpression(LotroGame game, PhysicalCard cardAffected) {
                                 int count = 0;
-                                for (PhysicalCard site : Filters.filterActive(gameState, modifiersQuerying, Filters.siteControlled(self.getOwner())))
-                                    count+=Filters.filter(gameState.getStackedCards(site), gameState, modifiersQuerying, Culture.DUNLAND, Race.MAN).size();
+                                for (PhysicalCard site : Filters.filterActive(game, Filters.siteControlled(self.getOwner())))
+                                    count+=Filters.filter(game.getGameState().getStackedCards(site), game, Culture.DUNLAND, Race.MAN).size();
 
                                 return count;
                             }

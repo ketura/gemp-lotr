@@ -42,7 +42,7 @@ public class Card1_344 extends AbstractSite {
             if (gimliCanExert && twoOtherCanExert) {
                 final RequiredTriggerAction action = new RequiredTriggerAction(self);
 
-                PhysicalCard gimli = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.gimli);
+                PhysicalCard gimli = Filters.findFirstActive(game, Filters.gimli);
                 List<Effect> possibleEffects = new LinkedList<Effect>();
                 possibleEffects.add(new ExertCharactersEffect(action, self, gimli) {
                     @Override
@@ -63,7 +63,7 @@ public class Card1_344 extends AbstractSite {
             }
             if (gimliCanExert) {
                 RequiredTriggerAction action = new RequiredTriggerAction(self);
-                PhysicalCard gimli = Filters.findFirstActive(game.getGameState(), game.getModifiersQuerying(), Filters.gimli);
+                PhysicalCard gimli = Filters.findFirstActive(game, Filters.gimli);
                 action.appendEffect(new ExertCharactersEffect(action, self, gimli));
                 return Collections.singletonList(action);
             }

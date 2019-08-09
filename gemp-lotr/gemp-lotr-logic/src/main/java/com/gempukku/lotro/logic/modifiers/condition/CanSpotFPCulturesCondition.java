@@ -1,9 +1,8 @@
-package com.gempukku.lotro.logic.modifiers.conditions;
+package com.gempukku.lotro.logic.modifiers.condition;
 
-import com.gempukku.lotro.game.state.GameState;
+import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.modifiers.Condition;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
 public class CanSpotFPCulturesCondition implements Condition {
     private String _playerId;
@@ -15,7 +14,7 @@ public class CanSpotFPCulturesCondition implements Condition {
     }
 
     @Override
-    public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-        return GameUtils.getSpottableFPCulturesCount(gameState, modifiersQuerying, _playerId)>=_count;
+    public boolean isFullfilled(LotroGame game) {
+        return GameUtils.getSpottableFPCulturesCount(game, _playerId)>=_count;
     }
 }

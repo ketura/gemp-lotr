@@ -34,11 +34,11 @@ public class Card11_231 extends AbstractNewSite {
         return Collections.singletonList(
                 new AbstractModifier(self, "No more than one minion may be assigned to each skirmish", null, ModifierEffect.ASSIGNMENT_MODIFIER) {
                     @Override
-                    public boolean isValidAssignments(GameState gameState, Side side, ModifiersQuerying modifiersQuerying, Map<PhysicalCard, Set<PhysicalCard>> assignments) {
+                    public boolean isValidAssignments(LotroGame game, Side side, Map<PhysicalCard, Set<PhysicalCard>> assignments) {
                         for (Map.Entry<PhysicalCard, Set<PhysicalCard>> minionsAssignedToCharacter : assignments.entrySet()) {
                             PhysicalCard fp = minionsAssignedToCharacter.getKey();
                             Set<PhysicalCard> minions = minionsAssignedToCharacter.getValue();
-                            List<Assignment> alreadyAssigned = gameState.getAssignments();
+                            List<Assignment> alreadyAssigned = game.getGameState().getAssignments();
                             if (countMinionsCurrentlyAssignedToFPChar(alreadyAssigned, fp) + minions.size() > 1)
                                 return false;
                         }

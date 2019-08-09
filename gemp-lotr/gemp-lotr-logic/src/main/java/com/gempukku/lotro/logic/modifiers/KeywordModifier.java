@@ -3,7 +3,7 @@ package com.gempukku.lotro.logic.modifiers;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
+import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.evaluator.ConstantEvaluator;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 
@@ -35,23 +35,23 @@ public class KeywordModifier extends AbstractModifier implements KeywordAffectin
     }
 
     @Override
-    public String getText(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
+    public String getText(LotroGame game, PhysicalCard self) {
         if (_keyword.isMultiples()) {
-            int count = _evaluator.evaluateExpression(gameState, modifiersQuerying, self);
+            int count = _evaluator.evaluateExpression(game, self);
             return _keyword.getHumanReadable() + " +" + count;
         }
         return _keyword.getHumanReadable();
     }
 
     @Override
-    public boolean hasKeyword(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, Keyword keyword) {
-        return (keyword == _keyword && _evaluator.evaluateExpression(gameState, modifiersQuerying, physicalCard) > 0);
+    public boolean hasKeyword(LotroGame game, PhysicalCard physicalCard, Keyword keyword) {
+        return (keyword == _keyword && _evaluator.evaluateExpression(game, physicalCard) > 0);
     }
 
     @Override
-    public int getKeywordCountModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard, Keyword keyword) {
+    public int getKeywordCountModifier(LotroGame game, PhysicalCard physicalCard, Keyword keyword) {
         if (keyword == _keyword)
-            return _evaluator.evaluateExpression(gameState, modifiersQuerying, physicalCard);
+            return _evaluator.evaluateExpression(game, physicalCard);
         else
             return 0;
     }

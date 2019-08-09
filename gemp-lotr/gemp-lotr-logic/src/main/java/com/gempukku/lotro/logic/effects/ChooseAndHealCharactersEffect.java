@@ -37,8 +37,8 @@ public class ChooseAndHealCharactersEffect extends ChooseActiveCardsEffect {
         return Filters.and(
                 new Filter() {
                     @Override
-                    public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                        return gameState.getWounds(physicalCard) >= _count && modifiersQuerying.canBeHealed(gameState, physicalCard);
+                    public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
+                        return game.getGameState().getWounds(physicalCard) >= _count && game.getModifiersQuerying().canBeHealed(game, physicalCard);
                     }
                 });
     }
@@ -49,8 +49,8 @@ public class ChooseAndHealCharactersEffect extends ChooseActiveCardsEffect {
                 Filters.wounded,
                 new Filter() {
                     @Override
-                    public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                        return modifiersQuerying.canBeHealed(gameState, physicalCard);
+                    public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
+                        return game.getModifiersQuerying().canBeHealed(game, physicalCard);
                     }
                 });
     }

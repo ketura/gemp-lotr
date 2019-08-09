@@ -2,15 +2,13 @@ package com.gempukku.lotro.cards.set11.men;
 
 import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
 import com.gempukku.lotro.logic.modifiers.VitalityModifier;
-import com.gempukku.lotro.logic.modifiers.conditions.NotCondition;
+import com.gempukku.lotro.logic.modifiers.condition.NotCondition;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.CantTakeWoundsModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.condition.PhaseCondition;
 
 import java.util.LinkedList;
@@ -47,7 +45,7 @@ public class Card11_094 extends AbstractAttachable {
     }
 
     @Override
-    public int getTwilightCostModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
-        return -Filters.countActive(gameState, modifiersQuerying, Side.FREE_PEOPLE, CardType.POSSESSION);
+    public int getTwilightCostModifier(LotroGame game, PhysicalCard self) {
+        return -Filters.countActive(game, Side.FREE_PEOPLE, CardType.POSSESSION);
     }
 }

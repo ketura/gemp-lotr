@@ -37,7 +37,7 @@ public class Card12_119 extends AbstractCompanion {
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.startOfPhase(game, effectResult, Phase.SKIRMISH)
                 && PlayConditions.canSelfExert(self, game)
-                && Filters.inSkirmish.accepts(game.getGameState(), game.getModifiersQuerying(), self)) {
+                && Filters.inSkirmish.accepts(game, self)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(
                     new SelfExertEffect(action, self));

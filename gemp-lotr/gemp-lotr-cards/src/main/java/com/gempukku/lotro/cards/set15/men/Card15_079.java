@@ -37,18 +37,18 @@ public class Card15_079 extends AbstractMinion {
                 new StrengthModifier(self, Filters.and(Culture.MEN, Keyword.HUNTER),
                         new Condition() {
                             @Override
-                            public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return Filters.countActive(gameState, modifiersQuerying, CardType.COMPANION)
-                                        > Filters.countActive(gameState, modifiersQuerying, CardType.MINION);
+                            public boolean isFullfilled(LotroGame game) {
+                                return Filters.countActive(game, CardType.COMPANION)
+                                        > Filters.countActive(game, CardType.MINION);
                             }
                         }, 2));
         modifiers.add(
                 new KeywordModifier(self, Filters.and(Culture.MEN, Keyword.HUNTER),
                         new Condition() {
                             @Override
-                            public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return Filters.countActive(gameState, modifiersQuerying, CardType.COMPANION)
-                                        > Filters.countActive(gameState, modifiersQuerying, CardType.MINION);
+                            public boolean isFullfilled(LotroGame game) {
+                                return Filters.countActive(game, CardType.COMPANION)
+                                        > Filters.countActive(game, CardType.MINION);
                             }
                         }, Keyword.ARCHER, 1));
         return modifiers;

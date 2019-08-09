@@ -44,7 +44,7 @@ public class Card19_038 extends AbstractMinion {
         return new CantBeAssignedAgainstModifier(self, Side.FREE_PEOPLE,
                 Filters.and(CardType.COMPANION, new Filter() {
                     @Override
-                    public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
+                    public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
                         final Race race = physicalCard.getBlueprint().getRace();
                         return self.getWhileInZoneData() != null && self.getWhileInZoneData() == race;
                     }

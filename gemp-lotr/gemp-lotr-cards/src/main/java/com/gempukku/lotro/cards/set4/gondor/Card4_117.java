@@ -40,8 +40,8 @@ public class Card4_117 extends AbstractCompanion {
         return Collections.singletonList(
                 new AbstractModifier(self, "Can't play skimirhs events or skirmish special abilities", null, ModifierEffect.ACTION_MODIFIER) {
                     @Override
-                    public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, Action action) {
-                        if (!Filters.inSkirmish.accepts(gameState, modifiersQuerying, self))
+                    public boolean canPlayAction(LotroGame game, String performingPlayer, Action action) {
+                        if (!Filters.inSkirmish.accepts(game, self))
                             return true;
                         if (performingPlayer != null && performingPlayer.equals(self.getOwner()))
                             return true;

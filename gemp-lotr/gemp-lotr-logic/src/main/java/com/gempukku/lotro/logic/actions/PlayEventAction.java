@@ -1,15 +1,15 @@
 package com.gempukku.lotro.logic.actions;
 
-import com.gempukku.lotro.logic.effects.DiscountEffect;
-import com.gempukku.lotro.logic.effects.PayTwilightCostEffect;
-import com.gempukku.lotro.logic.effects.PlayEventEffect;
-import com.gempukku.lotro.logic.effects.discount.ToilDiscountEffect;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
+import com.gempukku.lotro.logic.effects.DiscountEffect;
+import com.gempukku.lotro.logic.effects.PayTwilightCostEffect;
+import com.gempukku.lotro.logic.effects.PlayEventEffect;
+import com.gempukku.lotro.logic.effects.discount.ToilDiscountEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.Collections;
@@ -111,7 +111,7 @@ public class PlayEventAction extends AbstractCostToEffectAction implements Disco
         if (!_discountResolved) {
             _discountResolved = true;
             if (_discountEffect == null) {
-                int toilCount = game.getModifiersQuerying().getKeywordCount(game.getGameState(), _eventPlayed, Keyword.TOIL);
+                int toilCount = game.getModifiersQuerying().getKeywordCount(game, _eventPlayed, Keyword.TOIL);
                 if (toilCount > 0) {
                     _discountEffect = new ToilDiscountEffect(this, _eventPlayed, _eventPlayed.getOwner(), _eventPlayed.getBlueprint().getCulture(), toilCount);
                 }
@@ -119,7 +119,7 @@ public class PlayEventAction extends AbstractCostToEffectAction implements Disco
             if (_discountEffect != null) {
                 int requiredDiscount = 0;
                 if (_eventPlayed.getBlueprint().getSide() == Side.SHADOW) {
-                    int twilightCost = game.getModifiersQuerying().getTwilightCost(game.getGameState(), _eventPlayed, 0, false);
+                    int twilightCost = game.getModifiersQuerying().getTwilightCost(game, _eventPlayed, 0, false);
                     int underPool = twilightCost - game.getGameState().getTwilightPool();
                     if (underPool > 0)
                         requiredDiscount = underPool;

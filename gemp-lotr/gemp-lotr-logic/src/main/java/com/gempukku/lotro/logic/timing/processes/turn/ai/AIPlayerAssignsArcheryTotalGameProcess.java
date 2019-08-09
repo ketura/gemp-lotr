@@ -36,9 +36,9 @@ public class AIPlayerAssignsArcheryTotalGameProcess implements GameProcess {
                             Filters.owner("AI"),
                             new Filter() {
                                 @Override
-                                public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                    return modifiersQuerying.canTakeArcheryWound(gameState, physicalCard)
-                                            && gameState.getWounds(physicalCard) < modifiersQuerying.getVitality(gameState, physicalCard) - 1;
+                                public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
+                                    return game.getModifiersQuerying().canTakeArcheryWound(game, physicalCard)
+                                            && game.getGameState().getWounds(physicalCard) < game.getModifiersQuerying().getVitality(game, physicalCard) - 1;
                                 }
                             });
 
@@ -48,8 +48,8 @@ public class AIPlayerAssignsArcheryTotalGameProcess implements GameProcess {
                             Filters.owner("AI"),
                             new Filter() {
                                 @Override
-                                public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                    return modifiersQuerying.canTakeArcheryWound(gameState, physicalCard);
+                                public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
+                                    return game.getModifiersQuerying().canTakeArcheryWound(game, physicalCard);
                                 }
                             }
                     );
@@ -59,9 +59,9 @@ public class AIPlayerAssignsArcheryTotalGameProcess implements GameProcess {
                 UnrespondableEffect chooseRandomMinionAndWound = new UnrespondableEffect() {
                     @Override
                     protected void doPlayEffect(LotroGame game) {
-                        Collection<PhysicalCard> acceptableCards = Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), filterPriority);
+                        Collection<PhysicalCard> acceptableCards = Filters.filterActive(game, filterPriority);
                         if (acceptableCards.size() == 0)
-                            acceptableCards = Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), filterFallback);
+                            acceptableCards = Filters.filterActive(game, filterFallback);
 
                         List<PhysicalCard> possibleChoices = new ArrayList<PhysicalCard>(acceptableCards);
                         if (possibleChoices.size()>0) {

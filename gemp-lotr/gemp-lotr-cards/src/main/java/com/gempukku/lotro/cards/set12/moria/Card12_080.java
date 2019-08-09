@@ -62,7 +62,7 @@ public class Card12_080 extends AbstractAttachable {
                     new RevealHandEffect(self, self.getOwner(), game.getGameState().getCurrentPlayerId()) {
                         @Override
                         protected void cardsRevealed(Collection<? extends PhysicalCard> cards) {
-                            final Collection<PhysicalCard> cardsToDiscard = Filters.filter(game.getGameState().getHand(game.getGameState().getCurrentPlayerId()), game.getGameState(), game.getModifiersQuerying(), Side.FREE_PEOPLE, Filters.or(Filters.printedTwilightCost(1), Filters.printedTwilightCost(0)));
+                            final Collection<PhysicalCard> cardsToDiscard = Filters.filter(game.getGameState().getHand(game.getGameState().getCurrentPlayerId()), game, Side.FREE_PEOPLE, Filters.or(Filters.printedTwilightCost(1), Filters.printedTwilightCost(0)));
                             action.appendEffect(
                                     new DiscardCardsFromHandEffect(self, game.getGameState().getCurrentPlayerId(), cardsToDiscard, true));
                         }

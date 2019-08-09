@@ -40,7 +40,7 @@ public class Card20_188 extends AbstractEvent {
                     @Override
                     protected void cardsSelected(LotroGame game, Collection<PhysicalCard> cards) {
                         super.cardsSelected(game, cards);
-                        if (Filters.filter(cards, game.getGameState(), game.getModifiersQuerying(), Race.URUK_HAI).size()>0)
+                        if (Filters.filter(cards, game, Race.URUK_HAI).size()>0)
                             action.appendEffect(
                                     new WoundCharactersEffect(self, Filters.in(cards)));
                     }

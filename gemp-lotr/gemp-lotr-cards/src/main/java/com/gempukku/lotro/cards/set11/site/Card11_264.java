@@ -31,7 +31,7 @@ public class Card11_264 extends AbstractNewSite {
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.movesTo(game, effectResult, self)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
-            int count = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.ALLY);
+            int count = Filters.countActive(game, CardType.ALLY);
             for (int i = 0; i < count; i++)
                 action.appendEffect(
                         new ChooseAndWoundCharactersEffect(action, game.getGameState().getCurrentPlayerId(), 1, 1, CardType.COMPANION));

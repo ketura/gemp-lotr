@@ -34,7 +34,7 @@ public class Card4_355 extends AbstractSite {
         return Collections.singletonList(
                 new AbstractModifier(self, null, null, ModifierEffect.ACTION_MODIFIER) {
                     @Override
-                    public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, Action action) {
+                    public boolean canPlayAction(LotroGame game, String performingPlayer, Action action) {
                         if (action.getActionTimeword() == Phase.SKIRMISH)
                             return false;
                         return true;

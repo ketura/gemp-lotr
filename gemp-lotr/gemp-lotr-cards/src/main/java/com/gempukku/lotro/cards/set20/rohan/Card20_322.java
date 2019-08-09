@@ -30,7 +30,7 @@ public class Card20_322 extends AbstractEvent {
                         new CardMatchesEvaluator(2, 3, Filters.inSkirmishAgainst(CardType.MINION, Filters.wounded)), Culture.ROHAN, Race.MAN) {
                     @Override
                     protected void selectedCharacterCallback(PhysicalCard selectedCharacter) {
-                        if (Filters.and(Filters.inSkirmishAgainst(CardType.MINION, Filters.wounded)).accepts(game.getGameState(), game.getModifiersQuerying(), selectedCharacter))
+                        if (Filters.and(Filters.inSkirmishAgainst(CardType.MINION, Filters.wounded)).accepts(game, selectedCharacter))
                             action.appendEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
                                             new KeywordModifier(self, selectedCharacter, Keyword.DAMAGE, 1)));

@@ -64,7 +64,7 @@ public class DiscardCardsFromPlayEffect extends AbstractPreventableCardEffect {
 
         GameState gameState = game.getGameState();
 
-        DiscardUtils.cardsToChangeZones(gameState, cards, discardedCards, toMoveFromZoneToDiscard);
+        DiscardUtils.cardsToChangeZones(game, cards, discardedCards, toMoveFromZoneToDiscard);
 
         discardedCards.addAll(cards);
         toMoveFromZoneToDiscard.addAll(cards);

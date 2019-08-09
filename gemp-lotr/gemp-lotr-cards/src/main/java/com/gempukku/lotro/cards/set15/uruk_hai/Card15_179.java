@@ -33,7 +33,7 @@ public class Card15_179 extends AbstractEvent {
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
                                         new StrengthModifier(self, card, 2)));
-                        if (game.getModifiersQuerying().hasKeyword(game.getGameState(), card, Keyword.HUNTER))
+                        if (game.getModifiersQuerying().hasKeyword(game, card, Keyword.HUNTER))
                             action.appendEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
                                             new KeywordModifier(self, card, Keyword.DAMAGE, 1)));

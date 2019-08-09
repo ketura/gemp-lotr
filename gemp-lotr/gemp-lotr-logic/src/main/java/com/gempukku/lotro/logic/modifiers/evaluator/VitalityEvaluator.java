@@ -1,8 +1,7 @@
 package com.gempukku.lotro.logic.modifiers.evaluator;
 
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.game.state.LotroGame;
 
 public class VitalityEvaluator implements Evaluator {
     private int _multiplier;
@@ -18,7 +17,7 @@ public class VitalityEvaluator implements Evaluator {
     }
 
     @Override
-    public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard cardAffected) {
-        return _multiplier * modifiersQuerying.getVitality(gameState, _physicalCard);
+    public int evaluateExpression(LotroGame game, PhysicalCard cardAffected) {
+        return _multiplier * game.getModifiersQuerying().getVitality(game, _physicalCard);
     }
 }

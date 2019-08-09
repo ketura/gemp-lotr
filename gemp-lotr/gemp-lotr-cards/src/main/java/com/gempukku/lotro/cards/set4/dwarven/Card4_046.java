@@ -51,7 +51,7 @@ public class Card4_046 extends AbstractPermanent {
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.FELLOWSHIP, self)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Race.DWARF)
+                && Filters.canSpot(game, Race.DWARF)
                 && game.getGameState().getDeck(playerId).size() > 0) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(

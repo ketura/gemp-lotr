@@ -1,8 +1,7 @@
-package com.gempukku.lotro.logic.modifiers.conditions;
+package com.gempukku.lotro.logic.modifiers.condition;
 
-import com.gempukku.lotro.game.state.GameState;
+import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.Condition;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
 public class OrCondition implements Condition {
     private Condition[] _conditions;
@@ -12,9 +11,9 @@ public class OrCondition implements Condition {
     }
 
     @Override
-    public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
+    public boolean isFullfilled(LotroGame game) {
         for (Condition condition : _conditions) {
-            if (condition != null && condition.isFullfilled(gameState, modifiersQuerying))
+            if (condition != null && condition.isFullfilled(game))
                 return true;
         }
 

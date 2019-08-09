@@ -36,7 +36,7 @@ public class Card40_168 extends AbstractMinion {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        final int companionCount = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION);
+        final int companionCount = Filters.countActive(game, CardType.COMPANION);
         if (TriggerConditions.played(game, effectResult, self)
                 && companionCount > 5
                 && PlayConditions.canPlayFromDiscard(playerId, game, Culture.MORIA, Race.GOBLIN)) {

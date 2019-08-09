@@ -49,11 +49,11 @@ public class Card20_349 extends AbstractMinion {
         return new KeywordModifier(self, self,
                 new Condition() {
                     @Override
-                    public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
+                    public boolean isFullfilled(LotroGame game) {
                         Culture chosenCulture = (Culture) self.getWhileInZoneData();
                         if (chosenCulture == null)
                             return false;
-                        return Filters.inSkirmishAgainst(chosenCulture).accepts(gameState, modifiersQuerying, self);
+                        return Filters.inSkirmishAgainst(chosenCulture).accepts(game, self);
                     }
                 }, Keyword.DAMAGE, 1);
     }

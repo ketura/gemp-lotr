@@ -35,7 +35,7 @@ public class Card4_297 extends AbstractEvent {
                                 new AddUntilEndOfPhaseModifierEffect(
                                         new StrengthModifier(self, Filters.sameCard(card), 2)));
 
-                        boolean mounted = Filters.mounted.accepts(game.getGameState(), game.getModifiersQuerying(), card);
+                        boolean mounted = Filters.mounted.accepts(game, card);
                         if (mounted)
                             action.appendEffect(
                                     new AddUntilEndOfPhaseModifierEffect(

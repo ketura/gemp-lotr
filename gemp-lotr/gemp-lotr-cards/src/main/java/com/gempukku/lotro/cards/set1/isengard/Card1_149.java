@@ -38,8 +38,8 @@ public class Card1_149 extends AbstractMinion {
                         self,
                         new Filter() {
                             @Override
-                            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                return Filters.canSpot(gameState, modifiersQuerying, Keyword.WEATHER, CardType.CONDITION);
+                            public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
+                                return Filters.canSpot(game, Keyword.WEATHER, CardType.CONDITION);
                             }
                         }), 3);
     }

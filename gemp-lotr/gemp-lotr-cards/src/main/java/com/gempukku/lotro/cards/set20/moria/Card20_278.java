@@ -30,8 +30,8 @@ public class Card20_278 extends AbstractEvent {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Filters.balrog,
-                Filters.playable(game, -2 * Filters.filter(game.getGameState().getHand(playerId), game.getGameState(), game.getModifiersQuerying(), Culture.MORIA, Race.GOBLIN).size())).size() > 0;
+                && Filters.filter(game.getGameState().getHand(playerId), game, Filters.balrog,
+                Filters.playable(game, -2 * Filters.filter(game.getGameState().getHand(playerId), game, Culture.MORIA, Race.GOBLIN).size())).size() > 0;
     }
 
     @Override

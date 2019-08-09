@@ -47,7 +47,7 @@ public class Card13_062 extends AbstractCompanion {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new SelfExertEffect(action, self));
-            int bonus = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.POSSESSION, Filters.attachedTo(self));
+            int bonus = Filters.countActive(game, CardType.POSSESSION, Filters.attachedTo(self));
             if (bonus > 0)
                 action.appendEffect(
                         new AddUntilEndOfPhaseModifierEffect(

@@ -57,7 +57,7 @@ public class Card17_023 extends AbstractPermanent {
                                                                 @Override
                                                                 protected void cardsRevealed(List<PhysicalCard> revealedCards) {
                                                                     Side side = (index == 0) ? Side.FREE_PEOPLE : Side.SHADOW;
-                                                                    if (Filters.filter(revealedCards, game.getGameState(), game.getModifiersQuerying(), side).size() >= 2) {
+                                                                    if (Filters.filter(revealedCards, game, side).size() >= 2) {
                                                                         putCardsIntoHandFromDeck(action, playerId, game, revealedCards);
                                                                     } else {
                                                                         action.appendEffect(

@@ -42,7 +42,7 @@ public class Card31_034 extends AbstractPermanent {
     public List<? extends Action> getExtraPhaseActions(final String playerId, final LotroGame game, PhysicalCard self) {
         List<PhysicalCard> stackedCards = game.getGameState().getStackedCards(self);
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SHADOW, self, 0)
-                && Filters.filter(stackedCards, game.getGameState(), game.getModifiersQuerying(), Filters.playable(game)).size() > 0) {
+                && Filters.filter(stackedCards, game, Filters.playable(game)).size() > 0) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
                     new ChooseArbitraryCardsEffect(playerId, "Choose an Orc to play", stackedCards, Filters.playable(game), 1, 1) {
@@ -62,7 +62,7 @@ public class Card31_034 extends AbstractPermanent {
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayAfterActions(String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         if (TriggerConditions.winsSkirmish(game, effectResult, Race.ORC)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Race.ORC, Filters.inSkirmish)) {
+                && Filters.canSpot(game, Race.ORC, Filters.inSkirmish)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose an Orc", Race.ORC, Filters.inSkirmish) {

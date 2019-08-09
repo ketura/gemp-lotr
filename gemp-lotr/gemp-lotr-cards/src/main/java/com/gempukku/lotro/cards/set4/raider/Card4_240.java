@@ -39,7 +39,7 @@ public class Card4_240 extends AbstractEvent {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Culture.RAIDER, Race.MAN));
-        int burdens = Math.max(0, Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION) - 4);
+        int burdens = Math.max(0, Filters.countActive(game, CardType.COMPANION) - 4);
         action.appendEffect(
                 new PreventableEffect(action,
                         new AddBurdenEffect(self.getOwner(), self, burdens),

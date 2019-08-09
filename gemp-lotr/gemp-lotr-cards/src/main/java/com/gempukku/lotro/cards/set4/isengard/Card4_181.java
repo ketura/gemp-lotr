@@ -40,8 +40,8 @@ public class Card4_181 extends AbstractMinion {
                 new StrengthModifier(self, Filters.and(self, Filters.inSkirmish),
                         new Condition() {
                             @Override
-                            public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return gameState.isFierceSkirmishes();
+                            public boolean isFullfilled(LotroGame game) {
+                                return game.getGameState().isFierceSkirmishes();
                             }
                         }, 2));
     }

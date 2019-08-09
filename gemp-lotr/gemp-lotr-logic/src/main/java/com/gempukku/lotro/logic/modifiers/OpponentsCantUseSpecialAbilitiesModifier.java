@@ -1,11 +1,7 @@
 package com.gempukku.lotro.logic.modifiers;
 
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
-import com.gempukku.lotro.logic.modifiers.AbstractModifier;
-import com.gempukku.lotro.logic.modifiers.Condition;
-import com.gempukku.lotro.logic.modifiers.ModifierEffect;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.timing.Action;
 
 public class OpponentsCantUseSpecialAbilitiesModifier extends AbstractModifier {
@@ -21,7 +17,7 @@ public class OpponentsCantUseSpecialAbilitiesModifier extends AbstractModifier {
     }
 
     @Override
-    public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, Action action) {
+    public boolean canPlayAction(LotroGame game, String performingPlayer, Action action) {
         if (!performingPlayer.equals(_playerId) && action.getType() == Action.Type.SPECIAL_ABILITY)
             return false;
         return true;

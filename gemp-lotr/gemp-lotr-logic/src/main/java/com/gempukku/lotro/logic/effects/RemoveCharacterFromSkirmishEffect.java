@@ -17,7 +17,7 @@ public class RemoveCharacterFromSkirmishEffect extends AbstractEffect {
 
     @Override
     public boolean isPlayableInFull(LotroGame game) {
-        return Filters.inSkirmish.accepts(game.getGameState(), game.getModifiersQuerying(), _toRemove);
+        return Filters.inSkirmish.accepts(game, _toRemove);
     }
 
     @Override

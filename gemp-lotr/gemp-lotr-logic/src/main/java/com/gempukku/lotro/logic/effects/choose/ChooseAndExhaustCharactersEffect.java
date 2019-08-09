@@ -1,6 +1,5 @@
 package com.gempukku.lotro.logic.effects.choose;
 
-import com.gempukku.lotro.logic.effects.ExhaustCharacterEffect;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
@@ -9,6 +8,7 @@ import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardsEffect;
+import com.gempukku.lotro.logic.effects.ExhaustCharacterEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.Action;
 
@@ -26,9 +26,9 @@ public class ChooseAndExhaustCharactersEffect extends ChooseActiveCardsEffect {
     protected Filter getExtraFilterForPlaying(LotroGame game) {
         return new Filter() {
             @Override
-            public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                return modifiersQuerying.canBeExerted(gameState, _action.getActionSource(), physicalCard)
-                        && modifiersQuerying.getVitality(gameState, physicalCard) > 1;
+            public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
+                return game.getModifiersQuerying().canBeExerted(game, _action.getActionSource(), physicalCard)
+                        && game.getModifiersQuerying().getVitality(game, physicalCard) > 1;
             }
         };
     }

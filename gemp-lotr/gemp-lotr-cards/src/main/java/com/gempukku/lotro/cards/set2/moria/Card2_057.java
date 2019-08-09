@@ -36,8 +36,8 @@ public class Card2_057 extends AbstractResponseEvent {
             SkirmishAboutToEndResult checkSkirmish = (SkirmishAboutToEndResult) effectResult;
             for (PhysicalCard minion: checkSkirmish.getMinionsInvolved()) {
                 if (minion.getBlueprint().getName().equals("The Balrog")
-                        && Filters.filter(game.getGameState().getSkirmish().getShadowCharacters(), game.getGameState(),
-                        game.getModifiersQuerying(), Filters.hasAttached(Filters.name("Whip of Many Thongs"))).size() > 0) {
+                        && Filters.filter(game.getGameState().getSkirmish().getShadowCharacters(), game,
+                        Filters.hasAttached(Filters.name("Whip of Many Thongs"))).size() > 0) {
                     PlayEventAction action = new PlayEventAction(self);
                     action.appendEffect(
                             new WoundCharactersEffect(self, CardType.COMPANION, Filters.inSkirmish));

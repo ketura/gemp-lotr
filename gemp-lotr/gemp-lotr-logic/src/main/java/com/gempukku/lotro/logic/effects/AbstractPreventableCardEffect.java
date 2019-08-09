@@ -27,7 +27,7 @@ public abstract class AbstractPreventableCardEffect extends AbstractEffect {
     protected abstract Filter getExtraAffectableFilter();
 
     protected final Collection<PhysicalCard> getAffectedCards(LotroGame game) {
-        return Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), _filter, getExtraAffectableFilter());
+        return Filters.filterActive(game, _filter, getExtraAffectableFilter());
     }
 
     public final Collection<PhysicalCard> getAffectedCardsMinusPrevented(LotroGame game) {

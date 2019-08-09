@@ -1,10 +1,9 @@
-package com.gempukku.lotro.logic.modifiers.conditions;
+package com.gempukku.lotro.logic.modifiers.condition;
 
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.game.state.GameState;
+import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.Condition;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
 public class CantSpotCondition implements Condition {
     private Filterable[] _filters;
@@ -14,7 +13,7 @@ public class CantSpotCondition implements Condition {
     }
 
     @Override
-    public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-        return !Filters.canSpot(gameState, modifiersQuerying, _filters);
+    public boolean isFullfilled(LotroGame game) {
+        return !Filters.canSpot(game, _filters);
     }
 }

@@ -45,8 +45,8 @@ public class Card4_071 extends AbstractCompanion {
                 new StrengthModifier(self, self,
                         new Condition() {
                             @Override
-                            public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return Filters.countActive(gameState, modifiersQuerying, Filters.siteControlledByShadowPlayer(self.getOwner())) == 0;
+                            public boolean isFullfilled(LotroGame game) {
+                                return Filters.countActive(game, Filters.siteControlledByShadowPlayer(self.getOwner())) == 0;
                             }
                         }, 2));
     }
@@ -55,7 +55,7 @@ public class Card4_071 extends AbstractCompanion {
     protected List<ActivateCardAction> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.REGROUP, self)
                 && PlayConditions.canExert(self, game, self)
-                && game.getModifiersQuerying().hasKeyword(game.getGameState(), game.getGameState().getCurrentSite(), Keyword.BATTLEGROUND)
+                && game.getModifiersQuerying().hasKeyword(game, game.getGameState().getCurrentSite(), Keyword.BATTLEGROUND)
                 && PlayConditions.canExert(self, game, Filters.not(self), Race.ELF)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(

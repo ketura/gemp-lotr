@@ -3,11 +3,7 @@ package com.gempukku.lotro.logic.modifiers;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
-import com.gempukku.lotro.logic.modifiers.AbstractModifier;
-import com.gempukku.lotro.logic.modifiers.Condition;
-import com.gempukku.lotro.logic.modifiers.ModifierEffect;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.game.state.LotroGame;
 
 public class CantHealModifier extends AbstractModifier {
     public CantHealModifier(PhysicalCard source, Filterable... affectFilters) {
@@ -19,7 +15,7 @@ public class CantHealModifier extends AbstractModifier {
     }
 
     @Override
-    public boolean canBeHealed(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard card) {
+    public boolean canBeHealed(LotroGame game, PhysicalCard card) {
         return false;
     }
 }

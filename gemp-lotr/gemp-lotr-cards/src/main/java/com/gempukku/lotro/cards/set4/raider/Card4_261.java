@@ -39,14 +39,14 @@ public class Card4_261 extends AbstractPermanent {
         return Collections.singletonList(
                 new AbstractModifier(self, null, null, ModifierEffect.ACTION_MODIFIER) {
                     @Override
-                    public boolean canPlayAction(GameState gameState, ModifiersQuerying modifiersQuerying, String performingPlayer, Action action) {
+                    public boolean canPlayAction(LotroGame game, String performingPlayer, Action action) {
                         final PhysicalCard actionSource = action.getActionSource();
 
                         if (actionSource != null
                                 && actionSource.getBlueprint().getCardType() == CardType.EVENT
                                 && action instanceof PlayEventAction) {
                             PlayEventAction playEventAction = (PlayEventAction) action;
-                            if (Filters.canSpot(gameState, modifiersQuerying, Culture.RAIDER, Race.MAN)
+                            if (Filters.canSpot(game, Culture.RAIDER, Race.MAN)
                                     && playEventAction.isRequiresRanger())
                                 playEventAction.appendCost(
                                         new ChooseAndWoundCharactersEffect(playEventAction, performingPlayer, 1, 1, CardType.COMPANION));

@@ -1,6 +1,5 @@
 package com.gempukku.lotro.logic.effects.discount;
 
-import com.gempukku.lotro.logic.effects.DiscountEffect;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filters;
@@ -11,6 +10,7 @@ import com.gempukku.lotro.logic.actions.AbstractCostToEffectAction;
 import com.gempukku.lotro.logic.decisions.ArbitraryCardsSelectionDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.decisions.YesNoDecision;
+import com.gempukku.lotro.logic.effects.DiscountEffect;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -55,7 +55,7 @@ public class RemoveCardsFromDiscardDiscountEffect implements DiscountEffect {
 
     @Override
     public boolean isPlayableInFull(LotroGame game) {
-        return Filters.filter(game.getGameState().getDiscard(_playerId), game.getGameState(), game.getModifiersQuerying(), _cardFilter).size() >= _count;
+        return Filters.filter(game.getGameState().getDiscard(_playerId), game, _cardFilter).size() >= _count;
     }
 
     @Override
@@ -76,7 +76,7 @@ public class RemoveCardsFromDiscardDiscountEffect implements DiscountEffect {
     }
 
     private void proceedDiscount(final LotroGame game) {
-        final Collection<PhysicalCard> removableCards = Filters.filter(game.getGameState().getDiscard(_playerId), game.getGameState(), game.getModifiersQuerying(), _cardFilter);
+        final Collection<PhysicalCard> removableCards = Filters.filter(game.getGameState().getDiscard(_playerId), game, _cardFilter);
         game.getUserFeedback().sendAwaitingDecision(_playerId,
                 new ArbitraryCardsSelectionDecision(1, "Choose cards to remove", removableCards, _count, _count) {
                     @Override

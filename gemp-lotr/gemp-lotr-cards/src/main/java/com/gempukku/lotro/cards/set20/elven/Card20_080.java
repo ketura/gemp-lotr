@@ -78,14 +78,14 @@ public class Card20_080 extends AbstractAlly {
                         @Override
                         protected void cardsRevealed(List<PhysicalCard> revealedCards) {
                             for (PhysicalCard revealedCard : revealedCards) {
-                                if (Filters.and(Culture.ELVEN).accepts(game.getGameState(), game.getModifiersQuerying(), revealedCard)) {
+                                if (Filters.and(Culture.ELVEN).accepts(game, revealedCard)) {
                                     action.appendEffect(
                                             new ChooseActiveCardEffect(self, playerId, "Choose companion to heal", CardType.COMPANION, Filters.canHeal) {
                                                 @Override
                                                 protected void cardSelected(LotroGame game, PhysicalCard companion) {
                                                     action.appendEffect(
                                                             new HealCharactersEffect(self, companion));
-                                                    if (Filters.and(Race.ELF).accepts(game.getGameState(), game.getModifiersQuerying(), companion))
+                                                    if (Filters.and(Race.ELF).accepts(game, companion))
                                                         action.appendEffect(
                                                                 new HealCharactersEffect(self, companion));
                                                 }

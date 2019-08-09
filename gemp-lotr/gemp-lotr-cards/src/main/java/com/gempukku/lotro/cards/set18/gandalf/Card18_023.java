@@ -32,7 +32,7 @@ public class Card18_023 extends AbstractEvent {
     @Override
     public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
         PlayEventAction action = new PlayEventAction(self);
-        int count = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Culture.GANDALF, Race.WIZARD);
+        int count = Filters.countActive(game, Culture.GANDALF, Race.WIZARD);
         if (count > 0)
             action.appendEffect(
                     new RemoveBurdenEffect(playerId, self, count));

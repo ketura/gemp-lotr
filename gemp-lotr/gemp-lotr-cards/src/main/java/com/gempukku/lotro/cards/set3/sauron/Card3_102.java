@@ -51,7 +51,7 @@ public class Card3_102 extends AbstractPermanent {
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.moves(game, effectResult)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
-            int allies = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), CardType.ALLY);
+            int allies = Filters.countActive(game, CardType.ALLY);
             action.appendEffect(
                     new AddTwilightEffect(self, allies));
             return Collections.singletonList(action);

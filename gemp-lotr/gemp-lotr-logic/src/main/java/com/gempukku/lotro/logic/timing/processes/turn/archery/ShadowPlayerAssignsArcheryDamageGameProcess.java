@@ -31,8 +31,8 @@ public class ShadowPlayerAssignsArcheryDamageGameProcess implements GameProcess 
                             Filters.owner(_playerId),
                             new Filter() {
                                 @Override
-                                public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                    return modifiersQuerying.canTakeArcheryWound(gameState, physicalCard);
+                                public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
+                                    return game.getModifiersQuerying().canTakeArcheryWound(game, physicalCard);
                                 }
                             });
 

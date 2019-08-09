@@ -37,7 +37,7 @@ public class Card10_038 extends AbstractMinion {
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.startOfPhase(game, effectResult, Phase.SKIRMISH)
-                && Filters.inSkirmish.accepts(game.getGameState(), game.getModifiersQuerying(), self)
+                && Filters.inSkirmish.accepts(game, self)
                 && PlayConditions.canRemoveTokens(game, Token.RAIDER, 1, Filters.any)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(

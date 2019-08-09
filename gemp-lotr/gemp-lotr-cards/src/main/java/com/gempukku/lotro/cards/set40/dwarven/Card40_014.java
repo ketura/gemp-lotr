@@ -3,10 +3,8 @@ package com.gempukku.lotro.cards.set40.dwarven;
 import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.modifiers.condition.CardStackedCondition;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
@@ -35,8 +33,8 @@ public class Card40_014 extends AbstractPermanent {
                 new CardStackedCondition(1, self, Culture.DWARVEN),
                 new Evaluator() {
                     @Override
-                    public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard cardAffected) {
-                        return Math.max(0, modifiersQuerying.getVitality(gameState, cardAffected) - 3);
+                    public int evaluateExpression(LotroGame game, PhysicalCard cardAffected) {
+                        return Math.max(0, game.getModifiersQuerying().getVitality(game, cardAffected) - 3);
                     }
                 });
         return Collections.singletonList(modifier);

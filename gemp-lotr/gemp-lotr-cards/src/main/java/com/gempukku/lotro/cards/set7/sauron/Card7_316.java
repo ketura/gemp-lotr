@@ -8,11 +8,9 @@ import com.gempukku.lotro.logic.effects.choose.ChooseAndDiscardCardsFromPlayEffe
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 import com.gempukku.lotro.logic.timing.Action;
@@ -47,10 +45,10 @@ public class Card7_316 extends AbstractPermanent {
                 new StrengthModifier(self, Filters.and(Culture.SAURON, Race.ORC), null,
                         new Evaluator() {
                             @Override
-                            public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard cardAffected) {
+                            public int evaluateExpression(LotroGame game, PhysicalCard cardAffected) {
                                 int counter = 0;
-                                for (PhysicalCard site : Filters.filterActive(gameState, modifiersQuerying, CardType.SITE))
-                                    counter += Filters.filter(gameState.getStackedCards(site), gameState, modifiersQuerying, Filters.activeSide, Keyword.BESIEGER).size();
+                                for (PhysicalCard site : Filters.filterActive(game, CardType.SITE))
+                                    counter += Filters.filter(game.getGameState().getStackedCards(site), game, Filters.activeSide, Keyword.BESIEGER).size();
 
                                 return counter;
                             }

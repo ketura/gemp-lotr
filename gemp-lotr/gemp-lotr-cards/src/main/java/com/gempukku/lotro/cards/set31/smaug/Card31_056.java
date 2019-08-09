@@ -52,7 +52,7 @@ public class Card31_056 extends AbstractAttachable {
         modifiers.add(
                 new AddActionToCardModifier(arkenstone, null, Filters.name("Thorin")) {
                     @Override
-                    public List<? extends ActivateCardAction> getExtraPhaseAction(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard thorin) {
+                    public List<? extends ActivateCardAction> getExtraPhaseAction(LotroGame game, PhysicalCard thorin) {
                         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.MANEUVER, thorin)
                                 && PlayConditions.canAddBurdens(game, thorin.getOwner(), thorin)) {
                             ActivateCardAction transferAction = new ActivateCardAction(arkenstone);
@@ -75,7 +75,7 @@ public class Card31_056 extends AbstractAttachable {
                     }
 
                     @Override
-                    protected ActivateCardAction createExtraPhaseAction(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard matchingCard) {
+                    protected ActivateCardAction createExtraPhaseAction(LotroGame game, PhysicalCard matchingCard) {
                         // Ignore
                         return null;
                     }
@@ -88,7 +88,7 @@ public class Card31_056 extends AbstractAttachable {
         if (TriggerConditions.endOfPhase(game, effectResult, Phase.MANEUVER)
                 && (game.getGameState().getCurrentSiteNumber() == 7 || game.getGameState().getCurrentSiteNumber()==9)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
-            if (Filters.name("Bilbo").accepts(game.getGameState(), game.getModifiersQuerying(), self.getAttachedTo())) {
+            if (Filters.name("Bilbo").accepts(game, self.getAttachedTo())) {
                 action.appendEffect(
                         new AddBurdenEffect(self.getOwner(), self, 1));
             } else {

@@ -41,8 +41,8 @@ public class Card12_118 extends AbstractMinion {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.ASSIGNMENT, self, 0)) {
             ActivateCardAction action = new ActivateCardAction(self);
             int strength = 0;
-            for (PhysicalCard companion : Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), CardType.COMPANION))
-                strength = Math.max(strength, game.getModifiersQuerying().getStrength(game.getGameState(), companion));
+            for (PhysicalCard companion : Filters.filterActive(game, CardType.COMPANION))
+                strength = Math.max(strength, game.getModifiersQuerying().getStrength(game, companion));
 
             final int highestStrength = strength;
 
@@ -50,8 +50,8 @@ public class Card12_118 extends AbstractMinion {
                     new ChooseAndAssignCharacterToMinionEffect(action, playerId, self, CardType.COMPANION,
                             new Filter() {
                                 @Override
-                                public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                                    return modifiersQuerying.getStrength(gameState, physicalCard) == highestStrength;
+                                public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
+                                    return game.getModifiersQuerying().getStrength(game, physicalCard) == highestStrength;
                                 }
                             }));
             return Collections.singletonList(action);

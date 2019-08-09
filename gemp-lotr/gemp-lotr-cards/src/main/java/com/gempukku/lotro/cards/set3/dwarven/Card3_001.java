@@ -39,7 +39,7 @@ public class Card3_001 extends AbstractAttachableFPPossession {
                 && game.getGameState().getCurrentSiteNumber() >= 4
                 && game.getGameState().getCurrentSiteBlock() == Block.FELLOWSHIP) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
-            int dwarfCompanions = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Race.DWARF, CardType.COMPANION);
+            int dwarfCompanions = Filters.countActive(game, Race.DWARF, CardType.COMPANION);
             action.appendEffect(
                     new DrawCardsEffect(action, playerId, dwarfCompanions));
             return Collections.singletonList(action);

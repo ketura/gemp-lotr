@@ -44,8 +44,8 @@ public class Card6_011 extends AbstractEvent {
                 new StrengthModifier(self, Filters.gimli,
                         new Condition() {
                             @Override
-                            public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return Filters.and(Culture.DWARVEN, CardType.CONDITION).accepts(gameState, modifiersQuerying, self.getStackedOn());
+                            public boolean isFullfilled(LotroGame game) {
+                                return Filters.and(Culture.DWARVEN, CardType.CONDITION).accepts(game, self.getStackedOn());
                             }
                         }, 1));
     }

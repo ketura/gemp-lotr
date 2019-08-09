@@ -29,9 +29,9 @@ public class Card13_192 extends AbstractNewSite {
         return new StrengthModifier(self, CardType.MINION,
                 new Condition() {
                     @Override
-                    public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                        return Filters.countActive(gameState, modifiersQuerying, CardType.COMPANION)
-                                > Filters.countActive(gameState, modifiersQuerying, CardType.MINION);
+                    public boolean isFullfilled(LotroGame game) {
+                        return Filters.countActive(game, CardType.COMPANION)
+                                > Filters.countActive(game, CardType.MINION);
                     }
                 }, 1);
     }

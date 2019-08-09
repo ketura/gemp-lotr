@@ -45,8 +45,8 @@ public class Card4_154 extends AbstractMinion {
                 && PlayConditions.canSpot(game, Filters.unboundCompanion,
                 new Filter() {
                     @Override
-                    public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                        return gameState.getAttachedCards(physicalCard).size() >= 3;
+                    public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
+                        return game.getGameState().getAttachedCards(physicalCard).size() >= 3;
                     }
                 })) {
             final ActivateCardAction action = new ActivateCardAction(self);
@@ -55,8 +55,8 @@ public class Card4_154 extends AbstractMinion {
             action.appendEffect(
                     new ChooseActiveCardEffect(self, playerId, "Choose unbound companion", Filters.unboundCompanion, new Filter() {
                         @Override
-                        public boolean accepts(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard physicalCard) {
-                            return gameState.getAttachedCards(physicalCard).size() >= 3;
+                        public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
+                            return game.getGameState().getAttachedCards(physicalCard).size() >= 3;
                         }
                     }) {
                         @Override

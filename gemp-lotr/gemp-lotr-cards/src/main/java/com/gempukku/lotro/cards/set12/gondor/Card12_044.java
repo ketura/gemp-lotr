@@ -38,7 +38,7 @@ public class Card12_044 extends AbstractEvent {
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
                                         new StrengthModifier(self, card, 1)));
-                        if (Filters.inSkirmishAgainst(Filters.roamingMinion).accepts(game.getGameState(), game.getModifiersQuerying(), card)) {
+                        if (Filters.inSkirmishAgainst(Filters.roamingMinion).accepts(game, card)) {
                             action.appendEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
                                             new OpponentsCantUseSpecialAbilitiesModifier(self, playerId)));

@@ -41,7 +41,7 @@ public class Card31_037 extends AbstractMinion {
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.played(game, effectResult, self)
                 && PlayConditions.canSpot(game, 4, Culture.DWARVEN, CardType.COMPANION)) {
-            int playCount = Filters.countSpottable(game.getGameState(), game.getModifiersQuerying(), Culture.DWARVEN, CardType.COMPANION) - 3;
+            int playCount = Filters.countSpottable(game, Culture.DWARVEN, CardType.COMPANION) - 3;
 
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             for (int i = 0; i < playCount; i++) {

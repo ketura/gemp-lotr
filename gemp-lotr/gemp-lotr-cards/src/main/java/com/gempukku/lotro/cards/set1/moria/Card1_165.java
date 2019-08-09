@@ -6,9 +6,7 @@ import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
 /**
  * Set: The Fellowship of the Ring
@@ -32,13 +30,13 @@ public class Card1_165 extends AbstractMinion {
     @Override
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && Filters.canSpot(game.getGameState(), game.getModifiersQuerying(), Culture.MORIA, Race.ORC);
+                && Filters.canSpot(game, Culture.MORIA, Race.ORC);
     }
 
     @Override
-    public int getTwilightCostModifier(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
-        PhysicalCard currentSite = gameState.getCurrentSite();
-        if (modifiersQuerying.hasKeyword(gameState, currentSite, Keyword.UNDERGROUND))
+    public int getTwilightCostModifier(LotroGame game, PhysicalCard self) {
+        PhysicalCard currentSite = game.getGameState().getCurrentSite();
+        if (game.getModifiersQuerying().hasKeyword(game, currentSite, Keyword.UNDERGROUND))
             return -3;
         return 0;
     }

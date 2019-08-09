@@ -47,8 +47,8 @@ public class Card4_033 extends AbstractMinion {
                 new CantBeAssignedToSkirmishModifier(self,
                         new Condition() {
                             @Override
-                            public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
-                                return !modifiersQuerying.hasFlagActive(gameState, ModifierFlag.SARUMAN_FIRST_SENTENCE_INACTIVE);
+                            public boolean isFullfilled(LotroGame game) {
+                                return !game.getModifiersQuerying().hasFlagActive(game, ModifierFlag.SARUMAN_FIRST_SENTENCE_INACTIVE);
                             }
                         },
                         self));
@@ -57,7 +57,7 @@ public class Card4_033 extends AbstractMinion {
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.moves(game, effectResult)) {
-            int dunlandManCount = Filters.countActive(game.getGameState(), game.getModifiersQuerying(), Culture.DUNLAND, Race.MAN);
+            int dunlandManCount = Filters.countActive(game, Culture.DUNLAND, Race.MAN);
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             for (int i = 0; i < dunlandManCount; i++)
                 action.appendEffect(

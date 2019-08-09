@@ -64,7 +64,7 @@ public class Card1_075 extends AbstractAttachableFPPossession {
                                     new RevealHandEffect(self, playerId, opponentId) {
                                         @Override
                                         protected void cardsRevealed(Collection<? extends PhysicalCard> cards) {
-                                            Collection<PhysicalCard> orcs = Filters.filter(game.getGameState().getHand(opponentId), game.getGameState(), game.getModifiersQuerying(), Race.ORC);
+                                            Collection<PhysicalCard> orcs = Filters.filter(game.getGameState().getHand(opponentId), game, Race.ORC);
 
                                             action.appendEffect(new RemoveTwilightEffect(orcs.size()));
                                         }

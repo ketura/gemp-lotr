@@ -1,11 +1,8 @@
 package com.gempukku.lotro.logic.timing.results;
 
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Set;
 
 public class SkirmishAboutToEndResult extends EffectResult {

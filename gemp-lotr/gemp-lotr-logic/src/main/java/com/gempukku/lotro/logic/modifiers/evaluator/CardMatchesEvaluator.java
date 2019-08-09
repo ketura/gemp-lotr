@@ -3,8 +3,7 @@ package com.gempukku.lotro.logic.modifiers.evaluator;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
+import com.gempukku.lotro.game.state.LotroGame;
 
 public class CardMatchesEvaluator implements Evaluator {
     private Filterable[] _filters;
@@ -24,7 +23,7 @@ public class CardMatchesEvaluator implements Evaluator {
     }
 
     @Override
-    public int evaluateExpression(GameState gameState, ModifiersQuerying modifiersQuerying, PhysicalCard self) {
-        return Filters.and(_filters).accepts(gameState, modifiersQuerying, self) ? _matches.evaluateExpression(gameState, modifiersQuerying, self) : _default;
+    public int evaluateExpression(LotroGame game, PhysicalCard self) {
+        return Filters.and(_filters).accepts(game, self) ? _matches.evaluateExpression(game, self) : _default;
     }
 }

@@ -4,7 +4,6 @@ import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
-import com.gempukku.lotro.logic.effects.DiscardUtils;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.results.DiscardCardsFromPlayResult;
 
@@ -56,7 +55,7 @@ public class ShuffleCardsFromPlayIntoDeckEffect extends AbstractEffect {
         }
 
         if (toShuffleIn.size() > 0) {
-            DiscardUtils.cardsToChangeZones(game.getGameState(), toShuffleIn, discardedFromPlay, goingToDiscard);
+            DiscardUtils.cardsToChangeZones(game, toShuffleIn, discardedFromPlay, goingToDiscard);
 
             Set<PhysicalCard> removeFromPlay = new HashSet<PhysicalCard>(goingToDiscard);
             removeFromPlay.addAll(toShuffleIn);

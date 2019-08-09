@@ -4,6 +4,7 @@ import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
+import com.gempukku.lotro.game.state.LotroGame;
 
 public class CantBeAssignedToSkirmishModifier extends AbstractModifier {
     public CantBeAssignedToSkirmishModifier(PhysicalCard source, Filterable affectFilter) {
@@ -15,7 +16,7 @@ public class CantBeAssignedToSkirmishModifier extends AbstractModifier {
     }
 
     @Override
-    public boolean isPreventedFromBeingAssignedToSkirmish(GameState gameState, Side sidePlayer, ModifiersQuerying modifiersQuerying, PhysicalCard card) {
+    public boolean isPreventedFromBeingAssignedToSkirmish(LotroGame game, Side sidePlayer, PhysicalCard card) {
         return true;
     }
 }

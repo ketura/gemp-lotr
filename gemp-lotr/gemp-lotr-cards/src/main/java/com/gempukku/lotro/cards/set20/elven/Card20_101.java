@@ -82,7 +82,7 @@ public class Card20_101 extends AbstractAttachableFPPossession {
                     new SelfDiscardEffect(self));
             action.appendEffect(
                     new HealCharactersEffect(self, self.getAttachedTo()));
-            if (Filters.ringBearer.accepts(game.getGameState(), game.getModifiersQuerying(), self.getAttachedTo()))
+            if (Filters.ringBearer.accepts(game, self.getAttachedTo()))
                 action.appendEffect(
                         new RemoveBurdenEffect(playerId, self));
             return Collections.singletonList(action);

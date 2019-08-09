@@ -44,10 +44,10 @@ public class Card17_105 extends AbstractPermanent {
                 new ResistanceModifier(self, CardType.COMPANION,
                         new Condition() {
                             @Override
-                            public boolean isFullfilled(GameState gameState, ModifiersQuerying modifiersQuerying) {
+                            public boolean isFullfilled(LotroGame game) {
                                 for (int siteNo = 1; siteNo <= 9; siteNo++) {
-                                    if (GameUtils.getRegion(siteNo) == GameUtils.getRegion(gameState)) {
-                                        PhysicalCard site = gameState.getSite(siteNo);
+                                    if (GameUtils.getRegion(siteNo) == GameUtils.getRegion(game)) {
+                                        PhysicalCard site = game.getGameState().getSite(siteNo);
                                         if (site != null && site.getBlueprint().getName().equals("Mount Doom"))
                                             return true;
 

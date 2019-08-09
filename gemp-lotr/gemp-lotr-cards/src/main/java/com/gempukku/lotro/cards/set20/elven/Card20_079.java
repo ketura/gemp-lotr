@@ -30,7 +30,7 @@ public class Card20_079 extends AbstractEvent {
                 new UnrespondableEffect() {
                     @Override
                     protected void doPlayEffect(LotroGame game) {
-                        Collection<PhysicalCard> woundedMinions = Filters.filterActive(game.getGameState(), game.getModifiersQuerying(), CardType.MINION, Filters.wounded);
+                        Collection<PhysicalCard> woundedMinions = Filters.filterActive(game, CardType.MINION, Filters.wounded);
                         action.appendEffect(
                                 new AddUntilStartOfPhaseModifierEffect(
                                         new RemoveKeywordModifier(self, Filters.in(woundedMinions), Keyword.FIERCE), Phase.REGROUP));
