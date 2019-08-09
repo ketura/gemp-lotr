@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card12_110 extends AbstractPermanent {
     public Card12_110() {
-        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.ROHAN, Zone.SUPPORT, "Cleaving a Path");
+        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.ROHAN, "Cleaving a Path");
     }
 
     @Override

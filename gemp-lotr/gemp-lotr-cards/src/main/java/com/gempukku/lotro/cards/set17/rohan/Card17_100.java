@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card17_100 extends AbstractPermanent {
     public Card17_100() {
-        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.ROHAN, Zone.SUPPORT, "Into the Caves");
+        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.ROHAN, "Into the Caves");
     }
 
     @Override

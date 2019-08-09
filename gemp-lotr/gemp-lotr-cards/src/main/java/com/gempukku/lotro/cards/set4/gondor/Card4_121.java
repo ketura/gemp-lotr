@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card4_121 extends AbstractPermanent {
     public Card4_121() {
-        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.GONDOR, Zone.SUPPORT, "Forests of Ithilien", null, true);
+        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.GONDOR, "Forests of Ithilien", null, true);
     }
 
     @Override

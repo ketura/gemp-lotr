@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card20_232 extends AbstractPermanent {
     public Card20_232() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.ISENGARD, Zone.SUPPORT, "Brute Force");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.ISENGARD, "Brute Force");
     }
 
     @Override

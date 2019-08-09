@@ -56,6 +56,10 @@ public abstract class AbstractLotroCardBlueprint implements LotroCardBlueprint {
         _keywords.put(keyword, number);
     }
 
+    public Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+        return null;
+    }
+
     @Override
     public final int getTwilightCost() {
         return _twilightCost;

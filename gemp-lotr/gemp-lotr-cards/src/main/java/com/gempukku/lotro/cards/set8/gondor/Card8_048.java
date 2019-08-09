@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class Card8_048 extends AbstractPermanent {
     public Card8_048() {
-        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.GONDOR, Zone.SUPPORT, "Swept Away");
+        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.GONDOR, "Swept Away");
     }
 
     @Override

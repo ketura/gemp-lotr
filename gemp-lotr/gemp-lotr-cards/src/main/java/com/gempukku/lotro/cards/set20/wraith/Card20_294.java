@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card20_294 extends AbstractPermanent {
     public Card20_294() {
-        super(Side.SHADOW, 2, CardType.CONDITION, Culture.WRAITH, Zone.SUPPORT, "Lifting the Veil", null, true);
+        super(Side.SHADOW, 2, CardType.CONDITION, Culture.WRAITH, "Lifting the Veil", null, true);
         addKeyword(Keyword.TWILIGHT);
     }
 

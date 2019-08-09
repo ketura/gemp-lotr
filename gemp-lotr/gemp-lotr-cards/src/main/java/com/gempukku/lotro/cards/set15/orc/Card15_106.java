@@ -6,7 +6,6 @@ import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
@@ -26,7 +25,7 @@ import java.util.List;
  */
 public class Card15_106 extends AbstractPermanent {
     public Card15_106() {
-        super(Side.SHADOW, 0, CardType.CONDITION, Culture.ORC, Zone.SUPPORT, "Coordinated Effort");
+        super(Side.SHADOW, 0, CardType.CONDITION, Culture.ORC, "Coordinated Effort");
     }
 
     @Override

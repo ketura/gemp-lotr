@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card20_078 extends AbstractPermanent {
     public Card20_078() {
-        super(Side.FREE_PEOPLE, 3, CardType.CONDITION, Culture.ELVEN, Zone.SUPPORT, "Coordinated Strike");
+        super(Side.FREE_PEOPLE, 3, CardType.CONDITION, Culture.ELVEN, "Coordinated Strike");
     }
 
     @Override

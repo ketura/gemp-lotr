@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class Card10_020 extends AbstractPermanent {
     public Card10_020() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.GOLLUM, Zone.SUPPORT, "Final Strike");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.GOLLUM, "Final Strike");
     }
 
     @Override

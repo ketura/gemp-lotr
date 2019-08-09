@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class Card40_023 extends AbstractPermanent{
     public Card40_023() {
-        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.DWARVEN, Zone.SUPPORT, "Memories of Khazad-dum");
+        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.DWARVEN, "Memories of Khazad-dum");
     }
 
     @Override

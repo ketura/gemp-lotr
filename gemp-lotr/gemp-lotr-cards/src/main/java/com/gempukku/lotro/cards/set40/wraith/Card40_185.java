@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card40_185 extends AbstractPermanent {
     public Card40_185() {
-        super(Side.SHADOW, 0, CardType.CONDITION, Culture.WRAITH, Zone.SUPPORT, "Blade Tip");
+        super(Side.SHADOW, 0, CardType.CONDITION, Culture.WRAITH, "Blade Tip");
     }
 
     @Override

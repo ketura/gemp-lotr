@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card4_077 extends AbstractPermanent {
     public Card4_077() {
-        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.ELVEN, Zone.SUPPORT, "Lorien Is Most Welcome");
+        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.ELVEN, "Lorien Is Most Welcome");
     }
 
     @Override

@@ -8,7 +8,6 @@ import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
@@ -33,7 +32,7 @@ import java.util.List;
  */
 public class Card15_031 extends AbstractPermanent {
     public Card15_031() {
-        super(Side.FREE_PEOPLE, 4, CardType.CONDITION, Culture.GANDALF, Zone.SUPPORT, "Mellon!", null, true);
+        super(Side.FREE_PEOPLE, 4, CardType.CONDITION, Culture.GANDALF, "Mellon!", null, true);
     }
 
     @Override

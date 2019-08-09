@@ -6,7 +6,6 @@ import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
@@ -27,7 +26,7 @@ import java.util.List;
  */
 public class Card11_114 extends AbstractPermanent {
     public Card11_114() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.ORC, Zone.SUPPORT, "Demoralized");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.ORC, "Demoralized");
     }
 
     @Override

@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card12_050 extends AbstractPermanent {
     public Card12_050() {
-        super(Side.FREE_PEOPLE, 4, CardType.CONDITION, Culture.GONDOR, Zone.SUPPORT, "Guardian");
+        super(Side.FREE_PEOPLE, 4, CardType.CONDITION, Culture.GONDOR, "Guardian");
         addKeyword(Keyword.TOIL, 2);
     }
 

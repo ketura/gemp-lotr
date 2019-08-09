@@ -20,7 +20,7 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
  */
 public class Card2_035 extends AbstractPermanent {
     public Card2_035() {
-        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.GONDOR, Zone.SUPPORT, "Natural Cover");
+        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.GONDOR, "Natural Cover");
     }
 
     @Override

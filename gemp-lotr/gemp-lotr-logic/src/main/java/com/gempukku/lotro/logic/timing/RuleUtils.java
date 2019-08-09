@@ -2,15 +2,22 @@ package com.gempukku.lotro.logic.timing;
 
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.PossessionClass;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
+import com.gempukku.lotro.game.LotroCardBlueprint;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.game.state.Skirmish;
+import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 
 public class RuleUtils {
     public static int calculateFellowshipArcheryTotal(LotroGame game) {
@@ -127,4 +134,42 @@ public class RuleUtils {
 
         return totalBonus;
     }
+
+    public static Filter getFullValidTargetFilter(String playerId, final LotroGame game, final PhysicalCard self) {
+        final LotroCardBlueprint blueprint = self.getBlueprint();
+        return Filters.and(blueprint.getValidTargetFilter(playerId, game, self),
+                new Filter() {
+                    @Override
+                    public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
+                        final CardType thisType = blueprint.getCardType();
+                        if (thisType == CardType.POSSESSION || thisType == CardType.ARTIFACT) {
+                            final CardType targetType = physicalCard.getBlueprint().getCardType();
+                            return targetType == CardType.COMPANION || targetType == CardType.ALLY
+                                    || targetType == CardType.MINION;
+                        }
+                        return true;
+                    }
+                },
+                new Filter() {
+                    @Override
+                    public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
+                        Set<PossessionClass> possessionClasses = blueprint.getPossessionClasses();
+                        if (possessionClasses != null) {
+                            for (PossessionClass possessionClass : possessionClasses) {
+                                boolean extraPossessionClass = game.getModifiersQuerying().isExtraPossessionClass(game, self, physicalCard);
+                                List<PhysicalCard> attachedCards = game.getGameState().getAttachedCards(physicalCard);
+                                Collection<PhysicalCard> matchingClassPossessions = Filters.filter(attachedCards, game, Filters.or(CardType.POSSESSION, CardType.ARTIFACT), possessionClass);
+                                if (matchingClassPossessions.size() > 1)
+                                    return false;
+                                if (!extraPossessionClass && matchingClassPossessions.size() == 1 &&
+                                        !game.getModifiersQuerying().isExtraPossessionClass(game, matchingClassPossessions.iterator().next(), physicalCard))
+                                    return false;
+                            }
+                        }
+                        return true;
+                    }
+                });
+    }
+
+
 }

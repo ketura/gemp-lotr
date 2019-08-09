@@ -15,7 +15,6 @@ import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.common.Token;
-import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -44,7 +43,7 @@ import java.util.List;
  */
 public class Card18_050 extends AbstractPermanent {
     public Card18_050() {
-        super(Side.FREE_PEOPLE, 3, CardType.CONDITION, Culture.GONDOR, Zone.SUPPORT, "The Faithful Stone");
+        super(Side.FREE_PEOPLE, 3, CardType.CONDITION, Culture.GONDOR, "The Faithful Stone");
         addKeyword(Keyword.TALE);
     }
 

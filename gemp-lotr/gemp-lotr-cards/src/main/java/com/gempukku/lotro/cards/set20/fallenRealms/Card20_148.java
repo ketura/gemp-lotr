@@ -16,7 +16,7 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
  */
 public class Card20_148 extends AbstractPermanent {
     public Card20_148() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.FALLEN_REALMS, Zone.SUPPORT, "Ways of the South", null, true);
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.FALLEN_REALMS, "Ways of the South", null, true);
     }
 
     @Override

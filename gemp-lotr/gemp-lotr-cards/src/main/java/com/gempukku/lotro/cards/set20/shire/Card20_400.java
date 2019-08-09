@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class Card20_400 extends AbstractPermanent {
     public Card20_400() {
-        super(Side.FREE_PEOPLE, 1, CardType.POSSESSION, Culture.SHIRE, Zone.SUPPORT, "Old Toby", "Finest Weed in the Southfarthing", false);
+        super(Side.FREE_PEOPLE, 1, CardType.POSSESSION, Culture.SHIRE, "Old Toby", "Finest Weed in the Southfarthing", false);
         addKeyword(Keyword.PIPEWEED);
     }
 

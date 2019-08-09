@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card20_134 extends AbstractPermanent {
     public Card20_134() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.FALLEN_REALMS, Zone.SUPPORT, "Relentless Armies");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.FALLEN_REALMS, "Relentless Armies");
     }
 
     @Override

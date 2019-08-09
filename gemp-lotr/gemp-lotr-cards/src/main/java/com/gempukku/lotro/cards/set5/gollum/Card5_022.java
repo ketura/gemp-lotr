@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card5_022 extends AbstractPermanent {
     public Card5_022() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.GOLLUM, Zone.SUPPORT, "Evil-smelling Fens");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.GOLLUM, "Evil-smelling Fens");
     }
 
     @Override

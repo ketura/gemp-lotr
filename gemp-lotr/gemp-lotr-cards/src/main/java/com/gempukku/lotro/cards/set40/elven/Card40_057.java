@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class Card40_057 extends AbstractPermanent {
     public Card40_057() {
-        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.ELVEN, Zone.SUPPORT, "Peering Forward", null, true);
+        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.ELVEN, "Peering Forward", null, true);
     }
 
     @Override

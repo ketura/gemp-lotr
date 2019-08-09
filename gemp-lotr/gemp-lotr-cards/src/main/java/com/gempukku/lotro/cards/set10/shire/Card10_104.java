@@ -26,7 +26,7 @@ import java.util.*;
  */
 public class Card10_104 extends AbstractPermanent {
     public Card10_104() {
-        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.SHIRE, Zone.SUPPORT, "Birthday Present");
+        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.SHIRE, "Birthday Present");
     }
 
     @Override

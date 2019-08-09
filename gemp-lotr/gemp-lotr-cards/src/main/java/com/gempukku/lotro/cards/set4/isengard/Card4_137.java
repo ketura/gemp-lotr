@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card4_137 extends AbstractPermanent {
     public Card4_137() {
-        super(Side.SHADOW, 0, CardType.CONDITION, Culture.ISENGARD, Zone.SUPPORT, "Attack on Helm's Deep");
+        super(Side.SHADOW, 0, CardType.CONDITION, Culture.ISENGARD, "Attack on Helm's Deep");
     }
 
     @Override

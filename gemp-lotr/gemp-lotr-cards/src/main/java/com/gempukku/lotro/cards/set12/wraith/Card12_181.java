@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card12_181 extends AbstractPermanent {
     public Card12_181() {
-        super(Side.SHADOW, 0, CardType.CONDITION, Culture.WRAITH, Zone.SUPPORT, "Unending Life");
+        super(Side.SHADOW, 0, CardType.CONDITION, Culture.WRAITH, "Unending Life");
     }
 
     @Override

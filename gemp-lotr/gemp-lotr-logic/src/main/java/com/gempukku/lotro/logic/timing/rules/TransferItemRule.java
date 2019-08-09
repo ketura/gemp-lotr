@@ -16,6 +16,7 @@ import com.gempukku.lotro.logic.modifiers.AbstractModifier;
 import com.gempukku.lotro.logic.modifiers.ModifierEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersLogic;
 import com.gempukku.lotro.logic.modifiers.condition.PhaseCondition;
+import com.gempukku.lotro.logic.timing.RuleUtils;
 
 import java.util.Collections;
 import java.util.List;
@@ -35,8 +36,7 @@ public class TransferItemRule {
                     @Override
                     public List<? extends ActivateCardAction> getExtraPhaseAction(LotroGame game, final PhysicalCard card) {
                         if (game.getModifiersQuerying().canBeTransferred(game, card)) {
-                            final AbstractAttachableFPPossession attachable = (AbstractAttachableFPPossession) card.getBlueprint();
-                            final Filter validTargetFilter = attachable.getFullValidTargetFilter(card.getOwner(), game, card);
+                            final Filter validTargetFilter = RuleUtils.getFullValidTargetFilter(card.getOwner(), game, card);
                             if (Filters.countActive(game, validTargetFilter)>0) {
                                 Filter validTransferFilter;
 

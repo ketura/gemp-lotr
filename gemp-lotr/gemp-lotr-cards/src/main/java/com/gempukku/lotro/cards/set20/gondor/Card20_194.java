@@ -5,10 +5,12 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.modifiers.ExtraPossessionClassModifier;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -26,12 +28,7 @@ public class Card20_194 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    public boolean isExtraPossessionClass(LotroGame game, PhysicalCard self, PhysicalCard attachedTo) {
-        return true;
-    }
-
-    @Override
-    protected Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+    public Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
         return Filters.and(Culture.GONDOR, Race.MAN);
     }
 
@@ -42,6 +39,8 @@ public class Card20_194 extends AbstractAttachableFPPossession {
                 new StrengthModifier(self, Filters.and (Filters.hasAttached(self), Filters.inSkirmishAgainst(Race.NAZGUL)), 2));
         modifiers.add(
                 new KeywordModifier(self, Filters.and(Filters.hasAttached(self), Filters.inSkirmishAgainst(Race.NAZGUL)), Keyword.DAMAGE, 1));
+        modifiers.add(
+                new ExtraPossessionClassModifier(self, self));
         return modifiers;
     }
 }

@@ -38,7 +38,7 @@ import java.util.List;
  */
 public class Card17_035 extends AbstractPermanent {
     public Card17_035() {
-        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.GONDOR, Zone.SUPPORT, "Soldier's Cache");
+        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.GONDOR, "Soldier's Cache");
         addKeyword(Keyword.FORTIFICATION);
     }
 

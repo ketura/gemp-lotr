@@ -19,7 +19,7 @@ import com.gempukku.lotro.logic.modifiers.SpotCondition;
  */
 public class Card12_125 extends AbstractPermanent {
     public Card12_125() {
-        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.SHIRE, Zone.SUPPORT, "Measure of Comfort");
+        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.SHIRE, "Measure of Comfort");
     }
 
     @Override

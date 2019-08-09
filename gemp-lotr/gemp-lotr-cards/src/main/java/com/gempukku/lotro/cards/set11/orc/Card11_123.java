@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class Card11_123 extends AbstractPermanent {
     public Card11_123() {
-        super(Side.SHADOW, 2, CardType.CONDITION, Culture.ORC, Zone.SUPPORT, "Goblin Hordes");
+        super(Side.SHADOW, 2, CardType.CONDITION, Culture.ORC, "Goblin Hordes");
     }
 
     @Override

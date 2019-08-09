@@ -5,7 +5,6 @@ import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -27,7 +26,7 @@ import java.util.List;
  */
 public class Card3_040 extends AbstractPermanent {
     public Card3_040() {
-        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.GONDOR, Zone.SUPPORT, "Citadel of Minas Tirith");
+        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.GONDOR, "Citadel of Minas Tirith");
     }
 
     @Override

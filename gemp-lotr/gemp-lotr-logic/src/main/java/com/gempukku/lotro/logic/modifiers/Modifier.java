@@ -24,6 +24,8 @@ public interface Modifier {
 
     public Condition getCondition();
 
+    boolean isExtraPossessionClass(LotroGame game, PhysicalCard physicalCard, PhysicalCard attachedTo);
+
     public boolean affectsCard(LotroGame game, PhysicalCard physicalCard);
 
     public boolean hasRemovedText(LotroGame game, PhysicalCard physicalCard);

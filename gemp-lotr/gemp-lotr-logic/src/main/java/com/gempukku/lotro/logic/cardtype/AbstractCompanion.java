@@ -21,7 +21,7 @@ public abstract class AbstractCompanion extends AbstractPermanent {
     }
 
     public AbstractCompanion(int twilightCost, int strength, int vitality, int resistance, Culture culture, Race race, Signet signet, String name, String subTitle, boolean unique) {
-        super(Side.FREE_PEOPLE, twilightCost, CardType.COMPANION, culture, Zone.FREE_CHARACTERS, name, subTitle, unique);
+        super(Side.FREE_PEOPLE, twilightCost, CardType.COMPANION, culture, name, subTitle, unique);
         _strength = strength;
         _vitality = vitality;
         _resistance = resistance;

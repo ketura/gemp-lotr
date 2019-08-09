@@ -8,7 +8,6 @@ import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -32,7 +31,7 @@ import java.util.List;
  */
 public class Card3_036 extends AbstractPermanent {
     public Card3_036() {
-        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.GANDALF, Zone.SUPPORT, "Unknown Perils");
+        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.GANDALF, "Unknown Perils");
     }
 
     @Override

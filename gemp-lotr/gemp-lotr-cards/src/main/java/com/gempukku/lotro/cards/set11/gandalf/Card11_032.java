@@ -19,7 +19,7 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
  */
 public class Card11_032 extends AbstractPermanent {
     public Card11_032() {
-        super(Side.FREE_PEOPLE, 3, CardType.CONDITION, Culture.GANDALF, Zone.SUPPORT, "G for Grand");
+        super(Side.FREE_PEOPLE, 3, CardType.CONDITION, Culture.GANDALF, "G for Grand");
     }
 
     @Override

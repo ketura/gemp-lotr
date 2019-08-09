@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class Card20_198 extends AbstractPermanent {
     public Card20_198() {
-        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.GONDOR, Zone.SUPPORT, "Legacy of Numenor", null, true);
+        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.GONDOR, "Legacy of Numenor", null, true);
     }
 
     @Override

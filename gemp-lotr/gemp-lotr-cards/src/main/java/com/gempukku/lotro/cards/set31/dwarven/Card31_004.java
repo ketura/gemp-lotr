@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class Card31_004 extends AbstractPermanent {
     public Card31_004() {
-        super(Side.FREE_PEOPLE, 2, CardType.POSSESSION, Culture.DWARVEN, Zone.SUPPORT, "Great Barricade", null, true);
+        super(Side.FREE_PEOPLE, 2, CardType.POSSESSION, Culture.DWARVEN, "Great Barricade", null, true);
 		addKeyword(Keyword.FORTIFICATION);
 	}
 	

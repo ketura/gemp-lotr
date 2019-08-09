@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class Card9_050 extends AbstractPermanent {
     public Card9_050() {
-        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.SHIRE, Zone.SUPPORT, "Everyone Knows");
+        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.SHIRE, "Everyone Knows");
         addKeyword(Keyword.TALE);
     }
 

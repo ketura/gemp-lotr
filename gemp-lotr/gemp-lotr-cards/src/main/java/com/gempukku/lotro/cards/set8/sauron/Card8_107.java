@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card8_107 extends AbstractPermanent {
     public Card8_107() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.SAURON, Zone.SUPPORT, "Their Marching Companies");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.SAURON, "Their Marching Companies");
         addKeyword(Keyword.ENGINE);
     }
 

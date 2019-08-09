@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class Card1_142 extends AbstractPermanent {
     public Card1_142() {
-        super(Side.SHADOW, 2, CardType.CONDITION, Culture.ISENGARD, Zone.SUPPORT, "Traitor's Voice");
+        super(Side.SHADOW, 2, CardType.CONDITION, Culture.ISENGARD, "Traitor's Voice");
         addKeyword(Keyword.SEARCH);
     }
 

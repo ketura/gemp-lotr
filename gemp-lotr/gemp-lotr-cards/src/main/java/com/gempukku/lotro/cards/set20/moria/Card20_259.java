@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card20_259 extends AbstractPermanent {
     public Card20_259() {
-        super(Side.SHADOW, 0, CardType.CONDITION, Culture.MORIA, Zone.SUPPORT, "Goblin Armory");
+        super(Side.SHADOW, 0, CardType.CONDITION, Culture.MORIA, "Goblin Armory");
     }
 
     @Override

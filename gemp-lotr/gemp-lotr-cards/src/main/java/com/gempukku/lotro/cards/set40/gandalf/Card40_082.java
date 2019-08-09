@@ -44,7 +44,7 @@ public class Card40_082 extends AbstractAttachable {
     }
 
     @Override
-    protected Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+    public Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
         return Filters.and(Filters.unboundCompanion, Filters.not(Filters.gandalf));
     }
 

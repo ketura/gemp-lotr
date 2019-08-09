@@ -6,6 +6,7 @@ import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.modifiers.ExtraPossessionClassModifier;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
@@ -28,13 +29,8 @@ public class Card2_050 extends AbstractAttachable {
     }
 
     @Override
-    protected Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+    public Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
         return Filters.balrog;
-    }
-
-    @Override
-    public boolean isExtraPossessionClass(LotroGame game, PhysicalCard self, PhysicalCard attachedTo) {
-        return true;
     }
 
     @Override
@@ -44,6 +40,8 @@ public class Card2_050 extends AbstractAttachable {
                 new StrengthModifier(self, Filters.hasAttached(self), 3));
         modifiers.add(
                 new KeywordModifier(self, Filters.hasAttached(self), Keyword.DAMAGE));
+        modifiers.add(
+                new ExtraPossessionClassModifier(self, self));
         return modifiers;
     }
 }

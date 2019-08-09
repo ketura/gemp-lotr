@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card6_089 extends AbstractPermanent {
     public Card6_089() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.WRAITH, Zone.SUPPORT, "Winged and Ominous");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.WRAITH, "Winged and Ominous");
     }
 
     @Override

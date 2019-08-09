@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card40_175 extends AbstractPermanent {
     public Card40_175() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.MORIA, Zone.SUPPORT, "Goblin Swarms");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.MORIA, "Goblin Swarms");
     }
 
     @Override

@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card12_182 extends AbstractPermanent {
     public Card12_182() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.WRAITH, Zone.SUPPORT, "Unimpeded");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.WRAITH, "Unimpeded");
     }
 
     @Override

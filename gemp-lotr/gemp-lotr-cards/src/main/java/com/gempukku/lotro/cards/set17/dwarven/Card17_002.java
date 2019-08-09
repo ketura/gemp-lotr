@@ -10,11 +10,9 @@ import com.gempukku.lotro.logic.modifiers.condition.CanSpotCultureTokensConditio
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.SpotCondition;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
@@ -35,7 +33,7 @@ import java.util.List;
  */
 public class Card17_002 extends AbstractPermanent {
     public Card17_002() {
-        super(Side.FREE_PEOPLE, 4, CardType.CONDITION, Culture.DWARVEN, Zone.SUPPORT, "Balin Avenged", null, true);
+        super(Side.FREE_PEOPLE, 4, CardType.CONDITION, Culture.DWARVEN, "Balin Avenged", null, true);
     }
 
     @Override

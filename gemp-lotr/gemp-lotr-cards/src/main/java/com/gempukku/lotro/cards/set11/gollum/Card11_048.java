@@ -8,7 +8,6 @@ import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -28,7 +27,7 @@ import java.util.List;
  */
 public class Card11_048 extends AbstractPermanent {
     public Card11_048() {
-        super(Side.SHADOW, 0, CardType.CONDITION, Culture.GOLLUM, Zone.SUPPORT, "Not Yet Vanquished", null, true);
+        super(Side.SHADOW, 0, CardType.CONDITION, Culture.GOLLUM, "Not Yet Vanquished", null, true);
     }
 
     @Override

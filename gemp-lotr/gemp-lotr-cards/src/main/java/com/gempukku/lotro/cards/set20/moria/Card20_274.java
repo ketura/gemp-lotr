@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card20_274 extends AbstractPermanent {
     public Card20_274() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.MORIA, Zone.SUPPORT, "Goblin Swarms");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.MORIA, "Goblin Swarms");
     }
 
     @Override

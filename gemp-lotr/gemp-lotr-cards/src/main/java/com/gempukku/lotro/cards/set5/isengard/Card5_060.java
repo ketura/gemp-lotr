@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class Card5_060 extends AbstractPermanent {
     public Card5_060() {
-        super(Side.SHADOW, 0, CardType.CONDITION, Culture.ISENGARD, Zone.SUPPORT, "Siege Engine");
+        super(Side.SHADOW, 0, CardType.CONDITION, Culture.ISENGARD, "Siege Engine");
         addKeyword(Keyword.MACHINE);
     }
 

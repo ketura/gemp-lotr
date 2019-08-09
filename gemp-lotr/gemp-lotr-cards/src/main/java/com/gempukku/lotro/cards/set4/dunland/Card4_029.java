@@ -4,11 +4,9 @@ import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.Condition;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.TwilightCostModifier;
 
 import java.util.Collections;
@@ -25,7 +23,7 @@ import java.util.List;
  */
 public class Card4_029 extends AbstractPermanent {
     public Card4_029() {
-        super(Side.SHADOW, 0, CardType.CONDITION, Culture.DUNLAND, Zone.SUPPORT, "No Refuge", null, true);
+        super(Side.SHADOW, 0, CardType.CONDITION, Culture.DUNLAND, "No Refuge", null, true);
     }
 
     @Override

@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card17_094 extends AbstractPermanent {
     public Card17_094() {
-        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.ROHAN, Zone.SUPPORT, "Dispatched With Haste");
+        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.ROHAN, "Dispatched With Haste");
     }
 
     @Override

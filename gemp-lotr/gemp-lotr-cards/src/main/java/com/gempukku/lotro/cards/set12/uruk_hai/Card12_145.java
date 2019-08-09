@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card12_145 extends AbstractPermanent {
     public Card12_145() {
-        super(Side.SHADOW, 0, CardType.CONDITION, Culture.URUK_HAI, Zone.SUPPORT, "Shingle in a Storm");
+        super(Side.SHADOW, 0, CardType.CONDITION, Culture.URUK_HAI, "Shingle in a Storm");
     }
 
     @Override

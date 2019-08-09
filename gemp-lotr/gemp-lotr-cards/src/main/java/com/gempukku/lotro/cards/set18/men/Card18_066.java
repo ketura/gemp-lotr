@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card18_066 extends AbstractPermanent {
     public Card18_066() {
-        super(Side.SHADOW, 3, CardType.POSSESSION, Culture.MEN, Zone.SUPPORT, "Fleet of Corsair Ships");
+        super(Side.SHADOW, 3, CardType.POSSESSION, Culture.MEN, "Fleet of Corsair Ships");
     }
 
     @Override

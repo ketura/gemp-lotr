@@ -14,6 +14,7 @@ import com.gempukku.lotro.logic.effects.TransferPermanentEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.timing.RuleUtils;
 
 import java.util.Collection;
 import java.util.Set;
@@ -63,7 +64,7 @@ public class ChooseAndTransferAttachableEffect extends AbstractEffect {
         } else {
             return Filters.and(
                     _transferTo,
-                    attachable.getFullValidTargetFilter(attachment.getOwner(), game, attachment),
+                    RuleUtils.getFullValidTargetFilter(attachment.getOwner(), game, attachment),
                     Filters.not(attachment.getAttachedTo()),
                     new Filter() {
                         @Override

@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card1_318 extends AbstractPermanent {
     public Card1_318() {
-        super(Side.FREE_PEOPLE, 0, CardType.POSSESSION, Culture.SHIRE, Zone.SUPPORT, "Thror's Map", null, true);
+        super(Side.FREE_PEOPLE, 0, CardType.POSSESSION, Culture.SHIRE, "Thror's Map", null, true);
     }
 
     @Override

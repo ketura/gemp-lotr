@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card20_096 extends AbstractPermanent {
     public Card20_096() {
-        super(Side.FREE_PEOPLE, 2, CardType.ARTIFACT, Culture.ELVEN, Zone.SUPPORT, "The Mirror of Galadriel", "Revealer of Portents", true);
+        super(Side.FREE_PEOPLE, 2, CardType.ARTIFACT, Culture.ELVEN, "The Mirror of Galadriel", "Revealer of Portents", true);
     }
 
     @Override

@@ -8,10 +8,7 @@ import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.AttachPermanentAction;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
-import com.gempukku.lotro.logic.timing.Action;
-import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.*;
 
 import java.util.*;
 
@@ -31,47 +28,8 @@ public abstract class AbstractAttachable extends AbstractLotroCardBlueprint {
         return _possessionClass;
     }
 
-    public boolean isExtraPossessionClass(LotroGame game, PhysicalCard self, PhysicalCard attachedTo) {
-        return false;
-    }
-
-    public final Filter getFullValidTargetFilter(String playerId, final LotroGame game, final PhysicalCard self) {
-        return Filters.and(getValidTargetFilter(playerId, game, self),
-                new Filter() {
-                    @Override
-                    public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
-                        final CardType thisType = getCardType();
-                        if (thisType == CardType.POSSESSION || thisType == CardType.ARTIFACT) {
-                            final CardType targetType = physicalCard.getBlueprint().getCardType();
-                            return targetType == CardType.COMPANION || targetType == CardType.ALLY
-                                    || targetType == CardType.MINION;
-                        }
-                        return true;
-                    }
-                },
-                new Filter() {
-                    @Override
-                    public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
-                        Set<PossessionClass> possessionClasses = getPossessionClasses();
-                        if (possessionClasses != null) {
-                            for (PossessionClass possessionClass : possessionClasses) {
-                                boolean extraPossessionClass = isExtraPossessionClass(game, self, physicalCard);
-                                List<PhysicalCard> attachedCards = game.getGameState().getAttachedCards(physicalCard);
-                                Collection<PhysicalCard> matchingClassPossessions = Filters.filter(attachedCards, game, Filters.or(CardType.POSSESSION, CardType.ARTIFACT), possessionClass);
-                                if (matchingClassPossessions.size() > 1)
-                                    return false;
-                                if (!extraPossessionClass && matchingClassPossessions.size() == 1 &&
-                                        !((AbstractAttachable) matchingClassPossessions.iterator().next().getBlueprint()).isExtraPossessionClass(game, self, physicalCard))
-                                    return false;
-                            }
-                        }
-                        return true;
-                    }
-                });
-    }
-
     private Filter getFullAttachValidTargetFilter(String playerId, final LotroGame game, final PhysicalCard self) {
-        return Filters.and(getFullValidTargetFilter(playerId, game, self),
+        return Filters.and(RuleUtils.getFullValidTargetFilter(playerId, game, self),
                 new Filter() {
                     @Override
                     public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
@@ -79,8 +37,6 @@ public abstract class AbstractAttachable extends AbstractLotroCardBlueprint {
                     }
                 });
     }
-
-    protected abstract Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self);
 
     @Override
     public final boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {

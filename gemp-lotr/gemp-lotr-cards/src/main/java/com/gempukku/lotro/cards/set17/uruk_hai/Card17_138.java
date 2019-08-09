@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class Card17_138 extends AbstractPermanent {
     public Card17_138() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.URUK_HAI, Zone.SUPPORT, "You Do Not Know Pain");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.URUK_HAI, "You Do Not Know Pain");
     }
 
     @Override

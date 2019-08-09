@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card20_285 extends AbstractPermanent {
     public Card20_285() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.WRAITH, Zone.SUPPORT, "Black Breath");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.WRAITH, "Black Breath");
     }
 
     @Override

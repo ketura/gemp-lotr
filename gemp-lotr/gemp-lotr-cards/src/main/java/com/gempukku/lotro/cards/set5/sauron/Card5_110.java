@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card5_110 extends AbstractPermanent {
     public Card5_110() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.SAURON, Zone.SUPPORT, "Teeth of Mordor");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.SAURON, "Teeth of Mordor");
     }
 
     @Override

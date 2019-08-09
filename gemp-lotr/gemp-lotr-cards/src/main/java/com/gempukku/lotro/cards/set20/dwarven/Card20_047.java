@@ -17,7 +17,7 @@ import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
  */
 public class Card20_047 extends AbstractPermanent {
     public Card20_047() {
-        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.DWARVEN, Zone.SUPPORT, "Dwarven Ire", null, true);
+        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.DWARVEN, "Dwarven Ire", null, true);
     }
 
     @Override

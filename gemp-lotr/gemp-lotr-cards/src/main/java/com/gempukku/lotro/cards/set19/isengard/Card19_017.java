@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card19_017 extends AbstractPermanent {
     public Card19_017() {
-        super(Side.SHADOW, 0, CardType.CONDITION, Culture.ISENGARD, Zone.SUPPORT, "Urgency");
+        super(Side.SHADOW, 0, CardType.CONDITION, Culture.ISENGARD, "Urgency");
         addKeyword(Keyword.WEATHER);
     }
 

@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class Card18_114 extends AbstractPermanent {
     public Card18_114() {
-        super(Side.SHADOW, 2, CardType.CONDITION, Culture.URUK_HAI, Zone.SUPPORT, "Cleaved");
+        super(Side.SHADOW, 2, CardType.CONDITION, Culture.URUK_HAI, "Cleaved");
     }
 
     @Override

@@ -1,6 +1,8 @@
 package com.gempukku.lotro.cards.set9.elven;
 
 import com.gempukku.lotro.logic.cardtype.AbstractAttachableFPPossession;
+import com.gempukku.lotro.logic.modifiers.ExtraPossessionClassModifier;
+import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
 import com.gempukku.lotro.common.*;
@@ -30,13 +32,14 @@ public class Card9_017 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    protected Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+    public Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
         return Filters.and(Culture.GONDOR, Race.MAN);
     }
 
     @Override
-    public boolean isExtraPossessionClass(LotroGame game, PhysicalCard self, PhysicalCard attachedTo) {
-        return (attachedTo.getBlueprint().getName().equals("Aragorn"));
+    protected List<? extends Modifier> getNonBasicStatsModifiers(PhysicalCard self) {
+        return Collections.singletonList(
+                new ExtraPossessionClassModifier(self, null, self, Filters.name("Aragorn")));
     }
 
     @Override

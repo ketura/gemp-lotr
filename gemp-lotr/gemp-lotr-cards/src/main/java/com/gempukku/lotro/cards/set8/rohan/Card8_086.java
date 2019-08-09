@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card8_086 extends AbstractPermanent {
     public Card8_086() {
-        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.ROHAN, Zone.SUPPORT, "Doom Drove Them");
+        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.ROHAN, "Doom Drove Them");
     }
 
     @Override

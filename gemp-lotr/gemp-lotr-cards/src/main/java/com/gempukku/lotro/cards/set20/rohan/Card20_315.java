@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card20_315 extends AbstractPermanent {
     public Card20_315() {
-        super(Side.FREE_PEOPLE, 2, CardType.POSSESSION, Culture.ROHAN, Zone.SUPPORT, "Causeway Gate");
+        super(Side.FREE_PEOPLE, 2, CardType.POSSESSION, Culture.ROHAN, "Causeway Gate");
         addKeyword(Keyword.FORTIFICATION);
     }
 

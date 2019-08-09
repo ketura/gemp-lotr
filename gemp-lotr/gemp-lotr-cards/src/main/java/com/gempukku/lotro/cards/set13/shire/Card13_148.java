@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card13_148 extends AbstractPermanent {
     public Card13_148() {
-        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.SHIRE, Zone.SUPPORT, "Fates Entwined");
+        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.SHIRE, "Fates Entwined");
     }
 
     @Override

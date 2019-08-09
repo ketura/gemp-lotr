@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card11_028 extends AbstractPermanent {
     public Card11_028() {
-        super(Side.FREE_PEOPLE, 1, CardType.POSSESSION, Culture.GANDALF, Zone.SUPPORT, "The Art of Gandalf");
+        super(Side.FREE_PEOPLE, 1, CardType.POSSESSION, Culture.GANDALF, "The Art of Gandalf");
     }
 
     @Override

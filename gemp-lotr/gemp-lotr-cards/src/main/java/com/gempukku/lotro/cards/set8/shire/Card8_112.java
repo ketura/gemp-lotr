@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class Card8_112 extends AbstractPermanent {
     public Card8_112() {
-        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.SHIRE, Zone.SUPPORT, "Song of the Shire");
+        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.SHIRE, "Song of the Shire");
     }
 
     @Override

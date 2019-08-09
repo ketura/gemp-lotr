@@ -8,7 +8,6 @@ import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -30,7 +29,7 @@ import java.util.List;
  */
 public class Card3_104 extends AbstractPermanent {
     public Card3_104() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.SAURON, Zone.SUPPORT, "Tower of Barad-dur");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.SAURON, "Tower of Barad-dur");
     }
 
     @Override

@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card20_100 extends AbstractPermanent {
     public Card20_100() {
-        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.ELVEN, Zone.SUPPORT, "Peering Forward", null, true);
+        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.ELVEN, "Peering Forward", null, true);
     }
 
     @Override

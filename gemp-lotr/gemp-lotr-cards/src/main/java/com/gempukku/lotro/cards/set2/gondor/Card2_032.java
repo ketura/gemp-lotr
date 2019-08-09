@@ -27,13 +27,8 @@ public class Card2_032 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    protected Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+    public Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
         return Race.MAN;
-    }
-
-    @Override
-    public boolean isExtraPossessionClass(LotroGame game, PhysicalCard self, PhysicalCard attachedTo) {
-        return true;
     }
 
     @Override
@@ -52,6 +47,8 @@ public class Card2_032 extends AbstractAttachableFPPossession {
                 new StrengthModifier(self, Filters.hasAttached(self), condition, 2));
         modifiers.add(
                 new KeywordModifier(self, Filters.hasAttached(self), condition, Keyword.DAMAGE, 1));
+        modifiers.add(
+                new ExtraPossessionClassModifier(self, self));
         return modifiers;
     }
 }

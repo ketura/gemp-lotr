@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class Card15_010 extends AbstractPermanent {
     public Card15_010() {
-        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.DWARVEN, Zone.SUPPORT, "Whatever End");
+        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.DWARVEN, "Whatever End");
     }
 
     @Override

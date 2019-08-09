@@ -25,7 +25,7 @@ import java.util.*;
  */
 public class Card6_091 extends AbstractPermanent {
     public Card6_091() {
-        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.ROHAN, Zone.SUPPORT, "Blood Has Been Spilled");
+        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.ROHAN, "Blood Has Been Spilled");
     }
 
     @Override

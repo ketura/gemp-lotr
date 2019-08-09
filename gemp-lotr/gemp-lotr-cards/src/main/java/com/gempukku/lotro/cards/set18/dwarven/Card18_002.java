@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card18_002 extends AbstractPermanent {
     public Card18_002() {
-        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.DWARVEN, Zone.SUPPORT, "Run Until Found");
+        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.DWARVEN, "Run Until Found");
     }
 
     @Override

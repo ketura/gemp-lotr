@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card8_093 extends AbstractPermanent {
     public Card8_093() {
-        super(Side.SHADOW, 2, CardType.CONDITION, Culture.SAURON, Zone.SUPPORT, "Called Away");
+        super(Side.SHADOW, 2, CardType.CONDITION, Culture.SAURON, "Called Away");
     }
 
     @Override

@@ -5,7 +5,6 @@ import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -26,7 +25,7 @@ import java.util.List;
  */
 public class Card2_040 extends AbstractPermanent {
     public Card2_040() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.ISENGARD, Zone.SUPPORT, "Demands of the Sackville-Bagginses");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.ISENGARD, "Demands of the Sackville-Bagginses");
     }
 
     @Override

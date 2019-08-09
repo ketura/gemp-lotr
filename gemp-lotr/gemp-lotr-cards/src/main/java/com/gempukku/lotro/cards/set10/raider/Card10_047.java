@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card10_047 extends AbstractPermanent {
     public Card10_047() {
-        super(Side.SHADOW, 0, CardType.CONDITION, Culture.RAIDER, Zone.SUPPORT, "Rallying Call");
+        super(Side.SHADOW, 0, CardType.CONDITION, Culture.RAIDER, "Rallying Call");
     }
 
     @Override

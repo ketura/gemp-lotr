@@ -7,7 +7,6 @@ import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -34,7 +33,7 @@ import java.util.List;
  */
 public class Card12_037 extends AbstractPermanent {
     public Card12_037() {
-        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.GOLLUM, Zone.SUPPORT, "Come Away");
+        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.GOLLUM, "Come Away");
     }
 
     @Override

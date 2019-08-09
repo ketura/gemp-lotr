@@ -39,7 +39,7 @@ import java.util.List;
  */
 public class Card18_046 extends AbstractPermanent {
     public Card18_046() {
-        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.GONDOR, Zone.SUPPORT, "Disarmed");
+        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.GONDOR, "Disarmed");
     }
 
     @Override

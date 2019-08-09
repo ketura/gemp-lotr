@@ -36,7 +36,7 @@ import java.util.List;
 
 public class Card31_035 extends AbstractPermanent {
     public Card31_035() {
-        super(Side.SHADOW, 0, CardType.CONDITION, Culture.MORIA, Zone.SUPPORT, "Great Goblin's Power");
+        super(Side.SHADOW, 0, CardType.CONDITION, Culture.MORIA, "Great Goblin's Power");
     }
 
     @Override

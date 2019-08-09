@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card13_106 extends AbstractPermanent {
     public Card13_106() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.ORC, Zone.SUPPORT, "Enemy Upon Enemy");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.ORC, "Enemy Upon Enemy");
     }
 
     @Override

@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card20_353 extends AbstractPermanent {
     public Card20_353() {
-        super(Side.SHADOW, 2, CardType.CONDITION, Culture.SAURON, Zone.SUPPORT, "Bound to This Fate", null, true);
+        super(Side.SHADOW, 2, CardType.CONDITION, Culture.SAURON, "Bound to This Fate", null, true);
     }
 
     @Override

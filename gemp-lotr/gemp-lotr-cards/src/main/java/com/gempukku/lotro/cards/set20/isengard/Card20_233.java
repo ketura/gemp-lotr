@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card20_233 extends AbstractPermanent {
     public Card20_233() {
-        super(Side.SHADOW, 2, CardType.CONDITION, Culture.ISENGARD, Zone.SUPPORT, "Isengard Unleased", null, true);
+        super(Side.SHADOW, 2, CardType.CONDITION, Culture.ISENGARD, "Isengard Unleased", null, true);
     }
 
     @Override

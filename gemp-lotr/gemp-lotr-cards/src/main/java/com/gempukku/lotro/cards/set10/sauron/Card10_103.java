@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card10_103 extends AbstractPermanent {
     public Card10_103() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.SAURON, Zone.SUPPORT, "Window of the Eye");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.SAURON, "Window of the Eye");
     }
 
     @Override

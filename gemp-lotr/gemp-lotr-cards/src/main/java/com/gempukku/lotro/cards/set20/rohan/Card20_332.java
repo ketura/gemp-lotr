@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card20_332 extends AbstractPermanent {
     public Card20_332() {
-        super(Side.FREE_PEOPLE, 2, CardType.ARTIFACT, Culture.ROHAN, Zone.SUPPORT, "Horn of Helm Hammerhand", null, true);
+        super(Side.FREE_PEOPLE, 2, CardType.ARTIFACT, Culture.ROHAN, "Horn of Helm Hammerhand", null, true);
     }
 
     @Override

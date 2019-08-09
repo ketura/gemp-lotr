@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card20_076 extends AbstractPermanent {
     public Card20_076() {
-        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.ELVEN, Zone.SUPPORT, "Bruinen Unleashed", null, true);
+        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.ELVEN, "Bruinen Unleashed", null, true);
     }
 
     @Override

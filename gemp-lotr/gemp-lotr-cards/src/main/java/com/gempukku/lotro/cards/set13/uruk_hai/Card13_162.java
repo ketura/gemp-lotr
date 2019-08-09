@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card13_162 extends AbstractPermanent {
     public Card13_162() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.URUK_HAI, Zone.SUPPORT, "Enemy Without Number");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.URUK_HAI, "Enemy Without Number");
     }
 
     @Override

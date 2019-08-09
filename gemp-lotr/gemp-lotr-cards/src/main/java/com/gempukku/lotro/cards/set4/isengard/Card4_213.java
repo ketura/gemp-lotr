@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card4_213 extends AbstractPermanent {
     public Card4_213() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.ISENGARD, Zone.SUPPORT, "What Did You Discover?");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.ISENGARD, "What Did You Discover?");
         addKeyword(Keyword.SEARCH);
     }
 

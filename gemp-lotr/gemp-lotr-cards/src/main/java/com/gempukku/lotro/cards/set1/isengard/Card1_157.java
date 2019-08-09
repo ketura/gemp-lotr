@@ -18,7 +18,7 @@ import com.gempukku.lotro.logic.modifiers.SpotCondition;
  */
 public class Card1_157 extends AbstractPermanent {
     public Card1_157() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.ISENGARD, Zone.SUPPORT, "Uruk-hai Armory");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.ISENGARD, "Uruk-hai Armory");
     }
 
     @Override

@@ -5,7 +5,6 @@ import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -28,7 +27,7 @@ import java.util.List;
  */
 public class Card17_068 extends AbstractPermanent {
     public Card17_068() {
-        super(Side.SHADOW, 0, CardType.CONDITION, Culture.ORC, Zone.SUPPORT, "Chaotic Clash");
+        super(Side.SHADOW, 0, CardType.CONDITION, Culture.ORC, "Chaotic Clash");
     }
 
     @Override

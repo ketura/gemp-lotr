@@ -33,7 +33,7 @@ import java.util.List;
  */
 public class Card13_095 extends AbstractPermanent {
     public Card13_095() {
-        super(Side.SHADOW, 0, CardType.CONDITION, Culture.MEN, Zone.SUPPORT, "Lying in Wait");
+        super(Side.SHADOW, 0, CardType.CONDITION, Culture.MEN, "Lying in Wait");
     }
 
     @Override

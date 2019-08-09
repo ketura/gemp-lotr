@@ -7,7 +7,6 @@ import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -28,7 +27,7 @@ import java.util.List;
  */
 public class Card7_034 extends AbstractPermanent {
     public Card7_034() {
-        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.GANDALF, Zone.SUPPORT, "Echoes of Valinor");
+        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.GANDALF, "Echoes of Valinor");
     }
 
     @Override

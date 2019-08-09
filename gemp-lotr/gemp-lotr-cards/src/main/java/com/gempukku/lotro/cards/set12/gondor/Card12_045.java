@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card12_045 extends AbstractPermanent {
     public Card12_045() {
-        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.GONDOR, Zone.SUPPORT, "Confronting the Eye");
+        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.GONDOR, "Confronting the Eye");
     }
 
     @Override

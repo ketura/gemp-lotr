@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class Card20_128 extends AbstractPermanent {
     public Card20_128() {
-        super(Side.SHADOW, 2, CardType.CONDITION, Culture.FALLEN_REALMS, Zone.SUPPORT, "Marching Onward", null, true);
+        super(Side.SHADOW, 2, CardType.CONDITION, Culture.FALLEN_REALMS, "Marching Onward", null, true);
     }
 
     @Override

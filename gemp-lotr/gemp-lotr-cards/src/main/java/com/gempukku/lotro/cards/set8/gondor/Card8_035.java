@@ -34,7 +34,7 @@ import java.util.List;
  */
 public class Card8_035 extends AbstractPermanent {
     public Card8_035() {
-        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.GONDOR, Zone.SUPPORT, "Fourth Level");
+        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.GONDOR, "Fourth Level");
         addKeyword(Keyword.FORTIFICATION);
     }
 

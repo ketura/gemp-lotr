@@ -27,7 +27,7 @@ public class AbstractAlly extends AbstractPermanent {
     }
 
     public AbstractAlly(int twilight, SitesBlock siteBlock, int[] siteNumbers, int strength, int vitality, Race race, Culture culture, String name, String subTitle, boolean unique) {
-        super(Side.FREE_PEOPLE, twilight, CardType.ALLY, culture, Zone.SUPPORT, name, subTitle, unique);
+        super(Side.FREE_PEOPLE, twilight, CardType.ALLY, culture, name, subTitle, unique);
         _siteBlock = siteBlock;
         _siteNumbers = siteNumbers;
         _strength = strength;

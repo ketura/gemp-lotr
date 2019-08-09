@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card3_114 extends AbstractPermanent {
     public Card3_114() {
-        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.SHIRE, Zone.SUPPORT, "Three Monstrous Trolls");
+        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.SHIRE, "Three Monstrous Trolls");
         addKeyword(Keyword.TALE);
     }
 

@@ -6,7 +6,6 @@ import com.gempukku.lotro.logic.modifiers.ResistanceModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.modifiers.*;
@@ -25,7 +24,7 @@ import java.util.List;
  */
 public class Card17_105 extends AbstractPermanent {
     public Card17_105() {
-        super(Side.SHADOW, 2, CardType.ARTIFACT, Culture.SAURON, Zone.SUPPORT, "Throne of the Dark Lord", null, true);
+        super(Side.SHADOW, 2, CardType.ARTIFACT, Culture.SAURON, "Throne of the Dark Lord", null, true);
     }
 
     @Override

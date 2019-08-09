@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card20_361 extends AbstractPermanent {
     public Card20_361() {
-        super(Side.SHADOW, 3, CardType.POSSESSION, Culture.SAURON, Zone.SUPPORT, "Grond", "Wolf's Head", true);
+        super(Side.SHADOW, 3, CardType.POSSESSION, Culture.SAURON, "Grond", "Wolf's Head", true);
     }
 
     @Override

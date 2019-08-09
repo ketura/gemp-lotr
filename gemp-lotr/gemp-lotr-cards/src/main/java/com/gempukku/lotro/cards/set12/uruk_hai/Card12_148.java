@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card12_148 extends AbstractPermanent {
     public Card12_148() {
-        super(Side.SHADOW, 0, CardType.CONDITION, Culture.URUK_HAI, Zone.SUPPORT, "Tempest of War");
+        super(Side.SHADOW, 0, CardType.CONDITION, Culture.URUK_HAI, "Tempest of War");
     }
 
     @Override

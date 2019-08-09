@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card12_124 extends AbstractPermanent {
     public Card12_124() {
-        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.SHIRE, Zone.SUPPORT, "Long Live the Halflings");
+        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.SHIRE, "Long Live the Halflings");
     }
 
     @Override

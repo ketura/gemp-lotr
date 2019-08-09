@@ -19,7 +19,7 @@ import com.gempukku.lotro.logic.modifiers.SpotCondition;
  */
 public class Card20_197 extends AbstractPermanent {
     public Card20_197() {
-        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.GONDOR, Zone.SUPPORT, "Into the Wild", null, true);
+        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.GONDOR, "Into the Wild", null, true);
     }
 
     @Override

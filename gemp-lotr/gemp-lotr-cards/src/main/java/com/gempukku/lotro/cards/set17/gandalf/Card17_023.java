@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class Card17_023 extends AbstractPermanent {
     public Card17_023() {
-        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.GANDALF, Zone.SUPPORT, "Scintillating Bird");
+        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.GANDALF, "Scintillating Bird");
         addKeyword(Keyword.SPELL);
     }
 

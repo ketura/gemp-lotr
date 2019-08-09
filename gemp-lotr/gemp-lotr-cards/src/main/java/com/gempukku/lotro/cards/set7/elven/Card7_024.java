@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class Card7_024 extends AbstractPermanent {
     public Card7_024() {
-        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.ELVEN, Zone.SUPPORT, "Leaving Forever");
+        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.ELVEN, "Leaving Forever");
     }
 
     @Override

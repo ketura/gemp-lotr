@@ -13,7 +13,7 @@ public class AbstractMinion extends AbstractPermanent {
     }
 
     public AbstractMinion(int twilightCost, int strength, int vitality, int site, Race race, Culture culture, String name, String subTitle, boolean unique) {
-        super(Side.SHADOW, twilightCost, CardType.MINION, culture, Zone.SHADOW_CHARACTERS, name, subTitle, unique);
+        super(Side.SHADOW, twilightCost, CardType.MINION, culture, name, subTitle, unique);
         _strength = strength;
         _vitality = vitality;
         _site = site;

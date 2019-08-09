@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card12_076 extends AbstractPermanent {
     public Card12_076() {
-        super(Side.SHADOW, 0, CardType.CONDITION, Culture.MEN, Zone.SUPPORT, "Trail of Terror");
+        super(Side.SHADOW, 0, CardType.CONDITION, Culture.MEN, "Trail of Terror");
     }
 
     @Override

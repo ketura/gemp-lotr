@@ -9,7 +9,6 @@ import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
@@ -32,7 +31,7 @@ import java.util.List;
  */
 public class Card4_166 extends AbstractPermanent {
     public Card4_166() {
-        super(Side.SHADOW, 0, CardType.ARTIFACT, Culture.ISENGARD, Zone.SUPPORT, "The Palantir of Orthanc", "Seventh Seeing-stone", true);
+        super(Side.SHADOW, 0, CardType.ARTIFACT, Culture.ISENGARD, "The Palantir of Orthanc", "Seventh Seeing-stone", true);
     }
 
     @Override

@@ -1,6 +1,8 @@
 package com.gempukku.lotro.cards.set20.dwarven;
 
 import com.gempukku.lotro.logic.cardtype.AbstractAttachableFPPossession;
+import com.gempukku.lotro.logic.modifiers.ExtraPossessionClassModifier;
+import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
@@ -30,7 +32,7 @@ public class Card20_058 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    protected Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+    public Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
         return Race.DWARF;
     }
 
@@ -52,7 +54,7 @@ public class Card20_058 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    public boolean isExtraPossessionClass(LotroGame game, PhysicalCard self, PhysicalCard attachedTo) {
-        return true;
+    protected List<? extends Modifier> getNonBasicStatsModifiers(PhysicalCard self) {
+        return Collections.singletonList(new ExtraPossessionClassModifier(self, self));
     }
 }

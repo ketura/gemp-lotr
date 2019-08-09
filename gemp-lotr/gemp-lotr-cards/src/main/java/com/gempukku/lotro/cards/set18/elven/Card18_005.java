@@ -1,6 +1,8 @@
 package com.gempukku.lotro.cards.set18.elven;
 
 import com.gempukku.lotro.logic.cardtype.AbstractAttachableFPPossession;
+import com.gempukku.lotro.logic.modifiers.ExtraPossessionClassModifier;
+import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.ExertCharactersEffect;
 import com.gempukku.lotro.common.*;
@@ -30,13 +32,13 @@ public class Card18_005 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    protected Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+    public Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
         return Filters.and(Culture.ELVEN, CardType.COMPANION);
     }
 
     @Override
-    public boolean isExtraPossessionClass(LotroGame game, PhysicalCard self, PhysicalCard attachedTo) {
-        return true;
+    protected List<? extends Modifier> getNonBasicStatsModifiers(PhysicalCard self) {
+        return Collections.singletonList(new ExtraPossessionClassModifier(self, self));
     }
 
     @Override

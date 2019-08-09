@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card8_042 extends AbstractPermanent {
     public Card8_042() {
-        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.GONDOR, Zone.SUPPORT, "A Path Appointed");
+        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.GONDOR, "A Path Appointed");
     }
 
     @Override

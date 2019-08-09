@@ -34,7 +34,7 @@ import java.util.List;
  */
 public class Card8_028 extends AbstractPermanent {
     public Card8_028() {
-        super(Side.SHADOW, 1, CardType.POSSESSION, Culture.GOLLUM, Zone.SUPPORT, "Spider Poison");
+        super(Side.SHADOW, 1, CardType.POSSESSION, Culture.GOLLUM, "Spider Poison");
     }
 
     @Override

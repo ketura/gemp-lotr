@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card8_030 extends AbstractPermanent {
     public Card8_030() {
-        super(Side.SHADOW, 1, CardType.POSSESSION, Culture.GOLLUM, Zone.SUPPORT, "Web");
+        super(Side.SHADOW, 1, CardType.POSSESSION, Culture.GOLLUM, "Web");
     }
 
     @Override

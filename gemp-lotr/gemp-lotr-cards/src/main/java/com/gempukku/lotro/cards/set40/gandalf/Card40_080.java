@@ -11,7 +11,6 @@ import com.gempukku.lotro.logic.modifiers.condition.InitiativeCondition;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -38,7 +37,7 @@ import java.util.List;
  */
 public class Card40_080 extends AbstractPermanent {
     public Card40_080() {
-        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.GANDALF, Zone.SUPPORT, "Keep it Secret, Keep it Safe", null, true);
+        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.GANDALF, "Keep it Secret, Keep it Safe", null, true);
     }
 
     @Override

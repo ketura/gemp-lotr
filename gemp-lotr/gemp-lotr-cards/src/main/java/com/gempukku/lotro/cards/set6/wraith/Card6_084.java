@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card6_084 extends AbstractPermanent {
     public Card6_084() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.WRAITH, Zone.SUPPORT, "Spied From Above");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.WRAITH, "Spied From Above");
     }
 
     @Override

@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class Card7_055 extends AbstractPermanent {
     public Card7_055() {
-        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.GOLLUM, Zone.SUPPORT, "Days Growing Dark");
+        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.GOLLUM, "Days Growing Dark");
     }
 
     @Override

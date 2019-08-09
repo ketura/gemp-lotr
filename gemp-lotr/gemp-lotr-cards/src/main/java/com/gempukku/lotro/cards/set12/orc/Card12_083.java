@@ -7,7 +7,6 @@ import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
@@ -28,7 +27,7 @@ import java.util.List;
  */
 public class Card12_083 extends AbstractPermanent {
     public Card12_083() {
-        super(Side.SHADOW, 0, CardType.CONDITION, Culture.ORC, Zone.SUPPORT, "The Beckoning Shadow");
+        super(Side.SHADOW, 0, CardType.CONDITION, Culture.ORC, "The Beckoning Shadow");
     }
 
     @Override

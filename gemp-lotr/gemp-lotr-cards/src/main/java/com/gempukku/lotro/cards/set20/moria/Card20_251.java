@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card20_251 extends AbstractPermanent {
     public Card20_251() {
-        super(Side.SHADOW, 3, CardType.CONDITION, Culture.MORIA, Zone.SUPPORT, "Awoken in Darkness", null, true);
+        super(Side.SHADOW, 3, CardType.CONDITION, Culture.MORIA, "Awoken in Darkness", null, true);
     }
 
     @Override

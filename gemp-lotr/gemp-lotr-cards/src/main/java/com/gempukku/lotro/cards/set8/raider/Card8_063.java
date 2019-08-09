@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card8_063 extends AbstractPermanent {
     public Card8_063() {
-        super(Side.SHADOW, 3, CardType.CONDITION, Culture.RAIDER, Zone.SUPPORT, "Line of Defense");
+        super(Side.SHADOW, 3, CardType.CONDITION, Culture.RAIDER, "Line of Defense");
     }
 
     @Override

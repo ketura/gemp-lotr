@@ -22,7 +22,7 @@ import com.gempukku.lotro.logic.modifiers.TwilightCostModifier;
  */
 public class Card1_253 extends AbstractPermanent {
     public Card1_253() {
-        super(Side.SHADOW, 0, CardType.CONDITION, Culture.SAURON, Zone.SUPPORT, "Journey Into Danger");
+        super(Side.SHADOW, 0, CardType.CONDITION, Culture.SAURON, "Journey Into Danger");
         addKeyword(Keyword.SEARCH);
     }
 

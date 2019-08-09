@@ -8,7 +8,6 @@ import com.gempukku.lotro.logic.effects.choose.ChooseAndDiscardCardsFromPlayEffe
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -29,7 +28,7 @@ import java.util.List;
  */
 public class Card11_208 extends AbstractPermanent {
     public Card11_208() {
-        super(Side.SHADOW, 2, CardType.CONDITION, Culture.WRAITH, Zone.SUPPORT, "Dark Wings");
+        super(Side.SHADOW, 2, CardType.CONDITION, Culture.WRAITH, "Dark Wings");
     }
 
     @Override

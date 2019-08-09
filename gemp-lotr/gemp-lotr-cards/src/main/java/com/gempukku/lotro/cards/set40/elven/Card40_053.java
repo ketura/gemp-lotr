@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card40_053 extends AbstractPermanent{
     public Card40_053() {
-        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.ELVEN, Zone.SUPPORT, "Lights of Caras Galadhon", null, true);
+        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.ELVEN, "Lights of Caras Galadhon", null, true);
     }
 
     @Override

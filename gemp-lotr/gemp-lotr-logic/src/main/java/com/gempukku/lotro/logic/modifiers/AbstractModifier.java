@@ -50,6 +50,11 @@ public abstract class AbstractModifier implements Modifier {
     }
 
     @Override
+    public boolean isExtraPossessionClass(LotroGame game, PhysicalCard physicalCard, PhysicalCard attachedTo) {
+        return false;
+    }
+
+    @Override
     public String getText(LotroGame game, PhysicalCard self) {
         return _text;
     }

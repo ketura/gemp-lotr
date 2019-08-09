@@ -1,6 +1,8 @@
 package com.gempukku.lotro.cards.set2.dwarven;
 
 import com.gempukku.lotro.logic.cardtype.AbstractAttachableFPPossession;
+import com.gempukku.lotro.logic.modifiers.ExtraPossessionClassModifier;
+import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
@@ -29,13 +31,14 @@ public class Card2_010 extends AbstractAttachableFPPossession {
         super(0, 1, 0, Culture.DWARVEN, PossessionClass.HAND_WEAPON, "Hand Axe");
     }
 
+
     @Override
-    public boolean isExtraPossessionClass(LotroGame game, PhysicalCard self, PhysicalCard attachedTo) {
-        return true;
+    protected List<? extends Modifier> getNonBasicStatsModifiers(PhysicalCard self) {
+        return Collections.singletonList(new ExtraPossessionClassModifier(self, self));
     }
 
     @Override
-    protected Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+    public Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
         return Race.DWARF;
     }
 

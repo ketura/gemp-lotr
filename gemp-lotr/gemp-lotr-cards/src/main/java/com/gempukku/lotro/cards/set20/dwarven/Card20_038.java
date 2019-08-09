@@ -9,7 +9,6 @@ import com.gempukku.lotro.logic.effects.StackTopCardsFromDeckEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
@@ -31,7 +30,7 @@ import java.util.List;
  */
 public class Card20_038 extends AbstractPermanent {
     public Card20_038() {
-        super(Side.FREE_PEOPLE, 4, CardType.CONDITION, Culture.DWARVEN, Zone.SUPPORT, "Balin's Lament", null, true);
+        super(Side.FREE_PEOPLE, 4, CardType.CONDITION, Culture.DWARVEN, "Balin's Lament", null, true);
     }
 
     @Override

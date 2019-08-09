@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class Card15_065 extends AbstractPermanent {
     public Card15_065() {
-        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.GONDOR, Zone.SUPPORT, "No Quicker Path");
+        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.GONDOR, "No Quicker Path");
     }
 
     @Override

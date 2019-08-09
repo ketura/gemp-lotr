@@ -9,7 +9,6 @@ import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -37,7 +36,7 @@ import java.util.List;
  */
 public class Card1_055 extends AbstractPermanent {
     public Card1_055() {
-        super(Side.FREE_PEOPLE, 2, CardType.POSSESSION, Culture.ELVEN, Zone.SUPPORT, "The Mirror of Galadriel", null, true);
+        super(Side.FREE_PEOPLE, 2, CardType.POSSESSION, Culture.ELVEN, "The Mirror of Galadriel", null, true);
     }
 
     @Override

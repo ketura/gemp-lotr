@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card2_008 extends AbstractPermanent {
     public Card2_008() {
-        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.DWARVEN, Zone.SUPPORT, "Golden Light on the Land");
+        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.DWARVEN, "Golden Light on the Land");
     }
 
     @Override

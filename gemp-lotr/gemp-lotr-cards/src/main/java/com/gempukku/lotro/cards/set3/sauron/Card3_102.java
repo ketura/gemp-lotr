@@ -8,7 +8,6 @@ import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -30,7 +29,7 @@ import java.util.List;
  */
 public class Card3_102 extends AbstractPermanent {
     public Card3_102() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.SAURON, Zone.SUPPORT, "Our List of Allies Grows Thin", null, true);
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.SAURON, "Our List of Allies Grows Thin", null, true);
     }
 
     @Override

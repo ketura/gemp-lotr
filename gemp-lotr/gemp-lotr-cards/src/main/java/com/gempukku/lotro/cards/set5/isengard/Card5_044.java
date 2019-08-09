@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card5_044 extends AbstractPermanent {
     public Card5_044() {
-        super(Side.SHADOW, 0, CardType.CONDITION, Culture.ISENGARD, Zone.SUPPORT, "Battering Ram");
+        super(Side.SHADOW, 0, CardType.CONDITION, Culture.ISENGARD, "Battering Ram");
         addKeyword(Keyword.MACHINE);
     }
 

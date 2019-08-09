@@ -12,7 +12,6 @@ import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -36,7 +35,7 @@ import java.util.List;
  */
 public class Card7_251 extends AbstractPermanent {
     public Card7_251() {
-        super(Side.FREE_PEOPLE, 3, CardType.CONDITION, Culture.ROHAN, Zone.SUPPORT, "Stern People");
+        super(Side.FREE_PEOPLE, 3, CardType.CONDITION, Culture.ROHAN, "Stern People");
     }
 
     @Override

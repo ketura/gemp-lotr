@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class Card7_280 extends AbstractPermanent {
     public Card7_280() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.SAURON, Zone.SUPPORT, "Great Peril of Fire");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.SAURON, "Great Peril of Fire");
     }
 
     @Override

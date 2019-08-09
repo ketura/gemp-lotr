@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card7_268 extends AbstractPermanent {
     public Card7_268() {
-        super(Side.SHADOW, 2, CardType.CONDITION, Culture.SAURON, Zone.SUPPORT, "Encirclement", null, true);
+        super(Side.SHADOW, 2, CardType.CONDITION, Culture.SAURON, "Encirclement", null, true);
     }
 
     @Override

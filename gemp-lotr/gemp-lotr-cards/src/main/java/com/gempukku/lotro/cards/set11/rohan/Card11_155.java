@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card11_155 extends AbstractPermanent {
     public Card11_155() {
-        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.ROHAN, Zone.SUPPORT, "Riding Like the Wind");
+        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.ROHAN, "Riding Like the Wind");
     }
 
     @Override

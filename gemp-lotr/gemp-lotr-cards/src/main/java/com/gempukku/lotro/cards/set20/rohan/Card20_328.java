@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card20_328 extends AbstractPermanent {
     public Card20_328() {
-        super(Side.FREE_PEOPLE, 2, CardType.POSSESSION, Culture.ROHAN, Zone.SUPPORT, "Gates of the Hornburg", null, true);
+        super(Side.FREE_PEOPLE, 2, CardType.POSSESSION, Culture.ROHAN, "Gates of the Hornburg", null, true);
         addKeyword(Keyword.FORTIFICATION);
     }
 

@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card8_018 extends AbstractPermanent {
     public Card8_018() {
-        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.GANDALF, Zone.SUPPORT, "Not the First Halfling");
+        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.GANDALF, "Not the First Halfling");
     }
 
     @Override

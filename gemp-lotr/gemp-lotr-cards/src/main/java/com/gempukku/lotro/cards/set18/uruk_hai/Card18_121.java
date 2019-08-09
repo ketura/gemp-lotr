@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card18_121 extends AbstractPermanent {
     public Card18_121() {
-        super(Side.SHADOW, 2, CardType.CONDITION, Culture.URUK_HAI, Zone.SUPPORT, "Pikes Upon Pikes");
+        super(Side.SHADOW, 2, CardType.CONDITION, Culture.URUK_HAI, "Pikes Upon Pikes");
     }
 
     @Override

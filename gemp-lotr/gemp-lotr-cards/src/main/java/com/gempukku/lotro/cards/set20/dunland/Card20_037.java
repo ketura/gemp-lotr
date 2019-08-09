@@ -22,7 +22,7 @@ import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
  */
 public class Card20_037 extends AbstractPermanent {
     public Card20_037() {
-        super(Side.SHADOW, 2, CardType.CONDITION, Culture.DUNLAND, Zone.SUPPORT, "Crebain Spies", null, true);
+        super(Side.SHADOW, 2, CardType.CONDITION, Culture.DUNLAND, "Crebain Spies", null, true);
     }
 
     @Override

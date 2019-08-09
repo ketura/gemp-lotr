@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card7_060 extends AbstractPermanent {
     public Card7_060() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.GOLLUM, Zone.SUPPORT, "Heavy Burden");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.GOLLUM, "Heavy Burden");
     }
 
     @Override

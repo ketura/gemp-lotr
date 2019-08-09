@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class Card20_252 extends AbstractPermanent {
     public Card20_252() {
-        super(Side.SHADOW, 2, CardType.CONDITION, Culture.MORIA, Zone.SUPPORT, "Balin's Fate", null, true);
+        super(Side.SHADOW, 2, CardType.CONDITION, Culture.MORIA, "Balin's Fate", null, true);
     }
 
     @Override

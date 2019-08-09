@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card4_168 extends AbstractPermanent {
     public Card4_168() {
-        super(Side.SHADOW, 0, CardType.CONDITION, Culture.ISENGARD, Zone.SUPPORT, "Race Across the Mark");
+        super(Side.SHADOW, 0, CardType.CONDITION, Culture.ISENGARD, "Race Across the Mark");
     }
 
     @Override

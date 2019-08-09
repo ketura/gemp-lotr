@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card20_033 extends AbstractPermanent {
     public Card20_033() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.DUNLAND, Zone.SUPPORT, "Blood Oath");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.DUNLAND, "Blood Oath");
     }
 
     @Override

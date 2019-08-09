@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card7_281 extends AbstractPermanent {
     public Card7_281() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.SAURON, Zone.SUPPORT, "Great Siege-towers");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.SAURON, "Great Siege-towers");
         addKeyword(Keyword.ENGINE);
     }
 

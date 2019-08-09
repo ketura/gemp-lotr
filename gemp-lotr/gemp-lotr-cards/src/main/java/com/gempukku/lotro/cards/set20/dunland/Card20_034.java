@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card20_034 extends AbstractPermanent {
     public Card20_034() {
-        super(Side.SHADOW, 3, CardType.CONDITION, Culture.DUNLAND, Zone.SUPPORT, "Westfold in Flames", null, true);
+        super(Side.SHADOW, 3, CardType.CONDITION, Culture.DUNLAND, "Westfold in Flames", null, true);
     }
 
     @Override

@@ -33,7 +33,7 @@ import java.util.List;
  */
 public class Card17_067 extends AbstractPermanent {
     public Card17_067() {
-        super(Side.SHADOW, 2, CardType.CONDITION, Culture.ORC, Zone.SUPPORT, "A Defiled Charge");
+        super(Side.SHADOW, 2, CardType.CONDITION, Culture.ORC, "A Defiled Charge");
     }
 
     @Override

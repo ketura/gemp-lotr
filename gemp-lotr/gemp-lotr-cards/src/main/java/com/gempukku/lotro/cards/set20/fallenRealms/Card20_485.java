@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card20_485 extends AbstractPermanent {
     public Card20_485() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.FALLEN_REALMS, Zone.SUPPORT, "Weapons of the East");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.FALLEN_REALMS, "Weapons of the East");
     }
 
     @Override

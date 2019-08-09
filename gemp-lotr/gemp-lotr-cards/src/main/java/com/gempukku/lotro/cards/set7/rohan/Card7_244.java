@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card7_244 extends AbstractPermanent {
     public Card7_244() {
-        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.ROHAN, Zone.SUPPORT, "Mustering for Battle");
+        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.ROHAN, "Mustering for Battle");
     }
 
     @Override

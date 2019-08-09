@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class Card13_041 extends AbstractPermanent {
     public Card13_041() {
-        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.GANDALF, Zone.SUPPORT, "Strange Meeting");
+        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.GANDALF, "Strange Meeting");
     }
 
     @Override

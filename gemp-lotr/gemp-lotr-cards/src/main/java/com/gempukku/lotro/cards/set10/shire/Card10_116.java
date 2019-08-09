@@ -8,12 +8,10 @@ import com.gempukku.lotro.logic.modifiers.CantBeOverwhelmedModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.modifiers.Condition;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.Collections;
@@ -30,7 +28,7 @@ import java.util.List;
  */
 public class Card10_116 extends AbstractPermanent {
     public Card10_116() {
-        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.SHIRE, Zone.SUPPORT, "The Tale of the Great Ring", null, true);
+        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.SHIRE, "The Tale of the Great Ring", null, true);
         addKeyword(Keyword.TALE);
     }
 

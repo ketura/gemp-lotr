@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card20_173 extends AbstractPermanent {
     public Card20_173() {
-        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.GANDALF, Zone.SUPPORT, "Wizard's Forethought", null, true);
+        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.GANDALF, "Wizard's Forethought", null, true);
     }
 
     @Override

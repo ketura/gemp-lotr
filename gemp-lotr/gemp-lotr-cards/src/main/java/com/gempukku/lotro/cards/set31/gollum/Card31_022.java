@@ -33,7 +33,7 @@ import java.util.List;
  */
 public class Card31_022 extends AbstractPermanent {
     public Card31_022() {
-        super(Side.SHADOW, 2, CardType.CONDITION, Culture.GOLLUM, Zone.SUPPORT, "Riddles in the Dark", null, true);
+        super(Side.SHADOW, 2, CardType.CONDITION, Culture.GOLLUM, "Riddles in the Dark", null, true);
     }
 
     @Override

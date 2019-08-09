@@ -1,14 +1,11 @@
 package com.gempukku.lotro.cards.set20.moria;
 
 import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
-import com.gempukku.lotro.logic.modifiers.CantExertWithCardModifier;
-import com.gempukku.lotro.logic.modifiers.CantWoundWithCardModifier;
+import com.gempukku.lotro.logic.modifiers.*;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -26,13 +23,8 @@ public class Card20_283 extends AbstractAttachable {
     }
 
     @Override
-    protected Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+    public Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
         return Filters.balrog;
-    }
-
-    @Override
-    public boolean isExtraPossessionClass(LotroGame game, PhysicalCard self, PhysicalCard attachedTo) {
-        return true;
     }
 
     @Override
@@ -44,6 +36,8 @@ public class Card20_283 extends AbstractAttachable {
                 new CantExertWithCardModifier(self, Filters.balrog, Filters.not(Keyword.SPELL)));
         modifiers.add(
                 new CantWoundWithCardModifier(self, Filters.balrog, Filters.not(Keyword.SPELL)));
+        modifiers.add(
+                new ExtraPossessionClassModifier(self, self));
         return modifiers;
     }
 }

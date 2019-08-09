@@ -11,7 +11,6 @@ import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -37,7 +36,7 @@ import java.util.List;
  */
 public class Card13_075 extends AbstractPermanent {
     public Card13_075() {
-        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.GONDOR, Zone.SUPPORT, "Stewards' Legacy", null, true);
+        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.GONDOR, "Stewards' Legacy", null, true);
     }
 
     @Override

@@ -18,7 +18,7 @@ import com.gempukku.lotro.logic.modifiers.SpotCondition;
  */
 public class Card1_192 extends AbstractPermanent {
     public Card1_192() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.MORIA, Zone.SUPPORT, "Pinned Down");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.MORIA, "Pinned Down");
     }
 
     @Override

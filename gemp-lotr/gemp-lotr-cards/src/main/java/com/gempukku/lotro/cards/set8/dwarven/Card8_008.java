@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card8_008 extends AbstractPermanent {
     public Card8_008() {
-        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.DWARVEN, Zone.SUPPORT, "Wish For Our Kinfolk");
+        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.DWARVEN, "Wish For Our Kinfolk");
     }
 
     @Override

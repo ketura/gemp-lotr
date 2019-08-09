@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card8_078 extends AbstractPermanent {
     public Card8_078() {
-        super(Side.SHADOW, 3, CardType.CONDITION, Culture.WRAITH, Zone.SUPPORT, "Streaming to the Field", null, true);
+        super(Side.SHADOW, 3, CardType.CONDITION, Culture.WRAITH, "Streaming to the Field", null, true);
     }
 
     @Override

@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card40_136 extends AbstractPermanent {
     public Card40_136() {
-        super(Side.SHADOW, 0, CardType.CONDITION, Culture.ISENGARD, Zone.SUPPORT, "Saruman's Ambition");
+        super(Side.SHADOW, 0, CardType.CONDITION, Culture.ISENGARD, "Saruman's Ambition");
     }
 
     @Override

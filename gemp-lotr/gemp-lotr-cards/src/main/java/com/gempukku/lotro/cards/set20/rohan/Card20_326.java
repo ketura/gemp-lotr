@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card20_326 extends AbstractPermanent {
     public Card20_326() {
-        super(Side.FREE_PEOPLE, 2, CardType.POSSESSION, Culture.ROHAN, Zone.SUPPORT, "Fortress of Rohan");
+        super(Side.FREE_PEOPLE, 2, CardType.POSSESSION, Culture.ROHAN, "Fortress of Rohan");
         addKeyword(Keyword.FORTIFICATION);
     }
 

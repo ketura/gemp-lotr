@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class Card10_065 extends AbstractPermanent {
     public Card10_065() {
-        super(Side.SHADOW, 0, CardType.CONDITION, Culture.WRAITH, Zone.SUPPORT, "Swarming Like Beetles");
+        super(Side.SHADOW, 0, CardType.CONDITION, Culture.WRAITH, "Swarming Like Beetles");
     }
 
     @Override

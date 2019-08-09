@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card20_239 extends AbstractPermanent {
     public Card20_239() {
-        super(Side.SHADOW, 0, CardType.ARTIFACT, Culture.ISENGARD, Zone.SUPPORT, "The Palantir of Orthanc", "Defiler of Wizards", true);
+        super(Side.SHADOW, 0, CardType.ARTIFACT, Culture.ISENGARD, "The Palantir of Orthanc", "Defiler of Wizards", true);
     }
 
     @Override

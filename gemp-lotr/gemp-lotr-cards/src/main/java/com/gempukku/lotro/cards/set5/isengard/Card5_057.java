@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card5_057 extends AbstractPermanent {
     public Card5_057() {
-        super(Side.SHADOW, 0, CardType.CONDITION, Culture.ISENGARD, Zone.SUPPORT, "Scaling Ladder");
+        super(Side.SHADOW, 0, CardType.CONDITION, Culture.ISENGARD, "Scaling Ladder");
         addKeyword(Keyword.MACHINE);
     }
 

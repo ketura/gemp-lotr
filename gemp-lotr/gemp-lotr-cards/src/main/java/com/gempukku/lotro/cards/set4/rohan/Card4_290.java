@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card4_290 extends AbstractPermanent {
     public Card4_290() {
-        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.ROHAN, Zone.SUPPORT, "Supplies of the Mark");
+        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.ROHAN, "Supplies of the Mark");
     }
 
     @Override

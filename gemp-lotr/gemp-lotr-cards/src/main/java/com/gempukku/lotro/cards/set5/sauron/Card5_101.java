@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card5_101 extends AbstractPermanent {
     public Card5_101() {
-        super(Side.SHADOW, 0, CardType.CONDITION, Culture.SAURON, Zone.SUPPORT, "I'd Make You Squeak");
+        super(Side.SHADOW, 0, CardType.CONDITION, Culture.SAURON, "I'd Make You Squeak");
     }
 
     @Override

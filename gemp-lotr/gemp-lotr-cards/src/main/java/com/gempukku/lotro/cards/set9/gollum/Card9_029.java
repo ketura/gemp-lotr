@@ -11,7 +11,6 @@ import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -35,7 +34,7 @@ import java.util.List;
  */
 public class Card9_029 extends AbstractPermanent {
     public Card9_029() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.GOLLUM, Zone.SUPPORT, "Slippery as Fishes");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.GOLLUM, "Slippery as Fishes");
     }
 
     @Override

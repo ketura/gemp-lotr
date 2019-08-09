@@ -8,7 +8,6 @@ import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
@@ -31,7 +30,7 @@ import java.util.List;
  */
 public class Card4_261 extends AbstractPermanent {
     public Card4_261() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.RAIDER, Zone.SUPPORT, "Wrath of Harad");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.RAIDER, "Wrath of Harad");
     }
 
     @Override

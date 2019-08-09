@@ -33,7 +33,7 @@ import java.util.List;
  */
 public class Card40_193 extends AbstractPermanent {
     public Card40_193() {
-        super(Side.SHADOW, 0, CardType.ARTIFACT, Culture.WRAITH, Zone.SUPPORT, "Nine for Mortal Men", null, true);
+        super(Side.SHADOW, 0, CardType.ARTIFACT, Culture.WRAITH, "Nine for Mortal Men", null, true);
     }
 
     @Override

@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card5_079 extends AbstractPermanent {
     public Card5_079() {
-        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.ROHAN, Zone.SUPPORT, "Armory", null, true);
+        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.ROHAN, "Armory", null, true);
         addKeyword(Keyword.FORTIFICATION);
     }
 

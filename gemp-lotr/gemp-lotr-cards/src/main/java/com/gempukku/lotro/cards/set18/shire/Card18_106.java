@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card18_106 extends AbstractPermanent {
     public Card18_106() {
-        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.SHIRE, Zone.SUPPORT, "A Dragon's Tale");
+        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.SHIRE, "A Dragon's Tale");
         addKeyword(Keyword.TALE);
     }
 

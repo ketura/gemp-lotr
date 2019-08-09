@@ -19,7 +19,7 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
  */
 public class Card1_141 extends AbstractPermanent {
     public Card1_141() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.ISENGARD, Zone.SUPPORT, "Their Arrows Enrage");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.ISENGARD, "Their Arrows Enrage");
     }
 
     @Override

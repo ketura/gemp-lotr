@@ -37,7 +37,7 @@ import java.util.Map;
  */
 public class Card11_216 extends AbstractPermanent {
     public Card11_216() {
-        super(Side.SHADOW, 0, CardType.CONDITION, Culture.WRAITH, Zone.SUPPORT, "A Shadow Rises");
+        super(Side.SHADOW, 0, CardType.CONDITION, Culture.WRAITH, "A Shadow Rises");
     }
 
     @Override

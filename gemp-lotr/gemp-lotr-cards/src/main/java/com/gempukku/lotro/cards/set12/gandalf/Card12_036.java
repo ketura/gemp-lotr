@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class Card12_036 extends AbstractPermanent {
     public Card12_036() {
-        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.GANDALF, Zone.SUPPORT, "With Doom We Come");
+        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.GANDALF, "With Doom We Come");
     }
 
     @Override

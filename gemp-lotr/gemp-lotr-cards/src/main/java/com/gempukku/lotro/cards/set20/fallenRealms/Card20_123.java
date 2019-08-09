@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card20_123 extends AbstractPermanent {
     public Card20_123() {
-        super(Side.SHADOW, 2, CardType.CONDITION, Culture.FALLEN_REALMS, Zone.SUPPORT, "Fresh Reinforcements", null, true);
+        super(Side.SHADOW, 2, CardType.CONDITION, Culture.FALLEN_REALMS, "Fresh Reinforcements", null, true);
     }
 
     @Override

@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class Card12_003 extends AbstractPermanent {
     public Card12_003() {
-        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.DWARVEN, Zone.SUPPORT, "A Clamour of Many Voices");
+        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.DWARVEN, "A Clamour of Many Voices");
     }
 
     @Override

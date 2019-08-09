@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card11_091 extends AbstractPermanent {
     public Card11_091() {
-        super(Side.SHADOW, 4, CardType.CONDITION, Culture.MEN, Zone.SUPPORT, "Oath Sworn");
+        super(Side.SHADOW, 4, CardType.CONDITION, Culture.MEN, "Oath Sworn");
     }
 
     @Override

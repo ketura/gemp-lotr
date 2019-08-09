@@ -7,7 +7,6 @@ import com.gempukku.lotro.logic.effects.choose.ChooseCardsFromDiscardEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
@@ -28,7 +27,7 @@ import java.util.List;
  */
 public class Card11_210 extends AbstractPermanent {
     public Card11_210() {
-        super(Side.SHADOW, 3, CardType.CONDITION, Culture.WRAITH, Zone.SUPPORT, "Hatred Stirred", null, true);
+        super(Side.SHADOW, 3, CardType.CONDITION, Culture.WRAITH, "Hatred Stirred", null, true);
     }
 
     @Override

@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class Card17_021 extends AbstractPermanent {
     public Card17_021() {
-        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.GANDALF, Zone.SUPPORT, "Long-stemmed Pipe");
+        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.GANDALF, "Long-stemmed Pipe");
         addKeyword(Keyword.PIPEWEED);
     }
 

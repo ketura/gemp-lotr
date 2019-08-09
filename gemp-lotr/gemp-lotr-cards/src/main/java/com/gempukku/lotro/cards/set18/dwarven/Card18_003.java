@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card18_003 extends AbstractPermanent {
     public Card18_003() {
-        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.DWARVEN, Zone.SUPPORT, "Thorin's Harp");
+        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.DWARVEN, "Thorin's Harp");
         addKeyword(Keyword.TALE);
     }
 

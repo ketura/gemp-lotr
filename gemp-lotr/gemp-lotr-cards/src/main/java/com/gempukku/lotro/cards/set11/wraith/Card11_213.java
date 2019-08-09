@@ -10,7 +10,6 @@ import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -33,7 +32,7 @@ import java.util.List;
  */
 public class Card11_213 extends AbstractPermanent {
     public Card11_213() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.WRAITH, Zone.SUPPORT, "Moving This Way");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.WRAITH, "Moving This Way");
     }
 
     @Override

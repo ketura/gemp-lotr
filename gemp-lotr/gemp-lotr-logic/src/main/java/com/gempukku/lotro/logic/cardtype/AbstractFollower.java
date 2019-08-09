@@ -27,7 +27,7 @@ public abstract class AbstractFollower extends AbstractPermanent {
     }
 
     public AbstractFollower(Side side, int twilightCost, int strength, int vitality, int resistance, Culture culture, String name, String subTitle, boolean unique) {
-        super(side, twilightCost, CardType.FOLLOWER, culture, Zone.SUPPORT, name, subTitle, unique);
+        super(side, twilightCost, CardType.FOLLOWER, culture, name, subTitle, unique);
         _strength = strength;
         _vitality = vitality;
         _resistance = resistance;

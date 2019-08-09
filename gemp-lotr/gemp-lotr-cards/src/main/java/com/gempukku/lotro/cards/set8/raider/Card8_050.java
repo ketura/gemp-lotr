@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class Card8_050 extends AbstractPermanent {
     public Card8_050() {
-        super(Side.SHADOW, 2, CardType.POSSESSION, Culture.RAIDER, Zone.SUPPORT, "Black Sails of Umbar");
+        super(Side.SHADOW, 2, CardType.POSSESSION, Culture.RAIDER, "Black Sails of Umbar");
     }
 
     @Override

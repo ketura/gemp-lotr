@@ -5,7 +5,6 @@ import com.gempukku.lotro.logic.modifiers.condition.AndCondition;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -21,7 +20,7 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
  */
 public class Card20_404 extends AbstractPermanent {
     public Card20_404() {
-        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.SHIRE, Zone.SUPPORT, "A Promise");
+        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.SHIRE, "A Promise");
     }
 
     @Override

@@ -29,7 +29,7 @@ import java.util.Set;
  */
 public class Card20_336 extends AbstractPermanent {
     public Card20_336() {
-        super(Side.FREE_PEOPLE, 2, CardType.POSSESSION, Culture.ROHAN, Zone.SUPPORT, "Outer Wall");
+        super(Side.FREE_PEOPLE, 2, CardType.POSSESSION, Culture.ROHAN, "Outer Wall");
         addKeyword(Keyword.FORTIFICATION);
     }
 

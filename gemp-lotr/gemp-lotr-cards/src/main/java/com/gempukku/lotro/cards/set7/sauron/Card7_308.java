@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card7_308 extends AbstractPermanent {
     public Card7_308() {
-        super(Side.SHADOW, 0, CardType.CONDITION, Culture.SAURON, Zone.SUPPORT, "Rally the Host");
+        super(Side.SHADOW, 0, CardType.CONDITION, Culture.SAURON, "Rally the Host");
     }
 
     @Override

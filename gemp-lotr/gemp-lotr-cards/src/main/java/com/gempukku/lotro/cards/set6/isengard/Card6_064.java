@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class Card6_064 extends AbstractPermanent {
     public Card6_064() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.ISENGARD, Zone.SUPPORT, "Iron Fist of the Orc");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.ISENGARD, "Iron Fist of the Orc");
     }
 
     @Override

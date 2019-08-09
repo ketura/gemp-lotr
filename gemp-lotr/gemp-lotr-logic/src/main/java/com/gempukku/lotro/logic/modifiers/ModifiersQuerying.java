@@ -30,6 +30,8 @@ public interface ModifiersQuerying {
 
     public Evaluator getFpStrengthOverrideEvaluator(LotroGame game, PhysicalCard fpCharacter);
 
+    boolean isExtraPossessionClass(LotroGame game, PhysicalCard card, PhysicalCard attachedTo);
+
     public boolean hasTextRemoved(LotroGame game, PhysicalCard card);
 
     // Keywords

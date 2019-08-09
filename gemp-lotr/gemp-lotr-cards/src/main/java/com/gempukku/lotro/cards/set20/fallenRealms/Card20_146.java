@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card20_146 extends AbstractPermanent {
     public Card20_146() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.FALLEN_REALMS, Zone.SUPPORT, "Summoned by Sauron", null, true);
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.FALLEN_REALMS, "Summoned by Sauron", null, true);
     }
 
     @Override

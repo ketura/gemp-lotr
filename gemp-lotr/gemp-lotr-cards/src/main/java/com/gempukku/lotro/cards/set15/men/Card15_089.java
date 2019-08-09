@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card15_089 extends AbstractPermanent {
     public Card15_089() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.MEN, Zone.SUPPORT, "Rapid Reload");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.MEN, "Rapid Reload");
     }
 
     @Override

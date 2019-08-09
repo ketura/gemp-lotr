@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card18_025 extends AbstractPermanent {
     public Card18_025() {
-        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.GANDALF, Zone.SUPPORT, "Perspective");
+        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.GANDALF, "Perspective");
     }
 
     @Override

@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class Card20_240 extends AbstractPermanent {
     public Card20_240() {
-        super(Side.SHADOW, 1, CardType.ARTIFACT, Culture.ISENGARD, Zone.SUPPORT, "Throne of Orthanc", null, true);
+        super(Side.SHADOW, 1, CardType.ARTIFACT, Culture.ISENGARD, "Throne of Orthanc", null, true);
     }
 
     @Override

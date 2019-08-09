@@ -7,7 +7,6 @@ import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDiscardEffec
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -28,7 +27,7 @@ import java.util.List;
  */
 public class Card4_170 extends AbstractPermanent {
     public Card4_170() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.ISENGARD, Zone.SUPPORT, "Ranks Without Number", null, true);
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.ISENGARD, "Ranks Without Number", null, true);
     }
 
     @Override

@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card12_160 extends AbstractPermanent {
     public Card12_160() {
-        super(Side.SHADOW, 0, CardType.CONDITION, Culture.URUK_HAI, Zone.SUPPORT, "Worthy of Mordor");
+        super(Side.SHADOW, 0, CardType.CONDITION, Culture.URUK_HAI, "Worthy of Mordor");
     }
 
     @Override

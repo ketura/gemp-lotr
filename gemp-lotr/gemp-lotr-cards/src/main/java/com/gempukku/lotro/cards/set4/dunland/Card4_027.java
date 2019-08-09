@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card4_027 extends AbstractPermanent {
     public Card4_027() {
-        super(Side.SHADOW, 0, CardType.CONDITION, Culture.DUNLAND, Zone.SUPPORT, "Living Off Rock");
+        super(Side.SHADOW, 0, CardType.CONDITION, Culture.DUNLAND, "Living Off Rock");
     }
 
     @Override

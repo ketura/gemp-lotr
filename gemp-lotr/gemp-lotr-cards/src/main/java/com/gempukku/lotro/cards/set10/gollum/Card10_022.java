@@ -33,7 +33,7 @@ import java.util.List;
  */
 public class Card10_022 extends AbstractPermanent {
     public Card10_022() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.GOLLUM, Zone.SUPPORT, "Reclaim the Precious");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.GOLLUM, "Reclaim the Precious");
     }
 
     @Override

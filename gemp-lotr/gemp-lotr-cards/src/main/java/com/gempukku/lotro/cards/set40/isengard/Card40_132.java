@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class Card40_132 extends AbstractPermanent {
     public Card40_132() {
-        super(Side.SHADOW, 0, CardType.ARTIFACT, Culture.ISENGARD, Zone.SUPPORT, "The Palantir or Orthanc", "Corruptor of Wizards", false);
+        super(Side.SHADOW, 0, CardType.ARTIFACT, Culture.ISENGARD, "The Palantir or Orthanc", "Corruptor of Wizards", false);
     }
 
     @Override

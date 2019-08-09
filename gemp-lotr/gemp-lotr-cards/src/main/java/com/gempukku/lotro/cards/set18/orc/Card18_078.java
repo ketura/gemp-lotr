@@ -7,7 +7,6 @@ import com.gempukku.lotro.logic.modifiers.condition.AndCondition;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.modifiers.*;
@@ -28,7 +27,7 @@ import java.util.List;
  */
 public class Card18_078 extends AbstractPermanent {
     public Card18_078() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.ORC, Zone.SUPPORT, "Destroyers and Usurpers");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.ORC, "Destroyers and Usurpers");
     }
 
     @Override

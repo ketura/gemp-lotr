@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card6_058 extends AbstractPermanent {
     public Card6_058() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.ISENGARD, Zone.SUPPORT, "Assault Ladder");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.ISENGARD, "Assault Ladder");
         addKeyword(Keyword.MACHINE);
     }
 

@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card9_035 extends AbstractPermanent {
     public Card9_035() {
-        super(Side.FREE_PEOPLE, 1, CardType.ARTIFACT, Culture.GONDOR, Zone.SUPPORT, "Sapling of the White Tree");
+        super(Side.FREE_PEOPLE, 1, CardType.ARTIFACT, Culture.GONDOR, "Sapling of the White Tree");
     }
 
     @Override

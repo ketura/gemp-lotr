@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card7_269 extends AbstractPermanent {
     public Card7_269() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.SAURON, Zone.SUPPORT, "Fires Raged Unchecked");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.SAURON, "Fires Raged Unchecked");
     }
 
     @Override

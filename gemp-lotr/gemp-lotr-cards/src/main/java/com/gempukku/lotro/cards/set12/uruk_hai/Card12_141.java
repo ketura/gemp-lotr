@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card12_141 extends AbstractPermanent {
     public Card12_141() {
-        super(Side.SHADOW, 0, CardType.CONDITION, Culture.URUK_HAI, Zone.SUPPORT, "Dark Alliance");
+        super(Side.SHADOW, 0, CardType.CONDITION, Culture.URUK_HAI, "Dark Alliance");
     }
 
     @Override

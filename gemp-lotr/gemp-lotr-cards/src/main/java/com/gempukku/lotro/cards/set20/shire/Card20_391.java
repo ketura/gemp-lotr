@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card20_391 extends AbstractPermanent {
     public Card20_391() {
-        super(Side.FREE_PEOPLE, 2, CardType.POSSESSION, Culture.SHIRE, Zone.SUPPORT, "Herblore of the Shire", null, true);
+        super(Side.FREE_PEOPLE, 2, CardType.POSSESSION, Culture.SHIRE, "Herblore of the Shire", null, true);
         addKeyword(Keyword.TALE);
     }
 

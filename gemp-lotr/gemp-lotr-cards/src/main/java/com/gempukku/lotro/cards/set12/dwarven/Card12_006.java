@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card12_006 extends AbstractPermanent {
     public Card12_006() {
-        super(Side.FREE_PEOPLE, 3, CardType.CONDITION, Culture.DWARVEN, Zone.SUPPORT, "Dwarven Skill");
+        super(Side.FREE_PEOPLE, 3, CardType.CONDITION, Culture.DWARVEN, "Dwarven Skill");
         addKeyword(Keyword.TOIL, 2);
     }
 

@@ -19,7 +19,7 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
  */
 public class Card13_044 extends AbstractPermanent {
     public Card13_044() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.GOLLUM, Zone.SUPPORT, "Chasm's Edge");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.GOLLUM, "Chasm's Edge");
     }
 
     @Override

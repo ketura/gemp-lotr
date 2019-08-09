@@ -34,7 +34,7 @@ import java.util.List;
  */
 public class Card13_093 extends AbstractPermanent {
     public Card13_093() {
-        super(Side.SHADOW, 2, CardType.CONDITION, Culture.MEN, Zone.SUPPORT, "Harmless");
+        super(Side.SHADOW, 2, CardType.CONDITION, Culture.MEN, "Harmless");
     }
 
     @Override

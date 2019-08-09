@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card20_061 extends AbstractPermanent {
     public Card20_061() {
-        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.DWARVEN, Zone.SUPPORT, "Memories of Khazad-dum");
+        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.DWARVEN, "Memories of Khazad-dum");
     }
 
     @Override

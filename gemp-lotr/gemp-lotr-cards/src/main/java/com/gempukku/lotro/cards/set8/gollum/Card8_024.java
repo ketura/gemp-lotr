@@ -7,7 +7,6 @@ import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -27,7 +26,7 @@ import java.util.List;
  */
 public class Card8_024 extends AbstractPermanent {
     public Card8_024() {
-        super(Side.SHADOW, 4, CardType.CONDITION, Culture.GOLLUM, Zone.SUPPORT, "Promise Keeping", null, true);
+        super(Side.SHADOW, 4, CardType.CONDITION, Culture.GOLLUM, "Promise Keeping", null, true);
     }
 
     @Override

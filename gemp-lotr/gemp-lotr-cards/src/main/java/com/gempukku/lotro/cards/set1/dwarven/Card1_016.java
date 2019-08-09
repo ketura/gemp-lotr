@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card1_016 extends AbstractPermanent {
     public Card1_016() {
-        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.DWARVEN, Zone.SUPPORT, "Greatest Kingdom of My People", null, true);
+        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.DWARVEN, "Greatest Kingdom of My People", null, true);
         addKeyword(Keyword.TALE);
     }
 

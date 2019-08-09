@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card17_108 extends AbstractPermanent {
     public Card17_108() {
-        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.SHIRE, Zone.SUPPORT, "Hornblower Leaf");
+        super(Side.FREE_PEOPLE, 1, CardType.CONDITION, Culture.SHIRE, "Hornblower Leaf");
         addKeyword(Keyword.PIPEWEED);
     }
 

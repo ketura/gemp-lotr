@@ -22,7 +22,7 @@ import com.gempukku.lotro.logic.modifiers.TwilightCostModifier;
  */
 public class Card1_129 extends AbstractPermanent {
     public Card1_129() {
-        super(Side.SHADOW, 2, CardType.CONDITION, Culture.ISENGARD, Zone.SUPPORT, "The Misadventure of Mr. Underhill");
+        super(Side.SHADOW, 2, CardType.CONDITION, Culture.ISENGARD, "The Misadventure of Mr. Underhill");
     }
 
     @Override

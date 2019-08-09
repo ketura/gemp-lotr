@@ -15,22 +15,31 @@ import java.util.Collections;
 import java.util.List;
 
 public class AbstractPermanent extends AbstractLotroCardBlueprint {
-    private Zone _playedToZone;
-
-    public AbstractPermanent(Side side, int twilightCost, CardType cardType, Culture culture, Zone playedToZone, String name) {
-        this(side, twilightCost, cardType, culture, playedToZone, name, null, false);
+    public AbstractPermanent(Side side, int twilightCost, CardType cardType, Culture culture, String name) {
+        this(side, twilightCost, cardType, culture, name, null, false);
     }
 
-    public AbstractPermanent(Side side, int twilightCost, CardType cardType, Culture culture, Zone playedToZone, String name, String subTitle, boolean unique) {
+    public AbstractPermanent(Side side, int twilightCost, CardType cardType, Culture culture, String name, String subTitle, boolean unique) {
         super(twilightCost, side, cardType, culture, name, subTitle, unique);
-        _playedToZone = playedToZone;
-        if (playedToZone == Zone.SUPPORT)
+        if (cardType != CardType.COMPANION && cardType!= CardType.MINION)
             addKeyword(Keyword.SUPPORT_AREA);
+    }
+
+    private Zone getPlayToZone() {
+        final CardType cardType = getCardType();
+        switch (cardType) {
+            case COMPANION:
+                return Zone.FREE_CHARACTERS;
+            case MINION:
+                return Zone.SHADOW_CHARACTERS;
+            default:
+                return Zone.SUPPORT;
+        }
     }
 
     @Override
     public PlayPermanentAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
-        PlayPermanentAction action = new PlayPermanentAction(self, _playedToZone, twilightModifier, ignoreRoamingPenalty);
+        PlayPermanentAction action = new PlayPermanentAction(self, getPlayToZone(), twilightModifier, ignoreRoamingPenalty);
         DiscountEffect discountEffect = getDiscountEffect(action, playerId, game, self);
         if (discountEffect != null)
             action.setDiscountEffect(discountEffect);

@@ -34,7 +34,7 @@ public class Card11_105 extends AbstractAttachable {
     }
 
     @Override
-    protected Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+    public Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
         return Filters.and(CardType.COMPANION, Filters.not(Filters.ringBearer));
     }
 

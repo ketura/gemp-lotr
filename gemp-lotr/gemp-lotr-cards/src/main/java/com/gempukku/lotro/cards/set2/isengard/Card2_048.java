@@ -35,7 +35,7 @@ public class Card2_048 extends AbstractAttachable {
     }
 
     @Override
-    protected Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+    public Filter getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
         return Filters.and(CardType.SITE, Filters.not(Filters.hasAttached(Filters.name(getName()))));
     }
 

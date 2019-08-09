@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class Card4_211 extends AbstractPermanent {
     public Card4_211() {
-        super(Side.SHADOW, 2, CardType.CONDITION, Culture.ISENGARD, Zone.SUPPORT, "Weapons of Isengard");
+        super(Side.SHADOW, 2, CardType.CONDITION, Culture.ISENGARD, "Weapons of Isengard");
         addKeyword(Keyword.MACHINE);
     }
 

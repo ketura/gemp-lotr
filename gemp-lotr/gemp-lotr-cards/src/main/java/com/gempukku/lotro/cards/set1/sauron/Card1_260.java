@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class Card1_260 extends AbstractPermanent {
     public Card1_260() {
-        super(Side.SHADOW, 2, CardType.CONDITION, Culture.SAURON, Zone.SUPPORT, "The Number Must Be Few");
+        super(Side.SHADOW, 2, CardType.CONDITION, Culture.SAURON, "The Number Must Be Few");
         addKeyword(Keyword.SEARCH);
     }
 

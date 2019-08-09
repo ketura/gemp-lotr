@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card40_039 extends AbstractPermanent{
     public Card40_039() {
-        super(Side.FREE_PEOPLE, 3, CardType.CONDITION, Culture.ELVEN, Zone.SUPPORT, "Coordinated Strike");
+        super(Side.FREE_PEOPLE, 3, CardType.CONDITION, Culture.ELVEN, "Coordinated Strike");
     }
 
     @Override

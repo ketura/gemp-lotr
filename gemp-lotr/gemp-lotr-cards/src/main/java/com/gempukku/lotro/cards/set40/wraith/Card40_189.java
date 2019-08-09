@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card40_189 extends AbstractPermanent {
     public Card40_189() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.WRAITH, Zone.SUPPORT, "Lost in the Woods");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.WRAITH, "Lost in the Woods");
     }
 
     @Override

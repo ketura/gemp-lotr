@@ -12,7 +12,6 @@ import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -40,7 +39,7 @@ import java.util.List;
  */
 public class Card7_068 extends AbstractPermanent {
     public Card7_068() {
-        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.GOLLUM, Zone.SUPPORT, "Scouting");
+        super(Side.FREE_PEOPLE, 2, CardType.CONDITION, Culture.GOLLUM, "Scouting");
     }
 
     @Override

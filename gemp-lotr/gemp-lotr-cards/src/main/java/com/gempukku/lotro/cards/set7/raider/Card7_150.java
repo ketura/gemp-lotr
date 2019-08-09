@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card7_150 extends AbstractPermanent {
     public Card7_150() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.RAIDER, Zone.SUPPORT, "Harsh Tongues");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.RAIDER, "Harsh Tongues");
     }
 
     @Override

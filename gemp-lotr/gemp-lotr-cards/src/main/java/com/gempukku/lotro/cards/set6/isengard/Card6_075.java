@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class Card6_075 extends AbstractPermanent {
     public Card6_075() {
-        super(Side.SHADOW, 2, CardType.CONDITION, Culture.ISENGARD, Zone.SUPPORT, "Twisted Tales");
+        super(Side.SHADOW, 2, CardType.CONDITION, Culture.ISENGARD, "Twisted Tales");
     }
 
     @Override

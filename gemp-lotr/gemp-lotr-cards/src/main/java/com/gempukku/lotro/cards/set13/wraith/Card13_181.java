@@ -34,7 +34,7 @@ import java.util.List;
  */
 public class Card13_181 extends AbstractPermanent {
     public Card13_181() {
-        super(Side.SHADOW, 0, CardType.CONDITION, Culture.WRAITH, Zone.SUPPORT, "They Came From Mordor");
+        super(Side.SHADOW, 0, CardType.CONDITION, Culture.WRAITH, "They Came From Mordor");
     }
 
     @Override

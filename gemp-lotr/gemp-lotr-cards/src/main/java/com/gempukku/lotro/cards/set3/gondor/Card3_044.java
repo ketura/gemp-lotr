@@ -5,7 +5,6 @@ import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.PutCardFromStackedIntoHandEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndStackCardsFromHandEffect;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
@@ -28,7 +27,7 @@ import java.util.List;
  */
 public class Card3_044 extends AbstractPermanent {
     public Card3_044() {
-        super(Side.FREE_PEOPLE, 1, CardType.ARTIFACT, Culture.GONDOR, Zone.SUPPORT, "The Shards of Narsil", null, true);
+        super(Side.FREE_PEOPLE, 1, CardType.ARTIFACT, Culture.GONDOR, "The Shards of Narsil", null, true);
     }
 
     @Override

@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class Card7_316 extends AbstractPermanent {
     public Card7_316() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.SAURON, Zone.SUPPORT, "Troop Tower", null, true);
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.SAURON, "Troop Tower", null, true);
         addKeyword(Keyword.ENGINE);
     }
 

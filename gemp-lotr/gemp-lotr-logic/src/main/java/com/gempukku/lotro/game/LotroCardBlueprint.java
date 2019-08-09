@@ -34,6 +34,8 @@ public interface LotroCardBlueprint {
 
     public int getKeywordCount(Keyword keyword);
 
+    public Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self);
+
     public int getTwilightCost();
 
     public int getTwilightCostModifier(LotroGame game, PhysicalCard self);

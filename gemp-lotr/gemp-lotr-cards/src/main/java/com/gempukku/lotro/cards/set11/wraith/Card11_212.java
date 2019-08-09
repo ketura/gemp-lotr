@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card11_212 extends AbstractPermanent {
     public Card11_212() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.WRAITH, Zone.SUPPORT, "Lost in the Woods");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.WRAITH, "Lost in the Woods");
     }
 
     @Override

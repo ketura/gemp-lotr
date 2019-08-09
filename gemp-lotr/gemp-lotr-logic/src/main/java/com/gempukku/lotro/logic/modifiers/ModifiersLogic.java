@@ -264,6 +264,15 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     }
 
     @Override
+    public boolean isExtraPossessionClass(LotroGame game, PhysicalCard card, PhysicalCard attachedTo) {
+        for (Modifier modifier : getModifiersAffectingCard(game, ModifierEffect.EXTRA_POSSESSION_CLASS_MODIFIER, card)) {
+            if (modifier.isExtraPossessionClass(game, card, attachedTo))
+                return true;
+        }
+        return false;
+    }
+
+    @Override
     public boolean hasTextRemoved(LotroGame game, PhysicalCard card) {
         for (Modifier modifier : getModifiersAffectingCard(game, ModifierEffect.TEXT_MODIFIER, card)) {
             if (modifier.hasRemovedText(game, card))

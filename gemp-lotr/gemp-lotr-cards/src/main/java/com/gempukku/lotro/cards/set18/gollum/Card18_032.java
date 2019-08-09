@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class Card18_032 extends AbstractPermanent {
     public Card18_032() {
-        super(Side.SHADOW, 3, CardType.CONDITION, Culture.GOLLUM, Zone.SUPPORT, "Not Easily Avoided");
+        super(Side.SHADOW, 3, CardType.CONDITION, Culture.GOLLUM, "Not Easily Avoided");
     }
 
     @Override

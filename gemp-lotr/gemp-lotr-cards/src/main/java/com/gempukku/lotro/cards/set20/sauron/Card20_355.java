@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card20_355 extends AbstractPermanent {
     public Card20_355() {
-        super(Side.SHADOW, 0, CardType.CONDITION, Culture.SAURON, Zone.SUPPORT, "Ever Watchful");
+        super(Side.SHADOW, 0, CardType.CONDITION, Culture.SAURON, "Ever Watchful");
     }
 
     @Override

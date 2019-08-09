@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card10_036 extends AbstractPermanent {
     public Card10_036() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.RAIDER, Zone.SUPPORT, "Cast Unto the Winds");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.RAIDER, "Cast Unto the Winds");
     }
 
     @Override

@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class Card31_058 extends AbstractPermanent {
     public Card31_058() {
-        super(Side.SHADOW, 2, CardType.CONDITION, Culture.GUNDABAD, Zone.SUPPORT, "Enchanted River", null, true);
+        super(Side.SHADOW, 2, CardType.CONDITION, Culture.GUNDABAD, "Enchanted River", null, true);
     }
 
     @Override

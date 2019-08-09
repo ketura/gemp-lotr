@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class Card7_169 extends AbstractPermanent {
     public Card7_169() {
-        super(Side.SHADOW, 1, CardType.CONDITION, Culture.RAIDER, Zone.SUPPORT, "Surging Up");
+        super(Side.SHADOW, 1, CardType.CONDITION, Culture.RAIDER, "Surging Up");
     }
 
     @Override

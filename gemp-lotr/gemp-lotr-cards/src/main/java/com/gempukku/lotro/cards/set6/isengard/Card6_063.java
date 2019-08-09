@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class Card6_063 extends AbstractPermanent {
     public Card6_063() {
-        super(Side.SHADOW, 2, CardType.CONDITION, Culture.ISENGARD, Zone.SUPPORT, "Gnawing, Biting, Hacking, Burning");
+        super(Side.SHADOW, 2, CardType.CONDITION, Culture.ISENGARD, "Gnawing, Biting, Hacking, Burning");
     }
 
     @Override

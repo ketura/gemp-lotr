@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class Card12_131 extends AbstractPermanent {
     public Card12_131() {
-        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.SHIRE, Zone.SUPPORT, "Stand Together");
+        super(Side.FREE_PEOPLE, 0, CardType.CONDITION, Culture.SHIRE, "Stand Together");
     }
 
     @Override

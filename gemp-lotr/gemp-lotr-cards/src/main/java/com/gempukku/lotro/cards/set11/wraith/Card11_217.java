@@ -34,7 +34,7 @@ import java.util.List;
  */
 public class Card11_217 extends AbstractPermanent {
     public Card11_217() {
-        super(Side.SHADOW, 2, CardType.CONDITION, Culture.WRAITH, Zone.SUPPORT, "Shapes Slowly Advancing");
+        super(Side.SHADOW, 2, CardType.CONDITION, Culture.WRAITH, "Shapes Slowly Advancing");
     }
 
     @Override
