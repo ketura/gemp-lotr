@@ -8,6 +8,9 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.Condition;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 
+import java.util.Collections;
+import java.util.List;
+
 /**
  * 2
  * •Staunch Defenders
@@ -20,13 +23,13 @@ public class Card20_069 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, final PhysicalCard self) {
-        return new CantExertWithCardModifier(self, Race.DWARF,
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, final PhysicalCard self) {
+        return Collections.singletonList(new CantExertWithCardModifier(self, Race.DWARF,
                 new Condition() {
                     @Override
                     public boolean isFullfilled(LotroGame game) {
                         return game.getGameState().getStackedCards(self).size()>=3;
                     }
-                }, Side.SHADOW);
+                }, Side.SHADOW));
     }
 }

@@ -1,6 +1,8 @@
 package com.gempukku.lotro.cards.set15.men;
-
-import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import java.util.List;
+import java.util.Collections;
+import java.util.List;
+import java.util.Collections;import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.RemoveTwilightEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
@@ -32,9 +34,9 @@ public class Card15_089 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new CantReplaceSiteByFPPlayerModifier(self, new SpotCondition(Culture.MEN, Race.MAN), Filters.siteInCurrentRegion);
-    }
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new CantReplaceSiteByFPPlayerModifier(self, new SpotCondition(Culture.MEN, Race.MAN), Filters.siteInCurrentRegion));
+}
 
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {

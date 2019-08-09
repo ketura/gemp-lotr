@@ -31,13 +31,13 @@ public class Card18_089 extends AbstractMinion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new StrengthModifier(self, self, null,
+    public java.util.List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+        return java.util.Collections.singletonList(new StrengthModifier(self, self, null,
                 new Evaluator() {
                     @Override
                     public int evaluateExpression(LotroGame game, PhysicalCard cardAffected) {
                         return 3 * Math.min(2, Filters.filter(game.getGameState().getDeadPile(game.getGameState().getCurrentPlayerId()), game, CardType.COMPANION).size());
                     }
-                });
+                }));
     }
 }

@@ -1,6 +1,8 @@
 package com.gempukku.lotro.cards.set13.gondor;
-
-import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
+import java.util.List;
+import java.util.Collections;
+import java.util.List;
+import java.util.Collections;import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -39,7 +41,7 @@ public class Card13_066 extends AbstractCompanion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new KeywordModifier(self, Filters.and(self, Filters.hasAttached(Culture.GONDOR, CardType.POSSESSION)), Keyword.DEFENDER, 1);
-    }
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new KeywordModifier(self, Filters.and(self, Filters.hasAttached(Culture.GONDOR, CardType.POSSESSION)), Keyword.DEFENDER, 1));
+}
 }

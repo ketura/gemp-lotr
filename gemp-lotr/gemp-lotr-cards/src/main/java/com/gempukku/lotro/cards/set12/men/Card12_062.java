@@ -1,4 +1,6 @@
 package com.gempukku.lotro.cards.set12.men;
+import java.util.List;
+import java.util.Collections;
 
 import com.gempukku.lotro.logic.cardtype.AbstractMinion;
 import com.gempukku.lotro.logic.modifiers.ResistanceModifier;
@@ -31,8 +33,8 @@ public class Card12_062 extends AbstractMinion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new ResistanceModifier(self, Filters.unboundCompanion, new SpotCondition(self, Filters.exhausted),
-                new ConditionEvaluator(-1, -2, new LocationCondition(Keyword.BATTLEGROUND)));
-    }
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new ResistanceModifier(self, Filters.unboundCompanion, new SpotCondition(self, Filters.exhausted),
+new ConditionEvaluator(-1, -2, new LocationCondition(Keyword.BATTLEGROUND))));
+}
 }

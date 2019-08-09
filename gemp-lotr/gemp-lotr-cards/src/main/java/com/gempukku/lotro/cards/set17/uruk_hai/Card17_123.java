@@ -1,4 +1,6 @@
 package com.gempukku.lotro.cards.set17.uruk_hai;
+import java.util.List;
+import java.util.Collections;
 
 import com.gempukku.lotro.logic.cardtype.AbstractMinion;
 import com.gempukku.lotro.common.Culture;
@@ -29,8 +31,8 @@ public class Card17_123 extends AbstractMinion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new StrengthModifier(self, Filters.and(Filters.character, Keyword.HUNTER),
-                new SpotCondition(self, Filters.assignedToSkirmish), 1);
-    }
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new StrengthModifier(self, Filters.and(Filters.character, Keyword.HUNTER),
+new SpotCondition(self, Filters.assignedToSkirmish), 1));
+}
 }

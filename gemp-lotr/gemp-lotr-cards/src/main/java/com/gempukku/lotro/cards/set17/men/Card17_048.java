@@ -37,14 +37,14 @@ public class Card17_048 extends AbstractMinion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new StrengthModifier(self, Filters.and(Culture.MEN, CardType.MINION, Filters.hasAttached(CardType.POSSESSION)),
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+        return Collections.singletonList(new StrengthModifier(self, Filters.and(Culture.MEN, CardType.MINION, Filters.hasAttached(CardType.POSSESSION)),
                 new Condition() {
                     @Override
                     public boolean isFullfilled(LotroGame game) {
                         return !game.getModifiersQuerying().hasFlagActive(game, ModifierFlag.SARUMAN_FIRST_SENTENCE_INACTIVE);
                     }
-                }, 2);
+                }, 2));
     }
 
     @Override

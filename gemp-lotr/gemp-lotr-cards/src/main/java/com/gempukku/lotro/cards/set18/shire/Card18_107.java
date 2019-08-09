@@ -31,11 +31,11 @@ public class Card18_107 extends AbstractCompanion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new StrengthModifier(self, self,
-                new AndCondition(
-                        new LocationCondition(Filters.region(1)),
-                        new SpotCondition(2, Filters.not(self), Culture.SHIRE, CardType.COMPANION)
-                ), 3);
-    }
+    public java.util.List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return java.util.Collections.singletonList(new StrengthModifier(self, self,
+new AndCondition(
+new LocationCondition(Filters.region(1)),
+new SpotCondition(2, Filters.not(self), Culture.SHIRE, CardType.COMPANION)
+), 3));
+}
 }

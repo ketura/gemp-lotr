@@ -1,4 +1,6 @@
 package com.gempukku.lotro.cards.set20.isengard;
+import java.util.List;
+import java.util.Collections;
 
 import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.logic.timing.PlayConditions;
@@ -35,10 +37,10 @@ public class Card20_240 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new TwilightCostModifier(self, Filters.and(Culture.ISENGARD, CardType.EVENT), null,
-                new NegativeEvaluator(new CountStackedEvaluator(self, CardType.MINION)));
-    }
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new TwilightCostModifier(self, Filters.and(Culture.ISENGARD, CardType.EVENT), null,
+new NegativeEvaluator(new CountStackedEvaluator(self, CardType.MINION))));
+}
 
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {

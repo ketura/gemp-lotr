@@ -45,8 +45,8 @@ public class Card20_349 extends AbstractMinion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, final PhysicalCard self) {
-        return new KeywordModifier(self, self,
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, final PhysicalCard self) {
+        return Collections.singletonList(new KeywordModifier(self, self,
                 new Condition() {
                     @Override
                     public boolean isFullfilled(LotroGame game) {
@@ -55,7 +55,7 @@ public class Card20_349 extends AbstractMinion {
                             return false;
                         return Filters.inSkirmishAgainst(chosenCulture).accepts(game, self);
                     }
-                }, Keyword.DAMAGE, 1);
+                }, Keyword.DAMAGE, 1));
     }
 
     @Override

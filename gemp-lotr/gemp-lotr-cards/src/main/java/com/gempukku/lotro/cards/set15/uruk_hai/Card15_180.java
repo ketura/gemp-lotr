@@ -1,6 +1,8 @@
 package com.gempukku.lotro.cards.set15.uruk_hai;
-
-import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import java.util.List;
+import java.util.Collections;
+import java.util.List;
+import java.util.Collections;import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
@@ -34,9 +36,9 @@ public class Card15_180 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new StrengthModifier(self, Filters.and(Culture.URUK_HAI, CardType.MINION, Keyword.HUNTER, Filters.unwounded), 1);
-    }
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new StrengthModifier(self, Filters.and(Culture.URUK_HAI, CardType.MINION, Keyword.HUNTER, Filters.unwounded), 1));
+}
 
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {

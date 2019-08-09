@@ -1,6 +1,8 @@
 package com.gempukku.lotro.cards.set1.shire;
-
-import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
+import java.util.List;
+import java.util.Collections;
+import java.util.List;
+import java.util.Collections;import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
@@ -29,7 +31,7 @@ public class Card1_306 extends AbstractCompanion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new CantDiscardFromPlayByPlayerModifier(self, "Can't be discarded by opponent", Filters.and(Culture.SHIRE, Keyword.TALE), self.getOwner());
-    }
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new CantDiscardFromPlayByPlayerModifier(self, "Can't be discarded by opponent", Filters.and(Culture.SHIRE, Keyword.TALE), self.getOwner()));
+}
 }

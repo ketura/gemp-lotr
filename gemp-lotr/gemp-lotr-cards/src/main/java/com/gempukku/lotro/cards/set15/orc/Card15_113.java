@@ -1,6 +1,8 @@
 package com.gempukku.lotro.cards.set15.orc;
-
-import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import java.util.List;
+import java.util.Collections;
+import java.util.List;
+import java.util.Collections;import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.DiscardCardFromDeckEffect;
 import com.gempukku.lotro.logic.effects.PutCardFromDeckIntoHandEffect;
@@ -36,9 +38,9 @@ public class Card15_113 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new CantReplaceSiteByFPPlayerModifier(self, new SpotCondition(Culture.ORC, Race.ORC), Filters.currentSite);
-    }
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new CantReplaceSiteByFPPlayerModifier(self, new SpotCondition(Culture.ORC, Race.ORC), Filters.currentSite));
+}
 
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, final LotroGame game, PhysicalCard self) {

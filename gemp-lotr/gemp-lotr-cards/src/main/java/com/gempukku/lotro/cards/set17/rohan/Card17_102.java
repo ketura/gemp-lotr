@@ -1,4 +1,6 @@
 package com.gempukku.lotro.cards.set17.rohan;
+import java.util.List;
+import java.util.Collections;
 
 import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
 import com.gempukku.lotro.logic.timing.PlayConditions;
@@ -34,10 +36,10 @@ public class Card17_102 extends AbstractCompanion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new StrengthModifier(self, Filters.and(Culture.ROHAN, CardType.COMPANION),
-                new SpotCondition(Filters.ringBearer, Filters.assignedToSkirmish), 1);
-    }
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new StrengthModifier(self, Filters.and(Culture.ROHAN, CardType.COMPANION),
+new SpotCondition(Filters.ringBearer, Filters.assignedToSkirmish), 1));
+}
 
     @Override
     protected List<ActivateCardAction> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {

@@ -10,6 +10,9 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 
+import java.util.Collections;
+import java.util.List;
+
 /**
  * Set: The Fellowship of the Ring
  * Twilight Cost: 3
@@ -23,7 +26,7 @@ public class Card1_336 extends AbstractSite {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, final PhysicalCard self) {
-        return new KeywordModifier(self, Race.NAZGUL, new LocationCondition(self), Keyword.FIERCE, 1);
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+        return Collections.singletonList(new KeywordModifier(self, Race.NAZGUL, new LocationCondition(self), Keyword.FIERCE, 1));
     }
 }

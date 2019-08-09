@@ -41,14 +41,14 @@ public class Card17_116 extends AbstractMinion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new ResistanceModifier(self, CardType.COMPANION,
+    public java.util.List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+        return java.util.Collections.singletonList(new ResistanceModifier(self, CardType.COMPANION,
                 new Condition() {
                     @Override
                     public boolean isFullfilled(LotroGame game) {
                         return !game.getModifiersQuerying().hasFlagActive(game, ModifierFlag.SARUMAN_FIRST_SENTENCE_INACTIVE);
                     }
-                }, -1);
+                }, -1));
     }
 
     @Override

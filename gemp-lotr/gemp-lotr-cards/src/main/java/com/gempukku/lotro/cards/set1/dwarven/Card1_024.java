@@ -9,6 +9,9 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 
+import java.util.Collections;
+import java.util.List;
+
 /**
  * Set: The Fellowship of the Ring
  * Side: Free
@@ -24,8 +27,8 @@ public class Card1_024 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new StrengthModifier(self,
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+        return Collections.singletonList(new StrengthModifier(self,
                 Filters.and(
                         Race.DWARF,
                         Filters.inSkirmish,
@@ -34,6 +37,6 @@ public class Card1_024 extends AbstractPermanent {
                             public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
                                 return Filters.canSpot(game, Culture.MORIA, CardType.MINION, Filters.inSkirmish);
                             }
-                        }), 1);
+                        }), 1));
     }
 }

@@ -11,6 +11,9 @@ import com.gempukku.lotro.logic.modifiers.GameHasCondition;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 
+import java.util.Collections;
+import java.util.List;
+
 /**
  * 5
  * Southron Packmaster
@@ -28,8 +31,8 @@ public class Card20_139 extends AbstractMinion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, final PhysicalCard self) {
-        return new KeywordModifier(self, Keyword.SOUTHRON,
-                new GameHasCondition(self, Filters.mounted), Keyword.AMBUSH, 1);
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+        return Collections.singletonList(new KeywordModifier(self, Keyword.SOUTHRON,
+                new GameHasCondition(self, Filters.mounted), Keyword.AMBUSH, 1));
     }
 }

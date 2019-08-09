@@ -14,6 +14,8 @@ import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -33,8 +35,8 @@ public class Card1_174 extends AbstractMinion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, final PhysicalCard self) {
-        return new KeywordModifier(self,
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, final PhysicalCard self) {
+        return Collections.singletonList(new KeywordModifier(self,
                 Filters.and(
                         self,
                         new Filter() {
@@ -50,6 +52,6 @@ public class Card1_174 extends AbstractMinion {
                                 return false;
                             }
                         }),
-                Keyword.DAMAGE, 2);
+                Keyword.DAMAGE, 2));
     }
 }

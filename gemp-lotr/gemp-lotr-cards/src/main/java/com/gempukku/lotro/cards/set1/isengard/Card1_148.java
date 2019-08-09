@@ -11,6 +11,9 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 
+import java.util.Collections;
+import java.util.List;
+
 /**
  * Set: The Fellowship of the Ring
  * Side: Shadow
@@ -29,7 +32,7 @@ public class Card1_148 extends AbstractMinion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, final PhysicalCard self) {
-        return new StrengthModifier(self, self, null, new CountActiveEvaluator(Race.URUK_HAI, Filters.not(self)));
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+        return Collections.singletonList(new StrengthModifier(self, self, null, new CountActiveEvaluator(Race.URUK_HAI, Filters.not(self))));
     }
 }

@@ -1,6 +1,8 @@
 package com.gempukku.lotro.cards.set20.elven;
-
-import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
+import java.util.List;
+import java.util.Collections;
+import java.util.List;
+import java.util.Collections;import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
 import com.gempukku.lotro.logic.modifiers.ArcheryTotalModifier;
 import com.gempukku.lotro.logic.modifiers.condition.LocationCondition;
 import com.gempukku.lotro.common.Culture;
@@ -27,7 +29,7 @@ public class Card20_090 extends AbstractCompanion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new ArcheryTotalModifier(self, Side.FREE_PEOPLE, new LocationCondition(Filters.or(Keyword.RIVER, Keyword.FOREST)), 1);
-    }
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new ArcheryTotalModifier(self, Side.FREE_PEOPLE, new LocationCondition(Filters.or(Keyword.RIVER, Keyword.FOREST)), 1));
+}
 }

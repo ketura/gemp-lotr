@@ -1,6 +1,8 @@
 package com.gempukku.lotro.cards.set17.rohan;
-
-import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import java.util.List;
+import java.util.Collections;
+import java.util.List;
+import java.util.Collections;import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.logic.effects.PreventCardEffect;
@@ -43,9 +45,9 @@ public class Card17_098 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new CantBeAssignedToSkirmishModifier(self, Filters.or(Filters.saruman, Filters.name("Grima")));
-    }
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new CantBeAssignedToSkirmishModifier(self, Filters.or(Filters.saruman, Filters.name("Grima"))));
+}
 
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {

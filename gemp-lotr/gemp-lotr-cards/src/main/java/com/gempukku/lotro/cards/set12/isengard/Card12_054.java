@@ -45,14 +45,14 @@ public class Card12_054 extends AbstractMinion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, final PhysicalCard self) {
-        return new StrengthModifier(self, Filters.and(CardType.COMPANION,
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, final PhysicalCard self) {
+        return Collections.singletonList(new StrengthModifier(self, Filters.and(CardType.COMPANION,
                 new Filter() {
                     @Override
                     public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
                         return self.getWhileInZoneData() != null && physicalCard.getBlueprint().getCulture() == (Culture) self.getWhileInZoneData();
                     }
-                }), -1);
+                }), -1));
     }
 
     @Override

@@ -10,6 +10,9 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 
+import java.util.Collections;
+import java.util.List;
+
 /**
  * ❶ •Dwarven Vigor [Dwa]
  * Condition • Support Area
@@ -22,8 +25,8 @@ public class Card20_048 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, final PhysicalCard self) {
-        return new StrengthModifier(self, Race.DWARF,
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, final PhysicalCard self) {
+        return Collections.singletonList(new StrengthModifier(self, Race.DWARF,
                 new Condition() {
                     @Override
                     public boolean isFullfilled(LotroGame game) {
@@ -35,6 +38,6 @@ public class Card20_048 extends AbstractPermanent {
                 return Math.max(0, game.getModifiersQuerying().getVitality(game, cardAffected) - 3);
             }
         }
-        );
+        ));
     }
 }

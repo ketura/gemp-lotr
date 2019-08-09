@@ -1,6 +1,8 @@
 package com.gempukku.lotro.cards.set11.uruk_hai;
-
-import com.gempukku.lotro.logic.cardtype.AbstractMinion;
+import java.util.List;
+import java.util.Collections;
+import java.util.List;
+import java.util.Collections;import com.gempukku.lotro.logic.cardtype.AbstractMinion;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -30,7 +32,7 @@ public class Card11_188 extends AbstractMinion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new StrengthModifier(self, self, new SpotCondition(CardType.COMPANION, Filters.exhausted), 3);
-    }
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new StrengthModifier(self, self, new SpotCondition(CardType.COMPANION, Filters.exhausted), 3));
+}
 }

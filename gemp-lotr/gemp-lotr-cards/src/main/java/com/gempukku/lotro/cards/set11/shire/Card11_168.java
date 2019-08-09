@@ -1,4 +1,6 @@
 package com.gempukku.lotro.cards.set11.shire;
+import java.util.List;
+import java.util.Collections;
 
 import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
 import com.gempukku.lotro.logic.modifiers.evaluator.CountActiveEvaluator;
@@ -28,9 +30,9 @@ public class Card11_168 extends AbstractCompanion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new StrengthModifier(self, self, null,
-                new MultiplyEvaluator(2,
-                        new CountActiveEvaluator(Filters.not(self), Filters.unboundCompanion, Filters.assignedToSkirmish)));
-    }
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new StrengthModifier(self, self, null,
+new MultiplyEvaluator(2,
+new CountActiveEvaluator(Filters.not(self), Filters.unboundCompanion, Filters.assignedToSkirmish))));
+}
 }

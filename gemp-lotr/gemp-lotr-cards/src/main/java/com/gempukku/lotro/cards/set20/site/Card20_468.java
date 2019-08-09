@@ -24,13 +24,13 @@ public class Card20_468 extends AbstractSite {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new ResistanceModifier(self, Filters.ringBearer,
+    public java.util.List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+        return java.util.Collections.singletonList(new ResistanceModifier(self, Filters.ringBearer,
                 new Evaluator() {
                     @Override
                     public int evaluateExpression(LotroGame game, PhysicalCard cardAffected) {
                         return -1 * Filters.filter(game.getGameState().getDeadPile(game.getGameState().getCurrentPlayerId()), game, CardType.COMPANION).size();
                     }
-                });
+                }));
     }
 }

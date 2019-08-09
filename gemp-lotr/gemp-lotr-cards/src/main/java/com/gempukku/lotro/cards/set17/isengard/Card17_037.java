@@ -1,4 +1,6 @@
 package com.gempukku.lotro.cards.set17.isengard;
+import java.util.List;
+import java.util.Collections;
 
 import com.gempukku.lotro.logic.cardtype.AbstractMinion;
 import com.gempukku.lotro.logic.timing.PlayConditions;
@@ -36,17 +38,6 @@ import java.util.List;
 public class Card17_037 extends AbstractMinion {
     public Card17_037() {
         super(3, 8, 4, 4, Race.WIZARD, Culture.ISENGARD, "Saruman", "Instigator of Insurrection", true);
-    }
-
-    @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new CantBeAssignedToSkirmishModifier(self,
-                new Condition() {
-                    @Override
-                    public boolean isFullfilled(LotroGame game) {
-                        return !game.getModifiersQuerying().hasFlagActive(game, ModifierFlag.SARUMAN_FIRST_SENTENCE_INACTIVE);
-                    }
-                }, self);
     }
 
     @Override

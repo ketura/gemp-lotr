@@ -12,6 +12,9 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.TwilightCostModifier;
 
+import java.util.Collections;
+import java.util.List;
+
 /**
  * Set: The Fellowship of the Ring
  * Side: Free
@@ -33,8 +36,8 @@ public class Card1_079 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new TwilightCostModifier(self,
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+        return Collections.singletonList(new TwilightCostModifier(self,
                 Filters.and(
                         CardType.COMPANION,
                         new Filter() {
@@ -47,6 +50,6 @@ public class Card1_079 extends AbstractPermanent {
                                 return false;
                             }
                         }
-                ), -2);
+                ), -2));
     }
 }

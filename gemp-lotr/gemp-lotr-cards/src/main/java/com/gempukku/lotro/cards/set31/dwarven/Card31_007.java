@@ -1,6 +1,8 @@
 package com.gempukku.lotro.cards.set31.dwarven;
-
-import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import java.util.List;
+import java.util.Collections;
+import java.util.List;
+import java.util.Collections;import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.PutCardFromStackedIntoHandEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndStackCardsFromHandEffect;
@@ -34,9 +36,9 @@ public class Card31_007 extends AbstractPermanent {
 	}
 	
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new TwilightCostModifier(self, Filters.name("Smaug"), -4);
-	}
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new TwilightCostModifier(self, Filters.name("Smaug"), -4));
+}
 
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {

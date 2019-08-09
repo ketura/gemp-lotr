@@ -1,6 +1,8 @@
 package com.gempukku.lotro.cards.set17.elven;
-
-import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
+import java.util.List;
+import java.util.Collections;
+import java.util.List;
+import java.util.Collections;import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
@@ -37,9 +39,9 @@ public class Card17_011 extends AbstractCompanion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new StrengthModifier(self, self, new SpotCondition(self, Filters.inSkirmishAgainst(CardType.MINION, Filters.wounded)), 3);
-    }
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new StrengthModifier(self, self, new SpotCondition(self, Filters.inSkirmishAgainst(CardType.MINION, Filters.wounded)), 3));
+}
 
     @Override
     protected List<ActivateCardAction> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {

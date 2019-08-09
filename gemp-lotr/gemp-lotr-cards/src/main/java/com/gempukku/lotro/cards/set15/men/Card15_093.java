@@ -1,6 +1,8 @@
 package com.gempukku.lotro.cards.set15.men;
-
-import com.gempukku.lotro.logic.cardtype.AbstractMinion;
+import java.util.List;
+import java.util.Collections;
+import java.util.List;
+import java.util.Collections;import com.gempukku.lotro.logic.cardtype.AbstractMinion;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
@@ -28,7 +30,7 @@ public class Card15_093 extends AbstractMinion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new KeywordModifier(self, self, new SpotCondition(Filters.siteControlled(self.getOwner())), Keyword.ARCHER, 1);
-    }
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new KeywordModifier(self, self, new SpotCondition(Filters.siteControlled(self.getOwner())), Keyword.ARCHER, 1));
+}
 }

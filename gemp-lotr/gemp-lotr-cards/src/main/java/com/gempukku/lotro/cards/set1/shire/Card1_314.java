@@ -12,6 +12,9 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 
+import java.util.Collections;
+import java.util.List;
+
 /**
  * Set: The Fellowship of the Ring
  * Side: Free
@@ -39,8 +42,8 @@ public class Card1_314 extends AbstractAttachable {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, final PhysicalCard self) {
-        return new StrengthModifier(self,
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, final PhysicalCard self) {
+        return Collections.singletonList(new StrengthModifier(self,
                 Filters.and(
                         Filters.hasAttached(self),
                         new Filter() {
@@ -54,6 +57,6 @@ public class Card1_314 extends AbstractAttachable {
                                                 Race.URUK_HAI,
                                                 Race.TROLL)).size() > 0;
                             }
-                        }), 3);
+                        }), 3));
     }
 }

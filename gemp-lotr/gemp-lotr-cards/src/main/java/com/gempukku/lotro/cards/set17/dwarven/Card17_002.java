@@ -49,8 +49,8 @@ public class Card17_002 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, final PhysicalCard self) {
-        return new AbstractExtraPlayCostModifier(self, "To play, remove an ORC card from your discard pile from the game.",
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+        return Collections.singletonList(new AbstractExtraPlayCostModifier(self, "To play, remove an ORC card from your discard pile from the game.",
                 Filters.and(Culture.ORC, Race.ORC),
                 new AndCondition(
                         new CanSpotCultureTokensCondition(4, Token.DWARVEN),
@@ -65,6 +65,6 @@ public class Card17_002 extends AbstractPermanent {
                 action.appendCost(
                         new ChooseAndRemoveFromTheGameCardsInDiscardEffect(action, card, card.getOwner(), 1, 1, Culture.ORC));
             }
-        };
+        });
     }
 }

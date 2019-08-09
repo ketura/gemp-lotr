@@ -12,6 +12,9 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 
+import java.util.Collections;
+import java.util.List;
+
 /**
  * Set: The Fellowship of the Ring
  * Side: Free
@@ -31,8 +34,8 @@ public class Card1_072 extends AbstractCompanion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new StrengthModifier(self, self, null,
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+        return Collections.singletonList(new StrengthModifier(self, self, null,
                 new Evaluator() {
                     @Override
                     public int evaluateExpression(LotroGame game, PhysicalCard self) {
@@ -47,6 +50,6 @@ public class Card1_072 extends AbstractCompanion {
                             result++;
                         return result;
                     }
-                });
+                }));
     }
 }

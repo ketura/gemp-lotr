@@ -9,6 +9,9 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 
+import java.util.Collections;
+import java.util.List;
+
 /**
  * 3
  * •Eomer, Eored Captain
@@ -23,8 +26,8 @@ public class Card20_316 extends AbstractCompanion{
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, final PhysicalCard self) {
-        return new StrengthModifier(self, self, null,
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, final PhysicalCard self) {
+        return Collections.singletonList(new StrengthModifier(self, self, null,
                 new Evaluator() {
                     @Override
                     public int evaluateExpression(LotroGame game, PhysicalCard cardAffected) {
@@ -34,6 +37,6 @@ public class Card20_316 extends AbstractCompanion{
                         }
                         return 2*count;
                     }
-                });
+                }));
     }
 }

@@ -40,15 +40,15 @@ public class Card19_038 extends AbstractMinion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, final PhysicalCard self) {
-        return new CantBeAssignedAgainstModifier(self, Side.FREE_PEOPLE,
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, final PhysicalCard self) {
+        return Collections.singletonList(new CantBeAssignedAgainstModifier(self, Side.FREE_PEOPLE,
                 Filters.and(CardType.COMPANION, new Filter() {
                     @Override
                     public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
                         final Race race = physicalCard.getBlueprint().getRace();
                         return self.getWhileInZoneData() != null && self.getWhileInZoneData() == race;
                     }
-                }), self);
+                }), self));
     }
 
     @Override

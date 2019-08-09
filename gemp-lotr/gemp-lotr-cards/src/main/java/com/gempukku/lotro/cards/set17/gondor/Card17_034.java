@@ -1,4 +1,6 @@
 package com.gempukku.lotro.cards.set17.gondor;
+import java.util.List;
+import java.util.Collections;
 
 import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
@@ -36,10 +38,10 @@ public class Card17_034 extends AbstractAttachable {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new SidePlayerCantPlayPhaseEventsOrSpecialAbilitiesModifier(self,
-                new SpotCondition(Filters.hasAttached(self), Filters.inSkirmish), Side.SHADOW, Phase.SKIRMISH);
-    }
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new SidePlayerCantPlayPhaseEventsOrSpecialAbilitiesModifier(self,
+new SpotCondition(Filters.hasAttached(self), Filters.inSkirmish), Side.SHADOW, Phase.SKIRMISH));
+}
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {

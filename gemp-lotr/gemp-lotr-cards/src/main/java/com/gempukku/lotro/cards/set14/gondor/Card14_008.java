@@ -1,6 +1,8 @@
 package com.gempukku.lotro.cards.set14.gondor;
-
-import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
+import java.util.List;
+import java.util.Collections;
+import java.util.List;
+import java.util.Collections;import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.logic.effects.SelfExertEffect;
@@ -36,9 +38,9 @@ public class Card14_008 extends AbstractCompanion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new KeywordModifier(self, self, new SpotCondition(PossessionClass.MOUNT), Keyword.DAMAGE, 1);
-    }
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new KeywordModifier(self, self, new SpotCondition(PossessionClass.MOUNT), Keyword.DAMAGE, 1));
+}
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {

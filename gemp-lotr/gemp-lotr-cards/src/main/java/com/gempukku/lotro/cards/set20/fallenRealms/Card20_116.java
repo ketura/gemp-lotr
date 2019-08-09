@@ -1,6 +1,8 @@
 package com.gempukku.lotro.cards.set20.fallenRealms;
-
-import com.gempukku.lotro.logic.cardtype.AbstractMinion;
+import java.util.List;
+import java.util.Collections;
+import java.util.List;
+import java.util.Collections;import com.gempukku.lotro.logic.cardtype.AbstractMinion;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
@@ -26,7 +28,7 @@ public class Card20_116 extends AbstractMinion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new KeywordModifier(self, Filters.and(self, Filters.hasAttached(Filters.weapon, Culture.FALLEN_REALMS)), Keyword.DAMAGE, 1);
-    }
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new KeywordModifier(self, Filters.and(self, Filters.hasAttached(Filters.weapon, Culture.FALLEN_REALMS)), Keyword.DAMAGE, 1));
+}
 }

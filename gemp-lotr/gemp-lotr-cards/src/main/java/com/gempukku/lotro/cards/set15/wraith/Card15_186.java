@@ -40,12 +40,12 @@ public class Card15_186 extends AbstractMinion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new CantTakeWoundsModifier(self,
-                new AndCondition(
-                        new NotCondition(new PhaseCondition(Phase.SKIRMISH)),
-                        new SpotCondition(6, CardType.COMPANION)), Filters.and(Culture.WRAITH, CardType.MINION));
-    }
+    public java.util.List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return java.util.Collections.singletonList(new CantTakeWoundsModifier(self,
+new AndCondition(
+new NotCondition(new PhaseCondition(Phase.SKIRMISH)),
+new SpotCondition(6, CardType.COMPANION)), Filters.and(Culture.WRAITH, CardType.MINION)));
+}
 
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {

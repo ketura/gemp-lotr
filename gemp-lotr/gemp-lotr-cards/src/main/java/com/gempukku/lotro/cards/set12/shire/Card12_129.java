@@ -1,6 +1,8 @@
 package com.gempukku.lotro.cards.set12.shire;
-
-import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
+import java.util.List;
+import java.util.Collections;
+import java.util.List;
+import java.util.Collections;import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.logic.effects.AddBurdenEffect;
 import com.gempukku.lotro.logic.modifiers.OverwhelmedByMultiplierModifier;
@@ -35,9 +37,9 @@ public class Card12_129 extends AbstractCompanion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new OverwhelmedByMultiplierModifier(self, Filters.sam, 3);
-    }
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new OverwhelmedByMultiplierModifier(self, Filters.sam, 3));
+}
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {

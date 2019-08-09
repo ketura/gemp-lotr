@@ -37,8 +37,8 @@ public class Card5_102 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, final PhysicalCard self) {
-        return new TwilightCostModifier(self,
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, final PhysicalCard self) {
+        return Collections.singletonList(new TwilightCostModifier(self,
                 Filters.and(
                         Culture.SAURON,
                         Race.ORC,
@@ -48,7 +48,7 @@ public class Card5_102 extends AbstractPermanent {
                                 return game.getModifiersQuerying().getUntilEndOfTurnLimitCounter(self).getUsedLimit() < 1;
                             }
                         }),
-                new LocationCondition(Filters.siteNumber(4), Filters.siteBlock(SitesBlock.TWO_TOWERS)), -3);
+                new LocationCondition(Filters.siteNumber(4), Filters.siteBlock(SitesBlock.TWO_TOWERS)), -3));
     }
 
     @Override

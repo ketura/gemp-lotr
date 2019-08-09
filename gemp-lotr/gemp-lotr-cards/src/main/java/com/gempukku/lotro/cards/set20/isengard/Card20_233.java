@@ -1,4 +1,6 @@
 package com.gempukku.lotro.cards.set20.isengard;
+import java.util.List;
+import java.util.Collections;
 
 import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.logic.timing.PlayConditions;
@@ -32,10 +34,10 @@ public class Card20_233 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new KeywordModifier(self, Filters.and(CardType.SITE, Zone.ADVENTURE_PATH),
-                new InitiativeCondition(Side.SHADOW), Keyword.BATTLEGROUND, 1);
-    }
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new KeywordModifier(self, Filters.and(CardType.SITE, Zone.ADVENTURE_PATH),
+new InitiativeCondition(Side.SHADOW), Keyword.BATTLEGROUND, 1));
+}
 
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {

@@ -19,6 +19,7 @@ import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.AssignAgainstResult;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -42,8 +43,8 @@ public class Card19_039 extends AbstractMinion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, final PhysicalCard self) {
-        return new CantBeAssignedAgainstModifier(self, null,
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, final PhysicalCard self) {
+        return Collections.singletonList(new CantBeAssignedAgainstModifier(self, null,
                 new Filter() {
                     @Override
                     public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
@@ -59,7 +60,7 @@ public class Card19_039 extends AbstractMinion {
                         return game.getGameState().isFierceSkirmishes();
                     }
                 }, self
-        );
+        ));
     }
 
     @Override

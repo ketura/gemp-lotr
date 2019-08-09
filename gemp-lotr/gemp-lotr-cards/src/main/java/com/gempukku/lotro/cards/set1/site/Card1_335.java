@@ -1,12 +1,17 @@
 package com.gempukku.lotro.cards.set1.site;
-
-import com.gempukku.lotro.logic.cardtype.AbstractSite;
+import java.util.List;
+import java.util.Collections;
+import java.util.List;
+import java.util.Collections;import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.TwilightCostModifier;
+
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Set: The Fellowship of the Ring
@@ -21,7 +26,7 @@ public class Card1_335 extends AbstractSite {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new TwilightCostModifier(self, Race.NAZGUL, -1);
-    }
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new TwilightCostModifier(self, Race.NAZGUL, -1));
+}
 }

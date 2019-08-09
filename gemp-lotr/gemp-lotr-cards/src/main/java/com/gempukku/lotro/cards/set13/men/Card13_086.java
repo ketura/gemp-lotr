@@ -1,4 +1,6 @@
 package com.gempukku.lotro.cards.set13.men;
+import java.util.List;
+import java.util.Collections;
 
 import com.gempukku.lotro.logic.cardtype.AbstractMinion;
 import com.gempukku.lotro.logic.timing.PlayConditions;
@@ -35,8 +37,8 @@ public class Card13_086 extends AbstractMinion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new ArcheryTotalModifier(self, Side.SHADOW,
-                new CanSpotCultureTokensCondition(5), 2);
-    }
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new ArcheryTotalModifier(self, Side.SHADOW,
+new CanSpotCultureTokensCondition(5), 2));
+}
 }

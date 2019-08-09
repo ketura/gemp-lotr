@@ -1,6 +1,8 @@
 package com.gempukku.lotro.cards.set11.uruk_hai;
-
-import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
+import java.util.List;
+import java.util.Collections;
+import java.util.List;
+import java.util.Collections;import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -27,7 +29,7 @@ public class Card11_192 extends AbstractAttachable {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new StrengthModifier(self, Filters.inSkirmishAgainst(Filters.hasAttached(self)), -2);
-    }
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new StrengthModifier(self, Filters.inSkirmishAgainst(Filters.hasAttached(self)), -2));
+}
 }

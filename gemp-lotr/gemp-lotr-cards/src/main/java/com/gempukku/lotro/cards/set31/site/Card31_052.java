@@ -14,6 +14,7 @@ import com.gempukku.lotro.logic.modifiers.TwilightCostModifier;
 import com.gempukku.lotro.logic.modifiers.condition.PhaseCondition;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -29,15 +30,15 @@ public class Card31_052 extends AbstractSite {
 		addKeyword(Keyword.RIVER);
     }
 
-	@Override
-    public Modifier getAlwaysOnModifier(LotroGame game, final PhysicalCard self) {
-        return new TwilightCostModifier(self, Filters.and(Race.ORC,
+    @Override
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, final PhysicalCard self) {
+        return Collections.singletonList(new TwilightCostModifier(self, Filters.and(Race.ORC,
                 new Filter() {
                     @Override
                     public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
                         return game.getModifiersQuerying().getUntilEndOfPhaseLimitCounter(self, Phase.SHADOW).getUsedLimit() < 1;
                     }
-                }), new PhaseCondition(Phase.SHADOW), -2);
+                }), new PhaseCondition(Phase.SHADOW), -2));
     }
 
     @Override

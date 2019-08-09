@@ -1,6 +1,8 @@
 package com.gempukku.lotro.cards.set15.men;
-
-import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
+import java.util.List;
+import java.util.Collections;
+import java.util.List;
+import java.util.Collections;import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.logic.modifiers.ResistanceModifier;
@@ -44,9 +46,9 @@ public class Card15_088 extends AbstractAttachable {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new ResistanceModifier(self, Filters.hasAttached(self), -1);
-    }
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new ResistanceModifier(self, Filters.hasAttached(self), -1));
+}
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {

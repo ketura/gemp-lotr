@@ -1,6 +1,8 @@
 package com.gempukku.lotro.cards.set20.dunland;
-
-import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
+import java.util.List;
+import java.util.Collections;
+import java.util.List;
+import java.util.Collections;import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
@@ -36,7 +38,7 @@ public class Card20_036 extends AbstractAttachable {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new CantBeLiberatedModifier(self, Side.FREE_PEOPLE, new SpotCondition(Culture.DUNLAND, Race.MAN), Filters.hasAttached(self));
-    }
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new CantBeLiberatedModifier(self, Side.FREE_PEOPLE, new SpotCondition(Culture.DUNLAND, Race.MAN), Filters.hasAttached(self)));
+}
 }

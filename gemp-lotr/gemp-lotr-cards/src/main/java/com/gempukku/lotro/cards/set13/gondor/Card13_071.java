@@ -38,14 +38,14 @@ public class Card13_071 extends AbstractCompanion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, final PhysicalCard self) {
-        return new ResistanceModifier(self, self, null,
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, final PhysicalCard self) {
+        return Collections.singletonList(new ResistanceModifier(self, self, null,
                 new Evaluator() {
                     @Override
                     public int evaluateExpression(LotroGame game, PhysicalCard cardAffected) {
                         return game.getGameState().getHand(self.getOwner()).size();
                     }
-                });
+                }));
     }
 
     @Override

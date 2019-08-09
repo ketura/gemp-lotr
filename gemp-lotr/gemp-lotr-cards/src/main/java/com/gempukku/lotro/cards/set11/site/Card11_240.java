@@ -9,6 +9,9 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 
+import java.util.Collections;
+import java.util.List;
+
 /**
  * Set: Shadows
  * Twilight Cost: 2
@@ -22,14 +25,14 @@ public class Card11_240 extends AbstractShadowsSite {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new StrengthModifier(self,
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+        return Collections.singletonList(new StrengthModifier(self,
                 Filters.and(Filters.unboundCompanion, Filters.inSkirmish,
                         new Filter() {
                             @Override
                             public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
                                 return game.getGameState().getSkirmish().getShadowCharacters().size() > 1;
                             }
-                        }), 3);
+                        }), 3));
     }
 }

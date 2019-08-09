@@ -1,4 +1,6 @@
 package com.gempukku.lotro.cards.set13.men;
+import java.util.List;
+import java.util.Collections;
 
 import com.gempukku.lotro.logic.cardtype.AbstractMinion;
 import com.gempukku.lotro.logic.modifiers.evaluator.CountActiveEvaluator;
@@ -31,9 +33,9 @@ public class Card13_096 extends AbstractMinion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new StrengthModifier(self, self,
-                new SpotCondition(Filters.not(self), Culture.MEN, CardType.MINION),
-                new MultiplyEvaluator(2, new CountActiveEvaluator(CardType.COMPANION, Filters.assignedToSkirmish)));
-    }
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new StrengthModifier(self, self,
+new SpotCondition(Filters.not(self), Culture.MEN, CardType.MINION),
+new MultiplyEvaluator(2, new CountActiveEvaluator(CardType.COMPANION, Filters.assignedToSkirmish))));
+}
 }

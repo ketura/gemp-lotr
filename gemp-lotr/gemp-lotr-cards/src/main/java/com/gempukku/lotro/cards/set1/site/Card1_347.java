@@ -11,6 +11,9 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 
+import java.util.Collections;
+import java.util.List;
+
 /**
  * Set: The Fellowship of the Ring
  * Twilight Cost: 2
@@ -25,14 +28,14 @@ public class Card1_347 extends AbstractSite {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new KeywordModifier(self,
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+        return Collections.singletonList(new KeywordModifier(self,
                 Filters.and(
                         Filters.or(
                                 CardType.COMPANION,
                                 CardType.MINION),
                         Filters.hasAttached(
                                 PossessionClass.HAND_WEAPON)
-                ), Keyword.DAMAGE);
+                ), Keyword.DAMAGE));
     }
 }

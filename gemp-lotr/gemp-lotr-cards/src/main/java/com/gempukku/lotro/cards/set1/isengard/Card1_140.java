@@ -54,8 +54,8 @@ public class Card1_140 extends AbstractAttachable {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, final PhysicalCard self) {
-        return new ShouldSkipPhaseModifier(self, new LocationCondition(Filters.hasAttached(self)), Phase.ARCHERY);
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+        return Collections.singletonList(new ShouldSkipPhaseModifier(self, new LocationCondition(Filters.hasAttached(self)), Phase.ARCHERY));
     }
 
     @Override

@@ -1,6 +1,8 @@
 package com.gempukku.lotro.cards.set13.elven;
-
-import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
+import java.util.List;
+import java.util.Collections;
+import java.util.List;
+import java.util.Collections;import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.logic.effects.SelfExertEffect;
@@ -38,9 +40,9 @@ public class Card13_009 extends AbstractCompanion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new ResistanceModifier(self, Filters.and(Filters.not(self), Culture.ELVEN, CardType.COMPANION), new LocationCondition(Keyword.FOREST), 1);
-    }
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new ResistanceModifier(self, Filters.and(Filters.not(self), Culture.ELVEN, CardType.COMPANION), new LocationCondition(Keyword.FOREST), 1));
+}
 
     @Override
     protected List<ActivateCardAction> getExtraInPlayPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {

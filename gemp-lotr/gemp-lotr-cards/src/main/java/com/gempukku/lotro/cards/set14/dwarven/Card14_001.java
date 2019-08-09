@@ -1,4 +1,6 @@
 package com.gempukku.lotro.cards.set14.dwarven;
+import java.util.List;
+import java.util.Collections;
 
 import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
 import com.gempukku.lotro.logic.timing.PlayConditions;
@@ -37,11 +39,11 @@ public class Card14_001 extends AbstractCompanion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new TwilightCostModifier(self,
-                Filters.and(Filters.owner(self.getOwner()), Filters.not(self),
-                        Filters.or(Race.DWARF, Filters.and(Culture.GANDALF, Race.MAN))), -1);
-    }
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new TwilightCostModifier(self,
+Filters.and(Filters.owner(self.getOwner()), Filters.not(self),
+Filters.or(Race.DWARF, Filters.and(Culture.GANDALF, Race.MAN))), -1));
+}
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {

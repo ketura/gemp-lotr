@@ -1,4 +1,6 @@
 package com.gempukku.lotro.cards.set20.gondor;
+import java.util.List;
+import java.util.Collections;
 
 import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.logic.modifiers.MinionSiteNumberModifier;
@@ -23,9 +25,9 @@ public class Card20_197 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new MinionSiteNumberModifier(
-                self, Filters.and(CardType.MINION, Filters.inPlay()), new SpotCondition(Culture.GONDOR, Keyword.RANGER),
-                new CountActiveEvaluator(CardType.SITE, Zone.ADVENTURE_PATH, Filters.owner(self.getOwner()), Filters.currentRegion));
-    }
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new MinionSiteNumberModifier(
+self, Filters.and(CardType.MINION, Filters.inPlay()), new SpotCondition(Culture.GONDOR, Keyword.RANGER),
+new CountActiveEvaluator(CardType.SITE, Zone.ADVENTURE_PATH, Filters.owner(self.getOwner()), Filters.currentRegion)));
+}
 }

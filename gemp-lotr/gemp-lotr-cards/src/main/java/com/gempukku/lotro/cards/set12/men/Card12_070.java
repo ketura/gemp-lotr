@@ -1,4 +1,6 @@
 package com.gempukku.lotro.cards.set12.men;
+import java.util.List;
+import java.util.Collections;
 
 import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.logic.timing.PlayConditions;
@@ -33,11 +35,11 @@ public class Card12_070 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new CancelStrengthBonusTargetModifier(self, new SpotCondition(6, CardType.COMPANION),
-                Filters.and(CardType.COMPANION, Filters.inSkirmishAgainst(Culture.MEN, CardType.MINION)),
-                CardType.POSSESSION);
-    }
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new CancelStrengthBonusTargetModifier(self, new SpotCondition(6, CardType.COMPANION),
+Filters.and(CardType.COMPANION, Filters.inSkirmishAgainst(Culture.MEN, CardType.MINION)),
+CardType.POSSESSION));
+}
 
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {

@@ -9,6 +9,9 @@ import com.gempukku.lotro.logic.modifiers.AbstractModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.ModifierEffect;
 
+import java.util.Collections;
+import java.util.List;
+
 /**
  * Set: Mines of Moria
  * Side: Free
@@ -24,8 +27,8 @@ public class Card2_023 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new AbstractModifier(self, "The twilight cost of each possession or artifact played on Gandalf or a character who has the Gandalf signet is -1",
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+        return Collections.singletonList(new AbstractModifier(self, "The twilight cost of each possession or artifact played on Gandalf or a character who has the Gandalf signet is -1",
                 Filters.or(
                         CardType.POSSESSION,
                         CardType.ARTIFACT), ModifierEffect.TWILIGHT_COST_MODIFIER) {
@@ -38,6 +41,6 @@ public class Card2_023 extends AbstractPermanent {
                 }
                 return 0;
             }
-        };
+        });
     }
 }

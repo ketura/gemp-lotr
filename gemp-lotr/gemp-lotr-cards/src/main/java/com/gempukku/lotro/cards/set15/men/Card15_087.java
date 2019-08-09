@@ -1,6 +1,8 @@
 package com.gempukku.lotro.cards.set15.men;
-
-import com.gempukku.lotro.logic.cardtype.AbstractMinion;
+import java.util.List;
+import java.util.Collections;
+import java.util.List;
+import java.util.Collections;import com.gempukku.lotro.logic.cardtype.AbstractMinion;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.logic.effects.TakeControlOfASiteEffect;
 import com.gempukku.lotro.common.Culture;
@@ -35,9 +37,9 @@ public class Card15_087 extends AbstractMinion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new StrengthModifier(self, Filters.and(self, Filters.canSpotCompanionWithStrengthAtLeast(12)), 5);
-    }
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new StrengthModifier(self, Filters.and(self, Filters.canSpotCompanionWithStrengthAtLeast(12)), 5));
+}
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {

@@ -15,6 +15,9 @@ import com.gempukku.lotro.logic.modifiers.Condition;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
+import java.util.Collections;
+import java.util.List;
+
 /**
  * 1
  * •Legendary Adventures
@@ -51,13 +54,13 @@ public class Card20_394 extends AbstractAttachable {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(final LotroGame game, final PhysicalCard self) {
-        return new CantAddBurdensModifier(self,
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, final PhysicalCard self) {
+        return Collections.singletonList(new CantAddBurdensModifier(self,
                 new Condition() {
                     @Override
                     public boolean isFullfilled(LotroGame game) {
                         return game.getActionsEnvironment().getPlayedCardsInCurrentTurn().contains(self);
                     }
-                }, Side.SHADOW);
+                }, Side.SHADOW));
     }
 }

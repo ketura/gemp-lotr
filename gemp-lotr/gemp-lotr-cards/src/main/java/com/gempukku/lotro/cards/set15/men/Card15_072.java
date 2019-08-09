@@ -1,6 +1,8 @@
 package com.gempukku.lotro.cards.set15.men;
-
-import com.gempukku.lotro.logic.cardtype.AbstractMinion;
+import java.util.List;
+import java.util.Collections;
+import java.util.List;
+import java.util.Collections;import com.gempukku.lotro.logic.cardtype.AbstractMinion;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.SelfExertEffect;
 import com.gempukku.lotro.logic.modifiers.CantBeAssignedAgainstModifier;
@@ -23,9 +25,9 @@ public class Card15_072 extends AbstractMinion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new CantBeAssignedAgainstModifier(self, Side.FREE_PEOPLE, CardType.COMPANION, new SpotCondition(self, Filters.unwounded), self);
-    }
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new CantBeAssignedAgainstModifier(self, Side.FREE_PEOPLE, CardType.COMPANION, new SpotCondition(self, Filters.unwounded), self));
+}
 
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {

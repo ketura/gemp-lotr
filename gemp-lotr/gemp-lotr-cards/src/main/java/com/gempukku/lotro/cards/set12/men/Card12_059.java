@@ -1,6 +1,8 @@
 package com.gempukku.lotro.cards.set12.men;
-
-import com.gempukku.lotro.logic.cardtype.AbstractMinion;
+import java.util.List;
+import java.util.Collections;
+import java.util.List;
+import java.util.Collections;import com.gempukku.lotro.logic.cardtype.AbstractMinion;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
@@ -27,7 +29,7 @@ public class Card12_059 extends AbstractMinion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new KeywordModifier(self, Filters.and(self, Filters.inSkirmishAgainst(Race.MAN)), Keyword.DAMAGE, 2);
-    }
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new KeywordModifier(self, Filters.and(self, Filters.inSkirmishAgainst(Race.MAN)), Keyword.DAMAGE, 2));
+}
 }

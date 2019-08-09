@@ -11,6 +11,9 @@ import com.gempukku.lotro.game.state.Skirmish;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
+import java.util.Collections;
+import java.util.List;
+
 /**
  * 3
  * Orc Skulker
@@ -27,8 +30,8 @@ public class Card20_370 extends AbstractMinion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new PlayersCantUseCardPhaseSpecialAbilitiesModifier(self, Phase.SKIRMISH,
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+        return Collections.singletonList(new PlayersCantUseCardPhaseSpecialAbilitiesModifier(self, Phase.SKIRMISH,
                 CardType.COMPANION,
                 new Filter() {
                     @Override
@@ -43,6 +46,6 @@ public class Card20_370 extends AbstractMinion {
 
                         return false;
                     }
-                });
+                }));
     }
 }

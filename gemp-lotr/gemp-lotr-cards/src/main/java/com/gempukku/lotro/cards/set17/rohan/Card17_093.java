@@ -1,4 +1,6 @@
 package com.gempukku.lotro.cards.set17.rohan;
+import java.util.List;
+import java.util.Collections;
 
 import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
 import com.gempukku.lotro.common.CardType;
@@ -30,8 +32,8 @@ public class Card17_093 extends AbstractCompanion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new KeywordModifier(self, Filters.and(Culture.ROHAN, CardType.COMPANION),
-                new SpotCondition(Filters.ringBearer, Filters.assignedToSkirmish), Keyword.HUNTER, 1);
-    }
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new KeywordModifier(self, Filters.and(Culture.ROHAN, CardType.COMPANION),
+new SpotCondition(Filters.ringBearer, Filters.assignedToSkirmish), Keyword.HUNTER, 1));
+}
 }

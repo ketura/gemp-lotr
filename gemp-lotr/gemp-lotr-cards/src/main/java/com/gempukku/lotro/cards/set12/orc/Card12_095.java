@@ -1,6 +1,8 @@
 package com.gempukku.lotro.cards.set12.orc;
-
-import com.gempukku.lotro.logic.cardtype.AbstractMinion;
+import java.util.List;
+import java.util.Collections;
+import java.util.List;
+import java.util.Collections;import com.gempukku.lotro.logic.cardtype.AbstractMinion;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -30,7 +32,7 @@ public class Card12_095 extends AbstractMinion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new TwilightCostModifier(self, Filters.and(Filters.owner(self.getOwner()), CardType.EVENT, Keyword.SKIRMISH), -1);
-    }
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new TwilightCostModifier(self, Filters.and(Filters.owner(self.getOwner()), CardType.EVENT, Keyword.SKIRMISH), -1));
+}
 }

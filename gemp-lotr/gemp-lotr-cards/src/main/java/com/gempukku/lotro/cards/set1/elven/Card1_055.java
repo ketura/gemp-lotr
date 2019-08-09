@@ -1,6 +1,8 @@
 package com.gempukku.lotro.cards.set1.elven;
-
-import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import java.util.List;
+import java.util.Collections;
+import java.util.List;
+import java.util.Collections;import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.DiscardCardFromDeckEffect;
 import com.gempukku.lotro.logic.effects.ExertCharactersEffect;
@@ -76,9 +78,9 @@ public class Card1_055 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new StrengthModifier(self, Filters.and(CardType.ALLY, Filters.isAllyHome(6, SitesBlock.FELLOWSHIP)), 1);
-    }
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new StrengthModifier(self, Filters.and(CardType.ALLY, Filters.isAllyHome(6, SitesBlock.FELLOWSHIP)), 1));
+}
 
     private String[] opponentsHavingAtLeast7Cards(LotroGame game, String currentPlayer) {
         String[] opponents = GameUtils.getShadowPlayers(game);

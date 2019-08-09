@@ -38,15 +38,15 @@ public class Card13_149 extends AbstractCompanion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new OverwhelmedByMultiplierModifier(self, self,
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+        return Collections.singletonList(new OverwhelmedByMultiplierModifier(self, self,
                 new Condition() {
                     @Override
                     public boolean isFullfilled(LotroGame game) {
                         return Filters.countActive(game, CardType.MINION)
                                 > Filters.countActive(game, CardType.COMPANION);
                     }
-                }, 3);
+                }, 3));
     }
 
     @Override

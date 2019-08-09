@@ -1,6 +1,8 @@
 package com.gempukku.lotro.cards.set15.gollum;
-
-import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import java.util.List;
+import java.util.Collections;
+import java.util.List;
+import java.util.Collections;import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.AddUntilStartOfPhaseModifierEffect;
 import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
@@ -39,9 +41,9 @@ public class Card15_040 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new TwilightCostModifier(self, Filters.and(Side.SHADOW, CardType.EVENT), new SpotCondition(2, Race.HOBBIT, Keyword.RING_BOUND), 1);
-    }
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new TwilightCostModifier(self, Filters.and(Side.SHADOW, CardType.EVENT), new SpotCondition(2, Race.HOBBIT, Keyword.RING_BOUND), 1));
+}
 
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {

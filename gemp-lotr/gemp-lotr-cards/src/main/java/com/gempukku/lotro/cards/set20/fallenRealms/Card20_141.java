@@ -12,6 +12,9 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.GameHasCondition;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 
+import java.util.Collections;
+import java.util.List;
+
 /**
  * 3
  * Southron Sharpshooter
@@ -28,8 +31,8 @@ public class Card20_141 extends AbstractMinion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, final PhysicalCard self) {
-        return new ArcheryTotalModifier(self, Side.SHADOW,
-                new GameHasCondition(self, Filters.mounted), 1);
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+        return Collections.singletonList(new ArcheryTotalModifier(self, Side.SHADOW,
+                new GameHasCondition(self, Filters.mounted), 1));
     }
 }

@@ -1,6 +1,8 @@
 package com.gempukku.lotro.cards.set11.site;
-
-import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
+import java.util.List;
+import java.util.Collections;
+import java.util.List;
+import java.util.Collections;import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -23,7 +25,7 @@ public class Card11_253 extends AbstractShadowsSite {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new KeywordModifier(self, Filters.and(Culture.MEN, CardType.MINION), Keyword.AMBUSH, 1);
-    }
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new KeywordModifier(self, Filters.and(Culture.MEN, CardType.MINION), Keyword.AMBUSH, 1));
+}
 }

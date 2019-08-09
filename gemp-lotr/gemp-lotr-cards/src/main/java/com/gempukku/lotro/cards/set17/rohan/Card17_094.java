@@ -1,4 +1,6 @@
 package com.gempukku.lotro.cards.set17.rohan;
+import java.util.List;
+import java.util.Collections;
 
 import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.logic.timing.PlayConditions;
@@ -31,10 +33,10 @@ public class Card17_094 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new StrengthModifier(self, Filters.and(CardType.COMPANION, Filters.mounted),
-                new LocationCondition(Keyword.PLAINS), 1);
-    }
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new StrengthModifier(self, Filters.and(CardType.COMPANION, Filters.mounted),
+new LocationCondition(Keyword.PLAINS), 1));
+}
 
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {

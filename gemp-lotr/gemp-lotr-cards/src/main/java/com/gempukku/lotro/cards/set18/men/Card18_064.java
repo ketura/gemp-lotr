@@ -1,4 +1,6 @@
 package com.gempukku.lotro.cards.set18.men;
+import java.util.List;
+import java.util.Collections;
 
 import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
 import com.gempukku.lotro.logic.modifiers.evaluator.CountCultureTokensEvaluator;
@@ -29,8 +31,8 @@ public class Card18_064 extends AbstractAttachable {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new StrengthModifier(self, Filters.hasAttached(self), null,
-                new LimitEvaluator(new CountCultureTokensEvaluator(Token.MEN, Filters.any), 5));
-    }
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new StrengthModifier(self, Filters.hasAttached(self), null,
+new LimitEvaluator(new CountCultureTokensEvaluator(Token.MEN, Filters.any), 5)));
+}
 }

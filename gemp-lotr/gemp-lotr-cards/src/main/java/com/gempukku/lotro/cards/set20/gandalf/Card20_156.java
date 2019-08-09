@@ -1,4 +1,6 @@
 package com.gempukku.lotro.cards.set20.gandalf;
+import java.util.List;
+import java.util.Collections;
 
 import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
 import com.gempukku.lotro.logic.modifiers.evaluator.CountSpottableEvaluator;
@@ -23,8 +25,8 @@ public class Card20_156 extends AbstractCompanion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new StrengthModifier(self, self, null,
-                new CountSpottableEvaluator(CardType.COMPANION, Race.HOBBIT));
-    }
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new StrengthModifier(self, self, null,
+new CountSpottableEvaluator(CardType.COMPANION, Race.HOBBIT)));
+}
 }

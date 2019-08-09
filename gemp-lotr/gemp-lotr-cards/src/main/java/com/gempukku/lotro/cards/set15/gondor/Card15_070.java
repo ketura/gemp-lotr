@@ -1,4 +1,6 @@
 package com.gempukku.lotro.cards.set15.gondor;
+import java.util.List;
+import java.util.Collections;
 
 import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.logic.timing.PlayConditions;
@@ -38,10 +40,10 @@ public class Card15_070 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new CantTakeWoundsFromLosingSkirmishModifier(self,
-                Filters.and(Filters.character, Filters.inSkirmishAgainst(Filters.hasAttached(self))), Filters.hasAttached(self));
-    }
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new CantTakeWoundsFromLosingSkirmishModifier(self,
+Filters.and(Filters.character, Filters.inSkirmishAgainst(Filters.hasAttached(self))), Filters.hasAttached(self)));
+}
 
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {

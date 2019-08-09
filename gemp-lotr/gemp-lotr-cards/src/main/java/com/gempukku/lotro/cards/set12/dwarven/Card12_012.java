@@ -32,14 +32,14 @@ public class Card12_012 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new KeywordModifier(self, Race.DWARF, null, Keyword.DAMAGE,
+    public java.util.List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+        return java.util.Collections.singletonList(new KeywordModifier(self, Race.DWARF, null, Keyword.DAMAGE,
                 new Evaluator() {
                     @Override
                     public int evaluateExpression(LotroGame game, PhysicalCard cardAffected) {
                         return Filters.countActive(game, CardType.POSSESSION, Filters.attachedTo(cardAffected));
                     }
-                });
+                }));
     }
 
     @Override

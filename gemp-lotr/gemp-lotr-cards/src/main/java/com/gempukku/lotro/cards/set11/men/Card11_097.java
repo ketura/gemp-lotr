@@ -1,6 +1,8 @@
 package com.gempukku.lotro.cards.set11.men;
-
-import com.gempukku.lotro.logic.cardtype.AbstractMinion;
+import java.util.List;
+import java.util.Collections;
+import java.util.List;
+import java.util.Collections;import com.gempukku.lotro.logic.cardtype.AbstractMinion;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.logic.effects.AddUntilStartOfPhaseModifierEffect;
@@ -51,7 +53,7 @@ public class Card11_097 extends AbstractMinion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new KeywordModifier(self, Filters.and(Culture.MEN, CardType.MINION), new SpotCondition(6, CardType.COMPANION), Keyword.FIERCE, 1);
-    }
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new KeywordModifier(self, Filters.and(Culture.MEN, CardType.MINION), new SpotCondition(6, CardType.COMPANION), Keyword.FIERCE, 1));
+}
 }

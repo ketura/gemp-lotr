@@ -1,4 +1,6 @@
 package com.gempukku.lotro.cards.set20.wraith;
+import java.util.List;
+import java.util.Collections;
 
 import com.gempukku.lotro.logic.cardtype.AbstractMinion;
 import com.gempukku.lotro.logic.modifiers.FpSkirmishResistanceStrengthOverrideModifier;
@@ -24,8 +26,8 @@ public class Card20_309 extends AbstractMinion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new FpSkirmishResistanceStrengthOverrideModifier(self,
-                Filters.and(CardType.COMPANION, Filters.hasAttached(Culture.WRAITH, CardType.CONDITION), Filters.inSkirmishAgainst(self)), null);
-    }
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new FpSkirmishResistanceStrengthOverrideModifier(self,
+Filters.and(CardType.COMPANION, Filters.hasAttached(Culture.WRAITH, CardType.CONDITION), Filters.inSkirmishAgainst(self)), null));
+}
 }

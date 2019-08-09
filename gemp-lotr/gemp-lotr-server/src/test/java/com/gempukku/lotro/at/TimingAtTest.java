@@ -51,7 +51,7 @@ public class TimingAtTest extends AbstractAtTest {
 
         playerDecided(P1, getArbitraryCardId(secondCharacterDecision, "6_121"));
     }
-    
+
     @Test
     public void playStartingFellowshipWithDiscountFromCardItself() throws DecisionResultInvalidException {
         Map<String, Collection<String>> extraCards = new HashMap<String, Collection<String>>();
@@ -283,16 +283,18 @@ public class TimingAtTest extends AbstractAtTest {
         PhysicalCardImpl moveFromSite = new PhysicalCardImpl(100, "0_1234", P1,
                 new AbstractSite("Blah", SitesBlock.FELLOWSHIP, 1, 0, LotroCardBlueprint.Direction.LEFT) {
                     @Override
-                    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-                        return new SpecialFlagModifier(self, ModifierFlag.RING_TEXT_INACTIVE);
+                    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+                        return Collections.singletonList(
+                                new SpecialFlagModifier(self, ModifierFlag.RING_TEXT_INACTIVE));
                     }
                 });
         moveFromSite.setSiteNumber(1);
         PhysicalCardImpl moveToSite = new PhysicalCardImpl(100, "0_1235", P1,
                 new AbstractSite("Blah", SitesBlock.FELLOWSHIP, 2, 0, LotroCardBlueprint.Direction.LEFT) {
                     @Override
-                    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-                        return new SpecialFlagModifier(self, ModifierFlag.CANT_PREVENT_WOUNDS);
+                    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+                        return Collections.singletonList(
+                                new SpecialFlagModifier(self, ModifierFlag.CANT_PREVENT_WOUNDS));
                     }
                 });
         moveToSite.setSiteNumber(2);
@@ -407,14 +409,14 @@ public class TimingAtTest extends AbstractAtTest {
         playerDecided(P1, "");
         playerDecided(P2, "");
 
-        playerDecided(P1, _game.getGameState().getRingBearer(P1).getCardId()+" "+urukHaiRaidingParty.getCardId());
+        playerDecided(P1, _game.getGameState().getRingBearer(P1).getCardId() + " " + urukHaiRaidingParty.getCardId());
 
         // Choose Gimli's skirmish
-        playerDecided(P1, ""+_game.getGameState().getRingBearer(P1).getCardId());
+        playerDecided(P1, "" + _game.getGameState().getRingBearer(P1).getCardId());
 
         assertEquals(3, _game.getGameState().getBurdens());
         _game.getGameState().removeBurdens(3);
-        
+
         AwaitingDecision skirmishDecision = _userFeedback.getAwaitingDecision(P1);
         playerDecided(P1, getCardActionId(skirmishDecision, "Use The One"));
         assertEquals(1, _game.getGameState().getBurdens());

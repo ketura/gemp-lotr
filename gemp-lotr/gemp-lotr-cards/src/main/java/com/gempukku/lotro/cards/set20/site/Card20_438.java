@@ -16,6 +16,7 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.TwilightCostModifier;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -31,8 +32,8 @@ public class Card20_438 extends AbstractSite {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, final PhysicalCard self) {
-        return new TwilightCostModifier(self,
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, final PhysicalCard self) {
+        return Collections.singletonList(new TwilightCostModifier(self,
                 Filters.and(
                         Culture.DUNLAND, Race.MAN,
                         new Filter() {
@@ -40,7 +41,7 @@ public class Card20_438 extends AbstractSite {
                             public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
                                 return game.getModifiersQuerying().getUntilEndOfTurnLimitCounter(self).getUsedLimit() < 1;
                             }
-                        }), -2);
+                        }), -2));
     }
 
     @Override

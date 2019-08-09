@@ -14,6 +14,9 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 
+import java.util.Collections;
+import java.util.List;
+
 /**
  * Set: The Fellowship of the Ring
  * Side: Shadow
@@ -32,8 +35,8 @@ public class Card1_149 extends AbstractMinion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new StrengthModifier(self,
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+        return Collections.singletonList(new StrengthModifier(self,
                 Filters.and(
                         self,
                         new Filter() {
@@ -41,6 +44,6 @@ public class Card1_149 extends AbstractMinion {
                             public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
                                 return Filters.canSpot(game, Keyword.WEATHER, CardType.CONDITION);
                             }
-                        }), 3);
+                        }), 3));
     }
 }

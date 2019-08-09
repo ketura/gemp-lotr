@@ -40,15 +40,15 @@ public class Card15_036 extends AbstractCompanion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new StrengthModifier(self, self,
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+        return Collections.singletonList(new StrengthModifier(self, self,
                 new Condition() {
                     @Override
                     public boolean isFullfilled(LotroGame game) {
                         return Filters.countActive(game, Race.ENT)
                                 + game.getModifiersQuerying().getSpotBonus(game, Race.ENT) >= 4;
                     }
-                }, 3);
+                }, 3));
     }
 
     @Override

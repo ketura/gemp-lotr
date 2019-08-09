@@ -1,4 +1,6 @@
 package com.gempukku.lotro.cards.set13.uruk_hai;
+import java.util.List;
+import java.util.Collections;
 
 import com.gempukku.lotro.logic.cardtype.AbstractMinion;
 import com.gempukku.lotro.common.*;
@@ -28,9 +30,9 @@ public class Card13_163 extends AbstractMinion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new CantDiscardFromPlayModifier(self, "Can't be discarded by Free Peoples cards",
-                Filters.and(CardType.POSSESSION, Filters.attachedTo(self)),
-                Filters.and(Side.FREE_PEOPLE));
-    }
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new CantDiscardFromPlayModifier(self, "Can't be discarded by Free Peoples cards",
+Filters.and(CardType.POSSESSION, Filters.attachedTo(self)),
+Filters.and(Side.FREE_PEOPLE)));
+}
 }

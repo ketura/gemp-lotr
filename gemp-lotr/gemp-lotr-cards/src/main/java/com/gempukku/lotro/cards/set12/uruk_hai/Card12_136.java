@@ -9,6 +9,9 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 
+import java.util.Collections;
+import java.util.List;
+
 /**
  * Set: Black Rider
  * Side: Shadow
@@ -30,8 +33,8 @@ public class Card12_136 extends AbstractAttachable {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new StrengthModifier(self, Filters.and(Filters.hasAttached(self), Filters.inSkirmish), null,
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+        return Collections.singletonList(new StrengthModifier(self, Filters.and(Filters.hasAttached(self), Filters.inSkirmish), null,
                 new Evaluator() {
                     @Override
                     public int evaluateExpression(LotroGame game, PhysicalCard cardAffected) {
@@ -41,6 +44,6 @@ public class Card12_136 extends AbstractAttachable {
                         }
                         return wounds * 2;
                     }
-                });
+                }));
     }
 }

@@ -1,4 +1,6 @@
 package com.gempukku.lotro.cards.set17.rohan;
+import java.util.List;
+import java.util.Collections;
 
 import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.logic.timing.PlayConditions;
@@ -34,11 +36,11 @@ public class Card17_097 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new RemoveKeywordModifier(self,
-                Filters.and(CardType.MINION, Filters.inSkirmishAgainst(Culture.ROHAN, CardType.COMPANION)),
-                new SpotCondition(Filters.ringBearer, Filters.assignedToSkirmish), Keyword.HUNTER);
-    }
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new RemoveKeywordModifier(self,
+Filters.and(CardType.MINION, Filters.inSkirmishAgainst(Culture.ROHAN, CardType.COMPANION)),
+new SpotCondition(Filters.ringBearer, Filters.assignedToSkirmish), Keyword.HUNTER));
+}
 
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {

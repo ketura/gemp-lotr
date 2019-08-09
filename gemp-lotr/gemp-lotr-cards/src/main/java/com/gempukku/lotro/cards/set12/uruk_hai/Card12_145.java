@@ -1,6 +1,8 @@
 package com.gempukku.lotro.cards.set12.uruk_hai;
-
-import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import java.util.List;
+import java.util.Collections;
+import java.util.List;
+import java.util.Collections;import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndDoAssignmentEffect;
@@ -32,9 +34,9 @@ public class Card12_145 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new KeywordModifier(self, Filters.and(Culture.URUK_HAI, CardType.MINION), new SpotCondition(6, CardType.COMPANION), Keyword.DAMAGE, 1);
-    }
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new KeywordModifier(self, Filters.and(Culture.URUK_HAI, CardType.MINION), new SpotCondition(6, CardType.COMPANION), Keyword.DAMAGE, 1));
+}
 
     @Override
     protected List<? extends Action> getExtraPhaseActions(final String playerId, LotroGame game, PhysicalCard self) {

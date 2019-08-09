@@ -12,6 +12,9 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 
+import java.util.Collections;
+import java.util.List;
+
 /**
  * Set: Mines of Moria
  * Side: Free
@@ -35,8 +38,8 @@ public class Card2_006 extends AbstractCompanion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new StrengthModifier(self,
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+        return Collections.singletonList(new StrengthModifier(self,
                 Filters.and(
                         self,
                         Filters.inSkirmish,
@@ -45,6 +48,6 @@ public class Card2_006 extends AbstractCompanion {
                             public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
                                 return Filters.canSpot(game, Race.URUK_HAI, Filters.inSkirmish);
                             }
-                        }), 3);
+                        }), 3));
     }
 }

@@ -1,4 +1,6 @@
 package com.gempukku.lotro.cards.set17.gondor;
+import java.util.List;
+import java.util.Collections;
 
 import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
 import com.gempukku.lotro.logic.timing.PlayConditions;
@@ -38,11 +40,11 @@ public class Card17_030 extends AbstractCompanion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new CantDiscardFromPlayModifier(self, "Cannot be discarded from play by Shadow cards",
-                new SpotCondition(CardType.MINION, Keyword.ROAMING),
-                Filters.and(Filters.owner(self.getOwner()), Culture.GONDOR, CardType.CONDITION), Side.SHADOW);
-    }
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new CantDiscardFromPlayModifier(self, "Cannot be discarded from play by Shadow cards",
+new SpotCondition(CardType.MINION, Keyword.ROAMING),
+Filters.and(Filters.owner(self.getOwner()), Culture.GONDOR, CardType.CONDITION), Side.SHADOW));
+}
 
     @Override
     protected List<ActivateCardAction> getExtraInPlayPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {

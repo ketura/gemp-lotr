@@ -1,4 +1,6 @@
 package com.gempukku.lotro.cards.set18.uruk_hai;
+import java.util.List;
+import java.util.Collections;
 
 import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.logic.timing.PlayConditions;
@@ -32,11 +34,11 @@ public class Card18_121 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new CantTakeWoundsModifier(self,
-                new PhaseCondition(Phase.ARCHERY),
-                Filters.and(Culture.URUK_HAI, CardType.MINION, Filters.hasAttached(PossessionClass.HAND_WEAPON)));
-    }
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new CantTakeWoundsModifier(self,
+new PhaseCondition(Phase.ARCHERY),
+Filters.and(Culture.URUK_HAI, CardType.MINION, Filters.hasAttached(PossessionClass.HAND_WEAPON))));
+}
 
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {

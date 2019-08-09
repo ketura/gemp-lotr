@@ -1,6 +1,8 @@
 package com.gempukku.lotro.cards.set17.rohan;
-
-import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
+import java.util.List;
+import java.util.Collections;
+import java.util.List;
+import java.util.Collections;import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
 import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
 import com.gempukku.lotro.logic.timing.ExtraFilters;
 import com.gempukku.lotro.logic.timing.PlayConditions;
@@ -40,9 +42,9 @@ public class Card17_104 extends AbstractCompanion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new CantBeTransferredModifier(self, Filters.and(CardType.POSSESSION, Filters.attachedTo(self)));
-    }
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new CantBeTransferredModifier(self, Filters.and(CardType.POSSESSION, Filters.attachedTo(self))));
+}
 
     @Override
     protected List<ActivateCardAction> getExtraInPlayPhaseActions(final String playerId, LotroGame game, final PhysicalCard self) {

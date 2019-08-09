@@ -1,4 +1,6 @@
 package com.gempukku.lotro.cards.set31.site;
+import java.util.List;
+import java.util.Collections;
 
 import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
@@ -26,8 +28,8 @@ public class Card31_055 extends AbstractSite {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new TwilightCostModifier(self, CardType.MINION,
-                new CantSpotCondition(Culture.DWARVEN, Filters.name("The Arkenstone")), -1);
-    }
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new TwilightCostModifier(self, CardType.MINION,
+new CantSpotCondition(Culture.DWARVEN, Filters.name("The Arkenstone")), -1));
+}
 }

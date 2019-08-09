@@ -12,6 +12,9 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 
+import java.util.Collections;
+import java.util.List;
+
 /**
  * 3
  * •Boromir, Champion of Minas Tirith
@@ -27,8 +30,8 @@ public class Card20_184 extends AbstractCompanion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new StrengthModifier(self, self, new GameHasCondition(self, Filters.inSkirmish),
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+        return Collections.singletonList(new StrengthModifier(self, self, new GameHasCondition(self, Filters.inSkirmish),
                 new Evaluator() {
                     @Override
                     public int evaluateExpression(LotroGame game, PhysicalCard cardAffected) {
@@ -38,6 +41,6 @@ public class Card20_184 extends AbstractCompanion {
                         }
                         return woundCount;
                     }
-                });
+                }));
     }
 }

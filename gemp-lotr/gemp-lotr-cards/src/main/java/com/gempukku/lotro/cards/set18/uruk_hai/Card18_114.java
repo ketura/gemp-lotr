@@ -1,6 +1,8 @@
 package com.gempukku.lotro.cards.set18.uruk_hai;
-
-import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import java.util.List;
+import java.util.Collections;
+import java.util.List;
+import java.util.Collections;import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.TransferPermanentEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
@@ -34,9 +36,9 @@ public class Card18_114 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new VitalityModifier(self, Filters.hasAttached(self), -1);
-    }
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new VitalityModifier(self, Filters.hasAttached(self), -1));
+}
 
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {

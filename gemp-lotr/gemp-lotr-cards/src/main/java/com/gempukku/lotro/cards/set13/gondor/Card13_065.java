@@ -1,6 +1,8 @@
 package com.gempukku.lotro.cards.set13.gondor;
-
-import com.gempukku.lotro.logic.actions.AbstractCostToEffectAction;
+import java.util.List;
+import java.util.Collections;
+import java.util.List;
+import java.util.Collections;import com.gempukku.lotro.logic.actions.AbstractCostToEffectAction;
 import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
 import com.gempukku.lotro.logic.modifiers.AbstractExtraPlayCostModifier;
 import com.gempukku.lotro.logic.timing.PlayConditions;
@@ -81,9 +83,9 @@ public class Card13_065 extends AbstractCompanion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new ResistanceModifier(self, Filters.and(Filters.owner(self.getOwner()), Culture.GONDOR, CardType.COMPANION), 1);
-    }
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new ResistanceModifier(self, Filters.and(Filters.owner(self.getOwner()), Culture.GONDOR, CardType.COMPANION), 1));
+}
 
     @Override
     protected List<ActivateCardAction> getExtraInPlayPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {

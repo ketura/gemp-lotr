@@ -56,9 +56,9 @@ public class Card1_135 extends AbstractAttachable {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, final PhysicalCard self) {
-        return new StrengthModifier(self, Filters.and(Race.HOBBIT, CardType.COMPANION),
-                new LocationCondition(Filters.hasAttached(self)), -2);
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+        return Collections.singletonList(new StrengthModifier(self, Filters.and(Race.HOBBIT, CardType.COMPANION),
+                new LocationCondition(Filters.hasAttached(self)), -2));
     }
 
     @Override

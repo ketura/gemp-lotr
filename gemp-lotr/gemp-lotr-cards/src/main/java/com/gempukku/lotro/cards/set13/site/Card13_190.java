@@ -14,7 +14,9 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.modifiers.condition.PhaseCondition;
 
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -30,8 +32,8 @@ public class Card13_190 extends AbstractShadowsSite {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new StrengthModifier(self,
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+        return Collections.singletonList(new StrengthModifier(self,
                 Filters.and(CardType.COMPANION,
                         new Filter() {
                             @Override
@@ -41,7 +43,7 @@ public class Card13_190 extends AbstractShadowsSite {
                                     return true;
                                 return false;
                             }
-                        }), new NotCondition(new PhaseCondition(Phase.REGROUP)), -1);
+                        }), new NotCondition(new PhaseCondition(Phase.REGROUP)), -1));
     }
 
     private boolean isRaceMostCommonRaceAmongCompanions(LotroGame game, Race race) {

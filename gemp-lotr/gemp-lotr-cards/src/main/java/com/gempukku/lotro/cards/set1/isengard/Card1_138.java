@@ -56,8 +56,8 @@ public class Card1_138 extends AbstractAttachable {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, final PhysicalCard self) {
-        return new PlayersCantPlayPhaseEventsOrPhaseSpecialAbilitiesModifier(self, new LocationCondition(Filters.hasAttached(self)), Phase.SKIRMISH);
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+        return Collections.singletonList(new PlayersCantPlayPhaseEventsOrPhaseSpecialAbilitiesModifier(self, new LocationCondition(Filters.hasAttached(self)), Phase.SKIRMISH));
     }
 
     @Override

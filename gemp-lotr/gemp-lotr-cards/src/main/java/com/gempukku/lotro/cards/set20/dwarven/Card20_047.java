@@ -9,6 +9,9 @@ import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 
+import java.util.Collections;
+import java.util.List;
+
 /**
  * 2
  * •Dwarven Ire
@@ -21,14 +24,14 @@ public class Card20_047 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, final PhysicalCard self) {
-        return new KeywordModifier(self, Race.DWARF, null, Keyword.DAMAGE,
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, final PhysicalCard self) {
+        return Collections.singletonList(new KeywordModifier(self, Race.DWARF, null, Keyword.DAMAGE,
                 new LimitEvaluator(
                         new Evaluator() {
                             @Override
                             public int evaluateExpression(LotroGame game, PhysicalCard cardAffected) {
                                 return game.getGameState().getStackedCards(self).size();
                             }
-                        }, 2));
+                        }, 2)));
     }
 }

@@ -1,4 +1,6 @@
 package com.gempukku.lotro.cards.set17.orc;
+import java.util.List;
+import java.util.Collections;
 
 import com.gempukku.lotro.logic.cardtype.AbstractMinion;
 import com.gempukku.lotro.common.CardType;
@@ -28,8 +30,8 @@ public class Card17_072 extends AbstractMinion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new StrengthModifier(self, Filters.and(Culture.ORC, CardType.MINION),
-                new SpotCondition(CardType.FOLLOWER, Filters.attachedTo(CardType.COMPANION)), 2);
-    }
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new StrengthModifier(self, Filters.and(Culture.ORC, CardType.MINION),
+new SpotCondition(CardType.FOLLOWER, Filters.attachedTo(CardType.COMPANION)), 2));
+}
 }

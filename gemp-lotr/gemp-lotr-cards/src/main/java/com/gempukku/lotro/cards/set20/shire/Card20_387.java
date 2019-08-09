@@ -1,4 +1,6 @@
 package com.gempukku.lotro.cards.set20.shire;
+import java.util.List;
+import java.util.Collections;
 
 import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
@@ -35,10 +37,10 @@ public class Card20_387 extends AbstractCompanion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new OverwhelmedByMultiplierModifier(self, self,
-                new LocationCondition(Filters.region(1)), 3);
-    }
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new OverwhelmedByMultiplierModifier(self, self,
+new LocationCondition(Filters.region(1)), 3));
+}
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {

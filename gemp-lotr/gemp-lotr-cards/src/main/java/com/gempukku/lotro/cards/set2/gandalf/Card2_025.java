@@ -11,6 +11,9 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.TwilightCostModifier;
 
+import java.util.Collections;
+import java.util.List;
+
 /**
  * Set: Mines of Moria
  * Side: Free
@@ -34,8 +37,8 @@ public class Card2_025 extends AbstractAlly {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new TwilightCostModifier(self,
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+        return Collections.singletonList(new TwilightCostModifier(self,
                 Filters.and(
                         Filters.owner(self.getOwner()),
                         Filters.or(
@@ -43,6 +46,6 @@ public class Card2_025 extends AbstractAlly {
                                 PossessionClass.ARMOR,
                                 PossessionClass.HELM,
                                 PossessionClass.HAND_WEAPON
-                        )), -1);
+                        )), -1));
     }
 }

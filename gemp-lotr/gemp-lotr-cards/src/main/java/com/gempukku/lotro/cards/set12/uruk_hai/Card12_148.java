@@ -33,14 +33,14 @@ public class Card12_148 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new ResistanceModifier(self, Filters.unboundCompanion, new SpotCondition(Culture.URUK_HAI, CardType.MINION),
+    public java.util.List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+        return java.util.Collections.singletonList(new ResistanceModifier(self, Filters.unboundCompanion, new SpotCondition(Culture.URUK_HAI, CardType.MINION),
                 new Evaluator() {
                     @Override
                     public int evaluateExpression(LotroGame game, PhysicalCard cardAffected) {
                         return -Filters.countActive(game, CardType.CONDITION, Filters.attachedTo(cardAffected));
                     }
-                });
+                }));
     }
 
     @Override

@@ -1,6 +1,8 @@
 package com.gempukku.lotro.cards.set30.site;
-
-import com.gempukku.lotro.common.SitesBlock;
+import java.util.List;
+import java.util.Collections;
+import java.util.List;
+import java.util.Collections;import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -21,7 +23,7 @@ public class Card30_051 extends AbstractSite {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new CantPlayCardsModifier(self, Race.TROLL);
-    }
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new CantPlayCardsModifier(self, Race.TROLL));
+}
 }

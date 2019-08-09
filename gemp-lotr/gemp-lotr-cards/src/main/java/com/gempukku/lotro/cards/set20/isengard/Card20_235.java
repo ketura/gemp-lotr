@@ -1,4 +1,6 @@
 package com.gempukku.lotro.cards.set20.isengard;
+import java.util.List;
+import java.util.Collections;
 
 import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
 import com.gempukku.lotro.logic.timing.PlayConditions;
@@ -56,10 +58,10 @@ public class Card20_235 extends AbstractAttachable {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new SidePlayerCantPlayPhaseEventsOrSpecialAbilitiesModifier(
-                self, new AndCondition(new LocationCondition(Filters.hasAttached(self)), new InitiativeCondition(Side.SHADOW)), Side.FREE_PEOPLE, Phase.SKIRMISH);
-    }
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new SidePlayerCantPlayPhaseEventsOrSpecialAbilitiesModifier(
+self, new AndCondition(new LocationCondition(Filters.hasAttached(self)), new InitiativeCondition(Side.SHADOW)), Side.FREE_PEOPLE, Phase.SKIRMISH));
+}
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {

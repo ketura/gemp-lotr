@@ -1,4 +1,6 @@
 package com.gempukku.lotro.cards.set2.dwarven;
+import java.util.List;
+import java.util.Collections;
 
 import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
@@ -37,11 +39,11 @@ public class Card2_008 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new TwilightCostModifier(self,
-                Filters.and(Culture.MORIA, Race.ORC),
-                new LocationCondition(Filters.not(Keyword.UNDERGROUND)), 2);
-    }
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new TwilightCostModifier(self,
+Filters.and(Culture.MORIA, Race.ORC),
+new LocationCondition(Filters.not(Keyword.UNDERGROUND)), 2));
+}
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {

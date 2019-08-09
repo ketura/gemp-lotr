@@ -1,6 +1,8 @@
 package com.gempukku.lotro.cards.set13.shire;
-
-import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
+import java.util.List;
+import java.util.Collections;
+import java.util.List;
+import java.util.Collections;import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
 import com.gempukku.lotro.logic.modifiers.evaluator.CountActiveEvaluator;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
@@ -27,7 +29,7 @@ public class Card13_157 extends AbstractCompanion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new StrengthModifier(self, self, null, new CountActiveEvaluator(Culture.SHIRE, Filters.hasAnyCultureTokens(1)));
-    }
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new StrengthModifier(self, self, null, new CountActiveEvaluator(Culture.SHIRE, Filters.hasAnyCultureTokens(1))));
+}
 }

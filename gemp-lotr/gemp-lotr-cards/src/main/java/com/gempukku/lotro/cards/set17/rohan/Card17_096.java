@@ -38,12 +38,12 @@ public class Card17_096 extends AbstractCompanion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new CantTakeWoundsModifier(self,
-                new AndCondition(
-                        new SpotCondition(Filters.ringBearer, Filters.assignedToSkirmish),
-                        new SpotCondition(self, Filters.inSkirmish)), self);
-    }
+    public java.util.List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return java.util.Collections.singletonList(new CantTakeWoundsModifier(self,
+new AndCondition(
+new SpotCondition(Filters.ringBearer, Filters.assignedToSkirmish),
+new SpotCondition(self, Filters.inSkirmish)), self));
+}
 
     @Override
     protected List<ActivateCardAction> getExtraInPlayPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {

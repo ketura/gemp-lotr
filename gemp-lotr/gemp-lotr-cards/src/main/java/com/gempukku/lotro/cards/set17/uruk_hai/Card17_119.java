@@ -33,11 +33,11 @@ public class Card17_119 extends AbstractMinion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new CantTakeWoundsModifier(self,
-                new AndCondition(
-                        new SpotCondition(Filters.siteControlled(self.getOwner())),
-                        new NotCondition(new PhaseCondition(Phase.SKIRMISH))),
-                self);
-    }
+    public java.util.List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return java.util.Collections.singletonList(new CantTakeWoundsModifier(self,
+new AndCondition(
+new SpotCondition(Filters.siteControlled(self.getOwner())),
+new NotCondition(new PhaseCondition(Phase.SKIRMISH))),
+self));
+}
 }

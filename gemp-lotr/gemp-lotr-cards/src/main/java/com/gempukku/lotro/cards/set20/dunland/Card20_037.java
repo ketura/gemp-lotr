@@ -32,13 +32,13 @@ public class Card20_037 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new TwilightCostModifier(self, CardType.SITE, new SpotCondition(Filters.or(Filters.saruman, Filters.and(Culture.DUNLAND, Race.MAN))),
+    public java.util.List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+        return java.util.Collections.singletonList(new TwilightCostModifier(self, CardType.SITE, new SpotCondition(Filters.or(Filters.saruman, Filters.and(Culture.DUNLAND, Race.MAN))),
                 new Evaluator() {
                     @Override
                     public int evaluateExpression(LotroGame game, PhysicalCard cardAffected) {
                         return GameUtils.getRegion(game);
                     }
-                });
+                }));
     }
 }

@@ -1,6 +1,8 @@
 package com.gempukku.lotro.cards.set17.gandalf;
-
-import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
+import java.util.List;
+import java.util.Collections;
+import java.util.List;
+import java.util.Collections;import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.DiscardCardFromDeckEffect;
 import com.gempukku.lotro.logic.effects.PutCardFromDeckIntoHandOrDiscardEffect;
@@ -39,9 +41,9 @@ public class Card17_016 extends AbstractCompanion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new StrengthModifier(self, self, null, new CountActiveEvaluator(Zone.ATTACHED, Culture.GANDALF, CardType.FOLLOWER));
-    }
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new StrengthModifier(self, self, null, new CountActiveEvaluator(Zone.ATTACHED, Culture.GANDALF, CardType.FOLLOWER)));
+}
 
     @Override
     protected List<ActivateCardAction> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {

@@ -11,6 +11,9 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 
+import java.util.Collections;
+import java.util.List;
+
 /**
  * Set: The Fellowship of the Ring
  * Side: Free
@@ -34,8 +37,8 @@ public class Card1_048 extends AbstractCompanion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new StrengthModifier(self,
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+        return Collections.singletonList(new StrengthModifier(self,
                 Filters.and(
                         self,
                         new Filter() {
@@ -44,6 +47,6 @@ public class Card1_048 extends AbstractCompanion {
                                 int currentSiteNumber = game.getGameState().getCurrentSiteNumber();
                                 return game.getGameState().getCurrentSiteBlock() == SitesBlock.FELLOWSHIP && (currentSiteNumber == 6 || currentSiteNumber == 7 || currentSiteNumber == 8);
                             }
-                        }), 2);
+                        }), 2));
     }
 }

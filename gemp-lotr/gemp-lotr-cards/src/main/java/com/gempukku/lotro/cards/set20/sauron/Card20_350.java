@@ -1,4 +1,6 @@
 package com.gempukku.lotro.cards.set20.sauron;
+import java.util.List;
+import java.util.Collections;
 
 import com.gempukku.lotro.logic.cardtype.AbstractMinion;
 import com.gempukku.lotro.logic.timing.PlayConditions;
@@ -38,10 +40,10 @@ public class Card20_350 extends AbstractMinion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new StrengthModifier(self, self, null,
-                new NegativeEvaluator(new CountFPCulturesEvaluator(self.getOwner())));
-    }
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new StrengthModifier(self, self, null,
+new NegativeEvaluator(new CountFPCulturesEvaluator(self.getOwner()))));
+}
 
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {

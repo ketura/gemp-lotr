@@ -1,4 +1,6 @@
 package com.gempukku.lotro.cards.set20.gondor;
+import java.util.List;
+import java.util.Collections;
 
 import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.logic.timing.PlayConditions;
@@ -28,8 +30,8 @@ public class Card20_200 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new ArcheryTotalModifier(self, Side.SHADOW,
-                new LocationCondition(Filters.owner(self.getOwner())), -2);
-    }
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new ArcheryTotalModifier(self, Side.SHADOW,
+new LocationCondition(Filters.owner(self.getOwner())), -2));
+}
 }

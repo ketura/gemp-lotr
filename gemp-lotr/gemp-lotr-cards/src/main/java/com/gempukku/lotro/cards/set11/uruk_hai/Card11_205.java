@@ -1,6 +1,8 @@
 package com.gempukku.lotro.cards.set11.uruk_hai;
-
-import com.gempukku.lotro.logic.cardtype.AbstractMinion;
+import java.util.List;
+import java.util.Collections;
+import java.util.List;
+import java.util.Collections;import com.gempukku.lotro.logic.cardtype.AbstractMinion;
 import com.gempukku.lotro.logic.modifiers.evaluator.CountActiveEvaluator;
 import com.gempukku.lotro.logic.modifiers.evaluator.MultiplyEvaluator;
 import com.gempukku.lotro.common.CardType;
@@ -33,7 +35,7 @@ public class Card11_205 extends AbstractMinion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new StrengthModifier(self, self, null, new MultiplyEvaluator(2, new CountActiveEvaluator(Culture.URUK_HAI, CardType.MINION, Filters.notAssignedToSkirmish)));
-    }
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new StrengthModifier(self, self, null, new MultiplyEvaluator(2, new CountActiveEvaluator(Culture.URUK_HAI, CardType.MINION, Filters.notAssignedToSkirmish))));
+}
 }

@@ -12,6 +12,9 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 
+import java.util.Collections;
+import java.util.List;
+
 /**
  * Set: Ents of Fangorn
  * Side: Free
@@ -29,14 +32,14 @@ public class Card6_027 extends AbstractCompanion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new StrengthModifier(self, self,
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+        return Collections.singletonList(new StrengthModifier(self, self,
                 new Condition() {
                     @Override
                     public boolean isFullfilled(LotroGame game) {
                         return Filters.countActive(game, Race.ENT)
                                 + game.getModifiersQuerying().getSpotBonus(game, Race.ENT) >= 3;
                     }
-                }, 2);
+                }, 2));
     }
 }

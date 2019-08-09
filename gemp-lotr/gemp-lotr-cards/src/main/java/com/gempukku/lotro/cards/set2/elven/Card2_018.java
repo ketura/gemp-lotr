@@ -1,6 +1,8 @@
 package com.gempukku.lotro.cards.set2.elven;
-
-import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import java.util.List;
+import java.util.Collections;
+import java.util.List;
+import java.util.Collections;import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.logic.effects.PreventCardEffect;
 import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
@@ -36,9 +38,9 @@ public class Card2_018 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new ArcheryTotalModifier(self, Side.SHADOW, new SpotCondition(Race.ELF, CardType.COMPANION), -1);
-    }
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new ArcheryTotalModifier(self, Side.SHADOW, new SpotCondition(Race.ELF, CardType.COMPANION), -1));
+}
 
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {

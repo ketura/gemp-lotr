@@ -24,10 +24,10 @@ public class Card20_404 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new StrengthModifier(self, Filters.or(Filters.frodo, Filters.sam),
-                new AndCondition(
-                        new SpotCondition(Filters.frodo, Filters.not(Filters.exhausted)),
-                        new SpotCondition(Filters.sam, Filters.not(Filters.exhausted))), 1);
-    }
+    public java.util.List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return java.util.Collections.singletonList(new StrengthModifier(self, Filters.or(Filters.frodo, Filters.sam),
+new AndCondition(
+new SpotCondition(Filters.frodo, Filters.not(Filters.exhausted)),
+new SpotCondition(Filters.sam, Filters.not(Filters.exhausted))), 1));
+}
 }

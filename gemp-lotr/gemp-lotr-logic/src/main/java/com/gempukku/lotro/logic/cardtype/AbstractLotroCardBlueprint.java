@@ -45,7 +45,7 @@ public abstract class AbstractLotroCardBlueprint implements LotroCardBlueprint {
         if (!game.getModifiersQuerying().canPayExtraCostsToPlay(game, self))
             return false;
 
-        twilightModifier-= game.getModifiersQuerying().getPotentialDiscount(game, self);
+        twilightModifier -= game.getModifiersQuerying().getPotentialDiscount(game, self);
 
         return (getSide() != Side.SHADOW || PlayConditions.canPayForShadowCard(game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty));
     }
@@ -113,9 +113,6 @@ public abstract class AbstractLotroCardBlueprint implements LotroCardBlueprint {
 
     @Override
     public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
-        Modifier modifier = getAlwaysOnModifier(game, self);
-        if (modifier != null)
-            return Collections.singletonList(modifier);
         return null;
     }
 
@@ -136,10 +133,6 @@ public abstract class AbstractLotroCardBlueprint implements LotroCardBlueprint {
 
     @Override
     public List<? extends AbstractExtraPlayCostModifier> getExtraCostToPlayModifiers(LotroGame game, PhysicalCard self) {
-        return null;
-    }
-
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
         return null;
     }
 

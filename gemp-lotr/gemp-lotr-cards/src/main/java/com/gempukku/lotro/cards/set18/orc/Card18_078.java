@@ -31,8 +31,8 @@ public class Card18_078 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new RemoveKeywordModifier(self, CardType.COMPANION,
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+        return Collections.singletonList(new RemoveKeywordModifier(self, CardType.COMPANION,
                 new AndCondition(
                         new SpotCondition(Culture.ORC, CardType.MINION),
                         new Condition() {
@@ -41,7 +41,7 @@ public class Card18_078 extends AbstractPermanent {
                                 return Filters.countActive(game, CardType.MINION)
                                         < Filters.countActive(game, CardType.COMPANION);
                             }
-                        }), Keyword.DEFENDER);
+                        }), Keyword.DEFENDER));
     }
 
     @Override

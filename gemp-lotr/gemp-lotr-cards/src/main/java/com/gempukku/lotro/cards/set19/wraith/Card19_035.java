@@ -33,11 +33,11 @@ public class Card19_035 extends AbstractMinion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new StrengthModifier(self, self,
-                new AndCondition(
-                        new CanSpotTwilightCondition(5),
-                        new SpotCondition(Filters.not(self), Culture.WRAITH)
-                ), 3);
-    }
+    public java.util.List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return java.util.Collections.singletonList(new StrengthModifier(self, self,
+new AndCondition(
+new CanSpotTwilightCondition(5),
+new SpotCondition(Filters.not(self), Culture.WRAITH)
+), 3));
+}
 }

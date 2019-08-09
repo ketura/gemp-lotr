@@ -1,6 +1,8 @@
 package com.gempukku.lotro.cards.set20.dwarven;
-
-import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
+import java.util.List;
+import java.util.Collections;
+import java.util.List;
+import java.util.Collections;import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
@@ -31,9 +33,9 @@ public class Card20_049 extends AbstractAttachable {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new VitalityModifier(self, Filters.hasAttached(self), 1);
-    }
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new VitalityModifier(self, Filters.hasAttached(self), 1));
+}
 
     @Override
     public Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {

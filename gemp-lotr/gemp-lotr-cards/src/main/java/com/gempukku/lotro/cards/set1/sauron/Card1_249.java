@@ -32,8 +32,8 @@ public class Card1_249 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new StrengthModifier(self,
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+        return Collections.singletonList(new StrengthModifier(self,
                 Filters.and(
                         Culture.SAURON,
                         Race.ORC,
@@ -46,7 +46,7 @@ public class Card1_249 extends AbstractPermanent {
                                         && skirmish.getFellowshipCharacter().getBlueprint().getCulture() == Culture.GONDOR);
                             }
                         }
-                ), 2);
+                ), 2));
     }
 
     @Override

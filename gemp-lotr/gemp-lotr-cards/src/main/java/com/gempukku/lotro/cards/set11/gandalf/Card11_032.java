@@ -1,6 +1,8 @@
 package com.gempukku.lotro.cards.set11.gandalf;
-
-import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import java.util.List;
+import java.util.Collections;
+import java.util.List;
+import java.util.Collections;import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -23,7 +25,7 @@ public class Card11_032 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new StrengthModifier(self, Filters.and(CardType.COMPANION, Filters.minResistance(6)), new SpotCondition(Culture.GANDALF, Race.WIZARD), 1);
-    }
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new StrengthModifier(self, Filters.and(CardType.COMPANION, Filters.minResistance(6)), new SpotCondition(Culture.GANDALF, Race.WIZARD), 1));
+}
 }

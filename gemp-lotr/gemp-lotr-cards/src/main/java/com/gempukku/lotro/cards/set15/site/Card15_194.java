@@ -1,6 +1,8 @@
 package com.gempukku.lotro.cards.set15.site;
-
-import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
+import java.util.List;
+import java.util.Collections;
+import java.util.List;
+import java.util.Collections;import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -21,7 +23,7 @@ public class Card15_194 extends AbstractShadowsSite {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new StrengthModifier(self, Filters.and(Filters.character, Keyword.HUNTER), 1);
-    }
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new StrengthModifier(self, Filters.and(Filters.character, Keyword.HUNTER), 1));
+}
 }

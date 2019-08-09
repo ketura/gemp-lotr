@@ -1,6 +1,8 @@
 package com.gempukku.lotro.cards.set16.wraith;
-
-import com.gempukku.lotro.logic.cardtype.AbstractMinion;
+import java.util.List;
+import java.util.Collections;
+import java.util.List;
+import java.util.Collections;import com.gempukku.lotro.logic.cardtype.AbstractMinion;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.effects.SelfExertEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDeckEffect;
@@ -36,9 +38,9 @@ public class Card16_006 extends AbstractMinion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new ResistanceModifier(self, Filters.and(CardType.COMPANION, Filters.wounded), new SpotCondition(Filters.not(self), Culture.WRAITH, Race.WRAITH), -2);
-    }
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new ResistanceModifier(self, Filters.and(CardType.COMPANION, Filters.wounded), new SpotCondition(Filters.not(self), Culture.WRAITH, Race.WRAITH), -2));
+}
 
     @Override
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {

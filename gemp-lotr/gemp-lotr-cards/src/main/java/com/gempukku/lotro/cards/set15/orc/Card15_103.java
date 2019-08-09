@@ -15,6 +15,9 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 
+import java.util.Collections;
+import java.util.List;
+
 /**
  * Set: The Hunters
  * Side: Shadow
@@ -39,14 +42,14 @@ public class Card15_103 extends AbstractMinion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new StrengthModifier(self, self,
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+        return Collections.singletonList(new StrengthModifier(self, self,
                 new Condition() {
                     @Override
                     public boolean isFullfilled(LotroGame game) {
                         return Filters.countActive(game, CardType.SITE, Zone.ADVENTURE_PATH)
                                 > Filters.countActive(game, CardType.MINION);
                     }
-                }, 5);
+                }, 5));
     }
 }

@@ -1,4 +1,6 @@
 package com.gempukku.lotro.cards.set17.uruk_hai;
+import java.util.List;
+import java.util.Collections;
 
 import com.gempukku.lotro.logic.cardtype.AbstractMinion;
 import com.gempukku.lotro.logic.modifiers.evaluator.CountActiveEvaluator;
@@ -31,8 +33,8 @@ public class Card17_124 extends AbstractMinion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new KeywordModifier(self, self, new SpotCondition(Filters.siteControlled(self.getOwner())), Keyword.HUNTER,
-                new MultiplyEvaluator(3, new CountActiveEvaluator(Filters.siteControlled(self.getOwner()))));
-    }
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new KeywordModifier(self, self, new SpotCondition(Filters.siteControlled(self.getOwner())), Keyword.HUNTER,
+new MultiplyEvaluator(3, new CountActiveEvaluator(Filters.siteControlled(self.getOwner())))));
+}
 }

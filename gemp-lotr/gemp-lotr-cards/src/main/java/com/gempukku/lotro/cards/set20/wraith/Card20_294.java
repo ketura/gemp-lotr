@@ -1,4 +1,6 @@
 package com.gempukku.lotro.cards.set20.wraith;
+import java.util.List;
+import java.util.Collections;
 
 import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.logic.timing.PlayConditions;
@@ -39,10 +41,10 @@ public class Card20_294 extends AbstractPermanent {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new ResistanceModifier(self, Filters.and(CardType.COMPANION, Filters.not(Filters.ringBearer)),
-                new MultiplyEvaluator(-1, new CountSpottableEvaluator(Keyword.TWILIGHT)));
-    }
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new ResistanceModifier(self, Filters.and(CardType.COMPANION, Filters.not(Filters.ringBearer)),
+new MultiplyEvaluator(-1, new CountSpottableEvaluator(Keyword.TWILIGHT))));
+}
 
     @Override
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {

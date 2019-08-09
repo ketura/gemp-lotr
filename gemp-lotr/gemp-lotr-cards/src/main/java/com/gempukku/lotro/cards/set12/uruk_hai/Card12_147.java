@@ -32,13 +32,13 @@ public class Card12_147 extends AbstractMinion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new ResistanceModifier(self, Filters.unboundCompanion,
+    public java.util.List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+        return java.util.Collections.singletonList(new ResistanceModifier(self, Filters.unboundCompanion,
                 new Condition() {
                     @Override
                     public boolean isFullfilled(LotroGame game) {
                         return Filters.filter(game.getGameState().getDeadPile(game.getGameState().getCurrentPlayerId()), game, CardType.COMPANION).size() > 0;
                     }
-                }, -4);
+                }, -4));
     }
 }

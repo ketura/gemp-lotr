@@ -1,6 +1,8 @@
 package com.gempukku.lotro.cards.set20.site;
-
-import com.gempukku.lotro.logic.cardtype.AbstractSite;
+import java.util.List;
+import java.util.Collections;
+import java.util.List;
+import java.util.Collections;import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
@@ -22,7 +24,7 @@ public class Card20_427 extends AbstractSite {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, PhysicalCard self) {
-        return new KeywordModifier(self, Race.NAZGUL, Keyword.FIERCE);
-    }
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+return Collections.singletonList(new KeywordModifier(self, Race.NAZGUL, Keyword.FIERCE));
+}
 }

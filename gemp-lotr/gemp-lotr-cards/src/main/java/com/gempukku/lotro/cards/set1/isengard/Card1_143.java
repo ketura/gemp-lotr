@@ -10,6 +10,9 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 
+import java.util.Collections;
+import java.util.List;
+
 /**
  * Set: The Fellowship of the Ring
  * Side: Shadow
@@ -28,7 +31,7 @@ public class Card1_143 extends AbstractMinion {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, final PhysicalCard self) {
-        return new CancelStrengthBonusTargetModifier(self, Filters.inSkirmishAgainst(self), Filters.weapon);
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, PhysicalCard self) {
+        return Collections.singletonList(new CancelStrengthBonusTargetModifier(self, Filters.inSkirmishAgainst(self), Filters.weapon));
     }
 }

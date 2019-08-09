@@ -17,6 +17,7 @@ import com.gempukku.lotro.logic.modifiers.TwilightCostModifier;
 import com.gempukku.lotro.logic.modifiers.condition.PhaseCondition;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -33,8 +34,8 @@ public class Card1_350 extends AbstractSite {
     }
 
     @Override
-    public Modifier getAlwaysOnModifier(LotroGame game, final PhysicalCard self) {
-        return new TwilightCostModifier(self,
+    public List<? extends Modifier> getAlwaysOnModifiers(LotroGame game, final PhysicalCard self) {
+        return Collections.singletonList(new TwilightCostModifier(self,
                 Filters.and(
                         Culture.MORIA,
                         Race.ORC,
@@ -43,7 +44,7 @@ public class Card1_350 extends AbstractSite {
                             public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
                                 return game.getModifiersQuerying().getUntilEndOfPhaseLimitCounter(self, Phase.SHADOW).getUsedLimit() < 1;
                             }
-                        }), new PhaseCondition(Phase.SHADOW), -2);
+                        }), new PhaseCondition(Phase.SHADOW), -2));
     }
 
     @Override
