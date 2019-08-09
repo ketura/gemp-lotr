@@ -24,7 +24,9 @@ public abstract class AbstractAttachable extends AbstractLotroCardBlueprint {
 
     @Override
     public Set<PossessionClass> getPossessionClasses() {
-        return Collections.singleton(_possessionClass);
+        if (_possessionClass != null)
+            return Collections.singleton(_possessionClass);
+        return null;
     }
 
     private Filter getFullAttachValidTargetFilter(String playerId, final LotroGame game, final PhysicalCard self) {
@@ -49,7 +51,7 @@ public abstract class AbstractAttachable extends AbstractLotroCardBlueprint {
     public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, Filter additionalAttachmentFilter, int twilightModifier) {
         return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, false, false)
                 && (skipUniquenessCheck() || PlayConditions.checkUniqueness(game, self, false))
-                && Filters.countActive(game, getFullAttachValidTargetFilter(playerId, game, self), additionalAttachmentFilter)>0;
+                && Filters.countActive(game, getFullAttachValidTargetFilter(playerId, game, self), additionalAttachmentFilter) > 0;
     }
 
     @Override

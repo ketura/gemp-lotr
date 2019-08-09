@@ -7,14 +7,9 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.TransferPermanentEffect;
-import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ResistanceModifier;
-import com.gempukku.lotro.logic.modifiers.StrengthModifier;
-import com.gempukku.lotro.logic.modifiers.VitalityModifier;
 import com.gempukku.lotro.logic.timing.*;
 
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
 public abstract class AbstractFollower extends AbstractPermanent {
@@ -31,27 +26,6 @@ public abstract class AbstractFollower extends AbstractPermanent {
         _strength = strength;
         _vitality = vitality;
         _resistance = resistance;
-    }
-
-    @Override
-    public final List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
-        List<Modifier> modifiers = new LinkedList<Modifier>();
-        if (_strength != 0)
-            modifiers.add(new StrengthModifier(self, Filters.hasAttached(self), _strength));
-        if (_vitality != 0)
-            modifiers.add(new VitalityModifier(self, Filters.hasAttached(self), _vitality));
-        if (_resistance != 0)
-            modifiers.add(new ResistanceModifier(self, Filters.hasAttached(self), _resistance));
-
-        List<? extends Modifier> extraModifiers = getNonBasicStatsModifiers(self);
-        if (extraModifiers != null)
-            modifiers.addAll(extraModifiers);
-
-        return modifiers;
-    }
-
-    protected List<? extends Modifier> getNonBasicStatsModifiers(PhysicalCard self) {
-        return null;
     }
 
     protected abstract boolean canPayAidCost(LotroGame game, PhysicalCard self);

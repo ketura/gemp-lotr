@@ -145,17 +145,17 @@ public abstract class AbstractLotroCardBlueprint implements LotroCardBlueprint {
 
     @Override
     public int getStrength() {
-        throw new UnsupportedOperationException("This method should not be called on this card");
+        return 0;
     }
 
     @Override
     public int getVitality() {
-        throw new UnsupportedOperationException("This method should not be called on this card");
+        return 0;
     }
 
     @Override
     public int getResistance() {
-        throw new UnsupportedOperationException("This method should not be called on this card");
+        return 0;
     }
 
     @Override
@@ -180,7 +180,7 @@ public abstract class AbstractLotroCardBlueprint implements LotroCardBlueprint {
 
     @Override
     public int getSiteNumber() {
-        throw new UnsupportedOperationException("This method should not be called on this card");
+        return 0;
     }
 
     @Override

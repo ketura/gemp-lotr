@@ -1,23 +1,20 @@
 package com.gempukku.lotro.cards.set13.isengard;
 
-import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
-import com.gempukku.lotro.logic.timing.PlayConditions;
-import com.gempukku.lotro.logic.timing.TriggerConditions;
-import com.gempukku.lotro.logic.effects.AddUntilStartOfPhaseModifierEffect;
-import com.gempukku.lotro.logic.effects.TransferToShadowEffect;
-import com.gempukku.lotro.logic.effects.TransferToSupportEffect;
-import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.logic.modifiers.IsAdditionalCardTypeModifier;
-import com.gempukku.lotro.logic.modifiers.MayNotBearModifier;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
-import com.gempukku.lotro.logic.modifiers.CantTakeWoundsModifier;
-import com.gempukku.lotro.logic.modifiers.KeywordModifier;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.effects.AddUntilStartOfPhaseModifierEffect;
+import com.gempukku.lotro.logic.effects.TransferToShadowEffect;
+import com.gempukku.lotro.logic.effects.TransferToSupportEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
+import com.gempukku.lotro.logic.modifiers.*;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
 import java.util.Collections;
@@ -51,6 +48,12 @@ public class Card13_079 extends AbstractPermanent {
                     new TransferToShadowEffect(self) {
                         @Override
                         protected void cardTransferredCallback() {
+                            action.appendEffect(
+                                    new AddUntilStartOfPhaseModifierEffect(
+                                            new VitalityModifier(self, self, 1), Phase.REGROUP));
+                            action.appendEffect(
+                                    new AddUntilStartOfPhaseModifierEffect(
+                                            new StrengthModifier(self, self, 10), Phase.REGROUP));
                             action.appendEffect(
                                     new AddUntilStartOfPhaseModifierEffect(
                                             new IsAdditionalCardTypeModifier(self, self, CardType.MINION), Phase.REGROUP));
@@ -93,22 +96,7 @@ public class Card13_079 extends AbstractPermanent {
     }
 
     @Override
-    public int getStrength() {
-        return 10;
-    }
-
-    @Override
-    public int getVitality() {
-        return 1;
-    }
-
-    @Override
     public Race getRace() {
         return Race.WIZARD;
-    }
-
-    @Override
-    public int getSiteNumber() {
-        return 0;
     }
 }

@@ -46,5 +46,7 @@ public class RuleSet {
         new HealByDiscardRule(_modifiersLogic).applyRule();
 
         new TransferItemRule(_modifiersLogic).applyRule();
+
+        new StatModifiersRule(_modifiersLogic).applyRule();
     }
 }

@@ -1,11 +1,11 @@
 package com.gempukku.lotro.cards.set40.gandalf;
 
-import com.gempukku.lotro.logic.cardtype.AbstractAttachableFPPossession;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.cardtype.AbstractAttachableFPPossession;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
@@ -36,7 +36,7 @@ public class Card40_073 extends AbstractAttachableFPPossession{
     }
 
     @Override
-    protected List<? extends Modifier> getNonBasicStatsModifiers(PhysicalCard self) {
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         Filter skirmishingOrcOrGoblin = Filters.and(Filters.hasAttached(self), Filters.inSkirmishAgainst(Filters.or(Race.ORC, Race.GOBLIN)));
         StrengthModifier modifier1 = new StrengthModifier(self,skirmishingOrcOrGoblin, 2);
         KeywordModifier modifier2 = new KeywordModifier(self, skirmishingOrcOrGoblin, Keyword.DAMAGE, 1);
