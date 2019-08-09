@@ -1,22 +1,23 @@
 package com.gempukku.lotro.cards.set40.isengard;
 
-import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
-import com.gempukku.lotro.logic.timing.PlayConditions;
-import com.gempukku.lotro.logic.timing.TriggerConditions;
-import com.gempukku.lotro.logic.effects.StackPlayedEventOnACardEffect;
-import com.gempukku.lotro.logic.effects.choose.ChooseAndPutCardFromStackedToHandEffect;
-import com.gempukku.lotro.logic.timing.results.PlayEventResult;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.logic.effects.RemoveThreatsEffect;
+import com.gempukku.lotro.logic.effects.StackPlayedEventOnACardEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndPutCardFromStackedToHandEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.timing.results.PlayEventResult;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Title: The Palantir of Orthanc, Corruptor of Wizards
@@ -36,8 +37,8 @@ public class Card40_132 extends AbstractPermanent {
     }
 
     @Override
-    public PossessionClass getPossessionClass() {
-        return PossessionClass.PALANTIR;
+    public Set<PossessionClass> getPossessionClasses() {
+        return Collections.singleton(PossessionClass.PALANTIR);
     }
 
     @Override

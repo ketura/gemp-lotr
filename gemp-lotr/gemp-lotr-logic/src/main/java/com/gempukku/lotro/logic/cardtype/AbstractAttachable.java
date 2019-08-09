@@ -22,8 +22,9 @@ public abstract class AbstractAttachable extends AbstractLotroCardBlueprint {
         _possessionClass = possessionClass;
     }
 
-    public final PossessionClass getPossessionClass() {
-        return _possessionClass;
+    @Override
+    public Set<PossessionClass> getPossessionClasses() {
+        return Collections.singleton(_possessionClass);
     }
 
     private Filter getFullAttachValidTargetFilter(String playerId, final LotroGame game, final PhysicalCard self) {
