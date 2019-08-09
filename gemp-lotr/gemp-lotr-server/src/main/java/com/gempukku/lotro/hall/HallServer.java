@@ -303,7 +303,7 @@ public class HallServer extends AbstractServer {
             } else if (timer.equals("blitz")) {
                 return new GameTimer(false, "Blitz!", 60 * 30, 60 * 2);
             } else if (timer.equals("slow")) {
-                return new GameTimer(false, "Slow", 60 * 120, 60 * 5);
+                return new GameTimer(false, "Slow", 60 * 120, 60 * 10);
             } else if (timer.equals("glacial")) {
                 return new GameTimer(false, "Glacial", 60 * 60 * 24 * 3, 60 * 60 * 24);
             }
