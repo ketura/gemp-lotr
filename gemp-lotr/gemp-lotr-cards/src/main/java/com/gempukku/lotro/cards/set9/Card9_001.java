@@ -1,7 +1,6 @@
 package com.gempukku.lotro.cards.set9;
 
 import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.PossessionClass;
 import com.gempukku.lotro.filters.Filter;
@@ -14,7 +13,10 @@ import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
 import com.gempukku.lotro.logic.effects.*;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDeckEffect;
-import com.gempukku.lotro.logic.modifiers.*;
+import com.gempukku.lotro.logic.modifiers.Modifier;
+import com.gempukku.lotro.logic.modifiers.ModifierFlag;
+import com.gempukku.lotro.logic.modifiers.StrengthModifier;
+import com.gempukku.lotro.logic.modifiers.VitalityModifier;
 import com.gempukku.lotro.logic.timing.*;
 
 import java.util.Collections;
@@ -67,7 +69,6 @@ public class Card9_001 extends AbstractAttachable {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new StrengthModifier(self, Filters.hasAttached(self), 1));
         modifiers.add(new VitalityModifier(self, Filters.hasAttached(self), 1));
-        modifiers.add(new KeywordModifier(self, Filters.hasAttached(self), Keyword.RING_BOUND));
         return modifiers;
     }
 

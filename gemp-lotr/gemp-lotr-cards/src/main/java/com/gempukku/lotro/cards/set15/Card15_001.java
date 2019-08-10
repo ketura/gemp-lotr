@@ -39,7 +39,6 @@ public class Card15_001 extends AbstractAttachable {
     public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(new VitalityModifier(self, Filters.hasAttached(self), 2));
-        modifiers.add(new KeywordModifier(self, Filters.hasAttached(self), Keyword.RING_BOUND));
         modifiers.add(
                 new KeywordModifier(self, Filters.hasAttached(self),
                         new Condition() {

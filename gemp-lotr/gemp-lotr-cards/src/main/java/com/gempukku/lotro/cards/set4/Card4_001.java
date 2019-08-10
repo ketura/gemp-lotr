@@ -1,7 +1,6 @@
 package com.gempukku.lotro.cards.set4;
 
 import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
@@ -40,7 +39,6 @@ public class Card4_001 extends AbstractAttachable {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(
                 new VitalityModifier(self, Filters.hasAttached(self), 2));
-        modifiers.add(new KeywordModifier(self, Filters.hasAttached(self), Keyword.RING_BOUND));
         modifiers.add(
                 new StrengthModifier(self, Filters.hasAttached(self),
                         new Condition() {

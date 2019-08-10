@@ -33,7 +33,7 @@ public class RuleSet {
 
         new KilledCardRule(_actionsEnvironment).applyRule();
 
-        new FrodoAndSamRule(_modifiersLogic).applyRule();
+        new RingRelatedRule(_modifiersLogic).applyRule();
 
         new RingBearerRule(_modifiersLogic).applyRule();
 

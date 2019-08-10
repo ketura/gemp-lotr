@@ -1,7 +1,6 @@
 package com.gempukku.lotro.cards.set40;
 
 import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
@@ -48,7 +47,6 @@ public class Card40_001 extends AbstractAttachable {
         modifiers.add(new StrengthModifier(self, Filters.hasAttached(self), 1));
         modifiers.add(new VitalityModifier(self, Filters.hasAttached(self), 1));
         modifiers.add(new ResistanceModifier(self, Filters.hasAttached(self), 1));
-        modifiers.add(new KeywordModifier(self, Filters.hasAttached(self), Keyword.RING_BOUND));
         return modifiers;
     }
 
