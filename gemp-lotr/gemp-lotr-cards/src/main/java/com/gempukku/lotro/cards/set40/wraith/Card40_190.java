@@ -9,7 +9,6 @@ import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
 import com.gempukku.lotro.logic.effects.*;
 import com.gempukku.lotro.logic.modifiers.ExtraPossessionClassModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.PlayConditions;
@@ -35,8 +34,12 @@ public class Card40_190 extends AbstractAttachable {
     @Override
     public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         return Arrays.asList(
-                new ExtraPossessionClassModifier(self, self),
-                new StrengthModifier(self, Filters.hasAttached(self), 1));
+                new ExtraPossessionClassModifier(self, self));
+    }
+
+    @Override
+    public int getStrength() {
+        return 1;
     }
 
     @Override

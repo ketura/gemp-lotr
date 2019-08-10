@@ -35,6 +35,11 @@ public class Card40_139 extends AbstractAttachable {
     }
 
     @Override
+    public int getStrength() {
+        return 2;
+    }
+
+    @Override
     public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         CantTakeWoundsModifier modifier = new CantTakeWoundsModifier(self,
                 new NotCondition(new PhaseCondition(Phase.SKIRMISH)), Filters.hasAttached(self));
