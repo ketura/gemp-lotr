@@ -1,14 +1,14 @@
 package com.gempukku.lotro.cards.set40.isengard;
 
-import com.gempukku.lotro.logic.cardtype.AbstractEvent;
-import com.gempukku.lotro.logic.actions.PlayEventAction;
-import com.gempukku.lotro.logic.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
-import com.gempukku.lotro.logic.modifiers.evaluator.ConditionEvaluator;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
 import com.gempukku.lotro.logic.modifiers.SpotCondition;
+import com.gempukku.lotro.logic.modifiers.evaluator.ConditionEvaluator;
 
 /**
  * Title: Find the Halfling!
@@ -23,7 +23,7 @@ import com.gempukku.lotro.logic.modifiers.SpotCondition;
  */
 public class Card40_123 extends AbstractEvent {
     public Card40_123() {
-        super(Side.FREE_PEOPLE, 0, Culture.ISENGARD, "Find the Halfling!", Phase.SKIRMISH);
+        super(Side.SHADOW, 0, Culture.ISENGARD, "Find the Halfling!", Phase.SKIRMISH);
     }
 
     @Override
