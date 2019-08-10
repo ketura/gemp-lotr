@@ -1,7 +1,6 @@
 package com.gempukku.lotro.cards.set40;
 
 import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
@@ -48,7 +47,6 @@ public class Card40_001 extends AbstractAttachable {
         modifiers.add(new StrengthModifier(self, Filters.hasAttached(self), 1));
         modifiers.add(new VitalityModifier(self, Filters.hasAttached(self), 1));
         modifiers.add(new ResistanceModifier(self, Filters.hasAttached(self), 1));
-        modifiers.add(new KeywordModifier(self, Filters.hasAttached(self), Keyword.RING_BOUND));
         return modifiers;
     }
 
@@ -69,24 +67,6 @@ public class Card40_001 extends AbstractAttachable {
             action.appendEffect(
                     new PutOnTheOneRingEffect());
             return Collections.singletonList(action);
-        }
-        return null;
-    }
-
-    @Override
-    public List<? extends Action> getOptionalInPlayBeforeActions(final String playerId, LotroGame game, Effect effect, final PhysicalCard self) {
-        if (TriggerConditions.isGettingWounded(effect, game, Filters.hasAttached(self))
-                && !game.getModifiersQuerying().hasFlagActive(game, ModifierFlag.RING_TEXT_INACTIVE)) {
-            WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
-            List<Action> actions = new LinkedList<Action>();
-
-            ActivateCardAction action = new ActivateCardAction(self);
-            action.appendEffect(new NegateWoundEffect(woundEffect, self.getAttachedTo()));
-            action.appendEffect(new AddBurdenEffect(self.getOwner(), self, 2));
-            action.appendEffect(new PutOnTheOneRingEffect());
-
-            actions.add(action);
-            return actions;
         }
         return null;
     }

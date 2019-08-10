@@ -50,24 +50,19 @@ public class Card40_268 extends AbstractCompanion {
     }
 
     @Override
-    public List<OptionalTriggerAction> getOptionalAfterTriggersFromHand(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+        if (TriggerConditions.forEachKilled(game, effectResult, Filters.frodo, Filters.ringBearer)) {
+            OptionalTriggerAction action = new OptionalTriggerAction(self);
+            action.appendEffect(new MakeRingBearerEffect(self));
+            return Collections.singletonList(action);
+        }
         if (TriggerConditions.startOfTurn(game, effectResult)
-        && PlayConditions.canSelfExert(self, game)) {
+                && PlayConditions.canSelfExert(self, game)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(
                     new SelfExertEffect(action, self));
             action.appendEffect(
                     new RemoveBurdenEffect(playerId, self));
-            return Collections.singletonList(action);
-        }
-        return null;
-    }
-
-    @Override
-    public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (TriggerConditions.forEachKilled(game, effectResult, Filters.frodo, Filters.ringBearer)) {
-            OptionalTriggerAction action = new OptionalTriggerAction(self);
-            action.appendEffect(new MakeRingBearerEffect(self));
             return Collections.singletonList(action);
         }
 

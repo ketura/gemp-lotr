@@ -1,11 +1,5 @@
 package com.gempukku.lotro.cards.set40.gandalf;
 
-import com.gempukku.lotro.logic.cardtype.AbstractEvent;
-import com.gempukku.lotro.logic.timing.TriggerConditions;
-import com.gempukku.lotro.logic.actions.PlayEventAction;
-import com.gempukku.lotro.logic.effects.AddUntilEndOfPhaseActionProxyEffect;
-import com.gempukku.lotro.logic.effects.OptionalEffect;
-import com.gempukku.lotro.logic.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Side;
@@ -14,8 +8,14 @@ import com.gempukku.lotro.game.AbstractActionProxy;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
+import com.gempukku.lotro.logic.effects.AddUntilEndOfPhaseActionProxyEffect;
 import com.gempukku.lotro.logic.effects.DrawCardsEffect;
+import com.gempukku.lotro.logic.effects.OptionalEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -51,6 +51,7 @@ public class Card40_064 extends AbstractEvent{
                                                 if (TriggerConditions.winsSkirmish(game, effectResult, selectedCharacter)
                                                         && playerId.equals(selectedCharacter.getOwner())) {
                                                     OptionalTriggerAction action = new OptionalTriggerAction(self);
+                                                    action.setVirtualCardAction(true);
                                                     action.appendEffect(
                                                             new OptionalEffect(action, playerId,
                                                                     new DrawCardsEffect(action, playerId, 2)));

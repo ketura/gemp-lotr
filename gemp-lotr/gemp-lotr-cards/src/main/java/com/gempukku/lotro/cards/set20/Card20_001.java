@@ -1,7 +1,6 @@
 package com.gempukku.lotro.cards.set20;
 
 import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
@@ -38,7 +37,6 @@ public class Card20_001 extends AbstractAttachable {
     @Override
     public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new KeywordModifier(self, Filters.hasAttached(self), Keyword.RING_BOUND));
         modifiers.add(new StrengthModifier(self, Filters.hasAttached(self), 1));
         modifiers.add(new VitalityModifier(self, Filters.hasAttached(self), 1));
         modifiers.add(new ResistanceModifier(self, Filters.hasAttached(self), 1));

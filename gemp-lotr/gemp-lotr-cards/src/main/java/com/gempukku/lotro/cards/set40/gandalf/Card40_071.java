@@ -1,16 +1,16 @@
 package com.gempukku.lotro.cards.set40.gandalf;
 
-import com.gempukku.lotro.logic.cardtype.AbstractAttachableFPPossession;
-import com.gempukku.lotro.logic.timing.PlayConditions;
-import com.gempukku.lotro.logic.effects.CheckPhaseLimitEffect;
-import com.gempukku.lotro.logic.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.cardtype.AbstractAttachableFPPossession;
+import com.gempukku.lotro.logic.effects.CheckPhaseLimitEffect;
 import com.gempukku.lotro.logic.effects.DrawCardsEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -23,7 +23,8 @@ import java.util.List;
  * Twilight Cost: 1
  * Type: Possession - Pipe
  * Card Number: 1U71
- * Game Text: Maneuver: Discard a pipeweed possession and spot X pipes to draw X cards (limit once per phase).
+ * Game Text: Bearer must be Gandalf;
+ * Maneuver: Discard a pipeweed possession and spot X pipes to draw X cards (limit once per phase).
  */
 public class Card40_071 extends AbstractAttachableFPPossession{
     public Card40_071() {
@@ -32,7 +33,7 @@ public class Card40_071 extends AbstractAttachableFPPossession{
 
     @Override
     public Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
-        return Filters.or(CardType.COMPANION, CardType.ALLY);
+        return Filters.gandalf;
     }
 
     @Override
