@@ -1,16 +1,18 @@
 package com.gempukku.lotro.cards.set40.moria;
 
-import com.gempukku.lotro.logic.cardtype.AbstractMinion;
-import com.gempukku.lotro.logic.timing.TriggerConditions;
-import com.gempukku.lotro.logic.effects.AddUntilStartOfPhaseModifierEffect;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
+import com.gempukku.lotro.logic.effects.AddUntilStartOfPhaseModifierEffect;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.results.PlayCardResult;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -36,11 +38,10 @@ public class Card40_162 extends AbstractMinion {
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.playedFromStacked(game, effectResult, Filters.and(Culture.MORIA, CardType.CONDITION), Culture.MORIA, CardType.MINION)) {
-            PlayCardResult playResult = (PlayCardResult) effectResult;
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendEffect(
                     new AddUntilStartOfPhaseModifierEffect(
-                            new StrengthModifier(self, playResult.getPlayedCard(), 1), Phase.REGROUP));
+                            new StrengthModifier(self, self, 1), Phase.REGROUP));
             return Collections.singletonList(action);
         }
         return null;
