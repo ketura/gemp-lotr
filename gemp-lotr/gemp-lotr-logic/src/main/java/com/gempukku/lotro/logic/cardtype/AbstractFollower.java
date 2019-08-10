@@ -60,4 +60,19 @@ public abstract class AbstractFollower extends AbstractPermanent {
     protected List<OptionalTriggerAction> getExtraOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         return null;
     }
+
+    @Override
+    public int getStrength() {
+        return _strength;
+    }
+
+    @Override
+    public int getVitality() {
+        return _vitality;
+    }
+
+    @Override
+    public int getResistance() {
+        return _resistance;
+    }
 }
