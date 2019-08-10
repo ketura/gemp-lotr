@@ -1,15 +1,15 @@
 package com.gempukku.lotro.cards.set40.shire;
 
-import com.gempukku.lotro.logic.cardtype.AbstractAlly;
-import com.gempukku.lotro.logic.timing.PlayConditions;
-import com.gempukku.lotro.logic.effects.CancelSkirmishEffect;
-import com.gempukku.lotro.logic.effects.SelfExertEffect;
-import com.gempukku.lotro.logic.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.cardtype.AbstractAlly;
+import com.gempukku.lotro.logic.effects.CancelSkirmishEffect;
+import com.gempukku.lotro.logic.effects.SelfExertEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
 import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -25,8 +25,8 @@ import java.util.List;
  * Vitality: 2
  * Card Number: 1R265
  * Game Text: To play, spot 2 Hobbit companions.
- * Skirmish: At sites 1-5, exert Robin Smallburrow to cancel a skirmish involving a Hobbit.
- * Skirmish: At sites 6-9, exert Robin Smallburrow to make a Hobbit strength +3.
+ * Skirmish: At sites 1-4, exert Robin Smallburrow to cancel a skirmish involving a Hobbit.
+ * Skirmish: At sites 5-9, exert Robin Smallburrow to make a Hobbit strength +3.
  */
 public class Card40_265 extends AbstractAlly {
     public Card40_265() {
@@ -47,7 +47,7 @@ public class Card40_265 extends AbstractAlly {
                 && PlayConditions.canSelfExert(self, game)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(new SelfExertEffect(action, self));
-            if (game.getGameState().getCurrentSiteNumber() <= 5) {
+            if (game.getGameState().getCurrentSiteNumber() <= 4) {
                 action.appendEffect(
                         new CancelSkirmishEffect(Race.HOBBIT));
             } else {
