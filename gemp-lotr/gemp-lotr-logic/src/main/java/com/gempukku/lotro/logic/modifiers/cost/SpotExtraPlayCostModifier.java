@@ -4,7 +4,7 @@ import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.AbstractCostToEffectAction;
+import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.effects.SpotEffect;
 import com.gempukku.lotro.logic.modifiers.AbstractExtraPlayCostModifier;
 import com.gempukku.lotro.logic.modifiers.Condition;
@@ -30,7 +30,7 @@ public class SpotExtraPlayCostModifier extends AbstractExtraPlayCostModifier {
     }
 
     @Override
-    public void appendExtraCosts(LotroGame game, AbstractCostToEffectAction action, PhysicalCard card) {
+    public void appendExtraCosts(LotroGame game, CostToEffectAction action, PhysicalCard card) {
         action.appendCost(
                 new SpotEffect(count, spotFilter));
     }

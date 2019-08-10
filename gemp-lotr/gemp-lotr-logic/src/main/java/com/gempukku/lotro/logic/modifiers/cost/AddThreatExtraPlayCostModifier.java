@@ -4,16 +4,11 @@ import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.AbstractCostToEffectAction;
+import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.effects.AddThreatsEffect;
 import com.gempukku.lotro.logic.modifiers.AbstractExtraPlayCostModifier;
 import com.gempukku.lotro.logic.modifiers.Condition;
-import com.gempukku.lotro.logic.timing.Action;
-import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.PlayConditions;
-
-import java.util.Collections;
-import java.util.List;
 
 public class AddThreatExtraPlayCostModifier extends AbstractExtraPlayCostModifier {
     private int count;
@@ -29,7 +24,7 @@ public class AddThreatExtraPlayCostModifier extends AbstractExtraPlayCostModifie
     }
 
     @Override
-    public void appendExtraCosts(LotroGame game, AbstractCostToEffectAction action, PhysicalCard card) {
+    public void appendExtraCosts(LotroGame game, CostToEffectAction action, PhysicalCard card) {
         action.appendCost(
                 new AddThreatsEffect(card.getOwner(), card, count));
     }

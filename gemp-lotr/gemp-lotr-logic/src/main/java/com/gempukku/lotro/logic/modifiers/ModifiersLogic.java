@@ -4,11 +4,10 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.AbstractCostToEffectAction;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 import com.gempukku.lotro.logic.timing.Action;
-import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.*;
 
@@ -782,7 +781,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     }
 
     @Override
-    public void appendExtraCosts(LotroGame game, AbstractCostToEffectAction action, PhysicalCard target) {
+    public void appendExtraCosts(LotroGame game, CostToEffectAction action, PhysicalCard target) {
         final List<? extends AbstractExtraPlayCostModifier> modifiers = target.getBlueprint().getExtraCostToPlayModifiers(game, target);
         if (modifiers != null)
             for (AbstractExtraPlayCostModifier modifier : modifiers) {
@@ -864,7 +863,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
 
     @Override
     public boolean canAddBurden(LotroGame game, String performingPlayer, PhysicalCard source) {
-        for (Modifier modifier : getModifiers(game, ModifierEffect.BURDEN_MODIFIER)) {
+        for (Modifier modifier : getModifiersAffectingCard(game, ModifierEffect.BURDEN_MODIFIER, source)) {
             if (!modifier.canAddBurden(game, performingPlayer, source))
                 return false;
         }
@@ -873,7 +872,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
 
     @Override
     public boolean canRemoveBurden(LotroGame game, PhysicalCard source) {
-        for (Modifier modifier : getModifiers(game, ModifierEffect.BURDEN_MODIFIER)) {
+        for (Modifier modifier : getModifiersAffectingCard(game, ModifierEffect.BURDEN_MODIFIER, source)) {
             if (!modifier.canRemoveBurden(game, source))
                 return false;
         }
@@ -882,7 +881,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
 
     @Override
     public boolean canRemoveThreat(LotroGame game, PhysicalCard source) {
-        for (Modifier modifier : getModifiers(game, ModifierEffect.THREAT_MODIFIER)) {
+        for (Modifier modifier : getModifiersAffectingCard(game, ModifierEffect.THREAT_MODIFIER, source)) {
             if (!modifier.canRemoveThreat(game, source))
                 return false;
         }
@@ -942,7 +941,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
 
     @Override
     public boolean canDiscardCardsFromHand(LotroGame game, String playerId, PhysicalCard source) {
-        for (Modifier modifier : getModifiers(game, ModifierEffect.DISCARD_NOT_FROM_PLAY))
+        for (Modifier modifier : getModifiersAffectingCard(game, ModifierEffect.DISCARD_NOT_FROM_PLAY, source))
             if (!modifier.canDiscardCardsFromHand(game, playerId, source))
                 return false;
         return true;
@@ -950,7 +949,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
 
     @Override
     public boolean canDiscardCardsFromTopOfDeck(LotroGame game, String playerId, PhysicalCard source) {
-        for (Modifier modifier : getModifiers(game, ModifierEffect.DISCARD_NOT_FROM_PLAY))
+        for (Modifier modifier : getModifiersAffectingCard(game, ModifierEffect.DISCARD_NOT_FROM_PLAY, source))
             if (!modifier.canDiscardCardsFromTopOfDeck(game, playerId, source))
                 return false;
         return true;
@@ -1092,12 +1091,22 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
 
     @Override
     public int getPotentialDiscount(LotroGame game, PhysicalCard playedCard) {
-        int result = 0;
-        for (Modifier modifier : getModifiers(game, ModifierEffect.POTENTIAL_DISCOUNT_MODIFIER)) {
+        int result = playedCard.getBlueprint().getPotentialDiscount(game, playedCard.getOwner(), playedCard);
+
+        for (Modifier modifier : getModifiersAffectingCard(game, ModifierEffect.POTENTIAL_DISCOUNT_MODIFIER, playedCard)) {
             result += modifier.getPotentialDiscount(game, playedCard);
         }
 
         return result;
+    }
+
+    @Override
+    public void appendPotentialDiscounts(LotroGame game, CostToEffectAction action, PhysicalCard playedCard) {
+        playedCard.getBlueprint().appendPotentialDiscountEffects(game, action, playedCard.getOwner(), playedCard);
+
+        for (Modifier modifier : getModifiersAffectingCard(game, ModifierEffect.POTENTIAL_DISCOUNT_MODIFIER, playedCard)) {
+            modifier.appendPotentialDiscounts(game, action, playedCard);
+        }
     }
 
     private class ModifierHookImpl implements ModifierHook {

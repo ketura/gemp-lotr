@@ -1,7 +1,6 @@
 package com.gempukku.lotro.logic.effects.discount;
 
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.AbstractCostToEffectAction;
 import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.decisions.IntegerAwaitingDecision;
@@ -28,6 +27,11 @@ public class RemoveThreatsToDiscountEffect extends AbstractSubActionEffect imple
     @Override
     public Type getType() {
         return null;
+    }
+
+    @Override
+    public int getMaximumPossibleDiscount(LotroGame game) {
+        return game.getGameState().getThreats();
     }
 
     @Override
@@ -74,9 +78,4 @@ public class RemoveThreatsToDiscountEffect extends AbstractSubActionEffect imple
     public int getDiscountPaidFor() {
         return _threatsRemoved;
     }
-
-    @Override
-    public void afterDiscountCallback(AbstractCostToEffectAction action) {
-    }
-
 }

@@ -76,7 +76,10 @@ public abstract class AbstractAttachable extends AbstractLotroCardBlueprint {
     }
 
     public AttachPermanentAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, Filterable additionalAttachmentFilter, int twilightModifier) {
-        return new AttachPermanentAction(game, self, Filters.and(getFullAttachValidTargetFilter(playerId, game, self), additionalAttachmentFilter), getAttachCostModifiers(playerId, game, self), twilightModifier);
+        final AttachPermanentAction action = new AttachPermanentAction(game, self, Filters.and(getFullAttachValidTargetFilter(playerId, game, self), additionalAttachmentFilter), getAttachCostModifiers(playerId, game, self), twilightModifier);
+        game.getModifiersQuerying().appendPotentialDiscounts(game, action, self);
+        game.getModifiersQuerying().appendExtraCosts(game, action, self);
+        return action;
     }
 
     protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {

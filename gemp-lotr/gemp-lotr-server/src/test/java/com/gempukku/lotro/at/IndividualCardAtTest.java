@@ -3,12 +3,7 @@ package com.gempukku.lotro.at;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Token;
 import com.gempukku.lotro.common.Zone;
-import com.gempukku.lotro.game.CardNotFoundException;
-import com.gempukku.lotro.game.DefaultAdventureLibrary;
-import com.gempukku.lotro.game.DefaultUserFeedback;
-import com.gempukku.lotro.game.LotroFormat;
-import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.PhysicalCardImpl;
+import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.gempukku.lotro.logic.decisions.AwaitingDecision;
 import com.gempukku.lotro.logic.decisions.AwaitingDecisionType;
@@ -283,8 +278,12 @@ public class IndividualCardAtTest extends AbstractAtTest {
 
         skipMulligans();
 
+        final int twilightPool = _game.getGameState().getTwilightPool();
+
         AwaitingDecision playFirstFellowship = _userFeedback.getAwaitingDecision(P1);
         playerDecided(P1, getCardActionId(playFirstFellowship, "Attach Legolas"));
+
+        final int twilightPool2 = _game.getGameState().getTwilightPool();
 
         AwaitingDecision playSecondFellowship = _userFeedback.getAwaitingDecision(P1);
         playerDecided(P1, getCardActionId(playSecondFellowship, "Play Elven"));

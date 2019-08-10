@@ -103,6 +103,10 @@ public interface LotroCardBlueprint {
 
     public String getDisplayableInformation(PhysicalCard self);
 
+    int getPotentialDiscount(LotroGame game, String playerId, PhysicalCard self);
+
+    void appendPotentialDiscountEffects(LotroGame game, CostToEffectAction action, String playerId, PhysicalCard self);
+
     public enum Direction {
         LEFT, RIGHT
     }

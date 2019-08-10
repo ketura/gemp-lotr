@@ -4,7 +4,7 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.AbstractCostToEffectAction;
+import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.logic.effects.AddTokenEffect;
@@ -59,7 +59,7 @@ public class Card17_002 extends AbstractPermanent {
             }
 
             @Override
-            public void appendExtraCosts(LotroGame game, AbstractCostToEffectAction action, PhysicalCard card) {
+            public void appendExtraCosts(LotroGame game, CostToEffectAction action, PhysicalCard card) {
                 action.appendCost(
                         new ChooseAndRemoveFromTheGameCardsInDiscardEffect(action, card, card.getOwner(), 1, 1, Culture.ORC));
             }

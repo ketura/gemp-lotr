@@ -1,9 +1,5 @@
 package com.gempukku.lotro.cards.set20.moria;
 
-import com.gempukku.lotro.logic.cardtype.AbstractMinion;
-import com.gempukku.lotro.logic.actions.PlayPermanentAction;
-import com.gempukku.lotro.logic.effects.DiscountEffect;
-import com.gempukku.lotro.logic.effects.discount.DiscardCardFromHandDiscountEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Names;
@@ -11,6 +7,9 @@ import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.CostToEffectAction;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
+import com.gempukku.lotro.logic.effects.discount.DiscardCardFromHandDiscountEffect;
 
 /**
  * 10
@@ -30,12 +29,13 @@ public class Card20_256 extends AbstractMinion {
     }
 
     @Override
-    protected int getPotentialExtraPaymentDiscount(String playerId, LotroGame game, PhysicalCard self) {
+    public int getPotentialDiscount(LotroGame game, String playerId, PhysicalCard self) {
         return Filters.filter(game.getGameState().getHand(playerId), game, Culture.MORIA, Race.GOBLIN, Filters.not(self)).size();
     }
 
     @Override
-    protected DiscountEffect getDiscountEffect(PlayPermanentAction action, String playerId, LotroGame game, PhysicalCard self) {
-        return new DiscardCardFromHandDiscountEffect(action, playerId, Culture.MORIA, Race.GOBLIN);
+    public void appendPotentialDiscountEffects(LotroGame game, CostToEffectAction action, String playerId, PhysicalCard self) {
+        action.appendPotentialDiscount(
+                new DiscardCardFromHandDiscountEffect(action, playerId, Culture.MORIA, Race.GOBLIN));
     }
 }

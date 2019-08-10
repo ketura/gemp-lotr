@@ -3,7 +3,6 @@ package com.gempukku.lotro.logic.effects.discount;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.AbstractCostToEffectAction;
 import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.effects.DiscountEffect;
 import com.gempukku.lotro.logic.effects.OptionalEffect;
@@ -59,6 +58,11 @@ public class OptionalDiscardDiscountEffect extends AbstractSubActionEffect imple
     }
 
     @Override
+    public int getMaximumPossibleDiscount(LotroGame game) {
+        return PlayConditions.canDiscardFromPlay(_action.getActionSource(), game, _discardCount, _discardFilters) ? _discount : 0;
+    }
+
+    @Override
     public void playEffect(LotroGame game) {
         if (isPlayableInFull(game)) {
             SubAction subAction = new SubAction(_action);
@@ -80,9 +84,4 @@ public class OptionalDiscardDiscountEffect extends AbstractSubActionEffect imple
 
     protected void discountPaidCallback() {
     }
-
-    @Override
-    public void afterDiscountCallback(AbstractCostToEffectAction action) {
-    }
-
 }

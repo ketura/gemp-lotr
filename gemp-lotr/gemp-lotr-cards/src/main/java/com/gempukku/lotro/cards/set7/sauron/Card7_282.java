@@ -1,13 +1,12 @@
 package com.gempukku.lotro.cards.set7.sauron;
 
-import com.gempukku.lotro.logic.cardtype.AbstractMinion;
-import com.gempukku.lotro.logic.actions.PlayPermanentAction;
-import com.gempukku.lotro.logic.effects.DiscountEffect;
-import com.gempukku.lotro.logic.effects.discount.RemoveThreatsToDiscountEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.CostToEffectAction;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
+import com.gempukku.lotro.logic.effects.discount.RemoveThreatsToDiscountEffect;
 
 /**
  * Set: The Return of the King
@@ -26,12 +25,12 @@ public class Card7_282 extends AbstractMinion {
     }
 
     @Override
-    protected int getPotentialExtraPaymentDiscount(String playerId, LotroGame game, PhysicalCard self) {
+    public int getPotentialDiscount(LotroGame game, String playerId, PhysicalCard self) {
         return game.getGameState().getThreats();
     }
 
     @Override
-    protected DiscountEffect getDiscountEffect(PlayPermanentAction action, String playerId, LotroGame game, PhysicalCard self) {
-        return new RemoveThreatsToDiscountEffect(action);
+    public void appendPotentialDiscountEffects(LotroGame game, CostToEffectAction action, String playerId, PhysicalCard self) {
+        action.appendPotentialDiscount(new RemoveThreatsToDiscountEffect(action));
     }
 }

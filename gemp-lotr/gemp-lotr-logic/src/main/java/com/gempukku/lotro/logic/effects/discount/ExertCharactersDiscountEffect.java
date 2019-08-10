@@ -4,7 +4,6 @@ import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.AbstractCostToEffectAction;
 import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.effects.DiscountEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
@@ -50,6 +49,11 @@ public class ExertCharactersDiscountEffect extends AbstractSubActionEffect imple
     }
 
     @Override
+    public int getMaximumPossibleDiscount(LotroGame game) {
+        return _multiplier * (Filters.countActive(game, Filters.and(_exertFilter), Filters.character, Filters.canExert(_payingFor)));
+    }
+
+    @Override
     public void playEffect(final LotroGame game) {
         if (isPlayableInFull(game)) {
             int minimalExerts;
@@ -74,9 +78,5 @@ public class ExertCharactersDiscountEffect extends AbstractSubActionEffect imple
     @Override
     public int getDiscountPaidFor() {
         return _exertedCount * _multiplier;
-    }
-
-    @Override
-    public void afterDiscountCallback(AbstractCostToEffectAction action) {
     }
 }

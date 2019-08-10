@@ -6,7 +6,6 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
-import com.gempukku.lotro.logic.actions.AbstractCostToEffectAction;
 import com.gempukku.lotro.logic.decisions.ArbitraryCardsSelectionDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.decisions.YesNoDecision;
@@ -21,21 +20,23 @@ public class RemoveCardsFromDiscardDiscountEffect implements DiscountEffect {
     private PhysicalCard _source;
     private String _playerId;
     private int _count;
+    private int discount;
     private Filterable _cardFilter;
 
     private boolean _paid;
     private boolean _required;
 
-    public RemoveCardsFromDiscardDiscountEffect(PhysicalCard source, String playerId, int count, Filterable cardFilter) {
+    public RemoveCardsFromDiscardDiscountEffect(PhysicalCard source, String playerId, int count, int discount, Filterable cardFilter) {
         _source = source;
         _playerId = playerId;
         _count = count;
+        this.discount = discount;
         _cardFilter = cardFilter;
     }
 
     @Override
     public int getDiscountPaidFor() {
-        return _paid ? 1000 : 0;
+        return _paid ? discount : 0;
     }
 
     @Override
@@ -56,6 +57,11 @@ public class RemoveCardsFromDiscardDiscountEffect implements DiscountEffect {
     @Override
     public boolean isPlayableInFull(LotroGame game) {
         return Filters.filter(game.getGameState().getDiscard(_playerId), game, _cardFilter).size() >= _count;
+    }
+
+    @Override
+    public int getMaximumPossibleDiscount(LotroGame game) {
+        return Filters.filter(game.getGameState().getDiscard(_playerId), game, _cardFilter).size();
     }
 
     @Override
@@ -104,9 +110,4 @@ public class RemoveCardsFromDiscardDiscountEffect implements DiscountEffect {
     public boolean wasCarriedOut() {
         return !_required || _paid;
     }
-
-    @Override
-    public void afterDiscountCallback(AbstractCostToEffectAction action) {
-    }
-
 }
