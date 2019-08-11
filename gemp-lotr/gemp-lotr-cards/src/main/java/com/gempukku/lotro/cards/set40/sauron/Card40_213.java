@@ -1,10 +1,5 @@
 package com.gempukku.lotro.cards.set40.sauron;
 
-import com.gempukku.lotro.logic.cardtype.AbstractMinion;
-import com.gempukku.lotro.logic.timing.PlayConditions;
-import com.gempukku.lotro.logic.timing.TriggerConditions;
-import com.gempukku.lotro.logic.effects.AddUntilEndOfTurnModifierEffect;
-import com.gempukku.lotro.logic.effects.SelfExertEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
@@ -12,15 +7,21 @@ import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
 import com.gempukku.lotro.logic.decisions.MultipleChoiceAwaitingDecision;
+import com.gempukku.lotro.logic.effects.AddUntilEndOfTurnModifierEffect;
 import com.gempukku.lotro.logic.effects.ChooseAndWoundCharactersEffect;
 import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
+import com.gempukku.lotro.logic.effects.SelfExertEffect;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.SpotCondition;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -47,7 +48,7 @@ public class Card40_213 extends AbstractMinion {
     }
 
     @Override
-    public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, final PhysicalCard self) {
+    public List<RequiredTriggerAction> getRequiredAfterTriggers(final LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         if (TriggerConditions.played(game, effectResult, self)) {
             final RequiredTriggerAction action = new RequiredTriggerAction(self);
             List<String> possibleCultures = new LinkedList<String>();
@@ -63,6 +64,7 @@ public class Card40_213 extends AbstractMinion {
                                 @Override
                                 protected void validDecisionMade(int index, String result) {
                                     final Culture culture = Culture.findCultureByHumanReadable(result);
+                                    game.getGameState().sendMessage(self.getOwner() + " chose culture: " + culture.getHumanReadable() + " for " + GameUtils.getFullName(self));
                                     action.appendEffect(
                                             new AddUntilEndOfTurnModifierEffect(
                                                     new KeywordModifier(self, self, new SpotCondition(self, Filters.inSkirmishAgainst(Filters.character, culture)), Keyword.DAMAGE, 1)));
