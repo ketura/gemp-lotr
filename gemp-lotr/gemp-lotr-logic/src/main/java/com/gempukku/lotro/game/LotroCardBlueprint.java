@@ -107,6 +107,10 @@ public interface LotroCardBlueprint {
 
     void appendPotentialDiscountEffects(LotroGame game, CostToEffectAction action, String playerId, PhysicalCard self);
 
+    boolean canPayAidCost(LotroGame game, PhysicalCard self);
+
+    void appendAidCosts(LotroGame game, CostToEffectAction action, PhysicalCard self);
+
     public enum Direction {
         LEFT, RIGHT
     }

@@ -283,4 +283,14 @@ public abstract class AbstractLotroCardBlueprint implements LotroCardBlueprint {
     public void appendPotentialDiscountEffects(LotroGame game, CostToEffectAction action, String playerId, PhysicalCard self) {
 
     }
+
+    @Override
+    public boolean canPayAidCost(LotroGame game, PhysicalCard self) {
+        return false;
+    }
+
+    @Override
+    public void appendAidCosts(LotroGame game, CostToEffectAction action, PhysicalCard self) {
+
+    }
 }

@@ -48,5 +48,7 @@ public class RuleSet {
         new TransferItemRule(_modifiersLogic).applyRule();
 
         new StatModifiersRule(_modifiersLogic).applyRule();
+
+        new FollowerRule(_actionsEnvironment).applyRule();
     }
 }
