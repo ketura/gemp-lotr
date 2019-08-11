@@ -1,15 +1,18 @@
 package com.gempukku.lotro.cards.set40.shire;
 
-import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
-import com.gempukku.lotro.logic.timing.PlayConditions;
-import com.gempukku.lotro.logic.timing.TriggerConditions;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.logic.effects.DrawCardsEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -27,7 +30,7 @@ import java.util.List;
 public class Card40_260 extends AbstractPermanent {
     public Card40_260() {
         super(Side.FREE_PEOPLE, 1, CardType.POSSESSION, Culture.SHIRE, "Old Toby",
-                "Finest Weed in the Southfarthing", true);
+                "Finest Weed in the Southfarthing", false);
         addKeyword(Keyword.PIPEWEED);
     }
 
