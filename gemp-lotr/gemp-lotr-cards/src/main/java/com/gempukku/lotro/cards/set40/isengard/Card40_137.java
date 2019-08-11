@@ -65,4 +65,14 @@ public class Card40_137 extends AbstractAttachable {
         }
         return null;
     }
+
+    @Override
+    public int getStrength() {
+        return 2;
+    }
+
+    @Override
+    public int getVitality() {
+        return 1;
+    }
 }
