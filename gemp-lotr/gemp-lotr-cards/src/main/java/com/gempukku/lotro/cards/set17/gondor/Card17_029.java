@@ -57,7 +57,7 @@ public class Card17_029 extends AbstractAttachableFPPossession {
             action.appendCost(
                     new ExertCharactersEffect(action, self, self.getAttachedTo()));
             action.appendEffect(
-                    new ChooseAndExhaustCharactersEffect(action, playerId, 1, 1, CardType.MINION, Filters.inSkirmishAgainst(Filters.hasAttached(self))));
+                    new ChooseAndExhaustCharactersEffect(action, playerId, 1, 1, CardType.MINION, Filters.inSkirmishAgainst(Filters.name("Faramir"))));
             return Collections.singletonList(action);
         }
         return null;

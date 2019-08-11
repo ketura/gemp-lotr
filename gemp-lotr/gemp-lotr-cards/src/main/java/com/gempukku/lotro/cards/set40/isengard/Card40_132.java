@@ -33,7 +33,7 @@ import java.util.Set;
  */
 public class Card40_132 extends AbstractPermanent {
     public Card40_132() {
-        super(Side.SHADOW, 0, CardType.ARTIFACT, Culture.ISENGARD, "The Palantir or Orthanc", "Corruptor of Wizards", true);
+        super(Side.SHADOW, 0, CardType.ARTIFACT, Culture.ISENGARD, "The Palantir of Orthanc", "Corruptor of Wizards", true);
     }
 
     @Override
