@@ -48,6 +48,13 @@ public abstract class AbstractLotroCardBlueprint implements LotroCardBlueprint {
         if (!game.getModifiersQuerying().canPayExtraCostsToPlay(game, self))
             return false;
 
+        if (!PlayConditions.checkUniqueness(game, self, ignoreCheckingDeadPile))
+            return false;
+
+        if (self.getBlueprint().getCardType() == CardType.COMPANION
+                && !(PlayConditions.checkRuleOfNine(game, self) && PlayConditions.checkPlayRingBearer(game, self)))
+            return false;
+
         twilightModifier -= game.getModifiersQuerying().getPotentialDiscount(game, self);
 
         return (getSide() != Side.SHADOW || PlayConditions.canPayForShadowCard(game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty));
