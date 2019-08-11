@@ -1,20 +1,20 @@
 package com.gempukku.lotro.cards.set40.elven;
 
-import com.gempukku.lotro.logic.cardtype.AbstractAlly;
-import com.gempukku.lotro.logic.timing.PlayConditions;
-import com.gempukku.lotro.logic.timing.TriggerConditions;
-import com.gempukku.lotro.logic.effects.RevealTopCardsOfDrawDeckEffect;
-import com.gempukku.lotro.logic.effects.SelfExertEffect;
-import com.gempukku.lotro.logic.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
+import com.gempukku.lotro.logic.cardtype.AbstractAlly;
 import com.gempukku.lotro.logic.effects.HealCharactersEffect;
+import com.gempukku.lotro.logic.effects.RevealTopCardsOfDrawDeckEffect;
+import com.gempukku.lotro.logic.effects.SelfExertEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -63,9 +63,10 @@ public class Card40_045 extends AbstractAlly {
                             if (revealedCards.size() > 0) {
                                 PhysicalCard revealedCard = revealedCards.get(0);
                                 int twilightCost = revealedCard.getBlueprint().getTwilightCost();
-                                action.appendEffect(
-                                        new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, -twilightCost,
-                                                CardType.MINION, Filters.inSkirmishAgainst(Race.ELF)));
+                                if (twilightCost > 0)
+                                    action.appendEffect(
+                                            new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, -twilightCost,
+                                                    CardType.MINION, Filters.inSkirmishAgainst(Race.ELF)));
                             }
                         }
                     });
