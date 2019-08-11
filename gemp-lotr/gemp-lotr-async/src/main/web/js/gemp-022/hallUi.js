@@ -69,7 +69,7 @@ var GempLotrHallUI = Class.extend({
         this.pocketDiv.css({"float":"right", width:95, height:18});
         this.buttonsDiv.append(this.pocketDiv);
 
-        this.supportedFormatsSelect = $("<select style='width: 220px'></select>");
+        this.supportedFormatsSelect = $("<select style='width: 180px'></select>");
         this.supportedFormatsSelect.hide();
 
         this.createTableButton = $("<button>Create table</button>");
@@ -91,8 +91,8 @@ var GempLotrHallUI = Class.extend({
         this.decksSelect = $("<select style='width: 220px'></select>");
         this.decksSelect.hide();
 
-        this.timerSelect = $("<select style='width: 170px'></select>");
-        this.addTimer("default", "Default Speed (80m/5m)");
+        this.timerSelect = $("<select style='width: 135px'></select>");
+        this.addTimer("default", "Default (80m/5m)");
         this.addTimer("blitz", "Blitz! (30m/2m)");
         this.addTimer("slow", "Slow (2h/10m)");
         this.addTimer("glacial", "Glacial (3d/1d)");
