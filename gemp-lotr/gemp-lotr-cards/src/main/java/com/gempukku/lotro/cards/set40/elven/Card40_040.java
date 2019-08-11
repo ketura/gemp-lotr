@@ -1,17 +1,15 @@
 package com.gempukku.lotro.cards.set40.elven;
 
-import com.gempukku.lotro.logic.cardtype.AbstractEvent;
-import com.gempukku.lotro.logic.timing.PlayConditions;
-import com.gempukku.lotro.logic.actions.PlayEventAction;
-import com.gempukku.lotro.logic.effects.AddUntilStartOfPhaseModifierEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
+import com.gempukku.lotro.logic.effects.AddUntilStartOfPhaseModifierEffect;
 import com.gempukku.lotro.logic.modifiers.RemoveKeywordModifier;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
-
-import java.util.Collection;
 
 /**
  * Title: Crippling Arrows
@@ -41,10 +39,9 @@ public class Card40_040 extends AbstractEvent {
                 new UnrespondableEffect() {
                     @Override
                     protected void doPlayEffect(LotroGame game) {
-                        Collection<PhysicalCard> woundedMinions = Filters.filterActive(game, CardType.MINION, Filters.wounded);
                         action.appendEffect(
                                 new AddUntilStartOfPhaseModifierEffect(
-                                        new RemoveKeywordModifier(self, Filters.in(woundedMinions), Keyword.FIERCE), Phase.REGROUP));
+                                        new RemoveKeywordModifier(self, Filters.and(CardType.MINION, Filters.wounded), Keyword.FIERCE), Phase.REGROUP));
                     }
                 });
         return action;
