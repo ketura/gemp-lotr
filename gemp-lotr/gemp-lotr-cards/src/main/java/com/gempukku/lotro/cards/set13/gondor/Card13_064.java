@@ -48,7 +48,7 @@ public class Card13_064 extends AbstractCompanion {
     }
 
     @Override
-    protected List<ActivateCardAction> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    protected List<ActivateCardAction> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.MANEUVER, self)
                 && PlayConditions.canSpot(game, Culture.GONDOR, CardType.POSSESSION, Filters.attachedTo(CardType.COMPANION))) {
             ActivateCardAction action = new ActivateCardAction(self);

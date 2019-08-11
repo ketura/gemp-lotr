@@ -4,7 +4,6 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.List;
@@ -44,11 +43,7 @@ public abstract class AbstractCompanion extends AbstractPermanent {
                 && PlayConditions.checkPlayRingBearer(game, self);
     }
 
-    protected final List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
-        return getExtraInPlayPhaseActions(playerId, game, self);
-    }
-
-    protected List<ActivateCardAction> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    protected List<ActivateCardAction> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
         return null;
     }
 

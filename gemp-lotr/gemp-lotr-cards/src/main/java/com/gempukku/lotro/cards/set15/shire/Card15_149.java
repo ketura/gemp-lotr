@@ -38,7 +38,7 @@ return Collections.singletonList(new StrengthModifier(self, Filters.and(self, Fi
 }
 
     @Override
-    protected List<ActivateCardAction> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    protected List<ActivateCardAction> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
                 && PlayConditions.canSpot(game, self, Filters.inSkirmishAgainst(CardType.MINION, Keyword.HUNTER))
                 && PlayConditions.canAddThreat(game, self, 1)) {

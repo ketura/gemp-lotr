@@ -45,7 +45,7 @@ Filters.and(Filters.owner(self.getOwner()), Culture.GONDOR, CardType.CONDITION),
 }
 
     @Override
-    protected List<ActivateCardAction> getExtraInPlayPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
+    protected List<ActivateCardAction> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.MANEUVER, self)
                 && PlayConditions.canExert(self, game, 1, 2, Keyword.RANGER)) {
             final ActivateCardAction action = new ActivateCardAction(self);

@@ -43,7 +43,7 @@ return Collections.singletonList(new ResistanceModifier(self, self, new CountAct
 }
 
     @Override
-    protected List<ActivateCardAction> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    protected List<ActivateCardAction> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.REGROUP, self)
                 && PlayConditions.canSelfExert(self, game)
                 && PlayConditions.canSpot(game, self, Filters.hasAttached(CardType.FOLLOWER))) {

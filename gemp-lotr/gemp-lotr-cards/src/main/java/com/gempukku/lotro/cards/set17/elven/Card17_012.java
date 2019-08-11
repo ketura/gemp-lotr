@@ -49,7 +49,7 @@ public class Card17_012 extends AbstractCompanion {
     }
 
     @Override
-    protected List<ActivateCardAction> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    protected List<ActivateCardAction> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.ARCHERY, self)
                 && PlayConditions.canExert(self, game, Filters.not(self), Culture.ELVEN, Keyword.HUNTER)
                 && PlayConditions.canAddThreat(game, self, 1)) {

@@ -42,7 +42,7 @@ return Collections.singletonList(new StrengthModifier(self, self, null, new Coun
 }
 
     @Override
-    protected List<ActivateCardAction> getExtraInPlayPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
+    protected List<ActivateCardAction> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.ASSIGNMENT, self)
                 && PlayConditions.canSelfExert(self, game)
                 && PlayConditions.canSpot(game, CardType.MINION, Keyword.LURKER)) {

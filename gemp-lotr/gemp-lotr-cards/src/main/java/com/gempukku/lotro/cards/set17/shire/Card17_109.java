@@ -39,7 +39,7 @@ return Collections.singletonList(new RaceSpotModifier(self, Race.ENT));
 }
 
     @Override
-    protected List<ActivateCardAction> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    protected List<ActivateCardAction> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.MANEUVER, self)
                 && PlayConditions.canDiscardFromPlay(self, game, 2, Keyword.PIPEWEED)) {
             ActivateCardAction action = new ActivateCardAction(self);

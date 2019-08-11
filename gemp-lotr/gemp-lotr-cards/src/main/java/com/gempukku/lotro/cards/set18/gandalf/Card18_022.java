@@ -43,7 +43,7 @@ return Collections.singletonList(new StrengthModifier(self, Filters.and(Culture.
 }
 
     @Override
-    protected List<ActivateCardAction> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    protected List<ActivateCardAction> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.REGROUP, self)
                 && PlayConditions.canDiscardFromPlay(self, game, CardType.FOLLOWER)) {
             ActivateCardAction action = new ActivateCardAction(self);

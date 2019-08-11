@@ -40,7 +40,7 @@ new SpotCondition(Filters.ringBearer, Filters.assignedToSkirmish), 1));
 }
 
     @Override
-    protected List<ActivateCardAction> getExtraInPlayPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    protected List<ActivateCardAction> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.REGROUP, self)
                 && PlayConditions.canSpot(game, 2, Culture.ROHAN, CardType.FOLLOWER)
                 && PlayConditions.canSelfExert(self, game)) {
