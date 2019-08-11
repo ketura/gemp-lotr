@@ -1,18 +1,18 @@
 package com.gempukku.lotro.cards.set40.elven;
 
-import com.gempukku.lotro.logic.cardtype.AbstractEvent;
-import com.gempukku.lotro.logic.timing.PlayConditions;
-import com.gempukku.lotro.logic.actions.PlayEventAction;
-import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
 import com.gempukku.lotro.logic.effects.AddThreatsEffect;
 import com.gempukku.lotro.logic.effects.ChooseAndWoundCharactersEffect;
 import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collection;
 
@@ -48,7 +48,7 @@ public class Card40_055 extends AbstractEvent{
         action.appendEffect(
                 new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, CardType.MINION) {
                     @Override
-                    protected void cardsSelected(LotroGame game, Collection<PhysicalCard> cards) {
+                    protected void woundedCardsCallback(Collection<PhysicalCard> cards) {
                         if (cards.size()>0) {
                             PhysicalCard minion = cards.iterator().next();
                             if (minion.getBlueprint().getCulture() == Culture.ISENGARD) {
