@@ -24,13 +24,14 @@ import java.util.List;
  * Twilight Cost: 2
  * Type: Possession - Hand Weapon
  * Card Number: 1R19
+ * Strength: +2
  * Game Text: Bearer must be a Dwarf. If bearer is Gimli, he is damage +1.
  * Each time bearer wins a skirmish, you may stack a [DWARVEN] event from your discard pile on a [DWARVEN] support area
  * condition.
  */
 public class Card40_019 extends AbstractAttachableFPPossession {
     public Card40_019() {
-        super(2, 0, 0, Culture.DWARVEN, PossessionClass.HAND_WEAPON, "Gimli's Battle Axe", "Weapon of Erebor", true);
+        super(2, 2, 0, Culture.DWARVEN, PossessionClass.HAND_WEAPON, "Gimli's Battle Axe", "Weapon of Erebor", true);
     }
 
     @Override

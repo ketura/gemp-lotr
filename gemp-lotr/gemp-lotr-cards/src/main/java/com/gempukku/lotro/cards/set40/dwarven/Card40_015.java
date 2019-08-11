@@ -1,14 +1,14 @@
 package com.gempukku.lotro.cards.set40.dwarven;
 
-import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
-import com.gempukku.lotro.logic.timing.PlayConditions;
-import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
-import com.gempukku.lotro.logic.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
+import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
 import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -45,5 +45,10 @@ public class Card40_015 extends AbstractAttachable{
             return Collections.singletonList(action);
         }
         return null;
+    }
+
+    @Override
+    public int getVitality() {
+        return 1;
     }
 }
