@@ -183,7 +183,7 @@ public class DbGameHistoryDAO implements GameHistoryDAO {
         try {
             Connection connection = _dbAccess.getDataSource().getConnection();
             try {
-                PreparedStatement statement = connection.prepareStatement("select count(*), format_name from game_history where (tournament is null or tournament = 'Casual') and end_date>=? and end_date<? group by format_name");
+                PreparedStatement statement = connection.prepareStatement("select count(*), format_name from game_history where (tournament is null or tournament like 'Casual %') and end_date>=? and end_date<? group by format_name");
                 try {
                     statement.setLong(1, from);
                     statement.setLong(2, from + duration);
@@ -214,8 +214,8 @@ public class DbGameHistoryDAO implements GameHistoryDAO {
             try {
                 PreparedStatement statement = connection.prepareStatement(
                         "select deck_name, format_name, sum(win), sum(lose) from" +
-                                " (select winner_deck_name as deck_name, format_name, 1 as win, 0 as lose from game_history where winner=? and (tournament is null or tournament = 'Casual') and (win_reason <> 'Game cancelled due to error')" +
-                                " union all select loser_deck_name as deck_name, format_name, 0 as win, 1 as lose from game_history where loser=? and (tournament is null or tournament = 'Casual') and (win_reason <> 'Game cancelled due to error')) as u" +
+                                " (select winner_deck_name as deck_name, format_name, 1 as win, 0 as lose from game_history where winner=? and (tournament is null or tournament like 'Casual %') and (win_reason <> 'Game cancelled due to error')" +
+                                " union all select loser_deck_name as deck_name, format_name, 0 as win, 1 as lose from game_history where loser=? and (tournament is null or tournament like 'Casual %') and (win_reason <> 'Game cancelled due to error')) as u" +
                                 " group by deck_name, format_name order by format_name, deck_name");
                 try {
                     statement.setString(1, player.getName());
@@ -246,8 +246,8 @@ public class DbGameHistoryDAO implements GameHistoryDAO {
             try {
                 PreparedStatement statement = connection.prepareStatement(
                         "select deck_name, format_name, sum(win), sum(lose) from" +
-                                " (select winner_deck_name as deck_name, format_name, 1 as win, 0 as lose from game_history where winner=? and (tournament is not null and tournament <> 'Casual') and (win_reason <> 'Game cancelled due to error')" +
-                                " union all select loser_deck_name as deck_name, format_name, 0 as win, 1 as lose from game_history where loser=? and (tournament is not null and tournament <> 'Casual') and (win_reason <> 'Game cancelled due to error')) as u" +
+                                " (select winner_deck_name as deck_name, format_name, 1 as win, 0 as lose from game_history where winner=? and (tournament is not null and not tournament like 'Casual %') and (win_reason <> 'Game cancelled due to error')" +
+                                " union all select loser_deck_name as deck_name, format_name, 0 as win, 1 as lose from game_history where loser=? and (tournament is not null and not tournament like 'Casual %') and (win_reason <> 'Game cancelled due to error')) as u" +
                                 " group by deck_name, format_name order by format_name, deck_name");
                 try {
                     statement.setString(1, player.getName());
