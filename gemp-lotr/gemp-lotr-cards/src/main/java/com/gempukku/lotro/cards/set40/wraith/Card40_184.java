@@ -37,4 +37,9 @@ public class Card40_184 extends AbstractAttachable {
         StrengthModifier modifier = new StrengthModifier(self, Filters.and(Filters.hasAttached(self), Filters.inSkirmishAgainst(CardType.COMPANION, Filters.maxResistance(3))), 2);
         return Collections.singletonList(modifier);
     }
+
+    @Override
+    public int getStrength() {
+        return 2;
+    }
 }
