@@ -142,11 +142,6 @@ public abstract class AbstractLotroCardBlueprint implements LotroCardBlueprint {
     }
 
     @Override
-    public List<? extends AbstractExtraPlayCostModifier> getExtraCostToPlayModifiers(LotroGame game, PhysicalCard self) {
-        return null;
-    }
-
-    @Override
     public Race getRace() {
         return null;
     }
@@ -279,6 +274,11 @@ public abstract class AbstractLotroCardBlueprint implements LotroCardBlueprint {
     @Override
     public Direction getSiteDirection() {
         throw new UnsupportedOperationException("This method should not be called on this card");
+    }
+
+    @Override
+    public List<? extends AbstractExtraPlayCostModifier> getExtraCostToPlayModifiers(LotroGame game, PhysicalCard self) {
+        return null;
     }
 
     @Override

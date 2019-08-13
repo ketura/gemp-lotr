@@ -24,6 +24,7 @@ import java.util.List;
  * Twilight Cost: 1
  * Type: Condition - Companion
  * Card Number: 1R74
+ * Strength: +1
  * Game Text: Bearer must be Gandalf.
  * Gandalf takes no more than one wound in a skirmish. If you lose initiative, discard this condition and wound Gandalf.
  */
@@ -54,5 +55,10 @@ public class Card40_074 extends AbstractAttachable{
             return Collections.singletonList(action);
         }
         return null;
+    }
+
+    @Override
+    public int getStrength() {
+        return 1;
     }
 }
