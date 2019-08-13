@@ -1,12 +1,12 @@
 package com.gempukku.lotro.cards.set40.dwarven;
 
-import com.gempukku.lotro.logic.cardtype.AbstractEvent;
-import com.gempukku.lotro.logic.actions.PlayEventAction;
-import com.gempukku.lotro.logic.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 
 /**
@@ -32,7 +32,7 @@ public class Card40_008 extends AbstractEvent {
                         action, self, self.getOwner(), new Evaluator() {
                     @Override
                     public int evaluateExpression(LotroGame game, PhysicalCard cardAffected) {
-                        return Filters.canSpot(game, Filters.hasStacked(Culture.DWARVEN, CardType.CONDITION))?3:2;
+                        return Filters.canSpot(game, Culture.DWARVEN, CardType.CONDITION, Filters.hasStacked(Filters.any)) ? 3 : 2;
                     }
                 }, Race.DWARF));
         return action;
