@@ -59,7 +59,7 @@ public class Card40_096 extends AbstractAttachableFPPossession {
                     new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, CardType.MINION));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new DoesNotAddToArcheryTotalModifier(self, self)));
+                            new DoesNotAddToArcheryTotalModifier(self, Filters.hasAttached(self))));
             return Collections.singletonList(action);
         }
         return null;
