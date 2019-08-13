@@ -2,13 +2,11 @@ package com.gempukku.lotro.game.state.actions;
 
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.game.AbstractActionProxy;
-import com.gempukku.lotro.game.ActionProxy;
-import com.gempukku.lotro.game.ActionsEnvironment;
-import com.gempukku.lotro.game.CompletePhysicalCardVisitor;
-import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
@@ -23,14 +21,7 @@ import com.gempukku.lotro.logic.timing.results.CharacterWonSkirmishResult;
 import com.gempukku.lotro.logic.timing.results.PlayCardResult;
 import org.apache.log4j.Logger;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class DefaultActionsEnvironment implements ActionsEnvironment {
     private static Logger LOG = Logger.getLogger(DefaultActionsEnvironment.class);
@@ -246,6 +237,7 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
 
     @Override
     public Map<OptionalTriggerAction, EffectResult> getOptionalAfterTriggers(String playerId, Collection<? extends EffectResult> effectResults) {
+        final boolean fpPlayer = GameUtils.isFP(_lotroGame, playerId);
         GatherOptionalAfterTriggers gatherActions = new GatherOptionalAfterTriggers(playerId, effectResults);
 
         _lotroGame.getGameState().iterateActiveTextCards(playerId, gatherActions);
@@ -264,14 +256,18 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
                 }
             }
 
+            Side workingSide = fpPlayer ? Side.FREE_PEOPLE : Side.SHADOW;
+
             // Optional triggers from hand
             for (PhysicalCard cardInHand : _lotroGame.getGameState().getHand(playerId)) {
-                for (EffectResult effectResult : effectResults) {
-                    List<OptionalTriggerAction> actions = cardInHand.getBlueprint().getOptionalAfterTriggersFromHand(playerId, _lotroGame, effectResult, cardInHand);
-                    if (actions != null) {
-                        for (OptionalTriggerAction action : actions) {
-                            if (!effectResult.wasOptionalTriggerUsed(action))
-                                gatheredActions.put(action, effectResult);
+                if (cardInHand.getBlueprint().getSide() == workingSide) {
+                    for (EffectResult effectResult : effectResults) {
+                        List<OptionalTriggerAction> actions = cardInHand.getBlueprint().getOptionalAfterTriggersFromHand(playerId, _lotroGame, effectResult, cardInHand);
+                        if (actions != null) {
+                            for (OptionalTriggerAction action : actions) {
+                                if (!effectResult.wasOptionalTriggerUsed(action))
+                                    gatheredActions.put(action, effectResult);
+                            }
                         }
                     }
                 }

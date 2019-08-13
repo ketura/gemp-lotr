@@ -1,10 +1,5 @@
 package com.gempukku.lotro.cards.set13.orc;
 
-import com.gempukku.lotro.logic.cardtype.AbstractMinion;
-import com.gempukku.lotro.logic.timing.PlayConditions;
-import com.gempukku.lotro.logic.timing.TriggerConditions;
-import com.gempukku.lotro.logic.effects.AddBurdenEffect;
-import com.gempukku.lotro.logic.effects.RevealCardsFromYourHandEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -13,7 +8,12 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
+import com.gempukku.lotro.logic.effects.AddBurdenEffect;
+import com.gempukku.lotro.logic.effects.RevealCardsFromYourHandEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -50,8 +50,7 @@ public class Card13_112 extends AbstractMinion {
     public List<OptionalTriggerAction> getOptionalAfterTriggersFromHand(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.losesSkirmishInvolving(game, effectResult,
                 Filters.and(CardType.COMPANION, Keyword.RING_BOUND),
-                Filters.and(Culture.ORC, CardType.MINION))
-                && !playerId.equals(game.getGameState().getCurrentPlayerId())) {
+                Filters.and(Culture.ORC, CardType.MINION))) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(
                     new RevealCardsFromYourHandEffect(self, playerId, self));

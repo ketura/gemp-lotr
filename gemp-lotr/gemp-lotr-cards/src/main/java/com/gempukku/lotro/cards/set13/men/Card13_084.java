@@ -44,8 +44,7 @@ return Collections.singletonList(new KeywordModifier(self, self, new NotConditio
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggersFromHand(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.played(game, effectResult, Side.FREE_PEOPLE, CardType.POSSESSION)
-                && PlayConditions.canSpot(game, Culture.MEN)
-                && !playerId.equals(game.getGameState().getCurrentPlayerId())) {
+                && PlayConditions.canSpot(game, Culture.MEN)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(
                     new RevealCardsFromYourHandEffect(self, playerId, self));
