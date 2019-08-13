@@ -1,8 +1,5 @@
 package com.gempukku.lotro.cards.set40.sauron;
 
-import com.gempukku.lotro.logic.cardtype.AbstractMinion;
-import com.gempukku.lotro.logic.timing.PlayConditions;
-import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
@@ -11,9 +8,12 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
 import com.gempukku.lotro.logic.effects.ChooseAndWoundCharactersEffect;
 import com.gempukku.lotro.logic.effects.RemoveThreatsEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -42,7 +42,7 @@ public class Card40_228 extends AbstractMinion {
         if (TriggerConditions.startOfPhase(game, effectResult, Phase.SKIRMISH)
                 && PlayConditions.canSpot(game, self, Filters.inSkirmish)
                 && PlayConditions.canRemoveThreat(game, self, 1)
-                && PlayConditions.canSpot(game, self, Culture.SAURON, Race.ORC, Filters.not(self))) {
+                && PlayConditions.canSpot(game, Culture.SAURON, Race.ORC, Filters.not(self))) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(
                     new RemoveThreatsEffect(self, 1));
