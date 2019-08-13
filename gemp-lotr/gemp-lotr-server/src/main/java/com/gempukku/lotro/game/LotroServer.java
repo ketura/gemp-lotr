@@ -91,7 +91,7 @@ public class LotroServer extends AbstractServer {
                 throw new IllegalArgumentException("There has to be at least two players");
             final String gameId = String.valueOf(_nextGameId);
 
-            if (!gameSettings.isCompetitive()) {
+            if (gameSettings.isCompetitive()) {
                 Set<String> allowedUsers = new HashSet<String>();
                 for (LotroGameParticipant participant : participants)
                     allowedUsers.add(participant.getPlayerId());
