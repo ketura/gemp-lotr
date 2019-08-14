@@ -4,9 +4,8 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.PlayUtils;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.actions.AttachPermanentAction;
-import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
 import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
 import com.gempukku.lotro.logic.effects.HealCharactersEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseCardsFromHandEffect;
@@ -37,7 +36,7 @@ public class Card40_095 extends AbstractCompanion {
     }
 
     @Override
-    protected List<ActivateCardAction> getExtraPhaseActions(final String playerId, LotroGame game, final PhysicalCard self) {
+    public List<ActivateCardAction> getPhaseActionsInPlay(final String playerId, final LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.MANEUVER, self)
                 && PlayConditions.canPlayFromHand(playerId, game, Filters.or(CardType.ARTIFACT, CardType.POSSESSION), ExtraFilters.attachableTo(game, self))) {
             ActivateCardAction action = new ActivateCardAction(self);
@@ -46,8 +45,7 @@ public class Card40_095 extends AbstractCompanion {
                         @Override
                         protected void cardsSelected(LotroGame game, Collection<PhysicalCard> cards) {
                             for (PhysicalCard card : cards) {
-                                AttachPermanentAction attachPermanentAction = ((AbstractAttachable) card.getBlueprint()).getPlayCardAction(playerId, game, card, Filters.and(self), 0);
-                                game.getActionsEnvironment().addActionToStack(attachPermanentAction);
+                                game.getActionsEnvironment().addActionToStack(PlayUtils.getPlayCardAction(game, card, 0, self, false));
                             }
                         }
                     });

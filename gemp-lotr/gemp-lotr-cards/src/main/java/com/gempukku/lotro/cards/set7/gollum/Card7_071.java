@@ -43,7 +43,7 @@ public class Card7_071 extends AbstractCompanion {
     }
 
     @Override
-    protected List<ActivateCardAction> getExtraPhaseActions(final String playerId, LotroGame game, final PhysicalCard self) {
+    public List<ActivateCardAction> getPhaseActionsInPlay(final String playerId, final LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.ASSIGNMENT, self)
                 && Filters.assignableToSkirmishAgainst(Side.FREE_PEOPLE, CardType.MINION).accepts(game, self)
                 && PlayConditions.canAddThreat(game, self, 2)) {

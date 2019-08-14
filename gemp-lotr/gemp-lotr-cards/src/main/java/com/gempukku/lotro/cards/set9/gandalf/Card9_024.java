@@ -1,7 +1,6 @@
 package com.gempukku.lotro.cards.set9.gandalf;
 
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -34,9 +33,8 @@ public class Card9_024 extends AbstractAttachable {
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, Filter additionalAttachmentFilter, int twilightModifier) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, additionalAttachmentFilter, twilightModifier)
-                && (Filters.countActive(game, Race.ENT) + game.getModifiersQuerying().getSpotBonus(game, Race.ENT)) >= 1;
+    public boolean checkPlayRequirements(LotroGame game, PhysicalCard self) {
+        return (Filters.countActive(game, Race.ENT) + game.getModifiersQuerying().getSpotBonus(game, Race.ENT)) >= 1;
     }
 
     @Override
@@ -51,7 +49,7 @@ public class Card9_024 extends AbstractAttachable {
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
                 && PlayConditions.canExert(self, game, Filters.hasAttached(self))) {
             ActivateCardAction action = new ActivateCardAction(self);

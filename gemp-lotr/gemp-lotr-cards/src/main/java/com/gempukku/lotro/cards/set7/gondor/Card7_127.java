@@ -52,7 +52,7 @@ public class Card7_127 extends AbstractCompanion {
     }
 
     @Override
-    protected List<ActivateCardAction> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.REGROUP, self)
                 && (PlayConditions.canExert(self, game, 1, 3, Culture.GONDOR, Race.MAN) || PlayConditions.canExert(self, game, 1, 2, Keyword.KNIGHT))) {
             ActivateCardAction action = new ActivateCardAction(self);

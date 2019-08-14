@@ -1,10 +1,10 @@
 package com.gempukku.lotro.cards.set7.gollum;
 
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.PlayUtils;
 import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
@@ -29,9 +29,8 @@ public class Card7_063 extends AbstractAttachable {
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, Filter additionalAttachmentFilter, int twilightModifier) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, additionalAttachmentFilter, twilightModifier)
-                && PlayConditions.canSpot(game, Filters.gollumOrSmeagol);
+    public boolean checkPlayRequirements(LotroGame game, PhysicalCard self) {
+        return PlayConditions.canSpot(game, Filters.gollumOrSmeagol);
     }
 
     @Override
@@ -49,8 +48,8 @@ public class Card7_063 extends AbstractAttachable {
     public List<? extends Action> getPhaseActionsFromDiscard(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.isPhase(game, Phase.SHADOW)
                 && PlayConditions.hasInitiative(game, Side.SHADOW)
-                && checkPlayRequirements(playerId, game, self, 0, 0, false, false)) {
-            return Collections.singletonList(getPlayCardAction(playerId, game, self, 0, false));
+                && PlayUtils.checkPlayRequirements(game, self, Filters.any, 0, 0, false, false)) {
+            return Collections.singletonList(PlayUtils.getPlayCardAction(game, self, 0, Filters.any, false));
         }
         return null;
     }

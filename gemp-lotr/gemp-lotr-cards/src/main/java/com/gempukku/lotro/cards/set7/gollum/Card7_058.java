@@ -1,13 +1,15 @@
 package com.gempukku.lotro.cards.set7.gollum;
 
-import com.gempukku.lotro.logic.cardtype.AbstractMinion;
-import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.PlayUtils;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
 import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -33,7 +35,7 @@ public class Card7_058 extends AbstractMinion {
         if (PlayConditions.isPhase(game, Phase.SHADOW)
                 && PlayConditions.hasInitiative(game, Side.SHADOW)
                 && PlayConditions.canPlayFromDiscard(playerId, game, self)) {
-            return Collections.singletonList(getPlayCardAction(playerId, game, self, 0, false));
+            return Collections.singletonList(PlayUtils.getPlayCardAction(game, self, 0, Filters.any, false));
         }
         return null;
     }

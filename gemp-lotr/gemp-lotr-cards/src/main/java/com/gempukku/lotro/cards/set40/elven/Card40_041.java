@@ -66,7 +66,7 @@ public class Card40_041 extends AbstractAlly{
     }
 
     @Override
-    protected List<ActivateCardAction> getExtraPhaseActions(final String playerId, final LotroGame game, final PhysicalCard self) {
+    public List<ActivateCardAction> getPhaseActionsInPlay(final String playerId, final LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.REGROUP, self)
                 && PlayConditions.canSelfExert(self, 2, game)) {
             String[] allPlayers = game.getGameState().getPlayerOrder().getAllPlayers().toArray(new String[0]);

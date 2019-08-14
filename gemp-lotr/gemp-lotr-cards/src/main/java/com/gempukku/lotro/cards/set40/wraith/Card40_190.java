@@ -7,13 +7,14 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
 import com.gempukku.lotro.logic.effects.*;
-import com.gempukku.lotro.logic.modifiers.ExtraPossessionClassModifier;
-import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Title: Morgul Blade
@@ -32,9 +33,8 @@ public class Card40_190 extends AbstractAttachable {
     }
 
     @Override
-    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
-        return Arrays.asList(
-                new ExtraPossessionClassModifier(self, self));
+    public boolean isExtraPossessionClass(LotroGame game, PhysicalCard self, PhysicalCard attachedTo) {
+        return true;
     }
 
     @Override
@@ -48,7 +48,7 @@ public class Card40_190 extends AbstractAttachable {
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SKIRMISH, self, 0)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(

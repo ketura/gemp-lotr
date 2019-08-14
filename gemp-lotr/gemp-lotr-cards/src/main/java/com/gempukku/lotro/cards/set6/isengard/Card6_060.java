@@ -55,7 +55,7 @@ public class Card6_060 extends AbstractMinion {
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.MANEUVER, self, 0)
                 && PlayConditions.canRemoveTokens(game, Token.ISENGARD, 1, Keyword.MACHINE)
                 && PlayConditions.canExert(self, game, 2, self)) {

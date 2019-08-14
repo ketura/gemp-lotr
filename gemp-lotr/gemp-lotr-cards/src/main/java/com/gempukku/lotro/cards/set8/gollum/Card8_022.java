@@ -38,7 +38,7 @@ public class Card8_022 extends AbstractPermanent {
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SHADOW, self, 0)
                 && PlayConditions.canSpot(game, 6, CardType.COMPANION)
                 && PlayConditions.canPlayFromDiscard(playerId, game, Filters.gollum)) {

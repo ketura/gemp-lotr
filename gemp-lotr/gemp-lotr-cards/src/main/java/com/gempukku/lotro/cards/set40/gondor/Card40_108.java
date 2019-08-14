@@ -5,7 +5,10 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.cardtype.AbstractAttachableFPPossession;
-import com.gempukku.lotro.logic.modifiers.*;
+import com.gempukku.lotro.logic.modifiers.Condition;
+import com.gempukku.lotro.logic.modifiers.KeywordModifier;
+import com.gempukku.lotro.logic.modifiers.Modifier;
+import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -32,6 +35,11 @@ public class Card40_108 extends AbstractAttachableFPPossession {
     }
 
     @Override
+    public boolean isExtraPossessionClass(LotroGame game, PhysicalCard self, PhysicalCard attachedTo) {
+        return true;
+    }
+
+    @Override
     public List<? extends Modifier> getInPlayModifiers(LotroGame game, final PhysicalCard self) {
         Condition condition = new Condition() {
             @Override
@@ -47,8 +55,6 @@ public class Card40_108 extends AbstractAttachableFPPossession {
                 new StrengthModifier(self, Filters.hasAttached(self), condition, 2));
         modifiers.add(
                 new KeywordModifier(self, Filters.hasAttached(self), condition, Keyword.DAMAGE, 1));
-        modifiers.add(
-                new ExtraPossessionClassModifier(self, self));
         return modifiers;
     }
 }

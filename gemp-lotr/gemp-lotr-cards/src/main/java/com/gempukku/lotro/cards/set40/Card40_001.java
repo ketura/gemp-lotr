@@ -51,7 +51,7 @@ public class Card40_001 extends AbstractAttachable {
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.MANEUVER, self)
                 && (PlayConditions.canExert(self, game, Filters.hasAttached(self))
                 || PlayConditions.canDiscardFromHand(game, self.getOwner(), 1, Filters.any))) {

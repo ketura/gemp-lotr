@@ -36,10 +36,9 @@ public class Card40_138 extends AbstractEvent {
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && (PlayConditions.canPlayFromDeck(playerId, game, Filters.saruman)
-                || PlayConditions.canPlayFromDiscard(playerId, game, Filters.saruman));
+    public boolean checkPlayRequirements(LotroGame game, PhysicalCard self) {
+        return (PlayConditions.canPlayFromDeck(self.getOwner(), game, Filters.saruman)
+                || PlayConditions.canPlayFromDiscard(self.getOwner(), game, Filters.saruman));
     }
 
     @Override

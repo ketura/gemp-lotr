@@ -34,7 +34,7 @@ public class Card8_069 extends AbstractPermanent {
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
+    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.ARCHERY, self, 0)
                 && self.getZone() == Zone.SUPPORT
                 && PlayConditions.canSpot(game, Filters.owner(playerId), Race.NAZGUL, Filters.or(Keyword.ENDURING, Filters.mounted))) {
