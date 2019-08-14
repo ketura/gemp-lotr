@@ -40,6 +40,10 @@ public class GameHistoryService {
         return _gameHistoryDAO.getGameHistoryForPlayer(player, start, count);
     }
 
+    public List<GameHistoryEntry> getTrackableGames(int count) {
+        return _gameHistoryDAO.getLastGames("Second Edition", count);
+    }
+
     public int getActivePlayersCount(long from, long duration) {
         return _gameHistoryDAO.getActivePlayersCount(from, duration);
     }

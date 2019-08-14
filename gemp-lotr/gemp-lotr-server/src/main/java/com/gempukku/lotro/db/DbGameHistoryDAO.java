@@ -240,6 +240,53 @@ public class DbGameHistoryDAO implements GameHistoryDAO {
         }
     }
 
+    @Override
+    public List<GameHistoryEntry> getLastGames(String requestedFormatName, int count) {
+        try {
+            Connection connection = _dbAccess.getDataSource().getConnection();
+            try {
+                PreparedStatement statement = connection.prepareStatement(
+                        "select winner, loser, win_reason, lose_reason, win_recording_id, lose_recording_id, format_name, " +
+                                "tournament, winner_deck_name, loser_deck_name, start_date, end_date from game_history " +
+                                "where format_name=? order by end_date desc limit ?");
+                try {
+                    statement.setString(1, requestedFormatName);
+                    statement.setInt(2, count);
+                    ResultSet rs = statement.executeQuery();
+                    try {
+                        List<GameHistoryEntry> result = new LinkedList<GameHistoryEntry>();
+                        while (rs.next()) {
+                            String winner = rs.getString(1);
+                            String loser = rs.getString(2);
+                            String winReason = rs.getString(3);
+                            String loseReason = rs.getString(4);
+                            String winRecordingId = rs.getString(5);
+                            String loseRecordingId = rs.getString(6);
+                            String formatName = rs.getString(7);
+                            String tournament = rs.getString(8);
+                            String winnerDeckName = rs.getString(9);
+                            String loserDeckName = rs.getString(10);
+                            Date startDate = new Date(rs.getLong(11));
+                            Date endDate = new Date(rs.getLong(12));
+
+                            GameHistoryEntry entry = new GameHistoryEntry(winner, winReason, winRecordingId, loser, loseReason, loseRecordingId, formatName, tournament, winnerDeckName, loserDeckName, startDate, endDate);
+                            result.add(entry);
+                        }
+                        return result;
+                    } finally {
+                        rs.close();
+                    }
+                } finally {
+                    statement.close();
+                }
+            } finally {
+                connection.close();
+            }
+        } catch (SQLException exp) {
+            throw new RuntimeException("Unable to get list of games", exp);
+        }
+    }
+
     public List<PlayerStatistic> getCompetitivePlayerStatistics(Player player) {
         try {
             Connection connection = _dbAccess.getDataSource().getConnection();
