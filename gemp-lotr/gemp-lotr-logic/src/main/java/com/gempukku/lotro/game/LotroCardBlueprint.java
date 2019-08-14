@@ -28,9 +28,7 @@ public interface LotroCardBlueprint {
 
     public boolean isUnique();
 
-    boolean skipUniquenessCheck();
-
-    public String getName();
+    public String getTitle();
 
     public String getSubtitle();
 
@@ -129,6 +127,8 @@ public interface LotroCardBlueprint {
     boolean canPayAidCost(LotroGame game, PhysicalCard self);
 
     void appendAidCosts(LotroGame game, CostToEffectAction action, PhysicalCard self);
+
+    boolean skipUniquenessCheck();
 
     public enum Direction {
         LEFT, RIGHT

@@ -39,7 +39,7 @@ public class Card1_093 extends AbstractEvent {
                     @Override
                     protected void forEachCardExertedCallback(PhysicalCard character) {
                         Filter filter;
-                        if (character.getBlueprint().getName().equals("Aragorn"))
+                        if (character.getBlueprint().getTitle().equals("Aragorn"))
                             filter = Filters.arwen;
                         else
                             filter = Filters.aragorn;

@@ -55,7 +55,7 @@ new NegativeEvaluator(new CountFPCulturesEvaluator(self.getOwner()))));
                             new ChooseAndAssignCharacterToMinionEffect(action, playerId, self, true, CardType.ALLY) {
                                 @Override
                                 public String getText(LotroGame game) {
-                                    return "Assign "+ getName()+" to an ally";
+                                    return "Assign "+ getTitle()+" to an ally";
                                 }
                             }, game.getGameState().getCurrentPlayerId(),
                             new PreventableEffect.PreventionCost() {

@@ -50,7 +50,7 @@ public class Card10_023 extends AbstractMinion {
                             action.appendEffect(
                                     new AddUntilEndOfTurnModifierEffect(
                                             new CantBeAssignedToSkirmishModifier(self, card)));
-                            game.getGameState().sendMessage(self.getOwner() +" has chosen "+ card.getBlueprint().getName());
+                            game.getGameState().sendMessage(self.getOwner() +" has chosen "+ card.getBlueprint().getTitle());
                         }
                     });
             return Collections.singletonList(action);

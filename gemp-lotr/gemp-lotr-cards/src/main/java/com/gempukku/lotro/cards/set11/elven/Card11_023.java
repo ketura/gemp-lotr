@@ -46,7 +46,7 @@ public class Card11_023 extends AbstractAttachableFPPossession {
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.forEachExerted(game, effectResult, self.getAttachedTo())
-                && self.getAttachedTo().getBlueprint().getName().equals("Legolas")) {
+                && self.getAttachedTo().getBlueprint().getTitle().equals("Legolas")) {
             ExertResult exertResult = (ExertResult) effectResult;
             if (exertResult.getAction() != null && exertResult.getAction().getType() == Action.Type.PLAY_CARD) {
                 PhysicalCard playedCard = exertResult.getAction().getActionSource();

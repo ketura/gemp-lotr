@@ -46,7 +46,7 @@ public class Card13_115 extends AbstractMinion {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.appendEffect(
-                                    new DiscardCardsFromPlayEffect(self.getOwner(), self, Filters.not(card), Filters.name(card.getBlueprint().getName())));
+                                    new DiscardCardsFromPlayEffect(self.getOwner(), self, Filters.not(card), Filters.name(card.getBlueprint().getTitle())));
                         }
                     });
             return Collections.singletonList(action);

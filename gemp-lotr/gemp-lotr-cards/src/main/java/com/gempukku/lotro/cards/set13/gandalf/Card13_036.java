@@ -56,9 +56,9 @@ public class Card13_036 extends AbstractAttachableFPPossession {
 
     @Override
     public List<? extends AbstractExtraPlayCostModifier> getExtraCostToPlayModifiers(LotroGame game, PhysicalCard self) {
-        if (PlayConditions.canSpot(game, Filters.name(getName()))) {
+        if (PlayConditions.canSpot(game, Filters.name(getTitle()))) {
             return Collections.singletonList(
-                    new DiscardFromPlayExtraPlayCostModifier(self, self, 1, null, Filters.name(getName())));
+                    new DiscardFromPlayExtraPlayCostModifier(self, self, 1, null, Filters.name(getTitle())));
         }
         return super.getExtraCostToPlayModifiers(game, self);
     }

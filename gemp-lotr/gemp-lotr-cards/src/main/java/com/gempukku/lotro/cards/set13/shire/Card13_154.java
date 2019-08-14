@@ -44,7 +44,7 @@ public class Card13_154 extends AbstractPermanent {
                     new ChooseAndHealCharactersEffect(action, playerId, 1, 1, CardType.COMPANION) {
                         @Override
                         protected void forEachCardChosenToHealCallback(PhysicalCard character) {
-                            if (character.getBlueprint().getName().equals("Sam"))
+                            if (character.getBlueprint().getTitle().equals("Sam"))
                                 action.appendEffect(
                                         new HealCharactersEffect(self, character));
                         }

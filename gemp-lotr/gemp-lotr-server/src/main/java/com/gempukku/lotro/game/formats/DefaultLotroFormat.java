@@ -414,7 +414,7 @@ public class DefaultLotroFormat implements LotroFormat {
 
     private void processCardCounts(String blueprintId, Map<String, Integer> cardCountByName, Map<String, Integer> cardCountByBaseBlueprintId) throws CardNotFoundException {
         LotroCardBlueprint cardBlueprint = _library.getLotroCardBlueprint(blueprintId);
-        increaseCount(cardCountByName, cardBlueprint.getName());
+        increaseCount(cardCountByName, cardBlueprint.getTitle());
         increaseCount(cardCountByBaseBlueprintId, _library.getBaseBlueprintId(blueprintId));
     }
 

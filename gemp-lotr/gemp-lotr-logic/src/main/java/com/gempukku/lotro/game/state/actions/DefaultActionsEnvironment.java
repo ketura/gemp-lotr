@@ -554,7 +554,7 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
                             if (action != null)
                                 _actions.add(action);
                             else
-                                LOG.error("Null action from: " + physicalCard.getBlueprint().getName());
+                                LOG.error("Null action from: " + physicalCard.getBlueprint().getTitle());
                         }
                     }
                 } else if (physicalCard.getZone() == Zone.HAND) {
@@ -564,7 +564,7 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
                             if (action != null)
                                 _actions.add(action);
                             else
-                                LOG.error("Null action from: " + physicalCard.getBlueprint().getName());
+                                LOG.error("Null action from: " + physicalCard.getBlueprint().getTitle());
                         }
                     }
                 }
@@ -574,7 +574,7 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
                         if (action != null)
                             _actions.add(action);
                         else
-                            LOG.debug("Null action from: " + physicalCard.getBlueprint().getName());
+                            LOG.debug("Null action from: " + physicalCard.getBlueprint().getTitle());
                     }
                 }
             }
@@ -607,7 +607,7 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
                     if (action != null)
                         _actions.add(action);
                     else
-                        LOG.debug("Null action from: " + physicalCard.getBlueprint().getName());
+                        LOG.debug("Null action from: " + physicalCard.getBlueprint().getTitle());
                 }
             }
         }

@@ -47,7 +47,7 @@ return Collections.singletonList(new RemoveGameTextModifier(self, Filters.and(Ca
                 PhysicalCard randomSite = randomCards.get(0);
                 action.appendEffect(
                         new RevealCardEffect(self, randomCards.get(0)));
-                self.setWhileInZoneData(randomSite.getBlueprint().getName());
+                self.setWhileInZoneData(randomSite.getBlueprint().getTitle());
             }
             return Collections.singletonList(action);
         }

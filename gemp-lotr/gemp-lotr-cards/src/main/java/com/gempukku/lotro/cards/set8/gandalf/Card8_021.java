@@ -47,7 +47,7 @@ public class Card8_021 extends AbstractAttachableFPPossession {
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.startOfPhase(game, effectResult, Phase.SKIRMISH)) {
             final Skirmish skirmish = game.getGameState().getSkirmish();
-            if (skirmish != null && skirmish.getFellowshipCharacter() != null && skirmish.getFellowshipCharacter().getBlueprint().getName().equals("Gandalf")) {
+            if (skirmish != null && skirmish.getFellowshipCharacter() != null && skirmish.getFellowshipCharacter().getBlueprint().getTitle().equals("Gandalf")) {
                 RequiredTriggerAction action = new RequiredTriggerAction(self);
                 action.appendEffect(
                         new ExertCharactersEffect(action, self, Filters.inSkirmishAgainst(Filters.gandalf)));

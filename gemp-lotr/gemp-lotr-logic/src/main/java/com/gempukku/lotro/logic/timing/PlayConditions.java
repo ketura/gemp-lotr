@@ -94,13 +94,13 @@ public class PlayConditions {
     public static boolean canPlayCardDuringPhase(LotroGame game, Phase phase, PhysicalCard self) {
         return (phase == null || game.getGameState().getCurrentPhase() == phase)
                 && self.getZone() == Zone.HAND
-                && (!self.getBlueprint().isUnique() || Filters.countActive(game, Filters.name(self.getBlueprint().getName())) == 0);
+                && (!self.getBlueprint().isUnique() || Filters.countActive(game, Filters.name(self.getBlueprint().getTitle())) == 0);
     }
 
     public static boolean canPlayCardFromHandDuringPhase(LotroGame game, Phase[] phases, PhysicalCard self) {
         return (phases == null || containsPhase(phases, game.getGameState().getCurrentPhase()))
                 && self.getZone() == Zone.HAND
-                && (!self.getBlueprint().isUnique() || Filters.countActive(game, Filters.name(self.getBlueprint().getName())) == 0);
+                && (!self.getBlueprint().isUnique() || Filters.countActive(game, Filters.name(self.getBlueprint().getTitle())) == 0);
     }
 
     public static boolean canUseFPCardDuringPhase(LotroGame game, Phase phase, PhysicalCard self) {
@@ -141,8 +141,8 @@ public class PlayConditions {
         LotroCardBlueprint blueprint = self.getBlueprint();
         return (!blueprint.isUnique()
                 || (
-                Filters.countActive(game, Filters.name(blueprint.getName())) == 0
-                        && (ignoreCheckingDeadPile || (Filters.filter(game.getGameState().getDeadPile(self.getOwner()), game, Filters.name(blueprint.getName())).size() == 0))));
+                Filters.countActive(game, Filters.name(blueprint.getTitle())) == 0
+                        && (ignoreCheckingDeadPile || (Filters.filter(game.getGameState().getDeadPile(self.getOwner()), game, Filters.name(blueprint.getTitle())).size() == 0))));
     }
 
     private static int getTotalCompanions(String playerId, LotroGame game) {
@@ -162,9 +162,9 @@ public class PlayConditions {
         // you cannot play any version of Frodo
         // with the Ring-bearer keyword during the game
         PhysicalCard ringBearer = game.getGameState().getRingBearer(game.getGameState().getCurrentPlayerId());
-        boolean ringBearerIsNotFrodo = ringBearer != null && !ringBearer.getBlueprint().getName().equals("Frodo");
+        boolean ringBearerIsNotFrodo = ringBearer != null && !ringBearer.getBlueprint().getTitle().equals("Frodo");
         if (ringBearerIsNotFrodo) {
-            boolean isRingBearerFrodo = self.getBlueprint().getName().equals("Frodo") && self.getBlueprint().hasKeyword(Keyword.CAN_START_WITH_RING);
+            boolean isRingBearerFrodo = self.getBlueprint().getTitle().equals("Frodo") && self.getBlueprint().hasKeyword(Keyword.CAN_START_WITH_RING);
             return !isRingBearerFrodo;
         }
         return true;

@@ -32,6 +32,6 @@ public class Card13_116 extends AbstractMinion {
 
     @Override
     public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
-return Collections.singletonList(new StrengthModifier(self, Filters.name(getName()), new SpotCondition(Side.FREE_PEOPLE, Filters.hasAnyCultureTokens(1)), 2));
+return Collections.singletonList(new StrengthModifier(self, Filters.name(getTitle()), new SpotCondition(Side.FREE_PEOPLE, Filters.hasAnyCultureTokens(1)), 2));
 }
 }

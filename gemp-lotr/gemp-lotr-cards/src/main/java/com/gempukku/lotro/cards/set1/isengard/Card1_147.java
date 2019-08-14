@@ -47,7 +47,7 @@ public class Card1_147 extends AbstractMinion {
                             action.appendEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
                                             new CantBeAssignedAgainstModifier(self, Side.FREE_PEOPLE, Filters.sameCard(companion), self)));
-                            game.getGameState().sendMessage(self.getOwner() +" has chosen "+ companion.getBlueprint().getName());
+                            game.getGameState().sendMessage(self.getOwner() +" has chosen "+ companion.getBlueprint().getTitle());
                         }
                     });
             return Collections.singletonList(action);

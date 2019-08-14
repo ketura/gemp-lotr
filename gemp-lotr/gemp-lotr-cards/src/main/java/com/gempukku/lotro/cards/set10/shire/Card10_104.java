@@ -71,7 +71,7 @@ public class Card10_104 extends AbstractPermanent {
     private Collection<PhysicalCard> filterUniqueNames(Collection<PhysicalCard> cards) {
         Map<String, PhysicalCard> nameMap = new HashMap<String, PhysicalCard>();
         for (PhysicalCard card : cards)
-            nameMap.put(card.getBlueprint().getName(), card);
+            nameMap.put(card.getBlueprint().getTitle(), card);
         return nameMap.values();
     }
 }

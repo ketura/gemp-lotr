@@ -49,7 +49,7 @@ public class Card5_116 extends AbstractAttachableFPPossession {
                     new ChooseActiveCardEffect(self, playerId, "Choose Smeagol or Gollum", Filters.gollumOrSmeagol) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
-                            if (card.getBlueprint().getName().equals("Smeagol"))
+                            if (card.getBlueprint().getTitle().equals("Smeagol"))
                                 action.insertEffect(
                                         new AddUntilEndOfPhaseModifierEffect(
                                                 new StrengthModifier(self, Filters.sameCard(card), 2)));

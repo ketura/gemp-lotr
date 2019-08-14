@@ -35,8 +35,8 @@ public class GameUtils {
 
     public static String getFullName(LotroCardBlueprint blueprint) {
         if (blueprint.getSubtitle() != null)
-            return blueprint.getName() + ", " + blueprint.getSubtitle();
-        return blueprint.getName();
+            return blueprint.getTitle() + ", " + blueprint.getSubtitle();
+        return blueprint.getTitle();
     }
 
     public static String getFirstShadowPlayer(LotroGame game) {

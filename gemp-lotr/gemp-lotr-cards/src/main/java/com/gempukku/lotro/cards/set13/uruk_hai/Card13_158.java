@@ -55,7 +55,7 @@ public class Card13_158 extends AbstractMinion {
                                             action.appendEffect(
                                                     new AddUntilEndOfPhaseModifierEffect(
                                                             new ResistanceModifier(self, companion, null,
-                                                                    new MultiplyEvaluator(-1, new CountActiveEvaluator(Filters.name(condition.getBlueprint().getName()))))));
+                                                                    new MultiplyEvaluator(-1, new CountActiveEvaluator(Filters.name(condition.getBlueprint().getTitle()))))));
                                         }
                                     });
                         }

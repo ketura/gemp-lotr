@@ -48,7 +48,7 @@ public class Card13_126 extends AbstractAttachableFPPossession {
             return Collections.singletonList(action);
         }
         if (TriggerConditions.startOfPhase(game, effectResult, Phase.MANEUVER)
-                && self.getAttachedTo().getBlueprint().getName().equals(Names.eomer)
+                && self.getAttachedTo().getBlueprint().getTitle().equals(Names.eomer)
                 && PlayConditions.canRemoveTokensFromAnything(game, Token.ROHAN, 2)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(

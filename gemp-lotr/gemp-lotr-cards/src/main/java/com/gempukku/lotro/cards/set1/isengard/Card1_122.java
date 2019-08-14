@@ -37,7 +37,7 @@ public class Card1_122 extends AbstractResponseEvent {
         if (TriggerConditions.played(game, effectResult, Filters.and(Race.URUK_HAI, Filters.owner(playerId)))
                 && PlayUtils.checkPlayRequirements(game, self, Filters.any, 0, 0, false, false)) {
             final PlayEventAction action = new PlayEventAction(self);
-            String playedCardName = ((PlayCardResult) effectResult).getPlayedCard().getBlueprint().getName();
+            String playedCardName = ((PlayCardResult) effectResult).getPlayedCard().getBlueprint().getTitle();
             Collection<PhysicalCard> cardsInDiscardWithSameName = Filters.filter(game.getGameState().getDiscard(playerId), game, Filters.name(playedCardName));
             for (PhysicalCard physicalCard : cardsInDiscardWithSameName)
                 action.appendEffect(new PutCardFromDiscardOnBottomOfDeckEffect(physicalCard));

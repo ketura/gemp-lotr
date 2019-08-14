@@ -42,7 +42,7 @@ return Collections.singletonList(new StrengthModifier(self, Filters.and(Culture.
                 && self.getZone() == Zone.SUPPORT) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose a companion", CardType.COMPANION, Filters.inSkirmishAgainst(Filters.owner(playerId), Race.NAZGUL), Filters.not(Filters.hasAttached(Filters.name(getName())))) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose a companion", CardType.COMPANION, Filters.inSkirmishAgainst(Filters.owner(playerId), Race.NAZGUL), Filters.not(Filters.hasAttached(Filters.name(getTitle())))) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard target) {
                             action.appendEffect(

@@ -46,7 +46,7 @@ public class Card4_074 extends AbstractCompanion {
                     new ChooseActiveCardEffect(self, playerId, "Choose unbound companion", Filters.inSkirmish, Filters.unboundCompanion) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
-                            final int bonus = (card.getBlueprint().getName().equals("Gimli")) ? -2 : -1;
+                            final int bonus = (card.getBlueprint().getTitle().equals("Gimli")) ? -2 : -1;
                             action.insertEffect(
                                     new ChooseActiveCardEffect(self, playerId, "Choose minion skirmishing companion", CardType.MINION, Filters.inSkirmishAgainst(Filters.sameCard(card))) {
                                         @Override

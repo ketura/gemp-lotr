@@ -56,7 +56,7 @@ public class Card4_100 extends AbstractAttachableFPPossession {
         }
         if (TriggerConditions.startOfPhase(game, effectResult, Phase.SKIRMISH)) {
             final Skirmish skirmish = game.getGameState().getSkirmish();
-            if (skirmish != null && skirmish.getFellowshipCharacter() != null && skirmish.getFellowshipCharacter().getBlueprint().getName().equals("Gandalf")) {
+            if (skirmish != null && skirmish.getFellowshipCharacter() != null && skirmish.getFellowshipCharacter().getBlueprint().getTitle().equals("Gandalf")) {
                 RequiredTriggerAction action = new RequiredTriggerAction(self);
                 action.appendEffect(
                         new ExertCharactersEffect(action, self, Filters.inSkirmishAgainst(Filters.gandalf)));

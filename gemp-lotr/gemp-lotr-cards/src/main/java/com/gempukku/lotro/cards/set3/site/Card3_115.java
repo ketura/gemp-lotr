@@ -36,7 +36,7 @@ public class Card3_115 extends AbstractSite {
     @Override
     public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
-                new AbstractModifier(self, "No more than one minion may be assigned to each skirmish", null, new LocationCondition(Filters.name(getName())), ModifierEffect.ASSIGNMENT_MODIFIER) {
+                new AbstractModifier(self, "No more than one minion may be assigned to each skirmish", null, new LocationCondition(Filters.name(getTitle())), ModifierEffect.ASSIGNMENT_MODIFIER) {
                     @Override
                     public boolean isValidAssignments(LotroGame game, Side side, Map<PhysicalCard, Set<PhysicalCard>> assignments) {
                         for (Map.Entry<PhysicalCard, Set<PhysicalCard>> minionsAssignedToCharacter : assignments.entrySet()) {

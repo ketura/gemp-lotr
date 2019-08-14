@@ -35,7 +35,7 @@ public class Card20_286  extends AbstractPermanent {
     public List<? extends ActivateCardAction> getOptionalInPlayAfterActions(String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         if (TriggerConditions.winsSkirmish(game, effectResult, Filters.and(Filters.owner(self.getOwner()), Race.NAZGUL))
                 && self.getZone() == Zone.SUPPORT
-                && PlayConditions.isActive(game, Filters.character, Filters.inSkirmishAgainst(Race.NAZGUL), Filters.not(Filters.hasAttached(Filters.name(getName()))))) {
+                && PlayConditions.isActive(game, Filters.character, Filters.inSkirmishAgainst(Race.NAZGUL), Filters.not(Filters.hasAttached(Filters.name(getTitle()))))) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
                     new TransferPermanentEffect(self, game.getGameState().getSkirmish().getFellowshipCharacter()));

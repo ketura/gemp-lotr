@@ -43,7 +43,7 @@ public class Card30_022 extends AbstractAlly {
 						@Override
 						protected void woundedCardsCallback(Collection<PhysicalCard> cards) {
                             for (PhysicalCard card : cards)
-								if (card.getBlueprint().getName().equals("Smaug"))
+								if (card.getBlueprint().getTitle().equals("Smaug"))
 									action.appendEffect(new WoundCharactersEffect(self, card));
 						}
 			});

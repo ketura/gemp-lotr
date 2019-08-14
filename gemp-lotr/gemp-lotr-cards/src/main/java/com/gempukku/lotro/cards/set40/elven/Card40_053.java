@@ -44,7 +44,7 @@ public class Card40_053 extends AbstractPermanent{
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.ELF) {
                         @Override
                         protected void forEachCardExertedCallback(PhysicalCard character) {
-                            int removeCount = (character.getBlueprint().getName().equals("Galadriel"))?2:1;
+                            int removeCount = (character.getBlueprint().getTitle().equals("Galadriel"))?2:1;
                             action.appendEffect(
                                     new RemoveBurdenEffect(playerId, self, removeCount));
                         }

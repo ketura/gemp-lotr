@@ -50,7 +50,7 @@ public class Card13_093 extends AbstractPermanent {
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.losesSkirmishInvolving(game, effectResult,
-                Filters.and(CardType.COMPANION, Filters.not(Filters.hasAttached(Filters.name(getName())))),
+                Filters.and(CardType.COMPANION, Filters.not(Filters.hasAttached(Filters.name(getTitle())))),
                 Filters.and(Culture.MEN, CardType.MINION))
                 && self.getZone() == Zone.SUPPORT) {
             final PhysicalCard loser = ((CharacterLostSkirmishResult) effectResult).getLoser();

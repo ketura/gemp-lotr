@@ -46,7 +46,7 @@ public class Card4_177 extends AbstractAttachable {
     @Override
     public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SHADOW, self, 0)
-                && self.getAttachedTo().getBlueprint().getName().equals("Ugluk")
+                && self.getAttachedTo().getBlueprint().getTitle().equals("Ugluk")
                 && PlayConditions.canExert(self, game, Filters.name("Ugluk"))
                 && PlayConditions.canPlayFromHand(playerId, game, -3, CardType.MINION)) {
             ActivateCardAction action = new ActivateCardAction(self);

@@ -60,7 +60,7 @@ return Collections.singletonList(new StrengthModifier(self, Filters.hasAttached(
                 && self.getZone() == Zone.SUPPORT) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose your MEN minion", Filters.owner(playerId), Culture.MEN, CardType.MINION, Filters.not(Filters.hasAttached(Filters.name(getName())))) {
+                    new ChooseActiveCardEffect(self, playerId, "Choose your MEN minion", Filters.owner(playerId), Culture.MEN, CardType.MINION, Filters.not(Filters.hasAttached(Filters.name(getTitle())))) {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard card) {
                             action.appendEffect(

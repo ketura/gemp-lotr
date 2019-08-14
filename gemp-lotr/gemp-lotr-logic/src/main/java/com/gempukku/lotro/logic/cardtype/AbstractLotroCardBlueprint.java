@@ -100,7 +100,7 @@ public abstract class AbstractLotroCardBlueprint implements LotroCardBlueprint {
     }
 
     @Override
-    public final String getName() {
+    public final String getTitle() {
         return _name;
     }
 

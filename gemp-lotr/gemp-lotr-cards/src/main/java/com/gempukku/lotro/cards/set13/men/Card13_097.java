@@ -51,7 +51,7 @@ public class Card13_097 extends AbstractMinion {
                         @Override
                         protected void cardSelected(LotroGame game, PhysicalCard condition) {
                             action.appendEffect(
-                                    new ForEachYouSpotEffect(playerId, Filters.name(condition.getBlueprint().getName())) {
+                                    new ForEachYouSpotEffect(playerId, Filters.name(condition.getBlueprint().getTitle())) {
                                         @Override
                                         protected void spottedCards(int spotCount) {
                                             for (int i = 0; i < spotCount; i++)

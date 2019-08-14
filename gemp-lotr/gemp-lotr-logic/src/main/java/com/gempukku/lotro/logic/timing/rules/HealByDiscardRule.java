@@ -44,7 +44,7 @@ public class HealByDiscardRule {
                                         }
                                     });
 
-                            PhysicalCard active = Filters.findFirstActive(game, Filters.name(card.getBlueprint().getName()));
+                            PhysicalCard active = Filters.findFirstActive(game, Filters.name(card.getBlueprint().getTitle()));
                             if (active != null)
                                 action.appendEffect(new HealCharactersEffect(card, active));
 
@@ -60,7 +60,7 @@ public class HealByDiscardRule {
         LotroCardBlueprint blueprint = self.getBlueprint();
         if ((blueprint.getCardType() == CardType.COMPANION || blueprint.getCardType() == CardType.ALLY)
                 && blueprint.isUnique()) {
-            PhysicalCard matchingName = Filters.findFirstActive(game, Filters.name(blueprint.getName()));
+            PhysicalCard matchingName = Filters.findFirstActive(game, Filters.name(blueprint.getTitle()));
             if (matchingName != null)
                 return game.getGameState().getWounds(matchingName) > 0;
         }
