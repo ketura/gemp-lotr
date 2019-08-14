@@ -29,7 +29,7 @@ public class Card10_111 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         final int discardCount = (PlayConditions.canSpot(game, 4, Race.HOBBIT, CardType.COMPANION)) ? 2 : 1;
         action.appendEffect(

@@ -36,7 +36,7 @@ public class Card7_050 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayEventCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         int vitality = game.getModifiersQuerying().getVitality(game, Filters.findFirstActive(game, Filters.gandalf, Filters.canExert(self)));
         action.appendCost(

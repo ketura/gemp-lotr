@@ -25,7 +25,7 @@ public class Card30_013 extends AbstractEvent {
     }
 
     @Override
-	public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+	public PlayEventAction getPlayEventCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
 		final PlayEventAction action = new PlayEventAction(self);
 		if (Filters.canSpot(game, Filters.name("Elrond")))
             action.appendEffect(

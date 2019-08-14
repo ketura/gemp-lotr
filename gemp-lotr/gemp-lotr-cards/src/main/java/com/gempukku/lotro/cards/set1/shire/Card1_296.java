@@ -28,7 +28,7 @@ public class Card1_296 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         if (game.getGameState().getCurrentSiteNumber() > 4 || game.getGameState().getCurrentSiteBlock() != SitesBlock.FELLOWSHIP) {
             action.appendEffect(

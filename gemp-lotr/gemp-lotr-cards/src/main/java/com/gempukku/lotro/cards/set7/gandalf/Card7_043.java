@@ -34,7 +34,7 @@ public class Card7_043 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         int exertCount = (PlayConditions.hasInitiative(game, Side.FREE_PEOPLE)) ? 2 : 3;
         action.appendCost(

@@ -32,7 +32,7 @@ public class Card12_026 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayEventCardAction(final String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new ForEachYouSpotEffect(playerId, CardType.COMPANION, Filters.not(Culture.GANDALF, Race.WIZARD)) {

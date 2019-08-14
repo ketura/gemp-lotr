@@ -36,7 +36,7 @@ public class Card13_176 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayEventCardAction(final String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         final Filter targetFilter = Filters.and(Filters.owner(playerId), Culture.URUK_HAI, CardType.MINION);
         PlayEventAction action = new PlayEventAction(self);
         action.appendCost(

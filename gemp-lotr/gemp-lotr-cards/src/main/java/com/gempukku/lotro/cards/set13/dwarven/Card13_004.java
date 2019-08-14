@@ -30,7 +30,7 @@ public class Card13_004 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, 3, Filters.owner(playerId), Race.DWARF, Filters.hasAttached(PossessionClass.HAND_WEAPON)));
@@ -42,7 +42,7 @@ public class Card13_004 extends AbstractEvent {
         if (PlayConditions.isPhase(game, Phase.SKIRMISH)
                 && PlayConditions.canPlayFromDiscard(playerId, game, self)
                 && PlayConditions.canRemoveFromDiscardToPlay(self, game, playerId, 4, Culture.DWARVEN)) {
-            final PlayEventAction action = getPlayCardAction(playerId, game, self, 0, false);
+            final PlayEventAction action = getPlayEventCardAction(playerId, game, self, 0);
             action.appendCost(
                     new ChooseAndRemoveFromTheGameCardsInDiscardEffect(action, self, playerId, 4, 4, Culture.DWARVEN));
             action.appendEffect(

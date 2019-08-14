@@ -35,7 +35,7 @@ public class Card31_033 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         PlayEventAction action = new PlayEventAction(self);
 	action.appendCost(
 		new ChooseAndExertCharactersEffect(action, playerId, 2, 2, Race.ORC));

@@ -3,14 +3,7 @@ package com.gempukku.lotro.logic.cardtype;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.actions.PlayEventAction;
-import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
-import com.gempukku.lotro.logic.timing.Action;
-import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.EffectResult;
-
-import java.util.List;
 
 public abstract class AbstractEvent extends AbstractLotroCardBlueprint {
     public AbstractEvent(Side side, int twilightCost, Culture culture, String name, Phase playableInPhase, Phase... additionalPlayableInPhases) {
@@ -39,5 +32,6 @@ public abstract class AbstractEvent extends AbstractLotroCardBlueprint {
             addKeyword(Keyword.REGROUP);
     }
 
-    public abstract PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty);
+    @Override
+    public abstract PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier);
 }

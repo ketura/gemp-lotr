@@ -37,7 +37,7 @@ public class Card3_011 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayEventCardAction(final String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         String[] opponents = GameUtils.getShadowPlayers(game);
         final AtomicInteger integer = new AtomicInteger(0);

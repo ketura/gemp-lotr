@@ -32,7 +32,7 @@ public class Card5_096 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
         if (game.getGameState().getCurrentPhase() == Phase.SKIRMISH) {
             final PlayEventAction action = new PlayEventAction(self);
             action.appendEffect(

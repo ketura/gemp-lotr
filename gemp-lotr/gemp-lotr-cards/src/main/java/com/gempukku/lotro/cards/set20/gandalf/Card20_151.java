@@ -26,7 +26,7 @@ public class Card20_151 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         PlayEventAction action = new PlayEventAction(self);
         boolean initiative = PlayConditions.hasInitiative(game, Side.FREE_PEOPLE);
         if (initiative) {

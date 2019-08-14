@@ -31,7 +31,7 @@ public class Card1_239 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayEventCardAction(final String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         int companionCount = Filters.countActive(game, CardType.COMPANION);
         for (int i = 0; i < companionCount - 4; i++)

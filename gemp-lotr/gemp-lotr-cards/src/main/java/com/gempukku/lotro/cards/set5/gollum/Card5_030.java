@@ -41,7 +41,7 @@ public class Card5_030 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         PlayEventAction action = new PlayEventAction(self);
         if (game.getGameState().getCurrentPhase() == Phase.SHADOW) {
             List<Effect> possibleEffects = new LinkedList<Effect>();

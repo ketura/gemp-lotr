@@ -33,7 +33,7 @@ public class Card15_033 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         PlayEventAction action = new PlayEventAction(self);
         final PhysicalCard gandalf = Filters.findFirstActive(game, Filters.gandalf);
         action.appendEffect(

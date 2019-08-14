@@ -50,7 +50,7 @@ public class ChooseAndTransferAttachableEffect extends AbstractEffect {
         return null;
     }
 
-    protected Filterable getValidTargetFilter(LotroGame game, final PhysicalCard attachment, AbstractAttachable attachable) {
+    private Filterable getValidTargetFilter(LotroGame game, final PhysicalCard attachment) {
         if (_skipOriginalTargetCheck) {
             return Filters.and(
                     _transferTo,
@@ -75,7 +75,7 @@ public class ChooseAndTransferAttachableEffect extends AbstractEffect {
         }
     }
 
-    protected Collection<PhysicalCard> getPossibleAttachmentsToTransfer(final LotroGame game) {
+    private Collection<PhysicalCard> getPossibleAttachmentsToTransfer(final LotroGame game) {
         return Filters.filterActive(game,
                 _attachedCard,
                 Filters.attachedTo(_attachedTo),
@@ -88,8 +88,7 @@ public class ChooseAndTransferAttachableEffect extends AbstractEffect {
                         if (!game.getModifiersQuerying().canBeTransferred(game, transferredCard))
                             return false;
 
-                        AbstractAttachable attachable = (AbstractAttachable) transferredCard.getBlueprint();
-                        return Filters.countActive(game, getValidTargetFilter(game, transferredCard, attachable))>0;
+                        return Filters.countActive(game, getValidTargetFilter(game, transferredCard))>0;
                     }
                 });
     }
@@ -111,8 +110,7 @@ public class ChooseAndTransferAttachableEffect extends AbstractEffect {
                             if (selectedAttachments.size() == 1) {
                                 final PhysicalCard attachment = selectedAttachments.iterator().next();
                                 final PhysicalCard transferredFrom = attachment.getAttachedTo();
-                                AbstractAttachable attachable = (AbstractAttachable) attachment.getBlueprint();
-                                final Collection<PhysicalCard> validTargets = Filters.filterActive(game, getValidTargetFilter(game, attachment, attachable));
+                                final Collection<PhysicalCard> validTargets = Filters.filterActive(game, getValidTargetFilter(game, attachment));
                                 game.getUserFeedback().sendAwaitingDecision(
                                         _playerId,
                                         new CardsSelectionDecision(1, "Choose transfer target", validTargets, 1, 1) {

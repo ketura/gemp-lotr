@@ -29,7 +29,7 @@ public class Card30_023 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(final String playerId, final LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayEventCardAction(final String playerId, final LotroGame game, PhysicalCard self, int twilightModifier) {
         Filter filter = Filters.or(Filters.gandalf, Filters.and(CardType.ALLY, Filters.not(Race.DWARF)));
 
         PlayEventAction action = new PlayEventAction(self);

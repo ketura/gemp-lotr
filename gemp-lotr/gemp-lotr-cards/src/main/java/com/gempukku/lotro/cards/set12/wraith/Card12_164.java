@@ -33,7 +33,7 @@ public class Card12_164 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(final String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayEventCardAction(final String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new ChooseAndPlayCardFromDeckEffect(playerId, PossessionClass.MOUNT, ExtraFilters.attachableTo(game, Filters.owner(playerId), Race.NAZGUL)) {

@@ -29,7 +29,7 @@ public class Card12_162 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         PlayEventAction action = new PlayEventAction(self);
         int modifier = Math.max(-4, -Filters.countActive(game, CardType.SITE, Keyword.FOREST));
         action.appendEffect(

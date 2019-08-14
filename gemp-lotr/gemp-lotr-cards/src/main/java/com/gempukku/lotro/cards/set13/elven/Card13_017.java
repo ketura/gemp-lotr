@@ -31,7 +31,7 @@ public class Card13_017 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
         PlayEventAction action = new PlayEventAction(self);
         if (PlayConditions.location(game, Filters.or(Keyword.FOREST, Keyword.RIVER)))
             action.appendEffect(
@@ -44,7 +44,7 @@ public class Card13_017 extends AbstractEvent {
         if (PlayConditions.isPhase(game, Phase.SKIRMISH)
                 && PlayConditions.canPlayFromDiscard(playerId, game, self)
                 && PlayConditions.canRemoveFromDiscardToPlay(self, game, playerId, 4, Culture.ELVEN)) {
-            final PlayEventAction action = getPlayCardAction(playerId, game, self, 0, false);
+            final PlayEventAction action = getPlayEventCardAction(playerId, game, self, 0);
             action.appendCost(
                     new ChooseAndRemoveFromTheGameCardsInDiscardEffect(action, self, playerId, 4, 4, Culture.ELVEN));
             action.appendEffect(

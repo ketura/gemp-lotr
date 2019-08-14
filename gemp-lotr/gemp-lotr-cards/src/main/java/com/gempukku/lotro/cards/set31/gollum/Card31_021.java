@@ -38,7 +38,7 @@ public class Card31_021 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty) {
+    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(new ChooseActiveCardEffect(self, playerId, "Choose a minion", CardType.MINION) {
             @Override
@@ -69,7 +69,7 @@ public class Card31_021 extends AbstractEvent {
         if (PlayConditions.isPhase(game, Phase.SKIRMISH)
                 && PlayConditions.canExert(self, game, 2, Filters.name("Gollum"))
 				&& PlayConditions.canPlayFromDiscard(playerId, game, self)) {
-            final PlayEventAction playCardAction = getPlayCardAction(playerId, game, self, 0, false);
+            final PlayEventAction playCardAction = getPlayEventCardAction(playerId, game, self, 0);
 			playCardAction.appendCost(
 					new ChooseAndExertCharactersEffect(playCardAction, playerId, 1, 1, 2, Filters.name("Gollum")));
             return Collections.singletonList(playCardAction);

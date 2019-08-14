@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set1.gandalf;
 
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
@@ -42,9 +43,9 @@ public class Card1_079 extends AbstractPermanent {
                         new Filter() {
                             @Override
                             public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
-                                AbstractCompanion companion = (AbstractCompanion) physicalCard.getBlueprint();
-                                if (companion.getRace() != null) {
-                                    return !Filters.canSpot(game, companion.getRace());
+                                final Race race = physicalCard.getBlueprint().getRace();
+                                if (race != null) {
+                                    return !Filters.canSpot(game, race);
                                 }
                                 return false;
                             }

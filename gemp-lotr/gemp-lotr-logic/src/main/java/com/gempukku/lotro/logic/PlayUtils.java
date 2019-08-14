@@ -56,13 +56,14 @@ public class PlayUtils {
                 return action;
             } else {
                 final AttachPermanentAction action = new AttachPermanentAction(game, card, Filters.and(getFullAttachValidTargetFilter(game, card), additionalAttachmentFilter), blueprint.getTargetCostModifiers(card.getOwner(), game, card), twilightModifier);
+
                 game.getModifiersQuerying().appendPotentialDiscounts(game, action, card);
                 game.getModifiersQuerying().appendExtraCosts(game, action, card);
+
                 return action;
             }
         } else {
-            AbstractEvent eventBlueprint = (AbstractEvent) blueprint;
-            final PlayEventAction action = eventBlueprint.getPlayCardAction(card.getOwner(), game, card, 0, false);
+            final PlayEventAction action = blueprint.getPlayEventCardAction(card.getOwner(), game, card, twilightModifier);
 
             game.getModifiersQuerying().appendPotentialDiscounts(game, action, card);
             game.getModifiersQuerying().appendExtraCosts(game, action, card);
