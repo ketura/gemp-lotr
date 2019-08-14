@@ -37,8 +37,6 @@ public abstract class AbstractEvent extends AbstractLotroCardBlueprint {
             addKeyword(Keyword.SKIRMISH);
         else if (phase == Phase.REGROUP)
             addKeyword(Keyword.REGROUP);
-        else
-            addKeyword(Keyword.RESPONSE);
     }
 
     public abstract PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty);

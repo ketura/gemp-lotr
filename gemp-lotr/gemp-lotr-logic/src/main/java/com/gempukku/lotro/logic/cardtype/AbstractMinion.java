@@ -35,6 +35,7 @@ public class AbstractMinion extends AbstractPermanent {
         return _site;
     }
 
+    @Override
     public final Race getRace() {
         return _race;
     }
