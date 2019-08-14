@@ -50,7 +50,7 @@ public class Card2_097 extends AbstractAttachable {
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.FELLOWSHIP, self)
                 || PlayConditions.canUseFPCardDuringPhase(game, Phase.REGROUP, self)) {
             ActivateCardAction action = new ActivateCardAction(self);

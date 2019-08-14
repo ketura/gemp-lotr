@@ -41,7 +41,7 @@ return Collections.singletonList(new CantReplaceSiteByFPPlayerModifier(self, new
 }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, final LotroGame game, PhysicalCard self) {
+    public List<? extends Action> getPhaseActionsInPlay(String playerId, final LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SHADOW, self, 2)
                 && PlayConditions.canExert(self, game, Culture.ORC, CardType.MINION)) {
             final ActivateCardAction action = new ActivateCardAction(self);

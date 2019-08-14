@@ -8,8 +8,6 @@ import com.gempukku.lotro.logic.cardtype.AbstractAttachableFPPossession;
 import com.gempukku.lotro.logic.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
 import com.gempukku.lotro.logic.modifiers.ArcheryTotalModifier;
-import com.gempukku.lotro.logic.modifiers.ExtraPossessionClassModifier;
-import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
@@ -33,8 +31,8 @@ public class Card2_010 extends AbstractAttachableFPPossession {
 
 
     @Override
-    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
-        return Collections.singletonList(new ExtraPossessionClassModifier(self, self));
+    public boolean isExtraPossessionClass(LotroGame game, PhysicalCard self, PhysicalCard attachedTo) {
+        return true;
     }
 
     @Override
@@ -43,7 +41,7 @@ public class Card2_010 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.ARCHERY, self)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(

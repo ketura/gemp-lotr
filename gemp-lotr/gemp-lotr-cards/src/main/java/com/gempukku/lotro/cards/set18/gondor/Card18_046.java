@@ -56,7 +56,7 @@ public class Card18_046 extends AbstractPermanent {
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
+    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.MANEUVER, self)
                 && self.getZone() == Zone.SUPPORT
                 && (PlayConditions.canExert(self, game, Culture.GONDOR, Race.MAN)

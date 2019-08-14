@@ -78,7 +78,7 @@ return Collections.singletonList(new MinionSiteNumberModifier(self, Filters.hasA
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.REGROUP, self)
                 && PlayConditions.canExert(self, game, Keyword.RANGER)) {
             ActivateCardAction action = new ActivateCardAction(self);

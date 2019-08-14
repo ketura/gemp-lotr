@@ -43,7 +43,7 @@ public class Card2_055 extends AbstractPermanent {
 
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(final String playerId, final LotroGame game, final PhysicalCard self) {
+    public List<? extends Action> getPhaseActionsInPlay(final String playerId, final LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SHADOW, self, 0)
                 && Filters.canSpot(game, CardType.SITE, Filters.not(Filters.owner(playerId)))) {
             final ActivateCardAction action = new ActivateCardAction(self);

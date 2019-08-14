@@ -31,7 +31,7 @@ public class Card19_026 extends AbstractCompanion {
     }
 
     @Override
-    protected List<ActivateCardAction> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.FELLOWSHIP, self)
                 && PlayConditions.canPlayFromHand(playerId, game, -1, Culture.ROHAN, CardType.COMPANION, Filters.minPrintedTwilightCost(3))) {
             ActivateCardAction action = new ActivateCardAction(self);

@@ -37,7 +37,7 @@ new LocationCondition(Keyword.PLAINS), 1));
 }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.REGROUP, self)
                 && PlayConditions.canSpot(game, 2, Culture.ROHAN, Race.MAN)
                 && PlayConditions.canDiscardFromPlay(self, game, Culture.ROHAN, CardType.POSSESSION)) {

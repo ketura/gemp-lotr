@@ -46,7 +46,7 @@ return Collections.singletonList(new KeywordModifier(self, self, null, Keyword.D
 }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(final String playerId, LotroGame game, final PhysicalCard self) {
+    public List<? extends Action> getPhaseActionsInPlay(final String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.ASSIGNMENT, self, 0)
                 && PlayConditions.canSelfExert(self, 2, game)) {
             final ActivateCardAction action = new ActivateCardAction(self);

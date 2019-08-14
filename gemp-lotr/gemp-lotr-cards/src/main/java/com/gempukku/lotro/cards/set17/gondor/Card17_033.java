@@ -51,7 +51,7 @@ public class Card17_033 extends AbstractCompanion {
     }
 
     @Override
-    protected List<ActivateCardAction> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.MANEUVER, self)
                 && PlayConditions.canSelfExert(self, game)
                 && PlayConditions.canSpot(game, CardType.MINION, Keyword.ROAMING)) {

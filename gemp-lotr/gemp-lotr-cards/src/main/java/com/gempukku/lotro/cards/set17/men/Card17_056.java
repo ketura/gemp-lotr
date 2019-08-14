@@ -44,7 +44,7 @@ new CountActiveEvaluator(Culture.MEN, CardType.POSSESSION, Filters.hasStacked(Cu
 }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.MANEUVER, self, 0)
                 && PlayConditions.canSpot(game, Culture.MEN, CardType.POSSESSION)
                 && PlayConditions.canSelfDiscard(self, game)) {

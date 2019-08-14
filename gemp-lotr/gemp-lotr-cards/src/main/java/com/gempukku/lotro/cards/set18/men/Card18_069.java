@@ -5,7 +5,6 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
-import com.gempukku.lotro.logic.modifiers.ExtraPossessionClassModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 
@@ -33,7 +32,12 @@ public class Card18_069 extends AbstractAttachable {
 
     @Override
     public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
-        return Arrays.asList(new ExtraPossessionClassModifier(self, self),
+        return Arrays.asList(
                 new StrengthModifier(self, Filters.hasAttached(self), 1));
+    }
+
+    @Override
+    public boolean isExtraPossessionClass(LotroGame game, PhysicalCard self, PhysicalCard attachedTo) {
+        return true;
     }
 }

@@ -45,7 +45,7 @@ public class Card18_078 extends AbstractPermanent {
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.MANEUVER, self, 0)
                 && PlayConditions.canSpot(game, 2, Culture.ORC, CardType.MINION)) {
             ActivateCardAction action = new ActivateCardAction(self);

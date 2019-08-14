@@ -65,7 +65,7 @@ public class Card18_119 extends AbstractAttachable {
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.ARCHERY, self, 0)
                 && PlayConditions.canSpot(game, Filters.name("Lurtz"), Filters.hasAttached(self))
                 && PlayConditions.canDiscardFromHand(game, playerId, 2, Culture.URUK_HAI)) {

@@ -45,7 +45,7 @@ return Collections.singletonList(new CantTakeWoundsModifier(self, new NotConditi
 }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SHADOW, self, 0)
                 && PlayConditions.canRemoveBurdens(game, self, 1)
                 && PlayConditions.canPlayFromHand(playerId, game, -2, Culture.WRAITH, Race.WRAITH)) {

@@ -30,7 +30,7 @@ public class Card2_101 extends AbstractAlly {
     }
 
     @Override
-    protected List<ActivateCardAction> getExtraPhaseActions(String playerId, final LotroGame game, PhysicalCard self) {
+    public List<ActivateCardAction> getPhaseActionsInPlay(final String playerId, final LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
                 && PlayConditions.canExert(self, game, 2, Race.HOBBIT, CardType.COMPANION)) {
             final ActivateCardAction action = new ActivateCardAction(self);

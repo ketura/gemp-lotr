@@ -44,7 +44,7 @@ return Collections.singletonList(new StrengthModifier(self, Filters.and(self, Fi
 }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.REGROUP, self, 0)
                 && (PlayConditions.canExert(self, game, 4, Culture.URUK_HAI, CardType.MINION)
                 || PlayConditions.canDiscardFromPlay(self, game, 3, Culture.URUK_HAI, CardType.MINION))) {

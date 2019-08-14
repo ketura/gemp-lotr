@@ -57,7 +57,7 @@ public class Card15_068 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
+    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
                 && (PlayConditions.canAddThreat(game, self, 1)
                 || PlayConditions.canExert(self, game, self.getAttachedTo()))) {

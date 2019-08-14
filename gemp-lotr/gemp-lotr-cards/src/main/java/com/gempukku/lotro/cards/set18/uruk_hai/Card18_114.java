@@ -39,7 +39,7 @@ return Collections.singletonList(new VitalityModifier(self, Filters.hasAttached(
 }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
+    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.REGROUP, self, 0)
                 && self.getZone() == Zone.SUPPORT
                 && PlayConditions.canExert(self, game, 2, Culture.URUK_HAI, Keyword.HUNTER)) {

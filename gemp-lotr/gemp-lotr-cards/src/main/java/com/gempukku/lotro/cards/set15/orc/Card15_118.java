@@ -41,7 +41,7 @@ return Collections.singletonList(new MinionSiteNumberModifier(self, Filters.and(
 }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.REGROUP, self, 0)
                 && PlayConditions.canRemoveThreat(game, self, 3)
                 && PlayConditions.canDiscardFromPlay(self, game, 3, Culture.ORC, Race.ORC)) {

@@ -1,14 +1,14 @@
 package com.gempukku.lotro.cards.set15.gandalf;
 
-import com.gempukku.lotro.logic.cardtype.AbstractEvent;
-import com.gempukku.lotro.logic.actions.PlayEventAction;
-import com.gempukku.lotro.logic.effects.ChoiceEffect;
-import com.gempukku.lotro.logic.effects.ShuffleDeckEffect;
-import com.gempukku.lotro.logic.effects.choose.ChooseAndPutCardFromDeckIntoHandEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
+import com.gempukku.lotro.logic.effects.ChoiceEffect;
+import com.gempukku.lotro.logic.effects.ShuffleDeckEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndPutCardFromDeckIntoHandEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.LinkedList;
@@ -29,9 +29,8 @@ public class Card15_032 extends AbstractEvent {
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && (Filters.countActive(game, Race.ENT) + game.getModifiersQuerying().getSpotBonus(game, Race.ENT)) >= 1;
+    public boolean checkPlayRequirements(LotroGame game, PhysicalCard self) {
+        return (Filters.countActive(game, Race.ENT) + game.getModifiersQuerying().getSpotBonus(game, Race.ENT)) >= 1;
     }
 
     @Override
