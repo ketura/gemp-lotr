@@ -35,7 +35,7 @@ public class Card2_033 extends AbstractResponseEvent {
     }
 
     @Override
-    public List<PlayEventAction> getOptionalAfterActions(final String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
+    public List<PlayEventAction> getOptionalInHandAfterActions(final String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         if (PlayConditions.canPlayCardDuringPhase(game, (Phase) null, self)
                 && TriggerConditions.winsSkirmish(game, effectResult, Filters.and(Culture.GONDOR, CardType.COMPANION))
                 && PlayUtils.checkPlayRequirements(game, self, Filters.any, 0, 0, false, false)) {

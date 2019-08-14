@@ -34,7 +34,7 @@ public class Card10_001 extends AbstractResponseEvent {
     }
 
     @Override
-    public List<PlayEventAction> getOptionalAfterActions(String playerId, final LotroGame game, EffectResult effectResult, final PhysicalCard self) {
+    public List<PlayEventAction> getOptionalInHandAfterActions(String playerId, final LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         if (TriggerConditions.played(game, effectResult, CardType.MINION)) {
             PlayCardResult playResult = (PlayCardResult) effectResult;
             final PhysicalCard playedMinion = playResult.getPlayedCard();

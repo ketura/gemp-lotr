@@ -12,6 +12,7 @@ import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.PlayUtils;
 import com.gempukku.lotro.logic.modifiers.Condition;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
+import com.gempukku.lotro.logic.timing.RuleUtils;
 
 import java.util.*;
 
@@ -351,7 +352,7 @@ public class Filters {
                                 boolean preventedByCard = game.getModifiersQuerying().isAllyPreventedFromParticipatingInSkirmishes(game, assignedBySide, physicalCard);
                                 if (preventedByCard)
                                     return false;
-                                return physicalCard.getBlueprint().isAllyAtHome(game.getGameState().getCurrentSiteNumber(), game.getGameState().getCurrentSiteBlock());
+                                return RuleUtils.isAllyAtHome(physicalCard, game.getGameState().getCurrentSiteNumber(), game.getGameState().getCurrentSiteBlock());
                             }
                         }),
                 Filters.and(
@@ -653,7 +654,7 @@ public class Filters {
                 new Filter() {
                     @Override
                     public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
-                        return physicalCard.getBlueprint().isAllyAtHome(siteNumber, siteBlock);
+                        return RuleUtils.isAllyAtHome(physicalCard, siteNumber, siteBlock);
                     }
                 });
     }
@@ -663,7 +664,7 @@ public class Filters {
             new Filter() {
                 @Override
                 public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
-                    return physicalCard.getBlueprint().isAllyAtHome(game.getGameState().getCurrentSiteNumber(), game.getGameState().getCurrentSiteBlock());
+                    return RuleUtils.isAllyAtHome(physicalCard, game.getGameState().getCurrentSiteNumber(), game.getGameState().getCurrentSiteBlock());
                 }
             });
 
@@ -678,7 +679,7 @@ public class Filters {
                             SitesBlock homeBlock = blueprint.getAllyHomeSiteBlock();
                             int[] homeSites = blueprint.getAllyHomeSiteNumbers();
                             for (int homeSite : homeSites) {
-                                if (physicalCard.getBlueprint().isAllyAtHome(homeSite, homeBlock)) {
+                                if (RuleUtils.isAllyAtHome(physicalCard, homeSite, homeBlock)) {
                                     return true;
                                 }
                             }

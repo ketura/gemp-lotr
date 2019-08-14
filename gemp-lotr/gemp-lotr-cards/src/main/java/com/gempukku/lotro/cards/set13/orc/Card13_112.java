@@ -46,7 +46,7 @@ public class Card13_112 extends AbstractMinion {
     }
 
     @Override
-    public List<OptionalTriggerAction> getOptionalAfterTriggersFromHand(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<OptionalTriggerAction> getOptionalInHandAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.losesSkirmishInvolving(game, effectResult,
                 Filters.and(CardType.COMPANION, Keyword.RING_BOUND),
                 Filters.and(Culture.ORC, CardType.MINION))) {

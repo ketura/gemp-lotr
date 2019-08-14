@@ -33,7 +33,7 @@ public class Card20_302 extends AbstractResponseEvent {
     }
 
     @Override
-    public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<PlayEventAction> getOptionalInHandAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.winsSkirmishInvolving(game, effectResult, Race.NAZGUL, Filters.and(CardType.COMPANION, Filters.maxResistance(0)))) {
             final PhysicalCard winner = ((CharacterWonSkirmishResult) effectResult).getWinner();
             if (PlayConditions.canExert(self, game, 2, winner)) {

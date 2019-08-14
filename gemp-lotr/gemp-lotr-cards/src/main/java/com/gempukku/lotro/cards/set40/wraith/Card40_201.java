@@ -40,7 +40,7 @@ public class Card40_201 extends AbstractResponseEvent {
     }
 
     @Override
-    public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<PlayEventAction> getOptionalInHandAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.winsSkirmishInvolving(game, effectResult, Race.NAZGUL, Filters.and(CardType.COMPANION, Filters.maxResistance(0)))
                 && PlayUtils.checkPlayRequirements(game, self, Filters.any, 0, 0, false, false)) {
             CharacterWonSkirmishResult wonSkirmishResult = (CharacterWonSkirmishResult) effectResult;

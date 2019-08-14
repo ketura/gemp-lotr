@@ -34,7 +34,7 @@ public class Card1_194 extends AbstractResponseEvent {
     }
 
     @Override
-    public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<PlayEventAction> getOptionalInHandAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.played(game, effectResult, CardType.EVENT, Keyword.STEALTH)
                 && PlayConditions.canSpot(game, 3, Culture.MORIA, CardType.MINION)
                 && PlayUtils.checkPlayRequirements(game, self, Filters.any, 0, 0, false, false)) {

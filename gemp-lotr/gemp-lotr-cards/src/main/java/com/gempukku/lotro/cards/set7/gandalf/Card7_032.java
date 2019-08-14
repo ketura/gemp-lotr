@@ -38,7 +38,7 @@ public class Card7_032 extends AbstractResponseEvent {
     }
 
     @Override
-    public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<PlayEventAction> getOptionalInHandAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.played(game, effectResult, CardType.EVENT)
                 && PlayConditions.canExert(self, game, Filters.gandalf)) {
             PlayEventResult playEventResult = (PlayEventResult) effectResult;

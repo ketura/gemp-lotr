@@ -31,7 +31,7 @@ public class Card2_057 extends AbstractResponseEvent {
     }
 
     @Override
-    public List<PlayEventAction> getOptionalAfterActions(String playerId, final LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<PlayEventAction> getOptionalInHandAfterActions(String playerId, final LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayUtils.checkPlayRequirements(game, self, Filters.any, 0, 0, false, false)
                 && effectResult.getType() == EffectResult.Type.SKIRMISH_ABOUT_TO_END) {
             SkirmishAboutToEndResult checkSkirmish = (SkirmishAboutToEndResult) effectResult;

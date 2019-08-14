@@ -262,7 +262,7 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
             for (PhysicalCard cardInHand : _lotroGame.getGameState().getHand(playerId)) {
                 if (cardInHand.getBlueprint().getSide() == workingSide) {
                     for (EffectResult effectResult : effectResults) {
-                        List<OptionalTriggerAction> actions = cardInHand.getBlueprint().getOptionalAfterTriggersFromHand(playerId, _lotroGame, effectResult, cardInHand);
+                        List<OptionalTriggerAction> actions = cardInHand.getBlueprint().getOptionalInHandAfterTriggers(playerId, _lotroGame, effectResult, cardInHand);
                         if (actions != null) {
                             for (OptionalTriggerAction action : actions) {
                                 if (!effectResult.wasOptionalTriggerUsed(action))
@@ -429,9 +429,15 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
         @Override
         public void doVisitPhysicalCard(PhysicalCard physicalCard) {
             if (!_lotroGame.getModifiersQuerying().hasTextRemoved(_lotroGame, physicalCard)) {
-                List<? extends Action> actions = physicalCard.getBlueprint().getOptionalBeforeActions(_playerId, _lotroGame, _effect, physicalCard);
-                if (actions != null)
-                    _actions.addAll(actions);
+                if (physicalCard.getZone().isInPlay()) {
+                    List<? extends Action> actions = physicalCard.getBlueprint().getOptionalInPlayBeforeActions(_playerId, _lotroGame, _effect, physicalCard);
+                    if (actions != null)
+                        _actions.addAll(actions);
+                } else if (physicalCard.getZone() == Zone.HAND) {
+                    List<? extends Action> actions = physicalCard.getBlueprint().getOptionalInHandBeforeActions(_playerId, _lotroGame, _effect, physicalCard);
+                    if (actions != null)
+                        _actions.addAll(actions);
+                }
             }
         }
 
@@ -509,9 +515,15 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
             if (!_lotroGame.getModifiersQuerying().hasTextRemoved(_lotroGame, physicalCard)) {
                 if (_effectResults != null)
                     for (EffectResult effectResult : _effectResults) {
-                        List<? extends Action> actions = physicalCard.getBlueprint().getOptionalAfterActions(_playerId, _lotroGame, effectResult, physicalCard);
-                        if (actions != null)
-                            _actions.addAll(actions);
+                        if (physicalCard.getZone().isInPlay()) {
+                            List<? extends Action> actions = physicalCard.getBlueprint().getOptionalInPlayAfterActions(_playerId, _lotroGame, effectResult, physicalCard);
+                            if (actions != null)
+                                _actions.addAll(actions);
+                        } else if (physicalCard.getZone() == Zone.HAND) {
+                            List<? extends Action> actions = physicalCard.getBlueprint().getOptionalInHandAfterActions(_playerId, _lotroGame, effectResult, physicalCard);
+                            if (actions != null)
+                                _actions.addAll(actions);
+                        }
                     }
             }
         }

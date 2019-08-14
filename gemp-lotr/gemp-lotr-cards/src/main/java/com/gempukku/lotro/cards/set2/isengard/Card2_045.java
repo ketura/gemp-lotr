@@ -30,7 +30,7 @@ public class Card2_045 extends AbstractResponseEvent {
     }
 
     @Override
-    public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<PlayEventAction> getOptionalInHandAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.PUT_ON_THE_ONE_RING
                 && Filters.canSpot(game, Culture.ISENGARD, CardType.MINION)
                 && PlayUtils.checkPlayRequirements(game, self, Filters.any, 0, 0, false, false)) {

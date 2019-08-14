@@ -36,14 +36,4 @@ public abstract class AbstractSite extends AbstractLotroCardBlueprint {
     public Direction getSiteDirection() {
         return _siteDirection;
     }
-
-    @Override
-    public List<ActivateCardAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        return null;
-    }
-
-    @Override
-    public List<ActivateCardAction> getOptionalBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
-        return null;
-    }
 }

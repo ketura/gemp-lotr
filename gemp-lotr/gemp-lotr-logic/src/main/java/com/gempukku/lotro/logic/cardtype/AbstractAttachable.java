@@ -32,26 +32,4 @@ public abstract class AbstractAttachable extends AbstractLotroCardBlueprint {
             return Collections.singleton(_possessionClass);
         return null;
     }
-
-    @Override
-    public final List<? extends Action> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (self.getZone().isInPlay())
-            return getOptionalInPlayAfterActions(playerId, game, effectResult, self);
-        return null;
-    }
-
-    @Override
-    public final List<? extends Action> getOptionalBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
-        if (self.getZone().isInPlay())
-            return getOptionalInPlayBeforeActions(playerId, game, effect, self);
-        return null;
-    }
-
-    public List<? extends Action> getOptionalInPlayAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        return null;
-    }
-
-    public List<? extends Action> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
-        return null;
-    }
 }

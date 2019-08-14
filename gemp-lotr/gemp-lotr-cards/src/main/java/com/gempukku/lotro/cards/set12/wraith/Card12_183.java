@@ -38,7 +38,7 @@ public class Card12_183 extends AbstractMinion {
     }
 
     @Override
-    public List<OptionalTriggerAction> getOptionalAfterTriggersFromHand(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<OptionalTriggerAction> getOptionalInHandAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.played(game, effectResult, CardType.COMPANION)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
             action.appendCost(

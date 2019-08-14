@@ -33,7 +33,7 @@ public class Card20_243 extends AbstractResponseEvent {
     }
 
     @Override
-    public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<PlayEventAction> getOptionalInHandAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.winsSkirmish(game, effectResult, Filters.saruman)
                 && PlayUtils.checkPlayRequirements(game, self, Filters.any, 0, 0, false, false)
                 && PlayConditions.canExert(self, game, Filters.saruman)) {

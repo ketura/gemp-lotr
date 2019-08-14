@@ -32,7 +32,7 @@ public class Card6_120 extends AbstractSite {
     }
 
     @Override
-    public List<ActivateCardAction> getOptionalBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
+    public List<ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
         if (TriggerConditions.isGettingWounded(effect, game, CardType.MINION, Filters.owner(playerId))
                 && PlayConditions.canDiscardFromHand(game, playerId, 2, Filters.any)) {
             final WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;

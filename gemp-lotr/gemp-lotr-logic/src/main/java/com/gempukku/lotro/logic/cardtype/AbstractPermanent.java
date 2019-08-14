@@ -23,26 +23,4 @@ public class AbstractPermanent extends AbstractLotroCardBlueprint {
         if (cardType != CardType.COMPANION && cardType!= CardType.MINION)
             addKeyword(Keyword.SUPPORT_AREA);
     }
-
-    @Override
-    public final List<? extends Action> getOptionalBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
-        if (self.getZone().isInPlay())
-            return getOptionalInPlayBeforeActions(playerId, game, effect, self);
-        return null;
-    }
-
-    @Override
-    public final List<? extends Action> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (self.getZone().isInPlay())
-            return getOptionalInPlayAfterActions(playerId, game, effectResult, self);
-        return null;
-    }
-
-    public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
-        return null;
-    }
-
-    public List<? extends ActivateCardAction> getOptionalInPlayAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        return null;
-    }
 }

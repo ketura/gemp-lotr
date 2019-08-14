@@ -47,7 +47,7 @@ public class TransferItemRule {
                                             Filters.or(
                                                     CardType.COMPANION,
                                                     Filters.allyAtHome));
-                                } else if (attachedTo.isAllyAtHome(game.getGameState().getCurrentSiteNumber(), game.getGameState().getCurrentSiteBlock())) {
+                                } else if (RuleUtils.isAllyAtHome(attachedToCard, game.getGameState().getCurrentSiteNumber(), game.getGameState().getCurrentSiteBlock())) {
                                     validTransferFilter = Filters.and(validTargetFilter,
                                             Filters.or(
                                                     CardType.COMPANION,

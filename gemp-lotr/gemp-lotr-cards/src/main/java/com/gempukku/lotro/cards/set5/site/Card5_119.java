@@ -33,7 +33,7 @@ public class Card5_119 extends AbstractSite {
     }
 
     @Override
-    public List<ActivateCardAction> getOptionalBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
+    public List<ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
         if (TriggerConditions.isGettingWounded(effect, game, CardType.MINION, Filters.owner(playerId), Filters.mounted)
                 && game.getGameState().getTwilightPool() >= 2) {
             final WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;

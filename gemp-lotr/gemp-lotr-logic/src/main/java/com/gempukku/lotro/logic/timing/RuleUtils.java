@@ -1,9 +1,6 @@
 package com.gempukku.lotro.logic.timing;
 
-import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Keyword;
-import com.gempukku.lotro.common.PossessionClass;
-import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.LotroCardBlueprint;
@@ -172,5 +169,14 @@ public class RuleUtils {
                 });
     }
 
-
+    public static boolean isAllyAtHome(PhysicalCard ally, int siteNumber, SitesBlock siteBlock) {
+        final SitesBlock allySiteBlock = ally.getBlueprint().getAllyHomeSiteBlock();
+        final int[] allyHomeSites = ally.getBlueprint().getAllyHomeSiteNumbers();
+        if (allySiteBlock != siteBlock)
+            return false;
+        for (int number : allyHomeSites)
+            if (number == siteNumber)
+                return true;
+        return false;
+    }
 }

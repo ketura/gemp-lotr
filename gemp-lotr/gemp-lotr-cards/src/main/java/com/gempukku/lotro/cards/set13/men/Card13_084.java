@@ -42,7 +42,7 @@ return Collections.singletonList(new KeywordModifier(self, self, new NotConditio
 }
 
     @Override
-    public List<OptionalTriggerAction> getOptionalAfterTriggersFromHand(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<OptionalTriggerAction> getOptionalInHandAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.played(game, effectResult, Side.FREE_PEOPLE, CardType.POSSESSION)
                 && PlayConditions.canSpot(game, Culture.MEN)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);

@@ -34,7 +34,7 @@ public class Card13_122 extends AbstractResponseEvent {
     }
 
     @Override
-    public List<PlayEventAction> getOptionalBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
+    public List<PlayEventAction> getOptionalInHandBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
         List<PlayEventAction> actions = new LinkedList<PlayEventAction>();
         if (PlayConditions.isPhase(game, Phase.SKIRMISH)
                 && TriggerConditions.isGettingWounded(effect, game, Filters.name(Names.theoden))

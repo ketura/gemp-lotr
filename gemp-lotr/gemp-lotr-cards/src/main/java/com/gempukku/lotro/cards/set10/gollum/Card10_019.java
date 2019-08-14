@@ -39,7 +39,7 @@ public class Card10_019 extends AbstractResponseEvent {
     }
 
     @Override
-    public List<PlayEventAction> getOptionalAfterActions(String playerId, final LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<PlayEventAction> getOptionalInHandAfterActions(String playerId, final LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.played(game, effectResult, CardType.POSSESSION)
                 && PlayUtils.checkPlayRequirements(game, self, Filters.any, 0, 0, false, false)
                 && (PlayConditions.canPlayFromDiscard(playerId, game, -2, Filters.gollum) || PlayConditions.canPlayFromHand(playerId, game, -2, Filters.gollum))) {

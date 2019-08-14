@@ -33,7 +33,7 @@ public class Card2_091 extends AbstractResponseEvent {
     }
 
     @Override
-    public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<PlayEventAction> getOptionalInHandAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.PUT_ON_THE_ONE_RING
                 && PlayConditions.canPlayCardDuringPhase(game, (Phase) null, self)
                 && Filters.canSpot(game, Culture.SAURON, CardType.MINION)

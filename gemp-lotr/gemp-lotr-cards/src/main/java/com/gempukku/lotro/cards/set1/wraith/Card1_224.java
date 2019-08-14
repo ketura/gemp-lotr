@@ -42,7 +42,7 @@ public class Card1_224 extends AbstractResponseEvent {
     }
 
     @Override
-    public List<PlayEventAction> getOptionalAfterActions(final String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
+    public List<PlayEventAction> getOptionalInHandAfterActions(final String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         if (TriggerConditions.endOfPhase(game, effectResult, Phase.SKIRMISH)
                 && game.getGameState().isWearingRing()
                 && PlayUtils.checkPlayRequirements(game, self, Filters.any, 0, 0, false, false)) {

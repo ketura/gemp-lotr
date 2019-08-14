@@ -36,7 +36,7 @@ public class Card10_098 extends AbstractResponseEvent {
     }
 
     @Override
-    public List<PlayEventAction> getOptionalAfterActions(String playerId, final LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<PlayEventAction> getOptionalInHandAfterActions(String playerId, final LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.played(game, effectResult, Filters.owner(game.getGameState().getCurrentPlayerId()), CardType.POSSESSION)
                 && PlayUtils.checkPlayRequirements(game, self, Filters.any, 0, 0, false, false)
                 && PlayConditions.canDiscardCardsFromHandToPlay(self, game, playerId, 1, Culture.SAURON, CardType.MINION)) {

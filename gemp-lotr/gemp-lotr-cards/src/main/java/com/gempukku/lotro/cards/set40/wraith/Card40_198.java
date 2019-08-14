@@ -34,7 +34,7 @@ public class Card40_198 extends AbstractResponseEvent {
     }
 
     @Override
-    public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<PlayEventAction> getOptionalInHandAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.moves(game, effectResult)
                 && PlayConditions.isPhase(game, Phase.REGROUP)
                 && PlayConditions.canPlayFromDiscard(playerId, game, Race.NAZGUL)

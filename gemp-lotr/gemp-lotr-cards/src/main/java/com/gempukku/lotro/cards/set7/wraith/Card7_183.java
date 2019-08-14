@@ -31,7 +31,7 @@ public class Card7_183 extends AbstractResponseEvent {
     }
 
     @Override
-    public List<PlayEventAction> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<PlayEventAction> getOptionalInHandAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.forEachKilledBy(game, effectResult, Race.NAZGUL, Filters.or(CardType.COMPANION, CardType.ALLY))
                 && PlayUtils.checkPlayRequirements(game, self, Filters.any, 0, 0, false, false)) {
             PlayEventAction action = new PlayEventAction(self);
