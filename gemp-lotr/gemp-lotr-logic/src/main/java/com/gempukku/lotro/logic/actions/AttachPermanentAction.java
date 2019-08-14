@@ -50,9 +50,10 @@ public class AttachPermanentAction extends AbstractCostToEffectAction {
                         }
 
                         int modifier = twilightModifier;
-                        for (Map.Entry<Filter, Integer> filterIntegerEntry : attachCostModifiers.entrySet())
-                            if (filterIntegerEntry.getKey().accepts(game, target))
-                                modifier += filterIntegerEntry.getValue();
+                        if (attachCostModifiers != null)
+                            for (Map.Entry<Filter, Integer> filterIntegerEntry : attachCostModifiers.entrySet())
+                                if (filterIntegerEntry.getKey().accepts(game, target))
+                                    modifier += filterIntegerEntry.getValue();
 
                         _twilightModifier = modifier;
 

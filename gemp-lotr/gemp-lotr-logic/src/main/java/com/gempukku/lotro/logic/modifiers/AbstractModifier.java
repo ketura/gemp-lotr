@@ -5,7 +5,6 @@ import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 import com.gempukku.lotro.logic.timing.Action;
@@ -215,7 +214,7 @@ public abstract class AbstractModifier implements Modifier {
     }
 
     @Override
-    public List<? extends ActivateCardAction> getExtraPhaseAction(LotroGame game, PhysicalCard card) {
+    public List<? extends Action> getExtraPhaseAction(LotroGame game, PhysicalCard card) {
         return null;
     }
 

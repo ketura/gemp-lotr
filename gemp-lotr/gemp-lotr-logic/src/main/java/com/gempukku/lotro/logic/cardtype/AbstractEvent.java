@@ -6,34 +6,22 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.actions.PlayEventAction;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.PlayConditions;
 
-import java.util.Collections;
 import java.util.List;
 
 public abstract class AbstractEvent extends AbstractLotroCardBlueprint {
-    private Phase[] _playableInPhases;
-
     public AbstractEvent(Side side, int twilightCost, Culture culture, String name, Phase playableInPhase, Phase... additionalPlayableInPhases) {
         super(twilightCost, side, CardType.EVENT, culture, name);
         if (playableInPhase != null) {
-            _playableInPhases = mergeArray(playableInPhase, additionalPlayableInPhases);
-            for (Phase playablePhase : _playableInPhases)
-                processPhase(playablePhase);
+            addPhaseKeyword(playableInPhase);
+            for (Phase additionalPlayableInPhase : additionalPlayableInPhases)
+                addPhaseKeyword(additionalPlayableInPhase);
         }
     }
 
-    private static final Phase[] mergeArray(Phase playableInPhase, Phase... additionalPlayableInPhases) {
-        Phase[] result = new Phase[additionalPlayableInPhases.length + 1];
-        result[0] = playableInPhase;
-        System.arraycopy(additionalPlayableInPhases, 0, result, 1, additionalPlayableInPhases.length);
-        return result;
-    }
-
-    private void processPhase(Phase phase) {
+    private void addPhaseKeyword(Phase phase) {
         if (phase == Phase.FELLOWSHIP)
             addKeyword(Keyword.FELLOWSHIP);
         else if (phase == Phase.SHADOW)
@@ -52,38 +40,6 @@ public abstract class AbstractEvent extends AbstractLotroCardBlueprint {
             addKeyword(Keyword.RESPONSE);
     }
 
-    @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        if (_playableInPhases != null) {
-            Phase currentPhase = game.getGameState().getCurrentPhase();
-            for (Phase playableInPhase : _playableInPhases) {
-                if (playableInPhase == currentPhase)
-                    return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile);
-            }
-
-            return false;
-        }
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile);
-    }
-
-    @Override
-    public final List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
-        if (_playableInPhases != null) {
-            if (PlayConditions.canPlayCardFromHandDuringPhase(game, _playableInPhases, self)) {
-                if (checkPlayRequirements(playerId, game, self, 0, 0, false, false)) {
-                    final PlayEventAction action = getPlayCardAction(playerId, game, self, 0, false);
-
-                    game.getModifiersQuerying().appendPotentialDiscounts(game, action, self);
-                    game.getModifiersQuerying().appendExtraCosts(game, action, self);
-
-                    return Collections.singletonList(action);
-                }
-            }
-        }
-        return null;
-    }
-
-    @Override
     public abstract PlayEventAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty);
 
     @Override

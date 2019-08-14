@@ -4,10 +4,9 @@ import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.PlayUtils;
 import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 
 public class ExtraFilters {
     public static Filter attachableTo(final LotroGame game, final Filterable... filters) {
@@ -21,8 +20,7 @@ public class ExtraFilters {
                     public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
                         if (!(physicalCard.getBlueprint() instanceof AbstractAttachable))
                             return false;
-                        AbstractAttachable weapon = (AbstractAttachable) physicalCard.getBlueprint();
-                        return weapon.checkPlayRequirements(physicalCard.getOwner(), game, physicalCard, 0, Filters.and(filters), twilightModifier);
+                        return PlayUtils.checkPlayRequirements(game, physicalCard, Filters.and(filters), 0, twilightModifier, false, false);
                     }
                 });
     }

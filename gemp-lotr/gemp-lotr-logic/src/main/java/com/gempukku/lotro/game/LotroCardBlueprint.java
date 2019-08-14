@@ -1,6 +1,7 @@
 package com.gempukku.lotro.game;
 
 import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
@@ -12,6 +13,7 @@ import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public interface LotroCardBlueprint {
@@ -25,6 +27,8 @@ public interface LotroCardBlueprint {
 
     public boolean isUnique();
 
+    boolean skipUniquenessCheck();
+
     public String getName();
 
     public String getSubtitle();
@@ -36,6 +40,8 @@ public interface LotroCardBlueprint {
     public int getKeywordCount(Keyword keyword);
 
     public Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self);
+
+    public Map<Filter, Integer> getTargetCostModifiers(String playerId, LotroGame game, PhysicalCard self);
 
     public int getTwilightCost();
 
@@ -61,13 +67,11 @@ public interface LotroCardBlueprint {
 
     public List<? extends Modifier> getControlledSiteModifiers(LotroGame game, PhysicalCard self);
 
-    List<? extends AbstractExtraPlayCostModifier> getExtraCostToPlayModifiers(LotroGame game, PhysicalCard self);
+    public boolean checkPlayRequirements(LotroGame game, PhysicalCard self);
 
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile);
+    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self);
 
-    public CostToEffectAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier, boolean ignoreRoamingPenalty);
-
-    public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self);
+    public List<? extends Action> getPhaseActionsInHand(String playerId, LotroGame game, PhysicalCard self);
 
     public List<? extends Action> getPhaseActionsFromStacked(String playerId, LotroGame game, PhysicalCard self);
 
@@ -99,9 +103,13 @@ public interface LotroCardBlueprint {
 
     public Set<PossessionClass> getPossessionClasses();
 
+    boolean isExtraPossessionClass(LotroGame game, PhysicalCard self, PhysicalCard attachedTo);
+
     public Direction getSiteDirection();
 
     public String getDisplayableInformation(PhysicalCard self);
+
+    List<? extends AbstractExtraPlayCostModifier> getExtraCostToPlayModifiers(LotroGame game, PhysicalCard self);
 
     int getPotentialDiscount(LotroGame game, String playerId, PhysicalCard self);
 

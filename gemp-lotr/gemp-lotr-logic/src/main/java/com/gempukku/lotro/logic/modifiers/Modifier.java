@@ -3,7 +3,6 @@ package com.gempukku.lotro.logic.modifiers;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 import com.gempukku.lotro.logic.timing.Action;
@@ -88,7 +87,7 @@ public interface Modifier {
 
     public boolean canPlayAction(LotroGame game, String performingPlayer, Action action);
 
-    public List<? extends ActivateCardAction> getExtraPhaseAction(LotroGame game, PhysicalCard card);
+    public List<? extends Action> getExtraPhaseAction(LotroGame game, PhysicalCard card);
 
     public List<? extends Action> getExtraPhaseActionFromStacked(LotroGame game, PhysicalCard card);
 

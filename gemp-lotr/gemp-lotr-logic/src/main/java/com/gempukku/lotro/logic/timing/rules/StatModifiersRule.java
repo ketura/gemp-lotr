@@ -23,8 +23,11 @@ public class StatModifiersRule {
                             @Override
                             public int evaluateExpression(LotroGame game, PhysicalCard cardAffected) {
                                 int sum = 0;
-                                for (PhysicalCard attachedCard : game.getGameState().getAttachedCards(cardAffected))
-                                    sum += attachedCard.getBlueprint().getStrength();
+                                for (PhysicalCard attachedCard : game.getGameState().getAttachedCards(cardAffected)) {
+                                    final int strength = attachedCard.getBlueprint().getStrength();
+                                    if (strength <= 0 || modifiersLogic.appliesStrengthBonusModifier(game, attachedCard, cardAffected))
+                                        sum += strength;
+                                }
 
                                 return sum;
                             }

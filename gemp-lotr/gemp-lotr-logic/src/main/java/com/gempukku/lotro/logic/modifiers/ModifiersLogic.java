@@ -4,7 +4,6 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 import com.gempukku.lotro.logic.timing.Action;
@@ -264,15 +263,6 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     }
 
     @Override
-    public boolean isExtraPossessionClass(LotroGame game, PhysicalCard card, PhysicalCard attachedTo) {
-        for (Modifier modifier : getModifiersAffectingCard(game, ModifierEffect.EXTRA_POSSESSION_CLASS_MODIFIER, card)) {
-            if (modifier.isExtraPossessionClass(game, card, attachedTo))
-                return true;
-        }
-        return false;
-    }
-
-    @Override
     public boolean hasTextRemoved(LotroGame game, PhysicalCard card) {
         for (Modifier modifier : getModifiersAffectingCard(game, ModifierEffect.TEXT_MODIFIER, card)) {
             if (modifier.hasRemovedText(game, card))
@@ -415,7 +405,8 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
         }
     }
 
-    private boolean appliesStrengthBonusModifier(LotroGame game, PhysicalCard modifierSource, PhysicalCard modifierTarget) {
+    @Override
+    public boolean appliesStrengthBonusModifier(LotroGame game, PhysicalCard modifierSource, PhysicalCard modifierTarget) {
         if (modifierSource != null)
             for (Modifier modifier : getModifiersAffectingCard(game, ModifierEffect.STRENGTH_BONUS_SOURCE_MODIFIER, modifierSource)) {
                 if (!modifier.appliesStrengthBonusModifier(game, modifierSource, modifierTarget))
@@ -737,11 +728,11 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     }
 
     @Override
-    public List<? extends ActivateCardAction> getExtraPhaseActions(LotroGame game, PhysicalCard target) {
-        List<ActivateCardAction> activateCardActions = new LinkedList<ActivateCardAction>();
+    public List<? extends Action> getExtraPhaseActions(LotroGame game, PhysicalCard target) {
+        List<Action> activateCardActions = new LinkedList<Action>();
 
         for (Modifier modifier : getModifiersAffectingCard(game, ModifierEffect.EXTRA_ACTION_MODIFIER, target)) {
-            List<? extends ActivateCardAction> actions = modifier.getExtraPhaseAction(game, target);
+            List<? extends Action> actions = modifier.getExtraPhaseAction(game, target);
             if (actions != null)
                 activateCardActions.addAll(actions);
         }

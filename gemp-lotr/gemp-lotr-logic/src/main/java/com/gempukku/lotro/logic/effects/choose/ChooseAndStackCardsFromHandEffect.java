@@ -39,7 +39,7 @@ public class ChooseAndStackCardsFromHandEffect extends AbstractEffect {
 
     @Override
     public String getText(LotroGame game) {
-        return null;
+        return "Stack card from hand";
     }
 
     @Override

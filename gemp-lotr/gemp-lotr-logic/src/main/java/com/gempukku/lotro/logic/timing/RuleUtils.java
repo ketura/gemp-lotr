@@ -8,11 +8,8 @@ import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.LotroCardBlueprint;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.game.state.Skirmish;
-import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 
 import java.util.Collection;
@@ -152,18 +149,22 @@ public class RuleUtils {
                 },
                 new Filter() {
                     @Override
-                    public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
+                    public boolean accepts(LotroGame game, PhysicalCard attachedTo) {
                         Set<PossessionClass> possessionClasses = blueprint.getPossessionClasses();
                         if (possessionClasses != null) {
                             for (PossessionClass possessionClass : possessionClasses) {
-                                boolean extraPossessionClass = game.getModifiersQuerying().isExtraPossessionClass(game, self, physicalCard);
-                                List<PhysicalCard> attachedCards = game.getGameState().getAttachedCards(physicalCard);
+                                List<PhysicalCard> attachedCards = game.getGameState().getAttachedCards(attachedTo);
+
                                 Collection<PhysicalCard> matchingClassPossessions = Filters.filter(attachedCards, game, Filters.or(CardType.POSSESSION, CardType.ARTIFACT), possessionClass);
                                 if (matchingClassPossessions.size() > 1)
                                     return false;
-                                if (!extraPossessionClass && matchingClassPossessions.size() == 1 &&
-                                        !game.getModifiersQuerying().isExtraPossessionClass(game, matchingClassPossessions.iterator().next(), physicalCard))
-                                    return false;
+
+                                boolean extraPossessionClass = self.getBlueprint().isExtraPossessionClass(game, self, attachedTo);
+                                if (!extraPossessionClass && matchingClassPossessions.size() == 1) {
+                                    final PhysicalCard attachedPossession = matchingClassPossessions.iterator().next();
+                                    if (!attachedPossession.getBlueprint().isExtraPossessionClass(game, attachedPossession, attachedTo))
+                                        return false;
+                                }
                             }
                         }
                         return true;

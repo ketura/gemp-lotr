@@ -3,7 +3,6 @@ package com.gempukku.lotro.logic.modifiers;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 import com.gempukku.lotro.logic.timing.Action;
@@ -29,8 +28,6 @@ public interface ModifiersQuerying {
     public Collection<Modifier> getModifiersAffecting(LotroGame game, PhysicalCard card);
 
     public Evaluator getFpStrengthOverrideEvaluator(LotroGame game, PhysicalCard fpCharacter);
-
-    boolean isExtraPossessionClass(LotroGame game, PhysicalCard card, PhysicalCard attachedTo);
 
     public boolean hasTextRemoved(LotroGame game, PhysicalCard card);
 
@@ -60,6 +57,8 @@ public interface ModifiersQuerying {
 
     // Stats
     public int getStrength(LotroGame game, PhysicalCard physicalCard);
+
+    public boolean appliesStrengthBonusModifier(LotroGame game, PhysicalCard modifierSource, PhysicalCard modifierTarget);
 
     public int getVitality(LotroGame game, PhysicalCard physicalCard);
 
@@ -114,7 +113,7 @@ public interface ModifiersQuerying {
 
     public boolean shouldSkipPhase(LotroGame game, Phase phase, String playerId);
 
-    public List<? extends ActivateCardAction> getExtraPhaseActions(LotroGame game, PhysicalCard target);
+    public List<? extends Action> getExtraPhaseActions(LotroGame game, PhysicalCard target);
 
     public List<? extends Action> getExtraPhaseActionsFromStacked(LotroGame game, PhysicalCard target);
 
@@ -144,7 +143,7 @@ public interface ModifiersQuerying {
     public boolean canBeSpotted(LotroGame game, PhysicalCard card);
 
     public int getNumberOfSpottableFPCultures(LotroGame game, String playerId);
-    
+
     public int getNumberOfSpottableShadowCultures(LotroGame game, String playerId);
 
     public int getSpotBonus(LotroGame game, Filterable filter);

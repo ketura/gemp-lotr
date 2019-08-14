@@ -944,4 +944,23 @@ public class IndividualCardAtTest extends AbstractAtTest {
         final AwaitingDecision discardGoblins = _userFeedback.getAwaitingDecision(P2);
         assertEquals("3", discardGoblins.getDecisionParameters().get("min"));
     }
+
+    @Test
+    public void extraPossessionClass() throws CardNotFoundException, DecisionResultInvalidException {
+        initializeSimplestGame();
+
+        PhysicalCardImpl aragorn = new PhysicalCardImpl(100, "6_50", P1, _library.getLotroCardBlueprint("6_50"));
+        PhysicalCardImpl flamingBrand = new PhysicalCardImpl(101, "2_32", P1, _library.getLotroCardBlueprint("2_32"));
+        PhysicalCardImpl rangersSword = new PhysicalCardImpl(101, "1_112", P1, _library.getLotroCardBlueprint("1_112"));
+
+        _game.getGameState().addCardToZone(_game, aragorn, Zone.HAND);
+        _game.getGameState().addCardToZone(_game, rangersSword, Zone.HAND);
+        _game.getGameState().addCardToZone(_game, flamingBrand, Zone.HAND);
+
+        skipMulligans();
+
+        playerDecided(P1, getCardActionId(_userFeedback.getAwaitingDecision(P1), "Play Aragorn"));
+        playerDecided(P1, getCardActionId(_userFeedback.getAwaitingDecision(P1), "Attach Ranger"));
+        playerDecided(P1, getCardActionId(_userFeedback.getAwaitingDecision(P1), "Attach Flaming"));
+    }
 }

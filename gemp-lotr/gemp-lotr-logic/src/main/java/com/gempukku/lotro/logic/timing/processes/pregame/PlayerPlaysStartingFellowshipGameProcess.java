@@ -4,12 +4,11 @@ import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.PlayUtils;
 import com.gempukku.lotro.logic.decisions.ArbitraryCardsSelectionDecision;
 import com.gempukku.lotro.logic.decisions.AwaitingDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
 import com.gempukku.lotro.logic.timing.results.FinishedPlayingFellowshipResult;
@@ -47,8 +46,7 @@ public class PlayerPlaysStartingFellowshipGameProcess implements GameProcess {
                     public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
                         int twilightCost = game.getModifiersQuerying().getTwilightCost(game, physicalCard, 0, false);
                         return game.getGameState().getTwilightPool() + twilightCost <= 4
-                                && physicalCard.getBlueprint().checkPlayRequirements(playerId, game, physicalCard, 0, 0, false, false)
-                                && game.getModifiersQuerying().canPlayAction(game, playerId, physicalCard.getBlueprint().getPlayCardAction(playerId, game, physicalCard, 0, false));
+                                && PlayUtils.checkPlayRequirements(game, physicalCard, Filters.any, 0, 0, false, false);
                     }
                 });
     }
@@ -64,7 +62,7 @@ public class PlayerPlaysStartingFellowshipGameProcess implements GameProcess {
                     _nextProcess = _followingGameProcess;
                 } else {
                     PhysicalCard selectedPhysicalCard = selectedCharacters.get(0);
-                    Action playCardAction = selectedPhysicalCard.getBlueprint().getPlayCardAction(playerId, game, selectedPhysicalCard, 0, false);
+                    Action playCardAction = PlayUtils.getPlayCardAction(game, selectedPhysicalCard, 0, Filters.any, false);
                     game.getActionsEnvironment().addActionToStack(playCardAction);
                     _nextProcess = new PlayerPlaysStartingFellowshipGameProcess(_playerId, _followingGameProcess);
                 }

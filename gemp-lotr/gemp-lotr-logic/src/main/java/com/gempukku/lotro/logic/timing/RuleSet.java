@@ -50,5 +50,9 @@ public class RuleSet {
         new StatModifiersRule(_modifiersLogic).applyRule();
 
         new FollowerRule(_actionsEnvironment).applyRule();
+
+        new PlayPermanentRule(_modifiersLogic).applyRule();
+
+        new PlayEventRule(_modifiersLogic).applyRule();
     }
 }

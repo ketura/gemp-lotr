@@ -3,11 +3,11 @@ package com.gempukku.lotro.game.state.actions;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
-import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.timing.Action;
@@ -535,16 +535,28 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
         @Override
         protected void doVisitPhysicalCard(PhysicalCard physicalCard) {
             if (!_lotroGame.getModifiersQuerying().hasTextRemoved(_lotroGame, physicalCard)) {
-                List<? extends Action> normalActions = physicalCard.getBlueprint().getPhaseActions(_playerId, _game, physicalCard);
-                if (normalActions != null) {
-                    for (Action action : normalActions) {
-                        if (action != null)
-                            _actions.add(action);
-                        else
-                            LOG.error("Null action from: " + physicalCard.getBlueprint().getName());
+                if (physicalCard.getZone().isInPlay()) {
+                    List<? extends Action> normalActions = physicalCard.getBlueprint().getPhaseActionsInPlay(_playerId, _game, physicalCard);
+                    if (normalActions != null) {
+                        for (Action action : normalActions) {
+                            if (action != null)
+                                _actions.add(action);
+                            else
+                                LOG.error("Null action from: " + physicalCard.getBlueprint().getName());
+                        }
+                    }
+                } else if (physicalCard.getZone() == Zone.HAND) {
+                    List<? extends Action> normalActions = physicalCard.getBlueprint().getPhaseActionsInHand(_playerId, _game, physicalCard);
+                    if (normalActions != null) {
+                        for (Action action : normalActions) {
+                            if (action != null)
+                                _actions.add(action);
+                            else
+                                LOG.error("Null action from: " + physicalCard.getBlueprint().getName());
+                        }
                     }
                 }
-                final List<? extends ActivateCardAction> extraActions = _game.getModifiersQuerying().getExtraPhaseActions(_game, physicalCard);
+                final List<? extends Action> extraActions = _game.getModifiersQuerying().getExtraPhaseActions(_game, physicalCard);
                 if (extraActions != null) {
                     for (Action action : extraActions) {
                         if (action != null)

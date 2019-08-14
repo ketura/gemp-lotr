@@ -1,7 +1,6 @@
 package com.gempukku.lotro.filters;
 
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.game.CompletePhysicalCardVisitor;
 import com.gempukku.lotro.game.LotroCardBlueprint;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -10,17 +9,11 @@ import com.gempukku.lotro.game.state.Assignment;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.game.state.Skirmish;
 import com.gempukku.lotro.logic.GameUtils;
+import com.gempukku.lotro.logic.PlayUtils;
 import com.gempukku.lotro.logic.modifiers.Condition;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class Filters {
     private static final Map<CardType, Filter> _typeFilterMap = new HashMap<CardType, Filter>();
@@ -588,10 +581,7 @@ public class Filters {
                 if (blueprint.getSide() != expectedSide)
                     return false;
 
-                if (blueprint.getPlayCardAction(physicalCard.getOwner(), game, physicalCard, 0, false)== null)
-                    return false;
-
-                return blueprint.checkPlayRequirements(physicalCard.getOwner(), game, physicalCard, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile);
+                return PlayUtils.checkPlayRequirements(game, physicalCard, Filters.any, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile);
             }
         };
     }

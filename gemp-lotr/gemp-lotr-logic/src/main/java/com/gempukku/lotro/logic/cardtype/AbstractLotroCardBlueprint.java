@@ -1,6 +1,7 @@
 package com.gempukku.lotro.logic.cardtype;
 
 import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.game.LotroCardBlueprint;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -12,7 +13,6 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.HashMap;
 import java.util.List;
@@ -44,20 +44,8 @@ public abstract class AbstractLotroCardBlueprint implements LotroCardBlueprint {
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        if (!game.getModifiersQuerying().canPayExtraCostsToPlay(game, self))
-            return false;
-
-        if (!PlayConditions.checkUniqueness(game, self, ignoreCheckingDeadPile))
-            return false;
-
-        if (self.getBlueprint().getCardType() == CardType.COMPANION
-                && !(PlayConditions.checkRuleOfNine(game, self) && PlayConditions.checkPlayRingBearer(game, self)))
-            return false;
-
-        twilightModifier -= game.getModifiersQuerying().getPotentialDiscount(game, self);
-
-        return (getSide() != Side.SHADOW || PlayConditions.canPayForShadowCard(game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty));
+    public boolean checkPlayRequirements(LotroGame game, PhysicalCard self) {
+        return true;
     }
 
     protected void addKeyword(Keyword keyword) {
@@ -69,6 +57,10 @@ public abstract class AbstractLotroCardBlueprint implements LotroCardBlueprint {
     }
 
     public Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
+        return null;
+    }
+
+    public Map<Filter, Integer> getTargetCostModifiers(String playerId, LotroGame game, PhysicalCard self) {
         return null;
     }
 
@@ -119,6 +111,11 @@ public abstract class AbstractLotroCardBlueprint implements LotroCardBlueprint {
     @Override
     public final boolean isUnique() {
         return _unique;
+    }
+
+    @Override
+    public boolean skipUniquenessCheck() {
+        return false;
     }
 
     @Override
@@ -197,7 +194,17 @@ public abstract class AbstractLotroCardBlueprint implements LotroCardBlueprint {
     }
 
     @Override
-    public List<? extends Action> getPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public boolean isExtraPossessionClass(LotroGame game, PhysicalCard self, PhysicalCard attachedTo) {
+        return false;
+    }
+
+    @Override
+    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
+        return null;
+    }
+
+    @Override
+    public List<? extends Action> getPhaseActionsInHand(String playerId, LotroGame game, PhysicalCard self) {
         return null;
     }
 
