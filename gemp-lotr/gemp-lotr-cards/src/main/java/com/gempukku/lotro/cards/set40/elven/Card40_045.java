@@ -7,13 +7,12 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.cardtype.AbstractAlly;
-import com.gempukku.lotro.logic.effects.HealCharactersEffect;
-import com.gempukku.lotro.logic.effects.RevealTopCardsOfDrawDeckEffect;
-import com.gempukku.lotro.logic.effects.SelfExertEffect;
+import com.gempukku.lotro.logic.effects.*;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
 import java.util.Collections;
 import java.util.List;
@@ -29,7 +28,8 @@ import java.util.List;
  * Vitality: 3
  * Card Number: 1R45
  * Game Text: At the start of each of your turns, heal each Lothlorien ally.
- * Skirmish: Exert Galadriel to reveal the top card of your draw deck. Make a minion skirmishing an Elf strength -X, where X is the twilight cost of the revealed card.
+ * Skirmish: Exert Galadriel to reveal the top card of your draw deck. If it is an [ELVEN] card, you may discard it
+ * to make a minion skirmishing an Elf strength -2.
  */
 public class Card40_045 extends AbstractAlly {
     public Card40_045() {
@@ -60,12 +60,26 @@ public class Card40_045 extends AbstractAlly {
                         @Override
                         protected void cardsRevealed(List<PhysicalCard> revealedCards) {
                             if (revealedCards.size() > 0) {
-                                PhysicalCard revealedCard = revealedCards.get(0);
-                                int twilightCost = revealedCard.getBlueprint().getTwilightCost();
-                                if (twilightCost > 0)
-                                    action.appendEffect(
-                                            new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, -twilightCost,
-                                                    CardType.MINION, Filters.inSkirmishAgainst(Race.ELF)));
+                                if (Filters.and(Culture.ELVEN).accepts(game,
+                                        revealedCards.get(0))) {
+                                    action.appendCost(
+                                            new OptionalEffect(action, playerId,
+                                                    new UnrespondableEffect() {
+                                                        @Override
+                                                        protected void doPlayEffect(LotroGame game) {
+                                                            action.appendCost(
+                                                                    new DiscardTopCardFromDeckEffect(self, playerId, false));
+                                                            action.appendEffect(
+                                                                    new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, -2,
+                                                                            CardType.MINION, Filters.inSkirmishAgainst(Race.ELF)));
+                                                        }
+
+                                                        @Override
+                                                        public String getText(LotroGame game) {
+                                                            return "Discard the revealed card to make a minion skirmishing an Elf strength -2";
+                                                        }
+                                                    }));
+                                }
                             }
                         }
                     });

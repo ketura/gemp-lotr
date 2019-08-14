@@ -30,7 +30,7 @@ import java.util.List;
  * Type: Condition - Companion
  * Card Number: 1C216
  * Game Text: To play, exert a [SAURON] tracker. Limit 1 per companion.
- * Each time the fellowship moves, the Free Peoples player must add (1) or exert this companion.
+ * Each time the fellowship moves, the Free Peoples player must add (3) or exert this companion.
  */
 public class Card40_216 extends AbstractAttachable {
     public Card40_216() {
@@ -39,7 +39,7 @@ public class Card40_216 extends AbstractAttachable {
 
     @Override
     public Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self) {
-        return Filters.and(CardType.COMPANION, Filters.not(Filters.hasAttached(Filters.name("Ever Watchful"))));
+        return Filters.and(CardType.COMPANION, Filters.not(Filters.hasAttached(Filters.name(getName()))));
     }
 
     @Override
@@ -59,7 +59,7 @@ public class Card40_216 extends AbstractAttachable {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             List<Effect> possibleEffects = new ArrayList<Effect>(2);
             possibleEffects.add(
-                    new AddTwilightEffect(self, 1));
+                    new AddTwilightEffect(self, 3));
             possibleEffects.add(
                     new ExertCharactersEffect(action, self, self.getAttachedTo()));
             action.appendEffect(

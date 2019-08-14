@@ -10,10 +10,7 @@ import com.gempukku.lotro.logic.cardtype.AbstractAlly;
 import com.gempukku.lotro.logic.decisions.MultipleChoiceAwaitingDecision;
 import com.gempukku.lotro.logic.effects.*;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
-import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.PlayConditions;
-import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.timing.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -29,11 +26,11 @@ import java.util.List;
  * Strength: 8
  * Vitality: 4
  * Card Number: 1R41
- * Game Text: At the start of each of your turns, heal each Rivendell ally or heal Elrond twice.
- * Regroup: Exert Elrond twice to reveal the top card of any draw deck. If it is a Free Peoples card, you may heal
- * a companion. If it is a Shadow card, you may discard a condition.
+ * Game Text: At the start of each of your turns, heal each Rivendell ally.
+ * Regroup: Exert Elrond twice to reveal the top card of your draw deck. If it is an [ELVEN] card, you may discard it
+ * to heal a companion. If it is a Shadow card, you may discard it to discard a Shadow condition.
  */
-public class Card40_041 extends AbstractAlly{
+public class Card40_041 extends AbstractAlly {
     public Card40_041() {
         super(4, SitesBlock.SECOND_ED, 0, 8, 4, Race.ELF, Culture.ELVEN, "Elrond", "Peredhil", true);
         addKeyword(Keyword.RIVENDELL);
@@ -43,23 +40,13 @@ public class Card40_041 extends AbstractAlly{
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.startOfTurn(game, effectResult)) {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
-            List<Effect> possibleEffects = new ArrayList<Effect>(2);
-            possibleEffects.add(
+            action.appendEffect(
                     new HealCharactersEffect(self, CardType.ALLY, Keyword.RIVENDELL) {
                         @Override
                         public String getText(LotroGame game) {
                             return "Heal each Rivendell ally";
                         }
                     });
-            possibleEffects.add(
-                    new ChooseAndHealCharactersEffect(action, self.getOwner(), 1, 1, 2, self) {
-                        @Override
-                        public String getText(LotroGame game) {
-                            return "Heal Elrond twice";
-                        }
-                    });
-            action.appendEffect(
-                    new ChoiceEffect(action, self.getOwner(), possibleEffects));
             return Collections.singletonList(action);
         }
         return null;
@@ -76,42 +63,50 @@ public class Card40_041 extends AbstractAlly{
                     new SelfExertEffect(action, self));
             action.appendCost(
                     new SelfExertEffect(action, self));
-            action.appendEffect(
-                    new PlayoutDecisionEffect(playerId,
-                            new MultipleChoiceAwaitingDecision(1, "Choose a player to reveal top card of deck of", allPlayers) {
-                                @Override
-                                protected void validDecisionMade(int index, String player) {
-                                    action.appendEffect(
-                                            new RevealTopCardsOfDrawDeckEffect(self, player, 1) {
-                                                @Override
-                                                protected void cardsRevealed(List<PhysicalCard> revealedCards) {
-                                                    if (revealedCards.size()>0) {
-                                                        PhysicalCard firstCard = revealedCards.get(0);
-                                                        if (Filters.and(Side.FREE_PEOPLE).accepts(game,
-                                                                firstCard)) {
+            action.appendCost(
+                    new RevealTopCardsOfDrawDeckEffect(self, playerId, 1) {
+                        @Override
+                        protected void cardsRevealed(List<PhysicalCard> revealedCards) {
+                            if (revealedCards.size() > 0) {
+                                PhysicalCard firstCard = revealedCards.get(0);
+                                if (Filters.and(Side.FREE_PEOPLE).accepts(game,
+                                        firstCard)) {
+                                    action.appendCost(
+                                            new OptionalEffect(action, playerId,
+                                                    new UnrespondableEffect() {
+                                                        @Override
+                                                        protected void doPlayEffect(LotroGame game) {
+                                                            action.appendCost(
+                                                                    new DiscardTopCardFromDeckEffect(self, playerId, false));
                                                             action.appendEffect(
-                                                                    new OptionalEffect(action, playerId,
-                                                                    new ChooseAndHealCharactersEffect(action, playerId, 1, 1, CardType.COMPANION)) {
-                                                                        @Override
-                                                                        public String getText(LotroGame game) {
-                                                                            return "Heal a companion";
-                                                                        }
-                                                                    });
-                                                        } else {
-                                                            action.appendEffect(
-                                                                    new OptionalEffect(action, playerId,
-                                                                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1,1, CardType.CONDITION) {
-                                                                        @Override
-                                                                        public String getText(LotroGame game) {
-                                                                            return "Discard a condition";
-                                                                        }
-                                                                    }));
+                                                                    new ChooseAndHealCharactersEffect(action, playerId, 1, 1, CardType.COMPANION));
                                                         }
-                                                    }
+
+                                                        @Override
+                                                        public String getText(LotroGame game) {
+                                                            return "Discard the revealed card to heal a companion";
+                                                        }
+                                                    }));
+                                } else {
+                                    action.appendEffect(
+                                            new UnrespondableEffect() {
+                                                @Override
+                                                protected void doPlayEffect(LotroGame game) {
+                                                    action.appendCost(
+                                                            new DiscardTopCardFromDeckEffect(self, playerId, false));
+                                                    action.appendEffect(
+                                                            new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Side.SHADOW, CardType.CONDITION));
+                                                }
+
+                                                @Override
+                                                public String getText(LotroGame game) {
+                                                    return "Discard the revealed card to discard a shadow condition";
                                                 }
                                             });
                                 }
-                            }));
+                            }
+                        }
+                    });
             return Collections.singletonList(action);
         }
         return null;
