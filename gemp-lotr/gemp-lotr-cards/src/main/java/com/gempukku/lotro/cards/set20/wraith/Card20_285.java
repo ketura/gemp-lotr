@@ -31,7 +31,7 @@ public class Card20_285 extends AbstractPermanent {
     }
 
     @Override
-    public List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
+    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SKIRMISH, self, 0)
                 && self.getZone() == Zone.SUPPORT
                 && PlayConditions.isActive(game, Filters.character, Filters.inSkirmishAgainst(Race.NAZGUL))) {

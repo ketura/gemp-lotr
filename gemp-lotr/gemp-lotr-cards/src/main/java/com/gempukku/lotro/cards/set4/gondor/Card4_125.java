@@ -55,7 +55,7 @@ public class Card4_125 extends AbstractPermanent {
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
                 && Filters.canSpot(game, Culture.GONDOR, Race.MAN)) {
             ActivateCardAction action = new ActivateCardAction(self);

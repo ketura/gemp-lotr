@@ -1,15 +1,15 @@
 package com.gempukku.lotro.cards.set20.elven;
 
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.actions.AttachPermanentAction;
+import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.cardtype.AbstractAttachableFPPossession;
 import com.gempukku.lotro.logic.effects.*;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
+import com.gempukku.lotro.logic.modifiers.AbstractExtraPlayCostModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.ResistanceModifier;
 import com.gempukku.lotro.logic.timing.Action;
@@ -35,9 +35,8 @@ public class Card20_101 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, Filter additionalAttachmentFilter, int twilightModifier) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, additionalAttachmentFilter, twilightModifier)
-                && (PlayConditions.canSpot(game, Filters.galadriel) || PlayConditions.canExert(self, game, Race.ELF));
+    public boolean checkPlayRequirements(LotroGame game, PhysicalCard self) {
+        return (PlayConditions.canSpot(game, Filters.galadriel) || PlayConditions.canExert(self, game, Race.ELF));
     }
 
     @Override
@@ -52,25 +51,34 @@ public class Card20_101 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    public AttachPermanentAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, Filterable additionalAttachmentFilter, int twilightModifier) {
-        AttachPermanentAction playCardAction = super.getPlayCardAction(playerId, game, self, additionalAttachmentFilter, twilightModifier);
-        List<Effect> possibleCosts = new LinkedList<Effect>();
-        possibleCosts.add(
-                new SpotEffect(1, Filters.galadriel));
-        possibleCosts.add(
-                new ChooseAndExertCharactersEffect(playCardAction, playerId, 1, 1, Race.ELF) {
+    public List<? extends AbstractExtraPlayCostModifier> getExtraCostToPlayModifiers(LotroGame game, PhysicalCard self) {
+        return Collections.singletonList(
+                new AbstractExtraPlayCostModifier(self, "Extra cost to play", self) {
                     @Override
-                    public String getText(LotroGame game) {
-                        return "Exert an Elf";
+                    public boolean canPayExtraCostsToPlay(LotroGame game, PhysicalCard card) {
+                        return (PlayConditions.canSpot(game, Filters.galadriel) || PlayConditions.canExert(self, game, Race.ELF));
+                    }
+
+                    @Override
+                    public void appendExtraCosts(LotroGame game, CostToEffectAction action, PhysicalCard card) {
+                        List<Effect> possibleCosts = new LinkedList<Effect>();
+                        possibleCosts.add(
+                                new SpotEffect(1, Filters.galadriel));
+                        possibleCosts.add(
+                                new ChooseAndExertCharactersEffect(action, card.getOwner(), 1, 1, Race.ELF) {
+                                    @Override
+                                    public String getText(LotroGame game) {
+                                        return "Exert an Elf";
+                                    }
+                                });
+                        action.appendCost(
+                                new ChoiceEffect(action, card.getOwner(), possibleCosts));
                     }
                 });
-        playCardAction.appendCost(
-                new ChoiceEffect(playCardAction, playerId, possibleCosts));
-        return playCardAction;
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.FELLOWSHIP, self)
                 && PlayConditions.canSelfDiscard(self, game)) {
             ActivateCardAction action = new ActivateCardAction(self);

@@ -42,7 +42,7 @@ return Collections.singletonList(new TwilightCostModifier(self, Filters.name("Sm
 }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
+    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.FELLOWSHIP, self)) {
             List<PhysicalCard> stackedCards = game.getGameState().getStackedCards(self);
             if (stackedCards.size() > 0) {

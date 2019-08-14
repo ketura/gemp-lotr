@@ -5,7 +5,10 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
-import com.gempukku.lotro.logic.modifiers.*;
+import com.gempukku.lotro.logic.modifiers.CantExertWithCardModifier;
+import com.gempukku.lotro.logic.modifiers.CantWoundWithCardModifier;
+import com.gempukku.lotro.logic.modifiers.Modifier;
+import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -28,6 +31,11 @@ public class Card20_283 extends AbstractAttachable {
     }
 
     @Override
+    public boolean isExtraPossessionClass(LotroGame game, PhysicalCard self, PhysicalCard attachedTo) {
+        return true;
+    }
+
+    @Override
     public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(
@@ -36,8 +44,6 @@ public class Card20_283 extends AbstractAttachable {
                 new CantExertWithCardModifier(self, Filters.balrog, Filters.not(Keyword.SPELL)));
         modifiers.add(
                 new CantWoundWithCardModifier(self, Filters.balrog, Filters.not(Keyword.SPELL)));
-        modifiers.add(
-                new ExtraPossessionClassModifier(self, self));
         return modifiers;
     }
 }

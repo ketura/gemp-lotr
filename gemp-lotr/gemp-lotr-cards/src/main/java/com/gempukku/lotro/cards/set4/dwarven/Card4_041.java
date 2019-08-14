@@ -49,7 +49,7 @@ public class Card4_041 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
                 && Filters.countActive(game, CardType.CONDITION, Culture.DWARVEN) > 0) {
             ActivateCardAction action = new ActivateCardAction(self);

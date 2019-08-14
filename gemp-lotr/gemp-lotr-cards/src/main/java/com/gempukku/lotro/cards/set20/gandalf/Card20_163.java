@@ -1,11 +1,10 @@
 package com.gempukku.lotro.cards.set20.gandalf;
 
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.AttachPermanentAction;
+import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
@@ -13,13 +12,15 @@ import com.gempukku.lotro.logic.decisions.IntegerAwaitingDecision;
 import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.lotro.logic.effects.RemoveBurdenEffect;
 import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
-import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
+import com.gempukku.lotro.logic.modifiers.AbstractExtraPlayCostModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
+import com.gempukku.lotro.logic.modifiers.cost.ExertExtraPlayCostModifier;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -41,9 +42,8 @@ public class Card20_163 extends AbstractAttachable {
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, Filter additionalAttachmentFilter, int twilightModifier) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, additionalAttachmentFilter, twilightModifier)
-                && PlayConditions.canExert(self, game, Filters.gandalf);
+    public boolean checkPlayRequirements(LotroGame game, PhysicalCard self) {
+        return PlayConditions.canExert(self, game, Filters.gandalf);
     }
 
     @Override
@@ -52,21 +52,28 @@ public class Card20_163 extends AbstractAttachable {
     }
 
     @Override
-    public AttachPermanentAction getPlayCardAction(final String playerId, LotroGame game, final PhysicalCard self, Filterable additionalAttachmentFilter, int twilightModifier) {
-        final AttachPermanentAction action = super.getPlayCardAction(playerId, game, self, additionalAttachmentFilter, twilightModifier);
-        action.appendCost(
-                new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.gandalf));
-        action.appendEffect(
-                new PlayoutDecisionEffect(playerId,
-                        new IntegerAwaitingDecision(1, "Choose number of burdens to remove", 0, Math.min(2, game.getGameState().getBurdens()), Math.min(2, game.getGameState().getBurdens())) {
-                            @Override
-                            public void decisionMade(String result) throws DecisionResultInvalidException {
-                                action.appendEffect(
-                                        new RemoveBurdenEffect(playerId, self, getValidatedResult(result)));
-                            }
-                        })
-        );
-        return action;
+    public List<? extends AbstractExtraPlayCostModifier> getExtraCostToPlayModifiers(LotroGame game, PhysicalCard self) {
+        return Arrays.asList(
+                new ExertExtraPlayCostModifier(self, self, null, Filters.gandalf),
+                new AbstractExtraPlayCostModifier(self, "Extra cost to play", self) {
+                    @Override
+                    public boolean canPayExtraCostsToPlay(LotroGame game, PhysicalCard card) {
+                        return true;
+                    }
+
+                    @Override
+                    public void appendExtraCosts(LotroGame game, CostToEffectAction action, PhysicalCard card) {
+                        action.appendCost(
+                                new PlayoutDecisionEffect(card.getOwner(),
+                                        new IntegerAwaitingDecision(1, "Choose number of burdens to remove", 0, Math.min(2, game.getGameState().getBurdens()), Math.min(2, game.getGameState().getBurdens())) {
+                                            @Override
+                                            public void decisionMade(String result) throws DecisionResultInvalidException {
+                                                action.appendCost(
+                                                        new RemoveBurdenEffect(self.getOwner(), self, getValidatedResult(result)));
+                                            }
+                                        }));
+                    }
+                });
     }
 
     @Override

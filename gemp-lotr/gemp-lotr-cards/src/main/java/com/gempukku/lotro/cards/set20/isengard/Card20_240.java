@@ -44,7 +44,7 @@ new NegativeEvaluator(new CountStackedEvaluator(self, CardType.MINION))));
 }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
+    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.REGROUP, self, 0)
                 && PlayConditions.isActive(game, Filters.saruman, Filters.not(Filters.exhausted))) {
             final ActivateCardAction action = new ActivateCardAction(self);

@@ -53,7 +53,7 @@ return Collections.singletonList(new CantBeAssignedToSkirmishModifier(self, Filt
 }
 
     @Override
-    public List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
+    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.REGROUP, self, 0)
                 && (PlayConditions.canExert(self, game, CardType.MINION, Race.TROLL)
                     || PlayConditions.canSpot(game, CardType.MINION))) {

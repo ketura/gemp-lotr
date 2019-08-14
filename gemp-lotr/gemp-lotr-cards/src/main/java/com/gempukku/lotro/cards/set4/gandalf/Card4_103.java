@@ -4,6 +4,7 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.PlayUtils;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.cardtype.AbstractAlly;
 import com.gempukku.lotro.logic.effects.*;
@@ -53,7 +54,7 @@ public class Card4_103 extends AbstractAlly {
     }
 
     @Override
-    protected List<ActivateCardAction> getExtraPhaseActions(final String playerId, LotroGame game, PhysicalCard self) {
+    public List<ActivateCardAction> getPhaseActionsInPlay(final String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.FELLOWSHIP, self)
                 && PlayConditions.canExert(self, game, self)
                 && Filters.filter(game.getGameState().getStackedCards(self), game, Filters.unboundCompanion, Race.HOBBIT, Filters.playable(game)).size() > 0) {
@@ -68,7 +69,7 @@ public class Card4_103 extends AbstractAlly {
                         protected void cardsSelected(LotroGame game, Collection<PhysicalCard> stackedHobbits) {
                             if (stackedHobbits.size() > 0) {
                                 PhysicalCard stackedHobbit = stackedHobbits.iterator().next();
-                                game.getActionsEnvironment().addActionToStack(stackedHobbit.getBlueprint().getPlayCardAction(playerId, game, stackedHobbit, 0, false));
+                                game.getActionsEnvironment().addActionToStack(PlayUtils.getPlayCardAction(game, stackedHobbit, 0, Filters.any, false));
                             }
                         }
                     });
