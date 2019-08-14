@@ -1,18 +1,19 @@
 package com.gempukku.lotro.cards.set1.moria;
 
-import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
-import com.gempukku.lotro.logic.timing.PlayConditions;
-import com.gempukku.lotro.logic.timing.TriggerConditions;
-import com.gempukku.lotro.logic.effects.StackCardFromPlayEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.PlayUtils;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.ChooseArbitraryCardsEffect;
+import com.gempukku.lotro.logic.effects.StackCardFromPlayEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -33,7 +34,7 @@ public class Card1_183 extends AbstractPermanent {
     }
 
     @Override
-    public List<? extends Action> getExtraPhaseActions(final String playerId, final LotroGame game, PhysicalCard self) {
+    public List<? extends Action> getPhaseActionsInPlay(final String playerId, final LotroGame game, PhysicalCard self) {
         List<PhysicalCard> stackedCards = game.getGameState().getStackedCards(self);
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SHADOW, self, 0)
                 && Filters.filter(stackedCards, game, Filters.playable(game)).size() > 0) {
@@ -44,7 +45,7 @@ public class Card1_183 extends AbstractPermanent {
                         protected void cardsSelected(LotroGame game, Collection<PhysicalCard> stackedOrcs) {
                             if (stackedOrcs.size() > 0) {
                                 PhysicalCard stackedOrc = stackedOrcs.iterator().next();
-                                game.getActionsEnvironment().addActionToStack(stackedOrc.getBlueprint().getPlayCardAction(playerId, game, stackedOrc, 0, false));
+                                game.getActionsEnvironment().addActionToStack(PlayUtils.getPlayCardAction(game, stackedOrc, 0, Filters.any, false));
                             }
                         }
                     });

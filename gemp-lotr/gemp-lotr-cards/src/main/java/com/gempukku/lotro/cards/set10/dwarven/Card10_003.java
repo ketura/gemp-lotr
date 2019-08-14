@@ -1,8 +1,5 @@
 package com.gempukku.lotro.cards.set10.dwarven;
 
-import com.gempukku.lotro.logic.cardtype.AbstractResponseEvent;
-import com.gempukku.lotro.logic.timing.TriggerConditions;
-import com.gempukku.lotro.logic.actions.PlayEventAction;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
@@ -10,10 +7,14 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.PlayUtils;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.actions.ResolveSkirmishDamageAction;
+import com.gempukku.lotro.logic.cardtype.AbstractResponseEvent;
 import com.gempukku.lotro.logic.effects.ChooseAndWoundCharactersEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
-import com.gempukku.lotro.logic.actions.ResolveSkirmishDamageAction;
 
 import java.util.Collections;
 import java.util.List;
@@ -35,7 +36,7 @@ public class Card10_003 extends AbstractResponseEvent {
     @Override
     public List<PlayEventAction> getOptionalAfterActions(final String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.forEachKilledInASkirmish(game, effectResult, Race.DWARF, CardType.MINION)
-                && checkPlayRequirements(playerId, game, self, 0, 0, false, false)) {
+                && PlayUtils.checkPlayRequirements(game, self, Filters.any, 0, 0, false, false)) {
             final ResolveSkirmishDamageAction resolveSkirmishDamageAction = game.getActionsEnvironment().findTopmostActionOfType(ResolveSkirmishDamageAction.class);
             if (resolveSkirmishDamageAction != null
                     && resolveSkirmishDamageAction.getRemainingDamage() > 0) {

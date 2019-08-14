@@ -49,7 +49,7 @@ public class Card10_048 extends AbstractAttachable {
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SKIRMISH, self, 0)
                 && PlayConditions.canRemoveThreat(game, self, 1)
                 && PlayConditions.canPlayFromDiscard(playerId, game, Culture.RAIDER, CardType.CONDITION)) {

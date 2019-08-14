@@ -32,7 +32,7 @@ public class Card11_170 extends AbstractCompanion {
     }
 
     @Override
-    protected List<ActivateCardAction> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
                 && Filters.notAssignedToSkirmish.accepts(game, self)) {
             final int pippinResistance = game.getModifiersQuerying().getResistance(game, self);

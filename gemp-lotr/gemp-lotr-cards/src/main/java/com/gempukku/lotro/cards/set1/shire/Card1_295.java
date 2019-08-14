@@ -82,7 +82,7 @@ public class Card1_295 extends AbstractAlly {
     }
 
     @Override
-    protected List<ActivateCardAction> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         List<ActivateCardAction> actions = new LinkedList<ActivateCardAction>();
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.FELLOWSHIP, self)
                 && game.getGameState().getSite(1).getBlueprint().getSiteBlock() == SitesBlock.FELLOWSHIP
@@ -95,7 +95,7 @@ public class Card1_295 extends AbstractAlly {
         }
         LotroCardBlueprint copied = getCopied(game, self);
         if (copied != null) {
-            List<? extends Action> list = copied.getPhaseActions(playerId, game, self);
+            List<? extends Action> list = copied.getPhaseActionsInPlay(playerId, game, self);
             if (list != null)
                 actions.addAll((List<ActivateCardAction>) list);
         }

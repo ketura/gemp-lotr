@@ -50,7 +50,7 @@ public class Card13_081 extends AbstractAttachable {
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.REGROUP, self, 0)
                 && PlayConditions.canSpot(game, Filters.saruman) && !PlayConditions.canSpot(game, 2, CardType.MINION)
                 && PlayConditions.canSelfDiscard(self, game)) {

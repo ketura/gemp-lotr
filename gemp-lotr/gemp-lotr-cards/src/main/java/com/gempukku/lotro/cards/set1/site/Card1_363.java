@@ -1,23 +1,19 @@
 package com.gempukku.lotro.cards.set1.site;
 
-import com.gempukku.lotro.logic.cardtype.AbstractSite;
-import com.gempukku.lotro.logic.timing.PlayConditions;
-import com.gempukku.lotro.logic.effects.AddUntilEndOfPhaseModifierEffect;
-import com.gempukku.lotro.logic.modifiers.PlayersCantPlayPhaseEventsOrPhaseSpecialAbilitiesModifier;
-import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.filters.Filter;
-import com.gempukku.lotro.filters.Filters;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.effects.ChooseArbitraryCardsEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractSite;
+import com.gempukku.lotro.logic.effects.AddUntilEndOfPhaseModifierEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDiscardEffect;
+import com.gempukku.lotro.logic.modifiers.PlayersCantPlayPhaseEventsOrPhaseSpecialAbilitiesModifier;
 import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
-import java.util.Collection;
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -34,62 +30,18 @@ public class Card1_363 extends AbstractSite {
     }
 
     @Override
-    public List<? extends Action> getPhaseActions(final String playerId, final LotroGame game, PhysicalCard self) {
+    public List<? extends Action> getPhaseActionsInPlay(final String playerId, final LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseSiteDuringPhase(game, Phase.SHADOW, self)) {
             final ActivateCardAction action = new ActivateCardAction(self);
+            for (int i = 0; i < 3; i++)
+                action.appendEffect(
+                        new ChooseAndPlayCardFromDiscardEffect(playerId, game, Keyword.TRACKER));
             action.appendEffect(
-                    new ChooseTrackerToPlay(action, game, 1, playerId, "Choose tracker to play",
-                            new LinkedList<PhysicalCard>(game.getGameState().getDiscard(playerId)),
-                            Filters.and(
-                                    Keyword.TRACKER,
-                                    new Filter() {
-                                        @Override
-                                        public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
-                                            return physicalCard.getBlueprint().checkPlayRequirements(playerId, game, physicalCard, 0, 0, false, false);
-                                        }
-                                    }), 0, 1));
+                    new AddUntilEndOfPhaseModifierEffect(
+                            new PlayersCantPlayPhaseEventsOrPhaseSpecialAbilitiesModifier(null, Phase.SHADOW)));
+
             return Collections.singletonList(action);
         }
         return null;
-    }
-
-    private class ChooseTrackerToPlay extends ChooseArbitraryCardsEffect {
-        private ActivateCardAction _action;
-        private LotroGame _game;
-        private int _count;
-        private String _playerId;
-        private String _choiceText;
-        private Filter _filter;
-
-        private ChooseTrackerToPlay(ActivateCardAction action, LotroGame game, int count, String playerId, String choiceText, List<PhysicalCard> cards, Filter filter, int minimum, int maximum) {
-            super(playerId, choiceText, cards, filter, minimum, maximum);
-            _action = action;
-            _game = game;
-            _count = count;
-            _playerId = playerId;
-            _choiceText = choiceText;
-            _filter = filter;
-        }
-
-        @Override
-        protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
-            if (selectedCards.size() > 0) {
-                PhysicalCard selectedCard = selectedCards.iterator().next();
-                _game.getActionsEnvironment().addActionToStack(selectedCard.getBlueprint().getPlayCardAction(_playerId, _game, selectedCard, 0, false));
-
-                LinkedList<PhysicalCard> remainingCards = new LinkedList<PhysicalCard>(_game.getGameState().getDiscard(_playerId));
-                remainingCards.remove(selectedCard);
-                if (_count < 3)
-                    _action.appendEffect(new ChooseTrackerToPlay(_action, _game, _count + 1, _playerId, _choiceText, remainingCards, _filter, 0, 1));
-                else
-                    _action.appendEffect(
-                            new AddUntilEndOfPhaseModifierEffect(
-                                    new PlayersCantPlayPhaseEventsOrPhaseSpecialAbilitiesModifier(null, Phase.SHADOW)));
-            } else {
-                _action.appendEffect(
-                        new AddUntilEndOfPhaseModifierEffect(
-                                new PlayersCantPlayPhaseEventsOrPhaseSpecialAbilitiesModifier(null, Phase.SHADOW)));
-            }
-        }
     }
 }

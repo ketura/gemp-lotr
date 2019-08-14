@@ -44,7 +44,7 @@ public class Card12_148 extends AbstractPermanent {
     }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SKIRMISH, self, 0)
                 && PlayConditions.canSpot(game, Culture.URUK_HAI, CardType.MINION)
                 && PlayConditions.canSpot(game, CardType.COMPANION, Filters.maxResistance(2))) {

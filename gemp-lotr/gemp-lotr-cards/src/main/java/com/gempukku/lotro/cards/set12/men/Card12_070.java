@@ -43,7 +43,7 @@ CardType.POSSESSION));
 }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.MANEUVER, self, 0)
                 && PlayConditions.canSpot(game, Filters.owner(playerId), Culture.MEN, CardType.MINION)
                 && PlayConditions.canSelfDiscard(self, game)) {

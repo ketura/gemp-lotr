@@ -1,10 +1,5 @@
 package com.gempukku.lotro.cards.set13.gollum;
 
-import com.gempukku.lotro.logic.cardtype.AbstractEvent;
-import com.gempukku.lotro.logic.timing.PlayConditions;
-import com.gempukku.lotro.logic.actions.PlayEventAction;
-import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDiscardEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
@@ -13,7 +8,12 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
 import com.gempukku.lotro.logic.effects.ChooseAndWoundCharactersEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDiscardEffect;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 /**
  * Set: Bloodlines
@@ -30,12 +30,11 @@ public class Card13_052 extends AbstractEvent {
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
+    public boolean checkPlayRequirements(LotroGame game, PhysicalCard self) {
         int region = GameUtils.getRegion(game);
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && (
+        return (
                 ((region == 1 || region == 2) && PlayConditions.canSpot(game, Filters.gollum))
-                        || (region == 3 && PlayConditions.canPlayFromDiscard(playerId, game, Culture.GOLLUM, CardType.MINION)));
+                        || (region == 3 && PlayConditions.canPlayFromDiscard(self.getOwner(), game, Culture.GOLLUM, CardType.MINION)));
     }
 
     @Override

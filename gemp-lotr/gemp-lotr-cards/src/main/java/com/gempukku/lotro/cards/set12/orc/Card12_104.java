@@ -1,14 +1,14 @@
 package com.gempukku.lotro.cards.set12.orc;
 
-import com.gempukku.lotro.logic.cardtype.AbstractEvent;
-import com.gempukku.lotro.logic.timing.PlayConditions;
-import com.gempukku.lotro.logic.actions.PlayEventAction;
-import com.gempukku.lotro.logic.effects.RevealTopCardsOfDrawDeckEffect;
-import com.gempukku.lotro.logic.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
+import com.gempukku.lotro.logic.effects.RevealTopCardsOfDrawDeckEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.List;
 
@@ -27,10 +27,9 @@ public class Card12_104 extends AbstractEvent {
     }
 
     @Override
-    public boolean checkPlayRequirements(String playerId, LotroGame game, PhysicalCard self, int withTwilightRemoved, int twilightModifier, boolean ignoreRoamingPenalty, boolean ignoreCheckingDeadPile) {
-        return super.checkPlayRequirements(playerId, game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty, ignoreCheckingDeadPile)
-                && ((PlayConditions.location(game, Keyword.BATTLEGROUND) && game.getGameState().getDeck(playerId).size() >= 7)
-                || (!PlayConditions.location(game, Keyword.BATTLEGROUND) && game.getGameState().getDeck(playerId).size() >= 5));
+    public boolean checkPlayRequirements(LotroGame game, PhysicalCard self) {
+        return ((PlayConditions.location(game, Keyword.BATTLEGROUND) && game.getGameState().getDeck(self.getOwner()).size() >= 7)
+                || (!PlayConditions.location(game, Keyword.BATTLEGROUND) && game.getGameState().getDeck(self.getOwner()).size() >= 5));
     }
 
     @Override

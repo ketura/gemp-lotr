@@ -39,7 +39,7 @@ return Collections.singletonList(new RoamingPenaltyModifier(self, Filters.and(Fi
 }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(final String playerId, LotroGame game, final PhysicalCard self) {
+    public List<? extends Action> getPhaseActionsInPlay(final String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.ASSIGNMENT, self, 0)
                 && PlayConditions.canSpot(game, 2, Race.HOBBIT, CardType.COMPANION)) {
             final ActivateCardAction action = new ActivateCardAction(self);

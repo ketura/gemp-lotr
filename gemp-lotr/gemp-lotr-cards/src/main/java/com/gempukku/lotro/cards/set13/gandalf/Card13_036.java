@@ -4,16 +4,16 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.AttachPermanentAction;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.cardtype.AbstractAttachableFPPossession;
 import com.gempukku.lotro.logic.effects.AddBurdenEffect;
 import com.gempukku.lotro.logic.effects.ChooseAndDiscardCardsFromHandEffect;
 import com.gempukku.lotro.logic.effects.RevealHandEffect;
-import com.gempukku.lotro.logic.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseOpponentEffect;
+import com.gempukku.lotro.logic.modifiers.AbstractExtraPlayCostModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.ResistanceModifier;
+import com.gempukku.lotro.logic.modifiers.cost.DiscardFromPlayExtraPlayCostModifier;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
@@ -50,17 +50,17 @@ public class Card13_036 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    protected boolean skipUniquenessCheck() {
+    public boolean skipUniquenessCheck() {
         return true;
     }
 
     @Override
-    public AttachPermanentAction getPlayCardAction(String playerId, LotroGame game, PhysicalCard self, Filterable additionalAttachmentFilter, int twilightModifier) {
-        AttachPermanentAction permanentAction = super.getPlayCardAction(playerId, game, self, additionalAttachmentFilter, twilightModifier);
-        if (PlayConditions.canSpot(game, Filters.name(getName())))
-            permanentAction.appendCost(
-                    new ChooseAndDiscardCardsFromPlayEffect(permanentAction, playerId, 1, 1, Filters.name(getName())));
-        return permanentAction;
+    public List<? extends AbstractExtraPlayCostModifier> getExtraCostToPlayModifiers(LotroGame game, PhysicalCard self) {
+        if (PlayConditions.canSpot(game, Filters.name(getName()))) {
+            return Collections.singletonList(
+                    new DiscardFromPlayExtraPlayCostModifier(self, self, 1, null, Filters.name(getName())));
+        }
+        return super.getExtraCostToPlayModifiers(game, self);
     }
 
     @Override

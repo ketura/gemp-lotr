@@ -43,7 +43,7 @@ return Collections.singletonList(new StrengthModifier(self, Filters.hasAttached(
 }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, final PhysicalCard self) {
+    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SKIRMISH, self, 2)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(

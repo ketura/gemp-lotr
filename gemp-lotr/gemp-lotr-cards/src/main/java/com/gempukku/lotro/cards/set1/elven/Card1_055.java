@@ -37,7 +37,7 @@ public class Card1_055 extends AbstractPermanent {
     }
 
     @Override
-    public List<? extends Action> getExtraPhaseActions(final String playerId, final LotroGame game, PhysicalCard self) {
+    public List<? extends Action> getPhaseActionsInPlay(final String playerId, final LotroGame game, PhysicalCard self) {
         List<Action> actions = new LinkedList<Action>();
 
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.MANEUVER, self)

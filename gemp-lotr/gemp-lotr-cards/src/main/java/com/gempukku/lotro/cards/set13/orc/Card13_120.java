@@ -38,7 +38,7 @@ return Collections.singletonList(new KeywordModifier(self, Filters.and(Culture.O
 }
 
     @Override
-    protected List<? extends Action> getExtraPhaseActions(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SHADOW, self, 0)
                 && PlayConditions.canSelfDiscard(self, game)
                 && PlayConditions.canSpot(game, Culture.ORC, CardType.MINION)) {
