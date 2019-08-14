@@ -1,5 +1,6 @@
 package com.gempukku.lotro.cards.set40.isengard;
 
+import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
@@ -36,7 +37,7 @@ public class Card40_143 extends AbstractResponseEvent {
 
     @Override
     public List<PlayEventAction> getOptionalInHandAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (TriggerConditions.forEachWounded(game, effectResult, self)
+        if (TriggerConditions.forEachWounded(game, effectResult, CardType.COMPANION)
                 && PlayConditions.canExert(self, game, Filters.saruman)
                 && PlayUtils.checkPlayRequirements(game, self, Filters.any, 0, 0, false, false)) {
             WoundResult woundResult = (WoundResult) effectResult;
