@@ -31,7 +31,8 @@ public class DrawCardsEffect extends AbstractSubActionEffect {
 
     @Override
     public String getText(LotroGame game) {
-        return "Draw " + _count + " card" + ((_count.evaluateExpression(game, null) > 1) ? "s" : "");
+        final boolean cardCount = _count.evaluateExpression(game, null) > 1;
+        return "Draw " + cardCount + " card" + (cardCount ? "s" : "");
     }
 
     @Override
