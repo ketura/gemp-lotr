@@ -6,10 +6,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
-import com.gempukku.lotro.logic.effects.AddTokenEffect;
-import com.gempukku.lotro.logic.effects.AddTwilightEffect;
-import com.gempukku.lotro.logic.effects.CheckPhaseLimitEffect;
-import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
+import com.gempukku.lotro.logic.effects.*;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.PlayConditions;
@@ -34,11 +31,13 @@ public class Card7_314 extends AbstractPermanent {
 
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (TriggerConditions.winsSkirmish(game, effectResult, Filters.owner(playerId), Culture.SAURON, CardType.MINION)) {
+        if (TriggerConditions.winsSkirmish(game, effectResult, Filters.owner(playerId), Culture.SAURON, CardType.MINION)
+                && PlayConditions.checkPhaseLimit(game, self, Phase.REGROUP, 1)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
-                    new CheckPhaseLimitEffect(action, self, 1, Phase.REGROUP,
-                            new AddTokenEffect(self, self, Token.SAURON)));
+                    new IncrementPhaseLimitEffect(self, Phase.REGROUP, 1));
+            action.appendEffect(
+                    new AddTokenEffect(self, self, Token.SAURON));
             return Collections.singletonList(action);
         }
         return null;

@@ -452,4 +452,16 @@ public class PlayConditions {
     public static boolean checkTurnLimit(LotroGame game, PhysicalCard card, int max) {
         return game.getModifiersQuerying().getUntilEndOfTurnLimitCounter(card).getUsedLimit() < max;
     }
+
+    public static boolean checkPhaseLimit(LotroGame game, PhysicalCard card, int max) {
+        return game.getModifiersQuerying().getUntilEndOfPhaseLimitCounter(card, game.getGameState().getCurrentPhase()).getUsedLimit() < max;
+    }
+
+    public static boolean checkPhaseLimit(LotroGame game, PhysicalCard card, Phase phase, int max) {
+        return game.getModifiersQuerying().getUntilEndOfPhaseLimitCounter(card, phase).getUsedLimit() < max;
+    }
+
+    public static boolean checkPhaseLimit(LotroGame game, PhysicalCard card, String prefix, int max) {
+        return game.getModifiersQuerying().getUntilEndOfPhaseLimitCounter(card, prefix, game.getGameState().getCurrentPhase()).getUsedLimit() < max;
+    }
 }

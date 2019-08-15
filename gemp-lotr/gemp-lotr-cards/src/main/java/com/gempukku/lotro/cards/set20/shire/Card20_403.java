@@ -8,6 +8,7 @@ import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.cardtype.AbstractAttachableFPPossession;
 import com.gempukku.lotro.logic.effects.CheckPhaseLimitEffect;
 import com.gempukku.lotro.logic.effects.ForEachYouSpotEffect;
+import com.gempukku.lotro.logic.effects.IncrementPhaseLimitEffect;
 import com.gempukku.lotro.logic.effects.RemoveThreatsEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.timing.Action;
@@ -38,8 +39,11 @@ public class Card20_403 extends AbstractAttachableFPPossession {
     public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.REGROUP, self)
                 && PlayConditions.isActive(game, Filters.name("Pippin"), Filters.hasAttached(self))
-                && PlayConditions.canDiscardFromPlay(self, game, CardType.POSSESSION, Keyword.PIPEWEED)) {
+                && PlayConditions.canDiscardFromPlay(self, game, CardType.POSSESSION, Keyword.PIPEWEED)
+        && PlayConditions.checkPhaseLimit(game, self, 1)) {
             final ActivateCardAction action = new ActivateCardAction(self);
+            action.appendCost(
+                    new IncrementPhaseLimitEffect(self, 1));
             action.appendCost(
                     new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, CardType.POSSESSION, Keyword.PIPEWEED));
             action.appendCost(
@@ -47,8 +51,7 @@ public class Card20_403 extends AbstractAttachableFPPossession {
                         @Override
                         protected void spottedCards(int spotCount) {
                             action.appendEffect(
-                                    new CheckPhaseLimitEffect(action, self, 1,
-                                            new RemoveThreatsEffect(self, spotCount)));
+                                            new RemoveThreatsEffect(self, spotCount));
                         }
                     });
             return Collections.singletonList(action);

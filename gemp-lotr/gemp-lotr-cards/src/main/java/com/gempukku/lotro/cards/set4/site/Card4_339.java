@@ -5,7 +5,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
-import com.gempukku.lotro.logic.effects.CheckPhaseLimitEffect;
+import com.gempukku.lotro.logic.effects.IncrementTurnLimitEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDeckEffect;
 import com.gempukku.lotro.logic.timing.Action;
@@ -31,13 +31,15 @@ public class Card4_339 extends AbstractSite {
     @Override
     public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseSiteDuringPhase(game, Phase.FELLOWSHIP, self)
-                && PlayConditions.canExert(self, game, Culture.ROHAN, Race.MAN)) {
+                && PlayConditions.canExert(self, game, Culture.ROHAN, Race.MAN)
+        && PlayConditions.checkTurnLimit(game, self, 1)) {
             ActivateCardAction action = new ActivateCardAction(self);
+            action.appendCost(
+                    new IncrementTurnLimitEffect(self, 1));
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Culture.ROHAN, Race.MAN));
             action.appendEffect(
-                    new CheckPhaseLimitEffect(action, self, 1, Phase.FELLOWSHIP,
-                            new ChooseAndPlayCardFromDeckEffect(playerId, Culture.ROHAN, PossessionClass.MOUNT)));
+                            new ChooseAndPlayCardFromDeckEffect(playerId, Culture.ROHAN, PossessionClass.MOUNT));
             return Collections.singletonList(action);
         }
         return null;

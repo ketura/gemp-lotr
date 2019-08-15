@@ -8,6 +8,7 @@ import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.cardtype.AbstractAttachableFPPossession;
 import com.gempukku.lotro.logic.effects.CheckPhaseLimitEffect;
 import com.gempukku.lotro.logic.effects.HealCharactersEffect;
+import com.gempukku.lotro.logic.effects.IncrementPhaseLimitEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.PlayConditions;
@@ -37,13 +38,15 @@ public class Card20_398 extends AbstractAttachableFPPossession {
     public List<? extends Action> getPhaseActionsInPlay(final String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.FELLOWSHIP, self)
                 && PlayConditions.isActive(game, Filters.name("Merry"), Filters.hasAttached(self))
-                && PlayConditions.canDiscardFromPlay(self, game, CardType.POSSESSION, Keyword.PIPEWEED)) {
+                && PlayConditions.canDiscardFromPlay(self, game, CardType.POSSESSION, Keyword.PIPEWEED)
+        && PlayConditions.checkPhaseLimit(game,self, 1)) {
             final ActivateCardAction action= new ActivateCardAction(self);
+            action.appendCost(
+                    new IncrementPhaseLimitEffect(self, 1));
             action.appendCost(
                     new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, CardType.POSSESSION, Keyword.PIPEWEED));
             action.appendEffect(
-                    new CheckPhaseLimitEffect(action, self, 1,
-                            new HealCharactersEffect(self, CardType.COMPANION, Filters.hasAttached(PossessionClass.PIPE))));
+                            new HealCharactersEffect(self, CardType.COMPANION, Filters.hasAttached(PossessionClass.PIPE)));
             return Collections.singletonList(action);
         }
         return null;

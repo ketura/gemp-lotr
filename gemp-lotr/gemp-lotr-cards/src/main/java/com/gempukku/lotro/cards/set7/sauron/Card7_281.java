@@ -6,10 +6,13 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.logic.effects.AddTokenEffect;
+import com.gempukku.lotro.logic.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.logic.effects.CheckPhaseLimitEffect;
+import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromHandEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndRemoveCultureTokensFromCardEffect;
+import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
@@ -48,8 +51,15 @@ public class Card7_281 extends AbstractPermanent {
             action.appendCost(
                     new ChooseAndRemoveCultureTokensFromCardEffect(self, playerId, Token.SAURON, 1, CardType.CONDITION));
             action.appendEffect(
-                    new CheckPhaseLimitEffect(action, self, 2, Phase.SKIRMISH,
-                            new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, 1, Culture.SAURON, Race.ORC)));
+                    new ChooseActiveCardEffect(self, playerId, "Choose an Orc", Culture.SAURON, Race.ORC) {
+                        @Override
+                        protected void cardSelected(LotroGame game, PhysicalCard card) {
+                            action.appendEffect(
+                                    new CheckPhaseLimitEffect(action, self, card.getCardId() + "-", 2, null,
+                                            new AddUntilEndOfPhaseModifierEffect(
+                                                    new StrengthModifier(self, card, 1))));
+                        }
+                    });
             return Collections.singletonList(action);
         }
         return null;

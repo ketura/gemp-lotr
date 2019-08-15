@@ -7,6 +7,7 @@ import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.logic.effects.AddThreatsEffect;
 import com.gempukku.lotro.logic.effects.CheckPhaseLimitEffect;
+import com.gempukku.lotro.logic.effects.IncrementPhaseLimitEffect;
 import com.gempukku.lotro.logic.effects.RemoveTwilightEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.PlayConditions;
@@ -30,13 +31,15 @@ public class Card7_130 extends AbstractPermanent {
     @Override
     public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.REGROUP, self, 3)
-                && PlayConditions.canSpot(game, 2, Culture.RAIDER, Race.MAN)) {
+                && PlayConditions.canSpot(game, 2, Culture.RAIDER, Race.MAN)
+                && PlayConditions.checkPhaseLimit(game, self, 1)) {
             ActivateCardAction action = new ActivateCardAction(self);
+            action.appendCost(
+                    new IncrementPhaseLimitEffect(self, 1));
             action.appendCost(
                     new RemoveTwilightEffect(3));
             action.appendEffect(
-                    new CheckPhaseLimitEffect(action, self, 1, Phase.REGROUP,
-                            new AddThreatsEffect(playerId, self, 1)));
+                    new AddThreatsEffect(playerId, self, 1));
             return Collections.singletonList(action);
         }
         return null;

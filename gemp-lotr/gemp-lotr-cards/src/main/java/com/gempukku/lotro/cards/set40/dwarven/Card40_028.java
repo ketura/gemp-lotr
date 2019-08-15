@@ -8,6 +8,7 @@ import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.logic.effects.CheckPhaseLimitEffect;
 import com.gempukku.lotro.logic.effects.DrawCardsEffect;
+import com.gempukku.lotro.logic.effects.IncrementPhaseLimitEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndDiscardStackedCardsEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDiscardEffect;
@@ -56,8 +57,11 @@ public class Card40_028 extends AbstractPermanent{
         }
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.REGROUP, self)
                 && PlayConditions.canDiscardFromStacked(self, game, playerId, 3, self, Filters.any)
-                && PlayConditions.canExert(self, game, 2, Race.DWARF)) {
+                && PlayConditions.canExert(self, game, 2, Race.DWARF)
+        && PlayConditions.checkPhaseLimit(game, self, 1)) {
             final ActivateCardAction action = new ActivateCardAction(self);
+            action.appendCost(
+                    new IncrementPhaseLimitEffect(self, 1));
             action.appendCost(
                     new ChooseAndDiscardStackedCardsEffect(action, playerId, 3, 3, self, Filters.any));
             action.appendCost(
@@ -67,8 +71,7 @@ public class Card40_028 extends AbstractPermanent{
                             int damageCount = game.getModifiersQuerying().getKeywordCount(game, character, Keyword.DAMAGE);
                             if (damageCount>0) {
                                 action.appendEffect(
-                                        new CheckPhaseLimitEffect(action, self, 1,
-                                                new DrawCardsEffect(action, playerId, damageCount)));
+                                                new DrawCardsEffect(action, playerId, damageCount));
                             }
                         }
                     });

@@ -6,6 +6,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.effects.CheckPhaseLimitEffect;
+import com.gempukku.lotro.logic.effects.IncrementTurnLimitEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDeckEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.PlayConditions;
@@ -27,11 +28,13 @@ public class Card7_329 extends AbstractSite {
     @Override
     public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseSiteDuringPhase(game, Phase.FELLOWSHIP, self)
-                && PlayConditions.canSpot(game, Race.DWARF)) {
+                && PlayConditions.canSpot(game, Race.DWARF)
+        && PlayConditions.checkTurnLimit(game, self, 1)) {
             ActivateCardAction action = new ActivateCardAction(self);
+            action.appendCost(
+                    new IncrementTurnLimitEffect(self, 1));
             action.appendEffect(
-                    new CheckPhaseLimitEffect(action, self, 1, Phase.FELLOWSHIP,
-                            new ChooseAndPlayCardFromDeckEffect(playerId, Culture.DWARVEN, CardType.CONDITION)));
+                            new ChooseAndPlayCardFromDeckEffect(playerId, Culture.DWARVEN, CardType.CONDITION));
             return Collections.singletonList(action);
         }
         return null;

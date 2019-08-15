@@ -13,6 +13,7 @@ import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
 import com.gempukku.lotro.logic.effects.CheckPhaseLimitEffect;
 import com.gempukku.lotro.logic.effects.ChooseArbitraryCardsEffect;
 import com.gempukku.lotro.logic.effects.HealCharactersEffect;
+import com.gempukku.lotro.logic.effects.IncrementTurnLimitEffect;
 import com.gempukku.lotro.logic.timing.ExtraFilters;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
@@ -41,9 +42,12 @@ public class Card4_365 extends AbstractCompanion {
     @Override
     public List<ActivateCardAction> getPhaseActionsInPlay(final String playerId, final LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.FELLOWSHIP, self)
-                && PlayConditions.canPlayFromHand(playerId, game, Culture.ROHAN, CardType.POSSESSION, ExtraFilters.attachableTo(game, Culture.ROHAN, CardType.COMPANION))) {
+                && PlayConditions.canPlayFromHand(playerId, game, Culture.ROHAN, CardType.POSSESSION, ExtraFilters.attachableTo(game, Culture.ROHAN, CardType.COMPANION))
+        && PlayConditions.checkTurnLimit(game, self, 1)) {
             final Filter additionalAttachmentFilter = Filters.and(Culture.ROHAN, CardType.COMPANION);
             final ActivateCardAction action = new ActivateCardAction(self);
+            action.appendCost(
+                    new IncrementTurnLimitEffect(self, 1));
             action.appendCost(
                     new ChooseArbitraryCardsEffect(playerId, "Choose card to play", game.getGameState().getHand(playerId),
                             Filters.and(
@@ -57,8 +61,7 @@ public class Card4_365 extends AbstractCompanion {
                                 AttachPermanentAction attachPermanentAction = (AttachPermanentAction) PlayUtils.getPlayCardAction(game, selectedCard, 0, additionalAttachmentFilter, false);
                                 game.getActionsEnvironment().addActionToStack(attachPermanentAction);
                                 action.appendEffect(
-                                        new CheckPhaseLimitEffect(action, self, 1, Phase.FELLOWSHIP,
-                                                new AppendHealTargetEffect(action, attachPermanentAction)));
+                                                new AppendHealTargetEffect(action, attachPermanentAction));
                             }
                         }
                     });

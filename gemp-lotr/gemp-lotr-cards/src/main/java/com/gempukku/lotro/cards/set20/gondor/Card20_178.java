@@ -8,6 +8,7 @@ import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.cardtype.AbstractAttachableFPPossession;
 import com.gempukku.lotro.logic.effects.CheckPhaseLimitEffect;
 import com.gempukku.lotro.logic.effects.ForEachYouSpotEffect;
+import com.gempukku.lotro.logic.effects.IncrementPhaseLimitEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.timing.Action;
@@ -39,8 +40,11 @@ public class Card20_178 extends AbstractAttachableFPPossession {
     public List<? extends Action> getPhaseActionsInPlay(final String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
                 && PlayConditions.isActive(game, Filters.aragorn, Filters.hasAttached(self))
-                && PlayConditions.canDiscardFromPlay(self, game, CardType.POSSESSION, Keyword.PIPEWEED)) {
+                && PlayConditions.canDiscardFromPlay(self, game, CardType.POSSESSION, Keyword.PIPEWEED)
+                && PlayConditions.checkPhaseLimit(game, self, 1)) {
             final ActivateCardAction action = new ActivateCardAction(self);
+            action.appendCost(
+                    new IncrementPhaseLimitEffect(self, 1));
             action.appendCost(
                     new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, CardType.POSSESSION, Keyword.PIPEWEED));
             action.appendCost(
@@ -48,8 +52,7 @@ public class Card20_178 extends AbstractAttachableFPPossession {
                         @Override
                         protected void spottedCards(int spotCount) {
                             action.appendEffect(
-                                    new CheckPhaseLimitEffect(action, self, 1,
-                                            new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, spotCount, CardType.COMPANION, Filters.hasAttached(PossessionClass.PIPE))));
+                                    new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, spotCount, CardType.COMPANION, Filters.hasAttached(PossessionClass.PIPE)));
                         }
                     });
             return Collections.singletonList(action);

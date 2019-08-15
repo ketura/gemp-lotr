@@ -8,7 +8,7 @@ import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.logic.effects.AddTwilightEffect;
 import com.gempukku.lotro.logic.effects.AddUntilStartOfPhaseModifierEffect;
-import com.gempukku.lotro.logic.effects.CheckPhaseLimitEffect;
+import com.gempukku.lotro.logic.effects.IncrementPhaseLimitEffect;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.PlayConditions;
@@ -33,14 +33,16 @@ public class Card12_045 extends AbstractPermanent {
     @Override
     public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.FELLOWSHIP, self)
-                && PlayConditions.canSpot(game, Culture.GONDOR, Race.MAN)) {
+                && PlayConditions.canSpot(game, Culture.GONDOR, Race.MAN)
+                && PlayConditions.checkPhaseLimit(game, self, 1)) {
             ActivateCardAction action = new ActivateCardAction(self);
+            action.appendCost(
+                    new IncrementPhaseLimitEffect(self, 1));
             action.appendCost(
                     new AddTwilightEffect(self, 2));
             action.appendEffect(
-                    new CheckPhaseLimitEffect(action, self, 1,
-                            new AddUntilStartOfPhaseModifierEffect(
-                                    new StrengthModifier(self, Filters.unboundCompanion, 1), Phase.REGROUP)));
+                    new AddUntilStartOfPhaseModifierEffect(
+                            new StrengthModifier(self, Filters.unboundCompanion, 1), Phase.REGROUP));
             return Collections.singletonList(action);
         }
         return null;

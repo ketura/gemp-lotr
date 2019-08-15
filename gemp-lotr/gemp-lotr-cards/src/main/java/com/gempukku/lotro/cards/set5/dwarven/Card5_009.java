@@ -7,6 +7,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.logic.effects.CheckPhaseLimitEffect;
+import com.gempukku.lotro.logic.effects.IncrementPhaseLimitEffect;
 import com.gempukku.lotro.logic.effects.PutCardFromStackedIntoHandEffect;
 import com.gempukku.lotro.logic.effects.StackTopCardsFromDeckEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndDiscardStackedCardsEffect;
@@ -38,17 +39,20 @@ public class Card5_009 extends AbstractPermanent {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.MANEUVER, self)) {
             List<ActivateCardAction> actions = new LinkedList<ActivateCardAction>();
 
-            {
+            if (PlayConditions.checkPhaseLimit(game, self, 1)) {
                 ActivateCardAction action = new ActivateCardAction(self);
+                action.setText("Stack card here");
+                action.appendCost(
+                        new IncrementPhaseLimitEffect(self, 1));
                 action.appendEffect(
-                        new CheckPhaseLimitEffect(action, self, 1, Phase.MANEUVER,
-                                new StackTopCardsFromDeckEffect(self, playerId, 1, self)));
+                                new StackTopCardsFromDeckEffect(self, playerId, 1, self));
                 actions.add(action);
             }
 
             if (PlayConditions.canSpot(game, Race.DWARF)
                     && Filters.countActive(game, Culture.DWARVEN, CardType.CONDITION, Filters.hasStacked(Filters.any)) > 0) {
                 final ActivateCardAction action = new ActivateCardAction(self);
+                action.setText("Take Free Peoples stacked here into hand");
                 action.appendCost(
                         new ChooseAndDiscardStackedCardsEffect(action, playerId, 1, 1, Filters.and(Culture.DWARVEN, CardType.CONDITION), Filters.any));
                 action.appendEffect(
