@@ -7,6 +7,8 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
 import com.gempukku.lotro.logic.modifiers.CantTakeWoundsModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
+import com.gempukku.lotro.logic.modifiers.condition.AndCondition;
+import com.gempukku.lotro.logic.modifiers.condition.LocationCondition;
 import com.gempukku.lotro.logic.modifiers.condition.NotCondition;
 import com.gempukku.lotro.logic.modifiers.condition.PhaseCondition;
 
@@ -42,7 +44,9 @@ public class Card40_139 extends AbstractAttachable {
     @Override
     public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         CantTakeWoundsModifier modifier = new CantTakeWoundsModifier(self,
-                new NotCondition(new PhaseCondition(Phase.SKIRMISH)), Filters.hasAttached(self));
+                new AndCondition(
+                        new NotCondition(new PhaseCondition(Phase.SKIRMISH)),
+                        new LocationCondition(Keyword.BATTLEGROUND)), Filters.hasAttached(self));
         return Collections.singletonList(modifier);
     }
 }
