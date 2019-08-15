@@ -385,7 +385,7 @@ public class LotroGameMediator {
 
             String warning = _userFeedback.consumeWarning(playerName);
             if (warning != null)
-                visitor.visitGameEvent(new GameEvent(GameEvent.Type.W).message(warning));
+                visitor.visitGameEvent(new GameEvent(GameEvent.Type.SEND_WARNING).message(warning));
 
             Map<String, Integer> secondsLeft = new HashMap<String, Integer>();
             for (Map.Entry<String, Integer> playerClock : _playerClocks.entrySet()) {

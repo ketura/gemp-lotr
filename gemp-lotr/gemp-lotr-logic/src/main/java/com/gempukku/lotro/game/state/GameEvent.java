@@ -11,14 +11,25 @@ import java.util.List;
 
 public class GameEvent {
     public enum Type {
-        P, GPC, TC, PP, TP,
-        PCIP, MCIP, RCFP,
-        AA, RA,
-        SS, RFS, ATS, ES,
-        AT, RT,
-        M, W,
-        GS,
-        CAC, EP, CA, D
+        PARTICIPANTS("P"), GAME_PHASE_CHANGE("GPC"), TURN_CHANGE("TC"), PLAYER_POSITION("PP"),
+        TWILIGHT_POOL_UPDATE("TP"),
+        PUT_CARD_INTO_PLAY("PCIP"), MOVE_CARD_IN_PLAY("MCIP"), REMOVE_CARD_FROM_PLAY("RCFP"),
+        ADD_ASSIGNMENT("AA"), REMOVE_ASSIGNMENT("RA"),
+        START_SKIRMISH("SS"), REMOVE_FROM_SKIRMISH("RFS"), ADD_TO_SKIRMISH("ATS"), END_SKIRMISH("ES"),
+        ADD_TOKENS("AT"), REMOVE_TOKENS("RT"),
+        SEND_MESSAGE("M"), SEND_WARNING("W"),
+        GAME_STATS("GS"),
+        CARD_AFFECTED_BY_CARD("CAC"), SHOW_CARD_ON_SCREEN("EP"), FLASH_CARD_IN_PLAY("CA"), DECISION("D");
+
+        private String code;
+
+        private Type(String code) {
+            this.code = code;
+        }
+
+        String getCode() {
+            return code;
+        }
     }
 
     private String _message;
