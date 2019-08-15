@@ -55,7 +55,7 @@ public class Card40_045 extends AbstractAlly {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new SelfExertEffect(action, self));
-            action.appendEffect(
+            action.appendCost(
                     new RevealTopCardsOfDrawDeckEffect(self, playerId, 1) {
                         @Override
                         protected void cardsRevealed(List<PhysicalCard> revealedCards) {
