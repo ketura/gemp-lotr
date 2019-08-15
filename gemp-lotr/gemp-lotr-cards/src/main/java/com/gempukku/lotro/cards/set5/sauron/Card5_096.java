@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card5_096 extends AbstractEvent {
     public Card5_096() {
-        super(Side.SHADOW, 0, Culture.SAURON, "Eye of Barad-Dur", Phase.SKIRMISH);
+        super(Side.SHADOW, 0, Culture.SAURON, "Eye of Barad-Dûr", Phase.SKIRMISH);
     }
 
     @Override

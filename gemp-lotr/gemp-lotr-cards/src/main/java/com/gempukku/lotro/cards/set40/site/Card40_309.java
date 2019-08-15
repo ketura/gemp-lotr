@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class Card40_309 extends AbstractSite {
     public Card40_309() {
-        super("Tower of Barad-dur", SitesBlock.SECOND_ED, 9, 10, Direction.LEFT);
+        super("Tower of Barad-dûr", SitesBlock.SECOND_ED, 9, 10, Direction.LEFT);
     }
 
     @Override

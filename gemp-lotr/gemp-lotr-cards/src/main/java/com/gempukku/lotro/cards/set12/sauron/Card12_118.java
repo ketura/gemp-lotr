@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class Card12_118 extends AbstractMinion {
     public Card12_118() {
-        super(3, 9, 3, 5, Race.MAN, Culture.SAURON, "The Mouth of Sauron", "Lieutenant of Barad-dur", true);
+        super(3, 9, 3, 5, Race.MAN, Culture.SAURON, "The Mouth of Sauron", "Lieutenant of Barad-dûr", true);
     }
 
     @Override

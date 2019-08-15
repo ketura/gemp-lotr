@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card20_469 extends AbstractSite {
     public Card20_469() {
-        super("Tower of Barad-dur", SitesBlock.SECOND_ED, 9, 9, null);
+        super("Tower of Barad-dûr", SitesBlock.SECOND_ED, 9, 9, null);
     }
 
     @Override

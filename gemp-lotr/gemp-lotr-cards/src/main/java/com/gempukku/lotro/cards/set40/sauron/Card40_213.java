@@ -44,7 +44,7 @@ import java.util.List;
  */
 public class Card40_213 extends AbstractMinion {
     public Card40_213() {
-        super(5, 11, 3, 6, Race.ORC, Culture.SAURON, "Barad-dur Captain", null, true);
+        super(5, 11, 3, 6, Race.ORC, Culture.SAURON, "Barad-dûr Captain", null, true);
     }
 
     @Override
