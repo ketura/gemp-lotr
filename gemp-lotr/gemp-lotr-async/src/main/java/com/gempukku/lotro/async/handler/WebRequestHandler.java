@@ -16,18 +16,13 @@ import java.util.Map;
 
 public class WebRequestHandler implements UriRequestHandler {
     private String _root;
-    private String _uniqueEtag;
 
     public WebRequestHandler(String root) {
         _root = root;
-        _uniqueEtag = "\"" + String.valueOf(System.currentTimeMillis()) + "\"";
     }
 
     @Override
     public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, MessageEvent e) throws Exception {
-        if (clientHasCurrentVersion(request))
-            throw new HttpProcessingException(304);
-
         if (uri.equals(""))
             uri = "index.html";
 
@@ -42,15 +37,23 @@ public class WebRequestHandler implements UriRequestHandler {
         if (!file.getCanonicalPath().startsWith(_root))
             throw new HttpProcessingException(403);
 
-        responseWriter.writeFile(file, Collections.singletonMap(HttpHeaders.Names.ETAG, _uniqueEtag));
+        if (!file.exists())
+            throw new HttpProcessingException(404);
+
+        final String etag = "\""+file.lastModified()+"\"";
+
+        if (clientHasCurrentVersion(request, etag))
+            throw new HttpProcessingException(304);
+
+        responseWriter.writeFile(file, Collections.singletonMap(HttpHeaders.Names.ETAG, etag));
     }
 
-    private boolean clientHasCurrentVersion(HttpRequest request) {
+    private boolean clientHasCurrentVersion(HttpRequest request, String etag) {
         String ifNoneMatch = request.getHeader(IF_NONE_MATCH);
         if (ifNoneMatch != null) {
             String[] clientKnownVersions = ifNoneMatch.split(",");
             for (String clientKnownVersion : clientKnownVersions) {
-                if (clientKnownVersion.trim().equals(_uniqueEtag))
+                if (clientKnownVersion.trim().equals(etag))
                     return true;
             }
         }
