@@ -9,8 +9,8 @@ public enum Token {
 
     URUK_HAI(Culture.URUK_HAI), MEN(Culture.MEN), ORC(Culture.ORC),
 
-	//Additional Hobbit Draft cultures
-	ESGAROTH(Culture.ESGAROTH), GUNDABAD(Culture.GUNDABAD), MIRKWOOD(Culture.MIRKWOOD), SMAUG(Culture.SMAUG), SPIDER(Culture.SPIDER), TROLL(Culture.TROLL);
+    //Additional Hobbit Draft cultures
+    ESGAROTH(Culture.ESGAROTH), GUNDABAD(Culture.GUNDABAD), MIRKWOOD(Culture.MIRKWOOD), SMAUG(Culture.SMAUG), SPIDER(Culture.SPIDER), TROLL(Culture.TROLL);
 
     private Culture _culture;
 
@@ -24,5 +24,13 @@ public enum Token {
 
     public Culture getCulture() {
         return _culture;
+    }
+
+    Token findTokenForCulture(Culture culture) {
+        for (Token token : Token.values()) {
+            if (token.getCulture() == culture)
+                return token;
+        }
+        return null;
     }
 }
