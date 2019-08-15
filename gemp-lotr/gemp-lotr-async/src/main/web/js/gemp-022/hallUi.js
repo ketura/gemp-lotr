@@ -46,11 +46,11 @@ var GempLotrHallUI = Class.extend({
             hallSettingsStr = "0|0|1|1|0";
         var hallSettings = hallSettingsStr.split("|");
 
-        this.addQueuesTable(hallSettings[0] == "1");
-        this.addTournamentsTable(hallSettings[1] == "1");
         this.addWaitingTablesTable(hallSettings[2] == "1");
         this.addPlayingTablesTable(hallSettings[3] == "1");
         this.addFinishedTablesTable(hallSettings[4] == "1");
+        this.addQueuesTable(hallSettings[0] == "1");
+        this.addTournamentsTable(hallSettings[1] == "1");
 
         this.div.append(this.tablesDiv);
 
