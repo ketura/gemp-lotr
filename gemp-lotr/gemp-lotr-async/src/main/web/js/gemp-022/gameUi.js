@@ -1102,10 +1102,14 @@ var GempLotrGameUI = Class.extend({
 
                         var sign = (value < 0) ? "-" : "";
                         value = Math.abs(value);
-                        var minutes = Math.floor(value / 60);
+                        var hours = Math.floor(value / 3600);
+                        var minutes = Math.floor(value / 60) % 60;
                         var seconds = value % 60;
 
-                        $("#clock" + index).text(sign + minutes + ":" + ((seconds < 10) ? ("0" + seconds) : seconds));
+                        if (hours > 0)
+                            $("#clock" + index).text(sign + hours + ":" + ((minutes < 10) ? ("0" + minutes) : minutes) + ":" + ((seconds < 10) ? ("0" + seconds) : seconds));
+                        else
+                            $("#clock" + index).text(sign + minutes + ":" + ((seconds < 10) ? ("0" + seconds) : seconds));
                     }
                 }
             }
