@@ -15,6 +15,7 @@ import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.RevealCardFromTopOfDeckResult;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -37,12 +38,12 @@ public class Card40_057 extends AbstractPermanent {
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         if (TriggerConditions.revealedCardsFromTopOfDeck(effectResult, playerId)
                 && PlayConditions.canExert(self, game, Race.ELF)) {
-            RevealCardFromTopOfDeckResult reveleadResult = (RevealCardFromTopOfDeckResult) effectResult;
-            int count = reveleadResult.getRevealedCards().size();
+            RevealCardFromTopOfDeckResult revealedResult = (RevealCardFromTopOfDeckResult) effectResult;
 
-            List<OptionalTriggerAction> actions = new ArrayList<OptionalTriggerAction>(count);
-            for (int i = 0; i < count; i++) {
-                final OptionalTriggerAction action = new OptionalTriggerAction("perringForward-" + i, self);
+            final Collection<PhysicalCard> revealedCards = revealedResult.getRevealedCards();
+            List<OptionalTriggerAction> actions = new ArrayList<OptionalTriggerAction>(revealedCards.size());
+            for (PhysicalCard revealedCard : revealedCards) {
+                final OptionalTriggerAction action = new OptionalTriggerAction("peeringForward-" + revealedCard.getCardId(), self);
                 action.appendCost(
                         new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.ELF));
                 action.appendEffect(
@@ -56,7 +57,8 @@ public class Card40_057 extends AbstractPermanent {
                         });
                 actions.add(action);
             }
-            return actions;
+            if (actions.size() > 0)
+                return actions;
         }
         return null;
     }

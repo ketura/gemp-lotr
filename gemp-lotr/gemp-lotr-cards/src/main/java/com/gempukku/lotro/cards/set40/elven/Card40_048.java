@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.set40.elven;
 
 import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
@@ -16,6 +17,7 @@ import com.gempukku.lotro.logic.timing.results.RevealCardFromTopOfDeckResult;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -48,11 +50,10 @@ public class Card40_048 extends AbstractAlly {
                 && PlayConditions.canSelfExert(self, game)) {
             RevealCardFromTopOfDeckResult revealedResult = (RevealCardFromTopOfDeckResult) effectResult;
             Collection<PhysicalCard> revealedCards = revealedResult.getRevealedCards();
-            int countOfElven = getElvenCount(revealedCards);
-            if (countOfElven > 0) {
-                List<OptionalTriggerAction> actions = new ArrayList<OptionalTriggerAction>(countOfElven);
-                for (int i = 0; i < countOfElven; i++) {
-                    final OptionalTriggerAction action = new OptionalTriggerAction("golradir-" + i, self);
+            List<OptionalTriggerAction> actions = new LinkedList<OptionalTriggerAction>();
+            for (PhysicalCard revealedCard : revealedCards) {
+                if (Filters.and(Culture.ELVEN).accepts(game, revealedCard)) {
+                    OptionalTriggerAction action = new OptionalTriggerAction("golradir-" + revealedCard.getCardId(), self);
                     action.appendCost(
                             new SelfExertEffect(action, self));
                     action.appendEffect(
@@ -66,18 +67,10 @@ public class Card40_048 extends AbstractAlly {
                             });
                     actions.add(action);
                 }
-                return actions;
             }
+            if (actions.size() > 0)
+                return actions;
         }
         return null;
-    }
-
-    private int getElvenCount(Collection<PhysicalCard> revealedCards) {
-        int countOfElven = 0;
-        for (PhysicalCard revealedCard : revealedCards) {
-            if (revealedCard.getBlueprint().getCulture() == Culture.ELVEN)
-                countOfElven++;
-        }
-        return countOfElven;
     }
 }
