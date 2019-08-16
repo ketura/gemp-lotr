@@ -3,7 +3,7 @@ var GempLotrCommunication = Class.extend({
     failure:null,
 
     init:function (url, failure) {
-        this.url = url;
+        this.url = serverDomain + url;
         this.failure = failure;
     },
 

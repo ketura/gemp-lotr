@@ -1,5 +1,7 @@
 var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
+var serverDomain = "";
+
 function formatToTwoDigits(no) {
     if (no < 10)
         return "0" + no;
