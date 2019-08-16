@@ -86,6 +86,41 @@ public class GameHistoryRequestHandler extends LotroServerRequestHandler impleme
         } else if (uri.equals("/list") && request.getMethod() == HttpMethod.GET) {
             final List<GameHistoryEntry> playerGameHistory = _gameHistoryService.getTrackableGames(100);
 
+            DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+            Document doc = documentBuilder.newDocument();
+            Element gameHistory = doc.createElement("gameHistory");
+
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+            for (GameHistoryEntry gameHistoryEntry : playerGameHistory) {
+                Element historyEntry = doc.createElement("historyEntry");
+                historyEntry.setAttribute("winner", gameHistoryEntry.getWinner());
+                historyEntry.setAttribute("loser", gameHistoryEntry.getLoser());
+
+                historyEntry.setAttribute("winReason", gameHistoryEntry.getWinReason());
+                historyEntry.setAttribute("loseReason", gameHistoryEntry.getLoseReason());
+
+                historyEntry.setAttribute("formatName", gameHistoryEntry.getFormatName());
+
+                historyEntry.setAttribute("winnerRecordingLink", "http://www.gempukku.com/gemp-lotr/game.html?replayId="+gameHistoryEntry.getWinner()+"$"+gameHistoryEntry.getWinnerRecording());
+                historyEntry.setAttribute("winnerDeckName", gameHistoryEntry.getWinnerDeckName());
+
+                historyEntry.setAttribute("loserRecordingLink", "http://www.gempukku.com/gemp-lotr/game.html?replayId="+gameHistoryEntry.getLoser()+"$"+gameHistoryEntry.getLoserRecording());
+                historyEntry.setAttribute("loserDeckName", gameHistoryEntry.getLoserDeckName());
+
+                historyEntry.setAttribute("startTime", dateFormat.format(new Date(gameHistoryEntry.getStartTime().getTime())));
+                historyEntry.setAttribute("endTime", dateFormat.format(new Date(gameHistoryEntry.getEndTime().getTime())));
+
+                gameHistory.appendChild(historyEntry);
+            }
+
+            doc.appendChild(gameHistory);
+
+            responseWriter.writeXmlResponse(doc);
+        } else if (uri.equals("/list/html") && request.getMethod() == HttpMethod.GET) {
+            final List<GameHistoryEntry> playerGameHistory = _gameHistoryService.getTrackableGames(100);
+
             StringBuilder sb = new StringBuilder();
             sb.append("<html><body><table>");
 
