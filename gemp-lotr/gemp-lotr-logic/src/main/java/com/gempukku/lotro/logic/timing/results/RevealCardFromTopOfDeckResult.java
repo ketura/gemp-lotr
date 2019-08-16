@@ -7,19 +7,19 @@ import java.util.Collection;
 
 public class RevealCardFromTopOfDeckResult extends EffectResult {
     private String _playerId;
-    private Collection<PhysicalCard> _revealedCards;
+    private PhysicalCard _revealedCard;
 
-    public RevealCardFromTopOfDeckResult(String playerId, Collection<PhysicalCard> revealedCards) {
-        super(Type.REVEAL_CARDS_FROM_TOP_OF_DECK);
+    public RevealCardFromTopOfDeckResult(String playerId, PhysicalCard revealedCard) {
+        super(Type.FOR_EACH_REVEALED_FROM_TOP_OF_DECK);
         _playerId = playerId;
-        _revealedCards = revealedCards;
+        _revealedCard = revealedCard;
     }
 
     public String getPlayerId() {
         return _playerId;
     }
 
-    public Collection<PhysicalCard> getRevealedCards() {
-        return _revealedCards;
+    public PhysicalCard getRevealedCard() {
+        return _revealedCard;
     }
 }

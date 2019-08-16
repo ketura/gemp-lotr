@@ -16,6 +16,7 @@ import com.gempukku.lotro.logic.timing.results.RevealCardFromTopOfDeckResult;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -38,27 +39,19 @@ public class Card40_057 extends AbstractPermanent {
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         if (TriggerConditions.revealedCardsFromTopOfDeck(effectResult, playerId)
                 && PlayConditions.canExert(self, game, Race.ELF)) {
-            RevealCardFromTopOfDeckResult revealedResult = (RevealCardFromTopOfDeckResult) effectResult;
-
-            final Collection<PhysicalCard> revealedCards = revealedResult.getRevealedCards();
-            List<OptionalTriggerAction> actions = new ArrayList<OptionalTriggerAction>(revealedCards.size());
-            for (PhysicalCard revealedCard : revealedCards) {
-                final OptionalTriggerAction action = new OptionalTriggerAction("peeringForward-" + revealedCard.getCardId(), self);
-                action.appendCost(
-                        new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.ELF));
-                action.appendEffect(
-                        new ChooseActiveCardEffect(self, playerId, "Choose a minion", CardType.MINION) {
-                            @Override
-                            protected void cardSelected(LotroGame game, PhysicalCard card) {
-                                action.appendEffect(
-                                        new AddUntilStartOfPhaseModifierEffect(
-                                                new StrengthModifier(self, card, -1), Phase.REGROUP));
-                            }
-                        });
-                actions.add(action);
-            }
-            if (actions.size() > 0)
-                return actions;
+            final OptionalTriggerAction action = new OptionalTriggerAction(self);
+            action.appendCost(
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.ELF));
+            action.appendEffect(
+                    new ChooseActiveCardEffect(self, playerId, "Choose a minion", CardType.MINION) {
+                        @Override
+                        protected void cardSelected(LotroGame game, PhysicalCard card) {
+                            action.appendEffect(
+                                    new AddUntilStartOfPhaseModifierEffect(
+                                            new StrengthModifier(self, card, -1), Phase.REGROUP));
+                        }
+                    });
+            return Collections.singletonList(action);
         }
         return null;
     }

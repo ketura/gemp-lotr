@@ -213,7 +213,7 @@ public class TriggerConditions {
     }
 
     public static boolean revealedCardsFromTopOfDeck(EffectResult effectResult, String playerId) {
-        if (effectResult.getType() == EffectResult.Type.REVEAL_CARDS_FROM_TOP_OF_DECK) {
+        if (effectResult.getType() == EffectResult.Type.FOR_EACH_REVEALED_FROM_TOP_OF_DECK) {
             RevealCardFromTopOfDeckResult revealCardFromTopOfDeckResult = (RevealCardFromTopOfDeckResult) effectResult;
             return revealCardFromTopOfDeckResult.getPlayerId().equals(playerId);
         }

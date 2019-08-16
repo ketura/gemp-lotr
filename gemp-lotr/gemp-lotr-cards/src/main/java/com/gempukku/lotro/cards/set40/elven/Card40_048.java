@@ -15,10 +15,7 @@ import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.logic.timing.results.RevealCardFromTopOfDeckResult;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Title: *Golradir, Homely House Advisor
@@ -49,27 +46,22 @@ public class Card40_048 extends AbstractAlly {
         if (TriggerConditions.revealedCardsFromTopOfDeck(effectResult, playerId)
                 && PlayConditions.canSelfExert(self, game)) {
             RevealCardFromTopOfDeckResult revealedResult = (RevealCardFromTopOfDeckResult) effectResult;
-            Collection<PhysicalCard> revealedCards = revealedResult.getRevealedCards();
-            List<OptionalTriggerAction> actions = new LinkedList<OptionalTriggerAction>();
-            for (PhysicalCard revealedCard : revealedCards) {
-                if (Filters.and(Culture.ELVEN).accepts(game, revealedCard)) {
-                    OptionalTriggerAction action = new OptionalTriggerAction("golradir-" + revealedCard.getCardId(), self);
-                    action.appendCost(
-                            new SelfExertEffect(action, self));
-                    action.appendEffect(
-                            new ChooseActiveCardEffect(self, playerId, "Choose an Orc", Race.ORC) {
-                                @Override
-                                protected void cardSelected(LotroGame game, PhysicalCard card) {
-                                    action.appendEffect(
-                                            new AddUntilStartOfPhaseModifierEffect(
-                                                    new StrengthModifier(self, card, -2), Phase.REGROUP));
-                                }
-                            });
-                    actions.add(action);
-                }
+            final PhysicalCard revealedCard = revealedResult.getRevealedCard();
+            if (Filters.and(Culture.ELVEN).accepts(game, revealedCard)) {
+                OptionalTriggerAction action = new OptionalTriggerAction(self);
+                action.appendCost(
+                        new SelfExertEffect(action, self));
+                action.appendEffect(
+                        new ChooseActiveCardEffect(self, playerId, "Choose an Orc", Race.ORC) {
+                            @Override
+                            protected void cardSelected(LotroGame game, PhysicalCard card) {
+                                action.appendEffect(
+                                        new AddUntilStartOfPhaseModifierEffect(
+                                                new StrengthModifier(self, card, -2), Phase.REGROUP));
+                            }
+                        });
+                return Collections.singletonList(action);
             }
-            if (actions.size() > 0)
-                return actions;
         }
         return null;
     }

@@ -51,7 +51,7 @@ public abstract class RevealTopCardsOfDrawDeckEffect extends AbstractEffect {
             String nextPlayer;
             while ((nextPlayer = playerOrder.getNextPlayer()) != null) {
                 game.getUserFeedback().sendAwaitingDecision(nextPlayer,
-                        new ArbitraryCardsSelectionDecision(1, _playerId+" revealed card(s) from hand top of deck", topCards, Collections.<PhysicalCard>emptySet(), 0, 0) {
+                        new ArbitraryCardsSelectionDecision(1, _playerId + " revealed card(s) from hand top of deck", topCards, Collections.<PhysicalCard>emptySet(), 0, 0) {
                             @Override
                             public void decisionMade(String result) throws DecisionResultInvalidException {
                             }
@@ -59,8 +59,10 @@ public abstract class RevealTopCardsOfDrawDeckEffect extends AbstractEffect {
             }
 
             game.getGameState().sendMessage(GameUtils.getCardLink(_source) + " revealed cards from top of " + _playerId + " deck - " + getAppendedNames(topCards));
-            game.getActionsEnvironment().emitEffectResult(
-                    new RevealCardFromTopOfDeckResult(_playerId, topCards));
+            for (PhysicalCard topCard : topCards) {
+                game.getActionsEnvironment().emitEffectResult(
+                        new RevealCardFromTopOfDeckResult(_playerId, topCard));
+            }
         }
         cardsRevealed(topCards);
         return new FullEffectResult(topCards.size() == _count);
