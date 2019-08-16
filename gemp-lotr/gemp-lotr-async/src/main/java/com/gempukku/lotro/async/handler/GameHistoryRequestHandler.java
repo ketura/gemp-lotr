@@ -84,40 +84,36 @@ public class GameHistoryRequestHandler extends LotroServerRequestHandler impleme
 
             responseWriter.writeXmlResponse(doc);
         } else if (uri.equals("/list") && request.getMethod() == HttpMethod.GET) {
-            final List<GameHistoryEntry> playerGameHistory = _gameHistoryService.getTrackableGames(50);
+            final List<GameHistoryEntry> playerGameHistory = _gameHistoryService.getTrackableGames(100);
 
-            DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
-            Document doc = documentBuilder.newDocument();
-            Element gameHistory = doc.createElement("gameHistory");
+            StringBuilder sb = new StringBuilder();
+            sb.append("<html><body><table>");
+
+            sb.append("<tr>");
+            sb.append("<th rowspan='2'>Start time</th><th rowspan='2'>End time</th>");
+            sb.append("<th>Winner</th><th>Reason</th><th>Deck name</th><th>Replay</th>");
+            sb.append("</tr>");
+            sb.append("<tr>");
+            sb.append("<th>Loser</th><th>Reason</th><th>Deck name</th><th>Replay</th>");
+            sb.append("</tr>");
 
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
             for (GameHistoryEntry gameHistoryEntry : playerGameHistory) {
-                Element historyEntry = doc.createElement("historyEntry");
-                historyEntry.setAttribute("winner", gameHistoryEntry.getWinner());
-                historyEntry.setAttribute("loser", gameHistoryEntry.getLoser());
+                String winnerLink = "http://www.gempukku.com/gemp-lotr/game.html?replayId=" + gameHistoryEntry.getWinner() + "$" + gameHistoryEntry.getWinnerRecording();
+                String loserLink = "http://www.gempukku.com/gemp-lotr/game.html?replayId=" + gameHistoryEntry.getLoser() + "$" + gameHistoryEntry.getLoserRecording();
 
-                historyEntry.setAttribute("winReason", gameHistoryEntry.getWinReason());
-                historyEntry.setAttribute("loseReason", gameHistoryEntry.getLoseReason());
-
-                historyEntry.setAttribute("formatName", gameHistoryEntry.getFormatName());
-
-                historyEntry.setAttribute("winnerRecordingLink", "http://www.gempukku.com/gemp-lotr/game.html?replayId="+gameHistoryEntry.getWinner()+"$"+gameHistoryEntry.getWinnerRecording());
-                historyEntry.setAttribute("winnerDeckName", gameHistoryEntry.getWinnerDeckName());
-
-                historyEntry.setAttribute("loserRecordingLink", "http://www.gempukku.com/gemp-lotr/game.html?replayId="+gameHistoryEntry.getLoser()+"$"+gameHistoryEntry.getLoserRecording());
-                historyEntry.setAttribute("loserDeckName", gameHistoryEntry.getLoserDeckName());
-
-                historyEntry.setAttribute("startTime", dateFormat.format(new Date(gameHistoryEntry.getStartTime().getTime())));
-                historyEntry.setAttribute("endTime", dateFormat.format(new Date(gameHistoryEntry.getEndTime().getTime())));
-
-                gameHistory.appendChild(historyEntry);
+                sb.append("<tr>");
+                sb.append("<td rowspan='2'>" + dateFormat.format(new Date(gameHistoryEntry.getStartTime().getTime())) + "</td><td rowspan='2'>" + dateFormat.format(new Date(gameHistoryEntry.getEndTime().getTime())) + "</td>");
+                sb.append("<td>" + gameHistoryEntry.getWinner() + "</td><td>" + gameHistoryEntry.getWinReason() + "</td><td>" + gameHistoryEntry.getWinnerDeckName() + "</td><td><a target='_blank' href='" + winnerLink + "'>Replay</a></td>");
+                sb.append("</tr>");
+                sb.append("<tr>");
+                sb.append("<td>" + gameHistoryEntry.getLoser() + "</td><td>" + gameHistoryEntry.getLoseReason() + "</td><td>" + gameHistoryEntry.getLoserDeckName() + "</td><td><a target='_blank' href='" + loserLink + "'>Replay</a></td>");
+                sb.append("</tr>");
             }
 
-            doc.appendChild(gameHistory);
-
-            responseWriter.writeXmlResponse(doc);
+            sb.append("</table></body></html>");
+            responseWriter.writeHtmlResponse(sb.toString());
         } else {
             throw new HttpProcessingException(404);
         }
