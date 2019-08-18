@@ -10,6 +10,7 @@ import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
 import com.gempukku.lotro.logic.effects.*;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.logic.modifiers.*;
 import com.gempukku.lotro.logic.timing.*;
 
@@ -58,7 +59,7 @@ public class Card40_001 extends AbstractAttachable {
             ActivateCardAction action = new ActivateCardAction(self);
             List<Effect> possibleCosts = new LinkedList<Effect>();
             possibleCosts.add(
-                    new ExertCharactersEffect(action, self, Filters.hasAttached(self)));
+                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.hasAttached(self)));
             possibleCosts.add(
                     new DiscardCardAtRandomFromHandEffect(self, self.getOwner(), false));
 

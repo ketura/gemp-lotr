@@ -623,7 +623,7 @@ public class IndividualCardAtTest extends AbstractAtTest {
         playerDecided(P2, "0");
 
         // Choose Hobbit Sword to discard
-        playerDecided(P2, ""+hobbitSword.getCardId());
+        playerDecided(P2, "" + hobbitSword.getCardId());
 
         // Use Scourge of the Shire
         playerDecided(P1, "0");
@@ -678,7 +678,7 @@ public class IndividualCardAtTest extends AbstractAtTest {
         playerDecided(P1, _game.getGameState().getRingBearer(P1).getCardId() + " " + nelya.getCardId());
 
         // Choose skirmish to resolve
-        playerDecided(P1, ""+_game.getGameState().getRingBearer(P1).getCardId());
+        playerDecided(P1, "" + _game.getGameState().getRingBearer(P1).getCardId());
 
         // Skirmish phase
         AwaitingDecision skirmishAction = _userFeedback.getAwaitingDecision(P1);
@@ -701,7 +701,7 @@ public class IndividualCardAtTest extends AbstractAtTest {
         playerDecided(P1, _game.getGameState().getRingBearer(P1).getCardId() + " " + nelya.getCardId());
 
         // Choose skirmish to resolve
-        playerDecided(P1, ""+_game.getGameState().getRingBearer(P1).getCardId());
+        playerDecided(P1, "" + _game.getGameState().getRingBearer(P1).getCardId());
 
         // End fierce skirmish phase
         playerDecided(P1, "");
@@ -757,7 +757,7 @@ public class IndividualCardAtTest extends AbstractAtTest {
         playerDecided(P2, "");
 
         // Choose skirmish to start
-        playerDecided(P1, gimli.getCardId()+"");
+        playerDecided(P1, gimli.getCardId() + "");
 
         // End skirmish
         playerDecided(P1, "");
@@ -808,7 +808,7 @@ public class IndividualCardAtTest extends AbstractAtTest {
         playerDecided(P1, frodo.getCardId() + " " + goblinRunner.getCardId());
 
         // Choose skirmish to start
-        playerDecided(P1, frodo.getCardId()+"");
+        playerDecided(P1, frodo.getCardId() + "");
 
         AwaitingDecision playSkirmishAction = _userFeedback.getAwaitingDecision(P1);
         assertEquals(AwaitingDecisionType.CARD_ACTION_CHOICE, playSkirmishAction.getDecisionType());
@@ -857,7 +857,7 @@ public class IndividualCardAtTest extends AbstractAtTest {
         playerDecided(P1, "0");
 
         _game.carryOutPendingActionsUntilDecisionNeeded();
-        
+
         assertFalse(_game.isFinished());
     }
 
@@ -917,10 +917,10 @@ public class IndividualCardAtTest extends AbstractAtTest {
         initializeSimplestGame();
 
         PhysicalCardImpl troll = new PhysicalCardImpl(100, "20_256", P2, _library.getLotroCardBlueprint("20_256"));
-        PhysicalCardImpl runner1  = new PhysicalCardImpl(101, "20_268", P2, _library.getLotroCardBlueprint("20_268"));
-        PhysicalCardImpl runner2  = new PhysicalCardImpl(102, "20_268", P2, _library.getLotroCardBlueprint("20_268"));
-        PhysicalCardImpl runner3  = new PhysicalCardImpl(103, "20_268", P2, _library.getLotroCardBlueprint("20_268"));
-        PhysicalCardImpl runner4  = new PhysicalCardImpl(104, "20_268", P2, _library.getLotroCardBlueprint("20_268"));
+        PhysicalCardImpl runner1 = new PhysicalCardImpl(101, "20_268", P2, _library.getLotroCardBlueprint("20_268"));
+        PhysicalCardImpl runner2 = new PhysicalCardImpl(102, "20_268", P2, _library.getLotroCardBlueprint("20_268"));
+        PhysicalCardImpl runner3 = new PhysicalCardImpl(103, "20_268", P2, _library.getLotroCardBlueprint("20_268"));
+        PhysicalCardImpl runner4 = new PhysicalCardImpl(104, "20_268", P2, _library.getLotroCardBlueprint("20_268"));
 
         skipMulligans();
 
@@ -931,7 +931,7 @@ public class IndividualCardAtTest extends AbstractAtTest {
         _game.getGameState().addCardToZone(_game, runner4, Zone.HAND);
 
         _game.getGameState().addTwilight(7);
-        
+
         // End fellowship
         playerDecided(P1, "");
 
@@ -946,21 +946,64 @@ public class IndividualCardAtTest extends AbstractAtTest {
     }
 
     @Test
-    public void extraPossessionClass() throws CardNotFoundException, DecisionResultInvalidException {
-        initializeSimplestGame();
+    public void exertingEhaustedFrodo() throws CardNotFoundException, DecisionResultInvalidException {
+        Map<String, LotroDeck> decks = new HashMap<String, LotroDeck>();
+        LotroDeck lotroDeck = new LotroDeck("Some deck");
+        lotroDeck.setRingBearer("10_121");
+        lotroDeck.setRing("40_1");
+        // 7_330,7_336,8_117,7_342,7_345,7_350,8_120,10_120,7_360
+        lotroDeck.addSite("1_323");
+        lotroDeck.addSite("7_335");
+        lotroDeck.addSite("8_117");
+        lotroDeck.addSite("7_342");
+        lotroDeck.addSite("7_345");
+        lotroDeck.addSite("7_350");
+        lotroDeck.addSite("8_120");
+        lotroDeck.addSite("10_120");
+        lotroDeck.addSite("7_360");
+        decks.put(P1, lotroDeck);
+        decks.put(P2, createSimplestDeck());
 
-        PhysicalCardImpl aragorn = new PhysicalCardImpl(100, "6_50", P1, _library.getLotroCardBlueprint("6_50"));
-        PhysicalCardImpl flamingBrand = new PhysicalCardImpl(101, "2_32", P1, _library.getLotroCardBlueprint("2_32"));
-        PhysicalCardImpl rangersSword = new PhysicalCardImpl(101, "1_112", P1, _library.getLotroCardBlueprint("1_112"));
+        _userFeedback = new DefaultUserFeedback();
 
-        _game.getGameState().addCardToZone(_game, aragorn, Zone.HAND);
-        _game.getGameState().addCardToZone(_game, rangersSword, Zone.HAND);
-        _game.getGameState().addCardToZone(_game, flamingBrand, Zone.HAND);
+        LotroFormatLibrary formatLibrary = new LotroFormatLibrary(new DefaultAdventureLibrary(), _library);
+        LotroFormat format = formatLibrary.getFormat("movie");
 
-        skipMulligans();
+        _game = new DefaultLotroGame(format, decks, _userFeedback, _library);
+        _userFeedback.setGame(_game);
+        _game.startGame();
 
-        playerDecided(P1, getCardActionId(_userFeedback.getAwaitingDecision(P1), "Play Aragorn"));
-        playerDecided(P1, getCardActionId(_userFeedback.getAwaitingDecision(P1), "Attach Ranger"));
-        playerDecided(P1, getCardActionId(_userFeedback.getAwaitingDecision(P1), "Attach Flaming"));
+        PhysicalCardImpl cheapMinion = new PhysicalCardImpl(100, "40_165", P2, _library.getLotroCardBlueprint("40_165"));
+        PhysicalCardImpl randomCard1 = new PhysicalCardImpl(101, "20_268", P1, _library.getLotroCardBlueprint("20_268"));
+
+        // Bidding
+        playerDecided(P1, "1");
+        playerDecided(P2, "0");
+
+        // Seating choice
+        playerDecided(P1, "0");
+
+        // Mulligans
+        playerDecided(P1, "0");
+        playerDecided(P2, "0");
+
+        final PhysicalCard frodo = _game.getGameState().getRingBearer(P1);
+        _game.getGameState().addCardToZone(_game, cheapMinion, Zone.HAND);
+        _game.getGameState().addCardToZone(_game, randomCard1, Zone.HAND);
+
+        _game.getGameState().addTokens(frodo, Token.WOUND, 4);
+        _game.getGameState().addTwilight(3);
+
+        // Pass felloship
+        playerDecided(P1, "");
+
+        // Play minion
+        playerDecided(P2, "0");
+        playerDecided(P2, "");
+
+        // Put on the ring
+        playerDecided(P1, "0");
+
+        assertEquals(Zone.DISCARD, randomCard1.getZone());
     }
 }

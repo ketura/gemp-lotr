@@ -9,7 +9,7 @@ import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
 import com.gempukku.lotro.logic.effects.AddTwilightEffect;
 import com.gempukku.lotro.logic.effects.ChoiceEffect;
-import com.gempukku.lotro.logic.effects.ExertCharactersEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.logic.modifiers.AbstractExtraPlayCostModifier;
 import com.gempukku.lotro.logic.modifiers.cost.ExertExtraPlayCostModifier;
 import com.gempukku.lotro.logic.timing.Effect;
@@ -61,7 +61,7 @@ public class Card40_216 extends AbstractAttachable {
             possibleEffects.add(
                     new AddTwilightEffect(self, 3));
             possibleEffects.add(
-                    new ExertCharactersEffect(action, self, self.getAttachedTo()));
+                    new ChooseAndExertCharactersEffect(action, GameUtils.getFreePeoplePlayer(game), 1, 1, self.getAttachedTo()));
             action.appendEffect(
                     new ChoiceEffect(action, GameUtils.getFreePeoplePlayer(game), possibleEffects));
             return Collections.singletonList(action);
