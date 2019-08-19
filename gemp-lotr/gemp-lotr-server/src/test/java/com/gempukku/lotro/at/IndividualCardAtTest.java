@@ -20,6 +20,7 @@ import java.util.Map;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 
 public class IndividualCardAtTest extends AbstractAtTest {
     @Test
@@ -1005,5 +1006,49 @@ public class IndividualCardAtTest extends AbstractAtTest {
         playerDecided(P1, "0");
 
         assertEquals(Zone.DISCARD, randomCard1.getZone());
+    }
+
+    @Test
+    public void orcMarksmanUnique() throws CardNotFoundException, DecisionResultInvalidException {
+        initializeSimplestGame();
+
+        PhysicalCardImpl marksman1 = new PhysicalCardImpl(100, "40_227", P2, _library.getLotroCardBlueprint("40_227"));
+        PhysicalCardImpl marksman2 = new PhysicalCardImpl(101, "40_227", P2, _library.getLotroCardBlueprint("40_227"));
+
+        skipMulligans();
+
+        _game.getGameState().addCardToZone(_game, marksman1, Zone.HAND);
+        _game.getGameState().addCardToZone(_game, marksman2, Zone.HAND);
+
+        _game.getGameState().addTwilight(10);
+
+        // End fellowship
+        playerDecided(P1, "");
+
+        playerDecided(P2, "0");
+        assertNull(getCardActionId(_userFeedback.getAwaitingDecision(P2), "Play Orc Mark"));
+    }
+
+    @Test
+    public void frodosPipeOncePerPhase() throws CardNotFoundException, DecisionResultInvalidException {
+        initializeSimplestGame();
+
+        PhysicalCardImpl frodosPipe = new PhysicalCardImpl(100, "40_250", P1, _library.getLotroCardBlueprint("40_250"));
+        PhysicalCardImpl pipeweed1 = new PhysicalCardImpl(101, "40_255", P1, _library.getLotroCardBlueprint("40_255"));
+        PhysicalCardImpl pipeweed2 = new PhysicalCardImpl(102, "40_255", P1, _library.getLotroCardBlueprint("40_255"));
+
+        _game.getGameState().addCardToZone(_game, frodosPipe, Zone.HAND);
+        _game.getGameState().addCardToZone(_game, pipeweed1, Zone.SUPPORT);
+        _game.getGameState().addCardToZone(_game, pipeweed2, Zone.SUPPORT);
+
+        skipMulligans();
+
+        playerDecided(P1, getCardActionId(_userFeedback.getAwaitingDecision(P1), "Attach Frodo's Pipe"));
+        playerDecided(P1, getCardActionId(_userFeedback.getAwaitingDecision(P1), "Use Frodo's Pipe"));
+
+        playerDecided(P1, String.valueOf(pipeweed1.getCardId()));
+        playerDecided(P1, "1");
+
+        assertNull(getCardActionId(_userFeedback.getAwaitingDecision(P1), "Use Frodo's Pipe"));
     }
 }

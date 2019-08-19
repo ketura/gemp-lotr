@@ -139,10 +139,12 @@ public class PlayConditions {
 
     public static boolean checkUniqueness(LotroGame game, PhysicalCard self, boolean ignoreCheckingDeadPile) {
         LotroCardBlueprint blueprint = self.getBlueprint();
-        return (!blueprint.isUnique()
-                || (
-                Filters.countActive(game, Filters.name(blueprint.getTitle())) == 0
-                        && (ignoreCheckingDeadPile || (Filters.filter(game.getGameState().getDeadPile(self.getOwner()), game, Filters.name(blueprint.getTitle())).size() == 0))));
+        if (!blueprint.isUnique())
+            return true;
+
+        final int activeCount = Filters.countActive(game, Filters.name(blueprint.getTitle()));
+        return activeCount == 0
+                && (ignoreCheckingDeadPile || (Filters.filter(game.getGameState().getDeadPile(self.getOwner()), game, Filters.name(blueprint.getTitle())).size() == 0));
     }
 
     private static int getTotalCompanions(String playerId, LotroGame game) {

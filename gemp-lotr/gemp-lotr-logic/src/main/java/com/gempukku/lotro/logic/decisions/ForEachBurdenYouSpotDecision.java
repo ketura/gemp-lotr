@@ -1,17 +1,8 @@
 package com.gempukku.lotro.logic.decisions;
 
-import java.util.Map;
-
 public abstract class ForEachBurdenYouSpotDecision extends IntegerAwaitingDecision {
     protected ForEachBurdenYouSpotDecision(int id, int burdens) {
-        super(id, "Choose number of burdens you wish to spot", 0, burdens);
-    }
-
-    @Override
-    public Map<String, Object> getDecisionParameters() {
-        Map<String, Object> result = super.getDecisionParameters();
-        result.put("defaultValue", result.get("max"));
-        return result;
+        super(id, "Choose number of burdens you wish to spot", 0, burdens, burdens);
     }
 
     @Override

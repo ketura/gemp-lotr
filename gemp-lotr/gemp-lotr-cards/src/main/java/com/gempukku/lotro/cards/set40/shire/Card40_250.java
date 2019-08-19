@@ -8,7 +8,6 @@ import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.cardtype.AbstractAttachableFPPossession;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.decisions.ForEachYouSpotDecision;
-import com.gempukku.lotro.logic.effects.CheckPhaseLimitEffect;
 import com.gempukku.lotro.logic.effects.ChooseAndHealCharactersEffect;
 import com.gempukku.lotro.logic.effects.IncrementPhaseLimitEffect;
 import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
@@ -44,22 +43,22 @@ public class Card40_250 extends AbstractAttachableFPPossession {
     public List<? extends Action> getPhaseActionsInPlay(final String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.FELLOWSHIP, self)
                 && Filters.canSpot(game, Keyword.PIPEWEED, CardType.POSSESSION)
-        && PlayConditions.checkPhaseLimit(game, self, 1)) {
+                && PlayConditions.checkPhaseLimit(game, self, 1)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new IncrementPhaseLimitEffect(self, 1));
             action.appendCost(
                     new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Keyword.PIPEWEED, CardType.POSSESSION));
             action.appendEffect(
-                            new PlayoutDecisionEffect(playerId,
-                                    new ForEachYouSpotDecision(1, "Choose number of pipes you wish to spot", game, Integer.MAX_VALUE, PossessionClass.PIPE) {
-                                        @Override
-                                        public void decisionMade(String result) throws DecisionResultInvalidException {
-                                            final int spotCount = getValidatedResult(result);
-                                            action.appendEffect(
-                                                    new ChooseAndHealCharactersEffect(action, playerId, 1, 1, spotCount, CardType.COMPANION, Filters.hasAttached(PossessionClass.PIPE)));
-                                        }
-                                    }));
+                    new PlayoutDecisionEffect(playerId,
+                            new ForEachYouSpotDecision(1, "Choose number of pipes you wish to spot", game, Integer.MAX_VALUE, PossessionClass.PIPE) {
+                                @Override
+                                public void decisionMade(String result) throws DecisionResultInvalidException {
+                                    final int spotCount = getValidatedResult(result);
+                                    action.appendEffect(
+                                            new ChooseAndHealCharactersEffect(action, playerId, 1, 1, spotCount, CardType.COMPANION, Filters.hasAttached(PossessionClass.PIPE)));
+                                }
+                            }));
             return Collections.singletonList(action);
         }
         return null;

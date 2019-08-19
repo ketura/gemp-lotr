@@ -12,26 +12,28 @@ public class IncrementPhaseLimitEffect extends UnrespondableEffect {
     private String prefix;
 
     public IncrementPhaseLimitEffect(PhysicalCard card, int limit) {
-        this.card = card;
-        this.limit = limit;
+        this(card, null, "", 1);
     }
 
     public IncrementPhaseLimitEffect(PhysicalCard card, Phase phase, int limit) {
-        this.card = card;
-        this.limit = limit;
-        this.phase = phase;
+        this(card, phase, "", 1);
     }
 
     public IncrementPhaseLimitEffect(PhysicalCard card, String prefix, int limit) {
+        this(card, null, "", 1);
+    }
+
+    private IncrementPhaseLimitEffect(PhysicalCard card, Phase phase, String prefix, int limit) {
         this.card = card;
-        this.limit = limit;
+        this.phase = phase;
         this.prefix = prefix;
+        this.limit = limit;
     }
 
     @Override
     protected void doPlayEffect(LotroGame game) {
         if (phase == null)
-            game.getGameState().getCurrentPhase();
+            phase = game.getGameState().getCurrentPhase();
         game.getModifiersQuerying().getUntilEndOfPhaseLimitCounter(card, prefix, phase).incrementToLimit(limit, 1);
     }
 }
