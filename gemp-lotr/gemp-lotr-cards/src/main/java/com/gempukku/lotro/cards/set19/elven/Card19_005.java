@@ -66,7 +66,12 @@ return Collections.singletonList(new StrengthModifier(self, Filters.hasAttached(
             possibleEffects.add(
                     new ExertCharactersEffect(action, self, self.getAttachedTo()));
             possibleEffects.add(
-                    new ReturnCardsToHandEffect(self, self));
+                    new ReturnCardsToHandEffect(self, self) {
+                @Override
+                public String getText(LotroGame game) {
+                    return "Return this condition to hand";
+                }
+            });
             action.appendEffect(
                     new ChoiceEffect(action, self.getOwner(), possibleEffects));
             return Collections.singletonList(action);
