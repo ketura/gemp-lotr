@@ -1,10 +1,5 @@
 package com.gempukku.lotro.cards.set40.gondor;
 
-import com.gempukku.lotro.logic.cardtype.AbstractEvent;
-import com.gempukku.lotro.logic.actions.PlayEventAction;
-import com.gempukku.lotro.logic.effects.AddUntilEndOfTurnModifierEffect;
-import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.logic.modifiers.AddNoTwilightForCompanionMoveModifier;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
@@ -12,6 +7,11 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
+import com.gempukku.lotro.logic.effects.AddUntilEndOfTurnModifierEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
+import com.gempukku.lotro.logic.modifiers.AddNoTwilightForCompanionMoveModifier;
 
 /**
  * Title: Avoid Being Seen
@@ -25,7 +25,7 @@ import com.gempukku.lotro.game.state.LotroGame;
  */
 public class Card40_099 extends AbstractEvent {
     public Card40_099() {
-        super(Side.FREE_PEOPLE, 0, Culture.GONDOR, "Aboid Being Seen", Phase.FELLOWSHIP);
+        super(Side.FREE_PEOPLE, 0, Culture.GONDOR, "Avoid Being Seen", Phase.FELLOWSHIP);
     }
 
     @Override
