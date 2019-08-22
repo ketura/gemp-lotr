@@ -54,14 +54,14 @@ public class Card2_057 extends AbstractResponseEvent {
     @Override
     public List<PlayEventAction> getOptionalInHandBeforeActions(String playerId, LotroGame game, Effect effect, final PhysicalCard self) {
         if (PlayUtils.checkPlayRequirements(game, self, Filters.any, 0, 0, false, false)
-                && game.getGameState().getCurrentPhase() == Phase.SKIRMISH
+                && Filters.canSpot(game, Filters.name("The Balrog"), Filters.inSkirmish)
                 && (TriggerConditions.isGettingKilled(effect, game, Filters.hasAttached(Filters.name("Whip of Many Thongs")))
                  || TriggerConditions.isGettingDiscarded(effect, game, Filters.hasAttached(Filters.name("Whip of Many Thongs"))))) {
             PlayEventAction action = new PlayEventAction(self);
                 action.appendEffect(
-                    new WoundCharactersEffect(self, CardType.COMPANION, Filters.inSkirmishAgainst(Filters.hasAttached(Filters.name("Whip of Many Thongs")))));
+                    new WoundCharactersEffect(self, CardType.COMPANION, Filters.inSkirmish));
                 action.appendEffect(
-                    new WoundCharactersEffect(self, CardType.COMPANION, Filters.inSkirmishAgainst(Filters.hasAttached(Filters.name("Whip of Many Thongs")))));
+                    new WoundCharactersEffect(self, CardType.COMPANION, Filters.inSkirmish));
             return Collections.singletonList(action);
         }
         return null;
