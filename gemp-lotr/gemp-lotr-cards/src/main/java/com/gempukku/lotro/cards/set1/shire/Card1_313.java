@@ -16,7 +16,6 @@ import com.gempukku.lotro.logic.effects.RevealHandEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseOpponentEffect;
 import com.gempukku.lotro.logic.modifiers.evaluator.CardPhaseLimitEvaluator;
 import com.gempukku.lotro.logic.modifiers.evaluator.ConstantEvaluator;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collection;
@@ -44,7 +43,7 @@ public class Card1_313 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    public List<? extends Action> getPhaseActionsInPlay(final String playerId, final LotroGame game, final PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(final String playerId, final LotroGame game, final PhysicalCard self) {
         if ((PlayConditions.canUseFPCardDuringPhase(game, Phase.FELLOWSHIP, self)
                 || PlayConditions.canUseFPCardDuringPhase(game, Phase.REGROUP, self))
                 && PlayConditions.canExert(self, game, self.getAttachedTo())) {

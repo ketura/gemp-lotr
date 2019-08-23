@@ -32,7 +32,7 @@ public class Card1_364 extends AbstractCompanion {
     }
 
     @Override
-    public List<ActivateCardAction> getPhaseActionsInPlay(final String playerId, final LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(final String playerId, final LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.FELLOWSHIP, self)
                 && PlayConditions.canExert(self, game, self)
                 && Filters.filter(game.getGameState().getHand(playerId), game, CardType.COMPANION, Signet.GANDALF, Filters.playable(game, -2)).size() > 0) {

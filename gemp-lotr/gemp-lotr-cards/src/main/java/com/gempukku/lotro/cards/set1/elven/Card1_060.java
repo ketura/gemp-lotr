@@ -83,7 +83,7 @@ public class Card1_060 extends AbstractAlly {
     }
 
     @Override
-    public List<ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         LotroCardBlueprint copied = getCopied(game, self);
         if (copied != null)
             return (List<ActivateCardAction>) copied.getPhaseActionsInPlay(playerId, game, self);

@@ -3,10 +3,7 @@ package com.gempukku.lotro.game;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.CostToEffectAction;
-import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
-import com.gempukku.lotro.logic.actions.PlayEventAction;
-import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
+import com.gempukku.lotro.logic.actions.*;
 import com.gempukku.lotro.logic.modifiers.AbstractExtraPlayCostModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.timing.Action;
@@ -18,6 +15,10 @@ import java.util.Map;
 import java.util.Set;
 
 public interface LotroCardBlueprint {
+    enum Direction {
+        LEFT, RIGHT
+    }
+
     public Side getSide();
 
     public CardType getCardType();
@@ -68,7 +69,7 @@ public interface LotroCardBlueprint {
 
     public boolean checkPlayRequirements(LotroGame game, PhysicalCard self);
 
-    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self);
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self);
 
     public List<? extends Action> getPhaseActionsInHand(String playerId, LotroGame game, PhysicalCard self);
 
@@ -86,9 +87,9 @@ public interface LotroCardBlueprint {
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self);
 
 
-    public List<? extends Action> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self);
+    public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self);
 
-    public List<? extends Action> getOptionalInPlayAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self);
+    public List<? extends ActivateCardAction> getOptionalInPlayAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self);
 
 
     public List<PlayEventAction> getOptionalInHandAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self);
@@ -129,8 +130,4 @@ public interface LotroCardBlueprint {
     void appendAidCosts(LotroGame game, CostToEffectAction action, PhysicalCard self);
 
     boolean skipUniquenessCheck();
-
-    public enum Direction {
-        LEFT, RIGHT
-    }
 }
