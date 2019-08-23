@@ -69,13 +69,13 @@ public interface LotroCardBlueprint {
 
     public boolean checkPlayRequirements(LotroGame game, PhysicalCard self);
 
-    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self);
-
     public List<? extends Action> getPhaseActionsInHand(String playerId, LotroGame game, PhysicalCard self);
 
-    public List<? extends ActivateCardAction> getPhaseActionsFromStacked(String playerId, LotroGame game, PhysicalCard self);
-
     public List<? extends Action> getPhaseActionsFromDiscard(String playerId, LotroGame game, PhysicalCard self);
+
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self);
+
+    public List<? extends ActivateCardAction> getPhaseActionsFromStacked(String playerId, LotroGame game, PhysicalCard self);
 
     public List<RequiredTriggerAction> getRequiredBeforeTriggers(LotroGame game, Effect effect, PhysicalCard self);
 
