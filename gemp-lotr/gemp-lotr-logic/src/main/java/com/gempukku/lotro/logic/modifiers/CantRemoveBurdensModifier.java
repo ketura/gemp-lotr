@@ -10,7 +10,7 @@ public class CantRemoveBurdensModifier extends AbstractModifier {
     private Filter _sourceFilters;
 
     public CantRemoveBurdensModifier(PhysicalCard source, Condition condition, Filterable... sourceFilters) {
-        super(source, "Can't remove burdens", null, condition, ModifierEffect.BURDEN_MODIFIER);
+        super(source, "Can't remove burdens", Filters.and(sourceFilters), condition, ModifierEffect.BURDEN_MODIFIER);
         _sourceFilters = Filters.and(sourceFilters);
     }
 

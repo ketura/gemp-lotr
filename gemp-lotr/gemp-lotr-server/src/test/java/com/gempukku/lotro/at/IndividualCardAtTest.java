@@ -1051,4 +1051,22 @@ public class IndividualCardAtTest extends AbstractAtTest {
 
         assertNull(getCardActionId(_userFeedback.getAwaitingDecision(P1), "Use Frodo's Pipe"));
     }
+
+    @Test
+    public void blockRemovingBurdens() throws CardNotFoundException, DecisionResultInvalidException {
+        initializeSimplestGame();
+
+        PhysicalCardImpl blackBreath = new PhysicalCardImpl(100, "1_207", P1, _library.getLotroCardBlueprint("1_207"));
+        PhysicalCardImpl sam = new PhysicalCardImpl(100, "1_311", P1, _library.getLotroCardBlueprint("1_311"));
+
+        _game.getGameState().attachCard(_game, blackBreath, _game.getGameState().getRingBearer(P1));
+        _game.getGameState().addCardToZone(_game, sam, Zone.FREE_CHARACTERS);
+
+        skipMulligans();
+
+        final int burdensBefore = _game.getGameState().getBurdens();
+        playerDecided(P1, getCardActionId(_userFeedback.getAwaitingDecision(P1), "Use Sam"));
+
+        assertEquals(burdensBefore, _game.getGameState().getBurdens());
+    }
 }
