@@ -32,7 +32,7 @@ public class Card10_115 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self) {
         PlayEventAction action = new PlayEventAction(self);
         Skirmish skirmish = game.getGameState().getSkirmish();
         if (Filters.canSpot(game, Filters.inSkirmish, Filters.owner(playerId), Race.HOBBIT)

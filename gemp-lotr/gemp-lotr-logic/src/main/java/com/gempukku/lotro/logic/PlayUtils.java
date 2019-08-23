@@ -13,7 +13,6 @@ import com.gempukku.lotro.logic.actions.AttachPermanentAction;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.actions.PlayEventAction;
 import com.gempukku.lotro.logic.actions.PlayPermanentAction;
-import com.gempukku.lotro.logic.cardtype.AbstractEvent;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.timing.RuleUtils;
 
@@ -63,7 +62,7 @@ public class PlayUtils {
                 return action;
             }
         } else {
-            final PlayEventAction action = blueprint.getPlayEventCardAction(card.getOwner(), game, card, twilightModifier);
+            final PlayEventAction action = blueprint.getPlayEventCardAction(card.getOwner(), game, card);
 
             game.getModifiersQuerying().appendPotentialDiscounts(game, action, card);
             game.getModifiersQuerying().appendExtraCosts(game, action, card);

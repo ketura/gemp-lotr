@@ -32,7 +32,7 @@ public class Card12_001 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayEventCardAction(final String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayEventCardAction(final String playerId, final LotroGame game, final PhysicalCard self) {
         final Filter hasRace = new Filter() {
             @Override
             public boolean accepts(LotroGame game, PhysicalCard physicalCard) {

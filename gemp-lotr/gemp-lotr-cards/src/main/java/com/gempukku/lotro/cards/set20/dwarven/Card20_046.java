@@ -30,7 +30,7 @@ public class Card20_046 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayEventCardAction(final String playerId, final LotroGame game, PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayEventCardAction(final String playerId, final LotroGame game, PhysicalCard self) {
         final PlayEventAction action = new PlayEventAction(self);
         int maxX = Filters.countActive(game, Race.DWARF, Filters.canExert(self, 2));
         action.appendCost(

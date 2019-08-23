@@ -57,7 +57,7 @@ public interface LotroCardBlueprint {
 
     SitesBlock getAllyHomeSiteBlock();
 
-    PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier);
+    PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self);
 
     List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self);
 

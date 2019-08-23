@@ -26,7 +26,7 @@ public class Card20_106 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self) {
         PlayEventAction action = new PlayEventAction(self);
         int count = PlayConditions.location(game, Keyword.FOREST)?2:1;
         action.appendEffect(

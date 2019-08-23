@@ -30,7 +30,7 @@ public class Card13_021 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self) {
         PlayEventAction action = new PlayEventAction(self);
         int total = game.getModifiersQuerying().hasFlagActive(game, ModifierFlag.SHADOW_PLAYER_REPLACED_CURRENT_SITE) ? 2 : 1;
         action.appendEffect(

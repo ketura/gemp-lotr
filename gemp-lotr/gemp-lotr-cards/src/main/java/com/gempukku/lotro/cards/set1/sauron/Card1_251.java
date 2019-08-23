@@ -31,7 +31,7 @@ public class Card1_251 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayEventCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayEventCardAction(final String playerId, LotroGame game, final PhysicalCard self) {
         final PlayEventAction action = new PlayEventAction(self);
         int companionCount = Filters.countActive(game, CardType.COMPANION);
         int woundCount = companionCount - 5;

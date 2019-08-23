@@ -33,5 +33,5 @@ public abstract class AbstractEvent extends AbstractLotroCardBlueprint {
     }
 
     @Override
-    public abstract PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier);
+    public abstract PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self);
 }

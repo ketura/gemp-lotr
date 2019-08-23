@@ -26,7 +26,7 @@ public class Card1_110 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayEventCardAction(final String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayEventCardAction(final String playerId, LotroGame game, PhysicalCard self) {
         final PlayEventAction action = new PlayEventAction(self, true);
         action.appendEffect(new PlayNextSiteEffect(action, playerId));
         return action;

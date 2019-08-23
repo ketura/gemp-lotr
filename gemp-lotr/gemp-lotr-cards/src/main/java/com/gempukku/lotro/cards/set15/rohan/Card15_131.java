@@ -29,7 +29,7 @@ public class Card15_131 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self) {
         PlayEventAction action = new PlayEventAction(self);
         int huntersCount = Filters.countActive(game, Filters.character, Keyword.HUNTER);
         for (int i = 0; i < huntersCount; i++)

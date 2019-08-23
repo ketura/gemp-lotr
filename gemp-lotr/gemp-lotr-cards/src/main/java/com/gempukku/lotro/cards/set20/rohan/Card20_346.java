@@ -30,7 +30,7 @@ public class Card20_346 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new ChooseAndPlayCardFromDiscardEffect(playerId, game, Culture.ROHAN, Filters.or(Filters.weapon, PossessionClass.MOUNT)));

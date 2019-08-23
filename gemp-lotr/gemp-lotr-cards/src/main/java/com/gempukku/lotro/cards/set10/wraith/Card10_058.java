@@ -34,7 +34,7 @@ public class Card10_058 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
                 new ChooseAndHealCharactersEffect(action, playerId, 1, 1, Culture.WRAITH, CardType.MINION, Keyword.ENDURING));

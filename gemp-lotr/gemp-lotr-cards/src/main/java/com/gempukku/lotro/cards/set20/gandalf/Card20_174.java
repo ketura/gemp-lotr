@@ -42,7 +42,7 @@ public class Card20_174 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
                 new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 4, Filters.any));
@@ -56,7 +56,7 @@ public class Card20_174 extends AbstractEvent {
         if (PlayConditions.isPhase(game, Phase.SKIRMISH)
                 && PlayConditions.hasInitiative(game, Side.FREE_PEOPLE)
                 && PlayUtils.checkPlayRequirements(game, self, Filters.any, 0, 0, false, false)) {
-            final PlayEventAction playCardAction = getPlayEventCardAction(playerId, game, self, 0);
+            final PlayEventAction playCardAction = getPlayEventCardAction(playerId, game, self);
             playCardAction.appendEffect(
                     new AddUntilEndOfTurnActionProxyEffect(
                             new AbstractActionProxy() {

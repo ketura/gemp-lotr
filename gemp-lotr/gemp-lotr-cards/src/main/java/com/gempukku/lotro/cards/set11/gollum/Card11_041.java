@@ -33,7 +33,7 @@ public class Card11_041 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, 2, Filters.inSkirmishAgainst(CardType.MINION), Side.FREE_PEOPLE, Filters.character, Filters.maxResistance(2)));
