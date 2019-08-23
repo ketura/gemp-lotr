@@ -14,7 +14,6 @@ import com.gempukku.lotro.logic.effects.*;
 import com.gempukku.lotro.logic.effects.choose.ChooseOpponentEffect;
 import com.gempukku.lotro.logic.modifiers.AbstractExtraPlayCostModifier;
 import com.gempukku.lotro.logic.modifiers.cost.ExertTargetExtraPlayCostModifier;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
 
@@ -49,7 +48,7 @@ public class Card4_107 extends AbstractAttachable {
     }
 
     @Override
-    public List<? extends Action> getOptionalInPlayAfterActions(final String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
+    public List<? extends ActivateCardAction> getOptionalInPlayAfterActions(final String playerId, LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         if (TriggerConditions.forEachKilled(game, effectResult, Culture.ISENGARD, CardType.MINION)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(

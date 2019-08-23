@@ -15,7 +15,10 @@ import com.gempukku.lotro.logic.effects.choose.ChooseAndDiscardCardsFromPlayEffe
 import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.logic.modifiers.CantBeAssignedToSkirmishModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.timing.*;
+import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -53,7 +56,7 @@ return Collections.singletonList(new CantBeAssignedToSkirmishModifier(self, Filt
 }
 
     @Override
-    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, final PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.REGROUP, self, 0)
                 && (PlayConditions.canExert(self, game, CardType.MINION, Race.TROLL)
                     || PlayConditions.canSpot(game, CardType.MINION))) {

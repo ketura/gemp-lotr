@@ -10,7 +10,6 @@ import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.effects.DrawCardsEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
@@ -31,7 +30,7 @@ public class Card30_055 extends AbstractSite {
     }
 
     @Override
-    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseSiteDuringPhase(game, Phase.SHADOW, self)
                 && PlayConditions.canExert(self, game, 1, 2, CardType.MINION)
                 && PlayConditions.canSpot(game, 6, CardType.COMPANION)) {

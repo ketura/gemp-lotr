@@ -16,7 +16,6 @@ import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDiscardEffec
 import com.gempukku.lotro.logic.modifiers.*;
 import com.gempukku.lotro.logic.modifiers.condition.AndCondition;
 import com.gempukku.lotro.logic.modifiers.condition.PhaseCondition;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
@@ -79,7 +78,7 @@ public class Card4_173 extends AbstractMinion {
     }
 
     @Override
-    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SHADOW, self, 0)
                 && PlayConditions.canExert(self, game, self)
                 && PlayConditions.canPlayFromDiscard(playerId, game, Filters.name("Saruman's Staff"))) {

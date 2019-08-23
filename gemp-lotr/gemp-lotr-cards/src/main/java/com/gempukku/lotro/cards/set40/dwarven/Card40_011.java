@@ -1,10 +1,5 @@
 package com.gempukku.lotro.cards.set40.dwarven;
 
-import com.gempukku.lotro.logic.cardtype.AbstractAttachableFPPossession;
-import com.gempukku.lotro.logic.timing.PlayConditions;
-import com.gempukku.lotro.logic.timing.TriggerConditions;
-import com.gempukku.lotro.logic.effects.NegateWoundEffect;
-import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.common.PossessionClass;
@@ -12,10 +7,14 @@ import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
+import com.gempukku.lotro.logic.actions.ActivateCardAction;
+import com.gempukku.lotro.logic.cardtype.AbstractAttachableFPPossession;
+import com.gempukku.lotro.logic.effects.NegateWoundEffect;
+import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
 import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -43,10 +42,10 @@ public class Card40_011 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    public List<? extends Action> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
         if (TriggerConditions.isGettingWounded(effect, game, Filters.hasAttached(self))
                 && PlayConditions.canSelfDiscard(self, game)) {
-            OptionalTriggerAction action = new OptionalTriggerAction(self);
+            ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(new SelfDiscardEffect(self));
             action.appendEffect(
                     new NegateWoundEffect((WoundCharactersEffect) effect, self.getAttachedTo()));

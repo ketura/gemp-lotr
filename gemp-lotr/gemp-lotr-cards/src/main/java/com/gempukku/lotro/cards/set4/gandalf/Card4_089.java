@@ -32,7 +32,7 @@ public class Card4_089 extends AbstractCompanion {
     }
 
     @Override
-    public List<ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.FELLOWSHIP, self)
                 && game.getGameState().getTwilightPool() < 2
                 && PlayConditions.canPlayFromDiscard(playerId, game, Side.FREE_PEOPLE, Filters.character)) {

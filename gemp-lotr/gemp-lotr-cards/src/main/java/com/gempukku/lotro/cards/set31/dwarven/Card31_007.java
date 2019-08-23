@@ -15,7 +15,6 @@ import com.gempukku.lotro.logic.effects.PutCardFromStackedIntoHandEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndStackCardsFromHandEffect;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.TwilightCostModifier;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collection;
@@ -42,7 +41,7 @@ return Collections.singletonList(new TwilightCostModifier(self, Filters.name("Sm
 }
 
     @Override
-    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, final PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.FELLOWSHIP, self)) {
             List<PhysicalCard> stackedCards = game.getGameState().getStackedCards(self);
             if (stackedCards.size() > 0) {

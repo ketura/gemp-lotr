@@ -13,7 +13,6 @@ import com.gempukku.lotro.logic.cardtype.AbstractFollower;
 import com.gempukku.lotro.logic.effects.CancelSkirmishEffect;
 import com.gempukku.lotro.logic.effects.ChooseAndDiscardCardsFromHandEffect;
 import com.gempukku.lotro.logic.effects.TransferToSupportEffect;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
@@ -50,7 +49,7 @@ public class Card31_015 extends AbstractFollower {
     }
 
     @Override
-    public List<? extends Action> getPhaseActionsInPlay(final String playerId, LotroGame game, final PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(final String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
                 && self.getAttachedTo() != null) {
             final ActivateCardAction action = new ActivateCardAction(self);

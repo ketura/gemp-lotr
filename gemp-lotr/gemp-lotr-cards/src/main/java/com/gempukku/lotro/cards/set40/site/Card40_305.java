@@ -12,7 +12,6 @@ import com.gempukku.lotro.logic.effects.AddUntilEndOfTurnModifierEffect;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.KillEffect;
 import com.gempukku.lotro.logic.modifiers.MoveLimitModifier;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
@@ -36,7 +35,7 @@ public class Card40_305 extends AbstractSite {
     }
 
     @Override
-    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseSiteDuringPhase(game, Phase.REGROUP, self)
                 && GameUtils.isFP(game, playerId)) {
             final ActivateCardAction action = new ActivateCardAction(self);

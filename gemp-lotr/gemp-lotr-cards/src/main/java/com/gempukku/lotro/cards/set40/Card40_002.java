@@ -13,7 +13,6 @@ import com.gempukku.lotro.logic.effects.*;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.ModifierFlag;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
@@ -51,7 +50,7 @@ public class Card40_002 extends AbstractAttachable {
     }
 
     @Override
-    public List<? extends Action> getOptionalInPlayBeforeActions(final String playerId, LotroGame game, Effect effect, final PhysicalCard self) {
+    public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(final String playerId, LotroGame game, Effect effect, final PhysicalCard self) {
         if (game.getGameState().getCurrentPhase() == Phase.SKIRMISH
                 && TriggerConditions.isGettingWounded(effect, game, Filters.hasAttached(self))
                 && !game.getModifiersQuerying().hasFlagActive(game, ModifierFlag.RING_TEXT_INACTIVE)) {

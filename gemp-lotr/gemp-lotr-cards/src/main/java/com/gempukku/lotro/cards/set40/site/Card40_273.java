@@ -11,7 +11,6 @@ import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.effects.AddUntilEndOfTurnModifierEffect;
 import com.gempukku.lotro.logic.effects.ChooseAndDiscardCardsFromHandEffect;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
@@ -33,7 +32,7 @@ public class Card40_273 extends AbstractSite {
     }
 
     @Override
-    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseSiteDuringPhase(game, Phase.FELLOWSHIP, self)
                 && PlayConditions.canDiscardFromHand(game, playerId, 1, Filters.any)) {
             ActivateCardAction action = new ActivateCardAction(self);

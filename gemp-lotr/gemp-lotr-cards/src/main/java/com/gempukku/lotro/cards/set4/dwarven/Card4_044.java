@@ -11,7 +11,6 @@ import com.gempukku.lotro.logic.effects.ChooseAndHealCharactersEffect;
 import com.gempukku.lotro.logic.effects.StackCardFromDiscardEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndDiscardStackedCardsEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseCardsFromDiscardEffect;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
@@ -54,7 +53,7 @@ public class Card4_044 extends AbstractPermanent {
     }
 
     @Override
-    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.FELLOWSHIP, self)
                 && Filters.filter(game.getGameState().getStackedCards(self), game, Side.FREE_PEOPLE).size() > 0) {
             ActivateCardAction action = new ActivateCardAction(self);

@@ -10,7 +10,6 @@ import com.gempukku.lotro.logic.effects.DiscardCardsFromHandEffect;
 import com.gempukku.lotro.logic.effects.RevealAndChooseCardsFromOpponentHandEffect;
 import com.gempukku.lotro.logic.effects.SelfExertEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseOpponentEffect;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
@@ -35,7 +34,7 @@ public class Card31_036 extends AbstractMinion {
     }
 
     @Override
-    public List<? extends Action> getPhaseActionsInPlay(final String playerId, LotroGame game, final PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(final String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.MANEUVER, self, 0)
                 && PlayConditions.canSelfExert(self, 2, game)) {
             final ActivateCardAction action = new ActivateCardAction(self);

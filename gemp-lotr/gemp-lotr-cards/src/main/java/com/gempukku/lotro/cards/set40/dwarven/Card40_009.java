@@ -33,7 +33,7 @@ public class Card40_009 extends AbstractCompanion {
     }
 
     @Override
-    public List<ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
                 && PlayConditions.canDiscardFromStacked(self, game, playerId, 1, Filters.and(Culture.DWARVEN, CardType.CONDITION), Filters.any)) {
             ActivateCardAction action = new ActivateCardAction(self);

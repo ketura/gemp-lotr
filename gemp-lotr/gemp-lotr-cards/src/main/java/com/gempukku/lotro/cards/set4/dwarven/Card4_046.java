@@ -11,7 +11,6 @@ import com.gempukku.lotro.logic.effects.DiscardTopCardFromDeckEffect;
 import com.gempukku.lotro.logic.effects.PutCardFromStackedIntoHandEffect;
 import com.gempukku.lotro.logic.effects.StackTopCardsFromDeckEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseStackedCardsEffect;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
@@ -49,7 +48,7 @@ public class Card4_046 extends AbstractPermanent {
     }
 
     @Override
-    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, final PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.FELLOWSHIP, self)
                 && Filters.canSpot(game, Race.DWARF)
                 && game.getGameState().getDeck(playerId).size() > 0) {

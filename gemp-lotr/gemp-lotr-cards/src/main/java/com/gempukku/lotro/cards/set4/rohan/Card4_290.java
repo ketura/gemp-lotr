@@ -10,7 +10,6 @@ import com.gempukku.lotro.logic.effects.AddTwilightEffect;
 import com.gempukku.lotro.logic.effects.ChooseAndHealCharactersEffect;
 import com.gempukku.lotro.logic.effects.PutCardFromHandOnBottomOfDeckEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseCardsFromHandEffect;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collection;
@@ -32,7 +31,7 @@ public class Card4_290 extends AbstractPermanent {
     }
 
     @Override
-    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.FELLOWSHIP, self)
                 && Filters.filter(game.getGameState().getHand(playerId), game, Keyword.VILLAGER).size() > 0) {
             final ActivateCardAction action = new ActivateCardAction(self);

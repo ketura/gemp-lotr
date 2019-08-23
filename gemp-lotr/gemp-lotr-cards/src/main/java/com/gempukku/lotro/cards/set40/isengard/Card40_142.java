@@ -16,7 +16,6 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.TwilightCostModifier;
 import com.gempukku.lotro.logic.modifiers.evaluator.CountStackedEvaluator;
 import com.gempukku.lotro.logic.modifiers.evaluator.NegativeEvaluator;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
@@ -47,7 +46,7 @@ public class Card40_142 extends AbstractPermanent {
     }
 
     @Override
-    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SHADOW, self, 0)
         && PlayConditions.canRemoveThreat(game, self, 1)
         && PlayConditions.canPlayFromStacked(playerId, game, self, Filters.saruman)) {

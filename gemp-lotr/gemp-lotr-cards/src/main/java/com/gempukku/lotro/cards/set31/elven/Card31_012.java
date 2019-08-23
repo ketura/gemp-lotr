@@ -37,7 +37,7 @@ public class Card31_012 extends AbstractAlly {
     }
 
     @Override
-    public List<ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.MANEUVER, self)
                 && (PlayConditions.canExert(self, game, 2, Filters.name("Thorin"))
                 || PlayConditions.canDiscardFromPlay(self, game, Culture.DWARVEN, CardType.ARTIFACT))) {

@@ -12,7 +12,6 @@ import com.gempukku.lotro.logic.effects.AddTwilightEffect;
 import com.gempukku.lotro.logic.effects.ChooseArbitraryCardsEffect;
 import com.gempukku.lotro.logic.effects.PutCardFromStackedIntoHandEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndStackCardsFromHandEffect;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collection;
@@ -34,8 +33,8 @@ public class Card3_044 extends AbstractPermanent {
     }
 
     @Override
-    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, final PhysicalCard self) {
-        List<Action> actions = new LinkedList<Action>();
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, final PhysicalCard self) {
+        List<ActivateCardAction> actions = new LinkedList<>();
 
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.FELLOWSHIP, self)) {
             if (PlayConditions.canStackCardFromHand(self, game, playerId, 1, self, Culture.GONDOR)) {

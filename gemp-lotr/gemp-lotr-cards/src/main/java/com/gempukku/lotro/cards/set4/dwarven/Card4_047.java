@@ -12,7 +12,6 @@ import com.gempukku.lotro.logic.effects.PreventAllWoundsActionProxy;
 import com.gempukku.lotro.logic.effects.StackCardFromHandEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseCardsFromHandEffect;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collection;
@@ -34,7 +33,7 @@ public class Card4_047 extends AbstractPermanent {
     }
 
     @Override
-    public List<? extends Action> getPhaseActionsInPlay(final String playerId, LotroGame game, final PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(final String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
                 && PlayConditions.canExert(self, game, Race.DWARF)
                 && Filters.filter(game.getGameState().getHand(playerId), game, Side.FREE_PEOPLE).size() > 0) {

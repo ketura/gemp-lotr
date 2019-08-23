@@ -34,7 +34,7 @@ public class Card31_017 extends AbstractAlly {
     }
 
     @Override
-    public List<ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.FELLOWSHIP, self)
                 && PlayConditions.canPlayFromDiscard(playerId, game, Filters.name("Gandalf"))) {
             final ActivateCardAction action = new ActivateCardAction(self);

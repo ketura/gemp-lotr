@@ -11,7 +11,6 @@ import com.gempukku.lotro.logic.effects.PreventCardEffect;
 import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.VitalityModifier;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
@@ -53,7 +52,7 @@ public class Card40_082 extends AbstractAttachable {
     }
 
     @Override
-    public List<? extends Action> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
         if (TriggerConditions.isGettingWounded(effect, game, Filters.hasAttached(self))
                 && PlayConditions.isPhase(game, Phase.SKIRMISH)
                 && PlayConditions.canDiscardFromHand(game, playerId, 2, Culture.GANDALF)) {

@@ -51,7 +51,7 @@ public class Card30_025 extends AbstractCompanion {
     }
 	
     @Override
-    public List<ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, final PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, final PhysicalCard self) {
         List<ActivateCardAction> actions = new LinkedList<ActivateCardAction>();
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)) {
 

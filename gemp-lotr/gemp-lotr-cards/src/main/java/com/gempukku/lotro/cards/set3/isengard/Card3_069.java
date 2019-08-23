@@ -11,7 +11,6 @@ import com.gempukku.lotro.logic.effects.*;
 import com.gempukku.lotro.logic.modifiers.*;
 import com.gempukku.lotro.logic.modifiers.condition.AndCondition;
 import com.gempukku.lotro.logic.modifiers.condition.PhaseCondition;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
@@ -63,7 +62,7 @@ public class Card3_069 extends AbstractMinion {
     }
 
     @Override
-    public List<? extends Action> getPhaseActionsInPlay(final String playerId, final LotroGame game, final PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(final String playerId, final LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.ASSIGNMENT, self, 0)
                 && PlayConditions.canExert(self, game, self)) {
             final ActivateCardAction action = new ActivateCardAction(self);

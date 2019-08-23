@@ -6,10 +6,8 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
-import com.gempukku.lotro.logic.effects.CheckPhaseLimitPerPlayerEffect;
 import com.gempukku.lotro.logic.effects.IncrementPhaseLimitEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDeckEffect;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
@@ -31,7 +29,7 @@ public class Card31_048 extends AbstractSite {
     }
 
     @Override
-    public List<? extends Action> getPhaseActionsInPlay(final String playerId, final LotroGame game, final PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(final String playerId, final LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseSiteDuringPhase(game, Phase.MANEUVER, self)
                 && PlayConditions.checkPhaseLimit(game, self, playerId, 1)) {
             final ActivateCardAction action = new ActivateCardAction(self);
