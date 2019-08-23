@@ -32,7 +32,7 @@ public class Card40_006 extends AbstractEvent{
     }
 
     @Override
-    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, final PhysicalCard self) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
                 new ChooseActiveCardEffect(self, self.getOwner(), "Choose condition to stack cards on", Culture.DWARVEN, Zone.SUPPORT, CardType.CONDITION) {

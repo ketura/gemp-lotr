@@ -1,13 +1,13 @@
 package com.gempukku.lotro.cards.set4.elven;
 
-import com.gempukku.lotro.logic.cardtype.AbstractEvent;
-import com.gempukku.lotro.logic.actions.PlayEventAction;
-import com.gempukku.lotro.logic.decisions.ForEachYouSpotDecision;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
+import com.gempukku.lotro.logic.decisions.ForEachYouSpotDecision;
 import com.gempukku.lotro.logic.effects.DrawCardsEffect;
 import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
 
@@ -26,7 +26,7 @@ public class Card4_058 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayEventCardAction(final String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayEventCardAction(final String playerId, LotroGame game, PhysicalCard self) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new PlayoutDecisionEffect(playerId,

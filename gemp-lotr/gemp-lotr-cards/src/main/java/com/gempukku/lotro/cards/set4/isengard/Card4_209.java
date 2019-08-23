@@ -32,7 +32,7 @@ public class Card4_209 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayEventCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayEventCardAction(final String playerId, LotroGame game, final PhysicalCard self) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
                 new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 2, 2, Culture.ISENGARD, Keyword.ARCHER));

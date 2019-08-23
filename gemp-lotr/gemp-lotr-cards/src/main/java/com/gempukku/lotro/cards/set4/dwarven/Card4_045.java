@@ -30,7 +30,7 @@ public class Card4_045 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new ChooseStackedCardsEffect(action, playerId, 1, 1, Filters.and(Culture.DWARVEN, CardType.CONDITION), Side.FREE_PEOPLE) {

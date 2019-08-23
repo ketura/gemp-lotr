@@ -1,12 +1,5 @@
 package com.gempukku.lotro.cards.set40.gondor;
 
-import com.gempukku.lotro.logic.cardtype.AbstractEvent;
-import com.gempukku.lotro.logic.timing.TriggerConditions;
-import com.gempukku.lotro.logic.actions.PlayEventAction;
-import com.gempukku.lotro.logic.effects.AddUntilEndOfPhaseActionProxyEffect;
-import com.gempukku.lotro.logic.effects.ChoiceEffect;
-import com.gempukku.lotro.logic.effects.PlayNextSiteEffect;
-import com.gempukku.lotro.logic.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
@@ -16,9 +9,16 @@ import com.gempukku.lotro.game.AbstractActionProxy;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
+import com.gempukku.lotro.logic.effects.AddUntilEndOfPhaseActionProxyEffect;
+import com.gempukku.lotro.logic.effects.ChoiceEffect;
 import com.gempukku.lotro.logic.effects.ChooseAndWoundCharactersEffect;
+import com.gempukku.lotro.logic.effects.PlayNextSiteEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -41,7 +41,7 @@ public class Card40_116 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, final PhysicalCard self) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, 1, Keyword.RANGER) {

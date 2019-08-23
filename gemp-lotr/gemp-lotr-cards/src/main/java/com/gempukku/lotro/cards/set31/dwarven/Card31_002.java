@@ -38,7 +38,7 @@ public class Card31_002 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayEventCardAction(final String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayEventCardAction(final String playerId, LotroGame game, PhysicalCard self) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
                 new ChooseActiveCardEffect(self, playerId, "Choose an attached Dwarven follower", Filters.and(Culture.DWARVEN, CardType.FOLLOWER), Filters.attachedTo(CardType.COMPANION)) {

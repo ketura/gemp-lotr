@@ -1,11 +1,11 @@
 package com.gempukku.lotro.cards.set4.raider;
 
-import com.gempukku.lotro.logic.cardtype.AbstractEvent;
-import com.gempukku.lotro.logic.actions.PlayEventAction;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
 import com.gempukku.lotro.logic.effects.ChooseAndWoundCharactersEffect;
 
 /**
@@ -22,7 +22,7 @@ public class Card4_260 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new ChooseAndWoundCharactersEffect(action, playerId, 1, 1, Filters.or(CardType.COMPANION, CardType.ALLY),

@@ -1,14 +1,14 @@
 package com.gempukku.lotro.cards.set40.elven;
 
-import com.gempukku.lotro.logic.cardtype.AbstractEvent;
-import com.gempukku.lotro.logic.actions.PlayEventAction;
-import com.gempukku.lotro.logic.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
-import com.gempukku.lotro.logic.modifiers.evaluator.CountSpottableEvaluator;
-import com.gempukku.lotro.logic.modifiers.evaluator.MultiplyEvaluator;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
+import com.gempukku.lotro.logic.modifiers.evaluator.CountSpottableEvaluator;
+import com.gempukku.lotro.logic.modifiers.evaluator.MultiplyEvaluator;
 
 /**
  * Title: Might of the Last Homely House
@@ -26,7 +26,7 @@ public class Card40_056 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new ChooseAndAddUntilEOPStrengthBonusEffect(

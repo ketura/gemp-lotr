@@ -33,7 +33,7 @@ public class Card40_239 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self) {
         PlayEventAction action = new PlayEventAction(self);
         int fpCulturesCount = GameUtils.getSpottableFPCulturesCount(game, playerId);
         int threatCount = 1 + Math.max(0, 4 - fpCulturesCount);

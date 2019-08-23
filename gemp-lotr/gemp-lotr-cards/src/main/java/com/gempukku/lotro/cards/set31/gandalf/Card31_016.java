@@ -36,7 +36,7 @@ public class Card31_016 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self) {
         final PlayEventAction action = new PlayEventAction(self);
         List<Effect> possibleCosts = new LinkedList<Effect>();
         possibleCosts.add(

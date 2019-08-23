@@ -31,7 +31,7 @@ public class Card30_030 extends AbstractEvent {
     }
 
 	@Override
-    public PlayEventAction getPlayEventCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayEventCardAction(final String playerId, LotroGame game, final PhysicalCard self) {
 		final PlayEventAction action = new PlayEventAction(self);
 		if ((PlayConditions.canExert(self, game, Filters.gandalf))
 				&& (PlayConditions.canExert(self, game, Keyword.WISE, Culture.ELVEN, CardType.ALLY))) {

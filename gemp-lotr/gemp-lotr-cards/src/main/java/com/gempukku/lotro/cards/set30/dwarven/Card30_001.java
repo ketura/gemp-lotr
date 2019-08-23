@@ -30,7 +30,7 @@ public class Card30_001 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self) {
         int count = PlayConditions.canSpot(game, 4, Side.SHADOW, CardType.CONDITION) ? 2 : 1;
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(

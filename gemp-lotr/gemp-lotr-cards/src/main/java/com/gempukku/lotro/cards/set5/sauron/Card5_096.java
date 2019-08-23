@@ -1,17 +1,17 @@
 package com.gempukku.lotro.cards.set5.sauron;
 
-import com.gempukku.lotro.logic.cardtype.AbstractEvent;
-import com.gempukku.lotro.logic.timing.PlayConditions;
-import com.gempukku.lotro.logic.actions.PlayEventAction;
-import com.gempukku.lotro.logic.effects.AddBurdenEffect;
-import com.gempukku.lotro.logic.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
+import com.gempukku.lotro.logic.effects.AddBurdenEffect;
+import com.gempukku.lotro.logic.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.timing.results.RevealCardFromHandResult;
 
 import java.util.Collections;
@@ -32,7 +32,7 @@ public class Card5_096 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, final PhysicalCard self) {
         if (game.getGameState().getCurrentPhase() == Phase.SKIRMISH) {
             final PlayEventAction action = new PlayEventAction(self);
             action.appendEffect(

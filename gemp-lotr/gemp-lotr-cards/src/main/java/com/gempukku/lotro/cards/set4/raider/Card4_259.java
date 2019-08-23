@@ -1,9 +1,5 @@
 package com.gempukku.lotro.cards.set4.raider;
 
-import com.gempukku.lotro.logic.cardtype.AbstractEvent;
-import com.gempukku.lotro.logic.actions.PlayEventAction;
-import com.gempukku.lotro.logic.effects.AddBurdenEffect;
-import com.gempukku.lotro.logic.effects.PreventableEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Phase;
@@ -11,9 +7,13 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
 import com.gempukku.lotro.logic.actions.SubAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
+import com.gempukku.lotro.logic.effects.AddBurdenEffect;
 import com.gempukku.lotro.logic.effects.AssignmentEffect;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
+import com.gempukku.lotro.logic.effects.PreventableEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 
 /**
@@ -31,7 +31,7 @@ public class Card4_259 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayEventCardAction(final String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayEventCardAction(final String playerId, final LotroGame game, final PhysicalCard self) {
         final PlayEventAction action = new PlayEventAction(self);
         final PhysicalCard ringBearer = game.getGameState().getRingBearer(game.getGameState().getCurrentPlayerId());
         action.appendEffect(

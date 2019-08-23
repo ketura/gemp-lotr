@@ -1,17 +1,17 @@
 package com.gempukku.lotro.cards.set7.gollum;
 
-import com.gempukku.lotro.logic.cardtype.AbstractEvent;
-import com.gempukku.lotro.logic.actions.PlayEventAction;
-import com.gempukku.lotro.logic.effects.ChoiceEffect;
-import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDeckEffect;
-import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDiscardEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
 import com.gempukku.lotro.logic.effects.AddThreatsEffect;
+import com.gempukku.lotro.logic.effects.ChoiceEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDeckEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDiscardEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.LinkedList;
@@ -31,7 +31,7 @@ public class Card7_053 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self) {
         PlayEventAction action = new PlayEventAction(self);
         List<Effect> possibleCosts = new LinkedList<Effect>();
         possibleCosts.add(

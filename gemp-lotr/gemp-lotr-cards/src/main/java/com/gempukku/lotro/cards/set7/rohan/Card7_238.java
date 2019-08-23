@@ -1,11 +1,5 @@
 package com.gempukku.lotro.cards.set7.rohan;
 
-import com.gempukku.lotro.logic.cardtype.AbstractEvent;
-import com.gempukku.lotro.logic.actions.PlayEventAction;
-import com.gempukku.lotro.logic.effects.ChoiceEffect;
-import com.gempukku.lotro.logic.effects.PutRandomCardFromHandOnBottomOfDeckEffect;
-import com.gempukku.lotro.logic.effects.RemoveTwilightEffect;
-import com.gempukku.lotro.logic.effects.choose.ChooseOpponentEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
@@ -13,6 +7,12 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
+import com.gempukku.lotro.logic.effects.ChoiceEffect;
+import com.gempukku.lotro.logic.effects.PutRandomCardFromHandOnBottomOfDeckEffect;
+import com.gempukku.lotro.logic.effects.RemoveTwilightEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseOpponentEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.LinkedList;
@@ -33,7 +33,7 @@ public class Card7_238 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayEventCardAction(String playerId, final LotroGame game, PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayEventCardAction(String playerId, final LotroGame game, PhysicalCard self) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new ChooseOpponentEffect(playerId) {

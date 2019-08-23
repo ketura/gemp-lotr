@@ -35,7 +35,7 @@ public class Card7_262 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayEventCardAction(final String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayEventCardAction(final String playerId, final LotroGame game, final PhysicalCard self) {
         final PlayEventAction action = new PlayEventAction(self);
         if (PlayConditions.canPlayFromStacked(playerId, game, Filters.siteControlled(playerId), Keyword.BESIEGER)
                 && PlayConditions.canRemoveBurdens(game, self, 1)

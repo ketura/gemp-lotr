@@ -1,10 +1,5 @@
 package com.gempukku.lotro.cards.set40.wraith;
 
-import com.gempukku.lotro.logic.cardtype.AbstractEvent;
-import com.gempukku.lotro.logic.actions.PlayEventAction;
-import com.gempukku.lotro.logic.effects.PreventableEffect;
-import com.gempukku.lotro.logic.effects.PutOnTheOneRingEffect;
-import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
@@ -13,7 +8,12 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
 import com.gempukku.lotro.logic.actions.SubAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
+import com.gempukku.lotro.logic.effects.PreventableEffect;
+import com.gempukku.lotro.logic.effects.PutOnTheOneRingEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.Collection;
@@ -35,7 +35,7 @@ public class Card40_197 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayEventCardAction(final String playerId, final LotroGame game, PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayEventCardAction(final String playerId, final LotroGame game, PhysicalCard self) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, Integer.MAX_VALUE, Race.NAZGUL) {

@@ -1,21 +1,21 @@
 package com.gempukku.lotro.cards.set7.dwarven;
 
-import com.gempukku.lotro.logic.cardtype.AbstractEvent;
-import com.gempukku.lotro.logic.timing.PlayConditions;
-import com.gempukku.lotro.logic.actions.PlayEventAction;
-import com.gempukku.lotro.logic.actions.SubCostToEffectAction;
-import com.gempukku.lotro.logic.effects.ExertCharactersEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.actions.SubCostToEffectAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
 import com.gempukku.lotro.logic.decisions.MultipleChoiceAwaitingDecision;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.DrawCardsEffect;
+import com.gempukku.lotro.logic.effects.ExertCharactersEffect;
 import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 /**
  * Set: The Return of the King
@@ -31,7 +31,7 @@ public class Card7_011 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayEventCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayEventCardAction(final String playerId, LotroGame game, final PhysicalCard self) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new ChooseActiveCardEffect(self, playerId, "Choose a Dwarf", Race.DWARF) {

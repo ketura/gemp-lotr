@@ -1,15 +1,15 @@
 package com.gempukku.lotro.cards.set40.shire;
 
-import com.gempukku.lotro.logic.cardtype.AbstractEvent;
-import com.gempukku.lotro.logic.timing.PlayConditions;
-import com.gempukku.lotro.logic.actions.PlayEventAction;
-import com.gempukku.lotro.logic.effects.CancelSkirmishEffect;
-import com.gempukku.lotro.logic.effects.ChoiceEffect;
-import com.gempukku.lotro.logic.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
+import com.gempukku.lotro.logic.effects.CancelSkirmishEffect;
+import com.gempukku.lotro.logic.effects.ChoiceEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
 import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +31,7 @@ public class Card40_259 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self) {
         PlayEventAction action = new PlayEventAction(self);
         List<Effect> possibleEffects = new ArrayList<Effect>(2);
         if (PlayConditions.canSpot(game, 2, Race.HOBBIT, CardType.COMPANION)

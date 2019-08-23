@@ -35,7 +35,7 @@ public class Card7_061 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self) {
         PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, 2,
@@ -48,7 +48,7 @@ public class Card7_061 extends AbstractEvent {
         if (PlayConditions.isPhase(game, Phase.SKIRMISH)
                 && PlayConditions.hasInitiative(game, Side.SHADOW)
                 && PlayUtils.checkPlayRequirements(game, self, Filters.any, 0, 0, false, false)) {
-            final PlayEventAction playCardAction = getPlayEventCardAction(playerId, game, self, 0);
+            final PlayEventAction playCardAction = getPlayEventCardAction(playerId, game, self);
             playCardAction.appendEffect(
                     new PutPlayedEventOnBottomOfDeckEffect(playCardAction));
             return Collections.singletonList(playCardAction);

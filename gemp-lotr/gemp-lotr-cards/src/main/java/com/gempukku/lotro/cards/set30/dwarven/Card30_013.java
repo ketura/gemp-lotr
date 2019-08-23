@@ -1,11 +1,11 @@
 package com.gempukku.lotro.cards.set30.dwarven;
 
-import com.gempukku.lotro.logic.cardtype.AbstractEvent;
-import com.gempukku.lotro.logic.actions.PlayEventAction;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
 import com.gempukku.lotro.logic.decisions.MultipleChoiceAwaitingDecision;
 import com.gempukku.lotro.logic.effects.ChooseAndHealCharactersEffect;
 import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
@@ -25,7 +25,7 @@ public class Card30_013 extends AbstractEvent {
     }
 
     @Override
-	public PlayEventAction getPlayEventCardAction(final String playerId, LotroGame game, final PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayEventCardAction(final String playerId, LotroGame game, final PhysicalCard self) {
 		final PlayEventAction action = new PlayEventAction(self);
 		if (Filters.canSpot(game, Filters.name("Elrond")))
             action.appendEffect(

@@ -1,15 +1,18 @@
 package com.gempukku.lotro.cards.set31.shire;
 
-import com.gempukku.lotro.logic.cardtype.AbstractEvent;
-import com.gempukku.lotro.logic.actions.PlayEventAction;
-import com.gempukku.lotro.logic.effects.AddUntilStartOfPhaseModifierEffect;
-import com.gempukku.lotro.logic.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
-import com.gempukku.lotro.logic.modifiers.RemoveGameTextModifier;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Phase;
+import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.cardtype.AbstractEvent;
+import com.gempukku.lotro.logic.effects.AddUntilStartOfPhaseModifierEffect;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
+import com.gempukku.lotro.logic.modifiers.RemoveGameTextModifier;
 
 /**
  * Set: The Short Rest
@@ -27,7 +30,7 @@ public class Card31_039 extends AbstractEvent {
     }
 
     @Override
-    public PlayEventAction getPlayEventCardAction(String playerId, final LotroGame game, final PhysicalCard self, int twilightModifier) {
+    public PlayEventAction getPlayEventCardAction(String playerId, final LotroGame game, final PhysicalCard self) {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
 				new ChooseAndAddUntilEOPStrengthBonusEffect(action, self, playerId, 2, Filters.name("Bilbo")));
