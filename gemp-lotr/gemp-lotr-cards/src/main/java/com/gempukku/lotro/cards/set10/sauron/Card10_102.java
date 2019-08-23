@@ -31,10 +31,13 @@ public class Card10_102 extends AbstractAttachable {
     }
 
     @Override
+    public int getStrength() {
+        return 1;
+    }
+
+    @Override
     public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(
-                new StrengthModifier(self, Filters.hasAttached(self), 1));
         modifiers.add(
                 new StrengthModifier(self, Filters.and(Filters.hasAttached(self), Race.URUK_HAI), 2));
         return modifiers;

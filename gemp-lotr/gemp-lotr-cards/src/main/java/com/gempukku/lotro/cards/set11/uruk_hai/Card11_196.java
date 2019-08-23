@@ -8,13 +8,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
-import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ResistanceModifier;
-import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.timing.PlayConditions;
-
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Set: Shadows
@@ -42,12 +36,12 @@ public class Card11_196 extends AbstractAttachable {
     }
 
     @Override
-    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
-        List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(
-                new StrengthModifier(self, Filters.hasAttached(self), -1));
-        modifiers.add(
-                new ResistanceModifier(self, Filters.hasAttached(self), -3));
-        return modifiers;
+    public int getStrength() {
+        return -1;
+    }
+
+    @Override
+    public int getResistance() {
+        return -3;
     }
 }

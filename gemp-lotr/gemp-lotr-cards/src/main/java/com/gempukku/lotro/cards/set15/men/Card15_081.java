@@ -9,7 +9,6 @@ import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
 import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
 import com.gempukku.lotro.logic.modifiers.CantTakeWoundsModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ResistanceModifier;
 import com.gempukku.lotro.logic.modifiers.condition.PhaseCondition;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.PlayConditions;
@@ -45,10 +44,13 @@ public class Card15_081 extends AbstractAttachable {
     }
 
     @Override
+    public int getResistance() {
+        return -1;
+    }
+
+    @Override
     public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(
-                new ResistanceModifier(self, Filters.hasAttached(self), -1));
         modifiers.add(
                 new CantTakeWoundsModifier(self, new PhaseCondition(Phase.ARCHERY), Filters.hasAttached(self)));
         return modifiers;

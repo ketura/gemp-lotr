@@ -5,11 +5,6 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
-import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.StrengthModifier;
-
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Set: Treachery & Deceit
@@ -31,9 +26,8 @@ public class Card18_069 extends AbstractAttachable {
     }
 
     @Override
-    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
-        return Arrays.asList(
-                new StrengthModifier(self, Filters.hasAttached(self), 1));
+    public int getStrength() {
+        return 1;
     }
 
     @Override

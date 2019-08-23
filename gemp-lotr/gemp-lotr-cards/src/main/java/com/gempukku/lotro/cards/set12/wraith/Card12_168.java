@@ -8,7 +8,6 @@ import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.modifiers.condition.LocationCondition;
-import com.gempukku.lotro.logic.modifiers.evaluator.ConditionEvaluator;
 
 import java.util.Collections;
 import java.util.List;
@@ -33,9 +32,13 @@ public class Card12_168 extends AbstractAttachable {
     }
 
     @Override
+    public int getStrength() {
+        return 1;
+    }
+
+    @Override
     public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
-return Collections.singletonList(new StrengthModifier(self, Filters.hasAttached(self), null,
-new ConditionEvaluator(1, 2,
-new LocationCondition(Filters.or(Keyword.BATTLEGROUND, Keyword.FOREST)))));
-}
+        return Collections.singletonList(
+                new StrengthModifier(self, Filters.hasAttached(self), new LocationCondition(Filters.or(Keyword.BATTLEGROUND, Keyword.FOREST)), 1));
+    }
 }

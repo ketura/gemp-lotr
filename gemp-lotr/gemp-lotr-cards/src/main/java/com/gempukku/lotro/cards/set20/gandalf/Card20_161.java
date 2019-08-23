@@ -10,7 +10,6 @@ import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
 import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
 import com.gempukku.lotro.logic.modifiers.CantTakeMoreThanXWoundsModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.modifiers.condition.InitiativeCondition;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
@@ -40,10 +39,13 @@ public class Card20_161 extends AbstractAttachable {
     }
 
     @Override
+    public int getStrength() {
+        return 1;
+    }
+
+    @Override
     public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(
-                new StrengthModifier(self, Filters.hasAttached(self), 1));
         modifiers.add(
                 new CantTakeMoreThanXWoundsModifier(self, Phase.SKIRMISH, 1, new InitiativeCondition(Side.FREE_PEOPLE), Filters.hasAttached(self)));
         return modifiers;

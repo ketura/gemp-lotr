@@ -7,20 +7,31 @@ import com.gempukku.lotro.logic.modifiers.evaluator.ConstantEvaluator;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 
 public class MinionSiteNumberModifier extends AbstractModifier {
-    private Evaluator _evaluator;
+    private Evaluator evaluator;
+    private boolean nonCardTextModifier;
 
     public MinionSiteNumberModifier(PhysicalCard source, Filterable affectFilter, Condition condition, int modifier) {
         this(source, affectFilter, condition, new ConstantEvaluator(modifier));
     }
 
     public MinionSiteNumberModifier(PhysicalCard source, Filterable affectFilter, Condition condition, Evaluator evaluator) {
+        this(source, affectFilter, condition, evaluator, false);
+    }
+
+    public MinionSiteNumberModifier(PhysicalCard source, Filterable affectFilter, Condition condition, Evaluator evaluator, boolean nonCardTextModifier) {
         super(source, null, affectFilter, condition, ModifierEffect.SITE_NUMBER_MODIFIER);
-        _evaluator = evaluator;
+        this.evaluator = evaluator;
+        this.nonCardTextModifier = nonCardTextModifier;
+    }
+
+    @Override
+    public boolean isNonCardTextModifier() {
+        return nonCardTextModifier;
     }
 
     @Override
     public String getText(LotroGame game, PhysicalCard self) {
-        final int value = _evaluator.evaluateExpression(game, self);
+        final int value = evaluator.evaluateExpression(game, self);
         if (value >= 0)
             return "Site number +" + value;
         else
@@ -29,6 +40,6 @@ public class MinionSiteNumberModifier extends AbstractModifier {
 
     @Override
     public int getMinionSiteNumberModifier(LotroGame game, PhysicalCard physicalCard) {
-        return _evaluator.evaluateExpression(game, physicalCard);
+        return evaluator.evaluateExpression(game, physicalCard);
     }
 }

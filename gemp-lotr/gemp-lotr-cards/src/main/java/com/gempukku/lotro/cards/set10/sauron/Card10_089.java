@@ -7,7 +7,6 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
-import com.gempukku.lotro.logic.modifiers.VitalityModifier;
 import com.gempukku.lotro.logic.modifiers.evaluator.CountActiveEvaluator;
 import com.gempukku.lotro.logic.modifiers.evaluator.MultiplyEvaluator;
 
@@ -36,12 +35,18 @@ public class Card10_089 extends AbstractAttachable {
     }
 
     @Override
+    public int getStrength() {
+        return 1;
+    }
+
+    @Override
+    public int getVitality() {
+        return 1;
+    }
+
+    @Override
     public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(
-                new StrengthModifier(self, Filters.hasAttached(self), 1));
-        modifiers.add(
-                new VitalityModifier(self, Filters.hasAttached(self), 1));
         modifiers.add(
                 new StrengthModifier(self, Filters.and(Filters.name("Gothmog"), Filters.hasAttached(self)), null,
                         new MultiplyEvaluator(2, new CountActiveEvaluator(Filters.siteControlled(self.getOwner())))));

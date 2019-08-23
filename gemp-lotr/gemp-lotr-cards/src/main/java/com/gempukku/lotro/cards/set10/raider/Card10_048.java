@@ -10,7 +10,6 @@ import com.gempukku.lotro.logic.effects.RemoveThreatsEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDiscardEffect;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.VitalityModifier;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
@@ -38,10 +37,13 @@ public class Card10_048 extends AbstractAttachable {
     }
 
     @Override
+    public int getVitality() {
+        return 1;
+    }
+
+    @Override
     public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(
-                new VitalityModifier(self, Filters.hasAttached(self), 1));
         modifiers.add(
                 new KeywordModifier(self, Filters.hasAttached(self), Keyword.ENDURING));
         return modifiers;

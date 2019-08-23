@@ -11,7 +11,6 @@ import com.gempukku.lotro.logic.effects.*;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.logic.modifiers.MayNotBearModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.PlayConditions;
@@ -38,12 +37,15 @@ public class Card18_046 extends AbstractPermanent {
     }
 
     @Override
+    public int getStrength() {
+        return -1;
+    }
+
+    @Override
     public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
         modifiers.add(
                 new MayNotBearModifier(self, Filters.hasAttached(self), Side.SHADOW));
-        modifiers.add(
-                new StrengthModifier(self, Filters.hasAttached(self), -1));
         return modifiers;
     }
 

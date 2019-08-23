@@ -10,7 +10,7 @@ import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
 import com.gempukku.lotro.logic.effects.*;
-import com.gempukku.lotro.logic.modifiers.*;
+import com.gempukku.lotro.logic.modifiers.ModifierFlag;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.PlayConditions;
@@ -38,12 +38,18 @@ public class Card20_001 extends AbstractAttachable {
     }
 
     @Override
-    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
-        List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(new StrengthModifier(self, Filters.hasAttached(self), 1));
-        modifiers.add(new VitalityModifier(self, Filters.hasAttached(self), 1));
-        modifiers.add(new ResistanceModifier(self, Filters.hasAttached(self), 1));
-        return modifiers;
+    public int getStrength() {
+        return 1;
+    }
+
+    @Override
+    public int getVitality() {
+        return 1;
+    }
+
+    @Override
+    public int getResistance() {
+        return 1;
     }
 
     @Override

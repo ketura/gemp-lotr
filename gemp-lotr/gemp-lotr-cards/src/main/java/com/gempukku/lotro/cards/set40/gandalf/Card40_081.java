@@ -42,10 +42,14 @@ public class Card40_081 extends AbstractAttachable {
     }
 
     @Override
+    public int getStrength() {
+        return 1;
+    }
+
+    @Override
     public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         KeywordModifier damage = new KeywordModifier(self, Filters.hasAttached(self), Keyword.DAMAGE, 1);
-        StrengthModifier strength = new StrengthModifier(self, Filters.hasAttached(self), 1);
-        return Arrays.asList(damage, strength);
+        return Arrays.asList(damage);
     }
 
     @Override

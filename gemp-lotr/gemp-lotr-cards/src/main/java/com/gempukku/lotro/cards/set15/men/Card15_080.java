@@ -32,10 +32,13 @@ public class Card15_080 extends AbstractAttachable {
     }
 
     @Override
+    public int getStrength() {
+        return 2;
+    }
+
+    @Override
     public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         List<Modifier> modifiers = new LinkedList<Modifier>();
-        modifiers.add(
-                new StrengthModifier(self, Filters.hasAttached(self), 2));
         modifiers.add(
                 new StrengthModifier(self, Filters.hasAttached(self), new SpotCondition(CardType.COMPANION, Keyword.HUNTER, Filters.inSkirmishAgainst(Filters.hasAttached(self))), 2));
         return modifiers;
