@@ -10,7 +10,6 @@ import com.gempukku.lotro.logic.effects.DrawCardsEffect;
 import com.gempukku.lotro.logic.effects.PutCardsFromHandBeneathDrawDeckEffect;
 import com.gempukku.lotro.logic.effects.RevealCardsFromYourHandEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseCardsFromHandEffect;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collection;
@@ -32,7 +31,7 @@ public class Card11_213 extends AbstractPermanent {
     }
 
     @Override
-    public List<? extends Action> getPhaseActionsInPlay(final String playerId, LotroGame game, final PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(final String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SHADOW, self, 0)
                 && PlayConditions.canSpot(game, Race.NAZGUL)
                 && Filters.filter(game.getGameState().getHand(playerId), game, Race.NAZGUL).size() > 0) {

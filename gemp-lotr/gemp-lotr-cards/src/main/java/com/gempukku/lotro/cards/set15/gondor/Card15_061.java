@@ -46,7 +46,7 @@ public class Card15_061 extends AbstractCompanion {
     }
 
     @Override
-    public List<ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, final PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
                 && (PlayConditions.canRemoveTokens(game, Token.GONDOR, 1, Filters.any)
                 || PlayConditions.canExert(self, game, Culture.GONDOR, Race.MAN))) {

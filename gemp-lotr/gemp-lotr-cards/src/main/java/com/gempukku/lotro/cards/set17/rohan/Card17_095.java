@@ -41,7 +41,7 @@ return Collections.singletonList(new StrengthModifier(self, self, new SpotCondit
 }
 
     @Override
-    public List<ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.MANEUVER, self)
                 && PlayConditions.canSpot(game, self, Filters.mounted)
                 && PlayConditions.canSelfExert(self, game)) {

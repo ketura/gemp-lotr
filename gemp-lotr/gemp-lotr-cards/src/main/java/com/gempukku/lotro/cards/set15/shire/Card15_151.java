@@ -39,7 +39,7 @@ return Collections.singletonList(new TwilightCostModifier(self, Filters.and(Cult
 }
 
     @Override
-    public List<ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
                 && PlayConditions.canSpot(game, self, Filters.inSkirmishAgainst(CardType.MINION, Keyword.HUNTER))
                 && PlayConditions.canExert(self, game, Filters.ringBearer)) {

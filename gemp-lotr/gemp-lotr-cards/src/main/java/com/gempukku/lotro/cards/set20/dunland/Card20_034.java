@@ -12,7 +12,6 @@ import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromStackedEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndStackCardsFromDiscardEffect;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
@@ -47,7 +46,7 @@ public class Card20_034 extends AbstractPermanent {
     }
 
     @Override
-    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if ((PlayConditions.canUseShadowCardDuringPhase(game, Phase.SHADOW, self, 0)
                 || PlayConditions.canUseShadowCardDuringPhase(game, Phase.SKIRMISH, self, 0))
                 && Filters.filter(game.getGameState().getStackedCards(self), game, Culture.DUNLAND).size()>=3) {

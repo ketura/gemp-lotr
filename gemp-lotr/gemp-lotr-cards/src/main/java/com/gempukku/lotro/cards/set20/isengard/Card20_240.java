@@ -17,7 +17,6 @@ import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.TwilightCostModifier;
 import com.gempukku.lotro.logic.modifiers.evaluator.CountStackedEvaluator;
 import com.gempukku.lotro.logic.modifiers.evaluator.NegativeEvaluator;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
@@ -44,7 +43,7 @@ new NegativeEvaluator(new CountStackedEvaluator(self, CardType.MINION))));
 }
 
     @Override
-    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, final PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.REGROUP, self, 0)
                 && PlayConditions.isActive(game, Filters.saruman, Filters.not(Filters.exhausted))) {
             final ActivateCardAction action = new ActivateCardAction(self);

@@ -15,7 +15,6 @@ import com.gempukku.lotro.logic.effects.AddBurdenEffect;
 import com.gempukku.lotro.logic.effects.ChooseArbitraryCardsEffect;
 import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
 import com.gempukku.lotro.logic.modifiers.ModifierFlag;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.ExtraFilters;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
@@ -54,7 +53,7 @@ public class Card13_046 extends AbstractFollower {
     }
 
     @Override
-    public List<? extends Action> getPhaseActionsInPlay(final String playerId, LotroGame game, final PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(final String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
                 && PlayConditions.canSpot(game, Filters.hasAttached(self), Filters.notAssignedToSkirmish)
                 && PlayConditions.canSelfDiscard(self, game)) {

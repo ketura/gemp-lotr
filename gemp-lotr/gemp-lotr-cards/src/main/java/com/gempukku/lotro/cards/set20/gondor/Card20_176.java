@@ -55,7 +55,7 @@ return Collections.singletonList(new KeywordModifier(self, self, new SpotConditi
 }
 
     @Override
-    public List<ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
             && PlayConditions.canExert(self, game, Culture.ROHAN, CardType.COMPANION)) {
             ActivateCardAction action = new ActivateCardAction(self);

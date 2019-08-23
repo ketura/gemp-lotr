@@ -44,7 +44,7 @@ return Collections.singletonList(new CantBeTransferredModifier(self, Filters.and
 }
 
     @Override
-    public List<ActivateCardAction> getPhaseActionsInPlay(final String playerId, final LotroGame game, final PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(final String playerId, final LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.FELLOWSHIP, self)
                 && PlayConditions.canPlayFromHand(playerId, game, CardType.POSSESSION, ExtraFilters.attachableTo(game, self))) {
             final ActivateCardAction action = new ActivateCardAction(self);
