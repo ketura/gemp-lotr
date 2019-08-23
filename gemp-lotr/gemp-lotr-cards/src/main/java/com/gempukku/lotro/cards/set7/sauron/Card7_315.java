@@ -12,7 +12,6 @@ import com.gempukku.lotro.logic.effects.choose.ChooseAndDiscardCardsFromPlayEffe
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.modifiers.evaluator.CountActiveEvaluator;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
@@ -45,7 +44,7 @@ public class Card7_315 extends AbstractPermanent {
     }
 
     @Override
-    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.REGROUP, self, 0)
                 && PlayConditions.canDiscardFromPlay(self, game, 3, Culture.SAURON, Race.ORC)) {
             ActivateCardAction action = new ActivateCardAction(self);

@@ -11,7 +11,6 @@ import com.gempukku.lotro.logic.effects.RemoveTwilightEffect;
 import com.gempukku.lotro.logic.modifiers.HasInitiativeModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.SpotCondition;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
@@ -43,7 +42,7 @@ public class Card7_150 extends AbstractPermanent {
     }
 
     @Override
-    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.REGROUP, self, 3)
                 && PlayConditions.canSpot(game, Culture.RAIDER, Race.MAN)) {
             ActivateCardAction action = new ActivateCardAction(self);

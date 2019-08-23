@@ -12,7 +12,6 @@ import com.gempukku.lotro.logic.cardtype.AbstractMinion;
 import com.gempukku.lotro.logic.effects.AddUntilEndOfTurnModifierEffect;
 import com.gempukku.lotro.logic.effects.RemoveTwilightEffect;
 import com.gempukku.lotro.logic.modifiers.MoveLimitModifier;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
@@ -37,7 +36,7 @@ public class Card5_071 extends AbstractMinion {
     }
 
     @Override
-    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.REGROUP, self, 9)
                 && PlayConditions.canSpot(game, Filters.not(self), Keyword.SOUTHRON)) {
             ActivateCardAction action = new ActivateCardAction(self);

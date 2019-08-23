@@ -10,7 +10,6 @@ import com.gempukku.lotro.logic.effects.ChoiceEffect;
 import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndRemoveCultureTokensFromCardEffect;
 import com.gempukku.lotro.logic.modifiers.ArcheryTotalModifier;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
@@ -34,7 +33,7 @@ public class Card5_087 extends AbstractPermanent {
     }
 
     @Override
-    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.ARCHERY, self)
                 && PlayConditions.canSpot(game, 2, Culture.ROHAN, Race.MAN)) {
             ActivateCardAction action = new ActivateCardAction(self);

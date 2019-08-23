@@ -13,7 +13,6 @@ import com.gempukku.lotro.logic.effects.choose.ChooseAndRemoveCultureTokensFromC
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
@@ -55,7 +54,7 @@ public class Card6_060 extends AbstractMinion {
     }
 
     @Override
-    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.MANEUVER, self, 0)
                 && PlayConditions.canRemoveTokens(game, Token.ISENGARD, 1, Keyword.MACHINE)
                 && PlayConditions.canExert(self, game, 2, self)) {

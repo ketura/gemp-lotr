@@ -8,7 +8,6 @@ import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.logic.effects.AddTokenEffect;
 import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromHandEffect;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.LinkedList;
@@ -29,7 +28,7 @@ public class Card7_123 extends AbstractPermanent {
     }
 
     @Override
-    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.FELLOWSHIP, self)) {
             List<ActivateCardAction> actions = new LinkedList<ActivateCardAction>();
             if (PlayConditions.canPlayFromHand(playerId, game, Culture.GONDOR, Race.MAN)) {

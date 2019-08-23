@@ -9,7 +9,6 @@ import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.logic.effects.RemoveTwilightEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromStackedEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndStackCardFromPlayEffect;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
@@ -30,7 +29,7 @@ public class Card5_110 extends AbstractPermanent {
     }
 
     @Override
-    public List<? extends Action> getPhaseActionsInPlay(final String playerId, final LotroGame game, final PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(final String playerId, final LotroGame game, final PhysicalCard self) {
         List<PhysicalCard> stackedCards = game.getGameState().getStackedCards(self);
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SHADOW, self, 0)
                 && Filters.filter(stackedCards, game, Filters.playable(game)).size() > 0) {

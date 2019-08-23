@@ -12,7 +12,6 @@ import com.gempukku.lotro.logic.effects.ChoiceEffect;
 import com.gempukku.lotro.logic.effects.RemoveBurdenEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDeckEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDiscardEffect;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
@@ -34,7 +33,7 @@ public class Card8_118 extends AbstractSite {
     }
 
     @Override
-    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseSiteDuringPhase(game, Phase.SHADOW, self)
                 && PlayConditions.canRemoveBurdens(game, self, 2)) {
             ActivateCardAction action = new ActivateCardAction(self);

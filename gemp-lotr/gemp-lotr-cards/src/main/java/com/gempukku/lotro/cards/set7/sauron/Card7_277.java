@@ -11,7 +11,6 @@ import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.cardtype.AbstractMinion;
 import com.gempukku.lotro.logic.effects.ChooseAndDiscardCardsFromHandEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromStackedEffect;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.LinkedList;
@@ -36,7 +35,7 @@ public class Card7_277 extends AbstractMinion {
     }
 
     @Override
-    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SHADOW, self, 0)) {
             List<ActivateCardAction> actions = new LinkedList<ActivateCardAction>();
             if (PlayConditions.canDiscardFromHand(game, playerId, 2, Filters.any)) {

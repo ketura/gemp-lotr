@@ -34,7 +34,7 @@ public class Card7_318 extends AbstractCompanion {
     }
 
     @Override
-    public List<ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
                 && Filters.and(Filters.siteBlock(SitesBlock.KING), Filters.or(Filters.siteNumber(6), Filters.siteNumber(7), Filters.siteNumber(8)))
                 .accepts(game, game.getGameState().getCurrentSite())) {

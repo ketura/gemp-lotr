@@ -13,7 +13,6 @@ import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.lotro.logic.effects.RemoveTokenEffect;
 import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDiscardEffect;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
@@ -47,7 +46,7 @@ public class Card8_050 extends AbstractPermanent {
     }
 
     @Override
-    public List<? extends Action> getPhaseActionsInPlay(final String playerId, final LotroGame game, final PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(final String playerId, final LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SHADOW, self, 0)) {
             int tokens = game.getGameState().getTokenCount(self, Token.RAIDER);
             if (PlayConditions.canPlayFromDiscard(playerId, game, -tokens, Keyword.CORSAIR)) {

@@ -12,7 +12,6 @@ import com.gempukku.lotro.logic.effects.PlaySiteEffect;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.modifiers.MayNotBearModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
@@ -54,7 +53,7 @@ public class Card7_079 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if ((PlayConditions.canUseFPCardDuringPhase(game, Phase.FELLOWSHIP, self) || PlayConditions.canUseFPCardDuringPhase(game, Phase.REGROUP, self))
                 && (game.getGameState().getCurrentSiteNumber() == 2 || game.getGameState().getCurrentSiteNumber() == 5)) {
             ActivateCardAction action = new ActivateCardAction(self);

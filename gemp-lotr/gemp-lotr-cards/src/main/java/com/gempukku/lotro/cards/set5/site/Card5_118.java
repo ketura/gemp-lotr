@@ -12,7 +12,6 @@ import com.gempukku.lotro.logic.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.logic.effects.RemoveTwilightEffect;
 import com.gempukku.lotro.logic.modifiers.ModifierFlag;
 import com.gempukku.lotro.logic.modifiers.SpecialFlagModifier;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
@@ -32,7 +31,7 @@ public class Card5_118 extends AbstractSite {
     }
 
     @Override
-    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseSiteDuringPhase(game, Phase.REGROUP, self)
                 && PlayConditions.canSpot(game, CardType.MINION, Filters.owner(playerId))
                 && game.getGameState().getTwilightPool() >= 9) {

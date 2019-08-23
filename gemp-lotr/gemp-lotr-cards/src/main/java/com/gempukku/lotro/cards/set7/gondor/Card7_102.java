@@ -7,7 +7,6 @@ import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.logic.effects.ChooseAndDiscardCardsFromHandEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDiscardEffect;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
@@ -33,7 +32,7 @@ public class Card7_102 extends AbstractPermanent {
     }
 
     @Override
-    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.REGROUP, self)
                 && game.getGameState().getHand(playerId).size() == 4
                 && PlayConditions.canPlayFromDiscard(playerId, game, Culture.GONDOR, Keyword.FORTIFICATION)) {

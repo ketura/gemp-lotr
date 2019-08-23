@@ -11,7 +11,6 @@ import com.gempukku.lotro.logic.effects.RemoveBurdenEffect;
 import com.gempukku.lotro.logic.effects.ReturnCardsToHandEffect;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.VitalityModifier;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
@@ -46,7 +45,7 @@ public class Card9_044 extends AbstractAttachable {
     }
 
     @Override
-    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.MANEUVER, self, 0)
                 && PlayConditions.canRemoveBurdens(game, self, 1)) {
             ActivateCardAction action = new ActivateCardAction(self);
@@ -60,7 +59,7 @@ public class Card9_044 extends AbstractAttachable {
     }
 
     @Override
-    public List<? extends Action> getOptionalInPlayAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getOptionalInPlayAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.reconciles(game, effectResult, null)) {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(

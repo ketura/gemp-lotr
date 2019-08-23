@@ -10,7 +10,6 @@ import com.gempukku.lotro.logic.effects.ChooseAndHealCharactersEffect;
 import com.gempukku.lotro.logic.effects.PutCardFromHandOnTopOfDeckEffect;
 import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseCardsFromHandEffect;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collection;
@@ -38,7 +37,7 @@ public class Card9_020 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.MANEUVER, self)) {
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(

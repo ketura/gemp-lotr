@@ -12,7 +12,6 @@ import com.gempukku.lotro.logic.effects.CommonEffects;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.logic.modifiers.AbstractExtraPlayCostModifier;
 import com.gempukku.lotro.logic.modifiers.cost.AddThreatExtraPlayCostModifier;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
@@ -40,7 +39,7 @@ public class Card7_109 extends AbstractPermanent {
     }
 
     @Override
-    public List<? extends Action> getPhaseActionsInPlay(final String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(final String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
                 && PlayConditions.canExert(self, game, Culture.GONDOR, Race.MAN)) {
             final ActivateCardAction action = new ActivateCardAction(self);

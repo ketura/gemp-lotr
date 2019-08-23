@@ -11,7 +11,6 @@ import com.gempukku.lotro.logic.effects.AddThreatsEffect;
 import com.gempukku.lotro.logic.effects.RemoveThreatsEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.modifiers.evaluator.CountActiveEvaluator;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
@@ -49,7 +48,7 @@ public class Card7_211 extends AbstractMinion {
     }
 
     @Override
-    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.MANEUVER, self, 0)
                 && PlayConditions.canRemoveThreat(game, self, 2)
                 && PlayConditions.canSpot(game, Filters.not(self), Culture.WRAITH, CardType.MINION)) {

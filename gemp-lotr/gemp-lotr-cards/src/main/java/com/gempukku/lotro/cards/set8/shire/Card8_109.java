@@ -10,7 +10,6 @@ import com.gempukku.lotro.logic.effects.AddBurdenEffect;
 import com.gempukku.lotro.logic.effects.PutCardsFromHandBeneathDrawDeckEffect;
 import com.gempukku.lotro.logic.effects.RevealCardsFromYourHandEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
@@ -31,7 +30,7 @@ public class Card8_109 extends AbstractPermanent {
     }
 
     @Override
-    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.REGROUP, self)
                 && PlayConditions.canExert(self, game, Filters.unboundCompanion, Race.HOBBIT)) {
             ActivateCardAction action = new ActivateCardAction(self);

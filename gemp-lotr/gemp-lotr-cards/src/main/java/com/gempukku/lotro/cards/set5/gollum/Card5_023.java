@@ -12,7 +12,6 @@ import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
 import com.gempukku.lotro.logic.effects.PlayNextSiteEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
@@ -38,7 +37,7 @@ public class Card5_023 extends AbstractAttachable {
     }
 
     @Override
-    public List<? extends Action> getPhaseActionsInPlay(final String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(final String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.REGROUP, self)
                 && PlayConditions.canExert(self, game, Filters.gollumOrSmeagol)) {
             final ActivateCardAction action = new ActivateCardAction(self);

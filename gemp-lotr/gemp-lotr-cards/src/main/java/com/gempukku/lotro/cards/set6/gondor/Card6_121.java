@@ -40,7 +40,7 @@ public class Card6_121 extends AbstractCompanion {
     }
 
     @Override
-    public List<ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.FELLOWSHIP, self)
                 && PlayConditions.canPlayFromHand(playerId, game, Keyword.RANGER)) {
             ActivateCardAction action = new ActivateCardAction(self);

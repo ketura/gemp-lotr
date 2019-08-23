@@ -12,7 +12,6 @@ import com.gempukku.lotro.logic.effects.TransferPermanentEffect;
 import com.gempukku.lotro.logic.modifiers.CantHealModifier;
 import com.gempukku.lotro.logic.modifiers.MayNotBearModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
@@ -34,7 +33,7 @@ public class Card8_069 extends AbstractPermanent {
     }
 
     @Override
-    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, final PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.ARCHERY, self, 0)
                 && self.getZone() == Zone.SUPPORT
                 && PlayConditions.canSpot(game, Filters.owner(playerId), Race.NAZGUL, Filters.or(Keyword.ENDURING, Filters.mounted))) {

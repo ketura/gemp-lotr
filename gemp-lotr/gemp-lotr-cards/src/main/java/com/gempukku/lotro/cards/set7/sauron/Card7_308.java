@@ -10,7 +10,6 @@ import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.RemoveThreatsEffect;
 import com.gempukku.lotro.logic.effects.ShuffleCardsFromPlayAndStackedOnItIntoDeckEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
@@ -36,7 +35,7 @@ public class Card7_308 extends AbstractPermanent {
     }
 
     @Override
-    public List<? extends Action> getPhaseActionsInPlay(final String playerId, LotroGame game, final PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(final String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.REGROUP, self, 0)
                 && PlayConditions.canExert(self, game, Culture.SAURON, Race.ORC)
                 && PlayConditions.canRemoveThreat(game, self, 1)) {

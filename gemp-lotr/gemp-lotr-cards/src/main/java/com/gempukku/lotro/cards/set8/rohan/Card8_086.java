@@ -9,7 +9,6 @@ import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.logic.effects.AddTokenEffect;
 import com.gempukku.lotro.logic.effects.RemoveTokenEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
@@ -30,7 +29,7 @@ public class Card8_086 extends AbstractPermanent {
     }
 
     @Override
-    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.FELLOWSHIP, self)
                 && PlayConditions.canExert(self, game, Culture.ROHAN, CardType.COMPANION)
                 && PlayConditions.canExert(self, game, Filters.or(Filters.and(Culture.GONDOR, Race.MAN), Filters.and(Culture.SHIRE, CardType.COMPANION)))) {

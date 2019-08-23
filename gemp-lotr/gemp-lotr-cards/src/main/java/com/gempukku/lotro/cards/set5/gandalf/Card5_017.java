@@ -40,7 +40,7 @@ public class Card5_017 extends AbstractCompanion {
     }
 
     @Override
-    public List<ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.ASSIGNMENT, self)
                 && (
                 PlayConditions.canExert(self, game, Race.HOBBIT, Filters.unboundCompanion)

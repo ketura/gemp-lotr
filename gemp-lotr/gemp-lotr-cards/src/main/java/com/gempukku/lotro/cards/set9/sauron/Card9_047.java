@@ -15,7 +15,6 @@ import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromHandEffect;
 import com.gempukku.lotro.logic.modifiers.AbstractExtraPlayCostModifier;
 import com.gempukku.lotro.logic.modifiers.cost.ExertExtraPlayCostModifier;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
@@ -57,7 +56,7 @@ public class Card9_047 extends AbstractPermanent {
     }
 
     @Override
-    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SHADOW, self, 0)
                 && PlayConditions.canSelfDiscard(self, game)
                 && PlayConditions.canPlayFromHand(playerId, game, -3, Culture.SAURON, CardType.MINION)) {

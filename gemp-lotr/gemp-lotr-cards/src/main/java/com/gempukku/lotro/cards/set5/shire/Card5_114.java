@@ -10,7 +10,6 @@ import com.gempukku.lotro.logic.effects.CancelActivatedEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.VitalityModifier;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
@@ -46,7 +45,7 @@ public class Card5_114 extends AbstractAttachable {
     }
 
     @Override
-    public List<? extends Action> getOptionalInPlayAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getOptionalInPlayAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.activated(game, effectResult, Filters.any)) {
             ActivateCardResult activateEffect = (ActivateCardResult) effectResult;
             if (activateEffect.getActionTimeword() == Phase.REGROUP

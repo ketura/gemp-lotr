@@ -15,7 +15,6 @@ import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDiscardEffec
 import com.gempukku.lotro.logic.modifiers.*;
 import com.gempukku.lotro.logic.modifiers.condition.AndCondition;
 import com.gempukku.lotro.logic.modifiers.condition.PhaseCondition;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
@@ -81,7 +80,7 @@ public class Card5_056 extends AbstractMinion {
     }
 
     @Override
-    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SHADOW, self, 0)
                 && PlayConditions.canSelfExert(self, game)
                 && PlayConditions.canPlayFromDiscard(playerId, game, Culture.ISENGARD, CardType.POSSESSION)) {

@@ -62,7 +62,7 @@ public class Card9_052 extends AbstractAlly {
     }
 
     @Override
-    public List<ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
                 && PlayConditions.canSpot(game, 2, Culture.SHIRE, CardType.COMPANION)
                 && PlayConditions.canSelfExert(self, game.getGameState().getCurrentSiteNumber(), game)) {

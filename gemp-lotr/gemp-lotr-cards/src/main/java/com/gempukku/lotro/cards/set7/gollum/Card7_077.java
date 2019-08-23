@@ -13,7 +13,6 @@ import com.gempukku.lotro.logic.effects.choose.ChooseAndDiscardCardsFromPlayEffe
 import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDiscardEffect;
 import com.gempukku.lotro.logic.modifiers.AddActionToCardModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
@@ -57,7 +56,7 @@ public class Card7_077 extends AbstractAttachable {
     }
 
     @Override
-    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.REGROUP, self)
                 && PlayConditions.canSelfDiscard(self, game)
                 && PlayConditions.canPlayFromDiscard(playerId, game, CardType.COMPANION)) {

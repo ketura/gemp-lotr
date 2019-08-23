@@ -11,7 +11,6 @@ import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.logic.effects.RemoveThreatsEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndAddUntilEOPStrengthBonusEffect;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
@@ -30,7 +29,7 @@ public class Card7_357 extends AbstractSite {
     }
 
     @Override
-    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseSiteDuringPhase(game, Phase.SKIRMISH, self)
                 && PlayConditions.canSpot(game, Filters.owner(playerId), Culture.SAURON, CardType.MINION)
                 && PlayConditions.canRemoveThreat(game, self, 2)) {

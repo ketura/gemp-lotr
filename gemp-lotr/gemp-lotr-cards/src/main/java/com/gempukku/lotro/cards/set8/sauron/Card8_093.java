@@ -13,7 +13,6 @@ import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.RemoveBurdenEffect;
 import com.gempukku.lotro.logic.effects.ReturnCardsToHandEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
@@ -34,7 +33,7 @@ public class Card8_093 extends AbstractPermanent {
     }
 
     @Override
-    public List<? extends Action> getPhaseActionsInPlay(final String playerId, LotroGame game, final PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(final String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.REGROUP, self, 0)
                 && PlayConditions.canDiscardFromPlay(self, game, Culture.SAURON, CardType.MINION)
                 && PlayConditions.canSpot(game, CardType.COMPANION, Filters.not(Filters.ringBearer), Filters.lessVitalityThan(game.getGameState().getBurdens() + 1))

@@ -16,7 +16,6 @@ import com.gempukku.lotro.logic.effects.choose.ChooseAndAddUntilEOPStrengthBonus
 import com.gempukku.lotro.logic.effects.choose.ChooseAndDiscardStackedCardsEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromHandEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseStackedCardsEffect;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collection;
@@ -39,7 +38,7 @@ public class Card9_039 extends AbstractPermanent {
     }
 
     @Override
-    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SHADOW, self, 0)
                 && PlayConditions.canPlayFromHand(playerId, game, Culture.ISENGARD, CardType.MINION)) {
             ActivateCardAction action = new ActivateCardAction(self);

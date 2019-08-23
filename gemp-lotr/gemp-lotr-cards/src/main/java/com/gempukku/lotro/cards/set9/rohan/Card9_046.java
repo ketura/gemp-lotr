@@ -12,7 +12,6 @@ import com.gempukku.lotro.logic.effects.OptionalEffect;
 import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromHandEffect;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.ExtraFilters;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
@@ -35,7 +34,7 @@ public class Card9_046 extends AbstractPermanent {
     }
 
     @Override
-    public List<? extends Action> getPhaseActionsInPlay(final String playerId, final LotroGame game, final PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(final String playerId, final LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.ASSIGNMENT, self)
                 && PlayConditions.canExert(self, game, Culture.GONDOR, Race.MAN)
                 && PlayConditions.canPlayFromHand(playerId, game, Culture.ROHAN, Race.MAN)) {

@@ -16,7 +16,6 @@ import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.modifiers.evaluator.CardPhaseLimitEvaluator;
 import com.gempukku.lotro.logic.modifiers.evaluator.CountActiveEvaluator;
 import com.gempukku.lotro.logic.modifiers.evaluator.NegativeEvaluator;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
@@ -40,7 +39,7 @@ public class Card7_293 extends AbstractMinion {
     }
 
     @Override
-    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, final PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.SKIRMISH, self, 0)
                 && PlayConditions.canDiscardFromHand(game, playerId, 1, Filters.any)) {
             final ActivateCardAction action = new ActivateCardAction(self);

@@ -11,7 +11,6 @@ import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDiscardEffec
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.ResistanceModifier;
 import com.gempukku.lotro.logic.modifiers.evaluator.CountActiveEvaluator;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
@@ -44,7 +43,7 @@ public class Card9_036 extends AbstractPermanent {
     }
 
     @Override
-    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.FELLOWSHIP, self)
                 && PlayConditions.canSelfDiscard(self, game)
                 && PlayConditions.canPlayFromDiscard(playerId, game, PossessionClass.RING)) {

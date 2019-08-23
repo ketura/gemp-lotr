@@ -12,7 +12,6 @@ import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.modifiers.evaluator.CountActiveEvaluator;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
@@ -47,7 +46,7 @@ public class Card9_034 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    public List<? extends Action> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
         if (TriggerConditions.isGettingWounded(effect, game, self.getAttachedTo())
                 && PlayConditions.canExert(self, game, 1, 2, Culture.GONDOR, Race.MAN)) {
             ActivateCardAction action = new ActivateCardAction(self);

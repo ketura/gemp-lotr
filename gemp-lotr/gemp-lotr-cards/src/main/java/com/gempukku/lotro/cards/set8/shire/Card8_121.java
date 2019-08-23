@@ -38,7 +38,7 @@ public class Card8_121 extends AbstractCompanion {
         return PlayConditions.canSpot(game, Culture.ROHAN, CardType.COMPANION);
     }
 
-    public List<ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, final PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
                 && PlayConditions.canDiscardFromHand(game, playerId, 4, Filters.any)) {
             final ActivateCardAction action = new ActivateCardAction(self);

@@ -30,7 +30,7 @@ public class Card5_036 extends AbstractCompanion {
     }
 
     @Override
-    public List<ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.FELLOWSHIP, self)
                 && PlayConditions.canDiscardFromPlay(self, game, Culture.GONDOR, CardType.CONDITION)) {
             ActivateCardAction action = new ActivateCardAction(self);

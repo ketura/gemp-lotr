@@ -8,7 +8,6 @@ import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.cardtype.AbstractMinion;
 import com.gempukku.lotro.logic.effects.*;
 import com.gempukku.lotro.logic.modifiers.ArcheryTotalModifier;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
@@ -35,7 +34,7 @@ public class Card8_097 extends AbstractMinion {
     }
 
     @Override
-    public List<? extends Action> getPhaseActionsInPlay(String playerId, LotroGame game, final PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, final PhysicalCard self) {
         if (PlayConditions.canUseShadowCardDuringPhase(game, Phase.ARCHERY, self, 0)
                 && (PlayConditions.canSelfExert(self, game) || PlayConditions.canSpot(game, Filters.siteControlled(playerId)))) {
             final ActivateCardAction action = new ActivateCardAction(self);
