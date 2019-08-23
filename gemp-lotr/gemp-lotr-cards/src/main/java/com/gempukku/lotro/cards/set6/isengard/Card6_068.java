@@ -12,7 +12,6 @@ import com.gempukku.lotro.logic.effects.AddTwilightEffect;
 import com.gempukku.lotro.logic.effects.ChooseAndWoundCharactersEffect;
 import com.gempukku.lotro.logic.effects.DiscardStackedCardsEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
@@ -52,7 +51,7 @@ public class Card6_068 extends AbstractMinion {
     }
 
     @Override
-    public List<? extends Action> getPhaseActionsFromStacked(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsFromStacked(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseStackedShadowCardDuringPhase(game, Phase.REGROUP, self, 0)
                 && self.getStackedOn().getBlueprint().getCulture() == Culture.ISENGARD
                 && PlayConditions.canSpot(game, Culture.ISENGARD, Race.ORC)) {

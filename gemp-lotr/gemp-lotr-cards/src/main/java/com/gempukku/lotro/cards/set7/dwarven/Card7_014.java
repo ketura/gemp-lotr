@@ -9,7 +9,6 @@ import com.gempukku.lotro.logic.cardtype.AbstractEvent;
 import com.gempukku.lotro.logic.effects.DiscardStackedCardsEffect;
 import com.gempukku.lotro.logic.effects.DrawCardsEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
@@ -43,7 +42,7 @@ public class Card7_014 extends AbstractEvent {
     }
 
     @Override
-    public List<? extends Action> getPhaseActionsFromStacked(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsFromStacked(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseStackedFPCardDuringPhase(game, Phase.MANEUVER, self)
                 && PlayConditions.stackedOn(self, game, Culture.DWARVEN, CardType.CONDITION)
                 && PlayConditions.canSpot(game, Race.DWARF, CardType.COMPANION)) {

@@ -73,7 +73,7 @@ public interface LotroCardBlueprint {
 
     public List<? extends Action> getPhaseActionsInHand(String playerId, LotroGame game, PhysicalCard self);
 
-    public List<? extends Action> getPhaseActionsFromStacked(String playerId, LotroGame game, PhysicalCard self);
+    public List<? extends ActivateCardAction> getPhaseActionsFromStacked(String playerId, LotroGame game, PhysicalCard self);
 
     public List<? extends Action> getPhaseActionsFromDiscard(String playerId, LotroGame game, PhysicalCard self);
 

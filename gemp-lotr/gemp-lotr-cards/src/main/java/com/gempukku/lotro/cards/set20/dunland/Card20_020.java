@@ -11,7 +11,7 @@ import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.cardtype.AbstractMinion;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.StackCardFromPlayEffect;
-import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromStackedEffect;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
@@ -57,12 +57,15 @@ public class Card20_020 extends AbstractMinion {
     }
 
     @Override
-    public List<? extends Action> getPhaseActionsFromStacked(String playerId, LotroGame game, PhysicalCard self) {
+    public List<? extends ActivateCardAction> getPhaseActionsFromStacked(String playerId, LotroGame game, PhysicalCard self) {
         if (PlayConditions.canUseStackedShadowCardDuringPhase(game, Phase.SHADOW, self, 0)
                 && PlayConditions.stackedOn(self, game, Filters.siteControlled(self.getOwner()))
                 && PlayConditions.canSpot(game, Filters.or(Filters.saruman, Filters.and(Filters.not(self), Culture.DUNLAND, Race.MAN)))
                 && PlayUtils.checkPlayRequirements(game, self, Filters.any, 0, -2, false, false)) {
-            return Collections.singletonList(PlayUtils.getPlayCardAction(game, self, -2, Filters.any, false));
+            ActivateCardAction action = new ActivateCardAction(self);
+            action.appendEffect(
+                    new ChooseAndPlayCardFromStackedEffect(playerId, self.getStackedOn(), -2, self));
+            return Collections.singletonList(action);
         }
         return null;
     }
