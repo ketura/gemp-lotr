@@ -70,7 +70,7 @@ public class Card40_041 extends AbstractAlly {
                         protected void cardsRevealed(List<PhysicalCard> revealedCards) {
                             if (revealedCards.size() > 0) {
                                 PhysicalCard firstCard = revealedCards.get(0);
-                                if (Filters.and(Side.FREE_PEOPLE).accepts(game,
+                                if (Filters.and(Culture.ELVEN).accepts(game,
                                         firstCard)) {
                                     action.appendCost(
                                             new OptionalEffect(action, playerId,
@@ -88,22 +88,23 @@ public class Card40_041 extends AbstractAlly {
                                                             return "Discard the revealed card to heal a companion";
                                                         }
                                                     }));
-                                } else {
-                                    action.appendEffect(
-                                            new UnrespondableEffect() {
-                                                @Override
-                                                protected void doPlayEffect(LotroGame game) {
-                                                    action.appendCost(
-                                                            new DiscardTopCardFromDeckEffect(self, playerId, false));
-                                                    action.appendEffect(
-                                                            new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Side.SHADOW, CardType.CONDITION));
-                                                }
+                                } else if (Filters.and(Side.SHADOW).accepts(game, firstCard)) {
+                                    action.appendCost(
+                                            new OptionalEffect(action, playerId,
+                                                    new UnrespondableEffect() {
+                                                        @Override
+                                                        protected void doPlayEffect(LotroGame game) {
+                                                            action.appendCost(
+                                                                    new DiscardTopCardFromDeckEffect(self, playerId, false));
+                                                            action.appendEffect(
+                                                                    new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Side.SHADOW, CardType.CONDITION));
+                                                        }
 
-                                                @Override
-                                                public String getText(LotroGame game) {
-                                                    return "Discard the revealed card to discard a shadow condition";
-                                                }
-                                            });
+                                                        @Override
+                                                        public String getText(LotroGame game) {
+                                                            return "Discard the revealed card to discard a shadow condition";
+                                                        }
+                                                    }));
                                 }
                             }
                         }
