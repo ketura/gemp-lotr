@@ -4,10 +4,6 @@ import com.gempukku.lotro.cards.build.FilterableSource;
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.results.CharacterLostSkirmishResult;
 
 import java.util.HashMap;
@@ -34,13 +30,13 @@ public class FilterFactory {
         simpleFilters.put("self", (playerId, game, source, effectResult, effect) -> source);
         simpleFilters.put("your", (playerId, game, source, effectResult, effect) -> Filters.owner(source.getOwner()));
         simpleFilters.put("skirmishloser",
-                new FilterableSource() {
-                    @Override
-                    public Filterable getFilterable(String playerId, LotroGame game, PhysicalCard source, EffectResult effectResult, Effect effect) {
-                        final CharacterLostSkirmishResult lostSkirmish = (CharacterLostSkirmishResult) effectResult;
-                        return lostSkirmish.getLoser();
-                    }
+                (playerId, game, source, effectResult, effect) -> {
+                    final CharacterLostSkirmishResult lostSkirmish = (CharacterLostSkirmishResult) effectResult;
+                    return lostSkirmish.getLoser();
                 });
+        simpleFilters.put("unbound",
+                (playerId, game, source, effectResult, effect) -> Filters.not(Keyword.RING_BOUND));
+
         parameterFilters.put("culture", (parameter, filterFactory) -> {
             final Culture culture = Culture.valueOf(parameter.toUpperCase());
             if (culture == null)
@@ -53,6 +49,8 @@ public class FilterFactory {
                     final FilterableSource filterableSource = filterFactory.generateFilter(parameter);
                     return (playerId, game, source, effectResult, effect) -> Filters.hasAttached(filterableSource.getFilterable(playerId, game, source, effectResult, effect));
                 });
+        parameterFilters.put("name",
+                (parameter, filterFactory) -> (playerId, game, source, effectResult, effect) -> Filters.name(parameter));
     }
 
     private void appendFilter(Filterable value) {

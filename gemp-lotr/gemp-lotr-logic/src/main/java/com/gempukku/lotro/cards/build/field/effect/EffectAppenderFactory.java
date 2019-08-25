@@ -18,8 +18,11 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("preventdiscardfromplay", new PreventCardEffectAppender());
         effectAppenderProducers.put("exert", new Exert());
         effectAppenderProducers.put("addstrength", new AddStrength());
+        effectAppenderProducers.put("addkeyword", new AddStrength());
         effectAppenderProducers.put("discardtopcardfromdeck", new DiscardTopCardFromDeck());
         effectAppenderProducers.put("addtwilight", new AddTwilight());
+        effectAppenderProducers.put("wound", new Wound());
+        effectAppenderProducers.put("replaceinskirmish", new ReplaceInSkirmish());
     }
 
     public EffectAppender getEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {

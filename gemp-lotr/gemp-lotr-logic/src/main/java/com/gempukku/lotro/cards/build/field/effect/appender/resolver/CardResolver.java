@@ -1,9 +1,10 @@
-package com.gempukku.lotro.cards.build.field.effect.appender;
+package com.gempukku.lotro.cards.build.field.effect.appender.resolver;
 
 import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
 import com.gempukku.lotro.cards.build.FilterableSource;
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
+import com.gempukku.lotro.cards.build.field.effect.appender.AbstractEffectAppender;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -70,7 +71,7 @@ public class CardResolver {
         return resolveCard(type, null, memory, choiceText, environment);
     }
 
-    public static EffectAppender resolveCards(String type, FilterableSource additionalFilter, int count, String memory, String choiceText, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
+    public static EffectAppender resolveCards(String type, FilterableSource additionalFilter, int min, int max, String memory, String choiceText, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         if (type.equals("self")) {
             return new AbstractEffectAppender() {
                 @Override
@@ -106,7 +107,7 @@ public class CardResolver {
                     Filterable additionalFilterable = Filters.any;
                     if (additionalFilter != null)
                         additionalFilterable = additionalFilter.getFilterable(playerId, game, self, effectResult, effect);
-                    return new ChooseActiveCardsEffect(self, playerId, choiceText, count, count, filterable, additionalFilterable) {
+                    return new ChooseActiveCardsEffect(self, playerId, choiceText, min, max, filterable, additionalFilterable) {
                         @Override
                         protected void cardsSelected(LotroGame game, Collection<PhysicalCard> cards) {
                             action.setCardMemory(memory, cards);
@@ -118,7 +119,7 @@ public class CardResolver {
         throw new RuntimeException("Unable to resolve card resolver of type: " + type);
     }
 
-    public static EffectAppender resolveCards(String type, int count, String memory, String choiceText, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        return resolveCards(type, null, count, memory, choiceText, environment);
+    public static EffectAppender resolveCards(String type, int min, int max, String memory, String choiceText, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
+        return resolveCards(type, null, min, max, memory, choiceText, environment);
     }
 }

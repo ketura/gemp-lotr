@@ -43,5 +43,66 @@
         }
       }
     ]
+  },
+  "40_4": {
+    "title": "Balin's Revenge",
+    "side": "free people",
+    "culture": "dwarven",
+    "cost": 0,
+    "type": "event",
+    "keyword": "skirmish",
+    "effects": {
+      "type": "event",
+      "requirement": {
+        "type": "canExert",
+        "filter": "dwarf"
+      },
+      "cost": {
+        "type": "exert",
+        "filter": "choose(dwarf)"
+      },
+      "effect": {
+        "type": "wound",
+        "count": "0-2",
+        "filter": "choose(goblin)"
+      }
+    }
+  },
+  "40_5": {
+    "title": "Battle Fever",
+    "side": "free people",
+    "culture": "dwarven",
+    "cost": 2,
+    "type": "event",
+    "keyword": "skirmish",
+    "effects": {
+      "type": "event",
+      "requirement": {
+        "type": "canExert",
+        "filter": "name(Gimli)"
+      },
+      "cost": {
+        "type": "exert",
+        "filter": "choose(name(Gimli))",
+        "memory": "exertedGimli"
+      },
+      "effect": [
+        {
+          "type": "replaceInSkirmish",
+          "filter": "unbound,companion",
+          "with": "memory(exertedGimli)"
+        },
+        {
+          "type": "addStrength",
+          "filter": "memory(exertedGimli)",
+          "amount": 2
+        },
+        {
+          "type": "addKeyword",
+          "filter": "memory(exertedGimli)",
+          "keyword": "damage+1"
+        }
+      ]
+    }
   }
 }
