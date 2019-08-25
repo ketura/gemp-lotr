@@ -5,13 +5,13 @@ import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.effects.AbstractPreventableCardEffect;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
+import com.gempukku.lotro.logic.effects.PreventableCardEffect;
 
 public class ChooseAndPreventCardEffect extends ChooseActiveCardEffect {
-    private AbstractPreventableCardEffect _effect;
+    private PreventableCardEffect _effect;
 
-    public ChooseAndPreventCardEffect(PhysicalCard source, AbstractPreventableCardEffect effect, String playerId, String choiceText, Filterable... filters) {
+    public ChooseAndPreventCardEffect(PhysicalCard source, PreventableCardEffect effect, String playerId, String choiceText, Filterable... filters) {
         super(source, playerId, choiceText, filters);
         _effect = effect;
     }

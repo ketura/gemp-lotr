@@ -37,7 +37,7 @@ public class Card4_103 extends AbstractAlly {
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, final PhysicalCard self) {
         if (TriggerConditions.isGettingDiscarded(effect, game, Race.HOBBIT, Filters.unboundCompanion)) {
-            final DiscardCardsFromPlayEffect discardEffect = (DiscardCardsFromPlayEffect) effect;
+            final PreventableCardEffect discardEffect = (PreventableCardEffect) effect;
             Collection<PhysicalCard> discardedHobbits = Filters.filter(discardEffect.getAffectedCardsMinusPrevented(game), game, Filters.unboundCompanion, Race.HOBBIT);
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(

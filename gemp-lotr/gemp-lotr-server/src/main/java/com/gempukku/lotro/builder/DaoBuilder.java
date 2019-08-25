@@ -5,12 +5,14 @@ import com.gempukku.lotro.collection.CachedCollectionDAO;
 import com.gempukku.lotro.collection.CachedTransferDAO;
 import com.gempukku.lotro.collection.CollectionSerializer;
 import com.gempukku.lotro.collection.TransferDAO;
+import com.gempukku.lotro.common.ApplicationConfiguration;
 import com.gempukku.lotro.db.*;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.tournament.TournamentDAO;
 import com.gempukku.lotro.tournament.TournamentMatchDAO;
 import com.gempukku.lotro.tournament.TournamentPlayerDAO;
 
+import java.io.File;
 import java.lang.reflect.Type;
 import java.util.Map;
 
@@ -20,6 +22,7 @@ public class DaoBuilder {
         CollectionSerializer collectionSerializer = new CollectionSerializer();
 
         LotroCardBlueprintLibrary library = new LotroCardBlueprintLibrary();
+        library.init(new File(ApplicationConfiguration.getProperty("card.path")));
         objectMap.put(LotroCardBlueprintLibrary.class, library);
         objectMap.put(LeagueParticipationDAO.class, new DbLeagueParticipationDAO(dbAccess));
         objectMap.put(LeagueMatchDAO.class, new DbLeagueMatchDAO(dbAccess));

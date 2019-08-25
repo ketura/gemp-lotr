@@ -9,7 +9,7 @@ import com.gempukku.lotro.logic.timing.AbstractEffect;
 
 import java.util.*;
 
-public abstract class AbstractPreventableCardEffect extends AbstractEffect {
+public abstract class AbstractPreventableCardEffect extends AbstractEffect implements PreventableCardEffect {
     private Filter _filter;
     private Set<PhysicalCard> _preventedTargets = new HashSet<PhysicalCard>();
     private int _requiredTargets;

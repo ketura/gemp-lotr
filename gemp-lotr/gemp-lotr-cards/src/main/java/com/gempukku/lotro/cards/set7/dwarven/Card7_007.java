@@ -1,22 +1,19 @@
 package com.gempukku.lotro.cards.set7.dwarven;
 
-import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
-import com.gempukku.lotro.logic.timing.PlayConditions;
-import com.gempukku.lotro.logic.timing.TriggerConditions;
-import com.gempukku.lotro.logic.effects.ChoiceEffect;
-import com.gempukku.lotro.logic.effects.PreventCardEffect;
-import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
+import com.gempukku.lotro.logic.effects.ChoiceEffect;
 import com.gempukku.lotro.logic.effects.ChooseAndDiscardCardsFromHandEffect;
-import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
+import com.gempukku.lotro.logic.effects.PreventableCardEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndPreventCardEffect;
 import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -45,9 +42,6 @@ public class Card7_007 extends AbstractCompanion {
         if (TriggerConditions.isGettingDiscardedByOpponent(effect, game, playerId, Culture.DWARVEN, CardType.CONDITION)
                 && (PlayConditions.canExert(self, game, Race.DWARF)
                 || PlayConditions.canDiscardFromHand(game, playerId, 1, Culture.DWARVEN))) {
-            final DiscardCardsFromPlayEffect discardEffect = (DiscardCardsFromPlayEffect) effect;
-            final Collection<PhysicalCard> discardedCards = discardEffect.getAffectedCardsMinusPrevented(game);
-
             final ActivateCardAction action = new ActivateCardAction(self);
             List<Effect> possibleCosts = new LinkedList<Effect>();
             possibleCosts.add(
@@ -67,13 +61,8 @@ public class Card7_007 extends AbstractCompanion {
             action.appendCost(
                     new ChoiceEffect(action, playerId, possibleCosts));
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose DWARVEN condition", Culture.DWARVEN, CardType.CONDITION, Filters.in(discardedCards)) {
-                        @Override
-                        protected void cardSelected(LotroGame game, PhysicalCard card) {
-                            action.insertEffect(
-                                    new PreventCardEffect(discardEffect, card));
-                        }
-                    });
+                    new ChooseAndPreventCardEffect(self, (PreventableCardEffect) effect, playerId, "Choose DWARVEN condition",
+                            Culture.DWARVEN, CardType.CONDITION));
             return Collections.singletonList(action);
         }
         return null;

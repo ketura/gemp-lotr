@@ -11,8 +11,8 @@ import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.cardtype.AbstractFollower;
 import com.gempukku.lotro.logic.effects.AddBurdenEffect;
 import com.gempukku.lotro.logic.effects.PreventCardEffect;
+import com.gempukku.lotro.logic.effects.PreventableCardEffect;
 import com.gempukku.lotro.logic.effects.TransferToSupportEffect;
-import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
@@ -59,7 +59,7 @@ public class Card15_146 extends AbstractFollower {
             action.appendCost(
                     new TransferToSupportEffect(self));
             action.appendEffect(
-                    new PreventCardEffect((WoundCharactersEffect) effect, self.getAttachedTo()));
+                    new PreventCardEffect((PreventableCardEffect) effect, self.getAttachedTo()));
             return Collections.singletonList(action);
         }
         return null;

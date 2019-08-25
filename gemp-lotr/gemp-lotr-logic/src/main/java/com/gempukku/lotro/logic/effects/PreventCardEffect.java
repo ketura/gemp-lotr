@@ -8,10 +8,10 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
 public class PreventCardEffect extends UnrespondableEffect {
-    private AbstractPreventableCardEffect _effect;
+    private PreventableCardEffect _effect;
     private Filter _filter;
 
-    public PreventCardEffect(AbstractPreventableCardEffect effect, Filterable... filters) {
+    public PreventCardEffect(PreventableCardEffect effect, Filterable... filters) {
         _effect = effect;
         _filter = Filters.and(filters);
     }

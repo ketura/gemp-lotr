@@ -1,17 +1,17 @@
 package com.gempukku.lotro.cards.set1.shire;
 
-import com.gempukku.lotro.logic.cardtype.AbstractResponseEvent;
-import com.gempukku.lotro.logic.timing.TriggerConditions;
-import com.gempukku.lotro.logic.actions.PlayEventAction;
-import com.gempukku.lotro.logic.effects.PreventCardEffect;
-import com.gempukku.lotro.logic.effects.RemoveBurdenEffect;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.effects.HealCharactersEffect;
+import com.gempukku.lotro.logic.actions.PlayEventAction;
+import com.gempukku.lotro.logic.cardtype.AbstractResponseEvent;
+import com.gempukku.lotro.logic.effects.PreventCardEffect;
+import com.gempukku.lotro.logic.effects.PreventableCardEffect;
+import com.gempukku.lotro.logic.effects.RemoveBurdenEffect;
 import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -32,10 +32,9 @@ public class Card1_287 extends AbstractResponseEvent {
     @Override
     public List<PlayEventAction> getOptionalInHandBeforeActions(String playerId, LotroGame game, Effect effect, final PhysicalCard self) {
         if (TriggerConditions.isGettingHealed(effect, game, Filters.ringBearer)) {
-            final HealCharactersEffect healEffect = (HealCharactersEffect) effect;
             final PlayEventAction action = new PlayEventAction(self);
             action.appendCost(
-                    new PreventCardEffect(healEffect, Filters.findFirstActive(game, Filters.ringBearer)));
+                    new PreventCardEffect((PreventableCardEffect) effect, Filters.findFirstActive(game, Filters.ringBearer)));
             action.appendEffect(
                     new RemoveBurdenEffect(playerId, self));
             return Collections.singletonList(action);

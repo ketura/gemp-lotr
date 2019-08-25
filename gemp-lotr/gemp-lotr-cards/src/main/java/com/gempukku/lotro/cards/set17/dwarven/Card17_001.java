@@ -9,8 +9,8 @@ import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.cardtype.AbstractAttachableFPPossession;
 import com.gempukku.lotro.logic.effects.AddThreatsEffect;
 import com.gempukku.lotro.logic.effects.PreventCardEffect;
+import com.gempukku.lotro.logic.effects.PreventableCardEffect;
 import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
-import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndPutCardFromDiscardIntoHandEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.PlayConditions;
@@ -46,7 +46,7 @@ public class Card17_001 extends AbstractAttachableFPPossession {
             action.appendCost(
                     new AddThreatsEffect(playerId, self, 1));
             action.appendEffect(
-                    new PreventCardEffect((WoundCharactersEffect) effect, self.getAttachedTo()));
+                    new PreventCardEffect((PreventableCardEffect) effect, self.getAttachedTo()));
             return Collections.singletonList(action);
         }
         return null;

@@ -36,15 +36,20 @@ public class IndividualCardAtTest extends AbstractAtTest {
 
         _game.getGameState().addCardToZone(_game, gimli, Zone.FREE_CHARACTERS);
         _game.getGameState().attachCard(_game, dwarvenAxe, gimli);
+        _game.getGameState().addCardToZone(_game, goblinRunner, Zone.HAND);
 
         // End fellowship phase
         assertEquals(Phase.FELLOWSHIP, _game.getGameState().getCurrentPhase());
         playerDecided(P1, "");
 
-        _game.getGameState().addCardToZone(_game, goblinRunner, Zone.SHADOW_CHARACTERS);
+        // Play Goblin Runner
+        assertEquals(Phase.SHADOW, _game.getGameState().getCurrentPhase());
+        int twilight = _game.getGameState().getTwilightPool();
+        playerDecided(P2, "0");
+        // Twilight is -1-2+2 (cost, roaming, effect)
+        assertEquals(twilight - 1 - 2 + 2, _game.getGameState().getTwilightPool());
 
         // End shadow phase
-        assertEquals(Phase.SHADOW, _game.getGameState().getCurrentPhase());
         playerDecided(P2, "");
 
         // End maneuver phase

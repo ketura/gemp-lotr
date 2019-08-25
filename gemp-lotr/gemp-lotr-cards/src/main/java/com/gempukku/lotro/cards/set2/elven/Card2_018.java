@@ -1,15 +1,14 @@
 package com.gempukku.lotro.cards.set2.elven;
 
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
-import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.effects.PreventCardEffect;
+import com.gempukku.lotro.logic.effects.PreventableCardEffect;
 import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
 import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndPreventCardEffect;
 import com.gempukku.lotro.logic.modifiers.ArcheryTotalModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.SpotCondition;
@@ -49,13 +48,7 @@ return Collections.singletonList(new ArcheryTotalModifier(self, Side.SHADOW, new
             action.appendCost(
                     new SelfDiscardEffect(self));
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose an Elf", Race.ELF, Filters.in(woundedCharacters)) {
-                        @Override
-                        protected void cardSelected(LotroGame game, PhysicalCard elf) {
-                            action.appendEffect(
-                                    new PreventCardEffect(woundEffect, elf));
-                        }
-                    });
+                    new ChooseAndPreventCardEffect(self, (PreventableCardEffect) effect, playerId, "Choose an Elf", Race.ELF));
             return Collections.singletonList(action);
         }
         return null;

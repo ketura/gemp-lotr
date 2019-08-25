@@ -10,13 +10,11 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.PlayUtils;
 import com.gempukku.lotro.logic.actions.PlayEventAction;
 import com.gempukku.lotro.logic.cardtype.AbstractResponseEvent;
-import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.effects.PreventCardEffect;
-import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
+import com.gempukku.lotro.logic.effects.PreventableCardEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndPreventCardEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -43,18 +41,9 @@ public class Card1_076 extends AbstractResponseEvent {
     public List<PlayEventAction> getOptionalInHandBeforeActions(String playerId, LotroGame game, Effect effect, final PhysicalCard self) {
         if (TriggerConditions.isGettingWounded(effect, game, CardType.COMPANION)
                 && PlayUtils.checkPlayRequirements(game, self, Filters.any, 0, 0, false, false)) {
-            final WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
-            final Collection<PhysicalCard> cardsToBeWounded = woundEffect.getAffectedCardsMinusPrevented(game);
-
             final PlayEventAction action = new PlayEventAction(self);
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose companion", CardType.COMPANION, Filters.in(cardsToBeWounded)) {
-                        @Override
-                        protected void cardSelected(LotroGame game, PhysicalCard companion) {
-                            action.appendEffect(
-                                    new PreventCardEffect(woundEffect, companion));
-                        }
-                    });
+                    new ChooseAndPreventCardEffect(self, (PreventableCardEffect) effect, playerId, "Choose companion", CardType.COMPANION));
             return Collections.singletonList(action);
         }
         return null;

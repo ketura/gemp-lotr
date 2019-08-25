@@ -33,7 +33,8 @@ public class DrawOneCardEffect extends AbstractEffect implements Preventable {
         return (!_prevented && game.getGameState().getDeck(_playerId).size() > 0) && game.getModifiersQuerying().canDrawCardNoIncrement(game, _playerId);
     }
 
-    public String getPlayerId() {
+    @Override
+    public String getPerformingPlayer() {
         return _playerId;
     }
 

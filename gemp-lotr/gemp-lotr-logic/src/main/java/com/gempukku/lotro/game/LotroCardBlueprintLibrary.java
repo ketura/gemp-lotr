@@ -1,26 +1,38 @@
 package com.gempukku.lotro.game;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
+import com.gempukku.lotro.cards.build.LotroCardBlueprintBuilder;
+import org.apache.log4j.Logger;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+import java.io.*;
+import java.nio.file.*;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import static java.nio.file.StandardWatchEventKinds.*;
+
 public class LotroCardBlueprintLibrary {
+    private static Logger logger = Logger.getLogger(LotroCardBlueprintLibrary.class);
+
     private String[] _packageNames =
             new String[]{
                     "", ".dwarven", ".dunland", ".elven", ".fallenRealms", ".gandalf", ".gollum", ".gondor", ".isengard", ".men", ".orc",
                     ".raider", ".rohan", ".moria", ".wraith", ".sauron", ".shire", ".site", ".uruk_hai",
-					
-					//Additional Hobbit Draft packages
-					".esgaroth", ".gundabad", ".smaug", ".spider", ".troll"
+
+                    //Additional Hobbit Draft packages
+                    ".esgaroth", ".gundabad", ".smaug", ".spider", ".troll"
             };
     private Map<String, LotroCardBlueprint> _blueprintMap = new HashMap<String, LotroCardBlueprint>();
 
     private Map<String, String> _blueprintMapping = new HashMap<String, String>();
     private Map<String, Set<String>> _fullBlueprintMapping = new HashMap<String, Set<String>>();
+
+    private LotroCardBlueprintBuilder cardBlueprintBuilder = new LotroCardBlueprintBuilder();
 
     public LotroCardBlueprintLibrary() {
         try {
@@ -41,6 +53,101 @@ public class LotroCardBlueprintLibrary {
         } catch (IOException exp) {
             throw new RuntimeException("Problem loading blueprint mapping", exp);
         }
+    }
+
+    public void init(File cardPath) {
+        loadCards(cardPath);
+        setupWatcher(cardPath.toPath());
+    }
+
+    private void loadCards(File path) {
+        for (File file : path.listFiles()) {
+            loadCardsFromFile(file);
+        }
+    }
+
+    private void loadCardsFromFile(File file) {
+        JSONParser parser = new JSONParser();
+        try (FileReader reader = new FileReader(file)) {
+            final JSONObject cardsFile = (JSONObject) parser.parse(reader);
+            final Set<Map.Entry<String, JSONObject>> cardsInFile = cardsFile.entrySet();
+            for (Map.Entry<String, JSONObject> cardEntry : cardsInFile) {
+                String blueprint = cardEntry.getKey();
+                final JSONObject cardDefinition = cardEntry.getValue();
+                try {
+                    final LotroCardBlueprint lotroCardBlueprint = cardBlueprintBuilder.buildFromJson(cardDefinition);
+                    _blueprintMap.put(blueprint, lotroCardBlueprint);
+                    logger.debug("Loaded card " + blueprint);
+                } catch (InvalidCardDefinitionException exp) {
+                    logger.error("Unable to load card " + blueprint, exp);
+                }
+            }
+        } catch (FileNotFoundException exp) {
+            logger.error("Failed to find file " + file.getAbsolutePath(), exp);
+        } catch (IOException exp) {
+            logger.error("Error while loading file " + file.getAbsolutePath(), exp);
+        } catch (ParseException exp) {
+            logger.error("Failed to parse file " + file.getAbsolutePath(), exp);
+        }
+    }
+
+    private void setupWatcher(Path path) {
+        Thread thr = new Thread(
+                () -> {
+                    try {
+                        WatchService watcher = FileSystems.getDefault().newWatchService();
+                        WatchKey registrationKey = path.register(watcher,
+                                ENTRY_CREATE,
+                                ENTRY_MODIFY);
+
+                        while (true) {
+                            // wait for key to be signaled
+                            WatchKey key;
+                            try {
+                                key = watcher.take();
+                            } catch (InterruptedException x) {
+                                return;
+                            }
+
+                            for (WatchEvent<?> event : key.pollEvents()) {
+                                WatchEvent.Kind<?> kind = event.kind();
+
+                                // This key is registered only
+                                // for ENTRY_CREATE events,
+                                // but an OVERFLOW event can
+                                // occur regardless if events
+                                // are lost or discarded.
+                                if (kind == OVERFLOW) {
+                                    continue;
+                                }
+
+                                // The filename is the
+                                // context of the event.
+                                WatchEvent<Path> ev = (WatchEvent<Path>) event;
+                                Path filename = ev.context();
+
+                                // Resolve the filename against the directory.
+                                // If the filename is "test" and the directory is "foo",
+                                // the resolved name is "test/foo".
+                                Path child = path.resolve(filename);
+
+                                loadCardsFromFile(child.toFile());
+                            }
+
+                            // Reset the key -- this step is critical if you want to
+                            // receive further watch events.  If the key is no longer valid,
+                            // the directory is inaccessible so exit the loop.
+                            boolean valid = key.reset();
+                            if (!valid) {
+                                break;
+                            }
+                        }
+                    } catch (IOException exp) {
+                        logger.error("Unable to setup folder watcher on " + path.toString(), exp);
+                    }
+                }
+        );
+        thr.start();
     }
 
     public String getBaseBlueprintId(String blueprintId) {

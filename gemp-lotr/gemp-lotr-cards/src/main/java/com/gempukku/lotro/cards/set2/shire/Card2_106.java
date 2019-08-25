@@ -1,17 +1,16 @@
 package com.gempukku.lotro.cards.set2.shire;
 
-import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
-import com.gempukku.lotro.logic.timing.TriggerConditions;
-import com.gempukku.lotro.logic.effects.PreventCardEffect;
-import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.effects.PreventableCardEffect;
+import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
 import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndPreventCardEffect;
 import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -41,12 +40,7 @@ public class Card2_106 extends AbstractPermanent {
             action.appendCost(
                     new SelfDiscardEffect(self));
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose Hobbit", Filters.in(woundedCharacters), Race.HOBBIT) {
-                        @Override
-                        protected void cardSelected(LotroGame game, PhysicalCard card) {
-                            action.insertEffect(new PreventCardEffect(woundEffect, card));
-                        }
-                    });
+                    new ChooseAndPreventCardEffect(self, (PreventableCardEffect) effect, playerId, "Choose a Hobbit", Race.HOBBIT));
             return Collections.singletonList(action);
         }
         return null;

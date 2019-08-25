@@ -1,20 +1,23 @@
 package com.gempukku.lotro.cards.set40.dwarven;
 
-import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
-import com.gempukku.lotro.logic.timing.PlayConditions;
-import com.gempukku.lotro.logic.timing.TriggerConditions;
-import com.gempukku.lotro.logic.effects.PreventCardEffect;
-import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
-import com.gempukku.lotro.logic.effects.StackTopCardsFromDeckEffect;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
-import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.effects.PreventCardEffect;
+import com.gempukku.lotro.logic.effects.PreventableCardEffect;
+import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
+import com.gempukku.lotro.logic.effects.StackTopCardsFromDeckEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -51,11 +54,10 @@ public class Card40_003 extends AbstractPermanent {
     public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
         if (TriggerConditions.isGettingDiscardedBy(effect, game, Side.SHADOW, Filters.and(Culture.DWARVEN, CardType.CONDITION))
                 && PlayConditions.canSelfDiscard(self, game)) {
-            DiscardCardsFromPlayEffect discardEffect = (DiscardCardsFromPlayEffect) effect;
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(new SelfDiscardEffect(self));
             action.appendEffect(
-                    new PreventCardEffect(discardEffect, Culture.DWARVEN, CardType.CONDITION));
+                    new PreventCardEffect((PreventableCardEffect) effect, Culture.DWARVEN, CardType.CONDITION));
             return Collections.singletonList(action);
         }
         return null;

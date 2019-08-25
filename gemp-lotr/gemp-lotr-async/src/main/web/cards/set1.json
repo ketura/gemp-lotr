@@ -1,0 +1,78 @@
+{
+  "1_13": {
+    "title": "Gimli",
+    "subtitle": "Son of Gloin",
+    "unique": true,
+    "side": "free people",
+    "culture": "dwarven",
+    "cost": 2,
+    "type": "companion",
+    "race": "dwarf",
+    "strength": 6,
+    "vitality": 3,
+    "resistance": 6,
+    "signet": "gandalf",
+    "keyword": "damage+1",
+    "effects": {
+      "type": "activated",
+      "phase": "skirmish",
+      "requirement": {
+        "type": "canExert",
+        "filter": "self"
+      },
+      "cost": {
+        "type": "exert",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "addStrength",
+        "filter": "self",
+        "amount": 2
+      }
+    }
+  },
+  "1_9": {
+    "title": "Dwarven Axe",
+    "side": "free people",
+    "culture": "dwarven",
+    "cost": 0,
+    "type": "possession",
+    "possession": "hand weapon",
+    "strength": 2,
+    "target": "dwarf",
+    "effects": {
+      "type": "trigger",
+      "trigger": {
+        "type": "losesSkirmish",
+        "filter": "minion",
+        "against": "hasAttached(self)"
+      },
+      "effect": {
+        "type": "discardTopCardFromDeck",
+        "deck": "owner(skirmishLoser)"
+      }
+    }
+  },
+  "1_178": {
+    "title": "Goblin Runner",
+    "side": "shadow",
+    "culture": "moria",
+    "cost": 1,
+    "type": "minion",
+    "race": "orc",
+    "strength": 5,
+    "vitality": 1,
+    "site": 4,
+    "effects": {
+      "type": "trigger",
+      "trigger": {
+        "type": "played",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "addTwilight",
+        "amount": 2
+      }
+    }
+  }
+}

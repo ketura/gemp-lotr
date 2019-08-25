@@ -9,7 +9,7 @@ import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.logic.effects.AddTwilightEffect;
 import com.gempukku.lotro.logic.effects.PreventCardEffect;
-import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
+import com.gempukku.lotro.logic.effects.PreventableCardEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.logic.modifiers.CantBeAssignedToSkirmishModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
@@ -51,7 +51,7 @@ return Collections.singletonList(new CantBeAssignedToSkirmishModifier(self, Filt
     public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
         if (TriggerConditions.isGettingWounded(effect, game, Culture.ROHAN, Race.MAN)
                 && PlayConditions.canExert(self, game, Culture.ROHAN, Race.MAN)) {
-            final WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
+            final PreventableCardEffect woundEffect = (PreventableCardEffect) effect;
             Collection<PhysicalCard> woundedCharacters = Filters.filter(woundEffect.getAffectedCardsMinusPrevented(game), game, Culture.ROHAN, Race.MAN);
             List<ActivateCardAction> actions = new LinkedList<ActivateCardAction>();
             for (PhysicalCard woundedCharacter : woundedCharacters) {

@@ -7,7 +7,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.logic.effects.ChooseAndHealCharactersEffect;
-import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
+import com.gempukku.lotro.logic.effects.PreventableCardEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndDiscardStackedCardsEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndPreventCardEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndStackCardsFromHandEffect;
@@ -65,9 +65,8 @@ public class Card40_061 extends AbstractPermanent {
             ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new ChooseAndDiscardStackedCardsEffect(action, playerId, 2, 2, self, Filters.any));
-            DiscardCardsFromPlayEffect discardCardsEffect = (DiscardCardsFromPlayEffect) effect;
             action.appendEffect(
-                    new ChooseAndPreventCardEffect(self, discardCardsEffect, playerId, "Choose condition to save", Culture.ELVEN, CardType.CONDITION));
+                    new ChooseAndPreventCardEffect(self, (PreventableCardEffect) effect, playerId, "Choose condition to save", Culture.ELVEN, CardType.CONDITION));
             return Collections.singletonList(action);
         }
         return null;

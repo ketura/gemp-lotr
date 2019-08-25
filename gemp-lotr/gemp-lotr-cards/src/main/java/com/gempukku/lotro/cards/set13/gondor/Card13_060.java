@@ -1,10 +1,5 @@
 package com.gempukku.lotro.cards.set13.gondor;
 
-import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
-import com.gempukku.lotro.logic.timing.PlayConditions;
-import com.gempukku.lotro.logic.timing.TriggerConditions;
-import com.gempukku.lotro.logic.effects.PreventCardEffect;
-import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Side;
@@ -12,11 +7,11 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.effects.HealCharactersEffect;
-import com.gempukku.lotro.logic.effects.KillEffect;
-import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.effects.*;
 import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -54,7 +49,7 @@ public class Card13_060 extends AbstractPermanent {
             PhysicalCard faramir = Filters.findFirstActive(game, Filters.name("Faramir"));
             if (faramir != null) {
                 action.appendEffect(
-                        new PreventCardEffect((WoundCharactersEffect) effect, faramir));
+                        new PreventCardEffect((PreventableCardEffect) effect, faramir));
                 action.appendEffect(
                         new HealCharactersEffect(self, faramir));
                 action.appendEffect(

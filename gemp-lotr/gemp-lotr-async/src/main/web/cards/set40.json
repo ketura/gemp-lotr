@@ -1,0 +1,47 @@
+{
+  "40_3": {
+    "title": "Balin's Lament",
+    "unique": true,
+    "side": "free people",
+    "culture": "dwarven",
+    "cost": 2,
+    "type": "Condition",
+    "keyword": [
+      "support area",
+      "tale"
+    ],
+    "effects": [
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "played",
+          "filter": "self"
+        },
+        "effect": {
+          "type": "stackTopCardOfDrawDeck",
+          "where": "self"
+        }
+      },
+      {
+        "type": "activatedTrigger",
+        "requirement": {
+          "type": "canDiscardFromPlay",
+          "filter": "self"
+        },
+        "trigger": {
+          "type": "aboutToDiscardFromPlay",
+          "source": "shadow",
+          "filter": "your,culture(dwarven),condition"
+        },
+        "cost": {
+          "type": "discardFromPlay",
+          "filter": "self"
+        },
+        "effect": {
+          "type": "preventDiscardFromPlay",
+          "filter": "choose(your,culture(dwarven),condition)"
+        }
+      }
+    ]
+  }
+}

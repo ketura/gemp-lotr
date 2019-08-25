@@ -6,8 +6,8 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
-import com.gempukku.lotro.logic.effects.AbstractPreventableCardEffect;
 import com.gempukku.lotro.logic.effects.PreventCardEffect;
+import com.gempukku.lotro.logic.effects.PreventableCardEffect;
 import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.PlayConditions;
@@ -51,7 +51,7 @@ public class Card12_032 extends AbstractAttachable {
             action.appendCost(
                     new SelfDiscardEffect(self));
             action.appendEffect(
-                    new PreventCardEffect((AbstractPreventableCardEffect) effect, self.getAttachedTo()));
+                    new PreventCardEffect((PreventableCardEffect) effect, self.getAttachedTo()));
             return Collections.singletonList(action);
         }
         return null;

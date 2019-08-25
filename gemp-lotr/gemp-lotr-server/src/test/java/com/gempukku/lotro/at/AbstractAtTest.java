@@ -1,10 +1,6 @@
 package com.gempukku.lotro.at;
 
-import com.gempukku.lotro.game.DefaultAdventureLibrary;
-import com.gempukku.lotro.game.DefaultUserFeedback;
-import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
-import com.gempukku.lotro.game.LotroFormat;
-import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.gempukku.lotro.logic.actions.SystemQueueAction;
 import com.gempukku.lotro.logic.decisions.AwaitingDecision;
@@ -16,12 +12,8 @@ import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 import org.junit.BeforeClass;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.File;
+import java.util.*;
 
 import static org.junit.Assert.fail;
 
@@ -34,8 +26,12 @@ public abstract class AbstractAtTest {
     protected static final String P2 = "player2";
 
     @BeforeClass
-    public static void initializeCardLibrary() {
+    public static void initializeCardLibrary() throws CardNotFoundException {
         _library = new LotroCardBlueprintLibrary();
+        final String property = System.getProperty("user.dir");
+        String projectRoot = new File(property).getParentFile().getAbsolutePath();
+
+        _library.init(new File(projectRoot + "/gemp-lotr-async/src/main/web/cards"));
 //        for (int i = 1; i <= 10; i++) {
 //            for (int j = 1; j <= 365; j++) {
 //                String blueprintId = i + "_" + j;

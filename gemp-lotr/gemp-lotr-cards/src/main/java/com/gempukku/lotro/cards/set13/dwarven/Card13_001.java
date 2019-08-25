@@ -7,8 +7,8 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.cardtype.AbstractAttachableFPPossession;
-import com.gempukku.lotro.logic.effects.AbstractPreventableCardEffect;
 import com.gempukku.lotro.logic.effects.PreventCardEffect;
+import com.gempukku.lotro.logic.effects.PreventableCardEffect;
 import com.gempukku.lotro.logic.effects.ReinforceTokenEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndRemoveCultureTokensFromCardEffect;
 import com.gempukku.lotro.logic.timing.Effect;
@@ -66,7 +66,7 @@ public class Card13_001 extends AbstractAttachableFPPossession {
             action.appendCost(
                     new ChooseAndRemoveCultureTokensFromCardEffect(self, playerId, Token.DWARVEN, 1, Filters.any));
             action.appendEffect(
-                    new PreventCardEffect((AbstractPreventableCardEffect) effect, self.getAttachedTo()));
+                    new PreventCardEffect((PreventableCardEffect) effect, self.getAttachedTo()));
             return Collections.singletonList(action);
         }
         return null;

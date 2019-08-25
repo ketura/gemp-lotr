@@ -8,8 +8,8 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.cardtype.AbstractAttachableFPPossession;
-import com.gempukku.lotro.logic.effects.AbstractPreventableCardEffect;
 import com.gempukku.lotro.logic.effects.AddBurdenEffect;
+import com.gempukku.lotro.logic.effects.PreventableCardEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndPreventCardEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
@@ -48,7 +48,7 @@ public class Card11_040 extends AbstractAttachableFPPossession {
             action.appendCost(
                     new AddBurdenEffect(playerId, self, 1));
             action.appendEffect(
-                    new ChooseAndPreventCardEffect(self, (AbstractPreventableCardEffect) effect, playerId, "Choose Gandalf", Filters.gandalf));
+                    new ChooseAndPreventCardEffect(self, (PreventableCardEffect) effect, playerId, "Choose Gandalf", Filters.gandalf));
             return Collections.singletonList(action);
         }
         return null;

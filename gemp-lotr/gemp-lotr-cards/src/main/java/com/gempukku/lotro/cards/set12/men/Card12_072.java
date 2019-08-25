@@ -6,7 +6,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
-import com.gempukku.lotro.logic.effects.AbstractPreventableCardEffect;
+import com.gempukku.lotro.logic.effects.PreventableCardEffect;
 import com.gempukku.lotro.logic.effects.RemoveTwilightEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndPreventCardEffect;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
@@ -59,7 +59,7 @@ public class Card12_072 extends AbstractAttachable {
             action.appendCost(
                     new RemoveTwilightEffect(3));
             action.appendEffect(
-                    new ChooseAndPreventCardEffect(self, (AbstractPreventableCardEffect) effect, playerId, "Choose minion to prevent wound to", Culture.MEN, CardType.MINION));
+                    new ChooseAndPreventCardEffect(self, (PreventableCardEffect) effect, playerId, "Choose minion to prevent wound to", Culture.MEN, CardType.MINION));
             return Collections.singletonList(action);
         }
         return null;

@@ -6,14 +6,12 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.cardtype.AbstractAttachableFPPossession;
-import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
-import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
-import com.gempukku.lotro.logic.effects.PreventCardEffect;
+import com.gempukku.lotro.logic.effects.PreventableCardEffect;
 import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndPreventCardEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -45,23 +43,12 @@ public class Card4_063 extends AbstractAttachableFPPossession {
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
         if (TriggerConditions.isGettingDiscardedBy(effect, game, Side.SHADOW, CardType.POSSESSION, Filters.not(self), Filters.attachedTo(self.getAttachedTo()))) {
-            final DiscardCardsFromPlayEffect discardEffect = (DiscardCardsFromPlayEffect) effect;
-            Collection<PhysicalCard> discardedCards = discardEffect.getAffectedCardsMinusPrevented(game);
-
-            Collection<PhysicalCard> discardedPossesions = Filters.filter(discardedCards, game,
-                    CardType.POSSESSION, Filters.not(self), Filters.attachedTo(self.getAttachedTo()));
-
             final ActivateCardAction action = new ActivateCardAction(self);
             action.appendCost(
                     new SelfDiscardEffect(self));
             action.appendEffect(
-                    new ChooseActiveCardEffect(self, playerId, "Choose possession", Filters.in(discardedPossesions)) {
-                        @Override
-                        protected void cardSelected(LotroGame game, PhysicalCard card) {
-                            action.insertEffect(
-                                    new PreventCardEffect(discardEffect, card));
-                        }
-                    });
+                    new ChooseAndPreventCardEffect(self, (PreventableCardEffect) effect, playerId, "Choose possession",
+                            CardType.POSSESSION, Filters.not(self), Filters.attachedTo(self.getAttachedTo())));
             return Collections.singletonList(action);
         }
         return null;

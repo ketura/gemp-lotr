@@ -1,0 +1,27 @@
+package com.gempukku.lotro.cards.build.field.effect.trigger;
+
+import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
+import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
+import com.gempukku.lotro.cards.build.field.FieldUtils;
+import org.json.simple.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class TriggerCheckerFactory {
+    private Map<String, TriggerCheckerProducer> triggerCheckers = new HashMap<>();
+
+    public TriggerCheckerFactory() {
+        triggerCheckers.put("played", new PlayedTriggerCheckerProducer());
+        triggerCheckers.put("abouttodiscardfromplay", new AboutToDiscardFromPlay());
+        triggerCheckers.put("losesskirmish", new LosesSkirmish());
+    }
+
+    public TriggerChecker getTriggerChecker(JSONObject object, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
+        final String triggerType = FieldUtils.getString(object.get("type"), "type");
+        final TriggerCheckerProducer triggerCheckerProducer = triggerCheckers.get(triggerType.toLowerCase());
+        if (triggerCheckerProducer == null)
+            throw new InvalidCardDefinitionException("Unable to find trigger of type: " + triggerType);
+        return triggerCheckerProducer.getTriggerChecker(object, environment);
+    }
+}

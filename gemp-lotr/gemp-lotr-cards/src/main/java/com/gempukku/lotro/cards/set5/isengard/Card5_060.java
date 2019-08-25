@@ -1,7 +1,6 @@
 package com.gempukku.lotro.cards.set5.isengard;
 
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
@@ -12,7 +11,6 @@ import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -53,20 +51,14 @@ public class Card5_060 extends AbstractPermanent {
 
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
-        if (TriggerConditions.isGettingDiscarded(effect, game, Keyword.MACHINE)) {
-            DiscardCardsFromPlayEffect discardEffect = (DiscardCardsFromPlayEffect) effect;
-            if (!discardEffect.getPerformingPlayer().equals(self.getOwner())) {
-                ActivateCardAction action = new ActivateCardAction(self);
-                action.appendCost(
-                        new SelfDiscardEffect(self));
+        if (TriggerConditions.isGettingDiscardedByOpponent(effect, game, playerId, Keyword.MACHINE)) {
+            ActivateCardAction action = new ActivateCardAction(self);
+            action.appendCost(
+                    new SelfDiscardEffect(self));
+            action.appendEffect(
+                    new PreventCardEffect((PreventableCardEffect) effect, Keyword.MACHINE));
 
-                Collection<PhysicalCard> machines = Filters.filter(discardEffect.getAffectedCardsMinusPrevented(game), game, Keyword.MACHINE);
-                for (PhysicalCard machine : machines)
-                    action.appendEffect(
-                            new PreventCardEffect(discardEffect, machine));
-
-                return Collections.singletonList(action);
-            }
+            return Collections.singletonList(action);
         }
         return null;
     }
