@@ -4,6 +4,8 @@ import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import java.util.Set;
+
 public class FieldUtils {
 
     public static int getInteger(Object value, String key) throws InvalidCardDefinitionException {
@@ -67,5 +69,21 @@ public class FieldUtils {
             return (JSONObject[]) array.toArray(new JSONObject[0]);
         }
         throw new InvalidCardDefinitionException("Unknown type in " + key + " field");
+    }
+
+    public static void validateAllowedFields(JSONObject object, String... fields) throws InvalidCardDefinitionException {
+        Set<String> keys = object.keySet();
+        for (String key : keys) {
+            if (!key.equals("type") && !contains(fields, key))
+                throw new InvalidCardDefinitionException("Unrecognized field: " + key);
+        }
+    }
+
+    private static boolean contains(String[] fields, String key) {
+        for (String field : fields) {
+            if (field.equals(key))
+                return true;
+        }
+        return false;
     }
 }

@@ -14,6 +14,8 @@ import org.json.simple.JSONObject;
 public class AboutToDiscardFromPlay implements TriggerCheckerProducer {
     @Override
     public TriggerChecker getTriggerChecker(JSONObject value, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
+        FieldUtils.validateAllowedFields(value, "source", "filter");
+
         String source = FieldUtils.getString(value.get("source"), "source", "any");
         String filter = FieldUtils.getString(value.get("filter"), "source");
 
@@ -22,7 +24,7 @@ public class AboutToDiscardFromPlay implements TriggerCheckerProducer {
 
         return new TriggerChecker() {
             @Override
-            public boolean isTriggerValid(String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
+            public boolean accepts(String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
                 return TriggerConditions.isGettingDiscardedBy(effect, game,
                         sourceFilter.getFilterable(playerId, game, self, effectResult, effect),
                         affectedFilter.getFilterable(playerId, game, self, effectResult, effect));

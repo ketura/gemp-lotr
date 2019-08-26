@@ -15,6 +15,7 @@ public class RequirementFactory {
     public RequirementFactory() {
         requirementProducers.put("candiscardfromplay", new CanDiscardFromPlay());
         requirementProducers.put("canexert", new CanExert());
+        requirementProducers.put("canspot", new CanSpot());
     }
 
     public PlayRequirement getRequirement(JSONObject object, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {

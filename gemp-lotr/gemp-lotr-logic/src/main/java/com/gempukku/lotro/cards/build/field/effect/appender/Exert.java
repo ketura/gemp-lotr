@@ -21,6 +21,8 @@ import java.util.Collection;
 public class Exert implements EffectAppenderProducer {
     @Override
     public EffectAppender createEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
+        FieldUtils.validateAllowedFields(effectObject, "count", "times", "filter", "memory");
+
         final CountResolver.Count count = CountResolver.resolveCount(effectObject.get("count"), 1);
         final int times = FieldUtils.getInteger(effectObject.get("times"), "times", 1);
         final String filter = FieldUtils.getString(effectObject.get("filter"), "filter");

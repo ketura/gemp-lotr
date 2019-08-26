@@ -51,12 +51,12 @@
     "cost": 0,
     "type": "event",
     "keyword": "skirmish",
+    "requirement": {
+      "type": "canExert",
+      "filter": "dwarf"
+    },
     "effects": {
       "type": "event",
-      "requirement": {
-        "type": "canExert",
-        "filter": "dwarf"
-      },
       "cost": {
         "type": "exert",
         "filter": "choose(dwarf)"
@@ -75,12 +75,12 @@
     "cost": 2,
     "type": "event",
     "keyword": "skirmish",
+    "requirement": {
+      "type": "canExert",
+      "filter": "name(Gimli)"
+    },
     "effects": {
       "type": "event",
-      "requirement": {
-        "type": "canExert",
-        "filter": "name(Gimli)"
-      },
       "cost": {
         "type": "exert",
         "filter": "choose(name(Gimli))",

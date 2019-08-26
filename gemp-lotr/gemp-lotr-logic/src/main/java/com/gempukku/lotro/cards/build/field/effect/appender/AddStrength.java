@@ -22,6 +22,8 @@ import java.util.Collection;
 public class AddStrength implements EffectAppenderProducer {
     @Override
     public EffectAppender createEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
+        FieldUtils.validateAllowedFields(effectObject, "amount", "count", "filter", "memory");
+
         final int amount = FieldUtils.getInteger(effectObject.get("amount"), "amount");
         final CountResolver.Count count = CountResolver.resolveCount(effectObject.get("count"), 1);
         final String filter = FieldUtils.getString(effectObject.get("filter"), "filter");

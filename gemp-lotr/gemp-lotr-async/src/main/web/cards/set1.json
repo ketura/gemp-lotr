@@ -1,4 +1,26 @@
 {
+  "1_9": {
+    "title": "Dwarven Axe",
+    "side": "free people",
+    "culture": "dwarven",
+    "cost": 0,
+    "type": "possession",
+    "possession": "hand weapon",
+    "strength": 2,
+    "target": "dwarf",
+    "effects": {
+      "type": "trigger",
+      "trigger": {
+        "type": "losesSkirmish",
+        "filter": "minion",
+        "against": "hasAttached(self)"
+      },
+      "effect": {
+        "type": "discardTopCardFromDeck",
+        "deck": "owner(skirmishLoser)"
+      }
+    }
+  },
   "1_13": {
     "title": "Gimli",
     "subtitle": "Son of Gloin",
@@ -31,25 +53,23 @@
       }
     }
   },
-  "1_9": {
-    "title": "Dwarven Axe",
+  "1_38": {
+    "title": "Double Shot",
     "side": "free people",
-    "culture": "dwarven",
+    "culture": "elven",
     "cost": 0,
-    "type": "possession",
-    "possession": "hand weapon",
-    "strength": 2,
-    "target": "dwarf",
+    "type": "event",
+    "keyword": "archery",
+    "requirement": {
+      "type": "canSpot",
+      "filter": "elf,archer,companion"
+    },
     "effects": {
-      "type": "trigger",
-      "trigger": {
-        "type": "losesSkirmish",
-        "filter": "minion",
-        "against": "hasAttached(self)"
-      },
+      "type": "event",
       "effect": {
-        "type": "discardTopCardFromDeck",
-        "deck": "owner(skirmishLoser)"
+        "type": "addArcheryTotal",
+        "side": "free people",
+        "amount": 1
       }
     }
   },

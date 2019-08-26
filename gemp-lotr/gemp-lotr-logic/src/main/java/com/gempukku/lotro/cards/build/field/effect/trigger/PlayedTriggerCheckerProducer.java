@@ -15,11 +15,13 @@ import org.json.simple.JSONObject;
 public class PlayedTriggerCheckerProducer implements TriggerCheckerProducer {
     @Override
     public TriggerChecker getTriggerChecker(JSONObject value, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
+        FieldUtils.validateAllowedFields(value, "filter");
+
         final String filterString = FieldUtils.getString(value.get("filter"), "filter");
         final FilterableSource filter = environment.getFilterFactory().generateFilter(filterString);
         return new TriggerChecker() {
             @Override
-            public boolean isTriggerValid(String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
+            public boolean accepts(String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
                 final Filterable filterable = filter.getFilterable(playerId, game, self, effectResult, effect);
                 return TriggerConditions.played(game, effectResult, filterable);
             }

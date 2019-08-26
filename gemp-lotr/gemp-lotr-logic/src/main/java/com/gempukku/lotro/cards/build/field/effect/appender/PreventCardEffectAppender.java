@@ -19,6 +19,8 @@ import org.json.simple.JSONObject;
 public class PreventCardEffectAppender implements EffectAppenderProducer {
     @Override
     public EffectAppender createEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
+        FieldUtils.validateAllowedFields(effectObject, "filter", "memory");
+
         String filter = FieldUtils.getString(effectObject.get("filter"), "filter");
         final String memory = FieldUtils.getString(effectObject.get("memory"), "memory", "_temp");
 

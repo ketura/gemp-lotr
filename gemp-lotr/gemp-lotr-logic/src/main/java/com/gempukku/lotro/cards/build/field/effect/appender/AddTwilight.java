@@ -16,6 +16,8 @@ import org.json.simple.JSONObject;
 public class AddTwilight implements EffectAppenderProducer {
     @Override
     public EffectAppender createEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
+        FieldUtils.validateAllowedFields(effectObject, "amount");
+
         final int amount = FieldUtils.getInteger(effectObject.get("amount"), "amount");
 
         return new AbstractEffectAppender() {

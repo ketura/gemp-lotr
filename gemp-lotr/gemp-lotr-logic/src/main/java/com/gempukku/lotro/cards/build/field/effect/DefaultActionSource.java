@@ -32,7 +32,7 @@ public class DefaultActionSource implements ActionSource {
     @Override
     public boolean isValid(String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
         for (PlayRequirement playRequirement : playRequirements) {
-            if (!playRequirement.accepts(game, self))
+            if (!playRequirement.accepts(playerId, game, self, effectResult, effect))
                 return false;
         }
         return true;

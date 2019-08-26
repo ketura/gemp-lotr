@@ -18,6 +18,8 @@ import org.json.simple.JSONObject;
 public class StackTopCardOfDrawDeck implements EffectAppenderProducer {
     @Override
     public EffectAppender createEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
+        FieldUtils.validateAllowedFields(effectObject, "deck", "where", "count");
+
         final String deck = FieldUtils.getString(effectObject.get("deck"), "deck", "owner");
         final String where = FieldUtils.getString(effectObject.get("where"), "where");
         final int count = FieldUtils.getInteger(effectObject.get("count"), "count", 1);

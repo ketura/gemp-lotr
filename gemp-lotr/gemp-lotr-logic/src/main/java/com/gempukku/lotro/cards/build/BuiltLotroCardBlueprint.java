@@ -372,7 +372,7 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
             return true;
 
         for (PlayRequirement playRequirement : playRequirements) {
-            if (!playRequirement.accepts(game, self))
+            if (!playRequirement.accepts(null, game, self, null, null))
                 return false;
         }
 

@@ -9,7 +9,7 @@ import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import org.json.simple.JSONObject;
 
-public class CanDiscardFromPlay implements RequirementProducer {
+public class CanSpot implements RequirementProducer {
     @Override
     public PlayRequirement getPlayRequirement(JSONObject object, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         FieldUtils.validateAllowedFields(object, "count", "filter");
@@ -20,7 +20,7 @@ public class CanDiscardFromPlay implements RequirementProducer {
         final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter);
         return (playerId, game, self, effectResult, effect) -> {
             final Filterable filterable = filterableSource.getFilterable(null, game, self, null, null);
-            return PlayConditions.canDiscardFromPlay(self, game, count, filterable);
+            return PlayConditions.canSpot(game, count, filterable);
         };
     }
 }

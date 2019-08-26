@@ -12,12 +12,14 @@ import org.json.simple.JSONObject;
 public class CanExert implements RequirementProducer {
     @Override
     public PlayRequirement getPlayRequirement(JSONObject object, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
+        FieldUtils.validateAllowedFields(object, "count", "times", "filter");
+
         final int count = FieldUtils.getInteger(object.get("count"), "count", 1);
         final int times = FieldUtils.getInteger(object.get("times"), "times", 1);
         final String filter = FieldUtils.getString(object.get("filter"), "filter");
 
         final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter);
-        return (game, self) -> {
+        return (playerId, game, self, effectResult, effect) -> {
             final Filterable filterable = filterableSource.getFilterable(null, game, self, null, null);
             return PlayConditions.canExert(self, game, times, count, filterable);
         };
