@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.build.field.effect;
 
 import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
-import com.gempukku.lotro.cards.build.PlayRequirement;
+import com.gempukku.lotro.cards.build.Requirement;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.trigger.TriggerChecker;
 import org.json.simple.JSONObject;
@@ -19,8 +19,8 @@ public class EffectUtils {
     public static void processRequirementsCostsAndEffects(JSONObject value, CardGenerationEnvironment environment, DefaultActionSource actionSource) throws InvalidCardDefinitionException {
         final JSONObject[] requirementArray = FieldUtils.getObjectArray(value.get("requirement"), "requirement");
         for (JSONObject requirement : requirementArray) {
-            final PlayRequirement playRequirement = environment.getRequirementFactory().getRequirement(requirement, environment);
-            actionSource.addPlayRequirement(playRequirement);
+            final Requirement conditionRequirement = environment.getRequirementFactory().getRequirement(requirement, environment);
+            actionSource.addPlayRequirement(conditionRequirement);
         }
 
         processCostsAndEffects(value, environment, actionSource);

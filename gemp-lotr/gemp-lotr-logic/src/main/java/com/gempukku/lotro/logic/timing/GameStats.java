@@ -154,7 +154,7 @@ public class GameStats {
                         resistanceStr = "F" + resistance;
                     else if (signet == Signet.GANDALF)
                         resistanceStr = "G" + resistance;
-                    else if (signet == Signet.THÉODEN)
+                    else if (signet == Signet.THEODEN)
                         resistanceStr = "T" + resistance;
                     else
                         resistanceStr = String.valueOf(resistance);

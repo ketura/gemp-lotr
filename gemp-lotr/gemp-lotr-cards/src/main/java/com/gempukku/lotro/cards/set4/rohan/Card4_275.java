@@ -36,7 +36,7 @@ public class Card4_275 extends AbstractEvent {
         action.appendCost(
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Filters.name(Names.theoden)));
         action.appendEffect(
-                new ChooseActiveCardEffect(self, playerId, "Choose companion", CardType.COMPANION, Signet.THÉODEN) {
+                new ChooseActiveCardEffect(self, playerId, "Choose companion", CardType.COMPANION, Signet.THEODEN) {
                     @Override
                     protected void cardSelected(LotroGame game, PhysicalCard card) {
                         action.insertEffect(

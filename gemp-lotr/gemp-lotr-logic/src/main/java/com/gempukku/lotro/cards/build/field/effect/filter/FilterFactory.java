@@ -70,6 +70,11 @@ public class FilterFactory {
                     final FilterableSource filterableSource = filterFactory.generateFilter(parameter);
                     return (playerId, game, source, effectResult, effect) -> Filters.inSkirmishAgainst(filterableSource.getFilterable(playerId, game, source, effectResult, effect));
                 });
+        parameterFilters.put("assignedToSkirmish",
+                (parameter, filterFactory) -> {
+                    final FilterableSource filterableSource = filterFactory.generateFilter(parameter);
+                    return (playerId, game, source, effectResult, effect) -> Filters.assignedToSkirmishAgainst(filterableSource.getFilterable(playerId, game, source, effectResult, effect));
+                });
         parameterFilters.put("resistanceLessThan",
                 (parameter, filterFactory) -> {
                     int amount = Integer.parseInt(parameter);

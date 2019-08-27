@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class Card4_267 extends AbstractCompanion {
     public Card4_267() {
-        super(3, 7, 3, 6, Culture.ROHAN, Race.MAN, Signet.THÉODEN, Names.eomer, "Third Marshal of Riddermark", true);
+        super(3, 7, 3, 6, Culture.ROHAN, Race.MAN, Signet.THEODEN, Names.eomer, "Third Marshal of Riddermark", true);
     }
 
     @Override

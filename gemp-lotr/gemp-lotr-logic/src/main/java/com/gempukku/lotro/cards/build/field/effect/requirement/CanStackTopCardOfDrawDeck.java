@@ -8,7 +8,7 @@ import org.json.simple.JSONObject;
 
 public class CanStackTopCardOfDrawDeck implements RequirementProducer {
     @Override
-    public PlayRequirement getPlayRequirement(JSONObject object, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
+    public Requirement getPlayRequirement(JSONObject object, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         FieldUtils.validateAllowedFields(object, "deck", "where", "count");
 
         final String deck = FieldUtils.getString(object.get("deck"), "deck", "owner");

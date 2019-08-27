@@ -33,7 +33,7 @@ import java.util.List;
  */
 public class Card6_050 extends AbstractCompanion {
     public Card6_050() {
-        super(4, 8, 4, 6, Culture.GONDOR, Race.MAN, Signet.THÉODEN, "Aragorn", "Defender of Free Peoples", true);
+        super(4, 8, 4, 6, Culture.GONDOR, Race.MAN, Signet.THEODEN, "Aragorn", "Defender of Free Peoples", true);
     }
 
     @Override

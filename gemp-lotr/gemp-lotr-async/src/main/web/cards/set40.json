@@ -93,7 +93,7 @@
           "with": "memory(exertedGimli)"
         },
         {
-          "type": "addStrength",
+          "type": "modifyStrength",
           "filter": "memory(exertedGimli)",
           "amount": 2
         },
@@ -144,7 +144,7 @@
     "strength": 2,
     "target": "nazgul",
     "effects": {
-      "type": "addStrength",
+      "type": "modifyStrength",
       "filter": "hasAttached(self),inSkirmishAgainst(companion,resistanceLessThan(4))",
       "amount": 2
     }

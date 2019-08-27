@@ -17,9 +17,9 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("discard", new DiscardFromPlay());
         effectAppenderProducers.put("preventdiscard", new PreventCardEffectAppender());
         effectAppenderProducers.put("exert", new Exert());
-        effectAppenderProducers.put("addstrength", new AddStrength());
+        effectAppenderProducers.put("modifystrength", new ModifyStrength());
         effectAppenderProducers.put("addkeyword", new AddKeyword());
-        effectAppenderProducers.put("addarcherytotal", new AddArcheryTotal());
+        effectAppenderProducers.put("modifyarcherytotal", new ModifyArcheryTotal());
         effectAppenderProducers.put("addburden", new AddBurden());
         effectAppenderProducers.put("discardtopcardfromdeck", new DiscardTopCardFromDeck());
         effectAppenderProducers.put("addtwilight", new AddTwilight());

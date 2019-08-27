@@ -37,7 +37,7 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
     private Set<PossessionClass> possessionClasses;
     private Direction direction;
 
-    private List<PlayRequirement> playRequirements;
+    private List<Requirement> requirements;
     private List<FilterableSource> targetFilters;
 
     private List<ActionSource> requiredBeforeTriggers;
@@ -98,10 +98,10 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
         optionalAfterTriggers.add(actionSource);
     }
 
-    public void appendPlayRequirement(PlayRequirement playRequirement) {
-        if (playRequirements == null)
-            playRequirements = new LinkedList<>();
-        playRequirements.add(playRequirement);
+    public void appendPlayRequirement(Requirement requirement) {
+        if (requirements == null)
+            requirements = new LinkedList<>();
+        requirements.add(requirement);
     }
 
     public void appendInPlayModifier(ModifierSource modifierSource) {
@@ -368,11 +368,11 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
 
     @Override
     public boolean checkPlayRequirements(LotroGame game, PhysicalCard self) {
-        if (playRequirements == null)
+        if (requirements == null)
             return true;
 
-        for (PlayRequirement playRequirement : playRequirements) {
-            if (!playRequirement.accepts(null, game, self, null, null))
+        for (Requirement requirement : requirements) {
+            if (!requirement.accepts(null, game, self, null, null))
                 return false;
         }
 

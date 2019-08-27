@@ -47,7 +47,7 @@
         "filter": "self"
       },
       "effect": {
-        "type": "addStrength",
+        "type": "modifyStrength",
         "filter": "self",
         "amount": 2
       }
@@ -67,10 +67,30 @@
     "effects": {
       "type": "event",
       "effect": {
-        "type": "addArcheryTotal",
+        "type": "modifyArcheryTotal",
         "side": "free people",
         "amount": 1
       }
+    }
+  },
+  "1_51": {
+    "title": "Legolas",
+    "subtitle": "Prince of Mirkwood",
+    "unique": true,
+    "side": "free people",
+    "culture": "elven",
+    "cost": 2,
+    "type": "companion",
+    "race": "elf",
+    "strength": 6,
+    "vitality": 3,
+    "resistance": 6,
+    "signet": "gandalf",
+    "keyword": "archer",
+    "effects": {
+      "type": "modifyStrength",
+      "filter": "self,inSkirmishAgainst(nazgul)",
+      "amount": 3
     }
   },
   "1_94": {

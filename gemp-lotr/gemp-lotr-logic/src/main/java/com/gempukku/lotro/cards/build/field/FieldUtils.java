@@ -56,7 +56,7 @@ public class FieldUtils {
         if (value == null)
             return null;
         final String string = getString(value, key);
-        return Enum.valueOf(enumClass, string.toUpperCase().replace(' ', '_'));
+        return Enum.valueOf(enumClass, string.toUpperCase().replace(' ', '_').replace('-', '_'));
     }
 
     public static JSONObject[] getObjectArray(Object value, String key) throws InvalidCardDefinitionException {

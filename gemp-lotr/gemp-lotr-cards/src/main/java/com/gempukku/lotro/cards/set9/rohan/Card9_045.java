@@ -43,7 +43,7 @@ public class Card9_045 extends AbstractAttachableFPPossession {
     @Override
     public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
-                new AddSignetModifier(self, Filters.hasAttached(self), Signet.THÉODEN));
+                new AddSignetModifier(self, Filters.hasAttached(self), Signet.THEODEN));
     }
 
     @Override

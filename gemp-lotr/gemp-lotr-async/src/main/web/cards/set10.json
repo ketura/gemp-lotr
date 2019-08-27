@@ -1,0 +1,17 @@
+{
+  "10_121": {
+    "title": "Frodo",
+    "subtitle": "Resolute Hobbit",
+    "unique": true,
+    "side": "free people",
+    "culture": "shire",
+    "cost": 0,
+    "type": "companion",
+    "race": "hobbit",
+    "strength": 3,
+    "vitality": 4,
+    "resistance": 12,
+    "signet": "frodo",
+    "keyword": "can start with ring"
+  }
+}

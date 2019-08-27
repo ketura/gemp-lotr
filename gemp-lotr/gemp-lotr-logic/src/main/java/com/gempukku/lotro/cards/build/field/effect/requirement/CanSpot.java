@@ -3,7 +3,7 @@ package com.gempukku.lotro.cards.build.field.effect.requirement;
 import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
 import com.gempukku.lotro.cards.build.FilterableSource;
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
-import com.gempukku.lotro.cards.build.PlayRequirement;
+import com.gempukku.lotro.cards.build.Requirement;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.logic.timing.PlayConditions;
@@ -11,7 +11,7 @@ import org.json.simple.JSONObject;
 
 public class CanSpot implements RequirementProducer {
     @Override
-    public PlayRequirement getPlayRequirement(JSONObject object, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
+    public Requirement getPlayRequirement(JSONObject object, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         FieldUtils.validateAllowedFields(object, "count", "filter");
 
         final int count = FieldUtils.getInteger(object.get("count"), "count", 1);

@@ -1,14 +1,14 @@
 package com.gempukku.lotro.cards.set5.dwarven;
 
-import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
-import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
+import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
 import com.gempukku.lotro.logic.effects.ChooseAndWoundCharactersEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class Card5_007 extends AbstractCompanion {
     public Card5_007() {
-        super(2, 6, 3, 6, Culture.DWARVEN, Race.DWARF, Signet.THÉODEN, "Gimli", "Skilled Defender", true);
+        super(2, 6, 3, 6, Culture.DWARVEN, Race.DWARF, Signet.THEODEN, "Gimli", "Skilled Defender", true);
         addKeyword(Keyword.DAMAGE, 1);
     }
 
