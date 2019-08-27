@@ -122,6 +122,18 @@
       }
     }
   },
+  "1_158": {
+    "title": "Uruk-hai Raiding Party",
+    "side": "shadow",
+    "culture": "isengard",
+    "cost": 4,
+    "type": "minion",
+    "race": "uruk-hai",
+    "strength": 9,
+    "vitality": 3,
+    "site": 5,
+    "keyword": "damage+1"
+  },
   "1_178": {
     "title": "Goblin Runner",
     "side": "shadow",
@@ -143,6 +155,40 @@
         "amount": 2
       }
     }
+  },
+  "1_262": {
+    "title": "Orc Assassin",
+    "side": "shadow",
+    "culture": "sauron",
+    "cost": 2,
+    "type": "minion",
+    "race": "orc",
+    "strength": 6,
+    "vitality": 2,
+    "site": 6,
+    "keyword": "tracker",
+    "effects": [
+      {
+        "type": "modifyRoamingPenalty",
+        "filter": "culture(sauron),minion,your",
+        "amount": -1
+      },
+      {
+        "type": "activated",
+        "phase": "assignment",
+        "requirement": {
+          "type": "canSpot",
+          "filter": "hobbit,companion",
+          "count": 2
+        },
+        "effect": {
+          "type": "assignToSkirmishAgainstMinion",
+          "player": "fp",
+          "fpCharacter": "choose(hobbit)",
+          "against": "self"
+        }
+      }
+    ]
   },
   "1_297": {
     "title": "Hobbit Party Guest",
@@ -194,9 +240,26 @@
     "resistance": 6,
     "signet": "aragorn",
     "effects": {
-      "type": "modifystrength",
+      "type": "modifyStrength",
       "filter": "self,hasAttached(weapon)",
       "amount": 2
+    }
+  },
+  "1_306": {
+    "title": "Pippin",
+    "subtitle": "Friend to Frodo",
+    "unique": true,
+    "side": "free people",
+    "cost": 0,
+    "type": "companion",
+    "race": "hobbit",
+    "strength": 3,
+    "vitality": 4,
+    "resistance": 6,
+    "signet": "frodo",
+    "effects": {
+      "type": "opponentMayNotDiscard",
+      "filter": "your,culture(shire),tale"
     }
   }
 }

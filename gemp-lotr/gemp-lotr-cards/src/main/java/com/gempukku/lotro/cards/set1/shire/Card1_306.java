@@ -33,6 +33,6 @@ public class Card1_306 extends AbstractCompanion {
 
     @Override
     public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
-return Collections.singletonList(new CantDiscardFromPlayByPlayerModifier(self, "Can't be discarded by opponent", Filters.and(Culture.SHIRE, Keyword.TALE), self.getOwner()));
-}
+        return Collections.singletonList(new CantDiscardFromPlayByPlayerModifier(self, "Can't be discarded by opponent", Filters.and(Culture.SHIRE, Keyword.TALE), self.getOwner()));
+    }
 }

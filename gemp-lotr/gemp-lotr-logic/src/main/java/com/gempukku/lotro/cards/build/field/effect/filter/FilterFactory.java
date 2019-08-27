@@ -84,7 +84,14 @@ public class FilterFactory {
         parameterFilters.put("not",
                 (parameter, filterFactory) -> {
                     final FilterableSource filterableSource = filterFactory.generateFilter(parameter);
-                    return (FilterableSource) (playerId, game, source, effectResult, effect) -> Filters.not(filterableSource.getFilterable(playerId, game, source, effectResult, effect));
+                    return (playerId, game, source, effectResult, effect) -> Filters.not(filterableSource.getFilterable(playerId, game, source, effectResult, effect));
+                });
+        parameterFilters.put("site",
+                (parameter, filterFactory) -> (playerId, game, source, effectResult, effect) -> {
+                    final String[] parameterSplit = parameter.split(",");
+                    final SitesBlock sitesBlock = Enum.valueOf(SitesBlock.class, parameterSplit[0].toUpperCase().replace('_', ' '));
+                    int number = Integer.parseInt(parameterSplit[1]);
+                    return Filters.and(Filters.siteBlock(sitesBlock), Filters.siteNumber(number));
                 });
     }
 
@@ -160,16 +167,16 @@ public class FilterFactory {
     }
 
     private FilterableSource lookupFilter(String name, String parameter) throws InvalidCardDefinitionException {
-        FilterableSource result = simpleFilters.get(name.toLowerCase());
-        if (result != null)
-            return result;
+        if (parameter == null) {
+            FilterableSource result = simpleFilters.get(name.toLowerCase());
+            if (result != null)
+                return result;
+        }
 
         final FilterableSourceProducer filterableSourceProducer = parameterFilters.get(name);
         if (filterableSourceProducer == null)
             throw new InvalidCardDefinitionException("Unable to find filter: " + name);
 
-        result = filterableSourceProducer.createFilterableSource(parameter, this);
-
-        return result;
+        return filterableSourceProducer.createFilterableSource(parameter, this);
     }
 }

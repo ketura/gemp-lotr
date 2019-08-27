@@ -8,9 +8,7 @@ import com.gempukku.lotro.cards.build.field.effect.ActivatedEffectProcessor;
 import com.gempukku.lotro.cards.build.field.effect.ActivatedTriggerEffectProcessor;
 import com.gempukku.lotro.cards.build.field.effect.EventEffectProcessor;
 import com.gempukku.lotro.cards.build.field.effect.TriggerEffectProcessor;
-import com.gempukku.lotro.cards.build.field.effect.modifier.AddKeyword;
-import com.gempukku.lotro.cards.build.field.effect.modifier.ArcheryTotal;
-import com.gempukku.lotro.cards.build.field.effect.modifier.ModifyStrength;
+import com.gempukku.lotro.cards.build.field.effect.modifier.*;
 import org.json.simple.JSONObject;
 
 import java.util.HashMap;
@@ -25,8 +23,10 @@ public class EffectFieldProcessor implements FieldProcessor {
         effectProcessors.put("activated", new ActivatedEffectProcessor());
         effectProcessors.put("event", new EventEffectProcessor());
         effectProcessors.put("modifystrength", new ModifyStrength());
+        effectProcessors.put("modifyroamingpenalty", new ModifyRoamingPenalty());
         effectProcessors.put("addkeyword", new AddKeyword());
         effectProcessors.put("archerytotal", new ArcheryTotal());
+        effectProcessors.put("opponentmaynotdiscard", new OpponentMayNotDiscard());
     }
 
     @Override
