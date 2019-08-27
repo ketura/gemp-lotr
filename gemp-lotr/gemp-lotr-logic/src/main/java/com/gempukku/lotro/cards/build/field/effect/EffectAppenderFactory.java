@@ -30,6 +30,7 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("canttakemorewoundsthan", new CantTakeMoreWoundsThan());
         effectAppenderProducers.put("choice", new Choice());
         effectAppenderProducers.put("assigntoskirmishagainstminion", new AssignToSkirmishAgainstMinion());
+        effectAppenderProducers.put("putcardfromhandonbottomofdeck", new PutCardFromHandOnBottomOfDeck());
     }
 
     public EffectAppender getEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {

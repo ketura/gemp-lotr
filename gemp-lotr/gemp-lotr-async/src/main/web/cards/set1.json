@@ -1,4 +1,19 @@
 {
+  "1_7": {
+    "title": "Dwarf Guard",
+    "side": "free people",
+    "culture": "dwarven",
+    "cost": 0,
+    "type": "companion",
+    "race": "dwarf",
+    "strength": 4,
+    "vitality": 2,
+    "resistance": 6,
+    "requirement": {
+      "type": "canSpot",
+      "filter": "dwarf"
+    }
+  },
   "1_9": {
     "title": "Dwarven Axe",
     "side": "free people",
@@ -19,6 +34,61 @@
         "type": "discardTopCardFromDeck",
         "deck": "owner(skirmishLoser)"
       }
+    }
+  },
+  "1_11": {
+    "title": "Farin",
+    "subtitle": "Dwarven Emissary",
+    "unique": true,
+    "side": "free people",
+    "culture": "dwarven",
+    "cost": 2,
+    "type": "companion",
+    "race": "dwarf",
+    "strength": 5,
+    "vitality": 3,
+    "resistance": 6,
+    "requirement": {
+      "type": "canSpot",
+      "filter": "dwarf"
+    },
+    "effects": {
+      "type": "modifyStrength",
+      "filter": "self,inSkirmishAgainst(orc)",
+      "amount": 2
+    }
+  },
+  "1_12": {
+    "title": "Gimli",
+    "subtitle": "Dwarf of Erebor",
+    "unique": true,
+    "side": "free people",
+    "culture": "dwarven",
+    "cost": 2,
+    "type": "companion",
+    "race": "dwarf",
+    "strength": 6,
+    "vitality": 3,
+    "resistance": 6,
+    "signet": "aragorn",
+    "keyword": "damage+1",
+    "effects": {
+      "type": "activated",
+      "phase": "fellowship",
+      "requirement": {
+        "type": "twilightPoolLessThan",
+        "amount": 2
+      },
+      "cost": {
+        "type": "addTwilight",
+        "amount": 2
+      },
+      "effect": [
+        {
+          "type": "putCardFromHandOnBottomOfDeck",
+          "count": 1
+        }
+      ]
     }
   },
   "1_13": {
