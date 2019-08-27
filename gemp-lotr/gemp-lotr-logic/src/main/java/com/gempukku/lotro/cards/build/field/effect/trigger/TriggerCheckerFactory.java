@@ -13,8 +13,9 @@ public class TriggerCheckerFactory {
 
     public TriggerCheckerFactory() {
         triggerCheckers.put("played", new PlayedTriggerCheckerProducer());
-        triggerCheckers.put("abouttodiscardfromplay", new AboutToDiscardFromPlay());
+        triggerCheckers.put("abouttodiscard", new AboutToDiscardFromPlay());
         triggerCheckers.put("losesskirmish", new LosesSkirmish());
+        triggerCheckers.put("winsskirmish", new LosesSkirmish());
     }
 
     public TriggerChecker getTriggerChecker(JSONObject object, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {

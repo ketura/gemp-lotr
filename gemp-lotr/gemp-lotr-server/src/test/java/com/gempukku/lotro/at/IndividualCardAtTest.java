@@ -1061,7 +1061,7 @@ public class IndividualCardAtTest extends AbstractAtTest {
     public void blockRemovingBurdens() throws CardNotFoundException, DecisionResultInvalidException {
         initializeSimplestGame();
 
-        PhysicalCardImpl blackBreath = new PhysicalCardImpl(100, "1_207", P1, _library.getLotroCardBlueprint("1_207"));
+        PhysicalCardImpl blackBreath = new PhysicalCardImpl(100, "1_207", P2, _library.getLotroCardBlueprint("1_207"));
         PhysicalCardImpl sam = new PhysicalCardImpl(100, "1_311", P1, _library.getLotroCardBlueprint("1_311"));
 
         _game.getGameState().attachCard(_game, blackBreath, _game.getGameState().getRingBearer(P1));
@@ -1073,5 +1073,100 @@ public class IndividualCardAtTest extends AbstractAtTest {
         playerDecided(P1, getCardActionId(_userFeedback.getAwaitingDecision(P1), "Use Sam"));
 
         assertEquals(burdensBefore, _game.getGameState().getBurdens());
+    }
+
+    @Test
+    public void athelasDoesNothing() throws CardNotFoundException, DecisionResultInvalidException {
+        initializeSimplestGame();
+
+        PhysicalCardImpl athelas = new PhysicalCardImpl(100, "1_94", P1, _library.getLotroCardBlueprint("1_94"));
+        PhysicalCardImpl aragorn = new PhysicalCardImpl(101, "1_89", P1, _library.getLotroCardBlueprint("1_89"));
+
+        _game.getGameState().addCardToZone(_game, aragorn, Zone.FREE_CHARACTERS);
+        _game.getGameState().attachCard(_game, athelas, aragorn);
+
+        skipMulligans();
+
+        // Use Athelas
+        playerDecided(P1, getCardActionId(P1, "Use Athelas"));
+
+        assertEquals(Zone.DISCARD, athelas.getZone());
+
+        // Pass
+        playerDecided(P1, "");
+
+        playerDecided(P2, "");
+    }
+
+    @Test
+    public void athelasHeals() throws CardNotFoundException, DecisionResultInvalidException {
+        initializeSimplestGame();
+
+        PhysicalCardImpl athelas = new PhysicalCardImpl(100, "1_94", P1, _library.getLotroCardBlueprint("1_94"));
+        PhysicalCardImpl aragorn = new PhysicalCardImpl(101, "1_89", P1, _library.getLotroCardBlueprint("1_89"));
+
+        _game.getGameState().addCardToZone(_game, aragorn, Zone.FREE_CHARACTERS);
+        _game.getGameState().attachCard(_game, athelas, aragorn);
+        _game.getGameState().addTokens(aragorn, Token.WOUND, 1);
+
+        skipMulligans();
+
+        // Use Athelas
+        playerDecided(P1, getCardActionId(P1, "Use Athelas"));
+
+        assertEquals(Zone.DISCARD, athelas.getZone());
+        assertEquals(0, _game.getGameState().getTokenCount(aragorn, Token.WOUND));
+
+        // Pass
+        playerDecided(P1, "");
+
+        playerDecided(P2, "");
+    }
+
+    @Test
+    public void athelasRemovesCondition() throws CardNotFoundException, DecisionResultInvalidException {
+        initializeSimplestGame();
+
+        PhysicalCardImpl athelas = new PhysicalCardImpl(100, "1_94", P1, _library.getLotroCardBlueprint("1_94"));
+        PhysicalCardImpl aragorn = new PhysicalCardImpl(101, "1_89", P1, _library.getLotroCardBlueprint("1_89"));
+        PhysicalCardImpl blackBreath = new PhysicalCardImpl(100, "1_207", P2, _library.getLotroCardBlueprint("1_207"));
+
+        _game.getGameState().addCardToZone(_game, aragorn, Zone.FREE_CHARACTERS);
+        _game.getGameState().attachCard(_game, athelas, aragorn);
+        _game.getGameState().attachCard(_game, blackBreath, aragorn);
+
+        skipMulligans();
+
+        // Use Athelas
+        playerDecided(P1, getCardActionId(P1, "Use Athelas"));
+
+        assertEquals(Zone.DISCARD, athelas.getZone());
+        assertEquals(Zone.DISCARD, blackBreath.getZone());
+
+        // Pass
+        playerDecided(P1, "");
+
+        playerDecided(P2, "");
+    }
+
+    @Test
+    public void athelasGivesChoice() throws CardNotFoundException, DecisionResultInvalidException {
+        initializeSimplestGame();
+
+        PhysicalCardImpl athelas = new PhysicalCardImpl(100, "1_94", P1, _library.getLotroCardBlueprint("1_94"));
+        PhysicalCardImpl aragorn = new PhysicalCardImpl(101, "1_89", P1, _library.getLotroCardBlueprint("1_89"));
+        PhysicalCardImpl blackBreath = new PhysicalCardImpl(100, "1_207", P2, _library.getLotroCardBlueprint("1_207"));
+
+        _game.getGameState().addCardToZone(_game, aragorn, Zone.FREE_CHARACTERS);
+        _game.getGameState().attachCard(_game, athelas, aragorn);
+        _game.getGameState().attachCard(_game, blackBreath, aragorn);
+        _game.getGameState().addTokens(_game.getGameState().getRingBearer(P1), Token.WOUND, 1);
+
+        skipMulligans();
+
+        // Use Athelas
+        playerDecided(P1, getCardActionId(P1, "Use Athelas"));
+
+        assertEquals(AwaitingDecisionType.MULTIPLE_CHOICE, _userFeedback.getAwaitingDecision(P1).getDecisionType());
     }
 }

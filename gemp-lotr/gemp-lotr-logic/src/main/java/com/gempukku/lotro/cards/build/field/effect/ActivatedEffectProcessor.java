@@ -16,6 +16,9 @@ public class ActivatedEffectProcessor implements EffectProcessor {
 
         final String[] phaseArray = FieldUtils.getStringArray(value.get("phase"), "phase");
 
+        if (phaseArray.length == 0)
+            throw new InvalidCardDefinitionException("Unable to find phase for an activated effect");
+
         for (String phaseString : phaseArray) {
             final Phase phase = Phase.valueOf(phaseString.toUpperCase());
 

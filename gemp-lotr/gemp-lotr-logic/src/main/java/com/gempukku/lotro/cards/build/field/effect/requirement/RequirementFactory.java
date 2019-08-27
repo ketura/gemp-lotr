@@ -13,9 +13,10 @@ public class RequirementFactory {
     private Map<String, RequirementProducer> requirementProducers = new HashMap<>();
 
     public RequirementFactory() {
-        requirementProducers.put("candiscardfromplay", new CanDiscardFromPlay());
+        requirementProducers.put("candiscard", new CanDiscardFromPlay());
         requirementProducers.put("canexert", new CanExert());
         requirementProducers.put("canspot", new CanSpot());
+        requirementProducers.put("canstacktopcardofdrawdeck", new CanStackTopCardOfDrawDeck());
     }
 
     public PlayRequirement getRequirement(JSONObject object, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {

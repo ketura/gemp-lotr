@@ -27,7 +27,7 @@ public class ReplaceInSkirmish implements EffectAppenderProducer {
 
         MultiEffectAppender result = new MultiEffectAppender();
         result.addEffectAppender(
-                CardResolver.resolveCard(with, "_temp", "Choose character to replace with in skirmish", environment));
+                CardResolver.resolveCard(with, "_temp", "owner", "Choose character to replace with in skirmish", environment));
         result.addEffectAppender(
                 new DelayedAppender() {
                     @Override

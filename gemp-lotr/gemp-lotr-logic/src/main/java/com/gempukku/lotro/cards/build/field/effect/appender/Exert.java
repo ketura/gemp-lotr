@@ -21,8 +21,9 @@ import java.util.Collection;
 public class Exert implements EffectAppenderProducer {
     @Override
     public EffectAppender createEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(effectObject, "count", "times", "filter", "memory");
+        FieldUtils.validateAllowedFields(effectObject, "player", "count", "times", "filter", "memory");
 
+        final String player = FieldUtils.getString(effectObject.get("player"), "player", "owner");
         final CountResolver.Count count = CountResolver.resolveCount(effectObject.get("count"), 1);
         final int times = FieldUtils.getInteger(effectObject.get("times"), "times", 1);
         final String filter = FieldUtils.getString(effectObject.get("filter"), "filter");
@@ -33,7 +34,7 @@ public class Exert implements EffectAppenderProducer {
         result.addEffectAppender(
                 CardResolver.resolveCards(filter,
                         (playerId, game, source, effectResult, effect) -> Filters.canExert(source, times),
-                        count.getMin(), count.getMax(), memory, "Choose cards to exert", environment));
+                        count.getMin(), count.getMax(), memory, player, "Choose cards to exert", environment));
         result.addEffectAppender(
                 new DelayedAppender() {
                     @Override

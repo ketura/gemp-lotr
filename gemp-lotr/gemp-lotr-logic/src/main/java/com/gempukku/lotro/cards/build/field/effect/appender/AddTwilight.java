@@ -25,6 +25,11 @@ public class AddTwilight implements EffectAppenderProducer {
             protected Effect createEffect(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
                 return new AddTwilightEffect(self, amount);
             }
+
+            @Override
+            public boolean isPlayableInFull(String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
+                return true;
+            }
         };
     }
 }

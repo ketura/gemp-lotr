@@ -8,6 +8,7 @@ import com.gempukku.lotro.cards.build.field.effect.ActivatedEffectProcessor;
 import com.gempukku.lotro.cards.build.field.effect.ActivatedTriggerEffectProcessor;
 import com.gempukku.lotro.cards.build.field.effect.EventEffectProcessor;
 import com.gempukku.lotro.cards.build.field.effect.TriggerEffectProcessor;
+import com.gempukku.lotro.cards.build.field.effect.modifier.AddStrength;
 import org.json.simple.JSONObject;
 
 import java.util.HashMap;
@@ -21,6 +22,7 @@ public class EffectFieldProcessor implements FieldProcessor {
         effectProcessors.put("activatedtrigger", new ActivatedTriggerEffectProcessor());
         effectProcessors.put("activated", new ActivatedEffectProcessor());
         effectProcessors.put("event", new EventEffectProcessor());
+        effectProcessors.put("addstrength", new AddStrength());
     }
 
     @Override

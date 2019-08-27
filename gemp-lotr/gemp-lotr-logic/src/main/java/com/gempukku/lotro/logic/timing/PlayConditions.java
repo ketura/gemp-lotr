@@ -220,8 +220,8 @@ public class PlayConditions {
                 && canSpot(game, onto);
     }
 
-    public static boolean canStackDeckTopCards(PhysicalCard source, LotroGame game, String playerId, int cardCount, Filterable... onto) {
-        return game.getGameState().getDeck(playerId).size() >= cardCount
+    public static boolean canStackDeckTopCards(PhysicalCard source, LotroGame game, String deckId, int cardCount, Filterable... onto) {
+        return game.getGameState().getDeck(deckId).size() >= cardCount
                 && canSpot(game, onto);
     }
 

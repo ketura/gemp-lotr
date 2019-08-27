@@ -32,7 +32,7 @@ public class AddStrength implements EffectAppenderProducer {
         MultiEffectAppender result = new MultiEffectAppender();
 
         result.addEffectAppender(
-                CardResolver.resolveCards(filter, count.getMin(), count.getMax(), memory, "Choose cards to add strength to", environment));
+                CardResolver.resolveCards(filter, count.getMin(), count.getMax(), memory, null, "Choose cards to add strength to", environment));
         result.addEffectAppender(
                 new DelayedAppender() {
                     @Override

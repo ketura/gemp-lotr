@@ -9,6 +9,16 @@ import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
 public abstract class DelayedAppender implements EffectAppender {
+    private String text;
+
+    public DelayedAppender() {
+
+    }
+
+    public DelayedAppender(String text) {
+        this.text = text;
+    }
+
     @Override
     public final void appendCost(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
         action.appendCost(
@@ -16,6 +26,11 @@ public abstract class DelayedAppender implements EffectAppender {
                     @Override
                     protected void doPlayEffect(LotroGame game) {
                         action.appendCost(createEffect(action, playerId, game, self, effectResult, effect));
+                    }
+
+                    @Override
+                    public String getText(LotroGame game) {
+                        return text;
                     }
                 });
     }
@@ -28,8 +43,18 @@ public abstract class DelayedAppender implements EffectAppender {
                     protected void doPlayEffect(LotroGame game) {
                         action.appendEffect(createEffect(action, playerId, game, self, effectResult, effect));
                     }
+
+                    @Override
+                    public String getText(LotroGame game) {
+                        return text;
+                    }
                 });
     }
 
     protected abstract Effect createEffect(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect);
+
+    @Override
+    public boolean isPlayableInFull(String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
+        return true;
+    }
 }

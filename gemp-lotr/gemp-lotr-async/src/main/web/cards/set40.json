@@ -25,20 +25,20 @@
       {
         "type": "activatedTrigger",
         "requirement": {
-          "type": "canDiscardFromPlay",
+          "type": "canDiscard",
           "filter": "self"
         },
         "trigger": {
-          "type": "aboutToDiscardFromPlay",
+          "type": "aboutToDiscard",
           "source": "shadow",
           "filter": "your,culture(dwarven),condition"
         },
         "cost": {
-          "type": "discardFromPlay",
+          "type": "discard",
           "filter": "self"
         },
         "effect": {
-          "type": "preventDiscardFromPlay",
+          "type": "preventDiscard",
           "filter": "choose(your,culture(dwarven),condition)"
         }
       }
@@ -103,6 +103,89 @@
           "keyword": "damage+1"
         }
       ]
+    }
+  },
+  "40_6": {
+    "title": "Battle Tested",
+    "side": "free people",
+    "culture": "dwarven",
+    "cost": 0,
+    "type": "event",
+    "keyword": "skirmish",
+    "requirement": {
+      "type": "canStackTopCardOfDrawDeck",
+      "deck": "owner",
+      "where": "culture(dwarven),support area,condition",
+      "count": 3
+    },
+    "effects": {
+      "type": "event",
+      "cost": {
+        "type": "stackTopCardOfDrawDeck",
+        "deck": "owner",
+        "where": "choose(culture(dwarven),support area,condition)",
+        "count": 3
+      },
+      "effect": {
+        "type": "cantTakeMoreWoundsThan",
+        "filter": "choose(dwarf)",
+        "wounds": 1
+      }
+    }
+  },
+  "40_184": {
+    "title": "Black Steed",
+    "subtitle": "Bred to Serve",
+    "side": "shadow",
+    "culture": "wraith",
+    "cost": 1,
+    "type": "possession",
+    "possession": "mount",
+    "strength": 2,
+    "target": "nazgul",
+    "effects": {
+      "type": "addStrength",
+      "filter": "hasAttached(self),inSkirmishAgainst(companion,resistanceLessThan(4))",
+      "amount": 2
+    }
+  },
+  "40_211": {
+    "title": "The Witch-king",
+    "subtitle": "Greatest of the Nine",
+    "unique": true,
+    "side": "shadow",
+    "culture": "wraith",
+    "cost": 8,
+    "type": "minion",
+    "race": "nazgul",
+    "strength": 14,
+    "vitality": 4,
+    "site": 3,
+    "keyword": "fierce",
+    "effects": {
+      "type": "trigger",
+      "trigger": {
+        "type": "winsSkirmish",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "choice",
+        "texts": [
+          "Exert the Ring-bearer",
+          "Add a burden"
+        ],
+        "effects": [
+          {
+            "type": "exert",
+            "player": "fp",
+            "filter": "choose(ring bearer)"
+          },
+          {
+            "type": "addBurden",
+            "player": "fp"
+          }
+        ]
+      }
     }
   }
 }

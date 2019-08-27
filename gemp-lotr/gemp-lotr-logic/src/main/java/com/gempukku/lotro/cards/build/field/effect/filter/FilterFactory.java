@@ -27,6 +27,8 @@ public class FilterFactory {
         for (Signet value : Signet.values())
             appendFilter(value);
 
+        simpleFilters.put("ring bearer", (playerId, game, source, effectResult, effect) -> Filters.ringBearer);
+        simpleFilters.put("any", (playerId, game, source, effectResult, effect) -> Filters.any);
         simpleFilters.put("self", (playerId, game, source, effectResult, effect) -> source);
         simpleFilters.put("your", (playerId, game, source, effectResult, effect) -> Filters.owner(source.getOwner()));
         simpleFilters.put("skirmishloser",
@@ -44,17 +46,39 @@ public class FilterFactory {
 
             return (playerId, game, source, effectResult, effect) -> culture;
         });
+        parameterFilters.put("side", (parameter, filterFactory) -> {
+            final Side side = Side.valueOf(parameter.toUpperCase().replace(" ", "_"));
+            if (side == null)
+                throw new InvalidCardDefinitionException("Unable to find side for: " + parameter);
+
+            return (playerId, game, source, effectResult, effect) -> side;
+        });
         parameterFilters.put("hasAttached",
                 (parameter, filterFactory) -> {
                     final FilterableSource filterableSource = filterFactory.generateFilter(parameter);
                     return (playerId, game, source, effectResult, effect) -> Filters.hasAttached(filterableSource.getFilterable(playerId, game, source, effectResult, effect));
                 });
+        parameterFilters.put("attachedTo",
+                (parameter, filterFactory) -> {
+                    final FilterableSource filterableSource = filterFactory.generateFilter(parameter);
+                    return (playerId, game, source, effectResult, effect) -> Filters.attachedTo(filterableSource.getFilterable(playerId, game, source, effectResult, effect));
+                });
         parameterFilters.put("name",
                 (parameter, filterFactory) -> (playerId, game, source, effectResult, effect) -> Filters.name(parameter));
+        parameterFilters.put("inSkirmishAgainst",
+                (parameter, filterFactory) -> {
+                    final FilterableSource filterableSource = filterFactory.generateFilter(parameter);
+                    return (playerId, game, source, effectResult, effect) -> Filters.inSkirmishAgainst(filterableSource.getFilterable(playerId, game, source, effectResult, effect));
+                });
+        parameterFilters.put("resistanceLessThan",
+                (parameter, filterFactory) -> {
+                    int amount = Integer.parseInt(parameter);
+                    return (playerId, game, source, effectResult, effect) -> Filters.maxResistance(amount + 1);
+                });
     }
 
     private void appendFilter(Filterable value) {
-        final String filterName = value.toString().toLowerCase();
+        final String filterName = value.toString().toLowerCase().replace("_", " ");
         if (simpleFilters.containsKey(filterName))
             throw new RuntimeException("Duplicate filter name: " + filterName);
         simpleFilters.put(filterName, (playerId, game, source, effectResult, effect) -> value);
@@ -90,6 +114,8 @@ public class FilterFactory {
             if (depth > 0) {
                 if (ch == ')')
                     depth--;
+                if (ch == '(')
+                    depth++;
                 sb.append(ch);
             } else {
                 if (ch == ',') {
