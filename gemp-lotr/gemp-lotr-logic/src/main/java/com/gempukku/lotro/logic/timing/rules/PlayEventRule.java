@@ -55,8 +55,6 @@ public class PlayEventRule {
     private boolean checkIfCorrectPhase(LotroGame game, LotroCardBlueprint blueprint) {
         final Phase currentPhase = game.getGameState().getCurrentPhase();
         final Keyword keyword = phaseKeywordMap.get(currentPhase);
-        if (keyword != null && blueprint.hasKeyword(keyword))
-            return true;
-        return false;
+        return keyword != null && blueprint.hasKeyword(keyword);
     }
 }

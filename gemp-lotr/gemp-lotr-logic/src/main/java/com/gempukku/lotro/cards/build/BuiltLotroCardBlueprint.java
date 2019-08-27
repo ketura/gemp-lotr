@@ -376,6 +376,9 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
                 return false;
         }
 
+        if (playEventAction != null)
+            playEventAction.isValid(null, game, self, null, null);
+
         return true;
     }
 
