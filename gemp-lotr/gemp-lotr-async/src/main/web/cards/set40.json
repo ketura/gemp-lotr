@@ -170,6 +170,7 @@
       },
       "effect": {
         "type": "choice",
+        "player": "fp",
         "texts": [
           "Exert the Ring-bearer",
           "Add a burden"
