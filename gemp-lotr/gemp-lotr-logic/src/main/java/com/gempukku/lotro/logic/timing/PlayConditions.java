@@ -234,7 +234,11 @@ public class PlayConditions {
     }
 
     public static boolean isActive(LotroGame game, Filterable... filters) {
-        return Filters.countActive(game, filters) > 0;
+        return isActive(game, 1, filters);
+    }
+
+    public static boolean isActive(LotroGame game, int count, Filterable... filters) {
+        return Filters.countActive(game, filters) >= count;
     }
 
     public static boolean canSpot(LotroGame game, int count, Filterable... filters) {

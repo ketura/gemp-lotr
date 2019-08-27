@@ -119,6 +119,26 @@
       }
     }
   },
+  "1_30": {
+    "title": "Arwen",
+    "subtitle": "Daughter of Elrond",
+    "unique": true,
+    "side": "free people",
+    "culture": "elven",
+    "cost": 2,
+    "type": "companion",
+    "race": "elf",
+    "strength": 6,
+    "vitality": 3,
+    "resistance": 6,
+    "signet": "aragorn",
+    "keyword": "ranger",
+    "effects": {
+      "type": "modifyStrength",
+      "amount": 3,
+      "filter": "self,inSkirmishAgainst(nazgul)"
+    }
+  },
   "1_38": {
     "title": "Double Shot",
     "side": "free people",
@@ -139,6 +159,64 @@
       }
     }
   },
+  "1_48": {
+    "title": "Haldir",
+    "subtitle": "Elf of the Golden Wood",
+    "unique": true,
+    "side": "free people",
+    "culture": "elven",
+    "cost": 2,
+    "type": "companion",
+    "race": "elf",
+    "strength": 5,
+    "vitality": 3,
+    "resistance": 6,
+    "requirement": {
+      "type": "canSpot",
+      "filter": "elf"
+    },
+    "effects": {
+      "type": "modifyStrength",
+      "amount": 2,
+      "condition": {
+        "type": "location",
+        "filter": "siteBlock(fellowship),or(siteNumber(6),siteNumber(7),siteNumber(8))"
+      }
+    }
+  },
+  "1_50": {
+    "title": "Legolas",
+    "subtitle": "Greenleaf",
+    "unique": true,
+    "side": "free people",
+    "culture": "elven",
+    "cost": 2,
+    "type": "companion",
+    "race": "elf",
+    "strength": 6,
+    "vitality": 3,
+    "resistance": 6,
+    "signet": "frodo",
+    "keyword": "archer",
+    "effects": {
+      "type": "activated",
+      "phase": "archery",
+      "cost": {
+        "type": "exert",
+        "filter": "self"
+      },
+      "effect": [
+        {
+          "type": "wound",
+          "filter": "choose(minion)"
+        },
+        {
+          "type": "doesNotAddToArcheryTotal",
+          "filter": "self"
+        }
+      ]
+    }
+  },
   "1_51": {
     "title": "Legolas",
     "subtitle": "Prince of Mirkwood",
@@ -157,6 +235,21 @@
       "type": "modifyStrength",
       "filter": "self,inSkirmishAgainst(nazgul)",
       "amount": 3
+    }
+  },
+  "1_53": {
+    "title": "Lorien Elf",
+    "side": "free people",
+    "culture": "elven",
+    "cost": 1,
+    "type": "companion",
+    "race": "elf",
+    "strength": 4,
+    "vitality": 2,
+    "resistance": 6,
+    "requirement": {
+      "type": "canSpot",
+      "filter": "elf"
     }
   },
   "1_94": {

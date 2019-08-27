@@ -93,6 +93,30 @@ public class FilterFactory {
                     int number = Integer.parseInt(parameterSplit[1]);
                     return Filters.and(Filters.siteBlock(sitesBlock), Filters.siteNumber(number));
                 });
+        parameterFilters.put("siteBlock",
+                (parameter, filterFactory) -> {
+                    final SitesBlock sitesBlock = Enum.valueOf(SitesBlock.class, parameter.toUpperCase().replace(' ', '_'));
+                    return (playerId, game, source, effectResult, effect) -> Filters.siteBlock(sitesBlock);
+                });
+        parameterFilters.put("siteNumber",
+                (parameter, filterFactory) -> {
+                    int number = Integer.parseInt(parameter);
+                    return (playerId, game, source, effectResult, effect) -> Filters.siteNumber(number);
+                });
+        parameterFilters.put("or",
+                (parameter, filterFactory) -> {
+                    final String[] filters = splitIntoFilters(parameter);
+                    FilterableSource[] filterables = new FilterableSource[filters.length];
+                    for (int i = 0; i < filters.length; i++)
+                        filterables[i] = filterFactory.generateFilter(filters[i]);
+                    return (playerId, game, source, effectResult, effect) -> {
+                        Filterable[] filters1 = new Filterable[filterables.length];
+                        for (int i = 0; i < filterables.length; i++)
+                            filters1[i] = filterables[i].getFilterable(playerId, game, source, effectResult, effect);
+
+                        return Filters.or(filters1);
+                    };
+                });
     }
 
     private void appendFilter(Filterable value) {
