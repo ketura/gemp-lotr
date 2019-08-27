@@ -24,10 +24,6 @@
       },
       {
         "type": "activatedTrigger",
-        "requirement": {
-          "type": "canDiscard",
-          "filter": "self"
-        },
         "trigger": {
           "type": "aboutToDiscard",
           "source": "shadow",
@@ -51,10 +47,6 @@
     "cost": 0,
     "type": "event",
     "keyword": "skirmish",
-    "requirement": {
-      "type": "canExert",
-      "filter": "dwarf"
-    },
     "effects": {
       "type": "event",
       "cost": {
@@ -75,10 +67,6 @@
     "cost": 2,
     "type": "event",
     "keyword": "skirmish",
-    "requirement": {
-      "type": "canExert",
-      "filter": "name(Gimli)"
-    },
     "effects": {
       "type": "event",
       "cost": {
@@ -112,12 +100,6 @@
     "cost": 0,
     "type": "event",
     "keyword": "skirmish",
-    "requirement": {
-      "type": "canStackTopCardOfDrawDeck",
-      "deck": "owner",
-      "where": "culture(dwarven),support area,condition",
-      "count": 3
-    },
     "effects": {
       "type": "event",
       "cost": {

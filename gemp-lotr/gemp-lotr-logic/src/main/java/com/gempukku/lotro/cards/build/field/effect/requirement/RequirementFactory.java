@@ -13,10 +13,7 @@ public class RequirementFactory {
     private Map<String, RequirementProducer> requirementProducers = new HashMap<>();
 
     public RequirementFactory() {
-        requirementProducers.put("candiscard", new CanDiscardFromPlay());
-        requirementProducers.put("canexert", new CanExert());
         requirementProducers.put("canspot", new CanSpot());
-        requirementProducers.put("canstacktopcardofdrawdeck", new CanStackTopCardOfDrawDeck());
         requirementProducers.put("canspotburdens", new CanSpotBurdens());
         requirementProducers.put("controlssite", new ControlsSite());
     }

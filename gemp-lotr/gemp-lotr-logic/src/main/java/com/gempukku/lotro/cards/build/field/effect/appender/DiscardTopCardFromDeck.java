@@ -2,6 +2,8 @@ package com.gempukku.lotro.cards.build.field.effect.appender;
 
 import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
+import com.gempukku.lotro.cards.build.PlayerSource;
+import com.gempukku.lotro.cards.build.Requirement;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
@@ -38,5 +40,17 @@ public class DiscardTopCardFromDeck implements EffectAppenderProducer {
                 });
 
         return result;
+    }
+
+    @Override
+    public Requirement createCostRequirement(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
+        FieldUtils.validateAllowedFields(effectObject, "deck", "count");
+
+        final String deck = FieldUtils.getString(effectObject.get("deck"), "deck", "owner");
+        final int count = FieldUtils.getInteger(effectObject.get("count"), "count", 1);
+
+        final PlayerSource playerSource = PlayerResolver.resolvePlayer(deck, environment);
+
+        return (playerId, game, self, effectResult, effect) -> game.getGameState().getDeck(playerSource.getPlayer(playerId, game, self, effectResult, effect)).size() >= count;
     }
 }

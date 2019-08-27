@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.build.field.effect.appender;
 
 import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
+import com.gempukku.lotro.cards.build.Requirement;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
@@ -35,5 +36,10 @@ public class ModifyArcheryTotal implements EffectAppenderProducer {
                 });
 
         return result;
+    }
+
+    @Override
+    public Requirement createCostRequirement(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
+        return null;
     }
 }

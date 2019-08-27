@@ -31,6 +31,7 @@ public class FilterFactory {
         simpleFilters.put("any", (playerId, game, source, effectResult, effect) -> Filters.any);
         simpleFilters.put("self", (playerId, game, source, effectResult, effect) -> source);
         simpleFilters.put("your", (playerId, game, source, effectResult, effect) -> Filters.owner(source.getOwner()));
+        simpleFilters.put("weapon", (playerId, game, source, effectResult, effect) -> Filters.weapon);
         simpleFilters.put("skirmishloser",
                 (playerId, game, source, effectResult, effect) -> {
                     final CharacterLostSkirmishResult lostSkirmish = (CharacterLostSkirmishResult) effectResult;
@@ -79,6 +80,11 @@ public class FilterFactory {
                 (parameter, filterFactory) -> {
                     int amount = Integer.parseInt(parameter);
                     return (playerId, game, source, effectResult, effect) -> Filters.maxResistance(amount + 1);
+                });
+        parameterFilters.put("not",
+                (parameter, filterFactory) -> {
+                    final FilterableSource filterableSource = filterFactory.generateFilter(parameter);
+                    return (FilterableSource) (playerId, game, source, effectResult, effect) -> Filters.not(filterableSource.getFilterable(playerId, game, source, effectResult, effect));
                 });
     }
 

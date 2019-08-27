@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.build.field.effect;
 
 import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
+import com.gempukku.lotro.cards.build.Requirement;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.appender.*;
 import org.json.simple.JSONObject;
@@ -36,5 +37,13 @@ public class EffectAppenderFactory {
         if (effectAppenderProducer == null)
             throw new InvalidCardDefinitionException("Unable to find effect of type: " + type);
         return effectAppenderProducer.createEffectAppender(effectObject, environment);
+    }
+
+    public Requirement getCostRequirement(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
+        final String type = FieldUtils.getString(effectObject.get("type"), "type");
+        final EffectAppenderProducer effectAppenderProducer = effectAppenderProducers.get(type.toLowerCase());
+        if (effectAppenderProducer == null)
+            throw new InvalidCardDefinitionException("Unable to find effect of type: " + type);
+        return effectAppenderProducer.createCostRequirement(effectObject, environment);
     }
 }
