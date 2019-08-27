@@ -6,7 +6,6 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.PlayUtils;
-import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
 
 public class ExtraFilters {
     public static Filter attachableTo(final LotroGame game, final Filterable... filters) {
@@ -18,7 +17,7 @@ public class ExtraFilters {
                 new Filter() {
                     @Override
                     public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
-                        if (!(physicalCard.getBlueprint() instanceof AbstractAttachable))
+                        if (physicalCard.getBlueprint().getValidTargetFilter(physicalCard.getOwner(), game, physicalCard) == null)
                             return false;
                         return PlayUtils.checkPlayRequirements(game, physicalCard, Filters.and(filters), 0, twilightModifier, false, false);
                     }

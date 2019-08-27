@@ -4,14 +4,11 @@ import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.SubAction;
-import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
 import com.gempukku.lotro.logic.decisions.CardsSelectionDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.effects.TransferPermanentEffect;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.RuleUtils;
@@ -82,7 +79,7 @@ public class ChooseAndTransferAttachableEffect extends AbstractEffect {
                 new Filter() {
                     @Override
                     public boolean accepts(LotroGame game, final PhysicalCard transferredCard) {
-                        if (!(transferredCard.getBlueprint() instanceof AbstractAttachable))
+                        if (transferredCard.getBlueprint().getValidTargetFilter(transferredCard.getOwner(), game, transferredCard) == null)
                             return false;
 
                         if (!game.getModifiersQuerying().canBeTransferred(game, transferredCard))
