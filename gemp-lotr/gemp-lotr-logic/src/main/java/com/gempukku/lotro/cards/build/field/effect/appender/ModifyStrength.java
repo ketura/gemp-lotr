@@ -1,12 +1,10 @@
 package com.gempukku.lotro.cards.build.field.effect.appender;
 
-import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
-import com.gempukku.lotro.cards.build.FilterableSource;
-import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
-import com.gempukku.lotro.cards.build.Requirement;
+import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
+import com.gempukku.lotro.cards.build.field.effect.appender.resolver.AmountResolver;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.CardResolver;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.CountResolver;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.TimeResolver;
@@ -17,6 +15,7 @@ import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.logic.effects.AddUntilStartOfPhaseModifierEffect;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
+import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.PlayConditions;
@@ -29,7 +28,7 @@ public class ModifyStrength implements EffectAppenderProducer {
     public EffectAppender createEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         FieldUtils.validateAllowedFields(effectObject, "amount", "count", "filter", "until", "memorize");
 
-        final int amount = FieldUtils.getInteger(effectObject.get("amount"), "amount");
+        final EvaluatorSource amountSource = AmountResolver.resolveEvaluator(effectObject.get("amount"), 0, environment);
         final CountResolver.Count count = CountResolver.resolveCount(effectObject.get("count"), 1);
         final String filter = FieldUtils.getString(effectObject.get("filter"), "filter");
         final String memory = FieldUtils.getString(effectObject.get("memorize"), "memorize", "_temp");
@@ -38,12 +37,14 @@ public class ModifyStrength implements EffectAppenderProducer {
         MultiEffectAppender result = new MultiEffectAppender();
 
         result.addEffectAppender(
-                CardResolver.resolveCards(filter, count.getMin(), count.getMax(), memory, null, "Choose cards to add strength to", environment));
+                CardResolver.resolveCards(filter, count.getMin(), count.getMax(), memory, "owner", "Choose cards to add strength to", environment));
         result.addEffectAppender(
                 new DelayedAppender() {
                     @Override
                     protected Effect createEffect(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
                         final Collection<? extends PhysicalCard> cardsFromMemory = action.getCardsFromMemory(memory);
+                        final Evaluator evaluator = amountSource.getEvaluator(playerId, game, self, effectResult, effect);
+                        final int amount = evaluator.evaluateExpression(game, self);
                         if (time.isStart())
                             return new AddUntilStartOfPhaseModifierEffect(
                                     new StrengthModifier(self, Filters.in(cardsFromMemory), amount), time.getPhase());

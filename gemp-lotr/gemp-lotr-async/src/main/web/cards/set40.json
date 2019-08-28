@@ -271,6 +271,30 @@
       }
     }
   },
+  "40_8": {
+    "title": "Crushing Blow",
+    "side": "free people",
+    "culture": "dwarven",
+    "cost": 0,
+    "type": "event",
+    "keyword": "skirmish",
+    "effects": {
+      "type": "event",
+      "effect": {
+        "type": "modifyStrength",
+        "filter": "choose(dwarf)",
+        "amount": {
+          "type": "condition",
+          "condition": {
+            "type": "canSpot",
+            "filter": "culture(dwarven),condition,hasStacked(any)"
+          },
+          "true": 3,
+          "false": 2
+        }
+      }
+    }
+  },
   "40_184": {
     "title": "Black Steed",
     "subtitle": "Bred to Serve",

@@ -59,6 +59,11 @@ public class FilterFactory {
                     final FilterableSource filterableSource = filterFactory.generateFilter(parameter);
                     return (playerId, game, source, effectResult, effect) -> Filters.hasAttached(filterableSource.getFilterable(playerId, game, source, effectResult, effect));
                 });
+        parameterFilters.put("hasStacked",
+                (parameter, filterFactory) -> {
+                    final FilterableSource filterableSource = filterFactory.generateFilter(parameter);
+                    return (playerId, game, source, effectResult, effect) -> Filters.hasStacked(filterableSource.getFilterable(playerId, game, source, effectResult, effect));
+                });
         parameterFilters.put("attachedTo",
                 (parameter, filterFactory) -> {
                     final FilterableSource filterableSource = filterFactory.generateFilter(parameter);
