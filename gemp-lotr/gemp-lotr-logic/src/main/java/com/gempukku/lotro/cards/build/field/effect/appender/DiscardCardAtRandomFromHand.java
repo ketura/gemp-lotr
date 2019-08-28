@@ -17,24 +17,31 @@ import org.json.simple.JSONObject;
 public class DiscardCardAtRandomFromHand implements EffectAppenderProducer {
     @Override
     public EffectAppender createEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(effectObject);
+        FieldUtils.validateAllowedFields(effectObject, "forced");
+
+        final boolean forced = FieldUtils.getBoolean(effectObject.get("forced"), "forced");
 
         return new DelayedAppender() {
             @Override
             protected Effect createEffect(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
-                return new DiscardCardAtRandomFromHandEffect(self, self.getOwner(), false);
+                return new DiscardCardAtRandomFromHandEffect(self, self.getOwner(), forced);
             }
 
             @Override
             public boolean isPlayableInFull(String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
-                return game.getGameState().getHand(self.getOwner()).size() >= 1;
+                return game.getGameState().getHand(self.getOwner()).size() >= 1
+                        && (!forced || game.getModifiersQuerying().canDiscardCardsFromHand(game, playerId, self));
             }
         };
     }
 
     @Override
     public Requirement createCostRequirement(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(effectObject);
-        return (playerId, game, self, effectResult, effect) -> game.getGameState().getHand(self.getOwner()).size() >= 1;
+        FieldUtils.validateAllowedFields(effectObject, "forced");
+
+        final boolean forced = FieldUtils.getBoolean(effectObject.get("forced"), "forced");
+
+        return (playerId, game, self, effectResult, effect) -> game.getGameState().getHand(self.getOwner()).size() >= 1
+                && (!forced || game.getModifiersQuerying().canDiscardCardsFromHand(game, playerId, self));
     }
 }

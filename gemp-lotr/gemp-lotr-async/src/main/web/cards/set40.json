@@ -50,7 +50,8 @@
               "filter": "choose(hasAttached(self))"
             },
             {
-              "type": "discardCardAtRandomFromHand"
+              "type": "discardCardAtRandomFromHand",
+              "forced": false
             }
           ]
         },

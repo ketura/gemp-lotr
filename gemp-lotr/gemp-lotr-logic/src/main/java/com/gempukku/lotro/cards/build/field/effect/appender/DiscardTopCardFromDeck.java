@@ -19,10 +19,11 @@ import org.json.simple.JSONObject;
 public class DiscardTopCardFromDeck implements EffectAppenderProducer {
     @Override
     public EffectAppender createEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(effectObject, "deck", "count");
+        FieldUtils.validateAllowedFields(effectObject, "deck", "count", "forced");
 
         final String deck = FieldUtils.getString(effectObject.get("deck"), "deck", "owner");
         final int count = FieldUtils.getInteger(effectObject.get("count"), "count", 1);
+        final boolean forced = FieldUtils.getBoolean(effectObject.get("forced"), "forced");
 
         final PlayerSource playerSource = PlayerResolver.resolvePlayer(deck, environment);
 
@@ -34,15 +35,16 @@ public class DiscardTopCardFromDeck implements EffectAppenderProducer {
                     public boolean isPlayableInFull(String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
                         final String deckId = playerSource.getPlayer(playerId, game, self, effectResult, effect);
 
+                        // Don't check if can discard top cards, since it's a cost
                         return game.getGameState().getDeck(deckId).size() >= count
-                                && game.getModifiersQuerying().canDiscardCardsFromTopOfDeck(game, deckId, self);
+                                && (!forced || game.getModifiersQuerying().canDiscardCardsFromTopOfDeck(game, playerId, self));
                     }
 
                     @Override
                     protected Effect createEffect(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
                         final String deckId = playerSource.getPlayer(playerId, game, self, effectResult, effect);
 
-                        return new DiscardTopCardFromDeckEffect(self, deckId, count, true);
+                        return new DiscardTopCardFromDeckEffect(self, deckId, count, forced);
                     }
                 });
 
@@ -51,17 +53,19 @@ public class DiscardTopCardFromDeck implements EffectAppenderProducer {
 
     @Override
     public Requirement createCostRequirement(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(effectObject, "deck", "count");
+        FieldUtils.validateAllowedFields(effectObject, "deck", "count", "forced");
 
         final String deck = FieldUtils.getString(effectObject.get("deck"), "deck", "owner");
         final int count = FieldUtils.getInteger(effectObject.get("count"), "count", 1);
+        final boolean forced = FieldUtils.getBoolean(effectObject.get("forced"), "forced");
 
         final PlayerSource playerSource = PlayerResolver.resolvePlayer(deck, environment);
 
+        // Don't check if can discard top cards, since it's a cost
         return (playerId, game, self, effectResult, effect) -> {
             final String deckId = playerSource.getPlayer(playerId, game, self, effectResult, effect);
             return game.getGameState().getDeck(deckId).size() >= count
-                    && game.getModifiersQuerying().canDiscardCardsFromTopOfDeck(game, deckId, self);
+                    && (!forced || game.getModifiersQuerying().canDiscardCardsFromTopOfDeck(game, playerId, self));
         };
     }
 }

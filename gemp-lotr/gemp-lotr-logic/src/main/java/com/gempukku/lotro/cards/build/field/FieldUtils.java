@@ -44,6 +44,14 @@ public class FieldUtils {
         return (String) value;
     }
 
+    public static boolean getBoolean(Object value, String key) throws InvalidCardDefinitionException {
+        if (value == null)
+            throw new InvalidCardDefinitionException("Value of " + key + " is required");
+        if (!(value instanceof Boolean))
+            throw new InvalidCardDefinitionException("Unknown type in " + key + " field");
+        return (Boolean) value;
+    }
+
     public static boolean getBoolean(Object value, String key, boolean defaultValue) throws InvalidCardDefinitionException {
         if (value == null)
             return defaultValue;

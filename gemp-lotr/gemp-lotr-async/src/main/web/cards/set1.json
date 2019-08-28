@@ -32,7 +32,8 @@
       },
       "effect": {
         "type": "discardTopCardFromDeck",
-        "deck": "owner(skirmishLoser)"
+        "deck": "owner(skirmishLoser)",
+        "forced": true
       }
     }
   },
