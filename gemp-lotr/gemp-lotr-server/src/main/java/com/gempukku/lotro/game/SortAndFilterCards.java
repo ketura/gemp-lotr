@@ -9,7 +9,7 @@ import com.gempukku.util.MultipleComparator;
 import java.util.*;
 
 public class SortAndFilterCards {
-    public <T extends CardItem> List<T> process(String filter, Collection<T> items, LotroCardBlueprintLibrary cardLibrary, LotroFormatLibrary formatLibrary, Map<String, SetDefinition> rarities) {
+    public <T extends CardItem> List<T> process(String filter, Iterable<T> items, LotroCardBlueprintLibrary cardLibrary, LotroFormatLibrary formatLibrary, Map<String, SetDefinition> rarities) {
         if (filter == null)
             filter = "";
         String[] filterParams = filter.split(" ");

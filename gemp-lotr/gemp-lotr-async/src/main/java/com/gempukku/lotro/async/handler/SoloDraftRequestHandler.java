@@ -152,7 +152,7 @@ public class SoloDraftRequestHandler extends LotroServerRequestHandler implement
         if (!hasNextStage)
             extraInformationChanges.put("finished", true);
 
-        _collectionsManager.addItemsToPlayerCollection(false, "Draft pick", resourceOwner, collectionType, selectedCards.getAll().values(), extraInformationChanges);
+        _collectionsManager.addItemsToPlayerCollection(false, "Draft pick", resourceOwner, collectionType, selectedCards.getAll(), extraInformationChanges);
 
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
@@ -162,7 +162,7 @@ public class SoloDraftRequestHandler extends LotroServerRequestHandler implement
         Element pickResultElem = doc.createElement("pickResult");
         doc.appendChild(pickResultElem);
 
-        for (CardCollection.Item item : selectedCards.getAll().values()) {
+        for (CardCollection.Item item : selectedCards.getAll()) {
             Element pickedCard = doc.createElement("pickedCard");
             pickedCard.setAttribute("blueprintId", item.getBlueprintId());
             pickedCard.setAttribute("count", String.valueOf(item.getCount()));

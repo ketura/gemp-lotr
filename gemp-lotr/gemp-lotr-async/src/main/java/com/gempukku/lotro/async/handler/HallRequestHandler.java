@@ -529,7 +529,7 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
         }
 
         public void cardChoice(CardCollection cardCollection) {
-            for (CardCollection.Item possiblePick : cardCollection.getAll().values()) {
+            for (CardCollection.Item possiblePick : cardCollection.getAll()) {
                 for (int i = 0; i < possiblePick.getCount(); i++) {
                     Element pick = _doc.createElement("pick");
                     pick.setAttribute("blueprintId", possiblePick.getBlueprintId());
@@ -539,7 +539,7 @@ public class HallRequestHandler extends LotroServerRequestHandler implements Uri
         }
 
         public void chosenCards(CardCollection cardCollection) {
-            for (CardCollection.Item cardInCollection : cardCollection.getAll().values()) {
+            for (CardCollection.Item cardInCollection : cardCollection.getAll()) {
                 Element card = _doc.createElement("card");
                 card.setAttribute("blueprintId", cardInCollection.getBlueprintId());
                 card.setAttribute("count", String.valueOf(cardInCollection.getCount()));

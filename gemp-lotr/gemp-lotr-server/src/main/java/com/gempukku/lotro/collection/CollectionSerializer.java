@@ -3,7 +3,6 @@ package com.gempukku.lotro.collection;
 import com.gempukku.lotro.game.CardCollection;
 import com.gempukku.lotro.game.DefaultCardCollection;
 import com.gempukku.lotro.game.MutableCardCollection;
-import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -109,13 +108,12 @@ public class CollectionSerializer {
         byte packTypes = (byte) _doubleByteCountItems.size();
         outputStream.write(packTypes);
 
-        final Map<String, CardCollection.Item> collectionCounts = collection.getAll();
         for (String itemId : _doubleByteCountItems) {
-            final CardCollection.Item count = collectionCounts.get(itemId);
-            if (count == null) {
+            final int count = collection.getItemCount(itemId);
+            if (count == 0) {
                 printInt(outputStream, 0, 2);
             } else {
-                int itemCount = Math.min((int) Math.pow(255, 2), count.getCount());
+                int itemCount = Math.min((int) Math.pow(255, 2), count);
                 printInt(outputStream, itemCount, 2);
             }
         }
@@ -124,12 +122,12 @@ public class CollectionSerializer {
         printInt(outputStream, cardBytes, 2);
 
         for (String itemId : _singleByteCountItems) {
-            final CardCollection.Item count = collectionCounts.get(itemId);
-            if (count == null)
+            final int count = collection.getItemCount(itemId);
+            if (count == 0)
                 outputStream.write(0);
             else {
                 // Apply the maximum of 255
-                int cardCount = Math.min(255, count.getCount());
+                int cardCount = Math.min(255, count);
                 printInt(outputStream, cardCount, 1);
             }
         }

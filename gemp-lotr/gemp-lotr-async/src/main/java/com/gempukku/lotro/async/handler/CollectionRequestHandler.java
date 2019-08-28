@@ -25,7 +25,6 @@ import org.w3c.dom.Element;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.lang.reflect.Type;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -78,7 +77,7 @@ public class CollectionRequestHandler extends LotroServerRequestHandler implemen
         if (collection == null)
             throw new HttpProcessingException(404);
 
-        Collection<CardCollection.Item> items = collection.getAll().values();
+        Iterable<CardCollection.Item> items = collection.getAll();
         List<CardCollection.Item> filteredResult = _sortAndFilterCards.process(filter, items, _library, _formatLibrary, _setDefinitions);
 
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -151,7 +150,7 @@ public class CollectionRequestHandler extends LotroServerRequestHandler implemen
         Element collectionElem = doc.createElement("pack");
         doc.appendChild(collectionElem);
 
-        for (CardCollection.Item item : packContents.getAll().values()) {
+        for (CardCollection.Item item : packContents.getAll()) {
             String blueprintId = item.getBlueprintId();
             if (item.getType() == CardCollection.Item.Type.CARD) {
                 Element card = doc.createElement("card");

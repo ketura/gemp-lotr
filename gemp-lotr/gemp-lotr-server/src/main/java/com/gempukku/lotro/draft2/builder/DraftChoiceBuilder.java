@@ -56,7 +56,7 @@ public class DraftChoiceBuilder {
         final int optionCount = ((Number) data.get("optionCount")).intValue();
         String filter = (String) data.get("filter");
 
-        Collection<CardCollection.Item> items = _collectionsManager.getDefaultCollection().getAll().values();
+        Iterable<CardCollection.Item> items = _collectionsManager.getDefaultCollection().getAll();
 
         final List<CardCollection.Item> possibleCards = _sortAndFilterCards.process(filter, items, _cardLibrary, _formatLibrary, _rarities);
 

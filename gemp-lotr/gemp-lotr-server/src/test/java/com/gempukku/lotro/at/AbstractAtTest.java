@@ -10,7 +10,6 @@ import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.DefaultLotroGame;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.vo.LotroDeck;
-import org.junit.BeforeClass;
 
 import java.io.File;
 import java.util.*;
@@ -20,30 +19,19 @@ import static org.junit.Assert.fail;
 public abstract class AbstractAtTest {
     protected static LotroCardBlueprintLibrary _library;
 
-    protected DefaultLotroGame _game;
-    protected DefaultUserFeedback _userFeedback;
-    protected static final String P1 = "player1";
-    protected static final String P2 = "player2";
-
-    @BeforeClass
-    public static void initializeCardLibrary() throws CardNotFoundException {
+    static {
         _library = new LotroCardBlueprintLibrary();
         final String property = System.getProperty("user.dir");
         String projectRoot = new File(property).getParentFile().getAbsolutePath();
 
         _library.init(new File(projectRoot + "/gemp-lotr-async/src/main/web/cards"));
         _library.initCardSets(new CardSets());
-//        for (int i = 1; i <= 10; i++) {
-//            for (int j = 1; j <= 365; j++) {
-//                String blueprintId = i + "_" + j;
-//                try {
-//                    _library.getLotroCardBlueprint(blueprintId);
-//                } catch (IllegalArgumentException exp) {
-//
-//                }
-//            }
-//        }
     }
+
+    protected DefaultLotroGame _game;
+    protected DefaultUserFeedback _userFeedback;
+    protected static final String P1 = "player1";
+    protected static final String P2 = "player2";
 
     protected void initializeSimplestGame() throws DecisionResultInvalidException {
         this.initializeSimplestGame(null);

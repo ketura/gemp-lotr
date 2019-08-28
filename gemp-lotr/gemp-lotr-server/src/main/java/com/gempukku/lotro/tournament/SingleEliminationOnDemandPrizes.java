@@ -38,7 +38,7 @@ public class SingleEliminationOnDemandPrizes implements TournamentPrizes{
             tournamentPrize.addItem("(S)Booster Choice", 1);
         }
 
-        if (tournamentPrize.getAll().size() == 0)
+        if (!tournamentPrize.getAll().iterator().hasNext())
             return null;
         return tournamentPrize;
     }

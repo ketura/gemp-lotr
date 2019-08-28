@@ -6,6 +6,7 @@ import com.gempukku.lotro.game.CardCollection;
 import com.gempukku.lotro.game.CardSets;
 import com.gempukku.lotro.game.DefaultCardCollection;
 import com.gempukku.lotro.game.Player;
+import com.google.common.collect.Iterables;
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
 import org.junit.Test;
@@ -37,14 +38,13 @@ public class SealedLeagueDataTest {
                         @Override
                         public boolean matches(Object o) {
                             CardCollection cards = (CardCollection) o;
-                            Map<String, CardCollection.Item> cardMap = cards.getAll();
-                            if (cardMap.size() != 3)
+                            if (Iterables.size(cards.getAll()) != 3)
                                 return false;
-                            if (cardMap.get("(S)FotR - Starter").getCount() != 1)
+                            if (cards.getItemCount("(S)FotR - Starter") != 1)
                                 return false;
-                            if (cardMap.get("FotR - Booster").getCount() != 6)
+                            if (cards.getItemCount("FotR - Booster") != 6)
                                 return false;
-                            if (cardMap.get("1_231").getCount() != 2)
+                            if (cards.getItemCount("1_231") != 2)
                                 return false;
                             return true;
                         }
@@ -72,20 +72,19 @@ public class SealedLeagueDataTest {
                         @Override
                         public boolean matches(Object o) {
                             CardCollection cards = (CardCollection) o;
-                            Map<String, CardCollection.Item> cardMap = cards.getAll();
-                            if (cardMap.size() != 6)
+                            if (Iterables.size(cards.getAll()) != 6)
                                 return false;
-                            if (cardMap.get("(S)FotR - Starter").getCount() != 1)
+                            if (cards.getItemCount("(S)FotR - Starter") != 1)
                                 return false;
-                            if (cardMap.get("FotR - Booster").getCount() != 6)
+                            if (cards.getItemCount("FotR - Booster") != 6)
                                 return false;
-                            if (cardMap.get("1_231").getCount() != 2)
+                            if (cards.getItemCount("1_231") != 2)
                                 return false;
-                            if (cardMap.get("(S)MoM - Starter").getCount() != 1)
+                            if (cards.getItemCount("(S)MoM - Starter") != 1)
                                 return false;
-                            if (cardMap.get("MoM - Booster").getCount() != 3)
+                            if (cards.getItemCount("MoM - Booster") != 3)
                                 return false;
-                            if (cardMap.get("2_51").getCount() != 1)
+                            if (cards.getItemCount("2_51") != 1)
                                 return false;
                             return true;
                         }

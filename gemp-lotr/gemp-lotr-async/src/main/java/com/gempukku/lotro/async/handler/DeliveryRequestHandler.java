@@ -5,6 +5,7 @@ import com.gempukku.lotro.async.ResponseWriter;
 import com.gempukku.lotro.collection.TransferDAO;
 import com.gempukku.lotro.game.CardCollection;
 import com.gempukku.lotro.game.Player;
+import com.google.common.collect.Iterables;
 import org.jboss.netty.channel.MessageEvent;
 import org.jboss.netty.handler.codec.http.HttpMethod;
 import org.jboss.netty.handler.codec.http.HttpRequest;
@@ -49,10 +50,10 @@ public class DeliveryRequestHandler extends LotroServerRequestHandler implements
             String collectionType = collectionTypeItems.getKey();
             CardCollection items = collectionTypeItems.getValue();
 
-            if (items.getAll().size() > 0) {
+            if (Iterables.size(items.getAll()) > 0) {
                 Element collectionTypeElem = doc.createElement("collectionType");
                 collectionTypeElem.setAttribute("name", collectionType);
-                for (CardCollection.Item item : items.getAll().values()) {
+                for (CardCollection.Item item : items.getAll()) {
                     String blueprintId = item.getBlueprintId();
                     if (item.getType() == CardCollection.Item.Type.CARD) {
                         Element card = doc.createElement("card");

@@ -67,8 +67,8 @@ public class SoloDraftLeagueData implements LeagueData {
 
         CardCollection leagueProduct = _draft.initializeNewCollection(seed);
 
-        for (Map.Entry<String, CardCollection.Item> serieCollectionItem : leagueProduct.getAll().entrySet())
-            startingCollection.addItem(serieCollectionItem.getKey(), serieCollectionItem.getValue().getCount());
+        for (CardCollection.Item serieCollectionItem : leagueProduct.getAll())
+            startingCollection.addItem(serieCollectionItem.getBlueprintId(), serieCollectionItem.getCount());
 
         startingCollection.setExtraInformation(createExtraInformation(seed));
         collectionsManager.addPlayerCollection(false, "Sealed league product", player, _collectionType, startingCollection);
@@ -94,10 +94,10 @@ public class SoloDraftLeagueData implements LeagueData {
                 for (PlayerStanding leagueStanding : leagueStandings) {
                     CardCollection leaguePrize = _leaguePrizes.getPrizeForLeague(leagueStanding.getStanding(), leagueStandings.size(), leagueStanding.getGamesPlayed(), maxGamesTotal, _collectionType);
                     if (leaguePrize != null)
-                        collectionsManager.addItemsToPlayerCollection(true, "End of league prizes", leagueStanding.getPlayerName(), _prizeCollectionType, leaguePrize.getAll().values());
+                        collectionsManager.addItemsToPlayerCollection(true, "End of league prizes", leagueStanding.getPlayerName(), _prizeCollectionType, leaguePrize.getAll());
                     final CardCollection leagueTrophies = _leaguePrizes.getTrophiesForLeague(leagueStanding.getStanding(), leagueStandings.size(), leagueStanding.getGamesPlayed(), maxGamesTotal, _collectionType);
                     if (leagueTrophies != null)
-                        collectionsManager.addItemsToPlayerCollection(true, "End of league trophies", leagueStanding.getPlayerName(), CollectionType.TROPHY, leagueTrophies.getAll().values());
+                        collectionsManager.addItemsToPlayerCollection(true, "End of league trophies", leagueStanding.getPlayerName(), CollectionType.TROPHY, leagueTrophies.getAll());
                 }
                 status++;
             }

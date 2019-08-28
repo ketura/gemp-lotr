@@ -60,7 +60,7 @@ public class FixedLeaguePrizes implements LeaguePrizes {
     public CardCollection getTrophiesForLeague(int position, int playersCount, int gamesPlayed, int maxGamesPlayed, CollectionType collectionType) {
         DefaultCardCollection prize = new DefaultCardCollection();
         prize.addItem("(S)Tengwar", getTengwarCount(position));
-        if (prize.getAll().size() > 0)
+        if (prize.getAll().iterator().hasNext())
             return prize;
         return null;
     }
@@ -78,7 +78,7 @@ public class FixedLeaguePrizes implements LeaguePrizes {
         DefaultCardCollection prize = new DefaultCardCollection();
         prize.addItem("(S)Booster Choice", getSealedBoosterCount(position));
         addPrizes(prize, getRandomFoil(_rares, getRandomRareFoilCount(position)));
-        if (prize.getAll().size() > 0)
+        if (prize.getAll().iterator().hasNext())
             return prize;
         return null;
     }
@@ -110,7 +110,7 @@ public class FixedLeaguePrizes implements LeaguePrizes {
         DefaultCardCollection prize = new DefaultCardCollection();
         prize.addItem("(S)Booster Choice", getCollectorsBoosterCount(position));
         addPrizes(prize, getRandomFoil(_rares, getRandomRareFoilCount(position)));
-        if (prize.getAll().size() > 0)
+        if (prize.getAll().iterator().hasNext())
             return prize;
         return null;
     }
@@ -138,7 +138,7 @@ public class FixedLeaguePrizes implements LeaguePrizes {
         DefaultCardCollection prize = new DefaultCardCollection();
         prize.addItem("(S)Booster Choice", getConstructedBoosterCount(position));
         addPrizes(prize, getRandomFoil(_rares, getRandomRareFoilCount(position)));
-        if (prize.getAll().size() > 0)
+        if (prize.getAll().iterator().hasNext())
             return prize;
         return null;
     }

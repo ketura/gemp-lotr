@@ -27,7 +27,7 @@ public class DiscardCardAtRandomFromHand implements EffectAppenderProducer {
 
             @Override
             public boolean isPlayableInFull(String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
-                return game.getGameState().getDeck(self.getOwner()).size() >= 1;
+                return game.getGameState().getHand(self.getOwner()).size() >= 1;
             }
         };
     }
@@ -35,6 +35,6 @@ public class DiscardCardAtRandomFromHand implements EffectAppenderProducer {
     @Override
     public Requirement createCostRequirement(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         FieldUtils.validateAllowedFields(effectObject);
-        return (playerId, game, self, effectResult, effect) -> game.getGameState().getDeck(self.getOwner()).size() >= 1;
+        return (playerId, game, self, effectResult, effect) -> game.getGameState().getHand(self.getOwner()).size() >= 1;
     }
 }

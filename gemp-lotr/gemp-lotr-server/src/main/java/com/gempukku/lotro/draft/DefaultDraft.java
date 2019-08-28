@@ -123,7 +123,7 @@ public class DefaultDraft implements Draft {
         for (Map.Entry<String, MutableCardCollection> playerChoices : cardChoiceCopy.entrySet()) {
             String playerName = playerChoices.getKey();
             MutableCardCollection collection = playerChoices.getValue();
-            String cardId = collection.getAll().entrySet().iterator().next().getKey();
+            String cardId = collection.getAll().iterator().next().getBlueprintId();
             playerChosen(playerName, cardId);
         }
     }
@@ -168,7 +168,7 @@ public class DefaultDraft implements Draft {
     }
 
     private boolean haveAllCardsBeenChosen() {
-        return _cardChoices.size() == 0 || _cardChoices.get(0).getAll().size() == 0;
+        return _cardChoices.size() == 0 || !_cardChoices.get(0).getAll().iterator().hasNext();
     }
 
     private boolean haveAllPlayersPicked() {

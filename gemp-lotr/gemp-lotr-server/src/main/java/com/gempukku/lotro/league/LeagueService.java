@@ -167,7 +167,7 @@ public class LeagueService {
         else
             prize = serie.getPrizeForLeagueMatchLoser(count, playerMatchesPlayedOn.size());
         if (prize != null)
-            _collectionsManager.addItemsToPlayerCollection(true, "Prize for winning league game", player, CollectionType.MY_CARDS, prize.getAll().values());
+            _collectionsManager.addItemsToPlayerCollection(true, "Prize for winning league game", player, CollectionType.MY_CARDS, prize.getAll());
     }
 
     public synchronized Collection<LeagueMatchResult> getPlayerMatchesInSerie(League league, LeagueSerieData serie, String player) {

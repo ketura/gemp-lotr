@@ -16,7 +16,7 @@ public class DailyTournamentPrizes implements TournamentPrizes {
         DefaultCardCollection tournamentPrize = new DefaultCardCollection();
         tournamentPrize.addItem("(S)Booster Choice", playerStanding.getPoints());
 
-        if (tournamentPrize.getAll().size() == 0) {
+        if (!tournamentPrize.getAll().iterator().hasNext()) {
             return null;
         }
         return tournamentPrize;

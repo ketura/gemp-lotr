@@ -1,20 +1,17 @@
 package com.gempukku.lotro.game;
 
 import java.util.Map;
-import java.util.Set;
 
 public interface CardCollection extends OwnershipCheck {
     int getCurrency();
 
-    Map<String, Item> getAll();
+    Iterable<Item> getAll();
 
     int getItemCount(String blueprintId);
 
-    Set<BasicCardItem> getAllCardsInCollection();
-
     Map<String, Object> getExtraInformation();
 
-    public static class Item implements CardItem {
+    class Item implements CardItem {
         public enum Type {
             PACK, CARD, SELECTION
         }
