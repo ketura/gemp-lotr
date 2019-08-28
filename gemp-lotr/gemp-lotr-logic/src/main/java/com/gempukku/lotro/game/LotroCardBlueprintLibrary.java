@@ -10,10 +10,7 @@ import org.json.simple.parser.ParseException;
 
 import java.io.*;
 import java.nio.file.*;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import static java.nio.file.StandardWatchEventKinds.*;
 
@@ -197,6 +194,10 @@ public class LotroCardBlueprintLibrary {
             _fullBlueprintMapping.put(from, list);
         }
         list.add(to);
+    }
+
+    public Map<String, LotroCardBlueprint> getBaseCards() {
+        return Collections.unmodifiableMap(_blueprintMap);
     }
 
     public Set<String> getAllAlternates(String blueprintId) {
