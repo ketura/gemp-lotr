@@ -132,8 +132,10 @@ public class HallServer extends AbstractServer {
                     public void commandReceived(String from, String parameters, boolean admin) throws ChatCommandErrorException {
                         final String playerName = parameters.trim();
                         if (playerName.length() >= 2 && playerName.length() <= 10) {
-                            if (ignoreDAO.addIgnoredUser(from, playerName))
+                            if (!from.equals(playerName) && ignoreDAO.addIgnoredUser(from, playerName)) {
+                                _hallChat.sendToUser(from, from, "/ignore " + playerName);
                                 _hallChat.sendToUser("System", from, "User " + playerName + " added to ignore list");
+                            }
                         }
                     }
                 });
@@ -143,8 +145,10 @@ public class HallServer extends AbstractServer {
                     public void commandReceived(String from, String parameters, boolean admin) throws ChatCommandErrorException {
                         final String playerName = parameters.trim();
                         if (playerName.length() >= 2 && playerName.length() <= 10) {
-                            if (ignoreDAO.removeIgnoredUser(from, playerName))
+                            if (ignoreDAO.removeIgnoredUser(from, playerName)) {
+                                _hallChat.sendToUser(from, from, "/unignore " + playerName);
                                 _hallChat.sendToUser("System", from, "User " + playerName + " removed from ignore list");
+                            }
                         }
                     }
                 });
@@ -153,7 +157,8 @@ public class HallServer extends AbstractServer {
                     @Override
                     public void commandReceived(String from, String parameters, boolean admin) throws ChatCommandErrorException {
                         final Set<String> ignoredUsers = ignoreDAO.getIgnoredUsers(from);
-                        _hallChat.sendToUser("System", from, Arrays.toString(ignoredUsers.toArray(new String[0])));
+                        _hallChat.sendToUser(from, from, "/listIgnores");
+                        _hallChat.sendToUser("System", from, "Your ignores: " + Arrays.toString(ignoredUsers.toArray(new String[0])));
                     }
                 });
 
