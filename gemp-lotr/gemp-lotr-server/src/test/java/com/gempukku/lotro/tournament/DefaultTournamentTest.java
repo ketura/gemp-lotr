@@ -1,11 +1,10 @@
 package com.gempukku.lotro.tournament;
 
-import com.gempukku.lotro.cards.CardSets;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.competitive.PlayerStanding;
 import com.gempukku.lotro.db.vo.CollectionType;
+import com.gempukku.lotro.game.CardSets;
 import com.gempukku.lotro.logic.vo.LotroDeck;
-import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.mockito.internal.verification.Times;
@@ -13,6 +12,8 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
 import java.util.*;
+
+import static org.junit.Assert.assertEquals;
 
 public class DefaultTournamentTest {
     private int _waitForPairingsTime = 100;

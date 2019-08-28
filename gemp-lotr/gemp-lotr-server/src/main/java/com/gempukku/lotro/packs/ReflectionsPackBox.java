@@ -1,8 +1,8 @@
 package com.gempukku.lotro.packs;
 
-import com.gempukku.lotro.cards.CardSets;
-import com.gempukku.lotro.cards.packs.SetDefinition;
 import com.gempukku.lotro.game.CardCollection;
+import com.gempukku.lotro.game.CardSets;
+import com.gempukku.lotro.game.packs.SetDefinition;
 
 import java.util.ArrayList;
 import java.util.LinkedList;

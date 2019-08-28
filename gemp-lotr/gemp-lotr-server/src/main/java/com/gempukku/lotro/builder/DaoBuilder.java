@@ -7,6 +7,7 @@ import com.gempukku.lotro.collection.CollectionSerializer;
 import com.gempukku.lotro.collection.TransferDAO;
 import com.gempukku.lotro.common.ApplicationConfiguration;
 import com.gempukku.lotro.db.*;
+import com.gempukku.lotro.game.CardSets;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.tournament.TournamentDAO;
 import com.gempukku.lotro.tournament.TournamentMatchDAO;
@@ -23,6 +24,7 @@ public class DaoBuilder {
 
         LotroCardBlueprintLibrary library = new LotroCardBlueprintLibrary();
         library.init(new File(ApplicationConfiguration.getProperty("card.path")));
+        library.initCardSets((CardSets) objectMap.get(CardSets.class));
         objectMap.put(LotroCardBlueprintLibrary.class, library);
         objectMap.put(LeagueParticipationDAO.class, new DbLeagueParticipationDAO(dbAccess));
         objectMap.put(LeagueMatchDAO.class, new DbLeagueMatchDAO(dbAccess));

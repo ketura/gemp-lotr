@@ -1,6 +1,6 @@
 package com.gempukku.lotro.builder;
 
-import com.gempukku.lotro.cards.CardSets;
+import com.gempukku.lotro.game.CardSets;
 import com.gempukku.lotro.packs.*;
 import org.apache.log4j.Logger;
 

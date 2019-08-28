@@ -1,7 +1,7 @@
 package com.gempukku.lotro.db.vo;
 
-import com.gempukku.lotro.cards.CardSets;
 import com.gempukku.lotro.draft2.SoloDraftDefinitions;
+import com.gempukku.lotro.game.CardSets;
 import com.gempukku.lotro.league.LeagueData;
 
 import java.lang.reflect.Constructor;

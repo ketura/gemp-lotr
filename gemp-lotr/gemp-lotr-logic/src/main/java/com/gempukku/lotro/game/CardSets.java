@@ -1,7 +1,7 @@
-package com.gempukku.lotro.cards;
+package com.gempukku.lotro.game;
 
-import com.gempukku.lotro.cards.packs.DefaultSetDefinition;
-import com.gempukku.lotro.cards.packs.SetDefinition;
+import com.gempukku.lotro.game.packs.DefaultSetDefinition;
+import com.gempukku.lotro.game.packs.SetDefinition;
 import org.apache.commons.io.IOUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;

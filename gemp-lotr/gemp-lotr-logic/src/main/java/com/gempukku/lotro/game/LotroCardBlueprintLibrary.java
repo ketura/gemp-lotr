@@ -2,6 +2,7 @@ package com.gempukku.lotro.game;
 
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.LotroCardBlueprintBuilder;
+import com.gempukku.lotro.game.packs.SetDefinition;
 import org.apache.log4j.Logger;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -52,6 +53,25 @@ public class LotroCardBlueprintLibrary {
             }
         } catch (IOException exp) {
             throw new RuntimeException("Problem loading blueprint mapping", exp);
+        }
+    }
+
+    public void initCardSets(CardSets cardSets) {
+        for (SetDefinition setDefinition : cardSets.getSetDefinitions().values()) {
+            if (setDefinition.hasFlag("playable")) {
+                logger.debug("Loading set " + setDefinition.getSetId());
+                final Set<String> allCards = setDefinition.getAllCards();
+                for (String blueprintId : allCards) {
+                    if (getBaseBlueprintId(blueprintId).equals(blueprintId)) {
+                        try {
+                            // Ensure it's loaded
+                            LotroCardBlueprint cardBlueprint = getLotroCardBlueprint(blueprintId);
+                        } catch (CardNotFoundException exp) {
+                            throw new RuntimeException("Unable to start the server, due to invalid (missing) card definition - " + blueprintId);
+                        }
+                    }
+                }
+            }
         }
     }
 

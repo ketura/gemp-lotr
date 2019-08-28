@@ -1,9 +1,8 @@
 package com.gempukku.lotro.game;
 
-import com.gempukku.lotro.cards.packs.SetDefinition;
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
+import com.gempukku.lotro.game.packs.SetDefinition;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.util.MultipleComparator;
 

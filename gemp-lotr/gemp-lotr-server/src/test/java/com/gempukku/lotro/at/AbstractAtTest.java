@@ -32,6 +32,7 @@ public abstract class AbstractAtTest {
         String projectRoot = new File(property).getParentFile().getAbsolutePath();
 
         _library.init(new File(projectRoot + "/gemp-lotr-async/src/main/web/cards"));
+        _library.initCardSets(new CardSets());
 //        for (int i = 1; i <= 10; i++) {
 //            for (int j = 1; j <= 365; j++) {
 //                String blueprintId = i + "_" + j;

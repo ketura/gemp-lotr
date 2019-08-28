@@ -1,7 +1,6 @@
 package com.gempukku.lotro.league;
 
-import com.gempukku.lotro.cards.CardSets;
-import com.gempukku.lotro.draft2.SoloDraftDefinitions;
+import com.gempukku.lotro.game.CardSets;
 import org.junit.Test;
 
 import java.util.List;

@@ -1,6 +1,5 @@
 package com.gempukku.lotro.league;
 
-import com.gempukku.lotro.cards.CardSets;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.competitive.PlayerStanding;
 import com.gempukku.lotro.db.LeagueDAO;
@@ -8,6 +7,7 @@ import com.gempukku.lotro.db.LeagueMatchDAO;
 import com.gempukku.lotro.db.LeagueParticipationDAO;
 import com.gempukku.lotro.db.vo.League;
 import com.gempukku.lotro.db.vo.LeagueMatchResult;
+import com.gempukku.lotro.game.CardSets;
 import org.junit.Test;
 import org.mockito.Mockito;
 

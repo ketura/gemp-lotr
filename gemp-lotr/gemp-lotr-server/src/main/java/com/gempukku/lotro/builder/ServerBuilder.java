@@ -1,25 +1,12 @@
 package com.gempukku.lotro.builder;
 
-import com.gempukku.lotro.cards.CardSets;
 import com.gempukku.lotro.chat.ChatServer;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.collection.TransferDAO;
 import com.gempukku.lotro.common.ApplicationConfiguration;
-import com.gempukku.lotro.db.CollectionDAO;
-import com.gempukku.lotro.db.DeckDAO;
-import com.gempukku.lotro.db.GameHistoryDAO;
-import com.gempukku.lotro.db.IpBanDAO;
-import com.gempukku.lotro.db.LeagueDAO;
-import com.gempukku.lotro.db.LeagueMatchDAO;
-import com.gempukku.lotro.db.LeagueParticipationDAO;
-import com.gempukku.lotro.db.PlayerDAO;
+import com.gempukku.lotro.db.*;
 import com.gempukku.lotro.draft2.SoloDraftDefinitions;
-import com.gempukku.lotro.game.AdventureLibrary;
-import com.gempukku.lotro.game.DefaultAdventureLibrary;
-import com.gempukku.lotro.game.GameHistoryService;
-import com.gempukku.lotro.game.GameRecorder;
-import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
-import com.gempukku.lotro.game.LotroServer;
+import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.gempukku.lotro.hall.HallServer;
 import com.gempukku.lotro.league.LeagueService;
@@ -28,12 +15,7 @@ import com.gempukku.lotro.packs.DraftPackStorage;
 import com.gempukku.lotro.packs.PacksStorage;
 import com.gempukku.lotro.service.AdminService;
 import com.gempukku.lotro.service.LoggedUserHolder;
-import com.gempukku.lotro.tournament.PairingMechanismRegistry;
-import com.gempukku.lotro.tournament.TournamentDAO;
-import com.gempukku.lotro.tournament.TournamentMatchDAO;
-import com.gempukku.lotro.tournament.TournamentPlayerDAO;
-import com.gempukku.lotro.tournament.TournamentPrizeSchemeRegistry;
-import com.gempukku.lotro.tournament.TournamentService;
+import com.gempukku.lotro.tournament.*;
 import com.gempukku.mtg.MtgCardServer;
 
 import java.lang.reflect.Type;
@@ -61,8 +43,7 @@ public class ServerBuilder {
                         extract(objectMap, PlayerDAO.class),
                         extract(objectMap, CollectionDAO.class),
                         extract(objectMap, TransferDAO.class),
-                        extract(objectMap, LotroCardBlueprintLibrary.class),
-                        extract(objectMap, CardSets.class)));
+                        extract(objectMap, LotroCardBlueprintLibrary.class)));
 
         objectMap.put(SoloDraftDefinitions.class,
                 new SoloDraftDefinitions(

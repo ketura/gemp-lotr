@@ -1,7 +1,7 @@
 package com.gempukku.lotro.packs;
 
-import com.gempukku.lotro.cards.CardSets;
 import com.gempukku.lotro.game.CardCollection;
+import com.gempukku.lotro.game.CardSets;
 import org.junit.Test;
 
 import java.util.List;

@@ -1,12 +1,12 @@
 package com.gempukku.lotro.draft2;
 
-import com.gempukku.lotro.cards.packs.SetDefinition;
 import com.gempukku.lotro.collection.CollectionsManager;
 import com.gempukku.lotro.draft2.builder.CardCollectionProducer;
 import com.gempukku.lotro.draft2.builder.DraftChoiceBuilder;
 import com.gempukku.lotro.draft2.builder.StartingPoolBuilder;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
+import com.gempukku.lotro.game.packs.SetDefinition;
 import org.apache.log4j.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;

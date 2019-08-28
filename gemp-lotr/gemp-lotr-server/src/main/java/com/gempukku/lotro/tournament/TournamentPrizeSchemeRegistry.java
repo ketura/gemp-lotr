@@ -1,6 +1,6 @@
 package com.gempukku.lotro.tournament;
 
-import com.gempukku.lotro.cards.CardSets;
+import com.gempukku.lotro.game.CardSets;
 
 public class TournamentPrizeSchemeRegistry {
     public TournamentPrizes getTournamentPrizes(CardSets cardSets, String prizesScheme) {

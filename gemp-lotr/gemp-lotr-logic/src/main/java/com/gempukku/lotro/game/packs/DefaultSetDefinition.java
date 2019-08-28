@@ -1,4 +1,4 @@
-package com.gempukku.lotro.cards.packs;
+package com.gempukku.lotro.game.packs;
 
 import java.util.*;
 
