@@ -131,7 +131,7 @@ public class HallServer extends AbstractServer {
                     @Override
                     public void commandReceived(String from, String parameters, boolean admin) throws ChatCommandErrorException {
                         final String playerName = parameters.trim();
-                        if (playerName.length() <= 10) {
+                        if (playerName.length() >= 2 && playerName.length() <= 10) {
                             if (ignoreDAO.addIgnoredUser(from, playerName))
                                 _hallChat.sendToUser("System", from, "User " + playerName + " added to ignore list");
                         }
@@ -142,7 +142,7 @@ public class HallServer extends AbstractServer {
                     @Override
                     public void commandReceived(String from, String parameters, boolean admin) throws ChatCommandErrorException {
                         final String playerName = parameters.trim();
-                        if (playerName.length() <= 10) {
+                        if (playerName.length() >= 2 && playerName.length() <= 10) {
                             if (ignoreDAO.removeIgnoredUser(from, playerName))
                                 _hallChat.sendToUser("System", from, "User " + playerName + " removed from ignore list");
                         }
