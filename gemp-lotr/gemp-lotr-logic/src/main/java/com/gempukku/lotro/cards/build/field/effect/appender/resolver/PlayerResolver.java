@@ -69,9 +69,13 @@ public class PlayerResolver {
                         @Override
                         protected void doPlayEffect(LotroGame game) {
                             final Filterable filterable = filterableSource.getFilterable(playerId, game, self, effectResult, effect);
-                            final Collection<PhysicalCard> physicalCards = Filters.filterActive(game, filterable);
-                            PhysicalCard card = physicalCards.iterator().next();
-                            action.setValueToMemory(memory, card.getOwner());
+                            if (filterable instanceof PhysicalCard) {
+                                action.setValueToMemory(memory, ((PhysicalCard) filterable).getOwner());
+                            } else {
+                                final Collection<PhysicalCard> physicalCards = Filters.filterActive(game, filterable);
+                                PhysicalCard card = physicalCards.iterator().next();
+                                action.setValueToMemory(memory, card.getOwner());
+                            }
                         }
                     };
                 }
