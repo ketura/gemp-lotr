@@ -359,8 +359,7 @@
     "culture": "shire",
     "cost": 1,
     "type": "ally",
-    "block": "fellowship",
-    "site": 1,
+    "allyHome": "fellowship,1",
     "race": "hobbit",
     "strength": 2,
     "vitality": 2,
@@ -384,7 +383,7 @@
         },
         "effect": {
           "type": "heal",
-          "filter": "choose(not(self),hobbit,ally,allySite(fellowship,1))"
+          "filter": "choose(not(self),hobbit,ally,allyHome(fellowship,1))"
         }
       }
     ]

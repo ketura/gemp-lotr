@@ -86,7 +86,7 @@ public class FilterFactory {
                     final FilterableSource filterableSource = filterFactory.generateFilter(parameter);
                     return (playerId, game, source, effectResult, effect) -> Filters.not(filterableSource.getFilterable(playerId, game, source, effectResult, effect));
                 });
-        parameterFilters.put("allySite",
+        parameterFilters.put("allyHome",
                 (parameter, filterFactory) -> {
                     final String[] parameterSplit = parameter.split(",");
                     final SitesBlock sitesBlock = Enum.valueOf(SitesBlock.class, parameterSplit[0].toUpperCase().replace('_', ' '));

@@ -41,6 +41,7 @@ public class LotroCardBlueprintBuilder implements CardGenerationEnvironment {
         fieldProcessors.put("effects", new EffectFieldProcessor());
         fieldProcessors.put("target", new TargetFieldProcessor());
         fieldProcessors.put("requirement", new RequirementFieldProcessor());
+        fieldProcessors.put("allyhome", new AllyHomeFieldProcessor());
     }
 
     public LotroCardBlueprint buildFromJson(JSONObject json) throws InvalidCardDefinitionException {

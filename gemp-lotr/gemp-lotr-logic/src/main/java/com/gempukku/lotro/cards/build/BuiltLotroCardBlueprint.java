@@ -36,6 +36,8 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
     private int siteNumber;
     private Set<PossessionClass> possessionClasses;
     private Direction direction;
+    private SitesBlock allyHomeBlock;
+    private int[] allyHomeSites = new int[0];
 
     private List<Requirement> requirements;
     private List<FilterableSource> targetFilters;
@@ -61,6 +63,11 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
     private ActionSource playEventAction;
 
     // Building methods
+
+    public void setAllyHomeSites(SitesBlock block, int[] numbers) {
+        this.allyHomeBlock = block;
+        this.allyHomeSites = numbers;
+    }
 
     public void appendBeforeActivatedTrigger(ActionSource actionSource) {
         if (beforeActivatedTriggers == null)
@@ -294,6 +301,16 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
     @Override
     public int getSiteNumber() {
         return siteNumber;
+    }
+
+    @Override
+    public int[] getAllyHomeSiteNumbers() {
+        return allyHomeSites;
+    }
+
+    @Override
+    public SitesBlock getAllyHomeSiteBlock() {
+        return allyHomeBlock;
     }
 
     @Override
@@ -556,16 +573,6 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
 
     @Override
     public Map<Filter, Integer> getTargetCostModifiers(String playerId, LotroGame game, PhysicalCard self) {
-        return null;
-    }
-
-    @Override
-    public int[] getAllyHomeSiteNumbers() {
-        return new int[0];
-    }
-
-    @Override
-    public SitesBlock getAllyHomeSiteBlock() {
         return null;
     }
 
