@@ -24,11 +24,11 @@ import java.util.Collection;
 public class DiscardFromPlay implements EffectAppenderProducer {
     @Override
     public EffectAppender createEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(effectObject, "count", "filter", "memory");
+        FieldUtils.validateAllowedFields(effectObject, "count", "filter", "memorize");
 
         final CountResolver.Count count = CountResolver.resolveCount(effectObject.get("count"), 1);
         final String filter = FieldUtils.getString(effectObject.get("filter"), "filter");
-        final String memory = FieldUtils.getString(effectObject.get("memory"), "memory", "_temp");
+        final String memory = FieldUtils.getString(effectObject.get("memorize"), "memorize", "_temp");
 
         MultiEffectAppender result = new MultiEffectAppender();
 

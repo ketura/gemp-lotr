@@ -22,10 +22,10 @@ import org.json.simple.JSONObject;
 public class PreventCardEffectAppender implements EffectAppenderProducer {
     @Override
     public EffectAppender createEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(effectObject, "filter", "memory");
+        FieldUtils.validateAllowedFields(effectObject, "filter", "memorize");
 
         String filter = FieldUtils.getString(effectObject.get("filter"), "filter");
-        final String memory = FieldUtils.getString(effectObject.get("memory"), "memory", "_temp");
+        final String memory = FieldUtils.getString(effectObject.get("memorize"), "memorize", "_temp");
 
         MultiEffectAppender result = new MultiEffectAppender();
         result.addEffectAppender(
@@ -45,7 +45,7 @@ public class PreventCardEffectAppender implements EffectAppenderProducer {
 
     @Override
     public Requirement createCostRequirement(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(effectObject, "filter", "memory");
+        FieldUtils.validateAllowedFields(effectObject, "filter", "memorize");
 
         String type = FieldUtils.getString(effectObject.get("filter"), "filter");
         if (type.startsWith("choose(") && type.endsWith(")")) {

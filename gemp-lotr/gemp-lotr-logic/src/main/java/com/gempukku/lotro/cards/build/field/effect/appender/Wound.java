@@ -24,12 +24,12 @@ import java.util.Collection;
 public class Wound implements EffectAppenderProducer {
     @Override
     public EffectAppender createEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(effectObject, "count", "times", "filter", "memory");
+        FieldUtils.validateAllowedFields(effectObject, "count", "times", "filter", "memorize");
 
         final CountResolver.Count count = CountResolver.resolveCount(effectObject.get("count"), 1);
         final int times = FieldUtils.getInteger(effectObject.get("times"), "times", 1);
         final String filter = FieldUtils.getString(effectObject.get("filter"), "filter");
-        final String memory = FieldUtils.getString(effectObject.get("memory"), "memory", "_temp");
+        final String memory = FieldUtils.getString(effectObject.get("memorize"), "memorize", "_temp");
 
         MultiEffectAppender result = new MultiEffectAppender();
 
@@ -51,7 +51,7 @@ public class Wound implements EffectAppenderProducer {
 
     @Override
     public Requirement createCostRequirement(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(effectObject, "count", "times", "filter", "memory");
+        FieldUtils.validateAllowedFields(effectObject, "count", "times", "filter", "memorize");
 
         final CountResolver.Count count = CountResolver.resolveCount(effectObject.get("count"), 1);
         final int times = FieldUtils.getInteger(effectObject.get("times"), "times", 1);

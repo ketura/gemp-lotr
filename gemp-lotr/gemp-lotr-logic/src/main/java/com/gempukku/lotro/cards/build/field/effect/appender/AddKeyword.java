@@ -26,11 +26,11 @@ import java.util.Collection;
 public class AddKeyword implements EffectAppenderProducer {
     @Override
     public EffectAppender createEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(effectObject, "count", "filter", "memory", "keyword");
+        FieldUtils.validateAllowedFields(effectObject, "count", "filter", "memorize", "keyword");
 
         final CountResolver.Count count = CountResolver.resolveCount(effectObject.get("count"), 1);
         final String filter = FieldUtils.getString(effectObject.get("filter"), "filter");
-        final String memory = FieldUtils.getString(effectObject.get("memory"), "memory", "_temp");
+        final String memory = FieldUtils.getString(effectObject.get("memorize"), "memorize", "_temp");
         final String keywordString = FieldUtils.getString(effectObject.get("keyword"), "keyword");
 
         final String[] keywordSplit = keywordString.split("\\+");
@@ -59,7 +59,7 @@ public class AddKeyword implements EffectAppenderProducer {
 
     @Override
     public Requirement createCostRequirement(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(effectObject, "count", "filter", "memory", "keyword");
+        FieldUtils.validateAllowedFields(effectObject, "count", "filter", "memorize", "keyword");
 
         final CountResolver.Count count = CountResolver.resolveCount(effectObject.get("count"), 1);
         final String type = FieldUtils.getString(effectObject.get("filter"), "filter");

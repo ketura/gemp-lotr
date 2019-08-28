@@ -198,7 +198,7 @@
       "cost": {
         "type": "exert",
         "filter": "choose(name(Gimli))",
-        "memory": "exertedGimli"
+        "memorize": "exertedGimli"
       },
       "effect": [
         {
@@ -255,7 +255,7 @@
           "type": "exert",
           "count": 2,
           "filter": "choose(dwarf)",
-          "memory": "exertedDwarves"
+          "memorize": "exertedDwarves"
         },
         {
           "type": "discardStackedCards",

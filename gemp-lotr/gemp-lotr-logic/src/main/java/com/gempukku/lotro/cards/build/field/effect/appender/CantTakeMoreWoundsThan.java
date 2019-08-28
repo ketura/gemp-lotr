@@ -24,11 +24,11 @@ import java.util.Collection;
 public class CantTakeMoreWoundsThan implements EffectAppenderProducer {
     @Override
     public EffectAppender createEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(effectObject, "filter", "wounds", "memory");
+        FieldUtils.validateAllowedFields(effectObject, "filter", "wounds", "memorize");
 
         final int wounds = FieldUtils.getInteger(effectObject.get("wounds"), "wounds", 1);
         final String filter = FieldUtils.getString(effectObject.get("filter"), "filter");
-        final String memory = FieldUtils.getString(effectObject.get("memory"), "memory", "_temp");
+        final String memory = FieldUtils.getString(effectObject.get("memorize"), "memorize", "_temp");
 
         MultiEffectAppender result = new MultiEffectAppender();
 
@@ -49,7 +49,7 @@ public class CantTakeMoreWoundsThan implements EffectAppenderProducer {
 
     @Override
     public Requirement createCostRequirement(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(effectObject, "filter", "wounds", "memory");
+        FieldUtils.validateAllowedFields(effectObject, "filter", "wounds", "memorize");
 
         final String type = FieldUtils.getString(effectObject.get("filter"), "filter");
 

@@ -27,12 +27,12 @@ import java.util.Collection;
 public class ModifyStrength implements EffectAppenderProducer {
     @Override
     public EffectAppender createEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(effectObject, "amount", "count", "filter", "until", "memory");
+        FieldUtils.validateAllowedFields(effectObject, "amount", "count", "filter", "until", "memorize");
 
         final int amount = FieldUtils.getInteger(effectObject.get("amount"), "amount");
         final CountResolver.Count count = CountResolver.resolveCount(effectObject.get("count"), 1);
         final String filter = FieldUtils.getString(effectObject.get("filter"), "filter");
-        final String memory = FieldUtils.getString(effectObject.get("memory"), "memory", "_temp");
+        final String memory = FieldUtils.getString(effectObject.get("memorize"), "memorize", "_temp");
         final TimeResolver.Time time = TimeResolver.resolveTime(effectObject.get("until"), "end(current)");
 
         MultiEffectAppender result = new MultiEffectAppender();
@@ -58,7 +58,7 @@ public class ModifyStrength implements EffectAppenderProducer {
 
     @Override
     public Requirement createCostRequirement(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(effectObject, "amount", "count", "filter", "memory");
+        FieldUtils.validateAllowedFields(effectObject, "amount", "count", "filter", "memorize");
 
         final CountResolver.Count count = CountResolver.resolveCount(effectObject.get("count"), 1);
         final String type = FieldUtils.getString(effectObject.get("filter"), "filter");
