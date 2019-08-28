@@ -9,7 +9,6 @@ import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.CardResolver;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.CountResolver;
-import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -54,12 +53,16 @@ public class DiscardFromPlay implements EffectAppenderProducer {
         FieldUtils.validateAllowedFields(effectObject, "count", "filter");
 
         final int count = FieldUtils.getInteger(effectObject.get("count"), "count", 1);
-        final String filter = FieldUtils.getString(effectObject.get("filter"), "filter");
+        final String type = FieldUtils.getString(effectObject.get("filter"), "filter");
 
-        final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter);
-        return (playerId, game, self, effectResult, effect) -> {
-            final Filterable filterable = filterableSource.getFilterable(null, game, self, null, null);
-            return PlayConditions.canDiscardFromPlay(self, game, count, filterable);
-        };
+        if (type.startsWith("choose(") && type.endsWith(")")) {
+            final String filter = type.substring(type.indexOf("(") + 1, type.lastIndexOf(")"));
+            final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter);
+
+            return (playerId, game, self, effectResult, effect) ->
+                    PlayConditions.canDiscardFromPlay(self, game, count,
+                            filterableSource.getFilterable(null, game, self, null, null));
+        }
+        return null;
     }
 }

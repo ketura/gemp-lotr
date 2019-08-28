@@ -35,7 +35,7 @@ public abstract class AbstractEffect implements Effect {
         return null;
     }
 
-    protected final String getAppendedTextNames(Collection<PhysicalCard> cards) {
+    protected final String getAppendedTextNames(Collection<? extends PhysicalCard> cards) {
         return GameUtils.getAppendedTextNames(cards);
     }
 

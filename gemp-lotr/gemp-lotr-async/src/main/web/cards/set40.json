@@ -241,6 +241,36 @@
       }
     }
   },
+  "40_7": {
+    "title": "Brothers in Arms",
+    "side": "free people",
+    "culture": "dwarven",
+    "cost": 0,
+    "type": "event",
+    "keyword": "skirmish",
+    "effects": {
+      "type": "event",
+      "cost": [
+        {
+          "type": "exert",
+          "count": 2,
+          "filter": "choose(dwarf)",
+          "memory": "exertedDwarves"
+        },
+        {
+          "type": "discardStackedCards",
+          "on": "culture(dwarven),condition",
+          "count": 2
+        }
+      ],
+      "effect": {
+        "type": "modifyStrength",
+        "filter": "memory(exertedDwarves)",
+        "amount": 2,
+        "until": "start(regroup)"
+      }
+    }
+  },
   "40_184": {
     "title": "Black Steed",
     "subtitle": "Bred to Serve",

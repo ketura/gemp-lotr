@@ -640,6 +640,17 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
     }
 
     public void validateConsistency() throws InvalidCardDefinitionException {
-
+        if (title == null)
+            throw new InvalidCardDefinitionException("Card has to have a title");
+        if (cardType == null)
+            throw new InvalidCardDefinitionException("Card has to have a type");
+        if (siteNumber != 0
+                && cardType != CardType.SITE
+                && cardType != CardType.MINION)
+            throw new InvalidCardDefinitionException("Only minions and sites have a site number, use siteHome for allies");
+        if (cardType == CardType.EVENT && playEventAction == null)
+            throw new InvalidCardDefinitionException("Events have to have an event type effect");
+        if (cardType != CardType.EVENT && playEventAction != null)
+            throw new InvalidCardDefinitionException("Only events should have an event type effect");
     }
 }

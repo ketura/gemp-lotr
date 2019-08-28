@@ -113,7 +113,7 @@ public class GameUtils {
         return "<div class='cardHint' value='" + blueprintId + "'>" + (blueprint.isUnique() ? "•" : "") + GameUtils.getFullName(blueprint) + "</div>";
     }
 
-    public static String getAppendedTextNames(Collection<PhysicalCard> cards) {
+    public static String getAppendedTextNames(Collection<? extends PhysicalCard> cards) {
         StringBuilder sb = new StringBuilder();
         for (PhysicalCard card : cards)
             sb.append(GameUtils.getFullName(card) + ", ");

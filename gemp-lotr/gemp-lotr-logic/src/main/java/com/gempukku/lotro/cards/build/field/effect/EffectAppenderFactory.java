@@ -35,6 +35,7 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("negatewound", new NegateWound());
         effectAppenderProducers.put("discardcardatrandomfromhand", new DiscardCardAtRandomFromHand());
         effectAppenderProducers.put("putonring", new PutOnRing());
+        effectAppenderProducers.put("discardstackedcards", new DiscardStackedCards());
     }
 
     public EffectAppender getEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
