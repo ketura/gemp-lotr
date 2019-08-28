@@ -620,9 +620,7 @@ public class HallServer extends AbstractServer {
                 String blueprintId = cardCount.getKey();
                 int count = cardCount.getValue();
 
-                int owned = 0;
-                if (ownedCollection != null)
-                    owned = ownedCollection.getItemCount(blueprintId);
+                int owned = ownedCollection.getItemCount(blueprintId);
                 int fromOwned = Math.min(owned, count);
 
                 for (int i = 0; i < fromOwned; i++)

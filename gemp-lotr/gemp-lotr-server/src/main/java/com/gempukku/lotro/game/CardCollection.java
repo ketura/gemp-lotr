@@ -2,7 +2,7 @@ package com.gempukku.lotro.game;
 
 import java.util.Map;
 
-public interface CardCollection extends OwnershipCheck {
+public interface CardCollection {
     int getCurrency();
 
     Iterable<Item> getAll();
