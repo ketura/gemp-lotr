@@ -18,8 +18,8 @@ public class ChatRoom {
         _muteJoinPartMessages = muteJoinPartMessages;
     }
 
-    private void postMessage(String from, String message, boolean addToHistory) {
-        ChatMessage chatMessage = new ChatMessage(new Date(), from, message);
+    public void postMessage(String from, String message, boolean addToHistory, boolean fromAdmin) {
+        ChatMessage chatMessage = new ChatMessage(new Date(), from, message, fromAdmin);
         if (addToHistory) {
             _lastMessages.add(chatMessage);
             shrinkLastMessages();
@@ -28,8 +28,12 @@ public class ChatRoom {
             listeners.getValue().messageReceived(chatMessage);
     }
 
-    public void postMessage(String from, String message) {
-        postMessage(from, message, true);
+    public void postToUser(String from, String to, String message) {
+        ChatMessage chatMessage = new ChatMessage(new Date(), from, message, false);
+        final ChatRoomListener chatRoomListener = _chatRoomListeners.get(to);
+        if (chatRoomListener != null) {
+            chatRoomListener.messageReceived(chatMessage);
+        }
     }
 
     public void joinChatRoom(String playerId, ChatRoomListener listener) {
@@ -38,13 +42,13 @@ public class ChatRoom {
         for (ChatMessage lastMessage : _lastMessages)
             listener.messageReceived(lastMessage);
         if (!wasInRoom && !_muteJoinPartMessages)
-            postMessage("System", playerId + " joined the room", false);
+            postMessage("System", playerId + " joined the room", true, false);
     }
 
     public void partChatRoom(String playerId) {
         boolean wasInRoom = (_chatRoomListeners.remove(playerId) != null);
         if (wasInRoom && !_muteJoinPartMessages)
-            postMessage("System", playerId + " left the room", false);
+            postMessage("System", playerId + " left the room", true, false);
     }
 
     public Collection<String> getUsersInRoom() {

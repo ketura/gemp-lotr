@@ -6,11 +6,13 @@ public class ChatMessage {
     private Date _when;
     private String _from;
     private String _message;
+    private boolean fromAdmin;
 
-    public ChatMessage(Date when, String from, String message) {
+    public ChatMessage(Date when, String from, String message, boolean fromAdmin) {
         _when = when;
         _from = from;
         _message = message;
+        this.fromAdmin = fromAdmin;
     }
 
     public String getFrom() {
@@ -23,5 +25,9 @@ public class ChatMessage {
 
     public Date getWhen() {
         return _when;
+    }
+
+    public boolean isFromAdmin() {
+        return fromAdmin;
     }
 }

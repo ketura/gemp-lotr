@@ -89,7 +89,8 @@ public class ServerBuilder {
                         extract(objectMap, CollectionsManager.class),
                         extract(objectMap, CardSets.class)));
 
-        objectMap.put(ChatServer.class, new ChatServer());
+        objectMap.put(ChatServer.class, new ChatServer(
+                extract(objectMap, IgnoreDAO.class)));
 
         objectMap.put(LotroServer.class,
                 new LotroServer(
@@ -100,6 +101,7 @@ public class ServerBuilder {
 
         objectMap.put(HallServer.class,
                 new HallServer(
+                        extract(objectMap, IgnoreDAO.class),
                         extract(objectMap, LotroServer.class),
                         extract(objectMap, ChatServer.class),
                         extract(objectMap, LeagueService.class),

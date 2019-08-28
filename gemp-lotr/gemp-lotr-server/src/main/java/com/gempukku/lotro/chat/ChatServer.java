@@ -2,16 +2,22 @@ package com.gempukku.lotro.chat;
 
 import com.gempukku.lotro.AbstractServer;
 import com.gempukku.lotro.PrivateInformationException;
+import com.gempukku.lotro.db.IgnoreDAO;
 
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class ChatServer extends AbstractServer {
+    private IgnoreDAO ignoreDAO;
     private Map<String, ChatRoomMediator> _chatRooms = new ConcurrentHashMap<String, ChatRoomMediator>();
 
+    public ChatServer(IgnoreDAO ignoreDAO) {
+        this.ignoreDAO = ignoreDAO;
+    }
+
     public ChatRoomMediator createChatRoom(String name, boolean muteJoinPartMessages, int secondsTimeoutPeriod) {
-        ChatRoomMediator chatRoom = new ChatRoomMediator(name, muteJoinPartMessages, secondsTimeoutPeriod);
+        ChatRoomMediator chatRoom = new ChatRoomMediator(ignoreDAO, name, muteJoinPartMessages, secondsTimeoutPeriod);
         try {
             chatRoom.sendMessage("System", "Welcome to room: " + name, true);
         } catch (PrivateInformationException exp) {
@@ -24,7 +30,7 @@ public class ChatServer extends AbstractServer {
     }
 
     public ChatRoomMediator createPrivateChatRoom(String name, boolean muteJoinPartMessages, Set<String> allowedUsers, int secondsTimeoutPeriod) {
-        ChatRoomMediator chatRoom = new ChatRoomMediator(name, muteJoinPartMessages, secondsTimeoutPeriod, allowedUsers);
+        ChatRoomMediator chatRoom = new ChatRoomMediator(ignoreDAO, name, muteJoinPartMessages, secondsTimeoutPeriod, allowedUsers);
         try {
             chatRoom.sendMessage("System", "Welcome to private room: " + name, true);
         } catch (PrivateInformationException exp) {

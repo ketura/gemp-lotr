@@ -39,6 +39,10 @@ public class DaoBuilder {
         objectMap.put(LeagueDAO.class, new DbLeagueDAO(dbAccess));
         objectMap.put(GameHistoryDAO.class, new DbGameHistoryDAO(dbAccess));
 
+        DbIgnoreDAO dbIgnoreDao = new DbIgnoreDAO(dbAccess);
+        CachedIgnoreDAO ignoreDao = new CachedIgnoreDAO(dbIgnoreDao);
+        objectMap.put(IgnoreDAO.class, ignoreDao);
+
         DbDeckDAO dbDeckDao = new DbDeckDAO(dbAccess, library);
         CachedDeckDAO deckDao = new CachedDeckDAO(dbDeckDao);
         objectMap.put(DeckDAO.class, deckDao);

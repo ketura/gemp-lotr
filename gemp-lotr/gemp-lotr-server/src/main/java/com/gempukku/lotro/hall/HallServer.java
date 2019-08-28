@@ -6,6 +6,7 @@ import com.gempukku.lotro.chat.ChatCommandErrorException;
 import com.gempukku.lotro.chat.ChatRoomMediator;
 import com.gempukku.lotro.chat.ChatServer;
 import com.gempukku.lotro.collection.CollectionsManager;
+import com.gempukku.lotro.db.IgnoreDAO;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.db.vo.League;
 import com.gempukku.lotro.draft.Draft;
@@ -34,6 +35,7 @@ public class HallServer extends AbstractServer {
     // Repeat tournaments every 2 days
     private final long _repeatTournaments = 1000 * 60 * 60 * 24 * 2;
 
+    private IgnoreDAO ignoreDAO;
     private ChatServer _chatServer;
     private LeagueService _leagueService;
     private TournamentService _tournamentService;
@@ -72,11 +74,12 @@ public class HallServer extends AbstractServer {
     // 5 minutes timeout, 40 minutes per game per player
     private GameTimer competitiveTimer = new GameTimer(false, "Competitive", 60 * 40, 60 * 5);
 
-    public HallServer(LotroServer lotroServer, ChatServer chatServer, LeagueService leagueService, TournamentService tournamentService, LotroCardBlueprintLibrary library,
+    public HallServer(IgnoreDAO ignoreDAO, LotroServer lotroServer, ChatServer chatServer, LeagueService leagueService, TournamentService tournamentService, LotroCardBlueprintLibrary library,
                       LotroFormatLibrary formatLibrary, CollectionsManager collectionsManager,
                       AdminService adminService,
                       TournamentPrizeSchemeRegistry tournamentPrizeSchemeRegistry,
                       PairingMechanismRegistry pairingMechanismRegistry, CardSets cardSets) {
+        this.ignoreDAO = ignoreDAO;
         _lotroServer = lotroServer;
         _chatServer = chatServer;
         _leagueService = leagueService;
@@ -121,6 +124,36 @@ public class HallServer extends AbstractServer {
                         } else {
                             throw new ChatCommandErrorException("Only administrator can ban users");
                         }
+                    }
+                });
+        _hallChat.addChatCommandCallback("ignore",
+                new ChatCommandCallback() {
+                    @Override
+                    public void commandReceived(String from, String parameters, boolean admin) throws ChatCommandErrorException {
+                        final String playerName = parameters.trim();
+                        if (playerName.length() <= 10) {
+                            if (ignoreDAO.addIgnoredUser(from, playerName))
+                                _hallChat.sendToUser("System", from, "User " + playerName + " added to ignore list");
+                        }
+                    }
+                });
+        _hallChat.addChatCommandCallback("unignore",
+                new ChatCommandCallback() {
+                    @Override
+                    public void commandReceived(String from, String parameters, boolean admin) throws ChatCommandErrorException {
+                        final String playerName = parameters.trim();
+                        if (playerName.length() <= 10) {
+                            if (ignoreDAO.removeIgnoredUser(from, playerName))
+                                _hallChat.sendToUser("System", from, "User " + playerName + " removed from ignore list");
+                        }
+                    }
+                });
+        _hallChat.addChatCommandCallback("listIgnores",
+                new ChatCommandCallback() {
+                    @Override
+                    public void commandReceived(String from, String parameters, boolean admin) throws ChatCommandErrorException {
+                        final Set<String> ignoredUsers = ignoreDAO.getIgnoredUsers(from);
+                        _hallChat.sendToUser("System", from, Arrays.toString(ignoredUsers.toArray(new String[0])));
                     }
                 });
 
@@ -517,7 +550,29 @@ public class HallServer extends AbstractServer {
         }
     }
 
+    private boolean isNoIgnores(Collection<String> players, String playerLooking) {
+        // Do not ignore self
+        if (players.contains(playerLooking))
+            return true;
+
+        // This player ignores someone in the players
+        final Set<String> ignoredUsers = ignoreDAO.getIgnoredUsers(playerLooking);
+        if (!Collections.disjoint(ignoredUsers, players))
+            return false;
+
+        // One of the players ignores this player
+        for (String player : players) {
+            final Set<String> ignored = ignoreDAO.getIgnoredUsers(player);
+            if (ignored.contains(playerLooking))
+                return false;
+        }
+
+        return true;
+    }
+
     protected void processHall(Player player, HallInfoVisitor visitor) {
+        final boolean isAdmin = player.getType().contains("a");
+
         _hallDataAccessLock.readLock().lock();
         try {
             visitor.serverTime(DateUtils.getStringDateWithHour());
@@ -533,23 +588,24 @@ public class HallServer extends AbstractServer {
                     players = Collections.<String>emptyList();
                 else
                     players = table.getPlayerNames();
-                visitor.visitTable(tableInformation.getKey(), null, false, HallInfoVisitor.TableStatus.WAITING, "Waiting", table.getGameSettings().getLotroFormat().getName(), getTournamentName(table), players, table.getPlayerNames().contains(player.getName()), null);
+
+                if (isAdmin || isNoIgnores(players, player.getName()))
+                    visitor.visitTable(tableInformation.getKey(), null, false, HallInfoVisitor.TableStatus.WAITING, "Waiting", table.getGameSettings().getLotroFormat().getName(), getTournamentName(table), players, table.getPlayerNames().contains(player.getName()), null);
             }
 
             // Then non-finished
             Map<String, RunningTable> finishedTables = new HashMap<String, RunningTable>();
 
-            final boolean isAdmin = player.getType().contains("a");
-
             for (Map.Entry<String, RunningTable> runningGame : _runningTables.entrySet()) {
                 final RunningTable runningTable = runningGame.getValue();
                 LotroGameMediator lotroGameMediator = runningTable.getLotroGameMediator();
                 if (lotroGameMediator != null) {
-                    if (isAdmin || lotroGameMediator.isVisibleToUser(player.getName())) {
-                        if (!lotroGameMediator.isFinished()) {
-                            visitor.visitTable(runningGame.getKey(), lotroGameMediator.getGameId(), isAdmin || lotroGameMediator.isAllowSpectators(), HallInfoVisitor.TableStatus.PLAYING, lotroGameMediator.getGameStatus(), runningTable.getFormatName(), runningTable.getTournamentName(), lotroGameMediator.getPlayersPlaying(), lotroGameMediator.getPlayersPlaying().contains(player.getName()), lotroGameMediator.getWinner());
-                        } else
+                    if (isAdmin || (lotroGameMediator.isVisibleToUser(player.getName()) &&
+                            isNoIgnores(lotroGameMediator.getPlayersPlaying(), player.getName()))) {
+                        if (lotroGameMediator.isFinished())
                             finishedTables.put(runningGame.getKey(), runningTable);
+                        else
+                            visitor.visitTable(runningGame.getKey(), lotroGameMediator.getGameId(), isAdmin || lotroGameMediator.isAllowSpectators(), HallInfoVisitor.TableStatus.PLAYING, lotroGameMediator.getGameStatus(), runningTable.getFormatName(), runningTable.getTournamentName(), lotroGameMediator.getPlayersPlaying(), lotroGameMediator.getPlayersPlaying().contains(player.getName()), lotroGameMediator.getWinner());
 
                         if (!lotroGameMediator.isFinished() && lotroGameMediator.getPlayersPlaying().contains(player.getName()))
                             visitor.runningPlayerGame(lotroGameMediator.getGameId());
@@ -561,8 +617,10 @@ public class HallServer extends AbstractServer {
             for (Map.Entry<String, RunningTable> nonPlayingGame : finishedTables.entrySet()) {
                 final RunningTable runningTable = nonPlayingGame.getValue();
                 LotroGameMediator lotroGameMediator = runningTable.getLotroGameMediator();
-                if (lotroGameMediator != null)
-                    visitor.visitTable(nonPlayingGame.getKey(), lotroGameMediator.getGameId(), false, HallInfoVisitor.TableStatus.FINISHED, lotroGameMediator.getGameStatus(), runningTable.getFormatName(), runningTable.getTournamentName(), lotroGameMediator.getPlayersPlaying(), lotroGameMediator.getPlayersPlaying().contains(player.getName()), lotroGameMediator.getWinner());
+                if (lotroGameMediator != null) {
+                    if (isAdmin || isNoIgnores(lotroGameMediator.getPlayersPlaying(), player.getName()))
+                        visitor.visitTable(nonPlayingGame.getKey(), lotroGameMediator.getGameId(), false, HallInfoVisitor.TableStatus.FINISHED, lotroGameMediator.getGameStatus(), runningTable.getFormatName(), runningTable.getTournamentName(), lotroGameMediator.getPlayersPlaying(), lotroGameMediator.getPlayersPlaying().contains(player.getName()), lotroGameMediator.getWinner());
+                }
             }
 
             for (Map.Entry<String, TournamentQueue> tournamentQueueEntry : _tournamentQueues.entrySet()) {

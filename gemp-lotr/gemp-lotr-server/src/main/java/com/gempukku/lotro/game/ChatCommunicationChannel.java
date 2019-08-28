@@ -7,11 +7,17 @@ import com.gempukku.polling.WaitingRequest;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 public class ChatCommunicationChannel implements ChatRoomListener, LongPollableResource {
     private List<ChatMessage> _messages = new LinkedList<ChatMessage>();
     private long _lastConsumed = System.currentTimeMillis();
     private volatile WaitingRequest _waitingRequest;
+    private Set<String> ignoredUsers;
+
+    public ChatCommunicationChannel(Set<String> ignoredUsers) {
+        this.ignoredUsers = ignoredUsers;
+    }
 
     @Override
     public synchronized void deregisterRequest(WaitingRequest waitingRequest) {
@@ -29,10 +35,12 @@ public class ChatCommunicationChannel implements ChatRoomListener, LongPollableR
 
     @Override
     public synchronized void messageReceived(ChatMessage message) {
-        _messages.add(message);
-        if (_waitingRequest != null) {
-            _waitingRequest.processRequest();
-            _waitingRequest = null;
+        if (message.isFromAdmin() || !ignoredUsers.contains(message.getFrom())) {
+            _messages.add(message);
+            if (_waitingRequest != null) {
+                _waitingRequest.processRequest();
+                _waitingRequest = null;
+            }
         }
     }
 
