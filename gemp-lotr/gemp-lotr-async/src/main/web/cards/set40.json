@@ -1,4 +1,57 @@
 {
+  "40_1": {
+    "title": "The One Ring",
+    "subtitle": "Doom of Free Peoples",
+    "unique": true,
+    "type": "the one ring",
+    "strength": 1,
+    "vitality": 1,
+    "resistance": 1,
+    "effects": [
+      {
+        "type": "trigger",
+        "requirement": {
+          "type": "ringIsOn"
+        },
+        "trigger": {
+          "type": "aboutToTakeWound",
+          "filter": "hasAttached(self)"
+        },
+        "effect": [
+          {
+            "type": "negateWound",
+            "filter": "all(hasAttached(self))"
+          },
+          {
+            "type": "addBurden"
+          }
+        ]
+      },
+      {
+        "type": "activated",
+        "phase": "maneuver",
+        "cost": {
+          "type": "choice",
+          "texts": [
+            "Exert bearer",
+            "Discard a card at random"
+          ],
+          "effects": [
+            {
+              "type": "exert",
+              "filter": "choose(hasAttached(self))"
+            },
+            {
+              "type": "discardCardAtRandomFromHand"
+            }
+          ]
+        },
+        "effect": {
+          "type": "putOnRing"
+        }
+      }
+    ]
+  },
   "40_3": {
     "title": "Balin's Lament",
     "unique": true,

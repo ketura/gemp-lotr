@@ -18,6 +18,7 @@ public class RequirementFactory {
         requirementProducers.put("controlssite", new ControlsSite());
         requirementProducers.put("twilightpoollessthan", new TwilightPoolLessThan());
         requirementProducers.put("location", new Location());
+        requirementProducers.put("ringison", new RingIsOn());
     }
 
     public Requirement getRequirement(JSONObject object, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {

@@ -41,8 +41,7 @@ public class PutCardFromHandOnBottomOfDeck implements EffectAppenderProducer {
                     }
                 });
 
-
-        return null;
+        return result;
     }
 
     @Override

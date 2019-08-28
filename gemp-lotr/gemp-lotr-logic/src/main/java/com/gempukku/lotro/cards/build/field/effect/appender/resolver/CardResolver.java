@@ -116,6 +116,26 @@ public class CardResolver {
                     };
                 }
             };
+        } else if (type.startsWith("all(") && type.endsWith(")")) {
+            final String filter = type.substring(type.indexOf("(") + 1, type.lastIndexOf(")"));
+            final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter);
+            return new AbstractEffectAppender() {
+                @Override
+                protected Effect createEffect(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
+                    return new UnrespondableEffect() {
+                        @Override
+                        protected void doPlayEffect(LotroGame game) {
+                            final Filterable filterable = filterableSource.getFilterable(playerId, game, self, effectResult, effect);
+                            action.setCardMemory(memory, Filters.filterActive(game, filterable));
+                        }
+                    };
+                }
+
+                @Override
+                public boolean isPlayableInFull(String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
+                    return true;
+                }
+            };
         } else if (type.startsWith("choose(") && type.endsWith(")")) {
             final String filter = type.substring(type.indexOf("(") + 1, type.lastIndexOf(")"));
             final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter);
@@ -146,6 +166,6 @@ public class CardResolver {
                 }
             };
         }
-        throw new RuntimeException("Unable to resolve card resolver of type: " + type);
+        throw new InvalidCardDefinitionException("Unable to resolve card resolver of type: " + type);
     }
 }
