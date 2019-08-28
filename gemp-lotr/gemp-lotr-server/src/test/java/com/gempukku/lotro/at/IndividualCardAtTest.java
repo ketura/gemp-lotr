@@ -1218,6 +1218,6 @@ public class IndividualCardAtTest extends AbstractAtTest {
         playerDecided(P1, "temp0");
         playerDecided(P1, "temp0");
 
-        assertNull(_userFeedback.getAwaitingDecision(P1));
+        assertTrue(_userFeedback.getAwaitingDecision(P1).getText().startsWith("Do you wish to mulligan"));
     }
 }
