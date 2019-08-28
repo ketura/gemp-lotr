@@ -24,16 +24,23 @@ public class DiscardTopCardFromDeck implements EffectAppenderProducer {
         final String deck = FieldUtils.getString(effectObject.get("deck"), "deck", "owner");
         final int count = FieldUtils.getInteger(effectObject.get("count"), "count", 1);
 
-        MultiEffectAppender result = new MultiEffectAppender();
-        String deckPlayerMemory = "_temp1";
+        final PlayerSource playerSource = PlayerResolver.resolvePlayer(deck, environment);
 
-        result.addEffectAppender(
-                PlayerResolver.resolvePlayer(deck, deckPlayerMemory, environment));
+        MultiEffectAppender result = new MultiEffectAppender();
+
         result.addEffectAppender(
                 new DelayedAppender() {
                     @Override
+                    public boolean isPlayableInFull(String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
+                        final String deckId = playerSource.getPlayer(playerId, game, self, effectResult, effect);
+
+                        return game.getGameState().getDeck(deckId).size() >= count
+                                && game.getModifiersQuerying().canDiscardCardsFromTopOfDeck(game, deckId, self);
+                    }
+
+                    @Override
                     protected Effect createEffect(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
-                        final String deckId = action.getValueFromMemory(deckPlayerMemory);
+                        final String deckId = playerSource.getPlayer(playerId, game, self, effectResult, effect);
 
                         return new DiscardTopCardFromDeckEffect(self, deckId, count, true);
                     }
@@ -51,6 +58,10 @@ public class DiscardTopCardFromDeck implements EffectAppenderProducer {
 
         final PlayerSource playerSource = PlayerResolver.resolvePlayer(deck, environment);
 
-        return (playerId, game, self, effectResult, effect) -> game.getGameState().getDeck(playerSource.getPlayer(playerId, game, self, effectResult, effect)).size() >= count;
+        return (playerId, game, self, effectResult, effect) -> {
+            final String deckId = playerSource.getPlayer(playerId, game, self, effectResult, effect);
+            return game.getGameState().getDeck(deckId).size() >= count
+                    && game.getModifiersQuerying().canDiscardCardsFromTopOfDeck(game, deckId, self);
+        };
     }
 }
