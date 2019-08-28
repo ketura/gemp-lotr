@@ -10,9 +10,14 @@
     "effects": [
       {
         "type": "trigger",
-        "requirement": {
-          "type": "ringIsOn"
-        },
+        "requirement": [
+          {
+            "type": "ringIsOn"
+          },
+          {
+            "type": "ringIsActive"
+          }
+        ],
         "trigger": {
           "type": "aboutToTakeWound",
           "filter": "hasAttached(self)"
@@ -29,6 +34,9 @@
       },
       {
         "type": "activated",
+        "requirement": {
+          "type": "ringIsActive"
+        },
         "phase": "maneuver",
         "cost": {
           "type": "choice",
@@ -49,6 +57,71 @@
         "effect": {
           "type": "putOnRing"
         }
+      }
+    ]
+  },
+  "40_2": {
+    "title": "The One Ring",
+    "subtitle": "The Ruling Ring",
+    "unique": true,
+    "type": "the one ring",
+    "strength": 1,
+    "effects": [
+      {
+        "type": "trigger",
+        "requirement": [
+          {
+            "type": "ringIsOn"
+          },
+          {
+            "type": "phase",
+            "phase": "skirmish"
+          },
+          {
+            "type": "ringIsActive"
+          }
+        ],
+        "trigger": {
+          "type": "aboutToTakeWound",
+          "filter": "hasAttached(self)"
+        },
+        "effect": [
+          {
+            "type": "negateWound",
+            "filter": "all(hasAttached(self))"
+          },
+          {
+            "type": "addBurden"
+          }
+        ]
+      },
+      {
+        "type": "activatedTrigger",
+        "trigger": {
+          "type": "aboutToTakeWound",
+          "filter": "hasAttached(self)"
+        },
+        "requirement": [
+          {
+            "type": "phase",
+            "phase": "skirmish"
+          },
+          {
+            "type": "ringIsActive"
+          }
+        ],
+        "effect": [
+          {
+            "type": "negateWound",
+            "filter": "all(hasAttached(self))"
+          },
+          {
+            "type": "addBurden"
+          },
+          {
+            "type": "putOnRing"
+          }
+        ]
       }
     ]
   },

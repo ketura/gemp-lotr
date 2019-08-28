@@ -19,6 +19,8 @@ public class RequirementFactory {
         requirementProducers.put("twilightpoollessthan", new TwilightPoolLessThan());
         requirementProducers.put("location", new Location());
         requirementProducers.put("ringison", new RingIsOn());
+        requirementProducers.put("phase", new PhaseRequirement());
+        requirementProducers.put("ringisactive", new RingIsActive());
     }
 
     public Requirement getRequirement(JSONObject object, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {

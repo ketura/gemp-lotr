@@ -12,7 +12,6 @@ import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
 import com.gempukku.lotro.logic.effects.*;
 import com.gempukku.lotro.logic.modifiers.ModifierFlag;
 import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
 
@@ -84,17 +83,6 @@ public class Card20_001 extends AbstractAttachable {
             RequiredTriggerAction action = new RequiredTriggerAction(self);
             action.appendEffect(new NegateWoundEffect(woundEffect, self.getAttachedTo()));
             action.appendEffect(new AddBurdenEffect(self.getOwner(), self, 1));
-            return Collections.singletonList(action);
-        }
-        return null;
-    }
-
-    @Override
-    public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if ((TriggerConditions.startOfPhase(game, effectResult, Phase.REGROUP) || TriggerConditions.endOfPhase(game, effectResult, Phase.REGROUP))
-                && game.getGameState().isWearingRing()) {
-            RequiredTriggerAction action = new RequiredTriggerAction(self);
-            action.appendEffect(new TakeOffTheOneRingEffect());
             return Collections.singletonList(action);
         }
         return null;

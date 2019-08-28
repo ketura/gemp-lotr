@@ -54,5 +54,7 @@ public class RuleSet {
         new PlayPermanentRule(_modifiersLogic).applyRule();
 
         new PlayEventRule(_modifiersLogic).applyRule();
+
+        new TakeOffRingRule(_actionsEnvironment).applyRule();
     }
 }
