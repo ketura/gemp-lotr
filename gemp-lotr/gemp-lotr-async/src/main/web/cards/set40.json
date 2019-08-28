@@ -295,6 +295,90 @@
       }
     }
   },
+  "40_9": {
+    "title": "Dwarf Soldier",
+    "side": "free people",
+    "culture": "dwarven",
+    "cost": 2,
+    "type": "companion",
+    "race": "dwarf",
+    "strength": 5,
+    "vitality": 3,
+    "resistance": 6,
+    "keyword": "damage+1",
+    "effects": {
+      "type": "activated",
+      "phase": "skirmish",
+      "cost": {
+        "type": "discardStackedCards",
+        "count": 1,
+        "on": "culture(dwarven),condition"
+      },
+      "effect": {
+        "type": "modifyStrength",
+        "filter": "self",
+        "amount": 1
+      }
+    }
+  },
+  "40_10": {
+    "title": "Dwarven Battle Axe",
+    "side": "free people",
+    "type": "possession",
+    "possession": "hand weapon",
+    "cost": 0,
+    "strength": 1,
+    "vitality": 1,
+    "target": "dwarf",
+    "effects": {
+      "type": "trigger",
+      "trigger": {
+        "type": "winsSkirmish",
+        "filter": "hasAttached(self)"
+      },
+      "cost": {
+        "type": "discardStackedCards",
+        "on": "culture(dwarven),condition",
+        "count": 1
+      },
+      "effect": {
+        "type": "wound",
+        "filter": "choose(minion)"
+      }
+    }
+  },
+  "40_11": {
+    "title": "Dwarven Bracers",
+    "side": "free people",
+    "culture": "dwarven",
+    "cost": 1,
+    "type": "possession",
+    "possession": "bracers",
+    "strength": 1,
+    "target": "dwarf",
+    "effects": {
+      "type": "activatedTrigger",
+      "trigger": {
+        "type": "aboutToTakeWound",
+        "filter": "hasAttached(self)"
+      },
+      "cost": [
+        {
+          "type": "memorize",
+          "filter": "hasAttached(self)",
+          "memory": "bearer"
+        },
+        {
+          "type": "discard",
+          "filter": "self"
+        }
+      ],
+      "effect": {
+        "type": "preventWound",
+        "filter": "memory(bearer)"
+      }
+    }
+  },
   "40_184": {
     "title": "Black Steed",
     "subtitle": "Bred to Serve",
