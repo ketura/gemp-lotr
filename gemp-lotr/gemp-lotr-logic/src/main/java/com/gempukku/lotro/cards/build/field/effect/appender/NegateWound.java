@@ -35,7 +35,7 @@ public class NegateWound implements EffectAppenderProducer {
                             return Filters.in(woundEffect.getAffectedCardsMinusPrevented(game));
                         }, 1, 1, "_temp", "owner", "Choose characters to negate wound to", environment));
         result.addEffectAppender(
-                new AbstractEffectAppender() {
+                new DelayedAppender() {
                     @Override
                     protected Effect createEffect(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
                         final Collection<? extends PhysicalCard> cards = action.getCardsFromMemory("_temp");

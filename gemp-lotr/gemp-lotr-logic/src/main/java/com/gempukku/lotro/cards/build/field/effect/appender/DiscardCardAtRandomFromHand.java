@@ -19,7 +19,7 @@ public class DiscardCardAtRandomFromHand implements EffectAppenderProducer {
     public EffectAppender createEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         FieldUtils.validateAllowedFields(effectObject);
 
-        return new AbstractEffectAppender() {
+        return new DelayedAppender() {
             @Override
             protected Effect createEffect(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
                 return new DiscardCardAtRandomFromHandEffect(self, self.getOwner(), false);

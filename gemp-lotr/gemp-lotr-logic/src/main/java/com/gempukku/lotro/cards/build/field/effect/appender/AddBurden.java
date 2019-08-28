@@ -30,7 +30,7 @@ public class AddBurden implements EffectAppenderProducer {
         MultiEffectAppender result = new MultiEffectAppender();
 
         result.addEffectAppender(
-                new AbstractEffectAppender() {
+                new DelayedAppender() {
                     @Override
                     protected Effect createEffect(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
                         final String playerAddingBurden = playerSource.getPlayer(playerId, game, self, effectResult, effect);

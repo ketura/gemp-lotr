@@ -997,7 +997,7 @@ public class IndividualCardAtTest extends AbstractAtTest {
         _game.getGameState().addTokens(frodo, Token.WOUND, 4);
         _game.getGameState().addTwilight(3);
 
-        // Pass felloship
+        // Pass in fellowship
         playerDecided(P1, "");
 
         // Play minion
@@ -1006,8 +1006,34 @@ public class IndividualCardAtTest extends AbstractAtTest {
 
         // Put on the ring
         playerDecided(P1, "0");
-
         assertEquals(Zone.DISCARD, randomCard1.getZone());
+
+        // Pass in maneuver
+        playerDecided(P2, "");
+        playerDecided(P1, "");
+
+        // Pass in archery
+        playerDecided(P1, "");
+        playerDecided(P2, "");
+
+        // Pass in assignment
+        playerDecided(P1, "");
+        playerDecided(P2, "");
+
+        // Assign minion to Frodo
+        playerDecided(P1, frodo.getCardId() + " " + cheapMinion.getCardId());
+
+        // Start skirmish
+        playerDecided(P1, String.valueOf(frodo.getCardId()));
+
+        int burdensBefore = _game.getGameState().getBurdens();
+
+        // Pass in skirmish
+        playerDecided(P1, "");
+        playerDecided(P2, "");
+
+        assertEquals(burdensBefore + 1, _game.getGameState().getBurdens());
+        assertEquals(4, _game.getGameState().getWounds(frodo));
     }
 
     @Test

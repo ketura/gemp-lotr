@@ -21,7 +21,7 @@ public class AddTwilight implements EffectAppenderProducer {
 
         final int amount = FieldUtils.getInteger(effectObject.get("amount"), "amount");
 
-        return new AbstractEffectAppender() {
+        return new DelayedAppender() {
             @Override
             protected Effect createEffect(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
                 return new AddTwilightEffect(self, amount);
