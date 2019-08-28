@@ -133,7 +133,7 @@ public abstract class AbstractAtTest {
         return null;
     }
 
-    private void addPlayerDeck(String player, Map<String, LotroDeck> decks, Map<String, Collection<String>> additionalCardsInDeck) {
+    protected void addPlayerDeck(String player, Map<String, LotroDeck> decks, Map<String, Collection<String>> additionalCardsInDeck) {
         LotroDeck deck = createSimplestDeck();
         if (additionalCardsInDeck != null) {
             Collection<String> extraCards = additionalCardsInDeck.get(player);

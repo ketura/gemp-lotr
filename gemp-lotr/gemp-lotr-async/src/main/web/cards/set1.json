@@ -384,7 +384,7 @@
         },
         "effect": {
           "type": "heal",
-          "filter": "choose(not(self),hobbit,ally,site(fellowship,1))"
+          "filter": "choose(not(self),hobbit,ally,allySite(fellowship,1))"
         }
       }
     ]
@@ -413,7 +413,7 @@
     "subtitle": "Friend to Frodo",
     "unique": true,
     "side": "free people",
-    "cost": 0,
+    "cost": 1,
     "type": "companion",
     "race": "hobbit",
     "strength": 3,

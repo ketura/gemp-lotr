@@ -12,10 +12,7 @@ import com.gempukku.lotro.logic.timing.DefaultLotroGame;
 import com.gempukku.lotro.logic.vo.LotroDeck;
 import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
@@ -1168,5 +1165,59 @@ public class IndividualCardAtTest extends AbstractAtTest {
         playerDecided(P1, getCardActionId(P1, "Use Athelas"));
 
         assertEquals(AwaitingDecisionType.MULTIPLE_CHOICE, _userFeedback.getAwaitingDecision(P1).getDecisionType());
+    }
+
+    @Test
+    public void hobbitPartyGuest() throws CardNotFoundException, DecisionResultInvalidException {
+        initializeSimplestGame();
+
+        PhysicalCardImpl hobbitPartyGuest = new PhysicalCardImpl(100, "1_297", P1, _library.getLotroCardBlueprint("1_297"));
+        PhysicalCardImpl rosie = new PhysicalCardImpl(100, "1_309", P1, _library.getLotroCardBlueprint("1_309"));
+
+        _game.getGameState().addCardToZone(_game, hobbitPartyGuest, Zone.SUPPORT);
+        _game.getGameState().addCardToZone(_game, rosie, Zone.SUPPORT);
+        _game.getGameState().addTokens(rosie, Token.WOUND, 1);
+
+        skipMulligans();
+
+        playerDecided(P1, "0");
+        assertEquals(0, _game.getGameState().getTokenCount(rosie, Token.WOUND));
+    }
+
+    @Test
+    public void playStartingFellowship() throws CardNotFoundException, DecisionResultInvalidException {
+
+        Map<String, Collection<String>> additionalCardsInDeck = new HashMap<>();
+        List<String> additionalCards = new LinkedList<>();
+        additionalCards.add("2_121");
+        additionalCards.add("3_121");
+        additionalCards.add("1_306");
+        additionalCardsInDeck.put(P1, additionalCards);
+
+        Map<String, LotroDeck> decks = new HashMap<String, LotroDeck>();
+        addPlayerDeck(P1, decks, additionalCardsInDeck);
+        addPlayerDeck(P2, decks, additionalCardsInDeck);
+
+        _userFeedback = new DefaultUserFeedback();
+
+        LotroFormatLibrary formatLibrary = new LotroFormatLibrary(new DefaultAdventureLibrary(), _library);
+        LotroFormat format = formatLibrary.getFormat("movie");
+
+        _game = new DefaultLotroGame(format, decks, _userFeedback, _library);
+        _userFeedback.setGame(_game);
+        _game.startGame();
+
+        // Bidding
+        playerDecided(P1, "1");
+        playerDecided(P2, "0");
+
+        // Seating choice
+        playerDecided(P1, "0");
+
+        // Play starting fellowship
+        playerDecided(P1, "temp0");
+        playerDecided(P1, "temp0");
+
+        assertNull(_userFeedback.getAwaitingDecision(P1));
     }
 }
