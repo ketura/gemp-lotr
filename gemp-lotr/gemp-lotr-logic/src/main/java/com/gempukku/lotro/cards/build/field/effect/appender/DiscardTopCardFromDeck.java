@@ -26,28 +26,23 @@ public class DiscardTopCardFromDeck implements EffectAppenderProducer {
 
         final PlayerSource playerSource = PlayerResolver.resolvePlayer(deck, environment);
 
-        MultiEffectAppender result = new MultiEffectAppender();
+        return new DelayedAppender() {
+            @Override
+            public boolean isPlayableInFull(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
+                final String deckId = playerSource.getPlayer(playerId, game, self, effectResult, effect);
 
-        result.addEffectAppender(
-                new DelayedAppender() {
-                    @Override
-                    public boolean isPlayableInFull(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
-                        final String deckId = playerSource.getPlayer(playerId, game, self, effectResult, effect);
+                // Don't check if can discard top cards, since it's a cost
+                return game.getGameState().getDeck(deckId).size() >= count
+                        && (!forced || game.getModifiersQuerying().canDiscardCardsFromTopOfDeck(game, playerId, self));
+            }
 
-                        // Don't check if can discard top cards, since it's a cost
-                        return game.getGameState().getDeck(deckId).size() >= count
-                                && (!forced || game.getModifiersQuerying().canDiscardCardsFromTopOfDeck(game, playerId, self));
-                    }
+            @Override
+            protected Effect createEffect(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
+                final String deckId = playerSource.getPlayer(playerId, game, self, effectResult, effect);
 
-                    @Override
-                    protected Effect createEffect(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
-                        final String deckId = playerSource.getPlayer(playerId, game, self, effectResult, effect);
-
-                        return new DiscardTopCardFromDeckEffect(self, deckId, count, forced);
-                    }
-                });
-
-        return result;
+                return new DiscardTopCardFromDeckEffect(self, deckId, count, forced);
+            }
+        };
     }
 
 }

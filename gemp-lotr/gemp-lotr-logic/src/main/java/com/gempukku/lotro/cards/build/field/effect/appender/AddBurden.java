@@ -26,24 +26,19 @@ public class AddBurden implements EffectAppenderProducer {
 
         final PlayerSource playerSource = PlayerResolver.resolvePlayer(player, environment);
 
-        MultiEffectAppender result = new MultiEffectAppender();
+        return new DelayedAppender() {
+            @Override
+            protected Effect createEffect(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
+                final String playerAddingBurden = playerSource.getPlayer(playerId, game, self, effectResult, effect);
+                return new AddBurdenEffect(playerAddingBurden, self, amount);
+            }
 
-        result.addEffectAppender(
-                new DelayedAppender() {
-                    @Override
-                    protected Effect createEffect(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
-                        final String playerAddingBurden = playerSource.getPlayer(playerId, game, self, effectResult, effect);
-                        return new AddBurdenEffect(playerAddingBurden, self, amount);
-                    }
-
-                    @Override
-                    public boolean isPlayableInFull(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
-                        final String playerAddingBurden = playerSource.getPlayer(playerId, game, self, effectResult, effect);
-                        return PlayConditions.canAddBurdens(game, playerAddingBurden, self);
-                    }
-                });
-
-        return result;
+            @Override
+            public boolean isPlayableInFull(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
+                final String playerAddingBurden = playerSource.getPlayer(playerId, game, self, effectResult, effect);
+                return PlayConditions.canAddBurdens(game, playerAddingBurden, self);
+            }
+        };
     }
 
 }

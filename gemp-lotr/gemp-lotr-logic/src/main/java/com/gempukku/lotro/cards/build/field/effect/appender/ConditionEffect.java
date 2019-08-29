@@ -56,6 +56,7 @@ public class ConditionEffect implements EffectAppenderProducer {
                         });
             }
 
+            // TODO, maybe check the requirements, and if met, check if the effect is playable?
             @Override
             public boolean isPlayableInFull(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
                 return true;

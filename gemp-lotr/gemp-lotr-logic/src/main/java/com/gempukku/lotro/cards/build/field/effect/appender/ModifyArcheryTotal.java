@@ -23,18 +23,13 @@ public class ModifyArcheryTotal implements EffectAppenderProducer {
         final int amount = FieldUtils.getInteger(effectObject.get("amount"), "amount");
         final Side side = FieldUtils.getEnum(Side.class, effectObject.get("side"), "side");
 
-        MultiEffectAppender result = new MultiEffectAppender();
-
-        result.addEffectAppender(
-                new DelayedAppender() {
-                    @Override
-                    protected Effect createEffect(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
-                        return new AddUntilEndOfPhaseModifierEffect(
-                                new ArcheryTotalModifier(self, side, amount));
-                    }
-                });
-
-        return result;
+        return new DelayedAppender() {
+            @Override
+            protected Effect createEffect(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
+                return new AddUntilEndOfPhaseModifierEffect(
+                        new ArcheryTotalModifier(self, side, amount));
+            }
+        };
     }
 
 }
