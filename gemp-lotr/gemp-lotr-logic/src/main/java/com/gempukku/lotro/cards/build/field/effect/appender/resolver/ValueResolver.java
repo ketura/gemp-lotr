@@ -83,6 +83,9 @@ public class ValueResolver {
                     final Filterable on1 = onFilter.getFilterable(playerId, game, self, effectResult, effect);
                     return new CountStackedEvaluator(on1, Filters.any);
                 };
+            } else if (type.equalsIgnoreCase("forEachVitality")) {
+                final int over = FieldUtils.getInteger(object.get("over"), "over", 0);
+                return (action, playerId, game, self, effectResult, effect) -> (game1, cardAffected) -> Math.max(0, game1.getModifiersQuerying().getVitality(game1, cardAffected) - over);
             }
             throw new InvalidCardDefinitionException("Unrecognized type of an evaluator " + type);
         }

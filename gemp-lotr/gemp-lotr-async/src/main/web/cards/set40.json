@@ -445,6 +445,82 @@
       }
     }
   },
+  "40_14": {
+    "title": "Dwarven Vigor",
+    "unique": true,
+    "side": "free people",
+    "culture": "dwarven",
+    "cost": 1,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": {
+      "type": "modifyStrength",
+      "condition": {
+        "type": "canSpot",
+        "filter": "self,hasStacked(culture(dwarven))"
+      },
+      "filter": "dwarf",
+      "amount": {
+        "type": "forEachVitality",
+        "over": 3
+      }
+    }
+  },
+  "40_15": {
+    "title": "Endurance of Dwarves",
+    "side": "free people",
+    "culture": "dwarven",
+    "cost": 1,
+    "type": "condition",
+    "vitality": 1,
+    "target": "dwarf",
+    "effects": {
+      "type": "activated",
+      "phase": "skirmish",
+      "cost": [
+        {
+          "type": "memorize",
+          "filter": "hasAttached(self)",
+          "memory": "bearer"
+        },
+        {
+          "type": "discard",
+          "filter": "self"
+        }
+      ],
+      "effect": {
+        "type": "modifyStrength",
+        "filter": "memory(bearer)",
+        "amount": 1
+      }
+    }
+  },
+  "40_16": {
+    "title": "Festive Folk",
+    "side": "free people",
+    "culture": "dwarven",
+    "cost": 1,
+    "type": "event",
+    "keyword": "fellowship",
+    "effects": {
+      "type": "event",
+      "cost": [
+        {
+          "type": "exert",
+          "filter": "choose(dwarf)"
+        },
+        {
+          "type": "discardStackedCards",
+          "count": 1,
+          "on": "culture(dwarven),condition"
+        }
+      ],
+      "effect": {
+        "type": "removeBurdens",
+        "amount": 1
+      }
+    }
+  },
   "40_184": {
     "title": "Black Steed",
     "subtitle": "Bred to Serve",

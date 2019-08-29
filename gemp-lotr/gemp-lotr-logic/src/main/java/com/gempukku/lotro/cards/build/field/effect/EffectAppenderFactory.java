@@ -41,6 +41,7 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("putstackedcardsintohand", new PutStackedCardsIntoHand());
         effectAppenderProducers.put("condition", new ConditionEffect());
         effectAppenderProducers.put("drawcards", new DrawCards());
+        effectAppenderProducers.put("removeburdens", new RemoveBurdens());
     }
 
     public EffectAppender getEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
