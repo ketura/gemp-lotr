@@ -13,6 +13,6 @@ public class CanSpotBurdens implements RequirementProducer {
         FieldUtils.validateAllowedFields(object, "amount");
 
         final int count = FieldUtils.getInteger(object.get("amount"), "amount", 1);
-        return (playerId, game, self, effectResult, effect) -> PlayConditions.canSpotBurdens(game, count);
+        return (action, playerId, game, self, effectResult, effect) -> PlayConditions.canSpotBurdens(game, count);
     }
 }

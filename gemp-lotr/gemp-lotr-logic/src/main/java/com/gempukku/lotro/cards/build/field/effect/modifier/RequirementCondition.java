@@ -25,7 +25,7 @@ public class RequirementCondition implements Condition {
     @Override
     public boolean isFullfilled(LotroGame game) {
         for (Requirement requirement : requirements) {
-            if (!requirement.accepts(playerId, game, self, effectResult, effect))
+            if (!requirement.accepts(null, playerId, game, self, effectResult, effect))
                 return false;
         }
 

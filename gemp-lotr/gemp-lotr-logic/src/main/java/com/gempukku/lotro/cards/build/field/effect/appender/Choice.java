@@ -128,7 +128,7 @@ public class Choice implements EffectAppenderProducer {
                     environment.getEffectAppenderFactory().getEffectAppender(effect, environment));
         }
 
-        return (playerId, game, self, effectResult, effect) -> {
+        return (action, playerId, game, self, effectResult, effect) -> {
             for (EffectAppender possibleEffectAppender : possibleEffectAppenders) {
                 if (possibleEffectAppender.isPlayableInFull(playerId, game, self, effectResult, effect))
                     return true;

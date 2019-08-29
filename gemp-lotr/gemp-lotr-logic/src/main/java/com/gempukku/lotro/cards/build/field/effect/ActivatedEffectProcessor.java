@@ -24,7 +24,7 @@ public class ActivatedEffectProcessor implements EffectProcessor {
 
             DefaultActionSource actionSource = new DefaultActionSource();
             actionSource.addPlayRequirement(
-                    (playerId, game, self, effectResult, effect) -> PlayConditions.isPhase(game, phase));
+                    (action, playerId, game, self, effectResult, effect) -> PlayConditions.isPhase(game, phase));
             EffectUtils.processRequirementsCostsAndEffects(value, environment, actionSource);
 
             blueprint.appendInPlayPhaseAction(actionSource);

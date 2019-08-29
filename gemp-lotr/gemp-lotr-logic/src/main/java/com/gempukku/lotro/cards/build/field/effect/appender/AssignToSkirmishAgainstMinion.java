@@ -69,7 +69,7 @@ public class AssignToSkirmishAgainstMinion implements EffectAppenderProducer {
             final String filter = type.substring(type.indexOf("(") + 1, type.lastIndexOf(")"));
             final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter);
 
-            return (playerId, game, self, effectResult, effect) -> {
+            return (action, playerId, game, self, effectResult, effect) -> {
                 final String assigningPlayer = playerSource.getPlayer(playerId, game, self, effectResult, effect);
                 Side assigningSide = GameUtils.isFP(game, assigningPlayer) ? Side.FREE_PEOPLE : Side.SHADOW;
 

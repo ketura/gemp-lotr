@@ -380,6 +380,49 @@
       }
     }
   },
+  "40_12": {
+    "title": "Dwarven Frenzy",
+    "side": "free people",
+    "culture": "dwarven",
+    "cost": 1,
+    "type": "event",
+    "keyword": "maneuver",
+    "effects": {
+      "type": "event",
+      "cost": {
+        "type": "exert",
+        "count": "0-100",
+        "times": 2,
+        "filter": "choose(dwarf)",
+        "memorize": "exertedDwarves"
+      },
+      "effect": [
+        {
+          "type": "putStackedCardsIntoHand",
+          "count": {
+            "type": "forEachInMemory",
+            "memory": "exertedDwarves"
+          },
+          "filter": "choose(culture(dwarven))",
+          "on": "culture(dwarven),condition"
+        },
+        {
+          "type": "condition",
+          "condition": {
+            "type": "location",
+            "filter": "or(mountain,underground)"
+          },
+          "effect": {
+            "type": "drawCards",
+            "count": {
+              "type": "forEachInMemory",
+              "memory": "exertedDwarves"
+            }
+          }
+        }
+      ]
+    }
+  },
   "40_184": {
     "title": "Black Steed",
     "subtitle": "Bred to Serve",

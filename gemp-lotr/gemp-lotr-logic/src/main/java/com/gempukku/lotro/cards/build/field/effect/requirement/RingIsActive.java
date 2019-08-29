@@ -12,6 +12,6 @@ public class RingIsActive implements RequirementProducer {
     public Requirement getPlayRequirement(JSONObject object, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         FieldUtils.validateAllowedFields(object);
 
-        return (playerId, game, self, effectResult, effect) -> !game.getModifiersQuerying().hasFlagActive(game, ModifierFlag.RING_TEXT_INACTIVE);
+        return (action, playerId, game, self, effectResult, effect) -> !game.getModifiersQuerying().hasFlagActive(game, ModifierFlag.RING_TEXT_INACTIVE);
     }
 }

@@ -41,7 +41,7 @@ public class DiscardCardAtRandomFromHand implements EffectAppenderProducer {
 
         final boolean forced = FieldUtils.getBoolean(effectObject.get("forced"), "forced");
 
-        return (playerId, game, self, effectResult, effect) -> game.getGameState().getHand(self.getOwner()).size() >= 1
+        return (action, playerId, game, self, effectResult, effect) -> game.getGameState().getHand(self.getOwner()).size() >= 1
                 && (!forced || game.getModifiersQuerying().canDiscardCardsFromHand(game, playerId, self));
     }
 }

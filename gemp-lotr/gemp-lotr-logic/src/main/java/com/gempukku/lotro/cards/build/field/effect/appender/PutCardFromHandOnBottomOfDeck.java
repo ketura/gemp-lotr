@@ -5,8 +5,8 @@ import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.CardResolver;
-import com.gempukku.lotro.cards.build.field.effect.appender.resolver.CountResolver;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.PlayerResolver;
+import com.gempukku.lotro.cards.build.field.effect.appender.resolver.ValueResolver;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -25,13 +25,13 @@ public class PutCardFromHandOnBottomOfDeck implements EffectAppenderProducer {
         FieldUtils.validateAllowedFields(effectObject, "player", "count", "filter");
 
         final String player = FieldUtils.getString(effectObject.get("player"), "player", "owner");
-        final CountResolver.Count count = CountResolver.resolveCount(effectObject.get("count"), 1);
+        final ValueSource valueSource = ValueResolver.resolveEvaluator(effectObject.get("count"), 1, environment);
         final String filter = FieldUtils.getString(effectObject.get("filter"), "filter", "choose(any)");
 
         MultiEffectAppender result = new MultiEffectAppender();
 
         result.addEffectAppender(
-                CardResolver.resolveCardsInHand(filter, count.getMin(), count.getMax(), "_temp", player, "Choose cards from hand", environment));
+                CardResolver.resolveCardsInHand(filter, valueSource, "_temp", player, "Choose cards from hand", environment));
         result.addEffectAppender(
                 new DelayedAppender() {
                     @Override
@@ -49,17 +49,18 @@ public class PutCardFromHandOnBottomOfDeck implements EffectAppenderProducer {
         FieldUtils.validateAllowedFields(effectObject, "count", "player", "filter");
 
         final String player = FieldUtils.getString(effectObject.get("player"), "player", "owner");
-        final CountResolver.Count count = CountResolver.resolveCount(effectObject.get("count"), 1);
+        final ValueSource valueSource = ValueResolver.resolveEvaluator(effectObject.get("count"), 1, environment);
         final String filter = FieldUtils.getString(effectObject.get("filter"), "filter");
 
         final PlayerSource playerSource = PlayerResolver.resolvePlayer(player, environment);
         final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter);
 
-        return (playerId, game, self, effectResult, effect) -> {
+        return (action, playerId, game, self, effectResult, effect) -> {
+            int min = valueSource.getMinimum(action, playerId, game, self, effectResult, effect);
             final String playerHand = playerSource.getPlayer(playerId, game, self, effectResult, effect);
             final Filterable filterable = filterableSource.getFilterable(playerId, game, self, effectResult, effect);
 
-            return Filters.filter(game.getGameState().getHand(playerHand), game, filterable).size() >= count.getMin();
+            return Filters.filter(game.getGameState().getHand(playerHand), game, filterable).size() >= min;
         };
     }
 }

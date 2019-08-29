@@ -55,7 +55,7 @@ public class AddBurden implements EffectAppenderProducer {
 
         final PlayerSource playerSource = PlayerResolver.resolvePlayer(player, environment);
 
-        return (playerId, game, self, effectResult, effect) -> {
+        return (action, playerId, game, self, effectResult, effect) -> {
             final String playerAddingBurden = playerSource.getPlayer(playerId, game, self, effectResult, effect);
             return PlayConditions.canAddBurdens(game, playerAddingBurden, self);
         };

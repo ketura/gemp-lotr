@@ -19,7 +19,7 @@ public class Location implements RequirementProducer {
 
         final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter);
 
-        return (playerId, game, self, effectResult, effect) -> {
+        return (action, playerId, game, self, effectResult, effect) -> {
             final Filterable filterable = filterableSource.getFilterable(playerId, game, self, effectResult, effect);
             final PhysicalCard currentSite = game.getGameState().getCurrentSite();
             return Filters.and(filterable).accepts(game, currentSite);

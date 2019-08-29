@@ -14,6 +14,7 @@ import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.effects.PreventCardEffect;
 import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
 import com.gempukku.lotro.logic.modifiers.ModifierFlag;
+import com.gempukku.lotro.logic.modifiers.evaluator.ConstantEvaluator;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import org.json.simple.JSONObject;
@@ -34,7 +35,7 @@ public class PreventWound implements EffectAppenderProducer {
                         (playerId, game, source, effectResult, effect) -> {
                             final WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
                             return Filters.in(woundEffect.getAffectedCardsMinusPrevented(game));
-                        }, 1, 1, "_temp", "owner", "Choose characters to prevent wound to", environment));
+                        }, new ConstantEvaluator(1), "_temp", "owner", "Choose characters to prevent wound to", environment));
         result.addEffectAppender(
                 new DelayedAppender() {
                     @Override
@@ -56,6 +57,6 @@ public class PreventWound implements EffectAppenderProducer {
 
     @Override
     public Requirement createCostRequirement(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        return (playerId, game, self, effectResult, effect) -> !game.getModifiersQuerying().hasFlagActive(game, ModifierFlag.CANT_PREVENT_WOUNDS);
+        return (action, playerId, game, self, effectResult, effect) -> !game.getModifiersQuerying().hasFlagActive(game, ModifierFlag.CANT_PREVENT_WOUNDS);
     }
 }

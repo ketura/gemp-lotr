@@ -12,6 +12,6 @@ public class TwilightPoolLessThan implements RequirementProducer {
         FieldUtils.validateAllowedFields(object, "amount");
 
         final int count = FieldUtils.getInteger(object.get("amount"), "amount");
-        return (playerId, game, self, effectResult, effect) -> game.getGameState().getTwilightPool() < count;
+        return (action, playerId, game, self, effectResult, effect) -> game.getGameState().getTwilightPool() < count;
     }
 }

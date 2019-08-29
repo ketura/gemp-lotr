@@ -33,6 +33,6 @@ public class PutOnRing implements EffectAppenderProducer {
 
     @Override
     public Requirement createCostRequirement(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        return (playerId, game, self, effectResult, effect) -> !game.getGameState().isWearingRing();
+        return (action, playerId, game, self, effectResult, effect) -> !game.getGameState().isWearingRing();
     }
 }

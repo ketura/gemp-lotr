@@ -60,14 +60,14 @@ public class StackTopCardOfDrawDeck implements EffectAppenderProducer {
             final String filter = type.substring(type.indexOf("(") + 1, type.lastIndexOf(")"));
             final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter);
 
-            return (playerId, game, self, effectResult, effect) -> {
+            return (action, playerId, game, self, effectResult, effect) -> {
                 String deckId = playerSource.getPlayer(playerId, game, self, effectResult, effect);
 
                 return PlayConditions.canStackDeckTopCards(self, game, deckId, count,
                         filterableSource.getFilterable(playerId, game, self, effectResult, effect));
             };
         } else {
-            return (playerId, game, self, effectResult, effect) -> {
+            return (action, playerId, game, self, effectResult, effect) -> {
                 String deckId = playerSource.getPlayer(playerId, game, self, effectResult, effect);
                 return game.getGameState().getDeck(deckId).size() >= count;
             };

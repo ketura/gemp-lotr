@@ -57,7 +57,7 @@ public class ReplaceInSkirmish implements EffectAppenderProducer {
 
         FilterableSource withFilterableSource = (with != null) ? environment.getFilterFactory().generateFilter(with) : null;
 
-        return (playerId, game, self, effectResult, effect) -> {
+        return (action, playerId, game, self, effectResult, effect) -> {
             if (!PlayConditions.canSpot(game,
                     filterableSource.getFilterable(playerId, game, self, effectResult, effect), Filters.inSkirmish))
                 return false;

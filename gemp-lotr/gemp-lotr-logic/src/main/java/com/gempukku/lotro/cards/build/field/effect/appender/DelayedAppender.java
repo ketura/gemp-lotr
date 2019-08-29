@@ -8,6 +8,8 @@ import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
+import java.util.Collections;
+
 public abstract class DelayedAppender implements EffectAppender {
     private String text;
 
@@ -25,7 +27,9 @@ public abstract class DelayedAppender implements EffectAppender {
                 new UnrespondableEffect() {
                     @Override
                     protected void doPlayEffect(LotroGame game) {
-                        action.appendCost(createEffect(action, playerId, game, self, effectResult, effect));
+                        for (Effect effect : createEffects(action, playerId, game, self, effectResult, effect)) {
+                            action.appendCost(effect);
+                        }
                     }
 
                     @Override
@@ -41,7 +45,9 @@ public abstract class DelayedAppender implements EffectAppender {
                 new UnrespondableEffect() {
                     @Override
                     protected void doPlayEffect(LotroGame game) {
-                        action.appendEffect(createEffect(action, playerId, game, self, effectResult, effect));
+                        for (Effect effect : createEffects(action, playerId, game, self, effectResult, effect)) {
+                            action.appendEffect(effect);
+                        }
                     }
 
                     @Override
@@ -51,7 +57,13 @@ public abstract class DelayedAppender implements EffectAppender {
                 });
     }
 
-    protected abstract Effect createEffect(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect);
+    protected Iterable<? extends Effect> createEffects(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
+        return Collections.singletonList(createEffect(action, playerId, game, self, effectResult, effect));
+    }
+
+    protected Effect createEffect(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
+        throw new UnsupportedOperationException("One of createEffect or createEffects has to be overwritten");
+    }
 
     @Override
     public boolean isPlayableInFull(String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {

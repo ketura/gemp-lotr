@@ -51,7 +51,7 @@ public class PreventCardEffectAppender implements EffectAppenderProducer {
         if (type.startsWith("choose(") && type.endsWith(")")) {
             final String filter = type.substring(type.indexOf("(") + 1, type.lastIndexOf(")"));
             final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter);
-            return (playerId, game, self, effectResult, effect) -> PlayConditions.canSpot(game,
+            return (action, playerId, game, self, effectResult, effect) -> PlayConditions.canSpot(game,
                     filterableSource.getFilterable(playerId, game, self, effectResult, effect),
                     Filters.in(((PreventableCardEffect) effect).getAffectedCardsMinusPrevented(game)));
         }

@@ -14,6 +14,7 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.logic.modifiers.CantTakeMoreThanXWoundsModifier;
+import com.gempukku.lotro.logic.modifiers.evaluator.ConstantEvaluator;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.PlayConditions;
@@ -33,7 +34,7 @@ public class CantTakeMoreWoundsThan implements EffectAppenderProducer {
         MultiEffectAppender result = new MultiEffectAppender();
 
         result.addEffectAppender(
-                CardResolver.resolveCards(filter, 1, 1, memory, "owner", "Choose cards to make take no more than " + wounds + " wound(s)", environment));
+                CardResolver.resolveCards(filter, new ConstantEvaluator(1), memory, "owner", "Choose cards to make take no more than " + wounds + " wound(s)", environment));
         result.addEffectAppender(
                 new DelayedAppender() {
                     @Override
@@ -57,7 +58,7 @@ public class CantTakeMoreWoundsThan implements EffectAppenderProducer {
             final String filter = type.substring(type.indexOf("(") + 1, type.lastIndexOf(")"));
             final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter);
 
-            return (playerId, game, self, effectResult, effect) -> PlayConditions.canSpot(game, 1,
+            return (action, playerId, game, self, effectResult, effect) -> PlayConditions.canSpot(game, 1,
                     filterableSource.getFilterable(playerId, game, self, effectResult, effect));
         }
         return null;
