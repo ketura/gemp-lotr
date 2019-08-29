@@ -1,9 +1,7 @@
 package com.gempukku.lotro.cards.build.field.effect.appender;
 
 import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
-import com.gempukku.lotro.cards.build.FilterableSource;
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
-import com.gempukku.lotro.cards.build.Requirement;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
@@ -16,7 +14,6 @@ import com.gempukku.lotro.logic.effects.PreventCardEffect;
 import com.gempukku.lotro.logic.effects.PreventableCardEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
-import com.gempukku.lotro.logic.timing.PlayConditions;
 import org.json.simple.JSONObject;
 
 public class PreventCardEffectAppender implements EffectAppenderProducer {
@@ -43,18 +40,4 @@ public class PreventCardEffectAppender implements EffectAppenderProducer {
         return result;
     }
 
-    @Override
-    public Requirement createCostRequirement(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(effectObject, "filter", "memorize");
-
-        String type = FieldUtils.getString(effectObject.get("filter"), "filter");
-        if (type.startsWith("choose(") && type.endsWith(")")) {
-            final String filter = type.substring(type.indexOf("(") + 1, type.lastIndexOf(")"));
-            final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter);
-            return (action, playerId, game, self, effectResult, effect) -> PlayConditions.canSpot(game,
-                    filterableSource.getFilterable(playerId, game, self, effectResult, effect),
-                    Filters.in(((PreventableCardEffect) effect).getAffectedCardsMinusPrevented(game)));
-        }
-        return null;
-    }
 }

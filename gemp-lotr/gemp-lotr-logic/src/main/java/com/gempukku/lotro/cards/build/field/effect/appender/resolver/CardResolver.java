@@ -28,7 +28,7 @@ public class CardResolver {
             String sourceMemory = type.substring(type.indexOf("(") + 1, type.lastIndexOf(")"));
             return new AbstractEffectAppender() {
                 @Override
-                public boolean isPlayableInFull(String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
+                public boolean isPlayableInFull(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
                     return true;
                 }
 
@@ -37,7 +37,7 @@ public class CardResolver {
                     return new UnrespondableEffect() {
                         @Override
                         protected void doPlayEffect(LotroGame game) {
-                            action.setCardMemory(memory, action.getCardFromMemory(sourceMemory));
+                            action.setCardMemory(memory, action.getCardsFromMemory(sourceMemory));
                         }
                     };
                 }
@@ -48,7 +48,7 @@ public class CardResolver {
             final PlayerSource playerSource = PlayerResolver.resolvePlayer(choicePlayer, environment);
             return new AbstractEffectAppender() {
                 @Override
-                public boolean isPlayableInFull(String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
+                public boolean isPlayableInFull(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
                     final int min = countSource.getMinimum(null, playerId, game, self, effectResult, effect);
                     final Filterable filterable = filterableSource.getFilterable(playerId, game, self, effectResult, effect);
                     final Filterable stackedOnFilter = stackedOn.getFilterable(playerId, game, self, effectResult, effect);
@@ -88,7 +88,7 @@ public class CardResolver {
             String sourceMemory = type.substring(type.indexOf("(") + 1, type.lastIndexOf(")"));
             return new AbstractEffectAppender() {
                 @Override
-                public boolean isPlayableInFull(String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
+                public boolean isPlayableInFull(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
                     return true;
                 }
 
@@ -97,7 +97,7 @@ public class CardResolver {
                     return new UnrespondableEffect() {
                         @Override
                         protected void doPlayEffect(LotroGame game) {
-                            action.setCardMemory(memory, action.getCardFromMemory(sourceMemory));
+                            action.setCardMemory(memory, action.getCardsFromMemory(sourceMemory));
                         }
                     };
                 }
@@ -108,7 +108,7 @@ public class CardResolver {
             final PlayerSource playerSource = PlayerResolver.resolvePlayer(choicePlayer, environment);
             return new AbstractEffectAppender() {
                 @Override
-                public boolean isPlayableInFull(String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
+                public boolean isPlayableInFull(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
                     int min = countSource.getMinimum(null, playerId, game, self, effectResult, effect);
                     final Filterable filterable = filterableSource.getFilterable(playerId, game, self, effectResult, effect);
                     String choicePlayerId = playerSource.getPlayer(playerId, game, self, effectResult, effect);
@@ -149,7 +149,9 @@ public class CardResolver {
         if (type.equals("self")) {
             return new AbstractEffectAppender() {
                 @Override
-                public boolean isPlayableInFull(String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
+                public boolean isPlayableInFull(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
+                    if (additionalFilter != null)
+                        return PlayConditions.isActive(game, self, additionalFilter.getFilterable(playerId, game, self, effectResult, effect));
                     return true;
                 }
 
@@ -167,7 +169,15 @@ public class CardResolver {
             String sourceMemory = type.substring(type.indexOf("(") + 1, type.lastIndexOf(")"));
             return new AbstractEffectAppender() {
                 @Override
-                public boolean isPlayableInFull(String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
+                public boolean isPlayableInFull(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
+                    if (additionalFilter != null) {
+                        final Collection<? extends PhysicalCard> cardsFromMemory = action.getCardsFromMemory(sourceMemory);
+                        for (PhysicalCard physicalCard : cardsFromMemory) {
+                            if (!PlayConditions.isActive(game, physicalCard, additionalFilter.getFilterable(playerId, game, self, effectResult, effect)))
+                                return false;
+                        }
+                    }
+
                     return true;
                 }
 
@@ -176,7 +186,7 @@ public class CardResolver {
                     return new UnrespondableEffect() {
                         @Override
                         protected void doPlayEffect(LotroGame game) {
-                            action.setCardMemory(memory, action.getCardFromMemory(sourceMemory));
+                            action.setCardMemory(memory, action.getCardsFromMemory(sourceMemory));
                         }
                     };
                 }
@@ -197,7 +207,7 @@ public class CardResolver {
                 }
 
                 @Override
-                public boolean isPlayableInFull(String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
+                public boolean isPlayableInFull(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
                     return true;
                 }
             };
@@ -207,13 +217,13 @@ public class CardResolver {
             final PlayerSource playerSource = PlayerResolver.resolvePlayer(choicePlayer, environment);
             return new AbstractEffectAppender() {
                 @Override
-                public boolean isPlayableInFull(String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
+                public boolean isPlayableInFull(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
                     int min = countSource.getMinimum(null, playerId, game, self, effectResult, effect);
                     final Filterable filterable = filterableSource.getFilterable(playerId, game, self, effectResult, effect);
                     Filterable additionalFilterable = Filters.any;
                     if (additionalFilter != null)
                         additionalFilterable = additionalFilter.getFilterable(playerId, game, self, effectResult, effect);
-                    return PlayConditions.canSpot(game, min, filterable, additionalFilterable);
+                    return PlayConditions.isActive(game, min, filterable, additionalFilterable);
                 }
 
                 @Override

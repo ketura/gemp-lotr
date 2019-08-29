@@ -57,14 +57,10 @@ public class ConditionEffect implements EffectAppenderProducer {
             }
 
             @Override
-            public boolean isPlayableInFull(String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
+            public boolean isPlayableInFull(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
                 return true;
             }
         };
     }
 
-    @Override
-    public Requirement createCostRequirement(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        return null;
-    }
 }

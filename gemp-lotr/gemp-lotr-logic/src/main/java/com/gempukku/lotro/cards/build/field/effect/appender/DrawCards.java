@@ -1,6 +1,9 @@
 package com.gempukku.lotro.cards.build.field.effect.appender;
 
-import com.gempukku.lotro.cards.build.*;
+import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
+import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
+import com.gempukku.lotro.cards.build.PlayerSource;
+import com.gempukku.lotro.cards.build.ValueSource;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
@@ -27,7 +30,7 @@ public class DrawCards implements EffectAppenderProducer {
 
         return new DelayedAppender() {
             @Override
-            public boolean isPlayableInFull(String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
+            public boolean isPlayableInFull(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
                 final String drawPlayer = playerSource.getPlayer(playerId, game, self, effectResult, effect);
                 final Evaluator evaluator = count.getEvaluator(null, playerId, game, self, effectResult, effect);
                 final int cardCount = evaluator.evaluateExpression(game, self);
@@ -43,20 +46,4 @@ public class DrawCards implements EffectAppenderProducer {
         };
     }
 
-    @Override
-    public Requirement createCostRequirement(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(effectObject, "count", "player");
-
-        final String player = FieldUtils.getString(effectObject.get("player"), "player", "owner");
-
-        final PlayerSource playerSource = PlayerResolver.resolvePlayer(player, environment);
-        final ValueSource count = ValueResolver.resolveEvaluator(effectObject.get("count"), 1, environment);
-
-        return (action, playerId, game, self, effectResult, effect) -> {
-            final String drawPlayer = playerSource.getPlayer(playerId, game, self, effectResult, effect);
-            final Evaluator evaluator = count.getEvaluator(null, playerId, game, self, effectResult, effect);
-            final int cardCount = evaluator.evaluateExpression(game, self);
-            return game.getGameState().getDeck(drawPlayer).size() >= cardCount;
-        };
-    }
 }

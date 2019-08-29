@@ -21,11 +21,10 @@ public class EffectUtils {
         final JSONObject[] costArray = FieldUtils.getObjectArray(value.get("cost"), "cost");
         final EffectAppenderFactory effectAppenderFactory = environment.getEffectAppenderFactory();
         for (JSONObject cost : costArray) {
-            final Requirement costRequirement = effectAppenderFactory.getCostRequirement(cost, environment);
-            if (costRequirement != null)
-                actionSource.addPlayRequirement(costRequirement);
-
             final EffectAppender effectAppender = effectAppenderFactory.getEffectAppender(cost, environment);
+            actionSource.addPlayRequirement(
+                    (action, playerId, game, self, effectResult, effect) -> effectAppender.isPlayableInFull(action, playerId, game, self, effectResult, effect)
+            );
             actionSource.addCost(effectAppender);
         }
 

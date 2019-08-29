@@ -66,7 +66,7 @@ public abstract class DelayedAppender implements EffectAppender {
     }
 
     @Override
-    public boolean isPlayableInFull(String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
+    public boolean isPlayableInFull(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
         return true;
     }
 }

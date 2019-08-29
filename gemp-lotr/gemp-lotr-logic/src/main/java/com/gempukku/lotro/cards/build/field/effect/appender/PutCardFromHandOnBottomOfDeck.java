@@ -1,14 +1,13 @@
 package com.gempukku.lotro.cards.build.field.effect.appender;
 
-import com.gempukku.lotro.cards.build.*;
+import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
+import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
+import com.gempukku.lotro.cards.build.ValueSource;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.CardResolver;
-import com.gempukku.lotro.cards.build.field.effect.appender.resolver.PlayerResolver;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.ValueResolver;
-import com.gempukku.lotro.common.Filterable;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
@@ -44,23 +43,4 @@ public class PutCardFromHandOnBottomOfDeck implements EffectAppenderProducer {
         return result;
     }
 
-    @Override
-    public Requirement createCostRequirement(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(effectObject, "count", "player", "filter");
-
-        final String player = FieldUtils.getString(effectObject.get("player"), "player", "owner");
-        final ValueSource valueSource = ValueResolver.resolveEvaluator(effectObject.get("count"), 1, environment);
-        final String filter = FieldUtils.getString(effectObject.get("filter"), "filter");
-
-        final PlayerSource playerSource = PlayerResolver.resolvePlayer(player, environment);
-        final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter);
-
-        return (action, playerId, game, self, effectResult, effect) -> {
-            int min = valueSource.getMinimum(action, playerId, game, self, effectResult, effect);
-            final String playerHand = playerSource.getPlayer(playerId, game, self, effectResult, effect);
-            final Filterable filterable = filterableSource.getFilterable(playerId, game, self, effectResult, effect);
-
-            return Filters.filter(game.getGameState().getHand(playerHand), game, filterable).size() >= min;
-        };
-    }
 }

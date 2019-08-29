@@ -3,7 +3,6 @@ package com.gempukku.lotro.cards.build.field.effect.appender;
 import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.PlayerSource;
-import com.gempukku.lotro.cards.build.Requirement;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
@@ -61,7 +60,7 @@ public class Choice implements EffectAppenderProducer {
 
                                 @Override
                                 public boolean isPlayableInFull(LotroGame game) {
-                                    return possibleEffectAppender.isPlayableInFull(playerId, game, self, effectResult, effect);
+                                    return possibleEffectAppender.isPlayableInFull(action, playerId, game, self, effectResult, effect);
                                 }
                             });
                 }
@@ -91,7 +90,7 @@ public class Choice implements EffectAppenderProducer {
 
                                 @Override
                                 public boolean isPlayableInFull(LotroGame game) {
-                                    return possibleEffectAppender.isPlayableInFull(playerId, game, self, effectResult, effect);
+                                    return possibleEffectAppender.isPlayableInFull(action, playerId, game, self, effectResult, effect);
                                 }
                             });
                 }
@@ -102,39 +101,13 @@ public class Choice implements EffectAppenderProducer {
             }
 
             @Override
-            public boolean isPlayableInFull(String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
+            public boolean isPlayableInFull(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
                 for (EffectAppender possibleEffectAppender : possibleEffectAppenders) {
-                    if (possibleEffectAppender.isPlayableInFull(playerId, game, self, effectResult, effect))
+                    if (possibleEffectAppender.isPlayableInFull(action, playerId, game, self, effectResult, effect))
                         return true;
                 }
                 return false;
             }
-        };
-    }
-
-    @Override
-    public Requirement createCostRequirement(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(effectObject, "player", "effects", "texts");
-
-        final JSONObject[] effectArray = FieldUtils.getObjectArray(effectObject.get("effects"), "effects");
-        final String[] textArray = FieldUtils.getStringArray(effectObject.get("texts"), "texts");
-
-        if (effectArray.length != textArray.length)
-            throw new InvalidCardDefinitionException("Number of texts and effects does not match in choice effect");
-
-        List<EffectAppender> possibleEffectAppenders = new LinkedList<>();
-        for (JSONObject effect : effectArray) {
-            possibleEffectAppenders.add(
-                    environment.getEffectAppenderFactory().getEffectAppender(effect, environment));
-        }
-
-        return (action, playerId, game, self, effectResult, effect) -> {
-            for (EffectAppender possibleEffectAppender : possibleEffectAppenders) {
-                if (possibleEffectAppender.isPlayableInFull(playerId, game, self, effectResult, effect))
-                    return true;
-            }
-
-            return false;
         };
     }
 }

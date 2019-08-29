@@ -30,9 +30,9 @@ public class MultiEffectAppender implements EffectAppender {
     }
 
     @Override
-    public boolean isPlayableInFull(String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
+    public boolean isPlayableInFull(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
         for (EffectAppender effectAppender : effectAppenders) {
-            if (!effectAppender.isPlayableInFull(playerId, game, self, effectResult, effect))
+            if (!effectAppender.isPlayableInFull(action, playerId, game, self, effectResult, effect))
                 return false;
         }
 

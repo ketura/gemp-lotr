@@ -50,7 +50,7 @@ public class PlayerResolver {
                 }
 
                 @Override
-                public boolean isPlayableInFull(String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
+                public boolean isPlayableInFull(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
                     return true;
                 }
             };
@@ -59,7 +59,7 @@ public class PlayerResolver {
             final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter);
             return new AbstractEffectAppender() {
                 @Override
-                public boolean isPlayableInFull(String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
+                public boolean isPlayableInFull(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
                     return true;
                 }
 
