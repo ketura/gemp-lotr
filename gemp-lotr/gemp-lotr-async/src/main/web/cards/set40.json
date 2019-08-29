@@ -423,6 +423,28 @@
       ]
     }
   },
+  "40_13": {
+    "title": "Dwarven Ire",
+    "unique": true,
+    "side": "free people",
+    "culture": "dwarven",
+    "cost": 2,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": {
+      "type": "addKeyword",
+      "filter": "dwarf",
+      "keyword": "damage",
+      "amount": {
+        "type": "limit",
+        "value": 2,
+        "amount": {
+          "type": "countStacked",
+          "on": "self"
+        }
+      }
+    }
+  },
   "40_184": {
     "title": "Black Steed",
     "subtitle": "Bred to Serve",

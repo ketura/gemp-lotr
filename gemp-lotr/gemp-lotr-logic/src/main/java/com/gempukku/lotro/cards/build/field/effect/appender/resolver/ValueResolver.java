@@ -1,15 +1,16 @@
 package com.gempukku.lotro.cards.build.field.effect.appender.resolver;
 
-import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
-import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
-import com.gempukku.lotro.cards.build.Requirement;
-import com.gempukku.lotro.cards.build.ValueSource;
+import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
+import com.gempukku.lotro.common.Filterable;
+import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.modifiers.evaluator.ConstantEvaluator;
+import com.gempukku.lotro.logic.modifiers.evaluator.CountStackedEvaluator;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
+import com.gempukku.lotro.logic.modifiers.evaluator.LimitEvaluator;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import org.json.simple.JSONObject;
@@ -68,6 +69,19 @@ public class ValueResolver {
                 return (action, playerId, game, self, effectResult, effect) -> {
                     final int count = action.getCardsFromMemory(memory).size();
                     return new ConstantEvaluator(count);
+                };
+            } else if (type.equalsIgnoreCase("limit")) {
+                final int limit = FieldUtils.getInteger(object.get("value"), "value");
+                ValueSource valueSource = resolveEvaluator(object.get("amount"), 0, environment);
+                return (action, playerId, game, self, effectResult, effect) -> new LimitEvaluator(valueSource.getEvaluator(action, playerId, game, self, effectResult, effect), limit);
+            } else if (type.equalsIgnoreCase("countStacked")) {
+                final String on = FieldUtils.getString(object.get("on"), "on");
+
+                final FilterableSource onFilter = environment.getFilterFactory().generateFilter(on);
+
+                return (action, playerId, game, self, effectResult, effect) -> {
+                    final Filterable on1 = onFilter.getFilterable(playerId, game, self, effectResult, effect);
+                    return new CountStackedEvaluator(on1, Filters.any);
                 };
             }
             throw new InvalidCardDefinitionException("Unrecognized type of an evaluator " + type);
