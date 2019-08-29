@@ -555,18 +555,18 @@ public class HallServer extends AbstractServer {
         }
     }
 
-    private boolean isNoIgnores(Collection<String> players, String playerLooking) {
-        // Do not ignore self
-        if (players.contains(playerLooking))
+    private boolean isNoIgnores(Collection<String> participants, String playerLooking) {
+        // Do not ignore your own stuff
+        if (participants.contains(playerLooking))
             return true;
 
-        // This player ignores someone in the players
+        // This player ignores someone of the participants
         final Set<String> ignoredUsers = ignoreDAO.getIgnoredUsers(playerLooking);
-        if (!Collections.disjoint(ignoredUsers, players))
+        if (!Collections.disjoint(ignoredUsers, participants))
             return false;
 
-        // One of the players ignores this player
-        for (String player : players) {
+        // One of the participants ignores this player
+        for (String player : participants) {
             final Set<String> ignored = ignoreDAO.getIgnoredUsers(player);
             if (ignored.contains(playerLooking))
                 return false;
