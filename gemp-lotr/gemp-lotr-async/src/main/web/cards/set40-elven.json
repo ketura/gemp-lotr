@@ -1,2 +1,51 @@
 {
+  "40_33": {
+    "title": "Arrows of Light",
+    "side": "free people",
+    "culture": "elven",
+    "cost": 2,
+    "type": "event",
+    "keyword": "archery",
+    "requirement": {
+      "type": "canSpot",
+      "filter": "elf,archer,companion"
+    },
+    "effects": {
+      "type": "event",
+      "cost": {
+        "type": "reduceArcheryTotal",
+        "side": "free people",
+        "memorize": "reducedBy"
+      },
+      "effect": {
+        "type": "discard",
+        "count": {
+          "type": "fromMemory",
+          "memory": "reducedBy"
+        },
+        "filter": "choose(side(shadow),condition)"
+      }
+    }
+  },
+  "40_34": {
+    "title": "*Arwen",
+    "subtitle": "Fearless Rider",
+    "side": "free people",
+    "culture": "elven",
+    "cost": 2,
+    "type": "companion",
+    "race": "elf",
+    "strength": 6,
+    "vitality": 3,
+    "resistance": 8,
+    "keyword": "ranger",
+    "effects": {
+      "type": "modifyStrength",
+      "condition": {
+        "type": "location",
+        "filter": "or(river,forest)"
+      },
+      "amount": 3
+    }
+  }
 }

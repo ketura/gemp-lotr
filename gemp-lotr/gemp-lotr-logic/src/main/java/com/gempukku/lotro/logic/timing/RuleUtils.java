@@ -14,6 +14,13 @@ import java.util.List;
 import java.util.Set;
 
 public class RuleUtils {
+    public static int calculateArcheryTotal(LotroGame game, Side side) {
+        if (side == Side.FREE_PEOPLE)
+            return calculateFellowshipArcheryTotal(game);
+        else
+            return calculateShadowArcheryTotal(game);
+    }
+
     public static int calculateFellowshipArcheryTotal(LotroGame game) {
         int normalArcheryTotal = Filters.countActive(game,
                 Filters.or(

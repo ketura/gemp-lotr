@@ -57,12 +57,12 @@ public abstract class DelayedAppender implements EffectAppender {
                 });
     }
 
-    protected Iterable<? extends Effect> createEffects(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
-        return Collections.singletonList(createEffect(action, playerId, game, self, effectResult, effect));
-    }
-
     protected Effect createEffect(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
         throw new UnsupportedOperationException("One of createEffect or createEffects has to be overwritten");
+    }
+
+    protected Iterable<? extends Effect> createEffects(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
+        return Collections.singletonList(createEffect(action, playerId, game, self, effectResult, effect));
     }
 
     @Override

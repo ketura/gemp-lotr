@@ -88,6 +88,12 @@ public class ValueResolver {
                     final Filterable on1 = onFilter.getFilterable(playerId, game, self, effectResult, effect);
                     return new CountStackedEvaluator(on1, Filters.any);
                 };
+            } else if (type.equalsIgnoreCase("fromMemory")) {
+                String memory = FieldUtils.getString(object.get("memory"), "memory");
+                return (action, playerId, game, self, effectResult, effect) -> {
+                    int value1 = Integer.parseInt(action.getValueFromMemory(memory));
+                    return new ConstantEvaluator(value1);
+                };
             } else if (type.equalsIgnoreCase("multiply")) {
                 final int multiplier = FieldUtils.getInteger(object.get("multiplier"), "multiplier");
                 final ValueSource valueSource = ValueResolver.resolveEvaluator(object.get("source"), 0, environment);
