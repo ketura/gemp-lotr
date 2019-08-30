@@ -10,15 +10,17 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.timing.results.CharacterLostSkirmishResult;
 import org.json.simple.JSONObject;
 
 public class LosesSkirmish implements TriggerCheckerProducer {
     @Override
     public TriggerChecker getTriggerChecker(JSONObject value, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(value, "filter", "against");
+        FieldUtils.validateAllowedFields(value, "filter", "against", "memorize");
 
         String loser = FieldUtils.getString(value.get("filter"), "filter", "any");
         String against = FieldUtils.getString(value.get("against"), "against", "any");
+        String memorize = FieldUtils.getString(value.get("memorize"), "memorize");
 
         final FilterableSource loserFilter = environment.getFilterFactory().generateFilter(loser);
         final FilterableSource againstFilter = environment.getFilterFactory().generateFilter(against);
@@ -26,9 +28,15 @@ public class LosesSkirmish implements TriggerCheckerProducer {
         return new TriggerChecker() {
             @Override
             public boolean accepts(ActionContext actionContext, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
-                return TriggerConditions.losesSkirmishInvolving(game, effectResult,
+                final boolean result = TriggerConditions.losesSkirmishInvolving(game, effectResult,
                         loserFilter.getFilterable(actionContext, playerId, game, self, effectResult, effect),
                         againstFilter.getFilterable(actionContext, playerId, game, self, effectResult, effect));
+                if (result && memorize != null) {
+                    CharacterLostSkirmishResult lostResult = (CharacterLostSkirmishResult) effectResult;
+
+                    actionContext.setCardMemory(memorize, lostResult.getLoser());
+                }
+                return result;
             }
 
             @Override
