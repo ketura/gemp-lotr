@@ -191,6 +191,14 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
         _lotroGame.getGameState().iterateActiveTextCards(playerId, gatherActions);
 
         List<Action> actionList = gatherActions.getActions();
+
+        for (ActionProxy actionProxy : _actionProxies) {
+            List<? extends OptionalTriggerAction> actions = actionProxy.getOptionalBeforeTriggers(playerId, _lotroGame, effect);
+            if (actions != null) {
+                actionList.addAll(actions);
+            }
+        }
+
         for (Action action : actionList)
             action.setPerformingPlayer(playerId);
 

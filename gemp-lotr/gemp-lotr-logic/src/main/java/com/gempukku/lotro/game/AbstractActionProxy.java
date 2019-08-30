@@ -23,4 +23,9 @@ public abstract class AbstractActionProxy implements ActionProxy {
     public List<? extends OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult) {
         return null;
     }
+
+    @Override
+    public List<? extends OptionalTriggerAction> getOptionalBeforeTriggers(String playerId, LotroGame lotroGame, Effect effect) {
+        return null;
+    }
 }

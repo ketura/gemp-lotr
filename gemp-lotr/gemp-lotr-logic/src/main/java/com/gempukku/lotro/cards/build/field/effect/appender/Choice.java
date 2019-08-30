@@ -31,11 +31,7 @@ public class Choice implements EffectAppenderProducer {
         if (effectArray.length != textArray.length)
             throw new InvalidCardDefinitionException("Number of texts and effects does not match in choice effect");
 
-        List<EffectAppender> possibleEffectAppenders = new LinkedList<>();
-        for (JSONObject effect : effectArray) {
-            possibleEffectAppenders.add(
-                    environment.getEffectAppenderFactory().getEffectAppender(effect, environment));
-        }
+        EffectAppender[] possibleEffectAppenders = environment.getEffectAppenderFactory().getEffectAppenders(effectArray, environment);
 
         final PlayerSource playerSource = PlayerResolver.resolvePlayer(player, environment);
 

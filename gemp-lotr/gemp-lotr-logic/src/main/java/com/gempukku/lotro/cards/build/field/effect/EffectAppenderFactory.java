@@ -44,6 +44,8 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("stackcardsfromhand", new StackCardsFromHand());
         effectAppenderProducers.put("stackcardsfromdiscard", new StackCardsFromDiscard());
         effectAppenderProducers.put("putcardsfromdiscardintohand", new PutCardsFromDiscardIntoHand());
+        effectAppenderProducers.put("addtrigger", new AddTrigger());
+        effectAppenderProducers.put("stackplayedevent", new StackPlayedEvent());
     }
 
     public EffectAppender getEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
@@ -52,5 +54,17 @@ public class EffectAppenderFactory {
         if (effectAppenderProducer == null)
             throw new InvalidCardDefinitionException("Unable to find effect of type: " + type);
         return effectAppenderProducer.createEffectAppender(effectObject, environment);
+    }
+
+    public EffectAppender[] getEffectAppenders(JSONObject[] effectArray, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
+        EffectAppender[] result = new EffectAppender[effectArray.length];
+        for (int i = 0; i < result.length; i++) {
+            final String type = FieldUtils.getString(effectArray[i].get("type"), "type");
+            final EffectAppenderProducer effectAppenderProducer = effectAppenderProducers.get(type.toLowerCase());
+            if (effectAppenderProducer == null)
+                throw new InvalidCardDefinitionException("Unable to find effect of type: " + type);
+            result[i] = effectAppenderProducer.createEffectAppender(effectArray[i], environment);
+        }
+        return result;
     }
 }
