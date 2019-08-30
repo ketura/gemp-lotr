@@ -46,6 +46,7 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("putcardsfromdiscardintohand", new PutCardsFromDiscardIntoHand());
         effectAppenderProducers.put("addtrigger", new AddTrigger());
         effectAppenderProducers.put("stackplayedevent", new StackPlayedEvent());
+        effectAppenderProducers.put("playcardfromdiscard", new PlayCardFromDiscard());
     }
 
     public EffectAppender getEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {

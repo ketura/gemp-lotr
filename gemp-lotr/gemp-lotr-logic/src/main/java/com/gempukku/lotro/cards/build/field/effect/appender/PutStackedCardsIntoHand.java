@@ -47,7 +47,7 @@ public class PutStackedCardsIntoHand implements EffectAppenderProducer {
                     }
                 });
 
-        return null;
+        return result;
     }
 
 }

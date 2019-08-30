@@ -758,6 +758,88 @@
       }
     }
   },
+  "40_27": {
+    "title": "*Second Wind",
+    "side": "free people",
+    "culture": "dwarven",
+    "cost": 2,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": {
+      "type": "trigger",
+      "trigger": {
+        "type": "startOfPhase",
+        "phase": "maneuver"
+      },
+      "optional": true,
+      "cost": {
+        "type": "discardStackedCards",
+        "on": "self"
+      },
+      "effect": {
+        "type": "heal",
+        "filter": "choose(dwarf,companion)"
+      }
+    }
+  },
+  "40_28": {
+    "title": "*Seven for the Dwarf-lords",
+    "side": "free people",
+    "culture": "dwarven",
+    "cost": 0,
+    "type": "artifact",
+    "keyword": "support area",
+    "effects": [
+      {
+        "type": "activated",
+        "phase": "fellowship",
+        "effect": {
+          "type": "stackCardsFromHand",
+          "where": "self",
+          "filter": "choose(culture(dwarven))"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "skirmish",
+        "cost": {
+          "type": "discardStackedCards",
+          "on": "self",
+          "count": 2
+        },
+        "effect": {
+          "type": "playCardFromDiscard",
+          "filter": "choose(culture(dwarven),skirmish,event)"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "regroup",
+        "limitPerPhase": 1,
+        "cost": [
+          {
+            "type": "discardStackedCards",
+            "on": "self",
+            "count": 3
+          },
+          {
+            "type": "exert",
+            "filter": "choose(dwarf)",
+            "times": 2,
+            "memorize": "exertedDwarf"
+          }
+        ],
+        "effect": {
+          "type": "drawCards",
+          "count": {
+            "type": "forEachKeywordOnCardInMemory",
+            "memory": "exertedDwarf",
+            "keyword": "damage"
+          }
+        }
+      }
+    ]
+  },
   "40_184": {
     "title": "Black Steed",
     "subtitle": "Bred to Serve",

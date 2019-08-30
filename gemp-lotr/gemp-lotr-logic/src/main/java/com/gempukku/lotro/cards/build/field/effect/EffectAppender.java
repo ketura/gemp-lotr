@@ -12,4 +12,8 @@ public interface EffectAppender {
     void appendEffect(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect);
 
     boolean isPlayableInFull(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect);
+
+    default boolean isPlayabilityCheckedForEffect() {
+        return false;
+    }
 }

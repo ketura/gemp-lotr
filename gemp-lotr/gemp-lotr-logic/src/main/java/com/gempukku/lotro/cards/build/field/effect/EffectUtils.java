@@ -23,14 +23,19 @@ public class EffectUtils {
         for (JSONObject cost : costArray) {
             final EffectAppender effectAppender = effectAppenderFactory.getEffectAppender(cost, environment);
             actionSource.addPlayRequirement(
-                    (action, playerId, game, self, effectResult, effect) -> effectAppender.isPlayableInFull(action, playerId, game, self, effectResult, effect)
-            );
+                    (action, playerId, game, self, effectResult, effect) -> effectAppender.isPlayableInFull(action, playerId, game, self, effectResult, effect));
             actionSource.addCost(effectAppender);
         }
 
         final JSONObject[] effectArray = FieldUtils.getObjectArray(value.get("effect"), "effect");
         for (JSONObject effect : effectArray) {
             final EffectAppender effectAppender = effectAppenderFactory.getEffectAppender(effect, environment);
+            if (effectAppender == null) {
+                System.out.println("");
+            }
+            if (effectAppender.isPlayabilityCheckedForEffect())
+                actionSource.addPlayRequirement(
+                        (action, playerId, game, self, effectResult, effect1) -> effectAppender.isPlayableInFull(action, playerId, game, self, effectResult, effect1));
             actionSource.addEffect(effectAppender);
         }
     }

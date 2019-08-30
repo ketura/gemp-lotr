@@ -11,7 +11,13 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class MultiEffectAppender implements EffectAppender {
+    private boolean playabilityCheckedForEffect;
+
     private List<EffectAppender> effectAppenders = new LinkedList<>();
+
+    public void setPlayabilityCheckedForEffect(boolean playabilityCheckedForEffect) {
+        this.playabilityCheckedForEffect = playabilityCheckedForEffect;
+    }
 
     public void addEffectAppender(EffectAppender effectAppender) {
         effectAppenders.add(effectAppender);
@@ -37,5 +43,10 @@ public class MultiEffectAppender implements EffectAppender {
         }
 
         return true;
+    }
+
+    @Override
+    public boolean isPlayabilityCheckedForEffect() {
+        return playabilityCheckedForEffect;
     }
 }

@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.build.field.effect.appender.resolver;
 import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.common.Filterable;
+import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -68,6 +69,13 @@ public class ValueResolver {
                 final String memory = FieldUtils.getString(object.get("memory"), "memory");
                 return (action, playerId, game, self, effectResult, effect) -> {
                     final int count = action.getCardsFromMemory(memory).size();
+                    return new ConstantEvaluator(count);
+                };
+            } else if (type.equalsIgnoreCase("forEachKeywordOnCardInMemory")) {
+                final String memory = FieldUtils.getString(object.get("memory"), "memory");
+                final Keyword keyword = FieldUtils.getEnum(Keyword.class, object.get("keyword"), "keyword");
+                return (action, playerId, game, self, effectResult, effect) -> {
+                    int count = game.getModifiersQuerying().getKeywordCount(game, action.getCardFromMemory(memory), keyword);
                     return new ConstantEvaluator(count);
                 };
             } else if (type.equalsIgnoreCase("limit")) {
