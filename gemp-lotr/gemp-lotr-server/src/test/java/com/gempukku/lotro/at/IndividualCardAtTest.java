@@ -28,12 +28,14 @@ public class IndividualCardAtTest extends AbstractAtTest {
         PhysicalCardImpl gimli = new PhysicalCardImpl(100, "1_13", P1, _library.getLotroCardBlueprint("1_13"));
         PhysicalCardImpl dwarvenAxe = new PhysicalCardImpl(101, "1_9", P1, _library.getLotroCardBlueprint("1_9"));
         PhysicalCardImpl goblinRunner = new PhysicalCardImpl(102, "1_178", P2, _library.getLotroCardBlueprint("1_178"));
+        PhysicalCardImpl cardInDeck = new PhysicalCardImpl(103, "1_178", P2, _library.getLotroCardBlueprint("1_178"));
 
         skipMulligans();
 
         _game.getGameState().addCardToZone(_game, gimli, Zone.FREE_CHARACTERS);
         _game.getGameState().attachCard(_game, dwarvenAxe, gimli);
         _game.getGameState().addCardToZone(_game, goblinRunner, Zone.HAND);
+        _game.getGameState().putCardOnTopOfDeck(cardInDeck);
 
         // End fellowship phase
         assertEquals(Phase.FELLOWSHIP, _game.getGameState().getCurrentPhase());
@@ -79,6 +81,8 @@ public class IndividualCardAtTest extends AbstractAtTest {
 
         assertEquals(Phase.REGROUP, _game.getGameState().getCurrentPhase());
         assertEquals(Zone.DISCARD, goblinRunner.getZone());
+
+        assertEquals(Zone.DISCARD, cardInDeck.getZone());
     }
 
     @Test

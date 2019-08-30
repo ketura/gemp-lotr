@@ -31,9 +31,11 @@ public class PlayerResolver {
             final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter);
             return (playerId, game, self, effectResult, effect) -> {
                 final Filterable filterable = filterableSource.getFilterable(playerId, game, self, effectResult, effect);
-                final Collection<PhysicalCard> physicalCards = Filters.filterActive(game, filterable);
-                PhysicalCard card = physicalCards.iterator().next();
-                return card.getOwner();
+                // TODO SUPER messy
+                if (filterable instanceof PhysicalCard) {
+                    return ((PhysicalCard) filterable).getOwner();
+                }
+                throw new RuntimeException("Unable to resolve card from filter");
             };
         }
         throw new InvalidCardDefinitionException("Unable to resolve player resolver of type: " + type);
