@@ -41,7 +41,7 @@ public class Exert implements EffectAppenderProducer {
         result.addEffectAppender(
                 new DelayedAppender() {
                     @Override
-                    protected Iterable<? extends Effect> createEffects(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
+                    protected List<? extends Effect> createEffects(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
                         final Collection<? extends PhysicalCard> cardsFromMemory = action.getCardsFromMemory(memory);
 
                         List<Effect> result = new LinkedList<>();

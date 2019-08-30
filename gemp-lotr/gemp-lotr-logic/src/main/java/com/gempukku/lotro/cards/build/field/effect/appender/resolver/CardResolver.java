@@ -2,7 +2,7 @@ package com.gempukku.lotro.cards.build.field.effect.appender.resolver;
 
 import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
-import com.gempukku.lotro.cards.build.field.effect.appender.AbstractEffectAppender;
+import com.gempukku.lotro.cards.build.field.effect.appender.DelayedAppender;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -27,7 +27,7 @@ public class CardResolver {
                                                      String memory, String choicePlayer, String choiceText, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         if (type.startsWith("memory(") && type.endsWith(")")) {
             String sourceMemory = type.substring(type.indexOf("(") + 1, type.lastIndexOf(")"));
-            return new AbstractEffectAppender() {
+            return new DelayedAppender() {
                 @Override
                 public boolean isPlayableInFull(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
                     return true;
@@ -47,7 +47,7 @@ public class CardResolver {
             final String filter = type.substring(type.indexOf("(") + 1, type.lastIndexOf(")"));
             final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter);
             final PlayerSource playerSource = PlayerResolver.resolvePlayer(choicePlayer, environment);
-            return new AbstractEffectAppender() {
+            return new DelayedAppender() {
                 @Override
                 public boolean isPlayableInFull(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
                     final int min = countSource.getMinimum(null, playerId, game, self, effectResult, effect);
@@ -87,7 +87,7 @@ public class CardResolver {
     public static EffectAppender resolveCardsInHand(String type, ValueSource countSource, String memory, String choicePlayer, String choiceText, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         if (type.startsWith("memory(") && type.endsWith(")")) {
             String sourceMemory = type.substring(type.indexOf("(") + 1, type.lastIndexOf(")"));
-            return new AbstractEffectAppender() {
+            return new DelayedAppender() {
                 @Override
                 public boolean isPlayableInFull(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
                     return true;
@@ -107,7 +107,7 @@ public class CardResolver {
             final String filter = type.substring(type.indexOf("(") + 1, type.lastIndexOf(")"));
             final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter);
             final PlayerSource playerSource = PlayerResolver.resolvePlayer(choicePlayer, environment);
-            return new AbstractEffectAppender() {
+            return new DelayedAppender() {
                 @Override
                 public boolean isPlayableInFull(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
                     int min = countSource.getMinimum(null, playerId, game, self, effectResult, effect);
@@ -143,7 +143,7 @@ public class CardResolver {
             final PlayerSource playerSource = PlayerResolver.resolvePlayer(choicePlayer, environment);
 
             String sourceMemory = type.substring(type.indexOf("(") + 1, type.lastIndexOf(")"));
-            return new AbstractEffectAppender() {
+            return new DelayedAppender() {
                 @Override
                 public boolean isPlayableInFull(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
                     if (additionalFilter != null) {
@@ -170,7 +170,7 @@ public class CardResolver {
             final String filter = type.substring(type.indexOf("(") + 1, type.lastIndexOf(")"));
             final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter);
             final PlayerSource playerSource = PlayerResolver.resolvePlayer(choicePlayer, environment);
-            return new AbstractEffectAppender() {
+            return new DelayedAppender() {
                 @Override
                 public boolean isPlayableInFull(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
                     int min = countSource.getMinimum(null, playerId, game, self, effectResult, effect);
@@ -217,7 +217,7 @@ public class CardResolver {
 
     public static EffectAppender resolveCards(String type, FilterableSource additionalFilter, ValueSource countSource, String memory, String choicePlayer, String choiceText, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         if (type.equals("self")) {
-            return new AbstractEffectAppender() {
+            return new DelayedAppender() {
                 @Override
                 public boolean isPlayableInFull(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
                     if (additionalFilter != null)
@@ -237,7 +237,7 @@ public class CardResolver {
             };
         } else if (type.startsWith("memory(") && type.endsWith(")")) {
             String sourceMemory = type.substring(type.indexOf("(") + 1, type.lastIndexOf(")"));
-            return new AbstractEffectAppender() {
+            return new DelayedAppender() {
                 @Override
                 public boolean isPlayableInFull(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
                     if (additionalFilter != null) {
@@ -264,7 +264,7 @@ public class CardResolver {
         } else if (type.startsWith("all(") && type.endsWith(")")) {
             final String filter = type.substring(type.indexOf("(") + 1, type.lastIndexOf(")"));
             final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter);
-            return new AbstractEffectAppender() {
+            return new DelayedAppender() {
                 @Override
                 protected Effect createEffect(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
                     return new UnrespondableEffect() {
@@ -285,7 +285,7 @@ public class CardResolver {
             final String filter = type.substring(type.indexOf("(") + 1, type.lastIndexOf(")"));
             final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter);
             final PlayerSource playerSource = PlayerResolver.resolvePlayer(choicePlayer, environment);
-            return new AbstractEffectAppender() {
+            return new DelayedAppender() {
                 @Override
                 public boolean isPlayableInFull(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
                     int min = countSource.getMinimum(null, playerId, game, self, effectResult, effect);

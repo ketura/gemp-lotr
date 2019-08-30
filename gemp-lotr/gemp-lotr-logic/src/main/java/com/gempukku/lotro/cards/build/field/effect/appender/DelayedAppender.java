@@ -9,6 +9,7 @@ import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
 import java.util.Collections;
+import java.util.List;
 
 public abstract class DelayedAppender implements EffectAppender {
     private String text;
@@ -27,9 +28,11 @@ public abstract class DelayedAppender implements EffectAppender {
                 new UnrespondableEffect() {
                     @Override
                     protected void doPlayEffect(LotroGame game) {
-                        for (Effect effect : createEffects(action, playerId, game, self, effectResult, effect)) {
-                            action.appendCost(effect);
-                        }
+                        // Need to insert them, but in the reverse order
+                        final List<? extends Effect> effects = createEffects(action, playerId, game, self, effectResult, effect);
+                        final Effect[] effectsArray = effects.toArray(new Effect[0]);
+                        for (int i = effectsArray.length - 1; i >= 0; i--)
+                            action.insertCost(effectsArray[i]);
                     }
 
                     @Override
@@ -45,9 +48,11 @@ public abstract class DelayedAppender implements EffectAppender {
                 new UnrespondableEffect() {
                     @Override
                     protected void doPlayEffect(LotroGame game) {
-                        for (Effect effect : createEffects(action, playerId, game, self, effectResult, effect)) {
-                            action.appendEffect(effect);
-                        }
+                        // Need to insert them, but in the reverse order
+                        final List<? extends Effect> effects = createEffects(action, playerId, game, self, effectResult, effect);
+                        final Effect[] effectsArray = effects.toArray(new Effect[0]);
+                        for (int i = effectsArray.length - 1; i >= 0; i--)
+                            action.insertEffect(effectsArray[i]);
                     }
 
                     @Override
@@ -61,7 +66,7 @@ public abstract class DelayedAppender implements EffectAppender {
         throw new UnsupportedOperationException("One of createEffect or createEffects has to be overwritten");
     }
 
-    protected Iterable<? extends Effect> createEffects(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
+    protected List<? extends Effect> createEffects(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
         return Collections.singletonList(createEffect(action, playerId, game, self, effectResult, effect));
     }
 

@@ -51,4 +51,34 @@ public class NewCardsAtTest extends AbstractAtTest {
 
         assertEquals(0, ((String[]) _userFeedback.getAwaitingDecision(P1).getDecisionParameters().get("actionId")).length);
     }
+
+    @Test
+    public void reduceArcheryTotal() throws DecisionResultInvalidException, CardNotFoundException {
+        initializeSimplestGame();
+
+        PhysicalCardImpl legolas = new PhysicalCardImpl(100, "40_52", P1, _library.getLotroCardBlueprint("40_52"));
+        PhysicalCardImpl arrowsOfLight = new PhysicalCardImpl(100, "40_33", P1, _library.getLotroCardBlueprint("40_33"));
+        PhysicalCardImpl inquisitor = new PhysicalCardImpl(100, "1_268", P2, _library.getLotroCardBlueprint("1_268"));
+
+        _game.getGameState().addCardToZone(_game, inquisitor, Zone.SHADOW_CHARACTERS);
+
+        _game.getGameState().addCardToZone(_game, legolas, Zone.FREE_CHARACTERS);
+        _game.getGameState().addCardToZone(_game, arrowsOfLight, Zone.HAND);
+
+        skipMulligans();
+
+        // Pass in fellowship
+        playerDecided(P1, "");
+
+        // Pass in shadow
+        playerDecided(P2, "");
+
+        // Pass in maneuver
+        playerDecided(P1, "");
+        playerDecided(P2, "");
+
+        // Play ArrowsOfLight
+        playerDecided(P1, "0");
+        playerDecided(P1, "0");
+    }
 }
