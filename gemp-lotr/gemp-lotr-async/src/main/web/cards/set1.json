@@ -9,7 +9,7 @@
     "strength": 4,
     "vitality": 2,
     "resistance": 6,
-    "requirement": {
+    "condition": {
       "type": "canSpot",
       "filter": "dwarf"
     }
@@ -48,7 +48,7 @@
     "strength": 5,
     "vitality": 3,
     "resistance": 6,
-    "requirement": {
+    "condition": {
       "type": "canSpot",
       "filter": "dwarf"
     },
@@ -74,7 +74,7 @@
     "effects": {
       "type": "activated",
       "phase": "fellowship",
-      "requirement": {
+      "condition": {
         "type": "twilightPoolLessThan",
         "amount": 2
       },
@@ -143,7 +143,7 @@
     "cost": 0,
     "type": "event",
     "keyword": "archery",
-    "requirement": {
+    "condition": {
       "type": "canSpot",
       "filter": "elf,archer,companion"
     },
@@ -167,7 +167,7 @@
     "strength": 5,
     "vitality": 3,
     "resistance": 6,
-    "requirement": {
+    "condition": {
       "type": "canSpot",
       "filter": "elf"
     },
@@ -241,7 +241,7 @@
     "strength": 4,
     "vitality": 2,
     "resistance": 6,
-    "requirement": {
+    "condition": {
       "type": "canSpot",
       "filter": "elf"
     }
@@ -333,7 +333,7 @@
       {
         "type": "activated",
         "phase": "assignment",
-        "requirement": {
+        "condition": {
           "type": "canSpot",
           "filter": "hobbit,companion",
           "count": 2

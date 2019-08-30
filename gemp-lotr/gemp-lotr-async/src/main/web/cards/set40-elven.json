@@ -6,7 +6,7 @@
     "cost": 2,
     "type": "event",
     "keyword": "archery",
-    "requirement": {
+    "condition": {
       "type": "canSpot",
       "filter": "elf,archer,companion"
     },
@@ -47,5 +47,46 @@
       },
       "amount": 3
     }
+  },
+  "40_35": {
+    "title": "*Arwen",
+    "subtitle": "Lady of Imladris",
+    "side": "free people",
+    "culture": "elven",
+    "cost": 2,
+    "type": "companion",
+    "race": "elf",
+    "strength": 6,
+    "vitality": 3,
+    "resistance": 8,
+    "effects": [
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "startOfTurn"
+        },
+        "optional": true,
+        "condition": {
+          "type": "canSpot",
+          "filter": "name(Elrond)"
+        },
+        "effect": {
+          "type": "heal",
+          "filter": "self"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "fellowship",
+        "cost": {
+          "type": "exert",
+          "filter": "self"
+        },
+        "effect": {
+          "type": "heal",
+          "filter": "choose(rivendell,ally)"
+        }
+      }
+    ]
   }
 }

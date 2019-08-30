@@ -795,7 +795,7 @@
         "type": "played",
         "filter": "side(shadow),event"
       },
-      "requirement": {
+      "condition": {
         "type": "canSpot",
         "filter": "self,hasStackedCount(3,any)"
       },

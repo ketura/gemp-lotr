@@ -9,7 +9,7 @@
     "effects": [
       {
         "type": "trigger",
-        "requirement": [
+        "condition": [
           {
             "type": "ringIsOn"
           },
@@ -33,7 +33,7 @@
       },
       {
         "type": "activated",
-        "requirement": {
+        "condition": {
           "type": "ringIsActive"
         },
         "phase": "maneuver",
@@ -68,7 +68,7 @@
     "effects": [
       {
         "type": "trigger",
-        "requirement": [
+        "condition": [
           {
             "type": "ringIsOn"
           },
@@ -100,7 +100,7 @@
           "type": "aboutToTakeWound",
           "filter": "hasAttached(self)"
         },
-        "requirement": [
+        "condition": [
           {
             "type": "phase",
             "phase": "skirmish"

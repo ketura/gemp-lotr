@@ -27,13 +27,13 @@ import java.util.List;
 public class AddTrigger implements EffectAppenderProducer {
     @Override
     public EffectAppender createEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(effectObject, "trigger", "until", "optional", "requirement", "cost", "effect");
+        FieldUtils.validateAllowedFields(effectObject, "trigger", "until", "optional", "condition", "cost", "effect");
 
         final TimeResolver.Time until = TimeResolver.resolveTime(effectObject.get("until"), "end(current)");
         final TriggerChecker trigger = environment.getTriggerCheckerFactory().getTriggerChecker((JSONObject) effectObject.get("trigger"), environment);
         final boolean optional = FieldUtils.getBoolean(effectObject.get("optional"), "optional", false);
 
-        final JSONObject[] requirementArray = FieldUtils.getObjectArray(effectObject.get("requirement"), "requirement");
+        final JSONObject[] requirementArray = FieldUtils.getObjectArray(effectObject.get("condition"), "condition");
         final JSONObject[] costArray = FieldUtils.getObjectArray(effectObject.get("cost"), "cost");
         final JSONObject[] effectArray = FieldUtils.getObjectArray(effectObject.get("effect"), "effect");
 

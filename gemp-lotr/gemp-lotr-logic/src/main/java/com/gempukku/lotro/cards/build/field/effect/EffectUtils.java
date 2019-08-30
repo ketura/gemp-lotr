@@ -8,7 +8,7 @@ import org.json.simple.JSONObject;
 
 public class EffectUtils {
     public static void processRequirementsCostsAndEffects(JSONObject value, CardGenerationEnvironment environment, DefaultActionSource actionSource) throws InvalidCardDefinitionException {
-        final JSONObject[] requirementArray = FieldUtils.getObjectArray(value.get("requirement"), "requirement");
+        final JSONObject[] requirementArray = FieldUtils.getObjectArray(value.get("condition"), "condition");
         for (JSONObject requirement : requirementArray) {
             final Requirement conditionRequirement = environment.getRequirementFactory().getRequirement(requirement, environment);
             actionSource.addPlayRequirement(conditionRequirement);
