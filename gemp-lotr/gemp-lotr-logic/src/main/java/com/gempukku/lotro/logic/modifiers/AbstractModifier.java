@@ -159,7 +159,7 @@ public abstract class AbstractModifier implements Modifier {
     }
 
     @Override
-    public boolean canBeExerted(LotroGame game, PhysicalCard exertionSource, PhysicalCard card) {
+    public boolean canBeExerted(LotroGame game, PhysicalCard exertionSource, PhysicalCard exertedCard) {
         return true;
     }
 

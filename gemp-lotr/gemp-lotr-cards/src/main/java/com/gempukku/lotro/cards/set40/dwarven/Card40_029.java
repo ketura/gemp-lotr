@@ -33,7 +33,7 @@ public class Card40_029 extends AbstractPermanent{
     @Override
     public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         CantExertWithCardModifier modifier = new CantExertWithCardModifier(
-                self, Side.SHADOW, new CardStackedCondition(3, self, Filters.any), Race.DWARF);
+                self, Race.DWARF, new CardStackedCondition(3, self, Filters.any), Side.SHADOW);
         return Collections.singletonList(modifier);
     }
 }

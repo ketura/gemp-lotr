@@ -77,7 +77,7 @@ public interface ModifiersQuerying {
 
     public boolean canTakeArcheryWound(LotroGame game, PhysicalCard card);
 
-    public boolean canBeExerted(LotroGame game, PhysicalCard exertionSource, PhysicalCard card);
+    public boolean canBeExerted(LotroGame game, PhysicalCard exertionSource, PhysicalCard exertedCard);
 
     public boolean canBeHealed(LotroGame game, PhysicalCard card);
 

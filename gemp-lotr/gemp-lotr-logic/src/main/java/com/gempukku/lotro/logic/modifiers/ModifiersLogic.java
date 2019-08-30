@@ -590,11 +590,11 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     }
 
     @Override
-    public boolean canBeExerted(LotroGame game, PhysicalCard source, PhysicalCard card) {
-        LoggingThreadLocal.logMethodStart(card, "canBeExerted");
+    public boolean canBeExerted(LotroGame game, PhysicalCard exertionSource, PhysicalCard exertedCard) {
+        LoggingThreadLocal.logMethodStart(exertedCard, "canBeExerted");
         try {
-            for (Modifier modifier : getModifiersAffectingCard(game, ModifierEffect.WOUND_MODIFIER, card)) {
-                if (!modifier.canBeExerted(game, source, card))
+            for (Modifier modifier : getModifiersAffectingCard(game, ModifierEffect.WOUND_MODIFIER, exertedCard)) {
+                if (!modifier.canBeExerted(game, exertionSource, exertedCard))
                     return false;
             }
             return true;

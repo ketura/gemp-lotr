@@ -64,6 +64,13 @@ public class FilterFactory {
                     final FilterableSource filterableSource = filterFactory.generateFilter(parameter);
                     return (playerId, game, source, effectResult, effect) -> Filters.hasStacked(filterableSource.getFilterable(playerId, game, source, effectResult, effect));
                 });
+        parameterFilters.put("hasStackedCount",
+                (parameter, filterFactory) -> {
+                    String[] parameterSplit = parameter.split(",", 2);
+                    int count = Integer.parseInt(parameterSplit[0]);
+                    final FilterableSource filterableSource = filterFactory.generateFilter(parameterSplit[1]);
+                    return (playerId, game, source, effectResult, effect) -> Filters.hasStacked(count, filterableSource.getFilterable(playerId, game, source, effectResult, effect));
+                });
         parameterFilters.put("attachedTo",
                 (parameter, filterFactory) -> {
                     final FilterableSource filterableSource = filterFactory.generateFilter(parameter);

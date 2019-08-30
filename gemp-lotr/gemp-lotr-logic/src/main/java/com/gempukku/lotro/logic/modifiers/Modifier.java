@@ -65,7 +65,7 @@ public interface Modifier {
 
     public boolean canTakeArcheryWound(LotroGame game, PhysicalCard physicalCard);
 
-    public boolean canBeExerted(LotroGame game, PhysicalCard source, PhysicalCard card);
+    public boolean canBeExerted(LotroGame game, PhysicalCard exertionSource, PhysicalCard exertedCard);
 
     public boolean isAllyParticipateInArcheryFire(LotroGame game, PhysicalCard card);
 
