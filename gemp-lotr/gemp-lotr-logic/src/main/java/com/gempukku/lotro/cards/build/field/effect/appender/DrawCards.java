@@ -41,7 +41,8 @@ public class DrawCards implements EffectAppenderProducer {
             protected Effect createEffect(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
                 final String drawPlayer = playerSource.getPlayer(playerId, game, self, effectResult, effect);
                 final Evaluator evaluator = count.getEvaluator(action, playerId, game, self, effectResult, effect);
-                return new DrawCardsEffect(action, drawPlayer, evaluator);
+                final int cardsDrawn = evaluator.evaluateExpression(game, null);
+                return new DrawCardsEffect(action, drawPlayer, cardsDrawn);
             }
         };
     }

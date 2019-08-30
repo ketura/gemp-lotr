@@ -857,6 +857,34 @@
       "by": "side(shadow)"
     }
   },
+  "40_30": {
+    "title": "Take Cover!",
+    "side": "free people",
+    "culture": "dwarven",
+    "cost": 2,
+    "type": "event",
+    "keyword": "archery",
+    "effects": {
+      "type": "event",
+      "cost": {
+        "type": "discard",
+        "filter": "choose(culture(dwarven),condition)",
+        "memorizeStackedCards": "stackedCards"
+      },
+      "effect": {
+        "type": "modifyArcheryTotal",
+        "side": "shadow",
+        "amount": {
+          "type": "multiply",
+          "source": {
+            "type": "forEachInMemory",
+            "memory": "stackedCards"
+          },
+          "multiplier": -1
+        }
+      }
+    }
+  },
   "40_184": {
     "title": "Black Steed",
     "subtitle": "Bred to Serve",

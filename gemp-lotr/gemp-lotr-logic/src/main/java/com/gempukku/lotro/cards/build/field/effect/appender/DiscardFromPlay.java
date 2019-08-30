@@ -18,15 +18,18 @@ import com.gempukku.lotro.logic.timing.EffectResult;
 import org.json.simple.JSONObject;
 
 import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
 
 public class DiscardFromPlay implements EffectAppenderProducer {
     @Override
     public EffectAppender createEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(effectObject, "count", "filter", "memorize");
+        FieldUtils.validateAllowedFields(effectObject, "count", "filter", "memorize", "memorizeStackedCards");
 
         final ValueSource valueSource = ValueResolver.resolveEvaluator(effectObject.get("count"), 1, environment);
         final String filter = FieldUtils.getString(effectObject.get("filter"), "filter");
         final String memory = FieldUtils.getString(effectObject.get("memorize"), "memorize", "_temp");
+        final String stackedCardsMemory = FieldUtils.getString(effectObject.get("memorizeStackedCards"), "memorizeStackedCards");
 
         MultiEffectAppender result = new MultiEffectAppender();
 
@@ -39,6 +42,14 @@ public class DiscardFromPlay implements EffectAppenderProducer {
                     @Override
                     protected Effect createEffect(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
                         final Collection<? extends PhysicalCard> cardsFromMemory = action.getCardsFromMemory(memory);
+                        if (stackedCardsMemory != null) {
+                            List<PhysicalCard> stackedCards = new LinkedList<>();
+                            for (PhysicalCard physicalCard : cardsFromMemory) {
+                                stackedCards.addAll(game.getGameState().getStackedCards(physicalCard));
+                            }
+
+                            action.setCardMemory(stackedCardsMemory, stackedCards);
+                        }
                         return new DiscardCardsFromPlayEffect(playerId, self, Filters.in(cardsFromMemory));
                     }
                 });
