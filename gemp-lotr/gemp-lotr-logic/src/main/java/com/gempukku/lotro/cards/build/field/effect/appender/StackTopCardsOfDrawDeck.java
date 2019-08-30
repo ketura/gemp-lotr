@@ -15,7 +15,7 @@ import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import org.json.simple.JSONObject;
 
-public class StackTopCardOfDrawDeck implements EffectAppenderProducer {
+public class StackTopCardsOfDrawDeck implements EffectAppenderProducer {
     @Override
     public EffectAppender createEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         FieldUtils.validateAllowedFields(effectObject, "deck", "where", "count");

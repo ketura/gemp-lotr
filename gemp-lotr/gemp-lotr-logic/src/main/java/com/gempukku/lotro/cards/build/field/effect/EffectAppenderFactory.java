@@ -13,7 +13,7 @@ public class EffectAppenderFactory {
     private Map<String, EffectAppenderProducer> effectAppenderProducers = new HashMap<>();
 
     public EffectAppenderFactory() {
-        effectAppenderProducers.put("stacktopcardofdrawdeck", new StackTopCardOfDrawDeck());
+        effectAppenderProducers.put("stacktopcardsofdrawdeck", new StackTopCardsOfDrawDeck());
         effectAppenderProducers.put("discard", new DiscardFromPlay());
         effectAppenderProducers.put("preventdiscard", new PreventCardEffectAppender());
         effectAppenderProducers.put("exert", new Exert());
@@ -42,6 +42,7 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("drawcards", new DrawCards());
         effectAppenderProducers.put("removeburdens", new RemoveBurdens());
         effectAppenderProducers.put("stackcardsfromhand", new StackCardsFromHand());
+        effectAppenderProducers.put("stackcardsfromdiscard", new StackCardsFromDiscard());
         effectAppenderProducers.put("putcardsfromdiscardintohand", new PutCardsFromDiscardIntoHand());
     }
 

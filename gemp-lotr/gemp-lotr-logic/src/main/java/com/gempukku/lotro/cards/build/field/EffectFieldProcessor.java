@@ -28,6 +28,7 @@ public class EffectFieldProcessor implements FieldProcessor {
         effectProcessors.put("archerytotal", new ArcheryTotal());
         effectProcessors.put("opponentmaynotdiscard", new OpponentMayNotDiscard());
         effectProcessors.put("modifyowncost", new ModifyOwnCost());
+        effectProcessors.put("canttakemorewoundsthan", new CantTakeMoreWoundsThan());
     }
 
     @Override
