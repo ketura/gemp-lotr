@@ -88,5 +88,69 @@
         }
       }
     ]
+  },
+  "40_36": {
+    "title": "*Bow of the Galadhrim",
+    "subtitle": "Galadriel's Gift",
+    "side": "free people",
+    "culture": "elven",
+    "cost": 1,
+    "type": "possession",
+    "possession": "ranged weapon",
+    "strength": 1,
+    "target": "name(Legolas)",
+    "effects": {
+      "type": "trigger",
+      "trigger": {
+        "type": "startOfPhase",
+        "phase": "archery"
+      },
+      "optional": true,
+      "cost": {
+        "type": "exert",
+        "filter": "choose(hasAttached(self))"
+      },
+      "effect": {
+        "type": "wound",
+        "filter": "choose(minion)"
+      }
+    }
+  },
+  "40_37": {
+    "title": "*Bruinen Unleashed",
+    "side": "free people",
+    "culture": "elven",
+    "cost": 1,
+    "type": "condition",
+    "keyword": "support area",
+    "condition": {
+      "type": "canSpot",
+      "filter": "elf,companion"
+    },
+    "effects": [
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "played",
+          "filter": "nazgul",
+          "memorize": "playedNazgul"
+        },
+        "effect": {
+          "type": "exert",
+          "filter": "memory(playedNazgul)"
+        }
+      },
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "startOfPhase",
+          "phase": "regroup"
+        },
+        "effect": {
+          "type": "discard",
+          "filter": "self"
+        }
+      }
+    ]
   }
 }

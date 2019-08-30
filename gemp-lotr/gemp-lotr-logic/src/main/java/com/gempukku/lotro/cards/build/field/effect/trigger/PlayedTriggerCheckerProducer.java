@@ -11,20 +11,27 @@ import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.timing.results.PlayCardResult;
 import org.json.simple.JSONObject;
 
 public class PlayedTriggerCheckerProducer implements TriggerCheckerProducer {
     @Override
     public TriggerChecker getTriggerChecker(JSONObject value, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(value, "filter");
+        FieldUtils.validateAllowedFields(value, "filter", "memorize");
 
         final String filterString = FieldUtils.getString(value.get("filter"), "filter");
+        final String memorize = FieldUtils.getString(value.get("memorize"), "memorize");
         final FilterableSource filter = environment.getFilterFactory().generateFilter(filterString);
         return new TriggerChecker() {
             @Override
             public boolean accepts(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
                 final Filterable filterable = filter.getFilterable(playerId, game, self, effectResult, effect);
-                return TriggerConditions.played(game, effectResult, filterable);
+                final boolean played = TriggerConditions.played(game, effectResult, filterable);
+                if (played && memorize != null) {
+                    PhysicalCard playedCard = ((PlayCardResult) effectResult).getPlayedCard();
+                    action.setValueToMemory(memorize, playerId);
+                }
+                return played;
             }
 
             @Override
