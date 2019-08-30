@@ -10,6 +10,7 @@ import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
@@ -21,6 +22,8 @@ public class PlayerResolver {
     public static PlayerSource resolvePlayer(String type, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         if (type.equals("owner"))
             return (playerId, game, self, effectResult, effect) -> self.getOwner();
+        else if (type.equals("shadowPlayer"))
+            return (playerId, game, self, effectResult, effect) -> GameUtils.getFirstShadowPlayer(game);
         else if (type.equals("fp"))
             return ((playerId, game, self, effectResult, effect) -> game.getGameState().getCurrentPlayerId());
         else if (type.startsWith("owner(") && type.endsWith(")")) {

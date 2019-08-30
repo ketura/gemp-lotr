@@ -885,6 +885,52 @@
       }
     }
   },
+  "40_31": {
+    "title": "*Thorin III",
+    "subtitle": "Lord of the Longbeards",
+    "side": "free people",
+    "culture": "dwarven",
+    "cost": 2,
+    "type": "companion",
+    "race": "dwarf",
+    "strength": 6,
+    "vitality": 3,
+    "resistance": 6,
+    "keyword": "damage+1",
+    "effects": {
+      "type": "modifyStrength",
+      "filter": "self",
+      "amount": 2,
+      "condition": {
+        "type": "canSpot",
+        "filter": "culture(dwarven),condition,hasStackedCount(3,culture(dwarven))"
+      }
+    }
+  },
+  "40_32": {
+    "title": "*Well Prepared",
+    "side": "free people",
+    "culture": "dwarven",
+    "cost": 1,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": {
+      "type": "trigger",
+      "trigger": {
+        "type": "played",
+        "filter": "side(shadow),event"
+      },
+      "requirement": {
+        "type": "canSpot",
+        "filter": "self,hasStackedCount(3,any)"
+      },
+      "effect": {
+        "type": "exert",
+        "player": "shadowPlayer",
+        "filter": "choose(minion)"
+      }
+    }
+  },
   "40_184": {
     "title": "Black Steed",
     "subtitle": "Bred to Serve",
