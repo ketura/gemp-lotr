@@ -38,7 +38,7 @@ public class AddKeyword implements EffectProcessor {
                     public Modifier getModifier(LotroGame game, PhysicalCard self) {
                         final Evaluator evaluator = amount.getEvaluator(null, null, game, self, null, null);
                         return new KeywordModifier(self,
-                                filterableSource.getFilterable(null, game, self, null, null),
+                                filterableSource.getFilterable(null, null, game, self, null, null),
                                 new RequirementCondition(requirements, null, self, null, null), keyword, evaluator);
                     }
                 });

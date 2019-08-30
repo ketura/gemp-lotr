@@ -22,9 +22,9 @@ public class CantBeExerted implements EffectProcessor {
         blueprint.appendInPlayModifier(
                 (game, self) ->
                         new CantExertWithCardModifier(self,
-                                filterableSource.getFilterable(null, game, self, null, null),
+                                filterableSource.getFilterable(null, null, game, self, null, null),
                                 new RequirementCondition(requirements, null, self, null, null),
-                                byFilterableSource.getFilterable(null, game, self, null, null)));
+                                byFilterableSource.getFilterable(null, null, game, self, null, null)));
 
     }
 }

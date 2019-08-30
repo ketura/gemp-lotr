@@ -1,5 +1,6 @@
 package com.gempukku.lotro.cards.build.field.effect;
 
+import com.gempukku.lotro.cards.build.ActionContext;
 import com.gempukku.lotro.cards.build.ActionSource;
 import com.gempukku.lotro.cards.build.Requirement;
 import com.gempukku.lotro.game.PhysicalCard;
@@ -30,9 +31,9 @@ public class DefaultActionSource implements ActionSource {
     }
 
     @Override
-    public boolean isValid(String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
+    public boolean isValid(ActionContext actionContext, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
         for (Requirement requirement : requirements) {
-            if (!requirement.accepts(null, playerId, game, self, effectResult, effect))
+            if (!requirement.accepts(actionContext, playerId, game, self, effectResult, effect))
                 return false;
         }
         return true;

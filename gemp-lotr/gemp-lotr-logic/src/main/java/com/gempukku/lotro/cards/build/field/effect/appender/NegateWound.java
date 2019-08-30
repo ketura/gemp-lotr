@@ -1,5 +1,6 @@
 package com.gempukku.lotro.cards.build.field.effect.appender;
 
+import com.gempukku.lotro.cards.build.ActionContext;
 import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
@@ -30,7 +31,7 @@ public class NegateWound implements EffectAppenderProducer {
 
         result.addEffectAppender(
                 CardResolver.resolveCards(filter,
-                        (playerId, game, source, effectResult, effect) -> {
+                        (actionContext, playerId, game, source, effectResult, effect) -> {
                             final WoundCharactersEffect woundEffect = (WoundCharactersEffect) effect;
                             return Filters.in(woundEffect.getAffectedCardsMinusPrevented(game));
                         }, new ConstantEvaluator(1), "_temp", "owner", "Choose characters to negate wound to", environment));
@@ -45,7 +46,7 @@ public class NegateWound implements EffectAppenderProducer {
                     }
 
                     @Override
-                    public boolean isPlayableInFull(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
+                    public boolean isPlayableInFull(ActionContext actionContext, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
                         return true;
                     }
                 });

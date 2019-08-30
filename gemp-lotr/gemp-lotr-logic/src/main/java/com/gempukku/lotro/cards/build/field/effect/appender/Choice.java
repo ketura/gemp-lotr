@@ -1,5 +1,6 @@
 package com.gempukku.lotro.cards.build.field.effect.appender;
 
+import com.gempukku.lotro.cards.build.ActionContext;
 import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.PlayerSource;
@@ -61,7 +62,7 @@ public class Choice implements EffectAppenderProducer {
                             });
                 }
 
-                final String choicePlayerId = playerSource.getPlayer(playerId, game, self, effectResult, effect);
+                final String choicePlayerId = playerSource.getPlayer(action, playerId, game, self, effectResult, effect);
 
                 action.appendCost(new ChoiceEffect(action, choicePlayerId, possibleEffects));
             }
@@ -91,15 +92,15 @@ public class Choice implements EffectAppenderProducer {
                             });
                 }
 
-                final String choicePlayerId = playerSource.getPlayer(playerId, game, self, effectResult, effect);
+                final String choicePlayerId = playerSource.getPlayer(action, playerId, game, self, effectResult, effect);
 
                 action.appendEffect(new ChoiceEffect(action, choicePlayerId, possibleEffects));
             }
 
             @Override
-            public boolean isPlayableInFull(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
+            public boolean isPlayableInFull(ActionContext actionContext, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
                 for (EffectAppender possibleEffectAppender : possibleEffectAppenders) {
-                    if (possibleEffectAppender.isPlayableInFull(action, playerId, game, self, effectResult, effect))
+                    if (possibleEffectAppender.isPlayableInFull(actionContext, playerId, game, self, effectResult, effect))
                         return true;
                 }
                 return false;

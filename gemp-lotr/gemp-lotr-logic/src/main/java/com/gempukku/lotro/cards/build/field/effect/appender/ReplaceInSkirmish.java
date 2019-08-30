@@ -33,7 +33,7 @@ public class ReplaceInSkirmish implements EffectAppenderProducer {
                     @Override
                     protected Effect createEffect(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
                         final PhysicalCard card = action.getCardFromMemory("_temp");
-                        return new ReplaceInSkirmishEffect(card, filterableSource.getFilterable(playerId, game, self, effectResult, effect));
+                        return new ReplaceInSkirmishEffect(card, filterableSource.getFilterable(action, playerId, game, self, effectResult, effect));
                     }
                 });
 

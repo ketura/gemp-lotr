@@ -29,7 +29,7 @@ public class CantTakeMoreWoundsThan implements EffectProcessor {
                             valueSource.getEvaluator(null, null, game, self, null, null)
                                     .evaluateExpression(game, self),
                             new RequirementCondition(requirements, null, self, null, null),
-                            filterableSource.getFilterable(null, game, self, null, null));
+                            filterableSource.getFilterable(null, null, game, self, null, null));
                 });
 
     }

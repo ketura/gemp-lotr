@@ -26,7 +26,7 @@ public class ModifyRoamingPenalty implements EffectProcessor {
                     @Override
                     public Modifier getModifier(LotroGame game, PhysicalCard self) {
                         return new RoamingPenaltyModifier(self,
-                                filterableSource.getFilterable(null, game, self, null, null),
+                                filterableSource.getFilterable(null, null, game, self, null, null),
                                 new RequirementCondition(requirements, null, self, null, null), amount);
                     }
                 });

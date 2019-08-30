@@ -19,7 +19,7 @@ public class OpponentMayNotDiscard implements EffectProcessor {
 
         blueprint.appendInPlayModifier(
                 (game, self) -> new CantDiscardFromPlayByPlayerModifier(self, "Can't be discarded by opponent",
-                        filterableSource.getFilterable(null, game, self, null, null),
+                        filterableSource.getFilterable(null, null, game, self, null, null),
                         self.getOwner()));
     }
 }

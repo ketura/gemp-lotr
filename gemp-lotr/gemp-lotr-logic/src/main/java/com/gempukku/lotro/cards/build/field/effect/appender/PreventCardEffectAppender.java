@@ -27,7 +27,7 @@ public class PreventCardEffectAppender implements EffectAppenderProducer {
         MultiEffectAppender result = new MultiEffectAppender();
         result.addEffectAppender(
                 CardResolver.resolveCard(filter,
-                        (playerId, game, source, effectResult, effect) -> Filters.in(((PreventableCardEffect) effect).getAffectedCardsMinusPrevented(game)),
+                        (actionContext, playerId, game, source, effectResult, effect) -> Filters.in(((PreventableCardEffect) effect).getAffectedCardsMinusPrevented(game)),
                         memory, "owner", "Choose card to prevent effect on", environment));
         result.addEffectAppender(
                 new DelayedAppender() {

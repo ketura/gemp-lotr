@@ -35,7 +35,7 @@ public class DiscardFromPlay implements EffectAppenderProducer {
 
         result.addEffectAppender(
                 CardResolver.resolveCards(filter,
-                        (playerId, game, source, effectResult, effect) -> Filters.canBeDiscarded(playerId, source),
+                        (actionContext, playerId, game, source, effectResult, effect) -> Filters.canBeDiscarded(playerId, source),
                         valueSource, memory, "owner", "Choose cards to discard", environment));
         result.addEffectAppender(
                 new DelayedAppender() {

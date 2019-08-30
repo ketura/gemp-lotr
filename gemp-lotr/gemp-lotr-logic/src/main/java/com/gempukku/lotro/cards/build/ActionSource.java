@@ -7,7 +7,7 @@ import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 public interface ActionSource {
-    boolean isValid(String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect);
+    boolean isValid(ActionContext actionContext, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect);
 
     void createAction(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect);
 }

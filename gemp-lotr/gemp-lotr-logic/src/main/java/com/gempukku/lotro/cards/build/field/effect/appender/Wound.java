@@ -35,7 +35,7 @@ public class Wound implements EffectAppenderProducer {
 
         result.addEffectAppender(
                 CardResolver.resolveCards(filter,
-                        (playerId, game, source, effectResult, effect) -> Filters.canTakeWounds(source, times),
+                        (actionContext, playerId, game, source, effectResult, effect) -> Filters.canTakeWounds(source, times),
                         valueSource, memory, "owner", "Choose cards to wound", environment));
         result.addEffectAppender(
                 new DelayedAppender() {

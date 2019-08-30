@@ -28,11 +28,12 @@
       "trigger": {
         "type": "losesSkirmish",
         "filter": "minion",
-        "against": "hasAttached(self)"
+        "against": "hasAttached(self)",
+        "memorize": "losingMinion"
       },
       "effect": {
         "type": "discardTopCardFromDeck",
-        "deck": "owner(skirmishLoser)",
+        "deck": "ownerFromMemory(losingMinion)",
         "forced": true
       }
     }

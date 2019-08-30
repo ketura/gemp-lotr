@@ -1,5 +1,6 @@
 package com.gempukku.lotro.cards.build.field.effect.modifier;
 
+import com.gempukku.lotro.cards.build.DefaultActionContext;
 import com.gempukku.lotro.cards.build.Requirement;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -24,8 +25,9 @@ public class RequirementCondition implements Condition {
 
     @Override
     public boolean isFullfilled(LotroGame game) {
+        DefaultActionContext dummy = new DefaultActionContext();
         for (Requirement requirement : requirements) {
-            if (!requirement.accepts(null, playerId, game, self, effectResult, effect))
+            if (!requirement.accepts(dummy, playerId, game, self, effectResult, effect))
                 return false;
         }
 

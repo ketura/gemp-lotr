@@ -1,9 +1,6 @@
 package com.gempukku.lotro.cards.build.field.effect.appender.resolver;
 
-import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
-import com.gempukku.lotro.cards.build.FilterableSource;
-import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
-import com.gempukku.lotro.cards.build.PlayerSource;
+import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.appender.AbstractEffectAppender;
 import com.gempukku.lotro.common.Filterable;
@@ -21,22 +18,14 @@ import java.util.Collection;
 public class PlayerResolver {
     public static PlayerSource resolvePlayer(String type, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         if (type.equals("owner"))
-            return (playerId, game, self, effectResult, effect) -> self.getOwner();
+            return (actionContext, playerId, game, self, effectResult, effect) -> self.getOwner();
         else if (type.equals("shadowPlayer"))
-            return (playerId, game, self, effectResult, effect) -> GameUtils.getFirstShadowPlayer(game);
+            return (actionContext, playerId, game, self, effectResult, effect) -> GameUtils.getFirstShadowPlayer(game);
         else if (type.equals("fp"))
-            return ((playerId, game, self, effectResult, effect) -> game.getGameState().getCurrentPlayerId());
-        else if (type.startsWith("owner(") && type.endsWith(")")) {
-            String filter = type.substring(type.indexOf("(") + 1, type.lastIndexOf(")"));
-            final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter);
-            return (playerId, game, self, effectResult, effect) -> {
-                final Filterable filterable = filterableSource.getFilterable(playerId, game, self, effectResult, effect);
-                // TODO SUPER messy
-                if (filterable instanceof PhysicalCard) {
-                    return ((PhysicalCard) filterable).getOwner();
-                }
-                throw new RuntimeException("Unable to resolve card from filter");
-            };
+            return ((actionContext, playerId, game, self, effectResult, effect) -> game.getGameState().getCurrentPlayerId());
+        else if (type.startsWith("ownerFromMemory(") && type.endsWith(")")) {
+            String memory = type.substring(type.indexOf("(") + 1, type.lastIndexOf(")"));
+            return (actionContext, playerId, game, self, effectResult, effect) -> actionContext.getCardFromMemory(memory).getOwner();
         }
         throw new InvalidCardDefinitionException("Unable to resolve player resolver of type: " + type);
     }
@@ -55,7 +44,7 @@ public class PlayerResolver {
                 }
 
                 @Override
-                public boolean isPlayableInFull(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
+                public boolean isPlayableInFull(ActionContext actionContext, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
                     return true;
                 }
             };
@@ -64,7 +53,7 @@ public class PlayerResolver {
             final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter);
             return new AbstractEffectAppender() {
                 @Override
-                public boolean isPlayableInFull(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
+                public boolean isPlayableInFull(ActionContext actionContext, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
                     return true;
                 }
 
@@ -73,7 +62,7 @@ public class PlayerResolver {
                     return new UnrespondableEffect() {
                         @Override
                         protected void doPlayEffect(LotroGame game) {
-                            final Filterable filterable = filterableSource.getFilterable(playerId, game, self, effectResult, effect);
+                            final Filterable filterable = filterableSource.getFilterable(action, playerId, game, self, effectResult, effect);
                             if (filterable instanceof PhysicalCard) {
                                 action.setValueToMemory(memory, ((PhysicalCard) filterable).getOwner());
                             } else {

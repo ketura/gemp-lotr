@@ -1,5 +1,6 @@
 package com.gempukku.lotro.cards.build.field.effect.appender;
 
+import com.gempukku.lotro.cards.build.ActionContext;
 import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
@@ -30,7 +31,7 @@ public class PlayCardFromDiscard implements EffectAppenderProducer {
 
         result.addEffectAppender(
                 CardResolver.resolveCardsInDiscard(filter,
-                        (playerId, game, source, effectResult, effect) -> Filters.playable(game),
+                        (actionContext, playerId, game, source, effectResult, effect) -> Filters.playable(game),
                         new ConstantEvaluator(1), "_temp", "owner", "Choose card to play", environment));
         result.addEffectAppender(
                 new DelayedAppender() {
@@ -47,7 +48,7 @@ public class PlayCardFromDiscard implements EffectAppenderProducer {
                     }
 
                     @Override
-                    public boolean isPlayableInFull(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
+                    public boolean isPlayableInFull(ActionContext actionContext, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
                         return !game.getModifiersQuerying().hasFlagActive(game, ModifierFlag.CANT_PLAY_FROM_DISCARD_OR_DECK);
                     }
                 });

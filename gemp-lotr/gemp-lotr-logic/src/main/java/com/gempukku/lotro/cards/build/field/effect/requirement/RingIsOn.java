@@ -8,6 +8,6 @@ import org.json.simple.JSONObject;
 public class RingIsOn implements RequirementProducer {
     @Override
     public Requirement getPlayRequirement(JSONObject object, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        return (action, playerId, game, self, effectResult, effect) -> game.getGameState().isWearingRing();
+        return (actionContext, playerId, game, self, effectResult, effect) -> game.getGameState().isWearingRing();
     }
 }

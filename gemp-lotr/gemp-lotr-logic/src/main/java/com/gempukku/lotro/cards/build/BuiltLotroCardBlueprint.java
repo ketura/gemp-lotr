@@ -347,7 +347,7 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
         Filterable[] result = new Filterable[targetFilters.size()];
         for (int i = 0; i < result.length; i++) {
             final FilterableSource filterableSource = targetFilters.get(i);
-            result[i] = filterableSource.getFilterable(playerId, game, self, null, null);
+            result[i] = filterableSource.getFilterable(null, playerId, game, self, null, null);
         }
 
         return Filters.and(result);
@@ -388,13 +388,15 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
         if (requirements == null)
             return true;
 
+        DefaultActionContext dummy = new DefaultActionContext();
+
         for (Requirement requirement : requirements) {
-            if (!requirement.accepts(null, null, game, self, null, null))
+            if (!requirement.accepts(dummy, null, game, self, null, null))
                 return false;
         }
 
         if (playEventAction != null)
-            playEventAction.isValid(null, game, self, null, null);
+            playEventAction.isValid(dummy, null, game, self, null, null);
 
         return true;
     }
@@ -426,8 +428,10 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
         List<RequiredTriggerAction> result = new LinkedList<>();
 
         for (ActionSource requiredBeforeTrigger : requiredBeforeTriggers) {
-            if (requiredBeforeTrigger.isValid(null, game, self, null, effect)) {
+            DefaultActionContext actionContext = new DefaultActionContext();
+            if (requiredBeforeTrigger.isValid(actionContext, null, game, self, null, effect)) {
                 RequiredTriggerAction action = new RequiredTriggerAction(self);
+                action.setActionContext(actionContext);
                 requiredBeforeTrigger.createAction(action, null, game, self, null, effect);
                 result.add(action);
             }
@@ -444,8 +448,10 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
         List<RequiredTriggerAction> result = new LinkedList<>();
 
         for (ActionSource requiredAfterTrigger : requiredAfterTriggers) {
-            if (requiredAfterTrigger.isValid(null, game, self, effectResult, null)) {
+            DefaultActionContext actionContext = new DefaultActionContext();
+            if (requiredAfterTrigger.isValid(actionContext, null, game, self, effectResult, null)) {
                 RequiredTriggerAction action = new RequiredTriggerAction(self);
+                action.setActionContext(actionContext);
                 requiredAfterTrigger.createAction(action, null, game, self, effectResult, null);
                 result.add(action);
             }
@@ -462,8 +468,10 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
         List<OptionalTriggerAction> result = new LinkedList<>();
 
         for (ActionSource optionalBeforeTrigger : optionalBeforeTriggers) {
-            if (optionalBeforeTrigger.isValid(null, game, self, null, effect)) {
+            DefaultActionContext actionContext = new DefaultActionContext();
+            if (optionalBeforeTrigger.isValid(actionContext, null, game, self, null, effect)) {
                 OptionalTriggerAction action = new OptionalTriggerAction(self);
+                action.setActionContext(actionContext);
                 optionalBeforeTrigger.createAction(action, null, game, self, null, effect);
                 result.add(action);
             }
@@ -480,8 +488,10 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
         List<OptionalTriggerAction> result = new LinkedList<>();
 
         for (ActionSource optionalAfterTrigger : optionalAfterTriggers) {
-            if (optionalAfterTrigger.isValid(null, game, self, effectResult, null)) {
+            DefaultActionContext actionContext = new DefaultActionContext();
+            if (optionalAfterTrigger.isValid(actionContext, null, game, self, effectResult, null)) {
                 OptionalTriggerAction action = new OptionalTriggerAction(self);
+                action.setActionContext(actionContext);
                 optionalAfterTrigger.createAction(action, null, game, self, effectResult, null);
                 result.add(action);
             }
@@ -497,8 +507,10 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
 
         List<ActivateCardAction> result = new LinkedList<>();
         for (ActionSource beforeActivatedTrigger : beforeActivatedTriggers) {
-            if (beforeActivatedTrigger.isValid(playerId, game, self, null, effect)) {
+            DefaultActionContext actionContext = new DefaultActionContext();
+            if (beforeActivatedTrigger.isValid(actionContext, playerId, game, self, null, effect)) {
                 ActivateCardAction action = new ActivateCardAction(self);
+                action.setActionContext(actionContext);
                 beforeActivatedTrigger.createAction(action, playerId, game, self, null, effect);
                 result.add(action);
             }
@@ -514,8 +526,10 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
 
         List<ActivateCardAction> result = new LinkedList<>();
         for (ActionSource afterActivatedTrigger : afterActivatedTriggers) {
-            if (afterActivatedTrigger.isValid(playerId, game, self, effectResult, null)) {
+            DefaultActionContext actionContext = new DefaultActionContext();
+            if (afterActivatedTrigger.isValid(actionContext, playerId, game, self, effectResult, null)) {
                 ActivateCardAction action = new ActivateCardAction(self);
+                action.setActionContext(actionContext);
                 afterActivatedTrigger.createAction(action, playerId, game, self, effectResult, null);
                 result.add(action);
             }
@@ -630,8 +644,10 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
 
         List<ActivateCardAction> result = new LinkedList<>();
         for (ActionSource inPlayPhaseAction : sources) {
-            if (inPlayPhaseAction.isValid(playerId, game, self, null, null)) {
+            DefaultActionContext actionContext = new DefaultActionContext();
+            if (inPlayPhaseAction.isValid(actionContext, playerId, game, self, null, null)) {
                 ActivateCardAction action = new ActivateCardAction(self);
+                action.setActionContext(actionContext);
                 inPlayPhaseAction.createAction(action, playerId, game, self, null, null);
                 result.add(action);
             }

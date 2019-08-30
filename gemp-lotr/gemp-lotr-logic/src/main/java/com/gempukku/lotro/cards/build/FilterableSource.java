@@ -7,5 +7,5 @@ import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 public interface FilterableSource {
-    Filterable getFilterable(String playerId, LotroGame game, PhysicalCard source, EffectResult effectResult, Effect effect);
+    Filterable getFilterable(ActionContext actionContext, String playerId, LotroGame game, PhysicalCard source, EffectResult effectResult, Effect effect);
 }

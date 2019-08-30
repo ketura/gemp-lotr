@@ -18,8 +18,8 @@ public class CanSpot implements RequirementProducer {
         final String filter = FieldUtils.getString(object.get("filter"), "filter");
 
         final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter);
-        return (action, playerId, game, self, effectResult, effect) -> {
-            final Filterable filterable = filterableSource.getFilterable(null, game, self, null, null);
+        return (actionContext, playerId, game, self, effectResult, effect) -> {
+            final Filterable filterable = filterableSource.getFilterable(actionContext, null, game, self, null, null);
             return PlayConditions.canSpot(game, count, filterable);
         };
     }

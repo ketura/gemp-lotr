@@ -1,5 +1,6 @@
 package com.gempukku.lotro.cards.build.field.effect.appender;
 
+import com.gempukku.lotro.cards.build.ActionContext;
 import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.PlayerSource;
@@ -29,13 +30,13 @@ public class AddBurden implements EffectAppenderProducer {
         return new DelayedAppender() {
             @Override
             protected Effect createEffect(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
-                final String playerAddingBurden = playerSource.getPlayer(playerId, game, self, effectResult, effect);
+                final String playerAddingBurden = playerSource.getPlayer(action, playerId, game, self, effectResult, effect);
                 return new AddBurdenEffect(playerAddingBurden, self, amount);
             }
 
             @Override
-            public boolean isPlayableInFull(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
-                final String playerAddingBurden = playerSource.getPlayer(playerId, game, self, effectResult, effect);
+            public boolean isPlayableInFull(ActionContext actionContext, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
+                final String playerAddingBurden = playerSource.getPlayer(actionContext, playerId, game, self, effectResult, effect);
                 return PlayConditions.canAddBurdens(game, playerAddingBurden, self);
             }
         };

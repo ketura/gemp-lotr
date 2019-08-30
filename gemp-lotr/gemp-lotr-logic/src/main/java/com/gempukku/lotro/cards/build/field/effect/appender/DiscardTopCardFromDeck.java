@@ -1,5 +1,6 @@
 package com.gempukku.lotro.cards.build.field.effect.appender;
 
+import com.gempukku.lotro.cards.build.ActionContext;
 import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.PlayerSource;
@@ -28,8 +29,8 @@ public class DiscardTopCardFromDeck implements EffectAppenderProducer {
 
         return new DelayedAppender() {
             @Override
-            public boolean isPlayableInFull(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
-                final String deckId = playerSource.getPlayer(playerId, game, self, effectResult, effect);
+            public boolean isPlayableInFull(ActionContext actionContext, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
+                final String deckId = playerSource.getPlayer(actionContext, playerId, game, self, effectResult, effect);
 
                 // Don't check if can discard top cards, since it's a cost
                 return game.getGameState().getDeck(deckId).size() >= count
@@ -38,7 +39,7 @@ public class DiscardTopCardFromDeck implements EffectAppenderProducer {
 
             @Override
             protected Effect createEffect(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
-                final String deckId = playerSource.getPlayer(playerId, game, self, effectResult, effect);
+                final String deckId = playerSource.getPlayer(action, playerId, game, self, effectResult, effect);
 
                 return new DiscardTopCardFromDeckEffect(self, deckId, count, forced);
             }

@@ -1,9 +1,6 @@
 package com.gempukku.lotro.cards.build.field.effect.appender;
 
-import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
-import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
-import com.gempukku.lotro.cards.build.PlayerSource;
-import com.gempukku.lotro.cards.build.ValueSource;
+import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
@@ -30,14 +27,14 @@ public class RemoveBurdens implements EffectAppenderProducer {
         return new DelayedAppender() {
             @Override
             protected Effect createEffect(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
-                final String removingPlayer = playerSource.getPlayer(playerId, game, self, effectResult, effect);
+                final String removingPlayer = playerSource.getPlayer(action, playerId, game, self, effectResult, effect);
                 final Evaluator evaluator = valueSource.getEvaluator(null, playerId, game, self, effectResult, effect);
                 return new RemoveBurdenEffect(removingPlayer, self, evaluator.evaluateExpression(game, null));
             }
 
             @Override
-            public boolean isPlayableInFull(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
-                final Evaluator evaluator = valueSource.getEvaluator(null, playerId, game, self, effectResult, effect);
+            public boolean isPlayableInFull(ActionContext actionContext, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
+                final Evaluator evaluator = valueSource.getEvaluator(actionContext, playerId, game, self, effectResult, effect);
                 final int burdens = evaluator.evaluateExpression(game, null);
                 return game.getModifiersQuerying().canRemoveBurden(game, self)
                         && game.getGameState().getBurdens() >= burdens;

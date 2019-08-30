@@ -1,5 +1,6 @@
 package com.gempukku.lotro.cards.build.field.effect;
 
+import com.gempukku.lotro.cards.build.ActionContext;
 import com.gempukku.lotro.cards.build.BuiltLotroCardBlueprint;
 import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
@@ -33,11 +34,11 @@ public class ActivatedEffectProcessor implements EffectProcessor {
             DefaultActionSource actionSource = new DefaultActionSource();
             if (limitPerPhase > 0) {
                 actionSource.addPlayRequirement(
-                        (action, playerId, game, self, effectResult, effect) -> PlayConditions.checkPhaseLimit(game, self, phase, limitPerPhase));
+                        (actionContext, playerId, game, self, effectResult, effect) -> PlayConditions.checkPhaseLimit(game, self, phase, limitPerPhase));
                 actionSource.addCost(
                         new AbstractEffectAppender() {
                             @Override
-                            public boolean isPlayableInFull(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
+                            public boolean isPlayableInFull(ActionContext actionContext, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
                                 return true;
                             }
 
@@ -48,7 +49,7 @@ public class ActivatedEffectProcessor implements EffectProcessor {
                         });
             }
             actionSource.addPlayRequirement(
-                    (action, playerId, game, self, effectResult, effect) -> PlayConditions.isPhase(game, phase));
+                    (actionContext, playerId, game, self, effectResult, effect) -> PlayConditions.isPhase(game, phase));
             EffectUtils.processRequirementsCostsAndEffects(value, environment, actionSource);
 
             blueprint.appendInPlayPhaseAction(actionSource);

@@ -37,18 +37,18 @@ public class AssignToSkirmishAgainstMinion implements EffectAppenderProducer {
 
         result.addEffectAppender(
                 CardResolver.resolveCard(fpCharacter,
-                        (playerId, game, source, effectResult, effect) -> {
-                            final String assigningPlayer = playerSource.getPlayer(playerId, game, source, effectResult, effect);
+                        (actionContext, playerId, game, source, effectResult, effect) -> {
+                            final String assigningPlayer = playerSource.getPlayer(actionContext, playerId, game, source, effectResult, effect);
                             Side assigningSide = GameUtils.isFP(game, assigningPlayer) ? Side.FREE_PEOPLE : Side.SHADOW;
-                            final Filterable filter = minionFilter.getFilterable(playerId, game, source, effectResult, effect);
+                            final Filterable filter = minionFilter.getFilterable(actionContext, playerId, game, source, effectResult, effect);
                             return Filters.assignableToSkirmishAgainst(assigningSide, filter, false, false);
                         }, "_tempFpCharacter", player, "Choose character to assign to minion", environment));
         result.addEffectAppender(
                 new DelayedAppender() {
                     @Override
                     protected Effect createEffect(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
-                        final String assigningPlayer = playerSource.getPlayer(playerId, game, self, effectResult, effect);
-                        final Filterable filter = minionFilter.getFilterable(playerId, game, self, effectResult, effect);
+                        final String assigningPlayer = playerSource.getPlayer(action, playerId, game, self, effectResult, effect);
+                        final Filterable filter = minionFilter.getFilterable(action, playerId, game, self, effectResult, effect);
                         final PhysicalCard minion = Filters.findFirstActive(game, filter);
                         final PhysicalCard fpCharacter = action.getCardFromMemory("_tempFpCharacter");
                         return new AssignmentEffect(assigningPlayer, fpCharacter, minion);

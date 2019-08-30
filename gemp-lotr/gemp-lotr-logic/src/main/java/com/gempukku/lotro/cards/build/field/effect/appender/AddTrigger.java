@@ -45,7 +45,7 @@ public class AddTrigger implements EffectAppenderProducer {
         return new DelayedAppender() {
             @Override
             protected Effect createEffect(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
-                ActionProxy actionProxy = createActionProxy(self, optional, trigger, requirements, costs, effects);
+                ActionProxy actionProxy = createActionProxy(action, self, optional, trigger, requirements, costs, effects);
 
                 if (until.isStart()) {
                     return new AddUntilStartOfPhaseActionProxyEffect(actionProxy, until.getPhase());
@@ -56,7 +56,7 @@ public class AddTrigger implements EffectAppenderProducer {
         };
     }
 
-    private ActionProxy createActionProxy(PhysicalCard self, boolean optional, TriggerChecker trigger, Requirement[] requirements, EffectAppender[] costs, EffectAppender[] effects) {
+    private ActionProxy createActionProxy(CostToEffectAction action, PhysicalCard self, boolean optional, TriggerChecker trigger, Requirement[] requirements, EffectAppender[] costs, EffectAppender[] effects) {
         return new ActionProxy() {
             private boolean checkRequirements(String playerId, CostToEffectAction action, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
                 for (Requirement requirement : requirements) {
@@ -81,7 +81,7 @@ public class AddTrigger implements EffectAppenderProducer {
 
             @Override
             public List<? extends RequiredTriggerAction> getRequiredBeforeTriggers(LotroGame lotroGame, Effect effect) {
-                if (trigger.isBefore() && !optional && trigger.accepts(null, null, lotroGame, self, null, effect)) {
+                if (trigger.isBefore() && !optional && trigger.accepts(action, null, lotroGame, self, null, effect)) {
                     if (checkRequirements(null, null, lotroGame, self, null, effect))
                         return null;
 
@@ -95,7 +95,7 @@ public class AddTrigger implements EffectAppenderProducer {
 
             @Override
             public List<? extends OptionalTriggerAction> getOptionalBeforeTriggers(String playerId, LotroGame lotroGame, Effect effect) {
-                if (trigger.isBefore() && optional && trigger.accepts(null, playerId, lotroGame, self, null, effect)) {
+                if (trigger.isBefore() && optional && trigger.accepts(action, playerId, lotroGame, self, null, effect)) {
                     if (checkRequirements(playerId, null, lotroGame, self, null, effect))
                         return null;
 
@@ -109,7 +109,7 @@ public class AddTrigger implements EffectAppenderProducer {
 
             @Override
             public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame lotroGame, EffectResult effectResult) {
-                if (!trigger.isBefore() && !optional && trigger.accepts(null, null, lotroGame, self, effectResult, null)) {
+                if (!trigger.isBefore() && !optional && trigger.accepts(action, null, lotroGame, self, effectResult, null)) {
                     if (checkRequirements(null, null, lotroGame, self, effectResult, null))
                         return null;
 
@@ -123,7 +123,7 @@ public class AddTrigger implements EffectAppenderProducer {
 
             @Override
             public List<? extends OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame lotroGame, EffectResult effectResult) {
-                if (!trigger.isBefore() && optional && trigger.accepts(null, playerId, lotroGame, self, effectResult, null)) {
+                if (!trigger.isBefore() && optional && trigger.accepts(action, playerId, lotroGame, self, effectResult, null)) {
                     if (checkRequirements(playerId, null, lotroGame, self, effectResult, null))
                         return null;
 

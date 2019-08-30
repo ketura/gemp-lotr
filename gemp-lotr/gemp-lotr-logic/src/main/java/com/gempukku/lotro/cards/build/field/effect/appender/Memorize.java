@@ -34,7 +34,7 @@ public class Memorize implements EffectAppenderProducer {
                 return new UnrespondableEffect() {
                     @Override
                     protected void doPlayEffect(LotroGame game) {
-                        final Filterable filterable = filterSource.getFilterable(playerId, game, self, effectResult, effect);
+                        final Filterable filterable = filterSource.getFilterable(action, playerId, game, self, effectResult, effect);
                         final Collection<PhysicalCard> physicalCards = Filters.filterActive(game, filterable);
                         action.setCardMemory(memory, physicalCards);
                     }

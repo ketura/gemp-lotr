@@ -1,5 +1,6 @@
 package com.gempukku.lotro.cards.build.field.effect.appender;
 
+import com.gempukku.lotro.cards.build.ActionContext;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -36,9 +37,9 @@ public class MultiEffectAppender implements EffectAppender {
     }
 
     @Override
-    public boolean isPlayableInFull(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
+    public boolean isPlayableInFull(ActionContext actionContext, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
         for (EffectAppender effectAppender : effectAppenders) {
-            if (!effectAppender.isPlayableInFull(action, playerId, game, self, effectResult, effect))
+            if (!effectAppender.isPlayableInFull(actionContext, playerId, game, self, effectResult, effect))
                 return false;
         }
 
