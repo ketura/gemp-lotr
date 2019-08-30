@@ -1,0 +1,809 @@
+{
+  "40_3": {
+    "title": "*Balin's Lament",
+    "side": "free people",
+    "culture": "dwarven",
+    "cost": 2,
+    "type": "Condition",
+    "keyword": [
+      "support area",
+      "tale"
+    ],
+    "effects": [
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "played",
+          "filter": "self"
+        },
+        "effect": {
+          "type": "stackTopCardsOfDrawDeck",
+          "where": "self"
+        }
+      },
+      {
+        "type": "activatedTrigger",
+        "trigger": {
+          "type": "aboutToDiscard",
+          "source": "shadow",
+          "filter": "your,culture(dwarven),condition"
+        },
+        "cost": {
+          "type": "discard",
+          "filter": "self"
+        },
+        "effect": {
+          "type": "preventDiscard",
+          "filter": "choose(your,culture(dwarven),condition)"
+        }
+      }
+    ]
+  },
+  "40_4": {
+    "title": "Balin's Revenge",
+    "side": "free people",
+    "culture": "dwarven",
+    "cost": 0,
+    "type": "event",
+    "keyword": "skirmish",
+    "effects": {
+      "type": "event",
+      "cost": {
+        "type": "exert",
+        "filter": "choose(dwarf)"
+      },
+      "effect": {
+        "type": "wound",
+        "count": "0-2",
+        "filter": "choose(goblin)"
+      }
+    }
+  },
+  "40_5": {
+    "title": "Battle Fever",
+    "side": "free people",
+    "culture": "dwarven",
+    "cost": 2,
+    "type": "event",
+    "keyword": "skirmish",
+    "effects": {
+      "type": "event",
+      "cost": {
+        "type": "exert",
+        "filter": "choose(name(Gimli))",
+        "memorize": "exertedGimli"
+      },
+      "effect": [
+        {
+          "type": "replaceInSkirmish",
+          "filter": "unbound,companion",
+          "with": "memory(exertedGimli)"
+        },
+        {
+          "type": "modifyStrength",
+          "filter": "memory(exertedGimli)",
+          "amount": 2
+        },
+        {
+          "type": "addKeyword",
+          "filter": "memory(exertedGimli)",
+          "keyword": "damage+1"
+        }
+      ]
+    }
+  },
+  "40_6": {
+    "title": "Battle Tested",
+    "side": "free people",
+    "culture": "dwarven",
+    "cost": 0,
+    "type": "event",
+    "keyword": "skirmish",
+    "effects": {
+      "type": "event",
+      "cost": {
+        "type": "stackTopCardsOfDrawDeck",
+        "deck": "owner",
+        "where": "choose(culture(dwarven),support area,condition)",
+        "count": 3
+      },
+      "effect": {
+        "type": "cantTakeMoreWoundsThan",
+        "filter": "choose(dwarf)",
+        "wounds": 1
+      }
+    }
+  },
+  "40_7": {
+    "title": "Brothers in Arms",
+    "side": "free people",
+    "culture": "dwarven",
+    "cost": 0,
+    "type": "event",
+    "keyword": "skirmish",
+    "effects": {
+      "type": "event",
+      "cost": [
+        {
+          "type": "exert",
+          "count": 2,
+          "filter": "choose(dwarf)",
+          "memorize": "exertedDwarves"
+        },
+        {
+          "type": "discardStackedCards",
+          "on": "culture(dwarven),condition",
+          "count": 2
+        }
+      ],
+      "effect": {
+        "type": "modifyStrength",
+        "filter": "memory(exertedDwarves)",
+        "amount": 2,
+        "until": "start(regroup)"
+      }
+    }
+  },
+  "40_8": {
+    "title": "Crushing Blow",
+    "side": "free people",
+    "culture": "dwarven",
+    "cost": 0,
+    "type": "event",
+    "keyword": "skirmish",
+    "effects": {
+      "type": "event",
+      "effect": {
+        "type": "modifyStrength",
+        "filter": "choose(dwarf)",
+        "amount": {
+          "type": "condition",
+          "condition": {
+            "type": "canSpot",
+            "filter": "culture(dwarven),condition,hasStacked(any)"
+          },
+          "true": 3,
+          "false": 2
+        }
+      }
+    }
+  },
+  "40_9": {
+    "title": "Dwarf Soldier",
+    "side": "free people",
+    "culture": "dwarven",
+    "cost": 2,
+    "type": "companion",
+    "race": "dwarf",
+    "strength": 5,
+    "vitality": 3,
+    "resistance": 6,
+    "keyword": "damage+1",
+    "effects": {
+      "type": "activated",
+      "phase": "skirmish",
+      "cost": {
+        "type": "discardStackedCards",
+        "count": 1,
+        "on": "culture(dwarven),condition"
+      },
+      "effect": {
+        "type": "modifyStrength",
+        "filter": "self",
+        "amount": 1
+      }
+    }
+  },
+  "40_10": {
+    "title": "Dwarven Battle Axe",
+    "side": "free people",
+    "type": "possession",
+    "possession": "hand weapon",
+    "cost": 0,
+    "strength": 1,
+    "vitality": 1,
+    "target": "dwarf",
+    "effects": {
+      "type": "trigger",
+      "trigger": {
+        "type": "winsSkirmish",
+        "filter": "hasAttached(self)"
+      },
+      "cost": {
+        "type": "discardStackedCards",
+        "on": "culture(dwarven),condition",
+        "count": 1
+      },
+      "effect": {
+        "type": "wound",
+        "filter": "choose(minion)"
+      }
+    }
+  },
+  "40_11": {
+    "title": "Dwarven Bracers",
+    "side": "free people",
+    "culture": "dwarven",
+    "cost": 1,
+    "type": "possession",
+    "possession": "bracers",
+    "strength": 1,
+    "target": "dwarf",
+    "effects": {
+      "type": "activatedTrigger",
+      "trigger": {
+        "type": "aboutToTakeWound",
+        "filter": "hasAttached(self)"
+      },
+      "cost": [
+        {
+          "type": "memorize",
+          "filter": "hasAttached(self)",
+          "memory": "bearer"
+        },
+        {
+          "type": "discard",
+          "filter": "self"
+        }
+      ],
+      "effect": {
+        "type": "preventWound",
+        "filter": "memory(bearer)"
+      }
+    }
+  },
+  "40_12": {
+    "title": "Dwarven Frenzy",
+    "side": "free people",
+    "culture": "dwarven",
+    "cost": 1,
+    "type": "event",
+    "keyword": "maneuver",
+    "effects": {
+      "type": "event",
+      "cost": {
+        "type": "exert",
+        "count": "0-100",
+        "times": 2,
+        "filter": "choose(dwarf)",
+        "memorize": "exertedDwarves"
+      },
+      "effect": [
+        {
+          "type": "putStackedCardsIntoHand",
+          "count": {
+            "type": "forEachInMemory",
+            "memory": "exertedDwarves"
+          },
+          "filter": "choose(culture(dwarven))",
+          "on": "culture(dwarven),condition"
+        },
+        {
+          "type": "condition",
+          "condition": {
+            "type": "location",
+            "filter": "or(mountain,underground)"
+          },
+          "effect": {
+            "type": "drawCards",
+            "count": {
+              "type": "forEachInMemory",
+              "memory": "exertedDwarves"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "40_13": {
+    "title": "*Dwarven Ire",
+    "side": "free people",
+    "culture": "dwarven",
+    "cost": 2,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": {
+      "type": "addKeyword",
+      "filter": "dwarf",
+      "keyword": "damage",
+      "amount": {
+        "type": "limit",
+        "value": 2,
+        "amount": {
+          "type": "countStacked",
+          "on": "self"
+        }
+      }
+    }
+  },
+  "40_14": {
+    "title": "*Dwarven Vigor",
+    "side": "free people",
+    "culture": "dwarven",
+    "cost": 1,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": {
+      "type": "modifyStrength",
+      "condition": {
+        "type": "canSpot",
+        "filter": "self,hasStacked(culture(dwarven))"
+      },
+      "filter": "dwarf",
+      "amount": {
+        "type": "forEachVitality",
+        "over": 3
+      }
+    }
+  },
+  "40_15": {
+    "title": "Endurance of Dwarves",
+    "side": "free people",
+    "culture": "dwarven",
+    "cost": 1,
+    "type": "condition",
+    "vitality": 1,
+    "target": "dwarf",
+    "effects": {
+      "type": "activated",
+      "phase": "skirmish",
+      "cost": [
+        {
+          "type": "memorize",
+          "filter": "hasAttached(self)",
+          "memory": "bearer"
+        },
+        {
+          "type": "discard",
+          "filter": "self"
+        }
+      ],
+      "effect": {
+        "type": "modifyStrength",
+        "filter": "memory(bearer)",
+        "amount": 1
+      }
+    }
+  },
+  "40_16": {
+    "title": "Festive Folk",
+    "side": "free people",
+    "culture": "dwarven",
+    "cost": 1,
+    "type": "event",
+    "keyword": "fellowship",
+    "effects": {
+      "type": "event",
+      "cost": [
+        {
+          "type": "exert",
+          "filter": "choose(dwarf)"
+        },
+        {
+          "type": "discardStackedCards",
+          "count": 1,
+          "on": "culture(dwarven),condition"
+        }
+      ],
+      "effect": {
+        "type": "removeBurdens",
+        "amount": 1
+      }
+    }
+  },
+  "40_17": {
+    "title": "*Gimli",
+    "subtitle": "Dwarven Emissary",
+    "side": "free people",
+    "culture": "dwarven",
+    "cost": 3,
+    "type": "companion",
+    "race": "dwarf",
+    "strength": 6,
+    "vitality": 4,
+    "resistance": 7,
+    "keyword": "damage+1",
+    "effects": [
+      {
+        "type": "modifyOwnCost",
+        "condition": {
+          "type": "phase",
+          "phase": "play starting fellowship"
+        },
+        "amount": -1
+      },
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "startOfPhase",
+          "phase": "fellowship"
+        },
+        "cost": {
+          "type": "stackCardsFromHand",
+          "where": "choose(culture(dwarven),support area,condition)",
+          "filter": "choose(side(free people))"
+        },
+        "effect": {
+          "type": "putCardsFromDiscardIntoHand",
+          "filter": "choose(culture(dwarven),event)"
+        }
+      }
+    ]
+  },
+  "40_18": {
+    "title": "*Gimli",
+    "subtitle": "Stalwart Protector",
+    "side": "free people",
+    "culture": "dwarven",
+    "cost": 3,
+    "type": "companion",
+    "race": "dwarf",
+    "strength": 6,
+    "vitality": 4,
+    "resistance": 7,
+    "keyword": "damage+1",
+    "effects": [
+      {
+        "type": "modifyOwnCost",
+        "condition": {
+          "type": "phase",
+          "phase": "play starting fellowship"
+        },
+        "amount": -1
+      },
+      {
+        "type": "modifyStrength",
+        "condition": {
+          "type": "location",
+          "filter": "or(mountain,underground)"
+        },
+        "amount": 2
+      },
+      {
+        "type": "canttakemorewoundsthan",
+        "phase": "skirmish",
+        "amount": 1
+      }
+    ]
+  },
+  "40_19": {
+    "title": "*Gimli's Battle Axe",
+    "subtitle": "Weapon of Erebor",
+    "side": "free people",
+    "culture": "dwarven",
+    "cost": 2,
+    "type": "possession",
+    "possession": "hand weapon",
+    "strength": 2,
+    "target": "dwarf",
+    "effects": [
+      {
+        "type": "addKeyword",
+        "filter": "hasAttached(self),name(Gimli)",
+        "keyword": "damage+1"
+      },
+      {
+        "type": "trigger",
+        "optional": true,
+        "trigger": {
+          "type": "winsSkirmish",
+          "filter": "hasAttached(self)"
+        },
+        "effect": {
+          "type": "stackCardsFromDiscard",
+          "where": "choose(culture(dwarven),support area,condition)",
+          "filter": "choose(culture(dwarven),event)"
+        }
+      }
+    ]
+  },
+  "40_21": {
+    "title": "Killing Blow",
+    "side": "free people",
+    "culture": "dwarven",
+    "cost": 2,
+    "type": "event",
+    "keyword": "skirmish",
+    "effects": {
+      "type": "event",
+      "effect": [
+        {
+          "type": "modifyStrength",
+          "amount": 2,
+          "filter": "choose(dwarf)",
+          "memorize": "dwarf"
+        },
+        {
+          "type": "condition",
+          "condition": {
+            "type": "canSpot",
+            "filter": "culture(dwarven),condition,hasStacked(any)"
+          },
+          "effect": {
+            "type": "addKeyword",
+            "filter": "memory(dwarf)",
+            "keyword": "damage+1"
+          }
+        }
+      ]
+    }
+  },
+  "40_22": {
+    "title": "Lethal Strike",
+    "side": "free people",
+    "culture": "dwarven",
+    "cost": 1,
+    "type": "event",
+    "keyword": "skirmish",
+    "effects": {
+      "type": "event",
+      "cost": {
+        "type": "exert",
+        "filter": "choose(dwarf)",
+        "memorize": "dwarf"
+      },
+      "effect": [
+        {
+          "type": "modifyStrength",
+          "filter": "memory(dwarf)",
+          "amount": 3
+        },
+        {
+          "type": "addKeyword",
+          "filter": "memory(dwarf)",
+          "keyword": "damage+1"
+        }
+      ]
+    }
+  },
+  "40_23": {
+    "title": "Memories of Khazad-dum",
+    "side": "free people",
+    "culture": "dwarven",
+    "cost": 2,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": [
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "played",
+          "filter": "self"
+        },
+        "effect": {
+          "type": "stackTopCardsOfDrawDeck",
+          "where": "self"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "skirmish",
+        "cost": {
+          "type": "discardStackedCards",
+          "on": "self",
+          "filter": "choose(side(free people))"
+        },
+        "effect": {
+          "type": "modifyStrength",
+          "filter": "choose(dwarf)",
+          "amount": 1
+        }
+      }
+    ]
+  },
+  "40_24": {
+    "title": "Miners of Mithril",
+    "side": "free people",
+    "culture": "dwarven",
+    "cost": 0,
+    "type": "event",
+    "keyword": "fellowship",
+    "effects": {
+      "type": "event",
+      "cost": {
+        "type": "stackCardsFromHand",
+        "where": "choose(culture(dwarven),support area,condition)",
+        "filter": "choose(side(free people))"
+      },
+      "effect": {
+        "type": "drawCards"
+      }
+    }
+  },
+  "40_25": {
+    "title": "Resourcefulness",
+    "side": "free people",
+    "culture": "dwarven",
+    "cost": 2,
+    "type": "event",
+    "keyword": "maneuver",
+    "effects": {
+      "type": "event",
+      "effect": {
+        "type": "addTrigger",
+        "until": "start(regroup)",
+        "trigger": {
+          "type": "played",
+          "filter": "culture(dwarven),skirmish,event"
+        },
+        "effect": {
+          "type": "stackPlayedEvent",
+          "where": "choose(culture(dwarven),support area,condition)"
+        }
+      }
+    }
+  },
+  "40_27": {
+    "title": "*Second Wind",
+    "side": "free people",
+    "culture": "dwarven",
+    "cost": 2,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": {
+      "type": "trigger",
+      "trigger": {
+        "type": "startOfPhase",
+        "phase": "maneuver"
+      },
+      "optional": true,
+      "cost": {
+        "type": "discardStackedCards",
+        "on": "self"
+      },
+      "effect": {
+        "type": "heal",
+        "filter": "choose(dwarf,companion)"
+      }
+    }
+  },
+  "40_28": {
+    "title": "*Seven for the Dwarf-lords",
+    "side": "free people",
+    "culture": "dwarven",
+    "cost": 0,
+    "type": "artifact",
+    "keyword": "support area",
+    "effects": [
+      {
+        "type": "activated",
+        "phase": "fellowship",
+        "effect": {
+          "type": "stackCardsFromHand",
+          "where": "self",
+          "filter": "choose(culture(dwarven))"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "skirmish",
+        "cost": {
+          "type": "discardStackedCards",
+          "on": "self",
+          "count": 2
+        },
+        "effect": {
+          "type": "playCardFromDiscard",
+          "filter": "choose(culture(dwarven),skirmish,event)"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "regroup",
+        "limitPerPhase": 1,
+        "cost": [
+          {
+            "type": "discardStackedCards",
+            "on": "self",
+            "count": 3
+          },
+          {
+            "type": "exert",
+            "filter": "choose(dwarf)",
+            "times": 2,
+            "memorize": "exertedDwarf"
+          }
+        ],
+        "effect": {
+          "type": "drawCards",
+          "count": {
+            "type": "forEachKeywordOnCardInMemory",
+            "memory": "exertedDwarf",
+            "keyword": "damage"
+          }
+        }
+      }
+    ]
+  },
+  "40_29": {
+    "title": "*Staunch Defenders",
+    "side": "free people",
+    "culture": "dwarven",
+    "cost": 2,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": {
+      "type": "cantBeExerted",
+      "condition": {
+        "type": "canSpot",
+        "filter": "self,hasStackedCount(3,any)"
+      },
+      "filter": "dwarf",
+      "by": "side(shadow)"
+    }
+  },
+  "40_30": {
+    "title": "Take Cover!",
+    "side": "free people",
+    "culture": "dwarven",
+    "cost": 2,
+    "type": "event",
+    "keyword": "archery",
+    "effects": {
+      "type": "event",
+      "cost": {
+        "type": "discard",
+        "filter": "choose(culture(dwarven),condition)",
+        "memorizeStackedCards": "stackedCards"
+      },
+      "effect": {
+        "type": "modifyArcheryTotal",
+        "side": "shadow",
+        "amount": {
+          "type": "multiply",
+          "source": {
+            "type": "forEachInMemory",
+            "memory": "stackedCards"
+          },
+          "multiplier": -1
+        }
+      }
+    }
+  },
+  "40_31": {
+    "title": "*Thorin III",
+    "subtitle": "Lord of the Longbeards",
+    "side": "free people",
+    "culture": "dwarven",
+    "cost": 2,
+    "type": "companion",
+    "race": "dwarf",
+    "strength": 6,
+    "vitality": 3,
+    "resistance": 6,
+    "keyword": "damage+1",
+    "effects": {
+      "type": "modifyStrength",
+      "filter": "self",
+      "amount": 2,
+      "condition": {
+        "type": "canSpot",
+        "filter": "culture(dwarven),condition,hasStackedCount(3,culture(dwarven))"
+      }
+    }
+  },
+  "40_32": {
+    "title": "*Well Prepared",
+    "side": "free people",
+    "culture": "dwarven",
+    "cost": 1,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": {
+      "type": "trigger",
+      "trigger": {
+        "type": "played",
+        "filter": "side(shadow),event"
+      },
+      "requirement": {
+        "type": "canSpot",
+        "filter": "self,hasStackedCount(3,any)"
+      },
+      "effect": {
+        "type": "exert",
+        "player": "shadowPlayer",
+        "filter": "choose(minion)"
+      }
+    }
+  }
+}
