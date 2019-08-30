@@ -38,9 +38,8 @@
     }
   },
   "1_11": {
-    "title": "Farin",
+    "title": "*Farin",
     "subtitle": "Dwarven Emissary",
-    "unique": true,
     "side": "free people",
     "culture": "dwarven",
     "cost": 2,
@@ -60,9 +59,8 @@
     }
   },
   "1_12": {
-    "title": "Gimli",
+    "title": "*Gimli",
     "subtitle": "Dwarf of Erebor",
-    "unique": true,
     "side": "free people",
     "culture": "dwarven",
     "cost": 2,
@@ -86,16 +84,15 @@
       },
       "effect": [
         {
-          "type": "putCardFromHandOnBottomOfDeck",
+          "type": "putCardsFromHandOnBottomOfDeck",
           "count": 1
         }
       ]
     }
   },
   "1_13": {
-    "title": "Gimli",
+    "title": "*Gimli",
     "subtitle": "Son of Gloin",
-    "unique": true,
     "side": "free people",
     "culture": "dwarven",
     "cost": 2,
@@ -121,9 +118,8 @@
     }
   },
   "1_30": {
-    "title": "Arwen",
+    "title": "*Arwen",
     "subtitle": "Daughter of Elrond",
-    "unique": true,
     "side": "free people",
     "culture": "elven",
     "cost": 2,
@@ -161,9 +157,8 @@
     }
   },
   "1_48": {
-    "title": "Haldir",
+    "title": "*Haldir",
     "subtitle": "Elf of the Golden Wood",
-    "unique": true,
     "side": "free people",
     "culture": "elven",
     "cost": 2,
@@ -186,9 +181,8 @@
     }
   },
   "1_50": {
-    "title": "Legolas",
+    "title": "*Legolas",
     "subtitle": "Greenleaf",
-    "unique": true,
     "side": "free people",
     "culture": "elven",
     "cost": 2,
@@ -219,9 +213,8 @@
     }
   },
   "1_51": {
-    "title": "Legolas",
+    "title": "*Legolas",
     "subtitle": "Prince of Mirkwood",
-    "unique": true,
     "side": "free people",
     "culture": "elven",
     "cost": 2,
@@ -390,9 +383,8 @@
     ]
   },
   "1_303": {
-    "title": "Merry",
+    "title": "*Merry",
     "subtitle": "From O'er the Brandywine",
-    "unique": true,
     "side": "free people",
     "culture": "shire",
     "cost": 1,
@@ -409,9 +401,8 @@
     }
   },
   "1_306": {
-    "title": "Pippin",
+    "title": "*Pippin",
     "subtitle": "Friend to Frodo",
-    "unique": true,
     "side": "free people",
     "cost": 1,
     "type": "companion",

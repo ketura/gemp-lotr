@@ -24,8 +24,7 @@
     }
   },
   "4_218": {
-    "title": "Desert Legion",
-    "unique": true,
+    "title": "*Desert Legion",
     "side": "shadow",
     "culture": "raider",
     "cost": 6,

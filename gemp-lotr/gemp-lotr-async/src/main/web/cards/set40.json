@@ -1,8 +1,7 @@
 {
   "40_1": {
-    "title": "The One Ring",
+    "title": "*The One Ring",
     "subtitle": "Doom of Free Peoples",
-    "unique": true,
     "type": "the one ring",
     "strength": 1,
     "vitality": 1,
@@ -62,9 +61,8 @@
     ]
   },
   "40_2": {
-    "title": "The One Ring",
+    "title": "*The One Ring",
     "subtitle": "The Ruling Ring",
-    "unique": true,
     "type": "the one ring",
     "strength": 1,
     "effects": [
@@ -127,8 +125,7 @@
     ]
   },
   "40_3": {
-    "title": "Balin's Lament",
-    "unique": true,
+    "title": "*Balin's Lament",
     "side": "free people",
     "culture": "dwarven",
     "cost": 2,
@@ -424,8 +421,7 @@
     }
   },
   "40_13": {
-    "title": "Dwarven Ire",
-    "unique": true,
+    "title": "*Dwarven Ire",
     "side": "free people",
     "culture": "dwarven",
     "cost": 2,
@@ -446,8 +442,7 @@
     }
   },
   "40_14": {
-    "title": "Dwarven Vigor",
-    "unique": true,
+    "title": "*Dwarven Vigor",
     "side": "free people",
     "culture": "dwarven",
     "cost": 1,
@@ -521,6 +516,45 @@
       }
     }
   },
+  "40_17": {
+    "title": "*Gimli",
+    "subtitle": "Dwarven Emissary",
+    "side": "free people",
+    "culture": "dwarven",
+    "cost": 3,
+    "type": "companion",
+    "race": "dwarf",
+    "strength": 6,
+    "vitality": 4,
+    "resistance": 7,
+    "keyword": "damage+1",
+    "effects": [
+      {
+        "type": "modifyOwnCost",
+        "condition": {
+          "type": "phase",
+          "phase": "play starting fellowship"
+        },
+        "amount": -1
+      },
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "startOfPhase",
+          "phase": "fellowship"
+        },
+        "cost": {
+          "type": "stackCardsFromHand",
+          "where": "choose(culture(dwarven),support area,condition)",
+          "filter": "choose(side(free people))"
+        },
+        "effect": {
+          "type": "putCardsFromDiscardIntoHand",
+          "filter": "choose(culture(dwarven),event)"
+        }
+      }
+    ]
+  }
   "40_184": {
     "title": "Black Steed",
     "subtitle": "Bred to Serve",
@@ -538,9 +572,8 @@
     }
   },
   "40_211": {
-    "title": "The Witch-king",
+    "title": "*The Witch-king",
     "subtitle": "Greatest of the Nine",
-    "unique": true,
     "side": "shadow",
     "culture": "wraith",
     "cost": 8,

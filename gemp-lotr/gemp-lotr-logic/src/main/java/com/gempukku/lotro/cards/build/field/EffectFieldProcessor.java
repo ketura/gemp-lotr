@@ -27,6 +27,7 @@ public class EffectFieldProcessor implements FieldProcessor {
         effectProcessors.put("addkeyword", new AddKeyword());
         effectProcessors.put("archerytotal", new ArcheryTotal());
         effectProcessors.put("opponentmaynotdiscard", new OpponentMayNotDiscard());
+        effectProcessors.put("modifyowncost", new ModifyOwnCost());
     }
 
     @Override

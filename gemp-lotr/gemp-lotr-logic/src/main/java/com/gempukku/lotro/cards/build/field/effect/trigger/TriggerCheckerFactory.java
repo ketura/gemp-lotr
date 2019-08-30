@@ -17,6 +17,7 @@ public class TriggerCheckerFactory {
         triggerCheckers.put("losesskirmish", new LosesSkirmish());
         triggerCheckers.put("winsskirmish", new WinsSkirmish());
         triggerCheckers.put("startofturn", new StartOfTurn());
+        triggerCheckers.put("startofphase", new StartOfPhase());
         triggerCheckers.put("abouttotakewound", new AboutToTakeWound());
     }
 
