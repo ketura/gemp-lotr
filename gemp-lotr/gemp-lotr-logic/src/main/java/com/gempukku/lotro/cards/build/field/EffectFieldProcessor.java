@@ -28,6 +28,7 @@ public class EffectFieldProcessor implements FieldProcessor {
         effectProcessors.put("canttakemorewoundsthan", new CantTakeMoreWoundsThan());
         effectProcessors.put("cantbeexerted", new CantBeExerted());
         effectProcessors.put("extracost", new ExtraCost());
+        effectProcessors.put("cantbeoverwhelmedmultiplier", new CantBeOverwhelmedMultiplier());
     }
 
     @Override

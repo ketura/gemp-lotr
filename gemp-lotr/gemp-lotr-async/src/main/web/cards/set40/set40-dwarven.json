@@ -1,7 +1,7 @@
 {
   "40_3": {
     "title": "*Balin's Lament",
-    "side": "free people",
+
     "culture": "dwarven",
     "cost": 2,
     "type": "Condition",
@@ -41,7 +41,6 @@
   },
   "40_4": {
     "title": "Balin's Revenge",
-    "side": "free people",
     "culture": "dwarven",
     "cost": 0,
     "type": "event",
@@ -61,7 +60,6 @@
   },
   "40_5": {
     "title": "Battle Fever",
-    "side": "free people",
     "culture": "dwarven",
     "cost": 2,
     "type": "event",
@@ -101,7 +99,6 @@
   },
   "40_6": {
     "title": "Battle Tested",
-    "side": "free people",
     "culture": "dwarven",
     "cost": 0,
     "type": "event",
@@ -123,7 +120,6 @@
   },
   "40_7": {
     "title": "Brothers in Arms",
-    "side": "free people",
     "culture": "dwarven",
     "cost": 0,
     "type": "event",
@@ -153,7 +149,6 @@
   },
   "40_8": {
     "title": "Crushing Blow",
-    "side": "free people",
     "culture": "dwarven",
     "cost": 0,
     "type": "event",
@@ -177,7 +172,6 @@
   },
   "40_9": {
     "title": "Dwarf Soldier",
-    "side": "free people",
     "culture": "dwarven",
     "cost": 2,
     "type": "companion",
@@ -203,7 +197,7 @@
   },
   "40_10": {
     "title": "Dwarven Battle Axe",
-    "side": "free people",
+    "culture": "dwarven",
     "type": "possession",
     "possession": "hand weapon",
     "cost": 0,
@@ -229,7 +223,6 @@
   },
   "40_11": {
     "title": "Dwarven Bracers",
-    "side": "free people",
     "culture": "dwarven",
     "cost": 1,
     "type": "possession",
@@ -261,7 +254,6 @@
   },
   "40_12": {
     "title": "Dwarven Frenzy",
-    "side": "free people",
     "culture": "dwarven",
     "cost": 1,
     "type": "event",
@@ -304,7 +296,6 @@
   },
   "40_13": {
     "title": "*Dwarven Ire",
-    "side": "free people",
     "culture": "dwarven",
     "cost": 2,
     "type": "condition",
@@ -325,7 +316,6 @@
   },
   "40_14": {
     "title": "*Dwarven Vigor",
-    "side": "free people",
     "culture": "dwarven",
     "cost": 1,
     "type": "condition",
@@ -345,7 +335,6 @@
   },
   "40_15": {
     "title": "Endurance of Dwarves",
-    "side": "free people",
     "culture": "dwarven",
     "cost": 1,
     "type": "condition",
@@ -374,7 +363,6 @@
   },
   "40_16": {
     "title": "Festive Folk",
-    "side": "free people",
     "culture": "dwarven",
     "cost": 1,
     "type": "event",
@@ -401,7 +389,6 @@
   "40_17": {
     "title": "*Gimli",
     "subtitle": "Dwarven Emissary",
-    "side": "free people",
     "culture": "dwarven",
     "cost": 3,
     "type": "companion",
@@ -440,7 +427,6 @@
   "40_18": {
     "title": "*Gimli",
     "subtitle": "Stalwart Protector",
-    "side": "free people",
     "culture": "dwarven",
     "cost": 3,
     "type": "companion",
@@ -476,7 +462,6 @@
   "40_19": {
     "title": "*Gimli's Battle Axe",
     "subtitle": "Weapon of Erebor",
-    "side": "free people",
     "culture": "dwarven",
     "cost": 2,
     "type": "possession",
@@ -507,7 +492,6 @@
   "40_20": {
     "title": "*Gloin",
     "subtitle": "Venerable Dwarf",
-    "side": "free people",
     "culture": "dwarven",
     "cost": 3,
     "type": "companion",
@@ -566,7 +550,6 @@
   },
   "40_21": {
     "title": "Killing Blow",
-    "side": "free people",
     "culture": "dwarven",
     "cost": 2,
     "type": "event",
@@ -597,7 +580,6 @@
   },
   "40_22": {
     "title": "Lethal Strike",
-    "side": "free people",
     "culture": "dwarven",
     "cost": 1,
     "type": "event",
@@ -625,7 +607,6 @@
   },
   "40_23": {
     "title": "Memories of Khazad-dum",
-    "side": "free people",
     "culture": "dwarven",
     "cost": 2,
     "type": "condition",
@@ -660,7 +641,6 @@
   },
   "40_24": {
     "title": "Miners of Mithril",
-    "side": "free people",
     "culture": "dwarven",
     "cost": 0,
     "type": "event",
@@ -679,7 +659,6 @@
   },
   "40_25": {
     "title": "Resourcefulness",
-    "side": "free people",
     "culture": "dwarven",
     "cost": 2,
     "type": "event",
@@ -702,7 +681,6 @@
   },
   "40_26": {
     "title": "Retribution",
-    "side": "free people",
     "culture": "dwarven",
     "cost": 0,
     "type": "event",
@@ -733,7 +711,6 @@
   },
   "40_27": {
     "title": "*Second Wind",
-    "side": "free people",
     "culture": "dwarven",
     "cost": 2,
     "type": "condition",
@@ -757,7 +734,6 @@
   },
   "40_28": {
     "title": "*Seven for the Dwarf-lords",
-    "side": "free people",
     "culture": "dwarven",
     "cost": 0,
     "type": "artifact",
@@ -815,7 +791,6 @@
   },
   "40_29": {
     "title": "*Staunch Defenders",
-    "side": "free people",
     "culture": "dwarven",
     "cost": 2,
     "type": "condition",
@@ -832,7 +807,6 @@
   },
   "40_30": {
     "title": "Take Cover!",
-    "side": "free people",
     "culture": "dwarven",
     "cost": 2,
     "type": "event",
@@ -846,7 +820,6 @@
       },
       "effect": {
         "type": "modifyArcheryTotal",
-        "side": "shadow",
         "amount": {
           "type": "multiply",
           "source": {
@@ -861,7 +834,6 @@
   "40_31": {
     "title": "*Thorin III",
     "subtitle": "Lord of the Longbeards",
-    "side": "free people",
     "culture": "dwarven",
     "cost": 2,
     "type": "companion",
@@ -882,7 +854,6 @@
   },
   "40_32": {
     "title": "*Well Prepared",
-    "side": "free people",
     "culture": "dwarven",
     "cost": 1,
     "type": "condition",

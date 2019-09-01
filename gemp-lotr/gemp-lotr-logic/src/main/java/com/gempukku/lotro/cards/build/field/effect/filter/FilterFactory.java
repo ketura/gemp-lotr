@@ -33,6 +33,8 @@ public class FilterFactory {
         simpleFilters.put("your", (actionContext) -> Filters.owner(actionContext.getPerformingPlayer()));
         simpleFilters.put("bearer", (actionContext -> Filters.hasAttached(actionContext.getSource())));
         simpleFilters.put("weapon", (actionContext) -> Filters.weapon);
+        simpleFilters.put("wounded", (actionContext) -> Filters.wounded);
+        simpleFilters.put("unwounded", (actionContext) -> Filters.unwounded);
         simpleFilters.put("notassignedtoskirmish",
                 (actionContext) -> Filters.notAssignedToSkirmish);
         simpleFilters.put("skirmishloser",

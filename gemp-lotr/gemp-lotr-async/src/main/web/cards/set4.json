@@ -1,7 +1,6 @@
 {
   "4_138": {
     "title": "Band of Uruk Bowmen",
-    "side": "shadow",
     "culture": "isengard",
     "cost": 5,
     "type": "minion",
@@ -19,13 +18,11 @@
         "type": "controlsSite",
         "player": "owner"
       },
-      "side": "shadow",
       "amount": 1
     }
   },
   "4_218": {
     "title": "*Desert Legion",
-    "side": "shadow",
     "culture": "raider",
     "cost": 6,
     "type": "minion",

@@ -1,7 +1,7 @@
 {
   "40_33": {
     "title": "Arrows of Light",
-    "side": "free people",
+
     "culture": "elven",
     "cost": 2,
     "type": "event",
@@ -14,7 +14,7 @@
       "type": "event",
       "cost": {
         "type": "reduceArcheryTotal",
-        "side": "free people",
+
         "memorize": "reducedBy"
       },
       "effect": {
@@ -30,7 +30,7 @@
   "40_34": {
     "title": "*Arwen",
     "subtitle": "Fearless Rider",
-    "side": "free people",
+
     "culture": "elven",
     "cost": 2,
     "type": "companion",
@@ -51,7 +51,7 @@
   "40_35": {
     "title": "*Arwen",
     "subtitle": "Lady of Imladris",
-    "side": "free people",
+
     "culture": "elven",
     "cost": 2,
     "type": "companion",
@@ -92,7 +92,7 @@
   "40_36": {
     "title": "*Bow of the Galadhrim",
     "subtitle": "Galadriel's Gift",
-    "side": "free people",
+
     "culture": "elven",
     "cost": 1,
     "type": "possession",
@@ -118,7 +118,7 @@
   },
   "40_37": {
     "title": "*Bruinen Unleashed",
-    "side": "free people",
+
     "culture": "elven",
     "cost": 1,
     "type": "condition",
@@ -156,7 +156,7 @@
   "40_38": {
     "title": "*Celeborn",
     "subtitle": "Lord of the Golden Wood",
-    "side": "free people",
+
     "culture": "elven",
     "cost": 2,
     "type": "ally",
@@ -191,7 +191,7 @@
               "effect": {
                 "type": "costToEffect",
                 "cost": {
-                  "type": "discardTopCardFromDeck",
+                  "type": "discardTopCardsFromDeck",
                   "count": 1,
                   "forced": false
                 },
@@ -206,10 +206,67 @@
       }
     ]
   },
+  "40_39": {
+    "title": "Coordinated Strike",
+    "culture": "elven",
+    "type": "condition",
+    "keyword": "support area",
+    "effects": [
+      {
+        "type": "modifyOwnCost",
+        "amount": {
+          "type": "multiply",
+          "multiplier": -1,
+          "source": {
+            "type": "forEachYouCanSpot",
+            "filter": "unwounded,culture(elven),archer,companion"
+          }
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "archery",
+        "cost": [
+          {
+            "type": "exert",
+            "count": 2,
+            "filter": "choose(culture(elven),archer,companion)"
+          },
+          {
+            "type": "discard",
+            "filter": "self"
+          }
+        ],
+        "effect": {
+          "type": "modifyArcheryTotal",
+          "amount": 2
+        }
+      }
+    ]
+  },
+  "40_40": {
+    "title": "Crippling Arrows",
+    "culture": "elven",
+    "cost": 2,
+    "type": "event",
+    "keyword": "maneuver",
+    "condition": {
+      "type": "canSpot",
+      "filter": "elf"
+    },
+    "effects": {
+      "type": "event",
+      "effect": {
+        "type": "removeKeyword",
+        "until": "start(regroup)",
+        "filter": "all(wounded,minion)",
+        "keyword": "fierce"
+      }
+    }
+  },
   "40_41": {
     "title": "*Elrond",
     "subtitle": "Peredhil",
-    "side": "free people",
     "culture": "elven",
     "cost": 4,
     "type": "ally",
@@ -255,7 +312,7 @@
               "effect": {
                 "type": "costToEffect",
                 "cost": {
-                  "type": "discardTopCardFromDeck",
+                  "type": "discardTopCardsFromDeck",
                   "count": 1,
                   "forced": false
                 },
@@ -279,7 +336,7 @@
               "effect": {
                 "type": "costToEffect",
                 "cost": {
-                  "type": "discardTopCardFromDeck",
+                  "type": "discardTopCardsFromDeck",
                   "count": 1,
                   "forced": false
                 },
@@ -294,10 +351,91 @@
       }
     ]
   },
+  "40_42": {
+    "title": "elven bow",
+    "culture": "elven",
+    "cost": 1,
+    "type": "possession",
+    "possession": "ranged weapon",
+    "target": "elf",
+    "effects": {
+      "type": "addKeyword",
+      "filter": "bearer",
+      "keyword": "archer"
+    }
+  },
+  "40_43": {
+    "title": "Elven Reflexes",
+    "culture": "elven",
+    "cost": 0,
+    "type": "event",
+    "keyword": "skirmish",
+    "effects": {
+      "type": "event",
+      "effect": [
+        {
+          "type": "modifyStrength",
+          "filter": "choose(elf)",
+          "memorize": "chosenElf"
+        },
+        {
+          "type": "addTrigger",
+          "trigger": {
+            "type": "winsSkirmish",
+            "filter": "memory(chosenElf)"
+          },
+          "effect": {
+            "type": "putCardsFromDiscardOnTopOfDrawDeck",
+            "count": "0-2",
+            "filter": "choose(culture(elven))"
+          }
+        }
+      ]
+    }
+  },
+  "40_44": {
+    "title": "Forewarned",
+    "culture": "elven",
+    "cost": 0,
+    "type": "condition",
+    "keyword": "support area",
+    "condition": {
+      "type": "canSpot",
+      "count": 2,
+      "filter": "elf"
+    },
+    "effects": {
+      "type": "activated",
+      "phase": "fellowship",
+      "cost": {
+        "type": "addTwilight",
+        "amount": 1
+      },
+      "effect": [
+        {
+          "type": "lookAtTopCardsOfDrawDeck"
+        },
+        {
+          "type": "optional",
+          "text": "Would you like to discard this condition to discard that card?",
+          "effect": {
+            "type": "costToEffect",
+            "cost": {
+              "type": "discard",
+              "filter": "self"
+            },
+            "effect": {
+              "type": "discardTopCardsFromDeck",
+              "forced": false
+            }
+          }
+        }
+      ]
+    }
+  },
   "40_45": {
     "title": "*Galadriel",
     "subtitle": "White Lady of Lorien",
-    "side": "free people",
     "culture": "elven",
     "cost": 3,
     "type": "ally",
@@ -342,7 +480,7 @@
               "effect": {
                 "type": "costToEffect",
                 "cost": {
-                  "type": "discardTopCardFromDeck",
+                  "type": "discardTopCardsFromDeck",
                   "count": 1,
                   "forced": false
                 },
@@ -358,10 +496,189 @@
       }
     ]
   },
+  "40_46": {
+    "title": "Galadriel's Wisdom",
+    "culture": "elven",
+    "cost": 1,
+    "type": "event",
+    "keyword": "regroup",
+    "effects": {
+      "type": "event",
+      "cost": {
+        "type": "exert",
+        "filter": "choose(name(Galadriel))"
+      },
+      "effect": [
+        {
+          "type": "revealTopCardsOfDrawDeck",
+          "memorize": "revealedCard"
+        },
+        {
+          "type": "discard",
+          "filter": "choose(side(shadow),condition)",
+          "count": {
+            "type": "condition",
+            "condition": {
+              "type": "memoryMatches",
+              "memory": "revealedCard",
+              "filter": "culture(elven)"
+            },
+            "true": 2,
+            "false": 1
+          }
+        }
+      ]
+    }
+  },
+  "40_47": {
+    "title": "*Glorfindel",
+    "subtitle": "Emissary of the Valar",
+    "culture": "elven",
+    "cost": 4,
+    "type": "companion",
+    "race": "elf",
+    "strength": 9,
+    "vitality": 3,
+    "resistance": 9,
+    "condition": {
+      "type": "canSpot",
+      "count": 3,
+      "filter": "elf"
+    },
+    "effects": [
+      {
+        "type": "cantBeOverwhelmedMultiplier",
+        "filter": "self,inSkirmishAgainst(nazgul)"
+      },
+      {
+        "type": "activated",
+        "phase": "skirmish",
+        "cost": {
+          "type": "exert",
+          "filter": "self"
+        },
+        "effect": {
+          "type": "removeKeyword",
+          "filter": "choose(nazgul,inSkirmishAgainst(self))",
+          "until": "start(regroup)",
+          "keyword": "fierce"
+        }
+      }
+    ]
+  },
+  "40_48": {
+    "title": "*Golradir",
+    "subtitle": "Homely House Advisor",
+    "culture": "elven",
+    "cost": 2,
+    "type": "ally",
+    "race": "elf",
+    "keyword": "rivendell",
+    "strength": 4,
+    "vitality": 3,
+    "allyHome": "second ed,3",
+    "condition": {
+      "type": "canSpot",
+      "filter": "elf"
+    },
+    "effects": {
+      "type": "trigger",
+      "trigger": {
+        "type": "revealCardFromTopOfDrawDeck",
+        "filter": "culture(elven)"
+      },
+      "optional": true,
+      "cost": {
+        "type": "exert",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "modifyStrength",
+        "filter": "choose(orc)",
+        "amount": -2,
+        "until": "start(regroup)"
+      }
+    }
+  },
+  "40_49": {
+    "title": "*Gwemegil",
+    "subtitle": "Elf-forged Blade",
+    "culture": "elven",
+    "cost": 2,
+    "type": "possession",
+    "possession": "hand weapon",
+    "strength": 2,
+    "target": "elf",
+    "effects": [
+      {
+        "type": "addKeyword",
+        "filter": "bearer,name(Arwen)",
+        "keyword": "damage+1"
+      },
+      {
+        "type": "modifyStrength",
+        "filter": "bearer,inSkirmishAgainst(nazgul)",
+        "amount": 2
+      }
+    ]
+  },
+  "40_50": {
+    "title": "Legacy of Elbereth",
+    "culture": "elven",
+    "cost": 1,
+    "type": "event",
+    "keyword": "skirmish",
+    "condition": {
+      "type": "canSpot",
+      "count": 3,
+      "filter": "elf"
+    },
+    "effects": {
+      "type": "event",
+      "effect": {
+        "type": "modifyStrength",
+        "filter": "choose(minion,inSkirmishAgainst(elf))",
+        "amount": -3
+      }
+    }
+  },
+  "40_51": {
+    "title": "*Legolas",
+    "subtitle": "Sindarin Marksman",
+    "culture": "elven",
+    "cost": 2,
+    "type": "companion",
+    "race": "elf",
+    "strength": 6,
+    "vitality": 3,
+    "resistance": 8,
+    "keyword": "archer",
+    "effects": {
+      "type": "trigger",
+      "trigger": {
+        "type": "startOfPhase",
+        "phase": "archery"
+      },
+      "optional": true,
+      "cost": {
+        "type": "exert",
+        "filter": "self"
+      },
+      "effect": [
+        {
+          "type": "wound",
+          "filter": "choose(minion)"
+        },
+        {
+          "type": "doesNotAddToArcheryTotal",
+          "filter": "self"
+        }
+      ]
+    }
+  },
   "40_60": {
     "title": "*The Mirror of Galadriel",
     "subtitle": "Revealer of Portents",
-    "side": "free people",
     "culture": "elven",
     "cost": 2,
     "type": "artifact",

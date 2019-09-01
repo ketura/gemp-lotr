@@ -1,7 +1,6 @@
 {
   "40_314": {
     "title": "Brute Force",
-    "side": "shadow",
     "culture": "isengard",
     "cost": 1,
     "type": "event",
@@ -26,7 +25,6 @@
   },
   "40_315": {
     "title": "*Uruk Taskmaster",
-    "side": "shadow",
     "culture": "isengard",
     "cost": 4,
     "type": "minion",

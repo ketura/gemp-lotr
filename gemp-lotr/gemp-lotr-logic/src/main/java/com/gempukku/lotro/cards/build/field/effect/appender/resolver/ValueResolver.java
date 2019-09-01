@@ -87,6 +87,10 @@ public class ValueResolver {
                     final Filterable on1 = onFilter.getFilterable(actionContext);
                     return new CountStackedEvaluator(on1, Filters.any);
                 };
+            } else if (type.equalsIgnoreCase("forEachYouCanSpot")) {
+                final String filter = FieldUtils.getString(object.get("filter"), "filter");
+                final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter);
+                return actionContext -> new CountSpottableEvaluator(filterableSource.getFilterable(actionContext));
             } else if (type.equalsIgnoreCase("fromMemory")) {
                 String memory = FieldUtils.getString(object.get("memory"), "memory");
                 return (actionContext) -> {

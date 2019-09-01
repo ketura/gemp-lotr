@@ -1,12 +1,15 @@
 package com.gempukku.lotro.at;
 
+import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Token;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.CardNotFoundException;
+import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.PhysicalCardImpl;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import org.junit.Test;
 
+import static junit.framework.Assert.assertNull;
 import static org.junit.Assert.assertEquals;
 
 public class NewCardsAtTest extends AbstractAtTest {
@@ -105,5 +108,162 @@ public class NewCardsAtTest extends AbstractAtTest {
         playerDecided(P2, "0");
 
         assertEquals(1, _game.getGameState().getWounds(nazgul));
+    }
+
+    @Test
+    public void choiceEffect() throws DecisionResultInvalidException, CardNotFoundException {
+        initializeSimplestGame();
+
+        PhysicalCardImpl getOutOfTheShire = createCard(P1, "40_320");
+        PhysicalCardImpl merry = createCard(P1, "40_256");
+        PhysicalCardImpl nazgul = createCard(P2, "40_211");
+
+        _game.getGameState().addCardToZone(_game, getOutOfTheShire, Zone.HAND);
+        _game.getGameState().addCardToZone(_game, merry, Zone.FREE_CHARACTERS);
+        _game.getGameState().addCardToZone(_game, nazgul, Zone.SHADOW_CHARACTERS);
+
+        skipMulligans();
+
+        // Pass in fellowship
+        playerDecided(P1, "");
+
+        // Pass in shadow
+        playerDecided(P2, "");
+
+        // Pass in maneuver
+        playerDecided(P1, "");
+        playerDecided(P2, "");
+
+        // Pass in archery
+        playerDecided(P1, "");
+        playerDecided(P2, "");
+
+        // Pass in assignment
+        playerDecided(P1, "");
+        playerDecided(P2, "");
+
+        playerDecided(P1, merry.getCardId() + " " + nazgul.getCardId());
+
+        playerDecided(P1, "" + merry.getCardId());
+
+        // Play Get Out of the Shire
+        playerDecided(P1, "0");
+
+        // Choose to cancel skirmish
+        playerDecided(P1, "1");
+
+        // We're in Fierce skirmishes
+        assertEquals(Phase.ASSIGNMENT, _game.getGameState().getCurrentPhase());
+        assertEquals(0, _game.getGameState().getWounds(merry));
+        assertEquals(Zone.FREE_CHARACTERS, merry.getZone());
+    }
+
+    @Test
+    public void conditionalEffect() throws DecisionResultInvalidException, CardNotFoundException {
+        initializeSimplestGame();
+
+        PhysicalCardImpl getOutOfTheShire = createCard(P1, "40_320");
+        PhysicalCardImpl nazgul = createCard(P2, "40_211");
+
+        _game.getGameState().addCardToZone(_game, getOutOfTheShire, Zone.HAND);
+        _game.getGameState().addCardToZone(_game, nazgul, Zone.SHADOW_CHARACTERS);
+
+        final PhysicalCard frodo = _game.getGameState().getRingBearer(P1);
+
+        skipMulligans();
+
+        // Pass in fellowship
+        playerDecided(P1, "");
+
+        // Pass in shadow
+        playerDecided(P2, "");
+
+        // Pass in maneuver
+        playerDecided(P1, "");
+        playerDecided(P2, "");
+
+        // Pass in archery
+        playerDecided(P1, "");
+        playerDecided(P2, "");
+
+        // Pass in assignment
+        playerDecided(P1, "");
+        playerDecided(P2, "");
+
+        playerDecided(P1, frodo.getCardId() + " " + nazgul.getCardId());
+
+        playerDecided(P1, "" + frodo.getCardId());
+
+        // Play Get Out of the Shire
+        playerDecided(P1, "0");
+
+        // No choice given
+        assertNull(_userFeedback.getAwaitingDecision(P1));
+    }
+
+    @Test
+    public void costToEffect() throws DecisionResultInvalidException, CardNotFoundException {
+        initializeSimplestGame();
+
+        PhysicalCardImpl celeborn = createCard(P1, "40_38");
+        PhysicalCardImpl celebornInDeck = createCard(P1, "40_38");
+        PhysicalCardImpl nazgul = createCard(P2, "40_211");
+
+        _game.getGameState().addCardToZone(_game, celeborn, Zone.SUPPORT);
+        _game.getGameState().putCardOnTopOfDeck(celebornInDeck);
+        _game.getGameState().addCardToZone(_game, nazgul, Zone.SHADOW_CHARACTERS);
+
+        skipMulligans();
+
+        // Pass in fellowship
+        playerDecided(P1, "");
+
+        // Pass in shadow
+        playerDecided(P2, "");
+
+        // Use Celeborn
+        playerDecided(P1, "0");
+        // Pass on reveal
+        playerDecided(P1, "");
+        playerDecided(P2, "");
+
+        // Choose to discard
+        playerDecided(P1, "0");
+
+        assertEquals(Zone.DISCARD, celebornInDeck.getZone());
+        assertEquals(1, _game.getGameState().getWounds(nazgul));
+    }
+
+    @Test
+    public void costToEffectPass() throws DecisionResultInvalidException, CardNotFoundException {
+        initializeSimplestGame();
+
+        PhysicalCardImpl celeborn = createCard(P1, "40_38");
+        PhysicalCardImpl celebornInDeck = createCard(P1, "40_38");
+        PhysicalCardImpl nazgul = createCard(P2, "40_211");
+
+        _game.getGameState().addCardToZone(_game, celeborn, Zone.SUPPORT);
+        _game.getGameState().putCardOnTopOfDeck(celebornInDeck);
+        _game.getGameState().addCardToZone(_game, nazgul, Zone.SHADOW_CHARACTERS);
+
+        skipMulligans();
+
+        // Pass in fellowship
+        playerDecided(P1, "");
+
+        // Pass in shadow
+        playerDecided(P2, "");
+
+        // Use Celeborn
+        playerDecided(P1, "0");
+        // Pass on reveal
+        playerDecided(P1, "");
+        playerDecided(P2, "");
+
+        // Choose not to discard
+        playerDecided(P1, "1");
+
+        assertEquals(Zone.DECK, celebornInDeck.getZone());
+        assertEquals(0, _game.getGameState().getWounds(nazgul));
     }
 }

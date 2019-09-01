@@ -1,7 +1,7 @@
 {
   "1_7": {
     "title": "Dwarf Guard",
-    "side": "free people",
+
     "culture": "dwarven",
     "cost": 0,
     "type": "companion",
@@ -16,7 +16,7 @@
   },
   "1_9": {
     "title": "Dwarven Axe",
-    "side": "free people",
+
     "culture": "dwarven",
     "cost": 0,
     "type": "possession",
@@ -32,7 +32,7 @@
         "memorize": "losingMinion"
       },
       "effect": {
-        "type": "discardTopCardFromDeck",
+        "type": "discardTopCardsFromDeck",
         "deck": "ownerFromMemory(losingMinion)",
         "forced": true
       }
@@ -41,7 +41,6 @@
   "1_11": {
     "title": "*Farin",
     "subtitle": "Dwarven Emissary",
-    "side": "free people",
     "culture": "dwarven",
     "cost": 2,
     "type": "companion",
@@ -62,7 +61,6 @@
   "1_12": {
     "title": "*Gimli",
     "subtitle": "Dwarf of Erebor",
-    "side": "free people",
     "culture": "dwarven",
     "cost": 2,
     "type": "companion",
@@ -94,7 +92,6 @@
   "1_13": {
     "title": "*Gimli",
     "subtitle": "Son of Gloin",
-    "side": "free people",
     "culture": "dwarven",
     "cost": 2,
     "type": "companion",
@@ -121,7 +118,6 @@
   "1_30": {
     "title": "*Arwen",
     "subtitle": "Daughter of Elrond",
-    "side": "free people",
     "culture": "elven",
     "cost": 2,
     "type": "companion",
@@ -139,7 +135,6 @@
   },
   "1_38": {
     "title": "Double Shot",
-    "side": "free people",
     "culture": "elven",
     "cost": 0,
     "type": "event",
@@ -152,7 +147,6 @@
       "type": "event",
       "effect": {
         "type": "modifyArcheryTotal",
-        "side": "free people",
         "amount": 1
       }
     }
@@ -160,7 +154,6 @@
   "1_48": {
     "title": "*Haldir",
     "subtitle": "Elf of the Golden Wood",
-    "side": "free people",
     "culture": "elven",
     "cost": 2,
     "type": "companion",
@@ -184,7 +177,6 @@
   "1_50": {
     "title": "*Legolas",
     "subtitle": "Greenleaf",
-    "side": "free people",
     "culture": "elven",
     "cost": 2,
     "type": "companion",
@@ -216,7 +208,6 @@
   "1_51": {
     "title": "*Legolas",
     "subtitle": "Prince of Mirkwood",
-    "side": "free people",
     "culture": "elven",
     "cost": 2,
     "type": "companion",
@@ -234,7 +225,6 @@
   },
   "1_53": {
     "title": "Lorien Elf",
-    "side": "free people",
     "culture": "elven",
     "cost": 1,
     "type": "companion",
@@ -249,7 +239,6 @@
   },
   "1_94": {
     "title": "Athelas",
-    "side": "free people",
     "culture": "gondor",
     "cost": 1,
     "type": "possession",
@@ -282,7 +271,6 @@
   },
   "1_158": {
     "title": "Uruk-hai Raiding Party",
-    "side": "shadow",
     "culture": "isengard",
     "cost": 4,
     "type": "minion",
@@ -294,7 +282,6 @@
   },
   "1_178": {
     "title": "Goblin Runner",
-    "side": "shadow",
     "culture": "moria",
     "cost": 1,
     "type": "minion",
@@ -316,7 +303,6 @@
   },
   "1_262": {
     "title": "Orc Assassin",
-    "side": "shadow",
     "culture": "sauron",
     "cost": 2,
     "type": "minion",
@@ -350,7 +336,6 @@
   },
   "1_297": {
     "title": "Hobbit Party Guest",
-    "side": "free people",
     "culture": "shire",
     "cost": 1,
     "type": "ally",
@@ -386,7 +371,6 @@
   "1_303": {
     "title": "*Merry",
     "subtitle": "From O'er the Brandywine",
-    "side": "free people",
     "culture": "shire",
     "cost": 1,
     "type": "companion",
@@ -404,7 +388,7 @@
   "1_306": {
     "title": "*Pippin",
     "subtitle": "Friend to Frodo",
-    "side": "free people",
+    "culture": "shire",
     "cost": 1,
     "type": "companion",
     "race": "hobbit",

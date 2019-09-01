@@ -21,7 +21,7 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("addkeyword", new AddKeyword());
         effectAppenderProducers.put("modifyarcherytotal", new ModifyArcheryTotal());
         effectAppenderProducers.put("addburden", new AddBurden());
-        effectAppenderProducers.put("discardtopcardfromdeck", new DiscardTopCardFromDeck());
+        effectAppenderProducers.put("discardtopcardsfromdeck", new DiscardTopCardFromDeck());
         effectAppenderProducers.put("addtwilight", new AddTwilight());
         effectAppenderProducers.put("wound", new Wound());
         effectAppenderProducers.put("heal", new Heal());
@@ -63,6 +63,9 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("chooseandremovetwilight", new ChooseAndRemoveTwilight());
         effectAppenderProducers.put("removetwilight", new RemoveTwilight());
         effectAppenderProducers.put("stackcards", new StackCardsFromPlay());
+        effectAppenderProducers.put("removekeyword", new RemoveKeyword());
+        effectAppenderProducers.put("putcardsfromdiscardontopofdrawdeck", new PutCardsFromDiscardOnTopOfDrawDeck());
+        effectAppenderProducers.put("lookattopcardsofdrawdeck", new LookAtTopCardsOfDrawDeck());
     }
 
     public EffectAppender getEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {

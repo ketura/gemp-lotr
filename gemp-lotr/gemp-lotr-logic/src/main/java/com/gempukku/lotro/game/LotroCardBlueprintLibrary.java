@@ -101,7 +101,6 @@ public class LotroCardBlueprintLibrary {
                 try {
                     final LotroCardBlueprint lotroCardBlueprint = cardBlueprintBuilder.buildFromJson(cardDefinition);
                     _blueprintMap.put(blueprint, lotroCardBlueprint);
-                    logger.debug("Loaded card " + blueprint);
                 } catch (InvalidCardDefinitionException exp) {
                     logger.error("Unable to load card " + blueprint, exp);
                 }
@@ -113,6 +112,7 @@ public class LotroCardBlueprintLibrary {
         } catch (ParseException exp) {
             logger.error("Failed to parse file " + file.getAbsolutePath(), exp);
         }
+        logger.debug("Loaded card file " + file.getName());
     }
 
     private void setupWatcher(Path path) {

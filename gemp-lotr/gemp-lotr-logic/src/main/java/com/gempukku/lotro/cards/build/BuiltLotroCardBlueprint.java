@@ -677,6 +677,8 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
             throw new InvalidCardDefinitionException("Card has to have a type");
         if (cardType != CardType.THE_ONE_RING && side == null)
             throw new InvalidCardDefinitionException("Only The One Ring does not have a side defined");
+        if (cardType != CardType.THE_ONE_RING && culture == null)
+            throw new InvalidCardDefinitionException("Only The One Ring does not have a culture defined");
         if (siteNumber != 0
                 && cardType != CardType.SITE
                 && cardType != CardType.MINION)

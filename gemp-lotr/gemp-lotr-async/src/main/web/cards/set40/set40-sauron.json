@@ -1,7 +1,6 @@
 {
   "40_213": {
     "title": "*Barad-dur Captain",
-    "side": "shadow",
     "culture": "sauron",
     "cost": 5,
     "type": "minion",
@@ -38,7 +37,6 @@
   },
   "40_214": {
     "title": "*Bound to This Fate",
-    "side": "shadow",
     "culture": "sauron",
     "cost": 2,
     "type": "condition",
@@ -79,7 +77,6 @@
   },
   "40_221": {
     "title": "It Will Destroy Them All",
-    "side": "shadow",
     "culture": "sauron",
     "cost": 1,
     "type": "condition",
@@ -136,7 +133,6 @@
   },
   "40_318": {
     "title": "*Orc Flanker",
-    "side": "shadow",
     "culture": "sauron",
     "cost": 3,
     "type": "minion",

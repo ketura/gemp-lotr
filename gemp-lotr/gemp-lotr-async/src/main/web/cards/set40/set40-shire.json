@@ -2,7 +2,7 @@
   "40_243": {
     "title": "*Bilbo",
     "subtitle": "Well-preserved Hobbit",
-    "side": "free people",
+
     "culture": "shire",
     "cost": 2,
     "type": "ally",
@@ -33,7 +33,6 @@
   "40_246": {
     "title": "*Dimple Boffin",
     "subtitle": "Bounder of the Shire",
-    "side": "free people",
     "culture": "shire",
     "cost": 1,
     "type": "ally",
@@ -64,7 +63,6 @@
   "40_247": {
     "title": "*Farmer Maggot",
     "subtitle": "Chaser of Rascals",
-    "side": "free people",
     "culture": "shire",
     "cost": 1,
     "type": "ally",
@@ -89,7 +87,6 @@
   "40_252": {
     "title": "*Hamfast Gamgee",
     "subtitle": "The Gaffer",
-    "side": "free people",
     "culture": "shire",
     "cost": 1,
     "type": "ally",
@@ -113,7 +110,6 @@
   },
   "40_253": {
     "title": "Hobbit Party Guest",
-    "side": "free people",
     "culture": "shire",
     "cost": 1,
     "type": "ally",
@@ -147,10 +143,29 @@
       }
     ]
   },
+  "40_256": {
+    "title": "*Merry",
+    "subtitle": "Bucklander",
+    "culture": "shire",
+    "cost": 1,
+    "type": "companion",
+    "race": "hobbit",
+    "strength": 3,
+    "vitality": 4,
+    "resistance": 8,
+    "effects": {
+      "type": "modifyStrength",
+      "condition": {
+        "type": "location",
+        "filter": "forest"
+      },
+      "filter": "self",
+      "amount": 2
+    }
+  },
   "40_265": {
     "title": "*Robin Smallburrow",
     "subtitle": "Shiriff of Hobbiton",
-    "side": "free people",
     "culture": "shire",
     "cost": 1,
     "type": "ally",
@@ -203,7 +218,6 @@
   "40_266": {
     "title": "*Rosie Cotton",
     "subtitle": "Green Dragon Barkeep",
-    "side": "free people",
     "culture": "shire",
     "cost": 1,
     "type": "ally",
@@ -242,7 +256,6 @@
   },
   "40_319": {
     "title": "*A Hobbit's Tale",
-    "side": "free people",
     "culture": "shire",
     "cost": 2,
     "type": "condition",
@@ -306,7 +319,6 @@
   },
   "40_320": {
     "title": "Get Out of the Shire",
-    "side": "free people",
     "culture": "shire",
     "cost": 1,
     "type": "event",

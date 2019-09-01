@@ -18,6 +18,7 @@ import static org.junit.Assert.fail;
 
 public abstract class AbstractAtTest {
     protected static LotroCardBlueprintLibrary _library;
+    private int cardId = 100;
 
     static {
         _library = new LotroCardBlueprintLibrary();
@@ -31,6 +32,10 @@ public abstract class AbstractAtTest {
     protected DefaultUserFeedback _userFeedback;
     protected static final String P1 = "player1";
     protected static final String P2 = "player2";
+
+    protected PhysicalCardImpl createCard(String owner, String blueprintId) throws CardNotFoundException {
+        return new PhysicalCardImpl(cardId++, blueprintId, owner, _library.getLotroCardBlueprint(blueprintId));
+    }
 
     protected void initializeSimplestGame() throws DecisionResultInvalidException {
         this.initializeSimplestGame(null);

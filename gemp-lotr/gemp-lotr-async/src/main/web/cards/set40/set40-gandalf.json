@@ -2,7 +2,6 @@
   "40_63": {
     "title": "*Albert Dreary",
     "subtitle": "Entertainer from Bree",
-    "side": "free people",
     "culture": "gandalf",
     "cost": 1,
     "type": "ally",
@@ -31,7 +30,6 @@
   "40_65": {
     "title": "*Barliman Butterbur",
     "subtitle": "Forgetful Innkeep",
-    "side": "free people",
     "culture": "gandalf",
     "cost": 0,
     "type": "ally",
@@ -60,7 +58,6 @@
   },
   "40_86": {
     "title": "Protector of the West",
-    "side": "free people",
     "culture": "gandalf",
     "cost": 2,
     "type": "event",
@@ -88,7 +85,6 @@
   },
   "40_312": {
     "title": "Go Back to the Shadow!",
-    "side": "free people",
     "culture": "gandalf",
     "cost": 1,
     "type": "event",

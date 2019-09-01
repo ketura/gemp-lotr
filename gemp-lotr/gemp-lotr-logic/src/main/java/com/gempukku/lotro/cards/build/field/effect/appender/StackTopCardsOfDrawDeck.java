@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.build.field.effect.appender;
 import com.gempukku.lotro.cards.build.ActionContext;
 import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
+import com.gempukku.lotro.cards.build.PlayerSource;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
@@ -23,12 +24,11 @@ public class StackTopCardsOfDrawDeck implements EffectAppenderProducer {
         final String where = FieldUtils.getString(effectObject.get("where"), "where");
         final int count = FieldUtils.getInteger(effectObject.get("count"), "count", 1);
 
-        MultiEffectAppender result = new MultiEffectAppender();
-        String deckPlayerMemory = "_temp1";
-        String cardMemory = "_temp2";
+        final PlayerSource playerSource = PlayerResolver.resolvePlayer(deck, environment);
 
-        result.addEffectAppender(
-                PlayerResolver.resolvePlayer(deck, deckPlayerMemory, environment));
+        MultiEffectAppender result = new MultiEffectAppender();
+        String cardMemory = "_temp";
+
         result.addEffectAppender(
                 CardResolver.resolveCard(where, cardMemory, "you", "Choose card to stack on", environment));
         result.addEffectAppender(
@@ -36,7 +36,7 @@ public class StackTopCardsOfDrawDeck implements EffectAppenderProducer {
                     @Override
                     protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
                         final PhysicalCard card = actionContext.getCardFromMemory(cardMemory);
-                        final String deckId = actionContext.getValueFromMemory(deckPlayerMemory);
+                        final String deckId = playerSource.getPlayer(actionContext);
 
                         return new StackTopCardsFromDeckEffect(actionContext.getSource(), deckId, count, card);
                     }

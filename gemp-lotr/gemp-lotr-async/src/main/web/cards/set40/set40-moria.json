@@ -2,7 +2,6 @@
   "40_156": {
     "title": "*The Balrog",
     "subtitle": "Demon of Might",
-    "side": "shadow",
     "culture": "moria",
     "cost": 14,
     "type": "minion",
@@ -31,7 +30,6 @@
   },
   "40_166": {
     "title": "*Goblin Ransacker",
-    "side": "shadow",
     "culture": "moria",
     "cost": 4,
     "type": "minion",
@@ -63,7 +61,6 @@
   },
   "40_316": {
     "title": "Deep Places of the World",
-    "side": "shadow",
     "culture": "moria",
     "cost": 1,
     "type": "condition",
@@ -87,7 +84,6 @@
   },
   "40_317": {
     "title": "Scurrying Away",
-    "side": "shadow",
     "culture": "moria",
     "cost": 2,
     "type": "condition",
