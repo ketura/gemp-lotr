@@ -15,4 +15,9 @@ public abstract class AbstractEffectAppender implements EffectAppender {
     }
 
     protected abstract Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext);
+
+    @Override
+    public boolean isPlayableInFull(ActionContext actionContext) {
+        return true;
+    }
 }

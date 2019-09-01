@@ -35,11 +35,6 @@ public class ActivatedEffectProcessor implements EffectProcessor {
                 actionSource.addCost(
                         new AbstractEffectAppender() {
                             @Override
-                            public boolean isPlayableInFull(ActionContext actionContext) {
-                                return true;
-                            }
-
-                            @Override
                             protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
                                 return new IncrementPhaseLimitEffect(actionContext.getSource(), phase, limitPerPhase);
                             }

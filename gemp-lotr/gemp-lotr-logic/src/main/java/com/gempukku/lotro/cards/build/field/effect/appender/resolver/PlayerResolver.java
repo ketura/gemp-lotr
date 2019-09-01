@@ -16,6 +16,8 @@ import java.util.Collection;
 
 public class PlayerResolver {
     public static PlayerSource resolvePlayer(String type, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
+        if (type.equals("you"))
+            return (actionContext) -> actionContext.getPerformingPlayer();
         if (type.equals("owner"))
             return (actionContext) -> actionContext.getSource().getOwner();
         else if (type.equals("shadowPlayer"))
@@ -30,6 +32,18 @@ public class PlayerResolver {
     }
 
     public static EffectAppender resolvePlayer(String type, String memory, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
+        if (type.equals("you"))
+            return new AbstractEffectAppender() {
+                @Override
+                protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
+                    return new UnrespondableEffect() {
+                        @Override
+                        protected void doPlayEffect(LotroGame game) {
+                            actionContext.setValueToMemory(memory, actionContext.getPerformingPlayer());
+                        }
+                    };
+                }
+            };
         if (type.equals("owner")) {
             return new AbstractEffectAppender() {
                 @Override
@@ -41,21 +55,11 @@ public class PlayerResolver {
                         }
                     };
                 }
-
-                @Override
-                public boolean isPlayableInFull(ActionContext actionContext) {
-                    return true;
-                }
             };
         } else if (type.startsWith("owner(") && type.endsWith(")")) {
             String filter = type.substring(type.indexOf("(") + 1, type.lastIndexOf(")"));
             final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter);
             return new AbstractEffectAppender() {
-                @Override
-                public boolean isPlayableInFull(ActionContext actionContext) {
-                    return true;
-                }
-
                 @Override
                 protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
                     return new UnrespondableEffect() {
