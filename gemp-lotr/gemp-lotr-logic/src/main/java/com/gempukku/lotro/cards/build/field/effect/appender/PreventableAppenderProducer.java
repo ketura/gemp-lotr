@@ -10,8 +10,10 @@ import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.PlayerResolver;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
+import com.gempukku.lotro.logic.actions.SubCostToEffectAction;
 import com.gempukku.lotro.logic.decisions.YesNoDecision;
 import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
+import com.gempukku.lotro.logic.effects.StackActionEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 import org.json.simple.JSONObject;
@@ -30,32 +32,42 @@ public class PreventableAppenderProducer implements EffectAppenderProducer {
         final EffectAppender effectAppender = environment.getEffectAppenderFactory().getEffectAppender(effect, environment);
         final EffectAppender costAppender = environment.getEffectAppenderFactory().getEffectAppender(cost, environment);
 
-        return new AbstractEffectAppender() {
+        return new DelayedAppender() {
             @Override
             protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
-                return new UnrespondableEffect() {
-                    @Override
-                    protected void doPlayEffect(LotroGame game) {
-                        if (costAppender.isPlayableInFull(actionContext)) {
-                            final String preventingPlayer = preventingPlayerSource.getPlayer(actionContext);
-                            action.insertEffect(
-                                    new PlayoutDecisionEffect(preventingPlayer,
-                                            new YesNoDecision(text) {
-                                                @Override
-                                                protected void yes() {
-                                                    costAppender.appendEffect(cost, action, actionContext);
-                                                }
+                if (costAppender.isPlayableInFull(actionContext)) {
+                    final String preventingPlayer = preventingPlayerSource.getPlayer(actionContext);
 
-                                                @Override
-                                                protected void no() {
-                                                    effectAppender.appendEffect(cost, action, actionContext);
-                                                }
-                                            }));
-                        } else {
-                            effectAppender.appendEffect(cost, action, actionContext);
-                        }
-                    }
-                };
+                    SubCostToEffectAction subAction = new SubCostToEffectAction(action);
+                    subAction.appendEffect(
+                            new PlayoutDecisionEffect(preventingPlayer,
+                                    new YesNoDecision(text) {
+                                        @Override
+                                        protected void yes() {
+                                            costAppender.appendEffect(false, subAction, actionContext);
+                                        }
+
+                                        @Override
+                                        protected void no() {
+                                            effectAppender.appendEffect(false, subAction, actionContext);
+                                        }
+                                    }));
+                    subAction.appendEffect(
+                            new UnrespondableEffect() {
+                                @Override
+                                protected void doPlayEffect(LotroGame game) {
+                                    // If the prevention was not carried out, need to do the original action anyway
+                                    if (!subAction.wasCarriedOut())
+                                        effectAppender.appendEffect(false, subAction, actionContext);
+                                }
+                            }
+                    );
+                    return new StackActionEffect(subAction);
+                } else {
+                    SubCostToEffectAction subAction = new SubCostToEffectAction(action);
+                    effectAppender.appendEffect(cost, subAction, actionContext);
+                    return new StackActionEffect(subAction);
+                }
             }
 
             @Override

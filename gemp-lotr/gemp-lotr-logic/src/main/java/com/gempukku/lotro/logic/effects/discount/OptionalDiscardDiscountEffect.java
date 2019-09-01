@@ -3,7 +3,7 @@ package com.gempukku.lotro.logic.effects.discount;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.SubAction;
+import com.gempukku.lotro.logic.actions.SubCostToEffectAction;
 import com.gempukku.lotro.logic.effects.DiscountEffect;
 import com.gempukku.lotro.logic.effects.OptionalEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
@@ -65,7 +65,7 @@ public class OptionalDiscardDiscountEffect extends AbstractSubActionEffect imple
     @Override
     public void playEffect(LotroGame game) {
         if (isPlayableInFull(game)) {
-            SubAction subAction = new SubAction(_action);
+            SubCostToEffectAction subAction = new SubCostToEffectAction(_action);
             if (PlayConditions.canDiscardFromPlay(_action.getActionSource(), game, _discardCount, _discardFilters))
                 subAction.appendEffect(
                         new OptionalEffect(subAction, _playerId,

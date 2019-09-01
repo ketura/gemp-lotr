@@ -38,4 +38,6 @@ public interface CostToEffectAction extends Action {
     public void appendEffect(Effect effect);
 
     void setPaidToil(boolean toilPaid);
+
+    boolean wasCarriedOut();
 }

@@ -6,8 +6,8 @@ import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.actions.PlayEventAction;
-import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.cardtype.AbstractEvent;
 import com.gempukku.lotro.logic.effects.DiscardTopCardFromDeckEffect;
 import com.gempukku.lotro.logic.effects.PreventableEffect;
@@ -47,7 +47,7 @@ public class Card11_118 extends AbstractEvent {
                         }, game.getGameState().getCurrentPlayerId(),
                         new PreventableEffect.PreventionCost() {
                             @Override
-                            public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
+                            public Effect createPreventionCostForPlayer(CostToEffectAction subAction, String playerId) {
                                 return new DiscardTopCardFromDeckEffect(self, game.getGameState().getCurrentPlayerId(), 6, false) {
                                     @Override
                                     public String getText(LotroGame game) {

@@ -1,7 +1,7 @@
 package com.gempukku.lotro.logic.effects;
 
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.SubAction;
+import com.gempukku.lotro.logic.actions.SubCostToEffectAction;
 import com.gempukku.lotro.logic.decisions.MultipleChoiceAwaitingDecision;
 import com.gempukku.lotro.logic.timing.AbstractSubActionEffect;
 import com.gempukku.lotro.logic.timing.Action;
@@ -49,7 +49,7 @@ public class ChoiceEffect extends AbstractSubActionEffect {
         }
 
         if (possibleEffects.size() == 1) {
-            SubAction subAction = new SubAction(_action);
+            SubCostToEffectAction subAction = new SubCostToEffectAction(_action);
             subAction.appendEffect(possibleEffects.get(0));
             processSubAction(game, subAction);
         } else if (possibleEffects.size() > 0) {
@@ -57,7 +57,7 @@ public class ChoiceEffect extends AbstractSubActionEffect {
                     new MultipleChoiceAwaitingDecision(1, "Choose effect to use", getEffectsText(possibleEffects, game)) {
                         @Override
                         protected void validDecisionMade(int index, String result) {
-                            SubAction subAction = new SubAction(_action);
+                            SubCostToEffectAction subAction = new SubCostToEffectAction(_action);
                             subAction.appendEffect(possibleEffects.get(index));
                             processSubAction(game, subAction);
                         }

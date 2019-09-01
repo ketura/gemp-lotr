@@ -6,11 +6,10 @@ import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
-import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.actions.SubCostToEffectAction;
+import com.gempukku.lotro.logic.effects.StackActionEffect;
 import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 import org.json.simple.JSONObject;
 
 public class CostToEffect implements EffectAppenderProducer {
@@ -27,19 +26,14 @@ public class CostToEffect implements EffectAppenderProducer {
         return new DelayedAppender() {
             @Override
             protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
-                return new UnrespondableEffect() {
-                    @Override
-                    protected void doPlayEffect(LotroGame game) {
-                        SubCostToEffectAction subAction = new SubCostToEffectAction(action);
+                SubCostToEffectAction subAction = new SubCostToEffectAction(action);
 
-                        for (EffectAppender costAppender : costAppenders)
-                            costAppender.appendEffect(true, subAction, actionContext);
-                        for (EffectAppender effectAppender : effectAppenders)
-                            effectAppender.appendEffect(false, subAction, actionContext);
+                for (EffectAppender costAppender : costAppenders)
+                    costAppender.appendEffect(true, subAction, actionContext);
+                for (EffectAppender effectAppender : effectAppenders)
+                    effectAppender.appendEffect(false, subAction, actionContext);
 
-                        game.getActionsEnvironment().addActionToStack(subAction);
-                    }
-                };
+                return new StackActionEffect(subAction);
             }
 
             @Override

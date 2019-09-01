@@ -5,7 +5,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.actions.SubAction;
+import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.cardtype.AbstractMinion;
 import com.gempukku.lotro.logic.effects.PreventableEffect;
 import com.gempukku.lotro.logic.effects.SelfExertEffect;
@@ -58,7 +58,7 @@ public class Card11_108 extends AbstractMinion {
                             }, game.getGameState().getCurrentPlayerId(),
                             new PreventableEffect.PreventionCost() {
                                 @Override
-                                public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
+                                public Effect createPreventionCostForPlayer(CostToEffectAction subAction, String playerId) {
                                     return new ChooseAndDiscardCardsFromPlayEffect(subAction, playerId, 1, 1, CardType.ARTIFACT) {
                                         @Override
                                         public String getText(LotroGame game) {

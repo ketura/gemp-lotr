@@ -5,7 +5,6 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.game.state.actions.DefaultActionsEnvironment;
 import com.gempukku.lotro.logic.effects.ResolveSkirmishEffect;
-import com.gempukku.lotro.logic.effects.StackActionEffect;
 import com.gempukku.lotro.logic.effects.TriggeringResultEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersLogic;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
@@ -36,8 +35,12 @@ public class SkirmishPhaseAction extends SystemQueueAction {
                     }
                 });
         appendEffect(
-                new StackActionEffect(
-                        new SkirmishActionProcedureAction()));
+                new UnrespondableEffect() {
+                    @Override
+                    protected void doPlayEffect(LotroGame game) {
+                        game.getActionsEnvironment().addActionToStack(new SkirmishActionProcedureAction());
+                    }
+                });
         appendEffect(
                 new UnrespondableEffect() {
                     @Override

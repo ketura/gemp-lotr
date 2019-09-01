@@ -1,7 +1,7 @@
 package com.gempukku.lotro.logic.effects.discount;
 
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.SubAction;
+import com.gempukku.lotro.logic.actions.SubCostToEffectAction;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.decisions.IntegerAwaitingDecision;
 import com.gempukku.lotro.logic.effects.DiscountEffect;
@@ -55,7 +55,7 @@ public class RemoveThreatsToDiscountEffect extends AbstractSubActionEffect imple
                     public void decisionMade(String result) throws DecisionResultInvalidException {
                         int threats = getValidatedResult(result);
                         if (threats > 0) {
-                            SubAction subAction = new SubAction(_action);
+                            SubCostToEffectAction subAction = new SubCostToEffectAction(_action);
                             subAction.appendEffect(
                                     new RemoveThreatsEffect(_action.getActionSource(), threats));
                             processSubAction(game, subAction);
@@ -65,7 +65,7 @@ public class RemoveThreatsToDiscountEffect extends AbstractSubActionEffect imple
                 }
                 );
             } else {
-                SubAction subAction = new SubAction(_action);
+                SubCostToEffectAction subAction = new SubCostToEffectAction(_action);
                 subAction.appendEffect(
                         new RemoveThreatsEffect(_action.getActionSource(), _minimalThreatsToRemove));
                 processSubAction(game, subAction);

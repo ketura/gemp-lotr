@@ -4,12 +4,10 @@ import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.SubAction;
+import com.gempukku.lotro.logic.actions.SubCostToEffectAction;
 import com.gempukku.lotro.logic.actions.SystemQueueAction;
 import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
 
@@ -65,7 +63,7 @@ public class AIPlayerAssignsArcheryTotalGameProcess implements GameProcess {
 
                         List<PhysicalCard> possibleChoices = new ArrayList<PhysicalCard>(acceptableCards);
                         if (possibleChoices.size()>0) {
-                            SubAction subAction = new SubAction(action);
+                            SubCostToEffectAction subAction = new SubCostToEffectAction(action);
                             Random rnd = new Random();
                             final int randomIndex = rnd.nextInt(possibleChoices.size());
                             WoundCharactersEffect woundCharacter = new WoundCharactersEffect((PhysicalCard) null, possibleChoices.get(randomIndex));

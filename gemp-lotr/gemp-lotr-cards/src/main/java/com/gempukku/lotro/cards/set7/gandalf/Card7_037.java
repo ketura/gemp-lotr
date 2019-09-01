@@ -6,7 +6,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.actions.SubAction;
+import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
 import com.gempukku.lotro.logic.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
@@ -72,7 +72,7 @@ public class Card7_037 extends AbstractCompanion {
                                             }, GameUtils.getShadowPlayers(game),
                                             new PreventableEffect.PreventionCost() {
                                                 @Override
-                                                public Effect createPreventionCostForPlayer(final SubAction subAction, final String opponentId) {
+                                                public Effect createPreventionCostForPlayer(final CostToEffectAction subAction, final String opponentId) {
                                                     return new UnrespondableEffect() {
                                                         @Override
                                                         public boolean isPlayableInFull(LotroGame game) {

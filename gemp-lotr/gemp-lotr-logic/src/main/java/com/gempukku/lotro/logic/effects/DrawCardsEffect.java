@@ -1,7 +1,7 @@
 package com.gempukku.lotro.logic.effects;
 
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.SubAction;
+import com.gempukku.lotro.logic.actions.SubCostToEffectAction;
 import com.gempukku.lotro.logic.modifiers.evaluator.ConstantEvaluator;
 import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 import com.gempukku.lotro.logic.timing.AbstractSubActionEffect;
@@ -47,7 +47,7 @@ public class DrawCardsEffect extends AbstractSubActionEffect {
 
     @Override
     public void playEffect(LotroGame game) {
-        SubAction subAction = new SubAction(_action);
+        SubCostToEffectAction subAction = new SubCostToEffectAction(_action);
         final List<DrawOneCardEffect> drawEffects = new LinkedList<DrawOneCardEffect>();
         final int drawCount = _count.evaluateExpression(game, null);
         for (int i = 0; i < drawCount; i++) {

@@ -10,7 +10,10 @@ import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.PlayerResolver;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
-import com.gempukku.lotro.logic.effects.ChoiceEffect;
+import com.gempukku.lotro.logic.actions.SubCostToEffectAction;
+import com.gempukku.lotro.logic.decisions.MultipleChoiceAwaitingDecision;
+import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
+import com.gempukku.lotro.logic.effects.StackActionEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 import org.json.simple.JSONObject;
@@ -34,35 +37,45 @@ public class Choice implements EffectAppenderProducer {
 
         final PlayerSource playerSource = PlayerResolver.resolvePlayer(player, environment);
 
-        return new EffectAppender() {
+        return new DelayedAppender() {
             @Override
-            public void appendEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
-                List<Effect> possibleEffects = new LinkedList<>();
+            protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
                 int textIndex = 0;
+                List<EffectAppender> playableEffectAppenders = new LinkedList<>();
+                List<String> effectTexts = new LinkedList<>();
                 for (EffectAppender possibleEffectAppender : possibleEffectAppenders) {
-                    final String text = textArray[textIndex++];
-                    possibleEffects.add(
-                            new UnrespondableEffect() {
-                                @Override
-                                protected void doPlayEffect(LotroGame game) {
-                                    possibleEffectAppender.appendEffect(cost, action, actionContext);
-                                }
-
-                                @Override
-                                public String getText(LotroGame game) {
-                                    return text;
-                                }
-
-                                @Override
-                                public boolean isPlayableInFull(LotroGame game) {
-                                    return possibleEffectAppender.isPlayableInFull(actionContext);
-                                }
-                            });
+                    if (possibleEffectAppender.isPlayableInFull(actionContext)) {
+                        playableEffectAppenders.add(possibleEffectAppender);
+                        effectTexts.add(textArray[textIndex]);
+                    }
+                    textIndex++;
                 }
 
-                final String choicePlayerId = playerSource.getPlayer(actionContext);
+                if (playableEffectAppenders.size() == 0)
+                    return new UnrespondableEffect() {
+                        @Override
+                        protected void doPlayEffect(LotroGame game) {
+                            // Do nothin
+                        }
+                    };
 
-                action.appendEffect(new ChoiceEffect(action, choicePlayerId, possibleEffects));
+                if (playableEffectAppenders.size() == 1) {
+                    SubCostToEffectAction subAction = new SubCostToEffectAction(action);
+                    playableEffectAppenders.get(0).appendEffect(cost, subAction, actionContext);
+                    return new StackActionEffect(subAction);
+                }
+
+                final String choosingPlayer = playerSource.getPlayer(actionContext);
+                SubCostToEffectAction subAction = new SubCostToEffectAction(action);
+                subAction.appendCost(
+                        new PlayoutDecisionEffect(choosingPlayer,
+                                new MultipleChoiceAwaitingDecision(1, "Choose action to perform", effectTexts.toArray(new String[0])) {
+                                    @Override
+                                    protected void validDecisionMade(int index, String result) {
+                                        playableEffectAppenders.get(index).appendEffect(cost, subAction, actionContext);
+                                    }
+                                }));
+                return new StackActionEffect(subAction);
             }
 
             @Override

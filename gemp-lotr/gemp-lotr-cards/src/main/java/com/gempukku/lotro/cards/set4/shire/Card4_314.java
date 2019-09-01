@@ -8,7 +8,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.actions.SubAction;
+import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
 import com.gempukku.lotro.logic.effects.AddBurdenEffect;
 import com.gempukku.lotro.logic.effects.PreventableEffect;
@@ -49,7 +49,7 @@ public class Card4_314 extends AbstractCompanion {
                             GameUtils.getShadowPlayers(game),
                             new PreventableEffect.PreventionCost() {
                                 @Override
-                                public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
+                                public Effect createPreventionCostForPlayer(CostToEffectAction subAction, String playerId) {
                                     return new RemoveTwilightEffect(2);
                                 }
                             }

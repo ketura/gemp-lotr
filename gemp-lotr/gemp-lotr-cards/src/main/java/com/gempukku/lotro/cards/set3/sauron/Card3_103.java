@@ -4,8 +4,8 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.actions.PlayEventAction;
-import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.cardtype.AbstractEvent;
 import com.gempukku.lotro.logic.effects.ChooseAndWoundCharactersEffect;
 import com.gempukku.lotro.logic.effects.PreventableEffect;
@@ -57,7 +57,7 @@ public class Card3_103 extends AbstractEvent {
                         }, Collections.singletonList(game.getGameState().getCurrentPlayerId()),
                         new PreventableEffect.PreventionCost() {
                             @Override
-                            public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
+                            public Effect createPreventionCostForPlayer(CostToEffectAction subAction, String playerId) {
                                 return new ChooseAndDiscardCardsFromPlayEffect(subAction, playerId, 2, 2, Race.ELF) {
                                     @Override
                                     public String getText(LotroGame game) {

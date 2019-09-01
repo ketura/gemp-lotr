@@ -10,7 +10,7 @@ import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 
 import java.util.Iterator;
 
-public class PreventSubAction extends SubAction {
+public class PreventSubAction extends SubCostToEffectAction {
     private Effect _effectToExecute;
     private Iterator<String> _choicePlayers;
     private PreventableEffect.PreventionCost _preventionCost;

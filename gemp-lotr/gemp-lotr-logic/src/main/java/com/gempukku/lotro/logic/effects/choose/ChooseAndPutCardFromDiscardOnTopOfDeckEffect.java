@@ -3,7 +3,7 @@ package com.gempukku.lotro.logic.effects.choose;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.SubAction;
+import com.gempukku.lotro.logic.actions.SubCostToEffectAction;
 import com.gempukku.lotro.logic.effects.PutCardFromDiscardOnTopOfDeckEffect;
 import com.gempukku.lotro.logic.timing.Action;
 
@@ -20,7 +20,7 @@ public class ChooseAndPutCardFromDiscardOnTopOfDeckEffect extends ChooseCardsFro
     @Override
     protected void cardsSelected(LotroGame game, Collection<PhysicalCard> cards) {
         if (cards.size() > 0) {
-            SubAction subAction = new SubAction(_action);
+            SubCostToEffectAction subAction = new SubCostToEffectAction(_action);
             for (PhysicalCard card : cards)
                 subAction.appendEffect(new PutCardFromDiscardOnTopOfDeckEffect(card));
             game.getActionsEnvironment().addActionToStack(subAction);

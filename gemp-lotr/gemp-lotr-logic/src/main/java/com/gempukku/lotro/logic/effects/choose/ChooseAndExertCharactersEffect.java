@@ -4,12 +4,11 @@ import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.SubAction;
+import com.gempukku.lotro.logic.actions.CostToEffectAction;
+import com.gempukku.lotro.logic.actions.SubCostToEffectAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardsEffect;
 import com.gempukku.lotro.logic.effects.ExertCharactersEffect;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.Collection;
@@ -18,7 +17,7 @@ public class ChooseAndExertCharactersEffect extends ChooseActiveCardsEffect {
     private Action _action;
     private int _times;
     private Filterable[] _filters;
-    private SubAction _resultSubAction;
+    private CostToEffectAction _resultSubAction;
 
     private boolean _forToil;
 
@@ -69,7 +68,7 @@ public class ChooseAndExertCharactersEffect extends ChooseActiveCardsEffect {
 
     @Override
     protected final void cardsSelected(LotroGame game, Collection<PhysicalCard> characters) {
-        _resultSubAction = new SubAction(_action);
+        _resultSubAction = new SubCostToEffectAction(_action);
         for (int i = 0; i < _times; i++) {
             final boolean first = (i==0);
             final ExertCharactersEffect effect = new ExertCharactersEffect(_action, _action.getActionSource(), characters.toArray(new PhysicalCard[characters.size()])) {

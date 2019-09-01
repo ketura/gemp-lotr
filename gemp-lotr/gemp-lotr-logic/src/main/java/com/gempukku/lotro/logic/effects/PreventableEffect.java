@@ -3,7 +3,6 @@ package com.gempukku.lotro.logic.effects;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.actions.PreventSubAction;
-import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.timing.AbstractSubActionEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 
@@ -65,6 +64,6 @@ public class PreventableEffect extends AbstractSubActionEffect {
     }
 
     public static interface PreventionCost {
-        public Effect createPreventionCostForPlayer(SubAction subAction, String playerId);
+        public Effect createPreventionCostForPlayer(CostToEffectAction subAction, String playerId);
     }
 }

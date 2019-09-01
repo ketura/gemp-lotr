@@ -5,7 +5,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.actions.SubAction;
+import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.cardtype.AbstractMinion;
 import com.gempukku.lotro.logic.effects.*;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
@@ -62,7 +62,7 @@ public class Card18_118 extends AbstractMinion {
                                             new AssignmentEffect(playerId, companion, self), game.getGameState().getCurrentPlayerId(),
                                             new PreventableEffect.PreventionCost() {
                                                 @Override
-                                                public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
+                                                public Effect createPreventionCostForPlayer(CostToEffectAction subAction, String playerId) {
                                                     List<Effect> possibleCosts = new LinkedList<Effect>();
                                                     possibleCosts.add(
                                                             new ExertCharactersEffect(action, self, companion));

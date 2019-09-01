@@ -4,7 +4,8 @@ import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.SubAction;
+import com.gempukku.lotro.logic.actions.CostToEffectAction;
+import com.gempukku.lotro.logic.actions.SubCostToEffectAction;
 import com.gempukku.lotro.logic.timing.AbstractSubActionEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
@@ -52,7 +53,7 @@ public class PutCardsFromDeckIntoHandDiscardRestEffect extends AbstractSubAction
 
     @Override
     public void playEffect(LotroGame game) {
-        final SubAction subAction = new SubAction(_action);
+        final SubCostToEffectAction subAction = new SubCostToEffectAction(_action);
         subAction.appendEffect(
                 new ChooseAndPutNextCardFromDeckIntoHand(subAction, _cards));
         subAction.appendEffect(
@@ -69,10 +70,10 @@ public class PutCardsFromDeckIntoHandDiscardRestEffect extends AbstractSubAction
     }
 
     private class ChooseAndPutNextCardFromDeckIntoHand extends UnrespondableEffect {
-        private SubAction _subAction;
+        private CostToEffectAction _subAction;
         private Set<PhysicalCard> _remainingCards;
 
-        private ChooseAndPutNextCardFromDeckIntoHand(SubAction subAction, Set<PhysicalCard> remainingCards) {
+        private ChooseAndPutNextCardFromDeckIntoHand(CostToEffectAction subAction, Set<PhysicalCard> remainingCards) {
             _subAction = subAction;
             _remainingCards = remainingCards;
         }

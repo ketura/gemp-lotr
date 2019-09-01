@@ -5,8 +5,8 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.PlayUtils;
+import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.actions.PlayEventAction;
-import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.cardtype.AbstractResponseEvent;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
@@ -50,7 +50,7 @@ public class Card2_033 extends AbstractResponseEvent {
                                             Collections.singletonList(orc.getOwner()),
                                             new PreventableEffect.PreventionCost() {
                                                 @Override
-                                                public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
+                                                public Effect createPreventionCostForPlayer(CostToEffectAction subAction, String playerId) {
                                                     return new RemoveTwilightEffect(3);
                                                 }
                                             }

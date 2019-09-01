@@ -4,7 +4,8 @@ import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.SubAction;
+import com.gempukku.lotro.logic.actions.CostToEffectAction;
+import com.gempukku.lotro.logic.actions.SubCostToEffectAction;
 import com.gempukku.lotro.logic.effects.ChooseArbitraryCardsEffect;
 import com.gempukku.lotro.logic.effects.PutCardFromHandOnBottomOfDeckEffect;
 import com.gempukku.lotro.logic.timing.AbstractSubActionEffect;
@@ -43,7 +44,7 @@ public class ChooseAndPutCardsFromHandBeneathDrawDeckEffect extends AbstractSubA
     @Override
     public void playEffect(LotroGame game) {
         final Collection<PhysicalCard> cards = Filters.filter(game.getGameState().getHand(_playerId), game, _filters);
-        SubAction subAction = new SubAction(_action);
+        SubCostToEffectAction subAction = new SubCostToEffectAction(_action);
         subAction.appendEffect(
                 new ChooseAndPutNextCardFromHandOnBottomOfLibrary(subAction, Math.min(_count, cards.size()), cards));
         processSubAction(game, subAction);
@@ -51,10 +52,10 @@ public class ChooseAndPutCardsFromHandBeneathDrawDeckEffect extends AbstractSubA
 
     private class ChooseAndPutNextCardFromHandOnBottomOfLibrary extends ChooseArbitraryCardsEffect {
         private Collection<PhysicalCard> _remainingCards;
-        private SubAction _subAction;
+        private CostToEffectAction _subAction;
         private int _remainingCount;
 
-        public ChooseAndPutNextCardFromHandOnBottomOfLibrary(SubAction subAction, int remainingCount, Collection<PhysicalCard> remainingCards) {
+        public ChooseAndPutNextCardFromHandOnBottomOfLibrary(CostToEffectAction subAction, int remainingCount, Collection<PhysicalCard> remainingCards) {
             super(_playerId, "Choose a card to put on bottom of your deck", remainingCards, 1, 1);
             _subAction = subAction;
             _remainingCount = remainingCount;

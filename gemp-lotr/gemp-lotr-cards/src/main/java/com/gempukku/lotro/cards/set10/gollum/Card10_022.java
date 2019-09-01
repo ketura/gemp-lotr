@@ -8,7 +8,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.actions.SubAction;
+import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.logic.effects.*;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndAssignCharacterToMinionEffect;
@@ -51,7 +51,7 @@ public class Card10_022 extends AbstractPermanent {
                                                             new AssignmentEffect(playerId, companion, gollum), game.getGameState().getCurrentPlayerId(),
                                                             new PreventableEffect.PreventionCost() {
                                                                 @Override
-                                                                public Effect createPreventionCostForPlayer(final SubAction subAction, final String playerId) {
+                                                                public Effect createPreventionCostForPlayer(final CostToEffectAction subAction, final String playerId) {
                                                                     return new AddBurdenEffect(game.getGameState().getCurrentPlayerId(), self, 1) {
                                                                         @Override
                                                                         public String getText(LotroGame game) {

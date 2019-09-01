@@ -7,8 +7,8 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.actions.PlayEventAction;
-import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.cardtype.AbstractEvent;
 import com.gempukku.lotro.logic.effects.PreventableEffect;
 import com.gempukku.lotro.logic.effects.PutOnTheOneRingEffect;
@@ -41,7 +41,7 @@ public class Card20_300 extends AbstractEvent {
                                 new PreventableEffect(action, new PutOnTheOneRingEffect(), game.getGameState().getCurrentPlayerId(),
                                         new PreventableEffect.PreventionCost() {
                                             @Override
-                                            public Effect createPreventionCostForPlayer(SubAction subAction, String playerId) {
+                                            public Effect createPreventionCostForPlayer(CostToEffectAction subAction, String playerId) {
                                                 return new ChooseAndExertCharactersEffect(action, playerId, 1, 1, count, Filters.ringBearer) {
                                                     @Override
                                                     public String getText(LotroGame game) {
