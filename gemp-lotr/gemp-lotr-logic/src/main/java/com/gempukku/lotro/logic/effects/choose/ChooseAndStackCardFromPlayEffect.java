@@ -3,7 +3,7 @@ package com.gempukku.lotro.logic.effects.choose;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.SubCostToEffectAction;
+import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.StackCardFromPlayEffect;
 import com.gempukku.lotro.logic.timing.AbstractSubActionEffect;
@@ -40,7 +40,7 @@ public class ChooseAndStackCardFromPlayEffect extends AbstractSubActionEffect {
 
     @Override
     public void playEffect(LotroGame game) {
-        final SubCostToEffectAction subAction = new SubCostToEffectAction(_action);
+        final SubAction subAction = new SubAction(_action);
         subAction.appendEffect(
                 new ChooseActiveCardEffect(_action.getActionSource(), _playerId, "Choose card to stack", _cardFilter) {
                     @Override

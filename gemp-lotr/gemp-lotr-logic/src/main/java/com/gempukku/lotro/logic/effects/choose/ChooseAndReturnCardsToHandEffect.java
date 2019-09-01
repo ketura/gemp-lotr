@@ -5,7 +5,7 @@ import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.SubCostToEffectAction;
+import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardsEffect;
 import com.gempukku.lotro.logic.effects.ReturnCardsToHandEffect;
 import com.gempukku.lotro.logic.timing.Action;
@@ -32,7 +32,7 @@ public class ChooseAndReturnCardsToHandEffect extends ChooseActiveCardsEffect {
 
     @Override
     protected void cardsSelected(LotroGame game, Collection<PhysicalCard> cards) {
-        SubCostToEffectAction subAction = new SubCostToEffectAction(_action);
+        SubAction subAction = new SubAction(_action);
         subAction.appendEffect(new ReturnCardsToHandEffect(_action.getActionSource(), Filters.in(cards)));
         game.getActionsEnvironment().addActionToStack(subAction);
     }

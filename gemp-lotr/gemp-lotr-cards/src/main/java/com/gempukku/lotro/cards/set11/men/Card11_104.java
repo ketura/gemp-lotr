@@ -5,7 +5,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.PlayEventAction;
-import com.gempukku.lotro.logic.actions.SubCostToEffectAction;
+import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.cardtype.AbstractEvent;
 import com.gempukku.lotro.logic.decisions.YesNoDecision;
 import com.gempukku.lotro.logic.effects.ChooseAndWoundCharactersEffect;
@@ -50,7 +50,7 @@ public class Card11_104 extends AbstractEvent {
                                                                 new YesNoDecision("Do you wish to remove (3) to wound that character again?") {
                                                                     @Override
                                                                     protected void yes() {
-                                                                        SubCostToEffectAction subAction = new SubCostToEffectAction(action);
+                                                                        SubAction subAction = new SubAction(action);
                                                                         subAction.appendCost(
                                                                                 new RemoveTwilightEffect(3));
                                                                         subAction.appendEffect(

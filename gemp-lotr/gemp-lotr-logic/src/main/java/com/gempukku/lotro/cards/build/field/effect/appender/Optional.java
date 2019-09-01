@@ -7,7 +7,7 @@ import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
-import com.gempukku.lotro.logic.actions.SubCostToEffectAction;
+import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.decisions.YesNoDecision;
 import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.lotro.logic.effects.StackActionEffect;
@@ -27,7 +27,7 @@ public class Optional implements EffectAppenderProducer {
         return new DelayedAppender() {
             @Override
             protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
-                SubCostToEffectAction subAction = new SubCostToEffectAction(action);
+                SubAction subAction = new SubAction(action);
                 subAction.appendCost(
                         new PlayoutDecisionEffect(actionContext.getPerformingPlayer(),
                         new YesNoDecision(text) {

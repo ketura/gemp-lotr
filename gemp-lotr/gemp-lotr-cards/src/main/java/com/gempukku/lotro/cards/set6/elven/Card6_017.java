@@ -4,7 +4,7 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.actions.SubCostToEffectAction;
+import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.logic.decisions.ArbitraryCardsSelectionDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
@@ -51,7 +51,7 @@ public class Card6_017 extends AbstractPermanent {
                                         final List<PhysicalCard> selectedCards = getSelectedCardsByResponse(result);
                                         if (selectedCards.size() > 0) {
                                             PhysicalCard selectedCard = selectedCards.get(0);
-                                            SubCostToEffectAction subAction = new SubCostToEffectAction(action);
+                                            SubAction subAction = new SubAction(action);
                                             subAction.appendCost(
                                                     new SelfDiscardEffect(self));
                                             subAction.appendEffect(

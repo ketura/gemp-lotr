@@ -7,7 +7,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
-import com.gempukku.lotro.logic.actions.SubCostToEffectAction;
+import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.effects.AssignmentEffect;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.timing.Action;
@@ -32,7 +32,7 @@ public class ChooseAndAssignMinionToCompanionEffect extends ChooseActiveCardEffe
 
     @Override
     protected void cardSelected(LotroGame game, PhysicalCard card) {
-        SubCostToEffectAction subAction = new SubCostToEffectAction(_action);
+        SubAction subAction = new SubAction(_action);
         subAction.appendEffect(
                 new AssignmentEffect(_playerId, _companion, card) {
                     @Override

@@ -5,7 +5,7 @@ import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.SubCostToEffectAction;
+import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.decisions.CardsSelectionDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.effects.TransferPermanentEffect;
@@ -116,7 +116,7 @@ public class ChooseAndTransferAttachableEffect extends AbstractEffect {
                                                 final Set<PhysicalCard> selectedTargets = getSelectedCardsByResponse(result);
                                                 if (selectedTargets.size() == 1) {
                                                     final PhysicalCard selectedTarget = selectedTargets.iterator().next();
-                                                    SubCostToEffectAction subAction = new SubCostToEffectAction(_action);
+                                                    SubAction subAction = new SubAction(_action);
                                                     subAction.appendEffect(
                                                             new TransferPermanentEffect(attachment, selectedTarget) {
                                                                 @Override

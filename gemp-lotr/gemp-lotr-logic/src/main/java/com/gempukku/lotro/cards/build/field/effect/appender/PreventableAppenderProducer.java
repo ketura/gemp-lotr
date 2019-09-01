@@ -10,7 +10,7 @@ import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.PlayerResolver;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
-import com.gempukku.lotro.logic.actions.SubCostToEffectAction;
+import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.decisions.YesNoDecision;
 import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.lotro.logic.effects.StackActionEffect;
@@ -38,7 +38,7 @@ public class PreventableAppenderProducer implements EffectAppenderProducer {
                 if (costAppender.isPlayableInFull(actionContext)) {
                     final String preventingPlayer = preventingPlayerSource.getPlayer(actionContext);
 
-                    SubCostToEffectAction subAction = new SubCostToEffectAction(action);
+                    SubAction subAction = new SubAction(action);
                     subAction.appendEffect(
                             new PlayoutDecisionEffect(preventingPlayer,
                                     new YesNoDecision(text) {
@@ -64,7 +64,7 @@ public class PreventableAppenderProducer implements EffectAppenderProducer {
                     );
                     return new StackActionEffect(subAction);
                 } else {
-                    SubCostToEffectAction subAction = new SubCostToEffectAction(action);
+                    SubAction subAction = new SubAction(action);
                     effectAppender.appendEffect(cost, subAction, actionContext);
                     return new StackActionEffect(subAction);
                 }

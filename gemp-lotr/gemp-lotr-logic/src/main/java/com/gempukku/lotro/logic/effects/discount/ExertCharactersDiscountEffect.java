@@ -4,7 +4,7 @@ import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.SubCostToEffectAction;
+import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.effects.DiscountEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.logic.timing.AbstractSubActionEffect;
@@ -63,7 +63,7 @@ public class ExertCharactersDiscountEffect extends AbstractSubActionEffect imple
                 minimalExerts = _minimalDiscount / _multiplier + ((_minimalDiscount % _multiplier > 0) ? 1 : 0);
             }
 
-            SubCostToEffectAction subAction = new SubCostToEffectAction(_action);
+            SubAction subAction = new SubAction(_action);
             subAction.appendEffect(
                     new ChooseAndExertCharactersEffect(subAction, _ownerId, minimalExerts, Integer.MAX_VALUE, Filters.and(_exertFilter), Filters.character) {
                         @Override

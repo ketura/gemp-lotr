@@ -5,7 +5,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.PlayEventAction;
-import com.gempukku.lotro.logic.actions.SubCostToEffectAction;
+import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.cardtype.AbstractEvent;
 import com.gempukku.lotro.logic.effects.*;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
@@ -52,7 +52,7 @@ public class Card31_014 extends AbstractEvent {
         action.appendEffect(
                 new ChoiceEffect(action, playerId, possibleEffects));
 
-        SubCostToEffectAction subAction = new SubCostToEffectAction(action);
+        SubAction subAction = new SubAction(action);
         subAction.appendEffect(
                 new ChooseActiveCardEffect(self, playerId, "Choose a [GANDALF] follower", Culture.GANDALF, CardType.FOLLOWER, Zone.SUPPORT) {
             @Override

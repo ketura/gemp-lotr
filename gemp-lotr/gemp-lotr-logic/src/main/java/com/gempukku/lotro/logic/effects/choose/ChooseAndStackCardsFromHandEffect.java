@@ -4,7 +4,7 @@ import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.SubCostToEffectAction;
+import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.decisions.CardsSelectionDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.effects.StackCardFromHandEffect;
@@ -55,7 +55,7 @@ public class ChooseAndStackCardsFromHandEffect extends AbstractEffect {
         final boolean success = hand.size() >= _minimum;
 
         if (hand.size() <= _minimum) {
-            SubCostToEffectAction subAction = new SubCostToEffectAction(_action);
+            SubAction subAction = new SubAction(_action);
             for (PhysicalCard card : hand)
                 subAction.appendEffect(new StackCardFromHandEffect(card, _stackOn));
             game.getActionsEnvironment().addActionToStack(subAction);
@@ -66,7 +66,7 @@ public class ChooseAndStackCardsFromHandEffect extends AbstractEffect {
                         @Override
                         public void decisionMade(String result) throws DecisionResultInvalidException {
                             Set<PhysicalCard> cards = getSelectedCardsByResponse(result);
-                            SubCostToEffectAction subAction = new SubCostToEffectAction(_action);
+                            SubAction subAction = new SubAction(_action);
                             for (PhysicalCard card : cards)
                                 subAction.appendEffect(new StackCardFromHandEffect(card, _stackOn));
                             game.getActionsEnvironment().addActionToStack(subAction);

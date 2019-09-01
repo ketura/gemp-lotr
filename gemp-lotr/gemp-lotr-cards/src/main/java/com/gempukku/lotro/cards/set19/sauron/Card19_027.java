@@ -6,7 +6,7 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.PlayEventAction;
-import com.gempukku.lotro.logic.actions.SubCostToEffectAction;
+import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.cardtype.AbstractEvent;
 import com.gempukku.lotro.logic.effects.*;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndRemoveCultureTokensFromCardEffect;
@@ -44,7 +44,7 @@ public class Card19_027 extends AbstractEvent {
                     @Override
                     protected void doPlayEffect(LotroGame game) {
                         if (game.getGameState().getTwilightPool() >= 1) {
-                            SubCostToEffectAction subAction = new SubCostToEffectAction(action);
+                            SubAction subAction = new SubAction(action);
                             subAction.appendCost(
                                     new RemoveTwilightEffect(1));
                             subAction.appendEffect(

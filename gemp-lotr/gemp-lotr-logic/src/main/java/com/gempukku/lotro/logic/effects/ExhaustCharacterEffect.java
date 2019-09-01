@@ -6,7 +6,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
-import com.gempukku.lotro.logic.actions.SubCostToEffectAction;
+import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.timing.AbstractSubActionEffect;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
@@ -45,7 +45,7 @@ public class ExhaustCharacterEffect extends AbstractSubActionEffect {
 
     @Override
     public void playEffect(LotroGame game) {
-        SubCostToEffectAction subAction = new SubCostToEffectAction(_action);
+        SubAction subAction = new SubAction(_action);
         subAction.appendEffect(new InfiniteExertionEffect(_source, subAction, _filters));
         processSubAction(game, subAction);
         final Collection<PhysicalCard> cards = Filters.filterActive(game, _filters);

@@ -8,7 +8,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.PlayEventAction;
-import com.gempukku.lotro.logic.actions.SubCostToEffectAction;
+import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.cardtype.AbstractEvent;
 import com.gempukku.lotro.logic.decisions.YesNoDecision;
 import com.gempukku.lotro.logic.effects.AddBurdenEffect;
@@ -46,7 +46,7 @@ public class Card11_049 extends AbstractEvent {
                         new YesNoDecision("Do you want to return " + GameUtils.getCardLink(self) + " back into hand?") {
                             @Override
                             protected void yes() {
-                                SubCostToEffectAction subAction = new SubCostToEffectAction(action);
+                                SubAction subAction = new SubAction(action);
                                 subAction.appendCost(
                                         new AddBurdenEffect(playerId, self, 1));
                                 subAction.appendEffect(

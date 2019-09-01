@@ -4,7 +4,7 @@ import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.SubCostToEffectAction;
+import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.decisions.CardsSelectionDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.effects.DiscardStackedCardsEffect;
@@ -57,7 +57,7 @@ public class ChooseAndDiscardStackedCardsEffect extends AbstractSubActionEffect 
             discardableCards.addAll(Filters.filter(game.getGameState().getStackedCards(stackedOnCard), game, _stackedCardFilter));
 
         if (discardableCards.size() <= _minimum) {
-            SubCostToEffectAction subAction = new SubCostToEffectAction(_action);
+            SubAction subAction = new SubAction(_action);
             subAction.appendEffect(new DiscardStackedCardsEffect(_action.getActionSource(), discardableCards));
             discardingCardsCallback(discardableCards);
             processSubAction(game, subAction);
@@ -67,7 +67,7 @@ public class ChooseAndDiscardStackedCardsEffect extends AbstractSubActionEffect 
                         @Override
                         public void decisionMade(String result) throws DecisionResultInvalidException {
                             Set<PhysicalCard> selectedCards = getSelectedCardsByResponse(result);
-                            SubCostToEffectAction subAction = new SubCostToEffectAction(_action);
+                            SubAction subAction = new SubAction(_action);
                             subAction.appendEffect(new DiscardStackedCardsEffect(_action.getActionSource(), selectedCards));
                             discardingCardsCallback(selectedCards);
                             processSubAction(game, subAction);

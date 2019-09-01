@@ -5,7 +5,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.PlayEventAction;
-import com.gempukku.lotro.logic.actions.SubCostToEffectAction;
+import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.cardtype.AbstractEvent;
 import com.gempukku.lotro.logic.effects.*;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
@@ -58,7 +58,7 @@ public class Card17_114 extends AbstractEvent {
                         action.appendEffect(
                                 new ChoiceEffect(action, playerId, possibleEffects));
 
-                        SubCostToEffectAction subAction = new SubCostToEffectAction(action);
+                        SubAction subAction = new SubAction(action);
                         subAction.appendCost(
                                 new LiberateASiteEffect(self, playerId, null));
                         subAction.appendEffect(

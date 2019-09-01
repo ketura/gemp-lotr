@@ -5,7 +5,7 @@ import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.actions.SubCostToEffectAction;
+import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.timing.Action;
 
 import java.util.Collection;
@@ -55,7 +55,7 @@ public class ChooseAndHealCharactersEffect extends ChooseActiveCardsEffect {
 
     @Override
     protected void cardsSelected(LotroGame game, Collection<PhysicalCard> cards) {
-        SubCostToEffectAction subAction = new SubCostToEffectAction(_action);
+        SubAction subAction = new SubAction(_action);
         for (int i = 0; i < _count; i++)
             subAction.appendEffect(new HealCharactersEffect(_action.getActionSource(), Filters.in(cards)));
         game.getActionsEnvironment().addActionToStack(subAction);

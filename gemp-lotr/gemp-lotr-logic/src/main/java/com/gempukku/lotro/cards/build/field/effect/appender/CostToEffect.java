@@ -7,7 +7,7 @@ import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
-import com.gempukku.lotro.logic.actions.SubCostToEffectAction;
+import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.effects.StackActionEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 import org.json.simple.JSONObject;
@@ -26,7 +26,7 @@ public class CostToEffect implements EffectAppenderProducer {
         return new DelayedAppender() {
             @Override
             protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
-                SubCostToEffectAction subAction = new SubCostToEffectAction(action);
+                SubAction subAction = new SubAction(action);
 
                 for (EffectAppender costAppender : costAppenders)
                     costAppender.appendEffect(true, subAction, actionContext);

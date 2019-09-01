@@ -5,7 +5,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.actions.SubCostToEffectAction;
+import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.logic.effects.AddUntilEndOfPhaseActionProxyEffect;
 import com.gempukku.lotro.logic.effects.PreventAllWoundsActionProxy;
@@ -46,7 +46,7 @@ public class Card4_047 extends AbstractPermanent {
                                     new ChooseCardsFromHandEffect(playerId, 1, 1, Side.FREE_PEOPLE) {
                                         @Override
                                         protected void cardsSelected(LotroGame game, Collection<PhysicalCard> selectedCards) {
-                                            SubCostToEffectAction subAction = new SubCostToEffectAction(action);
+                                            SubAction subAction = new SubAction(action);
                                             for (PhysicalCard selectedCard : selectedCards) {
                                                 subAction.appendEffect(
                                                         new StackCardFromHandEffect(selectedCard, self));

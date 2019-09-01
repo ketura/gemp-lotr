@@ -6,7 +6,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.PlayEventAction;
-import com.gempukku.lotro.logic.actions.SubCostToEffectAction;
+import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.cardtype.AbstractEvent;
 import com.gempukku.lotro.logic.effects.*;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
@@ -49,7 +49,7 @@ public class Card13_178 extends AbstractEvent {
                         if (!PlayConditions.location(game, Filters.region(1))) {
                             int wounds = game.getGameState().getWounds(companion) - 1;
                             for (int i = 0; i < wounds; i++) {
-                                SubCostToEffectAction subAction = new SubCostToEffectAction(action);
+                                SubAction subAction = new SubAction(action);
                                 subAction.appendCost(
                                         new HealCharactersEffect(self, companion));
                                 subAction.appendEffect(

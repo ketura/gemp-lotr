@@ -7,7 +7,7 @@ import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.PlayEventAction;
-import com.gempukku.lotro.logic.actions.SubCostToEffectAction;
+import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.cardtype.AbstractEvent;
 import com.gempukku.lotro.logic.decisions.MultipleChoiceAwaitingDecision;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
@@ -46,7 +46,7 @@ public class Card7_011 extends AbstractEvent {
                                                 @Override
                                                 protected void validDecisionMade(int index, String result) {
                                                     if (index == 0) {
-                                                        SubCostToEffectAction subAction = new SubCostToEffectAction(action);
+                                                        SubAction subAction = new SubAction(action);
                                                         subAction.appendCost(
                                                                 new ExertCharactersEffect(action, self, card));
                                                         subAction.appendEffect(

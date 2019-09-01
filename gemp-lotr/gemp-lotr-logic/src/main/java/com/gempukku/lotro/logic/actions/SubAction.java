@@ -6,10 +6,10 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 
-public class SubCostToEffectAction extends AbstractCostToEffectAction {
+public class SubAction extends AbstractCostToEffectAction {
     private Action _action;
 
-    public SubCostToEffectAction(Action action) {
+    public SubAction(Action action) {
         _action = action;
     }
 

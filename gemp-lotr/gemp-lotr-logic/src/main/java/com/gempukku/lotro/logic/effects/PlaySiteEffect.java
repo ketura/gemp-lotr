@@ -9,7 +9,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
-import com.gempukku.lotro.logic.actions.SubCostToEffectAction;
+import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.modifiers.ModifierFlag;
 import com.gempukku.lotro.logic.modifiers.SpecialFlagModifier;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
@@ -96,7 +96,7 @@ public class PlaySiteEffect extends AbstractEffect {
 
         if (newSite.size() > 0 && (currentSite == null || game.getModifiersQuerying().canReplaceSite(game, _playerId, currentSite))
                 && game.getModifiersQuerying().canPlaySite(game, _playerId)) {
-            SubCostToEffectAction subAction = new SubCostToEffectAction(_action);
+            SubAction subAction = new SubAction(_action);
             subAction.appendEffect(
                     new ChooseArbitraryCardsEffect(_playerId, "Choose site to play", newSite, 1, 1) {
                         @Override

@@ -4,7 +4,7 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.actions.SubCostToEffectAction;
+import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.logic.decisions.ArbitraryCardsSelectionDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
@@ -60,7 +60,7 @@ public class Card20_083 extends AbstractPermanent {
                                                 new YesNoDecision("Do you want to discard this condition to discard that card?") {
                                                     @Override
                                                     protected void yes() {
-                                                        SubCostToEffectAction subAction = new SubCostToEffectAction(action);
+                                                        SubAction subAction = new SubAction(action);
                                                         subAction.appendCost(
                                                                 new SelfDiscardEffect(self));
                                                         subAction.appendEffect(

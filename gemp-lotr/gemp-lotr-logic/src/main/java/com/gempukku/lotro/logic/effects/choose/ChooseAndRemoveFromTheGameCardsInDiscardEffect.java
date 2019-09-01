@@ -5,7 +5,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
-import com.gempukku.lotro.logic.actions.SubCostToEffectAction;
+import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.decisions.ArbitraryCardsSelectionDecision;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import com.gempukku.lotro.logic.effects.RemoveCardsFromDiscardEffect;
@@ -70,7 +70,7 @@ public class ChooseAndRemoveFromTheGameCardsInDiscardEffect extends AbstractSubA
     }
 
     private void processForCards(LotroGame game, Collection<PhysicalCard> cards) {
-        _resultSubAction = new SubCostToEffectAction(_action);
+        _resultSubAction = new SubAction(_action);
         _resultSubAction.appendEffect(
                 new RemoveCardsFromDiscardEffect(_playerId, _source, cards));
         processSubAction(game, _resultSubAction);

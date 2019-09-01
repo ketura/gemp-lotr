@@ -5,7 +5,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.PlayEventAction;
-import com.gempukku.lotro.logic.actions.SubCostToEffectAction;
+import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.cardtype.AbstractEvent;
 import com.gempukku.lotro.logic.effects.*;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
@@ -40,7 +40,7 @@ public class Card17_045 extends AbstractEvent {
                                                 new AddUntilEndOfPhaseModifierEffect(
                                                         new StrengthModifier(self, minion, null,
                                                                 Filters.filter(game.getGameState().getStackedCards(possession), game, CardType.MINION).size())));
-                                        SubCostToEffectAction subAction = new SubCostToEffectAction(action);
+                                        SubAction subAction = new SubAction(action);
                                         subAction.appendCost(
                                                 new DiscardCardsFromPlayEffect(playerId, self, possession));
                                         subAction.appendEffect(

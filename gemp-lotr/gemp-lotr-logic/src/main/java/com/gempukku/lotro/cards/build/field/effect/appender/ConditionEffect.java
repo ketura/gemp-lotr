@@ -9,7 +9,7 @@ import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
-import com.gempukku.lotro.logic.actions.SubCostToEffectAction;
+import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.effects.StackActionEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
@@ -30,7 +30,7 @@ public class ConditionEffect implements EffectAppenderProducer {
             @Override
             protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
                 if (checkConditions(actionContext)) {
-                    SubCostToEffectAction subAction = new SubCostToEffectAction(action);
+                    SubAction subAction = new SubAction(action);
                     effectAppender.appendEffect(cost, subAction, actionContext);
                     return new StackActionEffect(subAction);
                 } else {

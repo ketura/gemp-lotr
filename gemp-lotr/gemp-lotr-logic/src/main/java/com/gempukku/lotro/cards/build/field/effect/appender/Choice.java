@@ -10,7 +10,7 @@ import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.PlayerResolver;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
-import com.gempukku.lotro.logic.actions.SubCostToEffectAction;
+import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.decisions.MultipleChoiceAwaitingDecision;
 import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.lotro.logic.effects.StackActionEffect;
@@ -60,13 +60,13 @@ public class Choice implements EffectAppenderProducer {
                     };
 
                 if (playableEffectAppenders.size() == 1) {
-                    SubCostToEffectAction subAction = new SubCostToEffectAction(action);
+                    SubAction subAction = new SubAction(action);
                     playableEffectAppenders.get(0).appendEffect(cost, subAction, actionContext);
                     return new StackActionEffect(subAction);
                 }
 
                 final String choosingPlayer = playerSource.getPlayer(actionContext);
-                SubCostToEffectAction subAction = new SubCostToEffectAction(action);
+                SubAction subAction = new SubAction(action);
                 subAction.appendCost(
                         new PlayoutDecisionEffect(choosingPlayer,
                                 new MultipleChoiceAwaitingDecision(1, "Choose action to perform", effectTexts.toArray(new String[0])) {
