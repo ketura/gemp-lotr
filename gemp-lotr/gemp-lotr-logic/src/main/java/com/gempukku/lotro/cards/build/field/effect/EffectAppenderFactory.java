@@ -66,6 +66,7 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("removekeyword", new RemoveKeyword());
         effectAppenderProducers.put("putcardsfromdiscardontopofdrawdeck", new PutCardsFromDiscardOnTopOfDrawDeck());
         effectAppenderProducers.put("lookattopcardsofdrawdeck", new LookAtTopCardsOfDrawDeck());
+        effectAppenderProducers.put("addthreats", new AddThreats());
     }
 
     public EffectAppender getEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {

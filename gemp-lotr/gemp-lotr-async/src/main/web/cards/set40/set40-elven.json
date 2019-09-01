@@ -1,7 +1,6 @@
 {
   "40_33": {
     "title": "Arrows of Light",
-
     "culture": "elven",
     "cost": 2,
     "type": "event",
@@ -14,7 +13,7 @@
       "type": "event",
       "cost": {
         "type": "reduceArcheryTotal",
-
+        "side": "free people",
         "memorize": "reducedBy"
       },
       "effect": {
@@ -30,7 +29,6 @@
   "40_34": {
     "title": "*Arwen",
     "subtitle": "Fearless Rider",
-
     "culture": "elven",
     "cost": 2,
     "type": "companion",
@@ -51,7 +49,6 @@
   "40_35": {
     "title": "*Arwen",
     "subtitle": "Lady of Imladris",
-
     "culture": "elven",
     "cost": 2,
     "type": "companion",
@@ -92,7 +89,6 @@
   "40_36": {
     "title": "*Bow of the Galadhrim",
     "subtitle": "Galadriel's Gift",
-
     "culture": "elven",
     "cost": 1,
     "type": "possession",
@@ -118,7 +114,6 @@
   },
   "40_37": {
     "title": "*Bruinen Unleashed",
-
     "culture": "elven",
     "cost": 1,
     "type": "condition",
@@ -156,7 +151,6 @@
   "40_38": {
     "title": "*Celeborn",
     "subtitle": "Lord of the Golden Wood",
-
     "culture": "elven",
     "cost": 2,
     "type": "ally",
@@ -239,6 +233,7 @@
         ],
         "effect": {
           "type": "modifyArcheryTotal",
+          "side": "free people",
           "amount": 2
         }
       }
@@ -676,6 +671,217 @@
       ]
     }
   },
+  "40_52": {
+    "title": "*Legolas",
+    "subtitle": "Swiftshot",
+    "culture": "elven",
+    "cost": 2,
+    "type": "companion",
+    "race": "elf",
+    "strength": 6,
+    "vitality": 3,
+    "resistance": 8,
+    "keyword": "archer",
+    "effects": {
+      "type": "activated",
+      "phase": "archery",
+      "condition": {
+        "type": "location",
+        "filter": "battleground"
+      },
+      "cost": {
+        "type": "exert",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "modifyArcheryTotal",
+        "side": "free people",
+        "amount": 1
+      }
+    }
+  },
+  "40_53": {
+    "title": "*Lights of Caras Galadhon",
+    "culture": "elven",
+    "cost": 1,
+    "type": "condition",
+    "keyword": "support area",
+    "condition": {
+      "type": "canSpot",
+      "filter": "elf"
+    },
+    "effects": {
+      "type": "trigger",
+      "trigger": {
+        "type": "movesTo",
+        "filter": "sanctuary"
+      },
+      "cost": {
+        "type": "exert",
+        "filter": "choose(elf)",
+        "memorize": "exertedElf"
+      },
+      "effect": {
+        "type": "removeBurdens",
+        "amount": {
+          "type": "condition",
+          "condition": {
+            "type": "memoryMatches",
+            "memory": "exertedElf",
+            "filter": "name(Galadriel)"
+          },
+          "true": 2,
+          "false": 1
+        }
+      }
+    }
+  },
+  "40_54": {
+    "title": "*Long-knives of Legolas",
+    "subtitle": "Dancing Blades",
+    "culture": "elven",
+    "cost": 1,
+    "type": "possession",
+    "possession": "hand weapon",
+    "strength": 1,
+    "target": "name(Legolas)",
+    "effects": {
+      "type": "modifyStrength",
+      "filter": "wounded,minion,inSkirmishAgainst(bearer)",
+      "amount": -2
+    }
+  },
+  "40_55": {
+    "title": "Lorien Patrol",
+    "culture": "elven",
+    "cost": 1,
+    "type": "event",
+    "keyword": "archery",
+    "effects": {
+      "type": "event",
+      "cost": [
+        {
+          "type": "exert",
+          "filter": "choose(culture(elven),ally)"
+        },
+        {
+          "type": "addThreats"
+        }
+      ],
+      "effect": [
+        {
+          "type": "wound",
+          "filter": "choose(minion)",
+          "memorize": "woundedMinion"
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "type": "memoryMatches",
+            "memory": "woundedMinion",
+            "filter": "culture(isengard),minion"
+          },
+          "effect": {
+            "type": "wound",
+            "filter": "memory(woundedMinion)"
+          }
+        }
+      ]
+    }
+  },
+  "40_57": {
+    "title": "*Peering Forward",
+    "culture": "elven",
+    "cost": 0,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": {
+      "type": "trigger",
+      "trigger": {
+        "type": "revealCardFromTopOfDrawDeck"
+      },
+      "optional": true,
+      "cost": {
+        "type": "exert",
+        "filter": "choose(elf)"
+      },
+      "effect": {
+        "type": "modifyStrength",
+        "filter": "choose(minion)",
+        "amount": -1,
+        "until": "start(regroup)"
+      }
+    }
+  },
+  "40_58": {
+    "title": "*Silent Scouts",
+    "culture": "elven",
+    "cost": 1,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": {
+      "type": "trigger",
+      "trigger": {
+        "type": "moves"
+      },
+      "condition": {
+        "type": "phase",
+        "phase": "regroup"
+      },
+      "effect": [
+        {
+          "type": "revealTopCardsOfDrawDeck",
+          "memorize": "revealedCard"
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "type": "memoryMatches",
+            "memory": "revealedCard",
+            "filter": "culture(elven)"
+          },
+          "effect": {
+            "type": "optional",
+            "text": "Would you like to make the Shadow player wound a minion?",
+            "effect": {
+              "type": "wound",
+              "player": "shadowPlayer",
+              "filter": "choose(minion)"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "40_59": {
+    "title": "*The Tale of Gil-Galad",
+    "culture": "elven",
+    "cost": 1,
+    "type": "condition",
+    "target": "elf,companion",
+    "vitality": 1,
+    "keyword": "tale",
+    "effects": {
+      "type": "activated",
+      "phase": "skirmish",
+      "cost": [
+        {
+          "type": "memorize",
+          "filter": "bearer",
+          "memory": "bearer"
+        },
+        {
+          "type": "discard",
+          "filter": "self"
+        }
+      ],
+      "effect": {
+        "type": "modifyStrength",
+        "filter": "memory(bearer)",
+        "amount": 2
+      }
+    }
+  },
   "40_60": {
     "title": "*The Mirror of Galadriel",
     "subtitle": "Revealer of Portents",
@@ -727,5 +933,93 @@
         ]
       }
     ]
+  },
+  "40_61": {
+    "title": "*Three for the Elven-kings",
+    "culture": "elven",
+    "cost": 0,
+    "type": "artifact",
+    "keyword": "support area",
+    "effects": [
+      {
+        "type": "activated",
+        "phase": "fellowship",
+        "effect": {
+          "type": "stackCardsFromHand",
+          "filter": "choose(culture(elven))",
+          "where": "self"
+        }
+      },
+      {
+        "type": "activatedTrigger",
+        "trigger": {
+          "type": "aboutToDiscard",
+          "filter": "culture(elven),condition"
+        },
+        "cost": {
+          "type": "discardStackedCards",
+          "on": "self",
+          "count": 2
+        },
+        "effect": {
+          "type": "preventDiscard",
+          "filter": "choose(culture(elven),condition)"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "regroup",
+        "cost": {
+          "type": "discardStackedCards",
+          "on": "self",
+          "count": 3
+        },
+        "effect": [
+          {
+            "type": "heal",
+            "filter": "choose(elf)",
+            "count": "0-1"
+          },
+          {
+            "type": "heal",
+            "filter": "choose(elf)",
+            "count": "0-1"
+          },
+          {
+            "type": "heal",
+            "filter": "choose(elf)",
+            "count": "0-1"
+          }
+        ]
+      }
+    ]
+  },
+  "40_62": {
+    "title": "We Could Have Shot Him in the Dark",
+    "culture": "elven",
+    "cost": 2,
+    "type": "event",
+    "keyword": "archery",
+    "condition": {
+      "type": "canSpot",
+      "count": 2,
+      "filter": "elf,archer"
+    },
+    "effects": {
+      "type": "event",
+      "effect": {
+        "type": "modifyArcheryTotal",
+        "side": "free people",
+        "amount": {
+          "type": "condition",
+          "condition": {
+            "type": "location",
+            "filter": "forest"
+          },
+          "true": 3,
+          "false": 2
+        }
+      }
+    }
   }
 }

@@ -147,6 +147,7 @@
       "type": "event",
       "effect": {
         "type": "modifyArcheryTotal",
+        "side": "free people",
         "amount": 1
       }
     }

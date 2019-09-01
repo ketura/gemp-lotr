@@ -23,8 +23,9 @@ import java.util.List;
 public class Wound implements EffectAppenderProducer {
     @Override
     public EffectAppender createEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(effectObject, "count", "times", "filter", "memorize");
+        FieldUtils.validateAllowedFields(effectObject, "count", "times", "filter", "memorize", "player");
 
+        final String player = FieldUtils.getString(effectObject.get("player"), "player", "you");
         final ValueSource valueSource = ValueResolver.resolveEvaluator(effectObject.get("count"), 1, environment);
         final int times = FieldUtils.getInteger(effectObject.get("times"), "times", 1);
         final String filter = FieldUtils.getString(effectObject.get("filter"), "filter");
@@ -35,7 +36,7 @@ public class Wound implements EffectAppenderProducer {
         result.addEffectAppender(
                 CardResolver.resolveCards(filter,
                         (actionContext) -> Filters.canTakeWounds(actionContext.getSource(), times),
-                        valueSource, memory, "you", "Choose cards to wound", environment));
+                        valueSource, memory, player, "Choose cards to wound", environment));
         result.addEffectAppender(
                 new DelayedAppender() {
                     @Override

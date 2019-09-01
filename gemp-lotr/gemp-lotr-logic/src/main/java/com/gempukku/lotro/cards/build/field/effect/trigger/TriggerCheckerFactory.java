@@ -22,6 +22,8 @@ public class TriggerCheckerFactory {
         triggerCheckers.put("condition", new ConditionTrigger());
         triggerCheckers.put("assignedtoskirmish", new AssignedToSkirmish());
         triggerCheckers.put("revealcardfromtopofdrawdeck", new RevealCardFromTopOfDrawDeck());
+        triggerCheckers.put("movesto", new MovesTo());
+        triggerCheckers.put("moves", new Moves());
     }
 
     public TriggerChecker getTriggerChecker(JSONObject object, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {

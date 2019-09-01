@@ -820,6 +820,7 @@
       },
       "effect": {
         "type": "modifyArcheryTotal",
+        "side": "shadow",
         "amount": {
           "type": "multiply",
           "source": {
