@@ -98,7 +98,7 @@
           "type": "condition",
           "condition": {
             "type": "canSpot",
-            "filter": "ring bearer,hasAttached(self)"
+            "filter": "ring bearer,bearer"
           }
         },
         "effect": {
@@ -110,7 +110,7 @@
         "type": "trigger",
         "trigger": {
           "type": "assignedToSkirmish",
-          "filter": "hasAttached(self)"
+          "filter": "bearer"
         },
         "effect": {
           "type": "choice",
@@ -127,7 +127,7 @@
             {
               "type": "modifyStrength",
               "until": "start(regroup)",
-              "filter": "all(hasAttached(self))"
+              "filter": "all(bearer)"
             }
           ]
         }

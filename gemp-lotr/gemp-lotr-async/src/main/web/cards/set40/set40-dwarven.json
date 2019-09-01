@@ -214,7 +214,7 @@
       "type": "trigger",
       "trigger": {
         "type": "winsSkirmish",
-        "filter": "hasAttached(self)"
+        "filter": "bearer"
       },
       "cost": {
         "type": "discardStackedCards",
@@ -240,12 +240,12 @@
       "type": "activatedTrigger",
       "trigger": {
         "type": "aboutToTakeWound",
-        "filter": "hasAttached(self)"
+        "filter": "bearer"
       },
       "cost": [
         {
           "type": "memorize",
-          "filter": "hasAttached(self)",
+          "filter": "bearer",
           "memory": "bearer"
         },
         {
@@ -357,7 +357,7 @@
       "cost": [
         {
           "type": "memorize",
-          "filter": "hasAttached(self)",
+          "filter": "bearer",
           "memory": "bearer"
         },
         {
@@ -486,7 +486,7 @@
     "effects": [
       {
         "type": "addKeyword",
-        "filter": "hasAttached(self),name(Gimli)",
+        "filter": "bearer,name(Gimli)",
         "keyword": "damage+1"
       },
       {
@@ -494,7 +494,7 @@
         "optional": true,
         "trigger": {
           "type": "winsSkirmish",
-          "filter": "hasAttached(self)"
+          "filter": "bearer"
         },
         "effect": {
           "type": "stackCardsFromDiscard",

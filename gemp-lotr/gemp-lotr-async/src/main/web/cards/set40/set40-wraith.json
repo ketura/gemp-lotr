@@ -11,7 +11,7 @@
     "target": "nazgul",
     "effects": {
       "type": "modifyStrength",
-      "filter": "hasAttached(self),inSkirmishAgainst(companion,resistanceLessThan(4))",
+      "filter": "bearer,inSkirmishAgainst(companion,resistanceLessThan(4))",
       "amount": 2
     }
   },

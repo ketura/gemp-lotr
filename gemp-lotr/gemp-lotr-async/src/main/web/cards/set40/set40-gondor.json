@@ -25,7 +25,7 @@
         },
         "effect": {
           "type": "discard",
-          "filter": "choose(side(shadow),condition,attachedTo(hasAttached(self)))"
+          "filter": "choose(side(shadow),condition,attachedTo(bearer))"
         }
       },
       {
@@ -37,7 +37,7 @@
         "cost": [
           {
             "type": "memorize",
-            "filter": "hasAttached(self)",
+            "filter": "bearer",
             "memory": "bearer"
           },
           {

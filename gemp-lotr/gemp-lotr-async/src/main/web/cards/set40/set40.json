@@ -19,12 +19,12 @@
         ],
         "trigger": {
           "type": "aboutToTakeWound",
-          "filter": "hasAttached(self)"
+          "filter": "bearer"
         },
         "effect": [
           {
             "type": "negateWound",
-            "filter": "all(hasAttached(self))"
+            "filter": "all(bearer)"
           },
           {
             "type": "addBurden"
@@ -46,7 +46,7 @@
           "effects": [
             {
               "type": "exert",
-              "filter": "choose(hasAttached(self))"
+              "filter": "choose(bearer)"
             },
             {
               "type": "discardCardAtRandomFromHand",
@@ -82,12 +82,12 @@
         ],
         "trigger": {
           "type": "aboutToTakeWound",
-          "filter": "hasAttached(self)"
+          "filter": "bearer"
         },
         "effect": [
           {
             "type": "negateWound",
-            "filter": "all(hasAttached(self))"
+            "filter": "all(bearer)"
           },
           {
             "type": "addBurden"
@@ -98,7 +98,7 @@
         "type": "activatedTrigger",
         "trigger": {
           "type": "aboutToTakeWound",
-          "filter": "hasAttached(self)"
+          "filter": "bearer"
         },
         "condition": [
           {
@@ -112,7 +112,7 @@
         "effect": [
           {
             "type": "negateWound",
-            "filter": "all(hasAttached(self))"
+            "filter": "all(bearer)"
           },
           {
             "type": "addBurden"

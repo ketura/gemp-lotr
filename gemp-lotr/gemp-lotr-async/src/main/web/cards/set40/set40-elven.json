@@ -108,7 +108,7 @@
       "optional": true,
       "cost": {
         "type": "exert",
-        "filter": "choose(hasAttached(self))"
+        "filter": "choose(bearer)"
       },
       "effect": {
         "type": "wound",

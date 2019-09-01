@@ -28,7 +28,7 @@
       "trigger": {
         "type": "losesSkirmish",
         "filter": "minion",
-        "against": "hasAttached(self)",
+        "against": "bearer",
         "memorize": "losingMinion"
       },
       "effect": {
