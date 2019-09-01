@@ -3,11 +3,11 @@ package com.gempukku.lotro.cards.build;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
+import com.gempukku.lotro.game.ExtraPlayCost;
 import com.gempukku.lotro.game.LotroCardBlueprint;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.*;
-import com.gempukku.lotro.logic.modifiers.AbstractExtraPlayCostModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
@@ -60,6 +60,8 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
 
     private List<TwilightCostModifierSource> twilightCostModifiers;
 
+    private List<ExtraPlayCostSource> extraPlayCosts;
+
     private ActionSource playEventAction;
 
     // Building methods
@@ -67,6 +69,12 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
     public void setAllyHomeSites(SitesBlock block, int[] numbers) {
         this.allyHomeBlock = block;
         this.allyHomeSites = numbers;
+    }
+
+    public void appendExtraPlayCost(ExtraPlayCostSource extraPlayCostSource) {
+        if (extraPlayCosts == null)
+            extraPlayCosts = new LinkedList<>();
+        extraPlayCosts.add(extraPlayCostSource);
     }
 
     public void appendBeforeActivatedTrigger(ActionSource actionSource) {
@@ -347,7 +355,7 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
         Filterable[] result = new Filterable[targetFilters.size()];
         for (int i = 0; i < result.length; i++) {
             final FilterableSource filterableSource = targetFilters.get(i);
-            result[i] = filterableSource.getFilterable(null, playerId, game, self, null, null);
+            result[i] = filterableSource.getFilterable(null);
         }
 
         return Filters.and(result);
@@ -388,15 +396,15 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
         if (requirements == null)
             return true;
 
-        DefaultActionContext dummy = new DefaultActionContext();
+        DefaultActionContext dummy = new DefaultActionContext(self.getOwner(), game, self, null, null);
 
         for (Requirement requirement : requirements) {
-            if (!requirement.accepts(dummy, null, game, self, null, null))
+            if (!requirement.accepts(dummy))
                 return false;
         }
 
         if (playEventAction != null)
-            playEventAction.isValid(dummy, null, game, self, null, null);
+            playEventAction.isValid(dummy);
 
         return true;
     }
@@ -415,8 +423,9 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
 
     @Override
     public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self) {
+        DefaultActionContext actionContext = new DefaultActionContext(playerId, game, self, null, null);
         PlayEventAction action = new PlayEventAction(self);
-        playEventAction.createAction(action, playerId, game, self, null, null);
+        playEventAction.createAction(action, actionContext);
         return action;
     }
 
@@ -428,11 +437,10 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
         List<RequiredTriggerAction> result = new LinkedList<>();
 
         for (ActionSource requiredBeforeTrigger : requiredBeforeTriggers) {
-            DefaultActionContext actionContext = new DefaultActionContext();
-            if (requiredBeforeTrigger.isValid(actionContext, null, game, self, null, effect)) {
+            DefaultActionContext actionContext = new DefaultActionContext(null, game, self, null, effect);
+            if (requiredBeforeTrigger.isValid(actionContext)) {
                 RequiredTriggerAction action = new RequiredTriggerAction(self);
-                action.setActionContext(actionContext);
-                requiredBeforeTrigger.createAction(action, null, game, self, null, effect);
+                requiredBeforeTrigger.createAction(action, actionContext);
                 result.add(action);
             }
         }
@@ -448,11 +456,10 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
         List<RequiredTriggerAction> result = new LinkedList<>();
 
         for (ActionSource requiredAfterTrigger : requiredAfterTriggers) {
-            DefaultActionContext actionContext = new DefaultActionContext();
-            if (requiredAfterTrigger.isValid(actionContext, null, game, self, effectResult, null)) {
+            DefaultActionContext actionContext = new DefaultActionContext(null, game, self, effectResult, null);
+            if (requiredAfterTrigger.isValid(actionContext)) {
                 RequiredTriggerAction action = new RequiredTriggerAction(self);
-                action.setActionContext(actionContext);
-                requiredAfterTrigger.createAction(action, null, game, self, effectResult, null);
+                requiredAfterTrigger.createAction(action, actionContext);
                 result.add(action);
             }
         }
@@ -468,11 +475,10 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
         List<OptionalTriggerAction> result = new LinkedList<>();
 
         for (ActionSource optionalBeforeTrigger : optionalBeforeTriggers) {
-            DefaultActionContext actionContext = new DefaultActionContext();
-            if (optionalBeforeTrigger.isValid(actionContext, null, game, self, null, effect)) {
+            DefaultActionContext actionContext = new DefaultActionContext(playerId, game, self, null, effect);
+            if (optionalBeforeTrigger.isValid(actionContext)) {
                 OptionalTriggerAction action = new OptionalTriggerAction(self);
-                action.setActionContext(actionContext);
-                optionalBeforeTrigger.createAction(action, null, game, self, null, effect);
+                optionalBeforeTrigger.createAction(action, actionContext);
                 result.add(action);
             }
         }
@@ -488,11 +494,10 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
         List<OptionalTriggerAction> result = new LinkedList<>();
 
         for (ActionSource optionalAfterTrigger : optionalAfterTriggers) {
-            DefaultActionContext actionContext = new DefaultActionContext();
-            if (optionalAfterTrigger.isValid(actionContext, null, game, self, effectResult, null)) {
+            DefaultActionContext actionContext = new DefaultActionContext(playerId, game, self, effectResult, null);
+            if (optionalAfterTrigger.isValid(actionContext)) {
                 OptionalTriggerAction action = new OptionalTriggerAction(self);
-                action.setActionContext(actionContext);
-                optionalAfterTrigger.createAction(action, null, game, self, effectResult, null);
+                optionalAfterTrigger.createAction(action, actionContext);
                 result.add(action);
             }
         }
@@ -507,11 +512,10 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
 
         List<ActivateCardAction> result = new LinkedList<>();
         for (ActionSource beforeActivatedTrigger : beforeActivatedTriggers) {
-            DefaultActionContext actionContext = new DefaultActionContext();
-            if (beforeActivatedTrigger.isValid(actionContext, playerId, game, self, null, effect)) {
+            DefaultActionContext actionContext = new DefaultActionContext(playerId, game, self, null, effect);
+            if (beforeActivatedTrigger.isValid(actionContext)) {
                 ActivateCardAction action = new ActivateCardAction(self);
-                action.setActionContext(actionContext);
-                beforeActivatedTrigger.createAction(action, playerId, game, self, null, effect);
+                beforeActivatedTrigger.createAction(action, actionContext);
                 result.add(action);
             }
         }
@@ -526,13 +530,25 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
 
         List<ActivateCardAction> result = new LinkedList<>();
         for (ActionSource afterActivatedTrigger : afterActivatedTriggers) {
-            DefaultActionContext actionContext = new DefaultActionContext();
-            if (afterActivatedTrigger.isValid(actionContext, playerId, game, self, effectResult, null)) {
+            DefaultActionContext actionContext = new DefaultActionContext(playerId, game, self, effectResult, null);
+            if (afterActivatedTrigger.isValid(actionContext)) {
                 ActivateCardAction action = new ActivateCardAction(self);
-                action.setActionContext(actionContext);
-                afterActivatedTrigger.createAction(action, playerId, game, self, effectResult, null);
+                afterActivatedTrigger.createAction(action, actionContext);
                 result.add(action);
             }
+        }
+
+        return result;
+    }
+
+    @Override
+    public List<? extends ExtraPlayCost> getExtraCostToPlay(LotroGame game, PhysicalCard self) {
+        if (extraPlayCosts == null)
+            return null;
+
+        List<ExtraPlayCost> result = new LinkedList<>();
+        for (ExtraPlayCostSource extraPlayCost : extraPlayCosts) {
+            result.add(extraPlayCost.getExtraPlayCost(game, self));
         }
 
         return result;
@@ -568,11 +584,6 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
     @Override
     public boolean isExtraPossessionClass(LotroGame game, PhysicalCard self, PhysicalCard attachedTo) {
         return false;
-    }
-
-    @Override
-    public List<? extends AbstractExtraPlayCostModifier> getExtraCostToPlayModifiers(LotroGame game, PhysicalCard self) {
-        return null;
     }
 
     @Override
@@ -633,7 +644,8 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
 
         List<Modifier> result = new LinkedList<>();
         for (ModifierSource inPlayModifier : sources) {
-            result.add(inPlayModifier.getModifier(game, self));
+            ActionContext actionContext = new DefaultActionContext(null, game, self, null, null);
+            result.add(inPlayModifier.getModifier(actionContext));
         }
         return result;
     }
@@ -644,11 +656,10 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
 
         List<ActivateCardAction> result = new LinkedList<>();
         for (ActionSource inPlayPhaseAction : sources) {
-            DefaultActionContext actionContext = new DefaultActionContext();
-            if (inPlayPhaseAction.isValid(actionContext, playerId, game, self, null, null)) {
+            DefaultActionContext actionContext = new DefaultActionContext(playerId, game, self, null, null);
+            if (inPlayPhaseAction.isValid(actionContext)) {
                 ActivateCardAction action = new ActivateCardAction(self);
-                action.setActionContext(actionContext);
-                inPlayPhaseAction.createAction(action, playerId, game, self, null, null);
+                inPlayPhaseAction.createAction(action, actionContext);
                 result.add(action);
             }
         }

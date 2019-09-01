@@ -7,9 +7,6 @@ import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.logic.timing.results.PlayCardResult;
 import org.json.simple.JSONObject;
@@ -24,11 +21,11 @@ public class PlayedTriggerCheckerProducer implements TriggerCheckerProducer {
         final FilterableSource filter = environment.getFilterFactory().generateFilter(filterString);
         return new TriggerChecker() {
             @Override
-            public boolean accepts(ActionContext actionContext, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
-                final Filterable filterable = filter.getFilterable(actionContext, playerId, game, self, effectResult, effect);
-                final boolean played = TriggerConditions.played(game, effectResult, filterable);
+            public boolean accepts(ActionContext actionContext) {
+                final Filterable filterable = filter.getFilterable(actionContext);
+                final boolean played = TriggerConditions.played(actionContext.getGame(), actionContext.getEffectResult(), filterable);
                 if (played && memorize != null) {
-                    PhysicalCard playedCard = ((PlayCardResult) effectResult).getPlayedCard();
+                    PhysicalCard playedCard = ((PlayCardResult) actionContext.getEffectResult()).getPlayedCard();
                     actionContext.setCardMemory(memorize, playedCard);
                 }
                 return played;

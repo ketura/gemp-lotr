@@ -5,30 +5,33 @@ import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
 import com.gempukku.lotro.cards.build.FilterableSource;
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
-import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.timing.results.CharacterWonSkirmishResult;
 import org.json.simple.JSONObject;
 
 public class WinsSkirmish implements TriggerCheckerProducer {
     @Override
     public TriggerChecker getTriggerChecker(JSONObject value, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(value, "filter", "against");
+        FieldUtils.validateAllowedFields(value, "filter", "against", "memorize");
 
         String winner = FieldUtils.getString(value.get("filter"), "filter", "any");
         String against = FieldUtils.getString(value.get("against"), "against", "any");
+        final String memorize = FieldUtils.getString(value.get("memorize"), "memorize");
 
         final FilterableSource winnerFilter = environment.getFilterFactory().generateFilter(winner);
         final FilterableSource againstFilter = environment.getFilterFactory().generateFilter(against);
 
         return new TriggerChecker() {
             @Override
-            public boolean accepts(ActionContext actionContext, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
-                return TriggerConditions.winsSkirmishInvolving(game, effectResult,
-                        winnerFilter.getFilterable(actionContext, playerId, game, self, effectResult, effect),
-                        againstFilter.getFilterable(actionContext, playerId, game, self, effectResult, effect));
+            public boolean accepts(ActionContext actionContext) {
+                final boolean result = TriggerConditions.winsSkirmishInvolving(actionContext.getGame(), actionContext.getEffectResult(),
+                        winnerFilter.getFilterable(actionContext),
+                        againstFilter.getFilterable(actionContext));
+                if (result && memorize != null) {
+                    CharacterWonSkirmishResult wonResult = (CharacterWonSkirmishResult) actionContext.getEffectResult();
+                    actionContext.setCardMemory(memorize, wonResult.getWinner());
+                }
+                return result;
             }
 
             @Override

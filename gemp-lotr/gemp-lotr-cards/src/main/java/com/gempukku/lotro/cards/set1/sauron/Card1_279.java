@@ -41,7 +41,7 @@ public class Card1_279 extends AbstractAttachable {
     }
 
     @Override
-    public List<? extends AbstractExtraPlayCostModifier> getExtraCostToPlayModifiers(LotroGame game, PhysicalCard self) {
+    public List<? extends AbstractExtraPlayCostModifier> getExtraCostToPlay(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
                 new ExertExtraPlayCostModifier(self, self, null, Culture.SAURON, Race.ORC));
     }

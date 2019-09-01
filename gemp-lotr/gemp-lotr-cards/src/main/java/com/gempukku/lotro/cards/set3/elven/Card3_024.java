@@ -40,7 +40,7 @@ public class Card3_024 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    public List<? extends AbstractExtraPlayCostModifier> getExtraCostToPlayModifiers(LotroGame game, PhysicalCard self) {
+    public List<? extends AbstractExtraPlayCostModifier> getExtraCostToPlay(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
                 new ExertExtraPlayCostModifier(self, self, null, 1, Race.ELF));
     }

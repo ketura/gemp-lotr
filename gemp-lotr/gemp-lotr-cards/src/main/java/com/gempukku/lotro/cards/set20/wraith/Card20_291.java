@@ -50,7 +50,7 @@ public class Card20_291 extends AbstractAttachable {
     }
 
     @Override
-    public List<? extends AbstractExtraPlayCostModifier> getExtraCostToPlayModifiers(LotroGame game, PhysicalCard self) {
+    public List<? extends AbstractExtraPlayCostModifier> getExtraCostToPlay(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
                 new DiscardFromHandExtraPlayCostModifier(self, self, 2, null, Filters.any));
     }

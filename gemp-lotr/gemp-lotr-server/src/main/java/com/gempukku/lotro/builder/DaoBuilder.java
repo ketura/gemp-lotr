@@ -23,8 +23,7 @@ public class DaoBuilder {
         CollectionSerializer collectionSerializer = new CollectionSerializer();
 
         LotroCardBlueprintLibrary library = new LotroCardBlueprintLibrary();
-        library.init(new File(ApplicationConfiguration.getProperty("card.path")));
-        library.initCardSets((CardSets) objectMap.get(CardSets.class));
+        library.init(new File(ApplicationConfiguration.getProperty("card.path")), (CardSets) objectMap.get(CardSets.class));
         objectMap.put(LotroCardBlueprintLibrary.class, library);
         objectMap.put(LeagueParticipationDAO.class, new DbLeagueParticipationDAO(dbAccess));
         objectMap.put(LeagueMatchDAO.class, new DbLeagueMatchDAO(dbAccess));
@@ -54,7 +53,7 @@ public class DaoBuilder {
         DbPlayerDAO dbPlayerDao = new DbPlayerDAO(dbAccess);
         CachedPlayerDAO playerDao = new CachedPlayerDAO(dbPlayerDao);
         objectMap.put(PlayerDAO.class, playerDao);
-        
+
         DbTransferDAO dbTransferDao = new DbTransferDAO(dbAccess);
         CachedTransferDAO transferDao = new CachedTransferDAO(dbTransferDao);
         objectMap.put(TransferDAO.class, transferDao);

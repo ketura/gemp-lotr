@@ -3,8 +3,6 @@ package com.gempukku.lotro.cards.build.field.effect.modifier;
 import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.EffectProcessor;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
-import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.modifiers.RoamingPenaltyModifier;
 import org.json.simple.JSONObject;
@@ -24,10 +22,10 @@ public class ModifyRoamingPenalty implements EffectProcessor {
         blueprint.appendInPlayModifier(
                 new ModifierSource() {
                     @Override
-                    public Modifier getModifier(LotroGame game, PhysicalCard self) {
-                        return new RoamingPenaltyModifier(self,
-                                filterableSource.getFilterable(null, null, game, self, null, null),
-                                new RequirementCondition(requirements, null, self, null, null), amount);
+                    public Modifier getModifier(ActionContext actionContext) {
+                        return new RoamingPenaltyModifier(actionContext.getSource(),
+                                filterableSource.getFilterable(actionContext),
+                                new RequirementCondition(requirements, actionContext), amount);
                     }
                 });
     }

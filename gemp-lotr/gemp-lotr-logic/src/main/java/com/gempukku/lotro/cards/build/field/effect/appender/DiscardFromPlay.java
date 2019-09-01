@@ -1,20 +1,17 @@
 package com.gempukku.lotro.cards.build.field.effect.appender;
 
-import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
-import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
-import com.gempukku.lotro.cards.build.ValueSource;
+import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.CardResolver;
+import com.gempukku.lotro.cards.build.field.effect.appender.resolver.PlayerResolver;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.ValueResolver;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.effects.DiscardCardsFromPlayEffect;
 import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.EffectResult;
 import org.json.simple.JSONObject;
 
 import java.util.Collection;
@@ -24,8 +21,10 @@ import java.util.List;
 public class DiscardFromPlay implements EffectAppenderProducer {
     @Override
     public EffectAppender createEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(effectObject, "count", "filter", "memorize", "memorizeStackedCards");
+        FieldUtils.validateAllowedFields(effectObject, "player", "count", "filter", "memorize", "memorizeStackedCards");
 
+        final String player = FieldUtils.getString(effectObject.get("player"), "player", "owner");
+        final PlayerSource discardingPlayer = PlayerResolver.resolvePlayer(player, environment);
         final ValueSource valueSource = ValueResolver.resolveEvaluator(effectObject.get("count"), 1, environment);
         final String filter = FieldUtils.getString(effectObject.get("filter"), "filter");
         final String memory = FieldUtils.getString(effectObject.get("memorize"), "memorize", "_temp");
@@ -35,22 +34,23 @@ public class DiscardFromPlay implements EffectAppenderProducer {
 
         result.addEffectAppender(
                 CardResolver.resolveCards(filter,
-                        (actionContext, playerId, game, source, effectResult, effect) -> Filters.canBeDiscarded(playerId, source),
-                        valueSource, memory, "owner", "Choose cards to discard", environment));
+                        (actionContext) -> Filters.canBeDiscarded(actionContext.getPerformingPlayer(), actionContext.getSource()),
+                        valueSource, memory, player, "Choose cards to discard", environment));
         result.addEffectAppender(
                 new DelayedAppender() {
                     @Override
-                    protected Effect createEffect(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
-                        final Collection<? extends PhysicalCard> cardsFromMemory = action.getCardsFromMemory(memory);
+                    protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
+                        final String discardingPlayerId = discardingPlayer.getPlayer(actionContext);
+                        final Collection<? extends PhysicalCard> cardsFromMemory = actionContext.getCardsFromMemory(memory);
                         if (stackedCardsMemory != null) {
                             List<PhysicalCard> stackedCards = new LinkedList<>();
                             for (PhysicalCard physicalCard : cardsFromMemory) {
-                                stackedCards.addAll(game.getGameState().getStackedCards(physicalCard));
+                                stackedCards.addAll(actionContext.getGame().getGameState().getStackedCards(physicalCard));
                             }
 
-                            action.setCardMemory(stackedCardsMemory, stackedCards);
+                            actionContext.setCardMemory(stackedCardsMemory, stackedCards);
                         }
-                        return new DiscardCardsFromPlayEffect(playerId, self, Filters.in(cardsFromMemory));
+                        return new DiscardCardsFromPlayEffect(discardingPlayerId, actionContext.getSource(), Filters.in(cardsFromMemory));
                     }
                 });
 

@@ -4,7 +4,6 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.*;
-import com.gempukku.lotro.logic.modifiers.AbstractExtraPlayCostModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
@@ -119,7 +118,7 @@ public interface LotroCardBlueprint {
 
     String getDisplayableInformation(PhysicalCard self);
 
-    List<? extends AbstractExtraPlayCostModifier> getExtraCostToPlayModifiers(LotroGame game, PhysicalCard self);
+    List<? extends ExtraPlayCost> getExtraCostToPlay(LotroGame game, PhysicalCard self);
 
     int getPotentialDiscount(LotroGame game, String playerId, PhysicalCard self);
 

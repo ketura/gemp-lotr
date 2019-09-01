@@ -24,8 +24,7 @@ public abstract class AbstractAtTest {
         final String property = System.getProperty("user.dir");
         String projectRoot = new File(property).getParentFile().getAbsolutePath();
 
-        _library.init(new File(projectRoot + "/gemp-lotr-async/src/main/web/cards"));
-        _library.initCardSets(new CardSets());
+        _library.init(new File(projectRoot + "/gemp-lotr-async/src/main/web/cards"), new CardSets());
     }
 
     protected DefaultLotroGame _game;

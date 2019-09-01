@@ -16,10 +16,10 @@ import java.util.Set;
 public class DiscardCardsFromHandEffect extends AbstractEffect {
     private PhysicalCard _source;
     private String _playerId;
-    private Collection<PhysicalCard> _cards;
+    private Collection<? extends PhysicalCard> _cards;
     private boolean _forced;
 
-    public DiscardCardsFromHandEffect(PhysicalCard source, String playerId, Collection<PhysicalCard> cards, boolean forced) {
+    public DiscardCardsFromHandEffect(PhysicalCard source, String playerId, Collection<? extends PhysicalCard> cards, boolean forced) {
         _source = source;
         _playerId = playerId;
         _cards = cards;

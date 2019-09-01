@@ -14,6 +14,6 @@ public class PhaseRequirement implements RequirementProducer {
         FieldUtils.validateAllowedFields(object, "phase");
 
         final Phase phase = FieldUtils.getEnum(Phase.class, object.get("phase"), "phase");
-        return (actionContext, playerId, game, self, effectResult, effect) -> PlayConditions.isPhase(game, phase);
+        return (actionContext) -> PlayConditions.isPhase(actionContext.getGame(), phase);
     }
 }

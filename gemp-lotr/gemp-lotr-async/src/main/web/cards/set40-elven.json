@@ -152,5 +152,263 @@
         }
       }
     ]
+  },
+  "40_38": {
+    "title": "*Celeborn",
+    "subtitle": "Lord of the Golden Wood",
+    "side": "free people",
+    "culture": "elven",
+    "cost": 2,
+    "type": "ally",
+    "race": "elf",
+    "keyword": "lothlorien",
+    "strength": 6,
+    "vitality": 3,
+    "allyHome": "second ed,3",
+    "effects": [
+      {
+        "type": "activated",
+        "phase": "maneuver",
+        "cost": {
+          "type": "exert",
+          "filter": "self"
+        },
+        "effect": [
+          {
+            "type": "revealTopCardsOfDrawDeck",
+            "memorize": "revealedCard"
+          },
+          {
+            "type": "conditional",
+            "condition": {
+              "type": "memoryMatches",
+              "memory": "revealedCard",
+              "filter": "culture(elven)"
+            },
+            "effect": {
+              "type": "optional",
+              "text": "Do you want to discard the top card of deck to wound a minion?",
+              "effect": {
+                "type": "costToEffect",
+                "cost": {
+                  "type": "discardTopCardFromDeck",
+                  "count": 1,
+                  "forced": false
+                },
+                "effect": {
+                  "type": "wound",
+                  "filter": "choose(minion)"
+                }
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "40_41": {
+    "title": "*Elrond",
+    "subtitle": "Peredhil",
+    "side": "free people",
+    "culture": "elven",
+    "cost": 4,
+    "type": "ally",
+    "race": "elf",
+    "keyword": "rivendell",
+    "strength": 8,
+    "vitality": 4,
+    "allyHome": "second ed,3",
+    "effects": [
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "startOfTurn"
+        },
+        "effect": {
+          "type": "heal",
+          "filter": "all(rivendell,ally)"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "regroup",
+        "cost": {
+          "type": "exert",
+          "times": 2,
+          "filter": "self"
+        },
+        "effect": [
+          {
+            "type": "revealTopCardsOfDrawDeck",
+            "memorize": "revealedCard"
+          },
+          {
+            "type": "conditional",
+            "condition": {
+              "type": "memoryMatches",
+              "memory": "revealedCard",
+              "filter": "culture(elven)"
+            },
+            "effect": {
+              "type": "optional",
+              "text": "Do you want to discard the top card of deck to heal a companion?",
+              "effect": {
+                "type": "costToEffect",
+                "cost": {
+                  "type": "discardTopCardFromDeck",
+                  "count": 1,
+                  "forced": false
+                },
+                "effect": {
+                  "type": "heal",
+                  "filter": "choose(companion)"
+                }
+              }
+            }
+          },
+          {
+            "type": "conditional",
+            "condition": {
+              "type": "memoryMatches",
+              "memory": "revealedCard",
+              "filter": "side(shadow)"
+            },
+            "effect": {
+              "type": "optional",
+              "text": "Do you want to discard the top card of deck to discard a Shadow condition?",
+              "effect": {
+                "type": "costToEffect",
+                "cost": {
+                  "type": "discardTopCardFromDeck",
+                  "count": 1,
+                  "forced": false
+                },
+                "effect": {
+                  "type": "discard",
+                  "filter": "choose(side(shadow),condition)"
+                }
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "40_45": {
+    "title": "*Galadriel",
+    "subtitle": "White Lady of Lorien",
+    "side": "free people",
+    "culture": "elven",
+    "cost": 3,
+    "type": "ally",
+    "race": "elf",
+    "keyword": "lothlorien",
+    "strength": 3,
+    "vitality": 3,
+    "allyHome": "second ed,3",
+    "effects": [
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "startOfTurn"
+        },
+        "effect": {
+          "type": "heal",
+          "filter": "all(lothlorien,ally)"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "skirmish",
+        "cost": {
+          "type": "exert",
+          "filter": "self"
+        },
+        "effect": [
+          {
+            "type": "revealTopCardsOfDrawDeck",
+            "memorize": "revealedCard"
+          },
+          {
+            "type": "conditional",
+            "condition": {
+              "type": "memoryMatches",
+              "memory": "revealedCard",
+              "filter": "culture(elven)"
+            },
+            "effect": {
+              "type": "optional",
+              "text": "Do you want to discard the top card of deck to make a minion skirmishing an elf strength -2?",
+              "effect": {
+                "type": "costToEffect",
+                "cost": {
+                  "type": "discardTopCardFromDeck",
+                  "count": 1,
+                  "forced": false
+                },
+                "effect": {
+                  "type": "modifyStrength",
+                  "amount": -2,
+                  "filter": "choose(minion,inSkirmishAgainst(elf))"
+                }
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "40_60": {
+    "title": "*The Mirror of Galadriel",
+    "subtitle": "Revealer of Portents",
+    "side": "free people",
+    "culture": "elven",
+    "cost": 2,
+    "type": "artifact",
+    "keyword": "support area",
+    "effects": [
+      {
+        "type": "extraCost",
+        "cost": {
+          "type": "choice",
+          "texts": [
+            "Exert an Elf",
+            "Spot Galadriel"
+          ],
+          "effects": [
+            {
+              "type": "exert",
+              "filter": "choose(elf)"
+            },
+            {
+              "type": "spot",
+              "filter": "choose(name(Galadriel))"
+            }
+          ]
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "fellowship",
+        "cost": [
+          {
+            "type": "exert",
+            "filter": "choose(name(Galadriel))"
+          },
+          {
+            "type": "chooseHowManyToSpot",
+            "filter": "elf",
+            "memorize": "spottedCount"
+          },
+          {
+            "type": "reorderTopCardsOfDrawDeck",
+            "count": {
+              "type": "fromMemory",
+              "memory": "spottedCount"
+            }
+          }
+        ]
+      }
+    ]
   }
 }

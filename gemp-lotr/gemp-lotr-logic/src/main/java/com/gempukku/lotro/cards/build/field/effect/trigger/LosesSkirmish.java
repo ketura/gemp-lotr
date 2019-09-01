@@ -5,10 +5,6 @@ import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
 import com.gempukku.lotro.cards.build.FilterableSource;
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
-import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.logic.timing.results.CharacterLostSkirmishResult;
 import org.json.simple.JSONObject;
@@ -27,12 +23,12 @@ public class LosesSkirmish implements TriggerCheckerProducer {
 
         return new TriggerChecker() {
             @Override
-            public boolean accepts(ActionContext actionContext, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
-                final boolean result = TriggerConditions.losesSkirmishInvolving(game, effectResult,
-                        loserFilter.getFilterable(actionContext, playerId, game, self, effectResult, effect),
-                        againstFilter.getFilterable(actionContext, playerId, game, self, effectResult, effect));
+            public boolean accepts(ActionContext actionContext) {
+                final boolean result = TriggerConditions.losesSkirmishInvolving(actionContext.getGame(), actionContext.getEffectResult(),
+                        loserFilter.getFilterable(actionContext),
+                        againstFilter.getFilterable(actionContext));
                 if (result && memorize != null) {
-                    CharacterLostSkirmishResult lostResult = (CharacterLostSkirmishResult) effectResult;
+                    CharacterLostSkirmishResult lostResult = (CharacterLostSkirmishResult) actionContext.getEffectResult();
 
                     actionContext.setCardMemory(memorize, lostResult.getLoser());
                 }

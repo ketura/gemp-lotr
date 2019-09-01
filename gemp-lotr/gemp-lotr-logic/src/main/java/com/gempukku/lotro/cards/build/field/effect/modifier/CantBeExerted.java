@@ -20,11 +20,12 @@ public class CantBeExerted implements EffectProcessor {
         final Requirement[] requirements = environment.getRequirementFactory().getRequirements(conditionArray, environment);
 
         blueprint.appendInPlayModifier(
-                (game, self) ->
-                        new CantExertWithCardModifier(self,
-                                filterableSource.getFilterable(null, null, game, self, null, null),
-                                new RequirementCondition(requirements, null, self, null, null),
-                                byFilterableSource.getFilterable(null, null, game, self, null, null)));
+                (actionContext) -> {
+                    return new CantExertWithCardModifier(actionContext.getSource(),
+                            filterableSource.getFilterable(actionContext),
+                            new RequirementCondition(requirements, actionContext),
+                            byFilterableSource.getFilterable(actionContext));
+                });
 
     }
 }

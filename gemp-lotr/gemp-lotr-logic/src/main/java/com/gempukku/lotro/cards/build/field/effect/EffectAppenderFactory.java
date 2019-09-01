@@ -38,7 +38,7 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("memorize", new Memorize());
         effectAppenderProducers.put("preventwound", new PreventWound());
         effectAppenderProducers.put("putstackedcardsintohand", new PutStackedCardsIntoHand());
-        effectAppenderProducers.put("condition", new ConditionEffect());
+        effectAppenderProducers.put("conditional", new ConditionEffect());
         effectAppenderProducers.put("drawcards", new DrawCards());
         effectAppenderProducers.put("removeburdens", new RemoveBurdens());
         effectAppenderProducers.put("stackcardsfromhand", new StackCardsFromHand());
@@ -48,6 +48,18 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("stackplayedevent", new StackPlayedEvent());
         effectAppenderProducers.put("playcardfromdiscard", new PlayCardFromDiscard());
         effectAppenderProducers.put("reducearcherytotal", new ReduceArcheryTotal());
+        effectAppenderProducers.put("revealtopcardsofdrawdeck", new RevealTopCardsOfDrawDeck());
+        effectAppenderProducers.put("optional", new Optional());
+        effectAppenderProducers.put("costtoeffect", new CostToEffect());
+        effectAppenderProducers.put("spot", new Spot());
+        effectAppenderProducers.put("choosehowmanytospot", new ChooseHowManyToSpot());
+        effectAppenderProducers.put("reordertopcardsofdrawdeck", new ReorderTopCardsOfDrawDeck());
+        effectAppenderProducers.put("cantbeassignedtoskirmish", new CantBeAssignedToSkirmish());
+        effectAppenderProducers.put("preventable", new PreventableAppenderProducer());
+        effectAppenderProducers.put("cantbeoverwhelmedmultiplier", new CantBeOverwhelmedMultiplier());
+        effectAppenderProducers.put("play", new PlayCardFromHand());
+        effectAppenderProducers.put("cancelskirmish", new CancelSkirmish());
+        effectAppenderProducers.put("discardfromhand", new CancelSkirmish());
     }
 
     public EffectAppender getEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {

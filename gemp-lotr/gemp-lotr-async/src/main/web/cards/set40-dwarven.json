@@ -68,15 +68,22 @@
     "keyword": "skirmish",
     "effects": {
       "type": "event",
-      "cost": {
-        "type": "exert",
-        "filter": "choose(name(Gimli))",
-        "memorize": "exertedGimli"
-      },
+      "cost": [
+        {
+          "type": "exert",
+          "filter": "choose(name(Gimli),notAssignedToSkirmish)",
+          "memorize": "exertedGimli"
+        },
+        {
+          "type": "discardStackedCards",
+          "count": 2,
+          "on": "culture(dwarven),condition"
+        }
+      ],
       "effect": [
         {
           "type": "replaceInSkirmish",
-          "filter": "unbound,companion",
+          "filter": "dwarf,not(name(Gimli))",
           "with": "memory(exertedGimli)"
         },
         {
@@ -279,7 +286,7 @@
           "on": "culture(dwarven),condition"
         },
         {
-          "type": "condition",
+          "type": "conditional",
           "condition": {
             "type": "location",
             "filter": "or(mountain,underground)"
@@ -497,6 +504,66 @@
       }
     ]
   },
+  "40_20": {
+    "title": "*Gloin",
+    "subtitle": "Venerable Dwarf",
+    "side": "free people",
+    "culture": "dwarven",
+    "cost": 3,
+    "type": "companion",
+    "race": "dwarf",
+    "strength": 5,
+    "vitality": 4,
+    "resistance": 6,
+    "keyword": "damage+1",
+    "effects": [
+      {
+        "condition": {
+          "type": "canSpot",
+          "filter": "name(Gimli)"
+        },
+        "filter": "self",
+        "type": "modifyStrength",
+        "amount": 1
+      },
+      {
+        "condition": {
+          "type": "canSpot",
+          "filter": "name(Gimli)"
+        },
+        "type": "modifyOwnCost",
+        "amount": -1
+      },
+      {
+        "type": "activated",
+        "phase": "skirmish",
+        "cost": {
+          "type": "exert",
+          "filter": "self"
+        },
+        "effect": [
+          {
+            "type": "modifyStrength",
+            "filter": "choose(dwarf)",
+            "amount": 1,
+            "memorize": "chosenDwarf"
+          },
+          {
+            "type": "conditional",
+            "condition": {
+              "type": "location",
+              "filter": "underground"
+            },
+            "effect": {
+              "type": "addKeyword",
+              "filter": "memory(chosenDwarf)",
+              "keyword": "damage+1"
+            }
+          }
+        ]
+      }
+    ]
+  },
   "40_21": {
     "title": "Killing Blow",
     "side": "free people",
@@ -514,7 +581,7 @@
           "memorize": "dwarf"
         },
         {
-          "type": "condition",
+          "type": "conditional",
           "condition": {
             "type": "canSpot",
             "filter": "culture(dwarven),condition,hasStacked(any)"
@@ -631,6 +698,37 @@
           "where": "choose(culture(dwarven),support area,condition)"
         }
       }
+    }
+  },
+  "40_26": {
+    "title": "Retribution",
+    "side": "free people",
+    "culture": "dwarven",
+    "cost": 0,
+    "type": "event",
+    "keyword": "skirmish",
+    "effects": {
+      "type": "event",
+      "effect": [
+        {
+          "type": "modifyStrength",
+          "filter": "choose(dwarf)",
+          "amount": 1,
+          "memorize": "chosenDwarf"
+        },
+        {
+          "type": "addTrigger",
+          "trigger": {
+            "type": "winsSkirmish",
+            "filter": "memory(chosenDwarf)"
+          },
+          "effect": {
+            "type": "discard",
+            "player": "shadowPlayer",
+            "filter": "choose(side(shadow),or(condition,possession))"
+          }
+        }
+      ]
     }
   },
   "40_27": {

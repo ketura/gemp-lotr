@@ -11,6 +11,7 @@ import org.json.simple.parser.ParseException;
 import java.io.*;
 import java.nio.file.*;
 import java.util.*;
+import java.util.concurrent.CountDownLatch;
 
 import static java.nio.file.StandardWatchEventKinds.*;
 
@@ -31,6 +32,8 @@ public class LotroCardBlueprintLibrary {
     private Map<String, Set<String>> _fullBlueprintMapping = new HashMap<String, Set<String>>();
 
     private LotroCardBlueprintBuilder cardBlueprintBuilder = new LotroCardBlueprintBuilder();
+
+    public CountDownLatch collectionReadyLatch = new CountDownLatch(1);
 
     public LotroCardBlueprintLibrary() {
         try {
@@ -53,7 +56,7 @@ public class LotroCardBlueprintLibrary {
         }
     }
 
-    public void initCardSets(CardSets cardSets) {
+    private void initCardSets(CardSets cardSets) {
         for (SetDefinition setDefinition : cardSets.getSetDefinitions().values()) {
             if (setDefinition.hasFlag("playable")) {
                 logger.debug("Loading set " + setDefinition.getSetId());
@@ -72,9 +75,11 @@ public class LotroCardBlueprintLibrary {
         }
     }
 
-    public void init(File cardPath) {
+    public void init(File cardPath, CardSets cardSets) {
         loadCards(cardPath);
         setupWatcher(cardPath.toPath());
+        initCardSets(cardSets);
+        collectionReadyLatch.countDown();
     }
 
     private void loadCards(File path) {
@@ -197,7 +202,12 @@ public class LotroCardBlueprintLibrary {
     }
 
     public Map<String, LotroCardBlueprint> getBaseCards() {
-        return Collections.unmodifiableMap(_blueprintMap);
+        try {
+            collectionReadyLatch.await();
+            return Collections.unmodifiableMap(_blueprintMap);
+        } catch (InterruptedException exp) {
+            throw new RuntimeException("Interrupted', exp");
+        }
     }
 
     public Set<String> getAllAlternates(String blueprintId) {

@@ -2,6 +2,7 @@ package com.gempukku.lotro.cards.set13.gandalf;
 
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
+import com.gempukku.lotro.game.ExtraPlayCost;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
@@ -10,7 +11,6 @@ import com.gempukku.lotro.logic.effects.AddBurdenEffect;
 import com.gempukku.lotro.logic.effects.ChooseAndDiscardCardsFromHandEffect;
 import com.gempukku.lotro.logic.effects.RevealHandEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseOpponentEffect;
-import com.gempukku.lotro.logic.modifiers.AbstractExtraPlayCostModifier;
 import com.gempukku.lotro.logic.modifiers.cost.DiscardFromPlayExtraPlayCostModifier;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.PlayConditions;
@@ -52,12 +52,12 @@ public class Card13_036 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    public List<? extends AbstractExtraPlayCostModifier> getExtraCostToPlayModifiers(LotroGame game, PhysicalCard self) {
+    public List<? extends ExtraPlayCost> getExtraCostToPlay(LotroGame game, PhysicalCard self) {
         if (PlayConditions.canSpot(game, Filters.name(getTitle()))) {
             return Collections.singletonList(
                     new DiscardFromPlayExtraPlayCostModifier(self, self, 1, null, Filters.name(getTitle())));
         }
-        return super.getExtraCostToPlayModifiers(game, self);
+        return super.getExtraCostToPlay(game, self);
     }
 
     @Override

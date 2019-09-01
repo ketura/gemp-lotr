@@ -19,6 +19,8 @@ public class TriggerCheckerFactory {
         triggerCheckers.put("startofturn", new StartOfTurn());
         triggerCheckers.put("startofphase", new StartOfPhase());
         triggerCheckers.put("abouttotakewound", new AboutToTakeWound());
+        triggerCheckers.put("condition", new ConditionTrigger());
+        triggerCheckers.put("assignedtoskirmish", new AssignedToSkirmish());
     }
 
     public TriggerChecker getTriggerChecker(JSONObject object, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {

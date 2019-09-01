@@ -4,8 +4,6 @@ import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.EffectProcessor;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.ArcheryTotalModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import org.json.simple.JSONObject;
@@ -24,9 +22,9 @@ public class ArcheryTotal implements EffectProcessor {
         blueprint.appendInPlayModifier(
                 new ModifierSource() {
                     @Override
-                    public Modifier getModifier(LotroGame game, PhysicalCard self) {
-                        return new ArcheryTotalModifier(self, side,
-                                new RequirementCondition(requirements, null, self, null, null),
+                    public Modifier getModifier(ActionContext actionContext) {
+                        return new ArcheryTotalModifier(actionContext.getSource(), side,
+                                new RequirementCondition(requirements, actionContext),
                                 amount);
                     }
                 });

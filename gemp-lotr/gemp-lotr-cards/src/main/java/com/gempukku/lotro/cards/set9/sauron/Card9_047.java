@@ -38,7 +38,7 @@ public class Card9_047 extends AbstractPermanent {
     }
 
     @Override
-    public List<? extends AbstractExtraPlayCostModifier> getExtraCostToPlayModifiers(LotroGame game, PhysicalCard self) {
+    public List<? extends AbstractExtraPlayCostModifier> getExtraCostToPlay(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
                 new ExertExtraPlayCostModifier(self,self, null, CardType.MINION, Filters.or(Culture.WRAITH, Culture.SAURON)));
     }

@@ -2,6 +2,7 @@ package com.gempukku.lotro.logic.modifiers;
 
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
+import com.gempukku.lotro.game.ExtraPlayCost;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
@@ -755,11 +756,11 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
 
     @Override
     public boolean canPayExtraCostsToPlay(LotroGame game, PhysicalCard target) {
-        final List<? extends AbstractExtraPlayCostModifier> modifiers = target.getBlueprint().getExtraCostToPlayModifiers(game, target);
-        if (modifiers != null)
-            for (AbstractExtraPlayCostModifier modifier : modifiers) {
-                final Condition condition = modifier.getCondition();
-                if ((condition == null || condition.isFullfilled(game)) && !modifier.canPayExtraCostsToPlay(game, target))
+        final List<? extends ExtraPlayCost> playCosts = target.getBlueprint().getExtraCostToPlay(game, target);
+        if (playCosts != null)
+            for (ExtraPlayCost playCost : playCosts) {
+                final Condition condition = playCost.getCondition();
+                if ((condition == null || condition.isFullfilled(game)) && !playCost.canPayExtraCostsToPlay(game, target))
                     return false;
             }
 
@@ -773,12 +774,12 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
 
     @Override
     public void appendExtraCosts(LotroGame game, CostToEffectAction action, PhysicalCard target) {
-        final List<? extends AbstractExtraPlayCostModifier> modifiers = target.getBlueprint().getExtraCostToPlayModifiers(game, target);
-        if (modifiers != null)
-            for (AbstractExtraPlayCostModifier modifier : modifiers) {
-                final Condition condition = modifier.getCondition();
+        final List<? extends ExtraPlayCost> playCosts = target.getBlueprint().getExtraCostToPlay(game, target);
+        if (playCosts != null)
+            for (ExtraPlayCost playCost : playCosts) {
+                final Condition condition = playCost.getCondition();
                 if (condition == null || condition.isFullfilled(game))
-                    modifier.appendExtraCosts(game, action, target);
+                    playCost.appendExtraCosts(game, action, target);
             }
 
         for (Modifier modifier : getModifiersAffectingCard(game, ModifierEffect.EXTRA_COST_MODIFIER, target)) {

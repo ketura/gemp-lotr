@@ -40,7 +40,7 @@ public class Card8_038 extends AbstractCompanion {
     }
 
     @Override
-    public List<? extends AbstractExtraPlayCostModifier> getExtraCostToPlayModifiers(LotroGame game, PhysicalCard self) {
+    public List<? extends AbstractExtraPlayCostModifier> getExtraCostToPlay(LotroGame game, PhysicalCard self) {
         return Arrays.asList(
                 new SpotExtraPlayCostModifier(self, self, null, Culture.GONDOR, Race.WRAITH),
                 new AddThreatExtraPlayCostModifier(self, 2, null, self));

@@ -1,0 +1,243 @@
+{
+  "40_243": {
+    "title": "*Bilbo",
+    "subtitle": "Well-preserved Hobbit",
+    "side": "free people",
+    "culture": "shire",
+    "cost": 2,
+    "type": "ally",
+    "race": "hobbit",
+    "keyword": "shire",
+    "strength": 3,
+    "vitality": 3,
+    "allyHome": "second ed,1",
+    "effects": {
+      "type": "activated",
+      "phase": "fellowship",
+      "cost": [
+        {
+          "type": "exert",
+          "filter": "self"
+        },
+        {
+          "type": "discard",
+          "filter": "choose(pipeweed,possession)"
+        }
+      ],
+      "effect": {
+        "type": "discard",
+        "filter": "choose(side(shadow),condition)"
+      }
+    }
+  },
+  "40_246": {
+    "title": "*Dimple Boffin",
+    "subtitle": "Bounder of the Shire",
+    "side": "free people",
+    "culture": "shire",
+    "cost": 1,
+    "type": "ally",
+    "race": "hobbit",
+    "keyword": "shire",
+    "strength": 2,
+    "vitality": 2,
+    "allyHome": "second ed,1",
+    "condition": {
+      "type": "canSpot",
+      "count": 2,
+      "filter": "hobbit,companion"
+    },
+    "effects": {
+      "type": "activated",
+      "phase": "skirmish",
+      "cost": {
+        "type": "exert",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "cantBeOverwhelmedMultiplier",
+        "filter": "choose(hobbit)",
+        "multiplier": 3
+      }
+    }
+  },
+  "40_247": {
+    "title": "*Farmer Maggot",
+    "subtitle": "Chaser of Rascals",
+    "side": "free people",
+    "culture": "shire",
+    "cost": 1,
+    "type": "ally",
+    "race": "hobbit",
+    "keyword": "shire",
+    "strength": 2,
+    "vitality": 3,
+    "allyHome": "second ed,1",
+    "effects": {
+      "type": "activated",
+      "phase": "fellowship",
+      "cost": {
+        "type": "exert",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "heal",
+        "filter": "choose(or(name(Merry),name(Pippin)))"
+      }
+    }
+  },
+  "40_252": {
+    "title": "*Hamfast Gamgee",
+    "subtitle": "The Gaffer",
+    "side": "free people",
+    "culture": "shire",
+    "cost": 1,
+    "type": "ally",
+    "race": "hobbit",
+    "keyword": "shire",
+    "strength": 2,
+    "vitality": 2,
+    "allyHome": "second ed,1",
+    "effects": {
+      "type": "activated",
+      "phase": "fellowship",
+      "cost": {
+        "type": "play",
+        "filter": "choose(hobbit,ally)"
+      },
+      "effect": {
+        "type": "heal",
+        "filter": "choose(hobbit,companion)"
+      }
+    }
+  },
+  "40_253": {
+    "title": "Hobbit Party Guest",
+    "side": "free people",
+    "culture": "shire",
+    "cost": 1,
+    "type": "ally",
+    "race": "hobbit",
+    "keyword": "shire",
+    "strength": 2,
+    "vitality": 2,
+    "allyHome": "second ed,1",
+    "effects": [
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "startOfTurn"
+        },
+        "effect": {
+          "type": "heal",
+          "filter": "self"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "fellowship",
+        "cost": {
+          "type": "exert",
+          "filter": "self"
+        },
+        "effect": {
+          "type": "heal",
+          "filter": "choose(not(self),shire,ally)"
+        }
+      }
+    ]
+  },
+  "40_265": {
+    "title": "*Robin Smallburrow",
+    "subtitle": "Shiriff of Hobbiton",
+    "side": "free people",
+    "culture": "shire",
+    "cost": 1,
+    "type": "ally",
+    "race": "hobbit",
+    "keyword": "shire",
+    "strength": 2,
+    "vitality": 2,
+    "allyHome": "second ed,1",
+    "condition": {
+      "type": "canSpot",
+      "count": 2,
+      "filter": "hobbit,companion"
+    },
+    "effects": [
+      {
+        "type": "activated",
+        "phase": "skirmish",
+        "condition": {
+          "type": "location",
+          "filter": "siteNumber(1-4)"
+        },
+        "cost": {
+          "type": "exert",
+          "filter": "self"
+        },
+        "effect": {
+          "type": "cancelSkirmish",
+          "filter": "hobbit"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "skirmish",
+        "condition": {
+          "type": "location",
+          "filter": "siteNumber(5-9)"
+        },
+        "cost": {
+          "type": "exert",
+          "filter": "self"
+        },
+        "effect": {
+          "type": "modifyStrength",
+          "amount": 3,
+          "filter": "choose(hobbit)"
+        }
+      }
+    ]
+  },
+  "40_266": {
+    "title": "*Rosie Cotton",
+    "subtitle": "Green Dragon Barkeep",
+    "side": "free people",
+    "culture": "shire",
+    "cost": 1,
+    "type": "ally",
+    "race": "hobbit",
+    "keyword": "shire",
+    "strength": 2,
+    "vitality": 2,
+    "allyHome": "second ed,1",
+    "effects": [
+      {
+        "type": "activated",
+        "phase": "fellowship",
+        "cost": {
+          "type": "exert",
+          "filter": "self"
+        },
+        "effect": {
+          "type": "heal",
+          "filter": "choose(name(Sam))"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "skirmish",
+        "cost": {
+          "type": "exert",
+          "filter": "self"
+        },
+        "effect": {
+          "type": "modifyStrength",
+          "filter": "choose(name(Sam))",
+          "amount": 2
+        }
+      }
+    ]
+  }
+}

@@ -4,10 +4,7 @@ import com.gempukku.lotro.cards.build.BuiltLotroCardBlueprint;
 import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
 import com.gempukku.lotro.cards.build.FieldProcessor;
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
-import com.gempukku.lotro.cards.build.field.effect.ActivatedEffectProcessor;
-import com.gempukku.lotro.cards.build.field.effect.ActivatedTriggerEffectProcessor;
-import com.gempukku.lotro.cards.build.field.effect.EventEffectProcessor;
-import com.gempukku.lotro.cards.build.field.effect.TriggerEffectProcessor;
+import com.gempukku.lotro.cards.build.field.effect.*;
 import com.gempukku.lotro.cards.build.field.effect.modifier.*;
 import org.json.simple.JSONObject;
 
@@ -30,6 +27,7 @@ public class EffectFieldProcessor implements FieldProcessor {
         effectProcessors.put("modifyowncost", new ModifyOwnCost());
         effectProcessors.put("canttakemorewoundsthan", new CantTakeMoreWoundsThan());
         effectProcessors.put("cantbeexerted", new CantBeExerted());
+        effectProcessors.put("extracost", new ExtraCost());
     }
 
     @Override

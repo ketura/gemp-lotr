@@ -737,11 +737,15 @@ public class Filters {
     }
 
     public static Filter hasAttached(final Filterable... filters) {
+        return hasAttached(1, filters);
+    }
+
+    public static Filter hasAttached(int count, final Filterable... filters) {
         return new Filter() {
             @Override
             public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
                 List<PhysicalCard> physicalCardList = game.getGameState().getAttachedCards(physicalCard);
-                return (Filters.filter(physicalCardList, game, filters).size() > 0);
+                return (Filters.filter(physicalCardList, game, filters).size() >= count);
             }
         };
     }

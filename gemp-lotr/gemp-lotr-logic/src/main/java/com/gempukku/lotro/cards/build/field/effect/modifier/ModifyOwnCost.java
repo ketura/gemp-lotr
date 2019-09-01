@@ -19,13 +19,13 @@ public class ModifyOwnCost implements EffectProcessor {
 
         blueprint.appendTwilightCostModifier(
                 (game, card) -> {
-                    DefaultActionContext dummy = new DefaultActionContext();
+                    DefaultActionContext dummy = new DefaultActionContext(card.getOwner(), game, card, null, null);
                     for (Requirement requirement : requirements) {
-                        if (!requirement.accepts(dummy, null, game, card, null, null))
+                        if (!requirement.accepts(dummy))
                             return 0;
                     }
 
-                    final Evaluator evaluator = amountSource.getEvaluator(null, null, game, card, null, null);
+                    final Evaluator evaluator = amountSource.getEvaluator(null);
                     return evaluator.evaluateExpression(game, card);
                 });
     }

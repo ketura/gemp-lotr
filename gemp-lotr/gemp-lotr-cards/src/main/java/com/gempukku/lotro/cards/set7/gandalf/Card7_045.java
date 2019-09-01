@@ -36,7 +36,7 @@ public class Card7_045 extends AbstractPermanent {
     }
 
     @Override
-    public List<? extends AbstractExtraPlayCostModifier> getExtraCostToPlayModifiers(LotroGame game, PhysicalCard self) {
+    public List<? extends AbstractExtraPlayCostModifier> getExtraCostToPlay(LotroGame game, PhysicalCard self) {
         return Arrays.asList(
                 new SpotExtraPlayCostModifier(self,self, null, Filters.gandalf),
                 new AddThreatExtraPlayCostModifier(self, 3, null, self));

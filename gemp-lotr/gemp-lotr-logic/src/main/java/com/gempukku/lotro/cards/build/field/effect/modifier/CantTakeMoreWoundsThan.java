@@ -6,7 +6,6 @@ import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.ValueResolver;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.logic.modifiers.CantTakeMoreThanXWoundsModifier;
-import com.gempukku.lotro.logic.modifiers.evaluator.Evaluator;
 import org.json.simple.JSONObject;
 
 public class CantTakeMoreWoundsThan implements EffectProcessor {
@@ -23,13 +22,12 @@ public class CantTakeMoreWoundsThan implements EffectProcessor {
         final Requirement[] requirements = environment.getRequirementFactory().getRequirements(conditionArray, environment);
 
         blueprint.appendInPlayModifier(
-                (game, self) -> {
-                    final Evaluator evaluator = valueSource.getEvaluator(null, null, game, self, null, null);
-                    return new CantTakeMoreThanXWoundsModifier(self, phase,
-                            valueSource.getEvaluator(null, null, game, self, null, null)
-                                    .evaluateExpression(game, self),
-                            new RequirementCondition(requirements, null, self, null, null),
-                            filterableSource.getFilterable(null, null, game, self, null, null));
+                (actionContext) -> {
+                    return new CantTakeMoreThanXWoundsModifier(actionContext.getSource(), phase,
+                            valueSource.getEvaluator(actionContext)
+                                    .evaluateExpression(actionContext.getGame(), null),
+                            new RequirementCondition(requirements, actionContext),
+                            filterableSource.getFilterable(actionContext));
                 });
 
     }

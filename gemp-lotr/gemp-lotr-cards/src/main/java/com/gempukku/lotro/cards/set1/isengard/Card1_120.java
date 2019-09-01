@@ -31,7 +31,7 @@ public class Card1_120 extends AbstractPermanent {
     }
 
     @Override
-    public List<? extends AbstractExtraPlayCostModifier> getExtraCostToPlayModifiers(LotroGame game, PhysicalCard self) {
+    public List<? extends AbstractExtraPlayCostModifier> getExtraCostToPlay(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
                 new ExertExtraPlayCostModifier(self, self, null, Race.URUK_HAI));
     }

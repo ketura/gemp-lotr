@@ -5,11 +5,8 @@ import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.evaluator.*;
-import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.EffectResult;
 import org.json.simple.JSONObject;
 
 public class ValueResolver {
@@ -28,17 +25,17 @@ public class ValueResolver {
                     throw new InvalidCardDefinitionException("Unable to resolve count: " + value);
                 return new ValueSource() {
                     @Override
-                    public Evaluator getEvaluator(ActionContext actionContext, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
+                    public Evaluator getEvaluator(ActionContext actionContext) {
                         throw new RuntimeException("Evaluator has resolved to range");
                     }
 
                     @Override
-                    public int getMinimum(ActionContext actionContext, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
+                    public int getMinimum(ActionContext actionContext) {
                         return min;
                     }
 
                     @Override
-                    public int getMaximum(ActionContext actionContext, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
+                    public int getMaximum(ActionContext actionContext) {
                         return max;
                     }
                 };
@@ -54,52 +51,55 @@ public class ValueResolver {
                 final Requirement condition = environment.getRequirementFactory().getRequirement((JSONObject) object.get("condition"), environment);
                 int trueValue = FieldUtils.getInteger(object.get("true"), "true");
                 int falseValue = FieldUtils.getInteger(object.get("false"), "false");
-                return (actionContext, playerId, game, self, effectResult, effect) -> (Evaluator) (game1, cardAffected) -> {
-                    final boolean accepts = condition.accepts(actionContext, playerId, game1, self, effectResult, effect);
-                    if (accepts)
-                        return trueValue;
-                    else
-                        return falseValue;
+                return (actionContext) -> {
+                    return (Evaluator) (game, cardAffected) -> {
+                        final boolean accepts = condition.accepts(actionContext);
+                        if (accepts)
+                            return trueValue;
+                        else
+                            return falseValue;
+                    };
                 };
             } else if (type.equalsIgnoreCase("forEachInMemory")) {
                 final String memory = FieldUtils.getString(object.get("memory"), "memory");
-                return (actionContext, playerId, game, self, effectResult, effect) -> {
+                return (actionContext) -> {
                     final int count = actionContext.getCardsFromMemory(memory).size();
                     return new ConstantEvaluator(count);
                 };
             } else if (type.equalsIgnoreCase("forEachKeywordOnCardInMemory")) {
                 final String memory = FieldUtils.getString(object.get("memory"), "memory");
                 final Keyword keyword = FieldUtils.getEnum(Keyword.class, object.get("keyword"), "keyword");
-                return (actionContext, playerId, game, self, effectResult, effect) -> {
+                return (actionContext) -> {
+                    final LotroGame game = actionContext.getGame();
                     int count = game.getModifiersQuerying().getKeywordCount(game, actionContext.getCardFromMemory(memory), keyword);
                     return new ConstantEvaluator(count);
                 };
             } else if (type.equalsIgnoreCase("limit")) {
                 final int limit = FieldUtils.getInteger(object.get("value"), "value");
                 ValueSource valueSource = resolveEvaluator(object.get("amount"), 0, environment);
-                return (actionContext, playerId, game, self, effectResult, effect) -> new LimitEvaluator(valueSource.getEvaluator(actionContext, playerId, game, self, effectResult, effect), limit);
+                return (actionContext) -> new LimitEvaluator(valueSource.getEvaluator(actionContext), limit);
             } else if (type.equalsIgnoreCase("countStacked")) {
                 final String on = FieldUtils.getString(object.get("on"), "on");
 
                 final FilterableSource onFilter = environment.getFilterFactory().generateFilter(on);
 
-                return (actionContext, playerId, game, self, effectResult, effect) -> {
-                    final Filterable on1 = onFilter.getFilterable(actionContext, playerId, game, self, effectResult, effect);
+                return (actionContext) -> {
+                    final Filterable on1 = onFilter.getFilterable(actionContext);
                     return new CountStackedEvaluator(on1, Filters.any);
                 };
             } else if (type.equalsIgnoreCase("fromMemory")) {
                 String memory = FieldUtils.getString(object.get("memory"), "memory");
-                return (actionContext, playerId, game, self, effectResult, effect) -> {
+                return (actionContext) -> {
                     int value1 = Integer.parseInt(actionContext.getValueFromMemory(memory));
                     return new ConstantEvaluator(value1);
                 };
             } else if (type.equalsIgnoreCase("multiply")) {
                 final int multiplier = FieldUtils.getInteger(object.get("multiplier"), "multiplier");
                 final ValueSource valueSource = ValueResolver.resolveEvaluator(object.get("source"), 0, environment);
-                return (actionContext, playerId, game, self, effectResult, effect) -> new MultiplyEvaluator(multiplier, valueSource.getEvaluator(actionContext, playerId, game, self, effectResult, effect));
+                return (actionContext) -> new MultiplyEvaluator(multiplier, valueSource.getEvaluator(actionContext));
             } else if (type.equalsIgnoreCase("forEachVitality")) {
                 final int over = FieldUtils.getInteger(object.get("over"), "over", 0);
-                return (actionContext, playerId, game, self, effectResult, effect) -> (game1, cardAffected) -> Math.max(0, game1.getModifiersQuerying().getVitality(game1, cardAffected) - over);
+                return (actionContext) -> (game, cardAffected) -> Math.max(0, game.getModifiersQuerying().getVitality(game, cardAffected) - over);
             }
             throw new InvalidCardDefinitionException("Unrecognized type of an evaluator " + type);
         }

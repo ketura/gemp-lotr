@@ -21,11 +21,11 @@ public class ModifyStrength implements EffectProcessor {
         final Requirement[] requirements = environment.getRequirementFactory().getRequirements(conditionArray, environment);
 
         blueprint.appendInPlayModifier(
-                (game, self) -> {
-                    final Evaluator evaluator = valueSource.getEvaluator(null, null, game, self, null, null);
-                    return new StrengthModifier(self,
-                            filterableSource.getFilterable(null, null, game, self, null, null),
-                            new RequirementCondition(requirements, null, self, null, null), evaluator);
+                (actionContext) -> {
+                    final Evaluator evaluator = valueSource.getEvaluator(actionContext);
+                    return new StrengthModifier(actionContext.getSource(),
+                            filterableSource.getFilterable(actionContext),
+                            new RequirementCondition(requirements, actionContext), evaluator);
                 });
     }
 }

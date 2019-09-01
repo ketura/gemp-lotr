@@ -37,7 +37,7 @@ public class Card31_066 extends AbstractMinion {
     }
 
     @Override
-    public List<? extends AbstractExtraPlayCostModifier> getExtraCostToPlayModifiers(LotroGame game, PhysicalCard self) {
+    public List<? extends AbstractExtraPlayCostModifier> getExtraCostToPlay(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
                 new DiscardFromPlayExtraPlayCostModifier(self, self, 1, null, Race.ORC));
     }

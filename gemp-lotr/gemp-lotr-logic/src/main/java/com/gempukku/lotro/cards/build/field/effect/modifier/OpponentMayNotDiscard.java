@@ -18,8 +18,10 @@ public class OpponentMayNotDiscard implements EffectProcessor {
         final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter);
 
         blueprint.appendInPlayModifier(
-                (game, self) -> new CantDiscardFromPlayByPlayerModifier(self, "Can't be discarded by opponent",
-                        filterableSource.getFilterable(null, null, game, self, null, null),
-                        self.getOwner()));
+                (actionContext) -> {
+                    return new CantDiscardFromPlayByPlayerModifier(actionContext.getSource(), "Can't be discarded by opponent",
+                            filterableSource.getFilterable(actionContext),
+                            actionContext.getPerformingPlayer());
+                });
     }
 }

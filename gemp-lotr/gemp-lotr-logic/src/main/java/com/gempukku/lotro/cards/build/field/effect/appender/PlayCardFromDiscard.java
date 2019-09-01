@@ -15,7 +15,6 @@ import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.modifiers.ModifierFlag;
 import com.gempukku.lotro.logic.modifiers.evaluator.ConstantEvaluator;
 import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 import org.json.simple.JSONObject;
 
@@ -31,13 +30,13 @@ public class PlayCardFromDiscard implements EffectAppenderProducer {
 
         result.addEffectAppender(
                 CardResolver.resolveCardsInDiscard(filter,
-                        (actionContext, playerId, game, source, effectResult, effect) -> Filters.playable(game),
+                        (actionContext) -> Filters.playable(actionContext.getGame()),
                         new ConstantEvaluator(1), "_temp", "owner", "Choose card to play", environment));
         result.addEffectAppender(
                 new DelayedAppender() {
                     @Override
-                    protected Effect createEffect(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
-                        final PhysicalCard cardToPlay = action.getCardFromMemory("_temp");
+                    protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
+                        final PhysicalCard cardToPlay = actionContext.getCardFromMemory("_temp");
                         return new UnrespondableEffect() {
                             @Override
                             protected void doPlayEffect(LotroGame game) {
@@ -48,7 +47,8 @@ public class PlayCardFromDiscard implements EffectAppenderProducer {
                     }
 
                     @Override
-                    public boolean isPlayableInFull(ActionContext actionContext, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
+                    public boolean isPlayableInFull(ActionContext actionContext) {
+                        final LotroGame game = actionContext.getGame();
                         return !game.getModifiersQuerying().hasFlagActive(game, ModifierFlag.CANT_PLAY_FROM_DISCARD_OR_DECK);
                     }
                 });

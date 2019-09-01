@@ -1,15 +1,11 @@
 package com.gempukku.lotro.logic.actions;
 
-import com.gempukku.lotro.cards.build.ActionContext;
-import com.gempukku.lotro.cards.build.DefaultActionContext;
 import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.effects.DiscountEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.LinkedList;
 
 public abstract class AbstractCostToEffectAction implements CostToEffectAction {
@@ -27,42 +23,6 @@ public abstract class AbstractCostToEffectAction implements CostToEffectAction {
 
     public boolean isPaidToil() {
         return _paidToil;
-    }
-
-    private ActionContext actionContext = new DefaultActionContext();
-
-    public void setActionContext(ActionContext actionContext) {
-        this.actionContext = actionContext;
-    }
-
-    @Override
-    public void setValueToMemory(String memory, String value) {
-        actionContext.setValueToMemory(memory, value);
-    }
-
-    @Override
-    public String getValueFromMemory(String memory) {
-        return actionContext.getValueFromMemory(memory);
-    }
-
-    @Override
-    public void setCardMemory(String memory, PhysicalCard card) {
-        actionContext.setCardMemory(memory, card);
-    }
-
-    @Override
-    public void setCardMemory(String memory, Collection<? extends PhysicalCard> cards) {
-        actionContext.setCardMemory(memory, cards);
-    }
-
-    @Override
-    public Collection<? extends PhysicalCard> getCardsFromMemory(String memory) {
-        return actionContext.getCardsFromMemory(memory);
-    }
-
-    @Override
-    public PhysicalCard getCardFromMemory(String memory) {
-        return actionContext.getCardFromMemory(memory);
     }
 
     @Override

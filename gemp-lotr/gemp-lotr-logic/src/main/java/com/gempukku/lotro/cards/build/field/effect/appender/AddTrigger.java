@@ -1,5 +1,6 @@
 package com.gempukku.lotro.cards.build.field.effect.appender;
 
+import com.gempukku.lotro.cards.build.ActionContext;
 import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.Requirement;
@@ -9,7 +10,6 @@ import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.TimeResolver;
 import com.gempukku.lotro.cards.build.field.effect.trigger.TriggerChecker;
 import com.gempukku.lotro.game.ActionProxy;
-import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.AbstractCostToEffectAction;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
@@ -41,11 +41,10 @@ public class AddTrigger implements EffectAppenderProducer {
         final EffectAppender[] costs = environment.getEffectAppenderFactory().getEffectAppenders(costArray, environment);
         final EffectAppender[] effects = environment.getEffectAppenderFactory().getEffectAppenders(effectArray, environment);
 
-
         return new DelayedAppender() {
             @Override
-            protected Effect createEffect(CostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
-                ActionProxy actionProxy = createActionProxy(action, self, optional, trigger, requirements, costs, effects);
+            protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
+                ActionProxy actionProxy = createActionProxy(action, actionContext, optional, trigger, requirements, costs, effects);
 
                 if (until.isStart()) {
                     return new AddUntilStartOfPhaseActionProxyEffect(actionProxy, until.getPhase());
@@ -56,81 +55,81 @@ public class AddTrigger implements EffectAppenderProducer {
         };
     }
 
-    private ActionProxy createActionProxy(CostToEffectAction action, PhysicalCard self, boolean optional, TriggerChecker trigger, Requirement[] requirements, EffectAppender[] costs, EffectAppender[] effects) {
+    private ActionProxy createActionProxy(CostToEffectAction action, ActionContext actionContext, boolean optional, TriggerChecker trigger, Requirement[] requirements, EffectAppender[] costs, EffectAppender[] effects) {
         return new ActionProxy() {
-            private boolean checkRequirements(String playerId, CostToEffectAction action, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
+            private boolean checkRequirements(ActionContext actionContext) {
                 for (Requirement requirement : requirements) {
-                    if (!requirement.accepts(action, playerId, game, self, effectResult, effect))
+                    if (!requirement.accepts(actionContext))
                         return true;
                 }
 
                 for (EffectAppender cost : costs) {
-                    if (!cost.isPlayableInFull(action, playerId, game, self, effectResult, effect))
+                    if (!cost.isPlayableInFull(actionContext))
                         return true;
                 }
                 return false;
             }
 
-            private void customizeTriggerAction(AbstractCostToEffectAction action, String playerId, LotroGame game, PhysicalCard self, EffectResult effectResult, Effect effect) {
+            private void customizeTriggerAction(AbstractCostToEffectAction action, ActionContext actionContext) {
                 action.setVirtualCardAction(true);
                 for (EffectAppender cost : costs)
-                    cost.appendCost(action, playerId, game, self, effectResult, effect);
+                    cost.appendEffect(true, action, actionContext);
                 for (EffectAppender effectAppender : effects)
-                    effectAppender.appendEffect(action, playerId, game, self, effectResult, effect);
+                    effectAppender.appendEffect(false, action, actionContext);
             }
 
             @Override
             public List<? extends RequiredTriggerAction> getRequiredBeforeTriggers(LotroGame lotroGame, Effect effect) {
-                if (trigger.isBefore() && !optional && trigger.accepts(action, null, lotroGame, self, null, effect)) {
-                    if (checkRequirements(null, null, lotroGame, self, null, effect))
+                if (trigger.isBefore() && !optional && trigger.accepts(actionContext)) {
+                    if (checkRequirements(actionContext))
                         return null;
 
-                    RequiredTriggerAction action = new RequiredTriggerAction(self);
-                    customizeTriggerAction(action, null, lotroGame, self, null, effect);
+                    RequiredTriggerAction result = new RequiredTriggerAction(actionContext.getSource());
+                    customizeTriggerAction(result, actionContext);
 
-                    return Collections.singletonList(action);
+                    return Collections.singletonList(result);
                 }
                 return null;
             }
 
             @Override
             public List<? extends OptionalTriggerAction> getOptionalBeforeTriggers(String playerId, LotroGame lotroGame, Effect effect) {
-                if (trigger.isBefore() && optional && trigger.accepts(action, playerId, lotroGame, self, null, effect)) {
-                    if (checkRequirements(playerId, null, lotroGame, self, null, effect))
+                if (trigger.isBefore() && optional && trigger.accepts(actionContext)) {
+                    if (checkRequirements(actionContext))
                         return null;
 
-                    OptionalTriggerAction action = new OptionalTriggerAction(self);
-                    customizeTriggerAction(action, playerId, lotroGame, self, null, effect);
+                    OptionalTriggerAction result = new OptionalTriggerAction(actionContext.getSource());
+                    customizeTriggerAction(result, actionContext);
 
-                    return Collections.singletonList(action);
+                    return Collections.singletonList(result);
                 }
                 return null;
             }
 
             @Override
             public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame lotroGame, EffectResult effectResult) {
-                if (!trigger.isBefore() && !optional && trigger.accepts(action, null, lotroGame, self, effectResult, null)) {
-                    if (checkRequirements(null, null, lotroGame, self, effectResult, null))
+                if (!trigger.isBefore() && !optional && trigger.accepts(actionContext)) {
+                    if (checkRequirements(actionContext))
                         return null;
 
-                    RequiredTriggerAction action = new RequiredTriggerAction(self);
-                    customizeTriggerAction(action, null, lotroGame, self, effectResult, null);
+                    RequiredTriggerAction result = new RequiredTriggerAction(actionContext.getSource());
+                    customizeTriggerAction(result, actionContext);
 
-                    return Collections.singletonList(action);
+                    return Collections.singletonList(result);
                 }
                 return null;
             }
 
             @Override
             public List<? extends OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame lotroGame, EffectResult effectResult) {
-                if (!trigger.isBefore() && optional && trigger.accepts(action, playerId, lotroGame, self, effectResult, null)) {
-                    if (checkRequirements(playerId, null, lotroGame, self, effectResult, null))
+                if (!trigger.isBefore() && optional && trigger.accepts(actionContext)) {
+                    if (checkRequirements(actionContext))
                         return null;
 
-                    OptionalTriggerAction action = new OptionalTriggerAction(self);
-                    customizeTriggerAction(action, playerId, lotroGame, self, effectResult, null);
+                    OptionalTriggerAction result = new OptionalTriggerAction(actionContext.getSource());
+                    customizeTriggerAction(result, actionContext);
 
-                    return Collections.singletonList(action);
+                    return Collections.singletonList(result);
                 }
                 return null;
             }

@@ -21,6 +21,8 @@ public class RequirementFactory {
         requirementProducers.put("ringison", new RingIsOn());
         requirementProducers.put("phase", new PhaseRequirement());
         requirementProducers.put("ringisactive", new RingIsActive());
+        requirementProducers.put("memorymatches", new MemoryMatches());
+        requirementProducers.put("cantspotfpcultures", new CantSpotFPCultures());
     }
 
     public Requirement getRequirement(JSONObject object, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {

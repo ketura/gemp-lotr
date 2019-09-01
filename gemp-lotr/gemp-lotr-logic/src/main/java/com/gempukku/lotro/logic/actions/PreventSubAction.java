@@ -1,7 +1,7 @@
 package com.gempukku.lotro.logic.actions;
 
 import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.decisions.MultipleChoiceAwaitingDecision;
+import com.gempukku.lotro.logic.decisions.YesNoDecision;
 import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.lotro.logic.effects.PreventableEffect;
 import com.gempukku.lotro.logic.timing.Action;
@@ -37,14 +37,15 @@ public class PreventSubAction extends SubAction {
                 if (_playerPreventionCost.isPlayableInFull(game)) {
                     appendEffect(
                             new PlayoutDecisionEffect(nextPlayer,
-                                    new MultipleChoiceAwaitingDecision(1, "Would you like to - " + _playerPreventionCost.getText(game) + " to prevent - " + _effectToExecute.getText(game), new String[]{"Yes", "No"}) {
+                                    new YesNoDecision("Would you like to - " + _playerPreventionCost.getText(game) + " to prevent - " + _effectToExecute.getText(game)) {
                                         @Override
-                                        protected void validDecisionMade(int index, String result) {
-                                            if (result.equals("Yes")) {
-                                                startPrevention();
-                                            } else {
-                                                appendEffect(new DecideIfPossible());
-                                            }
+                                        protected void yes() {
+                                            startPrevention();
+                                        }
+
+                                        @Override
+                                        protected void no() {
+                                            appendEffect(new DecideIfPossible());
                                         }
                                     }));
                 } else {

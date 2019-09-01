@@ -1,0 +1,137 @@
+{
+  "40_213": {
+    "title": "*Barad-dur Captain",
+    "side": "shadow",
+    "culture": "sauron",
+    "cost": 5,
+    "type": "minion",
+    "race": "orc",
+    "strength": 11,
+    "vitality": 3,
+    "site": 6,
+    "condition": {
+      "type": "canSpot",
+      "filter": "culture(sauron),minion"
+    },
+    "effects": [
+      {
+        "type": "modifyStrength",
+        "amount": 2,
+        "condition": {
+          "type": "cantSpotFPCultures",
+          "amount": 3
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "skirmish",
+        "cost": {
+          "type": "exert",
+          "filter": "self"
+        },
+        "effect": {
+          "type": "wound",
+          "filter": "choose(inSkirmishAgainst(self))"
+        }
+      }
+    ]
+  },
+  "40_214": {
+    "title": "*Bound to This Fate",
+    "side": "shadow",
+    "culture": "sauron",
+    "cost": 2,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": [
+      {
+        "type": "extraCost",
+        "cost": {
+          "type": "exert",
+          "filter": "choose(culture(sauron),minion)"
+        }
+      },
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "winsSkirmish",
+          "filter": "culture(sauron),minion",
+          "memorize": "sauronMinion"
+        },
+        "effect": {
+          "type": "preventable",
+          "text": "Would you like to exert a companion to prevent making the minion Fierce?",
+          "player": "fp",
+          "effect": {
+            "type": "addKeyword",
+            "until": "start(regroup)",
+            "keyword": "fierce",
+            "filter": "memory(sauronMinion)"
+          },
+          "cost": {
+            "type": "exert",
+            "player": "fp",
+            "filter": "choose(companion)"
+          }
+        }
+      }
+    ]
+  },
+  "40_221": {
+    "title": "It Will Destroy Them All",
+    "side": "shadow",
+    "culture": "sauron",
+    "cost": 1,
+    "type": "condition",
+    "target": "companion,not(hasAttached(name(It Will Destroy Them All)))",
+    "effects": [
+      {
+        "type": "extraCost",
+        "cost": {
+          "type": "exert",
+          "filter": "choose(culture(sauron),orc)"
+        }
+      },
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "condition",
+          "condition": {
+            "type": "canSpot",
+            "filter": "ring bearer,hasAttached(self)"
+          }
+        },
+        "effect": {
+          "type": "discard",
+          "filter": "self"
+        }
+      },
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "assignedToSkirmish",
+          "filter": "hasAttached(self)"
+        },
+        "effect": {
+          "type": "choice",
+          "player": "fp",
+          "texts": [
+            "Add a burden",
+            "Make bearer strength -2 until the regroup phase"
+          ],
+          "effects": [
+            {
+              "type": "addBurden",
+              "player": "fp"
+            },
+            {
+              "type": "modifyStrength",
+              "until": "start(regroup)",
+              "filter": "all(hasAttached(self))"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

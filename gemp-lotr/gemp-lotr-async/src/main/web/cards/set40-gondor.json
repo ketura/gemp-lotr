@@ -1,0 +1,55 @@
+{
+  "40_313": {
+    "title": "Athelas",
+    "subtitle": "Asëa Aranion",
+    "side": "free people",
+    "culture": "gondor",
+    "cost": 1,
+    "type": "condition",
+    "target": "companion",
+    "condition": {
+      "type": "canSpot",
+      "filter": "culture(gondor),man"
+    },
+    "effects": [
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "played",
+          "filter": "self"
+        },
+        "optional": true,
+        "cost": {
+          "type": "discardFromHand",
+          "filter": "side(free people)"
+        },
+        "effect": {
+          "type": "discard",
+          "filter": "choose(side(shadow),condition,attachedTo(hasAttached(self)))"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": [
+          "fellowship",
+          "regroup"
+        ],
+        "cost": [
+          {
+            "type": "memorize",
+            "filter": "hasAttached(self)",
+            "memory": "bearer"
+          },
+          {
+            "type": "discard",
+            "filter": "self"
+          }
+        ],
+        "effect": {
+          "type": "heal",
+          "filter": "memory(bearer)"
+        }
+      }
+    ]
+  }
+}

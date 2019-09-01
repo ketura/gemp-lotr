@@ -1,0 +1,123 @@
+{
+  "40_63": {
+    "title": "*Albert Dreary",
+    "subtitle": "Entertainer from Bree",
+    "side": "free people",
+    "culture": "gandalf",
+    "cost": 1,
+    "type": "ally",
+    "race": "man",
+    "keyword": "bree",
+    "strength": 3,
+    "vitality": 3,
+    "allyHome": "second ed,2",
+    "condition": {
+      "type": "canSpot",
+      "filter": "name(Gandalf)"
+    },
+    "effects": {
+      "type": "activated",
+      "phase": "maneuver",
+      "cost": {
+        "type": "exert",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "discard",
+        "filter": "choose(or(culture(isengard),culture(moria)),condition)"
+      }
+    }
+  },
+  "40_65": {
+    "title": "*Barliman Butterbur",
+    "subtitle": "Forgetful Innkeep",
+    "side": "free people",
+    "culture": "gandalf",
+    "cost": 0,
+    "type": "ally",
+    "race": "man",
+    "keyword": "bree",
+    "allyHome": "second ed,2",
+    "condition": {
+      "type": "canSpot",
+      "filter": "name(Gandalf)"
+    },
+    "effects": {
+      "type": "activated",
+      "phase": [
+        "fellowship",
+        "regroup"
+      ],
+      "cost": {
+        "type": "exert",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "heal",
+        "filter": "choose(companion)"
+      }
+    }
+  },
+  "40_86": {
+    "title": "Protector of the West",
+    "side": "free people",
+    "culture": "gandalf",
+    "cost": 2,
+    "type": "event",
+    "keyword": "skirmish",
+    "effects": {
+      "type": "event",
+      "cost": {
+        "type": "spot",
+        "filter": "choose(name(Gandalf),notAssignedToSkirmish)",
+        "memorize": "gandalf"
+      },
+      "effect": [
+        {
+          "type": "replaceInSkirmish",
+          "filter": "unbound,companion,not(name(Gandalf))",
+          "with": "memory(gandalf)"
+        },
+        {
+          "type": "modifyStrength",
+          "filter": "memory(gandalf)",
+          "amount": 2
+        }
+      ]
+    }
+  },
+  "40_312": {
+    "title": "Go Back to the Shadow!",
+    "side": "free people",
+    "culture": "gandalf",
+    "cost": 1,
+    "type": "event",
+    "keyword": "skirmish",
+    "condition": {
+      "type": "canSpot",
+      "filter": "name(Gandalf)"
+    },
+    "effects": {
+      "type": "event",
+      "effect": {
+        "type": "choice",
+        "texts": [
+          "Make a minion strength -3",
+          "Make a minion strength -2"
+        ],
+        "effects": [
+          {
+            "type": "modifyStrength",
+            "filter": "choose(minion,inSkirmishAgainst(companion,not(resistanceLessThan(5))))",
+            "amount": -3
+          },
+          {
+            "type": "modifyStrength",
+            "filter": "choose(minion,not(inSkirmishAgainst(companion,not(resistanceLessThan(5)))))",
+            "amount": -2
+          }
+        ]
+      }
+    }
+  }
+}

@@ -23,7 +23,7 @@ public class EffectUtils {
         for (JSONObject cost : costArray) {
             final EffectAppender effectAppender = effectAppenderFactory.getEffectAppender(cost, environment);
             actionSource.addPlayRequirement(
-                    (actionContext, playerId, game, self, effectResult, effect) -> effectAppender.isPlayableInFull(actionContext, playerId, game, self, effectResult, effect));
+                    (actionContext) -> effectAppender.isPlayableInFull(actionContext));
             actionSource.addCost(effectAppender);
         }
 
@@ -35,7 +35,7 @@ public class EffectUtils {
             }
             if (effectAppender.isPlayabilityCheckedForEffect())
                 actionSource.addPlayRequirement(
-                        (actionContext, playerId, game, self, effectResult, effect1) -> effectAppender.isPlayableInFull(actionContext, playerId, game, self, effectResult, effect1));
+                        (actionContext) -> effectAppender.isPlayableInFull(actionContext));
             actionSource.addEffect(effectAppender);
         }
     }
