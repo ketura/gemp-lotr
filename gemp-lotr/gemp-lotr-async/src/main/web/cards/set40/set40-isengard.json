@@ -1,0 +1,57 @@
+{
+  "40_314": {
+    "title": "Brute Force",
+    "side": "shadow",
+    "culture": "isengard",
+    "cost": 1,
+    "type": "event",
+    "keyword": "maneuver",
+    "effects": {
+      "type": "event",
+      "cost": [
+        {
+          "type": "exert",
+          "filter": "choose(uruk-hai)"
+        },
+        {
+          "type": "chooseAndRemoveTwilight",
+          "memorize": "twilightRemoved"
+        }
+      ],
+      "effect": {
+        "type": "discard",
+        "filter": "choose(not(weapon),side(free people),possession,maxTwilight(memory(twilightRemoved)))"
+      }
+    }
+  },
+  "40_315": {
+    "title": "*Uruk Taskmaster",
+    "side": "shadow",
+    "culture": "isengard",
+    "cost": 4,
+    "type": "minion",
+    "race": "uruk-hai",
+    "strength": 9,
+    "vitality": 3,
+    "site": 5,
+    "effects": {
+      "type": "activated",
+      "phase": "skirmish",
+      "cost": [
+        {
+          "type": "exert",
+          "filter": "self"
+        },
+        {
+          "type": "removeTwilight",
+          "amount": 3
+        }
+      ],
+      "effect": {
+        "type": "addKeyword",
+        "filter": "choose(uruk-hai)",
+        "keyword": "damage+1"
+      }
+    }
+  }
+}

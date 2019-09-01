@@ -148,13 +148,27 @@ public class FilterFactory {
                 });
         parameterFilters.put("memory",
                 (parameter, filterFactory) -> (actionContext) -> Filters.in(actionContext.getCardsFromMemory(parameter)));
+        parameterFilters.put("maxTwilight",
+                (parameter, filterFactory) -> (actionContext) -> {
+                    if (parameter.startsWith("memory(") && parameter.endsWith(")")) {
+                        String memory = parameter.substring(parameter.indexOf("(") + 1, parameter.lastIndexOf(")"));
+                        final int value = Integer.parseInt(actionContext.getValueFromMemory(memory));
+                        return Filters.maxPrintedTwilightCost(value);
+                    } else {
+                        int value = Integer.parseInt(parameter);
+                        return Filters.maxPrintedTwilightCost(value);
+                    }
+                });
     }
 
     private void appendFilter(Filterable value) {
         final String filterName = value.toString().toLowerCase().replace("_", " ");
+        final String optionalFilterName = value.toString().toLowerCase().replace("_", "-");
         if (simpleFilters.containsKey(filterName))
             throw new RuntimeException("Duplicate filter name: " + filterName);
         simpleFilters.put(filterName, (actionContext) -> value);
+        if (!optionalFilterName.equals(filterName))
+            simpleFilters.put(optionalFilterName, (actionContext -> value));
     }
 
     public FilterableSource generateFilter(String value) throws InvalidCardDefinitionException {

@@ -54,7 +54,9 @@ public class ConditionEffect implements EffectAppenderProducer {
             // TODO, maybe check the requirements, and if met, check if the effect is playable?
             @Override
             public boolean isPlayableInFull(ActionContext actionContext) {
-                return true;
+                if (!checkConditions(actionContext))
+                    return false;
+                return effectAppender.isPlayableInFull(actionContext);
             }
         };
     }

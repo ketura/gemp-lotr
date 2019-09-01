@@ -60,6 +60,9 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("play", new PlayCardFromHand());
         effectAppenderProducers.put("cancelskirmish", new CancelSkirmish());
         effectAppenderProducers.put("discardfromhand", new CancelSkirmish());
+        effectAppenderProducers.put("chooseandremovetwilight", new ChooseAndRemoveTwilight());
+        effectAppenderProducers.put("removetwilight", new RemoveTwilight());
+        effectAppenderProducers.put("stackcards", new StackCardsFromPlay());
     }
 
     public EffectAppender getEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {

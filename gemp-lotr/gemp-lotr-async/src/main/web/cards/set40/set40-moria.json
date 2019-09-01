@@ -60,5 +60,50 @@
         "filter": "memory(unboundCompanion)"
       }
     }
+  },
+  "40_316": {
+    "title": "Deep Places of the World",
+    "side": "shadow",
+    "culture": "moria",
+    "cost": 1,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": {
+      "type": "activated",
+      "phase": [
+        "shadow",
+        "maneuver"
+      ],
+      "cost": {
+        "type": "removeTwilight",
+        "amount": 4
+      },
+      "effect": {
+        "type": "playCardFromDiscard",
+        "filter": "choose(culture(moria),goblin)",
+        "removedTwilight": 4
+      }
+    }
+  },
+  "40_317": {
+    "title": "Scurrying Away",
+    "side": "shadow",
+    "culture": "moria",
+    "cost": 2,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": {
+      "type": "activated",
+      "phase": "skirmish",
+      "cost": {
+        "type": "removeTwilight",
+        "amount": 3
+      },
+      "effect": {
+        "type": "stackCards",
+        "filter": "choose(culture(moria),goblin)",
+        "where": "choose(culture(moria),support area,condition)"
+      }
+    }
   }
 }

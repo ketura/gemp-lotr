@@ -133,5 +133,33 @@
         }
       }
     ]
+  },
+  "40_318": {
+    "title": "*Orc Flanker",
+    "side": "shadow",
+    "culture": "sauron",
+    "cost": 3,
+    "type": "minion",
+    "race": "orc",
+    "strength": 8,
+    "vitality": 3,
+    "site": 6,
+    "keyword": "tracker",
+    "effects": {
+      "type": "activated",
+      "phase": "skirmish",
+      "condition": {
+        "type": "canSpot",
+        "filter": "not(self),tracker"
+      },
+      "cost": {
+        "type": "removeTwilight",
+        "amount": 4
+      },
+      "effect": {
+        "type": "exert",
+        "filter": "choose(companion,notAssignedToSkirmish)"
+      }
+    }
   }
 }

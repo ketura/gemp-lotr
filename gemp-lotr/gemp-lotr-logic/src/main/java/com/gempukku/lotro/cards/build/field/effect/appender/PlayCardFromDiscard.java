@@ -21,9 +21,10 @@ import org.json.simple.JSONObject;
 public class PlayCardFromDiscard implements EffectAppenderProducer {
     @Override
     public EffectAppender createEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(effectObject, "filter");
+        FieldUtils.validateAllowedFields(effectObject, "filter", "removedTwilight");
 
         final String filter = FieldUtils.getString(effectObject.get("filter"), "filter");
+        final int removedTwilight = FieldUtils.getInteger(effectObject.get("removedTwilight"), "removedTwilight", 0);
 
         MultiEffectAppender result = new MultiEffectAppender();
         result.setPlayabilityCheckedForEffect(true);
@@ -31,6 +32,7 @@ public class PlayCardFromDiscard implements EffectAppenderProducer {
         result.addEffectAppender(
                 CardResolver.resolveCardsInDiscard(filter,
                         (actionContext) -> Filters.playable(actionContext.getGame()),
+                        (actionContext) -> Filters.playable(actionContext.getGame(), removedTwilight, 0, false, false),
                         new ConstantEvaluator(1), "_temp", "you", "Choose card to play", environment));
         result.addEffectAppender(
                 new DelayedAppender() {
@@ -45,6 +47,11 @@ public class PlayCardFromDiscard implements EffectAppenderProducer {
                     public boolean isPlayableInFull(ActionContext actionContext) {
                         final LotroGame game = actionContext.getGame();
                         return !game.getModifiersQuerying().hasFlagActive(game, ModifierFlag.CANT_PLAY_FROM_DISCARD_OR_DECK);
+                    }
+
+                    @Override
+                    public boolean isPlayabilityCheckedForEffect() {
+                        return true;
                     }
                 });
 
