@@ -14,6 +14,7 @@ public abstract class AbstractCostToEffectAction implements CostToEffectAction {
     private LinkedList<Effect> _costs = new LinkedList<Effect>();
     private LinkedList<Effect> _processedCosts = new LinkedList<Effect>();
     private LinkedList<Effect> _effects = new LinkedList<Effect>();
+    private LinkedList<Effect> _processedEffects = new LinkedList<Effect>();
 
     private Phase _actionTimeword;
     private String _performingPlayer;
@@ -117,7 +118,10 @@ public abstract class AbstractCostToEffectAction implements CostToEffectAction {
     }
 
     protected final Effect getNextEffect() {
-        return _effects.poll();
+        final Effect effect = _effects.poll();
+        if (effect != null)
+            _processedEffects.add(effect);
+        return effect;
     }
 
     protected final DiscountEffect getNextPotentialDiscount() {
@@ -125,5 +129,17 @@ public abstract class AbstractCostToEffectAction implements CostToEffectAction {
         if (discount != null)
             _processedDiscounts.add(discount);
         return discount;
+    }
+
+    public boolean wasCarriedOut() {
+        if (isCostFailed())
+            return false;
+
+        for (Effect processedEffect : _processedEffects) {
+            if (!processedEffect.wasCarriedOut())
+                return false;
+        }
+
+        return true;
     }
 }

@@ -8,7 +8,10 @@ import com.gempukku.lotro.logic.timing.Effect;
 public abstract class AbstractEffectAppender implements EffectAppender {
     @Override
     public final void appendEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
-        action.appendEffect(createEffect(cost, action, actionContext));
+        if (cost)
+            action.appendCost(createEffect(cost, action, actionContext));
+        else
+            action.appendEffect(createEffect(cost, action, actionContext));
     }
 
     protected abstract Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext);

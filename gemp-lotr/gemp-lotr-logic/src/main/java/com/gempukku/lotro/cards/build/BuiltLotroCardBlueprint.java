@@ -414,9 +414,11 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
         if (twilightCostModifiers == null)
             return 0;
 
+        DefaultActionContext actionContext = new DefaultActionContext(self.getOwner(), game, self, null, null);
+
         int result = 0;
         for (TwilightCostModifierSource twilightCostModifier : twilightCostModifiers)
-            result += twilightCostModifier.getTwilightCostModifier(game, self);
+            result += twilightCostModifier.getTwilightCostModifier(actionContext);
 
         return result;
     }
@@ -546,9 +548,11 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
         if (extraPlayCosts == null)
             return null;
 
+        DefaultActionContext actionContext = new DefaultActionContext(self.getOwner(), game, self, null, null);
+
         List<ExtraPlayCost> result = new LinkedList<>();
         for (ExtraPlayCostSource extraPlayCost : extraPlayCosts) {
-            result.add(extraPlayCost.getExtraPlayCost(game, self));
+            result.add(extraPlayCost.getExtraPlayCost(actionContext));
         }
 
         return result;
