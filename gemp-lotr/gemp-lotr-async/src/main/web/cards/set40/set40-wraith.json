@@ -1,0 +1,57 @@
+{
+  "40_184": {
+    "title": "Black Steed",
+    "subtitle": "Bred to Serve",
+    "side": "shadow",
+    "culture": "wraith",
+    "cost": 1,
+    "type": "possession",
+    "possession": "mount",
+    "strength": 2,
+    "target": "nazgul",
+    "effects": {
+      "type": "modifyStrength",
+      "filter": "hasAttached(self),inSkirmishAgainst(companion,resistanceLessThan(4))",
+      "amount": 2
+    }
+  },
+  "40_211": {
+    "title": "*The Witch-king",
+    "subtitle": "Greatest of the Nine",
+    "side": "shadow",
+    "culture": "wraith",
+    "cost": 8,
+    "type": "minion",
+    "race": "nazgul",
+    "strength": 14,
+    "vitality": 4,
+    "site": 3,
+    "keyword": "fierce",
+    "effects": {
+      "type": "trigger",
+      "trigger": {
+        "type": "winsSkirmish",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "choice",
+        "player": "fp",
+        "texts": [
+          "Exert the Ring-bearer",
+          "Add a burden"
+        ],
+        "effects": [
+          {
+            "type": "exert",
+            "player": "fp",
+            "filter": "choose(ring bearer)"
+          },
+          {
+            "type": "addBurden",
+            "player": "fp"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -83,9 +83,11 @@ public class LotroCardBlueprintLibrary {
     }
 
     private void loadCards(File path) {
-        for (File file : path.listFiles()) {
-            loadCardsFromFile(file);
-        }
+        if (path.isFile())
+            loadCardsFromFile(path);
+        else if (path.isDirectory())
+            for (File file : path.listFiles())
+                loadCards(file);
     }
 
     private void loadCardsFromFile(File file) {
@@ -118,7 +120,7 @@ public class LotroCardBlueprintLibrary {
                 () -> {
                     try {
                         WatchService watcher = FileSystems.getDefault().newWatchService();
-                        WatchKey registrationKey = path.register(watcher,
+                        path.register(watcher,
                                 ENTRY_CREATE,
                                 ENTRY_MODIFY);
 
@@ -153,7 +155,8 @@ public class LotroCardBlueprintLibrary {
                                 // the resolved name is "test/foo".
                                 Path child = path.resolve(filename);
 
-                                loadCardsFromFile(child.toFile());
+                                final File file = child.toFile();
+                                loadCards(file);
                             }
 
                             // Reset the key -- this step is critical if you want to

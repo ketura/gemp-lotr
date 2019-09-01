@@ -17,9 +17,17 @@ public class ValidateCards {
 
         File path = new File(projectRoot + "/gemp-lotr-async/src/main/web/cards");
 
+        processPath(cardBlueprintBuilder, path);
+    }
+
+    private static void processPath(LotroCardBlueprintBuilder cardBlueprintBuilder, File path) {
         for (File file : path.listFiles()) {
-            loadCardsFromFile(cardBlueprintBuilder, file);
-            System.out.println("Finished loading file: " + file.getName());
+            if (file.isFile()) {
+                loadCardsFromFile(cardBlueprintBuilder, file);
+                System.out.println("Finished loading file: " + file.getName());
+            } else {
+                processPath(cardBlueprintBuilder, file);
+            }
         }
     }
 
