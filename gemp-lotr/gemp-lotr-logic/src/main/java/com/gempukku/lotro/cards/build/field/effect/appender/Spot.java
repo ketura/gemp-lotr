@@ -17,6 +17,6 @@ public class Spot implements EffectAppenderProducer {
         final String memorize = FieldUtils.getString(effectObject.get("memorize"), "memorize", "_temp");
 
         return CardResolver.resolveCard(
-                filter, memorize, "owner", "Choose card to spot", environment);
+                filter, memorize, "you", "Choose card to spot", environment);
     }
 }

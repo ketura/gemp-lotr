@@ -29,7 +29,7 @@ public class PlayCardFromHand implements EffectAppenderProducer {
         result.addEffectAppender(
                 CardResolver.resolveCardsInHand(filter,
                         (actionContext) -> Filters.playable(actionContext.getGame()),
-                        new ConstantEvaluator(1), "_temp", "owner", "Choose card to play", environment));
+                        new ConstantEvaluator(1), "_temp", "you", "Choose card to play", environment));
         result.addEffectAppender(
                 new DelayedAppender() {
                     @Override

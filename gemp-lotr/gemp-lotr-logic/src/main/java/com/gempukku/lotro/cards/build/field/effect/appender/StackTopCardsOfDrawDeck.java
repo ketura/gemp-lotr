@@ -19,7 +19,7 @@ public class StackTopCardsOfDrawDeck implements EffectAppenderProducer {
     public EffectAppender createEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         FieldUtils.validateAllowedFields(effectObject, "deck", "where", "count");
 
-        final String deck = FieldUtils.getString(effectObject.get("deck"), "deck", "owner");
+        final String deck = FieldUtils.getString(effectObject.get("deck"), "deck", "you");
         final String where = FieldUtils.getString(effectObject.get("where"), "where");
         final int count = FieldUtils.getInteger(effectObject.get("count"), "count", 1);
 
@@ -30,7 +30,7 @@ public class StackTopCardsOfDrawDeck implements EffectAppenderProducer {
         result.addEffectAppender(
                 PlayerResolver.resolvePlayer(deck, deckPlayerMemory, environment));
         result.addEffectAppender(
-                CardResolver.resolveCard(where, cardMemory, "owner", "Choose card to stack on", environment));
+                CardResolver.resolveCard(where, cardMemory, "you", "Choose card to stack on", environment));
         result.addEffectAppender(
                 new DelayedAppender() {
                     @Override

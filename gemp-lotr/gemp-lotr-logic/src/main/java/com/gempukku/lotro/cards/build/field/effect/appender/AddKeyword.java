@@ -42,7 +42,7 @@ public class AddKeyword implements EffectAppenderProducer {
         MultiEffectAppender result = new MultiEffectAppender();
 
         result.addEffectAppender(
-                CardResolver.resolveCards(filter, valueSource, memory, "owner", "Choose cards to add keywork to", environment));
+                CardResolver.resolveCards(filter, valueSource, memory, "you", "Choose cards to add keywork to", environment));
         result.addEffectAppender(
                 new DelayedAppender() {
                     @Override

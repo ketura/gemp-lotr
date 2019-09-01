@@ -21,7 +21,7 @@ public class AssignToSkirmishAgainstMinion implements EffectAppenderProducer {
     public EffectAppender createEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         FieldUtils.validateAllowedFields(effectObject, "player", "fpCharacter", "against");
 
-        final String player = FieldUtils.getString(effectObject.get("player"), "player", "owner");
+        final String player = FieldUtils.getString(effectObject.get("player"), "player", "you");
         final String fpCharacter = FieldUtils.getString(effectObject.get("fpCharacter"), "fpCharacter");
         final String against = FieldUtils.getString(effectObject.get("against"), "against");
 

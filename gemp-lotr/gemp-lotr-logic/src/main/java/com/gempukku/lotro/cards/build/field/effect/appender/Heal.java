@@ -32,7 +32,7 @@ public class Heal implements EffectAppenderProducer {
         result.addEffectAppender(
                 CardResolver.resolveCards(filter,
                         (actionContext) -> Filters.canHeal,
-                        count, memory, "owner", "Choose cards to heal", environment));
+                        count, memory, "you", "Choose cards to heal", environment));
         result.addEffectAppender(
                 new DelayedAppender() {
                     @Override

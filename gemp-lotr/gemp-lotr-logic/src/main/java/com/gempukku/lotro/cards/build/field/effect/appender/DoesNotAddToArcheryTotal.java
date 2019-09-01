@@ -32,7 +32,7 @@ public class DoesNotAddToArcheryTotal implements EffectAppenderProducer {
 
         result.addEffectAppender(
                 CardResolver.resolveCards(filter,
-                        valueSource, memory, "owner", "Choose cards to make not add to archery total", environment));
+                        valueSource, memory, "you", "Choose cards to make not add to archery total", environment));
         result.addEffectAppender(
                 new DelayedAppender() {
                     @Override

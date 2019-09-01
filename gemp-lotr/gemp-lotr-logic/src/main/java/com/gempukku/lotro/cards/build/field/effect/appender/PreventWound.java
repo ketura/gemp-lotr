@@ -34,7 +34,7 @@ public class PreventWound implements EffectAppenderProducer {
                         (actionContext) -> {
                             final WoundCharactersEffect woundEffect = (WoundCharactersEffect) actionContext.getEffect();
                             return Filters.in(woundEffect.getAffectedCardsMinusPrevented(actionContext.getGame()));
-                        }, new ConstantEvaluator(1), "_temp", "owner", "Choose characters to prevent wound to", environment));
+                        }, new ConstantEvaluator(1), "_temp", "you", "Choose characters to prevent wound to", environment));
         result.addEffectAppender(
                 new DelayedAppender() {
                     @Override

@@ -21,7 +21,7 @@ public class RevealTopCardsOfDrawDeck implements EffectAppenderProducer {
     public EffectAppender createEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         FieldUtils.validateAllowedFields(effectObject, "deck", "count", "memorize");
 
-        final String deck = FieldUtils.getString(effectObject.get("deck"), "deck", "owner");
+        final String deck = FieldUtils.getString(effectObject.get("deck"), "deck", "you");
         final int count = FieldUtils.getInteger(effectObject.get("count"), "count", 1);
         final String memorize = FieldUtils.getString(effectObject.get("memorize"), "memorize");
 

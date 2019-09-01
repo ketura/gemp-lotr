@@ -26,7 +26,7 @@ public class PreventCardEffectAppender implements EffectAppenderProducer {
         result.addEffectAppender(
                 CardResolver.resolveCard(filter,
                         (actionContext) -> Filters.in(((PreventableCardEffect) actionContext.getEffect()).getAffectedCardsMinusPrevented(actionContext.getGame())),
-                        memory, "owner", "Choose card to prevent effect on", environment));
+                        memory, "you", "Choose card to prevent effect on", environment));
         result.addEffectAppender(
                 new DelayedAppender() {
                     @Override

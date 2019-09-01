@@ -30,7 +30,7 @@ public class DiscardCardsFromHand implements EffectAppenderProducer {
         MultiEffectAppender result = new MultiEffectAppender();
 
         result.addEffectAppender(
-                CardResolver.resolveCardsInHand(filter, countSource, "_temp", "owner", "Choose cards to discard", environment));
+                CardResolver.resolveCardsInHand(filter, countSource, "_temp", "you", "Choose cards to discard", environment));
         result.addEffectAppender(
                 new DelayedAppender() {
                     @Override

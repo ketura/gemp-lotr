@@ -31,7 +31,7 @@ public class PlayCardFromDiscard implements EffectAppenderProducer {
         result.addEffectAppender(
                 CardResolver.resolveCardsInDiscard(filter,
                         (actionContext) -> Filters.playable(actionContext.getGame()),
-                        new ConstantEvaluator(1), "_temp", "owner", "Choose card to play", environment));
+                        new ConstantEvaluator(1), "_temp", "you", "Choose card to play", environment));
         result.addEffectAppender(
                 new DelayedAppender() {
                     @Override

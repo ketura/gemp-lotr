@@ -25,7 +25,7 @@ public class Exert implements EffectAppenderProducer {
     public EffectAppender createEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         FieldUtils.validateAllowedFields(effectObject, "player", "count", "times", "filter", "memorize");
 
-        final String player = FieldUtils.getString(effectObject.get("player"), "player", "owner");
+        final String player = FieldUtils.getString(effectObject.get("player"), "player", "you");
         final ValueSource valueSource = ValueResolver.resolveEvaluator(effectObject.get("count"), 1, environment);
         final int times = FieldUtils.getInteger(effectObject.get("times"), "times", 1);
         final String filter = FieldUtils.getString(effectObject.get("filter"), "filter");

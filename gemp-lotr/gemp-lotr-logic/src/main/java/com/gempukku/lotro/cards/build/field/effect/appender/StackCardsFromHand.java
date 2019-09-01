@@ -31,9 +31,9 @@ public class StackCardsFromHand implements EffectAppenderProducer {
         MultiEffectAppender result = new MultiEffectAppender();
 
         result.addEffectAppender(
-                CardResolver.resolveCard(where, "_temp1", "owner", "Choose card to stack on", environment));
+                CardResolver.resolveCard(where, "_temp1", "you", "Choose card to stack on", environment));
         result.addEffectAppender(
-                CardResolver.resolveCardsInHand(filter, valueSource, "_temp2", "owner", "Choose cards to stack", environment));
+                CardResolver.resolveCardsInHand(filter, valueSource, "_temp2", "you", "Choose cards to stack", environment));
         result.addEffectAppender(
                 new DelayedAppender() {
                     @Override

@@ -439,7 +439,7 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
         List<RequiredTriggerAction> result = new LinkedList<>();
 
         for (ActionSource requiredBeforeTrigger : requiredBeforeTriggers) {
-            DefaultActionContext actionContext = new DefaultActionContext(null, game, self, null, effect);
+            DefaultActionContext actionContext = new DefaultActionContext(self.getOwner(), game, self, null, effect);
             if (requiredBeforeTrigger.isValid(actionContext)) {
                 RequiredTriggerAction action = new RequiredTriggerAction(self);
                 requiredBeforeTrigger.createAction(action, actionContext);
@@ -458,7 +458,7 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
         List<RequiredTriggerAction> result = new LinkedList<>();
 
         for (ActionSource requiredAfterTrigger : requiredAfterTriggers) {
-            DefaultActionContext actionContext = new DefaultActionContext(null, game, self, effectResult, null);
+            DefaultActionContext actionContext = new DefaultActionContext(self.getOwner(), game, self, effectResult, null);
             if (requiredAfterTrigger.isValid(actionContext)) {
                 RequiredTriggerAction action = new RequiredTriggerAction(self);
                 requiredAfterTrigger.createAction(action, actionContext);

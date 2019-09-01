@@ -23,7 +23,7 @@ public class DiscardFromPlay implements EffectAppenderProducer {
     public EffectAppender createEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         FieldUtils.validateAllowedFields(effectObject, "player", "count", "filter", "memorize", "memorizeStackedCards");
 
-        final String player = FieldUtils.getString(effectObject.get("player"), "player", "owner");
+        final String player = FieldUtils.getString(effectObject.get("player"), "player", "you");
         final PlayerSource discardingPlayer = PlayerResolver.resolvePlayer(player, environment);
         final ValueSource valueSource = ValueResolver.resolveEvaluator(effectObject.get("count"), 1, environment);
         final String filter = FieldUtils.getString(effectObject.get("filter"), "filter");

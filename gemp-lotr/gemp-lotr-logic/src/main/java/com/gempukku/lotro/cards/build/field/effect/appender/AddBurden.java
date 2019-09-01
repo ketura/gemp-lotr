@@ -20,7 +20,7 @@ public class AddBurden implements EffectAppenderProducer {
         FieldUtils.validateAllowedFields(effectObject, "amount", "player");
 
         final int amount = FieldUtils.getInteger(effectObject.get("amount"), "amount", 1);
-        final String player = FieldUtils.getString(effectObject.get("player"), "player", "owner");
+        final String player = FieldUtils.getString(effectObject.get("player"), "player", "you");
 
         final PlayerSource playerSource = PlayerResolver.resolvePlayer(player, environment);
 

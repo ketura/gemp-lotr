@@ -26,7 +26,7 @@ public class Choice implements EffectAppenderProducer {
     public EffectAppender createEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         FieldUtils.validateAllowedFields(effectObject, "player", "effects", "texts");
 
-        final String player = FieldUtils.getString(effectObject.get("player"), "player", "owner");
+        final String player = FieldUtils.getString(effectObject.get("player"), "player", "you");
         final JSONObject[] effectArray = FieldUtils.getObjectArray(effectObject.get("effects"), "effects");
         final String[] textArray = FieldUtils.getStringArray(effectObject.get("texts"), "texts");
 

@@ -14,7 +14,7 @@ public class ControlsSite implements RequirementProducer {
     public Requirement getPlayRequirement(JSONObject object, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         FieldUtils.validateAllowedFields(object, "player");
 
-        final String player = FieldUtils.getString(object.get("player"), "player", "owner");
+        final String player = FieldUtils.getString(object.get("player"), "player", "you");
         final PlayerSource playerSource = PlayerResolver.resolvePlayer(player, environment);
 
         return (actionContext) -> {

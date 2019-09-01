@@ -17,7 +17,7 @@ public class DrawCards implements EffectAppenderProducer {
     public EffectAppender createEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         FieldUtils.validateAllowedFields(effectObject, "count", "player");
 
-        final String player = FieldUtils.getString(effectObject.get("player"), "player", "owner");
+        final String player = FieldUtils.getString(effectObject.get("player"), "player", "you");
 
         final PlayerSource playerSource = PlayerResolver.resolvePlayer(player, environment);
         final ValueSource count = ValueResolver.resolveEvaluator(effectObject.get("count"), 1, environment);
