@@ -29,12 +29,14 @@ public abstract class DelayedAppender implements EffectAppender {
                     protected void doPlayEffect(LotroGame game) {
                         // Need to insert them, but in the reverse order
                         final List<? extends Effect> effects = createEffects(cost, action, actionContext);
-                        final Effect[] effectsArray = effects.toArray(new Effect[0]);
-                        for (int i = effectsArray.length - 1; i >= 0; i--)
-                            if (cost)
-                                action.insertCost(effectsArray[i]);
-                            else
-                                action.insertEffect(effectsArray[i]);
+                        if (effects != null) {
+                            final Effect[] effectsArray = effects.toArray(new Effect[0]);
+                            for (int i = effectsArray.length - 1; i >= 0; i--)
+                                if (cost)
+                                    action.insertCost(effectsArray[i]);
+                                else
+                                    action.insertEffect(effectsArray[i]);
+                        }
                     }
 
                     @Override

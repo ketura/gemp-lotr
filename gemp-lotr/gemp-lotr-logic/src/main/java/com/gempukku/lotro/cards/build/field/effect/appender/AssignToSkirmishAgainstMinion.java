@@ -16,6 +16,10 @@ import com.gempukku.lotro.logic.effects.AssignmentEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 import org.json.simple.JSONObject;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+
 public class AssignToSkirmishAgainstMinion implements EffectAppenderProducer {
     @Override
     public EffectAppender createEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
@@ -41,12 +45,16 @@ public class AssignToSkirmishAgainstMinion implements EffectAppenderProducer {
         result.addEffectAppender(
                 new DelayedAppender() {
                     @Override
-                    protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
+                    protected List<? extends Effect> createEffects(boolean cost, CostToEffectAction action, ActionContext actionContext) {
                         final String assigningPlayer = playerSource.getPlayer(actionContext);
                         final Filterable filter = minionFilter.getFilterable(actionContext);
                         final PhysicalCard minion = Filters.findFirstActive(actionContext.getGame(), filter);
-                        final PhysicalCard fpCharacter = actionContext.getCardFromMemory("_tempFpCharacter");
-                        return new AssignmentEffect(assigningPlayer, fpCharacter, minion);
+                        final Collection<? extends PhysicalCard> fpChar = actionContext.getCardsFromMemory("_tempFpCharacter");
+                        if (fpChar.size() == 1) {
+                            return Collections.singletonList(
+                                    new AssignmentEffect(assigningPlayer, fpChar.iterator().next(), minion));
+                        }
+                        return null;
                     }
                 });
 
