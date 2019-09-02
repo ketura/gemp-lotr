@@ -15,8 +15,8 @@ public class CantBeExerted implements EffectProcessor {
         final String filter = FieldUtils.getString(value.get("filter"), "filter", "self");
         final String byFilter = FieldUtils.getString(value.get("by"), "by", "any");
 
-        final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter);
-        final FilterableSource byFilterableSource = environment.getFilterFactory().generateFilter(byFilter);
+        final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
+        final FilterableSource byFilterableSource = environment.getFilterFactory().generateFilter(byFilter, environment);
         final Requirement[] requirements = environment.getRequirementFactory().getRequirements(conditionArray, environment);
 
         blueprint.appendInPlayModifier(

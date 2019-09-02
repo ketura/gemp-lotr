@@ -24,7 +24,7 @@ public class PutStackedCardsIntoHand implements EffectAppenderProducer {
         final ValueSource valueSource = ValueResolver.resolveEvaluator(effectObject.get("count"), 1, environment);
         final String filter = FieldUtils.getString(effectObject.get("filter"), "filter", "choose(any)");
         final String on = FieldUtils.getString(effectObject.get("on"), "on", "any");
-        final FilterableSource onFilterSource = environment.getFilterFactory().generateFilter(on);
+        final FilterableSource onFilterSource = environment.getFilterFactory().generateFilter(on, environment);
 
         MultiEffectAppender result = new MultiEffectAppender();
         result.addEffectAppender(

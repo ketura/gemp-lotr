@@ -16,23 +16,26 @@ public class TimeResolver {
     private static Time parseTime(String value) throws InvalidCardDefinitionException {
         if (value.startsWith("start(") && value.endsWith(")")) {
             final String phaseName = value.substring(value.indexOf("(") + 1, value.lastIndexOf(")"));
-            return new Time(Phase.valueOf(phaseName.toUpperCase()), true);
+            return new Time(Phase.valueOf(phaseName.toUpperCase()), true, false);
         } else if (value.startsWith("end(") && value.endsWith(")")) {
             final String phaseName = value.substring(value.indexOf("(") + 1, value.lastIndexOf(")"));
             if (phaseName.equals("current"))
-                return new Time(null, false);
-            return new Time(Phase.valueOf(phaseName.toUpperCase()), false);
-        }
+                return new Time(null, false, false);
+            return new Time(Phase.valueOf(phaseName.toUpperCase()), false, false);
+        } else if (value.equals("endofturn"))
+            return new Time(null, false, true);
         throw new InvalidCardDefinitionException("Unable to resolve time: " + value);
     }
 
     public static class Time {
         private Phase phase;
         private boolean start;
+        private boolean endOfTurn;
 
-        private Time(Phase phase, boolean start) {
+        private Time(Phase phase, boolean start, boolean endOfTurn) {
             this.phase = phase;
             this.start = start;
+            this.endOfTurn = endOfTurn;
         }
 
         public Phase getPhase() {
@@ -41,6 +44,10 @@ public class TimeResolver {
 
         public boolean isStart() {
             return start;
+        }
+
+        public boolean isEndOfTurn() {
+            return endOfTurn;
         }
     }
 }

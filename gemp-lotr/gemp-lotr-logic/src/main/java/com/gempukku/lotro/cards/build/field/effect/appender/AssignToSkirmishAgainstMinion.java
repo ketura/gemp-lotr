@@ -26,7 +26,7 @@ public class AssignToSkirmishAgainstMinion implements EffectAppenderProducer {
         final String against = FieldUtils.getString(effectObject.get("against"), "against");
 
         final PlayerSource playerSource = PlayerResolver.resolvePlayer(player, environment);
-        final FilterableSource minionFilter = environment.getFilterFactory().generateFilter(against);
+        final FilterableSource minionFilter = environment.getFilterFactory().generateFilter(against, environment);
 
         MultiEffectAppender result = new MultiEffectAppender();
 

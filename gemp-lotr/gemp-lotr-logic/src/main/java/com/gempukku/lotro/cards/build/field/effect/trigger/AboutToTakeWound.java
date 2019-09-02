@@ -18,8 +18,8 @@ public class AboutToTakeWound implements TriggerCheckerProducer {
         String source = FieldUtils.getString(value.get("source"), "source", "any");
         String filter = FieldUtils.getString(value.get("filter"), "source");
 
-        final FilterableSource sourceFilter = environment.getFilterFactory().generateFilter(source);
-        final FilterableSource affectedFilter = environment.getFilterFactory().generateFilter(filter);
+        final FilterableSource sourceFilter = environment.getFilterFactory().generateFilter(source, environment);
+        final FilterableSource affectedFilter = environment.getFilterFactory().generateFilter(filter, environment);
 
         return new TriggerChecker() {
             @Override

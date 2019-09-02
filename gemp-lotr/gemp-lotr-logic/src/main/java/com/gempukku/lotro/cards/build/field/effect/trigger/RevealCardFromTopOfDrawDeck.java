@@ -19,7 +19,7 @@ public class RevealCardFromTopOfDrawDeck implements TriggerCheckerProducer {
 
         final String filter = FieldUtils.getString(value.get("filter"), "filter", "any");
 
-        final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter);
+        final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
 
         return new TriggerChecker() {
             @Override

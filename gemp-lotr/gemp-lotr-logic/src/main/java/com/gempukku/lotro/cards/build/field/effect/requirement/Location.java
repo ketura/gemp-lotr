@@ -18,7 +18,7 @@ public class Location implements RequirementProducer {
 
         final String filter = FieldUtils.getString(object.get("filter"), "filter");
 
-        final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter);
+        final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
 
         return (actionContext) -> {
             final Filterable filterable = filterableSource.getFilterable(actionContext);

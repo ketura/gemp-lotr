@@ -15,7 +15,7 @@ public class OpponentMayNotDiscard implements EffectProcessor {
         FieldUtils.validateAllowedFields(effectObject, "filter");
 
         final String filter = FieldUtils.getString(effectObject.get("filter"), "filter", "self");
-        final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter);
+        final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
 
         blueprint.appendInPlayModifier(
                 (actionContext) -> {

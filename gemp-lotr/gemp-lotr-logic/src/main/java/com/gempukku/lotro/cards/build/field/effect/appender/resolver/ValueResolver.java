@@ -5,6 +5,7 @@ import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.filters.Filters;
+import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.modifiers.evaluator.*;
 import org.json.simple.JSONObject;
@@ -81,7 +82,7 @@ public class ValueResolver {
             } else if (type.equalsIgnoreCase("countStacked")) {
                 final String on = FieldUtils.getString(object.get("on"), "on");
 
-                final FilterableSource onFilter = environment.getFilterFactory().generateFilter(on);
+                final FilterableSource onFilter = environment.getFilterFactory().generateFilter(on, environment);
 
                 return (actionContext) -> {
                     final Filterable on1 = onFilter.getFilterable(actionContext);
@@ -89,7 +90,7 @@ public class ValueResolver {
                 };
             } else if (type.equalsIgnoreCase("forEachYouCanSpot")) {
                 final String filter = FieldUtils.getString(object.get("filter"), "filter");
-                final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter);
+                final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
                 return actionContext -> new CountSpottableEvaluator(filterableSource.getFilterable(actionContext));
             } else if (type.equalsIgnoreCase("fromMemory")) {
                 String memory = FieldUtils.getString(object.get("memory"), "memory");
@@ -104,6 +105,23 @@ public class ValueResolver {
             } else if (type.equalsIgnoreCase("forEachVitality")) {
                 final int over = FieldUtils.getInteger(object.get("over"), "over", 0);
                 return (actionContext) -> (game, cardAffected) -> Math.max(0, game.getModifiersQuerying().getVitality(game, cardAffected) - over);
+            } else if (type.equalsIgnoreCase("subtract")) {
+                final ValueSource firstNumber = ValueResolver.resolveEvaluator(object.get("firstNumber"), 0, environment);
+                final ValueSource secondNumber = ValueResolver.resolveEvaluator(object.get("secondNumber"), 0, environment);
+                return actionContext -> (Evaluator) (game, cardAffected) -> {
+                    final int first = firstNumber.getEvaluator(actionContext).evaluateExpression(actionContext.getGame(), null);
+                    final int second = secondNumber.getEvaluator(actionContext).evaluateExpression(actionContext.getGame(), null);
+                    return first - second;
+                };
+            } else if (type.equals("twilightCostInMemory")) {
+                final String memory = FieldUtils.getString(object.get("memory"), "memory");
+                return actionContext -> (Evaluator) (game, cardAffected) -> {
+                    int total = 0;
+                    for (PhysicalCard physicalCard : actionContext.getCardsFromMemory(memory)) {
+                        total += physicalCard.getBlueprint().getTwilightCost();
+                    }
+                    return total;
+                };
             }
             throw new InvalidCardDefinitionException("Unrecognized type of an evaluator " + type);
         }

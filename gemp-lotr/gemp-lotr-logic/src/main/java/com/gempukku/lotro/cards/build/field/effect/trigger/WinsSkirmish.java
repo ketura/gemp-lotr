@@ -18,8 +18,8 @@ public class WinsSkirmish implements TriggerCheckerProducer {
         String against = FieldUtils.getString(value.get("against"), "against", "any");
         final String memorize = FieldUtils.getString(value.get("memorize"), "memorize");
 
-        final FilterableSource winnerFilter = environment.getFilterFactory().generateFilter(winner);
-        final FilterableSource againstFilter = environment.getFilterFactory().generateFilter(against);
+        final FilterableSource winnerFilter = environment.getFilterFactory().generateFilter(winner, environment);
+        final FilterableSource againstFilter = environment.getFilterFactory().generateFilter(against, environment);
 
         return new TriggerChecker() {
             @Override

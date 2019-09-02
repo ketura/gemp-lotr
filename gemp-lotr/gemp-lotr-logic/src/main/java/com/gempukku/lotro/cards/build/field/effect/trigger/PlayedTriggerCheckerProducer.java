@@ -18,7 +18,7 @@ public class PlayedTriggerCheckerProducer implements TriggerCheckerProducer {
 
         final String filterString = FieldUtils.getString(value.get("filter"), "filter");
         final String memorize = FieldUtils.getString(value.get("memorize"), "memorize");
-        final FilterableSource filter = environment.getFilterFactory().generateFilter(filterString);
+        final FilterableSource filter = environment.getFilterFactory().generateFilter(filterString, environment);
         return new TriggerChecker() {
             @Override
             public boolean accepts(ActionContext actionContext) {

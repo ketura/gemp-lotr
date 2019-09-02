@@ -1,7 +1,7 @@
 package com.gempukku.lotro.cards.build.field.effect.filter;
 
-import com.gempukku.lotro.cards.build.FilterableSource;
-import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
+import com.gempukku.lotro.cards.build.*;
+import com.gempukku.lotro.cards.build.field.effect.appender.resolver.ValueResolver;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.logic.timing.results.CharacterLostSkirmishResult;
@@ -46,14 +46,14 @@ public class FilterFactory {
         simpleFilters.put("unbound",
                 (actionContext) -> Filters.not(Keyword.RING_BOUND));
 
-        parameterFilters.put("culture", (parameter, filterFactory) -> {
+        parameterFilters.put("culture", (parameter, environment) -> {
             final Culture culture = Culture.valueOf(parameter.toUpperCase());
             if (culture == null)
                 throw new InvalidCardDefinitionException("Unable to find culture for: " + parameter);
 
             return (actionContext) -> culture;
         });
-        parameterFilters.put("side", (parameter, filterFactory) -> {
+        parameterFilters.put("side", (parameter, environment) -> {
             final Side side = Side.valueOf(parameter.toUpperCase().replace(" ", "_"));
             if (side == null)
                 throw new InvalidCardDefinitionException("Unable to find side for: " + parameter);
@@ -61,70 +61,70 @@ public class FilterFactory {
             return (actionContext) -> side;
         });
         parameterFilters.put("hasAttached",
-                (parameter, filterFactory) -> {
-                    final FilterableSource filterableSource = filterFactory.generateFilter(parameter);
+                (parameter, environment) -> {
+                    final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(parameter, environment);
                     return (actionContext) -> Filters.hasAttached(filterableSource.getFilterable(actionContext));
                 });
         parameterFilters.put("hasAttachedCount",
-                (parameter, filterFactory) -> {
+                (parameter, environment) -> {
                     String[] parameterSplit = parameter.split(",", 2);
                     int count = Integer.parseInt(parameterSplit[0]);
-                    final FilterableSource filterableSource = filterFactory.generateFilter(parameterSplit[1]);
+                    final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(parameterSplit[1], environment);
                     return (actionContext) -> Filters.hasAttached(count, filterableSource.getFilterable(actionContext));
                 });
         parameterFilters.put("hasStacked",
-                (parameter, filterFactory) -> {
-                    final FilterableSource filterableSource = filterFactory.generateFilter(parameter);
+                (parameter, environment) -> {
+                    final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(parameter, environment);
                     return (actionContext) -> Filters.hasStacked(filterableSource.getFilterable(actionContext));
                 });
         parameterFilters.put("hasStackedCount",
-                (parameter, filterFactory) -> {
+                (parameter, environment) -> {
                     String[] parameterSplit = parameter.split(",", 2);
                     int count = Integer.parseInt(parameterSplit[0]);
-                    final FilterableSource filterableSource = filterFactory.generateFilter(parameterSplit[1]);
+                    final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(parameterSplit[1], environment);
                     return (actionContext) -> Filters.hasStacked(count, filterableSource.getFilterable(actionContext));
                 });
         parameterFilters.put("attachedTo",
-                (parameter, filterFactory) -> {
-                    final FilterableSource filterableSource = filterFactory.generateFilter(parameter);
+                (parameter, environment) -> {
+                    final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(parameter, environment);
                     return (actionContext) -> Filters.attachedTo(filterableSource.getFilterable(actionContext));
                 });
         parameterFilters.put("name",
-                (parameter, filterFactory) -> (actionContext) -> Filters.name(parameter));
+                (parameter, environment) -> (actionContext) -> Filters.name(parameter));
         parameterFilters.put("inSkirmishAgainst",
-                (parameter, filterFactory) -> {
-                    final FilterableSource filterableSource = filterFactory.generateFilter(parameter);
+                (parameter, environment) -> {
+                    final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(parameter, environment);
                     return (actionContext) -> Filters.inSkirmishAgainst(filterableSource.getFilterable(actionContext));
                 });
         parameterFilters.put("assignedToSkirmish",
-                (parameter, filterFactory) -> {
-                    final FilterableSource filterableSource = filterFactory.generateFilter(parameter);
+                (parameter, environment) -> {
+                    final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(parameter, environment);
                     return (actionContext) -> Filters.assignedToSkirmishAgainst(filterableSource.getFilterable(actionContext));
                 });
         parameterFilters.put("resistanceLessThan",
-                (parameter, filterFactory) -> {
+                (parameter, environment) -> {
                     int amount = Integer.parseInt(parameter);
                     return (actionContext) -> Filters.maxResistance(amount + 1);
                 });
         parameterFilters.put("not",
-                (parameter, filterFactory) -> {
-                    final FilterableSource filterableSource = filterFactory.generateFilter(parameter);
+                (parameter, environment) -> {
+                    final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(parameter, environment);
                     return (actionContext) -> Filters.not(filterableSource.getFilterable(actionContext));
                 });
         parameterFilters.put("allyHome",
-                (parameter, filterFactory) -> {
+                (parameter, environment) -> {
                     final String[] parameterSplit = parameter.split(",");
                     final SitesBlock sitesBlock = Enum.valueOf(SitesBlock.class, parameterSplit[0].toUpperCase().replace('_', ' '));
                     int number = Integer.parseInt(parameterSplit[1]);
                     return (actionContext) -> Filters.isAllyHome(number, sitesBlock);
                 });
         parameterFilters.put("siteBlock",
-                (parameter, filterFactory) -> {
+                (parameter, environment) -> {
                     final SitesBlock sitesBlock = Enum.valueOf(SitesBlock.class, parameter.toUpperCase().replace(' ', '_'));
                     return (actionContext) -> Filters.siteBlock(sitesBlock);
                 });
         parameterFilters.put("siteNumber",
-                (parameter, filterFactory) -> {
+                (parameter, environment) -> {
                     int min, max;
                     if (parameter.contains("-")) {
                         final String[] split = parameter.split("-", 2);
@@ -137,11 +137,11 @@ public class FilterFactory {
                     return (actionContext) -> Filters.siteNumberBetweenInclusive(min, max);
                 });
         parameterFilters.put("or",
-                (parameter, filterFactory) -> {
+                (parameter, environment) -> {
                     final String[] filters = splitIntoFilters(parameter);
                     FilterableSource[] filterables = new FilterableSource[filters.length];
                     for (int i = 0; i < filters.length; i++)
-                        filterables[i] = filterFactory.generateFilter(filters[i]);
+                        filterables[i] = environment.getFilterFactory().generateFilter(filters[i], environment);
                     return (actionContext) -> {
                         Filterable[] filters1 = new Filterable[filterables.length];
                         for (int i = 0; i < filterables.length; i++)
@@ -151,16 +151,29 @@ public class FilterFactory {
                     };
                 });
         parameterFilters.put("memory",
-                (parameter, filterFactory) -> (actionContext) -> Filters.in(actionContext.getCardsFromMemory(parameter)));
+                (parameter, environment) -> (actionContext) -> {
+                    return Filters.in(actionContext.getCardsFromMemory(parameter));
+                });
         parameterFilters.put("maxTwilight",
-                (parameter, filterFactory) -> (actionContext) -> {
+                (parameter, environment) -> {
                     if (parameter.startsWith("memory(") && parameter.endsWith(")")) {
                         String memory = parameter.substring(parameter.indexOf("(") + 1, parameter.lastIndexOf(")"));
-                        final int value = Integer.parseInt(actionContext.getValueFromMemory(memory));
-                        return Filters.maxPrintedTwilightCost(value);
+                        return new FilterableSource() {
+                            @Override
+                            public Filterable getFilterable(ActionContext actionContext) {
+                                final int value = Integer.parseInt(actionContext.getValueFromMemory(memory));
+                                return Filters.maxPrintedTwilightCost(value);
+                            }
+                        };
                     } else {
-                        int value = Integer.parseInt(parameter);
-                        return Filters.maxPrintedTwilightCost(value);
+                        final ValueSource valueSource = ValueResolver.resolveEvaluator(parameter, 0, environment);
+                        return new FilterableSource() {
+                            @Override
+                            public Filterable getFilterable(ActionContext actionContext) {
+                                final int value = valueSource.getEvaluator(actionContext).evaluateExpression(actionContext.getGame(), null);
+                                return Filters.maxPrintedTwilightCost(value);
+                            }
+                        };
                     }
                 });
     }
@@ -175,16 +188,16 @@ public class FilterFactory {
             simpleFilters.put(optionalFilterName, (actionContext -> value));
     }
 
-    public FilterableSource generateFilter(String value) throws InvalidCardDefinitionException {
+    public FilterableSource generateFilter(String value, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         String filterStrings[] = splitIntoFilters(value);
         if (filterStrings.length == 0)
             return (actionContext) -> Filters.any;
         if (filterStrings.length == 1)
-            return createFilter(filterStrings[0]);
+            return createFilter(filterStrings[0], environment);
 
         FilterableSource[] filters = new FilterableSource[filterStrings.length];
         for (int i = 0; i < filters.length; i++)
-            filters[i] = createFilter(filterStrings[i]);
+            filters[i] = createFilter(filterStrings[i], environment);
         return (actionContext) -> {
             Filterable[] filter = new Filterable[filters.length];
             for (int i = 0; i < filter.length; i++) {
@@ -230,16 +243,16 @@ public class FilterFactory {
         return parts.toArray(new String[0]);
     }
 
-    private FilterableSource createFilter(String filterString) throws InvalidCardDefinitionException {
+    private FilterableSource createFilter(String filterString, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         if (filterString.contains("(") && filterString.endsWith(")")) {
             String filterName = filterString.substring(0, filterString.indexOf("("));
             String filterParameter = filterString.substring(filterString.indexOf("(") + 1, filterString.lastIndexOf(")"));
-            return lookupFilter(filterName, filterParameter);
+            return lookupFilter(filterName, filterParameter, environment);
         }
-        return lookupFilter(filterString, null);
+        return lookupFilter(filterString, null, environment);
     }
 
-    private FilterableSource lookupFilter(String name, String parameter) throws InvalidCardDefinitionException {
+    private FilterableSource lookupFilter(String name, String parameter, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         if (parameter == null) {
             FilterableSource result = simpleFilters.get(name.toLowerCase());
             if (result != null)
@@ -250,6 +263,6 @@ public class FilterFactory {
         if (filterableSourceProducer == null)
             throw new InvalidCardDefinitionException("Unable to find filter: " + name);
 
-        return filterableSourceProducer.createFilterableSource(parameter, this);
+        return filterableSourceProducer.createFilterableSource(parameter, environment);
     }
 }

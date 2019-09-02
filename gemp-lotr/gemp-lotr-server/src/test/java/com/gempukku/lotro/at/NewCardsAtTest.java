@@ -6,6 +6,7 @@ import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.CardNotFoundException;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.PhysicalCardImpl;
+import com.gempukku.lotro.logic.decisions.AwaitingDecisionType;
 import com.gempukku.lotro.logic.decisions.DecisionResultInvalidException;
 import org.junit.Test;
 
@@ -375,4 +376,57 @@ public class NewCardsAtTest extends AbstractAtTest {
         assertEquals(7 + 3, _game.getModifiersQuerying().getStrength(_game, gandalf));
     }
 
+    @Test
+    public void mathProgrammingDiscardBoth() throws DecisionResultInvalidException, CardNotFoundException {
+        initializeSimplestGame();
+
+        final PhysicalCardImpl gandalf = createCard(P1, "40_70");
+        final PhysicalCardImpl discerment = createCard(P1, "40_68");
+        final PhysicalCardImpl blackBreath = createCard(P2, "40_183");
+        final PhysicalCardImpl blackBreath2 = createCard(P2, "40_183");
+
+        _game.getGameState().addCardToZone(_game, gandalf, Zone.FREE_CHARACTERS);
+        _game.getGameState().addCardToZone(_game, discerment, Zone.HAND);
+        _game.getGameState().attachCard(_game, blackBreath, gandalf);
+        _game.getGameState().attachCard(_game, blackBreath2, gandalf);
+
+        skipMulligans();
+
+        playerDecided(P1, "0");
+        playerDecided(P1, "");
+
+        playerDecided(P1, "2");
+        playerDecided(P1, "" + blackBreath.getCardId());
+        playerDecided(P1, "" + blackBreath2.getCardId());
+
+        assertEquals(Zone.DISCARD, blackBreath.getZone());
+        assertEquals(Zone.DISCARD, blackBreath2.getZone());
+    }
+
+    @Test
+    public void mathProgrammingDiscardOne() throws DecisionResultInvalidException, CardNotFoundException {
+        initializeSimplestGame();
+
+        final PhysicalCardImpl gandalf = createCard(P1, "40_70");
+        final PhysicalCardImpl discerment = createCard(P1, "40_68");
+        final PhysicalCardImpl blackBreath = createCard(P2, "40_183");
+        final PhysicalCardImpl blackBreath2 = createCard(P2, "40_183");
+
+        _game.getGameState().addCardToZone(_game, gandalf, Zone.FREE_CHARACTERS);
+        _game.getGameState().addCardToZone(_game, discerment, Zone.HAND);
+        _game.getGameState().attachCard(_game, blackBreath, gandalf);
+        _game.getGameState().attachCard(_game, blackBreath2, gandalf);
+
+        skipMulligans();
+
+        playerDecided(P1, "0");
+        playerDecided(P1, "");
+
+        playerDecided(P1, "1");
+        playerDecided(P1, "" + blackBreath.getCardId());
+        assertEquals(AwaitingDecisionType.CARD_ACTION_CHOICE, _userFeedback.getAwaitingDecision(P1).getDecisionType());
+
+        assertEquals(Zone.DISCARD, blackBreath.getZone());
+        assertEquals(Zone.ATTACHED, blackBreath2.getZone());
+    }
 }

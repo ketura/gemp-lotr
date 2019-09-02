@@ -20,7 +20,7 @@ public class DiscardStackedCards implements EffectAppenderProducer {
         String filter = FieldUtils.getString(effectObject.get("filter"), "filter", "choose(any)");
         final ValueSource valueSource = ValueResolver.resolveEvaluator(effectObject.get("count"), 1, environment);
 
-        final FilterableSource onFilterSource = environment.getFilterFactory().generateFilter(on);
+        final FilterableSource onFilterSource = environment.getFilterFactory().generateFilter(on, environment);
 
         MultiEffectAppender result = new MultiEffectAppender();
         result.addEffectAppender(

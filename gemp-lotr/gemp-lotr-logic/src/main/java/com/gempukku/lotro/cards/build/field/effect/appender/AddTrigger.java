@@ -13,6 +13,7 @@ import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.effects.AddUntilEndOfPhaseActionProxyEffect;
+import com.gempukku.lotro.logic.effects.AddUntilEndOfTurnActionProxyEffect;
 import com.gempukku.lotro.logic.effects.AddUntilStartOfPhaseActionProxyEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
@@ -43,7 +44,9 @@ public class AddTrigger implements EffectAppenderProducer {
             protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
                 ActionProxy actionProxy = createActionProxy(action, actionContext, optional, trigger, requirements, costs, effects);
 
-                if (until.isStart()) {
+                if (until.isEndOfTurn()) {
+                    return new AddUntilEndOfTurnActionProxyEffect(actionProxy);
+                } else if (until.isStart()) {
                     return new AddUntilStartOfPhaseActionProxyEffect(actionProxy, until.getPhase());
                 } else {
                     return new AddUntilEndOfPhaseActionProxyEffect(actionProxy, until.getPhase());

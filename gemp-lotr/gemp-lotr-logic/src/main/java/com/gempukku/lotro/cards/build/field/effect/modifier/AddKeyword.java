@@ -27,7 +27,7 @@ public class AddKeyword implements EffectProcessor {
 
         final ValueSource amount = ValueResolver.resolveEvaluator(effectObject.get("amount"), value, environment);
 
-        final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter);
+        final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
         final Requirement[] requirements = environment.getRequirementFactory().getRequirements(conditionArray, environment);
 
         blueprint.appendInPlayModifier(

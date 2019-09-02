@@ -18,7 +18,7 @@ public class CantTakeMoreWoundsThan implements EffectProcessor {
         final String filter = FieldUtils.getString(value.get("filter"), "filter", "self");
         final Phase phase = FieldUtils.getEnum(Phase.class, value.get("phase"), "phase");
 
-        final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter);
+        final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
         final Requirement[] requirements = environment.getRequirementFactory().getRequirements(conditionArray, environment);
 
         blueprint.appendInPlayModifier(

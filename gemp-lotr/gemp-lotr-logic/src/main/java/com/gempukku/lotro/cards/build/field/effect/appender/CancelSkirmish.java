@@ -22,7 +22,7 @@ public class CancelSkirmish implements EffectAppenderProducer {
 
         final String filter = FieldUtils.getString(effectObject.get("filter"), "filter", "any");
 
-        final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter);
+        final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
 
         return new DelayedAppender() {
             @Override

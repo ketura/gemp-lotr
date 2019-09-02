@@ -148,6 +148,274 @@
       }
     }
   },
+  "40_68": {
+    "title": "Discernment",
+    "culture": "gandalf",
+    "cost": 0,
+    "type": "event",
+    "keyword": [
+      "fellowship",
+      "spell"
+    ],
+    "effects": {
+      "type": "event",
+      "cost": [
+        {
+          "type": "exert",
+          "filter": "choose(name(Gandalf))"
+        },
+        {
+          "type": "addTwilight",
+          "amount": "0-100",
+          "memorize": "addedTwilight"
+        }
+      ],
+      "effect": [
+        {
+          "type": "discard",
+          "count": "0-1",
+          "filter": "choose(side(shadow),condition,maxTwilight(memory(addedTwilight)))",
+          "memorize": "discardedCondition"
+        },
+        {
+          "type": "memorizeNumber",
+          "memory": "remainingTwilight",
+          "amount": {
+            "type": "subtract",
+            "firstNumber": {
+              "type": "fromMemory",
+              "memory": "addedTwilight"
+            },
+            "secondNumber": {
+              "type": "twilightCostInMemory",
+              "memory": "discardedCondition"
+            }
+          }
+        },
+        {
+          "type": "discard",
+          "count": "0-1",
+          "filter": "choose(side(shadow),condition,maxTwilight(memory(remainingTwilight)))"
+        }
+      ]
+    }
+  },
+  "40_69": {
+    "title": "*Gandalf",
+    "subtitle": "Disturber of the Peace",
+    "culture": "gandalf",
+    "cost": 4,
+    "type": "companion",
+    "race": "wizard",
+    "strength": 6,
+    "vitality": 4,
+    "resistance": 8,
+    "effects": {
+      "type": "modifyStrength",
+      "filter": "self",
+      "amount": {
+        "type": "forEachYouCanSpot",
+        "filter": "hobbit,companion"
+      }
+    }
+  },
+  "40_70": {
+    "title": "*Gandalf",
+    "subtitle": "Wisest of the Istari",
+    "culture": "gandalf",
+    "cost": 4,
+    "type": "companion",
+    "race": "wizard",
+    "strength": 7,
+    "vitality": 4,
+    "resistance": 8,
+    "effects": {
+      "type": "trigger",
+      "trigger": {
+        "type": "played",
+        "filter": "culture(gandalf),spell"
+      },
+      "optional": true,
+      "effect": {
+        "type": "drawCards"
+      }
+    }
+  },
+  "40_71": {
+    "title": "*Gandalf's Pipe",
+    "culture": "gandalf",
+    "cost": 1,
+    "type": "possession",
+    "possession": "pipe",
+    "target": "name(Gandalf)",
+    "effects": {
+      "type": "activated",
+      "phase": "maneuver",
+      "cost": [
+        {
+          "type": "discard",
+          "filter": "choose(pipeweed,possession)"
+        },
+        {
+          "type": "chooseHowManyToSpot",
+          "filter": "pipe",
+          "memorize": "numberOfPipes"
+        }
+      ],
+      "effect": {
+        "type": "drawCards",
+        "count": {
+          "type": "fromMemory",
+          "memory": "numberOfPipes"
+        }
+      },
+      "limitPerPhase": 1
+    }
+  },
+  "40_72": {
+    "title": "*Gandalf's Staff",
+    "subtitle": "Dispeller of Darkness",
+    "culture": "gandalf",
+    "cost": 2,
+    "type": "artifact",
+    "possession": "staff",
+    "vitality": 1,
+    "resistance": 1,
+    "target": "name(Gandalf)",
+    "effects": [
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "played",
+          "filter": "self"
+        },
+        "effect": {
+          "type": "shadowCantHaveInitiative",
+          "until": "endOfTurn"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "maneuver",
+        "cost": {
+          "type": "exert",
+          "filter": "self",
+          "times": 2
+        },
+        "effect": {
+          "type": "discard",
+          "filter": "choose(side(shadow),condition)"
+        }
+      }
+    ]
+  },
+  "40_73": {
+    "title": "*Glamdring",
+    "subtitle": "Turgon's Blade",
+    "culture": "gandalf",
+    "cost": 2,
+    "type": "possession",
+    "possession": "hand weapon",
+    "strength": 2,
+    "target": "name(Gandalf)",
+    "effects": [
+      {
+        "type": "modifyStrength",
+        "filter": "name(Gandalf),inSkirmishAgainst(or(orc,goblin))",
+        "amount": 2
+      },
+      {
+        "type": "addKeyword",
+        "filter": "name(Gandalf),inSkirmishAgainst(or(orc,goblin))",
+        "keyword": "damage+1"
+      }
+    ]
+  },
+  "40_74": {
+    "title": "*Grace of the Valar",
+    "culture": "gandalf",
+    "cost": 1,
+    "type": "condition",
+    "strength": 1,
+    "keyword": "spell",
+    "target": "name(Gandalf)",
+    "effects": [
+      {
+        "type": "cantTakeMoreWoundsThan",
+        "filter": "name(Gandalf)",
+        "amount": 1,
+        "phase": "skirmish"
+      },
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "losesInitiative",
+          "side": "free people"
+        },
+        "effect": [
+          {
+            "type": "discard",
+            "filter": "self"
+          },
+          {
+            "type": "wound",
+            "filter": "choose(Gandalf)"
+          }
+        ]
+      }
+    ]
+  },
+  "40_75": {
+    "title": "*Gwaihir",
+    "subtitle": "Great Eagle",
+    "culture": "gandalf",
+    "cost": 4,
+    "type": "ally",
+    "race": "eagle",
+    "strength": 7,
+    "vitality": 4,
+    "condition": {
+      "type": "canSpot",
+      "filter": "name(Gandalf)"
+    },
+    "effects": [
+      {
+        "type": "activated",
+        "phase": "maneuver",
+        "condition": {
+          "type": "location",
+          "filter": "siteNumber(1-5)"
+        },
+        "cost": {
+          "type": "exert",
+          "filter": "self",
+          "times": 2
+        },
+        "effect": {
+          "type": "canParticipateInArcheryFireAndSkirmishes",
+          "filter": "self",
+          "until": "endOfTurn"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "skirmish",
+        "condition": {
+          "type": "location",
+          "filter": "siteNumber(6-9)"
+        },
+        "cost": {
+          "type": "exert",
+          "filter": "self",
+          "times": 2
+        },
+        "effect": {
+          "type": "cancelSkirmish",
+          "filter": "name(Gandalf)"
+        }
+      }
+    ]
+  },
   "40_86": {
     "title": "Protector of the West",
     "culture": "gandalf",

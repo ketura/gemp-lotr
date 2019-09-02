@@ -16,7 +16,7 @@ public class ModifyRoamingPenalty implements EffectProcessor {
         final JSONObject[] conditionArray = FieldUtils.getObjectArray(value.get("condition"), "condition");
         final String filter = FieldUtils.getString(value.get("filter"), "filter", "self");
 
-        final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter);
+        final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
         final Requirement[] requirements = environment.getRequirementFactory().getRequirements(conditionArray, environment);
 
         blueprint.appendInPlayModifier(

@@ -16,7 +16,7 @@ public class CantBeOverwhelmedMultiplier implements EffectProcessor {
         final String filter = FieldUtils.getString(value.get("filter"), "filter");
         final int multiplier = FieldUtils.getInteger(value.get("multiplier"), "multiplier", 3);
 
-        final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter);
+        final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
 
         blueprint.appendInPlayModifier(
                 new ModifierSource() {

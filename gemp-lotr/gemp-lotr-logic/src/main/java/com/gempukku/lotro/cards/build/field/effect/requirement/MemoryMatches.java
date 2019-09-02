@@ -20,7 +20,7 @@ public class MemoryMatches implements RequirementProducer {
         final String memory = FieldUtils.getString(object.get("memory"), "memory");
         final String filter = FieldUtils.getString(object.get("filter"), "filter");
 
-        final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter);
+        final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
 
         return (actionContext) -> {
             final Collection<? extends PhysicalCard> cardsFromMemory = actionContext.getCardsFromMemory(memory);
