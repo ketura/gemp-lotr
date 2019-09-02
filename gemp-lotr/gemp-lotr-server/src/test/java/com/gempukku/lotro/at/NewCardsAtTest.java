@@ -333,4 +333,46 @@ public class NewCardsAtTest extends AbstractAtTest {
 
         assertEquals(Zone.DISCARD, blackBreath.getZone());
     }
+
+    @Test
+    public void strengthBonusDependingOnCharacterPlayedOn() throws DecisionResultInvalidException, CardNotFoundException {
+        initializeSimplestGame();
+
+        final PhysicalCardImpl gandalf = createCard(P1, "40_70");
+        final PhysicalCardImpl bolsteredSpirits = createCard(P1, "40_67");
+        PhysicalCardImpl nazgul = createCard(P2, "40_211");
+
+        _game.getGameState().addCardToZone(_game, gandalf, Zone.FREE_CHARACTERS);
+        _game.getGameState().addCardToZone(_game, bolsteredSpirits, Zone.HAND);
+        _game.getGameState().addCardToZone(_game, nazgul, Zone.SHADOW_CHARACTERS);
+
+        skipMulligans();
+
+        // Pass in fellowship
+        playerDecided(P1, "");
+
+        // Pass in shadow
+        playerDecided(P2, "");
+
+//Pass in maneuver
+        playerDecided(P1, "");
+        playerDecided(P2, "");
+
+//Pass in archery
+        playerDecided(P1, "");
+        playerDecided(P2, "");
+
+//Pass in assignment
+        playerDecided(P1, "");
+        playerDecided(P2, "");
+
+        playerDecided(P1, gandalf.getCardId() + " " + nazgul.getCardId());
+        playerDecided(P1, "" + gandalf.getCardId());
+
+        playerDecided(P1, "0");
+        playerDecided(P1, "");
+
+        assertEquals(7 + 3, _game.getModifiersQuerying().getStrength(_game, gandalf));
+    }
+
 }

@@ -132,23 +132,19 @@
     "effects": {
       "type": "event",
       "effect": {
-        "type": "choice",
-        "texts": [
-          "Make an unbound companion strength +3",
-          "Make an unbound companion strength +2"
-        ],
-        "effects": [
-          {
-            "type": "modifyStrength",
-            "filter": "choose(unbound,companion,not(resistanceLessThan(4)))",
-            "amount": 3
+        "type": "modifyStrength",
+        "filter": "choose(unbound,companion)",
+        "memorize": "unboundCompanion",
+        "amount": {
+          "type": "condition",
+          "condition": {
+            "type": "memoryMatches",
+            "memory": "unboundCompanion",
+            "filter": "resistanceLessThan(4)"
           },
-          {
-            "type": "modifyStrength",
-            "filter": "choose(unbound,companion,resistanceLessThan(4))",
-            "amount": 2
-          }
-        ]
+          "true": 2,
+          "false": 3
+        }
       }
     }
   },
@@ -192,23 +188,19 @@
     "effects": {
       "type": "event",
       "effect": {
-        "type": "choice",
-        "texts": [
-          "Make a minion strength -3",
-          "Make a minion strength -2"
-        ],
-        "effects": [
-          {
-            "type": "modifyStrength",
-            "filter": "choose(minion,inSkirmishAgainst(companion,not(resistanceLessThan(5))))",
-            "amount": -3
+        "type": "modifyStrength",
+        "filter": "choose(minion)",
+        "memorize": "chosenMinion",
+        "amount": {
+          "type": "condition",
+          "condition": {
+            "type": "memoryMatches",
+            "memory": "chosenMinion",
+            "filter": "inSkirmishAgainst(companion,not(resistanceLessThan(5)))"
           },
-          {
-            "type": "modifyStrength",
-            "filter": "choose(minion,not(inSkirmishAgainst(companion,not(resistanceLessThan(5)))))",
-            "amount": -2
-          }
-        ]
+          "true": -3,
+          "false": -2
+        }
       }
     }
   }
