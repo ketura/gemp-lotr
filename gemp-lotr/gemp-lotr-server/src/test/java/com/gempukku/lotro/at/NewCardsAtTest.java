@@ -266,4 +266,43 @@ public class NewCardsAtTest extends AbstractAtTest {
         assertEquals(Zone.DECK, celebornInDeck.getZone());
         assertEquals(0, _game.getGameState().getWounds(nazgul));
     }
+
+    @Test
+    public void battleFeverCantBePlayedOnSkirmishingGimli() throws DecisionResultInvalidException, CardNotFoundException {
+        initializeSimplestGame();
+
+        final PhysicalCardImpl battleFever = createCard(P1, "40_5");
+        final PhysicalCardImpl gimli = createCard(P1, "40_18");
+        PhysicalCardImpl nazgul = createCard(P2, "40_211");
+
+
+        _game.getGameState().addCardToZone(_game, gimli, Zone.FREE_CHARACTERS);
+        _game.getGameState().addCardToZone(_game, battleFever, Zone.HAND);
+        _game.getGameState().addCardToZone(_game, nazgul, Zone.SHADOW_CHARACTERS);
+
+        skipMulligans();
+
+        // Pass in fellowship
+        playerDecided(P1, "");
+
+        // Pass in shadow
+        playerDecided(P2, "");
+
+//Pass in maneuver
+        playerDecided(P1, "");
+        playerDecided(P2, "");
+
+//Pass in archery
+        playerDecided(P1, "");
+        playerDecided(P2, "");
+
+//Pass in assignment
+        playerDecided(P1, "");
+        playerDecided(P2, "");
+
+        playerDecided(P1, gimli.getCardId() + " " + nazgul.getCardId());
+        playerDecided(P1, "" + gimli.getCardId());
+
+        assertNull(getCardActionId(P1, "Play Battle Fever"));
+    }
 }

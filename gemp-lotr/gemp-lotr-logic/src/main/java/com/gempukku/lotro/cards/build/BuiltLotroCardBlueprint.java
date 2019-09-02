@@ -390,18 +390,16 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
 
     @Override
     public boolean checkPlayRequirements(LotroGame game, PhysicalCard self) {
-        if (requirements == null)
-            return true;
-
         DefaultActionContext dummy = new DefaultActionContext(self.getOwner(), game, self, null, null);
 
-        for (Requirement requirement : requirements) {
-            if (!requirement.accepts(dummy))
-                return false;
-        }
+        if (requirements != null)
+            for (Requirement requirement : requirements) {
+                if (!requirement.accepts(dummy))
+                    return false;
+            }
 
-        if (playEventAction != null)
-            playEventAction.isValid(dummy);
+        if (playEventAction != null && !playEventAction.isValid(dummy))
+            return false;
 
         return true;
     }
