@@ -59,7 +59,7 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("cantbeoverwhelmedmultiplier", new CantBeOverwhelmedMultiplier());
         effectAppenderProducers.put("play", new PlayCardFromHand());
         effectAppenderProducers.put("cancelskirmish", new CancelSkirmish());
-        effectAppenderProducers.put("discardfromhand", new CancelSkirmish());
+        effectAppenderProducers.put("discardfromhand", new DiscardCardsFromHand());
         effectAppenderProducers.put("chooseandremovetwilight", new ChooseAndRemoveTwilight());
         effectAppenderProducers.put("removetwilight", new RemoveTwilight());
         effectAppenderProducers.put("stackcards", new StackCardsFromPlay());

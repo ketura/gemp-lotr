@@ -268,7 +268,7 @@ public class NewCardsAtTest extends AbstractAtTest {
     }
 
     @Test
-    public void battleFeverCantBePlayedOnSkirmishingGimli() throws DecisionResultInvalidException, CardNotFoundException {
+    public void checkingEventCostsAsRequirements() throws DecisionResultInvalidException, CardNotFoundException {
         initializeSimplestGame();
 
         final PhysicalCardImpl battleFever = createCard(P1, "40_5");
@@ -304,5 +304,33 @@ public class NewCardsAtTest extends AbstractAtTest {
         playerDecided(P1, "" + gimli.getCardId());
 
         assertNull(getCardActionId(P1, "Play Battle Fever"));
+    }
+
+    @Test
+    public void discardCardEffect() throws DecisionResultInvalidException, CardNotFoundException {
+        initializeSimplestGame();
+
+        final PhysicalCardImpl blackBreath = createCard(P2, "40_183");
+        final PhysicalCardImpl athelas = createCard(P1, "40_313");
+        final PhysicalCardImpl athelasInHand = createCard(P1, "40_313");
+        PhysicalCardImpl aragorn = createCard(P1, "40_94");
+
+        _game.getGameState().addCardToZone(_game, aragorn, Zone.FREE_CHARACTERS);
+        _game.getGameState().attachCard(_game, blackBreath, aragorn);
+        _game.getGameState().addCardToZone(_game, athelas, Zone.HAND);
+        _game.getGameState().addCardToZone(_game, athelasInHand, Zone.HAND);
+
+        skipMulligans();
+
+        // Play athelas
+        playerDecided(P1, "0");
+        // Attach to Aragorn
+        playerDecided(P1, "" + aragorn.getCardId());
+
+        playerDecided(P1, "0");
+
+        playerDecided(P1, "0");
+
+        assertEquals(Zone.DISCARD, blackBreath.getZone());
     }
 }

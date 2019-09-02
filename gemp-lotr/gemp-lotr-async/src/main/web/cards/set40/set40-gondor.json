@@ -20,7 +20,8 @@
         "optional": true,
         "cost": {
           "type": "discardFromHand",
-          "filter": "side(free people)"
+          "filter": "choose(side(free people))",
+          "forced": false
         },
         "effect": {
           "type": "discard",
