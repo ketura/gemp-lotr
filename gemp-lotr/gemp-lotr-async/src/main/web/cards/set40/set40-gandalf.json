@@ -27,6 +27,35 @@
       }
     }
   },
+  "40_64": {
+    "title": "Answers in the Fire",
+    "culture": "gandalf",
+    "cost": 0,
+    "type": "event",
+    "keyword": "skirmish",
+    "effects": {
+      "type": "event",
+      "effect": [
+        {
+          "type": "modifyStrength",
+          "filter": "choose(name(Gandalf))",
+          "memorize": "chosenGandalf"
+        },
+        {
+          "type": "addTrigger",
+          "trigger": {
+            "type": "winsSkirmish",
+            "filter": "memory(chosenGandalf)"
+          },
+          "optional": true,
+          "effect": {
+            "type": "drawCards",
+            "count": 2
+          }
+        }
+      ]
+    }
+  },
   "40_65": {
     "title": "*Barliman Butterbur",
     "subtitle": "Forgetful Innkeep",
@@ -53,6 +82,73 @@
       "effect": {
         "type": "heal",
         "filter": "choose(companion)"
+      }
+    }
+  },
+  "40_66": {
+    "title": "Binding Light",
+    "culture": "gandalf",
+    "cost": 3,
+    "type": "event",
+    "keyword": [
+      "skirmish",
+      "spell"
+    ],
+    "condition": {
+      "type": "canSpot",
+      "filter": "name(Gandalf)"
+    },
+    "effects": {
+      "type": "event",
+      "cost": {
+        "type": "spot",
+        "filter": "choose(not(name(Gandalf)),unbound,companion)",
+        "memorize": "unboundCompanion"
+      },
+      "effect": {
+        "type": "sidePlayerCantPlayPhaseEventsOrUsePhaseSpecialAbilities",
+        "condition": {
+          "type": "canSpot",
+          "filter": "memory(unboundCompanion),inSkirmish"
+        },
+        "side": "shadow",
+        "phase": "skirmish"
+      }
+    }
+  },
+  "40_67": {
+    "title": "Bolstered Spirits",
+    "culture": "gandalf",
+    "cost": 1,
+    "type": "event",
+    "keyword": [
+      "skirmish",
+      "spell"
+    ],
+    "condition": {
+      "type": "canSpot",
+      "filter": "name(Gandalf)"
+    },
+    "effects": {
+      "type": "event",
+      "effect": {
+        "type": "choice",
+        "texts": [
+          "Make an unbound companion strength +3",
+          "Make an unbound companion strength +2"
+        ],
+        "effects": [
+          {
+            "type": "modifyStrength",
+            "filter": "choose(unbound,companion,not(resistanceLessThan(4)))",
+            "amount": 3
+          },
+          {
+            "type": "modifyStrength",
+            "filter": "choose(unbound,companion,resistanceLessThan(4))",
+            "amount": 2
+          }
+        ]
       }
     }
   },

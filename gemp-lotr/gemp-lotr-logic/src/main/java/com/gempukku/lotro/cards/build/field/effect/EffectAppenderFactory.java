@@ -67,6 +67,7 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("putcardsfromdiscardontopofdrawdeck", new PutCardsFromDiscardOnTopOfDrawDeck());
         effectAppenderProducers.put("lookattopcardsofdrawdeck", new LookAtTopCardsOfDrawDeck());
         effectAppenderProducers.put("addthreats", new AddThreats());
+        effectAppenderProducers.put("sideplayercantplayphaseeventsorusephasespecialabilities", new SidePlayerCantPlayPhaseEventsOrUsePhaseSpecialAbilities());
     }
 
     public EffectAppender getEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {

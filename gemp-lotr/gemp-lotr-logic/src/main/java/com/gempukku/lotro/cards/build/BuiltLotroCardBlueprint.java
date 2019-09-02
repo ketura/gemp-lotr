@@ -13,10 +13,7 @@ import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
     private String title;
@@ -683,6 +680,13 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
                 && cardType != CardType.SITE
                 && cardType != CardType.MINION)
             throw new InvalidCardDefinitionException("Only minions and sites have a site number, use siteHome for allies");
+        if (cardType == CardType.EVENT) {
+            List<Keyword> requiredKeywords = Arrays.asList(
+                    Keyword.RESPONSE, Keyword.FELLOWSHIP, Keyword.SHADOW, Keyword.MANEUVER, Keyword.ARCHERY, Keyword.ASSIGNMENT,
+                    Keyword.SKIRMISH, Keyword.REGROUP);
+            if (Collections.disjoint(keywords.keySet(), requiredKeywords))
+                throw new InvalidCardDefinitionException("Events have to have a response or phase keyword");
+        }
         if (cardType == CardType.EVENT && playEventAction == null)
             throw new InvalidCardDefinitionException("Events have to have an event type effect");
         if (cardType != CardType.EVENT && playEventAction != null)
