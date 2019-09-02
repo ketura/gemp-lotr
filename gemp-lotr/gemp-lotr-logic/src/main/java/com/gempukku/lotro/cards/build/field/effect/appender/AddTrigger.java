@@ -1,9 +1,6 @@
 package com.gempukku.lotro.cards.build.field.effect.appender;
 
-import com.gempukku.lotro.cards.build.ActionContext;
-import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
-import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
-import com.gempukku.lotro.cards.build.Requirement;
+import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
@@ -84,8 +81,10 @@ public class AddTrigger implements EffectAppenderProducer {
                     if (checkRequirements(actionContext))
                         return null;
 
+                    DelegateActionContext delegate = new DelegateActionContext(actionContext, actionContext.getPerformingPlayer(),
+                            lotroGame, actionContext.getSource(), null, effect);
                     RequiredTriggerAction result = new RequiredTriggerAction(actionContext.getSource());
-                    customizeTriggerAction(result, actionContext);
+                    customizeTriggerAction(result, delegate);
 
                     return Collections.singletonList(result);
                 }
@@ -98,8 +97,10 @@ public class AddTrigger implements EffectAppenderProducer {
                     if (checkRequirements(actionContext))
                         return null;
 
+                    DelegateActionContext delegate = new DelegateActionContext(actionContext, actionContext.getPerformingPlayer(),
+                            lotroGame, actionContext.getSource(), null, effect);
                     OptionalTriggerAction result = new OptionalTriggerAction(actionContext.getSource());
-                    customizeTriggerAction(result, actionContext);
+                    customizeTriggerAction(result, delegate);
 
                     return Collections.singletonList(result);
                 }
@@ -112,8 +113,10 @@ public class AddTrigger implements EffectAppenderProducer {
                     if (checkRequirements(actionContext))
                         return null;
 
+                    DelegateActionContext delegate = new DelegateActionContext(actionContext, actionContext.getPerformingPlayer(),
+                            lotroGame, actionContext.getSource(), effectResult, null);
                     RequiredTriggerAction result = new RequiredTriggerAction(actionContext.getSource());
-                    customizeTriggerAction(result, actionContext);
+                    customizeTriggerAction(result, delegate);
 
                     return Collections.singletonList(result);
                 }
@@ -126,8 +129,10 @@ public class AddTrigger implements EffectAppenderProducer {
                     if (checkRequirements(actionContext))
                         return null;
 
+                    DelegateActionContext delegate = new DelegateActionContext(actionContext, actionContext.getPerformingPlayer(),
+                            lotroGame, actionContext.getSource(), effectResult, null);
                     OptionalTriggerAction result = new OptionalTriggerAction(actionContext.getSource());
-                    customizeTriggerAction(result, actionContext);
+                    customizeTriggerAction(result, delegate);
 
                     return Collections.singletonList(result);
                 }

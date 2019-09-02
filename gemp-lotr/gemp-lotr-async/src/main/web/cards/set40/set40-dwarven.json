@@ -412,6 +412,7 @@
           "type": "startOfPhase",
           "phase": "fellowship"
         },
+        "optional": true,
         "cost": {
           "type": "stackCardsFromHand",
           "where": "choose(culture(dwarven),support area,condition)",
