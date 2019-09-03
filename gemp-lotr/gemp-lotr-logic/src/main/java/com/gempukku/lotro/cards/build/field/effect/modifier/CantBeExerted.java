@@ -1,31 +1,28 @@
 package com.gempukku.lotro.cards.build.field.effect.modifier;
 
 import com.gempukku.lotro.cards.build.*;
-import com.gempukku.lotro.cards.build.field.EffectProcessor;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.logic.modifiers.CantExertWithCardModifier;
 import org.json.simple.JSONObject;
 
-public class CantBeExerted implements EffectProcessor {
+public class CantBeExerted implements ModifierSourceProducer {
     @Override
-    public void processEffect(JSONObject value, BuiltLotroCardBlueprint blueprint, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(value, "filter", "condition", "by");
+    public ModifierSource getModifierSource(JSONObject object, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
+        FieldUtils.validateAllowedFields(object, "filter", "condition", "by");
 
-        final JSONObject[] conditionArray = FieldUtils.getObjectArray(value.get("condition"), "condition");
-        final String filter = FieldUtils.getString(value.get("filter"), "filter", "self");
-        final String byFilter = FieldUtils.getString(value.get("by"), "by", "any");
+        final JSONObject[] conditionArray = FieldUtils.getObjectArray(object.get("condition"), "condition");
+        final String filter = FieldUtils.getString(object.get("filter"), "filter", "self");
+        final String byFilter = FieldUtils.getString(object.get("by"), "by", "any");
 
         final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
         final FilterableSource byFilterableSource = environment.getFilterFactory().generateFilter(byFilter, environment);
         final Requirement[] requirements = environment.getRequirementFactory().getRequirements(conditionArray, environment);
 
-        blueprint.appendInPlayModifier(
-                (actionContext) -> {
+        return (actionContext) -> {
                     return new CantExertWithCardModifier(actionContext.getSource(),
                             filterableSource.getFilterable(actionContext),
                             new RequirementCondition(requirements, actionContext),
                             byFilterableSource.getFilterable(actionContext));
-                });
-
+        };
     }
 }

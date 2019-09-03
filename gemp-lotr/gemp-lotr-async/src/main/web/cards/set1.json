@@ -53,9 +53,12 @@
       "filter": "dwarf"
     },
     "effects": {
-      "type": "modifyStrength",
-      "filter": "self,inSkirmishAgainst(orc)",
-      "amount": 2
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyStrength",
+        "filter": "self,inSkirmishAgainst(orc)",
+        "amount": 2
+      }
     }
   },
   "1_12": {
@@ -128,9 +131,12 @@
     "signet": "aragorn",
     "keyword": "ranger",
     "effects": {
-      "type": "modifyStrength",
-      "amount": 3,
-      "filter": "self,inSkirmishAgainst(nazgul)"
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyStrength",
+        "amount": 3,
+        "filter": "self,inSkirmishAgainst(nazgul)"
+      }
     }
   },
   "1_38": {
@@ -167,11 +173,14 @@
       "filter": "elf"
     },
     "effects": {
-      "type": "modifyStrength",
-      "amount": 2,
-      "condition": {
-        "type": "location",
-        "filter": "siteBlock(fellowship),or(siteNumber(6),siteNumber(7),siteNumber(8))"
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyStrength",
+        "amount": 2,
+        "condition": {
+          "type": "location",
+          "filter": "siteBlock(fellowship),or(siteNumber(6),siteNumber(7),siteNumber(8))"
+        }
       }
     }
   },
@@ -219,9 +228,12 @@
     "signet": "gandalf",
     "keyword": "archer",
     "effects": {
-      "type": "modifyStrength",
-      "filter": "self,inSkirmishAgainst(nazgul)",
-      "amount": 3
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyStrength",
+        "filter": "self,inSkirmishAgainst(nazgul)",
+        "amount": 3
+      }
     }
   },
   "1_53": {
@@ -314,9 +326,12 @@
     "keyword": "tracker",
     "effects": [
       {
-        "type": "modifyRoamingPenalty",
-        "filter": "culture(sauron),minion,your",
-        "amount": -1
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyRoamingPenalty",
+          "filter": "culture(sauron),minion,your",
+          "amount": -1
+        }
       },
       {
         "type": "activated",
@@ -381,9 +396,12 @@
     "resistance": 6,
     "signet": "aragorn",
     "effects": {
-      "type": "modifyStrength",
-      "filter": "self,hasAttached(weapon)",
-      "amount": 2
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyStrength",
+        "filter": "self,hasAttached(weapon)",
+        "amount": 2
+      }
     }
   },
   "1_306": {
@@ -398,8 +416,11 @@
     "resistance": 6,
     "signet": "frodo",
     "effects": {
-      "type": "opponentMayNotDiscard",
-      "filter": "your,culture(shire),tale"
+      "type": "modifier",
+      "modifier": {
+        "type": "opponentMayNotDiscard",
+        "filter": "your,culture(shire),tale"
+      }
     }
   }
 }

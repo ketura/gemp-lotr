@@ -38,12 +38,15 @@
     "resistance": 8,
     "keyword": "ranger",
     "effects": {
-      "type": "modifyStrength",
-      "condition": {
-        "type": "location",
-        "filter": "or(river,forest)"
-      },
-      "amount": 3
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyStrength",
+        "condition": {
+          "type": "location",
+          "filter": "or(river,forest)"
+        },
+        "amount": 3
+      }
     }
   },
   "40_35": {
@@ -354,9 +357,12 @@
     "possession": "ranged weapon",
     "target": "elf",
     "effects": {
-      "type": "addKeyword",
-      "filter": "bearer",
-      "keyword": "archer"
+      "type": "modifier",
+      "modifier": {
+        "type": "addKeyword",
+        "filter": "bearer",
+        "keyword": "archer"
+      }
     }
   },
   "40_43": {
@@ -542,8 +548,11 @@
     },
     "effects": [
       {
-        "type": "cantBeOverwhelmedMultiplier",
-        "filter": "self,inSkirmishAgainst(nazgul)"
+        "type": "modifier",
+        "modifier": {
+          "type": "cantBeOverwhelmedMultiplier",
+          "filter": "self,inSkirmishAgainst(nazgul)"
+        }
       },
       {
         "type": "activated",
@@ -606,14 +615,20 @@
     "target": "elf",
     "effects": [
       {
-        "type": "addKeyword",
-        "filter": "bearer,name(Arwen)",
-        "keyword": "damage+1"
+        "type": "modifier",
+        "modifier": {
+          "type": "addKeyword",
+          "filter": "bearer,name(Arwen)",
+          "keyword": "damage+1"
+        }
       },
       {
-        "type": "modifyStrength",
-        "filter": "bearer,inSkirmishAgainst(nazgul)",
-        "amount": 2
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyStrength",
+          "filter": "bearer,inSkirmishAgainst(nazgul)",
+          "amount": 2
+        }
       }
     ]
   },
@@ -746,9 +761,12 @@
     "strength": 1,
     "target": "name(Legolas)",
     "effects": {
-      "type": "modifyStrength",
-      "filter": "wounded,minion,inSkirmishAgainst(bearer)",
-      "amount": -2
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyStrength",
+        "filter": "wounded,minion,inSkirmishAgainst(bearer)",
+        "amount": -2
+      }
     }
   },
   "40_55": {

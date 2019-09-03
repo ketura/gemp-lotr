@@ -211,11 +211,14 @@
     "vitality": 4,
     "resistance": 8,
     "effects": {
-      "type": "modifyStrength",
-      "filter": "self",
-      "amount": {
-        "type": "forEachYouCanSpot",
-        "filter": "hobbit,companion"
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyStrength",
+        "filter": "self",
+        "amount": {
+          "type": "forEachYouCanSpot",
+          "filter": "hobbit,companion"
+        }
       }
     }
   },
@@ -320,14 +323,20 @@
     "target": "name(Gandalf)",
     "effects": [
       {
-        "type": "modifyStrength",
-        "filter": "name(Gandalf),inSkirmishAgainst(or(orc,goblin))",
-        "amount": 2
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyStrength",
+          "filter": "name(Gandalf),inSkirmishAgainst(or(orc,goblin))",
+          "amount": 2
+        }
       },
       {
-        "type": "addKeyword",
-        "filter": "name(Gandalf),inSkirmishAgainst(or(orc,goblin))",
-        "keyword": "damage+1"
+        "type": "modifier",
+        "modifier": {
+          "type": "addKeyword",
+          "filter": "name(Gandalf),inSkirmishAgainst(or(orc,goblin))",
+          "keyword": "damage+1"
+        }
       }
     ]
   },
@@ -341,10 +350,13 @@
     "target": "name(Gandalf)",
     "effects": [
       {
-        "type": "cantTakeMoreWoundsThan",
-        "filter": "name(Gandalf)",
-        "amount": 1,
-        "phase": "skirmish"
+        "type": "modifier",
+        "modifier": {
+          "type": "cantTakeMoreWoundsThan",
+          "filter": "name(Gandalf)",
+          "amount": 1,
+          "phase": "skirmish"
+        }
       },
       {
         "type": "trigger",
@@ -577,19 +589,22 @@
         }
       },
       {
-        "type": "modifyCost",
-        "condition": [
-          {
-            "type": "canSpot",
-            "filter": "name(Gandalf)"
-          },
-          {
-            "type": "haveInitiative",
-            "side": "free people"
-          }
-        ],
-        "filter": "side(free people),or(artifact,condition,possession)",
-        "amount": -1
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyCost",
+          "condition": [
+            {
+              "type": "canSpot",
+              "filter": "name(Gandalf)"
+            },
+            {
+              "type": "haveInitiative",
+              "side": "free people"
+            }
+          ],
+          "filter": "side(free people),or(artifact,condition,possession)",
+          "amount": -1
+        }
       },
       {
         "type": "trigger",
@@ -603,6 +618,119 @@
         }
       }
     ]
+  },
+  "40_81": {
+    "title": "*Might of the Maiar",
+    "culture": "gandalf",
+    "cost": 1,
+    "type": "condition",
+    "strength": 1,
+    "keyword": "spell",
+    "target": "name(Gandalf)",
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "addKeyword",
+          "filter": "bearer",
+          "keyword": "damage+1"
+        }
+      },
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "losesInitiative",
+          "side": "free people"
+        },
+        "effect": [
+          {
+            "type": "discard",
+            "filter": "self"
+          },
+          {
+            "type": "modifyStrength",
+            "filter": "all(name(Gandalf))",
+            "amount": -2,
+            "until": "start(regroup)"
+          }
+        ]
+      }
+    ]
+  },
+  "40_82": {
+    "title": "*Mithrandir's Touch",
+    "culture": "gandalf",
+    "cost": 1,
+    "type": "condition",
+    "vitality": 1,
+    "condition": {
+      "type": "canSpot",
+      "filter": "name(Gandalf)"
+    },
+    "target": "unbound,companion,not(name(Gandalf))",
+    "effects": {
+      "type": "activatedTrigger",
+      "condition": {
+        "type": "phase",
+        "phase": "skirmish"
+      },
+      "trigger": {
+        "type": "aboutToTakeWound",
+        "filter": "bearer"
+      },
+      "cost": {
+        "type": "discardFromHand",
+        "forced": false,
+        "count": 2,
+        "filter": "choose(culture(gandalf))"
+      },
+      "effect": {
+        "type": "preventWound",
+        "filter": "choose(bearer)"
+      }
+    }
+  },
+  "40_83": {
+    "title": "My Brave Hobbits",
+    "culture": "gandalf",
+    "cost": 2,
+    "type": "event",
+    "keyword": [
+      "maneuver",
+      "spell"
+    ],
+    "condition": {
+      "type": "canSpot",
+      "count": 2,
+      "filter": "hobbit,companion"
+    },
+    "effects": {
+      "type": "event",
+      "cost": {
+        "type": "exert",
+        "filter": "choose(name(Gandalf))",
+        "times": 2
+      },
+      "effect": [
+        {
+          "type": "addModifier",
+          "modifier": {
+            "type": "modifyStrength",
+            "amount": 3,
+            "filter": "hobbit,companion"
+          },
+          "until": "start(regroup)"
+        },
+        {
+          "type": "addModifier",
+          "modifier": {
+            "type": "cantTakeMoreWoundsThan",
+            "filter": "hobbit,companion"
+          },
+          "until": "start(regroup)"
+        }
+      ]
+    }
   },
   "40_86": {
     "title": "Protector of the West",

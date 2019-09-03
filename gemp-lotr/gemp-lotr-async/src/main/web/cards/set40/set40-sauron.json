@@ -14,11 +14,14 @@
     },
     "effects": [
       {
-        "type": "modifyStrength",
-        "amount": 2,
-        "condition": {
-          "type": "cantSpotFPCultures",
-          "amount": 3
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyStrength",
+          "amount": 2,
+          "condition": {
+            "type": "cantSpotFPCultures",
+            "amount": 3
+          }
         }
       },
       {

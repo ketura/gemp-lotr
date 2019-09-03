@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.build;
 import com.gempukku.lotro.cards.build.field.*;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppenderFactory;
 import com.gempukku.lotro.cards.build.field.effect.filter.FilterFactory;
+import com.gempukku.lotro.cards.build.field.effect.modifier.ModifierSourceFactory;
 import com.gempukku.lotro.cards.build.field.effect.requirement.RequirementFactory;
 import com.gempukku.lotro.cards.build.field.effect.trigger.TriggerCheckerFactory;
 import com.gempukku.lotro.game.LotroCardBlueprint;
@@ -19,6 +20,7 @@ public class LotroCardBlueprintBuilder implements CardGenerationEnvironment {
     private FilterFactory filterFactory = new FilterFactory();
     private RequirementFactory requirementFactory = new RequirementFactory();
     private TriggerCheckerFactory triggerCheckerFactory = new TriggerCheckerFactory();
+    private ModifierSourceFactory modifierSourceFactory = new ModifierSourceFactory();
 
     public LotroCardBlueprintBuilder() {
         fieldProcessors.put("title", new TitleFieldProcessor());
@@ -80,5 +82,10 @@ public class LotroCardBlueprintBuilder implements CardGenerationEnvironment {
     @Override
     public TriggerCheckerFactory getTriggerCheckerFactory() {
         return triggerCheckerFactory;
+    }
+
+    @Override
+    public ModifierSourceFactory getModifierSourceFactory() {
+        return modifierSourceFactory;
     }
 }

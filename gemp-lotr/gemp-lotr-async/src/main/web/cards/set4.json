@@ -13,13 +13,16 @@
       "damage+1"
     ],
     "effects": {
-      "type": "archeryTotal",
-      "side": "shadow",
-      "condition": {
-        "type": "controlsSite",
-        "player": "owner"
-      },
-      "amount": 1
+      "type": "modifier",
+      "modifier": {
+        "type": "archeryTotal",
+        "side": "shadow",
+        "condition": {
+          "type": "controlsSite",
+          "player": "owner"
+        },
+        "amount": 1
+      }
     }
   },
   "4_218": {
@@ -37,31 +40,40 @@
     ],
     "effects": [
       {
-        "type": "modifyStrength",
-        "condition": {
-          "type": "canSpotBurdens",
-          "amount": 4
-        },
-        "filter": "self",
-        "amount": 5
-      },
-      {
-        "type": "addKeyword",
-        "condition": {
-          "type": "canSpotBurdens",
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyStrength",
+          "condition": {
+            "type": "canSpotBurdens",
+            "amount": 4
+          },
+          "filter": "self",
           "amount": 5
-        },
-        "filter": "self",
-        "keyword": "fierce"
+        }
       },
       {
-        "type": "addKeyword",
-        "condition": {
-          "type": "canSpotBurdens",
-          "amount": 6
-        },
-        "filter": "self",
-        "keyword": "damage+1"
+        "type": "modifier",
+        "modifier": {
+          "type": "addKeyword",
+          "condition": {
+            "type": "canSpotBurdens",
+            "amount": 5
+          },
+          "filter": "self",
+          "keyword": "fierce"
+        }
+      },
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "addKeyword",
+          "condition": {
+            "type": "canSpotBurdens",
+            "amount": 6
+          },
+          "filter": "self",
+          "keyword": "damage+1"
+        }
       }
     ]
   }

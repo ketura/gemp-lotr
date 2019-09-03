@@ -154,13 +154,16 @@
     "vitality": 4,
     "resistance": 8,
     "effects": {
-      "type": "modifyStrength",
-      "condition": {
-        "type": "location",
-        "filter": "forest"
-      },
-      "filter": "self",
-      "amount": 2
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyStrength",
+        "condition": {
+          "type": "location",
+          "filter": "forest"
+        },
+        "filter": "self",
+        "amount": 2
+      }
     }
   },
   "40_265": {

@@ -5,7 +5,8 @@ import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
 import com.gempukku.lotro.cards.build.FieldProcessor;
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.field.effect.*;
-import com.gempukku.lotro.cards.build.field.effect.modifier.*;
+import com.gempukku.lotro.cards.build.field.effect.modifier.Modifier;
+import com.gempukku.lotro.cards.build.field.effect.modifier.ModifyOwnCost;
 import org.json.simple.JSONObject;
 
 import java.util.HashMap;
@@ -19,17 +20,9 @@ public class EffectFieldProcessor implements FieldProcessor {
         effectProcessors.put("activatedtrigger", new ActivatedTriggerEffectProcessor());
         effectProcessors.put("activated", new ActivatedEffectProcessor());
         effectProcessors.put("event", new EventEffectProcessor());
-        effectProcessors.put("modifystrength", new ModifyStrength());
-        effectProcessors.put("modifyroamingpenalty", new ModifyRoamingPenalty());
-        effectProcessors.put("addkeyword", new AddKeyword());
-        effectProcessors.put("archerytotal", new ArcheryTotal());
-        effectProcessors.put("opponentmaynotdiscard", new OpponentMayNotDiscard());
         effectProcessors.put("modifyowncost", new ModifyOwnCost());
-        effectProcessors.put("canttakemorewoundsthan", new CantTakeMoreWoundsThan());
-        effectProcessors.put("cantbeexerted", new CantBeExerted());
         effectProcessors.put("extracost", new ExtraCost());
-        effectProcessors.put("cantbeoverwhelmedmultiplier", new CantBeOverwhelmedMultiplier());
-        effectProcessors.put("modifycost", new ModifyCost());
+        effectProcessors.put("modifier", new Modifier());
     }
 
     @Override

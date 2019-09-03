@@ -73,6 +73,7 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("canparticipateinarcheryfireandskirmishes", new CanParticipateInArcheryFireAndSkirmishes());
         effectAppenderProducers.put("revealrandomcardsfromhand", new RevealRandomCardsFromHand());
         effectAppenderProducers.put("putcardsfromdeckintohand", new PutCardsFromDeckIntoHand());
+        effectAppenderProducers.put("addmodifier", new AddModifier());
     }
 
     public EffectAppender getEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {

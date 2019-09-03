@@ -9,9 +9,12 @@
     "strength": 2,
     "target": "nazgul",
     "effects": {
-      "type": "modifyStrength",
-      "filter": "bearer,inSkirmishAgainst(companion,resistanceLessThan(4))",
-      "amount": 2
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyStrength",
+        "filter": "bearer,inSkirmishAgainst(companion,resistanceLessThan(4))",
+        "amount": 2
+      }
     }
   },
   "40_211": {

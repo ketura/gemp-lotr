@@ -301,15 +301,18 @@
     "type": "condition",
     "keyword": "support area",
     "effects": {
-      "type": "addKeyword",
-      "filter": "dwarf",
-      "keyword": "damage",
-      "amount": {
-        "type": "limit",
-        "value": 2,
+      "type": "modifier",
+      "modifier": {
+        "type": "addKeyword",
+        "filter": "dwarf",
+        "keyword": "damage",
         "amount": {
-          "type": "countStacked",
-          "on": "self"
+          "type": "limit",
+          "value": 2,
+          "amount": {
+            "type": "countStacked",
+            "on": "self"
+          }
         }
       }
     }
@@ -321,15 +324,18 @@
     "type": "condition",
     "keyword": "support area",
     "effects": {
-      "type": "modifyStrength",
-      "condition": {
-        "type": "canSpot",
-        "filter": "self,hasStacked(culture(dwarven))"
-      },
-      "filter": "dwarf",
-      "amount": {
-        "type": "forEachVitality",
-        "over": 3
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyStrength",
+        "condition": {
+          "type": "canSpot",
+          "filter": "self,hasStacked(culture(dwarven))"
+        },
+        "filter": "dwarf",
+        "amount": {
+          "type": "forEachVitality",
+          "over": 3
+        }
       }
     }
   },
@@ -446,17 +452,23 @@
         "amount": -1
       },
       {
-        "type": "modifyStrength",
-        "condition": {
-          "type": "location",
-          "filter": "or(mountain,underground)"
-        },
-        "amount": 2
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyStrength",
+          "condition": {
+            "type": "location",
+            "filter": "or(mountain,underground)"
+          },
+          "amount": 2
+        }
       },
       {
-        "type": "canttakemorewoundsthan",
-        "phase": "skirmish",
-        "amount": 1
+        "type": "modifier",
+        "modifier": {
+          "type": "canttakemorewoundsthan",
+          "phase": "skirmish",
+          "amount": 1
+        }
       }
     ]
   },
@@ -471,9 +483,12 @@
     "target": "dwarf",
     "effects": [
       {
-        "type": "addKeyword",
-        "filter": "bearer,name(Gimli)",
-        "keyword": "damage+1"
+        "type": "modifier",
+        "modifier": {
+          "type": "addKeyword",
+          "filter": "bearer,name(Gimli)",
+          "keyword": "damage+1"
+        }
       },
       {
         "type": "trigger",
@@ -503,13 +518,16 @@
     "keyword": "damage+1",
     "effects": [
       {
-        "condition": {
-          "type": "canSpot",
-          "filter": "name(Gimli)"
-        },
-        "filter": "self",
-        "type": "modifyStrength",
-        "amount": 1
+        "type": "modifier",
+        "modifier": {
+          "condition": {
+            "type": "canSpot",
+            "filter": "name(Gimli)"
+          },
+          "filter": "self",
+          "type": "modifyStrength",
+          "amount": 1
+        }
       },
       {
         "condition": {
@@ -797,13 +815,16 @@
     "type": "condition",
     "keyword": "support area",
     "effects": {
-      "type": "cantBeExerted",
-      "condition": {
-        "type": "canSpot",
-        "filter": "self,hasStackedCount(3,any)"
-      },
-      "filter": "dwarf",
-      "by": "side(shadow)"
+      "type": "modifier",
+      "modifier": {
+        "type": "cantBeExerted",
+        "condition": {
+          "type": "canSpot",
+          "filter": "self,hasStackedCount(3,any)"
+        },
+        "filter": "dwarf",
+        "by": "side(shadow)"
+      }
     }
   },
   "40_30": {
@@ -845,12 +866,15 @@
     "resistance": 6,
     "keyword": "damage+1",
     "effects": {
-      "type": "modifyStrength",
-      "filter": "self",
-      "amount": 2,
-      "condition": {
-        "type": "canSpot",
-        "filter": "culture(dwarven),condition,hasStackedCount(3,culture(dwarven))"
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyStrength",
+        "filter": "self",
+        "amount": 2,
+        "condition": {
+          "type": "canSpot",
+          "filter": "culture(dwarven),condition,hasStackedCount(3,culture(dwarven))"
+        }
       }
     }
   },

@@ -1,27 +1,25 @@
 package com.gempukku.lotro.cards.build.field.effect.modifier;
 
-import com.gempukku.lotro.cards.build.BuiltLotroCardBlueprint;
 import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
 import com.gempukku.lotro.cards.build.FilterableSource;
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
-import com.gempukku.lotro.cards.build.field.EffectProcessor;
+import com.gempukku.lotro.cards.build.ModifierSource;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.logic.modifiers.CantDiscardFromPlayByPlayerModifier;
 import org.json.simple.JSONObject;
 
-public class OpponentMayNotDiscard implements EffectProcessor {
+public class OpponentMayNotDiscard implements ModifierSourceProducer {
     @Override
-    public void processEffect(JSONObject effectObject, BuiltLotroCardBlueprint blueprint, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(effectObject, "filter");
+    public ModifierSource getModifierSource(JSONObject object, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
+        FieldUtils.validateAllowedFields(object, "filter");
 
-        final String filter = FieldUtils.getString(effectObject.get("filter"), "filter", "self");
+        final String filter = FieldUtils.getString(object.get("filter"), "filter", "self");
         final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
 
-        blueprint.appendInPlayModifier(
-                (actionContext) -> {
+        return (actionContext) -> {
                     return new CantDiscardFromPlayByPlayerModifier(actionContext.getSource(), "Can't be discarded by opponent",
                             filterableSource.getFilterable(actionContext),
                             actionContext.getPerformingPlayer());
-                });
+        };
     }
 }
