@@ -29,6 +29,7 @@ public class EffectFieldProcessor implements FieldProcessor {
         effectProcessors.put("cantbeexerted", new CantBeExerted());
         effectProcessors.put("extracost", new ExtraCost());
         effectProcessors.put("cantbeoverwhelmedmultiplier", new CantBeOverwhelmedMultiplier());
+        effectProcessors.put("modifycost", new ModifyCost());
     }
 
     @Override

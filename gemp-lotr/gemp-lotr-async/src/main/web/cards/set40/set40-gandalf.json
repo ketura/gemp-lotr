@@ -562,6 +562,48 @@
       }
     ]
   },
+  "40_80": {
+    "title": "*Keep it Secret, Keep it Safe",
+    "culture": "gandalf",
+    "cost": 1,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": [
+      {
+        "type": "extraCost",
+        "cost": {
+          "type": "exert",
+          "filter": "choose(name(Gandalf))"
+        }
+      },
+      {
+        "type": "modifyCost",
+        "condition": [
+          {
+            "type": "canSpot",
+            "filter": "name(Gandalf)"
+          },
+          {
+            "type": "haveInitiative",
+            "side": "free people"
+          }
+        ],
+        "filter": "side(free people),or(artifact,condition,possession)",
+        "amount": -1
+      },
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "losesInitiative",
+          "side": "free people"
+        },
+        "effect": {
+          "type": "discard",
+          "filter": "self"
+        }
+      }
+    ]
+  },
   "40_86": {
     "title": "Protector of the West",
     "culture": "gandalf",
