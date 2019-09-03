@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.build.field.effect.filter;
 import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.ValueResolver;
 import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.logic.timing.results.CharacterLostSkirmishResult;
 
@@ -90,7 +91,8 @@ public class FilterFactory {
                     return (actionContext) -> Filters.attachedTo(filterableSource.getFilterable(actionContext));
                 });
         parameterFilters.put("name",
-                (parameter, environment) -> (actionContext) -> Filters.name(parameter));
+                (parameter, environment) -> (actionContext) -> (Filter)
+                        (game, physicalCard) -> physicalCard.getBlueprint().getTitle().equalsIgnoreCase(parameter));
         parameterFilters.put("inSkirmishAgainst",
                 (parameter, environment) -> {
                     final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(parameter, environment);

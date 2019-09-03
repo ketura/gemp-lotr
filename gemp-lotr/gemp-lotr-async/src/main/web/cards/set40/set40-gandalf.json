@@ -416,6 +416,111 @@
       }
     ]
   },
+  "40_76": {
+    "title": "He's Remembered!",
+    "culture": "gandalf",
+    "cost": 0,
+    "type": "event",
+    "keyword": [
+      "regroup",
+      "spell"
+    ],
+    "effects": {
+      "type": "event",
+      "cost": {
+        "type": "exert",
+        "filter": "choose(name(Gandalf))"
+      },
+      "effect": {
+        "type": "putCardsFromDiscardIntoHand",
+        "filter": "choose(culture(Gandalf))"
+      }
+    }
+  },
+  "40_77": {
+    "title": "*I Will Help You Bear This Burden",
+    "culture": "gandalf",
+    "cost": 2,
+    "type": "condition",
+    "strength": 1,
+    "resistance": 1,
+    "keyword": "spell",
+    "target": "name(Frodo)",
+    "effects": [
+      {
+        "type": "extraCost",
+        "cost": {
+          "type": "exert",
+          "filter": "choose(name(Gandalf))"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": [
+          "fellowship",
+          "regroup"
+        ],
+        "cost": {
+          "type": "discardFromHand",
+          "forced": false,
+          "count": 2,
+          "filter": "choose(culture(Gandalf))"
+        },
+        "effect": {
+          "type": "removeBurdens"
+        }
+      }
+    ]
+  },
+  "40_78": {
+    "title": "Illuminate",
+    "culture": "gandalf",
+    "cost": 1,
+    "type": "event",
+    "keyword": [
+      "maneuver",
+      "spell"
+    ],
+    "condition": {
+      "type": "canSpot",
+      "filter": "name(Gandalf)"
+    },
+    "effects": {
+      "type": "event",
+      "effect": [
+        {
+          "type": "revealRandomCardsFromHand",
+          "hand": "shadowPlayer",
+          "forced": true,
+          "memorize": "revealedCard"
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "type": "memoryMatches",
+            "memory": "revealedCard",
+            "filter": "side(free people)"
+          },
+          "effect": {
+            "type": "heal",
+            "filter": "choose(companion)"
+          }
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "type": "memoryMatches",
+            "memory": "revealedCard",
+            "filter": "side(shadow)"
+          },
+          "effect": {
+            "type": "exert",
+            "filter": "choose(minion)"
+          }
+        }
+      ]
+    }
+  },
   "40_86": {
     "title": "Protector of the West",
     "culture": "gandalf",

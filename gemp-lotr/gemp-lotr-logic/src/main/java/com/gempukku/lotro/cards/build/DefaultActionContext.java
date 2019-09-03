@@ -53,8 +53,7 @@ public class DefaultActionContext implements ActionContext {
 
     @Override
     public Collection<? extends PhysicalCard> getCardsFromMemory(String memory) {
-        final Collection<PhysicalCard> physicalCards = cardMemory.get(memory);
-        return physicalCards;
+        return cardMemory.get(memory);
     }
 
     @Override
