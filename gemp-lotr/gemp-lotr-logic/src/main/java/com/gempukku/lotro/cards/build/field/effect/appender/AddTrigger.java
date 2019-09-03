@@ -80,13 +80,13 @@ public class AddTrigger implements EffectAppenderProducer {
 
             @Override
             public List<? extends RequiredTriggerAction> getRequiredBeforeTriggers(LotroGame lotroGame, Effect effect) {
-                if (trigger.isBefore() && !optional && trigger.accepts(actionContext)) {
-                    if (checkRequirements(actionContext))
+                DelegateActionContext delegate = new DelegateActionContext(actionContext, actionContext.getPerformingPlayer(),
+                        lotroGame, actionContext.getSource(), null, effect);
+                if (trigger.isBefore() && !optional && trigger.accepts(delegate)) {
+                    if (checkRequirements(delegate))
                         return null;
 
-                    DelegateActionContext delegate = new DelegateActionContext(actionContext, actionContext.getPerformingPlayer(),
-                            lotroGame, actionContext.getSource(), null, effect);
-                    RequiredTriggerAction result = new RequiredTriggerAction(actionContext.getSource());
+                    RequiredTriggerAction result = new RequiredTriggerAction(delegate.getSource());
                     customizeTriggerAction(result, delegate);
 
                     return Collections.singletonList(result);
@@ -96,13 +96,13 @@ public class AddTrigger implements EffectAppenderProducer {
 
             @Override
             public List<? extends OptionalTriggerAction> getOptionalBeforeTriggers(String playerId, LotroGame lotroGame, Effect effect) {
-                if (trigger.isBefore() && optional && trigger.accepts(actionContext)) {
-                    if (checkRequirements(actionContext))
+                DelegateActionContext delegate = new DelegateActionContext(actionContext, actionContext.getPerformingPlayer(),
+                        lotroGame, actionContext.getSource(), null, effect);
+                if (trigger.isBefore() && optional && trigger.accepts(delegate)) {
+                    if (checkRequirements(delegate))
                         return null;
 
-                    DelegateActionContext delegate = new DelegateActionContext(actionContext, actionContext.getPerformingPlayer(),
-                            lotroGame, actionContext.getSource(), null, effect);
-                    OptionalTriggerAction result = new OptionalTriggerAction(actionContext.getSource());
+                    OptionalTriggerAction result = new OptionalTriggerAction(delegate.getSource());
                     customizeTriggerAction(result, delegate);
 
                     return Collections.singletonList(result);
@@ -112,13 +112,13 @@ public class AddTrigger implements EffectAppenderProducer {
 
             @Override
             public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame lotroGame, EffectResult effectResult) {
-                if (!trigger.isBefore() && !optional && trigger.accepts(actionContext)) {
-                    if (checkRequirements(actionContext))
+                DelegateActionContext delegate = new DelegateActionContext(actionContext, actionContext.getPerformingPlayer(),
+                        lotroGame, actionContext.getSource(), effectResult, null);
+                if (!trigger.isBefore() && !optional && trigger.accepts(delegate)) {
+                    if (checkRequirements(delegate))
                         return null;
 
-                    DelegateActionContext delegate = new DelegateActionContext(actionContext, actionContext.getPerformingPlayer(),
-                            lotroGame, actionContext.getSource(), effectResult, null);
-                    RequiredTriggerAction result = new RequiredTriggerAction(actionContext.getSource());
+                    RequiredTriggerAction result = new RequiredTriggerAction(delegate.getSource());
                     customizeTriggerAction(result, delegate);
 
                     return Collections.singletonList(result);
@@ -128,13 +128,13 @@ public class AddTrigger implements EffectAppenderProducer {
 
             @Override
             public List<? extends OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame lotroGame, EffectResult effectResult) {
-                if (!trigger.isBefore() && optional && trigger.accepts(actionContext)) {
-                    if (checkRequirements(actionContext))
+                DelegateActionContext delegate = new DelegateActionContext(actionContext, actionContext.getPerformingPlayer(),
+                        lotroGame, actionContext.getSource(), effectResult, null);
+                if (!trigger.isBefore() && optional && trigger.accepts(delegate)) {
+                    if (checkRequirements(delegate))
                         return null;
 
-                    DelegateActionContext delegate = new DelegateActionContext(actionContext, actionContext.getPerformingPlayer(),
-                            lotroGame, actionContext.getSource(), effectResult, null);
-                    OptionalTriggerAction result = new OptionalTriggerAction(actionContext.getSource());
+                    OptionalTriggerAction result = new OptionalTriggerAction(delegate.getSource());
                     customizeTriggerAction(result, delegate);
 
                     return Collections.singletonList(result);
