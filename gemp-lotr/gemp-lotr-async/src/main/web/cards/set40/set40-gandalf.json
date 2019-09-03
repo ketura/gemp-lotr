@@ -521,6 +521,47 @@
       ]
     }
   },
+  "40_79": {
+    "title": "*Introspection",
+    "culture": "gandalf",
+    "cost": 2,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": [
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "startOfTurn"
+        },
+        "optional": true,
+        "condition": {
+          "type": "canSpot",
+          "filter": "name(Gandalf)"
+        },
+        "effect": {
+          "type": "drawCards"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "fellowship",
+        "cost": {
+          "type": "exert",
+          "filter": "choose(name(Gandalf))"
+        },
+        "effect": [
+          {
+            "type": "putCardsFromDeckIntoHand",
+            "filter": "choose(culture(Gandalf))"
+          },
+          {
+            "type": "discard",
+            "filter": "self"
+          }
+        ]
+      }
+    ]
+  },
   "40_86": {
     "title": "Protector of the West",
     "culture": "gandalf",
