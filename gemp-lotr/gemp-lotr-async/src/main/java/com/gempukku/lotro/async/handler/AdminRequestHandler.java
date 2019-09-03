@@ -5,12 +5,14 @@ import com.gempukku.lotro.async.HttpProcessingException;
 import com.gempukku.lotro.async.ResponseWriter;
 import com.gempukku.lotro.cache.CacheManager;
 import com.gempukku.lotro.collection.CollectionsManager;
+import com.gempukku.lotro.common.ApplicationConfiguration;
 import com.gempukku.lotro.db.LeagueDAO;
 import com.gempukku.lotro.db.PlayerDAO;
 import com.gempukku.lotro.db.vo.CollectionType;
 import com.gempukku.lotro.draft2.SoloDraftDefinitions;
 import com.gempukku.lotro.game.CardCollection;
 import com.gempukku.lotro.game.CardSets;
+import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
 import com.gempukku.lotro.game.Player;
 import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.gempukku.lotro.hall.HallServer;
@@ -35,6 +37,7 @@ import java.util.List;
 import java.util.Map;
 
 public class AdminRequestHandler extends LotroServerRequestHandler implements UriRequestHandler {
+    private final LotroCardBlueprintLibrary lotroCardBlueprintLibrary;
     private SoloDraftDefinitions _soloDraftDefinitions;
     private LeagueService _leagueService;
     private TournamentService _tournamentService;
@@ -60,6 +63,7 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
         _playerDAO = extractObject(context, PlayerDAO.class);
         _collectionManager = extractObject(context, CollectionsManager.class);
         _adminService = extractObject(context, AdminService.class);
+        lotroCardBlueprintLibrary = extractObject(context, LotroCardBlueprintLibrary.class);
     }
 
     @Override
@@ -68,6 +72,8 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
             clearCache(request, responseWriter);
         } else if (uri.equals("/shutdown") && request.getMethod() == HttpMethod.GET) {
             shutdown(request, responseWriter);
+        } else if (uri.equals("/reloadCards") && request.getMethod() == HttpMethod.GET) {
+            reloadCards(request, responseWriter);
         } else if (uri.equals("/setMotd") && request.getMethod() == HttpMethod.POST) {
             setMotd(request, responseWriter);
         } else if (uri.equals("/previewSealedLeague") && request.getMethod() == HttpMethod.POST) {
@@ -537,6 +543,14 @@ public class AdminRequestHandler extends LotroServerRequestHandler implements Ur
         boolean shutdown = Boolean.valueOf(getQueryParameterSafely(queryDecoder, "shutdown"));
 
         _hallServer.setShutdown(shutdown);
+
+        responseWriter.writeHtmlResponse("OK");
+    }
+
+    private void reloadCards(HttpRequest request, ResponseWriter responseWriter) throws HttpProcessingException {
+        validateAdmin(request);
+
+        lotroCardBlueprintLibrary.reloadCards(new java.io.File(ApplicationConfiguration.getProperty("card.path")));
 
         responseWriter.writeHtmlResponse("OK");
     }

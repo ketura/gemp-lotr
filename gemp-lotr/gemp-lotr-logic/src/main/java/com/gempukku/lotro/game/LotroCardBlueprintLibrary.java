@@ -9,11 +9,8 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.io.*;
-import java.nio.file.*;
 import java.util.*;
 import java.util.concurrent.CountDownLatch;
-
-import static java.nio.file.StandardWatchEventKinds.*;
 
 public class LotroCardBlueprintLibrary {
     private static Logger logger = Logger.getLogger(LotroCardBlueprintLibrary.class);
@@ -77,9 +74,12 @@ public class LotroCardBlueprintLibrary {
 
     public void init(File cardPath, CardSets cardSets) {
         loadCards(cardPath);
-        setupWatcher(cardPath.toPath());
         initCardSets(cardSets);
         collectionReadyLatch.countDown();
+    }
+
+    public void reloadCards(File cardPath) {
+        loadCards(cardPath);
     }
 
     private void loadCards(File path) {
@@ -113,66 +113,6 @@ public class LotroCardBlueprintLibrary {
             logger.error("Failed to parse file " + file.getAbsolutePath(), exp);
         }
         logger.debug("Loaded card file " + file.getName());
-    }
-
-    private void setupWatcher(Path path) {
-        Thread thr = new Thread(
-                () -> {
-                    try {
-                        WatchService watcher = FileSystems.getDefault().newWatchService();
-                        path.register(watcher,
-                                ENTRY_CREATE,
-                                ENTRY_MODIFY);
-
-                        while (true) {
-                            // wait for key to be signaled
-                            WatchKey key;
-                            try {
-                                key = watcher.take();
-                            } catch (InterruptedException x) {
-                                return;
-                            }
-
-                            for (WatchEvent<?> event : key.pollEvents()) {
-                                WatchEvent.Kind<?> kind = event.kind();
-
-                                // This key is registered only
-                                // for ENTRY_CREATE events,
-                                // but an OVERFLOW event can
-                                // occur regardless if events
-                                // are lost or discarded.
-                                if (kind == OVERFLOW) {
-                                    continue;
-                                }
-
-                                // The filename is the
-                                // context of the event.
-                                WatchEvent<Path> ev = (WatchEvent<Path>) event;
-                                Path filename = ev.context();
-
-                                // Resolve the filename against the directory.
-                                // If the filename is "test" and the directory is "foo",
-                                // the resolved name is "test/foo".
-                                Path child = path.resolve(filename);
-
-                                final File file = child.toFile();
-                                loadCards(file);
-                            }
-
-                            // Reset the key -- this step is critical if you want to
-                            // receive further watch events.  If the key is no longer valid,
-                            // the directory is inaccessible so exit the loop.
-                            boolean valid = key.reset();
-                            if (!valid) {
-                                break;
-                            }
-                        }
-                    } catch (IOException exp) {
-                        logger.error("Unable to setup folder watcher on " + path.toString(), exp);
-                    }
-                }
-        );
-        thr.start();
     }
 
     public String getBaseBlueprintId(String blueprintId) {
