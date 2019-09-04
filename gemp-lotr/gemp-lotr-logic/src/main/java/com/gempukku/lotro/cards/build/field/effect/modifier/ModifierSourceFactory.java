@@ -22,6 +22,8 @@ public class ModifierSourceFactory {
         modifierProducers.put("modifyroamingpenalty", new ModifyRoamingPenalty());
         modifierProducers.put("modifystrength", new ModifyStrength());
         modifierProducers.put("opponentmaynotdiscard", new OpponentMayNotDiscard());
+        modifierProducers.put("addnotwilightforcompanionmove", new AddNoTwilightForCompanionMove());
+        modifierProducers.put("modifyarcherytotal", new ModifyArcheryTotal());
     }
 
     public ModifierSource getModifier(JSONObject object, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {

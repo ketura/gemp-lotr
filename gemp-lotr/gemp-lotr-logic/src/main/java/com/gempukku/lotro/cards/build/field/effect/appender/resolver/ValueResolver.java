@@ -67,6 +67,16 @@ public class ValueResolver {
                     final int count = actionContext.getCardsFromMemory(memory).size();
                     return new ConstantEvaluator(count);
                 };
+            } else if (type.equalsIgnoreCase("forEachWound")) {
+                final String filter = FieldUtils.getString(object.get("filter"), "filter");
+                final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
+                return (actionContext) -> (Evaluator) (game, cardAffected) -> {
+                    int wounds = 0;
+                    for (PhysicalCard physicalCard : Filters.filterActive(actionContext.getGame(), filterableSource.getFilterable(actionContext))) {
+                        wounds += actionContext.getGame().getGameState().getWounds(physicalCard);
+                    }
+                    return wounds;
+                };
             } else if (type.equalsIgnoreCase("forEachKeywordOnCardInMemory")) {
                 final String memory = FieldUtils.getString(object.get("memory"), "memory");
                 final Keyword keyword = FieldUtils.getEnum(Keyword.class, object.get("keyword"), "keyword");

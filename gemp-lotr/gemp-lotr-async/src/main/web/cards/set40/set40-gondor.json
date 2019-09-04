@@ -156,6 +156,171 @@
       }
     }
   },
+  "40_99": {
+    "title": "Avoid Being Seen",
+    "culture": "gondor",
+    "cost": 0,
+    "type": "event",
+    "keyword": "fellowship",
+    "effects": {
+      "type": "event",
+      "cost": {
+        "type": "exert",
+        "count": "0-100",
+        "filter": "choose(ranger)",
+        "memorize": "exertedRangers"
+      },
+      "effect": {
+        "type": "addModifier",
+        "until": "endOfTurn",
+        "modifier": {
+          "type": "addNoTwilightForCompanionMove",
+          "filter": "memory(exertedRangers)"
+        }
+      }
+    }
+  },
+  "40_100": {
+    "title": "*Blade of Gondor",
+    "subtitle": "Weapon of Honor",
+    "culture": "gondor",
+    "cost": 1,
+    "type": "possession",
+    "possession": "hand weapon",
+    "strength": 2,
+    "target": "name(Boromir)",
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "addKeyword",
+          "filter": "bearer",
+          "keyword": "damage+1"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "skirmish",
+        "cost": {
+          "type": "exert",
+          "filter": "choose(name(Boromir))"
+        },
+        "effect": {
+          "type": "wound",
+          "filter": "choose(or(Orc,Uruk-hai),inSkirmishAgainst(not(name(Boromir)),unbound,companion))"
+        }
+      }
+    ]
+  },
+  "40_101": {
+    "title": "*Boromir",
+    "subtitle": "Champion of Minas Tirith",
+    "culture": "gondor",
+    "cost": 3,
+    "type": "companion",
+    "race": "man",
+    "strength": 7,
+    "vitality": 3,
+    "resistance": 6,
+    "keyword": "ranger",
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyStrength",
+        "filter": "self,inSkirmish",
+        "amount": {
+          "type": "forEachWound",
+          "filter": "character,inSkirmish"
+        }
+      }
+    }
+  },
+  "40_102": {
+    "title": "*Boromir",
+    "subtitle": "Son of Denethor",
+    "culture": "gondor",
+    "cost": 3,
+    "type": "companion",
+    "race": "man",
+    "strength": 7,
+    "vitality": 3,
+    "resistance": 6,
+    "effects": {
+      "type": "activated",
+      "phase": "skirmish",
+      "cost": {
+        "type": "exert",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "modifyStrength",
+        "filter": "self",
+        "amount": 3
+      }
+    }
+  },
+  "40_103": {
+    "title": "*Boromir's Gauntlets",
+    "culture": "gondor",
+    "cost": 1,
+    "type": "possession",
+    "possession": "gauntlets",
+    "target": "culture(gondor),man",
+    "effects": {
+      "type": "activated",
+      "phase": "skirmish",
+      "cost": {
+        "type": "exert",
+        "filter": "choose(bearer)"
+      },
+      "effect": {
+        "type": "preventable",
+        "effect": {
+          "type": "cancelSkirmish",
+          "filter": "bearer"
+        },
+        "text": "Would you like to remove (1) to prevent cancellation of skirmish?",
+        "player": "shadowPlayer",
+        "cost": {
+          "type": "removeTwilight"
+        }
+      }
+    }
+  },
+  "40_104": {
+    "title": "*Boromir's Shield",
+    "culture": "gondor",
+    "cost": 1,
+    "type": "possession",
+    "possession": "shield",
+    "target": "culture(gondor),man",
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyArcheryTotal",
+          "side": "shadow",
+          "amount": -1
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "regroup",
+        "condition": {
+          "type": "canSpot",
+          "filter": "bearer,name(Boromir)"
+        },
+        "cost": {
+          "type": "discard",
+          "filter": "self"
+        },
+        "effect": {
+          "type": "discard",
+          "filter": "choose(side(shadow),possession)"
+        }
+      }
+    ]
+  },
   "40_313": {
     "title": "Athelas",
     "subtitle": "Asëa Aranion",
