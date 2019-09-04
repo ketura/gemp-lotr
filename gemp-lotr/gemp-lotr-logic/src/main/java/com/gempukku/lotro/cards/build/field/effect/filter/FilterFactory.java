@@ -6,6 +6,7 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.timing.results.CharacterLostSkirmishResult;
 
 import java.util.*;
@@ -46,6 +47,13 @@ public class FilterFactory {
                 });
         simpleFilters.put("unbound",
                 (actionContext) -> Filters.not(Keyword.RING_BOUND));
+        simpleFilters.put("attachedtoinsameregion",
+                actionContext -> {
+                    final PhysicalCard attachedTo = actionContext.getSource().getAttachedTo();
+                    return Filters.region(GameUtils.getRegion(attachedTo.getSiteNumber()));
+                });
+        simpleFilters.put("currentsite",
+                (actionContext) -> Filters.currentSite);
 
         parameterFilters.put("culture", (parameter, environment) -> {
             final Culture culture = Culture.valueOf(parameter.toUpperCase());

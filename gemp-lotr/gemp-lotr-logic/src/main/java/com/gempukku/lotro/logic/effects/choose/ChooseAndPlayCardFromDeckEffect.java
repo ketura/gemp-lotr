@@ -86,7 +86,7 @@ public class ChooseAndPlayCardFromDeckEffect implements Effect {
         if (_playCardAction == null)
             return false;
         if (_playCardAction instanceof PlayPermanentAction)
-            return ((PlayPermanentAction) _playCardAction).wasCarriedOut();
+            return _playCardAction.wasCarriedOut();
         return true;
     }
 }

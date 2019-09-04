@@ -313,7 +313,7 @@ public class PlayConditions {
     public static boolean canPlayFromDeck(String playerId, LotroGame game, Filterable... filters) {
         if (game.getModifiersQuerying().hasFlagActive(game, ModifierFlag.CANT_PLAY_FROM_DISCARD_OR_DECK))
             return false;
-        return Filters.filter(game.getGameState().getDeck(playerId), game, Filters.and(filters, Filters.playable(game))).size() > 0;
+        return true;
     }
 
     public static boolean canPlayFromHand(String playerId, LotroGame game, Filterable... filters) {
