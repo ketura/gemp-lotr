@@ -59,15 +59,6 @@ public class Filters {
         _keywordFilterMap.put(Keyword.BESIEGER, Filters.and(CardType.MINION, keyword(Keyword.BESIEGER)));
     }
 
-    public static Filter inPlay() {
-        return new Filter() {
-            @Override
-            public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
-                return physicalCard.getZone().isInPlay();
-            }
-        };
-    }
-
     public static boolean canSpot(LotroGame game, Filterable... filters) {
         return canSpot(game, 1, filters);
     }
@@ -436,6 +427,13 @@ public class Filters {
                         || skirmish.getShadowCharacters().contains(physicalCard);
             }
             return false;
+        }
+    };
+
+    public static final Filter inPlay = new Filter() {
+        @Override
+        public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
+            return physicalCard.getZone().isInPlay();
         }
     };
 

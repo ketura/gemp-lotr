@@ -321,6 +321,327 @@
       }
     ]
   },
+  "40_105": {
+    "title": "Bow of the North",
+    "culture": "gondor",
+    "cost": 1,
+    "type": "possession",
+    "possession": "ranged weapon",
+    "strength": 1,
+    "target": "culture(gondor),man",
+    "effects": {
+      "type": "activated",
+      "phase": "skirmish",
+      "cost": {
+        "type": "exert",
+        "filter": "choose(bearer)"
+      },
+      "effect": {
+        "type": "choice",
+        "texts": [
+          "Wound a roaming minion bearer is skirmishing",
+          "Wound a minion bearer is skirmishing"
+        ],
+        "effects": [
+          {
+            "type": "conditional",
+            "condition": {
+              "type": "location",
+              "filter": "not(your)"
+            },
+            "effect": {
+              "type": "wound",
+              "filter": "choose(roaming,minion,inSkirmishAgainst(bearer))"
+            }
+          },
+          {
+            "type": "conditional",
+            "condition": {
+              "type": "location",
+              "filter": "your"
+            },
+            "effect": {
+              "type": "wound",
+              "filter": "choose(minion,inSkirmishAgainst(bearer))"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "40_106": {
+    "title": "Dagger Strike",
+    "culture": "gondor",
+    "cost": 0,
+    "type": "event",
+    "keyword": "skirmish",
+    "effects": {
+      "type": "event",
+      "effect": [
+        {
+          "type": "modifyStrength",
+          "filter": "choose(or(culture(gondor),culture(shire)),companion,hasAttached(hand weapon))",
+          "amount": 2,
+          "memorize": "chosenCompanion"
+        },
+        {
+          "type": "addKeyword",
+          "filter": "memory(chosenCompanion)",
+          "keyword": "damage+1"
+        }
+      ]
+    }
+  },
+  "40_108": {
+    "title": "*Flaming Brand",
+    "culture": "gondor",
+    "cost": 0,
+    "type": "possession",
+    "possession": "hand weapon",
+    "strength": 1,
+    "target": "culture(gondor),man",
+    "effects": [
+      {
+        "type": "extraPossessionClass"
+      },
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyStrength",
+          "filter": "bearer,inSkirmishAgainst(nazgul)",
+          "amount": 2
+        }
+      },
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "addKeyword",
+          "filter": "bearer,inSkirmishAgainst(nazgul)",
+          "keyword": "damage+1"
+        }
+      }
+    ]
+  },
+  "40_110": {
+    "title": "*Into the Wild",
+    "culture": "gondor",
+    "cost": 1,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifySiteNumber",
+          "condition": {
+            "type": "canSpot",
+            "filter": "ranger"
+          },
+          "filter": "minion,inPlay",
+          "amount": 1
+        }
+      },
+      {
+        "type": "activatedTrigger",
+        "trigger": {
+          "type": "winsSkirmish",
+          "filter": "ranger",
+          "memorize": "winner"
+        },
+        "cost": [
+          {
+            "type": "exert",
+            "filter": "memory(winner)"
+          },
+          {
+            "type": "discard",
+            "filter": "self"
+          }
+        ],
+        "effect": {
+          "type": "playNextSite"
+        }
+      }
+    ]
+  },
+  "40_111": {
+    "title": "*Legacy of Numenor",
+    "culture": "gondor",
+    "cost": 1,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": [
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "winsSkirmish",
+          "filter": "culture(gondor),man",
+          "memorize": "winner"
+        },
+        "effect": {
+          "type": "heal",
+          "filter": "memory(winner)"
+        }
+      },
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "losesSkirmish",
+          "filter": "culture(gondor),man"
+        },
+        "effect": {
+          "type": "discard",
+          "filter": "self"
+        }
+      }
+    ]
+  },
+  "40_112": {
+    "title": "Might of Numenor",
+    "culture": "gondor",
+    "cost": 1,
+    "type": "event",
+    "keyword": [
+      "maneuver",
+      "tale"
+    ],
+    "condition": {
+      "type": "canSpot",
+      "filter": "culture(gondor),companion"
+    },
+    "effects": {
+      "type": "event",
+      "effect": [
+        {
+          "type": "revealRandomCardsFromHand",
+          "hand": "shadowPlayer",
+          "forced": true,
+          "memorize": "revealedCard"
+        },
+        {
+          "type": "heal",
+          "filter": "choose(companion)",
+          "count": {
+            "type": "twilightCostInMemory",
+            "memory": "revealedCard"
+          }
+        }
+      ]
+    }
+  },
+  "40_113": {
+    "title": "pathfinder",
+    "culture": "gondor",
+    "cost": 0,
+    "type": "event",
+    "keyword": [
+      "fellowship",
+      "regroup"
+    ],
+    "condition": {
+      "type": "canSpot",
+      "filter": "ranger"
+    },
+    "effects": {
+      "type": "event",
+      "effect": {
+        "type": "playNextSite"
+      }
+    }
+  },
+  "40_114": {
+    "title": "Ranger of the North",
+    "culture": "gondor",
+    "cost": 2,
+    "type": "companion",
+    "race": "man",
+    "strength": 6,
+    "vitality": 3,
+    "resistance": 6,
+    "keyword": "ranger",
+    "effects": [
+      {
+        "type": "modifyOwnCost",
+        "amount": -1,
+        "condition": [
+          {
+            "type": "canSpot",
+            "filter": "culture(gondor),man"
+          },
+          {
+            "type": "phase",
+            "phase": "play starting fellowship"
+          }
+        ]
+      },
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "startOfPhase",
+          "phase": "skirmish"
+        },
+        "condition": [
+          {
+            "type": "canSpot",
+            "filter": "self,inSkirmish"
+          },
+          {
+            "type": "location",
+            "filter": "your"
+          }
+        ],
+        "effect": {
+          "type": "exert",
+          "filter": "all(minion,inSkirmish)"
+        }
+      }
+    ]
+  },
+  "40_115": {
+    "title": "A Ranger's Adaptability",
+    "culture": "gondor",
+    "cost": 1,
+    "type": "event",
+    "keyword": "maneuver",
+    "effects": {
+      "type": "event",
+      "cost": {
+        "type": "exert",
+        "filter": "choose(culture(gondor),ranger)"
+      },
+      "effect": {
+        "type": "choice",
+        "texts": [
+          "Exhaust a roaming minion",
+          "Exhaust any minion"
+        ],
+        "effects": [
+          {
+            "type": "conditional",
+            "condition": {
+              "type": "location",
+              "filter": "not(your)"
+            },
+            "effect": {
+              "type": "exhaust",
+              "filter": "choose(roaming,minion)"
+            }
+          },
+          {
+            "type": "conditional",
+            "condition": {
+              "type": "location",
+              "filter": "your"
+            },
+            "effect": {
+              "type": "exhaust",
+              "filter": "choose(minion)"
+            }
+          }
+        ]
+      }
+    }
+  },
   "40_313": {
     "title": "Athelas",
     "subtitle": "Asëa Aranion",

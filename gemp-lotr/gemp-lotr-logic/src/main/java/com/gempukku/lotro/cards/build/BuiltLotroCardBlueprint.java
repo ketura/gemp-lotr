@@ -61,11 +61,17 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
 
     private ActionSource playEventAction;
 
+    private ExtraPossessionClassTest extraPossessionClassTest;
+
     // Building methods
 
     public void setAllyHomeSites(SitesBlock block, int[] numbers) {
         this.allyHomeBlock = block;
         this.allyHomeSites = numbers;
+    }
+
+    public void setExtraPossessionClassTest(ExtraPossessionClassTest extraPossessionClassTest) {
+        this.extraPossessionClassTest = extraPossessionClassTest;
     }
 
     public void appendExtraPlayCost(ExtraPlayCostSource extraPlayCostSource) {
@@ -582,6 +588,8 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
 
     @Override
     public boolean isExtraPossessionClass(LotroGame game, PhysicalCard self, PhysicalCard attachedTo) {
+        if (extraPossessionClassTest != null)
+            return extraPossessionClassTest.isExtraPossessionClass(game, self, attachedTo);
         return false;
     }
 

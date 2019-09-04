@@ -16,7 +16,7 @@ public class StatModifiersRule {
 
     public void applyRule() {
         modifiersLogic.addAlwaysOnModifier(
-                new StrengthModifier(null, Filters.and(Filters.inPlay(), Filters.character, Filters.hasAttached(Filters.any)), null,
+                new StrengthModifier(null, Filters.and(Filters.inPlay, Filters.character, Filters.hasAttached(Filters.any)), null,
                         new Evaluator() {
                             @Override
                             public int evaluateExpression(LotroGame game, PhysicalCard cardAffected) {
@@ -31,7 +31,7 @@ public class StatModifiersRule {
                             }
                         }, true));
         modifiersLogic.addAlwaysOnModifier(
-                new VitalityModifier(null, Filters.and(Filters.inPlay(), Filters.character, Filters.hasAttached(Filters.any)),
+                new VitalityModifier(null, Filters.and(Filters.inPlay, Filters.character, Filters.hasAttached(Filters.any)),
                         new Evaluator() {
                             @Override
                             public int evaluateExpression(LotroGame game, PhysicalCard cardAffected) {
@@ -43,7 +43,7 @@ public class StatModifiersRule {
                             }
                         }, true));
         modifiersLogic.addAlwaysOnModifier(
-                new ResistanceModifier(null, Filters.and(Filters.inPlay(), Filters.character, Filters.hasAttached(Filters.any)), null,
+                new ResistanceModifier(null, Filters.and(Filters.inPlay, Filters.character, Filters.hasAttached(Filters.any)), null,
                         new Evaluator() {
                             @Override
                             public int evaluateExpression(LotroGame game, PhysicalCard cardAffected) {
@@ -55,7 +55,7 @@ public class StatModifiersRule {
                             }
                         }, true));
         modifiersLogic.addAlwaysOnModifier(
-                new MinionSiteNumberModifier(null, Filters.and(Filters.inPlay(), CardType.MINION, Filters.hasAttached(Filters.any)), null,
+                new MinionSiteNumberModifier(null, Filters.and(Filters.inPlay, CardType.MINION, Filters.hasAttached(Filters.any)), null,
                         new Evaluator() {
                             @Override
                             public int evaluateExpression(LotroGame game, PhysicalCard cardAffected) {

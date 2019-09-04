@@ -23,6 +23,7 @@ public class EffectFieldProcessor implements FieldProcessor {
         effectProcessors.put("modifyowncost", new ModifyOwnCost());
         effectProcessors.put("extracost", new ExtraCost());
         effectProcessors.put("modifier", new Modifier());
+        effectProcessors.put("extrapossessionclass", new ExtraPossessionClassEffectProcessor());
     }
 
     @Override

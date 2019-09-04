@@ -28,7 +28,7 @@ public class Card20_197 extends AbstractPermanent {
     @Override
     public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
 return Collections.singletonList(new MinionSiteNumberModifier(
-self, Filters.and(CardType.MINION, Filters.inPlay()), new SpotCondition(Culture.GONDOR, Keyword.RANGER),
+        self, Filters.and(CardType.MINION, Filters.inPlay), new SpotCondition(Culture.GONDOR, Keyword.RANGER),
 new CountActiveEvaluator(CardType.SITE, Zone.ADVENTURE_PATH, Filters.owner(self.getOwner()), Filters.currentRegion)));
 }
 }

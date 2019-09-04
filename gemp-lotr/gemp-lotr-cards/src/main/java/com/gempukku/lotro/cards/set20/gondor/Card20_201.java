@@ -41,7 +41,7 @@ public class Card20_201 extends AbstractPermanent {
                     new SelfDiscardEffect(self));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new MinionSiteNumberModifier(self, Filters.and(CardType.MINION, Filters.inPlay()), null, 2)));
+                            new MinionSiteNumberModifier(self, Filters.and(CardType.MINION, Filters.inPlay), null, 2)));
             return Collections.singletonList(action);
         }
         return null;
