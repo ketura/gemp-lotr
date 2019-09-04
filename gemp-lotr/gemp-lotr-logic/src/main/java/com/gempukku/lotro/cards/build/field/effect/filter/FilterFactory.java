@@ -5,12 +5,10 @@ import com.gempukku.lotro.cards.build.field.effect.appender.resolver.ValueResolv
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
+import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.logic.timing.results.CharacterLostSkirmishResult;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class FilterFactory {
     private Map<String, FilterableSource> simpleFilters = new HashMap<>();
@@ -33,6 +31,7 @@ public class FilterFactory {
         simpleFilters.put("self", (actionContext) -> actionContext.getSource());
         simpleFilters.put("your", (actionContext) -> Filters.owner(actionContext.getPerformingPlayer()));
         simpleFilters.put("bearer", (actionContext -> Filters.hasAttached(actionContext.getSource())));
+        simpleFilters.put("character", (actionContext) -> Filters.character);
         simpleFilters.put("weapon", (actionContext) -> Filters.weapon);
         simpleFilters.put("wounded", (actionContext) -> Filters.wounded);
         simpleFilters.put("unwounded", (actionContext) -> Filters.unwounded);
@@ -54,6 +53,13 @@ public class FilterFactory {
 
             return (actionContext) -> culture;
         });
+        parameterFilters.put("cultureFromMemory", ((parameter, environment) -> actionContext -> {
+            Set<Culture> cultures = new HashSet<>();
+            for (PhysicalCard physicalCard : actionContext.getCardsFromMemory(parameter)) {
+                cultures.add(physicalCard.getBlueprint().getCulture());
+            }
+            return Filters.or(cultures.toArray(new Culture[0]));
+        }));
         parameterFilters.put("side", (parameter, environment) -> {
             final Side side = Side.valueOf(parameter.toUpperCase().replace(" ", "_"));
             if (side == null)

@@ -21,21 +21,20 @@ import org.json.simple.JSONObject;
 
 import java.util.Collection;
 
-public class PlayCardFromDiscard implements EffectAppenderProducer {
+public class PlayCardFromDrawDeck implements EffectAppenderProducer {
     @Override
     public EffectAppender createEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(effectObject, "filter", "removedTwilight");
+        FieldUtils.validateAllowedFields(effectObject, "filter");
 
         final String filter = FieldUtils.getString(effectObject.get("filter"), "filter");
-        final int removedTwilight = FieldUtils.getInteger(effectObject.get("removedTwilight"), "removedTwilight", 0);
 
         MultiEffectAppender result = new MultiEffectAppender();
         result.setPlayabilityCheckedForEffect(true);
 
         result.addEffectAppender(
-                CardResolver.resolveCardsInDiscard(filter,
+                CardResolver.resolveCardsInDeck(filter,
                         (actionContext) -> Filters.playable(actionContext.getGame()),
-                        (actionContext) -> Filters.playable(actionContext.getGame(), removedTwilight, 0, false, false),
+                        (actionContext) -> Filters.playable(actionContext.getGame()),
                         new ConstantEvaluator(1), "_temp", "you", "Choose card to play", environment));
         result.addEffectAppender(
                 new DelayedAppender() {

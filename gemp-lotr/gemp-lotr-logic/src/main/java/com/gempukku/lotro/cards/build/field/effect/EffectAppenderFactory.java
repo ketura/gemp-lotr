@@ -47,7 +47,9 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("putcardsfromdiscardintohand", new PutCardsFromDiscardIntoHand());
         effectAppenderProducers.put("addtrigger", new AddTrigger());
         effectAppenderProducers.put("stackplayedevent", new StackPlayedEvent());
+        effectAppenderProducers.put("play", new PlayCardFromHand());
         effectAppenderProducers.put("playcardfromdiscard", new PlayCardFromDiscard());
+        effectAppenderProducers.put("playcardfromdrawdeck", new PlayCardFromDrawDeck());
         effectAppenderProducers.put("reducearcherytotal", new ReduceArcheryTotal());
         effectAppenderProducers.put("revealtopcardsofdrawdeck", new RevealTopCardsOfDrawDeck());
         effectAppenderProducers.put("optional", new Optional());
@@ -58,7 +60,6 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("cantbeassignedtoskirmish", new CantBeAssignedToSkirmish());
         effectAppenderProducers.put("preventable", new PreventableAppenderProducer());
         effectAppenderProducers.put("cantbeoverwhelmedmultiplier", new CantBeOverwhelmedMultiplier());
-        effectAppenderProducers.put("play", new PlayCardFromHand());
         effectAppenderProducers.put("cancelskirmish", new CancelSkirmish());
         effectAppenderProducers.put("discardfromhand", new DiscardCardsFromHand());
         effectAppenderProducers.put("chooseandremovetwilight", new ChooseAndRemoveTwilight());
@@ -74,6 +75,7 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("revealrandomcardsfromhand", new RevealRandomCardsFromHand());
         effectAppenderProducers.put("putcardsfromdeckintohand", new PutCardsFromDeckIntoHand());
         effectAppenderProducers.put("addmodifier", new AddModifier());
+        effectAppenderProducers.put("playnextsite", new PlayNextSite());
     }
 
     public EffectAppender getEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {

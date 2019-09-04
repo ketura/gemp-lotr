@@ -732,6 +732,32 @@
       ]
     }
   },
+  "40_84": {
+    "title": "Mysterious Wizard",
+    "culture": "gandalf",
+    "cost": 2,
+    "type": "event",
+    "keyword": [
+      "skirmish",
+      "spell"
+    ],
+    "effects": {
+      "type": "event",
+      "effect": {
+        "type": "modifyStrength",
+        "filter": "choose(name(Gandalf))",
+        "amount": {
+          "type": "condition",
+          "condition": {
+            "type": "canSpotBurdens",
+            "amount": 5
+          },
+          "yes": 2,
+          "no": 4
+        }
+      }
+    }
+  },
   "40_86": {
     "title": "Protector of the West",
     "culture": "gandalf",
@@ -757,6 +783,142 @@
           "amount": 2
         }
       ]
+    }
+  },
+  "40_87": {
+    "title": "Roll of Thunder",
+    "culture": "gandalf",
+    "cost": 3,
+    "type": "event",
+    "keyword": [
+      "fellowship",
+      "maneuver"
+    ],
+    "condition": {
+      "type": "canSpot",
+      "filter": "name(Gandalf)"
+    },
+    "effects": {
+      "type": "event",
+      "effect": {
+        "type": "discard",
+        "filter": "choose(side(shadow),or(possession,artifact))"
+      }
+    }
+  },
+  "40_88": {
+    "title": "Speak \"Friend\" and Enter",
+    "culture": "gandalf",
+    "cost": 1,
+    "type": "event",
+    "keyword": [
+      "fellowship",
+      "regroup"
+    ],
+    "condition": {
+      "type": "canSpot",
+      "filter": "name(Gandalf)"
+    },
+    "effects": {
+      "type": "event",
+      "effect": [
+        {
+          "type": "playNextSite",
+          "memorize": "playedSite"
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "type": "memoryMatches",
+            "memory": "playedSite",
+            "filter": "underground"
+          },
+          "effect": {
+            "type": "drawCards"
+          }
+        }
+      ]
+    }
+  },
+  "40_89": {
+    "title": "Trusted Advisor",
+    "culture": "gandalf",
+    "cost": 1,
+    "type": "event",
+    "keyword": "fellowship",
+    "condition": {
+      "type": "canSpot",
+      "filter": "name(Gandalf)"
+    },
+    "effects": {
+      "type": "event",
+      "cost": {
+        "type": "exert",
+        "filter": "choose(companion,not(culture(gandalf)))",
+        "memorize": "exertedCompanion"
+      },
+      "effect": {
+        "type": "putCardsFromDeckIntoHand",
+        "filter": "choose(cultureFromMemory(exertedCompanion))"
+      }
+    }
+  },
+  "40_90": {
+    "title": "A Wizard is Never Late",
+    "culture": "gandalf",
+    "cost": 1,
+    "type": "event",
+    "keyword": "fellowship",
+    "effects": {
+      "type": "event",
+      "effect": {
+        "type": "playCardFromDrawDeck",
+        "filter": "choose(culture(gandalf),character)"
+      }
+    }
+  },
+  "40_91": {
+    "title": "Wizard Staff",
+    "culture": "gandalf",
+    "cost": 2,
+    "type": "possession",
+    "possession": "hand weapon",
+    "strength": 1,
+    "target": "wizard",
+    "effects": {
+      "type": "activated",
+      "phase": "skirmish",
+      "cost": {
+        "type": "exert",
+        "filter": "choose(bearer)"
+      },
+      "effect": {
+        "type": "modifyStrength",
+        "filter": "choose(minion)",
+        "amount": -3
+      }
+    }
+  },
+  "40_311": {
+    "title": "*Gandalf",
+    "subtitle": "Wisest of the Istari",
+    "culture": "gandalf",
+    "cost": 4,
+    "type": "companion",
+    "race": "wizard",
+    "strength": 7,
+    "vitality": 4,
+    "resistance": 8,
+    "effects": {
+      "type": "trigger",
+      "trigger": {
+        "type": "played",
+        "filter": "culture(gandalf),spell"
+      },
+      "optional": true,
+      "effect": {
+        "type": "drawCards"
+      }
     }
   },
   "40_312": {
