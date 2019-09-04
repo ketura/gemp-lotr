@@ -49,17 +49,16 @@ public class ValueResolver {
             JSONObject object = (JSONObject) value;
             final String type = FieldUtils.getString(object.get("type"), "type");
             if (type.equalsIgnoreCase("condition")) {
-                final Requirement condition = environment.getRequirementFactory().getRequirement((JSONObject) object.get("condition"), environment);
+                final JSONObject[] conditionArray = FieldUtils.getObjectArray(object.get("condition"), "condition");
+                final Requirement[] conditions = environment.getRequirementFactory().getRequirements(conditionArray, environment);
                 int trueValue = FieldUtils.getInteger(object.get("true"), "true");
                 int falseValue = FieldUtils.getInteger(object.get("false"), "false");
-                return (actionContext) -> {
-                    return (Evaluator) (game, cardAffected) -> {
-                        final boolean accepts = condition.accepts(actionContext);
-                        if (accepts)
-                            return trueValue;
-                        else
+                return (actionContext) -> (Evaluator) (game, cardAffected) -> {
+                    for (Requirement condition : conditions) {
+                        if (!condition.accepts(actionContext))
                             return falseValue;
-                    };
+                    }
+                    return trueValue;
                 };
             } else if (type.equalsIgnoreCase("forEachInMemory")) {
                 final String memory = FieldUtils.getString(object.get("memory"), "memory");

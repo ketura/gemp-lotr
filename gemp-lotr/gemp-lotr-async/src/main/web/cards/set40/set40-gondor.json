@@ -642,6 +642,195 @@
       }
     }
   },
+  "40_116": {
+    "title": "Ranger's Guile",
+    "culture": "gondor",
+    "cost": 0,
+    "type": "event",
+    "keyword": "skirmish",
+    "effects": {
+      "type": "event",
+      "effect": [
+        {
+          "type": "modifyStrength",
+          "filter": "choose(ranger)",
+          "amount": 1,
+          "memorize": "chosenRanger"
+        },
+        {
+          "type": "addTrigger",
+          "trigger": {
+            "type": "winsSkirmish",
+            "filter": "memory(chosenRanger)"
+          },
+          "effect": {
+            "type": "choice",
+            "texts": [
+              "Play fellowship's next site",
+              "Wound a roaming minion twice"
+            ],
+            "effects": [
+              {
+                "type": "playNextSite"
+              },
+              {
+                "type": "wound",
+                "filter": "choose(minion)",
+                "times": 2
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "40_117": {
+    "title": "*Ranger's Sword",
+    "culture": "gondor",
+    "cost": 1,
+    "type": "possession",
+    "possession": "hand weapon",
+    "strength": 2,
+    "target": "name(Aragorn)",
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "addKeyword",
+        "filter": "bearer",
+        "keyword": "damage+1"
+      }
+    }
+  },
+  "40_118": {
+    "title": "*Ring of Barahir",
+    "subtitle": "Heirloom of Kings",
+    "culture": "gondor",
+    "cost": 0,
+    "type": "artifact",
+    "possession": "ring",
+    "target": "name(Aragorn)",
+    "effects": {
+      "type": "activated",
+      "phase": [
+        "fellowship",
+        "regroup"
+      ],
+      "cost": {
+        "type": "discardFromHand",
+        "forced": false,
+        "count": 2,
+        "filter": "choose(culture(gondor))"
+      },
+      "effect": {
+        "type": "heal",
+        "filter": "choose(unbound,companion)"
+      }
+    }
+  },
+  "40_119": {
+    "title": "*The Saga of Elendil",
+    "culture": "gondor",
+    "cost": 1,
+    "type": "condition",
+    "vitality": 1,
+    "keyword": "tale",
+    "target": "culture(gondor),man,companion",
+    "effects": {
+      "type": "activated",
+      "phase": "skirmish",
+      "cost": [
+        {
+          "type": "memorize",
+          "memory": "bearer",
+          "filter": "bearer"
+        },
+        {
+          "type": "discard",
+          "filter": "self"
+        }
+      ],
+      "effect": {
+        "type": "modifyStrength",
+        "amount": 2,
+        "filter": "memory(bearer)"
+      }
+    }
+  },
+  "40_120": {
+    "title": "Sentinels of Numenor",
+    "culture": "gondor",
+    "cost": 0,
+    "type": "event",
+    "keyword": "skirmish",
+    "effects": {
+      "type": "event",
+      "effect": {
+        "type": "modifyStrength",
+        "filter": "choose(culture(gondor),companion)",
+        "memorize": "chosenCompanion",
+        "amount": {
+          "type": "condition",
+          "condition": [
+            {
+              "type": "fierceSkirmish"
+            },
+            {
+              "type": "memoryMatches",
+              "memory": "chosenCompanion",
+              "filter": "inSkirmish"
+            }
+          ],
+          "true": 4,
+          "false": 2
+        }
+      }
+    }
+  },
+  "40_121": {
+    "title": "Sword of the North",
+    "culture": "gondor",
+    "cost": 1,
+    "type": "possession",
+    "possession": "hand weapon",
+    "strength": 2,
+    "target": "culture(gondor),man",
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "addKeyword",
+        "condition": {
+          "type": "location",
+          "filter": "your"
+        },
+        "filter": "bearer",
+        "keyword": "damage+1"
+      }
+    }
+  },
+  "40_122": {
+    "title": "Swordarm of the White Tower",
+    "culture": "gondor",
+    "cost": 0,
+    "type": "event",
+    "keyword": "skirmish",
+    "effects": {
+      "type": "event",
+      "effect": {
+        "type": "modifyStrength",
+        "filter": "choose(culture(gondor),companion)",
+        "memorize": "chosenCompanion",
+        "amount": {
+          "type": "condition",
+          "condition": {
+            "type": "canSpot",
+            "filter": "memory(chosenCompanion),defender"
+          },
+          "true": 4,
+          "false": 2
+        }
+      }
+    }
+  },
   "40_313": {
     "title": "Athelas",
     "subtitle": "Asëa Aranion",
