@@ -1,4 +1,317 @@
 {
+  "40_123": {
+    "title": "Find the Halfling!",
+    "culture": "isengard",
+    "cost": 0,
+    "type": "event",
+    "keyword": "skirmish",
+    "effects": {
+      "type": "event",
+      "effect": {
+        "type": "modifyStrength",
+        "filter": "choose(uruk-hai)",
+        "amount": {
+          "type": "condition",
+          "condition": {
+            "type": "canSpot",
+            "filter": "hobbit,companion,notAssignedToSkirmish"
+          },
+          "true": 3,
+          "false": 2
+        }
+      }
+    }
+  },
+  "40_124": {
+    "title": "Isengard Unleashed",
+    "culture": "isengard",
+    "cost": 2,
+    "type": "condition",
+    "target": "site",
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "addKeyword",
+          "keyword": "battleground",
+          "filter": "site,attachedToInSameRegion"
+        }
+      },
+      {
+        "type": "activatedTrigger",
+        "trigger": {
+          "type": "aboutToTakeWound",
+          "filter": "uruk-hai"
+        },
+        "cost": {
+          "type": "discard",
+          "filter": "self"
+        },
+        "effect": {
+          "type": "preventWound",
+          "filter": "choose(uruk-hai)"
+        }
+      }
+    ]
+  },
+  "40_125": {
+    "title": "*Lurtz",
+    "subtitle": "Champion of the White Hand",
+    "culture": "isengard",
+    "cost": 7,
+    "type": "minion",
+    "race": "uruk-hai",
+    "strength": 13,
+    "vitality": 3,
+    "site": 5,
+    "keyword": "damage+1",
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "addKeyword",
+          "keyword": "battleground",
+          "filter": "currentSite"
+        }
+      },
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "winsSkirmish",
+          "filter": "self"
+        },
+        "effect": [
+          {
+            "type": "exert",
+            "player": "fp",
+            "filter": "choose(companion)",
+            "memorize": "exertedCompanion"
+          },
+          {
+            "type": "conditional",
+            "condition": {
+              "type": "memoryMatches",
+              "memory": "exertedCompanion",
+              "filter": "hobbit"
+            },
+            "effect": {
+              "type": "exert",
+              "player": "fp",
+              "filter": "memory(exertedCompanion)"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "40_126": {
+    "title": "Marauding Uruk",
+    "culture": "isengard",
+    "cost": 3,
+    "type": "minion",
+    "race": "uruk-hai",
+    "strength": 8,
+    "vitality": 3,
+    "site": 5,
+    "keyword": "damage+1",
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "addKeyword",
+        "condition": {
+          "type": "canSpot",
+          "count": 6,
+          "filter": "companion"
+        },
+        "keyword": "fierce"
+      }
+    }
+  },
+  "40_127": {
+    "title": "Might of Saruman",
+    "culture": "isengard",
+    "cost": 2,
+    "type": "event",
+    "keyword": [
+      "skirmish",
+      "spell"
+    ],
+    "condition": {
+      "type": "canSpot",
+      "filter": "name(Saruman)"
+    },
+    "effects": {
+      "type": "event",
+      "effect": {
+        "type": "modifyStrength",
+        "filter": "choose(unbound,companion)",
+        "amount": -2
+      }
+    }
+  },
+  "40_128": {
+    "title": "My Fighting Uruk-hai",
+    "culture": "isengard",
+    "cost": 1,
+    "type": "event",
+    "keyword": "maneuver",
+    "effects": {
+      "type": "event",
+      "cost": {
+        "type": "exert",
+        "filter": "choose(uruk-hai)"
+      },
+      "effect": {
+        "type": "discard",
+        "filter": "choose(side(free people),condition)",
+        "count": {
+          "type": "forEachYouCanSpot",
+          "filter": "battleground,siteInCurrentRegion"
+        }
+      }
+    }
+  },
+  "40_129": {
+    "title": "Now Perfected",
+    "culture": "isengard",
+    "cost": 0,
+    "type": "event",
+    "keyword": "skirmish",
+    "effects": {
+      "type": "event",
+      "effect": {
+        "type": "choice",
+        "texts": [
+          "Make an Uruk-hai strength +2",
+          "Make an Uruk-hai strength +4 and fierce until the regroup phase"
+        ],
+        "effects": [
+          {
+            "type": "modifyStrength",
+            "filter": "choose(uruk-hai)",
+            "amount": 2
+          },
+          {
+            "type": "conditional",
+            "condition": {
+              "type": "canSpot",
+              "count": 6,
+              "filter": "companion"
+            },
+            "effect": [
+              {
+                "type": "modifyStrength",
+                "filter": "choose(uruk-hai)",
+                "amount": 4,
+                "until": "start(regroup)",
+                "memorize": "chosenUrukHai"
+              },
+              {
+                "type": "addKeyword",
+                "filter": "memory(chosenUrukHai)",
+                "keyword": "fierce",
+                "until": "start(regroup)"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "40_130": {
+    "title": "One Ill Turn Deseres Another",
+    "culture": "isengard",
+    "cost": 1,
+    "type": "event",
+    "keyword": [
+      "maneuver",
+      "spell"
+    ],
+    "effects": {
+      "type": "event",
+      "cost": {
+        "type": "exert",
+        "filter": "choose(name(Saruman))"
+      },
+      "effect": [
+        {
+          "type": "exert",
+          "filter": "choose(companion)",
+          "memorize": "exertedCompanion"
+        },
+        {
+          "type": "addModifier",
+          "modifier": {
+            "type": "cantUseSpecialAbilities",
+            "filter": "memory(exertedCompanion)"
+          },
+          "until": "start(regroup)"
+        }
+      ]
+    }
+  },
+  "40_131": {
+    "title": "Open War",
+    "culture": "isengard",
+    "cost": 0,
+    "type": "event",
+    "keyword": "skirmish",
+    "effects": {
+      "type": "event",
+      "effect": {
+        "type": "modifyStrength",
+        "filter": "choose(uruk-hai)",
+        "amount": {
+          "type": "forEachYouCanSpot",
+          "filter": "battleground,siteInCurrentRegion"
+        }
+      }
+    }
+  },
+  "40_132": {
+    "title": "*The Palantir of Orthanc",
+    "subtitle": "Corruptor of Wizards",
+    "culture": "isengard",
+    "cost": 0,
+    "type": "artifact",
+    "possession": "palantir",
+    "condition": {
+      "type": "canSpot",
+      "filter": "culture(isengard),minion"
+    },
+    "effects": [
+      {
+        "type": "activatedTrigger",
+        "trigger": {
+          "type": "played",
+          "filter": "spell,event"
+        },
+        "condition": {
+          "type": "canSpot",
+          "filter": "name(Saruman)"
+        },
+        "effect": {
+          "type": "stackPlayedEvent",
+          "where": "self"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "shadow",
+        "condition": {
+          "type": "canSpot",
+          "filter": "name(Saruman)"
+        },
+        "cost": {
+          "type": "removeThreats"
+        },
+        "effect": {
+          "type": "putStackedCardsIntoHand",
+          "filter": "choose(culture(isengard),spell)"
+        }
+      }
+    ]
+  },
   "40_314": {
     "title": "Brute Force",
     "culture": "isengard",

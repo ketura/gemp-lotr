@@ -25,6 +25,7 @@ public class ModifierSourceFactory {
         modifierProducers.put("addnotwilightforcompanionmove", new AddNoTwilightForCompanionMove());
         modifierProducers.put("modifyarcherytotal", new ModifyArcheryTotal());
         modifierProducers.put("modifysitenumber", new ModifySiteNumber());
+        modifierProducers.put("cantusespecialabilities", new CantUseSpecialAbilities());
     }
 
     public ModifierSource getModifier(JSONObject object, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {

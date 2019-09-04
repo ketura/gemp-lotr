@@ -21,17 +21,19 @@ public class ConditionEffect implements EffectAppenderProducer {
         FieldUtils.validateAllowedFields(effectObject, "condition", "effect");
 
         final JSONObject[] conditionArray = FieldUtils.getObjectArray(effectObject.get("condition"), "condition");
-        final JSONObject effectJson = (JSONObject) effectObject.get("effect");
+        final JSONObject[] effectArray = FieldUtils.getObjectArray(effectObject.get("effect"), "effect");
 
         final Requirement[] conditions = environment.getRequirementFactory().getRequirements(conditionArray, environment);
-        final EffectAppender effectAppender = environment.getEffectAppenderFactory().getEffectAppender(effectJson, environment);
+        final EffectAppender[] effectAppenders = environment.getEffectAppenderFactory().getEffectAppenders(effectArray, environment);
 
         return new DelayedAppender() {
             @Override
             protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
                 if (checkConditions(actionContext)) {
                     SubAction subAction = new SubAction(action);
-                    effectAppender.appendEffect(cost, subAction, actionContext);
+                    for (EffectAppender effectAppender : effectAppenders)
+                        effectAppender.appendEffect(cost, subAction, actionContext);
+
                     return new StackActionEffect(subAction);
                 } else {
                     return new UnrespondableEffect() {
@@ -56,7 +58,12 @@ public class ConditionEffect implements EffectAppenderProducer {
             public boolean isPlayableInFull(ActionContext actionContext) {
                 if (!checkConditions(actionContext))
                     return false;
-                return effectAppender.isPlayableInFull(actionContext);
+                for (EffectAppender effectAppender : effectAppenders) {
+                    if (!effectAppender.isPlayableInFull(actionContext))
+                        return false;
+                }
+
+                return true;
             }
         };
     }

@@ -54,6 +54,8 @@ public class FilterFactory {
                 });
         simpleFilters.put("currentsite",
                 (actionContext) -> Filters.currentSite);
+        simpleFilters.put("siteincurrentregion",
+                (actionContext) -> Filters.siteInCurrentRegion);
 
         parameterFilters.put("culture", (parameter, environment) -> {
             final Culture culture = Culture.valueOf(parameter.toUpperCase());

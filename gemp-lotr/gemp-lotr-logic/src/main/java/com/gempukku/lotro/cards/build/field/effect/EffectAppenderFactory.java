@@ -65,6 +65,7 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("discardfromhand", new DiscardCardsFromHand());
         effectAppenderProducers.put("chooseandremovetwilight", new ChooseAndRemoveTwilight());
         effectAppenderProducers.put("removetwilight", new RemoveTwilight());
+        effectAppenderProducers.put("removethreats", new RemoveThreats());
         effectAppenderProducers.put("stackcards", new StackCardsFromPlay());
         effectAppenderProducers.put("removekeyword", new RemoveKeyword());
         effectAppenderProducers.put("putcardsfromdiscardontopofdrawdeck", new PutCardsFromDiscardOnTopOfDrawDeck());
