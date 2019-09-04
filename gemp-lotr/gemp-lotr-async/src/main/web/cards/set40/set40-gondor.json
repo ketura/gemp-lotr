@@ -1,4 +1,161 @@
 {
+  "40_93": {
+    "title": "Alliance of Old",
+    "culture": "gondor",
+    "cost": 1,
+    "type": "condition",
+    "target": "companion,elf",
+    "keyword": "tale",
+    "effects": {
+      "type": "activated",
+      "phase": "skirmish",
+      "cost": {
+        "type": "exert",
+        "filter": "choose(culture(gondor),man)"
+      },
+      "effect": {
+        "type": "modifyStrength",
+        "filter": "choose(bearer)",
+        "amount": 2
+      }
+    }
+  },
+  "40_94": {
+    "title": "*Aragorn",
+    "subtitle": "Dunedain Ranger",
+    "culture": "gondor",
+    "cost": 4,
+    "type": "companion",
+    "race": "man",
+    "strength": 8,
+    "vitality": 4,
+    "resistance": 8,
+    "keyword": "ranger",
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "addKeyword",
+        "condition": {
+          "type": "location",
+          "filter": "your"
+        },
+        "keyword": "defender+1"
+      }
+    }
+  },
+  "40_95": {
+    "title": "*Aragorn",
+    "subtitle": "Isildur's Heir",
+    "culture": "gondor",
+    "cost": 4,
+    "type": "companion",
+    "race": "man",
+    "strength": 8,
+    "vitality": 4,
+    "resistance": 8,
+    "keyword": "ranger",
+    "effects": {
+      "type": "activated",
+      "phase": "maneuver",
+      "cost": {
+        "type": "play",
+        "filter": "choose(or(artifact,possession))",
+        "on": "self"
+      },
+      "effect": {
+        "type": "heal",
+        "filter": "self"
+      }
+    }
+  },
+  "40_96": {
+    "title": "*Aragorn's Bow",
+    "subtitle": "Swift and True",
+    "culture": "gondor",
+    "cost": 1,
+    "type": "possession",
+    "possession": "ranged weapon",
+    "target": "name(Aragorn)",
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "addKeyword",
+          "filter": "bearer",
+          "keyword": "archer"
+        }
+      },
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "startOfPhase",
+          "phase": "archery"
+        },
+        "optional": true,
+        "cost": {
+          "type": "exert",
+          "filter": "choose(name(Aragorn))"
+        },
+        "effect": [
+          {
+            "type": "wound",
+            "filter": "choose(minion)"
+          },
+          {
+            "type": "doesNotAddToArcheryTotal",
+            "filter": "choose(name(Aragorn))"
+          }
+        ]
+      }
+    ]
+  },
+  "40_97": {
+    "title": "*Aragorn's Pipe",
+    "culture": "gondor",
+    "cost": 1,
+    "type": "possession",
+    "possession": "pipe",
+    "target": "culture(gondor),man",
+    "effects": {
+      "type": "activated",
+      "phase": "skirmish",
+      "limitPerPhase": 1,
+      "cost": [
+        {
+          "type": "discard",
+          "filter": "choose(pipeweed,possession)"
+        },
+        {
+          "type": "chooseHowManyToSpot",
+          "filter": "pipe",
+          "memorize": "numberOfPipes"
+        }
+      ],
+      "effect": {
+        "type": "modifyStrength",
+        "filter": "choose(companion,hasAttached(pipe))",
+        "amount": {
+          "type": "fromMemory",
+          "memory": "numberOfPipes"
+        }
+      }
+    }
+  },
+  "40_98": {
+    "title": "Armor",
+    "culture": "gondor",
+    "cost": 1,
+    "type": "possession",
+    "possession": "armor",
+    "target": "man",
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "cantTakeMoreWoundsThan",
+        "filter": "bearer"
+      }
+    }
+  },
   "40_313": {
     "title": "Athelas",
     "subtitle": "Asëa Aranion",
