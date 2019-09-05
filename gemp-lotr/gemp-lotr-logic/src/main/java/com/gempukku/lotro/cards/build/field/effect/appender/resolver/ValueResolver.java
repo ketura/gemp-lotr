@@ -106,8 +106,10 @@ public class ValueResolver {
                 };
             } else if (type.equalsIgnoreCase("forEachYouCanSpot")) {
                 final String filter = FieldUtils.getString(object.get("filter"), "filter");
+                final int over = FieldUtils.getInteger(object.get("over"), "over", 0);
+                final int limit = FieldUtils.getInteger(object.get("limit"), "limit", Integer.MAX_VALUE);
                 final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
-                return actionContext -> new CountSpottableEvaluator(filterableSource.getFilterable(actionContext));
+                return actionContext -> new CountSpottableEvaluator(over, limit, filterableSource.getFilterable(actionContext));
             } else if (type.equalsIgnoreCase("forEachInHand")) {
                 final String filter = FieldUtils.getString(object.get("filter"), "filter");
                 final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);

@@ -80,6 +80,7 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("putcardsfromdeckintohand", new PutCardsFromDeckIntoHand());
         effectAppenderProducers.put("addmodifier", new AddModifier());
         effectAppenderProducers.put("playnextsite", new PlayNextSite());
+        effectAppenderProducers.put("duplicate", new Duplicate());
     }
 
     public EffectAppender getEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {

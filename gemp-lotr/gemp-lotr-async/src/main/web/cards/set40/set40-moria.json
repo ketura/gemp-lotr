@@ -350,6 +350,156 @@
       }
     }
   },
+  "40_167": {
+    "title": "*Goblin Reclaimer",
+    "culture": "moria",
+    "cost": 2,
+    "type": "minion",
+    "race": "goblin",
+    "strength": 6,
+    "vitality": 2,
+    "site": 4,
+    "effects": {
+      "type": "trigger",
+      "optional": true,
+      "trigger": {
+        "type": "played",
+        "filter": "self"
+      },
+      "condition": {
+        "type": "canSpot",
+        "filter": "another,culture(moria),goblin"
+      },
+      "effect": {
+        "type": "playCardFromDiscard",
+        "filter": "choose(culture(moria),condition)"
+      }
+    }
+  },
+  "40_168": {
+    "title": "*Goblin Reinforcements",
+    "culture": "moria",
+    "cost": 4,
+    "type": "minion",
+    "race": "goblin",
+    "strength": 10,
+    "vitality": 2,
+    "site": 4,
+    "effects": {
+      "type": "trigger",
+      "optional": true,
+      "trigger": {
+        "type": "played",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "duplicate",
+        "amount": {
+          "type": "forEachYouCanSpot",
+          "filter": "companion",
+          "over": 5
+        },
+        "effect": {
+          "type": "playCardFromDiscard",
+          "filter": "choose(culture(moria),goblin)"
+        }
+      }
+    }
+  },
+  "40_169": {
+    "title": "Goblin Runner",
+    "culture": "moria",
+    "cost": 1,
+    "type": "minion",
+    "race": "goblin",
+    "strength": 5,
+    "vitality": 1,
+    "site": 4,
+    "effects": {
+      "type": "trigger",
+      "optional": true,
+      "trigger": {
+        "type": "played",
+        "filter": "self"
+      },
+      "condition": {
+        "type": "canSpot",
+        "filter": "another,culture(moria),goblin"
+      },
+      "effect": {
+        "type": "addTwilight",
+        "amount": 2
+      }
+    }
+  },
+  "40_170": {
+    "title": "Goblin Scavengers",
+    "culture": "moria",
+    "cost": 3,
+    "type": "minion",
+    "race": "goblin",
+    "strength": 8,
+    "vitality": 1,
+    "site": 4,
+    "effects": {
+      "type": "trigger",
+      "optional": true,
+      "trigger": {
+        "type": "played",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "playCardFromDiscard",
+        "filter": "choose(weapon)",
+        "on": "culture(moria),goblin"
+      }
+    }
+  },
+  "40_171": {
+    "title": "Goblin Scimitar",
+    "culture": "moria",
+    "cost": 0,
+    "type": "possession",
+    "possession": "hand weapon",
+    "strength": 2,
+    "target": "culture(moria),goblin",
+    "effects": {
+      "type": "trigger",
+      "optional": true,
+      "trigger": {
+        "type": "played",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "drawCards"
+      }
+    }
+  },
+  "40_172": {
+    "title": "Goblin Scrapper",
+    "culture": "moria",
+    "cost": 2,
+    "type": "minion",
+    "race": "goblin",
+    "strength": 6,
+    "vitality": 2,
+    "site": 4,
+    "effects": {
+      "type": "activatedTrigger",
+      "trigger": {
+        "type": "aboutToTakeWound",
+        "filter": "culture(moria),goblin"
+      },
+      "cost": {
+        "type": "discardStackedCards",
+        "on": "culture(moria),condition"
+      },
+      "effect": {
+        "type": "preventWound",
+        "filter": "choose(culture(moria),goblin)"
+      }
+    }
+  },
   "40_316": {
     "title": "Deep Places of the World",
     "culture": "moria",

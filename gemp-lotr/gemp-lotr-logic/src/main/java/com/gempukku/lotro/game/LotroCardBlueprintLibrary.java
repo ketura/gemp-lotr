@@ -60,11 +60,13 @@ public class LotroCardBlueprintLibrary {
                 final Set<String> allCards = setDefinition.getAllCards();
                 for (String blueprintId : allCards) {
                     if (getBaseBlueprintId(blueprintId).equals(blueprintId)) {
-                        try {
-                            // Ensure it's loaded
-                            LotroCardBlueprint cardBlueprint = getLotroCardBlueprint(blueprintId);
-                        } catch (CardNotFoundException exp) {
-                            throw new RuntimeException("Unable to start the server, due to invalid (missing) card definition - " + blueprintId);
+                        if (!_blueprintMap.containsKey(blueprintId)) {
+                            try {
+                                // Ensure it's loaded
+                                LotroCardBlueprint cardBlueprint = getLotroCardBlueprint(blueprintId);
+                            } catch (CardNotFoundException exp) {
+                                throw new RuntimeException("Unable to start the server, due to invalid (missing) card definition - " + blueprintId);
+                            }
                         }
                     }
                 }
