@@ -24,10 +24,11 @@ import java.util.Collection;
 public class PlayCardFromStacked implements EffectAppenderProducer {
     @Override
     public EffectAppender createEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(effectObject, "filter", "on");
+        FieldUtils.validateAllowedFields(effectObject, "filter", "on", "removedTwilight");
 
         final String filter = FieldUtils.getString(effectObject.get("filter"), "filter");
         final String onFilter = FieldUtils.getString(effectObject.get("on"), "on");
+        final int removedTwilight = FieldUtils.getInteger(effectObject.get("removedTwilight"), "removedTwilight", 0);
 
         final FilterableSource onFilterableSource = (onFilter != null) ? environment.getFilterFactory().generateFilter(onFilter, environment) : null;
 
@@ -35,7 +36,9 @@ public class PlayCardFromStacked implements EffectAppenderProducer {
         result.setPlayabilityCheckedForEffect(true);
 
         result.addEffectAppender(
-                CardResolver.resolveStackedCards(filter, actionContext -> Filters.playable(actionContext.getGame()),
+                CardResolver.resolveStackedCards(filter,
+                        actionContext -> Filters.playable(actionContext.getGame()),
+                        actionContext -> Filters.playable(actionContext.getGame(), removedTwilight, 0, false, false),
                         new ConstantEvaluator(1), onFilterableSource, "_temp", "you", "Choose card to play", environment));
         result.addEffectAppender(
                 new DelayedAppender() {

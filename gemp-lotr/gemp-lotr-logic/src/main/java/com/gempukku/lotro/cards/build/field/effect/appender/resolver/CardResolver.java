@@ -32,6 +32,11 @@ public class CardResolver {
 
     public static EffectAppender resolveStackedCards(String type, FilterableSource additionalFilter, ValueSource countSource, FilterableSource stackedOn,
                                                      String memory, String choicePlayer, String choiceText, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
+        return resolveStackedCards(type, additionalFilter, additionalFilter, countSource, stackedOn, memory, choicePlayer, choiceText, environment);
+    }
+
+    public static EffectAppender resolveStackedCards(String type, FilterableSource choiceFilter, FilterableSource playabilityFilter, ValueSource countSource, FilterableSource stackedOn,
+                                                     String memory, String choicePlayer, String choiceText, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         if (type.startsWith("memory(") && type.endsWith(")")) {
             String sourceMemory = type.substring(type.indexOf("(") + 1, type.lastIndexOf(")"));
             return new DelayedAppender() {
@@ -62,8 +67,8 @@ public class CardResolver {
                     final Filterable stackedOnFilter = stackedOn.getFilterable(actionContext);
 
                     Filterable additionalFilterable = Filters.any;
-                    if (additionalFilter != null)
-                        additionalFilterable = additionalFilter.getFilterable(actionContext);
+                    if (playabilityFilter != null)
+                        additionalFilterable = playabilityFilter.getFilterable(actionContext);
 
                     List<PhysicalCard> choice = new LinkedList<>();
 
@@ -85,8 +90,8 @@ public class CardResolver {
                     int max = countSource.getMaximum(actionContext);
 
                     Filterable additionalFilterable = Filters.any;
-                    if (additionalFilter != null)
-                        additionalFilterable = additionalFilter.getFilterable(actionContext);
+                    if (choiceFilter != null)
+                        additionalFilterable = choiceFilter.getFilterable(actionContext);
 
                     return new ChooseStackedCardsEffect(action, choicePlayerId, min, max, stackedOnFilter, Filters.and(filterable, additionalFilterable)) {
                         @Override

@@ -1,4 +1,89 @@
 {
+  "40_153": {
+    "title": "*Ancient Chieftain",
+    "subtitle": "Elder Goblin",
+    "culture": "moria",
+    "type": "minion",
+    "race": "goblin",
+    "strength": 9,
+    "vitality": 3,
+    "site": 4,
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyStrength",
+        "filter": "self",
+        "amount": {
+          "type": "countStacked",
+          "on": "culture(moria),condition",
+          "filter": "goblin"
+        }
+      }
+    }
+  },
+  "40_154": {
+    "title": "*Awoken in the Darkness",
+    "culture": "moria",
+    "cost": 3,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": [
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "played",
+          "filter": "self"
+        },
+        "effect": {
+          "type": "stackTopCardsOfDrawDeck",
+          "count": 6,
+          "where": "self"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "shadow",
+        "cost": {
+          "type": "removeTwilight",
+          "amount": 2
+        },
+        "effect": {
+          "type": "playCardFromStacked",
+          "filter": "choose(goblin)",
+          "on": "self",
+          "removedTwilight": 2
+        }
+      }
+    ]
+  },
+  "40_155": {
+    "title": "*Balin's Fate",
+    "culture": "moria",
+    "cost": 2,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": [
+      {
+        "type": "extraCost",
+        "cost": {
+          "type": "exert",
+          "filter": "choose(culture(moria),goblin)"
+        }
+      },
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "played",
+          "filter": "culture(dwarven),skirmish,event"
+        },
+        "effect": {
+          "type": "exert",
+          "player": "fp",
+          "filter": "choose(dwarf)"
+        }
+      }
+    ]
+  },
   "40_156": {
     "title": "*The Balrog",
     "subtitle": "Demon of Might",
