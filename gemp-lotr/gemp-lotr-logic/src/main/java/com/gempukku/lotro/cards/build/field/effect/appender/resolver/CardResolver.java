@@ -23,7 +23,14 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class CardResolver {
+
+
     public static EffectAppender resolveStackedCards(String type, ValueSource countSource, FilterableSource stackedOn,
+                                                     String memory, String choicePlayer, String choiceText, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
+        return resolveStackedCards(type, null, countSource, stackedOn, memory, choicePlayer, choiceText, environment);
+    }
+
+    public static EffectAppender resolveStackedCards(String type, FilterableSource additionalFilter, ValueSource countSource, FilterableSource stackedOn,
                                                      String memory, String choicePlayer, String choiceText, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         if (type.startsWith("memory(") && type.endsWith(")")) {
             String sourceMemory = type.substring(type.indexOf("(") + 1, type.lastIndexOf(")"));
@@ -54,12 +61,16 @@ public class CardResolver {
                     final Filterable filterable = filterableSource.getFilterable(actionContext);
                     final Filterable stackedOnFilter = stackedOn.getFilterable(actionContext);
 
+                    Filterable additionalFilterable = Filters.any;
+                    if (additionalFilter != null)
+                        additionalFilterable = additionalFilter.getFilterable(actionContext);
+
                     List<PhysicalCard> choice = new LinkedList<>();
 
                     final LotroGame game = actionContext.getGame();
                     for (PhysicalCard stackedOn : Filters.filterActive(game, stackedOnFilter)) {
                         final List<PhysicalCard> stackedCards = game.getGameState().getStackedCards(stackedOn);
-                        choice.addAll(Filters.filter(stackedCards, game, filterable));
+                        choice.addAll(Filters.filter(stackedCards, game, filterable, additionalFilterable));
                     }
 
                     return choice.size() >= min;
@@ -73,7 +84,11 @@ public class CardResolver {
                     int min = countSource.getMinimum(actionContext);
                     int max = countSource.getMaximum(actionContext);
 
-                    return new ChooseStackedCardsEffect(action, choicePlayerId, min, max, stackedOnFilter, filterable) {
+                    Filterable additionalFilterable = Filters.any;
+                    if (additionalFilter != null)
+                        additionalFilterable = additionalFilter.getFilterable(actionContext);
+
+                    return new ChooseStackedCardsEffect(action, choicePlayerId, min, max, stackedOnFilter, Filters.and(filterable, additionalFilterable)) {
                         @Override
                         protected void cardsChosen(LotroGame game, Collection<PhysicalCard> stackedCards) {
                             actionContext.setCardMemory(memory, stackedCards);

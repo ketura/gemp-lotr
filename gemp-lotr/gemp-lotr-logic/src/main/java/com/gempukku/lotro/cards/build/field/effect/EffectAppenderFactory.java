@@ -51,6 +51,7 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("play", new PlayCardFromHand());
         effectAppenderProducers.put("playcardfromdiscard", new PlayCardFromDiscard());
         effectAppenderProducers.put("playcardfromdrawdeck", new PlayCardFromDrawDeck());
+        effectAppenderProducers.put("playcardfromstacked", new PlayCardFromStacked());
         effectAppenderProducers.put("reducearcherytotal", new ReduceArcheryTotal());
         effectAppenderProducers.put("revealtopcardsofdrawdeck", new RevealTopCardsOfDrawDeck());
         effectAppenderProducers.put("optional", new Optional());

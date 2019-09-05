@@ -13,6 +13,7 @@ public class RequirementFactory {
     private Map<String, RequirementProducer> requirementProducers = new HashMap<>();
 
     public RequirementFactory() {
+        requirementProducers.put("not", new NotRequirementProducer());
         requirementProducers.put("canspot", new CanSpot());
         requirementProducers.put("canspotburdens", new CanSpotBurdens());
         requirementProducers.put("controlssite", new ControlsSite());

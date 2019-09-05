@@ -7,6 +7,7 @@ import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.modifiers.evaluator.*;
 import org.json.simple.JSONObject;
 
@@ -60,12 +61,16 @@ public class ValueResolver {
                     }
                     return trueValue;
                 };
+            } else if (type.equalsIgnoreCase("forRegionNumber")) {
+                return (actionContext) -> (Evaluator) (game, cardAffected) -> GameUtils.getRegion(actionContext.getGame());
             } else if (type.equalsIgnoreCase("forEachInMemory")) {
                 final String memory = FieldUtils.getString(object.get("memory"), "memory");
                 return (actionContext) -> {
                     final int count = actionContext.getCardsFromMemory(memory).size();
                     return new ConstantEvaluator(count);
                 };
+            } else if (type.equalsIgnoreCase("forEachThreat")) {
+                return actionContext -> new ForEachThreatEvaluator();
             } else if (type.equalsIgnoreCase("forEachWound")) {
                 final String filter = FieldUtils.getString(object.get("filter"), "filter");
                 final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
@@ -90,12 +95,14 @@ public class ValueResolver {
                 return (actionContext) -> new LimitEvaluator(valueSource.getEvaluator(actionContext), limit);
             } else if (type.equalsIgnoreCase("countStacked")) {
                 final String on = FieldUtils.getString(object.get("on"), "on");
+                final String filter = FieldUtils.getString(object.get("filter"), "filter", "any");
 
+                final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
                 final FilterableSource onFilter = environment.getFilterFactory().generateFilter(on, environment);
 
                 return (actionContext) -> {
                     final Filterable on1 = onFilter.getFilterable(actionContext);
-                    return new CountStackedEvaluator(on1, Filters.any);
+                    return new CountStackedEvaluator(on1, filterableSource.getFilterable(actionContext));
                 };
             } else if (type.equalsIgnoreCase("forEachYouCanSpot")) {
                 final String filter = FieldUtils.getString(object.get("filter"), "filter");

@@ -14,10 +14,12 @@ public class ModifierSourceFactory {
 
     public ModifierSourceFactory() {
         modifierProducers.put("addkeyword", new AddKeyword());
+        modifierProducers.put("removekeyword", new RemoveKeyword());
         modifierProducers.put("archerytotal", new ArcheryTotal());
         modifierProducers.put("cantbeexerted", new CantBeExerted());
         modifierProducers.put("cantbeoverwhelmedmultiplier", new CantBeOverwhelmedMultiplier());
         modifierProducers.put("canttakemorewoundsthan", new CantTakeMoreWoundsThan());
+        modifierProducers.put("canttakewounds", new CantTakeWounds());
         modifierProducers.put("modifycost", new ModifyCost());
         modifierProducers.put("modifyroamingpenalty", new ModifyRoamingPenalty());
         modifierProducers.put("modifystrength", new ModifyStrength());
