@@ -123,7 +123,7 @@ public class FilterFactory {
         parameterFilters.put("resistanceLessThan",
                 (parameter, environment) -> {
                     int amount = Integer.parseInt(parameter);
-                    return (actionContext) -> Filters.maxResistance(amount + 1);
+                    return (actionContext) -> Filters.maxResistance(amount - 1);
                 });
         parameterFilters.put("not",
                 (parameter, environment) -> {

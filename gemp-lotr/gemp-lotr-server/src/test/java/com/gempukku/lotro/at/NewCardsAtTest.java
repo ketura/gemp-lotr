@@ -377,6 +377,49 @@ public class NewCardsAtTest extends AbstractAtTest {
     }
 
     @Test
+    public void strengthBonusDependingOnCharacterPlayedOn2() throws DecisionResultInvalidException, CardNotFoundException {
+        initializeSimplestGame();
+
+        final PhysicalCardImpl gandalf = createCard(P1, "40_70");
+        final PhysicalCardImpl boromir = createCard(P1, "40_101");
+        final PhysicalCardImpl goBackToTheShadows = createCard(P1, "40_312");
+        final PhysicalCardImpl nazgul = createCard(P2, "40_211");
+
+        _game.getGameState().addCardToZone(_game, gandalf, Zone.FREE_CHARACTERS);
+        _game.getGameState().addCardToZone(_game, boromir, Zone.FREE_CHARACTERS);
+        _game.getGameState().addCardToZone(_game, goBackToTheShadows, Zone.HAND);
+        _game.getGameState().addCardToZone(_game, nazgul, Zone.SHADOW_CHARACTERS);
+        _game.getGameState().removeBurdens(_game.getGameState().getBurdens());
+
+        skipMulligans();
+
+        // Pass in fellowship
+        playerDecided(P1, "");
+
+        // Pass in shadow
+        playerDecided(P2, "");
+
+//Pass in maneuver
+        playerDecided(P1, "");
+        playerDecided(P2, "");
+
+//Pass in archery
+        playerDecided(P1, "");
+        playerDecided(P2, "");
+
+//Pass in assignment
+        playerDecided(P1, "");
+        playerDecided(P2, "");
+
+        playerDecided(P1, boromir.getCardId() + " " + nazgul.getCardId());
+        playerDecided(P1, "" + boromir.getCardId());
+
+        playerDecided(P1, "0");
+
+        assertEquals(14 - 3, _game.getModifiersQuerying().getStrength(_game, nazgul));
+    }
+
+    @Test
     public void mathProgrammingDiscardBoth() throws DecisionResultInvalidException, CardNotFoundException {
         initializeSimplestGame();
 
