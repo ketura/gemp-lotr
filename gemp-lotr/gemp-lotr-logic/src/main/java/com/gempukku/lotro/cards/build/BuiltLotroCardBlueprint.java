@@ -8,6 +8,7 @@ import com.gempukku.lotro.game.LotroCardBlueprint;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.*;
+import com.gempukku.lotro.logic.effects.DiscountEffect;
 import com.gempukku.lotro.logic.modifiers.Modifier;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
@@ -61,6 +62,7 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
     private List<TwilightCostModifierSource> twilightCostModifiers;
 
     private List<ExtraPlayCostSource> extraPlayCosts;
+    private List<DiscountSource> discountSources;
 
     private ActionSource playEventAction;
 
@@ -75,6 +77,12 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
 
     public void setExtraPossessionClassTest(ExtraPossessionClassTest extraPossessionClassTest) {
         this.extraPossessionClassTest = extraPossessionClassTest;
+    }
+
+    public void appendDiscountSource(DiscountSource discountSource) {
+        if (discountSources == null)
+            discountSources = new LinkedList<>();
+        discountSources.add(discountSource);
     }
 
     public void appendOptionalInHandBeforeAction(ActionSource actionSource) {
@@ -636,12 +644,26 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
 
     @Override
     public int getPotentialDiscount(LotroGame game, String playerId, PhysicalCard self) {
-        return 0;
+        if (discountSources == null)
+            return 0;
+
+        int result = 0;
+        DefaultActionContext actionContext = new DefaultActionContext(playerId, game, self, null, null);
+        for (DiscountSource discountSource : discountSources)
+            result += discountSource.getPotentialDiscount(actionContext);
+
+        return result;
     }
 
     @Override
     public void appendPotentialDiscountEffects(LotroGame game, CostToEffectAction action, String playerId, PhysicalCard self) {
-
+        if (discountSources != null) {
+            DefaultActionContext actionContext = new DefaultActionContext(playerId, game, self, null, null);
+            for (DiscountSource discountSource : discountSources) {
+                final DiscountEffect discountEffect = discountSource.getDiscountEffect(actionContext);
+                action.appendPotentialDiscount(discountEffect);
+            }
+        }
     }
 
     @Override
