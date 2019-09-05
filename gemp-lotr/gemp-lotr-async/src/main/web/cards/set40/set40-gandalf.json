@@ -302,7 +302,7 @@
         "phase": "maneuver",
         "cost": {
           "type": "exert",
-          "filter": "self",
+          "filter": "choose(bearer)",
           "times": 2
         },
         "effect": {
