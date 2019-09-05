@@ -108,6 +108,12 @@ public class ValueResolver {
                 final String filter = FieldUtils.getString(object.get("filter"), "filter");
                 final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
                 return actionContext -> new CountSpottableEvaluator(filterableSource.getFilterable(actionContext));
+            } else if (type.equalsIgnoreCase("forEachInHand")) {
+                final String filter = FieldUtils.getString(object.get("filter"), "filter");
+                final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
+                return actionContext ->
+                        (Evaluator) (game, cardAffected) -> Filters.filter(game.getGameState().getHand(actionContext.getPerformingPlayer()),
+                                game, filterableSource.getFilterable(actionContext)).size();
             } else if (type.equalsIgnoreCase("fromMemory")) {
                 String memory = FieldUtils.getString(object.get("memory"), "memory");
                 return (actionContext) -> {

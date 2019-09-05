@@ -660,7 +660,7 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
         if (discountSources != null) {
             DefaultActionContext actionContext = new DefaultActionContext(playerId, game, self, null, null);
             for (DiscountSource discountSource : discountSources) {
-                final DiscountEffect discountEffect = discountSource.getDiscountEffect(actionContext);
+                final DiscountEffect discountEffect = discountSource.getDiscountEffect(action, actionContext);
                 action.appendPotentialDiscount(discountEffect);
             }
         }
