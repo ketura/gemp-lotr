@@ -1,9 +1,8 @@
 {
   "1_7": {
     "title": "Dwarf Guard",
-
     "culture": "dwarven",
-    "cost": 0,
+    "cost": 1,
     "type": "companion",
     "race": "dwarf",
     "strength": 4,
