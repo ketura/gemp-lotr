@@ -13,6 +13,7 @@ public class TriggerCheckerFactory {
 
     public TriggerCheckerFactory() {
         triggerCheckers.put("played", new PlayedTriggerCheckerProducer());
+        triggerCheckers.put("playedfromstacked", new PlayedFromStacked());
         triggerCheckers.put("abouttodiscard", new AboutToDiscardFromPlay());
         triggerCheckers.put("losesskirmish", new LosesSkirmish());
         triggerCheckers.put("winsskirmish", new WinsSkirmish());

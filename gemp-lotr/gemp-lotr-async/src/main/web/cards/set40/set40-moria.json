@@ -139,6 +139,186 @@
       }
     }
   },
+  "40_158": {
+    "title": "*Cave Troll's Hammer",
+    "culture": "moria",
+    "cost": 1,
+    "type": "possession",
+    "possession": "hand weapon",
+    "strength": 3,
+    "target": "name(Cave Troll of Moria)",
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "addKeyword",
+        "filter": "bearer",
+        "keyword": "damage+1"
+      }
+    }
+  },
+  "40_159": {
+    "title": "Foul Things",
+    "culture": "moria",
+    "cost": 3,
+    "type": "event",
+    "keyword": "shadow",
+    "effects": {
+      "type": "event",
+      "effect": {
+        "type": "playCardFromDiscard",
+        "filter": "choose(culture(moria),minion)"
+      }
+    }
+  },
+  "40_160": {
+    "title": "Goblin Armory",
+    "culture": "moria",
+    "cost": 0,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": [
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "played",
+          "filter": "your,culture(moria),weapon"
+        },
+        "effect": {
+          "type": "addTwilight",
+          "amount": 1
+        }
+      },
+      {
+        "type": "activatedTrigger",
+        "trigger": {
+          "type": "aboutToTakeWound",
+          "filter": "culture(moria),goblin"
+        },
+        "cost": {
+          "type": "discard",
+          "filter": "self"
+        },
+        "effect": {
+          "type": "preventWound",
+          "filter": "choose(culture(moria),goblin)"
+        }
+      }
+    ]
+  },
+  "40_161": {
+    "title": "Goblin Grudgebearer",
+    "culture": "moria",
+    "cost": 3,
+    "type": "minion",
+    "race": "goblin",
+    "strength": 8,
+    "vitality": 1,
+    "site": 4,
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyStrength",
+        "filter": "self",
+        "amount": {
+          "type": "forEachYouCanSpot",
+          "filter": "dwarf"
+        }
+      }
+    }
+  },
+  "40_162": {
+    "title": "Goblin Howler",
+    "culture": "moria",
+    "cost": 2,
+    "type": "minion",
+    "race": "goblin",
+    "strength": 5,
+    "vitality": 2,
+    "site": 4,
+    "effects": {
+      "type": "trigger",
+      "optional": true,
+      "trigger": {
+        "type": "playedFromStacked",
+        "filter": "culture(moria),minion",
+        "from": "culture(moria),condition"
+      },
+      "effect": {
+        "type": "modifyStrength",
+        "filter": "self",
+        "until": "start(regroup)",
+        "amount": 1
+      }
+    }
+  },
+  "40_163": {
+    "title": "*Goblin Messenger",
+    "culture": "moria",
+    "cost": 2,
+    "type": "minion",
+    "race": "goblin",
+    "strength": 5,
+    "vitality": 2,
+    "site": 4,
+    "effects": {
+      "type": "trigger",
+      "optional": true,
+      "trigger": {
+        "type": "played",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "stackCards",
+        "filter": "choose(goblin)",
+        "where": "choose(culture(moria),condition)"
+      }
+    }
+  },
+  "40_164": {
+    "title": "Goblin Patrol",
+    "culture": "moria",
+    "cost": 5,
+    "type": "minion",
+    "race": "goblin",
+    "strength": 11,
+    "vitality": 3,
+    "site": 4,
+    "effects": {
+      "type": "modifyOwnCost",
+      "amount": {
+        "type": "multiply",
+        "multiplier": -1,
+        "source": {
+          "type": "countStacked",
+          "on": "culture(moria),condition",
+          "filter": "goblin"
+        }
+      }
+    }
+  },
+  "40_165": {
+    "title": "Goblin Rallyer",
+    "culture": "moria",
+    "cost": 1,
+    "type": "minion",
+    "race": "goblin",
+    "strength": 5,
+    "vitality": 1,
+    "site": 4,
+    "effects": {
+      "type": "trigger",
+      "optional": true,
+      "trigger": {
+        "type": "played",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "playCardFromStacked",
+        "filter": "choose(goblin)",
+        "on": "culture(moria),condition"
+      }
+    }
+  },
   "40_166": {
     "title": "*Goblin Ransacker",
     "culture": "moria",
