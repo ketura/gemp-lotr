@@ -47,6 +47,9 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
     private List<ActionSource> beforeActivatedTriggers;
     private List<ActionSource> afterActivatedTriggers;
 
+    private List<ActionSource> optionalInHandBeforeActions;
+    private List<ActionSource> optionalInHandAfterActions;
+
     private List<ActionSource> inPlayPhaseActions;
     private List<ActionSource> fromStackedPhaseActions;
 
@@ -72,6 +75,18 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
 
     public void setExtraPossessionClassTest(ExtraPossessionClassTest extraPossessionClassTest) {
         this.extraPossessionClassTest = extraPossessionClassTest;
+    }
+
+    public void appendOptionalInHandBeforeAction(ActionSource actionSource) {
+        if (optionalInHandBeforeActions == null)
+            optionalInHandBeforeActions = new LinkedList<>();
+        optionalInHandBeforeActions.add(actionSource);
+    }
+
+    public void appendOptionalInHandAfterAction(ActionSource actionSource) {
+        if (optionalInHandAfterActions == null)
+            optionalInHandAfterActions = new LinkedList<>();
+        optionalInHandAfterActions.add(actionSource);
     }
 
     public void appendExtraPlayCost(ExtraPlayCostSource extraPlayCostSource) {
@@ -545,6 +560,42 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
     }
 
     @Override
+    public List<PlayEventAction> getOptionalInHandBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
+        if (optionalInHandBeforeActions == null)
+            return null;
+
+        List<PlayEventAction> result = new LinkedList<>();
+        for (ActionSource optionalInHandBeforeAction : optionalInHandBeforeActions) {
+            DefaultActionContext actionContext = new DefaultActionContext(playerId, game, self, null, effect);
+            if (optionalInHandBeforeAction.isValid(actionContext)) {
+                PlayEventAction action = new PlayEventAction(self);
+                optionalInHandBeforeAction.createAction(action, actionContext);
+                result.add(action);
+            }
+        }
+
+        return result;
+    }
+
+    @Override
+    public List<PlayEventAction> getOptionalInHandAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+        if (optionalInHandAfterActions == null)
+            return null;
+
+        List<PlayEventAction> result = new LinkedList<>();
+        for (ActionSource optionalInHandAfterAction : optionalInHandAfterActions) {
+            DefaultActionContext actionContext = new DefaultActionContext(playerId, game, self, effectResult, null);
+            if (optionalInHandAfterAction.isValid(actionContext)) {
+                PlayEventAction action = new PlayEventAction(self);
+                optionalInHandAfterAction.createAction(action, actionContext);
+                result.add(action);
+            }
+        }
+
+        return result;
+    }
+
+    @Override
     public List<? extends ExtraPlayCost> getExtraCostToPlay(LotroGame game, PhysicalCard self) {
         if (extraPlayCosts == null)
             return null;
@@ -568,16 +619,6 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
 
     @Override
     public List<? extends Action> getPhaseActionsFromDiscard(String playerId, LotroGame game, PhysicalCard self) {
-        return null;
-    }
-
-    @Override
-    public List<PlayEventAction> getOptionalInHandAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        return null;
-    }
-
-    @Override
-    public List<PlayEventAction> getOptionalInHandBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
         return null;
     }
 
@@ -692,9 +733,15 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
                     Keyword.SKIRMISH, Keyword.REGROUP);
             if (Collections.disjoint(keywords.keySet(), requiredKeywords))
                 throw new InvalidCardDefinitionException("Events have to have a response or phase keyword");
+
+            if (keywords.containsKey(Keyword.RESPONSE)) {
+                if (optionalInHandBeforeActions == null && optionalInHandAfterActions == null)
+                    throw new InvalidCardDefinitionException("Response events have to have responseEvent type effect");
+            } else {
+                if (playEventAction == null)
+                    throw new InvalidCardDefinitionException("Events have to have an event type effect");
+            }
         }
-        if (cardType == CardType.EVENT && playEventAction == null)
-            throw new InvalidCardDefinitionException("Events have to have an event type effect");
         if (cardType != CardType.EVENT && playEventAction != null)
             throw new InvalidCardDefinitionException("Only events should have an event type effect");
     }

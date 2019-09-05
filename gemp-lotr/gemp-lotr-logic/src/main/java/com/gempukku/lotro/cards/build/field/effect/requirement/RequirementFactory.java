@@ -26,6 +26,7 @@ public class RequirementFactory {
         requirementProducers.put("cantspotfpcultures", new CantSpotFPCultures());
         requirementProducers.put("haveinitiative", new HaveInitiative());
         requirementProducers.put("fierceskirmish", new FierceSkirmish());
+        requirementProducers.put("movecountminimum", new MoveCountMinimum());
     }
 
     public Requirement getRequirement(JSONObject object, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {

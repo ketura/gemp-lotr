@@ -48,6 +48,7 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("putcardsfromdiscardintohand", new PutCardsFromDiscardIntoHand());
         effectAppenderProducers.put("addtrigger", new AddTrigger());
         effectAppenderProducers.put("stackplayedevent", new StackPlayedEvent());
+        effectAppenderProducers.put("cancelevent", new CancelEvent());
         effectAppenderProducers.put("play", new PlayCardFromHand());
         effectAppenderProducers.put("playcardfromdiscard", new PlayCardFromDiscard());
         effectAppenderProducers.put("playcardfromdrawdeck", new PlayCardFromDrawDeck());

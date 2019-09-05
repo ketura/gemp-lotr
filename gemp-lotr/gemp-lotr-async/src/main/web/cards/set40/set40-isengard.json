@@ -661,6 +661,294 @@
       }
     ]
   },
+  "40_143": {
+    "title": "Treachery Runs Deep",
+    "culture": "isengard",
+    "cost": 1,
+    "type": "event",
+    "keyword": "response",
+    "effects": {
+      "type": "responseEvent",
+      "trigger": {
+        "type": "takesWound",
+        "filter": "companion",
+        "memorize": "woundedCompanion"
+      },
+      "cost": {
+        "type": "exert",
+        "filter": "choose(name(Saruman))"
+      },
+      "effect": {
+        "type": "wound",
+        "filter": "memory(woundedCompanion)"
+      }
+    }
+  },
+  "40_144": {
+    "title": "Uruk Battlefiend",
+    "culture": "isengard",
+    "cost": 3,
+    "type": "minion",
+    "race": "uruk-hai",
+    "strength": 8,
+    "vitality": 2,
+    "site": 5,
+    "keyword": "damage+1",
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyStrength",
+        "filter": "self",
+        "amount": {
+          "type": "forEachYouCanSpot",
+          "filter": "battleground,siteInCurrentRegion"
+        }
+      }
+    }
+  },
+  "40_145": {
+    "title": "Uruk Bloodthirster",
+    "culture": "isengard",
+    "cost": 4,
+    "type": "minion",
+    "race": "uruk-hai",
+    "strength": 9,
+    "vitality": 2,
+    "site": 5,
+    "keyword": "damage+1",
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "addKeyword",
+        "condition": {
+          "type": "location",
+          "filter": "battleground"
+        },
+        "filter": "self",
+        "keyword": "damage+1"
+      }
+    }
+  },
+  "40_146": {
+    "title": "Uruk Brute",
+    "culture": "isengard",
+    "cost": 4,
+    "type": "minion",
+    "race": "uruk-hai",
+    "strength": 9,
+    "vitality": 2,
+    "site": 5,
+    "keyword": "damage+1",
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyStrength",
+        "condition": {
+          "type": "location",
+          "filter": "battleground"
+        },
+        "amount": 2,
+        "filter": "self"
+      }
+    }
+  },
+  "40_147": {
+    "title": "Uruk Grunt",
+    "culture": "isengard",
+    "cost": 2,
+    "type": "minion",
+    "race": "uruk-hai",
+    "strength": 6,
+    "vitality": 1,
+    "site": 5,
+    "keyword": "damage+1",
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyStrength",
+        "condition": {
+          "type": "canSpot",
+          "filter": "name(Saruman)"
+        },
+        "filter": "self",
+        "amount": 3
+      }
+    }
+  },
+  "40_148": {
+    "title": "*Uruk Howlers",
+    "culture": "isengard",
+    "cost": 5,
+    "type": "minion",
+    "race": "uruk-hai",
+    "strength": 10,
+    "vitality": 3,
+    "site": 5,
+    "keyword": "damage+1",
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "addKeyword",
+          "condition": {
+            "type": "canSpot",
+            "filter": "another,uruk-hai"
+          },
+          "filter": "self",
+          "keyword": "fierce"
+        }
+      },
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "skipPhase",
+          "condition": {
+            "type": "canSpot",
+            "count": 2,
+            "filter": "another,uruk-hai"
+          },
+          "phase": "archery"
+        }
+      }
+    ]
+  },
+  "40_149": {
+    "title": "Uruk Hunting Party",
+    "culture": "isengard",
+    "cost": 5,
+    "type": "minion",
+    "race": "uruk-hai",
+    "strength": 10,
+    "vitality": 3,
+    "site": 5,
+    "keyword": "damage+1",
+    "effects": {
+      "type": "modifyOwnCost",
+      "condition": {
+        "type": "moveCountMinimum",
+        "amount": 2
+      },
+      "amount": -2
+    }
+  },
+  "40_150": {
+    "title": "Voice of Saruman",
+    "culture": "isengard",
+    "cost": 1,
+    "type": "event",
+    "keyword": [
+      "maneuver",
+      "spell"
+    ],
+    "effects": {
+      "type": "event",
+      "cost": {
+        "type": "exert",
+        "filter": "choose(name(Saruman))"
+      },
+      "effect": {
+        "type": "exert",
+        "player": "fp",
+        "filter": "choose(companion)",
+        "count": {
+          "type": "limit",
+          "value": 3,
+          "amount": {
+            "type": "countStacked",
+            "on": "culture(isengard),artifact",
+            "filter": "culture(isengard),spell"
+          }
+        }
+      }
+    }
+  },
+  "40_151": {
+    "title": "Wizard's Grasp",
+    "culture": "isengard",
+    "cost": 1,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": {
+      "type": "activatedTrigger",
+      "trigger": {
+        "type": "played",
+        "filter": "side(free people),event"
+      },
+      "cost": {
+        "type": "exert",
+        "filter": "choose(name(Saruman))",
+        "times": 2
+      },
+      "effect": {
+        "type": "cancelEvent"
+      }
+    }
+  },
+  "40_152": {
+    "title": "Wizard's Wrath",
+    "culture": "isengard",
+    "cost": 2,
+    "type": "event",
+    "keyword": [
+      "response",
+      "spell"
+    ],
+    "effects": {
+      "type": "responseEvent",
+      "trigger": {
+        "type": "winsSkirmish",
+        "filter": "name(Saruman)",
+        "memorize": "winner"
+      },
+      "cost": {
+        "type": "exert",
+        "filter": "memory(winner)"
+      },
+      "effect": {
+        "type": "wound",
+        "filter": "choose(unbound,companion)"
+      }
+    }
+  },
+  "40_310": {
+    "title": "*Saruman",
+    "subtitle": "The White Wizard",
+    "culture": "isengard",
+    "cost": 4,
+    "type": "minion",
+    "race": "wizard",
+    "strength": 8,
+    "vitality": 4,
+    "site": 4,
+    "effects": {
+      "type": "activated",
+      "phase": "skirmish",
+      "cost": [
+        {
+          "type": "exert",
+          "filter": "choose(name(Saruman))"
+        },
+        {
+          "type": "discardStackedCards",
+          "filter": "choose(spell)",
+          "on": "culture(isengard),artifact"
+        }
+      ],
+      "effect": {
+        "type": "preventable",
+        "player": "fp",
+        "effect": {
+          "type": "wound",
+          "filter": "choose(companion,inSkirmishAgainst(name(Saruman)))"
+        },
+        "text": "Would you like to add a threat to prevent Shadow Player from wounding a companion skirmishing Saruman",
+        "cost": {
+          "type": "addThreats",
+          "player": "fp"
+        }
+      }
+    }
+  },
   "40_314": {
     "title": "Brute Force",
     "culture": "isengard",

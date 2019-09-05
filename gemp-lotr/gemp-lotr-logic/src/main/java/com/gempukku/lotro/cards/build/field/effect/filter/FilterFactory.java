@@ -30,6 +30,7 @@ public class FilterFactory {
         simpleFilters.put("ring bearer", (actionContext) -> Filters.ringBearer);
         simpleFilters.put("any", (actionContext) -> Filters.any);
         simpleFilters.put("self", (actionContext) -> actionContext.getSource());
+        simpleFilters.put("another", (actionContext) -> Filters.not(actionContext.getSource()));
         simpleFilters.put("your", (actionContext) -> Filters.owner(actionContext.getPerformingPlayer()));
         simpleFilters.put("bearer", (actionContext -> Filters.hasAttached(actionContext.getSource())));
         simpleFilters.put("character", (actionContext) -> Filters.character);
