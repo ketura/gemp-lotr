@@ -32,7 +32,7 @@ public class CardSets {
                     Set<String> flags = new HashSet<String>();
                     determineOriginalSetFlag(setDefinition, flags);
                     determineMerchantableFlag(setDefinition, flags);
-                    determinePlayableFlag(setDefinition, flags);
+                    determineNeedsLoadingFlag(setDefinition, flags);
 
                     DefaultSetDefinition rarity = new DefaultSetDefinition(setId, setName, flags);
 
@@ -50,12 +50,12 @@ public class CardSets {
         }
     }
 
-    private void determinePlayableFlag(JSONObject setDefinition, Set<String> flags) {
-        Boolean playable = (Boolean) setDefinition.get("playable");
-        if (playable == null)
-            playable = true;
-        if (playable)
-            flags.add("playable");
+    private void determineNeedsLoadingFlag(JSONObject setDefinition, Set<String> flags) {
+        Boolean needsLoading = (Boolean) setDefinition.get("needsLoading");
+        if (needsLoading == null)
+            needsLoading = true;
+        if (needsLoading)
+            flags.add("needsLoading");
     }
 
     private void determineMerchantableFlag(JSONObject setDefinition, Set<String> flags) {

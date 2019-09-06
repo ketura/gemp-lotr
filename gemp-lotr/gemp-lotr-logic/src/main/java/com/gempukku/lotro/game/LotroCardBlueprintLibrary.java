@@ -55,7 +55,7 @@ public class LotroCardBlueprintLibrary {
 
     private void initCardSets(CardSets cardSets) {
         for (SetDefinition setDefinition : cardSets.getSetDefinitions().values()) {
-            if (setDefinition.hasFlag("playable")) {
+            if (setDefinition.hasFlag("needsLoading")) {
                 logger.debug("Loading set " + setDefinition.getSetId());
                 final Set<String> allCards = setDefinition.getAllCards();
                 for (String blueprintId : allCards) {
