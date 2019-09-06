@@ -50,6 +50,7 @@ public class ValueResolver {
             JSONObject object = (JSONObject) value;
             final String type = FieldUtils.getString(object.get("type"), "type");
             if (type.equalsIgnoreCase("condition")) {
+                FieldUtils.validateAllowedFields(object, "condition", "true", "false");
                 final JSONObject[] conditionArray = FieldUtils.getObjectArray(object.get("condition"), "condition");
                 final Requirement[] conditions = environment.getRequirementFactory().getRequirements(conditionArray, environment);
                 int trueValue = FieldUtils.getInteger(object.get("true"), "true");
@@ -62,16 +63,21 @@ public class ValueResolver {
                     return trueValue;
                 };
             } else if (type.equalsIgnoreCase("forRegionNumber")) {
+                FieldUtils.validateAllowedFields(object);
                 return (actionContext) -> (Evaluator) (game, cardAffected) -> GameUtils.getRegion(actionContext.getGame());
             } else if (type.equalsIgnoreCase("forEachInMemory")) {
+                FieldUtils.validateAllowedFields(object, "memory");
                 final String memory = FieldUtils.getString(object.get("memory"), "memory");
                 return (actionContext) -> {
                     final int count = actionContext.getCardsFromMemory(memory).size();
                     return new ConstantEvaluator(count);
                 };
             } else if (type.equalsIgnoreCase("forEachThreat")) {
-                return actionContext -> new ForEachThreatEvaluator();
+                FieldUtils.validateAllowedFields(object, "multiplier");
+                final int multiplier = FieldUtils.getInteger(object.get("multiplier"), "multiplier", 1);
+                return actionContext -> new MultiplyEvaluator(multiplier, new ForEachThreatEvaluator());
             } else if (type.equalsIgnoreCase("forEachWound")) {
+                FieldUtils.validateAllowedFields(object, "filter");
                 final String filter = FieldUtils.getString(object.get("filter"), "filter");
                 final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
                 return (actionContext) -> (Evaluator) (game, cardAffected) -> {
@@ -82,6 +88,7 @@ public class ValueResolver {
                     return wounds;
                 };
             } else if (type.equalsIgnoreCase("forEachKeywordOnCardInMemory")) {
+                FieldUtils.validateAllowedFields(object, "memory", "keyword");
                 final String memory = FieldUtils.getString(object.get("memory"), "memory");
                 final Keyword keyword = FieldUtils.getEnum(Keyword.class, object.get("keyword"), "keyword");
                 return (actionContext) -> {
@@ -90,10 +97,12 @@ public class ValueResolver {
                     return new ConstantEvaluator(count);
                 };
             } else if (type.equalsIgnoreCase("limit")) {
+                FieldUtils.validateAllowedFields(object, "value", "amount");
                 final int limit = FieldUtils.getInteger(object.get("value"), "value");
                 ValueSource valueSource = resolveEvaluator(object.get("amount"), 0, environment);
                 return (actionContext) -> new LimitEvaluator(valueSource.getEvaluator(actionContext), limit);
             } else if (type.equalsIgnoreCase("countStacked")) {
+                FieldUtils.validateAllowedFields(object, "on", "filter");
                 final String on = FieldUtils.getString(object.get("on"), "on");
                 final String filter = FieldUtils.getString(object.get("filter"), "filter", "any");
 
@@ -105,31 +114,37 @@ public class ValueResolver {
                     return new CountStackedEvaluator(on1, filterableSource.getFilterable(actionContext));
                 };
             } else if (type.equalsIgnoreCase("forEachYouCanSpot")) {
+                FieldUtils.validateAllowedFields(object, "filter", "over", "limit");
                 final String filter = FieldUtils.getString(object.get("filter"), "filter");
                 final int over = FieldUtils.getInteger(object.get("over"), "over", 0);
                 final int limit = FieldUtils.getInteger(object.get("limit"), "limit", Integer.MAX_VALUE);
                 final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
                 return actionContext -> new CountSpottableEvaluator(over, limit, filterableSource.getFilterable(actionContext));
             } else if (type.equalsIgnoreCase("forEachInHand")) {
+                FieldUtils.validateAllowedFields(object, "filter");
                 final String filter = FieldUtils.getString(object.get("filter"), "filter");
                 final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
                 return actionContext ->
                         (Evaluator) (game, cardAffected) -> Filters.filter(game.getGameState().getHand(actionContext.getPerformingPlayer()),
                                 game, filterableSource.getFilterable(actionContext)).size();
             } else if (type.equalsIgnoreCase("fromMemory")) {
+                FieldUtils.validateAllowedFields(object, "memory");
                 String memory = FieldUtils.getString(object.get("memory"), "memory");
                 return (actionContext) -> {
                     int value1 = Integer.parseInt(actionContext.getValueFromMemory(memory));
                     return new ConstantEvaluator(value1);
                 };
             } else if (type.equalsIgnoreCase("multiply")) {
+                FieldUtils.validateAllowedFields(object, "multiplier", "source");
                 final int multiplier = FieldUtils.getInteger(object.get("multiplier"), "multiplier");
                 final ValueSource valueSource = ValueResolver.resolveEvaluator(object.get("source"), 0, environment);
                 return (actionContext) -> new MultiplyEvaluator(multiplier, valueSource.getEvaluator(actionContext));
             } else if (type.equalsIgnoreCase("forEachVitality")) {
+                FieldUtils.validateAllowedFields(object, "over");
                 final int over = FieldUtils.getInteger(object.get("over"), "over", 0);
                 return (actionContext) -> (game, cardAffected) -> Math.max(0, game.getModifiersQuerying().getVitality(game, cardAffected) - over);
             } else if (type.equalsIgnoreCase("subtract")) {
+                FieldUtils.validateAllowedFields(object, "firstNumber", "secondNumber");
                 final ValueSource firstNumber = ValueResolver.resolveEvaluator(object.get("firstNumber"), 0, environment);
                 final ValueSource secondNumber = ValueResolver.resolveEvaluator(object.get("secondNumber"), 0, environment);
                 return actionContext -> (Evaluator) (game, cardAffected) -> {
@@ -138,6 +153,7 @@ public class ValueResolver {
                     return first - second;
                 };
             } else if (type.equals("twilightCostInMemory")) {
+                FieldUtils.validateAllowedFields(object, "memory");
                 final String memory = FieldUtils.getString(object.get("memory"), "memory");
                 return actionContext -> (Evaluator) (game, cardAffected) -> {
                     int total = 0;

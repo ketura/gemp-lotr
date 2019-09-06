@@ -59,6 +59,7 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("costtoeffect", new CostToEffect());
         effectAppenderProducers.put("spot", new Spot());
         effectAppenderProducers.put("choosehowmanytospot", new ChooseHowManyToSpot());
+        effectAppenderProducers.put("choosehowmanyburdenstospot", new ChooseHowManyBurdensToSpot());
         effectAppenderProducers.put("reordertopcardsofdrawdeck", new ReorderTopCardsOfDrawDeck());
         effectAppenderProducers.put("cantbeassignedtoskirmish", new CantBeAssignedToSkirmish());
         effectAppenderProducers.put("preventable", new PreventableAppenderProducer());

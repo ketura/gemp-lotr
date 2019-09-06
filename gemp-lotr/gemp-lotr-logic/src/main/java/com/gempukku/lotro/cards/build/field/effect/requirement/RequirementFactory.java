@@ -16,6 +16,7 @@ public class RequirementFactory {
         requirementProducers.put("not", new NotRequirementProducer());
         requirementProducers.put("canspot", new CanSpot());
         requirementProducers.put("canspotburdens", new CanSpotBurdens());
+        requirementProducers.put("canspotthreats", new CanSpotThreats());
         requirementProducers.put("controlssite", new ControlsSite());
         requirementProducers.put("twilightpoollessthan", new TwilightPoolLessThan());
         requirementProducers.put("location", new Location());

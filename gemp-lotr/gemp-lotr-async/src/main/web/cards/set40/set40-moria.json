@@ -636,8 +636,8 @@
             "type": "canSpot",
             "filter": "dwarf"
           },
-          "yes": 3,
-          "no": 2
+          "true": 3,
+          "false": 2
         }
       }
     }

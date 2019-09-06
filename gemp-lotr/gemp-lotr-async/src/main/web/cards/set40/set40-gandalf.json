@@ -752,8 +752,8 @@
             "type": "canSpotBurdens",
             "amount": 5
           },
-          "yes": 2,
-          "no": 4
+          "true": 2,
+          "false": 4
         }
       }
     }

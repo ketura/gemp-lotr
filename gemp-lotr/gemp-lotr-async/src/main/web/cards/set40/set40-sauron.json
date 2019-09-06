@@ -78,6 +78,105 @@
       }
     ]
   },
+  "40_215": {
+    "title": "Enduring Evil",
+    "culture": "sauron",
+    "cost": 0,
+    "type": "event",
+    "keyword": "skirmish",
+    "effects": {
+      "type": "event",
+      "cost": {
+        "type": "chooseHowManyBurdensToSpot",
+        "memorize": "spottedBurdens"
+      },
+      "effect": {
+        "type": "modifyStrength",
+        "filter": "choose(character,inSkirmishAgainst(culture(sauron),orc))",
+        "amount": {
+          "type": "multiply",
+          "multiplier": -1,
+          "source": {
+            "type": "fromMemory",
+            "memory": "spottedBurdens"
+          }
+        }
+      }
+    }
+  },
+  "40_216": {
+    "title": "Ever Watchful",
+    "culture": "sauron",
+    "cost": 0,
+    "type": "condition",
+    "target": "companion,not(hasAttached(name(Ever Watchful)))",
+    "effects": [
+      {
+        "type": "extraCost",
+        "cost": {
+          "type": "exert",
+          "filter": "choose(culture(sauron),tracker)"
+        }
+      },
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "moves"
+        },
+        "effect": {
+          "type": "choice",
+          "player": "fp",
+          "texts": [
+            "Add (3)",
+            "Exert bearer of Ever Watchful"
+          ],
+          "effects": [
+            {
+              "type": "addTwilight",
+              "amount": 3
+            },
+            {
+              "type": "exert",
+              "player": "fp",
+              "filter": "choose(bearer)"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "40_217": {
+    "title": "Fires Raged Unchecked",
+    "culture": "sauron",
+    "cost": 1,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifySiteNumber",
+          "filter": "culture(sauron),orc",
+          "amount": {
+            "type": "forEachThreat",
+            "multiplier": -1
+          }
+        }
+      },
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyStrength",
+          "condition": {
+            "type": "canSpotThreats",
+            "amount": 3
+          },
+          "filter": "culture(sauron),orc,not(roaming)",
+          "amount": 1
+        }
+      }
+    ]
+  },
   "40_221": {
     "title": "It Will Destroy Them All",
     "culture": "sauron",
