@@ -500,6 +500,262 @@
       }
     }
   },
+  "40_173": {
+    "title": "Goblin Senses",
+    "culture": "moria",
+    "cost": 0,
+    "type": "event",
+    "keyword": "shadow",
+    "condition": {
+      "type": "canSpot",
+      "filter": "culture(moria),goblin"
+    },
+    "effects": {
+      "type": "event",
+      "cost": {
+        "type": "spot",
+        "filter": "choose(companion)",
+        "memorize": "chosenCompanion"
+      },
+      "effect": {
+        "type": "addTwilight",
+        "amount": {
+          "type": "forEachYouCanSpot",
+          "filter": "side(free people),attachedTo(memory(chosenCompanion))"
+        }
+      }
+    }
+  },
+  "40_174": {
+    "title": "Goblin Strategist",
+    "culture": "moria",
+    "cost": 3,
+    "type": "minion",
+    "race": "goblin",
+    "strength": 7,
+    "vitality": 2,
+    "site": 4,
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyStrength",
+        "filter": "self",
+        "amount": {
+          "type": "forEachYouCanSpot",
+          "filter": "culture(moria),condition,hasStacked(goblin)"
+        }
+      }
+    }
+  },
+  "40_175": {
+    "title": "Goblin Swarms",
+    "culture": "moria",
+    "cost": 1,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": [
+      {
+        "type": "activatedTrigger",
+        "trigger": {
+          "type": "winsSkirmish",
+          "filter": "culture(moria),goblin"
+        },
+        "effect": {
+          "type": "stackCards",
+          "where": "self",
+          "filter": "choose(culture(moria),goblin,inSkirmish)"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "shadow",
+        "effect": {
+          "type": "playCardFromStacked",
+          "on": "self",
+          "filter": "choose(goblin)"
+        }
+      }
+    ]
+  },
+  "40_176": {
+    "title": "*Guard Commander",
+    "subtitle": "Captain of the Underdeeps",
+    "culture": "moria",
+    "cost": 3,
+    "type": "minion",
+    "race": "goblin",
+    "strength": 7,
+    "vitality": 2,
+    "site": 4,
+    "effects": {
+      "type": "activated",
+      "phase": "skirmish",
+      "cost": {
+        "type": "removeTwilight",
+        "amount": 3
+      },
+      "effect": {
+        "type": "modifyStrength",
+        "filter": "self",
+        "amount": {
+          "type": "forEachYouCanSpot",
+          "filter": "another,culture(moria),goblin"
+        }
+      }
+    }
+  },
+  "40_177": {
+    "title": "Host of Goblins",
+    "culture": "moria",
+    "cost": 0,
+    "type": "event",
+    "keyword": "shadow",
+    "effects": {
+      "type": "event",
+      "effect": {
+        "type": "playCardFromStacked",
+        "filter": "choose(goblin)",
+        "on": "culture(moria),condition"
+      }
+    }
+  },
+  "40_178": {
+    "title": "Memories of Moria",
+    "culture": "moria",
+    "cost": 1,
+    "type": "event",
+    "keyword": "skirmish",
+    "effects": {
+      "type": "event",
+      "effect": {
+        "type": "modifyStrength",
+        "filter": "choose(culture(moria),goblin)",
+        "amount": {
+          "type": "condition",
+          "condition": {
+            "type": "canSpot",
+            "filter": "dwarf"
+          },
+          "yes": 3,
+          "no": 2
+        }
+      }
+    }
+  },
+  "40_179": {
+    "title": "*The Long Dark of Moria",
+    "culture": "moria",
+    "cost": 1,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyStrength",
+          "amount": 1,
+          "filter": "unique,culture(moria),minion"
+        }
+      },
+      {
+        "type": "activatedTrigger",
+        "trigger": {
+          "type": "discardFromHand",
+          "filter": "goblin",
+          "memorize": "discardedGoblin"
+        },
+        "condition": {
+          "type": "phase",
+          "phase": "shadow"
+        },
+        "effect": {
+          "type": "stackCardsFromDiscard",
+          "filter": "memory(discardedGoblin)",
+          "where": "self"
+        }
+      }
+    ]
+  },
+  "40_180": {
+    "title": "They Are Coming",
+    "culture": "moria",
+    "cost": 3,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": {
+      "type": "activated",
+      "phase": "shadow",
+      "cost": {
+        "type": "discardFromHand",
+        "forced": false,
+        "count": 3,
+        "memorize": "discardedCards"
+      },
+      "effect": {
+        "type": "playCardFromDiscard",
+        "filter": "choose(culture(moria),goblin,not(memory(discardedCards)))"
+      }
+    }
+  },
+  "40_181": {
+    "title": "*Troll's Keyward",
+    "subtitle": "Ruthless Taskmaster",
+    "culture": "moria",
+    "cost": 3,
+    "type": "minion",
+    "race": "goblin",
+    "strength": 8,
+    "vitality": 3,
+    "site": 4,
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyCost",
+          "filter": "name(Cave Troll of Moria)",
+          "condition": {
+            "type": "location",
+            "filter": "underground"
+          },
+          "amount": -3
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "skirmish",
+        "cost": {
+          "type": "exert",
+          "filter": "self"
+        },
+        "effect": {
+          "type": "modifyStrength",
+          "filter": "choose(name(Cave Troll of Moria))",
+          "amount": 2
+        }
+      }
+    ]
+  },
+  "40_182": {
+    "title": "War Drums",
+    "culture": "moria",
+    "cost": 0,
+    "type": "event",
+    "keyword": "shadow",
+    "condition": {
+      "type": "canSpot",
+      "filter": "culture(moria),condition,hasStacked(goblin)"
+    },
+    "effects": {
+      "type": "event",
+      "effect": {
+        "type": "addTwilight",
+        "amount": {
+          "type": "forEachYouCanSpot",
+          "filter": "possession"
+        }
+      }
+    }
+  },
   "40_316": {
     "title": "Deep Places of the World",
     "culture": "moria",

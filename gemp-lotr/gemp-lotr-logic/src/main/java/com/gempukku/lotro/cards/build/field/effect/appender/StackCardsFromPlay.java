@@ -26,6 +26,10 @@ public class StackCardsFromPlay implements EffectAppenderProducer {
 
         final String filter = FieldUtils.getString(effectObject.get("filter"), "filter", "choose(any)");
         final String where = FieldUtils.getString(effectObject.get("where"), "where");
+
+        if (where == null)
+            throw new InvalidCardDefinitionException("You need to define where to stack the cards");
+
         final ValueSource valueSource = ValueResolver.resolveEvaluator(effectObject.get("count"), 1, environment);
 
         MultiEffectAppender result = new MultiEffectAppender();

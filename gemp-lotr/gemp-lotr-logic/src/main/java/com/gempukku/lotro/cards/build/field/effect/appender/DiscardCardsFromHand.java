@@ -20,22 +20,23 @@ import java.util.Collection;
 public class DiscardCardsFromHand implements EffectAppenderProducer {
     @Override
     public EffectAppender createEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(effectObject, "forced", "count", "filter");
+        FieldUtils.validateAllowedFields(effectObject, "forced", "count", "filter", "memorize");
 
         final boolean forced = FieldUtils.getBoolean(effectObject.get("forced"), "forced");
-        final String filter = FieldUtils.getString(effectObject.get("filter"), "filter", "any");
+        final String filter = FieldUtils.getString(effectObject.get("filter"), "filter", "choose(any)");
+        final String memorize = FieldUtils.getString(effectObject.get("memorize"), "memorize", "_temp");
 
         final ValueSource countSource = ValueResolver.resolveEvaluator(effectObject.get("count"), 1, environment);
 
         MultiEffectAppender result = new MultiEffectAppender();
 
         result.addEffectAppender(
-                CardResolver.resolveCardsInHand(filter, countSource, "_temp", "you", "Choose cards to discard", environment));
+                CardResolver.resolveCardsInHand(filter, countSource, memorize, "you", "Choose cards to discard", environment));
         result.addEffectAppender(
                 new DelayedAppender() {
                     @Override
                     protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
-                        final Collection<? extends PhysicalCard> cardsToDiscard = actionContext.getCardsFromMemory("_temp");
+                        final Collection<? extends PhysicalCard> cardsToDiscard = actionContext.getCardsFromMemory(memorize);
                         return new DiscardCardsFromHandEffect(actionContext.getSource(), actionContext.getPerformingPlayer(), cardsToDiscard, forced);
                     }
 

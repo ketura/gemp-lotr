@@ -32,6 +32,7 @@ public class FilterFactory {
         simpleFilters.put("self", (actionContext) -> actionContext.getSource());
         simpleFilters.put("another", (actionContext) -> Filters.not(actionContext.getSource()));
         simpleFilters.put("your", (actionContext) -> Filters.owner(actionContext.getPerformingPlayer()));
+        simpleFilters.put("unique", (actionContext) -> Filters.unique);
         simpleFilters.put("bearer", (actionContext -> Filters.hasAttached(actionContext.getSource())));
         simpleFilters.put("character", (actionContext) -> Filters.character);
         simpleFilters.put("weapon", (actionContext) -> Filters.weapon);
