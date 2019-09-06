@@ -27,7 +27,7 @@
             "filter": "all(bearer)"
           },
           {
-            "type": "addBurden"
+            "type": "addBurdens"
           }
         ]
       },
@@ -90,7 +90,7 @@
             "filter": "all(bearer)"
           },
           {
-            "type": "addBurden"
+            "type": "addBurdens"
           }
         ]
       },
@@ -115,7 +115,7 @@
             "filter": "all(bearer)"
           },
           {
-            "type": "addBurden"
+            "type": "addBurdens"
           },
           {
             "type": "putOnRing"

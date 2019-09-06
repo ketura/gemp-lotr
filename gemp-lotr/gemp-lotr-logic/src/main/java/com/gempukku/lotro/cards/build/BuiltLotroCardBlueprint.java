@@ -51,6 +51,8 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
     private List<ActionSource> optionalInHandBeforeActions;
     private List<ActionSource> optionalInHandAfterActions;
 
+    private List<ActionSource> optionalInHandAfterTriggers;
+
     private List<ActionSource> inPlayPhaseActions;
     private List<ActionSource> fromStackedPhaseActions;
 
@@ -83,6 +85,12 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
         if (discountSources == null)
             discountSources = new LinkedList<>();
         discountSources.add(discountSource);
+    }
+
+    public void appendOptionalInHandAfterTrigger(ActionSource actionSource) {
+        if (optionalInHandAfterTriggers == null)
+            optionalInHandAfterTriggers = new LinkedList<>();
+        optionalInHandAfterTriggers.add(actionSource);
     }
 
     public void appendOptionalInHandBeforeAction(ActionSource actionSource) {
@@ -604,6 +612,24 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
     }
 
     @Override
+    public List<OptionalTriggerAction> getOptionalInHandAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+        if (optionalInHandAfterTriggers == null)
+            return null;
+
+        List<OptionalTriggerAction> result = new LinkedList<>();
+        for (ActionSource optionalInHandAfterTrigger : optionalInHandAfterTriggers) {
+            DefaultActionContext actionContext = new DefaultActionContext(playerId, game, self, effectResult, null);
+            if (optionalInHandAfterTrigger.isValid(actionContext)) {
+                OptionalTriggerAction action = new OptionalTriggerAction(self);
+                optionalInHandAfterTrigger.createAction(action, actionContext);
+                result.add(action);
+            }
+        }
+
+        return result;
+    }
+
+    @Override
     public List<? extends ExtraPlayCost> getExtraCostToPlay(LotroGame game, PhysicalCard self) {
         if (extraPlayCosts == null)
             return null;
@@ -627,11 +653,6 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
 
     @Override
     public List<? extends Action> getPhaseActionsFromDiscard(String playerId, LotroGame game, PhysicalCard self) {
-        return null;
-    }
-
-    @Override
-    public List<OptionalTriggerAction> getOptionalInHandAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         return null;
     }
 

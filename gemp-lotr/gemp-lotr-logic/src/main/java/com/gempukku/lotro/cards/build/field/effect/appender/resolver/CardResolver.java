@@ -4,6 +4,7 @@ import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.appender.DelayedAppender;
 import com.gempukku.lotro.common.Filterable;
+import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -110,7 +111,24 @@ public class CardResolver {
     }
 
     public static EffectAppender resolveCardsInHand(String type, FilterableSource additionalFilter, ValueSource countSource, String memory, String choicePlayer, String choiceText, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        if (type.startsWith("memory(") && type.endsWith(")")) {
+        if (type.equals("self")) {
+            return new DelayedAppender() {
+                @Override
+                public boolean isPlayableInFull(ActionContext actionContext) {
+                    return actionContext.getSource().getZone() == Zone.HAND;
+                }
+
+                @Override
+                protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
+                    return new UnrespondableEffect() {
+                        @Override
+                        protected void doPlayEffect(LotroGame game) {
+                            actionContext.setCardMemory(memory, actionContext.getSource());
+                        }
+                    };
+                }
+            };
+        } else if (type.startsWith("memory(") && type.endsWith(")")) {
             final PlayerSource playerSource = PlayerResolver.resolvePlayer(choicePlayer, environment);
 
             String sourceMemory = type.substring(type.indexOf("(") + 1, type.lastIndexOf(")"));

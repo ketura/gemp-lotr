@@ -177,6 +177,115 @@
       }
     ]
   },
+  "40_218": {
+    "title": "*Gathering Evil",
+    "culture": "sauron",
+    "cost": 2,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": {
+      "type": "trigger",
+      "optional": true,
+      "trigger": {
+        "type": "startOfPhase",
+        "phase": "shadow"
+      },
+      "condition": {
+        "type": "cantSpotFPCultures",
+        "amount": 3
+      },
+      "effect": {
+        "type": "choice",
+        "texts": [
+          "Play [Sauron] minion from your draw deck",
+          "Play [Sauron] minion from your discard pile"
+        ],
+        "effects": [
+          {
+            "type": "playCardFromDrawDeck",
+            "filter": "choose(culture(sauron),minion)"
+          },
+          {
+            "type": "playCardFromDiscard",
+            "filter": "choose(culture(sauron),minion)"
+          }
+        ]
+      }
+    }
+  },
+  "40_219": {
+    "title": "*The Great Eye",
+    "subtitle": "Wreathed in Flame",
+    "culture": "sauron",
+    "cost": 3,
+    "type": "minion",
+    "strength": 6,
+    "vitality": 4,
+    "site": 6,
+    "keyword": "cunning",
+    "effects": [
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "played",
+          "filter": "self"
+        },
+        "effect": {
+          "type": "addThreats",
+          "amount": {
+            "type": "forEachYouCanSpot",
+            "filter": "companion",
+            "over": 4
+          }
+        }
+      },
+      {
+        "type": "inHandTrigger",
+        "trigger": {
+          "type": "putsOnRing"
+        },
+        "cost": {
+          "type": "revealCardsFromHand",
+          "filter": "self"
+        },
+        "effect": {
+          "type": "addBurdens",
+          "amount": 1
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "skirmish",
+        "cost": {
+          "type": "exert",
+          "filter": "self"
+        },
+        "effect": {
+          "type": "modifyStrength",
+          "filter": "choose(culture(sauron),minion)",
+          "amount": 2
+        }
+      }
+    ]
+  },
+  "40_220": {
+    "title": "Hate",
+    "culture": "sauron",
+    "cost": 0,
+    "type": "event",
+    "keyword": "maneuver",
+    "effects": {
+      "type": "event",
+      "cost": {
+        "type": "exert",
+        "filter": "choose(culture(sauron),orc)"
+      },
+      "effect": {
+        "type": "wound",
+        "filter": "choose(companion,not(ring bearer))"
+      }
+    }
+  },
   "40_221": {
     "title": "It Will Destroy Them All",
     "culture": "sauron",
@@ -220,7 +329,7 @@
           ],
           "effects": [
             {
-              "type": "addBurden",
+              "type": "addBurdens",
               "player": "fp"
             },
             {

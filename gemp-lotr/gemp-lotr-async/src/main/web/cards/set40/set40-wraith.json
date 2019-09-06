@@ -48,7 +48,7 @@
             "filter": "choose(ring bearer)"
           },
           {
-            "type": "addBurden",
+            "type": "addBurdens",
             "player": "fp"
           }
         ]

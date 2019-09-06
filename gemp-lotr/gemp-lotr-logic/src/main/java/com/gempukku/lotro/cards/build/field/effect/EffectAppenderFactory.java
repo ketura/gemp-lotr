@@ -21,7 +21,7 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("modifystrength", new ModifyStrength());
         effectAppenderProducers.put("addkeyword", new AddKeyword());
         effectAppenderProducers.put("modifyarcherytotal", new ModifyArcheryTotal());
-        effectAppenderProducers.put("addburden", new AddBurden());
+        effectAppenderProducers.put("addburdens", new AddBurdens());
         effectAppenderProducers.put("discardtopcardsfromdeck", new DiscardTopCardFromDeck());
         effectAppenderProducers.put("addtwilight", new AddTwilight());
         effectAppenderProducers.put("wound", new Wound());
@@ -82,6 +82,8 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("addmodifier", new AddModifier());
         effectAppenderProducers.put("playnextsite", new PlayNextSite());
         effectAppenderProducers.put("duplicate", new Duplicate());
+        effectAppenderProducers.put("revealcardsfromhand", new RevealCardsFromHand());
+        effectAppenderProducers.put("revealcardsfromhand", new RevealCardsFromHand());
     }
 
     public EffectAppender getEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
