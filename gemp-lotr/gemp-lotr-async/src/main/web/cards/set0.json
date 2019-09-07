@@ -61,18 +61,6 @@
       }
     }
   },
-  /**
-   * Set: Promotional
-   * Side: Free
-   * Culture: Gondor
-   * Twilight Cost: 3
-   * Type: Companion • Man
-   * Strength: 7
-   * Vitality: 3
-   * Resistance: 6
-   * Game Text: Skirmish: Play a [GONDOR] skirmish event to make each minion skirmishing Anarion strength -X, where X is
-   * Anarion's vitality.
-   */
   "0_58": {
     "title": "*Anarion",
     "subtitle": "Lord of Anorien",
@@ -94,10 +82,89 @@
         "type": "modifyStrength",
         "filter": "all(minion,inSkirmishAgainst(self))",
         "amount": {
-          "type": "vita"
+          "type": "forEachVitality",
+          "filter": "self",
+          "multiplier": -1
         }
       }
     }
+  },
+  "0_59": {
+    "title": "*Erkenbrand",
+    "subtitle": "Master of Westfold",
+    "culture": "rohan",
+    "cost": 3,
+    "type": "companion",
+    "race": "man",
+    "strength": 7,
+    "vitality": 3,
+    "resistance": 5,
+    "effects": [
+      {
+        "type": "playedInOtherPhase",
+        "phase": "skirmish",
+        "condition": {
+          "type": "canSpot",
+          "filter": "culture(rohan),man"
+        }
+      },
+      {
+        "type": "trigger",
+        "optional": true,
+        "trigger": {
+          "type": "played",
+          "filter": "self"
+        },
+        "effect": {
+          "type": "discard",
+          "filter": "choose(side(shadow),possession)"
+        }
+      }
+    ]
+  },
+  "0_60": {
+    "title": "*Tom Bombadil's Hat",
+    "culture": "shire",
+    "cost": 1,
+    "type": "possession",
+    "keyword": "support area",
+    "condition": {
+      "type": "canSpot",
+      "filter": "culture(shire),companion",
+      "count": 2
+    },
+    "effects": [
+      {
+        "type": "trigger",
+        "trigger": [
+          {
+            "type": "addsBurden",
+            "filter": "side(shadow)"
+          },
+          {
+            "type": "addsThreat",
+            "filter": "side(shadow)"
+          }
+        ],
+        "effect": {
+          "type": "addTokens",
+          "culture": "shire",
+          "filter": "self"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "fellowship",
+        "cost": {
+          "type": "removeTokens",
+          "count": 2,
+          "culture": "shire"
+        },
+        "effect": {
+          "type": "removeBurdens"
+        }
+      }
+    ]
   },
   "0_62": {
     "title": "*Gimli",
@@ -146,5 +213,66 @@
     "strength": 8,
     "vitality": 4,
     "resistance": 6
+  },
+  "0_65": {
+    "title": "*Boromir",
+    "subtitle": "Steward's Heir",
+    "culture": "gondor",
+    "cost": 3,
+    "type": "companion",
+    "race": "man",
+    "strength": 7,
+    "vitality": 3,
+    "resistance": 6,
+    "keyword": [
+      "knight",
+      "ranger",
+      "ring-bound"
+    ]
+  },
+  "0_66": {
+    "title": "*Éomer",
+    "subtitle": "Forthwith Banished",
+    "culture": "rohan",
+    "cost": 2,
+    "type": "companion",
+    "race": "man",
+    "strength": 7,
+    "vitality": 3,
+    "resistance": 6,
+    "keyword": [
+      "damage+1",
+      "valiant"
+    ],
+    "effects": {
+      "type": "modifyOwnCost",
+      "amount": -1,
+      "condition": {
+        "type": "canSpot",
+        "filter": "culture(rohan),man"
+      }
+    }
+  },
+  "0_67": {
+    "title": "*Frodo",
+    "subtitle": "Mr. Underhill",
+    "culture": "shire",
+    "cost": 0,
+    "type": "companion",
+    "race": "hobbit",
+    "strength": 3,
+    "vitality": 4,
+    "resistance": 10,
+    "signet": "gandalf",
+    "keyword": "can start with ring",
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyPlayOnCost",
+        "filter": "or(artifact,possession,and(culture(shire),tale))",
+        "on": "self",
+        "amount": -1
+      }
+    }
   }
 }

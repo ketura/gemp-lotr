@@ -7,6 +7,7 @@ import com.gempukku.lotro.game.ExtraPlayCost;
 import com.gempukku.lotro.game.LotroCardBlueprint;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.PlayUtils;
 import com.gempukku.lotro.logic.actions.*;
 import com.gempukku.lotro.logic.effects.DiscountEffect;
 import com.gempukku.lotro.logic.modifiers.Modifier;
@@ -66,6 +67,8 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
     private List<ExtraPlayCostSource> extraPlayCosts;
     private List<DiscountSource> discountSources;
 
+    private List<Requirement> playInOtherPhaseConditions;
+
     private ActionSource playEventAction;
 
     private ExtraPossessionClassTest extraPossessionClassTest;
@@ -79,6 +82,12 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
 
     public void setExtraPossessionClassTest(ExtraPossessionClassTest extraPossessionClassTest) {
         this.extraPossessionClassTest = extraPossessionClassTest;
+    }
+
+    public void appendPlayInOtherPhaseCondition(Requirement requirement) {
+        if (playInOtherPhaseConditions == null)
+            playInOtherPhaseConditions = new LinkedList<>();
+        playInOtherPhaseConditions.add(requirement);
     }
 
     public void appendDiscountSource(DiscountSource discountSource) {
@@ -644,12 +653,23 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
         return result;
     }
 
-    // Default implementations - not needed (for now)
-
     @Override
     public List<? extends Action> getPhaseActionsInHand(String playerId, LotroGame game, PhysicalCard self) {
-        return null;
+        if (playInOtherPhaseConditions == null)
+            return null;
+
+        List<Action> playCardActions = new LinkedList<>();
+        for (Requirement playInOtherPhaseCondition : playInOtherPhaseConditions) {
+            DefaultActionContext actionContext = new DefaultActionContext(playerId, game, self, null, null);
+            if (playInOtherPhaseCondition.accepts(actionContext)
+                    && PlayUtils.checkPlayRequirements(game, self, Filters.any, 0, 0, false, false))
+                playCardActions.add(PlayUtils.getPlayCardAction(game, self, 0, Filters.any, false));
+        }
+
+        return playCardActions;
     }
+
+    // Default implementations - not needed (for now)
 
     @Override
     public List<? extends Action> getPhaseActionsFromDiscard(String playerId, LotroGame game, PhysicalCard self) {

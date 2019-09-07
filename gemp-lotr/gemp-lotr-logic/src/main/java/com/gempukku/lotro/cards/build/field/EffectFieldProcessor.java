@@ -27,6 +27,7 @@ public class EffectFieldProcessor implements FieldProcessor {
         effectProcessors.put("modifier", new Modifier());
         effectProcessors.put("extrapossessionclass", new ExtraPossessionClassEffectProcessor());
         effectProcessors.put("discount", new PotentialDiscount());
+        effectProcessors.put("playedinotherphase", new PlayedInOtherPhase());
     }
 
     @Override

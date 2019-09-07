@@ -26,7 +26,7 @@ public enum Token {
         return _culture;
     }
 
-    Token findTokenForCulture(Culture culture) {
+    public static Token findTokenForCulture(Culture culture) {
         for (Token token : Token.values()) {
             if (token.getCulture() == culture)
                 return token;

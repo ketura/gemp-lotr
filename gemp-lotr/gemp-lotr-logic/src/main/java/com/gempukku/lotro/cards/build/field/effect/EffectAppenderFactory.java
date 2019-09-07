@@ -84,7 +84,8 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("playnextsite", new PlayNextSite());
         effectAppenderProducers.put("duplicate", new Duplicate());
         effectAppenderProducers.put("revealcardsfromhand", new RevealCardsFromHand());
-        effectAppenderProducers.put("revealcardsfromhand", new RevealCardsFromHand());
+        effectAppenderProducers.put("addtokens", new AddTokens());
+        effectAppenderProducers.put("removetokens", new RemoveTokens());
     }
 
     public EffectAppender getEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {

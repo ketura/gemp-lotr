@@ -149,9 +149,30 @@ public class ValueResolver {
                 final ValueSource valueSource = ValueResolver.resolveEvaluator(object.get("source"), 0, environment);
                 return (actionContext) -> new MultiplyEvaluator(multiplier, valueSource.getEvaluator(actionContext));
             } else if (type.equalsIgnoreCase("forEachVitality")) {
-                FieldUtils.validateAllowedFields(object, "over");
+                FieldUtils.validateAllowedFields(object, "multiplier", "over", "filter");
+                final int multiplier = FieldUtils.getInteger(object.get("multiplier"), "multiplier", 1);
                 final int over = FieldUtils.getInteger(object.get("over"), "over", 0);
-                return (actionContext) -> (game, cardAffected) -> Math.max(0, game.getModifiersQuerying().getVitality(game, cardAffected) - over);
+                final String filter = FieldUtils.getString(object.get("filter"), "filter", "any");
+
+                final FilterableSource vitalitySource = environment.getFilterFactory().generateFilter(filter, environment);
+
+                return (actionContext) -> {
+                    if (filter.equals("any")) {
+                        return new MultiplyEvaluator(multiplier,
+                                (game, cardAffected) -> Math.max(0, game.getModifiersQuerying().getVitality(game, cardAffected) - over));
+                    } else {
+                        return new MultiplyEvaluator(multiplier,
+                                (game, cardAffected) -> {
+                                    final Filterable filterable = vitalitySource.getFilterable(actionContext);
+                                    int vitality = 0;
+                                    for (PhysicalCard physicalCard : Filters.filterActive(game, filterable)) {
+                                        vitality += game.getModifiersQuerying().getVitality(game, physicalCard);
+                                    }
+
+                                    return vitality;
+                                });
+                    }
+                };
             } else if (type.equalsIgnoreCase("subtract")) {
                 FieldUtils.validateAllowedFields(object, "firstNumber", "secondNumber");
                 final ValueSource firstNumber = ValueResolver.resolveEvaluator(object.get("firstNumber"), 0, environment);

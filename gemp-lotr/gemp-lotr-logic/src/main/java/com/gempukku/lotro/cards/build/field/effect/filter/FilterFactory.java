@@ -172,6 +172,20 @@ public class FilterFactory {
                         return Filters.or(filters1);
                     };
                 });
+        parameterFilters.put("and",
+                (parameter, environment) -> {
+                    final String[] filters = splitIntoFilters(parameter);
+                    FilterableSource[] filterables = new FilterableSource[filters.length];
+                    for (int i = 0; i < filters.length; i++)
+                        filterables[i] = environment.getFilterFactory().generateFilter(filters[i], environment);
+                    return (actionContext) -> {
+                        Filterable[] filters1 = new Filterable[filterables.length];
+                        for (int i = 0; i < filterables.length; i++)
+                            filters1[i] = filterables[i].getFilterable(actionContext);
+
+                        return Filters.and(filters1);
+                    };
+                });
         parameterFilters.put("memory",
                 (parameter, environment) -> (actionContext) -> {
                     return Filters.in(actionContext.getCardsFromMemory(parameter));

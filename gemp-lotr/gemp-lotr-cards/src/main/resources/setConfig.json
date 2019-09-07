@@ -2,7 +2,8 @@
     {
         "setId":"0",
         "setName":"Promotional",
-        "rarityFile":"/set0-rarity.txt"
+        "rarityFile": "/set0-rarity.txt",
+        "needsLoading": false
     },
     {
         "setId":"1",
