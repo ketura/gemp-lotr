@@ -93,7 +93,7 @@ var GempLotrHallUI = Class.extend({
 
         this.timerSelect = $("<select style='width: 135px'></select>");
         this.addTimer("default", "Default (80m/5m)");
-        this.addTimer("blitz", "Blitz! (30m/2m)");
+        this.addTimer("blitz", "Blitz! (30m/3m)");
         this.addTimer("slow", "Slow (2h/10m)");
         this.addTimer("glacial", "Glacial (3d/1d)");
 
