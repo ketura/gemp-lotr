@@ -18,8 +18,10 @@ public class TriggerCheckerFactory {
         triggerCheckers.put("losesskirmish", new LosesSkirmish());
         triggerCheckers.put("winsskirmish", new WinsSkirmish());
         triggerCheckers.put("startofturn", new StartOfTurn());
+        triggerCheckers.put("endofturn", new EndOfTurn());
         triggerCheckers.put("startofphase", new StartOfPhase());
         triggerCheckers.put("abouttotakewound", new AboutToTakeWound());
+        triggerCheckers.put("abouttobekilled", new AboutToBeKilled());
         triggerCheckers.put("condition", new ConditionTrigger());
         triggerCheckers.put("assignedtoskirmish", new AssignedToSkirmish());
         triggerCheckers.put("revealcardfromtopofdrawdeck", new RevealCardFromTopOfDrawDeck());

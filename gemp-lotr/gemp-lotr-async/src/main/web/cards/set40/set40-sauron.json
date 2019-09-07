@@ -342,6 +342,652 @@
       }
     ]
   },
+  "40_222": {
+    "title": "*Morder Archer Captain",
+    "culture": "sauron",
+    "cost": 7,
+    "type": "minion",
+    "race": "orc",
+    "strength": 13,
+    "vitality":4,
+    "site": 6,
+    "keyword": "archer",
+    "effects": [
+      {
+        "type": "modifyOwnCost",
+        "amount": {
+          "type": "forEachYouCanSpot",
+          "multiplier": -1
+          "filter": "culture(sauron),archer"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "archery",
+        "cost": {
+          "type": "exert",
+          "filter": "self",
+          "times": 2
+        },
+        "effect": {
+          "type": "cantTakeWounds",
+          "filter": "choose(unbound,companion)"
+        }
+      }
+    ]
+  },
+  "40_223": {
+    "title": "Orc Ambusher",
+    "culture": "sauron",
+    "cost": 1,
+    "type": "minion",
+    "race": "orc",
+    "strength": 5,
+    "vitality": 2,
+    "site": 6,
+    "keyword": "tracker",
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyRoamingPenalty",
+          "filter": "culture(sauron),minion",
+          "amount": -1
+        }
+      },
+      {
+        "type": "activatedTrigger",
+        "trigger": {
+          "type": "played",
+          "filter": "side(free people),regroup,event"
+        },
+        "cost": {
+          "type": "exert",
+          "filter": "self"
+        },
+        "effect": {
+          "type": "cancelEvent"
+        }
+      }
+    ]
+  },
+  "40_224": {
+    "title": "Orc Assassin",
+    "culture": "sauron",
+    "cost": 2,
+    "type": "minion",
+    "race": "orc",
+    "strength": 6,
+    "vitality": 2,
+    "site": 6,
+    "keyword": "tracker",
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyRoamingPenalty",
+          "filter": "culture(sauron),minion"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "assignment",
+        "condition": {
+          "type": "canSpot",
+          "count": 2,
+          "filter": "hobbit,companion"
+        },
+        "effect": {
+          "type": "assignToSkirmishAgainstMinion",
+          "player": "fp",
+          "against": "self",
+          "fpCharacter": "choose(hobbit)"
+        }
+      }
+    ]
+  },
+  "40_225": {
+    "title": "Orc Bowcaster",
+    "culture": "sauron",
+    "cost": 1,
+    "type": "minion",
+    "race": "orc",
+    "strength": 5,
+    "vitality": 1,
+    "site": 6,
+    "keyword": "archer",
+    "condition": {
+      "type": "canSpot",
+      "filter": "culture(sauron),minion"
+    },
+    "effects": {
+      "type": "activatedTrigger",
+      "trigger": {
+        "type": "aboutToBeKilled",
+        "filter": "self"
+      },
+      "condition": {
+        "type": "phase",
+        "phase": "archery"
+      },
+      "cost": {
+        "type": "discard",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "heal",
+        "filter": "choose(another,culture(sauron),archer)"
+      }
+    }
+  },
+  "40_226": {
+    "title": "Orc Brute",
+    "culture": "sauron",
+    "cost": 3,
+    "type": "minion",
+    "race": "orc",
+    "strength": 8,
+    "vitality": 3,
+    "site": 6,
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyStrength",
+        "condition": [
+          {
+            "type": "canSpot",
+            "filter": "another,culture(sauron),minion"
+          },
+          {
+            "type": "cantSpotFPCultures",
+            "amount": 3
+          }
+        ],
+        "amount": 2
+      }
+    }
+  },
+  "40_227": {
+    "title": "*Orc Marksman",
+    "culture": "sauron",
+    "cost": 2,
+    "type": "minion",
+    "race": "orc",
+    "strength": 6,
+    "vitality": 3,
+    "site": 6,
+    "keyword": ["tracker","archer"],
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyArcheryTotal",
+        "condition": {
+          "type": "canSpot",
+          "count": 3,
+          "filter": "tracker"
+        },
+        "side": "shadow",
+        "amount": 1
+      }
+    }
+  },
+  "40_228": {
+    "title": "Orc Miscreant",
+    "culture": "sauron",
+    "cost": 3,
+    "type": "minion",
+    "race": "orc",
+    "strength": 8,
+    "vitality": 2,
+    "site": 6,
+    "effects": {
+      "type": "trigger",
+      "optional": true,
+      "trigger": {
+        "type": "startOfPhase",
+        "phase": "skirmish"
+      },
+      "condition": [
+        {
+          "type": "canSpot",
+          "filter": "self,inSkirmish"
+        },
+        {
+          "type": "canSpot",
+          "filter": "another,culture(sauron),orc"
+        }
+      ],
+      "cost": {
+        "type": "removeThreats"
+      },
+      "effect": {
+        "type": "wound",
+        "filter": "choose(companion,inSkirmishAgainst(self))"
+      }
+    }
+  },
+  "40_229": {
+    "title": "Orc Monstrosity",
+    "culture": "sauron",
+    "cost": 4,
+    "type": "minion",
+    "race": "orc",
+    "strength": 11,
+    "vitality": 3,
+    "site": 6,
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "addKeyword",
+        "condition": [
+          {
+            "type": "canSpot",
+            "filter": "another,culture(sauron),orc"
+          },
+          {
+            "type": "cantSpotFPCultures",
+            "amount": 3
+          }
+        ],
+        "filter": "self",
+        "keyword": "damage+1"
+      }
+    }
+  },
+  "40_230": {
+    "title": "Orc Ravager",
+    "culture": "sauron",
+    "cost": 3,
+    "type": "minion",
+    "race": "orc",
+    "strength": 9,
+    "vitality": 3,
+    "site": 6,
+    "keyword": "tracker",
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyStrength",
+        "condition": [
+          {
+            "type": "canSpot",
+            "filter": "another,culture(sauron),orc"
+          },
+          {
+            "type": "cantSpotFPCultures",
+            "amount": 3
+          }
+        ],
+        "filter": "character,inSkirmishAgainst(self)",
+        "amount": -1
+      }
+    }
+  },
+  "40_231": {
+    "title": "*Orc Raveners",
+    "culture": "sauron",
+    "cost": 4,
+    "type": "minion",
+    "race": "orc",
+    "strength": 11,
+    "vitality": 3,
+    "site": 6,
+    "keyword": "tracker",
+    "effects": [
+      {
+        "type": "trigger",
+        "optional": true,
+        "trigger": {
+          "type": "played",
+          "filter": "self"
+        },
+        "condition": {
+          "type": "canSpot",
+          "filter": "another,culture(sauron),minion"
+        },
+        "effect": {
+          "type": "discard",
+          "filter": "choose(condition)"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "maneuver",
+        "cost": {
+          "type": "exert",
+          "filter": "self",
+          "times": 2
+        },
+        "effect": {
+          "type": "playCardFromDiscard",
+          "filter": "choose(culture(sauron),condition)"
+        }
+      }
+    ]
+  },
+  "40_232": {
+    "title": "Orc Savage",
+    "culture": "sauron",
+    "cost": 2,
+    "type": "minion",
+    "race": "orc",
+    "strength": 7,
+    "vitality": 2,
+    "site": 6,
+    "keyword": "tracker",
+    "effects": {
+      "type": "activated",
+      "phase": "regroup",
+      "condition": {
+        "type": "canSpot",
+        "filter": "another,culture(sauron),orc"
+      },
+      "cost": {
+        "type": "discard",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "exert",
+        "player": "fp",
+        "filter": "choose(companion)"
+      }
+    }
+  },
+  "40_233": {
+    "title": "Orc Scouting Party",
+    "culture": "sauron",
+    "cost": 4,
+    "type": "minion",
+    "race": "orc",
+    "strength": 9,
+    "vitality": 3,
+    "site": 6,
+    "keyword": "tracker",
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyRoamingPenalty",
+          "filter": "culture(sauron),minion",
+          "amount": -1
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "skirmish",
+        "cost": {
+          "type": "exert",
+          "filter": "self"
+        },
+        "effect": {
+          "type": "wound",
+          "filter": "choose(character,inSkirmishAgainst(self))"
+        }
+      }
+    ]
+  },
+  "40_234": {
+    "title": "Orc Sharpshooter",
+    "culture": "sauron",
+    "cost": 2,
+    "type": "minion",
+    "race": "orc",
+    "strength": 7,
+    "vitality": 2,
+    "site": 6,
+    "keyword": ["tracker","archer"],
+    "effects": {
+      "type": "activated",
+      "phase": "archery",
+      "condition": {
+        "type": "canSpot",
+        "filter": "tracker",
+        "count": 3
+      },
+      "cost": {
+        "type": "exert",
+        "filter": "self"
+      },
+      "effect": [
+        {
+          "type": "exert",
+          "filter": "choose(unbound,companion)"
+        },
+        {
+          "type": "doesNotAddToArcheryTotal",
+          "filter": "self"
+        }
+      ]
+    }
+  },
+  "40_236": {
+    "title": "Orc Stalker",
+    "culture": "sauron",
+    "cost": 4,
+    "type": "minion",
+    "race": "orc",
+    "strength": 10,
+    "vitality": 3,
+    "site": 6,
+    "keyword": "tracker",
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "addKeyword",
+        "condition": {
+          "type": "canSpot",
+          "filter": "tracker",
+          "count": 3
+        },
+        "keyword": "fierce"
+      }
+    }
+  },
+  "40_237": {
+    "title": "*Orc Villain",
+    "culture": "sauron",
+    "cost": 3,
+    "type": "minion",
+    "race": "orc",
+    "strength": 8,
+    "vitality": 3,
+    "site": 6,
+    "effects": {
+      "type": "trigger",
+      "trigger": {
+        "type": "assignedToSkirmish",
+        "filter": "self",
+        "against": "companion",
+        "memorizeAgainst": "assignedAgainst"
+      },
+      "condition": [
+        {
+          "type": "canSpot",
+          "filter": "another,culture(sauron),minion"
+        },
+        {
+          "type": "cantSpotFPCultures",
+          "amount": 3
+        }
+      ],
+      "effect": {
+        "type": "exert",
+        "filter": "memory(assignedAgainst)"
+      }
+    }
+  },
+  "40_238": {
+    "title": "*Sauron's Forces",
+    "culture": "sauron",
+    "cost": 3,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": [
+      {
+        "type": "extraCost",
+        "cost": {
+          "type": "exert",
+          "filter": "choose(culture(sauron),minion)"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "shadow",
+        "cost": {
+          "type": "discard",
+          "filter": "self"
+        },
+        "effect": {
+          "type": "addTwilight",
+          "amount": {
+            "type": "forEachThreat"
+          }
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "maneuver",
+        "condition": [
+          {
+            "type": "canSpot",
+            "filter": "culture(sauron),minion"
+          },
+          {
+            "type": "canSpot",
+            "filter": "companion",
+            "count": 6
+          }
+        ],
+        "cost": {
+          "type": "choice",
+          "texts":[
+            "Remove (2)",
+            "Remove 2 threats"
+          ],
+          "effects": [
+            {
+              "type": "removeTwilight",
+              "amount": 2
+            },
+            {
+              "type": "removeThreats",
+              "amount": 2
+            }
+          ]
+        },
+        "effect": {
+          "type": "wound",
+          "filter": "choose(companion,not(ring bearer))"
+        }
+      }
+    ]
+  },
+  "40_239": {
+    "title": "Shadow in the East",
+    "culture": "sauron",
+    "cost": 1,
+    "type": "event",
+    "keyword": "maneuver",
+    "condition": {
+      "type": "canSpot",
+      "filter": "culture(sauron),minion"
+    },
+    "effects": {
+      "type": "event",
+      "effect": [
+        {
+          "type": "addThreats",
+          "amount":1
+        },
+        {
+          "type": "addThreats",
+          "amount": {
+            "type": "forEachFPCultureLessThan",
+            "amount": 4
+          }
+        }
+      ]
+    }
+  },
+  "40_240": {
+    "title": "*Thin and Stretched",
+    "culture": "sauron",
+    "cost": 0,
+    "type": "condition",
+    "target": "ring bearer",
+    "effects": [
+      {
+        "type": "extraCost",
+        "cost": {
+          "type": "exert",
+          "filter": "choose(culture(sauron),orc)"
+        }
+      },
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "endOfTurn"
+        },
+        "condition": [
+          {
+            "type": "not",
+            "condition": {
+              "type": "wasAssignedToSkirmish",
+              "filter": "bearer"
+            }
+          },
+          {
+            "type": "wasAssignedToSkirmish",
+            "filter": "companion,not(bearer)"
+          }
+        ],
+        "effect": {
+          "type": "addBurdens",
+          "amount": 1
+        }
+      }
+    ]
+  },
+  "40_241": {
+    "title": "Threat of Mordor",
+    "culture": "sauron",
+    "cost": 1,
+    "type": "event",
+    "keyword": "skirmish",
+    "effects": {
+      "type": "event",
+      "effect": {
+        "type": "modifyStrength",
+        "filter": "choose(culture(sauron),minion)",
+        "amount": {
+          "type": "forEachThreat"
+        }
+      }
+    }
+  },
+  "40_242": {
+    "title": "War Cry of Mordor",
+    "culture": "sauron",
+    "cost": 1,
+    "type": "event",
+    "keyword": "skirmish",
+    "effects": {
+      "type": "event",
+      "effect": {
+        "type": "modifyStrength",
+        "filter": "choose(culture(sauron),minion)",
+        "amount": {
+          "type": "condition",
+          "condition": {
+            "type": "cantSpotFPCultures",
+            "amount": 3
+          },
+          "true": 3,
+          "false": 2
+        }
+      }
+    }
+  },
   "40_318": {
     "title": "*Orc Flanker",
     "culture": "sauron",

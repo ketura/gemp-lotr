@@ -114,12 +114,21 @@ public class ValueResolver {
                     return new CountStackedEvaluator(on1, filterableSource.getFilterable(actionContext));
                 };
             } else if (type.equalsIgnoreCase("forEachYouCanSpot")) {
-                FieldUtils.validateAllowedFields(object, "filter", "over", "limit");
+                FieldUtils.validateAllowedFields(object, "filter", "over", "limit", "multiplier");
                 final String filter = FieldUtils.getString(object.get("filter"), "filter");
                 final int over = FieldUtils.getInteger(object.get("over"), "over", 0);
                 final int limit = FieldUtils.getInteger(object.get("limit"), "limit", Integer.MAX_VALUE);
+                final int multiplier = FieldUtils.getInteger(object.get("multiplier"), "multiplier", 1);
                 final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
-                return actionContext -> new CountSpottableEvaluator(over, limit, filterableSource.getFilterable(actionContext));
+                return actionContext -> new MultiplyEvaluator(multiplier, new CountSpottableEvaluator(over, limit, filterableSource.getFilterable(actionContext)));
+            } else if (type.equalsIgnoreCase("forEachFPCultureLessThan")) {
+                FieldUtils.validateAllowedFields(object, "amount");
+                final int lessThan = FieldUtils.getInteger(object.get("amount"), "amount");
+                return actionContext -> {
+                    int spottable = GameUtils.getSpottableFPCulturesCount(actionContext.getGame(), actionContext.getPerformingPlayer());
+                    int result = Math.max(0, lessThan - spottable);
+                    return new ConstantEvaluator(result);
+                };
             } else if (type.equalsIgnoreCase("forEachInHand")) {
                 FieldUtils.validateAllowedFields(object, "filter");
                 final String filter = FieldUtils.getString(object.get("filter"), "filter");

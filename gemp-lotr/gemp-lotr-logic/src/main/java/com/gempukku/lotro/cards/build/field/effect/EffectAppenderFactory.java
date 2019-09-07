@@ -28,6 +28,7 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("heal", new Heal());
         effectAppenderProducers.put("replaceinskirmish", new ReplaceInSkirmish());
         effectAppenderProducers.put("canttakemorewoundsthan", new CantTakeMoreWoundsThan());
+        effectAppenderProducers.put("canttakewounds", new CantTakeWounds());
         effectAppenderProducers.put("choice", new Choice());
         effectAppenderProducers.put("assigntoskirmishagainstminion", new AssignToSkirmishAgainstMinion());
         effectAppenderProducers.put("putcardsfromhandonbottomofdeck", new PutCardsFromHandOnBottomOfDeck());
