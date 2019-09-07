@@ -45,6 +45,24 @@ public class PreventableAppenderProducer implements EffectAppenderProducer {
                                                     preventingPlayer, actionContext.getGame(), actionContext.getSource(), actionContext.getEffectResult(),
                                                     actionContext.getEffect());
                                             costAppender.appendEffect(false, subAction, delegate);
+                                            subAction.appendEffect(
+                                                    new UnrespondableEffect() {
+                                                        @Override
+                                                        protected void doPlayEffect(LotroGame game) {
+                                                            // If the prevention was not carried out, need to do the original action anyway
+                                                            if (!subAction.wasCarriedOut())
+                                                                effectAppender.appendEffect(false, subAction, actionContext);
+                                                        }
+
+                                                        @Override
+                                                        public boolean wasCarriedOut() {
+                                                            // Cheating a bit, we need to check, if the preventing effect was carried out,
+                                                            // but have no way of doing this, as we can do that through subAction only,
+                                                            // and this checking effect should be ALWAYS considered fine, even before it
+                                                            // was done
+                                                            return true;
+                                                        }
+                                                    });
                                         }
 
                                         @Override
@@ -52,16 +70,6 @@ public class PreventableAppenderProducer implements EffectAppenderProducer {
                                             effectAppender.appendEffect(false, subAction, actionContext);
                                         }
                                     }));
-                    subAction.appendEffect(
-                            new UnrespondableEffect() {
-                                @Override
-                                protected void doPlayEffect(LotroGame game) {
-                                    // If the prevention was not carried out, need to do the original action anyway
-                                    if (!subAction.wasCarriedOut())
-                                        effectAppender.appendEffect(false, subAction, actionContext);
-                                }
-                            }
-                    );
                     return new StackActionEffect(subAction);
                 } else {
                     SubAction subAction = new SubAction(action);

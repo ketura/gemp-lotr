@@ -1,0 +1,150 @@
+{
+  "0_56": {
+    "title": "*Ghân-buri-Ghân",
+    "subtitle": "Chieftain of the Woses",
+    "culture": "gandalf",
+    "cost": 2,
+    "type": "companion",
+    "race": "man",
+    "strength": 6,
+    "vitality": 3,
+    "resistance": 5,
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "cantBeOverwhelmedMultiplier",
+          "filter": "self",
+          "condition": {
+            "type": "canSpot",
+            "filter": "another,man",
+            "count": 2
+          }
+        }
+      },
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "addKeyword",
+          "filter": "self",
+          "condition": {
+            "type": "location",
+            "filter": "forest"
+          },
+          "keyword": "defender+1"
+        }
+      }
+    ]
+  },
+  "0_57": {
+    "title": "*Radagast's Staff",
+    "culture": "gandalf",
+    "cost": 1,
+    "type": "artifact",
+    "possession": "staff",
+    "strength": 1,
+    "vitality": 1,
+    "target": "name(Radagast)",
+    "effects": {
+      "type": "trigger",
+      "optional": true,
+      "trigger": {
+        "type": "moves"
+      },
+      "condition": {
+        "type": "phase",
+        "phase": "regroup"
+      },
+      "effect": {
+        "type": "drawCards",
+        "count": 2
+      }
+    }
+  },
+  /**
+   * Set: Promotional
+   * Side: Free
+   * Culture: Gondor
+   * Twilight Cost: 3
+   * Type: Companion • Man
+   * Strength: 7
+   * Vitality: 3
+   * Resistance: 6
+   * Game Text: Skirmish: Play a [GONDOR] skirmish event to make each minion skirmishing Anarion strength -X, where X is
+   * Anarion's vitality.
+   */
+  "0_58": {
+    "title": "*Anarion",
+    "subtitle": "Lord of Anorien",
+    "culture": "gondor",
+    "cost": 3,
+    "type": "companion",
+    "race": "man",
+    "strength": 7,
+    "vitality": 3,
+    "resistance": 6,
+    "effects": {
+      "type": "activated",
+      "phase": "skirmish",
+      "cost": {
+        "type": "play",
+        "filter": "choose(culture(gondor),skirmish,event)"
+      },
+      "effect": {
+        "type": "modifyStrength",
+        "filter": "all(minion,inSkirmishAgainst(self))",
+        "amount": {
+          "type": "vita"
+        }
+      }
+    }
+  },
+  "0_62": {
+    "title": "*Gimli",
+    "subtitle": "Dwarven Delegate",
+    "culture": "dwarven",
+    "cost": 2,
+    "type": "companion",
+    "race": "dwarf",
+    "strength": 7,
+    "vitality": 3,
+    "resistance": 6,
+    "keyword": "damage+1"
+  },
+  "0_63": {
+    "title": "*Arwen",
+    "subtitle": "Maiden of Rivendell",
+    "culture": "elven",
+    "cost": 2,
+    "type": "companion",
+    "race": "elf",
+    "strength": 6,
+    "vitality": 3,
+    "resistance": 6,
+    "keyword": "ranger",
+    "effects": {
+      "type": "activated",
+      "phase": "skirmish",
+      "cost": {
+        "type": "exert",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "modifyStrength",
+        "filter": "choose(minion,inSkirmishAgainst(elf))",
+        "amount": -2
+      }
+    }
+  },
+  "0_64": {
+    "title": "*Gandalf",
+    "subtitle": "Stormcraw",
+    "culture": "gandalf",
+    "cost": 4,
+    "type": "companion",
+    "race": "wizard",
+    "strength": 8,
+    "vitality": 4,
+    "resistance": 6
+  }
+}
