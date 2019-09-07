@@ -84,7 +84,8 @@
     {
         "setId":"16",
         "setName":"The Wraith Collection",
-        "rarityFile":"/set16-rarity.txt"
+        "rarityFile": "/set16-rarity.txt",
+        "needsLoading": false
     },
     {
         "setId":"17",

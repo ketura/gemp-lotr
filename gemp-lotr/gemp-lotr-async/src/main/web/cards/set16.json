@@ -1,0 +1,226 @@
+{
+  "16_1": {
+    "title": "*Barrow-wight Stalker",
+    "culture": "wraith",
+    "cost": 5,
+    "type": "minion",
+    "race": "wraith",
+    "strength": 11,
+    "vitality": 4,
+    "site": 2,
+    "keyword": "enduring",
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "cantTakeWounds",
+          "filter": "culture(wraith),wraith",
+          "condition": {
+            "type": "not",
+            "condition": {
+              "type": "phase",
+              "phase": "skirmish"
+            }
+          }
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "shadow",
+        "cost": {
+          "type": "removeBurdens"
+        },
+        "effect": {
+          "type": "play",
+          "filter": "choose(culture(wraith),wraith)",
+          "cost": -2
+        }
+      }
+    ]
+  },
+  "16_2": {
+    "title": "Candle Corpses",
+    "culture": "wraith",
+    "cost": 3,
+    "type": "minion",
+    "race": "wraith",
+    "strength": 8,
+    "vitality": 2,
+    "site": 3,
+    "keyword": "enduring",
+    "effects": {
+      "type": "trigger",
+      "optional": true,
+      "trigger": {
+        "type": "assignedToSkirmish",
+        "side": "free people",
+        "filter": "self",
+        "against": "companion",
+        "memorizeAgainst": "assignedToCompanion"
+      },
+      "condition": {
+        "type": "canSpot",
+        "filter": "another,culture(wraith),wraith"
+      },
+      "cost": {
+        "type": "removeTwilight",
+        "amount": 2
+      },
+      "effect": {
+        "type": "wound",
+        "filter": "memory(assignedToCompanion)"
+      }
+    }
+  },
+  "16_3": {
+    "title": "*Covetous Wisp",
+    "culture": "wraith",
+    "cost": 2,
+    "type": "minion",
+    "race": "wraith",
+    "strength": 4,
+    "vitality": 2,
+    "site": 3,
+    "keyword": "enduring",
+    "effects": {
+      "type": "trigger",
+      "optional": true,
+      "trigger": {
+        "type": "assignedToSkirmish",
+        "side": "free people",
+        "filter": "self",
+        "against": "companion"
+      },
+      "condition": {
+        "type": "canSpot",
+        "filter": "another,culture(wraith),wraith"
+      },
+      "cost": {
+        "type": "removeTwilight",
+        "amount": 2
+      },
+      "effect": {
+        "type": "addBurdens"
+      }
+    }
+  },
+  "16_4": {
+    "title": "Dead Faces",
+    "culture": "wraith",
+    "cost": 2,
+    "type": "minion",
+    "race": "wraith",
+    "strength": 4,
+    "vitality": 2,
+    "site": 3,
+    "keyword": "enduring",
+    "effects": {
+      "type": "trigger",
+      "optional": true,
+      "trigger": {
+        "type": "assignedToSkirmish",
+        "side": "free people",
+        "filter": "self",
+        "against": "companion"
+      },
+      "condition": {
+        "type": "canSpot",
+        "filter": "another,culture(wraith),wraith"
+      },
+      "cost": {
+        "type": "removeTwilight",
+        "amount": 2
+      },
+      "effect": {
+        "type": "discard",
+        "filter": "choose(condition)"
+      }
+    }
+  },
+  "16_5": {
+    "title": "*Spirit of Dread",
+    "culture": "wraith",
+    "cost": 7,
+    "type": "minion",
+    "race": "wraith",
+    "strength": 14,
+    "vitality": 3,
+    "site": 2,
+    "keyword": "enduring",
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "cantHeal",
+          "condition": {
+            "type": "canSpot",
+            "filter": "another,culture(wraith),wraith"
+          },
+          "filter": "any"
+        }
+      },
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "cantRemoveBurdens",
+          "condition": {
+            "type": "canSpot",
+            "filter": "another,culture(wraith),wraith"
+          },
+          "filter": "not(wraith)"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "skirmish",
+        "cost": {
+          "type": "exert",
+          "filter": "self"
+        },
+        "effect": {
+          "type": "modifyStrength",
+          "filter": "choose(another,culture(wraith),wraith)",
+          "amount": 1
+        }
+      }
+    ]
+  },
+  "16_6": {
+    "title": "*Undead of Angmar",
+    "culture": "wraith",
+    "cost": 4,
+    "type": "minion",
+    "race": "wraith",
+    "strength": 9,
+    "vitality": 3,
+    "site": 2,
+    "keyword": "enduring",
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyResistance",
+          "filter": "wounded,companion",
+          "condition": {
+            "type": "canSpot",
+            "filter": "another,culture(wraith),wraith"
+          },
+          "amount": -2
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "shadow",
+        "cost": {
+          "type": "exert",
+          "filter": "self",
+          "times": 2
+        },
+        "effect": {
+          "type": "playCardFromDrawDeck",
+          "filter": "choose(culture(wraith),wraith)"
+        }
+      }
+    ]
+  }
+}

@@ -24,6 +24,7 @@ public class ModifierSourceFactory {
         modifierProducers.put("modifyplayoncost", new ModifyPlayOnCost());
         modifierProducers.put("modifyroamingpenalty", new ModifyRoamingPenalty());
         modifierProducers.put("modifystrength", new ModifyStrength());
+        modifierProducers.put("modifyresistance", new ModifyResistance());
         modifierProducers.put("opponentmaynotdiscard", new OpponentMayNotDiscard());
         modifierProducers.put("addnotwilightforcompanionmove", new AddNoTwilightForCompanionMove());
         modifierProducers.put("modifyarcherytotal", new ModifyArcheryTotal());
@@ -31,6 +32,8 @@ public class ModifierSourceFactory {
         modifierProducers.put("cantusespecialabilities", new CantUseSpecialAbilities());
         modifierProducers.put("skipphase", new SkipPhase());
         modifierProducers.put("modifymovelimit", new ModifyMoveLimit());
+        modifierProducers.put("cantheal", new CantHeal());
+        modifierProducers.put("cantremoveburdens", new CantRemoveBurdens());
     }
 
     public ModifierSource getModifier(JSONObject object, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
