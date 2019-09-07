@@ -128,6 +128,16 @@ public class FilterFactory {
                     int amount = Integer.parseInt(parameter);
                     return (actionContext) -> Filters.maxResistance(amount - 1);
                 });
+        parameterFilters.put("resistanceMoreThan",
+                (parameter, environment) -> {
+                    int amount = Integer.parseInt(parameter);
+                    return (actionContext) -> Filters.minResistance(amount + 1);
+                });
+        parameterFilters.put("strengthLessThan",
+                (parameter, environment) -> {
+                    int amount = Integer.parseInt(parameter);
+                    return (actionContext) -> Filters.lessStrengthThan(amount);
+                });
         parameterFilters.put("not",
                 (parameter, environment) -> {
                     final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(parameter, environment);

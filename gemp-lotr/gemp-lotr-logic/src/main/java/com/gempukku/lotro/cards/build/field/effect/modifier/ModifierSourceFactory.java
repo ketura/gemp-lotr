@@ -30,6 +30,7 @@ public class ModifierSourceFactory {
         modifierProducers.put("modifysitenumber", new ModifySiteNumber());
         modifierProducers.put("cantusespecialabilities", new CantUseSpecialAbilities());
         modifierProducers.put("skipphase", new SkipPhase());
+        modifierProducers.put("modifymovelimit", new ModifyMoveLimit());
     }
 
     public ModifierSource getModifier(JSONObject object, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {

@@ -29,6 +29,7 @@ public class RequirementFactory {
         requirementProducers.put("fierceskirmish", new FierceSkirmish());
         requirementProducers.put("movecountminimum", new MoveCountMinimum());
         requirementProducers.put("wasassignedtoskirmish", new WasAssignedToSkirmish());
+        requirementProducers.put("ismore", new IsMore());
     }
 
     public Requirement getRequirement(JSONObject object, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {

@@ -4,6 +4,7 @@ import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -173,6 +174,17 @@ public class ValueResolver {
                                 });
                     }
                 };
+            } else if (type.equalsIgnoreCase("printedStrengthFromMemory")) {
+                FieldUtils.validateAllowedFields(object, "memory");
+                final String memory = FieldUtils.getString(object.get("memory"), "memory");
+
+                return actionContext -> (Evaluator) (game, cardAffected) -> {
+                    int result = 0;
+                    for (PhysicalCard physicalCard : actionContext.getCardsFromMemory(memory)) {
+                        result += physicalCard.getBlueprint().getStrength();
+                    }
+                    return result;
+                };
             } else if (type.equalsIgnoreCase("subtract")) {
                 FieldUtils.validateAllowedFields(object, "firstNumber", "secondNumber");
                 final ValueSource firstNumber = ValueResolver.resolveEvaluator(object.get("firstNumber"), 0, environment);
@@ -191,6 +203,20 @@ public class ValueResolver {
                         total += physicalCard.getBlueprint().getTwilightCost();
                     }
                     return total;
+                };
+            } else if (type.equals("maxOfRaces")) {
+                FieldUtils.validateAllowedFields(object, "filter");
+                final String filter = FieldUtils.getString(object.get("filter"), "filter");
+
+                final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
+
+                return actionContext -> (game, cardAffected) -> {
+                    int result = 0;
+                    final Filterable filterable = filterableSource.getFilterable(actionContext);
+                    for (Race race : Race.values())
+                        result = Math.max(result, Filters.countSpottable(game, race, filterable));
+
+                    return result;
                 };
             }
             throw new InvalidCardDefinitionException("Unrecognized type of an evaluator " + type);

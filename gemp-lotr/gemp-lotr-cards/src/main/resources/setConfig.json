@@ -73,7 +73,8 @@
     {
         "setId":"14",
         "setName":"Expanded Middle-earth",
-        "rarityFile":"/set14-rarity.txt"
+        "rarityFile": "/set14-rarity.txt",
+        "needsLoading": false
     },
     {
         "setId":"15",

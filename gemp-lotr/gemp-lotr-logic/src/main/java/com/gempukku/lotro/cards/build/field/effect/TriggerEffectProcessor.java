@@ -14,6 +14,8 @@ public class TriggerEffectProcessor implements EffectProcessor {
         FieldUtils.validateAllowedFields(value, "trigger", "optional", "condition", "cost", "effect");
 
         final JSONObject[] triggerArray = FieldUtils.getObjectArray(value.get("trigger"), "trigger");
+        if (triggerArray.length == 0)
+            throw new InvalidCardDefinitionException("Trigger effect without trigger definition");
         final boolean optional = FieldUtils.getBoolean(value.get("optional"), "optional", false);
 
         for (JSONObject trigger : triggerArray) {
