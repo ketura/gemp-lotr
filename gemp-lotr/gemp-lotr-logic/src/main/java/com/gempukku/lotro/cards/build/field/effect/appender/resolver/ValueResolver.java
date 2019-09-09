@@ -217,7 +217,7 @@ public class ValueResolver {
                     final int second = secondNumber.getEvaluator(actionContext).evaluateExpression(actionContext.getGame(), null);
                     return first - second;
                 };
-            } else if (type.equals("twilightCostInMemory")) {
+            } else if (type.equalsIgnoreCase("twilightCostInMemory")) {
                 FieldUtils.validateAllowedFields(object, "memory");
                 final String memory = FieldUtils.getString(object.get("memory"), "memory");
                 return actionContext -> (Evaluator) (game, cardAffected) -> {
@@ -227,7 +227,7 @@ public class ValueResolver {
                     }
                     return total;
                 };
-            } else if (type.equals("maxOfRaces")) {
+            } else if (type.equalsIgnoreCase("maxOfRaces")) {
                 FieldUtils.validateAllowedFields(object, "filter");
                 final String filter = FieldUtils.getString(object.get("filter"), "filter");
 

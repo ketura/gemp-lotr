@@ -2,7 +2,6 @@
   "40_243": {
     "title": "*Bilbo",
     "subtitle": "Well-preserved Hobbit",
-
     "culture": "shire",
     "cost": 2,
     "type": "ally",
@@ -27,6 +26,54 @@
       "effect": {
         "type": "discard",
         "filter": "choose(side(shadow),condition)"
+      }
+    }
+  },
+  "40_244": {
+    "title": "*Bilbo's Pipe",
+    "culture": "shire",
+    "cost": 1,
+    "type": "possession",
+    "possession": "pipe",
+    "target": "hobbit",
+    "effects": {
+      "type": "activated",
+      "phase": "fellowship",
+      "cost": [
+        {
+          "type": "discard",
+          "filter": "choose(pipeweed,possession)"
+        },
+        {
+          "type": "chooseHowManyToSpot",
+          "filter": "pipe",
+          "memorize": "numberOfPipes"
+        }
+      ],
+      "effect": {
+        "type": "shuffleCardsFromDiscardIntoDrawDeck",
+        "count": {
+          "type": "fromMemory",
+          "memory": "numberOfPipes"
+        },
+        "filter": "choose(tale)"
+      }
+    }
+  },
+  "40_245": {
+    "title": "Crossing the Threshold",
+    "culture": "shire",
+    "cost": 0,
+    "type": "event",
+    "keyword": "skirmish",
+    "effects": {
+      "type": "event",
+      "cost": {
+        "type": "putOnRing"
+      },
+      "effect": {
+        "type": "wound",
+        "filter": "all(minion,inSkirmishAgainst(ring bearer))"
       }
     }
   },
@@ -81,6 +128,142 @@
       "effect": {
         "type": "heal",
         "filter": "choose(or(name(Merry),name(Pippin)))"
+      }
+    }
+  },
+  "40_248": {
+    "title": "*Frodo",
+    "subtitle": "Bane of the Sackville-Bagginses",
+    "culture": "shire",
+    "cost": 0,
+    "type": "companion",
+    "race": "hobbit",
+    "strength": 3,
+    "vitality": 4,
+    "resistance": 10,
+    "keyword": "can start with ring",
+    "effects": {
+      "type": "trigger",
+      "optional": true,
+      "trigger": {
+        "type": "played",
+        "filter": "culture(shire),tale"
+      },
+      "effect": {
+        "type": "heal",
+        "filter": "all(name(Frodo))"
+      }
+    }
+  },
+  "40_249": {
+    "title": "*Frodo",
+    "subtitle": "Extraordinarily Resilient",
+    "culture": "shire",
+    "cost": 0,
+    "type": "companion",
+    "race": "hobbit",
+    "strength": 3,
+    "vitality": 4,
+    "resistance": 10,
+    "keyword": "can start with ring",
+    "effects": {
+      "type": "trigger",
+      "optional": true,
+      "trigger": {
+        "type": "startOfTurn"
+      },
+      "effect": {
+        "type": "choice",
+        "texts": [
+          "Exert Frodo to heal a companion of another culture",
+          "Exert a companion of another culture to heal Frodo"
+        ],
+        "effects": [
+          {
+            "type": "costToEffect",
+            "cost": {
+              "type": "exert",
+              "filter": "self"
+            },
+            "effect": {
+              "type": "heal",
+              "filter": "choose(companion,not(culture(shire)))"
+            }
+          },
+          {
+            "type": "costToEffect",
+            "cost": {
+              "type": "exert",
+              "filter": "choose(companion,not(culture(shire)))"
+            },
+            "effect": {
+              "type": "heal",
+              "filter": "self"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "40_250": {
+    "title": "*Frodo's Pipe",
+    "culture": "shire",
+    "cost": 1,
+    "type": "possession",
+    "possession": "pipe",
+    "target": "name(Frodo)",
+    "effects": {
+      "type": "activated",
+      "phase": "fellowship",
+      "cost": [
+        {
+          "type": "discard",
+          "filter": "choose(pipeweed,possession)"
+        },
+        {
+          "type": "chooseHowManyToSpot",
+          "filter": "pipe",
+          "memorize": "numberOfPipes"
+        }
+      ],
+      "effect": {
+        "type": "heal",
+        "times": {
+          "type": "fromMemory",
+          "memory": "numberOfPipes"
+        },
+        "filter": "choose(companion,hasAttached(pipe))"
+      },
+      "limitPerPhase": 1
+    }
+  },
+  "40_251": {
+    "title": "*The Gaffer's Pipe",
+    "culture": "shire",
+    "cost": 1,
+    "type": "possession",
+    "possession": "pipe",
+    "target": "hobbit",
+    "effects": {
+      "type": "activated",
+      "phase": "fellowship",
+      "cost": [
+        {
+          "type": "discard",
+          "filter": "choose(pipeweed,possession)"
+        },
+        {
+          "type": "chooseHowManyToSpot",
+          "filter": "pipe",
+          "memorize": "numberOfPipes"
+        }
+      ],
+      "effect": {
+        "type": "removeTwilight",
+        "amount": {
+          "type": "fromMemory",
+          "memory": "numberOfPipes"
+        }
       }
     }
   },
@@ -143,6 +326,42 @@
       }
     ]
   },
+  "40_254": {
+    "title": "Hobbit Sword",
+    "culture": "shire",
+    "cost": 1,
+    "type": "possession",
+    "possession": "hand weapon",
+    "strength": 2,
+    "target": "hobbit"
+  },
+  "40_255": {
+    "title": "Longbottom Leaf",
+    "subtitle": "Hornblower's Crop",
+    "culture": "shire",
+    "cost": 1,
+    "type": "possession",
+    "keyword": [
+      "support area",
+      "pipeweed"
+    ],
+    "effects": {
+      "type": "trigger",
+      "optional": true,
+      "trigger": {
+        "type": "played",
+        "filter": "self"
+      },
+      "cost": {
+        "type": "exert",
+        "filter": "choose(hobbit,companion)"
+      },
+      "effect": {
+        "type": "heal",
+        "filter": "choose(shire,ally)"
+      }
+    }
+  },
   "40_256": {
     "title": "*Merry",
     "subtitle": "Bucklander",
@@ -163,6 +382,241 @@
         },
         "filter": "self",
         "amount": 2
+      }
+    }
+  },
+  "40_257": {
+    "title": "*Merry",
+    "subtitle": "Pipeweed Aficionado",
+    "culture": "shire",
+    "cost": 1,
+    "type": "companion",
+    "race": "hobbit",
+    "strength": 3,
+    "vitality": 4,
+    "resistance": 8,
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "classSpot",
+          "class": "pipe"
+        }
+      },
+      {
+        "type": "trigger",
+        "optional": true,
+        "trigger": {
+          "type": "startOfTurn"
+        },
+        "cost": {
+          "type": "exert",
+          "filter": "choose(name(Merry))",
+          "times": 2
+        },
+        "effect": {
+          "type": "playCardFromDrawDeck",
+          "filter": "choose(pipeweed,possession)"
+        }
+      }
+    ]
+  },
+  "40_258": {
+    "title": "*Merry's Pipe",
+    "culture": "shire",
+    "cost": 1,
+    "type": "possession",
+    "possession": "pipe",
+    "target": "name(Merry)",
+    "effects": {
+      "type": "activated",
+      "phase": "fellowship",
+      "cost": {
+        "type": "discard",
+        "filter": "choose(pipeweed,possession)"
+      },
+      "effect": {
+        "type": "heal",
+        "filter": "all(companion,hasAttached(pipe))"
+      },
+      "limitPerPhase": 1
+    }
+  },
+  "40_259": {
+    "title": "Nimble and Deft",
+    "culture": "shire",
+    "cost": 1,
+    "type": "event",
+    "keyword": [
+      "skirmish",
+      "stealth"
+    ],
+    "effects": {
+      "type": "event",
+      "effect": {
+        "type": "choice",
+        "texts": [
+          "Cancel a skirmish involving a Hobbit",
+          "Make a Hobbit strength +2"
+        ],
+        "effects": [
+          {
+            "type": "conditional",
+            "condition": [
+              {
+                "type": "location",
+                "filter": "siteNumber(1-5)"
+              },
+              {
+                "type": "canSpot",
+                "filter": "hobbit,companion",
+                "count": 2
+              }
+            ],
+            "effect": {
+              "type": "cancelSkirmish",
+              "filter": "hobbit"
+            }
+          },
+          {
+            "type": "modifyStrength",
+            "filter": "choose(hobbit)",
+            "amount": 2
+          }
+        ]
+      }
+    }
+  },
+  "40_260": {
+    "title": "*Old Toby",
+    "subtitle": "Finest Weed in the Southfarthing",
+    "culture": "shire",
+    "cost": 1,
+    "type": "possession",
+    "keyword": [
+      "support area",
+      "pipeweed"
+    ],
+    "effects": {
+      "type": "trigger",
+      "optional": true,
+      "trigger": {
+        "type": "played",
+        "filter": "self"
+      },
+      "condition": {
+        "type": "canSpot",
+        "filter": "name(Bilbo)"
+      },
+      "effect": {
+        "type": "drawCards"
+      }
+    }
+  },
+  "40_261": {
+    "title": "*Pippin",
+    "subtitle": "Frodo's Cousin",
+    "culture": "shire",
+    "cost": 1,
+    "type": "companion",
+    "race": "hobbit",
+    "strength": 3,
+    "vitality": 4,
+    "resistance": 8,
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyStrength",
+          "filter": "companion,hasAttached(pipe)",
+          "amount": 1
+        }
+      },
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyStrength",
+          "filter": "self,hasAttached(pipe)",
+          "amount": 1
+        }
+      }
+    ]
+  },
+  "40_262": {
+    "title": "*Pippin",
+    "subtitle": "Halfling Trickster",
+    "culture": "shire",
+    "cost": 1,
+    "type": "companion",
+    "race": "hobbit",
+    "strength": 3,
+    "vitality": 4,
+    "resistance": 8,
+    "effects": {
+      "type": "trigger",
+      "optional": true,
+      "trigger": {
+        "type": "played",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "playNextSite"
+      }
+    }
+  },
+  "40_263": {
+    "title": "*Pippin's Pipe",
+    "culture": "shire",
+    "cost": 1,
+    "type": "possession",
+    "possession": "pipe",
+    "target": "name(Pippin)",
+    "effects": {
+      "type": "activated",
+      "phase": "regroup",
+      "cost": [
+        {
+          "type": "discard",
+          "filter": "choose(pipeweed,possession)"
+        },
+        {
+          "type": "chooseHowManyToSpot",
+          "filter": "pipe",
+          "memorize": "numberOfPipes"
+        }
+      ],
+      "effect": {
+        "type": "removeThreats",
+        "amount": {
+          "type": "fromMemory",
+          "memory": "numberOfPipes"
+        }
+      },
+      "limitPerPhase": 1
+    }
+  },
+  "40_264": {
+    "title": "A Promise",
+    "culture": "shire",
+    "cost": 0,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyStrength",
+        "filter": "or(name(Frodo),name(Sam))",
+        "amount": 1,
+        "condition": [
+          {
+            "type": "canSpot",
+            "filter": "not(exhausted),name(Frodo)"
+          },
+          {
+            "type": "canSpot",
+            "filter": "not(exhausted),name(Sam)"
+          }
+        ]
       }
     }
   },

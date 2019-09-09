@@ -269,7 +269,7 @@ public class CardResolver {
         throw new RuntimeException("Unable to resolve card resolver of type: " + type);
     }
 
-    public static EffectAppender resolveCardsInDeck(String type, FilterableSource choiceFilter, FilterableSource playabilityFilter, ValueSource countSource, String memory, String choicePlayer, String choiceText, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
+    public static EffectAppender resolveCardsInDeck(String type, FilterableSource choiceFilter, ValueSource countSource, String memory, String choicePlayer, String choiceText, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         if (type.startsWith("choose(") && type.endsWith(")")) {
             final String filter = type.substring(type.indexOf("(") + 1, type.lastIndexOf(")"));
             final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
@@ -314,12 +314,16 @@ public class CardResolver {
     }
 
     public static EffectAppender resolveCards(String type, FilterableSource additionalFilter, ValueSource countSource, String memory, String choicePlayer, String choiceText, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
+        return resolveCards(type, additionalFilter, additionalFilter, countSource, memory, choicePlayer, choiceText, environment);
+    }
+
+    public static EffectAppender resolveCards(String type, FilterableSource additionalFilter, FilterableSource playabilityFilter, ValueSource countSource, String memory, String choicePlayer, String choiceText, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         if (type.equals("self")) {
             return new DelayedAppender() {
                 @Override
                 public boolean isPlayableInFull(ActionContext actionContext) {
-                    if (additionalFilter != null)
-                        return PlayConditions.isActive(actionContext.getGame(), actionContext.getSource(), additionalFilter.getFilterable(actionContext));
+                    if (playabilityFilter != null)
+                        return PlayConditions.isActive(actionContext.getGame(), actionContext.getSource(), playabilityFilter.getFilterable(actionContext));
                     return true;
                 }
 
@@ -338,10 +342,10 @@ public class CardResolver {
             return new DelayedAppender() {
                 @Override
                 public boolean isPlayableInFull(ActionContext actionContext) {
-                    if (additionalFilter != null) {
+                    if (playabilityFilter != null) {
                         final Collection<? extends PhysicalCard> cardsFromMemory = actionContext.getCardsFromMemory(sourceMemory);
                         for (PhysicalCard physicalCard : cardsFromMemory) {
-                            if (!PlayConditions.isActive(actionContext.getGame(), physicalCard, additionalFilter.getFilterable(actionContext)))
+                            if (!PlayConditions.isActive(actionContext.getGame(), physicalCard, playabilityFilter.getFilterable(actionContext)))
                                 return false;
                         }
                     }
@@ -389,8 +393,8 @@ public class CardResolver {
                     int min = countSource.getMinimum(actionContext);
                     final Filterable filterable = filterableSource.getFilterable(actionContext);
                     Filterable additionalFilterable = Filters.any;
-                    if (additionalFilter != null)
-                        additionalFilterable = additionalFilter.getFilterable(actionContext);
+                    if (playabilityFilter != null)
+                        additionalFilterable = playabilityFilter.getFilterable(actionContext);
                     return PlayConditions.isActive(actionContext.getGame(), min, filterable, additionalFilterable);
                 }
 

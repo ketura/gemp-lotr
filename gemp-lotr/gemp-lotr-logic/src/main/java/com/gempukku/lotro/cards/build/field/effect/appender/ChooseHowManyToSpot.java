@@ -24,6 +24,9 @@ public class ChooseHowManyToSpot implements EffectAppenderProducer {
         final String filter = FieldUtils.getString(effectObject.get("filter"), "filter");
         final String memorize = FieldUtils.getString(effectObject.get("memorize"), "memorize");
 
+        if (memorize == null)
+            throw new InvalidCardDefinitionException("ChooseHowManyToSpot requires a field to memorize the value");
+
         final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
 
         return new DelayedAppender() {

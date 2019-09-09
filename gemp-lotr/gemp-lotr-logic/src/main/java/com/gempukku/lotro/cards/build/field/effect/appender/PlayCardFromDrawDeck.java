@@ -34,7 +34,6 @@ public class PlayCardFromDrawDeck implements EffectAppenderProducer {
         result.addEffectAppender(
                 CardResolver.resolveCardsInDeck(filter,
                         (actionContext) -> Filters.playable(actionContext.getGame()),
-                        (actionContext) -> Filters.playable(actionContext.getGame()),
                         new ConstantEvaluator(1), "_temp", "you", "Choose card to play", environment));
         result.addEffectAppender(
                 new DelayedAppender() {
