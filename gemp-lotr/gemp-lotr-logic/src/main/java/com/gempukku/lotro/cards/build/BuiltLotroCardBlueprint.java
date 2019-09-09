@@ -755,7 +755,7 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
 
         List<Modifier> result = new LinkedList<>();
         for (ModifierSource inPlayModifier : sources) {
-            ActionContext actionContext = new DefaultActionContext(null, game, self, null, null);
+            ActionContext actionContext = new DefaultActionContext(self.getOwner(), game, self, null, null);
             result.add(inPlayModifier.getModifier(actionContext));
         }
         return result;
