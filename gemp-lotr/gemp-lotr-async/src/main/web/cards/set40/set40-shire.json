@@ -711,6 +711,205 @@
       }
     ]
   },
+  "40_267": {
+    "title": "*Sam",
+    "subtitle": "Dropper of Eaves",
+    "culture": "shire",
+    "cost": 2,
+    "type": "companion",
+    "race": "hobbit",
+    "strength": 3,
+    "vitality": 4,
+    "resistance": 9,
+    "keyword": "ring-bound",
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyResistance",
+          "amount": -4,
+          "filter": "self,ring bearer"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "fellowship",
+        "cost": {
+          "type": "exert",
+          "filter": "self",
+          "times": 2
+        },
+        "effect": {
+          "type": "discard",
+          "filter": "choose(side(shadow),condition,attachedTo(companion))"
+        }
+      },
+      {
+        "type": "trigger",
+        "optional": true,
+        "trigger": {
+          "type": "killed",
+          "filter": "name(Frodo),ring bearer"
+        },
+        "effect": {
+          "type": "makeSelfRingBearer"
+        }
+      }
+    ]
+  },
+  "40_268": {
+    "title": "*Sam",
+    "subtitle": "Humble Halfling",
+    "culture": "shire",
+    "cost": 2,
+    "type": "companion",
+    "race": "hobbit",
+    "strength": 3,
+    "vitality": 4,
+    "resistance": 9,
+    "keyword": "ring-bound",
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyResistance",
+          "amount": -4,
+          "filter": "self,ring bearer"
+        }
+      },
+      {
+        "type": "trigger",
+        "optional": true,
+        "trigger": {
+          "type": "startOfTurn"
+        },
+        "cost": {
+          "type": "exert",
+          "filter": "choose(name(Sam))"
+        },
+        "effect": {
+          "type": "removeBurdens"
+        }
+      },
+      {
+        "type": "trigger",
+        "optional": true,
+        "trigger": {
+          "type": "killed",
+          "filter": "name(Frodo),ring bearer"
+        },
+        "effect": {
+          "type": "makeSelfRingBearer"
+        }
+      }
+    ]
+  },
+  "40_269": {
+    "title": "*Sam's Pipe",
+    "culture": "shire",
+    "cost": 1,
+    "type": "possession",
+    "possession": "pipe",
+    "target": "name(Sam)",
+    "effects": {
+      "type": "activated",
+      "phase": "regroup",
+      "cost": [
+        {
+          "type": "discard",
+          "filter": "choose(pipeweed,possession)"
+        },
+        {
+          "type": "chooseHowManyToSpot",
+          "filter": "pipe",
+          "memorize": "numberOfPipes"
+        }
+      ],
+      "effect": {
+        "type": "removeBurdens",
+        "amount": {
+          "type": "fromMemory",
+          "memory": "numberOfPipes"
+        }
+      },
+      "limitPerPhase": 1
+    }
+  },
+  "40_270": {
+    "title": "Save the Shire",
+    "culture": "shire",
+    "cost": 0,
+    "type": "event",
+    "keyword": "skirmish",
+    "effects": {
+      "type": "event",
+      "effect": [
+        {
+          "type": "modifyStrength",
+          "filter": "choose(hobbit)",
+          "amount": 1,
+          "memorize": "chosenHobbit"
+        },
+        {
+          "type": "addTrigger",
+          "optional": true,
+          "trigger": {
+            "type": "winsSkirmish",
+            "filter": "memory(chosenHobbit)"
+          },
+          "effect": {
+            "type": "removeBurdens",
+            "amount": 2
+          }
+        }
+      ]
+    }
+  },
+  "40_271": {
+    "title": "Southern Star",
+    "subtitle": "Southfarthing Vintage",
+    "culture": "shire",
+    "cost": 1,
+    "type": "possession",
+    "keyword": [
+      "support area",
+      "pipeweed"
+    ],
+    "effects": {
+      "type": "trigger",
+      "optional": true,
+      "trigger": {
+        "type": "played",
+        "filter": "self"
+      },
+      "cost": {
+        "type": "discardFromHand",
+        "forced": false
+      },
+      "effect": {
+        "type": "heal",
+        "filter": "choose(hobbit)"
+      }
+    }
+  },
+  "40_272": {
+    "title": "*Sting",
+    "subtitle": "Baggins Birthright",
+    "culture": "shire",
+    "cost": 1,
+    "type": "possession",
+    "possession": "hand weapon",
+    "strength": 2,
+    "target": "name(Frodo)",
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyStrength",
+        "filter": "bearer,strengthLessThan(9)",
+        "amount": 2
+      }
+    }
+  },
   "40_319": {
     "title": "*A Hobbit's Tale",
     "culture": "shire",
