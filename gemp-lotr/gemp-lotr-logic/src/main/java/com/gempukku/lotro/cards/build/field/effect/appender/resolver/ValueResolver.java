@@ -78,15 +78,16 @@ public class ValueResolver {
                 final int multiplier = FieldUtils.getInteger(object.get("multiplier"), "multiplier", 1);
                 return actionContext -> new MultiplyEvaluator(multiplier, new ForEachThreatEvaluator());
             } else if (type.equalsIgnoreCase("forEachWound")) {
-                FieldUtils.validateAllowedFields(object, "filter");
+                FieldUtils.validateAllowedFields(object, "filter", "multiplier");
                 final String filter = FieldUtils.getString(object.get("filter"), "filter");
+                final int multiplier = FieldUtils.getInteger(object.get("multiplier"), "multiplier", 1);
                 final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
                 return (actionContext) -> (Evaluator) (game, cardAffected) -> {
                     int wounds = 0;
                     for (PhysicalCard physicalCard : Filters.filterActive(actionContext.getGame(), filterableSource.getFilterable(actionContext))) {
                         wounds += actionContext.getGame().getGameState().getWounds(physicalCard);
                     }
-                    return wounds;
+                    return multiplier * wounds;
                 };
             } else if (type.equalsIgnoreCase("forEachKeywordOnCardInMemory")) {
                 FieldUtils.validateAllowedFields(object, "memory", "keyword");
@@ -122,6 +123,22 @@ public class ValueResolver {
                 final int multiplier = FieldUtils.getInteger(object.get("multiplier"), "multiplier", 1);
                 final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
                 return actionContext -> new MultiplyEvaluator(multiplier, new CountSpottableEvaluator(over, limit, filterableSource.getFilterable(actionContext)));
+            } else if (type.equalsIgnoreCase("forEachInDiscard")) {
+                FieldUtils.validateAllowedFields(object, "filter", "multiplier");
+                final String filter = FieldUtils.getString(object.get("filter"), "filter");
+                final int multiplier = FieldUtils.getInteger(object.get("multiplier"), "multiplier", 1);
+                final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
+                return actionContext -> new MultiplyEvaluator(multiplier, new Evaluator() {
+                    @Override
+                    public int evaluateExpression(LotroGame game, PhysicalCard cardAffected) {
+                        final Filterable filterable = filterableSource.getFilterable(actionContext);
+                        int count = 0;
+                        for (String player : game.getGameState().getPlayerOrder().getAllPlayers())
+                            count += Filters.filter(game.getGameState().getDiscard(player), game, filterable).size();
+
+                        return count;
+                    }
+                });
             } else if (type.equalsIgnoreCase("forEachFPCultureLessThan")) {
                 FieldUtils.validateAllowedFields(object, "amount");
                 final int lessThan = FieldUtils.getInteger(object.get("amount"), "amount");

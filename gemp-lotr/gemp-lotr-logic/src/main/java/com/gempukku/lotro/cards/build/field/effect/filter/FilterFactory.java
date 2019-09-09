@@ -6,6 +6,7 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.timing.results.CharacterLostSkirmishResult;
 
@@ -59,6 +60,22 @@ public class FilterFactory {
                 (actionContext) -> Filters.currentSite);
         simpleFilters.put("siteincurrentregion",
                 (actionContext) -> Filters.siteInCurrentRegion);
+        simpleFilters.put("idinstored",
+                (actionContext ->
+                        new Filter() {
+                            @Override
+                            public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
+                                final String whileInZoneData = (String) actionContext.getSource().getWhileInZoneData();
+                                if (whileInZoneData == null)
+                                    return false;
+                                for (String cardId : whileInZoneData.split(",")) {
+                                    if (cardId.equals(String.valueOf(physicalCard.getCardId())))
+                                        return true;
+                                }
+
+                                return false;
+                            }
+                        }));
 
         parameterFilters.put("culture", (parameter, environment) -> {
             final Culture culture = Culture.valueOf(parameter.toUpperCase());
@@ -204,20 +221,74 @@ public class FilterFactory {
                 (parameter, environment) -> {
                     if (parameter.startsWith("memory(") && parameter.endsWith(")")) {
                         String memory = parameter.substring(parameter.indexOf("(") + 1, parameter.lastIndexOf(")"));
-                        return new FilterableSource() {
-                            @Override
-                            public Filterable getFilterable(ActionContext actionContext) {
-                                final int value = Integer.parseInt(actionContext.getValueFromMemory(memory));
-                                return Filters.maxPrintedTwilightCost(value);
-                            }
+                        return actionContext -> {
+                            final int value = Integer.parseInt(actionContext.getValueFromMemory(memory));
+                            return Filters.maxPrintedTwilightCost(value);
                         };
                     } else {
                         final ValueSource valueSource = ValueResolver.resolveEvaluator(parameter, 0, environment);
+                        return actionContext -> {
+                            final int value = valueSource.getEvaluator(actionContext).evaluateExpression(actionContext.getGame(), null);
+                            return Filters.maxPrintedTwilightCost(value);
+                        };
+                    }
+                });
+        parameterFilters.put("minTwilight",
+                (parameter, environment) -> {
+                    if (parameter.startsWith("memory(") && parameter.endsWith(")")) {
+                        String memory = parameter.substring(parameter.indexOf("(") + 1, parameter.lastIndexOf(")"));
+                        return actionContext -> {
+                            final int value = Integer.parseInt(actionContext.getValueFromMemory(memory));
+                            return Filters.minPrintedTwilightCost(value);
+                        };
+                    } else {
+                        final ValueSource valueSource = ValueResolver.resolveEvaluator(parameter, 0, environment);
+                        return actionContext -> {
+                            final int value = valueSource.getEvaluator(actionContext).evaluateExpression(actionContext.getGame(), null);
+                            return Filters.minPrintedTwilightCost(value);
+                        };
+                    }
+                });
+        parameterFilters.put("assignableToSkirmishAgainst",
+                (parameter, environment) -> {
+                    final FilterableSource againstFilterableSource = environment.getFilterFactory().generateFilter(parameter, environment);
+                    return actionContext -> {
+                        final Side side = GameUtils.getSide(actionContext.getGame(), actionContext.getPerformingPlayer());
+                        return Filters.assignableToSkirmishAgainst(side, againstFilterableSource.getFilterable(actionContext));
+                    };
+                });
+        parameterFilters.put("race",
+                new FilterableSourceProducer() {
+                    @Override
+                    public FilterableSource createFilterableSource(String parameter, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
+                        if (parameter.equals("stored")) {
+                            return new FilterableSource() {
+                                @Override
+                                public Filterable getFilterable(ActionContext actionContext) {
+                                    final String value = (String) actionContext.getSource().getWhileInZoneData();
+                                    return Race.valueOf(value);
+                                }
+                            };
+                        }
+                        throw new InvalidCardDefinitionException("Unknown race definition in filter");
+                    }
+                });
+        parameterFilters.put("nameFromMemory",
+                new FilterableSourceProducer() {
+                    @Override
+                    public FilterableSource createFilterableSource(String parameter, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
                         return new FilterableSource() {
                             @Override
                             public Filterable getFilterable(ActionContext actionContext) {
-                                final int value = valueSource.getEvaluator(actionContext).evaluateExpression(actionContext.getGame(), null);
-                                return Filters.maxPrintedTwilightCost(value);
+                                Set<String> titles = new HashSet<>();
+                                for (PhysicalCard physicalCard : actionContext.getCardsFromMemory(parameter))
+                                    titles.add(physicalCard.getBlueprint().getTitle());
+                                return new Filter() {
+                                    @Override
+                                    public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
+                                        return titles.contains(physicalCard.getBlueprint().getTitle());
+                                    }
+                                };
                             }
                         };
                     }
@@ -234,7 +305,8 @@ public class FilterFactory {
             simpleFilters.put(optionalFilterName, (actionContext -> value));
     }
 
-    public FilterableSource generateFilter(String value, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
+    public FilterableSource generateFilter(String value, CardGenerationEnvironment environment) throws
+            InvalidCardDefinitionException {
         String filterStrings[] = splitIntoFilters(value);
         if (filterStrings.length == 0)
             return (actionContext) -> Filters.any;
@@ -289,7 +361,8 @@ public class FilterFactory {
         return parts.toArray(new String[0]);
     }
 
-    private FilterableSource createFilter(String filterString, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
+    private FilterableSource createFilter(String filterString, CardGenerationEnvironment environment) throws
+            InvalidCardDefinitionException {
         if (filterString.contains("(") && filterString.endsWith(")")) {
             String filterName = filterString.substring(0, filterString.indexOf("("));
             String filterParameter = filterString.substring(filterString.indexOf("(") + 1, filterString.lastIndexOf(")"));
@@ -298,7 +371,8 @@ public class FilterFactory {
         return lookupFilter(filterString, null, environment);
     }
 
-    private FilterableSource lookupFilter(String name, String parameter, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
+    private FilterableSource lookupFilter(String name, String parameter, CardGenerationEnvironment environment) throws
+            InvalidCardDefinitionException {
         if (parameter == null) {
             FilterableSource result = simpleFilters.get(name.toLowerCase());
             if (result != null)

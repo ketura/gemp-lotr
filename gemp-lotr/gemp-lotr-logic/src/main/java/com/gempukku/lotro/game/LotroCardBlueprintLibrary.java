@@ -75,30 +75,33 @@ public class LotroCardBlueprintLibrary {
     }
 
     public void init(File cardPath, CardSets cardSets) {
-        loadCards(cardPath);
+        loadCards(cardPath, true);
         initCardSets(cardSets);
         collectionReadyLatch.countDown();
     }
 
     public void reloadCards(File cardPath) {
-        loadCards(cardPath);
+        loadCards(cardPath, false);
     }
 
-    private void loadCards(File path) {
+    private void loadCards(File path, boolean initial) {
         if (path.isFile())
-            loadCardsFromFile(path);
+            loadCardsFromFile(path, initial);
         else if (path.isDirectory())
             for (File file : path.listFiles())
-                loadCards(file);
+                loadCards(file, initial);
     }
 
-    private void loadCardsFromFile(File file) {
+    private void loadCardsFromFile(File file, boolean validateNew) {
         JSONParser parser = new JSONParser();
         try (FileReader reader = new FileReader(file)) {
             final JSONObject cardsFile = (JSONObject) parser.parse(reader);
             final Set<Map.Entry<String, JSONObject>> cardsInFile = cardsFile.entrySet();
             for (Map.Entry<String, JSONObject> cardEntry : cardsInFile) {
                 String blueprint = cardEntry.getKey();
+                if (validateNew)
+                    if (_blueprintMap.containsKey(blueprint))
+                        logger.error(blueprint + " - Replacing existing card definition!");
                 final JSONObject cardDefinition = cardEntry.getValue();
                 try {
                     final LotroCardBlueprint lotroCardBlueprint = cardBlueprintBuilder.buildFromJson(cardDefinition);

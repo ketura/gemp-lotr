@@ -17,6 +17,7 @@ public class RequirementFactory {
         requirementProducers.put("canspot", new CanSpot());
         requirementProducers.put("canspotburdens", new CanSpotBurdens());
         requirementProducers.put("canspotthreats", new CanSpotThreats());
+        requirementProducers.put("canspottwilight", new CanSpotTwilight());
         requirementProducers.put("controlssite", new ControlsSite());
         requirementProducers.put("twilightpoollessthan", new TwilightPoolLessThan());
         requirementProducers.put("location", new Location());
@@ -29,6 +30,7 @@ public class RequirementFactory {
         requirementProducers.put("fierceskirmish", new FierceSkirmish());
         requirementProducers.put("movecountminimum", new MoveCountMinimum());
         requirementProducers.put("wasassignedtoskirmish", new WasAssignedToSkirmish());
+        requirementProducers.put("didwinskirmish", new DidWinSkirmish());
         requirementProducers.put("ismore", new IsMore());
     }
 

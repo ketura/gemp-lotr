@@ -34,6 +34,9 @@ public class ModifierSourceFactory {
         modifierProducers.put("modifymovelimit", new ModifyMoveLimit());
         modifierProducers.put("cantheal", new CantHeal());
         modifierProducers.put("cantremoveburdens", new CantRemoveBurdens());
+        modifierProducers.put("cantbeassignedtoskirmishagainst", new CantBeAssignedToSkirmishAgainst());
+        modifierProducers.put("cantbear", new CantBear());
+        modifierProducers.put("cantdiscardcardsfromhandortopofdrawdeck", new CantDiscardCardsFromHandOrTopOfDrawDeck());
     }
 
     public ModifierSource getModifier(JSONObject object, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {

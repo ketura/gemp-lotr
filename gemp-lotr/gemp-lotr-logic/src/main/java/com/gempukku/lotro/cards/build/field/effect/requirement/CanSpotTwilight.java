@@ -6,11 +6,12 @@ import com.gempukku.lotro.cards.build.Requirement;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import org.json.simple.JSONObject;
 
-public class FierceSkirmish implements RequirementProducer {
+public class CanSpotTwilight implements RequirementProducer {
     @Override
     public Requirement getPlayRequirement(JSONObject object, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(object);
+        FieldUtils.validateAllowedFields(object, "amount");
 
-        return (actionContext) -> actionContext.getGame().getGameState().isFierceSkirmishes();
+        final int count = FieldUtils.getInteger(object.get("amount"), "amount", 1);
+        return (actionContext) -> actionContext.getGame().getGameState().getTwilightPool() >= count;
     }
 }

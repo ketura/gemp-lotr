@@ -6,6 +6,7 @@ import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.PlayerResolver;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.decisions.YesNoDecision;
@@ -25,6 +26,9 @@ public class PreventableAppenderProducer implements EffectAppenderProducer {
         JSONObject effect = (JSONObject) effectObject.get("effect");
         JSONObject cost = (JSONObject) effectObject.get("cost");
 
+        if (text == null)
+            throw new InvalidCardDefinitionException("Text is required for preventable effect");
+
         final PlayerSource preventingPlayerSource = PlayerResolver.resolvePlayer(player, environment);
         final EffectAppender effectAppender = environment.getEffectAppenderFactory().getEffectAppender(effect, environment);
         final EffectAppender costAppender = environment.getEffectAppenderFactory().getEffectAppender(cost, environment);
@@ -35,10 +39,21 @@ public class PreventableAppenderProducer implements EffectAppenderProducer {
                 if (costAppender.isPlayableInFull(actionContext)) {
                     final String preventingPlayer = preventingPlayerSource.getPlayer(actionContext);
 
+                    String textToUse = text;
+
+                    while (textToUse.contains("{")) {
+                        int startIndex = textToUse.indexOf("{");
+                        int endIndex = textToUse.indexOf("}");
+                        String memory = textToUse.substring(startIndex + 1, endIndex);
+                        final String cardNames = GameUtils.getAppendedNames(actionContext.getCardsFromMemory(memory));
+
+                        textToUse = textToUse.replace("{" + memory + "}", cardNames);
+                    }
+
                     SubAction subAction = new SubAction(action);
                     subAction.appendEffect(
                             new PlayoutDecisionEffect(preventingPlayer,
-                                    new YesNoDecision(text) {
+                                    new YesNoDecision(textToUse) {
                                         @Override
                                         protected void yes() {
                                             DelegateActionContext delegate = new DelegateActionContext(actionContext,

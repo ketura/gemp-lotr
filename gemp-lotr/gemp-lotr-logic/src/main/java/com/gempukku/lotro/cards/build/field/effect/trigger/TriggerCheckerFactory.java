@@ -21,6 +21,7 @@ public class TriggerCheckerFactory {
         triggerCheckers.put("endofturn", new EndOfTurn());
         triggerCheckers.put("startofphase", new StartOfPhase());
         triggerCheckers.put("abouttotakewound", new AboutToTakeWound());
+        triggerCheckers.put("abouttoexert", new AboutToExert());
         triggerCheckers.put("abouttobekilled", new AboutToBeKilled());
         triggerCheckers.put("condition", new ConditionTrigger());
         triggerCheckers.put("assignedtoskirmish", new AssignedToSkirmish());
@@ -33,6 +34,8 @@ public class TriggerCheckerFactory {
         triggerCheckers.put("putsonring", new PutsOnRing());
         triggerCheckers.put("addsburden", new AddsBurden());
         triggerCheckers.put("addsthreat", new AddsThreat());
+        triggerCheckers.put("transferred", new Transferred());
+        triggerCheckers.put("killed", new Killed());
     }
 
     public TriggerChecker getTriggerChecker(JSONObject object, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {

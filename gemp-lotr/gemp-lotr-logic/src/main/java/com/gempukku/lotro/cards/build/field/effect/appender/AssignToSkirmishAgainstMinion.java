@@ -49,10 +49,12 @@ public class AssignToSkirmishAgainstMinion implements EffectAppenderProducer {
                         final String assigningPlayer = playerSource.getPlayer(actionContext);
                         final Filterable filter = minionFilter.getFilterable(actionContext);
                         final PhysicalCard minion = Filters.findFirstActive(actionContext.getGame(), filter);
-                        final Collection<? extends PhysicalCard> fpChar = actionContext.getCardsFromMemory("_tempFpCharacter");
-                        if (fpChar.size() == 1) {
-                            return Collections.singletonList(
-                                    new AssignmentEffect(assigningPlayer, fpChar.iterator().next(), minion));
+                        if (minion != null) {
+                            final Collection<? extends PhysicalCard> fpChar = actionContext.getCardsFromMemory("_tempFpCharacter");
+                            if (fpChar.size() == 1) {
+                                return Collections.singletonList(
+                                        new AssignmentEffect(assigningPlayer, fpChar.iterator().next(), minion));
+                            }
                         }
                         return null;
                     }

@@ -13,6 +13,10 @@ import com.gempukku.lotro.game.state.LotroGame;
 import java.util.*;
 
 public class GameUtils {
+    public static Side getSide(LotroGame game, String playerId) {
+        return isFP(game, playerId) ? Side.FREE_PEOPLE : Side.SHADOW;
+    }
+
     public static boolean isSide(LotroGame game, Side side, String playerId) {
         if (side == Side.FREE_PEOPLE)
             return game.getGameState().getCurrentPlayerId().equals(playerId);
@@ -76,7 +80,7 @@ public class GameUtils {
         String[] result = new String[playerOrder.getPlayerCount()];
 
         final PlayOrder counterClockwisePlayOrder = playerOrder.getCounterClockwisePlayOrder(gameState.getCurrentPlayerId(), false);
-        int index=0;
+        int index = 0;
 
         String nextPlayer;
         while ((nextPlayer = counterClockwisePlayOrder.getNextPlayer()) != null) {

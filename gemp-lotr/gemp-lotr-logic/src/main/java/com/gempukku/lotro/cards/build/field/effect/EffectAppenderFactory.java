@@ -40,6 +40,7 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("memorize", new Memorize());
         effectAppenderProducers.put("memorizenumber", new MemorizeNumber());
         effectAppenderProducers.put("preventwound", new PreventWound());
+        effectAppenderProducers.put("preventexert", new PreventExert());
         effectAppenderProducers.put("putstackedcardsintohand", new PutStackedCardsIntoHand());
         effectAppenderProducers.put("conditional", new ConditionEffect());
         effectAppenderProducers.put("drawcards", new DrawCards());
@@ -86,6 +87,18 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("revealcardsfromhand", new RevealCardsFromHand());
         effectAppenderProducers.put("addtokens", new AddTokens());
         effectAppenderProducers.put("removetokens", new RemoveTokens());
+        effectAppenderProducers.put("transfer", new Transfer());
+        effectAppenderProducers.put("foreachshadowplayer", new ForEachShadowPlayer());
+        effectAppenderProducers.put("returntohand", new ReturnToHand());
+        effectAppenderProducers.put("reconcilehand", new ReconcileHand());
+        effectAppenderProducers.put("shufflecardsfromdiscardintodrawdeck", new ShuffleCardsFromDiscardIntoDrawDeck());
+        effectAppenderProducers.put("chooseactivecards", new ChooseActiveCards());
+        effectAppenderProducers.put("putplayedeventonbottomofdrawdeck", new PutPlayedEventOnBottomOfDrawDeck());
+        effectAppenderProducers.put("removecardsindiscardfromgame", new RemoveCardsInDiscardFromGame());
+        effectAppenderProducers.put("makeselfringbearer", new MakeSelfRingBearer());
+        effectAppenderProducers.put("choosearace", new ChooseARace());
+        effectAppenderProducers.put("storewhileinzone", new StoreWhileInZone());
+        effectAppenderProducers.put("appendcardidstowhileinzone", new AppendCardIdsToWhileInZone());
     }
 
     public EffectAppender getEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
