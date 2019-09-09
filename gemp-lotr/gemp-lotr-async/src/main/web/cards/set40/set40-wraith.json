@@ -52,6 +52,125 @@
       }
     }
   },
+  "40_185": {
+    "title": "Blade Tip",
+    "culture": "wraith",
+    "cost": 0,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": [
+      {
+        "type": "activatedTrigger",
+        "trigger": {
+          "type": "winsSkirmish",
+          "filter": "nazgul",
+          "memorize": "winner"
+        },
+        "effect": {
+          "type": "transfer",
+          "filter": "choose(self,zone(support))",
+          "where": "choose(character,inSkirmishAgainst(memory(winner)),not(hasAttached(name(Blade Tip))))"
+        }
+      },
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "startOfPhase",
+          "phase": "fellowship"
+        },
+        "effect": [
+          {
+            "type": "wound",
+            "filter": "all(hasAttached(self),not(ring bearer))"
+          },
+          {
+            "type": "conditional",
+            "condition": {
+              "type": "canSpot",
+              "filter": "hasAttached(self),ring bearer"
+            },
+            "effect": {
+              "type": "addBurdens"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "40_186": {
+    "title": "Dark Whispers",
+    "culture": "wraith",
+    "cost": 0,
+    "type": "event",
+    "keyword": "skirmish",
+    "condition": {
+      "type": "canSpotBurdens",
+      "amount": 3
+    },
+    "effects": {
+      "type": "event",
+      "effect": [
+        {
+          "type": "modifyStrength",
+          "filter": "choose(nazgul)",
+          "amount": {
+            "type": "condition",
+            "condition": {
+              "type": "canSpotBurdens",
+              "amount": 6
+            },
+            "true": 3,
+            "false": 1
+          },
+          "memorize": "chosenNazgul"
+        },
+        {
+          "type": "addKeyword",
+          "filter": "memory(chosenNazgul)",
+          "keyword": "damage",
+          "amount": {
+            "type": "condition",
+            "condition": {
+              "type": "canSpotBurdens",
+              "amount": 6
+            },
+            "true": 2,
+            "false": 1
+          }
+        }
+      ]
+    }
+  },
+  "40_187": {
+    "title": "DarklySwift",
+    "culture": "wraith",
+    "cost": 1,
+    "type": "event",
+    "keyword": "regroup",
+    "condition": {
+      "type": "canSpot",
+      "filter": "companion,resistanceLessThan(4)"
+    },
+    "effects": {
+      "type": "event",
+      "cost": {
+        "type": "discard",
+        "filter": "choose(nazgul)"
+      },
+      "effect": {
+        "type": "addBurdens",
+        "amount": {
+          "type": "condition",
+          "condition": {
+            "type": "canSpot",
+            "filter": "companion,resistanceLessThan(1)"
+          },
+          "true": 2,
+          "false": 1
+        }
+      }
+    }
+  },
   "40_211": {
     "title": "*The Witch-king",
     "subtitle": "Greatest of the Nine",

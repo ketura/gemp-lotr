@@ -24,7 +24,7 @@ import java.util.Collection;
 public class AddKeyword implements EffectAppenderProducer {
     @Override
     public EffectAppender createEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(effectObject, "count", "filter", "memorize", "keyword", "until");
+        FieldUtils.validateAllowedFields(effectObject, "count", "filter", "memorize", "keyword", "amount", "until");
 
         final ValueSource valueSource = ValueResolver.resolveEvaluator(effectObject.get("count"), 1, environment);
         final String filter = FieldUtils.getString(effectObject.get("filter"), "filter");
@@ -37,7 +37,8 @@ public class AddKeyword implements EffectAppenderProducer {
         int value = 1;
         if (keywordSplit.length == 2)
             value = Integer.parseInt(keywordSplit[1]);
-        final int keywordValue = value;
+
+        final ValueSource amount = ValueResolver.resolveEvaluator(effectObject.get("amount"), value, environment);
 
         MultiEffectAppender result = new MultiEffectAppender();
 
@@ -48,8 +49,9 @@ public class AddKeyword implements EffectAppenderProducer {
                     @Override
                     protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
                         final Collection<? extends PhysicalCard> cardsFromMemory = actionContext.getCardsFromMemory(memory);
+                        final int keywordCount = amount.getEvaluator(actionContext).evaluateExpression(actionContext.getGame(), null);
                         return new AddUntilModifierEffect(
-                                new KeywordModifier(actionContext.getSource(), Filters.in(cardsFromMemory), keyword, keywordValue), until);
+                                new KeywordModifier(actionContext.getSource(), Filters.in(cardsFromMemory), keyword, keywordCount), until);
                     }
                 });
 
