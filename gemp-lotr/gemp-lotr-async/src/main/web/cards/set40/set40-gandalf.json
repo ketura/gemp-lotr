@@ -39,7 +39,8 @@
         {
           "type": "modifyStrength",
           "filter": "choose(name(Gandalf))",
-          "memorize": "chosenGandalf"
+          "memorize": "chosenGandalf",
+          "amount": 1
         },
         {
           "type": "addTrigger",
@@ -534,7 +535,7 @@
     }
   },
   "40_79": {
-    "title": "*Introspection",
+    "title": "Introspection",
     "culture": "gandalf",
     "cost": 2,
     "type": "condition",
