@@ -31,7 +31,7 @@ public class PreventCardEffectAppender implements EffectAppenderProducer {
                 new DelayedAppender() {
                     @Override
                     protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
-                        return new PreventCardEffect((PreventableCardEffect) actionContext.getEffect(), actionContext.getCardFromMemory(memory));
+                        return new PreventCardEffect((PreventableCardEffect) actionContext.getEffect(), Filters.in(actionContext.getCardsFromMemory(memory)));
                     }
                 });
 

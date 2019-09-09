@@ -10,6 +10,7 @@ import com.gempukku.lotro.cards.build.field.effect.appender.resolver.CardResolve
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.effects.StackPlayedEventOnACardEffect;
+import com.gempukku.lotro.logic.timing.DoNothingEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.results.PlayEventResult;
 import org.json.simple.JSONObject;
@@ -30,9 +31,11 @@ public class StackPlayedEvent implements EffectAppenderProducer {
                     @Override
                     protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
                         final PhysicalCard card = actionContext.getCardFromMemory("_temp1");
-
-                        final PlayEventResult playEventResult = (PlayEventResult) actionContext.getEffectResult();
-                        return new StackPlayedEventOnACardEffect(playEventResult.getPlayEventAction(), card);
+                        if (card != null) {
+                            final PlayEventResult playEventResult = (PlayEventResult) actionContext.getEffectResult();
+                            return new StackPlayedEventOnACardEffect(playEventResult.getPlayEventAction(), card);
+                        } else
+                            return new DoNothingEffect();
                     }
                 });
 

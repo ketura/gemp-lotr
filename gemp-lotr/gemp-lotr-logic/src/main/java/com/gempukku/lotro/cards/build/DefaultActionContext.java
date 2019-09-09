@@ -59,6 +59,8 @@ public class DefaultActionContext implements ActionContext {
     @Override
     public PhysicalCard getCardFromMemory(String memory) {
         final Collection<PhysicalCard> physicalCards = cardMemory.get(memory);
+        if (physicalCards.size() == 0)
+            return null;
         if (physicalCards.size() != 1)
             throw new RuntimeException("Unable to retrieve one card from memory: " + memory);
         return physicalCards.iterator().next();

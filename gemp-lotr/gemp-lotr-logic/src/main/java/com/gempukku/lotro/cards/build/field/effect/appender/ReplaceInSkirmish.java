@@ -11,6 +11,7 @@ import com.gempukku.lotro.cards.build.field.effect.appender.resolver.CardResolve
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.effects.ReplaceInSkirmishEffect;
+import com.gempukku.lotro.logic.timing.DoNothingEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 import org.json.simple.JSONObject;
 
@@ -32,7 +33,10 @@ public class ReplaceInSkirmish implements EffectAppenderProducer {
                     @Override
                     protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
                         final PhysicalCard card = actionContext.getCardFromMemory("_temp");
-                        return new ReplaceInSkirmishEffect(card, filterableSource.getFilterable(actionContext));
+                        if (card != null)
+                            return new ReplaceInSkirmishEffect(card, filterableSource.getFilterable(actionContext));
+                        else
+                            return new DoNothingEffect();
                     }
                 });
 

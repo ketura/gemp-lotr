@@ -12,6 +12,7 @@ import com.gempukku.lotro.cards.build.field.effect.appender.resolver.PlayerResol
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.effects.StackTopCardsFromDeckEffect;
+import com.gempukku.lotro.logic.timing.DoNothingEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 import org.json.simple.JSONObject;
 
@@ -36,9 +37,12 @@ public class StackTopCardsOfDrawDeck implements EffectAppenderProducer {
                     @Override
                     protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
                         final PhysicalCard card = actionContext.getCardFromMemory(cardMemory);
-                        final String deckId = playerSource.getPlayer(actionContext);
+                        if (card != null) {
+                            final String deckId = playerSource.getPlayer(actionContext);
 
-                        return new StackTopCardsFromDeckEffect(actionContext.getSource(), deckId, count, card);
+                            return new StackTopCardsFromDeckEffect(actionContext.getSource(), deckId, count, card);
+                        } else
+                            return new DoNothingEffect();
                     }
                 });
 

@@ -39,14 +39,17 @@ public class StackCardsFromHand implements EffectAppenderProducer {
                     @Override
                     protected List<? extends Effect> createEffects(boolean cost, CostToEffectAction action, ActionContext actionContext) {
                         final PhysicalCard card = actionContext.getCardFromMemory("_temp1");
-                        final Collection<? extends PhysicalCard> cardsInHand = actionContext.getCardsFromMemory("_temp2");
+                        if (card != null) {
+                            final Collection<? extends PhysicalCard> cardsInHand = actionContext.getCardsFromMemory("_temp2");
 
-                        List<Effect> result = new LinkedList<>();
-                        for (PhysicalCard physicalCard : cardsInHand) {
-                            result.add(new StackCardFromHandEffect(physicalCard, card));
+                            List<Effect> result = new LinkedList<>();
+                            for (PhysicalCard physicalCard : cardsInHand) {
+                                result.add(new StackCardFromHandEffect(physicalCard, card));
+                            }
+
+                            return result;
                         }
-
-                        return result;
+                        return null;
                     }
                 });
 

@@ -12,6 +12,8 @@ import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.modifiers.evaluator.*;
 import org.json.simple.JSONObject;
 
+import java.util.Collection;
+
 public class ValueResolver {
     public static ValueSource resolveEvaluator(Object value, int defaultValue, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         if (value == null)
@@ -95,7 +97,11 @@ public class ValueResolver {
                 final Keyword keyword = FieldUtils.getEnum(Keyword.class, object.get("keyword"), "keyword");
                 return (actionContext) -> {
                     final LotroGame game = actionContext.getGame();
-                    int count = game.getModifiersQuerying().getKeywordCount(game, actionContext.getCardFromMemory(memory), keyword);
+                    int count = 0;
+                    final Collection<? extends PhysicalCard> cardsFromMemory = actionContext.getCardsFromMemory(memory);
+                    for (PhysicalCard cardFromMemory : cardsFromMemory) {
+                        count += game.getModifiersQuerying().getKeywordCount(game, cardFromMemory, keyword);
+                    }
                     return new ConstantEvaluator(count);
                 };
             } else if (type.equalsIgnoreCase("limit")) {

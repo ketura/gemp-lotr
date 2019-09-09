@@ -39,14 +39,17 @@ public class StackCardsFromDiscard implements EffectAppenderProducer {
                     @Override
                     protected List<? extends Effect> createEffects(boolean cost, CostToEffectAction action, ActionContext actionContext) {
                         final PhysicalCard card = actionContext.getCardFromMemory("_temp1");
-                        final Collection<? extends PhysicalCard> cardsInDiscard = actionContext.getCardsFromMemory("_temp2");
+                        if (card != null) {
+                            final Collection<? extends PhysicalCard> cardsInDiscard = actionContext.getCardsFromMemory("_temp2");
 
-                        List<Effect> result = new LinkedList<>();
-                        for (PhysicalCard physicalCard : cardsInDiscard) {
-                            result.add(new StackCardFromDiscardEffect(physicalCard, card));
+                            List<Effect> result = new LinkedList<>();
+                            for (PhysicalCard physicalCard : cardsInDiscard) {
+                                result.add(new StackCardFromDiscardEffect(physicalCard, card));
+                            }
+
+                            return result;
                         }
-
-                        return result;
+                        return null;
                     }
                 });
 
