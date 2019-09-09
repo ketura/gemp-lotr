@@ -265,8 +265,16 @@ public class FilterFactory {
                             return new FilterableSource() {
                                 @Override
                                 public Filterable getFilterable(ActionContext actionContext) {
-                                    final String value = (String) actionContext.getSource().getWhileInZoneData();
-                                    return Race.valueOf(value);
+                                    return new Filter() {
+                                        @Override
+                                        public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
+                                            final String value = (String) actionContext.getSource().getWhileInZoneData();
+                                            if (value == null)
+                                                return false;
+                                            else
+                                                return Race.valueOf(value) == physicalCard.getBlueprint().getRace();
+                                        }
+                                    };
                                 }
                             };
                         }

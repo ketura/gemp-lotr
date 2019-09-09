@@ -237,7 +237,8 @@
           "amount": {
             "type": "printedStrengthFromMemory",
             "memory": "discardedCard"
-          }
+          },
+          "until": "start(regroup)"
         }
       }
     ]

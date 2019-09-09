@@ -518,4 +518,25 @@ public class NewCardsAtTest extends AbstractAtTest {
         assertEquals(Zone.DISCARD, blackBreath.getZone());
         assertEquals(Zone.ATTACHED, blackBreath2.getZone());
     }
+
+    @Test
+    public void strengthBonus() throws DecisionResultInvalidException, CardNotFoundException {
+        initializeSimplestGame();
+
+        final PhysicalCardImpl grimbeorn = createCard(P1, "14_6");
+        final PhysicalCardImpl nazgulInHand = createCard(P1, "40_211");
+        final PhysicalCardImpl nazgul = createCard(P2, "40_211");
+
+        _game.getGameState().addCardToZone(_game, grimbeorn, Zone.FREE_CHARACTERS);
+        _game.getGameState().addCardToZone(_game, nazgul, Zone.SHADOW_CHARACTERS);
+        _game.getGameState().addCardToZone(_game, nazgulInHand, Zone.HAND);
+
+        skipMulligans();
+
+        playerDecided(P1, "");
+        playerDecided(P2, "");
+
+        playerDecided(P1, "0");
+        playerDecided(P1, "");
+    }
 }

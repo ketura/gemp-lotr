@@ -13,8 +13,8 @@ import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 import org.json.simple.JSONObject;
 
-import java.util.LinkedHashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 public class ChooseARace implements EffectAppenderProducer {
     @Override
@@ -26,7 +26,7 @@ public class ChooseARace implements EffectAppenderProducer {
         return new DelayedAppender() {
             @Override
             protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
-                final Set<String> possibleRaces = new LinkedHashSet<String>();
+                final Set<String> possibleRaces = new TreeSet<>();
                 for (Race race : Race.values()) {
                     possibleRaces.add(race.getHumanReadable());
                 }
