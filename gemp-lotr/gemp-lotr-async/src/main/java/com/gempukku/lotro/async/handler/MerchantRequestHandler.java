@@ -115,7 +115,7 @@ public class MerchantRequestHandler extends LotroServerRequestHandler implements
 
         CardCollection collection = _collectionsManager.getPlayerCollection(resourceOwner, CollectionType.MY_CARDS.getCode());
 
-        Set<CardItem> cardItems = new HashSet<CardItem>();
+        Set<BasicCardItem> cardItems = new HashSet<>();
         if (ownedMin <= 0) {
             cardItems.addAll(_merchantService.getSellableItems());
             final Iterable<CardCollection.Item> items = collection.getAll();
@@ -124,11 +124,11 @@ public class MerchantRequestHandler extends LotroServerRequestHandler implements
         } else {
             for (CardCollection.Item item : collection.getAll()) {
                 if (item.getCount() >= ownedMin)
-                    cardItems.add(item);
+                    cardItems.add(new BasicCardItem(item.getBlueprintId()));
             }
         }
 
-        List<CardItem> filteredResult = _sortAndFilterCards.process(filter, cardItems, _library, _formatLibrary, _rarities);
+        List<BasicCardItem> filteredResult = _sortAndFilterCards.process(filter, cardItems, _library, _formatLibrary, _rarities);
 
         List<CardItem> pageToDisplay = new ArrayList<CardItem>();
         for (int i = start; i < start + count; i++) {
