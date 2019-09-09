@@ -51,6 +51,9 @@ public class CollectionSerializer {
 
         _singleByteCountItems.add("gl_theOneRing");
         _singleByteCountItems.add("gl_theOneRing*");
+
+        loadSet("30");
+        loadSet("31");
     }
 
     private void fillDoubleByteItems() throws IOException {

@@ -61,6 +61,27 @@ public class CollectionSerializerTest {
     }
 
     @Test
+    public void deserializeFromBytesV4() throws IOException {
+        InputStream is = CollectionSerializerTest.class.getResourceAsStream("/testCollection-v4");
+        try {
+            CardCollection resultCollection = _serializer.deserializeCollection(is);
+            assertEquals(7, Iterables.size(resultCollection.getAll()));
+            assertEquals(256 * 256 * 250, resultCollection.getCurrency());
+            assertEquals(2, resultCollection.getItemCount("1_1"));
+            assertEquals(3, resultCollection.getItemCount("1_231T"));
+            assertEquals(3, resultCollection.getItemCount("1_23*"));
+            assertEquals(3, resultCollection.getItemCount("1_237T*"));
+            assertEquals(3, resultCollection.getItemCount("15_2"));
+            assertEquals(3, resultCollection.getItemCount("15_4*"));
+            assertEquals(2, resultCollection.getItemCount("FotR - Booster"));
+            assertEquals(1, resultCollection.getExtraInformation().size());
+            assertEquals("b", resultCollection.getExtraInformation().get("a"));
+        } finally {
+            IOUtils.closeQuietly(is);
+        }
+    }
+
+    @Test
     public void testExtraInfo() throws IOException {
         DefaultCardCollection collection = new DefaultCardCollection();
         collection.addCurrency(12);
