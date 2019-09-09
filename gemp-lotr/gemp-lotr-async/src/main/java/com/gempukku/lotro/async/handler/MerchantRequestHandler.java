@@ -120,7 +120,7 @@ public class MerchantRequestHandler extends LotroServerRequestHandler implements
             cardItems.addAll(_merchantService.getSellableItems());
             final Iterable<CardCollection.Item> items = collection.getAll();
             for (CardCollection.Item item : items)
-                cardItems.add(item);
+                cardItems.add(new BasicCardItem(item.getBlueprintId()));
         } else {
             for (CardCollection.Item item : collection.getAll()) {
                 if (item.getCount() >= ownedMin)
