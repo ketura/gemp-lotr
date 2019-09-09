@@ -1,4 +1,39 @@
 {
+  "40_183": {
+    "title": "Black Breath",
+    "culture": "wraith",
+    "cost": 1,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": [
+      {
+        "type": "activated",
+        "phase": "skirmish",
+        "effect": {
+          "type": "transfer",
+          "filter": "choose(self,zone(support))",
+          "where": "choose(character,inSkirmishAgainst(nazgul))"
+        }
+      },
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "cantRemoveBurdens",
+          "condition": {
+            "type": "canSpot",
+            "filter": "self,attachedTo(ring bearer)"
+          }
+        }
+      },
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "cantHeal",
+          "filter": "hasAttached(self)"
+        }
+      }
+    ]
+  },
   "40_184": {
     "title": "Black Steed",
     "subtitle": "Bred to Serve",

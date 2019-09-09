@@ -1,6 +1,7 @@
 package com.gempukku.lotro.cards.build.field.effect.filter;
 
 import com.gempukku.lotro.cards.build.*;
+import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.ValueResolver;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filter;
@@ -300,6 +301,11 @@ public class FilterFactory {
                             }
                         };
                     }
+                });
+        parameterFilters.put("zone",
+                (parameter, environment) -> {
+                    final Zone zone = FieldUtils.getEnum(Zone.class, parameter, "parameter");
+                    return actionContext -> zone;
                 });
     }
 
