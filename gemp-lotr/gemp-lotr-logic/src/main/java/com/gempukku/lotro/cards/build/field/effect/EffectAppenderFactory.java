@@ -36,6 +36,7 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("negatewound", new NegateWound());
         effectAppenderProducers.put("discardcardatrandomfromhand", new DiscardCardAtRandomFromHand());
         effectAppenderProducers.put("putonring", new PutOnRing());
+        effectAppenderProducers.put("takeoffring", new TakeOffRing());
         effectAppenderProducers.put("discardstackedcards", new DiscardStackedCards());
         effectAppenderProducers.put("memorize", new Memorize());
         effectAppenderProducers.put("memorizenumber", new MemorizeNumber());
@@ -88,6 +89,7 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("addtokens", new AddTokens());
         effectAppenderProducers.put("removetokens", new RemoveTokens());
         effectAppenderProducers.put("transfer", new Transfer());
+        effectAppenderProducers.put("transferfromdiscard", new TransferFromDiscard());
         effectAppenderProducers.put("foreachshadowplayer", new ForEachShadowPlayer());
         effectAppenderProducers.put("returntohand", new ReturnToHand());
         effectAppenderProducers.put("reconcilehand", new ReconcileHand());
@@ -99,6 +101,8 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("choosearace", new ChooseARace());
         effectAppenderProducers.put("storewhileinzone", new StoreWhileInZone());
         effectAppenderProducers.put("appendcardidstowhileinzone", new AppendCardIdsToWhileInZone());
+        effectAppenderProducers.put("corruptringbearer", new CorruptRingBearer());
+        effectAppenderProducers.put("kill", new Kill());
     }
 
     public EffectAppender getEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {

@@ -17,6 +17,7 @@ public class TriggerCheckerFactory {
         triggerCheckers.put("abouttodiscard", new AboutToDiscardFromPlay());
         triggerCheckers.put("losesskirmish", new LosesSkirmish());
         triggerCheckers.put("winsskirmish", new WinsSkirmish());
+        triggerCheckers.put("cancelledskirmish", new CancelledSkirmish());
         triggerCheckers.put("startofturn", new StartOfTurn());
         triggerCheckers.put("endofturn", new EndOfTurn());
         triggerCheckers.put("startofphase", new StartOfPhase());

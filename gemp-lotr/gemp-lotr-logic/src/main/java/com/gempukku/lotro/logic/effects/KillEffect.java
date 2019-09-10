@@ -15,7 +15,7 @@ import com.gempukku.lotro.logic.timing.results.KilledResult;
 import java.util.*;
 
 public class KillEffect extends AbstractSuccessfulEffect {
-    private Collection<PhysicalCard> _cards;
+    private Collection<? extends PhysicalCard> _cards;
     private Cause _cause;
 
     public enum Cause {
@@ -26,7 +26,7 @@ public class KillEffect extends AbstractSuccessfulEffect {
         this(Collections.singleton(card), cause);
     }
 
-    public KillEffect(Collection<PhysicalCard> cards, Cause cause) {
+    public KillEffect(Collection<? extends PhysicalCard> cards, Cause cause) {
         _cards = cards;
         _cause = cause;
     }

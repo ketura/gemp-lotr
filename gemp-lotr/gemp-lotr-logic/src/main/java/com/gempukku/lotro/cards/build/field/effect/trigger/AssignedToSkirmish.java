@@ -14,10 +14,11 @@ import org.json.simple.JSONObject;
 public class AssignedToSkirmish implements TriggerCheckerProducer {
     @Override
     public TriggerChecker getTriggerChecker(JSONObject value, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(value, "filter", "side", "against", "memorizeAgainst");
+        FieldUtils.validateAllowedFields(value, "filter", "side", "against", "memorizeAgainst", "memorizeAssigned");
 
         final String filter = FieldUtils.getString(value.get("filter"), "filter", "any");
         final String against = FieldUtils.getString(value.get("against"), "against", "any");
+        final String memorizeAssigned = FieldUtils.getString(value.get("memorizeAssigned"), "memorizeAssigned");
         final String memorizeAgainst = FieldUtils.getString(value.get("memorizeAgainst"), "memorizeAgainst");
         final Side side = FieldUtils.getEnum(Side.class, value.get("side"), "side");
 
@@ -36,9 +37,13 @@ public class AssignedToSkirmish implements TriggerCheckerProducer {
                 final Filterable againstFilterable = againstSource.getFilterable(actionContext);
                 final boolean result = TriggerConditions.assignedAgainst(actionContext.getGame(), actionContext.getEffectResult(), side,
                         againstFilterable, assignedFilterable);
-                if (result && memorizeAgainst!=null) {
+                if (result && memorizeAgainst != null) {
                     AssignAgainstResult assignmentResult = (AssignAgainstResult) actionContext.getEffectResult();
                     actionContext.setCardMemory(memorizeAgainst, assignmentResult.getAgainst());
+                }
+                if (result && memorizeAssigned != null) {
+                    AssignAgainstResult assignmentResult = (AssignAgainstResult) actionContext.getEffectResult();
+                    actionContext.setCardMemory(memorizeAssigned, assignmentResult.getAssignedCard());
                 }
                 return result;
             }

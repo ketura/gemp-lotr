@@ -23,20 +23,20 @@ public class PreventableAppenderProducer implements EffectAppenderProducer {
 
         final String text = FieldUtils.getString(effectObject.get("text"), "text");
         final String player = FieldUtils.getString(effectObject.get("player"), "player");
-        JSONObject effect = (JSONObject) effectObject.get("effect");
-        JSONObject cost = (JSONObject) effectObject.get("cost");
+        JSONObject[] effectArray = FieldUtils.getObjectArray(effectObject.get("effect"), "effect");
+        JSONObject[] costArray = FieldUtils.getObjectArray(effectObject.get("cost"), "cost");
 
         if (text == null)
             throw new InvalidCardDefinitionException("Text is required for preventable effect");
 
         final PlayerSource preventingPlayerSource = PlayerResolver.resolvePlayer(player, environment);
-        final EffectAppender effectAppender = environment.getEffectAppenderFactory().getEffectAppender(effect, environment);
-        final EffectAppender costAppender = environment.getEffectAppenderFactory().getEffectAppender(cost, environment);
+        final EffectAppender[] effectAppenders = environment.getEffectAppenderFactory().getEffectAppenders(effectArray, environment);
+        final EffectAppender[] costAppenders = environment.getEffectAppenderFactory().getEffectAppenders(costArray, environment);
 
         return new DelayedAppender() {
             @Override
             protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
-                if (costAppender.isPlayableInFull(actionContext)) {
+                if (areCostsPlayable(actionContext)) {
                     final String preventingPlayer = preventingPlayerSource.getPlayer(actionContext);
 
                     String textToUse = text;
@@ -59,14 +59,18 @@ public class PreventableAppenderProducer implements EffectAppenderProducer {
                                             DelegateActionContext delegate = new DelegateActionContext(actionContext,
                                                     preventingPlayer, actionContext.getGame(), actionContext.getSource(), actionContext.getEffectResult(),
                                                     actionContext.getEffect());
-                                            costAppender.appendEffect(false, subAction, delegate);
+                                            for (EffectAppender costAppender : costAppenders)
+                                                costAppender.appendEffect(false, subAction, delegate);
+
                                             subAction.appendEffect(
                                                     new UnrespondableEffect() {
                                                         @Override
                                                         protected void doPlayEffect(LotroGame game) {
                                                             // If the prevention was not carried out, need to do the original action anyway
-                                                            if (!subAction.wasCarriedOut())
-                                                                effectAppender.appendEffect(false, subAction, actionContext);
+                                                            if (!subAction.wasCarriedOut()) {
+                                                                for (EffectAppender effectAppender : effectAppenders)
+                                                                    effectAppender.appendEffect(false, subAction, actionContext);
+                                                            }
                                                         }
 
                                                         @Override
@@ -82,20 +86,35 @@ public class PreventableAppenderProducer implements EffectAppenderProducer {
 
                                         @Override
                                         protected void no() {
-                                            effectAppender.appendEffect(false, subAction, actionContext);
+                                            for (EffectAppender effectAppender : effectAppenders)
+                                                effectAppender.appendEffect(false, subAction, actionContext);
                                         }
                                     }));
                     return new StackActionEffect(subAction);
                 } else {
                     SubAction subAction = new SubAction(action);
-                    effectAppender.appendEffect(cost, subAction, actionContext);
+                    for (EffectAppender effectAppender : effectAppenders)
+                        effectAppender.appendEffect(false, subAction, actionContext);
                     return new StackActionEffect(subAction);
                 }
             }
 
+            private boolean areCostsPlayable(ActionContext actionContext) {
+                for (EffectAppender costAppender : costAppenders) {
+                    if (!costAppender.isPlayableInFull(actionContext))
+                        return false;
+                }
+                return true;
+            }
+
             @Override
             public boolean isPlayableInFull(ActionContext actionContext) {
-                return effectAppender.isPlayableInFull(actionContext);
+                for (EffectAppender effectAppender : effectAppenders) {
+                    if (!effectAppender.isPlayableInFull(actionContext))
+                        return false;
+                }
+
+                return true;
             }
         };
     }

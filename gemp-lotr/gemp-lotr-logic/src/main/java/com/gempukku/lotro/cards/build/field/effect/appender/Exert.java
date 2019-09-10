@@ -27,7 +27,7 @@ public class Exert implements EffectAppenderProducer {
 
         final String player = FieldUtils.getString(effectObject.get("player"), "player", "you");
         final ValueSource valueSource = ValueResolver.resolveEvaluator(effectObject.get("count"), 1, environment);
-        final int times = FieldUtils.getInteger(effectObject.get("times"), "times", 1);
+        final ValueSource timesSource = ValueResolver.resolveEvaluator(effectObject.get("times"), 1, environment);
         final String filter = FieldUtils.getString(effectObject.get("filter"), "filter");
         final String memory = FieldUtils.getString(effectObject.get("memorize"), "memorize", "_temp");
 
@@ -35,7 +35,7 @@ public class Exert implements EffectAppenderProducer {
 
         result.addEffectAppender(
                 CardResolver.resolveCards(filter,
-                        (actionContext) -> Filters.canExert(actionContext.getSource(), times),
+                        (actionContext) -> Filters.canExert(actionContext.getSource(), timesSource.getEvaluator(actionContext).evaluateExpression(actionContext.getGame(), null)),
                         valueSource, memory, player, "Choose cards to exert", environment));
         result.addEffectAppender(
                 new DelayedAppender() {
@@ -43,6 +43,7 @@ public class Exert implements EffectAppenderProducer {
                     protected List<? extends Effect> createEffects(boolean cost, CostToEffectAction action, ActionContext actionContext) {
                         final Collection<? extends PhysicalCard> cardsFromMemory = actionContext.getCardsFromMemory(memory);
 
+                        final int times = timesSource.getEvaluator(actionContext).evaluateExpression(actionContext.getGame(), null);
                         List<Effect> result = new LinkedList<>();
                         for (int i = 0; i < times; i++)
                             result.add(new ExertCharactersEffect(action, actionContext.getSource(), cardsFromMemory.toArray(new PhysicalCard[0])));
