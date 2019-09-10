@@ -941,15 +941,15 @@
             "type": "chooseHowManyToSpot",
             "filter": "elf",
             "memorize": "spottedCount"
-          },
-          {
-            "type": "reorderTopCardsOfDrawDeck",
-            "count": {
-              "type": "fromMemory",
-              "memory": "spottedCount"
-            }
           }
-        ]
+        ],
+        "effect": {
+          "type": "reorderTopCardsOfDrawDeck",
+          "count": {
+            "type": "fromMemory",
+            "memory": "spottedCount"
+          }
+        }
       }
     ]
   },
