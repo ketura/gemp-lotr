@@ -33,7 +33,7 @@ public class ChooseHowManyToSpot implements EffectAppenderProducer {
             @Override
             protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
                 final Filterable filterable = filterableSource.getFilterable(actionContext);
-                final int count = Filters.countActive(actionContext.getGame(), filterable);
+                final int count = Filters.countSpottable(actionContext.getGame(), filterable);
                 return new PlayoutDecisionEffect(actionContext.getPerformingPlayer(),
                         new IntegerAwaitingDecision(1, "Choose how many to spot", 0, count, count) {
                             @Override

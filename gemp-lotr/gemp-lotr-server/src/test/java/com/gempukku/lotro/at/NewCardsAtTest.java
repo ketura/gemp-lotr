@@ -566,4 +566,26 @@ public class NewCardsAtTest extends AbstractAtTest {
         assertEquals(Zone.SHADOW_CHARACTERS, orcAssassin1.getZone());
         assertEquals(Zone.SHADOW_CHARACTERS, orcAssassin2.getZone());
     }
+
+    @Test
+    public void spotCountChange() throws DecisionResultInvalidException, CardNotFoundException {
+        initializeSimplestGame();
+
+        final PhysicalCardImpl merry = createCard(P1, "40_257");
+        final PhysicalCardImpl bilbosPipe = createCard(P1, "40_244");
+        final PhysicalCardImpl pipeweed = createCard(P1, "40_255");
+
+        _game.getGameState().addCardToZone(_game, merry, Zone.HAND);
+        _game.getGameState().addCardToZone(_game, pipeweed, Zone.SUPPORT);
+        _game.getGameState().addCardToZone(_game, bilbosPipe, Zone.HAND);
+
+        skipMulligans();
+
+        playerDecided(P1, getCardActionId(P1, "Play Merry"));
+        playerDecided(P1, getCardActionId(P1, "Play Bilbo's Pipe"));
+
+        playerDecided(P1, "" + merry.getCardId());
+        playerDecided(P1, getCardActionId(P1, "Use Bilbo's Pipe"));
+        assertEquals("2", _userFeedback.getAwaitingDecision(P1).getDecisionParameters().get("max"));
+    }
 }

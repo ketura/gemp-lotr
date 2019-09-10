@@ -87,7 +87,7 @@ public class AttachPermanentAction extends AbstractCostToEffectAction {
 
     @Override
     public String getText(LotroGame game) {
-        return "Attach " + GameUtils.getFullName(_cardToAttach);
+        return "Play " + GameUtils.getFullName(_cardToAttach);
     }
 
     @Override
