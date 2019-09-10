@@ -65,6 +65,8 @@
     "type": "ally",
     "race": "man",
     "keyword": "bree",
+    "strength": 1,
+    "vitality": 2,
     "allyHome": "second ed,2",
     "condition": {
       "type": "canSpot",
@@ -401,7 +403,7 @@
         },
         "cost": {
           "type": "exert",
-          "filter": "self",
+          "filter": "choose(name(Gandalf))",
           "times": 2
         },
         "effect": {
