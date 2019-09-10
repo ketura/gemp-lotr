@@ -3,6 +3,7 @@
     "title": "*Ancient Chieftain",
     "subtitle": "Elder Goblin",
     "culture": "moria",
+    "cost": 4,
     "type": "minion",
     "race": "goblin",
     "strength": 9,
