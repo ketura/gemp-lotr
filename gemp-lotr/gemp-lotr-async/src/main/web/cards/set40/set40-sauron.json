@@ -426,7 +426,8 @@
         "type": "modifier",
         "modifier": {
           "type": "modifyRoamingPenalty",
-          "filter": "culture(sauron),minion"
+          "filter": "culture(sauron),minion",
+          "amount": -1
         }
       },
       {
