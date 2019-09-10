@@ -905,7 +905,7 @@
       "type": "modifier",
       "modifier": {
         "type": "modifyStrength",
-        "filter": "bearer,strengthLessThan(9)",
+        "filter": "bearer,inSkirmishAgainst(minion,strengthLessThan(9))",
         "amount": 2
       }
     }
