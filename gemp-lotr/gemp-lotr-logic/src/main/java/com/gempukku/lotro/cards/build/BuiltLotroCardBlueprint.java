@@ -27,7 +27,7 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
     private Race race;
     private Signet signet;
     private Map<Keyword, Integer> keywords;
-    private int cost;
+    private int cost = -1;
     private int strength;
     private int vitality;
     private int resistance;
@@ -807,5 +807,13 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
         }
         if (cardType != CardType.EVENT && playEventAction != null)
             throw new InvalidCardDefinitionException("Only events should have an event type effect");
+        if (cost == -1)
+            throw new InvalidCardDefinitionException("Cost was not assigned to card");
+        if (Arrays.asList(CardType.MINION, CardType.COMPANION, CardType.ALLY).contains(cardType)) {
+            if (vitality == 0)
+                throw new InvalidCardDefinitionException("Character has 0 vitality");
+            if (strength == 0)
+                throw new InvalidCardDefinitionException("Character has 0 strength");
+        }
     }
 }

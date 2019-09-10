@@ -2,6 +2,7 @@
   "40_1": {
     "title": "*The One Ring",
     "subtitle": "Doom of Free Peoples",
+    "cost": 0,
     "type": "the one ring",
     "strength": 1,
     "vitality": 1,
@@ -63,6 +64,7 @@
   "40_2": {
     "title": "*The One Ring",
     "subtitle": "The Ruling Ring",
+    "cost": 0,
     "type": "the one ring",
     "strength": 1,
     "effects": [

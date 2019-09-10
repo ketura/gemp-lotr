@@ -2,6 +2,7 @@
   "19_1": {
     "title": "*The One Ring",
     "subtitle": "The Great Ring",
+    "cost": 0,
     "type": "the one ring",
     "effects": [
       {

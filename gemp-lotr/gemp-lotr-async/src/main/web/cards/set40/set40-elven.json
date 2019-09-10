@@ -206,6 +206,7 @@
   "40_39": {
     "title": "Coordinated Strike",
     "culture": "elven",
+    "cost": 3,
     "type": "condition",
     "keyword": "support area",
     "effects": [
