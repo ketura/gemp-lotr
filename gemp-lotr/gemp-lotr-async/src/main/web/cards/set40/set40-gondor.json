@@ -254,7 +254,7 @@
       },
       "effect": {
         "type": "modifyStrength",
-        "filter": "self",
+        "filter": "choose(hobbit)",
         "amount": 3
       }
     }
