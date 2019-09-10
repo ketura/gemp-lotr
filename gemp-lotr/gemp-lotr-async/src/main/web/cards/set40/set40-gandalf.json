@@ -406,11 +406,19 @@
           "filter": "choose(name(Gandalf))",
           "times": 2
         },
-        "effect": {
-          "type": "canParticipateInArcheryFireAndSkirmishes",
-          "filter": "self",
-          "until": "endOfTurn"
-        }
+        "effect": [
+          {
+            "type": "modifyStrength",
+            "filter": "self",
+            "amount": 3,
+            "until": "endOfTurn"
+          },
+          {
+            "type": "canParticipateInArcheryFireAndSkirmishes",
+            "filter": "self",
+            "until": "endOfTurn"
+          }
+        ]
       },
       {
         "type": "activated",
