@@ -17,7 +17,7 @@ public class PlayedFromStacked implements TriggerCheckerProducer {
         FieldUtils.validateAllowedFields(value, "filter", "from", "memorize");
 
         final String filterString = FieldUtils.getString(value.get("filter"), "filter");
-        final String fromString = FieldUtils.getString(value.get("filter"), "filter");
+        final String fromString = FieldUtils.getString(value.get("from"), "from");
         final String memorize = FieldUtils.getString(value.get("memorize"), "memorize");
         final FilterableSource filter = environment.getFilterFactory().generateFilter(filterString, environment);
         final FilterableSource fromFilter = environment.getFilterFactory().generateFilter(fromString, environment);
