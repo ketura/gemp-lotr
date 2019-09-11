@@ -813,7 +813,7 @@
     "target": "name(Sam)",
     "effects": {
       "type": "activated",
-      "phase": "regroup",
+      "phase": "fellowship",
       "cost": [
         {
           "type": "discard",
