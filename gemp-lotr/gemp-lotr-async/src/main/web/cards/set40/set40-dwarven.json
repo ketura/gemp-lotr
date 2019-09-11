@@ -465,6 +465,10 @@
         "type": "modifier",
         "modifier": {
           "type": "canttakemorewoundsthan",
+          "condition": {
+            "type": "location",
+            "filter": "or(mountain,underground)"
+          },
           "phase": "skirmish",
           "amount": 1
         }

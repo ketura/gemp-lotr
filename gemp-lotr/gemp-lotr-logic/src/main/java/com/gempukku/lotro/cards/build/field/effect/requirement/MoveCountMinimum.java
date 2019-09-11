@@ -12,6 +12,6 @@ public class MoveCountMinimum implements RequirementProducer {
         FieldUtils.validateAllowedFields(object, "amount");
 
         final int count = FieldUtils.getInteger(object.get("amount"), "amount");
-        return (actionContext) -> actionContext.getGame().getGameState().getMoveCount() <= count;
+        return (actionContext) -> actionContext.getGame().getGameState().getMoveCount() >= count;
     }
 }
