@@ -619,6 +619,288 @@
       }
     }
   },
+  "40_202": {
+    "title": "To Morder We Will Take You!",
+    "culture": "wraith",
+    "cost": 2,
+    "type": "event",
+    "keyword": "skirmish",
+    "effects": {
+      "type": "event",
+      "effect": [
+        {
+          "type": "modifyStrength",
+          "filter": "choose(nazgul)",
+          "amount": 2,
+          "memorize": "chosenNazgul"
+        },
+        {
+          "type": "addTrigger",
+          "trigger": {
+            "type": "winsSkirmish",
+            "filter": "memory(chosenNazgul)"
+          },
+          "effect": {
+            "type": "choice",
+            "player": "fp",
+            "texts": [
+              "Exert the Ring-bearer",
+              "Add burden"
+            ],
+            "effects": [
+              {
+                "type": "exert",
+                "filter": "choose(ring bearer)"
+              },
+              {
+                "type": "addBurdens"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "40_203": {
+    "title": "*Úlairë Attëa",
+    "subtitle": "Fallen King of Men",
+    "culture": "wraith",
+    "cost": 6,
+    "type": "minion",
+    "race": "nazgul",
+    "strength": 12,
+    "vitality": 3,
+    "site": 3,
+    "keyword": "fierce",
+    "effects": {
+      "type": "trigger",
+      "optional": true,
+      "trigger": {
+        "type": "winsSkirmish",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "exert",
+        "filter": "choose(companion,hasAttached(culture(wraith),condition))"
+      }
+    }
+  },
+  "40_204": {
+    "title": "*Úlairë Cantëa",
+    "subtitle": "Morgul Predator",
+    "culture": "wraith",
+    "cost": 5,
+    "type": "minion",
+    "race": "nazgul",
+    "strength": 10,
+    "vitality": 3,
+    "site": 3,
+    "keyword": "fierce",
+    "effects": {
+      "type": "trigger",
+      "optional": true,
+      "trigger": {
+        "type": "startOfPhase",
+        "phase": "skirmish"
+      },
+      "condition": [
+        {
+          "type": "canSpot",
+          "filter": "self,inSkirmish"
+        },
+        {
+          "type": "canSpot",
+          "filter": "another,nazgul"
+        }
+      ],
+      "cost": {
+        "type": "exert",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "discard",
+        "filter": "choose(possession,attachedTo(companion,inSkirmishAgainst(self)))"
+      }
+    }
+  },
+  "40_205": {
+    "title": "*Úlairë Enquëa",
+    "subtitle": "Morgul Assassin",
+    "culture": "wraith",
+    "cost": 6,
+    "type": "minion",
+    "race": "nazgul",
+    "strength": 11,
+    "vitality": 4,
+    "site": 3,
+    "keyword": "fierce",
+    "effects": {
+      "type": "activated",
+      "phase": "maneuver",
+      "condition": [
+        {
+          "type": "or",
+          "condition": [
+            {
+              "type": "canSpot",
+              "count": 6,
+              "filter": "companion"
+            },
+            {
+              "type": "canSpotBurdens",
+              "amount": 5
+            }
+          ]
+        },
+        {
+          "type": "canSpot",
+          "filter": "another,culture(wraith),minion"
+        }
+      ],
+      "cost": {
+        "type": "exert",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "wound",
+        "filter": "choose(companion,not(ring bearer))"
+      }
+    }
+  },
+  "40_206": {
+    "title": "*Úlairë Lemenya",
+    "subtitle": "Shadowy Wraith",
+    "culture": "wraith",
+    "cost": 4,
+    "type": "minion",
+    "race": "nazgul",
+    "strength": 9,
+    "vitality": 2,
+    "site": 3,
+    "effects": {
+      "type": "trigger",
+      "optional": true,
+      "trigger": {
+        "type": "played",
+        "filter": "self"
+      },
+      "condition": {
+        "type": "canSpot",
+        "filter": "companion,resistanceLessThan(4)"
+      },
+      "effect": {
+        "type": "playCardFromDrawDeck",
+        "filter": "choose(mount)",
+        "on": "nazgul"
+      }
+    }
+  },
+  "40_207": {
+    "title": "*Úlairë Nelya",
+    "subtitle": "Drawn to the Ring",
+    "culture": "wraith",
+    "cost": 5,
+    "type": "minion",
+    "race": "nazgul",
+    "strength": 10,
+    "vitality": 3,
+    "site": 3,
+    "keyword": "fierce",
+    "effects": {
+      "type": "activated",
+      "phase": "assignment",
+      "condition": {
+        "type": "canSpot",
+        "filter": "companion,resistanceLessThan(3),not(ring bearer)"
+      },
+      "effect": {
+        "type": "assignToSkirmishAgainstMinion",
+        "fpCharacter": "choose(companion,resistanceLessThan(3),not(ring bearer))",
+        "against": "self"
+      }
+    }
+  },
+  "40_208": {
+    "title": "*Úlairë Nertëa",
+    "subtitle": "Morgul Fiend",
+    "culture": "wraith",
+    "cost": 4,
+    "type": "minion",
+    "race": "nazgul",
+    "strength": 9,
+    "vitality": 2,
+    "site": 3,
+    "effects": {
+      "type": "activated",
+      "phase": "skirmish",
+      "cost": {
+        "type": "exert",
+        "filter": "self"
+      },
+      "condition": {
+        "type": "location",
+        "filter": "forest"
+      },
+      "effect": [
+        {
+          "type": "chooseActiveCards",
+          "text": "Choose character to use resistance instead of strength to resolve skirmish",
+          "filter": "choose(character,inSkirmishAgainst(self))",
+          "memorize": "chosenCharacter"
+        },
+        {
+          "type": "addModifier",
+          "modifier": {
+            "type": "usesResistanceInsteadOfStrength",
+            "filter": "memory(chosenCharacter)"
+          }
+        }
+      ]
+    }
+  },
+  "40_209": {
+    "title": "*Úlairë Otsëa",
+    "subtitle": "Shadowy Servant",
+    "culture": "wraith",
+    "cost": 4,
+    "type": "minion",
+    "race": "nazgul",
+    "strength": 9,
+    "vitality": 2,
+    "site": 3,
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyResistance",
+        "filter": "companion,hasAttached(culture(wraith),condition)",
+        "amount": -2
+      }
+    }
+  },
+  "40_210": {
+    "title": "*Úlairë Toldëa",
+    "subtitle": "Rider in Black",
+    "culture": "wraith",
+    "cost": 6,
+    "type": "minion",
+    "race": "nazgul",
+    "strength": 12,
+    "vitality": 3,
+    "site": 3,
+    "keyword": "fierce",
+    "effects": {
+      "type": "trigger",
+      "optional": true,
+      "trigger": {
+        "type": "winsSkirmish",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "exert",
+        "filter": "choose(companion,resistanceLessThan(4))"
+      }
+    }
+  },
   "40_211": {
     "title": "*The Witch-king",
     "subtitle": "Greatest of the Nine",

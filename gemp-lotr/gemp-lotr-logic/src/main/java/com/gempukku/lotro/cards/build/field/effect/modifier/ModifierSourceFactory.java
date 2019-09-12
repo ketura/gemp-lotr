@@ -38,6 +38,7 @@ public class ModifierSourceFactory {
         modifierProducers.put("cantbear", new CantBear());
         modifierProducers.put("cantdiscardcardsfromhandortopofdrawdeck", new CantDiscardCardsFromHandOrTopOfDrawDeck());
         modifierProducers.put("classspot", new ClassSpot());
+        modifierProducers.put("usesresistanceinsteadofstrength", new UsesResistanceInsteadOfStrength());
     }
 
     public ModifierSource getModifier(JSONObject object, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {

@@ -1,9 +1,6 @@
 package com.gempukku.lotro.cards.build.field.effect.appender;
 
-import com.gempukku.lotro.cards.build.ActionContext;
-import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
-import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
-import com.gempukku.lotro.cards.build.PlayerSource;
+import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
@@ -66,13 +63,16 @@ public class Choice implements EffectAppenderProducer {
                 }
 
                 final String choosingPlayer = playerSource.getPlayer(actionContext);
+                ActionContext delegateActionContext = new DelegateActionContext(actionContext,
+                        choosingPlayer, actionContext.getGame(), actionContext.getSource(),
+                        actionContext.getEffectResult(), actionContext.getEffect());
                 SubAction subAction = new SubAction(action);
                 subAction.appendCost(
                         new PlayoutDecisionEffect(choosingPlayer,
                                 new MultipleChoiceAwaitingDecision(1, "Choose action to perform", effectTexts.toArray(new String[0])) {
                                     @Override
                                     protected void validDecisionMade(int index, String result) {
-                                        playableEffectAppenders.get(index).appendEffect(cost, subAction, actionContext);
+                                        playableEffectAppenders.get(index).appendEffect(cost, subAction, delegateActionContext);
                                     }
                                 }));
                 return new StackActionEffect(subAction);
@@ -80,8 +80,13 @@ public class Choice implements EffectAppenderProducer {
 
             @Override
             public boolean isPlayableInFull(ActionContext actionContext) {
+                final String choosingPlayer = playerSource.getPlayer(actionContext);
+                ActionContext delegateActionContext = new DelegateActionContext(actionContext,
+                        choosingPlayer, actionContext.getGame(), actionContext.getSource(),
+                        actionContext.getEffectResult(), actionContext.getEffect());
+
                 for (EffectAppender possibleEffectAppender : possibleEffectAppenders) {
-                    if (possibleEffectAppender.isPlayableInFull(actionContext))
+                    if (possibleEffectAppender.isPlayableInFull(delegateActionContext))
                         return true;
                 }
                 return false;
