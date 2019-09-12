@@ -133,5 +133,317 @@
         }
       }
     ]
+  },
+  "9_4": {
+    "title": "*Gimli",
+    "subtitle": "Bearer of Grudges",
+    "culture": "dwarven",
+    "cost": 2,
+    "type": "companion",
+    "race": "dwarf",
+    "strength": 6,
+    "vitality": 3,
+    "resistance": 4,
+    "keyword": [
+      "damage+1",
+      "can_start_with_ring"
+    ],
+    "effects": [
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "startOfPhase",
+          "phase": "skirmish"
+        },
+        "condition": {
+          "type": "canSpot",
+          "filter": "self,ring bearer,inSkirmish"
+        },
+        "effect": {
+          "type": "choice",
+          "texts": [
+            "Add 2 burdens",
+            "Add 2 threats"
+          ],
+          "effects": [
+            {
+              "type": "addBurdens",
+              "amount": 2
+            },
+            {
+              "type": "addThreats",
+              "amount": 2
+            }
+          ]
+        }
+      },
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyResistance",
+          "filter": "self",
+          "amount": {
+            "type": "forEachKeyword",
+            "filter": "self",
+            "keyword": "damage"
+          }
+        }
+      }
+    ]
+  },
+  "9_5": {
+    "title": "*Linnar",
+    "subtitle": "Dwarven Lord",
+    "culture": "dwarven",
+    "cost": 2,
+    "type": "companion",
+    "race": "dwarf",
+    "strength": 7,
+    "vitality": 3,
+    "resistance": 6,
+    "effects": [
+      {
+        "type": "trigger",
+        "optional": true,
+        "trigger": {
+          "type": "winsSkirmish",
+          "filter": "dwarf",
+          "memorize": "winner"
+        },
+        "condition": {
+          "type": "fierceSkirmish"
+        },
+        "effect": {
+          "type": "heal",
+          "filter": "memory(winner)"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "skirmish",
+        "cost": {
+          "type": "discardFromHand",
+          "forced": false,
+          "filter": "choose(culture(dwarven))"
+        },
+        "effect": {
+          "type": "addKeyword",
+          "filter": "choose(dwarf)",
+          "keyword": "damage+1"
+        }
+      }
+    ]
+  },
+  "9_6": {
+    "title": "*Ring of Accretion",
+    "culture": "dwarven",
+    "cost": 0,
+    "type": "artifact",
+    "possession": "ring",
+    "strength": 1,
+    "target": "dwarf",
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "addKeyword",
+          "filter": "bearer",
+          "keyword": "damage+1"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "maneuver",
+        "effect": [
+          {
+            "type": "chooseHowManyToSpot",
+            "filter": "dwarf",
+            "memorize": "spotCount"
+          },
+          {
+            "type": "revealTopCardsOfDrawDeck",
+            "count": {
+              "type": "fromMemory",
+              "memory": "spotCount"
+            },
+            "memorize": "revealedCards"
+          },
+          {
+            "type": "filterCardsInMemory",
+            "memory": "revealedCards",
+            "filter": "side(free people)",
+            "memorizeMatching": "freePeopleCards",
+            "memorizeNotMatching": "otherCards"
+          },
+          {
+            "type": "putCardsFromDeckIntoHand",
+            "filter": "memory(freePeopleCards)"
+          },
+          {
+            "type": "discardCardsFromDrawDeck",
+            "filter": "memory(otherCards)"
+          },
+          {
+            "type": "discard",
+            "filter": "self"
+          }
+        ]
+      }
+    ]
+  },
+  "9_7": {
+    "title": "*Ring of Fury",
+    "culture": "dwarven",
+    "cost": 0,
+    "type": "artifact",
+    "possession": "ring",
+    "strength": 1,
+    "target": "dwarf",
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "addKeyword",
+          "filter": "bearer",
+          "keyword": "damage+2"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "regroup",
+        "cost": {
+          "type": "spot",
+          "filter": "choose(dwarf,damage)",
+          "memorize": "spottedDwarf"
+        },
+        "effect": [
+          {
+            "type": "heal",
+            "filter": "choose(dwarf)",
+            "count": {
+              "type": "forEachKeywordOnCardInMemory",
+              "memory": "spottedDwarf"
+            }
+          },
+          {
+            "type": "discard",
+            "filter": "self"
+          }
+        ]
+      }
+    ]
+  },
+  "9_8": {
+    "title": "*Ring of Guile",
+    "culture": "dwarven",
+    "cost": 0,
+    "type": "artifact",
+    "possession": "ring",
+    "strength": 1,
+    "target": "dwarf",
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "addKeyword",
+          "filter": "bearer",
+          "keyword": "damage+1"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "maneuver",
+        "effect": [
+          {
+            "type": "putCardsFromDiscardIntoHand",
+            "filter": "choose(culture(dwarven),event)"
+          },
+          {
+            "type": "discard",
+            "filter": "self"
+          }
+        ]
+      }
+    ]
+  },
+  "9_9": {
+    "title": "*Ring of Retribution",
+    "culture": "dwarven",
+    "cost": 0,
+    "type": "artifact",
+    "possession": "ring",
+    "strength": 1,
+    "vitality": 1,
+    "target": "dwarf",
+    "effects": {
+      "type": "activatedTrigger",
+      "trigger": {
+        "type": "winsSkirmish",
+        "filter": "bearer"
+      },
+      "cost": {
+        "type": "discard",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "exert",
+        "filter": "all(orc)"
+      }
+    }
+  },
+  "9_10": {
+    "title": "*Sindri",
+    "subtitle": "Dwarven Lord",
+    "culture": "dwarven",
+    "cost": 2,
+    "type": "companion",
+    "race": "dwarf",
+    "strength": 6,
+    "vitality": 3,
+    "resistance": 6,
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "canPlayStackedCards",
+        "filter": "culture(dwarven),skirmish,event",
+        "on": "culture(dwarven),condition",
+        "condition": {
+          "type": "phase",
+          "phase": "skirmish"
+        }
+      }
+    }
+  },
+  "9_11": {
+    "title": "*Uri",
+    "subtitle": "Dwarven Lord",
+    "culture": "dwarven",
+    "cost": 2,
+    "type": "companion",
+    "race": "dwarf",
+    "strength": 5,
+    "vitality": 4,
+    "resistance": 6,
+    "effects": {
+      "type": "activated",
+      "phase": "skirmish",
+      "condition": {
+        "type": "canSpot",
+        "filter": "self,damage"
+      },
+      "cost": {
+        "type": "exert",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "modifyStrength",
+        "filter": "self",
+        "amount": {
+          "type": "forEachKeyword",
+          "filter": "self",
+          "keyword": "damage"
+        }
+      }
+    }
   }
 }

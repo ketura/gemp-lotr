@@ -270,7 +270,25 @@ public class CardResolver {
     }
 
     public static EffectAppender resolveCardsInDeck(String type, FilterableSource choiceFilter, ValueSource countSource, String memory, String choicePlayer, String choiceText, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        if (type.startsWith("choose(") && type.endsWith(")")) {
+        if (type.startsWith("memory(") && type.endsWith(")")) {
+            String sourceMemory = type.substring(type.indexOf("(") + 1, type.lastIndexOf(")"));
+            return new DelayedAppender() {
+                @Override
+                public boolean isPlayableInFull(ActionContext actionContext) {
+                    return true;
+                }
+
+                @Override
+                protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
+                    return new UnrespondableEffect() {
+                        @Override
+                        protected void doPlayEffect(LotroGame game) {
+                            actionContext.setCardMemory(memory, actionContext.getCardsFromMemory(sourceMemory));
+                        }
+                    };
+                }
+            };
+        } else if (type.startsWith("choose(") && type.endsWith(")")) {
             final String filter = type.substring(type.indexOf("(") + 1, type.lastIndexOf(")"));
             final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
             final PlayerSource playerSource = PlayerResolver.resolvePlayer(choicePlayer, environment);

@@ -106,6 +106,8 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("endphase", new EndPhase());
         effectAppenderProducers.put("takecontrolofsite", new TakeControlOfSite());
         effectAppenderProducers.put("liberatesite", new LiberateSite());
+        effectAppenderProducers.put("filtercardsinmemory", new FilterCardsInMemory());
+        effectAppenderProducers.put("discardcardsfromdrawdeck", new DiscardCardsFromDrawDeck());
     }
 
     public EffectAppender getEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {

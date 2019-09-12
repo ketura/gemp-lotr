@@ -42,6 +42,7 @@ public class ModifierSourceFactory {
         modifierProducers.put("maynotreplacesite", new MayNotReplaceSite());
         modifierProducers.put("modifysanctuaryheal", new ModifySanctuaryHeal());
         modifierProducers.put("cantplaycards", new CantPlayCards());
+        modifierProducers.put("canplaystackedcards", new CanPlayStackedCards());
     }
 
     public ModifierSource getModifier(JSONObject object, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {

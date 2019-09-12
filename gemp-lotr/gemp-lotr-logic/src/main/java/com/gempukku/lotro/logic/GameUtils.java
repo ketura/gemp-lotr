@@ -114,7 +114,7 @@ public class GameUtils {
     }
 
     public static String getCardLink(String blueprintId, LotroCardBlueprint blueprint) {
-        return "<div class='cardHint' value='" + blueprintId + "'>" + (blueprint.isUnique() ? "•" : "") + GameUtils.getFullName(blueprint) + "</div>";
+        return "<div class='cardHint' value='" + blueprintId + "'>" + (blueprint.isUnique() ? "·" : "") + GameUtils.getFullName(blueprint) + "</div>";
     }
 
     public static String getAppendedTextNames(Collection<? extends PhysicalCard> cards) {

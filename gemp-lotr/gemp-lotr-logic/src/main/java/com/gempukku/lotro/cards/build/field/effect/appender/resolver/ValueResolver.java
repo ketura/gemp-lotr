@@ -95,6 +95,19 @@ public class ValueResolver {
                     }
                     return multiplier * wounds;
                 };
+            } else if (type.equalsIgnoreCase("forEachKeyword")) {
+                FieldUtils.validateAllowedFields(object, "filter", "keyword");
+                final String filter = FieldUtils.getString(object.get("filter"), "filter");
+                final Keyword keyword = FieldUtils.getEnum(Keyword.class, object.get("keyword"), "keyword");
+                final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
+                return (actionContext) -> (game, cardAffected) -> {
+                    int count = 0;
+                    for (PhysicalCard physicalCard : Filters.filterActive(game, filterableSource.getFilterable(actionContext))) {
+                        count += game.getModifiersQuerying().getKeywordCount(game, physicalCard, keyword);
+                    }
+                    return count;
+                };
+
             } else if (type.equalsIgnoreCase("forEachKeywordOnCardInMemory")) {
                 FieldUtils.validateAllowedFields(object, "memory", "keyword");
                 final String memory = FieldUtils.getString(object.get("memory"), "memory");
