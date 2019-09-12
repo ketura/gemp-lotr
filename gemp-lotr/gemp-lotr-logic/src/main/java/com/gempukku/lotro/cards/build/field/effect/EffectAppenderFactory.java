@@ -104,6 +104,8 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("corruptringbearer", new CorruptRingBearer());
         effectAppenderProducers.put("kill", new Kill());
         effectAppenderProducers.put("endphase", new EndPhase());
+        effectAppenderProducers.put("takecontrolofsite", new TakeControlOfSite());
+        effectAppenderProducers.put("liberatesite", new LiberateSite());
     }
 
     public EffectAppender getEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {

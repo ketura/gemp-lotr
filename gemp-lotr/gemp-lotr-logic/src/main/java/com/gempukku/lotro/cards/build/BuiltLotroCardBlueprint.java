@@ -70,6 +70,7 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
     private List<Requirement> playInOtherPhaseConditions;
 
     private ActionSource playEventAction;
+    private ActionSource killedTriggerAction;
 
     private ExtraPossessionClassTest extraPossessionClassTest;
 
@@ -212,6 +213,10 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
 
     public void setPlayEventAction(ActionSource playEventAction) {
         this.playEventAction = playEventAction;
+    }
+
+    public void setKilledTriggerAction(ActionSource killedTriggerAction) {
+        this.killedTriggerAction = killedTriggerAction;
     }
 
     public void setTitle(String title) {
@@ -724,7 +729,13 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
 
     @Override
     public OptionalTriggerAction getKilledOptionalTrigger(String playerId, LotroGame game, PhysicalCard self) {
-        return null;
+        if (killedTriggerAction == null)
+            return null;
+
+        DefaultActionContext actionContext = new DefaultActionContext(playerId, game, self, null, null);
+        OptionalTriggerAction action = new OptionalTriggerAction(self);
+        killedTriggerAction.createAction(action, actionContext);
+        return action;
     }
 
     @Override

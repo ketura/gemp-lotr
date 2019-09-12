@@ -1,0 +1,137 @@
+{
+  "9_1": {
+    "title": "*The One Ring",
+    "subtitle": "The Binding Ring",
+    "type": "the one ring",
+    "cost": 0,
+    "strength": 1,
+    "vitality": 1,
+    "effects": [
+      {
+        "type": "activated",
+        "phase": "fellowship",
+        "condition": {
+          "type": "ringIsActive"
+        },
+        "cost": {
+          "type": "addBurdens",
+          "amount": 2
+        },
+        "effect": {
+          "type": "playCardFromDrawDeck",
+          "filter": "choose(ring)"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "maneuver",
+        "condition": {
+          "type": "ringIsActive"
+        },
+        "cost": {
+          "type": "exert",
+          "filter": "choose(bearer)"
+        },
+        "effect": {
+          "type": "putOnRing"
+        }
+      },
+      {
+        "type": "trigger",
+        "condition": [
+          {
+            "type": "ringIsOn"
+          },
+          {
+            "type": "ringIsActive"
+          }
+        ],
+        "trigger": {
+          "type": "aboutToTakeWound",
+          "filter": "bearer"
+        },
+        "effect": [
+          {
+            "type": "negateWound",
+            "filter": "all(bearer)"
+          },
+          {
+            "type": "addBurdens"
+          }
+        ]
+      }
+    ]
+  },
+  "9_2": {
+    "title": "*Freca",
+    "subtitle": "Hungry Savage",
+    "culture": "dunland",
+    "cost": 4,
+    "type": "minion",
+    "race": "man",
+    "strength": 9,
+    "vitality": 1,
+    "site": 3,
+    "effects": [
+      {
+        "type": "trigger",
+        "optional": true,
+        "trigger": {
+          "type": "played",
+          "filter": "self"
+        },
+        "condition": {
+          "type": "canSpot",
+          "filter": "another,culture(dunland),man"
+        },
+        "effect": {
+          "type": "takeControlOfSite"
+        }
+      },
+      {
+        "type": "killedTrigger",
+        "condition": {
+          "type": "isSide",
+          "side": "free people"
+        },
+        "effect": {
+          "type": "liberateSite"
+        }
+      }
+    ]
+  },
+  "9_3": {
+    "title": "*Durin III",
+    "subtitle": "Dwarven Lord",
+    "culture": "dwarven",
+    "cost": 4,
+    "type": "companion",
+    "race": "dwarf",
+    "strength": 7,
+    "vitality": 4,
+    "resistance": 6,
+    "keyword": "damage+1",
+    "effects": [
+      {
+        "type": "modifyOwnCost",
+        "condition": {
+          "type": "canSpot",
+          "filter": "dwarf",
+          "count": 2
+        },
+        "amount": -2
+      },
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyStrength",
+          "filter": "self",
+          "amount": {
+            "type": "forEachYouCanSpot",
+            "filter": "or(artifact,possession),attachedTo(self)"
+          }
+        }
+      }
+    ]
+  }
+}

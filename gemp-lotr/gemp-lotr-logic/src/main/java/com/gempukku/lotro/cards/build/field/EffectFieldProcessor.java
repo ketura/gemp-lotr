@@ -19,6 +19,7 @@ public class EffectFieldProcessor implements FieldProcessor {
         effectProcessors.put("trigger", new TriggerEffectProcessor());
         effectProcessors.put("inhandtrigger", new InHandTriggerEffectProcessor());
         effectProcessors.put("activatedtrigger", new ActivatedTriggerEffectProcessor());
+        effectProcessors.put("killedtrigger", new KilledTriggerEffectProcessor());
         effectProcessors.put("activated", new ActivatedEffectProcessor());
         effectProcessors.put("event", new EventEffectProcessor());
         effectProcessors.put("responseevent", new ResponseEventEffectProcessor());
