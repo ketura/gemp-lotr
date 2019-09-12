@@ -130,6 +130,7 @@
     "setName": "Second Edition",
     "rarityFile": "/set40-rarity.txt",
     "originalSet": false,
-    "merchantable": false
+    "merchantable": false,
+    "needsLoading": false
   }
 ]

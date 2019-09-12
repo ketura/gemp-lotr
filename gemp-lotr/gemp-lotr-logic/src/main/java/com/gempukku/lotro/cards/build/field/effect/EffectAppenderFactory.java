@@ -103,6 +103,7 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("appendcardidstowhileinzone", new AppendCardIdsToWhileInZone());
         effectAppenderProducers.put("corruptringbearer", new CorruptRingBearer());
         effectAppenderProducers.put("kill", new Kill());
+        effectAppenderProducers.put("endphase", new EndPhase());
     }
 
     public EffectAppender getEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {

@@ -21,6 +21,7 @@ public class TriggerCheckerFactory {
         triggerCheckers.put("startofturn", new StartOfTurn());
         triggerCheckers.put("endofturn", new EndOfTurn());
         triggerCheckers.put("startofphase", new StartOfPhase());
+        triggerCheckers.put("endofphase", new EndOfPhase());
         triggerCheckers.put("abouttotakewound", new AboutToTakeWound());
         triggerCheckers.put("abouttoexert", new AboutToExert());
         triggerCheckers.put("abouttobekilled", new AboutToBeKilled());

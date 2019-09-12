@@ -439,7 +439,10 @@
     "keyword": "plains",
     "effects": {
       "type": "activated",
-      "phase": ["fellowship","regroup"],
+      "phase": [
+        "fellowship",
+        "regroup"
+      ],
       "effect": {
         "type": "addModifier",
         "modifier": {
@@ -449,7 +452,8 @@
             "over": 2,
             "filter": "companion"
           }
-        }
+        },
+        "until": "endOfTurn"
       },
       "limitPerTurn": 1
     }
@@ -543,7 +547,10 @@
     "block": "Second ed",
     "site": 5,
     "cost": 6,
-    "keyword": ["battleground","plains"],
+    "keyword": [
+      "battleground",
+      "plains"
+    ],
     "effects": [
       {
         "type": "modifier",
@@ -731,6 +738,298 @@
         "type": "heal",
         "filter": "choose(companion,not(cultureFromMemory(exertedCompanion)))"
       }
+    }
+  },
+  "40_299": {
+    "title": "Broken Gate",
+    "type": "site",
+    "block": "Second ed",
+    "site": 7,
+    "cost": 6,
+    "keyword": "battleground",
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyStrength",
+          "filter": "culture(sauron),minion",
+          "amount": 1
+        }
+      },
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyStrength",
+          "filter": "culture(gondor),man",
+          "amount": -1
+        }
+      }
+    ]
+  },
+  "40_300": {
+    "title": "Dimholt Road",
+    "type": "site",
+    "block": "Second ed",
+    "site": 7,
+    "cost": 6,
+    "keyword": "mountain",
+    "effects": {
+      "type": "trigger",
+      "trigger": {
+        "type": "movesTo",
+        "filter": "self"
+      },
+      "condition": {
+        "type": "not",
+        "condition": {
+          "type": "canSpot",
+          "filter": "name(Aragorn)"
+        }
+      },
+      "effect": {
+        "type": "addThreats",
+        "player": "fp",
+        "amount": 2
+      }
+    }
+  },
+  "40_301": {
+    "title": "Eastern Ithilien",
+    "type": "site",
+    "block": "Second ed",
+    "site": 7,
+    "cost": 6,
+    "keyword": "forest",
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyResistance",
+        "condition": {
+          "type": "canSpot",
+          "filter": "nazgul"
+        },
+        "filter": "companion",
+        "amount": -1
+      }
+    }
+  },
+  "40_302": {
+    "title": "Osgiliath",
+    "type": "site",
+    "block": "Second ed",
+    "site": 7,
+    "cost": 7,
+    "keyword": "battleground",
+    "effects": {
+      "type": "trigger",
+      "optional": true,
+      "trigger": {
+        "type": "endOfPhase",
+        "phase": "shadow"
+      },
+      "condition": [
+        {
+          "type": "canSpot",
+          "filter": "orc",
+          "count": 5
+        },
+        {
+          "type": "isSide",
+          "side": "shadow"
+        }
+      ],
+      "effect": {
+        "type": "addModifier",
+        "modifier": {
+          "type": "modifyMoveLimit",
+          "amount": -1
+        },
+        "until": "endOfTurn"
+      }
+    }
+  },
+  "40_303": {
+    "title": "Citadel of Cirith Ungol",
+    "type": "site",
+    "block": "Second ed",
+    "site": 8,
+    "cost": 8,
+    "effects": {
+      "type": "trigger",
+      "trigger": {
+        "type": "movesTo",
+        "filter": "self"
+      },
+      "condition": {
+        "type": "not",
+        "condition": {
+          "type": "canSpot",
+          "filter": "name(Sam)"
+        }
+      },
+      "effect": {
+        "type": "addBurdens"
+      }
+    }
+  },
+  "40_304": {
+    "title": "Fiery Terrace",
+    "type": "site",
+    "block": "Second ed",
+    "site": 8,
+    "cost": 8,
+    "keyword": "battleground",
+    "effects": {
+      "type": "activated",
+      "phase": "shadow",
+      "effect": {
+        "type": "choice",
+        "texts": [
+          "Play The Witch-king from your hand",
+          "Play The Witch-king from your draw deck"
+        ],
+        "effects": [
+          {
+            "type": "play",
+            "filter": "choose(name(The Witch-King))",
+            "cost": -4
+          },
+          {
+            "type": "playCardFromDrawDeck",
+            "filter": "choose(name(The Witch-King))",
+            "cost": -4
+          }
+        ]
+      }
+    }
+  },
+  "40_305": {
+    "title": "Pelennor Battlefield",
+    "type": "site",
+    "block": "Second ed",
+    "site": 8,
+    "cost": 8,
+    "keyword": [
+      "battleground",
+      "plains"
+    ],
+    "effects": {
+      "type": "activated",
+      "phase": "regroup",
+      "condition": {
+        "type": "isSide",
+        "side": "free people"
+      },
+      "cost": {
+        "type": "kill",
+        "filter": "choose(unbound,companion)"
+      },
+      "effect": {
+        "type": "addModifier",
+        "modifier": {
+          "type": "modifyMoveLimit",
+          "amount": 1
+        },
+        "until": "endOfTurn"
+      }
+    }
+  },
+  "40_306": {
+    "title": "The Black Gate",
+    "type": "site",
+    "block": "Second ed",
+    "site": 9,
+    "cost": 9,
+    "keyword": "battleground",
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "cantPlayCards",
+        "filter": "side(free people),event"
+      }
+    }
+  },
+  "40_307": {
+    "title": "Dagorlad",
+    "type": "site",
+    "block": "Second ed",
+    "site": 9,
+    "cost": 9,
+    "keyword": "plains",
+    "effects": {
+      "type": "trigger",
+      "trigger": {
+        "type": "movesTo",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "addThreats",
+        "player": "fp",
+        "amount": 3
+      }
+    }
+  },
+  "40_308": {
+    "title": "Mount Doom",
+    "type": "site",
+    "block": "Second ed",
+    "site": 9,
+    "cost": 9,
+    "keyword": "mountain",
+    "effects": {
+      "type": "trigger",
+      "optional": true,
+      "trigger": {
+        "type": "movesTo",
+        "filter": "self"
+      },
+      "condition": {
+        "type": "isSide",
+        "side": "shadow"
+      },
+      "cost": {
+        "type": "removeThreats",
+        "amount": 2
+      },
+      "effect": {
+        "type": "addBurdens",
+        "amount": 2
+      }
+    }
+  },
+  "40_309": {
+    "title": "Tower of Barad-dur",
+    "type": "site",
+    "block": "Second ed",
+    "site": 9,
+    "cost": 10,
+    "effects": {
+      "type": "activated",
+      "phase": "shadow",
+      "effect": [
+        {
+          "type": "choice",
+          "texts": [
+            "Play The Great Eye from your draw deck",
+            "Play The Great Eye from your discard pile"
+          ],
+          "effects": [
+            {
+              "type": "playCardFromDrawDeck",
+              "filter": "choose(name(The Great Eye))",
+              "cost": -3
+            },
+            {
+              "type": "playCardFromDiscard",
+              "filter": "choose(name(The Great Eye))",
+              "cost": -3
+            }
+          ]
+        },
+        {
+          "type": "endPhase"
+        }
+      ]
     }
   }
 }
