@@ -125,5 +125,142 @@
         ]
       }
     ]
+  },
+  "40_273": {
+    "title": "Bag End",
+    "type": "site",
+    "block": "Second ed",
+    "site": 1,
+    "cost": 0,
+    "keyword": "dwelling",
+    "effects": {
+      "type": "activated",
+      "phase": "fellowship",
+      "cost": {
+        "type": "discardFromHand",
+        "forced": false
+      },
+      "effect": {
+        "type": "modifyStrength",
+        "filter": "choose(name(Frodo))",
+        "until": "endOfTurn",
+        "amount": 1
+      }
+    }
+  },
+  "40_274": {
+    "title": "Bywater Bridge",
+    "type": "site",
+    "block": "Second ed",
+    "site": 1,
+    "cost": 0,
+    "keyword": "river",
+    "effects": {
+      "type": "activated",
+      "phase": "fellowship",
+      "cost": {
+        "type": "exert",
+        "count": 2,
+        "filter": "choose(hobbit)"
+      },
+      "effect": {
+        "type": "playCardFromDrawDeck",
+        "filter": "choose(name(Gandalf))"
+      }
+    }
+  },
+  "40_275": {
+    "title": "East Road",
+    "type": "site",
+    "block": "Second ed",
+    "site": 1,
+    "cost": 0,
+    "keyword": "forest",
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyCost",
+        "condition": {
+          "type": "phase",
+          "phase": "fellowship"
+        },
+        "filter": "companion",
+        "amount": 2
+      }
+    }
+  },
+  "40_276": {
+    "title": "Green Hill Country",
+    "type": "site",
+    "block": "Second ed",
+    "site": 1,
+    "cost": 0,
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyCost",
+        "condition": {
+          "type": "phase",
+          "phase": "fellowship"
+        },
+        "filter": "hobbit",
+        "amount": -1
+      }
+    }
+  },
+  "40_277": {
+    "title": "The Prancing Pony",
+    "type": "site",
+    "block": "Second ed",
+    "site": 1,
+    "cost": 0,
+    "effects": {
+      "type": "activated",
+      "phase": "fellowship",
+      "cost": {
+        "type": "addBurdens"
+      },
+      "effect": {
+        "type": "playCardFromDrawDeck",
+        "filter": "choose(name(Aragorn))"
+      }
+    }
+  },
+  "40_278": {
+    "title": "Southfarthing",
+    "type": "site",
+    "block": "Second ed",
+    "site": 1,
+    "cost": 0,
+    "effects": {
+      "type": "trigger",
+      "optional": true,
+      "trigger": {
+        "type": "startOfTurn"
+      },
+      "cost": {
+        "type": "exert",
+        "filter": "choose(your,hobbit)"
+      },
+      "effect": {
+        "type": "playCardFromDrawDeck",
+        "filter": "choose(or(pipe,and(pipeweed,possession)))"
+      }
+    }
+  },
+  "40_279": {
+    "title": "Barrow-downs",
+    "type": "site",
+    "block": "Second ed",
+    "site": 2,
+    "cost": 2,
+    "effects": {
+      "type": "modifyOwnCost",
+      "condition": {
+        "type": "haveInitiative",
+        "side": "shadow"
+      },
+      "amount": 3
+    }
   }
 }

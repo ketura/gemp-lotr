@@ -288,7 +288,7 @@ public class IndividualCardAtTest extends AbstractAtTest {
         final int twilightPool = _game.getGameState().getTwilightPool();
 
         AwaitingDecision playFirstFellowship = _userFeedback.getAwaitingDecision(P1);
-        playerDecided(P1, getCardActionId(playFirstFellowship, "Attach Legolas"));
+        playerDecided(P1, getCardActionId(playFirstFellowship, "Play Legolas"));
 
         final int twilightPool2 = _game.getGameState().getTwilightPool();
 
@@ -1075,7 +1075,7 @@ public class IndividualCardAtTest extends AbstractAtTest {
 
         skipMulligans();
 
-        playerDecided(P1, getCardActionId(_userFeedback.getAwaitingDecision(P1), "Attach Frodo's Pipe"));
+        playerDecided(P1, getCardActionId(_userFeedback.getAwaitingDecision(P1), "Play Frodo's Pipe"));
         playerDecided(P1, getCardActionId(_userFeedback.getAwaitingDecision(P1), "Use Frodo's Pipe"));
 
         playerDecided(P1, String.valueOf(pipeweed1.getCardId()));
