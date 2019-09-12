@@ -830,5 +830,9 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
             throw new InvalidCardDefinitionException("Site has to have a block defined");
         if (siteBlock != null && cardType != CardType.SITE)
             throw new InvalidCardDefinitionException("Block defined for card, that is not site");
+        if (targetFilters != null && keywords != null) {
+            if (keywords.size() > 1 && keywords.containsKey(Keyword.TALE))
+                throw new InvalidCardDefinitionException("Attachment should not have keywords");
+        }
     }
 }
