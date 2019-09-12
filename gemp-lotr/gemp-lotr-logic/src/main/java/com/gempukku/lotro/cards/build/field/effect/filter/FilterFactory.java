@@ -57,6 +57,8 @@ public class FilterFactory {
                     final PhysicalCard attachedTo = actionContext.getSource().getAttachedTo();
                     return Filters.region(GameUtils.getRegion(attachedTo.getSiteNumber()));
                 });
+        simpleFilters.put("insameregion",
+                actionContext -> Filters.region(GameUtils.getRegion(actionContext.getSource().getSiteNumber())));
         simpleFilters.put("currentsite",
                 (actionContext) -> Filters.currentSite);
         simpleFilters.put("siteincurrentregion",

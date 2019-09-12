@@ -815,5 +815,9 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
             if (strength == 0)
                 throw new InvalidCardDefinitionException("Character has 0 strength");
         }
+        if (cardType == CardType.SITE && siteBlock == null)
+            throw new InvalidCardDefinitionException("Site has to have a block defined");
+        if (siteBlock != null && cardType != CardType.SITE)
+            throw new InvalidCardDefinitionException("Block defined for card, that is not site");
     }
 }

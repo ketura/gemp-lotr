@@ -1,0 +1,26 @@
+package com.gempukku.lotro.cards.build.field.effect.modifier;
+
+import com.gempukku.lotro.cards.build.*;
+import com.gempukku.lotro.cards.build.field.FieldUtils;
+import com.gempukku.lotro.logic.modifiers.CantReplaceSiteModifier;
+import com.gempukku.lotro.logic.modifiers.Modifier;
+import org.json.simple.JSONObject;
+
+public class MayNotReplaceSite implements ModifierSourceProducer {
+    @Override
+    public ModifierSource getModifierSource(JSONObject object, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
+        FieldUtils.validateAllowedFields(object, "filter");
+
+        final String filter = FieldUtils.getString(object.get("filter"), "filter", "any");
+
+        final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
+
+        return new ModifierSource() {
+            @Override
+            public Modifier getModifier(ActionContext actionContext) {
+                return new CantReplaceSiteModifier(actionContext.getSource(), null,
+                        filterableSource.getFilterable(actionContext));
+            }
+        };
+    }
+}

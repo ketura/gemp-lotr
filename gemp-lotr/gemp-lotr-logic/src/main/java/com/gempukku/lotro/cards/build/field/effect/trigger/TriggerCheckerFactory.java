@@ -27,8 +27,9 @@ public class TriggerCheckerFactory {
         triggerCheckers.put("condition", new ConditionTrigger());
         triggerCheckers.put("assignedtoskirmish", new AssignedToSkirmish());
         triggerCheckers.put("revealcardfromtopofdrawdeck", new RevealCardFromTopOfDrawDeck());
-        triggerCheckers.put("movesto", new MovesTo());
+        triggerCheckers.put("movesfrom", new MovesFrom());
         triggerCheckers.put("moves", new Moves());
+        triggerCheckers.put("movesto", new MovesTo());
         triggerCheckers.put("losesinitiative", new LosesInitiative());
         triggerCheckers.put("takeswound", new TakesWound());
         triggerCheckers.put("discardfromhand", new DiscardFromHand());

@@ -262,5 +262,475 @@
       },
       "amount": 3
     }
+  },
+  "40_280": {
+    "title": "Chetwood",
+    "type": "site",
+    "block": "Second ed",
+    "site": 2,
+    "cost": 3,
+    "keyword": "forest",
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyRoamingPenalty",
+        "filter": "nazgul",
+        "amount": -1
+      }
+    }
+  },
+  "40_281": {
+    "title": "Ettenmoors",
+    "type": "site",
+    "block": "Second ed",
+    "site": 2,
+    "cost": 3,
+    "keyword": "plains",
+    "effects": {
+      "type": "activated",
+      "phase": "skirmish",
+      "cost": {
+        "type": "exert",
+        "filter": "choose(your,not(enduring),character)",
+        "memorize": "exertedCharacter"
+      },
+      "effect": {
+        "type": "modifyStrength",
+        "filter": "memory(exertedCharacter)",
+        "amount": 2
+      }
+    }
+  },
+  "40_282": {
+    "title": "Midgewater Marshes",
+    "type": "site",
+    "block": "Second ed",
+    "site": 2,
+    "cost": 1,
+    "keyword": "marsh",
+    "effects": {
+      "type": "trigger",
+      "trigger": {
+        "type": "movesTo",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "exert",
+        "filter": "all(hobbit,companion)"
+      }
+    }
+  },
+  "40_283": {
+    "title": "Banks of Nen Hithoel",
+    "type": "site",
+    "block": "Second ed",
+    "site": 3,
+    "cost": 0,
+    "keyword": "river",
+    "effects": {
+      "type": "trigger",
+      "trigger": {
+        "type": "startOfPhase",
+        "phase": "fellowship"
+      },
+      "effect": {
+        "type": "heal",
+        "player": "fp",
+        "filter": "choose(companion)",
+        "count": {
+          "type": "forEachCultureOver",
+          "over": 2
+        }
+      }
+    }
+  },
+  "40_284": {
+    "title": "Ford of Bruinen",
+    "type": "site",
+    "block": "Second ed",
+    "site": 3,
+    "cost": 0,
+    "keyword": "river",
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyCost",
+          "condition": {
+            "type": "not",
+            "condition": {
+              "type": "hasInZoneData",
+              "filter": "self"
+            }
+          },
+          "filter": "nazgul",
+          "amount": -5
+        }
+      },
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "played",
+          "filter": "nazgul",
+          "memorize": "playedNazgul"
+        },
+        "effect": {
+          "type": "appendCardIdsToWhileInZone",
+          "memory": "playedNazgul"
+        }
+      }
+    ]
+  },
+  "40_285": {
+    "title": "Gates of Moria",
+    "type": "site",
+    "block": "Second ed",
+    "site": 3,
+    "cost": 0,
+    "keyword": "underground",
+    "effects": {
+      "type": "activated",
+      "phase": "fellowship",
+      "cost": {
+        "type": "play",
+        "filter": "choose(culture(dwarven),possession)"
+      },
+      "effect": {
+        "type": "drawCards"
+      }
+    }
+  },
+  "40_286": {
+    "title": "Lothlorien",
+    "type": "site",
+    "block": "Second ed",
+    "site": 3,
+    "cost": 0,
+    "keyword": "forest",
+    "effects": {
+      "type": "trigger",
+      "optional": true,
+      "trigger": {
+        "type": "movesTo",
+        "filter": "self"
+      },
+      "condition": [
+        {
+          "type": "isSide",
+          "side": "free people"
+        },
+        {
+          "type": "canSpot",
+          "filter": "elf",
+          "count": 2
+        }
+      ],
+      "effect": {
+        "type": "removeBurdens"
+      }
+    }
+  },
+  "40_287": {
+    "title": "Eastemnet Plains",
+    "type": "site",
+    "block": "Second ed",
+    "site": 4,
+    "cost": 4,
+    "keyword": "plains",
+    "effects": {
+      "type": "activated",
+      "phase": ["fellowship","regroup"],
+      "effect": {
+        "type": "addModifier",
+        "modifier": {
+          "type": "modifyMoveLimit",
+          "amount": {
+            "type": "forEachCultureOver",
+            "over": 2,
+            "filter": "companion"
+          }
+        }
+      },
+      "limitPerTurn": 1
+    }
+  },
+  "40_288": {
+    "title": "Eastern Emyn Muil",
+    "type": "site",
+    "block": "Second ed",
+    "site": 4,
+    "cost": 4,
+    "keyword": "mountain",
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "mayNotReplaceSite",
+        "filter": "site,inSameRegion"
+      }
+    }
+  },
+  "40_289": {
+    "title": "Hollin",
+    "type": "site",
+    "block": "Second ed",
+    "site": 4,
+    "cost": 3,
+    "keyword": "plains",
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "removeKeyword",
+        "filter": "uruk-hai",
+        "keyword": "roaming"
+      }
+    }
+  },
+  "40_290": {
+    "title": "Moria Caverns",
+    "type": "site",
+    "block": "Second ed",
+    "site": 4,
+    "cost": 4,
+    "keyword": "underground",
+    "effects": {
+      "type": "activated",
+      "phase": "shadow",
+      "cost": {
+        "type": "discardFromHand",
+        "forced": false,
+        "count": 2
+      },
+      "effect": {
+        "type": "playCardFromDiscard",
+        "filter": "choose(goblin)"
+      }
+    }
+  },
+  "40_291": {
+    "title": "The Bridge of Khazad-dum",
+    "type": "site",
+    "block": "Second ed",
+    "site": 5,
+    "cost": 6,
+    "keyword": "underground",
+    "effects": {
+      "type": "activated",
+      "phase": "shadow",
+      "effect": {
+        "type": "choice",
+        "texts": [
+          "Play the Balrog from your hand",
+          "Play the Balrog from your draw deck"
+        ],
+        "effects": [
+          {
+            "type": "play",
+            "filter": "choose(name(The Balrog))",
+            "cost": -6
+          },
+          {
+            "type": "playCardFromDrawDeck",
+            "filter": "choose(name(The Balrog))",
+            "cost": -6
+          }
+        ]
+      }
+    }
+  },
+  "40_292": {
+    "title": "Deep of Helm",
+    "type": "site",
+    "block": "Second ed",
+    "site": 5,
+    "cost": 6,
+    "keyword": ["battleground","plains"],
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyCost",
+          "condition": {
+            "type": "not",
+            "condition": {
+              "type": "hasInZoneData",
+              "filter": "self"
+            }
+          },
+          "filter": "uruk-hai",
+          "amount": -3
+        }
+      },
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "played",
+          "filter": "uruk-hai",
+          "memorize": "playedUrukHai"
+        },
+        "effect": {
+          "type": "appendCardIdsToWhileInZone",
+          "memory": "playedUrukHai"
+        }
+      }
+    ]
+  },
+  "40_293": {
+    "title": "Morannon",
+    "type": "site",
+    "block": "Second ed",
+    "site": 5,
+    "cost": 6,
+    "effects": [
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "movesTo",
+          "filter": "self"
+        },
+        "effect": {
+          "type": "addThreats",
+          "amount": 3
+        }
+      },
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "movesFrom",
+          "filter": "self"
+        },
+        "effect": {
+          "type": "removeThreats",
+          "amount": 3
+        }
+      }
+    ]
+  },
+  "40_294": {
+    "title": "Tower of Orthanc",
+    "type": "site",
+    "block": "Second ed",
+    "site": 5,
+    "cost": 6,
+    "keyword": "battleground",
+    "effects": {
+      "type": "activated",
+      "phase": "shadow",
+      "effect": {
+        "type": "choice",
+        "texts": [
+          "Play Saruman from your hand",
+          "Play Saruman from your draw deck",
+          "Play Saruman from your discard pile"
+        ],
+        "effects": [
+          {
+            "type": "play",
+            "filter": "choose(name(Saruman))",
+            "cost": -2
+          },
+          {
+            "type": "playCardFromDrawDeck",
+            "filter": "choose(name(Saruman))",
+            "cost": -2
+          },
+          {
+            "type": "playCardFromDiscard",
+            "filter": "choose(name(Saruman))",
+            "cost": -2
+          }
+        ]
+      }
+    }
+  },
+  "40_295": {
+    "title": "Great Feasting Hall",
+    "type": "site",
+    "block": "Second ed",
+    "site": 6,
+    "cost": 3,
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "modifySanctuaryHeal",
+        "condition": {
+          "type": "canSpotInDeadPile",
+          "filter": "your,companion"
+        },
+        "amount": 2
+      }
+    }
+  },
+  "40_296": {
+    "title": "Henneth Annun",
+    "type": "site",
+    "block": "Second ed",
+    "site": 6,
+    "cost": 3,
+    "keyword": "mountain",
+    "effects": {
+      "type": "trigger",
+      "trigger": {
+        "type": "movesTo",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "heal",
+        "filter": "all(ring-bound,companion)"
+      }
+    }
+  },
+  "40_297": {
+    "title": "Minas Tirith Balcony",
+    "type": "site",
+    "block": "Second ed",
+    "site": 6,
+    "cost": 3,
+    "keyword": "battleground",
+    "effects": {
+      "type": "trigger",
+      "trigger": {
+        "type": "movesTo",
+        "filter": "self"
+      },
+      "condition": {
+        "type": "canSpot",
+        "filter": "name(Gandalf)"
+      },
+      "effect": {
+        "type": "drawCards",
+        "player": "fp",
+        "count": {
+          "type": "forEachThreat"
+        }
+      }
+    }
+  },
+  "40_298": {
+    "title": "Steward's Chamber",
+    "type": "site",
+    "block": "Second ed",
+    "site": 6,
+    "cost": 3,
+    "effects": {
+      "type": "trigger",
+      "optional": true,
+      "trigger": {
+        "type": "movesTo",
+        "filter": "self"
+      },
+      "condition": {
+        "type": "isSide",
+        "side": "free people"
+      },
+      "cost": {
+        "type": "exert",
+        "filter": "choose(companion)",
+        "memorize": "exertedCompanion"
+      },
+      "effect": {
+        "type": "heal",
+        "filter": "choose(companion,not(cultureFromMemory(exertedCompanion)))"
+      }
+    }
   }
 }

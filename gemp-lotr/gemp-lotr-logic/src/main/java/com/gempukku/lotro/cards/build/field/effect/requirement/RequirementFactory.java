@@ -16,6 +16,7 @@ public class RequirementFactory {
         requirementProducers.put("not", new NotRequirementProducer());
         requirementProducers.put("or", new OrRequirementProducer());
         requirementProducers.put("canspot", new CanSpot());
+        requirementProducers.put("canspotindeadpile", new CanSpotInDeadPile());
         requirementProducers.put("canspotburdens", new CanSpotBurdens());
         requirementProducers.put("canspotthreats", new CanSpotThreats());
         requirementProducers.put("canspottwilight", new CanSpotTwilight());
@@ -33,6 +34,8 @@ public class RequirementFactory {
         requirementProducers.put("wasassignedtoskirmish", new WasAssignedToSkirmish());
         requirementProducers.put("didwinskirmish", new DidWinSkirmish());
         requirementProducers.put("ismore", new IsMore());
+        requirementProducers.put("hasinzonedata", new HasInZoneData());
+        requirementProducers.put("isside", new IsSideRequirementProducer());
     }
 
     public Requirement getRequirement(JSONObject object, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {

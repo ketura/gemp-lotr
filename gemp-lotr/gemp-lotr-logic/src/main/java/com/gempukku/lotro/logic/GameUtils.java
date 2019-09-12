@@ -150,8 +150,11 @@ public class GameUtils {
 
     public static int getSpottableCulturesCount(LotroGame game, Filterable... filters) {
         Set<Culture> cultures = new HashSet<Culture>();
-        for (PhysicalCard physicalCard : Filters.filterActive(game, filters))
-            cultures.add(physicalCard.getBlueprint().getCulture());
+        for (PhysicalCard physicalCard : Filters.filterActive(game, filters)) {
+            final Culture culture = physicalCard.getBlueprint().getCulture();
+            if (culture != null)
+                cultures.add(culture);
+        }
         return cultures.size();
     }
 

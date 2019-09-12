@@ -149,6 +149,16 @@ public class ValueResolver {
                         return count;
                     }
                 });
+            } else if (type.equalsIgnoreCase("forEachCultureOver")) {
+                FieldUtils.validateAllowedFields(object, "over", "filter");
+                final int over = FieldUtils.getInteger(object.get("over"), "over", 0);
+                final String filter = FieldUtils.getString(object.get("filter"), "filter", "any");
+                final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
+                return actionContext -> {
+                    int spottable = GameUtils.getSpottableCulturesCount(actionContext.getGame(), filterableSource.getFilterable(actionContext));
+                    int result = Math.max(0, spottable - over);
+                    return new ConstantEvaluator(result);
+                };
             } else if (type.equalsIgnoreCase("forEachFPCultureLessThan")) {
                 FieldUtils.validateAllowedFields(object, "amount");
                 final int lessThan = FieldUtils.getInteger(object.get("amount"), "amount");
