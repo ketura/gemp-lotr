@@ -649,7 +649,10 @@
     "culture": "isengard",
     "cost": 0,
     "type": "condition",
-    "keyword": "weather",
+    "keyword": [
+      "support area",
+      "weather"
+    ],
     "effects": [
       {
         "type": "trigger",

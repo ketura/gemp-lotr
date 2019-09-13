@@ -828,5 +828,8 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
             if (keywords.size() > 1 && keywords.containsKey(Keyword.TALE))
                 throw new InvalidCardDefinitionException("Attachment should not have keywords");
         }
+        if (Arrays.asList(CardType.POSSESSION, CardType.CONDITION, CardType.ARTIFACT).contains(cardType)
+                && targetFilters == null && (keywords == null || !keywords.containsKey(Keyword.SUPPORT_AREA)))
+            throw new InvalidCardDefinitionException("Possession, condition or artifact without a filter needs a SUPPORT_AREA keyword");
     }
 }

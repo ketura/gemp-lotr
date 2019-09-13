@@ -274,7 +274,7 @@
     "culture": "isengard",
     "cost": 0,
     "type": "artifact",
-    "possession": "palantir",
+    "keyword": "support area",
     "condition": {
       "type": "canSpot",
       "filter": "culture(isengard),minion"

@@ -69,7 +69,7 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("preventable", new PreventableAppenderProducer());
         effectAppenderProducers.put("cantbeoverwhelmedmultiplier", new CantBeOverwhelmedMultiplier());
         effectAppenderProducers.put("cancelskirmish", new CancelSkirmish());
-        effectAppenderProducers.put("discardfromhand", new DiscardCardsFromHand());
+        effectAppenderProducers.put("discardfromhand", new DiscardFromHand());
         effectAppenderProducers.put("chooseandremovetwilight", new ChooseAndRemoveTwilight());
         effectAppenderProducers.put("removetwilight", new RemoveTwilight());
         effectAppenderProducers.put("removethreats", new RemoveThreats());
@@ -110,6 +110,7 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("filtercardsinmemory", new FilterCardsInMemory());
         effectAppenderProducers.put("discardcardsfromdrawdeck", new DiscardCardsFromDrawDeck());
         effectAppenderProducers.put("incrementperturnlimit", new IncrementPerTurnLimit());
+        effectAppenderProducers.put("revealhand", new RevealHand());
     }
 
     public EffectAppender getEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {

@@ -140,6 +140,107 @@
       }
     }
   },
+  "1_34": {
+    "title": "*Celeborn",
+    "subtitle": "Lord of Lorien",
+    "culture": "elven",
+    "cost": 2,
+    "type": "ally",
+    "allyHome": "fellowship,6",
+    "race": "elf",
+    "strength": 6,
+    "vitality": 3,
+    "effects": {
+      "type": "activated",
+      "phase": "fellowship",
+      "cost": {
+        "type": "exert",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "heal",
+        "filter": "choose(culture(elven),ally)"
+      }
+    }
+  },
+  "1_35": {
+    "title": "The Council of Elrond",
+    "culture": "elven",
+    "cost": 2,
+    "type": "event",
+    "keyword": "fellowship",
+    "condition": {
+      "type": "canSpot",
+      "filter": "elf"
+    },
+    "effects": {
+      "type": "event",
+      "effect": {
+        "type": "playCardFromDrawDeck",
+        "filter": "choose(tale)"
+      }
+    }
+  },
+  "1_36": {
+    "title": "Curse Their Foul Feet!",
+    "culture": "elven",
+    "cost": 0,
+    "type": "event",
+    "keyword": "fellowship",
+    "effects": {
+      "type": "event",
+      "cost": {
+        "type": "exert",
+        "filter": "choose(elf)"
+      },
+      "effect": [
+        {
+          "type": "revealHand",
+          "hand": "shadowPlayer",
+          "memorize": "cardsInHand"
+        },
+        {
+          "type": "filterCardsInMemory",
+          "memory": "cardsInHand",
+          "filter": "orc",
+          "memorizeMatching": "orcsInHand"
+        },
+        {
+          "type": "discardFromHand",
+          "hand": "shadowPlayer",
+          "forced": true,
+          "count": {
+            "type": "forEachInMemory",
+            "memory": "orcsInHand"
+          }
+        }
+      ]
+    }
+  },
+  "1_37": {
+    "title": "Defiance",
+    "culture": "elven",
+    "cost": 1,
+    "type": "event",
+    "keyword": "skirmish",
+    "effects": {
+      "type": "event",
+      "effect": {
+        "type": "modifyStrength",
+        "filter": "choose(elf)",
+        "memorize": "chosenElf",
+        "amount": {
+          "type": "condition",
+          "condition": {
+            "type": "canSpot",
+            "filter": "memory(chosenElf),inSkirmishAgainst(nazgul)"
+          },
+          "true": 4,
+          "false": 2
+        }
+      }
+    }
+  },
   "1_38": {
     "title": "Double Shot",
     "culture": "elven",
@@ -156,6 +257,77 @@
         "type": "modifyArcheryTotal",
         "side": "free people",
         "amount": 1
+      }
+    }
+  },
+  "1_39": {
+    "title": "Elf-song",
+    "culture": "elven",
+    "cost": 1,
+    "type": "event",
+    "keyword": "fellowship",
+    "condition": {
+      "type": "canSpot",
+      "filter": "elf"
+    },
+    "effects": {
+      "type": "event",
+      "effect": {
+        "type": "removeBurdens"
+      }
+    }
+  },
+  "1_40": {
+    "title": "*Elrond",
+    "subtitle": "Lord of Rivendell",
+    "culture": "elven",
+    "cost": 4,
+    "type": "ally",
+    "allyHome": "fellowship,3",
+    "race": "elf",
+    "strength": 8,
+    "vitality": 4,
+    "condition": {
+      "type": "canSpot",
+      "filter": "or(name(Gandalf),elf)"
+    },
+    "effects": [
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "startOfTurn"
+        },
+        "effect": {
+          "type": "heal",
+          "filter": "all(ally,allyHome(fellowship,3))"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "fellowship",
+        "cost": {
+          "type": "exert",
+          "filter": "self"
+        },
+        "effect": {
+          "type": "drawCards"
+        }
+      }
+    ]
+  },
+  "1_41": {
+    "title": "Elven Bow",
+    "culture": "elven",
+    "cost": 1,
+    "type": "possession",
+    "possession": "ranged weapon",
+    "target": "elf",
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "addKeyword",
+        "filter": "bearer",
+        "keyword": "archer"
       }
     }
   },
