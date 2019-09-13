@@ -463,7 +463,7 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
 
         int result = 0;
         for (TwilightCostModifierSource twilightCostModifier : twilightCostModifiers)
-            result += twilightCostModifier.getTwilightCostModifier(actionContext);
+            result += twilightCostModifier.getTwilightCostModifier(actionContext, target);
 
         return result;
     }

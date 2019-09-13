@@ -53,6 +53,93 @@
       }
     }
   },
+  "1_31": {
+    "title": "*Asfaloth",
+    "culture": "elven",
+    "cost": 2,
+    "type": "possession",
+    "possession": "mount",
+    "strength": 2,
+    "target": "elf",
+    "effects": [
+      {
+        "type": "modifyOwnCost",
+        "on": "name(Arwen)",
+        "amount": -2
+      },
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyStrength",
+          "filter": "bearer",
+          "condition": {
+            "type": "location",
+            "filter": "plains"
+          },
+          "amount": 2
+        }
+      },
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "condition",
+          "condition": {
+            "type": "location",
+            "filter": "underground"
+          }
+        },
+        "effect": {
+          "type": "discard",
+          "filter": "self"
+        }
+      }
+    ]
+  },
+  "1_32": {
+    "title": "Border Defenses",
+    "culture": "elven",
+    "cost": 1,
+    "type": "event",
+    "keyword": "skirmish",
+    "effects": {
+      "type": "event",
+      "effect": {
+        "type": "modifyStrength",
+        "filter": "choose(elf)",
+        "memorize": "chosenElf",
+        "amount": {
+          "type": "condition",
+          "condition": {
+            "type": "canSpot",
+            "filter": "memory(chosenElf),inSkirmishAgainst(archer)"
+          },
+          "true": 4,
+          "false": 2
+        }
+      }
+    }
+  },
+  "1_33": {
+    "title": "*Bow of the Galadhrim",
+    "culture": "elven",
+    "cost": 1,
+    "type": "possession",
+    "possession": "ranged weapon",
+    "strength": 1,
+    "target": "name(Legolas)",
+    "effects": {
+      "type": "trigger",
+      "optional": true,
+      "trigger": {
+        "type": "winsSkirmish",
+        "filter": "bearer"
+      },
+      "effect": {
+        "type": "wound",
+        "filter": "choose(minion)"
+      }
+    }
+  },
   "1_38": {
     "title": "Double Shot",
     "culture": "elven",
