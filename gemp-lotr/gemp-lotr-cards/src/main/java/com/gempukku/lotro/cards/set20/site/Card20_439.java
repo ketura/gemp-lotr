@@ -1,12 +1,12 @@
 package com.gempukku.lotro.cards.set20.site;
 
-import com.gempukku.lotro.common.SitesBlock;
-import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.cardtype.AbstractSite;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Keyword;
+import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.cardtype.AbstractSite;
 
 /**
  * White Rocks
@@ -21,7 +21,7 @@ public class Card20_439 extends AbstractSite {
     }
 
     @Override
-    public int getTwilightCostModifier(LotroGame game, PhysicalCard self) {
+    public int getTwilightCostModifier(LotroGame game, PhysicalCard self, PhysicalCard target) {
         return Filters.countActive(game, CardType.COMPANION, Filters.mounted);
     }
 }

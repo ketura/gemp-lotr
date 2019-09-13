@@ -1,10 +1,10 @@
 package com.gempukku.lotro.cards.set20.site;
 
+import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.common.SitesBlock;
+import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
-import com.gempukku.lotro.common.SitesBlock;
-import com.gempukku.lotro.common.Side;
-import com.gempukku.lotro.game.PhysicalCard;
 
 /**
  * Barrow-downs
@@ -17,7 +17,7 @@ public class Card20_422 extends AbstractSite {
     }
 
     @Override
-    public int getTwilightCostModifier(LotroGame game, PhysicalCard self) {
+    public int getTwilightCostModifier(LotroGame game, PhysicalCard self, PhysicalCard target) {
         return (game.getModifiersQuerying().hasInitiative(game) == Side.SHADOW) ? 3 : 0;
     }
 }

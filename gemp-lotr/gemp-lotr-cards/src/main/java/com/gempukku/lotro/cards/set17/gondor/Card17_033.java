@@ -36,7 +36,7 @@ public class Card17_033 extends AbstractCompanion {
     }
 
     @Override
-    public int getTwilightCostModifier(LotroGame game, PhysicalCard self) {
+    public int getTwilightCostModifier(LotroGame game, PhysicalCard self, PhysicalCard target) {
         if (game.getGameState().getCurrentPhase() == Phase.PLAY_STARTING_FELLOWSHIP
                 && Filters.canSpot(game, Culture.GONDOR, Filters.unboundCompanion,
                 new Filter() {

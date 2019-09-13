@@ -37,7 +37,7 @@ public class Card20_254 extends AbstractMinion {
     }
 
     @Override
-    public int getTwilightCostModifier(LotroGame game, PhysicalCard self) {
+    public int getTwilightCostModifier(LotroGame game, PhysicalCard self, PhysicalCard target) {
         return (game.getGameState().getMoveCount() > 1) ? -4 : 0;
     }
 

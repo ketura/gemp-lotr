@@ -33,7 +33,7 @@ public class Card1_165 extends AbstractMinion {
     }
 
     @Override
-    public int getTwilightCostModifier(LotroGame game, PhysicalCard self) {
+    public int getTwilightCostModifier(LotroGame game, PhysicalCard self, PhysicalCard target) {
         PhysicalCard currentSite = game.getGameState().getCurrentSite();
         if (game.getModifiersQuerying().hasKeyword(game, currentSite, Keyword.UNDERGROUND))
             return -3;

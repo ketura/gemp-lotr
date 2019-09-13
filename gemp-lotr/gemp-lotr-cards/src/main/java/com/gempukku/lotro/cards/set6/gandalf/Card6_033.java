@@ -1,11 +1,11 @@
 package com.gempukku.lotro.cards.set6.gandalf;
 
-import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
 
 /**
  * Set: Ents of Fangorn
@@ -24,7 +24,7 @@ public class Card6_033 extends AbstractCompanion {
     }
 
     @Override
-    public int getTwilightCostModifier(LotroGame game, PhysicalCard self) {
+    public int getTwilightCostModifier(LotroGame game, PhysicalCard self, PhysicalCard target) {
         return -Filters.countActive(game, Filters.or(Race.ENT, Filters.and(Race.HOBBIT, Filters.unboundCompanion)))
                 - game.getModifiersQuerying().getSpotBonus(game, Race.ENT);
     }

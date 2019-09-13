@@ -1,7 +1,6 @@
 package com.gempukku.lotro.cards.set1.elven;
 
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
@@ -15,9 +14,7 @@ import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Set: The Fellowship of the Ring
@@ -40,10 +37,10 @@ public class Card1_031 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    public Map<Filter, Integer> getTargetCostModifiers(String playerId, LotroGame game, PhysicalCard self) {
-        Map<Filter, Integer> costModifiers = new HashMap<Filter, Integer>();
-        costModifiers.put(Filters.arwen, -2);
-        return costModifiers;
+    public int getTwilightCostModifier(LotroGame game, PhysicalCard self, PhysicalCard target) {
+        if (Filters.arwen.accepts(game, target))
+            return -2;
+        return 0;
     }
 
     @Override

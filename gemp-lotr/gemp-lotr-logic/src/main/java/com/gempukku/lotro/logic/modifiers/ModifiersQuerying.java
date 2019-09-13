@@ -49,9 +49,7 @@ public interface ModifiersQuerying {
     public boolean addsTwilightForCompanionMove(LotroGame game, PhysicalCard companion);
 
     // Twilight cost
-    public int getTwilightCost(LotroGame game, PhysicalCard physicalCard, int twilightCostModifier, boolean ignoreRoamingPenalty);
-
-    public int getPlayOnTwilightCost(LotroGame game, PhysicalCard physicalCard, PhysicalCard target, int twilightCostModifier);
+    public int getTwilightCost(LotroGame game, PhysicalCard physicalCard, PhysicalCard target, int twilightCostModifier, boolean ignoreRoamingPenalty);
 
     public int getRoamingPenalty(LotroGame game, PhysicalCard physicalCard);
 

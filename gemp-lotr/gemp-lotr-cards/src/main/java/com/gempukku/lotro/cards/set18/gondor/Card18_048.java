@@ -33,7 +33,7 @@ public class Card18_048 extends AbstractCompanion {
     }
 
     @Override
-    public int getTwilightCostModifier(LotroGame game, PhysicalCard self) {
+    public int getTwilightCostModifier(LotroGame game, PhysicalCard self, PhysicalCard target) {
         if (game.getGameState().getCurrentPhase() == Phase.PLAY_STARTING_FELLOWSHIP)
             return -1;
         return 0;

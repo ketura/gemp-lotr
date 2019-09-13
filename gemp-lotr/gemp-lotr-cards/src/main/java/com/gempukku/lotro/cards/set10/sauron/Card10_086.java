@@ -35,7 +35,7 @@ public class Card10_086 extends AbstractMinion {
     }
 
     @Override
-    public int getTwilightCostModifier(LotroGame game, PhysicalCard self) {
+    public int getTwilightCostModifier(LotroGame game, PhysicalCard self, PhysicalCard target) {
         if (Filters.canSpot(game, Filters.siteControlled(self.getOwner())))
             return -2;
         return 0;

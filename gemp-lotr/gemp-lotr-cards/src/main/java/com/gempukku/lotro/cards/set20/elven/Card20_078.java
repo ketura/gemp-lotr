@@ -29,7 +29,7 @@ public class Card20_078 extends AbstractPermanent {
     }
 
     @Override
-    public int getTwilightCostModifier(LotroGame game, PhysicalCard self) {
+    public int getTwilightCostModifier(LotroGame game, PhysicalCard self, PhysicalCard target) {
         return -Filters.countActive(game, Culture.ELVEN, CardType.COMPANION, Keyword.ARCHER, Filters.unwounded);
     }
 

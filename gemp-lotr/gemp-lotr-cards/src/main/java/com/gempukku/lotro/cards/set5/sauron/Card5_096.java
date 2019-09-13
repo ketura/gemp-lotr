@@ -74,6 +74,6 @@ public class Card5_096 extends AbstractEvent {
         int toilCount = game.getModifiersQuerying().getKeywordCount(game, self, Keyword.TOIL);
         if (toilCount > 0)
             twilightModifier -= toilCount * Filters.countActive(game, Filters.owner(playerId), getCulture(), Filters.character, Filters.canExert(self));
-        return (getSide() != Side.SHADOW || PlayConditions.canPayForShadowCard(game, self, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty));
+        return (getSide() != Side.SHADOW || PlayConditions.canPayForShadowCard(game, self, null, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty));
     }
 }

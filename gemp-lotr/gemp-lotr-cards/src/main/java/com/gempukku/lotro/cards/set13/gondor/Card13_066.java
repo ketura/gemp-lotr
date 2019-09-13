@@ -32,7 +32,7 @@ public class Card13_066 extends AbstractCompanion {
     }
 
     @Override
-    public int getTwilightCostModifier(LotroGame game, PhysicalCard self) {
+    public int getTwilightCostModifier(LotroGame game, PhysicalCard self, PhysicalCard target) {
         int modifier = 0;
         if (Filters.canSpot(game, Filters.boromir))
             modifier--;

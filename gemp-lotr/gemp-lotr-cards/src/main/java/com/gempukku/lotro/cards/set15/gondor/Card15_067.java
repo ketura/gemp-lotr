@@ -47,7 +47,7 @@ public class Card15_067 extends AbstractPermanent {
     }
 
     @Override
-    public int getTwilightCostModifier(LotroGame game, PhysicalCard self) {
+    public int getTwilightCostModifier(LotroGame game, PhysicalCard self, PhysicalCard target) {
         return -Filters.countActive(game, Culture.GONDOR, Keyword.RANGER);
     }
 

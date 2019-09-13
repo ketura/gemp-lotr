@@ -35,7 +35,7 @@ public class Card15_007 extends AbstractAttachableFPPossession {
     }
 
     @Override
-    public int getTwilightCostModifier(LotroGame game, PhysicalCard self) {
+    public int getTwilightCostModifier(LotroGame game, PhysicalCard self, PhysicalCard target) {
         return -Filters.countActive(game, Culture.DWARVEN, Filters.hasAnyCultureTokens(1));
     }
 

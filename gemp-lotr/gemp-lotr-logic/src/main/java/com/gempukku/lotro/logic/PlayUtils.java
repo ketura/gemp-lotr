@@ -30,12 +30,23 @@ public class PlayUtils {
     }
 
 
-    private static Filter getFullAttachValidTargetFilter(final LotroGame game, final PhysicalCard card) {
+    private static Filter getFullAttachValidTargetFilter(final LotroGame game, final PhysicalCard card, int twilightModifier, int withTwilightRemoved) {
         return Filters.and(RuleUtils.getFullValidTargetFilter(card.getOwner(), game, card),
                 new Filter() {
                     @Override
                     public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
                         return game.getModifiersQuerying().canHavePlayedOn(game, card, physicalCard);
+                    }
+                },
+                new Filter() {
+                    @Override
+                    public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
+                        if (card.getBlueprint().getSide() == Side.SHADOW) {
+                            final int twilightCostOnTarget = game.getModifiersQuerying().getTwilightCost(game, card, physicalCard, twilightModifier, false);
+                            return twilightCostOnTarget <= game.getGameState().getTwilightPool() - withTwilightRemoved;
+                        } else {
+                            return true;
+                        }
                     }
                 });
     }
@@ -54,7 +65,7 @@ public class PlayUtils {
 
                 return action;
             } else {
-                final AttachPermanentAction action = new AttachPermanentAction(game, card, Filters.and(getFullAttachValidTargetFilter(game, card), additionalAttachmentFilter), blueprint.getTargetCostModifiers(card.getOwner(), game, card), twilightModifier);
+                final AttachPermanentAction action = new AttachPermanentAction(game, card, Filters.and(getFullAttachValidTargetFilter(game, card, twilightModifier, 0), additionalAttachmentFilter), twilightModifier);
 
                 game.getModifiersQuerying().appendPotentialDiscounts(game, action, card);
                 game.getModifiersQuerying().appendExtraCosts(game, action, card);
@@ -78,10 +89,16 @@ public class PlayUtils {
         if (!card.getBlueprint().checkPlayRequirements(game, card))
             return false;
 
+        twilightModifier -= game.getModifiersQuerying().getPotentialDiscount(game, card);
+
         // Check if there exists a legal target (if needed)
         final Filterable validTargetFilter = blueprint.getValidTargetFilter(card.getOwner(), game, card);
-        if (validTargetFilter != null && Filters.countActive(game, getFullAttachValidTargetFilter(game, card), additionalAttachmentFilter) == 0)
-            return false;
+        Filterable finalTargetFilter = null;
+        if (validTargetFilter != null) {
+            finalTargetFilter = Filters.and(getFullAttachValidTargetFilter(game, card, twilightModifier, withTwilightRemoved), additionalAttachmentFilter);
+            if (Filters.countActive(game, finalTargetFilter) == 0)
+                return false;
+        }
 
         // Check if can play extra costs
         if (!game.getModifiersQuerying().canPayExtraCostsToPlay(game, card))
@@ -95,8 +112,6 @@ public class PlayUtils {
                 && !(PlayConditions.checkRuleOfNine(game, card) && PlayConditions.checkPlayRingBearer(game, card)))
             return false;
 
-        twilightModifier -= game.getModifiersQuerying().getPotentialDiscount(game, card);
-
-        return (blueprint.getSide() != Side.SHADOW || PlayConditions.canPayForShadowCard(game, card, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty));
+        return (blueprint.getSide() != Side.SHADOW || PlayConditions.canPayForShadowCard(game, card, finalTargetFilter, withTwilightRemoved, twilightModifier, ignoreRoamingPenalty));
     }
 }

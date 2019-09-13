@@ -1,10 +1,10 @@
 package com.gempukku.lotro.cards.set7.wraith;
 
-import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.cardtype.AbstractMinion;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
 
 /**
  * Set: The Return of the King
@@ -24,7 +24,7 @@ public class Card7_219 extends AbstractMinion {
     }
 
     @Override
-    public int getTwilightCostModifier(LotroGame game, PhysicalCard self) {
+    public int getTwilightCostModifier(LotroGame game, PhysicalCard self, PhysicalCard target) {
         if (game.getModifiersQuerying().hasInitiative(game) == Side.SHADOW && Filters.canSpot(game, Race.NAZGUL))
             return -6;
         return 0;

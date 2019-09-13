@@ -1,11 +1,11 @@
 package com.gempukku.lotro.cards.set6.dunland;
 
-import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.cardtype.AbstractMinion;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
 
 /**
  * Set: Ents of Fangorn
@@ -24,7 +24,7 @@ public class Card6_005 extends AbstractMinion {
     }
 
     @Override
-    public int getTwilightCostModifier(LotroGame game, PhysicalCard self) {
+    public int getTwilightCostModifier(LotroGame game, PhysicalCard self, PhysicalCard target) {
         if (game.getGameState().getCurrentPhase() == Phase.SKIRMISH)
             return -2;
         return 0;

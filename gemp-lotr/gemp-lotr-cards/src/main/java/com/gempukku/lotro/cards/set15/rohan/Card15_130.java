@@ -33,7 +33,7 @@ public class Card15_130 extends AbstractCompanion {
     }
 
     @Override
-    public int getTwilightCostModifier(LotroGame game, PhysicalCard self) {
+    public int getTwilightCostModifier(LotroGame game, PhysicalCard self, PhysicalCard target) {
         if (Filters.canSpot(game, Race.MAN, Keyword.VALIANT))
             return -1;
         return 0;

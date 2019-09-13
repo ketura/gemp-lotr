@@ -1,8 +1,5 @@
 package com.gempukku.lotro.cards.set15.gandalf;
 
-import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
-import com.gempukku.lotro.logic.timing.TriggerConditions;
-import com.gempukku.lotro.logic.effects.choose.ChooseAndPutCardFromDiscardOnBottomOfDeckEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
@@ -10,7 +7,10 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
+import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndPutCardFromDiscardOnBottomOfDeckEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -33,7 +33,7 @@ public class Card15_037 extends AbstractCompanion {
     }
 
     @Override
-    public int getTwilightCostModifier(LotroGame game, PhysicalCard self) {
+    public int getTwilightCostModifier(LotroGame game, PhysicalCard self, PhysicalCard target) {
         return -Filters.countActive(game, Culture.GANDALF, CardType.CONDITION);
     }
 

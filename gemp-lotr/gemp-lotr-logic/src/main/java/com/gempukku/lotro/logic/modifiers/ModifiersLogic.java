@@ -467,11 +467,11 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     }
 
     @Override
-    public int getTwilightCost(LotroGame game, PhysicalCard physicalCard, int twilightCostModifier, boolean ignoreRoamingPenalty) {
+    public int getTwilightCost(LotroGame game, PhysicalCard physicalCard, PhysicalCard target, int twilightCostModifier, boolean ignoreRoamingPenalty) {
         LoggingThreadLocal.logMethodStart(physicalCard, "getTwilightCost");
         try {
             int result = physicalCard.getBlueprint().getTwilightCost() + twilightCostModifier;
-            result += physicalCard.getBlueprint().getTwilightCostModifier(game, physicalCard);
+            result += physicalCard.getBlueprint().getTwilightCostModifier(game, physicalCard, target);
             for (Modifier modifier : getModifiersAffectingCard(game, ModifierEffect.TWILIGHT_COST_MODIFIER, physicalCard)) {
                 result += modifier.getTwilightCostModifier(game, physicalCard, ignoreRoamingPenalty);
             }
@@ -482,20 +482,6 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
                 result += Math.max(0, roamingPenalty);
             }
             return result;
-        } finally {
-            LoggingThreadLocal.logMethodEnd();
-        }
-    }
-
-    @Override
-    public int getPlayOnTwilightCost(LotroGame game, PhysicalCard physicalCard, PhysicalCard target, int twilightCostModifier) {
-        LoggingThreadLocal.logMethodStart(physicalCard, "getPlayOnTwilightCost");
-        try {
-            int result = getTwilightCost(game, physicalCard, twilightCostModifier, false);
-            for (Modifier modifier : getModifiersAffectingCard(game, ModifierEffect.TWILIGHT_COST_MODIFIER, physicalCard)) {
-                result += modifier.getPlayOnTwilightCostModifier(game, physicalCard, target);
-            }
-            return Math.max(0, result);
         } finally {
             LoggingThreadLocal.logMethodEnd();
         }

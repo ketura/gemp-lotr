@@ -94,7 +94,7 @@ public class PlayEventAction extends AbstractCostToEffectAction {
             final DiscountEffect discount = getNextPotentialDiscount();
             if (discount != null) {
                 if (_eventPlayed.getBlueprint().getSide() == Side.SHADOW) {
-                    int twilightCost = game.getModifiersQuerying().getTwilightCost(game, _eventPlayed, 0, false);
+                    int twilightCost = game.getModifiersQuerying().getTwilightCost(game, _eventPlayed, null, 0, false);
                     int requiredDiscount = Math.max(0, twilightCost - game.getGameState().getTwilightPool() - getProcessedDiscount() - getPotentialDiscount(game));
                     discount.setMinimalRequiredDiscount(requiredDiscount);
                 }

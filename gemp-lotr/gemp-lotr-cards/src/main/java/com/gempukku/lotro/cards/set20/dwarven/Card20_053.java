@@ -1,16 +1,16 @@
 package com.gempukku.lotro.cards.set20.dwarven;
 
-import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
-import com.gempukku.lotro.logic.timing.PlayConditions;
-import com.gempukku.lotro.logic.timing.TriggerConditions;
-import com.gempukku.lotro.logic.effects.choose.ChooseAndPutCardFromDiscardIntoHandEffect;
-import com.gempukku.lotro.logic.effects.choose.ChooseAndStackCardsFromHandEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
+import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndPutCardFromDiscardIntoHandEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndStackCardsFromHandEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -33,7 +33,7 @@ public class Card20_053 extends AbstractCompanion {
     }
 
     @Override
-    public int getTwilightCostModifier(LotroGame game, PhysicalCard self) {
+    public int getTwilightCostModifier(LotroGame game, PhysicalCard self, PhysicalCard target) {
         if (game.getGameState().getCurrentPhase() == Phase.PLAY_STARTING_FELLOWSHIP)
             return -1;
         return 0;

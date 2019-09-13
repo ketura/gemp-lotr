@@ -1,7 +1,6 @@
 package com.gempukku.lotro.game;
 
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.*;
 import com.gempukku.lotro.logic.modifiers.Modifier;
@@ -10,7 +9,6 @@ import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 public interface LotroCardBlueprint {
@@ -40,11 +38,9 @@ public interface LotroCardBlueprint {
 
     Filterable getValidTargetFilter(String playerId, LotroGame game, PhysicalCard self);
 
-    Map<Filter, Integer> getTargetCostModifiers(String playerId, LotroGame game, PhysicalCard self);
-
     int getTwilightCost();
 
-    int getTwilightCostModifier(LotroGame game, PhysicalCard self);
+    int getTwilightCostModifier(LotroGame game, PhysicalCard self, PhysicalCard target);
 
     int getStrength();
 

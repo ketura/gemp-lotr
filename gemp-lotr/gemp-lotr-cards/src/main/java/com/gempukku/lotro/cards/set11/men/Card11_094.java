@@ -47,7 +47,7 @@ public class Card11_094 extends AbstractAttachable {
     }
 
     @Override
-    public int getTwilightCostModifier(LotroGame game, PhysicalCard self) {
+    public int getTwilightCostModifier(LotroGame game, PhysicalCard self, PhysicalCard target) {
         return -Filters.countActive(game, Side.FREE_PEOPLE, CardType.POSSESSION);
     }
 }

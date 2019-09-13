@@ -10,7 +10,6 @@ import com.gempukku.lotro.logic.effects.*;
 import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.Collections;
-import java.util.Map;
 
 public class AttachPermanentAction extends AbstractCostToEffectAction {
     private PhysicalCard _cardToAttach;
@@ -34,10 +33,11 @@ public class AttachPermanentAction extends AbstractCostToEffectAction {
     private Zone _playedFrom;
     private PhysicalCard _target;
 
-    public AttachPermanentAction(final LotroGame game, final PhysicalCard card, Filter filter, final Map<Filter, Integer> attachCostModifiers, final int twilightModifier) {
+    public AttachPermanentAction(final LotroGame game, final PhysicalCard card, Filter filter, final int twilightModifier) {
         _cardToAttach = card;
         setText("Play " + GameUtils.getFullName(_cardToAttach));
         _playedFrom = card.getZone();
+        _twilightModifier = twilightModifier;
 
         _chooseTargetEffect =
                 new ChooseActiveCardEffect(null, card.getOwner(), "Attach " + GameUtils.getFullName(card) + ". Choose target to attach to", filter) {
@@ -48,14 +48,6 @@ public class AttachPermanentAction extends AbstractCostToEffectAction {
                             appendCost(
                                     new ExertCharactersEffect(AttachPermanentAction.this, target, target));
                         }
-
-                        int modifier = twilightModifier;
-                        if (attachCostModifiers != null)
-                            for (Map.Entry<Filter, Integer> filterIntegerEntry : attachCostModifiers.entrySet())
-                                if (filterIntegerEntry.getKey().accepts(game, target))
-                                    modifier += filterIntegerEntry.getValue();
-
-                        _twilightModifier = modifier;
 
                         game.getGameState().sendMessage(card.getOwner() + " plays " + GameUtils.getCardLink(card) + " from " + _playedFrom.getHumanReadable() + " on " + GameUtils.getCardLink(target));
                     }
@@ -108,7 +100,7 @@ public class AttachPermanentAction extends AbstractCostToEffectAction {
             final DiscountEffect discount = getNextPotentialDiscount();
             if (discount != null) {
                 if (_cardToAttach.getBlueprint().getSide() == Side.SHADOW) {
-                    int twilightCost = game.getModifiersQuerying().getPlayOnTwilightCost(game, _cardToAttach, _target, _twilightModifier);
+                    int twilightCost = game.getModifiersQuerying().getTwilightCost(game, _cardToAttach, _target, _twilightModifier, false);
                     int requiredDiscount = Math.max(0, twilightCost - game.getGameState().getTwilightPool() - getProcessedDiscount() - getPotentialDiscount(game));
                     discount.setMinimalRequiredDiscount(requiredDiscount);
                 }

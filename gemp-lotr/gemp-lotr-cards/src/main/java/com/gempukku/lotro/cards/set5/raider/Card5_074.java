@@ -1,12 +1,12 @@
 package com.gempukku.lotro.cards.set5.raider;
 
-import com.gempukku.lotro.game.state.LotroGame;
-import com.gempukku.lotro.logic.cardtype.AbstractMinion;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.common.Race;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
 
 /**
  * Set: Battle of Helm's Deep
@@ -27,7 +27,7 @@ public class Card5_074 extends AbstractMinion {
     }
 
     @Override
-    public int getTwilightCostModifier(LotroGame game, PhysicalCard self) {
+    public int getTwilightCostModifier(LotroGame game, PhysicalCard self, PhysicalCard target) {
         if (Filters.canSpot(game, Keyword.SOUTHRON))
             return -2;
         return 0;

@@ -9,7 +9,6 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.SystemQueueAction;
 import com.gempukku.lotro.logic.effects.AddTwilightEffect;
 import com.gempukku.lotro.logic.effects.TriggeringResultEffect;
-import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 import com.gempukku.lotro.logic.timing.processes.GameProcess;
 import com.gempukku.lotro.logic.timing.results.WhenMoveFromResult;
@@ -55,7 +54,7 @@ public class MovementGameProcess implements GameProcess {
                     protected void doPlayEffect(LotroGame game) {
                         GameState gameState = game.getGameState();
 
-                        int siteTwilightCost = game.getModifiersQuerying().getTwilightCost(game, gameState.getCurrentSite(), 0, false);
+                        int siteTwilightCost = game.getModifiersQuerying().getTwilightCost(game, gameState.getCurrentSite(), null, 0, false);
                         if (!game.getFormat().isOrderedSites()) {
                             final int siteNumber = gameState.getCurrentSiteNumber();
                             if (siteNumber > 3 && siteNumber <= 6)

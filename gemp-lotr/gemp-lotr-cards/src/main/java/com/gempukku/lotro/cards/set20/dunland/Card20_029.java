@@ -33,7 +33,7 @@ public class Card20_029 extends AbstractEvent {
     }
 
     @Override
-    public int getTwilightCostModifier(LotroGame game, PhysicalCard self) {
+    public int getTwilightCostModifier(LotroGame game, PhysicalCard self, PhysicalCard target) {
         return -Filters.countActive(game, Filters.siteControlled(self.getOwner()));
     }
 

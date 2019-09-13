@@ -48,7 +48,7 @@ public class Card30_058 extends AbstractMinion {
 	}
 	
     @Override
-    public int getTwilightCostModifier(LotroGame game, PhysicalCard self) {
+    public int getTwilightCostModifier(LotroGame game, PhysicalCard self, PhysicalCard target) {
 		return - Filters.countActive(game, Filters.or(Race.DWARF, Race.MAN, Race.ELF));
     }
 	

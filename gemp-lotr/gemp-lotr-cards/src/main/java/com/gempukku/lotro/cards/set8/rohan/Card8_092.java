@@ -1,14 +1,14 @@
 package com.gempukku.lotro.cards.set8.rohan;
 
-import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
-import com.gempukku.lotro.logic.effects.ChoiceEffect;
-import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDeckEffect;
-import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDiscardEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
+import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
+import com.gempukku.lotro.logic.effects.ChoiceEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDeckEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDiscardEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 
 import java.util.LinkedList;
@@ -34,7 +34,7 @@ public class Card8_092 extends AbstractCompanion {
     }
 
     @Override
-    public int getTwilightCostModifier(LotroGame game, PhysicalCard self) {
+    public int getTwilightCostModifier(LotroGame game, PhysicalCard self, PhysicalCard target) {
         if (Filters.canSpot(game, Culture.ROHAN, Race.MAN))
             return -1;
         return 0;

@@ -1,16 +1,16 @@
 package com.gempukku.lotro.cards.set8.sauron;
 
-import com.gempukku.lotro.logic.cardtype.AbstractMinion;
-import com.gempukku.lotro.logic.timing.TriggerConditions;
-import com.gempukku.lotro.logic.effects.AddUntilStartOfPhaseModifierEffect;
-import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromStackedEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
+import com.gempukku.lotro.logic.cardtype.AbstractMinion;
+import com.gempukku.lotro.logic.effects.AddUntilStartOfPhaseModifierEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromStackedEffect;
 import com.gempukku.lotro.logic.modifiers.KeywordModifier;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -37,7 +37,7 @@ public class Card8_105 extends AbstractMinion {
     }
 
     @Override
-    public int getTwilightCostModifier(LotroGame game, PhysicalCard self) {
+    public int getTwilightCostModifier(LotroGame game, PhysicalCard self, PhysicalCard target) {
         int count = 0;
         final Collection<PhysicalCard> sites = Filters.filterActive(game, CardType.SITE);
         for (PhysicalCard site : sites)

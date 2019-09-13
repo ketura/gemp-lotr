@@ -1,7 +1,6 @@
 package com.gempukku.lotro.cards.build;
 
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.ExtraPlayCost;
 import com.gempukku.lotro.game.LotroCardBlueprint;
@@ -456,7 +455,7 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
     }
 
     @Override
-    public int getTwilightCostModifier(LotroGame game, PhysicalCard self) {
+    public int getTwilightCostModifier(LotroGame game, PhysicalCard self, PhysicalCard target) {
         if (twilightCostModifiers == null)
             return 0;
 
@@ -710,11 +709,6 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
                 action.appendPotentialDiscount(discountEffect);
             }
         }
-    }
-
-    @Override
-    public Map<Filter, Integer> getTargetCostModifiers(String playerId, LotroGame game, PhysicalCard self) {
-        return null;
     }
 
     @Override
