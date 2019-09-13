@@ -331,6 +331,201 @@
       }
     }
   },
+  "1_42": {
+    "title": "Elven Cloak",
+    "culture": "elven",
+    "cost": 1,
+    "type": "possession",
+    "possession": "cloak",
+    "condition": {
+      "type": "canSpot",
+      "filter": "elf"
+    },
+    "target": "companion",
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyArcheryTotal",
+        "side": "shadow",
+        "amount": -1
+      }
+    }
+  },
+  "1_43": {
+    "title": "*Far-seeing Eyes",
+    "culture": "elven",
+    "cost": 2,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": {
+      "type": "trigger",
+      "trigger": {
+        "type": "played",
+        "filter": "your,elf"
+      },
+      "effect": {
+        "type": "discardFromHand",
+        "hand": "shadowPlayer",
+        "forced": true
+      }
+    }
+  },
+  "1_44": {
+    "title": "Foul Creation",
+    "culture": "elven",
+    "cost": 1,
+    "type": "event",
+    "keyword": "fellowship",
+    "effects": {
+      "type": "event",
+      "cost": {
+        "type": "exert",
+        "filter": "choose(elf)"
+      },
+      "effect": [
+        {
+          "type": "revealHand",
+          "hand": "shadowPlayer",
+          "memorize": "revealedCards"
+        },
+        {
+          "type": "optional",
+          "text": "Would you like to discard an ISENGARD minion revealed to draw 2 cards?",
+          "effect": {
+            "type": "costToEffect",
+            "cost": {
+              "type": "discardFromHand",
+              "hand": "shadowPlayer",
+              "forced": true,
+              "player": "you",
+              "filter": "choose(memory(revealedCards),culture(isengard),minion)"
+            },
+            "effect": {
+              "type": "drawCards",
+              "count": 2
+            }
+          }
+        }
+      ]
+    }
+  },
+  "1_45": {
+    "title": "*Galadriel",
+    "subtitle": "Lady of Light",
+    "culture": "elven",
+    "cost": 3,
+    "type": "ally",
+    "allyHome": "fellowship,6",
+    "race": "elf",
+    "strength": 3,
+    "vitality": 3,
+    "effects": [
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "startOfTurn"
+        },
+        "effect": {
+          "type": "heal",
+          "filter": "all(ally,allyHome(fellowship,6))"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "fellowship",
+        "cost": {
+          "type": "exert",
+          "filter": "self"
+        },
+        "effect": {
+          "type": "play",
+          "filter": "choose(elf)",
+          "cost": -1000
+        }
+      }
+    ]
+  },
+  "1_46": {
+    "title": "*Gift of Boats",
+    "culture": "elven",
+    "cost": 1,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": [
+      {
+        "type": "extraCost",
+        "cost": {
+          "type": "exert",
+          "filter": "choose(ally)"
+        }
+      },
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "movesFrom",
+          "filter": "river"
+        },
+        "condition": {
+          "type": "phase",
+          "phase": "fellowship"
+        },
+        "effect": {
+          "type": "addModifier",
+          "modifier": {
+            "type": "modifyMoveLimit",
+            "amount": 1
+          },
+          "until": "endOfTurn"
+        }
+      }
+    ]
+  },
+  "1_47": {
+    "title": "*Gwemegil",
+    "culture": "elven",
+    "cost": 2,
+    "type": "possession",
+    "possession": "hand weapon",
+    "strength": 2,
+    "target": "name(Arwen)",
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "addKeyword",
+          "filter": "bearer",
+          "keyword": "damage+1"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "skirmish",
+        "cost": {
+          "type": "choice",
+          "texts": [
+            "Exert Arwen",
+            "Discard 2 cards from hand"
+          ],
+          "effects": [
+            {
+              "type": "exert",
+              "filter": "choose(bearer)"
+            },
+            {
+              "type": "discardFromHand",
+              "count": 2,
+              "forced": false
+            }
+          ]
+        },
+        "effect": {
+          "type": "modifyStrength",
+          "filter": "choose(bearer)",
+          "amount": 1
+        }
+      }
+    ]
+  },
   "1_48": {
     "title": "*Haldir",
     "subtitle": "Elf of the Golden Wood",
@@ -353,6 +548,26 @@
         "condition": {
           "type": "location",
           "filter": "siteBlock(fellowship),or(siteNumber(6),siteNumber(7),siteNumber(8))"
+        }
+      }
+    }
+  },
+  "1_49": {
+    "title": "The Last Alliance of Elves and Men",
+    "culture": "elven",
+    "cost": 1,
+    "type": "condition",
+    "keyword": "tale",
+    "target": "culture(gondor),man,not(hasAttached(name(The Last Alliance of Elves and Men)))",
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyStrength",
+        "filter": "bearer",
+        "amount": {
+          "type": "forEachYouCanSpot",
+          "filter": "elf",
+          "limit": 3
         }
       }
     }
@@ -406,6 +621,25 @@
         "type": "modifyStrength",
         "filter": "self,inSkirmishAgainst(nazgul)",
         "amount": 3
+      }
+    }
+  },
+  "1_52": {
+    "title": "Lightfootedness",
+    "culture": "elven",
+    "cost": 0,
+    "type": "event",
+    "keyword": "archery",
+    "condition": {
+      "type": "canSpot",
+      "filter": "elf,companion"
+    },
+    "effects": {
+      "type": "event",
+      "effect": {
+        "type": "modifyArcheryTotal",
+        "side": "shadow",
+        "amount": -1
       }
     }
   },

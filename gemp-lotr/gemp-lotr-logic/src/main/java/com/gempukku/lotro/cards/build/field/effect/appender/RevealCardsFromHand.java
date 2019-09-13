@@ -30,7 +30,7 @@ public class RevealCardsFromHand implements EffectAppenderProducer {
         MultiEffectAppender result = new MultiEffectAppender();
 
         result.addEffectAppender(
-                CardResolver.resolveCardsInHand(filter, countSource, memorize, "you", "Choose cards to reveal", environment));
+                CardResolver.resolveCardsInHand(filter, countSource, memorize, "you", "you", "Choose cards to reveal", environment));
         result.addEffectAppender(
                 new DelayedAppender() {
                     @Override
