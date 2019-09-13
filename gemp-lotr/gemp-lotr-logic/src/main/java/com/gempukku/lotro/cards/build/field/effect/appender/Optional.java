@@ -20,13 +20,13 @@ public class Optional implements EffectAppenderProducer {
 
         final String player = FieldUtils.getString(effectObject.get("player"), "player", "you");
         final String text = FieldUtils.getString(effectObject.get("text"), "text");
-        final JSONObject effect = (JSONObject) effectObject.get("effect");
+        final JSONObject[] effectArray = FieldUtils.getObjectArray(effectObject.get("effect"), "effect");
 
         if (text == null)
             throw new InvalidCardDefinitionException("There is a text required for optional effects");
 
         final PlayerSource playerSource = PlayerResolver.resolvePlayer(player, environment);
-        final EffectAppender effectAppender = environment.getEffectAppenderFactory().getEffectAppender(effect, environment);
+        final EffectAppender[] effectAppenders = environment.getEffectAppenderFactory().getEffectAppenders(effectArray, environment);
 
         return new DelayedAppender() {
             @Override
@@ -41,7 +41,9 @@ public class Optional implements EffectAppenderProducer {
                                 ActionContext delegate = new DelegateActionContext(actionContext,
                                         choosingPlayer, actionContext.getGame(), actionContext.getSource(),
                                         actionContext.getEffectResult(), actionContext.getEffect());
-                                effectAppender.appendEffect(cost, subAction, delegate);
+                                for (EffectAppender effectAppender : effectAppenders) {
+                                    effectAppender.appendEffect(cost, subAction, delegate);
+                                }
                             }
                         }));
                 return new StackActionEffect(subAction);
@@ -49,7 +51,12 @@ public class Optional implements EffectAppenderProducer {
 
             @Override
             public boolean isPlayableInFull(ActionContext actionContext) {
-                return effectAppender.isPlayableInFull(actionContext);
+                for (EffectAppender effectAppender : effectAppenders) {
+                    if (!effectAppender.isPlayableInFull(actionContext))
+                        return false;
+                }
+
+                return true;
             }
         };
     }
