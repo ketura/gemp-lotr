@@ -22,9 +22,10 @@ import java.util.Collection;
 public class ReturnToHand implements EffectAppenderProducer {
     @Override
     public EffectAppender createEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(effectObject, "filter", "count");
+        FieldUtils.validateAllowedFields(effectObject, "filter", "count", "player");
 
         final String filter = FieldUtils.getString(effectObject.get("filter"), "filter");
+        final String player = FieldUtils.getString(effectObject.get("player"), "player", "you");
         final ValueSource valueSource = ValueResolver.resolveEvaluator(effectObject.get("count"), 1, environment);
 
         MultiEffectAppender result = new MultiEffectAppender();
@@ -32,7 +33,7 @@ public class ReturnToHand implements EffectAppenderProducer {
         result.addEffectAppender(
                 CardResolver.resolveCards(filter,
                         actionContext -> (Filter) (game, physicalCard) -> game.getModifiersQuerying().canBeReturnedToHand(game, physicalCard, actionContext.getSource()),
-                        valueSource, "_temp", "you", "Choose cards to return to hand", environment));
+                        valueSource, "_temp", player, "Choose cards to return to hand", environment));
         result.addEffectAppender(
                 new DelayedAppender() {
                     @Override

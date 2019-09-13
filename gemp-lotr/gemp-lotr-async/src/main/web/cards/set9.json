@@ -445,5 +445,118 @@
         }
       }
     }
+  },
+  "9_12": {
+    "title": "*Aiglos",
+    "culture": "elven",
+    "cost": 2,
+    "type": "artifact",
+    "vitality": 1,
+    "target": "elf",
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyStrength",
+          "filter": "bearer,name(Gil-galad)",
+          "amount": {
+            "type": "forEachYouCanSpot",
+            "filter": "culture(elven),artifact",
+            "limit": 6
+          }
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "regroup",
+        "cost": {
+          "type": "discard",
+          "filter": "self"
+        },
+        "effect": {
+          "type": "wound",
+          "filter": "choose(minion)",
+          "count": {
+            "type": "forEachYouCanSpot",
+            "filter": "elf"
+          }
+        }
+      }
+    ]
+  },
+  "9_13": {
+    "title": "Elven Rope",
+    "culture": "elven",
+    "cost": 1,
+    "type": "possession",
+    "condition": {
+      "type": "canSpot",
+      "filter": "elf"
+    },
+    "target": "or(elf,hobbit)",
+    "effects": {
+      "type": "activated",
+      "phase": "maneuver",
+      "cost": {
+        "type": "discard",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "returnToHand",
+        "player": "shadowPlayer",
+        "filter": "choose(minion,strengthLessThan(7))"
+      }
+    }
+  },
+  "9_14": {
+    "title": "*Galadriel",
+    "subtitle": "Bearer of Wisdom",
+    "culture": "elven",
+    "cost": 3,
+    "type": "companion",
+    "race": "elf",
+    "strength": 3,
+    "vitality": 3,
+    "resistance": 3,
+    "keyword": "can start with ring",
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyResistance",
+        "filter": "self,hasAttached(or(artifact,name(The One Ring)))",
+        "amount": {
+          "type": "forEachYouCanSpot",
+          "filter": "culture(elven),companion"
+        }
+      }
+    }
+  },
+  "9_15": {
+    "title": "*Gil-galad",
+    "subtitle": "Elven High King",
+    "culture": "elven",
+    "cost": 5,
+    "type": "companion",
+    "race": "elf",
+    "strength": 9,
+    "vitality": 4,
+    "resistance": 6,
+    "condition": {
+      "type": "canSpot",
+      "filter": "culture(elven),companion",
+      "count": 2
+    },
+    "effects": {
+      "type": "activated",
+      "phase": "regroup",
+      "cost": {
+        "type": "exert",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "wound",
+        "filter": "all(wounded,minion)"
+      }
+    }
   }
 }
