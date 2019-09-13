@@ -36,6 +36,7 @@ public class RequirementFactory {
         requirementProducers.put("ismore", new IsMore());
         requirementProducers.put("hasinzonedata", new HasInZoneData());
         requirementProducers.put("isside", new IsSideRequirementProducer());
+        requirementProducers.put("perturnlimit", new PerTurnLimit());
     }
 
     public Requirement getRequirement(JSONObject object, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {

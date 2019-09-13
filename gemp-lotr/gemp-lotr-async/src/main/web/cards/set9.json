@@ -899,5 +899,186 @@
         }
       ]
     }
+  },
+  "9_24": {
+    "title": "Ent Draught",
+    "culture": "gandalf",
+    "cost": 1,
+    "type": "condition",
+    "vitality": 1,
+    "condition": {
+      "type": "canSpot",
+      "filter": "ent"
+    },
+    "target": "companion,not(hasAttached(name(Ent Draught)))",
+    "effects": {
+      "type": "activated",
+      "phase": "skirmish",
+      "cost": {
+        "type": "exert",
+        "filter": "choose(bearer)",
+        "memorize": "bearer"
+      },
+      "effect": {
+        "type": "addKeyword",
+        "filter": "memory(bearer)",
+        "keyword": "damage+1"
+      }
+    }
+  },
+  "9_25": {
+    "title": "Huorn",
+    "culture": "gandalf",
+    "cost": 2,
+    "type": "companion",
+    "race": "tree",
+    "strength": 6,
+    "vitality": 4,
+    "resistance": 6,
+    "keyword": "damage+1",
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyStrength",
+          "filter": "self",
+          "amount": {
+            "type": "forEachYouCanSpot",
+            "filter": "ent"
+          }
+        }
+      },
+      {
+        "type": "activatedTrigger",
+        "trigger": {
+          "type": "aboutToTakeWound",
+          "filter": "self"
+        },
+        "cost": {
+          "type": "exert",
+          "filter": "choose(ent)"
+        },
+        "effect": {
+          "type": "preventWound",
+          "filter": "self"
+        }
+      }
+    ]
+  },
+  "9_26": {
+    "title": "*Radagast",
+    "subtitle": "The Brown",
+    "culture": "gandalf",
+    "cost": 4,
+    "type": "companion",
+    "race": "wizard",
+    "strength": 8,
+    "vitality": 4,
+    "resistance": 6,
+    "signet": "gandalf",
+    "effects": [
+      {
+        "type": "trigger",
+        "trigger": [
+          {
+            "type": "played",
+            "filter": "self"
+          },
+          {
+            "type": "startOfTurn"
+          }
+        ],
+        "condition": {
+          "type": "perTurnLimit",
+          "limit": 1
+        },
+        "effect": [
+          {
+            "type": "incrementPerTurnLimit",
+            "limit": 1
+          },
+          {
+            "type": "addModifier",
+            "until": "endOfTurn",
+            "modifier": {
+              "type": "modifyMoveLimit",
+              "amount": 1
+            }
+          }
+        ]
+      },
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "moves"
+        },
+        "condition": {
+          "type": "phase",
+          "phase": "regroup"
+        },
+        "effect": {
+          "type": "optional",
+          "player": "shadowPlayer",
+          "text": "Would you like to discard 2 cards to draw 2 cards?",
+          "effect": {
+            "type": "costToEffect",
+            "cost": {
+              "type": "discardFromHand",
+              "forced": false,
+              "count": 2
+            },
+            "effect": {
+              "type": "drawCards",
+              "count": 2
+            }
+          }
+        }
+      }
+    ]
+  },
+  "9_27": {
+    "title": "Sent Back",
+    "culture": "gandalf",
+    "cost": 2,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": [
+      {
+        "type": "activated",
+        "phase": "skirmish",
+        "cost": {
+          "type": "discard",
+          "filter": "self"
+        },
+        "effect": [
+          {
+            "type": "chooseActiveCards",
+            "text": "Choose Wizard to put in dead pile",
+            "filter": "choose(wizard,inSkirmish)",
+            "memorize": "chosenWizard"
+          },
+          {
+            "type": "discard",
+            "filter": "all(minion,inSkirmishAgainst(memory(chosenWizard)))"
+          },
+          {
+            "type": "kill",
+            "filter": "memory(chosenWizard)"
+          }
+        ]
+      },
+      {
+        "type": "activated",
+        "phase": [
+          "fellowship",
+          "regroup"
+        ],
+        "effect": {
+          "type": "play",
+          "filter": "choose(wizard)",
+          "ignoreInDeadPile": true
+        }
+      }
+    ]
   }
 }
