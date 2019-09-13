@@ -245,14 +245,15 @@ public class ValueResolver {
                     return first - second;
                 };
             } else if (type.equalsIgnoreCase("twilightCostInMemory")) {
-                FieldUtils.validateAllowedFields(object, "memory");
+                FieldUtils.validateAllowedFields(object, "multiplier", "memory");
+                final int multiplier = FieldUtils.getInteger(object.get("multiplier"), "multiplier");
                 final String memory = FieldUtils.getString(object.get("memory"), "memory");
                 return actionContext -> (Evaluator) (game, cardAffected) -> {
                     int total = 0;
                     for (PhysicalCard physicalCard : actionContext.getCardsFromMemory(memory)) {
                         total += physicalCard.getBlueprint().getTwilightCost();
                     }
-                    return total;
+                    return multiplier * total;
                 };
             } else if (type.equalsIgnoreCase("maxOfRaces")) {
                 FieldUtils.validateAllowedFields(object, "filter");

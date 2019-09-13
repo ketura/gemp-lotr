@@ -82,12 +82,9 @@
         "type": "addTwilight",
         "amount": 2
       },
-      "effect": [
-        {
-          "type": "putCardsFromHandOnBottomOfDeck",
-          "count": 1
-        }
-      ]
+      "effect": {
+        "type": "putCardsFromHandOnBottomOfDeck"
+      }
     }
   },
   "1_13": {

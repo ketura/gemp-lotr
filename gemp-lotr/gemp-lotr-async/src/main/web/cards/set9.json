@@ -558,5 +558,346 @@
         "filter": "all(wounded,minion)"
       }
     }
+  },
+  "9_16": {
+    "title": "*Glorfindel",
+    "subtitle": "Revealed in Wrath",
+    "culture": "elven",
+    "cost": 4,
+    "type": "companion",
+    "race": "elf",
+    "strength": 9,
+    "vitality": 3,
+    "resistance": 6,
+    "effects": [
+      {
+        "type": "modifyOwnCost",
+        "condition": {
+          "type": "phase",
+          "phase": "play starting fellowship"
+        },
+        "amount": -2
+      },
+      {
+        "type": "activated",
+        "phase": "skirmish",
+        "effect": [
+          {
+            "type": "revealTopCardsOfDrawDeck",
+            "count": 1,
+            "memorize": "revealedCard"
+          },
+          {
+            "type": "optional",
+            "text": "Would you like to exert Glorfindel to make a Nazgul he is skirmishing strength -X, where X is the twilight cost the the card revealed?",
+            "effect": {
+              "type": "costToEffect",
+              "cost": {
+                "type": "exert",
+                "filter": "self"
+              },
+              "effect": {
+                "type": "modifyStrength",
+                "filter": "choose(nazgul,inSkirmishAgainst(self))",
+                "amount": {
+                  "type": "twilightCostInMemory",
+                  "memory": "revealedCard",
+                  "multiplier": -1
+                }
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "9_17": {
+    "title": "*Knife of the Galadhrim",
+    "culture": "elven",
+    "cost": 1,
+    "type": "possession",
+    "possession": "hand weapon",
+    "strength": 1,
+    "target": "culture(gondor),man",
+    "effects": [
+      {
+        "type": "extraPossessionClass",
+        "attachedTo": "name(Aragorn)"
+      },
+      {
+        "type": "activated",
+        "phase": "skirmish",
+        "cost": [
+          {
+            "type": "memorize",
+            "filter": "bearer",
+            "memory": "bearer"
+          },
+          {
+            "type": "discard",
+            "filter": "self"
+          }
+        ],
+        "effect": {
+          "type": "wound",
+          "filter": "choose(minion,inSkirmishAgainst(memory(bearer)))"
+        }
+      }
+    ]
+  },
+  "9_18": {
+    "title": "*Merry's Dagger",
+    "culture": "elven",
+    "cost": 1,
+    "type": "possession",
+    "possession": "hand weapon",
+    "strength": 2,
+    "target": "name(Merry)",
+    "effects": {
+      "type": "activated",
+      "phase": "skirmish",
+      "cost": {
+        "type": "choice",
+        "texts": [
+          "Exert Merry twice",
+          "Discard this possession"
+        ],
+        "effects": [
+          {
+            "type": "exert",
+            "filter": "self",
+            "times": 2
+          },
+          {
+            "type": "discard",
+            "filter": "self"
+          }
+        ]
+      },
+      "effect": {
+        "type": "preventable",
+        "text": "Would you like to remove (1) to prevent Merry wounding a minion he is skirmishing?",
+        "player": "shadowPlayer",
+        "cost": {
+          "type": "removeTwilight",
+          "amount": 1
+        },
+        "effect": {
+          "type": "wound",
+          "filter": "choose(minion,inSkirmishAgainst(name(Merry)))"
+        }
+      }
+    }
+  },
+  "9_19": {
+    "title": "*Narya",
+    "subtitle": "Ring of Fire",
+    "culture": "elven",
+    "cost": 1,
+    "type": "artifact",
+    "possession": "ring",
+    "vitality": 1,
+    "target": "or(name(Cirdan),name(Gandalf))",
+    "effects": {
+      "type": "activated",
+      "phase": "fellowship",
+      "effect": [
+        {
+          "type": "duplicate",
+          "amount": {
+            "type": "forEachVitality",
+            "filter": "bearer"
+          },
+          "effect": {
+            "type": "removeTokens"
+          }
+        },
+        {
+          "type": "discard",
+          "filter": "self"
+        }
+      ]
+    }
+  },
+  "9_20": {
+    "title": "*Nenya",
+    "subtitle": "Ring of Adamant",
+    "culture": "elven",
+    "cost": 0,
+    "type": "artifact",
+    "possession": "ring",
+    "vitality": 1,
+    "target": "name(Galadriel)",
+    "effects": {
+      "type": "activated",
+      "phase": "maneuver",
+      "effect": [
+        {
+          "type": "heal",
+          "filter": "choose(companion)",
+          "count": 2
+        },
+        {
+          "type": "putCardsFromHandOnTopOfDeck",
+          "optional": true
+        },
+        {
+          "type": "putCardsFromHandOnTopOfDeck",
+          "optional": true
+        },
+        {
+          "type": "discard",
+          "filter": "self"
+        }
+      ]
+    }
+  },
+  "9_21": {
+    "title": "*Pippin's Dagger",
+    "culture": "elven",
+    "cost": 1,
+    "type": "possession",
+    "possession": "hand weapon",
+    "strength": 2,
+    "target": "name(Pippin)",
+    "effects": {
+      "type": "activated",
+      "phase": "skirmish",
+      "cost": {
+        "type": "choice",
+        "texts": [
+          "Exert Pippin twice",
+          "Discard this possession"
+        ],
+        "effects": [
+          {
+            "type": "exert",
+            "filter": "self",
+            "times": 2
+          },
+          {
+            "type": "discard",
+            "filter": "self"
+          }
+        ]
+      },
+      "effect": {
+        "type": "preventable",
+        "text": "Would you like to remove (1) to prevent Pippin wounding a minion an Elf is skirmishing?",
+        "player": "shadowPlayer",
+        "cost": {
+          "type": "removeTwilight",
+          "amount": 1
+        },
+        "effect": {
+          "type": "wound",
+          "filter": "choose(minion,inSkirmishAgainst(elf))"
+        }
+      }
+    }
+  },
+  "9_22": {
+    "title": "*Strands of Elven Hair",
+    "culture": "elven",
+    "cost": 1,
+    "type": "possession",
+    "keyword": "support area",
+    "condition": {
+      "type": "canSpot",
+      "filter": "dwarf"
+    },
+    "effects": [
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "played",
+          "filter": "self"
+        },
+        "effect": {
+          "type": "addTokens",
+          "culture": "elven",
+          "filter": "self"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "fellowship",
+        "cost": {
+          "type": "choice",
+          "texts": [
+            "Discard this possession",
+            "Remove an ELVEN token from here"
+          ],
+          "effects": [
+            {
+              "type": "discard",
+              "filter": "self"
+            },
+            {
+              "type": "removeTokens",
+              "culture": "elven",
+              "filter": "self"
+            }
+          ]
+        },
+        "effect": [
+          {
+            "type": "revealTopCardsOfDrawDeck",
+            "count": 1,
+            "memorize": "revealedCards"
+          },
+          {
+            "type": "conditional",
+            "condition": {
+              "type": "memoryMatches",
+              "memory": "revealedCards",
+              "filter": "or(culture(dwarven),culture(elven))"
+            },
+            "effect": {
+              "type": "optional",
+              "text": "Would you like to take the revealed card into your hand?",
+              "effect": {
+                "type": "putCardsFromDeckIntoHand",
+                "filter": "memory(revealedCards)"
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "9_23": {
+    "title": "*Vilya",
+    "subtitle": "Ring of Air",
+    "culture": "elven",
+    "cost": 0,
+    "type": "artifact",
+    "possession": "ring",
+    "vitality": 1,
+    "target": "or(name(Elrond),name(Gil-galad))",
+    "effects": {
+      "type": "activated",
+      "phase": "skirmish",
+      "effect": [
+        {
+          "type": "discardTopCardsFromDeck",
+          "forced": false,
+          "memorize": "discardedCard"
+        },
+        {
+          "type": "modifyStrength",
+          "filter": "choose(minion,inSkirmishAgainst(elf))",
+          "amount": {
+            "type": "twilightCostInMemory",
+            "memory": "discardedCard",
+            "multiplier": -1
+          }
+        },
+        {
+          "type": "discard",
+          "filter": "self"
+        }
+      ]
+    }
   }
 }
