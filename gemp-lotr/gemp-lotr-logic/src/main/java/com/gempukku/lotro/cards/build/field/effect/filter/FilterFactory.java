@@ -79,6 +79,8 @@ public class FilterFactory {
                                 return false;
                             }
                         }));
+        simpleFilters.put("controlledsite",
+                (actionContext -> Filters.siteControlled(actionContext.getPerformingPlayer())));
 
         parameterFilters.put("culture", (parameter, environment) -> {
             final Culture culture = Culture.valueOf(parameter.toUpperCase());
@@ -157,6 +159,11 @@ public class FilterFactory {
                 (parameter, environment) -> {
                     int amount = Integer.parseInt(parameter);
                     return (actionContext) -> Filters.lessStrengthThan(amount);
+                });
+        parameterFilters.put("vitalityMoreThan",
+                (parameter, environment) -> {
+                    int amount = Integer.parseInt(parameter);
+                    return (actionContext) -> Filters.moreVitalityThan(amount);
                 });
         parameterFilters.put("not",
                 (parameter, environment) -> {

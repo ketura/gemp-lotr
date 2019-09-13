@@ -48,7 +48,8 @@
   {
     "setId": "9",
     "setName": "Reflections",
-    "rarityFile": "/set9-rarity.txt"
+    "rarityFile": "/set9-rarity.txt",
+    "needsLoading": false
   },
   {
     "setId": "10",

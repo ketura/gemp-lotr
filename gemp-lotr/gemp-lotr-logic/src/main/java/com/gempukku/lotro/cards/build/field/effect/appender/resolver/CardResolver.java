@@ -156,6 +156,31 @@ public class CardResolver {
                     };
                 }
             };
+        } else if (type.startsWith("all(") && type.endsWith(")")) {
+            final String filter = type.substring(type.indexOf("(") + 1, type.lastIndexOf(")"));
+            final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
+            final PlayerSource playerSource = PlayerResolver.resolvePlayer(choicePlayer, environment);
+            return new DelayedAppender() {
+                @Override
+                protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
+                    return new UnrespondableEffect() {
+                        @Override
+                        protected void doPlayEffect(LotroGame game) {
+                            final Filterable filterable = filterableSource.getFilterable(actionContext);
+                            String playerId = playerSource.getPlayer(actionContext);
+                            Filterable additionalFilterable = Filters.any;
+                            if (additionalFilter != null)
+                                additionalFilterable = additionalFilter.getFilterable(actionContext);
+                            actionContext.setCardMemory(memory, Filters.filter(game.getGameState().getHand(playerId), game, filterable, additionalFilterable));
+                        }
+                    };
+                }
+
+                @Override
+                public boolean isPlayableInFull(ActionContext actionContext) {
+                    return true;
+                }
+            };
         } else if (type.startsWith("choose(") && type.endsWith(")")) {
             final String filter = type.substring(type.indexOf("(") + 1, type.lastIndexOf(")"));
             final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);

@@ -65,9 +65,11 @@ public class ValueResolver {
                     }
                     return trueValue;
                 };
+            } else if (type.equalsIgnoreCase("siteNumber")) {
+                return actionContext -> (game, cardAffected) -> game.getGameState().getCurrentSiteNumber();
             } else if (type.equalsIgnoreCase("forRegionNumber")) {
                 FieldUtils.validateAllowedFields(object);
-                return (actionContext) -> (Evaluator) (game, cardAffected) -> GameUtils.getRegion(actionContext.getGame());
+                return (actionContext) -> (game, cardAffected) -> GameUtils.getRegion(actionContext.getGame());
             } else if (type.equalsIgnoreCase("forEachInMemory")) {
                 FieldUtils.validateAllowedFields(object, "memory");
                 final String memory = FieldUtils.getString(object.get("memory"), "memory");
@@ -220,7 +222,7 @@ public class ValueResolver {
                                         vitality += game.getModifiersQuerying().getVitality(game, physicalCard);
                                     }
 
-                                    return vitality;
+                                    return Math.max(0, vitality - over);
                                 });
                     }
                 };
