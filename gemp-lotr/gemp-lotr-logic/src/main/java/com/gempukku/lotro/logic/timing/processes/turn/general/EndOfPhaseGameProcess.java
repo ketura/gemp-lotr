@@ -21,12 +21,8 @@ public class EndOfPhaseGameProcess implements GameProcess {
 
     @Override
     public void process(LotroGame game) {
-        SystemQueueAction action = new SystemQueueAction() {
-            @Override
-            public String getText(LotroGame game) {
-                return "End of " + _phase + " phase";
-            }
-        };
+        SystemQueueAction action = new SystemQueueAction();
+        action.setText("End of " + _phase + " phase");
         action.appendEffect(
                 new TriggeringResultEffect(null, new EndOfPhaseResult(_phase), "End of " + _phase + " phase"));
         action.appendEffect(

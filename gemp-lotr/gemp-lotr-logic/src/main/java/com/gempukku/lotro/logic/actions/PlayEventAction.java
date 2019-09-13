@@ -25,7 +25,6 @@ public class PlayEventAction extends AbstractCostToEffectAction {
 
     private boolean _skipDiscardCard;
 
-    private String _text;
     private boolean _discountResolved;
     private boolean _discountApplied;
 
@@ -41,7 +40,7 @@ public class PlayEventAction extends AbstractCostToEffectAction {
 
         _playedFrom = card.getZone();
 
-        _text = "Play " + GameUtils.getFullName(_eventPlayed);
+        setText("Play " + GameUtils.getFullName(_eventPlayed));
     }
 
     public PhysicalCard getEventPlayed() {
@@ -69,15 +68,6 @@ public class PlayEventAction extends AbstractCostToEffectAction {
     @Override
     public PhysicalCard getActionAttachedToCard() {
         return _eventPlayed;
-    }
-
-    public void setText(String text) {
-        _text = text;
-    }
-
-    @Override
-    public String getText(LotroGame game) {
-        return _text;
     }
 
     @Override

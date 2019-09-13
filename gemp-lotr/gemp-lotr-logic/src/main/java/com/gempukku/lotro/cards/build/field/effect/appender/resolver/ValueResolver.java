@@ -246,7 +246,7 @@ public class ValueResolver {
                 };
             } else if (type.equalsIgnoreCase("twilightCostInMemory")) {
                 FieldUtils.validateAllowedFields(object, "multiplier", "memory");
-                final int multiplier = FieldUtils.getInteger(object.get("multiplier"), "multiplier");
+                final int multiplier = FieldUtils.getInteger(object.get("multiplier"), "multiplier", 1);
                 final String memory = FieldUtils.getString(object.get("memory"), "memory");
                 return actionContext -> (Evaluator) (game, cardAffected) -> {
                     int total = 0;

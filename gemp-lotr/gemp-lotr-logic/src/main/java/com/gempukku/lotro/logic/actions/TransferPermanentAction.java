@@ -18,6 +18,7 @@ public class TransferPermanentAction extends ActivateCardAction {
     public TransferPermanentAction(final PhysicalCard card, Filter filter) {
         super(card);
         _transferredCard = card;
+        setText("Transfer " + GameUtils.getFullName(_transferredCard));
 
         appendCost(
                 new UnrespondableEffect() {
@@ -41,10 +42,5 @@ public class TransferPermanentAction extends ActivateCardAction {
     @Override
     public Type getType() {
         return Type.OTHER;
-    }
-
-    @Override
-    public String getText(LotroGame game) {
-        return "Transfer " + GameUtils.getFullName(_transferredCard);
     }
 }

@@ -36,7 +36,7 @@ public class AttachPermanentAction extends AbstractCostToEffectAction {
 
     public AttachPermanentAction(final LotroGame game, final PhysicalCard card, Filter filter, final Map<Filter, Integer> attachCostModifiers, final int twilightModifier) {
         _cardToAttach = card;
-
+        setText("Play " + GameUtils.getFullName(_cardToAttach));
         _playedFrom = card.getZone();
 
         _chooseTargetEffect =
@@ -83,11 +83,6 @@ public class AttachPermanentAction extends AbstractCostToEffectAction {
     @Override
     public PhysicalCard getActionAttachedToCard() {
         return _cardToAttach;
-    }
-
-    @Override
-    public String getText(LotroGame game) {
-        return "Play " + GameUtils.getFullName(_cardToAttach);
     }
 
     @Override

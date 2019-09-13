@@ -13,12 +13,8 @@ import com.gempukku.lotro.logic.timing.results.EndOfTurnResult;
 public class EndOfTurnGameProcess implements GameProcess {
     @Override
     public void process(LotroGame game) {
-        SystemQueueAction action = new SystemQueueAction() {
-            @Override
-            public String getText(LotroGame game) {
-                return "End of turn";
-            }
-        };
+        SystemQueueAction action = new SystemQueueAction();
+        action.setText("End of turn");
         action.appendEffect(
                 new TriggeringResultEffect(null, new EndOfTurnResult(), "End of turn"));
         action.appendEffect(

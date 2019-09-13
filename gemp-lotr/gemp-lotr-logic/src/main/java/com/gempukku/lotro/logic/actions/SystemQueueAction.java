@@ -21,11 +21,6 @@ public class SystemQueueAction extends AbstractCostToEffectAction {
     }
 
     @Override
-    public String getText(LotroGame game) {
-        return null;
-    }
-
-    @Override
     public Effect nextEffect(LotroGame game) {
         if (!isCostFailed()) {
             Effect cost = getNextCost();

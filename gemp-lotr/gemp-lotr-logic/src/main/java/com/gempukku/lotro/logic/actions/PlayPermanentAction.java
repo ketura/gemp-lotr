@@ -34,6 +34,7 @@ public class PlayPermanentAction extends AbstractCostToEffectAction {
 
     public PlayPermanentAction(PhysicalCard card, Zone zone, int twilightModifier, boolean ignoreRoamingPenalty) {
         _permanentPlayed = card;
+        setText("Play " + GameUtils.getFullName(_permanentPlayed));
         setPerformingPlayer(card.getOwner());
         _twilightModifier = twilightModifier;
         _ignoreRoamingPenalty = ignoreRoamingPenalty;
@@ -64,11 +65,6 @@ public class PlayPermanentAction extends AbstractCostToEffectAction {
     @Override
     public PhysicalCard getActionAttachedToCard() {
         return _permanentPlayed;
-    }
-
-    @Override
-    public String getText(LotroGame game) {
-        return "Play " + GameUtils.getFullName(_permanentPlayed);
     }
 
     @Override

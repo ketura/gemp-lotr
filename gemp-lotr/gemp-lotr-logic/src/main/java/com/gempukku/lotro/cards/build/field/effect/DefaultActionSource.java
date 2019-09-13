@@ -14,6 +14,12 @@ public class DefaultActionSource implements ActionSource {
     private List<EffectAppender> costs = new LinkedList<>();
     private List<EffectAppender> effects = new LinkedList<>();
 
+    private String text;
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
     public void addPlayRequirement(Requirement requirement) {
         this.requirements.add(requirement);
     }
@@ -37,6 +43,9 @@ public class DefaultActionSource implements ActionSource {
 
     @Override
     public void createAction(CostToEffectAction action, ActionContext actionContext) {
+        if (text != null)
+            action.setText(text);
+
         for (EffectAppender cost : costs)
             cost.appendEffect(true, action, actionContext);
 

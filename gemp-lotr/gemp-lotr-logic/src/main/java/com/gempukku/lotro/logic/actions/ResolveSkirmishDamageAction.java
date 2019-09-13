@@ -4,7 +4,6 @@ import com.gempukku.lotro.common.Keyword;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.effects.WoundCharactersEffect;
 import com.gempukku.lotro.logic.modifiers.ModifiersQuerying;
@@ -21,17 +20,13 @@ public class ResolveSkirmishDamageAction extends RequiredTriggerAction {
 
     public ResolveSkirmishDamageAction(NormalSkirmishResult skirmishResult) {
         super(null);
+        setText("Resolve skirmish damage");
         _skirmishResult = skirmishResult;
     }
 
     @Override
     public Type getType() {
         return Type.OTHER;
-    }
-
-    @Override
-    public String getText(LotroGame game) {
-        return "Resolve skirmish damage";
     }
 
     @Override

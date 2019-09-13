@@ -18,8 +18,9 @@ import org.json.simple.JSONObject;
 public class ActivatedEffectProcessor implements EffectProcessor {
     @Override
     public void processEffect(JSONObject value, BuiltLotroCardBlueprint blueprint, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(value, "phase", "condition", "cost", "effect", "limitPerPhase", "limitPerTurn");
+        FieldUtils.validateAllowedFields(value, "phase", "condition", "cost", "effect", "limitPerPhase", "limitPerTurn", "text");
 
+        final String text = FieldUtils.getString(value.get("text"), "text");
         final String[] phaseArray = FieldUtils.getStringArray(value.get("phase"), "phase");
         final int limitPerPhase = FieldUtils.getInteger(value.get("limitPerPhase"), "limitPerPhase", 0);
         final int limitPerTurn = FieldUtils.getInteger(value.get("limitPerTurn"), "limitPerTurn", 0);
@@ -31,6 +32,7 @@ public class ActivatedEffectProcessor implements EffectProcessor {
             final Phase phase = Phase.valueOf(phaseString.toUpperCase());
 
             DefaultActionSource actionSource = new DefaultActionSource();
+            actionSource.setText(text);
             if (limitPerPhase > 0) {
                 actionSource.addPlayRequirement(
                         (actionContext) -> PlayConditions.checkPhaseLimit(actionContext.getGame(), actionContext.getSource(), phase, limitPerPhase));

@@ -11,12 +11,10 @@ public class RequiredTriggerAction extends AbstractCostToEffectAction {
     private boolean _sentMessage;
     private String _message;
 
-    private String _text;
-
     public RequiredTriggerAction(PhysicalCard physicalCard) {
         _physicalCard = physicalCard;
         if (physicalCard != null) {
-            _text = "Required trigger from " + GameUtils.getCardLink(_physicalCard);
+            setText("Required trigger from " + GameUtils.getCardLink(_physicalCard));
             _message = GameUtils.getCardLink(_physicalCard) + " required triggered effect is used";
         }
     }
@@ -36,17 +34,8 @@ public class RequiredTriggerAction extends AbstractCostToEffectAction {
         return _physicalCard;
     }
 
-    public void setText(String text) {
-        _text = text;
-    }
-
     public void setMessage(String message) {
         _message = message;
-    }
-
-    @Override
-    public String getText(LotroGame game) {
-        return _text;
     }
 
     @Override

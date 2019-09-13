@@ -29,12 +29,8 @@ public class StartOfPhaseGameProcess implements GameProcess {
     @Override
     public void process(LotroGame game) {
         game.getGameState().setCurrentPhase(_phase);
-        SystemQueueAction action = new SystemQueueAction() {
-            @Override
-            public String getText(LotroGame game) {
-                return "Start of " + _phase + " phase";
-            }
-        };
+        SystemQueueAction action = new SystemQueueAction();
+        action.setText("Start of " + _phase + " phase");
         action.appendEffect(
                 new TriggeringResultEffect(null, new StartOfPhaseResult(_phase, _playerId), "Start of " + _phase + " phase"));
         action.appendEffect(

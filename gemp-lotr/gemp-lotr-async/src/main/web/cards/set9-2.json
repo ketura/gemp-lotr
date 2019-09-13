@@ -1,0 +1,77 @@
+{
+  "9_28": {
+    "title": "*Gollum",
+    "subtitle": "Dark as Darkness",
+    "side": "shadow",
+    "culture": "gollum",
+    "cost": 2,
+    "type": "minion",
+    "strength": 5,
+    "vitality": 4,
+    "site": 3,
+    "effects": [
+      {
+        "type": "activated",
+        "text": "Exert the Ring-bearer",
+        "phase": "shadow",
+        "cost": {
+          "type": "exert",
+          "filter": "self",
+          "times": 2
+        },
+        "effect": {
+          "type": "exert",
+          "filter": "choose(ring bearer)"
+        }
+      },
+      {
+        "type": "activated",
+        "text": "Add (1)",
+        "phase": "shadow",
+        "cost": {
+          "type": "removeBurdens"
+        },
+        "effect": {
+          "type": "addTwilight"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "skirmish",
+        "cost": {
+          "type": "removeBurdens"
+        },
+        "effect": {
+          "type": "addTwilight",
+          "amount": 2
+        }
+      },
+      {
+        "type": "activated",
+        "text": "Add (3)",
+        "phase": "regroup",
+        "cost": {
+          "type": "removeBurdens"
+        },
+        "effect": {
+          "type": "addTwilight",
+          "amount": 3
+        }
+      },
+      {
+        "type": "activated",
+        "text": "Wound the Ring-bearer",
+        "phase": "regroup",
+        "cost": {
+          "type": "exert",
+          "filter": "self",
+          "times": 2
+        },
+        "effect": {
+          "type": "wound",
+          "filter": "choose(ring bearer)"
+        }
+      }
+    ]
+  }
+}

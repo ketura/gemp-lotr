@@ -16,6 +16,8 @@ public abstract class AbstractCostToEffectAction implements CostToEffectAction {
     private LinkedList<Effect> _effects = new LinkedList<Effect>();
     private LinkedList<Effect> _processedEffects = new LinkedList<Effect>();
 
+    private String text;
+
     private Phase _actionTimeword;
     private String _performingPlayer;
 
@@ -84,6 +86,16 @@ public abstract class AbstractCostToEffectAction implements CostToEffectAction {
     @Override
     public final void insertEffect(Effect... effect) {
         _effects.addAll(0, Arrays.asList(effect));
+    }
+
+    @Override
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    @Override
+    public String getText(LotroGame game) {
+        return text;
     }
 
     protected boolean isCostFailed() {
