@@ -225,7 +225,7 @@
         ],
         "cost": {
           "type": "exert",
-          "filter": "choose(bearer)"
+          "filter": "bearer"
         },
         "effect": [
           {

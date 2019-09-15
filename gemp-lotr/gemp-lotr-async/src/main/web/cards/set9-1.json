@@ -30,7 +30,7 @@
         },
         "cost": {
           "type": "exert",
-          "filter": "choose(bearer)"
+          "filter": "bearer"
         },
         "effect": {
           "type": "putOnRing"
@@ -916,7 +916,7 @@
       "phase": "skirmish",
       "cost": {
         "type": "exert",
-        "filter": "choose(bearer)",
+        "filter": "bearer",
         "memorize": "bearer"
       },
       "effect": {

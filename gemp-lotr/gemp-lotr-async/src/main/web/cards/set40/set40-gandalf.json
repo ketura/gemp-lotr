@@ -305,7 +305,7 @@
         "phase": "maneuver",
         "cost": {
           "type": "exert",
-          "filter": "choose(bearer)",
+          "filter": "bearer",
           "times": 2
         },
         "effect": {
@@ -697,7 +697,7 @@
       },
       "effect": {
         "type": "preventWound",
-        "filter": "choose(bearer)"
+        "filter": "bearer"
       }
     }
   },
@@ -901,7 +901,7 @@
       "phase": "skirmish",
       "cost": {
         "type": "exert",
-        "filter": "choose(bearer)"
+        "filter": "bearer"
       },
       "effect": {
         "type": "modifyStrength",

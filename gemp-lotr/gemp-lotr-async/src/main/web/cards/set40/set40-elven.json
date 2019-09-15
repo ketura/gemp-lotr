@@ -107,7 +107,7 @@
       "optional": true,
       "cost": {
         "type": "exert",
-        "filter": "choose(bearer)"
+        "filter": "bearer"
       },
       "effect": {
         "type": "wound",

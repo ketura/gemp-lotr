@@ -482,7 +482,7 @@
         },
         "effect": {
           "type": "preventWound",
-          "filter": "choose(bearer)"
+          "filter": "bearer"
         }
       }
     ]

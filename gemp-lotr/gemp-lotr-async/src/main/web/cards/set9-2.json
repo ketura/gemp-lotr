@@ -361,7 +361,7 @@
         },
         "effect": {
           "type": "preventWound",
-          "filter": "choose(bearer)"
+          "filter": "bearer"
         }
       }
     ]
@@ -725,7 +725,7 @@
         },
         "effect": {
           "type": "returnToHand",
-          "filter": "choose(bearer)"
+          "filter": "bearer"
         }
       }
     ]
@@ -744,7 +744,7 @@
         "phase": "skirmish",
         "cost": {
           "type": "exert",
-          "filter": "choose(bearer)",
+          "filter": "bearer",
           "times": 2
         },
         "effect": {
@@ -760,7 +760,7 @@
         },
         "effect": {
           "type": "returnToHand",
-          "filter": "choose(bearer)"
+          "filter": "bearer"
         }
       }
     ]
@@ -792,7 +792,7 @@
         },
         "effect": {
           "type": "returnToHand",
-          "filter": "choose(bearer)"
+          "filter": "bearer"
         }
       }
     ]
@@ -822,7 +822,7 @@
         },
         "cost": {
           "type": "exert",
-          "filter": "choose(bearer)"
+          "filter": "bearer"
         },
         "effect": {
           "type": "discard",

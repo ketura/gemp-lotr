@@ -15,7 +15,7 @@
       },
       "effect": {
         "type": "modifyStrength",
-        "filter": "choose(bearer)",
+        "filter": "bearer",
         "amount": 2
       }
     }
@@ -271,7 +271,7 @@
       "phase": "skirmish",
       "cost": {
         "type": "exert",
-        "filter": "choose(bearer)"
+        "filter": "bearer"
       },
       "effect": {
         "type": "preventable",
@@ -334,7 +334,7 @@
       "phase": "skirmish",
       "cost": {
         "type": "exert",
-        "filter": "choose(bearer)"
+        "filter": "bearer"
       },
       "effect": {
         "type": "choice",

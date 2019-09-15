@@ -47,7 +47,7 @@
           "effects": [
             {
               "type": "exert",
-              "filter": "choose(bearer)"
+              "filter": "bearer"
             },
             {
               "type": "discardCardAtRandomFromHand",

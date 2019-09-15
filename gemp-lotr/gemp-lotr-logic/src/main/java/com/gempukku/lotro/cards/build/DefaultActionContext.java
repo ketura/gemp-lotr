@@ -42,7 +42,8 @@ public class DefaultActionContext implements ActionContext {
     @Override
     public void setCardMemory(String memory, PhysicalCard card) {
         cardMemory.removeAll(memory);
-        cardMemory.put(memory, card);
+        if (card != null)
+            cardMemory.put(memory, card);
     }
 
     @Override

@@ -50,7 +50,7 @@
         },
         "effect": {
           "type": "modifyStrength",
-          "filter": "choose(bearer)",
+          "filter": "bearer",
           "amount": 3
         }
       }
@@ -190,7 +190,7 @@
           "effects": [
             {
               "type": "exert",
-              "filter": "choose(bearer)"
+              "filter": "bearer"
             },
             {
               "type": "returnToHand",
@@ -1161,7 +1161,7 @@
         },
         "effect": {
           "type": "heal",
-          "filter": "choose(bearer)"
+          "filter": "bearer"
         }
       }
     ]

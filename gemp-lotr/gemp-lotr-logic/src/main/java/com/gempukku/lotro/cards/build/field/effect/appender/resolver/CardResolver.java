@@ -26,8 +26,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class CardResolver {
-
-
     public static EffectAppender resolveStackedCards(String type, ValueSource countSource, FilterableSource stackedOn,
                                                      String memory, String choicePlayer, String choiceText, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         return resolveStackedCards(type, null, countSource, stackedOn, memory, choicePlayer, choiceText, environment);
@@ -414,6 +412,28 @@ public class CardResolver {
                         @Override
                         protected void doPlayEffect(LotroGame game) {
                             actionContext.setCardMemory(memory, actionContext.getSource());
+                        }
+                    };
+                }
+            };
+        } else if (type.equals("bearer")) {
+            return new DelayedAppender() {
+                @Override
+                public boolean isPlayableInFull(ActionContext actionContext) {
+                    final PhysicalCard attachedTo = actionContext.getSource().getAttachedTo();
+                    if (attachedTo == null)
+                        return false;
+                    if (playabilityFilter != null)
+                        return PlayConditions.isActive(actionContext.getGame(), attachedTo, playabilityFilter.getFilterable(actionContext));
+                    return true;
+                }
+
+                @Override
+                protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
+                    return new UnrespondableEffect() {
+                        @Override
+                        protected void doPlayEffect(LotroGame game) {
+                            actionContext.setCardMemory(memory, actionContext.getSource().getAttachedTo());
                         }
                     };
                 }

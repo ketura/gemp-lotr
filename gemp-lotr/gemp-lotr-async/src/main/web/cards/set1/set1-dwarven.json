@@ -162,7 +162,7 @@
             "text": "Would you like to heal bearer?",
             "effect": {
               "type": "heal",
-              "filter": "choose(bearer)"
+              "filter": "bearer"
             }
           },
           {
@@ -170,7 +170,7 @@
             "text": "Would you like to heal bearer?",
             "effect": {
               "type": "heal",
-              "filter": "choose(bearer)"
+              "filter": "bearer"
             }
           }
         ]
@@ -182,7 +182,7 @@
         },
         "effect": {
           "type": "exert",
-          "filter": "choose(bearer)"
+          "filter": "bearer"
         }
       }
     ]

@@ -138,7 +138,7 @@
             {
               "type": "exert",
               "player": "fp",
-              "filter": "choose(bearer)"
+              "filter": "bearer"
             }
           ]
         }
