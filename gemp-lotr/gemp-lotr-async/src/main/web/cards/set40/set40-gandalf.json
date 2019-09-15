@@ -893,7 +893,7 @@
     "culture": "gandalf",
     "cost": 2,
     "type": "possession",
-    "possession": "hand weapon",
+    "possession": "staff",
     "strength": 1,
     "target": "wizard",
     "effects": {
