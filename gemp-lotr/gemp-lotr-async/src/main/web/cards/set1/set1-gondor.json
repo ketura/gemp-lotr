@@ -1,0 +1,34 @@
+{
+  "1_94": {
+    "title": "Athelas",
+    "culture": "gondor",
+    "cost": 1,
+    "type": "possession",
+    "target": "culture(gondor),man",
+    "effects": {
+      "type": "activated",
+      "phase": "fellowship",
+      "cost": {
+        "type": "discard",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "choice",
+        "texts": [
+          "Heal a companion",
+          "Remove a Shadow condition from a companion"
+        ],
+        "effects": [
+          {
+            "type": "heal",
+            "filter": "choose(companion)"
+          },
+          {
+            "type": "discard",
+            "filter": "choose(side(shadow),condition,attachedTo(companion))"
+          }
+        ]
+      }
+    }
+  }
+}
