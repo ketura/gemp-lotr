@@ -8,6 +8,7 @@ import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardsEffect;
 import com.gempukku.lotro.logic.effects.ChooseArbitraryCardsEffect;
@@ -112,7 +113,30 @@ public class CardResolver {
     }
 
     public static EffectAppender resolveCardsInHand(String type, FilterableSource additionalFilter, ValueSource countSource, String memory, String choicePlayer, String handPlayer, String choiceText, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        if (type.equals("self")) {
+        if (type.startsWith("random(") && type.endsWith(")")) {
+            final int count = Integer.parseInt(type.substring(type.indexOf("(") + 1, type.lastIndexOf(")")));
+            final PlayerSource handSource = PlayerResolver.resolvePlayer(handPlayer, environment);
+            return new DelayedAppender() {
+                @Override
+                public boolean isPlayableInFull(ActionContext actionContext) {
+                    final String handPlayer = handSource.getPlayer(actionContext);
+                    return actionContext.getGame().getGameState().getHand(handPlayer).size() >= count;
+                }
+
+                @Override
+                protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
+                    final String handPlayer = handSource.getPlayer(actionContext);
+                    return new UnrespondableEffect() {
+                        @Override
+                        protected void doPlayEffect(LotroGame game) {
+                            List<? extends PhysicalCard> hand = game.getGameState().getHand(handPlayer);
+                            List<PhysicalCard> randomCardsFromHand = GameUtils.getRandomCards(hand, 2);
+                            actionContext.setCardMemory(memory, randomCardsFromHand);
+                        }
+                    };
+                }
+            };
+        } else if (type.equals("self")) {
             return new DelayedAppender() {
                 @Override
                 public boolean isPlayableInFull(ActionContext actionContext) {

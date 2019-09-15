@@ -8,6 +8,7 @@ import com.gempukku.lotro.cards.build.field.effect.appender.resolver.CardResolve
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.PlayerResolver;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.ValueResolver;
 import com.gempukku.lotro.game.PhysicalCard;
+import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.effects.DiscardCardsFromHandEffect;
 import com.gempukku.lotro.logic.timing.Effect;
@@ -44,7 +45,15 @@ public class DiscardFromHand implements EffectAppenderProducer {
 
                     @Override
                     public boolean isPlayableInFull(ActionContext actionContext) {
-                        return (!forced || actionContext.getGame().getModifiersQuerying().canDiscardCardsFromHand(actionContext.getGame(), handSource.getPlayer(actionContext), actionContext.getSource()));
+                        final LotroGame game = actionContext.getGame();
+
+                        final String handPlayer = handSource.getPlayer(actionContext);
+                        final String choosingPlayer = playerSource.getPlayer(actionContext);
+                        if (!handPlayer.equals(choosingPlayer)
+                                && !game.getModifiersQuerying().canLookOrRevealCardsInHand(game, handPlayer, choosingPlayer))
+                            return false;
+
+                        return (!forced || game.getModifiersQuerying().canDiscardCardsFromHand(game, handPlayer, actionContext.getSource()));
                     }
                 });
 
