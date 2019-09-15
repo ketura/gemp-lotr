@@ -374,7 +374,7 @@
           },
           {
             "type": "wound",
-            "filter": "choose(Gandalf)"
+            "filter": "choose(name(Gandalf))"
           }
         ]
       }

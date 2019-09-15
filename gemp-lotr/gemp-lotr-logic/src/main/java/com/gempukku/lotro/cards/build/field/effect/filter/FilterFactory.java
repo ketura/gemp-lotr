@@ -26,8 +26,6 @@ public class FilterFactory {
             appendFilter(value);
         for (Race value : Race.values())
             appendFilter(value);
-        for (Signet value : Signet.values())
-            appendFilter(value);
 
         simpleFilters.put("ring bearer", (actionContext) -> Filters.ringBearer);
         simpleFilters.put("any", (actionContext) -> Filters.any);
@@ -88,6 +86,13 @@ public class FilterFactory {
                 throw new InvalidCardDefinitionException("Unable to find culture for: " + parameter);
 
             return (actionContext) -> culture;
+        });
+        parameterFilters.put("signet", (parameter, environment) -> {
+            final Signet signet = Signet.valueOf(parameter.toUpperCase());
+            if (signet == null)
+                throw new InvalidCardDefinitionException("Unable to find culture for: " + parameter);
+
+            return (actionContext) -> signet;
         });
         parameterFilters.put("cultureFromMemory", ((parameter, environment) -> actionContext -> {
             Set<Culture> cultures = new HashSet<>();
@@ -268,28 +273,24 @@ public class FilterFactory {
                     };
                 });
         parameterFilters.put("race",
-                new FilterableSourceProducer() {
-                    @Override
-                    public FilterableSource createFilterableSource(String parameter, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-                        if (parameter.equals("stored")) {
-                            return new FilterableSource() {
-                                @Override
-                                public Filterable getFilterable(ActionContext actionContext) {
-                                    return new Filter() {
-                                        @Override
-                                        public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
-                                            final String value = (String) actionContext.getSource().getWhileInZoneData();
-                                            if (value == null)
-                                                return false;
-                                            else
-                                                return Race.valueOf(value) == physicalCard.getBlueprint().getRace();
-                                        }
-                                    };
-                                }
-                            };
-                        }
-                        throw new InvalidCardDefinitionException("Unknown race definition in filter");
+                (parameter, environment) -> {
+                    if (parameter.equals("stored")) {
+                        return actionContext -> (Filter) (game, physicalCard) -> {
+                            final String value = (String) actionContext.getSource().getWhileInZoneData();
+                            if (value == null)
+                                return false;
+                            else
+                                return Race.valueOf(value) == physicalCard.getBlueprint().getRace();
+                        };
+                    } else if (parameter.equals("cannotSpot")) {
+                        return actionContext -> (Filter) (game, physicalCard) -> {
+                            final Race race = physicalCard.getBlueprint().getRace();
+                            if (race != null)
+                                return !Filters.canSpot(game, race);
+                            return false;
+                        };
                     }
+                    throw new InvalidCardDefinitionException("Unknown race definition in filter");
                 });
         parameterFilters.put("nameFromMemory",
                 new FilterableSourceProducer() {

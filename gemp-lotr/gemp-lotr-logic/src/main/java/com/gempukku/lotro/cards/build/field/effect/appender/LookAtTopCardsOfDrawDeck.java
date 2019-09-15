@@ -8,10 +8,13 @@ import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.PlayerResolver;
+import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.effects.LookAtTopCardOfADeckEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 import org.json.simple.JSONObject;
+
+import java.util.List;
 
 public class LookAtTopCardsOfDrawDeck implements EffectAppenderProducer {
     @Override
@@ -20,6 +23,7 @@ public class LookAtTopCardsOfDrawDeck implements EffectAppenderProducer {
 
         final String deck = FieldUtils.getString(effectObject.get("deck"), "deck", "you");
         final int count = FieldUtils.getInteger(effectObject.get("count"), "count", 1);
+        final String memorize = FieldUtils.getString(effectObject.get("memorize"), "memorize");
 
         final PlayerSource playerSource = PlayerResolver.resolvePlayer(deck, environment);
 
@@ -35,7 +39,13 @@ public class LookAtTopCardsOfDrawDeck implements EffectAppenderProducer {
             protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
                 final String deckId = playerSource.getPlayer(actionContext);
 
-                return new LookAtTopCardOfADeckEffect(actionContext.getPerformingPlayer(), count, deckId);
+                return new LookAtTopCardOfADeckEffect(actionContext.getPerformingPlayer(), count, deckId) {
+                    @Override
+                    protected void cardsLookedAt(List<? extends PhysicalCard> cards) {
+                        if (memorize != null)
+                            actionContext.setCardMemory(memorize, cards);
+                    }
+                };
             }
         };
     }

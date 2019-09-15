@@ -47,6 +47,11 @@ public class LookAtTopCardOfADeckEffect extends AbstractEffect {
                     public void decisionMade(String result) throws DecisionResultInvalidException {
                     }
                 });
+        cardsLookedAt(cards);
         return new FullEffectResult(deck.size() >= _count);
+    }
+
+    protected void cardsLookedAt(List<? extends PhysicalCard> cards) {
+
     }
 }
