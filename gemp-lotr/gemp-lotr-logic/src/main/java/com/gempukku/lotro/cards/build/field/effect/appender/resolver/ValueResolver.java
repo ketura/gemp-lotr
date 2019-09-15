@@ -246,6 +246,26 @@ public class ValueResolver {
                     final int second = secondNumber.getEvaluator(actionContext).evaluateExpression(actionContext.getGame(), null);
                     return first - second;
                 };
+            } else if (type.equalsIgnoreCase("sum")) {
+                FieldUtils.validateAllowedFields(object, "source");
+                final JSONObject[] sourceArray = FieldUtils.getObjectArray(object.get("source"), "source");
+                ValueSource[] sources = new ValueSource[sourceArray.length];
+                for (int i = 0; i < sources.length; i++)
+                    sources[i] = ValueResolver.resolveEvaluator(sourceArray[i], 0, environment);
+
+                return actionContext -> {
+                    Evaluator[] evaluators = new Evaluator[sources.length];
+                    for (int i = 0; i < sources.length; i++)
+                        evaluators[i] = sources[i].getEvaluator(actionContext);
+
+                    return (game, cardAffected) -> {
+                        int sum = 0;
+                        for (Evaluator evaluator : evaluators)
+                            sum += evaluator.evaluateExpression(game, cardAffected);
+
+                        return sum;
+                    };
+                };
             } else if (type.equalsIgnoreCase("twilightCostInMemory")) {
                 FieldUtils.validateAllowedFields(object, "multiplier", "memory");
                 final int multiplier = FieldUtils.getInteger(object.get("multiplier"), "multiplier", 1);

@@ -1,0 +1,173 @@
+{
+  "1_69": {
+    "title": "*Albert Dreary",
+    "subtitle": "Entertainer From Bree",
+    "culture": "gandalf",
+    "cost": 1,
+    "type": "ally",
+    "allyHome": "fellowship,1",
+    "race": "man",
+    "strength": 3,
+    "vitality": 3,
+    "condition": {
+      "type": "canSpot",
+      "filter": "name(Gandalf)"
+    },
+    "effects": {
+      "type": "activated",
+      "phase": "maneuver",
+      "cost": {
+        "type": "exert",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "discard",
+        "filter": "choose(condition,or(culture(isengard),culture(moria)))"
+      }
+    }
+  },
+  "1_70": {
+    "title": "*Barliman Butterbur",
+    "subtitle": "Prancing Pony Proprietor",
+    "culture": "gandalf",
+    "cost": 0,
+    "type": "ally",
+    "allyHome": "fellowship,1",
+    "race": "man",
+    "strength": 1,
+    "vitality": 2,
+    "effects": {
+      "type": "activated",
+      "phase": "fellowship",
+      "cost": {
+        "type": "exert",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "putCardsFromDiscardIntoHand",
+        "filter": "choose(culture(gandalf),event)"
+      }
+    }
+  },
+  "1_71": {
+    "title": "Durin's Secret",
+    "culture": "gandalf",
+    "cost": 2,
+    "type": "event",
+    "keyword": "fellowship",
+    "condition": [
+      {
+        "type": "canSpot",
+        "filter": "name(Gandalf)"
+      },
+      {
+        "type": "canSpot",
+        "filter": "dwarf"
+      },
+      {
+        "type": "canSpot",
+        "filter": "elf"
+      }
+    ],
+    "effects": {
+      "type": "event",
+      "effect": {
+        "type": "addModifier",
+        "modifier": {
+          "type": "modifyMoveLimit",
+          "amount": 1
+        },
+        "until": "endOfTurn"
+      }
+    }
+  },
+  "1_72": {
+    "title": "*Gandalf",
+    "subtitle": "Friend of the Shirefolk",
+    "culture": "gandalf",
+    "cost": 4,
+    "type": "companion",
+    "race": "wizard",
+    "strength": 6,
+    "vitality": 4,
+    "resistance": 6,
+    "signet": "Frodo",
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyStrength",
+        "filter": "self",
+        "amount": {
+          "type": "sum",
+          "source": [
+            {
+              "type": "condition",
+              "condition": {
+                "type": "canSpot",
+                "filter": "hobbit,companion"
+              },
+              "true": 1,
+              "false": 0
+            },
+            {
+              "type": "condition",
+              "condition": {
+                "type": "canSpot",
+                "filter": "dwarf,companion"
+              },
+              "true": 1,
+              "false": 0
+            },
+            {
+              "type": "condition",
+              "condition": {
+                "type": "canSpot",
+                "filter": "elf,companion"
+              },
+              "true": 1,
+              "false": 0
+            },
+            {
+              "type": "condition",
+              "condition": {
+                "type": "canSpot",
+                "filter": "man,companion"
+              },
+              "true": 1,
+              "false": 0
+            }
+          ]
+        }
+      }
+    }
+  },
+  "1_73": {
+    "title": "*Gandalf's Cart",
+    "culture": "gandalf",
+    "cost": 1,
+    "type": "possession",
+    "keyword": "support area",
+    "effects": {
+      "type": "activated",
+      "phase": "fellowship",
+      "effect": {
+        "type": "choice",
+        "texts": [
+          "Stack a Free Peoples artifact (or possession)",
+          "Play a card stacked here"
+        ],
+        "effects": [
+          {
+            "type": "stackCardsFromHand",
+            "filter": "choose(side(free people),or(artifact,possession))",
+            "where": "self"
+          },
+          {
+            "type": "playCardFromStacked",
+            "on": "self"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -26,7 +26,7 @@ public class PlayCardFromStacked implements EffectAppenderProducer {
     public EffectAppender createEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         FieldUtils.validateAllowedFields(effectObject, "filter", "on", "removedTwilight");
 
-        final String filter = FieldUtils.getString(effectObject.get("filter"), "filter");
+        final String filter = FieldUtils.getString(effectObject.get("filter"), "filter", "choose(any)");
         final String onFilter = FieldUtils.getString(effectObject.get("on"), "on");
         final int removedTwilight = FieldUtils.getInteger(effectObject.get("removedTwilight"), "removedTwilight", 0);
 
