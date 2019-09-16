@@ -38,6 +38,7 @@ public class ChooseARace implements EffectAppenderProducer {
                             @Override
                             protected void validDecisionMade(int index, String result) {
                                 actionContext.setValueToMemory(memorize, Race.findRaceByHumanReadable(result).toString());
+                                actionContext.getGame().getGameState().sendMessage(actionContext.getPerformingPlayer() + " has chosen " + result);
                             }
                         });
             }
