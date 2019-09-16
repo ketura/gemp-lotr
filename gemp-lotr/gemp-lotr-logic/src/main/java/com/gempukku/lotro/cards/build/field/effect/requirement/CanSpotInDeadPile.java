@@ -9,8 +9,6 @@ import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
-import com.gempukku.lotro.logic.modifiers.Condition;
-import com.gempukku.lotro.logic.timing.PlayConditions;
 import org.json.simple.JSONObject;
 
 public class CanSpotInDeadPile implements RequirementProducer {
@@ -26,11 +24,8 @@ public class CanSpotInDeadPile implements RequirementProducer {
             final Filterable filterable = filterableSource.getFilterable(actionContext);
             final LotroGame game = actionContext.getGame();
 
-            int amount = 0;
-            for (String player : GameUtils.getAllPlayers(game)) {
-                amount += Filters.filter(game.getGameState().getDeadPile(player), game, filterable).size();
-            }
-            return amount >= count;
+            // You can "spot" cards in dead pile, only for current player
+            return Filters.filter(game.getGameState().getDeadPile(GameUtils.getFreePeoplePlayer(game)), game, filterable).size() >= count;
         };
     }
 }

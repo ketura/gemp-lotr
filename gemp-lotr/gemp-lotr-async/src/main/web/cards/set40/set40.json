@@ -661,7 +661,7 @@
         "type": "modifySanctuaryHeal",
         "condition": {
           "type": "canSpotInDeadPile",
-          "filter": "your,companion"
+          "filter": "companion"
         },
         "amount": 2
       }
