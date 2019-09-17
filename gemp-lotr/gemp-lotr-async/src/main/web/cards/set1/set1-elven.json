@@ -366,6 +366,7 @@
       "effect": {
         "type": "discardFromHand",
         "hand": "shadowPlayer",
+        "player": "shadowPlayer",
         "forced": true
       }
     }
