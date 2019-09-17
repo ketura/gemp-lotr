@@ -1,15 +1,4 @@
 {
-  "1_158": {
-    "title": "Uruk-hai Raiding Party",
-    "culture": "isengard",
-    "cost": 4,
-    "type": "minion",
-    "race": "uruk-hai",
-    "strength": 9,
-    "vitality": 3,
-    "site": 5,
-    "keyword": "damage+1"
-  },
   "1_178": {
     "title": "Goblin Runner",
     "culture": "moria",
