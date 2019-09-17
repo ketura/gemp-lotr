@@ -26,7 +26,7 @@ public class RemoveBurdens implements EffectAppenderProducer {
             @Override
             protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
                 final String removingPlayer = playerSource.getPlayer(actionContext);
-                final Evaluator evaluator = valueSource.getEvaluator(null);
+                final Evaluator evaluator = valueSource.getEvaluator(actionContext);
                 return new RemoveBurdenEffect(removingPlayer, actionContext.getSource(), evaluator.evaluateExpression(actionContext.getGame(), null));
             }
 

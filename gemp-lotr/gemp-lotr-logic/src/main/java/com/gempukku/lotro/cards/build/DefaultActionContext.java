@@ -36,7 +36,10 @@ public class DefaultActionContext implements ActionContext {
 
     @Override
     public String getValueFromMemory(String memory) {
-        return valueMemory.get(memory);
+        final String result = valueMemory.get(memory);
+        if (result == null)
+            throw new IllegalArgumentException("Memory not found - " + memory);
+        return result;
     }
 
     @Override
