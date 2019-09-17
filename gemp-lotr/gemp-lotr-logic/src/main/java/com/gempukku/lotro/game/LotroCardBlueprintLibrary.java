@@ -209,7 +209,7 @@ public class LotroCardBlueprintLibrary {
 
     private LotroCardBlueprint getBlueprint(String blueprintId) throws CardNotFoundException {
         if (_blueprintMapping.containsKey(blueprintId))
-            return getBlueprint(_blueprintMapping.get(blueprintId));
+            return getLotroCardBlueprint(_blueprintMapping.get(blueprintId));
 
         String[] blueprintParts = blueprintId.split("_");
 

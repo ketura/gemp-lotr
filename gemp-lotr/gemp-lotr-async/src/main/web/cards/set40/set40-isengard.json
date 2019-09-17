@@ -391,7 +391,7 @@
       "cost": [
         {
           "type": "exert",
-          "filter": "choose(name(Saruman))"
+          "filter": "self"
         },
         {
           "type": "discardStackedCards",
@@ -405,7 +405,7 @@
         "text": "Would you like to add 1 threat to prevent Saruman from wounding a character in its skirmish?",
         "effect": {
           "type": "wound",
-          "filter": "choose(companion,inSkirmishAgainst(name(Saruman)))"
+          "filter": "choose(companion,inSkirmishAgainst(self))"
         },
         "cost": {
           "type": "addThreats",

@@ -135,7 +135,10 @@
     "strength": 3,
     "vitality": 4,
     "resistance": 7,
-    "keyword": "ring-bound",
+    "keyword": [
+      "ring-bound",
+      "can start with ring"
+    ],
     "effects": [
       {
         "type": "extraCost",
