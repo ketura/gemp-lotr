@@ -25,7 +25,7 @@ public class SortAndFilterCards {
         Integer siteNumber = getSiteNumber(filterParams);
 
         List<T> result = new ArrayList<T>();
-        Map<String, LotroCardBlueprint> cardBlueprintMap = new HashMap<String, LotroCardBlueprint>();
+        Map<String, LotroCardBlueprint> cardBlueprintMap = new HashMap<>();
 
         for (T item : items) {
             String blueprintId = item.getBlueprintId();
@@ -52,19 +52,19 @@ public class SortAndFilterCards {
         MultipleComparator<CardItem> comparators = new MultipleComparator<CardItem>();
         for (String oneSort : sortSplit) {
             if (oneSort.equals("twilight"))
-                comparators.addComparator(new PacksFirstComparator(new TwilightComparator(cardLibrary, cardBlueprintMap)));
+                comparators.addComparator(new PacksFirstComparator(new TwilightComparator(cardBlueprintMap)));
             else if (oneSort.equals("siteNumber"))
-                comparators.addComparator(new PacksFirstComparator(new SiteNumberComparator(cardLibrary, cardBlueprintMap)));
+                comparators.addComparator(new PacksFirstComparator(new SiteNumberComparator(cardBlueprintMap)));
             else if (oneSort.equals("strength"))
-                comparators.addComparator(new PacksFirstComparator(new StrengthComparator(cardLibrary, cardBlueprintMap)));
+                comparators.addComparator(new PacksFirstComparator(new StrengthComparator(cardBlueprintMap)));
             else if (oneSort.equals("vitality"))
-                comparators.addComparator(new PacksFirstComparator(new VitalityComparator(cardLibrary, cardBlueprintMap)));
+                comparators.addComparator(new PacksFirstComparator(new VitalityComparator(cardBlueprintMap)));
             else if (oneSort.equals("cardType"))
-                comparators.addComparator(new PacksFirstComparator(new CardTypeComparator(cardLibrary, cardBlueprintMap)));
+                comparators.addComparator(new PacksFirstComparator(new CardTypeComparator(cardBlueprintMap)));
             else if (oneSort.equals("culture"))
-                comparators.addComparator(new PacksFirstComparator(new CultureComparator(cardLibrary, cardBlueprintMap)));
+                comparators.addComparator(new PacksFirstComparator(new CultureComparator(cardBlueprintMap)));
             else if (oneSort.equals("name"))
-                comparators.addComparator(new PacksFirstComparator(new NameComparator(cardLibrary, cardBlueprintMap)));
+                comparators.addComparator(new PacksFirstComparator(new NameComparator(cardBlueprintMap)));
         }
 
         Collections.sort(result, comparators);
@@ -289,11 +289,9 @@ public class SortAndFilterCards {
     }
 
     private static class SiteNumberComparator implements Comparator<CardItem> {
-        private LotroCardBlueprintLibrary _library;
         private Map<String, LotroCardBlueprint> _cardBlueprintMap;
 
-        private SiteNumberComparator(LotroCardBlueprintLibrary library, Map<String, LotroCardBlueprint> cardBlueprintMap) {
-            _library = library;
+        private SiteNumberComparator(Map<String, LotroCardBlueprint> cardBlueprintMap) {
             _cardBlueprintMap = cardBlueprintMap;
         }
 
@@ -317,11 +315,9 @@ public class SortAndFilterCards {
     }
 
     private static class NameComparator implements Comparator<CardItem> {
-        private LotroCardBlueprintLibrary _library;
         private Map<String, LotroCardBlueprint> _cardBlueprintMap;
 
-        private NameComparator(LotroCardBlueprintLibrary library, Map<String, LotroCardBlueprint> cardBlueprintMap) {
-            _library = library;
+        private NameComparator(Map<String, LotroCardBlueprint> cardBlueprintMap) {
             _cardBlueprintMap = cardBlueprintMap;
         }
 
@@ -332,11 +328,9 @@ public class SortAndFilterCards {
     }
 
     private static class TwilightComparator implements Comparator<CardItem> {
-        private LotroCardBlueprintLibrary _library;
         private Map<String, LotroCardBlueprint> _cardBlueprintMap;
 
-        private TwilightComparator(LotroCardBlueprintLibrary library, Map<String, LotroCardBlueprint> cardBlueprintMap) {
-            _library = library;
+        private TwilightComparator(Map<String, LotroCardBlueprint> cardBlueprintMap) {
             _cardBlueprintMap = cardBlueprintMap;
         }
 
@@ -347,11 +341,9 @@ public class SortAndFilterCards {
     }
 
     private static class StrengthComparator implements Comparator<CardItem> {
-        private LotroCardBlueprintLibrary _library;
         private Map<String, LotroCardBlueprint> _cardBlueprintMap;
 
-        private StrengthComparator(LotroCardBlueprintLibrary library, Map<String, LotroCardBlueprint> cardBlueprintMap) {
-            _library = library;
+        private StrengthComparator(Map<String, LotroCardBlueprint> cardBlueprintMap) {
             _cardBlueprintMap = cardBlueprintMap;
         }
 
@@ -370,11 +362,9 @@ public class SortAndFilterCards {
     }
 
     private static class VitalityComparator implements Comparator<CardItem> {
-        private LotroCardBlueprintLibrary _library;
         private Map<String, LotroCardBlueprint> _cardBlueprintMap;
 
-        private VitalityComparator(LotroCardBlueprintLibrary library, Map<String, LotroCardBlueprint> cardBlueprintMap) {
-            _library = library;
+        private VitalityComparator(Map<String, LotroCardBlueprint> cardBlueprintMap) {
             _cardBlueprintMap = cardBlueprintMap;
         }
 
@@ -393,11 +383,9 @@ public class SortAndFilterCards {
     }
 
     private static class CardTypeComparator implements Comparator<CardItem> {
-        private LotroCardBlueprintLibrary _library;
         private Map<String, LotroCardBlueprint> _cardBlueprintMap;
 
-        private CardTypeComparator(LotroCardBlueprintLibrary library, Map<String, LotroCardBlueprint> cardBlueprintMap) {
-            _library = library;
+        private CardTypeComparator(Map<String, LotroCardBlueprint> cardBlueprintMap) {
             _cardBlueprintMap = cardBlueprintMap;
         }
 
@@ -410,11 +398,9 @@ public class SortAndFilterCards {
     }
 
     private static class CultureComparator implements Comparator<CardItem> {
-        private LotroCardBlueprintLibrary _library;
         private Map<String, LotroCardBlueprint> _cardBlueprintMap;
 
-        private CultureComparator(LotroCardBlueprintLibrary library, Map<String, LotroCardBlueprint> cardBlueprintMap) {
-            _library = library;
+        private CultureComparator(Map<String, LotroCardBlueprint> cardBlueprintMap) {
             _cardBlueprintMap = cardBlueprintMap;
         }
 
