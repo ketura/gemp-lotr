@@ -1,4 +1,186 @@
 {
+  "1_120": {
+    "title": "Alive and Unspoiled",
+    "culture": "isengard",
+    "cost": 2,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": [
+      {
+        "type": "extraCost",
+        "cost": {
+          "type": "exert",
+          "filter": "choose(uruk-hai)"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "shadow",
+        "cost": [
+          {
+            "type": "removeTwilight",
+            "amount": 3
+          },
+          {
+            "type": "chooseHowManyBurdensToSpot",
+            "memorize": "spottedBurdens"
+          }
+        ],
+        "effect": [
+          {
+            "type": "revealRandomCardsFromHand",
+            "forced": true,
+            "hand": "fp",
+            "count": {
+              "type": "fromMemory",
+              "memory": "spottedBurdens"
+            },
+            "memorize": "revealedCards"
+          },
+          {
+            "type": "optional",
+            "text": "Would you like to discard one of the revealed cards?",
+            "effect": {
+              "type": "discardFromHand",
+              "hand": "fp",
+              "player": "you",
+              "forced": true,
+              "filter": "choose(memory(revealedCards))"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "1_121": {
+    "title": "Bred for Battle",
+    "culture": "isengard",
+    "cost": 0,
+    "type": "event",
+    "keyword": "skirmish",
+    "effects": {
+      "type": "event",
+      "cost": {
+        "type": "exert",
+        "filter": "choose(uruk-hai)",
+        "memorize": "exertedUrukHai"
+      },
+      "effect": {
+        "type": "modifyStrength",
+        "filter": "memory(exertedUrukHai)",
+        "amount": 3
+      }
+    }
+  },
+  "1_122": {
+    "title": "Breeding Pit",
+    "culture": "isengard",
+    "cost": 1,
+    "type": "event",
+    "keyword": "response",
+    "effects": {
+      "type": "responseEvent",
+      "trigger": {
+        "type": "played",
+        "filter": "your,uruk hai",
+        "memorize": "playedUrukHai"
+      },
+      "effect": {
+        "type": "putCardsFromDiscardOnBottomOfDrawDeck",
+        "filter": "all(name(nameFromMemory(playedUrukHai)))"
+      }
+    }
+  },
+  "1_123": {
+    "title": "Caradhras Has Not Forgiven Us",
+    "culture": "isengard",
+    "cost": 3,
+    "type": "event",
+    "keyword": [
+      "spell",
+      "weather",
+      "maneuver"
+    ],
+    "condition": {
+      "type": "canSpot",
+      "count": 5,
+      "filter": "companion"
+    },
+    "effects": {
+      "type": "event",
+      "cost": {
+        "type": "exert",
+        "filter": "choose(culture(isengard),minion)"
+      },
+      "effect": {
+        "type": "discard",
+        "filter": "choose(exhausted,companion,not(ring bearer))"
+      }
+    }
+  },
+  "1_124": {
+    "title": "Cruel Caradhras",
+    "culture": "isengard",
+    "cost": 2,
+    "type": "event",
+    "keyword": [
+      "spell",
+      "weather",
+      "maneuver"
+    ],
+    "effects": {
+      "type": "event",
+      "cost": {
+        "type": "exert",
+        "filter": "choose(culture(isengard),minion)"
+      },
+      "effect": {
+        "type": "choice",
+        "player": "fp",
+        "texts": [
+          "Exert the Ring-bearer",
+          "Add a burden"
+        ],
+        "effects": [
+          {
+            "type": "exert",
+            "filter": "choose(ring bearer)"
+          },
+          {
+            "type": "addBurdens"
+          }
+        ]
+      }
+    }
+  },
+  "1_125": {
+    "title": "Greed",
+    "culture": "isengard",
+    "cost": 1,
+    "type": "condition",
+    "condition": {
+      "type": "canSpot",
+      "filter": "uruk-hai"
+    },
+    "keyword": "support area",
+    "effects": {
+      "type": "activated",
+      "phase": "maneuver",
+      "condition": {
+        "type": "canSpot",
+        "count": 6,
+        "filter": "companion"
+      },
+      "cost": {
+        "type": "removeTwilight",
+        "amount": 2
+      },
+      "effect": {
+        "type": "wound",
+        "filter": "choose(companion,not(ring bearer))"
+      }
+    }
+  },
   "1_158": {
     "title": "Uruk-hai Raiding Party",
     "culture": "isengard",

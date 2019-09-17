@@ -76,6 +76,7 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("stackcards", new StackCardsFromPlay());
         effectAppenderProducers.put("removekeyword", new RemoveKeyword());
         effectAppenderProducers.put("putcardsfromdiscardontopofdrawdeck", new PutCardsFromDiscardOnTopOfDrawDeck());
+        effectAppenderProducers.put("putcardsfromdiscardonbottomofdrawdeck", new PutCardsFromDiscardOnBottomOfDrawDeck());
         effectAppenderProducers.put("lookattopcardsofdrawdeck", new LookAtTopCardsOfDrawDeck());
         effectAppenderProducers.put("addthreats", new AddThreats());
         effectAppenderProducers.put("sideplayercantplayphaseeventsorusephasespecialabilities", new SidePlayerCantPlayPhaseEventsOrUsePhaseSpecialAbilities());
