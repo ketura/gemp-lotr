@@ -55,7 +55,7 @@ public class LotroCardBlueprintLibrary {
 
     private void initCardSets(CardSets cardSets) {
         for (SetDefinition setDefinition : cardSets.getSetDefinitions().values()) {
-            if (setDefinition.hasFlag("needsLoading")) {
+//            if (setDefinition.hasFlag("needsLoading")) {
                 logger.debug("Loading set " + setDefinition.getSetId());
                 final Set<String> allCards = setDefinition.getAllCards();
                 for (String blueprintId : allCards) {
@@ -70,7 +70,7 @@ public class LotroCardBlueprintLibrary {
                         }
                     }
                 }
-            }
+//            }
         }
     }
 
@@ -220,16 +220,14 @@ public class LotroCardBlueprintLibrary {
             LotroCardBlueprint blueprint = null;
             try {
                 blueprint = tryLoadingFromPackage(packageName, setNumber, cardNumber);
-            } catch (IllegalAccessException e) {
-                throw new CardNotFoundException();
-            } catch (InstantiationException e) {
-                throw new CardNotFoundException();
+            } catch (IllegalAccessException | InstantiationException e) {
+                throw new CardNotFoundException(blueprintId);
             }
             if (blueprint != null)
                 return blueprint;
         }
 
-        throw new CardNotFoundException();
+        throw new CardNotFoundException(blueprintId);
     }
 
     private LotroCardBlueprint tryLoadingFromPackage(String packageName, String setNumber, String cardNumber) throws IllegalAccessException, InstantiationException {
