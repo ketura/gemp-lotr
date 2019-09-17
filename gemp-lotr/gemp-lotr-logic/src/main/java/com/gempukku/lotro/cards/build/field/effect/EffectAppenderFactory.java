@@ -112,6 +112,7 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("incrementperturnlimit", new IncrementPerTurnLimit());
         effectAppenderProducers.put("revealhand", new RevealHand());
         effectAppenderProducers.put("placenowoundforexert", new PlaceNoWoundForExert());
+        effectAppenderProducers.put("shufflehandintodrawdeck", new ShuffleHandIntoDrawDeck());
     }
 
     public EffectAppender getEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {

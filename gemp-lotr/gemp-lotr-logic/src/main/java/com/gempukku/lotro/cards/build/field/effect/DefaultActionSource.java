@@ -14,7 +14,12 @@ public class DefaultActionSource implements ActionSource {
     private List<EffectAppender> costs = new LinkedList<>();
     private List<EffectAppender> effects = new LinkedList<>();
 
+    private boolean requiresRanger;
     private String text;
+
+    public void setRequiresRanger(boolean requiresRanger) {
+        this.requiresRanger = requiresRanger;
+    }
 
     public void setText(String text) {
         this.text = text;
@@ -30,6 +35,11 @@ public class DefaultActionSource implements ActionSource {
 
     public void addEffect(EffectAppender effectAppender) {
         effects.add(effectAppender);
+    }
+
+    @Override
+    public boolean requiresRanger() {
+        return requiresRanger;
     }
 
     @Override

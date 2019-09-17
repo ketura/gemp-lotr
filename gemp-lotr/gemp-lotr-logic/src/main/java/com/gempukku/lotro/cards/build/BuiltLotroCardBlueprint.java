@@ -500,7 +500,7 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
     @Override
     public PlayEventAction getPlayEventCardAction(String playerId, LotroGame game, PhysicalCard self) {
         DefaultActionContext actionContext = new DefaultActionContext(playerId, game, self, null, null);
-        PlayEventAction action = new PlayEventAction(self);
+        PlayEventAction action = new PlayEventAction(self, playEventAction.requiresRanger());
         playEventAction.createAction(action, actionContext);
         return action;
     }
@@ -896,7 +896,7 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
             List<Keyword> requiredKeywords = Arrays.asList(
                     Keyword.RESPONSE, Keyword.FELLOWSHIP, Keyword.SHADOW, Keyword.MANEUVER, Keyword.ARCHERY, Keyword.ASSIGNMENT,
                     Keyword.SKIRMISH, Keyword.REGROUP);
-            if (Collections.disjoint(keywords.keySet(), requiredKeywords))
+            if (keywords == null || Collections.disjoint(keywords.keySet(), requiredKeywords))
                 throw new InvalidCardDefinitionException("Events have to have a response or phase keyword");
 
             if (keywords.containsKey(Keyword.RESPONSE)) {

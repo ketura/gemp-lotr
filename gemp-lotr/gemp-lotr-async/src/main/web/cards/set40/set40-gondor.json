@@ -544,6 +544,7 @@
     },
     "effects": {
       "type": "event",
+      "requiresRanger": true,
       "effect": {
         "type": "playNextSite"
       }
@@ -605,6 +606,7 @@
     "keyword": "maneuver",
     "effects": {
       "type": "event",
+      "requiresRanger": true,
       "cost": {
         "type": "exert",
         "filter": "choose(culture(gondor),ranger)"
@@ -650,6 +652,7 @@
     "keyword": "skirmish",
     "effects": {
       "type": "event",
+      "requiresRanger": true,
       "effect": [
         {
           "type": "modifyStrength",
