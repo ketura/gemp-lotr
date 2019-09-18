@@ -34,7 +34,7 @@ public class WinsSkirmish implements TriggerCheckerProducer {
                 }
                 if (result && memorizeLoser != null) {
                     CharacterWonSkirmishResult wonResult = (CharacterWonSkirmishResult) actionContext.getEffectResult();
-                    actionContext.setCardMemory(memorize, wonResult.getInvolving());
+                    actionContext.setCardMemory(memorizeLoser, wonResult.getInvolving());
                 }
                 return result;
             }
