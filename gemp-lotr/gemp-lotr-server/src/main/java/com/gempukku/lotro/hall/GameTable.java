@@ -1,24 +1,32 @@
 package com.gempukku.lotro.hall;
 
+import com.gempukku.lotro.game.LotroGameMediator;
 import com.gempukku.lotro.game.LotroGameParticipant;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
-public class AwaitingTable {
+public class GameTable {
     private GameSettings gameSettings;
     private Map<String, LotroGameParticipant> players = new HashMap<String, LotroGameParticipant>();
 
+    private LotroGameMediator lotroGameMediator;
     private int capacity;
 
-    public AwaitingTable(GameSettings gameSettings) {
+    public GameTable(GameSettings gameSettings) {
         this.gameSettings = gameSettings;
         this.capacity = gameSettings.getLotroFormat().getAdventure().isSolo() ? 1 : 2;
+    }
+
+    public void startGame(LotroGameMediator lotroGameMediator) {
+        this.lotroGameMediator = lotroGameMediator;
+    }
+
+    public LotroGameMediator getLotroGameMediator() {
+        return lotroGameMediator;
+    }
+
+    public boolean wasGameStarted() {
+        return lotroGameMediator != null;
     }
 
     public boolean addPlayer(LotroGameParticipant player) {

@@ -311,10 +311,9 @@ public class DefaultTournament implements Tournament {
         }
     }
 
-
-    private void createNewGame(TournamentCallback tournamentCallback, String playerOne, String playerTwo, boolean allowSpectators) {
+    private void createNewGame(TournamentCallback tournamentCallback, String playerOne, String playerTwo) {
         tournamentCallback.createGame(playerOne, _playerDecks.get(playerOne),
-                playerTwo, _playerDecks.get(playerTwo), allowSpectators);
+                playerTwo, _playerDecks.get(playerTwo));
     }
 
     private void doPairing(TournamentCallback tournamentCallback, CollectionsManager collectionsManager) {
@@ -335,7 +334,7 @@ public class DefaultTournament implements Tournament {
                 _tournamentService.addMatch(_tournamentId, _tournamentRound, playerOne, playerTwo);
                 _currentlyPlayingPlayers.add(playerOne);
                 _currentlyPlayingPlayers.add(playerTwo);
-                createNewGame(tournamentCallback, playerOne, playerTwo, false);
+                createNewGame(tournamentCallback, playerOne, playerTwo);
             }
 
             if (byeResults.size()>0)
@@ -392,7 +391,7 @@ public class DefaultTournament implements Tournament {
             for (Map.Entry<String, String> pairings : _gamesToCreate.entrySet()) {
                 String playerOne = pairings.getKey();
                 String playerTwo = pairings.getValue();
-                createNewGame(tournamentCallback, playerOne, playerTwo, false);
+                createNewGame(tournamentCallback, playerOne, playerTwo);
             }
         }
 
