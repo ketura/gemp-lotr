@@ -425,7 +425,7 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
                 DefaultActionContext actionContext = new DefaultActionContext(playerId, game, self, null, null);
                 final PhysicalCard firstActive = Filters.findFirstActive(game, copiedFilter.getFilterable(actionContext));
                 if (firstActive != null)
-                    activatedActions.addAll(firstActive.getBlueprint().getPhaseActionsInPlay(playerId, game, self));
+                    addAllNotNull(activatedActions, firstActive.getBlueprint().getPhaseActionsInPlay(playerId, game, self));
             }
         }
         return activatedActions;
@@ -445,11 +445,17 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
             for (FilterableSource copiedFilter : copiedFilters) {
                 DefaultActionContext actionContext = new DefaultActionContext(self.getOwner(), game, self, null, null);
                 final PhysicalCard firstActive = Filters.findFirstActive(game, copiedFilter.getFilterable(actionContext));
-                if (firstActive != null)
-                    modifiers.addAll(firstActive.getBlueprint().getInPlayModifiers(game, self));
+                if (firstActive != null) {
+                    addAllNotNull(modifiers, firstActive.getBlueprint().getInPlayModifiers(game, self));
+                }
             }
         }
         return modifiers;
+    }
+
+    private <T> void addAllNotNull(List<T> list, List<? extends T> possiblyNullList) {
+        if (possiblyNullList != null)
+            list.addAll(possiblyNullList);
     }
 
     @Override
@@ -528,7 +534,7 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
                 DefaultActionContext actionContext = new DefaultActionContext(self.getOwner(), game, self, null, effect);
                 final PhysicalCard firstActive = Filters.findFirstActive(game, copiedFilter.getFilterable(actionContext));
                 if (firstActive != null)
-                    result.addAll(firstActive.getBlueprint().getRequiredBeforeTriggers(game, effect, self));
+                    addAllNotNull(result, firstActive.getBlueprint().getRequiredBeforeTriggers(game, effect, self));
             }
         }
 
@@ -558,7 +564,7 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
                 DefaultActionContext actionContext = new DefaultActionContext(self.getOwner(), game, self, effectResult, null);
                 final PhysicalCard firstActive = Filters.findFirstActive(game, copiedFilter.getFilterable(actionContext));
                 if (firstActive != null)
-                    result.addAll(firstActive.getBlueprint().getRequiredAfterTriggers(game, effectResult, self));
+                    addAllNotNull(result, firstActive.getBlueprint().getRequiredAfterTriggers(game, effectResult, self));
             }
         }
 
@@ -588,7 +594,7 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
                 DefaultActionContext actionContext = new DefaultActionContext(playerId, game, self, null, effect);
                 final PhysicalCard firstActive = Filters.findFirstActive(game, copiedFilter.getFilterable(actionContext));
                 if (firstActive != null)
-                    result.addAll(firstActive.getBlueprint().getOptionalBeforeTriggers(playerId, game, effect, self));
+                    addAllNotNull(result, firstActive.getBlueprint().getOptionalBeforeTriggers(playerId, game, effect, self));
             }
         }
 
@@ -618,7 +624,7 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
                 DefaultActionContext actionContext = new DefaultActionContext(playerId, game, self, effectResult, null);
                 final PhysicalCard firstActive = Filters.findFirstActive(game, copiedFilter.getFilterable(actionContext));
                 if (firstActive != null)
-                    result.addAll(firstActive.getBlueprint().getOptionalAfterTriggers(playerId, game, effectResult, self));
+                    addAllNotNull(result, firstActive.getBlueprint().getOptionalAfterTriggers(playerId, game, effectResult, self));
             }
         }
 
@@ -648,7 +654,7 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
                 DefaultActionContext actionContext = new DefaultActionContext(playerId, game, self, null, effect);
                 final PhysicalCard firstActive = Filters.findFirstActive(game, copiedFilter.getFilterable(actionContext));
                 if (firstActive != null)
-                    result.addAll(firstActive.getBlueprint().getOptionalInPlayBeforeActions(playerId, game, effect, self));
+                    addAllNotNull(result, firstActive.getBlueprint().getOptionalInPlayBeforeActions(playerId, game, effect, self));
             }
         }
 
@@ -678,7 +684,7 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
                 DefaultActionContext actionContext = new DefaultActionContext(playerId, game, self, effectResult, null);
                 final PhysicalCard firstActive = Filters.findFirstActive(game, copiedFilter.getFilterable(actionContext));
                 if (firstActive != null)
-                    result.addAll(firstActive.getBlueprint().getOptionalInPlayAfterActions(playerId, game, effectResult, self));
+                    addAllNotNull(result, firstActive.getBlueprint().getOptionalInPlayAfterActions(playerId, game, effectResult, self));
             }
         }
 

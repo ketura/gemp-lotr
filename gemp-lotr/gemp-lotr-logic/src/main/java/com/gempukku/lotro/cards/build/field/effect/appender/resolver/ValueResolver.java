@@ -114,6 +114,8 @@ public class ValueResolver {
                 FieldUtils.validateAllowedFields(object, "memory", "keyword");
                 final String memory = FieldUtils.getString(object.get("memory"), "memory");
                 final Keyword keyword = FieldUtils.getEnum(Keyword.class, object.get("keyword"), "keyword");
+                if (keyword == null)
+                    throw new InvalidCardDefinitionException("Keyword cannot be null");
                 return (actionContext) -> {
                     final LotroGame game = actionContext.getGame();
                     int count = 0;

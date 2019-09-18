@@ -322,7 +322,8 @@
             "filter": "choose(dwarf)",
             "count": {
               "type": "forEachKeywordOnCardInMemory",
-              "memory": "spottedDwarf"
+              "memory": "spottedDwarf",
+              "keyword": "damage"
             }
           },
           {
