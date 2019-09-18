@@ -44,6 +44,9 @@ public class ModifierSourceFactory {
         modifierProducers.put("cantplaycards", new CantPlayCards());
         modifierProducers.put("canplaystackedcards", new CanPlayStackedCards());
         modifierProducers.put("addsignet", new AddSignet());
+        modifierProducers.put("cantplayphaseeventsorphasespecialabilities", new CantPlayPhaseEventsOrPhaseSpecialAbilities());
+        modifierProducers.put("cancelstrengthbonusfrom", new CancelStrengthBonusFrom());
+        modifierProducers.put("cancelstrengthbonusto", new CancelStrengthBonusTo());
     }
 
     public ModifierSource getModifier(JSONObject object, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {

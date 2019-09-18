@@ -181,6 +181,603 @@
       }
     }
   },
+  "1_126": {
+    "title": "Hunt Them Down!",
+    "culture": "isengard",
+    "cost": 3,
+    "type": "event",
+    "keyword": "maneuver",
+    "effects": {
+      "type": "event",
+      "effect": {
+        "type": "addKeyword",
+        "filter": "choose(uruk-hai)",
+        "keyword": "fierce",
+        "until": "start(regroup)"
+      }
+    }
+  },
+  "1_127": {
+    "title": "*Lurtz",
+    "subtitle": "Servant of Isengard",
+    "culture": "isengard",
+    "cost": 7,
+    "type": "minion",
+    "race": "uruk-hai",
+    "strength": 13,
+    "vitality": 3,
+    "site": 5,
+    "keyword": [
+      "archer",
+      "damage+1"
+    ],
+    "effects": {
+      "type": "activated",
+      "phase": "maneuver",
+      "condition": {
+        "type": "canSpot",
+        "filter": "another,uruk-hai"
+      },
+      "effect": {
+        "type": "addKeyword",
+        "filter": "self",
+        "keyword": "fierce",
+        "until": "start(regroup)"
+      }
+    }
+  },
+  "1_128": {
+    "title": "Lurtz's Battle Cry",
+    "culture": "isengard",
+    "cost": 1,
+    "type": "event",
+    "keyword": "skirmish",
+    "effects": {
+      "type": "event",
+      "effect": [
+        {
+          "type": "modifyStrength",
+          "filter": "choose(uruk-hai)",
+          "amount": -1,
+          "memorize": "chosenUrukHai"
+        },
+        {
+          "type": "addKeyword",
+          "filter": "memory(chosenUrukHai)",
+          "keyword": "damage+1"
+        }
+      ]
+    }
+  },
+  "1_129": {
+    "title": "The Misadventure of Mr. Underhill",
+    "culture": "isengard",
+    "cost": 2,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": [
+      {
+        "type": "extraCost",
+        "cost": {
+          "type": "exert",
+          "filter": "choose(uruk-hai)"
+        }
+      },
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyCost",
+          "filter": "companion",
+          "condition": {
+            "type": "location",
+            "filter": "not(sanctuary)"
+          },
+          "amount": 2
+        }
+      }
+    ]
+  },
+  "1_130": {
+    "title": "No Ordinary Storm",
+    "culture": "isengard",
+    "cost": 1,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": {
+      "type": "trigger",
+      "trigger": {
+        "type": "played",
+        "filter": "your,weather,condition"
+      },
+      "effect": {
+        "type": "exert",
+        "filter": "choose(culture(gandalf),or(companion,ally))"
+      }
+    }
+  },
+  "1_131": {
+    "title": "*Orthanc Assassin",
+    "culture": "isengard",
+    "cost": 5,
+    "type": "minion",
+    "race": "uruk-hai",
+    "strength": 10,
+    "vitality": 3,
+    "site": 5,
+    "keyword": [
+      "archer",
+      "damage+1"
+    ]
+  },
+  "1_132": {
+    "title": "Parry",
+    "culture": "isengard",
+    "cost": 2,
+    "type": "event",
+    "keyword": "maneuver",
+    "condition": {
+      "type": "canSpot",
+      "filter": "uruk-hai"
+    },
+    "effects": {
+      "type": "event",
+      "effect": [
+        {
+          "type": "chooseActiveCards",
+          "filter": "choose(possession)",
+          "text": "Choose possession to cancel strength bonuses from",
+          "memorize": "chosenPossession"
+        },
+        {
+          "type": "addModifier",
+          "modifier": {
+            "type": "cancelStrengthBonusFrom",
+            "filter": "memory(chosenPossession)"
+          },
+          "until": "start(regroup)"
+        }
+      ]
+    }
+  },
+  "1_133": {
+    "title": "Saruman's Ambition",
+    "culture": "isengard",
+    "cost": 0,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyCost",
+          "filter": "your,culture(isengard),event",
+          "amount": -1
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "skirmish",
+        "cost": {
+          "type": "discard",
+          "filter": "self"
+        },
+        "effect": {
+          "type": "modifyStrength",
+          "filter": "choose(uruk-hai)",
+          "amount": 2
+        }
+      }
+    ]
+  },
+  "1_134": {
+    "title": "Saruman's Chill",
+    "culture": "isengard",
+    "cost": 1,
+    "type": "condition",
+    "keyword": [
+      "spell",
+      "weather"
+    ],
+    "target": "site,not(hasAttached(name(Saruman's Chill)))",
+    "effects": [
+      {
+        "type": "extraCost",
+        "cost": {
+          "type": "exert",
+          "filter": "choose(culture(isengard),minion)"
+        }
+      },
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "movesFrom",
+          "filter": "self"
+        },
+        "effect": {
+          "type": "exert",
+          "filter": "all(hobbit,companion)"
+        }
+      },
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "endOfTurn"
+        },
+        "effect": {
+          "type": "discard",
+          "filter": "self"
+        }
+      }
+    ]
+  },
+  "1_135": {
+    "title": "Saruman's Frost",
+    "culture": "isengard",
+    "cost": 2,
+    "type": "condition",
+    "keyword": [
+      "spell",
+      "weather"
+    ],
+    "target": "site,not(hasAttached(name(Saruman's Frost)))",
+    "effects": [
+      {
+        "type": "extraCost",
+        "cost": {
+          "type": "exert",
+          "filter": "choose(culture(isengard),minion)"
+        }
+      },
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyStrength",
+          "filter": "hobbit,companion",
+          "condition": {
+            "type": "location",
+            "filter": "hasAttached(self)"
+          }
+        }
+      },
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "endOfTurn"
+        },
+        "effect": {
+          "type": "discard",
+          "filter": "self"
+        }
+      }
+    ]
+  },
+  "1_136": {
+    "title": "Saruman's Power",
+    "culture": "isengard",
+    "cost": 2,
+    "type": "event",
+    "keyword": [
+      "spell",
+      "shadow"
+    ],
+    "effects": {
+      "type": "event",
+      "cost": {
+        "type": "exert",
+        "filter": "choose(culture(isengard),minion)"
+      },
+      "effect": {
+        "type": "discard",
+        "filter": "all(condition)"
+      }
+    }
+  },
+  "1_137": {
+    "title": "Saruman's Reach",
+    "culture": "isengard",
+    "cost": 0,
+    "type": "event",
+    "keyword": [
+      "search",
+      "maneuver"
+    ],
+    "effects": {
+      "type": "event",
+      "cost": {
+        "type": "exert",
+        "filter": "choose(uruk-hai)"
+      },
+      "effect": {
+        "type": "choice",
+        "player": "fp",
+        "texts": [
+          "Exert 2 companions",
+          "Put on The One Ring"
+        ],
+        "effects": [
+          {
+            "type": "exert",
+            "filter": "choose(companion)",
+            "count": 2
+          },
+          {
+            "type": "putOnRing"
+          }
+        ]
+      }
+    }
+  },
+  "1_138": {
+    "title": "Saruman's Snows",
+    "culture": "isengard",
+    "cost": 2,
+    "type": "condition",
+    "keyword": [
+      "spell",
+      "weather"
+    ],
+    "target": "site",
+    "effects": [
+      {
+        "type": "extraCost",
+        "cost": {
+          "type": "exert",
+          "filter": "choose(culture(isengard),minion)"
+        }
+      },
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "cantPlayPhaseEventsOrPhaseSpecialAbilities",
+          "condition": {
+            "type": "location",
+            "filter": "hasAttached(self)"
+          }
+        }
+      },
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "endOfTurn"
+        },
+        "effect": {
+          "type": "discard",
+          "filter": "self"
+        }
+      }
+    ]
+  },
+  "1_139": {
+    "title": "Savagery To Match Their Numbers",
+    "culture": "isengard",
+    "cost": 0,
+    "type": "event",
+    "keyword": "skirmish",
+    "effects": {
+      "type": "event",
+      "effect": {
+        "type": "choice",
+        "texts": [
+          "Make an Uruk-hai strength +2",
+          "Make an Uruk-hai strength +4 and fierce until the regroup phase"
+        ],
+        "effects": [
+          {
+            "type": "modifyStrength",
+            "filter": "choose(uruk-hai)",
+            "amount": 2
+          },
+          {
+            "type": "conditional",
+            "condition": {
+              "type": "canSpot",
+              "count": 5,
+              "filter": "companion"
+            },
+            "effect": [
+              {
+                "type": "modifyStrength",
+                "filter": "choose(uruk-hai)",
+                "amount": 4,
+                "until": "start(regroup)",
+                "memorize": "chosenUrukHai"
+              },
+              {
+                "type": "addKeyword",
+                "filter": "memory(chosenUrukHai)",
+                "keyword": "fierce",
+                "until": "start(regroup)"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "1_140": {
+    "title": "Spies of Saruman",
+    "culture": "isengard",
+    "cost": 2,
+    "type": "condition",
+    "target": "site",
+    "effects": [
+      {
+        "type": "extraCost",
+        "cost": {
+          "type": "exert",
+          "filter": "choose(culture(isengard),minion)"
+        }
+      },
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "skipPhase",
+          "condition": {
+            "type": "location",
+            "filter": "hasAttached(self)"
+          },
+          "phase": "archery"
+        }
+      },
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "endOfTurn"
+        },
+        "effect": {
+          "type": "discard",
+          "filter": "self"
+        }
+      }
+    ]
+  },
+  "1_141": {
+    "title": "Their Arrows Enrage",
+    "culture": "isengard",
+    "cost": 1,
+    "type": "condition",
+    "keyword": "support area",
+    "condition": {
+      "type": "canSpot",
+      "filter": "or(name(Saruman),uruk-hai)"
+    },
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyStrength",
+        "filter": "archer,or(companion,ally)",
+        "amount": -1
+      }
+    }
+  },
+  "1_142": {
+    "title": "Traitor's Voice",
+    "culture": "isengard",
+    "cost": 2,
+    "type": "condition",
+    "keyword": [
+      "search",
+      "support area"
+    ],
+    "condition": {
+      "type": "canSpot",
+      "filter": "uruk-hai"
+    },
+    "effects": {
+      "type": "trigger",
+      "trigger": {
+        "type": "condition",
+        "condition": [
+          {
+            "type": "perTurnLimit",
+            "limit": 1
+          },
+          {
+            "type": "or",
+            "condition": [
+              {
+                "type": "canSpotBurdens",
+                "amount": 5
+              },
+              {
+                "type": "canSpot",
+                "filter": "exhausted,ring bearer"
+              }
+            ]
+          }
+        ]
+      },
+      "effect": [
+        {
+          "type": "incrementPerTurnLimit",
+          "limit": 1
+        },
+        {
+          "type": "addModifier",
+          "modifier": {
+            "type": "modifyMoveLimit",
+            "amount": -1
+          },
+          "until": "endOfTurn"
+        }
+      ]
+    }
+  },
+  "1_143": {
+    "title": "Troop of Uruk-hai",
+    "culture": "isengard",
+    "cost": 5,
+    "type": "minion",
+    "race": "uruk-hai",
+    "strength": 9,
+    "vitality": 4,
+    "site": 5,
+    "keyword": "damage+1",
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "cancelStrengthBonusTo",
+        "filter": "character,inSkirmishAgainst(self)",
+        "from": "weapon"
+      }
+    }
+  },
+  "1_144": {
+    "title": "Uruk Bloodlust",
+    "culture": "isengard",
+    "cost": 3,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": {
+      "type": "activatedTrigger",
+      "trigger": {
+        "type": "winsSkirmish",
+        "filter": "your,uruk-hai",
+        "memorize": "winner"
+      },
+      "cost": {
+        "type": "removeTwilight"
+      },
+      "effect": {
+        "type": "heal",
+        "filter": "memory(winner)"
+      }
+    }
+  },
+  "1_145": {
+    "title": "Uruk Brood",
+    "culture": "isengard",
+    "cost": 4,
+    "type": "minion",
+    "race": "uruk-hai",
+    "strength": 9,
+    "vitality": 2,
+    "site": 5,
+    "keyword": "damage+1",
+    "effects": {
+      "type": "activated",
+      "phase": "skirmish",
+      "cost": {
+        "type": "removeTwilight",
+        "amount": 2
+      },
+      "effect": [
+        {
+          "type": "chooseHowManyToSpot",
+          "filter": "another,uruk-hai",
+          "memorize": "spottedUrukHai"
+        },
+        {
+          "type": "modifyStrength",
+          "filter": "self",
+          "amount": {
+            "type": "forEachInMemory",
+            "memory": "spottedUrukHai"
+          }
+        }
+      ]
+    }
+  },
   "1_158": {
     "title": "Uruk-hai Raiding Party",
     "culture": "isengard",

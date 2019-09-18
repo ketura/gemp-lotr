@@ -11,7 +11,11 @@ public class ConditionTrigger implements TriggerCheckerProducer {
     @Override
     public TriggerChecker getTriggerChecker(JSONObject value, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         FieldUtils.validateAllowedFields(value, "condition");
-        final Requirement condition = environment.getRequirementFactory().getRequirement((JSONObject) value.get("condition"), environment);
+
+        final JSONObject[] conditionArray = FieldUtils.getObjectArray(value.get("condition"), "condition");
+
+        final Requirement[] requirements = environment.getRequirementFactory().getRequirements(conditionArray, environment);
+
         return new TriggerChecker() {
             @Override
             public boolean isBefore() {
@@ -20,7 +24,12 @@ public class ConditionTrigger implements TriggerCheckerProducer {
 
             @Override
             public boolean accepts(ActionContext actionContext) {
-                return condition.accepts(actionContext);
+                for (Requirement requirement : requirements) {
+                    if (!requirement.accepts(actionContext))
+                        return false;
+                }
+
+                return true;
             }
         };
     }
