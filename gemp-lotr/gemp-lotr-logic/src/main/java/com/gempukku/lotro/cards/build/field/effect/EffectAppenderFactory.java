@@ -31,6 +31,7 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("canttakewounds", new CantTakeWounds());
         effectAppenderProducers.put("choice", new Choice());
         effectAppenderProducers.put("assigntoskirmishagainstminion", new AssignToSkirmishAgainstMinion());
+        effectAppenderProducers.put("assignfpcharactertoskirmish", new AssignFpCharacterToSkirmish());
         effectAppenderProducers.put("putcardsfromhandonbottomofdeck", new PutCardsFromHandOnBottomOfDeck());
         effectAppenderProducers.put("putcardsfromhandontopofdeck", new PutCardsFromHandOnTopOfDeck());
         effectAppenderProducers.put("doesnotaddtoarcherytotal", new DoesNotAddToArcheryTotal());
@@ -115,6 +116,7 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("revealhand", new RevealHand());
         effectAppenderProducers.put("placenowoundforexert", new PlaceNoWoundForExert());
         effectAppenderProducers.put("shufflehandintodrawdeck", new ShuffleHandIntoDrawDeck());
+        effectAppenderProducers.put("getcardsfromtopofdeck", new GetCardsFromTopOfDeck());
     }
 
     public EffectAppender getEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {

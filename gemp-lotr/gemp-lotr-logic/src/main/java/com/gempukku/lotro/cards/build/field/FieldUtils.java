@@ -67,6 +67,18 @@ public class FieldUtils {
         return Enum.valueOf(enumClass, string.toUpperCase().replace(' ', '_').replace('-', '_'));
     }
 
+    public static JSONArray getArray(Object value, String key) throws InvalidCardDefinitionException {
+        if (value == null)
+            return new JSONArray();
+        else if (value instanceof JSONObject) {
+            final JSONArray jsonArray = new JSONArray();
+            jsonArray.add(value);
+            return jsonArray;
+        } else if (value instanceof JSONArray)
+            return (JSONArray) value;
+        throw new InvalidCardDefinitionException("Unknown type in " + key + " field");
+    }
+
     public static JSONObject[] getObjectArray(Object value, String key) throws InvalidCardDefinitionException {
         if (value == null)
             return new JSONObject[0];

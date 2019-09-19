@@ -1,0 +1,209 @@
+{
+  "1_163": {
+    "title": "*Ancient Chieftain",
+    "culture": "moria",
+    "cost": 4,
+    "type": "minion",
+    "race": "orc",
+    "strength": 9,
+    "vitality": 2,
+    "site": 4,
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyStrength",
+        "filter": "self",
+        "amount": {
+          "type": "forEachYouCanSpot",
+          "filter": "another,culture(moria),orc"
+        }
+      }
+    }
+  },
+  "1_164": {
+    "title": "Bitter Hatred",
+    "culture": "moria",
+    "cost": 1,
+    "type": "event",
+    "keyword": "archery",
+    "condition": {
+      "type": "canSpot",
+      "filter": "culture(moria),archer"
+    },
+    "effects": {
+      "type": "event",
+      "effect": {
+        "type": "wound",
+        "filter": "choose(elf)"
+      }
+    }
+  },
+  "1_165": {
+    "title": "*Cave Troll of Moria",
+    "subtitle": "Scourge of the Black Pit",
+    "culture": "moria",
+    "cost": 10,
+    "type": "minion",
+    "race": "troll",
+    "strength": 15,
+    "vitality": 4,
+    "site": 4,
+    "condition": {
+      "type": "canSpot",
+      "filter": "culture(moria),orc"
+    },
+    "keyword": [
+      "damage+1",
+      "fierce"
+    ],
+    "effects": {
+      "type": "modifyOwnCost",
+      "condition": {
+        "type": "location",
+        "filter": "underground"
+      },
+      "amount": -3
+    }
+  },
+  "1_166": {
+    "title": "*Cave Troll's Hammer",
+    "culture": "moria",
+    "cost": 1,
+    "type": "possession",
+    "possession": "hand weapon",
+    "strength": 3,
+    "target": "name(Cave Troll of Moria)",
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "addKeyword",
+        "filter": "bearer",
+        "keyword": "damage+1"
+      }
+    }
+  },
+  "1_167": {
+    "title": "Denizens Enraged",
+    "culture": "moria",
+    "cost": 1,
+    "type": "event",
+    "keyword": "skirmish",
+    "effects": {
+      "type": "event",
+      "effect": {
+        "type": "modifyStrength",
+        "filter": "choose(culture(moria),orc)",
+        "amount": {
+          "type": "forEachYouCanSpot",
+          "filter": "another,culture(moria),orc",
+          "limit": 4
+        }
+      }
+    }
+  },
+  "1_168": {
+    "title": "Drums in the Deep",
+    "culture": "moria",
+    "cost": 0,
+    "type": "event",
+    "keyword": "skirmish",
+    "effects": {
+      "type": "event",
+      "effect": {
+        "type": "modifyStrength",
+        "filter": "choose(culture(moria),orc)",
+        "memorize": "chosenOrc",
+        "amount": {
+          "type": "condition",
+          "condition": {
+            "type": "canSpot",
+            "filter": "memory(chosenOrc),inSkirmishAgainst(dwarf)"
+          },
+          "true": 4,
+          "false": 2
+        }
+      }
+    }
+  },
+  "1_169": {
+    "title": "The End Comes",
+    "culture": "moria",
+    "cost": 0,
+    "type": "event",
+    "keyword": "assignment",
+    "condition": {
+      "type": "canSpot",
+      "count": 5,
+      "filter": "culture(moria),minion"
+    },
+    "effects": {
+      "type": "event",
+      "effect": {
+        "type": "assignFpCharacterToSkirmish",
+        "player": "fp",
+        "fpCharacter": "ring bearer",
+        "against": "choose(any)"
+      }
+    }
+  },
+  "1_170": {
+    "title": "Fool of a Took!",
+    "culture": "moria",
+    "cost": 0,
+    "type": "event",
+    "keyword": "shadow",
+    "condition": {
+      "type": "canSpot",
+      "filter": "hobbit,not(ring bearer)"
+    },
+    "effects": {
+      "type": "event",
+      "effect": [
+        {
+          "type": "getCardsFromTopOfDeck",
+          "filter": "culture(moria),minion",
+          "memorize": "moriaMinions"
+        },
+        {
+          "type": "revealTopCardsOfDrawDeck",
+          "count": {
+            "type": "sum",
+            "source": [
+              {
+                "type": "forEachInMemory",
+                "memory": "moriaMinions"
+              },
+              1
+            ]
+          },
+          "memorize": "revealedCards"
+        },
+        {
+          "type": "putCardsFromDeckIntoHand",
+          "filter": "memory(revealedCards)"
+        }
+      ]
+    }
+  },
+  "1_178": {
+    "title": "Goblin Runner",
+    "culture": "moria",
+    "cost": 1,
+    "type": "minion",
+    "race": "orc",
+    "strength": 5,
+    "vitality": 1,
+    "site": 4,
+    "effects": {
+      "type": "trigger",
+      "trigger": {
+        "type": "played",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "addTwilight",
+        "amount": 2
+      }
+    }
+  }
+}

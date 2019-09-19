@@ -10,6 +10,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.modifiers.evaluator.*;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.util.Collection;
@@ -260,10 +261,10 @@ public class ValueResolver {
                 };
             } else if (type.equalsIgnoreCase("sum")) {
                 FieldUtils.validateAllowedFields(object, "source");
-                final JSONObject[] sourceArray = FieldUtils.getObjectArray(object.get("source"), "source");
-                ValueSource[] sources = new ValueSource[sourceArray.length];
+                final JSONArray sourceArray = FieldUtils.getArray(object.get("source"), "source");
+                ValueSource[] sources = new ValueSource[sourceArray.size()];
                 for (int i = 0; i < sources.length; i++)
-                    sources[i] = ValueResolver.resolveEvaluator(sourceArray[i], 0, environment);
+                    sources[i] = ValueResolver.resolveEvaluator(sourceArray.get(i), 0, environment);
 
                 return actionContext -> {
                     Evaluator[] evaluators = new Evaluator[sources.length];

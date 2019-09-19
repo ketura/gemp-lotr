@@ -1,25 +1,4 @@
 {
-  "1_178": {
-    "title": "Goblin Runner",
-    "culture": "moria",
-    "cost": 1,
-    "type": "minion",
-    "race": "orc",
-    "strength": 5,
-    "vitality": 1,
-    "site": 4,
-    "effects": {
-      "type": "trigger",
-      "trigger": {
-        "type": "played",
-        "filter": "self"
-      },
-      "effect": {
-        "type": "addTwilight",
-        "amount": 2
-      }
-    }
-  },
   "1_262": {
     "title": "Orc Assassin",
     "culture": "sauron",
