@@ -421,16 +421,11 @@
           }
         },
         {
-          "type": "filterCardsInMemory",
-          "memory": "revealedCards",
-          "filter": "zone(deck)",
-          "memorizeMatching": "cardsToReorder"
-        },
-        {
           "type": "reorderTopCardsOfDrawDeck",
           "count": {
-            "type": "forEachInMemory",
-            "memory": "cardsToReorder"
+            "type": "forEachMatchingInMemory",
+            "memory": "revealedCards",
+            "filter": "zone(deck)"
           }
         }
       ]
@@ -723,19 +718,12 @@
           "memorize": "revealedCards"
         },
         {
-          "type": "filterCardsInMemory",
-          "memory": "revealedCards",
-          "filter": "side(free people)",
-          "memorizeMatching": "freePeopleCards",
-          "memorizeNotMatching": "otherCards"
-        },
-        {
           "type": "putCardsFromDeckIntoHand",
-          "filter": "memory(freePeopleCards)"
+          "filter": "memory(revealedCards),side(free people)"
         },
         {
           "type": "discardCardsFromDrawDeck",
-          "filter": "memory(otherCards)"
+          "filter": "memory(revealedCards),not(side(free people))"
         }
       ]
     }

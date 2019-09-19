@@ -37,6 +37,7 @@ public class RequirementFactory {
         requirementProducers.put("hasinzonedata", new HasInZoneData());
         requirementProducers.put("isside", new IsSideRequirementProducer());
         requirementProducers.put("perturnlimit", new PerTurnLimit());
+        requirementProducers.put("perphaselimit", new PerPhaseLimit());
         requirementProducers.put("cardsinhandmorethan", new CardsInHandMoreThan());
     }
 

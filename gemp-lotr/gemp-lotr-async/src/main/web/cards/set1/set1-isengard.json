@@ -778,6 +778,318 @@
       ]
     }
   },
+  "1_146": {
+    "title": "Uruk Fighter",
+    "culture": "isengard",
+    "cost": 3,
+    "type": "minion",
+    "race": "uruk-hai",
+    "strength": 8,
+    "vitality": 2,
+    "site": 5,
+    "keyword": "damage+1",
+    "effects": {
+      "type": "activated",
+      "phase": "maneuver",
+      "condition": {
+        "type": "canSpot",
+        "count": 5,
+        "filter": "companion"
+      },
+      "effect": {
+        "type": "addKeyword",
+        "filter": "self",
+        "keyword": "fierce",
+        "until": "start(regroup)"
+      }
+    }
+  },
+  "1_147": {
+    "title": "Uruk Guard",
+    "culture": "isengard",
+    "cost": 4,
+    "type": "minion",
+    "race": "uruk-hai",
+    "strength": 9,
+    "vitality": 2,
+    "site": 5,
+    "keyword": "damage+1",
+    "effects": {
+      "type": "activated",
+      "phase": "assignment",
+      "cost": {
+        "type": "exert",
+        "filter": "self"
+      },
+      "effect": [
+        {
+          "type": "spot",
+          "filter": "choose(companion)",
+          "text": "Choose companion that should not be able to be assigned against this minion",
+          "memorize": "chosenCompanion"
+        },
+        {
+          "type": "addModifier",
+          "modifier": {
+            "type": "cantBeAssignedToSkirmishAgainst",
+            "fpCharacter": "memory(chosenCompanion)",
+            "minion": "self",
+            "side": "free people"
+          }
+        }
+      ]
+    }
+  },
+  "1_148": {
+    "title": "Uruk Lieutenant",
+    "culture": "isengard",
+    "cost": 3,
+    "type": "minion",
+    "race": "uruk-hai",
+    "strength": 8,
+    "vitality": 2,
+    "site": 5,
+    "keyword": "damage+1",
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyStrength",
+        "filter": "self",
+        "amount": {
+          "type": "forEachYouCanSpot",
+          "filter": "another,uruk-hai"
+        }
+      }
+    }
+  },
+  "1_149": {
+    "title": "Uruk Messenger",
+    "culture": "isengard",
+    "cost": 2,
+    "type": "minion",
+    "race": "uruk-hai",
+    "strength": 6,
+    "vitality": 1,
+    "site": 5,
+    "keyword": "damage+1",
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyStrength",
+        "filter": "self",
+        "amount": 3,
+        "condition": {
+          "type": "canSpot",
+          "filter": "weather,condition"
+        }
+      }
+    }
+  },
+  "1_150": {
+    "title": "Uruk Rager",
+    "culture": "isengard",
+    "cost": 4,
+    "type": "minion",
+    "race": "uruk-hai",
+    "strength": 9,
+    "vitality": 2,
+    "site": 5,
+    "keyword": "damage+1",
+    "effects": {
+      "type": "trigger",
+      "trigger": {
+        "type": "winsSkirmish",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "discardTopCardsFromDeck",
+        "deck": "fp",
+        "count": 2,
+        "forced": true
+      }
+    }
+  },
+  "1_151": {
+    "title": "Uruk Savage",
+    "culture": "isengard",
+    "cost": 2,
+    "type": "minion",
+    "race": "uruk-hai",
+    "strength": 5,
+    "vitality": 3,
+    "site": 5,
+    "keyword": "damage+1"
+  },
+  "1_152": {
+    "title": "Uruk Shaman",
+    "culture": "isengard",
+    "cost": 3,
+    "type": "minion",
+    "race": "uruk-hai",
+    "strength": 8,
+    "vitality": 2,
+    "site": 5,
+    "keyword": "damage+1",
+    "effects": {
+      "type": "activated",
+      "phase": "maneuver",
+      "cost": {
+        "type": "removeTwilight",
+        "amount": 2
+      },
+      "effect": {
+        "type": "heal",
+        "filter": "choose(uruk-hai)"
+      }
+    }
+  },
+  "1_153": {
+    "title": "Uruk Slayer",
+    "culture": "isengard",
+    "cost": 4,
+    "type": "minion",
+    "race": "uruk-hai",
+    "strength": 9,
+    "vitality": 2,
+    "site": 5,
+    "keyword": "damage+1",
+    "effects": {
+      "type": "activated",
+      "phase": "skirmish",
+      "condition": {
+        "type": "perPhaseLimit",
+        "limit": 3
+      },
+      "cost": [
+        {
+          "type": "incrementPerPhaseLimit",
+          "limit": 3
+        },
+        {
+          "type": "removeTwilight"
+        }
+      ],
+      "effect": {
+        "type": "modifyStrength",
+        "filter": "self",
+        "amount": 1
+      }
+    }
+  },
+  "1_154": {
+    "title": "Uruk Soldier",
+    "culture": "isengard",
+    "cost": 2,
+    "type": "minion",
+    "race": "uruk-hai",
+    "strength": 7,
+    "vitality": 1,
+    "site": 5,
+    "keyword": "damage+1",
+    "effects": {
+      "type": "trigger",
+      "optional": true,
+      "trigger": {
+        "type": "played",
+        "filter": "your,self"
+      },
+      "effect": {
+        "type": "discardTopCardsFromDeck",
+        "deck": "fp",
+        "count": 1,
+        "forced": true
+      }
+    }
+  },
+  "1_155": {
+    "title": "Uruk Spy",
+    "culture": "isengard",
+    "cost": 2,
+    "type": "minion",
+    "race": "uruk-hai",
+    "strength": 7,
+    "vitality": 2,
+    "site": 5,
+    "effects": {
+      "type": "activatedTrigger",
+      "trigger": {
+        "type": "putsOnRing"
+      },
+      "cost": {
+        "type": "exert",
+        "filter": "self"
+      },
+      "effect": [
+        {
+          "type": "chooseHowManyToSpot",
+          "filter": "culture(isengard),minion",
+          "memorize": "spotCount"
+        },
+        {
+          "type": "discardTopCardsFromDeck",
+          "count": {
+            "type": "fromMemory",
+            "memory": "spotCount"
+          },
+          "forced": false,
+          "memorize": "discardedCards"
+        },
+        {
+          "type": "addBurdens",
+          "amount": {
+            "type": "forEachMatchingInMemory",
+            "memory": "discardedCards",
+            "filter": "side(shadow)"
+          }
+        }
+      ]
+    }
+  },
+  "1_156": {
+    "title": "Uruk Warrior",
+    "culture": "isengard",
+    "cost": 3,
+    "type": "minion",
+    "race": "uruk-hai",
+    "strength": 9,
+    "vitality": 2,
+    "site": 5,
+    "keyword": "damage+1",
+    "effects": {
+      "type": "activated",
+      "phase": "maneuver",
+      "condition": {
+        "type": "canSpot",
+        "count": 6,
+        "filter": "companion"
+      },
+      "effect": {
+        "type": "addKeyword",
+        "filter": "self",
+        "keyword": "fierce",
+        "until": "start(regroup)"
+      }
+    }
+  },
+  "1_157": {
+    "title": "Uruk-hai Armory",
+    "culture": "isengard",
+    "cost": 1,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyArcheryTotal",
+        "side": "free people",
+        "condition": {
+          "type": "canSpot",
+          "filter": "uruk-hai"
+        },
+        "amount": -1
+      }
+    }
+  },
   "1_158": {
     "title": "Uruk-hai Raiding Party",
     "culture": "isengard",
@@ -788,5 +1100,134 @@
     "vitality": 3,
     "site": 5,
     "keyword": "damage+1"
+  },
+  "1_159": {
+    "title": "Uruk-hai Rampage",
+    "culture": "isengard",
+    "cost": 0,
+    "type": "condition",
+    "condition": {
+      "type": "canSpot",
+      "filter": "uruk-hai"
+    },
+    "keyword": "support area",
+    "effects": {
+      "type": "activatedTrigger",
+      "trigger": {
+        "type": "winsSkirmish",
+        "filter": "uruk-hai",
+        "memorize": "winner"
+      },
+      "cost": {
+        "type": "removeTwilight",
+        "amount": 3
+      },
+      "effect": {
+        "type": "addKeyword",
+        "filter": "memory(winner)",
+        "keyword": "fierce",
+        "until": "start(regroup)"
+      }
+    }
+  },
+  "1_160": {
+    "title": "Uruk-hai Sword",
+    "culture": "isengard",
+    "cost": 1,
+    "type": "possession",
+    "possession": "hand weapon",
+    "strength": 2,
+    "target": "uruk-hai",
+    "effects": {
+      "type": "trigger",
+      "trigger": {
+        "type": "winsSkirmish",
+        "filter": "bearer"
+      },
+      "effect": {
+        "type": "discardTopCardsFromDeck",
+        "deck": "fp",
+        "forced": true,
+        "count": 1
+      }
+    }
+  },
+  "1_161": {
+    "title": "Wariness",
+    "culture": "isengard",
+    "cost": 0,
+    "type": "event",
+    "keyword": [
+      "search",
+      "response"
+    ],
+    "effects": {
+      "type": "responseEvent",
+      "trigger": {
+        "type": "played",
+        "filter": "stealth,event"
+      },
+      "cost": {
+        "type": "choice",
+        "texts": [
+          "Exert your Uruk-hai",
+          "Discard your Uruk-hai"
+        ],
+        "effects": [
+          {
+            "type": "exert",
+            "filter": "choose(your,uruk-hai)"
+          },
+          {
+            "type": "discard",
+            "filter": "choose(your,uruk-hai)"
+          }
+        ]
+      },
+      "effect": {
+        "type": "cancelEvent"
+      }
+    }
+  },
+  "1_162": {
+    "title": "*Worry",
+    "culture": "isengard",
+    "cost": 2,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": [
+      {
+        "type": "extraCost",
+        "cost": {
+          "type": "exert",
+          "filter": "choose(uruk-hai)"
+        }
+      },
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "losesSkirmish",
+          "filter": "or(companion,ally)",
+          "against": "uruk-hai"
+        },
+        "effect": {
+          "type": "choice",
+          "player": "fp",
+          "texts": [
+            "Exert the Ring-bearer",
+            "Add a burden"
+          ],
+          "effects": [
+            {
+              "type": "exert",
+              "filter": "choose(ring bearer)"
+            },
+            {
+              "type": "addBurdens"
+            }
+          ]
+        }
+      }
+    ]
   }
 }

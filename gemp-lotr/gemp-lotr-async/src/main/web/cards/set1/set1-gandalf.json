@@ -234,16 +234,11 @@
             "memorize": "revealedCards"
           },
           {
-            "type": "filterCardsInMemory",
-            "memory": "revealedCards",
-            "filter": "orc",
-            "memorizeMatching": "revealedOrcs"
-          },
-          {
             "type": "removeTwilight",
             "amount": {
-              "type": "forEachInMemory",
-              "memory": "revealedOrcs"
+              "type": "forEachMatchingInMemory",
+              "memory": "revealedCards",
+              "filter": "orc"
             }
           }
         ]

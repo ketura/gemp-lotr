@@ -77,6 +77,16 @@ public class ValueResolver {
                     final int count = actionContext.getCardsFromMemory(memory).size();
                     return new ConstantEvaluator(count);
                 };
+            } else if (type.equalsIgnoreCase("forEachMatchingInMemory")) {
+                FieldUtils.validateAllowedFields(object, "memory", "filter");
+                final String memory = FieldUtils.getString(object.get("memory"), "memory");
+                final String filter = FieldUtils.getString(object.get("filter"), "filter");
+                final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
+                return (actionContext) -> {
+                    final int count = Filters.filter(actionContext.getCardsFromMemory(memory), actionContext.getGame(),
+                            filterableSource.getFilterable(actionContext)).size();
+                    return new ConstantEvaluator(count);
+                };
             } else if (type.equalsIgnoreCase("forEachThreat")) {
                 FieldUtils.validateAllowedFields(object, "multiplier");
                 final int multiplier = FieldUtils.getInteger(object.get("multiplier"), "multiplier", 1);

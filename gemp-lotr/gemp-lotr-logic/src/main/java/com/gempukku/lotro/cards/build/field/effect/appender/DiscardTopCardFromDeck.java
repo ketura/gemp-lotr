@@ -1,13 +1,11 @@
 package com.gempukku.lotro.cards.build.field.effect.appender;
 
-import com.gempukku.lotro.cards.build.ActionContext;
-import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
-import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
-import com.gempukku.lotro.cards.build.PlayerSource;
+import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.PlayerResolver;
+import com.gempukku.lotro.cards.build.field.effect.appender.resolver.ValueResolver;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
@@ -24,7 +22,7 @@ public class DiscardTopCardFromDeck implements EffectAppenderProducer {
 
         final String deck = FieldUtils.getString(effectObject.get("deck"), "deck", "you");
         final String memorize = FieldUtils.getString(effectObject.get("memorize"), "memorize");
-        final int count = FieldUtils.getInteger(effectObject.get("count"), "count", 1);
+        final ValueSource countSource = ValueResolver.resolveEvaluator(effectObject.get("count"), 1, environment);
         final boolean forced = FieldUtils.getBoolean(effectObject.get("forced"), "forced");
 
         final PlayerSource playerSource = PlayerResolver.resolvePlayer(deck, environment);
@@ -33,6 +31,7 @@ public class DiscardTopCardFromDeck implements EffectAppenderProducer {
             @Override
             public boolean isPlayableInFull(ActionContext actionContext) {
                 final String deckId = playerSource.getPlayer(actionContext);
+                final int count = countSource.getEvaluator(actionContext).evaluateExpression(actionContext.getGame(), null);
 
                 // Don't check if can discard top cards, since it's a cost
                 final LotroGame game = actionContext.getGame();
@@ -43,6 +42,7 @@ public class DiscardTopCardFromDeck implements EffectAppenderProducer {
             @Override
             protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
                 final String deckId = playerSource.getPlayer(actionContext);
+                final int count = countSource.getEvaluator(actionContext).evaluateExpression(actionContext.getGame(), null);
 
                 return new DiscardTopCardFromDeckEffect(actionContext.getSource(), deckId, count, forced) {
                     @Override

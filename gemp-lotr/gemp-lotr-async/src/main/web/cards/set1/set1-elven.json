@@ -200,18 +200,13 @@
           "memorize": "cardsInHand"
         },
         {
-          "type": "filterCardsInMemory",
-          "memory": "cardsInHand",
-          "filter": "orc",
-          "memorizeMatching": "orcsInHand"
-        },
-        {
           "type": "discardFromHand",
           "hand": "shadowPlayer",
           "forced": true,
           "count": {
-            "type": "forEachInMemory",
-            "memory": "orcsInHand"
+            "type": "forEachMatchingInMemory",
+            "memory": "cardsInHand",
+            "filter": "orc"
           }
         }
       ]
