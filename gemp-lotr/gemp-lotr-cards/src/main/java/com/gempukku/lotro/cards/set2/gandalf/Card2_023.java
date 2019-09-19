@@ -36,8 +36,8 @@ public class Card2_023 extends AbstractPermanent {
                         CardType.POSSESSION,
                         CardType.ARTIFACT), ModifierEffect.TWILIGHT_COST_MODIFIER) {
             @Override
-            public int getPlayOnTwilightCostModifier(LotroGame game, PhysicalCard physicalCard, PhysicalCard target) {
-                if (physicalCard.getBlueprint().getCardType() == CardType.POSSESSION || physicalCard.getBlueprint().getCardType() == CardType.ARTIFACT) {
+            public int getTwilightCostModifier(LotroGame game, PhysicalCard physicalCard, PhysicalCard target, boolean ignoreRoamingPenalty) {
+                if (target != null && physicalCard.getBlueprint().getCardType() == CardType.POSSESSION || physicalCard.getBlueprint().getCardType() == CardType.ARTIFACT) {
                     CardType cardType = target.getBlueprint().getCardType();
                     if (target.getBlueprint().getTitle().equals("Gandalf") || (cardType == CardType.COMPANION && target.getBlueprint().getSignet() == Signet.GANDALF))
                         return -1;

@@ -36,7 +36,7 @@ public class Card2_102 extends AbstractCompanion {
         return Collections.singletonList(
                 new AbstractModifier(self, "The cost of each artifact, possession, and [SHIRE] tale played on Frodo  is -1.", Filters.or(CardType.ARTIFACT, CardType.POSSESSION, Filters.and(Culture.SHIRE, Keyword.TALE)), ModifierEffect.TWILIGHT_COST_MODIFIER) {
                     @Override
-                    public int getPlayOnTwilightCostModifier(LotroGame game, PhysicalCard physicalCard, PhysicalCard target) {
+                    public int getTwilightCostModifier(LotroGame game, PhysicalCard physicalCard, PhysicalCard target, boolean ignoreRoamingPenalty) {
                         if (target == self)
                             return -1;
                         return 0;

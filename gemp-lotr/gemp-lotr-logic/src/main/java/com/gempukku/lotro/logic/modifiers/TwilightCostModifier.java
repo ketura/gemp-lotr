@@ -32,7 +32,7 @@ public class TwilightCostModifier extends AbstractModifier {
     }
 
     @Override
-    public int getTwilightCostModifier(LotroGame game, PhysicalCard physicalCard, boolean ignoreRoamingPenalty) {
+    public int getTwilightCostModifier(LotroGame game, PhysicalCard physicalCard, PhysicalCard target, boolean ignoreRoamingPenalty) {
         return _evaluator.evaluateExpression(game, physicalCard);
     }
 }

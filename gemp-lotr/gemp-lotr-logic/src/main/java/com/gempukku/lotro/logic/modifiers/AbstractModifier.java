@@ -129,12 +129,7 @@ public abstract class AbstractModifier implements Modifier {
     }
 
     @Override
-    public int getTwilightCostModifier(LotroGame game, PhysicalCard physicalCard, boolean ignoreRoamingPenalty) {
-        return 0;
-    }
-
-    @Override
-    public int getPlayOnTwilightCostModifier(LotroGame game, PhysicalCard physicalCard, PhysicalCard target) {
+    public int getTwilightCostModifier(LotroGame game, PhysicalCard physicalCard, PhysicalCard target, boolean ignoreRoamingPenalty) {
         return 0;
     }
 

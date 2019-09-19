@@ -473,7 +473,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
             int result = physicalCard.getBlueprint().getTwilightCost() + twilightCostModifier;
             result += physicalCard.getBlueprint().getTwilightCostModifier(game, physicalCard, target);
             for (Modifier modifier : getModifiersAffectingCard(game, ModifierEffect.TWILIGHT_COST_MODIFIER, physicalCard)) {
-                result += modifier.getTwilightCostModifier(game, physicalCard, ignoreRoamingPenalty);
+                result += modifier.getTwilightCostModifier(game, physicalCard, target, ignoreRoamingPenalty);
             }
             result = Math.max(0, result);
 

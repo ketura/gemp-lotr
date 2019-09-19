@@ -40,7 +40,7 @@ public class Card4_080 extends AbstractCompanion {
         return Collections.singletonList(
                 new AbstractModifier(self, "The twilight cost of each ranged weapon played on Ordulus is -1.", PossessionClass.RANGED_WEAPON, ModifierEffect.TWILIGHT_COST_MODIFIER) {
                     @Override
-                    public int getPlayOnTwilightCostModifier(LotroGame game, PhysicalCard physicalCard, PhysicalCard target) {
+                    public int getTwilightCostModifier(LotroGame game, PhysicalCard physicalCard, PhysicalCard target, boolean ignoreRoamingPenalty) {
                         if (target == self)
                             return -1;
                         return 0;
