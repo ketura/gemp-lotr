@@ -79,19 +79,22 @@ public class HobbitDraftTest {
     }
 
     private static void testRandomness() {
-        doRandomTest(false);
+        doRandomTest(4, false);
+        doRandomTest(3, false);
         System.out.println("WTF!!!!");
-        doRandomTest(true);
+        doRandomTest(4, true);
+        doRandomTest(3, true);
     }
 
-    private static void doRandomTest(boolean getFloatBeforeInt) {
+    private static void doRandomTest(int nextIntValue, boolean getFloatBeforeInt) {
         System.out.println("Get float before int: " + getFloatBeforeInt);
+        System.out.println("Next int value: " + nextIntValue);
         int[] values = new int[4];
         for (int i = 0; i < 1000; i++) {
             Random rnd = new Random(i);
             if (getFloatBeforeInt)
                 rnd.nextFloat();
-            values[rnd.nextInt(4)]++;
+            values[rnd.nextInt(nextIntValue)]++;
         }
         for (int i = 0; i < values.length; i++) {
             System.out.println(i + ": " + values[i]);
