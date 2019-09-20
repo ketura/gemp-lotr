@@ -104,7 +104,11 @@ var CardFilter = Class.extend({
 
         this.fullFilterDiv = $("<div></div>");
         this.setSelect = $("<select style='width: 130px; font-size: 80%;'>"
-            + "<option value='lotr'>All Sets</option>"
+            + "<option value=''>All Sets</option>"
+            + "<option value='lotr'>Official Sets</option>"
+            + "<option value='hobbit_tsr'>The Hobbit Sets</option>"
+            + "<option value='2nd_ed'>Second Edition Sets</option>"
+            + "<option disabled>----------</option>"
             + "<option value='fotr_block'>Fellowship Block</option>"
             + "<option value='ttt_block'>Towers Block</option>"
             + "<option value='king_block'>King Block</option>"
@@ -115,6 +119,7 @@ var CardFilter = Class.extend({
             + "<option value='movie'>Movie Block</option>"
             + "<option value='war_standard'>War of the Ring standard</option>"
             + "<option value='standard'>Standard</option>"
+            + "<option disabled>----------</option>"
             + "<option value='0'>00 - Promo</option>"
             + "<option value='1'>01 - The Fellowship of the Ring</option>"
             + "<option value='2'>02 - Mines of Moria</option>"
@@ -135,10 +140,9 @@ var CardFilter = Class.extend({
             + "<option value='17'>17 - Rise of Saruman</option>"
             + "<option value='18'>18 - Treachery & Deceit</option>"
             + "<option value='19'>19 - Ages End</option>"
-            //Additional Hobbit Draft blocks
-            + "<option value='30'>The Hobbit: Main Deck</option>"
+            + "<option value='30'>30 - The Hobbit: Main Deck</option>"
+            + "<option value='31'>31 - The Hobbit: The Short Rest</option>"
             + "<option value='40'>40 - Second Edition</option>"
-            + "<option value='hobbit_tsr'> The Hobbit: The Short Rest</option>"
             + "</select>");
         this.nameInput = $("<input type='text' value='Card name' style='width: 110px; font-size: 70%;'>");
         this.sortSelect = $("<select style='width: 80px; font-size: 80%;'>"
