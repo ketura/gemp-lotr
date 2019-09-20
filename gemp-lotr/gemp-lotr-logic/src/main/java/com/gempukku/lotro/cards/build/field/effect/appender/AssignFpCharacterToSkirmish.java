@@ -30,31 +30,37 @@ public class AssignFpCharacterToSkirmish implements EffectAppenderProducer {
         final String against = FieldUtils.getString(effectObject.get("against"), "against");
 
         final PlayerSource playerSource = PlayerResolver.resolvePlayer(player, environment);
-        final FilterableSource fpCharacterFilter = environment.getFilterFactory().generateFilter(fpCharacter, environment);
+
+        final FilterableSource minionFilter = getSource(against, environment);
 
         MultiEffectAppender result = new MultiEffectAppender();
 
+        result.addEffectAppender(
+                CardResolver.resolveCard(fpCharacter,
+                        (actionContext) -> {
+                            final String assigningPlayer = playerSource.getPlayer(actionContext);
+                            Side assigningSide = GameUtils.getSide(actionContext.getGame(), assigningPlayer);
+                            final Filterable filter = minionFilter.getFilterable(actionContext);
+                            return Filters.assignableToSkirmishAgainst(assigningSide, filter);
+                        }, "_tempFpCharacter", player, "Choose character to assign to skirmish", environment));
         result.addEffectAppender(
                 CardResolver.resolveCard(against,
                         (actionContext) -> {
                             final String assigningPlayer = playerSource.getPlayer(actionContext);
                             Side assigningSide = GameUtils.getSide(actionContext.getGame(), assigningPlayer);
-                            final Filterable filter = fpCharacterFilter.getFilterable(actionContext);
-                            return Filters.assignableToSkirmishAgainst(assigningSide, filter, false, false);
+                            final Collection<? extends PhysicalCard> fpChar = actionContext.getCardsFromMemory("_tempFpCharacter");
+                            return Filters.assignableToSkirmishAgainst(assigningSide, Filters.in(fpChar));
                         }, "_tempMinion", player, "Choose minion to assign to character", environment));
         result.addEffectAppender(
                 new DelayedAppender() {
                     @Override
                     protected List<? extends Effect> createEffects(boolean cost, CostToEffectAction action, ActionContext actionContext) {
                         final String assigningPlayer = playerSource.getPlayer(actionContext);
-                        final Filterable filter = fpCharacterFilter.getFilterable(actionContext);
-                        final PhysicalCard character = Filters.findFirstActive(actionContext.getGame(), filter);
-                        if (character != null) {
-                            final Collection<? extends PhysicalCard> minion = actionContext.getCardsFromMemory("_tempMinion");
-                            if (minion.size() == 1) {
-                                return Collections.singletonList(
-                                        new AssignmentEffect(assigningPlayer, character, minion.iterator().next()));
-                            }
+                        final Collection<? extends PhysicalCard> fpChar = actionContext.getCardsFromMemory("_tempFpCharacter");
+                        final Collection<? extends PhysicalCard> minion = actionContext.getCardsFromMemory("_tempMinion");
+                        if (fpChar.size() == 1 && minion.size() == 1) {
+                            return Collections.singletonList(
+                                    new AssignmentEffect(assigningPlayer, fpChar.iterator().next(), minion.iterator().next()));
                         }
                         return null;
                     }
@@ -63,4 +69,11 @@ public class AssignFpCharacterToSkirmish implements EffectAppenderProducer {
         return result;
     }
 
+    private FilterableSource getSource(String filter, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
+        if (filter.startsWith("choose(") && filter.endsWith(")"))
+            return environment.getFilterFactory().generateFilter(filter.substring(filter.indexOf("(") + 1, filter.lastIndexOf(")")), environment);
+        if (filter.equals("self"))
+            return ActionContext::getSource;
+        throw new InvalidCardDefinitionException("The filters for this effect have to be of 'choose' type or 'self'");
+    }
 }

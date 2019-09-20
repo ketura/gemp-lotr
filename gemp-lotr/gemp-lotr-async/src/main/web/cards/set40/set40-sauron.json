@@ -439,7 +439,7 @@
           "filter": "hobbit,companion"
         },
         "effect": {
-          "type": "assignToSkirmishAgainstMinion",
+          "type": "assignFpCharacterToSkirmish",
           "player": "fp",
           "against": "self",
           "fpCharacter": "choose(hobbit)"

@@ -17,6 +17,9 @@ public class ModifyArcheryTotal implements ModifierSourceProducer {
         final JSONObject[] conditionArray = FieldUtils.getObjectArray(object.get("condition"), "condition");
         final Side side = FieldUtils.getEnum(Side.class, object.get("side"), "side");
 
+        if (side == null)
+            throw new InvalidCardDefinitionException("This modifier requires a side");
+
         final Requirement[] requirements = environment.getRequirementFactory().getRequirements(conditionArray, environment);
 
         return (actionContext) -> {

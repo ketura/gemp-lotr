@@ -24,7 +24,7 @@
           },
           "effect": {
             "type": "discardCardAtRandomFromHand",
-            "player": "ownerFromMemory(losingMinion)",
+            "hand": "ownerFromMemory(losingMinion)",
             "count": 2,
             "forced": true
           }
@@ -1030,7 +1030,7 @@
       "effect": {
         "type": "discardCardAtRandomFromHand",
         "forced": true,
-        "player": "shadowPlayer",
+        "hand": "shadowPlayer",
         "count": 2
       }
     }

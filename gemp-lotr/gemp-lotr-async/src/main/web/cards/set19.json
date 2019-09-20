@@ -635,9 +635,9 @@
               "filter": "memory(chosenCompanion)"
             },
             "effect": {
-              "type": "assignToSkirmishAgainstMinion",
+              "type": "assignFpCharacterToSkirmish",
               "fpCharacter": "memory(chosenCompanion)",
-              "against": "name(Grima)"
+              "against": "choose(name(Grima))"
             }
           }
         ]

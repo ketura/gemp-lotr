@@ -33,6 +33,8 @@ public class TriggerCheckerFactory {
         triggerCheckers.put("movesto", new MovesTo());
         triggerCheckers.put("losesinitiative", new LosesInitiative());
         triggerCheckers.put("takeswound", new TakesWound());
+        triggerCheckers.put("exerts", new Exerts());
+        triggerCheckers.put("discarded", new Discarded());
         triggerCheckers.put("discardfromhand", new DiscardFromHand());
         triggerCheckers.put("putsonring", new PutsOnRing());
         triggerCheckers.put("addsburden", new AddsBurden());

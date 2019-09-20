@@ -18,9 +18,9 @@ import java.util.List;
 public class DiscardCardAtRandomFromHand implements EffectAppenderProducer {
     @Override
     public EffectAppender createEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(effectObject, "player", "count", "forced");
+        FieldUtils.validateAllowedFields(effectObject, "hand", "count", "forced");
 
-        final String player = FieldUtils.getString(effectObject.get("player"), "player", "you");
+        final String player = FieldUtils.getString(effectObject.get("hand"), "hand", "you");
         final PlayerSource playerSource = PlayerResolver.resolvePlayer(player, environment);
         final ValueSource countSource = ValueResolver.resolveEvaluator(effectObject.get("count"), 1, environment);
         final boolean forced = FieldUtils.getBoolean(effectObject.get("forced"), "forced");

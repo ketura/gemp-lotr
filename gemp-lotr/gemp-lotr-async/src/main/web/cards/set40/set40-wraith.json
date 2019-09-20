@@ -814,7 +814,7 @@
         "filter": "companion,resistanceLessThan(3),not(ring bearer)"
       },
       "effect": {
-        "type": "assignToSkirmishAgainstMinion",
+        "type": "assignFpCharacterToSkirmish",
         "fpCharacter": "choose(companion,resistanceLessThan(3),not(ring bearer))",
         "against": "self"
       }

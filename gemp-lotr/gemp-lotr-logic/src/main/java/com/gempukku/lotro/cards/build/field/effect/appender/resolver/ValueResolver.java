@@ -79,14 +79,15 @@ public class ValueResolver {
                     return new ConstantEvaluator(count);
                 };
             } else if (type.equalsIgnoreCase("forEachMatchingInMemory")) {
-                FieldUtils.validateAllowedFields(object, "memory", "filter");
+                FieldUtils.validateAllowedFields(object, "memory", "filter", "limit");
                 final String memory = FieldUtils.getString(object.get("memory"), "memory");
                 final String filter = FieldUtils.getString(object.get("filter"), "filter");
+                final int limit = FieldUtils.getInteger(object.get("limit"), "limit", Integer.MAX_VALUE);
                 final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
                 return (actionContext) -> {
                     final int count = Filters.filter(actionContext.getCardsFromMemory(memory), actionContext.getGame(),
                             filterableSource.getFilterable(actionContext)).size();
-                    return new ConstantEvaluator(count);
+                    return new ConstantEvaluator(Math.min(limit, count));
                 };
             } else if (type.equalsIgnoreCase("forEachThreat")) {
                 FieldUtils.validateAllowedFields(object, "multiplier");

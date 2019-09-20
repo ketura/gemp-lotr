@@ -27,7 +27,7 @@
           "count": 2
         },
         "effect": {
-          "type": "assignToSkirmishAgainstMinion",
+          "type": "assignFpCharacterToSkirmish",
           "player": "fp",
           "fpCharacter": "choose(hobbit)",
           "against": "self"

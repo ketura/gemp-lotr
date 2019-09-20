@@ -24,6 +24,9 @@ public class ModifyArcheryTotal implements EffectAppenderProducer {
         final ValueSource valueSource = ValueResolver.resolveEvaluator(effectObject.get("amount"), 0, environment);
         final Side side = FieldUtils.getEnum(Side.class, effectObject.get("side"), "side");
 
+        if (side == null)
+            throw new InvalidCardDefinitionException("This effect requires a side");
+
         return new DelayedAppender() {
             @Override
             protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
