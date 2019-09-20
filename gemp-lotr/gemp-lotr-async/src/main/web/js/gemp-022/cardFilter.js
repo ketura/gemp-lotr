@@ -1,29 +1,29 @@
 var CardFilter = Class.extend({
-    clearCollectionFunc:null,
-    addCardFunc:null,
-    finishCollectionFunc:null,
-    getCollectionFunc:null,
+    clearCollectionFunc: null,
+    addCardFunc: null,
+    finishCollectionFunc: null,
+    getCollectionFunc: null,
 
-    collectionType:null,
+    collectionType: null,
 
-    filter:null,
-    start:0,
-    count:18,
+    filter: null,
+    start: 0,
+    count: 18,
 
-    pageDiv:null,
-    fullFilterDiv:null,
-    filterDiv:null,
+    pageDiv: null,
+    fullFilterDiv: null,
+    filterDiv: null,
 
-    previousPageBut:null,
-    nextPageBut:null,
-    countSlider:null,
+    previousPageBut: null,
+    nextPageBut: null,
+    countSlider: null,
 
-    setSelect:null,
-    nameInput:null,
-    sortSelect:null,
-    raritySelect:null,
+    setSelect: null,
+    nameInput: null,
+    sortSelect: null,
+    raritySelect: null,
 
-    init:function (elem, pageElem, getCollectionFunc, clearCollectionFunc, addCardFunc, finishCollectionFunc) {
+    init: function (elem, pageElem, getCollectionFunc, clearCollectionFunc, addCardFunc, finishCollectionFunc) {
         this.getCollectionFunc = getCollectionFunc;
         this.clearCollectionFunc = clearCollectionFunc;
         this.addCardFunc = addCardFunc;
@@ -34,35 +34,35 @@ var CardFilter = Class.extend({
         this.buildUi(elem, pageElem);
     },
 
-    enableDetailFilters:function (enable) {
+    enableDetailFilters: function (enable) {
         $("#culture1").buttonset("option", "disabled", !enable);
         $("#culture2").buttonset("option", "disabled", !enable);
         $("#cardType").prop("disabled", !enable);
         $("#keyword").prop("disabled", !enable);
     },
 
-    setFilter:function (filter) {
+    setFilter: function (filter) {
         this.filter = filter;
 
         this.start = 0;
         this.getCollection();
     },
 
-    setType:function (typeValue) {
+    setType: function (typeValue) {
         $("#type").val(typeValue);
     },
 
-    buildUi:function (elem, pageElem) {
+    buildUi: function (elem, pageElem) {
         var that = this;
 
         this.pageDiv = $("<div></div>");
 
         this.previousPageBut = $("<button id='previousPage' style='float: left;'>Previous page</button>").button({
-            text:false,
-            icons:{
-                primary:"ui-icon-circle-triangle-w"
+            text: false,
+            icons: {
+                primary: "ui-icon-circle-triangle-w"
             },
-            disabled:true
+            disabled: true
         }).click(
             function () {
                 that.disableNavigation();
@@ -71,11 +71,11 @@ var CardFilter = Class.extend({
             });
 
         this.nextPageBut = $("<button id='nextPage' style='float: right;'>Next page</button>").button({
-            text:false,
-            icons:{
-                primary:"ui-icon-circle-triangle-e"
+            text: false,
+            icons: {
+                primary: "ui-icon-circle-triangle-e"
             },
-            disabled:true
+            disabled: true
         }).click(
             function () {
                 that.disableNavigation();
@@ -84,12 +84,12 @@ var CardFilter = Class.extend({
             });
 
         this.countSlider = $("<div id='countSlider' style='left: 50px; top: 10px; width: 200px;'></div>").slider({
-            value:18,
-            min:4,
-            max:40,
-            step:1,
-            disabled:true,
-            slide:function (event, ui) {
+            value: 18,
+            min: 4,
+            max: 40,
+            step: 1,
+            disabled: true,
+            slide: function (event, ui) {
                 that.start = 0;
                 that.count = ui.value;
                 that.getCollection();
@@ -148,7 +148,7 @@ var CardFilter = Class.extend({
             + "<option value='32'>32 - The Hobbit: The Clouds Burst</option>"
             + "<option value='40'>40 - Second Edition</option>"
             + "</select>");
-        this.nameInput = $("<input type='text' value='Card name' style='width: 110px; font-size: 70%;'>");
+        this.nameInput = $("<input type='text' placeholder='Card name' value='' style='width: 110px; font-size: 70%;'>");
         this.sortSelect = $("<select style='width: 80px; font-size: 80%;'>"
             + "<option value=''>Sort by:</option>"
             + "<option value='name'>Name</option>"
@@ -301,30 +301,30 @@ var CardFilter = Class.extend({
         $("#cardType").change(filterOut);
         $("#keyword").change(filterOut);
         $("#type").change(filterOut);
-        
+
         //Additional Hobbit Draft labels
         $("#labelDWARVEN,#labelELVEN,#labelGANDALF,#labelGONDOR,#labelROHAN,#labelSHIRE,#labelGOLLUM,#labelDUNLAND,#labelISENGARD,#labelMEN,#labelMORIA,#labelORC,#labelRAIDER,#labelSAURON,#labelURUK_HAI,#labelWRAITH,#labelESGAROTH,#labelGUNDABAD").click(filterOut);
     },
 
-    layoutUi:function (x, y, width, height) {
-        this.pageDiv.css({ position:"absolute", left:x, top:y, width:width, height:34 });
-        this.countSlider.css({width:width - 100});
-        this.fullFilterDiv.css({position:"absolute", left:x, top:y + 34, width:width, height:34});
-        this.filterDiv.css({ position:"absolute", left:x, top:y + 68, width:width, height:80 });
+    layoutUi: function (x, y, width, height) {
+        this.pageDiv.css({position: "absolute", left: x, top: y, width: width, height: 34});
+        this.countSlider.css({width: width - 100});
+        this.fullFilterDiv.css({position: "absolute", left: x, top: y + 34, width: width, height: 34});
+        this.filterDiv.css({position: "absolute", left: x, top: y + 68, width: width, height: 80});
     },
 
-    layoutPageUi: function(x, y, width) {
-        this.pageDiv.css({ left:x, top:y, width:width, height:36 });
-        this.countSlider.css({width:width - 100});
+    layoutPageUi: function (x, y, width) {
+        this.pageDiv.css({left: x, top: y, width: width, height: 36});
+        this.countSlider.css({width: width - 100});
     },
 
-    disableNavigation:function () {
+    disableNavigation: function () {
         this.previousPageBut.button("option", "disabled", true);
         this.nextPageBut.button("option", "disabled", true);
         this.countSlider.button("option", "disabled", true);
     },
 
-    calculateNormalFilter:function () {
+    calculateNormalFilter: function () {
         var cultures = new Array();
         $("label", $("#culture1")).each(
             function () {
@@ -357,7 +357,7 @@ var CardFilter = Class.extend({
             return cardType + keyword + type;
     },
 
-    calculateFullFilterPostfix:function () {
+    calculateFullFilterPostfix: function () {
         var setNo = $("option:selected", this.setSelect).prop("value");
         if (setNo != "")
             setNo = " set:" + setNo;
@@ -367,14 +367,10 @@ var CardFilter = Class.extend({
             sort = " sort:" + sort;
 
         var cardName = this.nameInput.val();
-        if (cardName == "Card name")
-            cardName = "";
-        else {
-            var cardNameElems = cardName.split(" ");
-            cardName = "";
-            for (var i = 0; i < cardNameElems.length; i++)
-                cardName += " name:" + cardNameElems[i];
-        }
+        var cardNameElems = cardName.split(" ");
+        cardName = "";
+        for (var i = 0; i < cardNameElems.length; i++)
+            cardName += " name:" + cardNameElems[i];
 
         var rarity = $("option:selected", this.raritySelect).prop("value");
         if (rarity != "")
@@ -383,14 +379,14 @@ var CardFilter = Class.extend({
         return setNo + sort + cardName + rarity;
     },
 
-    getCollection:function () {
+    getCollection: function () {
         var that = this;
         this.getCollectionFunc((this.filter + this.calculateFullFilterPostfix()).trim(), this.start, this.count, function (xml) {
             that.displayCollection(xml);
         });
     },
 
-    displayCollection:function (xml) {
+    displayCollection: function (xml) {
         log(xml);
         var root = xml.documentElement;
 
