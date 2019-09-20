@@ -14,7 +14,7 @@ import com.gempukku.lotro.logic.timing.processes.GameProcess;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class AIPlayerAssignsArcheryTotalGameProcess implements GameProcess {
     private int _woundsToAssign;
@@ -64,8 +64,7 @@ public class AIPlayerAssignsArcheryTotalGameProcess implements GameProcess {
                         List<PhysicalCard> possibleChoices = new ArrayList<PhysicalCard>(acceptableCards);
                         if (possibleChoices.size()>0) {
                             SubAction subAction = new SubAction(action);
-                            Random rnd = new Random();
-                            final int randomIndex = rnd.nextInt(possibleChoices.size());
+                            final int randomIndex = ThreadLocalRandom.current().nextInt(possibleChoices.size());
                             WoundCharactersEffect woundCharacter = new WoundCharactersEffect((PhysicalCard) null, possibleChoices.get(randomIndex));
                             woundCharacter.setSourceText("Archery Fire");
                             subAction.appendEffect(woundCharacter);

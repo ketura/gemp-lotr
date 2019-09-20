@@ -1,10 +1,6 @@
 package com.gempukku.mtg.provider.mtggoldfish;
 
-import com.gempukku.mtg.CardData;
-import com.gempukku.mtg.MtgCardServer;
-import com.gempukku.mtg.MtgDataProvider;
-import com.gempukku.mtg.SetCardData;
-import com.gempukku.mtg.TimestampedCardCollection;
+import com.gempukku.mtg.*;
 import com.gempukku.mtg.provider.RetryUtil;
 import com.gempukku.mtg.provider.Retryable;
 import org.apache.log4j.Logger;
@@ -21,8 +17,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
 import java.util.TimeZone;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class MtgGoldfishProvider implements MtgDataProvider {
     private static final Logger LOG = Logger.getLogger(MtgGoldfishProvider.class);
@@ -178,8 +174,7 @@ public class MtgGoldfishProvider implements MtgDataProvider {
     }
 
     private int getSleepTime() {
-        Random rnd = new Random();
-        return SLEEP_MINIMUM + rnd.nextInt(SLEEP_MAXIMUM - SLEEP_MINIMUM);
+        return SLEEP_MINIMUM + ThreadLocalRandom.current().nextInt(SLEEP_MAXIMUM - SLEEP_MINIMUM);
     }
 
     public static void main(String[] args) {

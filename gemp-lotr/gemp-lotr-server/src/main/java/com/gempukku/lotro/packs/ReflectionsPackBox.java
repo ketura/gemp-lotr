@@ -7,10 +7,9 @@ import com.gempukku.lotro.game.packs.SetDefinition;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class ReflectionsPackBox implements PackBox {
-    private Random _random = new Random();
     private SetDefinition _reflectionsRarity;
     private List<String> _previousSetCards = new ArrayList<String>();
     private List<String> _reflectionSlotCards = new ArrayList<String>();
@@ -39,15 +38,15 @@ public class ReflectionsPackBox implements PackBox {
     public List<CardCollection.Item> openPack() {
         List<CardCollection.Item> result = new LinkedList<CardCollection.Item>();
         boolean foil;
-        foil = _random.nextInt(15) == 0;
+        foil = ThreadLocalRandom.current().nextInt(15) == 0;
         result.add(CardCollection.Item.createItem(getRandomReflectionsCard() + (foil ? "*" : ""), 1));
-        foil = _random.nextInt(15) == 0;
+        foil = ThreadLocalRandom.current().nextInt(15) == 0;
         result.add(CardCollection.Item.createItem(getRandomReflectionsCard() + (foil ? "*" : ""), 1));
 
         for (int i = 0; i < 16; i++) {
-            final String blueprintId = _previousSetCards.get(_random.nextInt(_previousSetCards.size()));
+            final String blueprintId = _previousSetCards.get(ThreadLocalRandom.current().nextInt(_previousSetCards.size()));
             // There is a 1/6 * 1/11 chance it will be a foil
-            if (_random.nextInt(66) == 0)
+            if (ThreadLocalRandom.current().nextInt(66) == 0)
                 result.add(CardCollection.Item.createItem(blueprintId + "*", 1));
             else
                 result.add(CardCollection.Item.createItem(blueprintId, 1));
@@ -57,6 +56,6 @@ public class ReflectionsPackBox implements PackBox {
     }
 
     public String getRandomReflectionsCard() {
-        return _reflectionSlotCards.get(_random.nextInt(_reflectionSlotCards.size()));
+        return _reflectionSlotCards.get(ThreadLocalRandom.current().nextInt(_reflectionSlotCards.size()));
     }
 }

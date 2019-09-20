@@ -2,12 +2,8 @@ package com.gempukku.lotro.tournament;
 
 import com.gempukku.lotro.competitive.PlayerStanding;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class SwissPairingMechanism implements PairingMechanism {
     private String _registryRepresentation;
@@ -163,7 +159,7 @@ public class SwissPairingMechanism implements PairingMechanism {
 
     private void shufflePlayersWithinBrackets(List<List<String>> playersGroupedByPoints) {
         for (List<String> playersByPoint : playersGroupedByPoints) {
-            Collections.shuffle(playersByPoint);
+            Collections.shuffle(playersByPoint, ThreadLocalRandom.current());
         }
     }
 

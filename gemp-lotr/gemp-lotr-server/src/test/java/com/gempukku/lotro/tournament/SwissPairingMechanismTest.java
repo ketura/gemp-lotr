@@ -5,17 +5,10 @@ import com.gempukku.lotro.competitive.PlayerStanding;
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 public class SwissPairingMechanismTest {
 //    @Test
@@ -47,7 +40,7 @@ public class SwissPairingMechanismTest {
         Set<String> betterPlayers = new HashSet<String>();
         Set<String> worsePlayers = new HashSet<String>();
 
-        Random rnd = new Random();
+        Random rnd = ThreadLocalRandom.current();
 
         for (int repeat = 0; repeat < repeatCount; repeat++) {
             Set<String> players = new HashSet<String>();
@@ -210,7 +203,7 @@ public class SwissPairingMechanismTest {
                     assertFalse(previouslyPaired.get(playerTwo).contains(playerOne));
 
                     System.out.println("Paired " + playerOne + " against " + playerTwo + " points - " + getPlayerPoints(standings, playerOne) + " vs " + getPlayerPoints(standings, playerTwo));
-                    String winner = new Random().nextBoolean() ? playerOne : playerTwo;
+                    String winner = ThreadLocalRandom.current().nextBoolean() ? playerOne : playerTwo;
                     log("Winner - " + winner);
 
                     previouslyPaired.get(playerOne).add(playerTwo);

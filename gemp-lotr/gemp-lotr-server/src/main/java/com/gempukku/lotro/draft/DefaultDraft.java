@@ -11,6 +11,7 @@ import com.gempukku.lotro.packs.PacksStorage;
 import com.gempukku.lotro.tournament.TournamentCallback;
 
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 // TODO - it has to be thread safe
 public class DefaultDraft implements Draft {
@@ -44,7 +45,7 @@ public class DefaultDraft implements Draft {
         _packsStorage = packsStorage;
         _draftPack = draftPack;
         _players = new ArrayList(players);
-        Collections.shuffle(_players);
+        Collections.shuffle(_players, ThreadLocalRandom.current());
         
         _playerCount = _players.size();
 

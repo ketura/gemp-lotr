@@ -17,6 +17,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.*;
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.zip.Deflater;
 import java.util.zip.DeflaterOutputStream;
 import java.util.zip.InflaterInputStream;
@@ -34,7 +35,7 @@ public class GameRecorder {
     private String randomUid() {
         int length = 16;
         char[] chars = new char[length];
-        Random rnd = new Random();
+        Random rnd = ThreadLocalRandom.current();
         for (int i = 0; i < length; i++)
             chars[i] = _possibleChars.charAt(rnd.nextInt(_charsCount));
 

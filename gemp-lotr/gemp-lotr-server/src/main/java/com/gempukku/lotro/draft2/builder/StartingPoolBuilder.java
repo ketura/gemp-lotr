@@ -6,7 +6,10 @@ import com.google.common.collect.Iterables;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Random;
 
 public class StartingPoolBuilder {
     public CardCollectionProducer buildCardCollectionProducer(JSONObject startingPool) {
@@ -39,6 +42,7 @@ public class StartingPoolBuilder {
             @Override
             public CardCollection getCardCollection(long seed) {
                 Random rnd = new Random(seed);
+                float thisFixesARandomnessBug = rnd.nextFloat();
                 return cardCollections.get(rnd.nextInt(cardCollections.size()));
             }
         };

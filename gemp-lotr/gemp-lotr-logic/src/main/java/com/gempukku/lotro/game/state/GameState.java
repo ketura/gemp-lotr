@@ -1,30 +1,16 @@
 package com.gempukku.lotro.game.state;
 
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.communication.GameStateListener;
-import com.gempukku.lotro.game.CardNotFoundException;
-import com.gempukku.lotro.game.LotroCardBlueprint;
-import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
-import com.gempukku.lotro.game.PhysicalCard;
-import com.gempukku.lotro.game.PhysicalCardImpl;
-import com.gempukku.lotro.game.PhysicalCardVisitor;
+import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.logic.PlayerOrder;
 import com.gempukku.lotro.logic.decisions.AwaitingDecision;
 import com.gempukku.lotro.logic.modifiers.ModifierFlag;
 import com.gempukku.lotro.logic.timing.GameStats;
 import org.apache.log4j.Logger;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedHashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class GameState {
     private static Logger _log = Logger.getLogger(GameState.class);
@@ -1103,7 +1089,7 @@ public class GameState {
 
     public void shuffleDeck(String player) {
         List<PhysicalCardImpl> deck = _decks.get(player);
-        Collections.shuffle(deck);
+        Collections.shuffle(deck, ThreadLocalRandom.current());
     }
 
     public void sendGameStats(GameStats gameStats) {

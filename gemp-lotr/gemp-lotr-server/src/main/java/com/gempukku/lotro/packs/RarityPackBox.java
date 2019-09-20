@@ -4,9 +4,9 @@ import com.gempukku.lotro.game.CardCollection;
 import com.gempukku.lotro.game.packs.SetDefinition;
 
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class RarityPackBox implements PackBox {
-    private Random _random = new Random();
     private SetDefinition _setRarity;
     private List<String> _possibleRareCards = new ArrayList<String>();
     private List<String> _possibleFoilRareSlot = new ArrayList<String>();
@@ -34,9 +34,9 @@ public class RarityPackBox implements PackBox {
     @Override
     public List<CardCollection.Item> openPack() {
         List<CardCollection.Item> result = new LinkedList<CardCollection.Item>();
-        boolean hasFoil = (_random.nextInt(6) == 0);
+        boolean hasFoil = (ThreadLocalRandom.current().nextInt(6) == 0);
         if (hasFoil) {
-            int foilRarity = _random.nextInt(11);
+            int foilRarity = ThreadLocalRandom.current().nextInt(11);
             if (foilRarity == 0) {
                 addRandomCardsFromList(result, 1, _possibleFoilRareSlot, true);
             } else if (foilRarity < 4) {
@@ -46,7 +46,7 @@ public class RarityPackBox implements PackBox {
             }
         }
 
-        addCard(result, _possibleRareCards.get(_random.nextInt(_possibleRareCards.size())), false);
+        addCard(result, _possibleRareCards.get(ThreadLocalRandom.current().nextInt(_possibleRareCards.size())), false);
 
         addRandomCardsOfRarity(result, 3, "U");
         addRandomCardsOfRarity(result, hasFoil ? 6 : 7, "C");
@@ -72,7 +72,7 @@ public class RarityPackBox implements PackBox {
         for (int i = 0; i < count; i++) {
             int index;
             do {
-                index = _random.nextInt(elementCount);
+                index = ThreadLocalRandom.current().nextInt(elementCount);
             } while (addedIndices.contains(index));
             addedIndices.add(index);
         }

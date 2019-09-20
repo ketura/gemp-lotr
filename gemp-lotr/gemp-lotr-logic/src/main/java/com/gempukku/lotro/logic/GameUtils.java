@@ -11,6 +11,7 @@ import com.gempukku.lotro.game.state.GameState;
 import com.gempukku.lotro.game.state.LotroGame;
 
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class GameUtils {
     public static Side getSide(LotroGame game, String playerId) {
@@ -91,7 +92,7 @@ public class GameUtils {
 
     public static List<PhysicalCard> getRandomCards(List<? extends PhysicalCard> cards, int count) {
         List<PhysicalCard> randomizedCards = new ArrayList<PhysicalCard>(cards);
-        Collections.shuffle(randomizedCards);
+        Collections.shuffle(randomizedCards, ThreadLocalRandom.current());
 
         return new LinkedList<PhysicalCard>(randomizedCards.subList(0, Math.min(count, randomizedCards.size())));
     }

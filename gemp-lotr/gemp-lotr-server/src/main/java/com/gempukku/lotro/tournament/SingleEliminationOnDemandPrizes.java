@@ -8,7 +8,7 @@ import com.gempukku.lotro.game.packs.SetDefinition;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class SingleEliminationOnDemandPrizes implements TournamentPrizes{
     private List<String> _promos = new ArrayList<String>();
@@ -49,7 +49,7 @@ public class SingleEliminationOnDemandPrizes implements TournamentPrizes{
     }
 
     private String getRandom(List<String> list) {
-        return list.get(new Random().nextInt(list.size()));
+        return list.get(ThreadLocalRandom.current().nextInt(list.size()));
     }
 
     @Override

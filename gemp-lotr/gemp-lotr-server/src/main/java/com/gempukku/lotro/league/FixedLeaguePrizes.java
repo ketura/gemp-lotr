@@ -6,7 +6,11 @@ import com.gempukku.lotro.game.CardSets;
 import com.gempukku.lotro.game.DefaultCardCollection;
 import com.gempukku.lotro.game.packs.SetDefinition;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class FixedLeaguePrizes implements LeaguePrizes {
     private List<String> _commons = new ArrayList<String>();
@@ -174,14 +178,14 @@ public class FixedLeaguePrizes implements LeaguePrizes {
     }
 
     private String getRandom(List<String> list) {
-        return list.get(new Random().nextInt(list.size()));
+        return list.get(ThreadLocalRandom.current().nextInt(list.size()));
     }
 
     private List<String> getRandomFoil(List<String> list, int count) {
         List<String> result = new LinkedList<String>();
         for (String element : list)
             result.add(element + "*");
-        Collections.shuffle(result);
+        Collections.shuffle(result, ThreadLocalRandom.current());
         return result.subList(0, count);
     }
 
