@@ -89,7 +89,7 @@ public class HobbitDraftTest {
     private static void doRandomTest(int nextIntValue, boolean getFloatBeforeInt) {
         System.out.println("Get float before int: " + getFloatBeforeInt);
         System.out.println("Next int value: " + nextIntValue);
-        int[] values = new int[4];
+        int[] values = new int[nextIntValue];
         for (int i = 0; i < 1000; i++) {
             Random rnd = new Random(i);
             if (getFloatBeforeInt)
