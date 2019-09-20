@@ -12,10 +12,13 @@ import com.gempukku.lotro.game.packs.SetDefinition;
 import java.io.File;
 import java.util.Comparator;
 import java.util.Map;
+import java.util.Random;
 import java.util.TreeMap;
 
 public class HobbitDraftTest {
     public static void main(String[] args) {
+        testRandomness();
+
         LotroCardBlueprintLibrary library = new LotroCardBlueprintLibrary();
         final String property = System.getProperty("user.dir");
         String projectRoot = new File(property).getAbsolutePath();
@@ -72,6 +75,26 @@ public class HobbitDraftTest {
             final SetDefinition setDefinition = cardSets.getSetDefinitions().get(set);
             final String cardRarity = setDefinition.getCardRarity(blueprint);
             System.out.println(blueprint + " (" + cardRarity + "): " + entry.getValue());
+        }
+    }
+
+    private static void testRandomness() {
+        doRandomTest(false);
+        System.out.println("WTF!!!!");
+        doRandomTest(true);
+    }
+
+    private static void doRandomTest(boolean getFloatBeforeInt) {
+        System.out.println("Get float before int: " + getFloatBeforeInt);
+        int[] values = new int[4];
+        for (int i = 0; i < 1000; i++) {
+            Random rnd = new Random(i);
+            if (getFloatBeforeInt)
+                rnd.nextFloat();
+            values[rnd.nextInt(4)]++;
+        }
+        for (int i = 0; i < values.length; i++) {
+            System.out.println(i + ": " + values[i]);
         }
     }
 

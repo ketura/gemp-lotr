@@ -98,6 +98,8 @@ public class DraftChoiceBuilder {
 
             private List<CardCollection.Item> getCards(long seed, int stage) {
                 Random rnd = getRandom(seed, stage);
+                // Fixing some weird issue with Random
+                float thisFixesRandomnessForSomeReason = rnd.nextFloat();
                 final List<CardCollection.Item> cards = new ArrayList<CardCollection.Item>(possibleCards);
                 Collections.shuffle(cards, rnd);
                 return cards;
@@ -213,6 +215,8 @@ public class DraftChoiceBuilder {
 
             private List<String> getShuffledCards(long seed, int stage) {
                 Random rnd = getRandom(seed, stage);
+                // Fixing some weird issue with Random
+                float thisFixesRandomnessForSomeReason = rnd.nextFloat();
                 final List<String> shuffledCards = new ArrayList<String>(cards);
                 Collections.shuffle(shuffledCards, rnd);
                 return shuffledCards;
@@ -231,12 +235,16 @@ public class DraftChoiceBuilder {
             @Override
             public Iterable<SoloDraft.DraftChoice> getDraftChoice(long seed, int stage) {
                 Random rnd = getRandom(seed, stage);
+                // Fixing some weird issue with Random
+                float thisFixesRandomnessForSomeReason = rnd.nextFloat();
                 return draftChoiceDefinitionList.get(rnd.nextInt(draftChoiceDefinitionList.size())).getDraftChoice(seed, stage);
             }
 
             @Override
             public CardCollection getCardsForChoiceId(String choiceId, long seed, int stage) {
                 Random rnd = getRandom(seed, stage);
+                // Fixing some weird issue with Random
+                float thisFixesRandomnessForSomeReason = rnd.nextFloat();
                 return draftChoiceDefinitionList.get(rnd.nextInt(draftChoiceDefinitionList.size())).getCardsForChoiceId(choiceId, seed, stage);
             }
         };
