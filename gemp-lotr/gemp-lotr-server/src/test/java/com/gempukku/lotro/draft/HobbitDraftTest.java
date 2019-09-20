@@ -80,8 +80,10 @@ public class HobbitDraftTest {
 
     private static void testRandomness() {
         doRandomTest(4, false);
-        doRandomTest(3, false);
         System.out.println("WTF!!!!");
+        System.out.println("WTF!!!!");
+        System.out.println("WTF!!!!");
+        doRandomTest(3, false);
         doRandomTest(4, true);
         doRandomTest(3, true);
     }
