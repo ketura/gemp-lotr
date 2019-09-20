@@ -43,7 +43,7 @@ var GempLotrHallUI = Class.extend({
 
         var hallSettingsStr = $.cookie("hallSettings");
         if (hallSettingsStr == null)
-            hallSettingsStr = "0|0|1|1|0";
+            hallSettingsStr = "1|1|0|0|0";
         var hallSettings = hallSettingsStr.split("|");
 
         this.addWaitingTablesTable(hallSettings[0] == "1");

@@ -85,7 +85,7 @@
     {
         "name": "Anything goes",
         "code":"rev_tow_sta",
-        "sites":"TWO_TOWERS",
+        "sites": "SPECIAL",
         "cancelRingBearerSkirmish":true,
         "set":[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
     },
@@ -344,19 +344,55 @@
         "hall":true
     },
     {
+        "name": "Hobbit: The Clouds Burst",
+        "code": "hobbit_tcb",
+        "sites": "HOBBIT",
+        "cancelRingBearerSkirmish": true,
+        "restricted": [
+            "30_2",
+            "30_5",
+            "30_6",
+            "30_7",
+            "30_8",
+            "30_9",
+            "30_10",
+            "30_11",
+            "30_12",
+            "30_15",
+            "30_19",
+            "30_25",
+            "30_26",
+            "30_27",
+            "30_28",
+            "30_29",
+            "30_43",
+            "30_44",
+            "30_45",
+            "30_46",
+            "30_48",
+            "30_58"
+        ],
+        "limit2": [
+            "30_1"
+        ],
+        "limit3": [],
+        "set": [
+            30,
+            32
+        ],
+        "restrictedName": [
+            "Gandalf",
+            "Bilbo"
+        ],
+        "hall": true
+    },
+    {
         "name":"Limited",
         "code":"limited_hobbit",
         "sites":"HOBBIT",
         "cancelRingBearerSkirmish":true,
         "limited":true,
         "set":[30, 31],
-        "hall":false
-    },
-    {
-        "name":"LotR Cards",
-        "code":"lotr",
-        "sites":"SPECIAL",
-        "set":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19],
         "hall":false
     }
 ]

@@ -40,7 +40,7 @@ public class SortAndFilterCards {
                 } catch (CardNotFoundException e) {
                     // Ignore the card
                 }
-           }
+            }
         }
 
         String sort = getSort(filterParams);
@@ -146,10 +146,10 @@ public class SortAndFilterCards {
         return true;
     }
 
-    private boolean isInSets(String blueprintId, String[] sets, LotroCardBlueprintLibrary library, LotroFormatLibrary formatLibrary,  Map<String, LotroCardBlueprint> cardBlueprint) {
+    private boolean isInSets(String blueprintId, String[] sets, LotroCardBlueprintLibrary library, LotroFormatLibrary formatLibrary, Map<String, LotroCardBlueprint> cardBlueprint) {
         for (String set : sets) {
             LotroFormat format = formatLibrary.getFormat(set);
-            
+
             if (format != null) {
                 try {
                     format.validateCard(blueprintId);
@@ -181,8 +181,18 @@ public class SortAndFilterCards {
                     return true;
                 }
             } else {
-                if (blueprintId.startsWith(set + "_") || library.hasAlternateInSet(blueprintId, Integer.parseInt(set)))
-                    return true;
+                if (set.contains("-")) {
+                    final String[] split = set.split("-", 2);
+                    int min = Integer.parseInt(split[0]);
+                    int max = Integer.parseInt(split[1]);
+                    for (int setNo = min; setNo <= max; setNo++) {
+                        if (blueprintId.startsWith(setNo + "_") || library.hasAlternateInSet(blueprintId, setNo))
+                            return true;
+                    }
+                } else {
+                    if (blueprintId.startsWith(set + "_") || library.hasAlternateInSet(blueprintId, Integer.parseInt(set)))
+                        return true;
+                }
             }
         }
 

@@ -105,9 +105,9 @@ var CardFilter = Class.extend({
         this.fullFilterDiv = $("<div></div>");
         this.setSelect = $("<select style='width: 130px; font-size: 80%;'>"
             + "<option value=''>All Sets</option>"
-            + "<option value='lotr'>Official Sets</option>"
-            + "<option value='hobbit_tsr'>The Hobbit Sets</option>"
-            + "<option value='2nd_ed'>Second Edition Sets</option>"
+            + "<option value='0-19'>Official Sets</option>"
+            + "<option value='30-32'>The Hobbit Sets</option>"
+            + "<option value='40'>Second Edition Sets</option>"
             + "<option disabled>----------</option>"
             + "<option value='fotr_block'>Fellowship Block</option>"
             + "<option value='ttt_block'>Towers Block</option>"
@@ -119,6 +119,9 @@ var CardFilter = Class.extend({
             + "<option value='movie'>Movie Block</option>"
             + "<option value='war_standard'>War of the Ring standard</option>"
             + "<option value='standard'>Standard</option>"
+            + "<option value='hobbit_tsr'> The Hobbit: The Short Rest</option>"
+            + "<option value='hobbit_tcb'> The Hobbit: The Clouds Burst</option>"
+            + "<option value='2nd_ed'>Second Edition</option>"
             + "<option disabled>----------</option>"
             + "<option value='0'>00 - Promo</option>"
             + "<option value='1'>01 - The Fellowship of the Ring</option>"
@@ -142,6 +145,7 @@ var CardFilter = Class.extend({
             + "<option value='19'>19 - Ages End</option>"
             + "<option value='30'>30 - The Hobbit: Main Deck</option>"
             + "<option value='31'>31 - The Hobbit: The Short Rest</option>"
+            + "<option value='32'>32 - The Hobbit: The Clouds Burst</option>"
             + "<option value='40'>40 - Second Edition</option>"
             + "</select>");
         this.nameInput = $("<input type='text' value='Card name' style='width: 110px; font-size: 70%;'>");
