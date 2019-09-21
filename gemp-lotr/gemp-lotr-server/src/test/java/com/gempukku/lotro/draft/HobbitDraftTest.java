@@ -10,15 +10,12 @@ import com.gempukku.lotro.game.formats.LotroFormatLibrary;
 import com.gempukku.lotro.game.packs.SetDefinition;
 
 import java.io.File;
-import java.util.Comparator;
 import java.util.Map;
 import java.util.Random;
 import java.util.TreeMap;
 
 public class HobbitDraftTest {
     public static void main(String[] args) {
-        testRandomness();
-
         LotroCardBlueprintLibrary library = new LotroCardBlueprintLibrary();
         final String property = System.getProperty("user.dir");
         String projectRoot = new File(property).getAbsolutePath();
@@ -38,20 +35,17 @@ public class HobbitDraftTest {
         final int playerId = 1000;
 
         Map<String, Integer> availableCards = new TreeMap<>(
-                new Comparator<String>() {
-                    @Override
-                    public int compare(String o1, String o2) {
-                        int set1 = Integer.parseInt(o1.substring(0, o1.indexOf('_')));
-                        int set2 = Integer.parseInt(o2.substring(0, o2.indexOf('_')));
-                        if (set1 != set2)
-                            return set1 - set2;
-                        int card1 = Integer.parseInt(o1.substring(o1.indexOf('_') + 1));
-                        int card2 = Integer.parseInt(o2.substring(o2.indexOf('_') + 1));
-                        return card1 - card2;
-                    }
+                (o1, o2) -> {
+                    int set1 = Integer.parseInt(o1.substring(0, o1.indexOf('_')));
+                    int set2 = Integer.parseInt(o2.substring(0, o2.indexOf('_')));
+                    if (set1 != set2)
+                        return set1 - set2;
+                    int card1 = Integer.parseInt(o1.substring(o1.indexOf('_') + 1));
+                    int card2 = Integer.parseInt(o2.substring(o2.indexOf('_') + 1));
+                    return card1 - card2;
                 });
 
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 10000; i++) {
             // Take an example seed
             long seed = getSeed(String.valueOf(collectionType + i), playerId);
 
@@ -75,6 +69,25 @@ public class HobbitDraftTest {
             final SetDefinition setDefinition = cardSets.getSetDefinitions().get(set);
             final String cardRarity = setDefinition.getCardRarity(blueprint);
             System.out.println(blueprint + " (" + cardRarity + "): " + entry.getValue());
+        }
+    }
+
+    private static void testRandomness2() {
+        int lastValue = -1;
+        long patchStart = 1813024350;
+        long longestPatch = 0;
+        for (long seed = 0; seed < 8813024350L; seed++) {
+            final int value = new Random(seed).nextInt(8);
+            if (value != lastValue) {
+                long patchLength = seed - patchStart;
+                if (patchLength > longestPatch) {
+                    System.out.println("Longest patch: " + patchStart + "-" + (seed - 1));
+                    System.out.println("Patch length: " + patchLength);
+                    longestPatch = patchLength;
+                }
+                patchStart = seed;
+                lastValue = value;
+            }
         }
     }
 

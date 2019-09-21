@@ -99,7 +99,7 @@ public class DraftChoiceBuilder {
             private List<CardCollection.Item> getCards(long seed, int stage) {
                 Random rnd = getRandom(seed, stage);
                 // Fixing some weird issue with Random
-                float thisFixesRandomnessForSomeReason = rnd.nextFloat();
+                float thisFixesRandomnessForSomeReason = rnd.nextInt();
                 final List<CardCollection.Item> cards = new ArrayList<CardCollection.Item>(possibleCards);
                 Collections.shuffle(cards, rnd);
                 return cards;
