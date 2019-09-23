@@ -378,6 +378,15 @@
           "type": "appendCardIdsToWhileInZone",
           "memory": "playedNazgul"
         }
+      },
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "endOfTurn"
+        },
+        "effect": {
+          "type": "resetWhileInZoneData"
+        }
       }
     ]
   },

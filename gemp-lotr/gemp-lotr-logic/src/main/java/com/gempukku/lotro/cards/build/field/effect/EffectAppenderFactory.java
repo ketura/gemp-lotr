@@ -102,6 +102,7 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("makeselfringbearer", new MakeSelfRingBearer());
         effectAppenderProducers.put("choosearace", new ChooseARace());
         effectAppenderProducers.put("storewhileinzone", new StoreWhileInZone());
+        effectAppenderProducers.put("resetwhileinzonedata", new ResetWhileInZoneData());
         effectAppenderProducers.put("appendcardidstowhileinzone", new AppendCardIdsToWhileInZone());
         effectAppenderProducers.put("corruptringbearer", new CorruptRingBearer());
         effectAppenderProducers.put("kill", new Kill());
