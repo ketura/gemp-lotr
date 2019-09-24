@@ -161,13 +161,13 @@ public class HallServer extends AbstractServer {
                 });
 
         _tournamentQueues.put("fotr_queue", new ImmediateRecurringQueue(1000, "fotr_block",
-                CollectionType.ALL_CARDS, "fotrQueue-", "Fellowship SitesBlock", 8,
+                CollectionType.ALL_CARDS, "fotrQueue-", "Fellowship SitesBlock", 4,
                 true, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes(cardSets, "onDemand"), _pairingMechanismRegistry.getPairingMechanism("singleElimination")));
         _tournamentQueues.put("movie_queue", new ImmediateRecurringQueue(1000, "movie",
-                CollectionType.ALL_CARDS, "movieQueue-", "Movie SitesBlock", 8,
+                CollectionType.ALL_CARDS, "movieQueue-", "Movie SitesBlock", 4,
                 true, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes(cardSets, "onDemand"), _pairingMechanismRegistry.getPairingMechanism("singleElimination")));
         _tournamentQueues.put("expanded_queue", new ImmediateRecurringQueue(1000, "expanded",
-                CollectionType.ALL_CARDS, "expandedQueue-", "Expanded", 8,
+                CollectionType.ALL_CARDS, "expandedQueue-", "Expanded", 4,
                 true, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes(cardSets, "onDemand"), _pairingMechanismRegistry.getPairingMechanism("singleElimination")));
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
