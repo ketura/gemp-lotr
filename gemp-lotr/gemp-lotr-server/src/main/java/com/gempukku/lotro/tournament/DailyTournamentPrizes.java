@@ -2,19 +2,32 @@ package com.gempukku.lotro.tournament;
 
 import com.gempukku.lotro.competitive.PlayerStanding;
 import com.gempukku.lotro.game.CardCollection;
+import com.gempukku.lotro.game.CardSets;
 import com.gempukku.lotro.game.DefaultCardCollection;
+import com.gempukku.lotro.game.packs.SetDefinition;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class DailyTournamentPrizes implements TournamentPrizes {
+    private List<String> _promos = new ArrayList<String>();
     private String _registryRepresentation;
 
-    public DailyTournamentPrizes(String registryRepresentation) {
+    public DailyTournamentPrizes(CardSets cardSets, String registryRepresentation) {
         _registryRepresentation = registryRepresentation;
+        for (SetDefinition setDefinition : cardSets.getSetDefinitions().values()) {
+            if (setDefinition.hasFlag("originalSet"))
+                _promos.addAll(setDefinition.getCardsOfRarity("P"));
+        }
     }
 
     @Override
     public CardCollection getPrizeForTournament(PlayerStanding playerStanding, int playersCount) {
         DefaultCardCollection tournamentPrize = new DefaultCardCollection();
         tournamentPrize.addItem("(S)Booster Choice", playerStanding.getPoints());
+        if (playerStanding.getPlayerWins() + playerStanding.getPlayerByes() >= 2)
+            tournamentPrize.addItem(getRandom(_promos), 1);
 
         if (!tournamentPrize.getAll().iterator().hasNext()) {
             return null;
@@ -27,6 +40,10 @@ public class DailyTournamentPrizes implements TournamentPrizes {
         return null;
     }
 
+    private String getRandom(List<String> list) {
+        return list.get(ThreadLocalRandom.current().nextInt(list.size()));
+    }
+
     @Override
     public String getRegistryRepresentation() {
         return _registryRepresentation;
@@ -34,6 +51,6 @@ public class DailyTournamentPrizes implements TournamentPrizes {
 
     @Override
     public String getPrizeDescription() {
-        return "2 boosters per win (or bye), 1 per loss, max 3 rounds";
+        return "2 boosters per win (or bye), 1 per loss, max 3 rounds, players with at least 2 wins get a promo";
     }
 }
