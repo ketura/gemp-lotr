@@ -1,0 +1,20 @@
+{
+  "1_203": {
+    "title": "All Blades Perish",
+    "culture": "wraith",
+    "cost": 0,
+    "type": "event",
+    "keyword": "response",
+    "effects": {
+      "type": "responseEvent",
+      "trigger": {
+        "type": "aboutToTakeWound",
+        "filter": "nazgul"
+      },
+      "effect": {
+        "type": "preventWound",
+        "filter": "choose(nazgul)"
+      }
+    }
+  }
+}
