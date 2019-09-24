@@ -719,11 +719,11 @@
         },
         {
           "type": "putCardsFromDeckIntoHand",
-          "filter": "memory(revealedCards),side(free people)"
+          "filter": "all(memory(revealedCards),side(free people))"
         },
         {
           "type": "discardCardsFromDrawDeck",
-          "filter": "memory(revealedCards),not(side(free people))"
+          "filter": "all(memory(revealedCards),not(side(free people)))"
         }
       ]
     }

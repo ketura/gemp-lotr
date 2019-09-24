@@ -59,6 +59,7 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("playcardfromstacked", new PlayCardFromStacked());
         effectAppenderProducers.put("reducearcherytotal", new ReduceArcheryTotal());
         effectAppenderProducers.put("revealtopcardsofdrawdeck", new RevealTopCardsOfDrawDeck());
+        effectAppenderProducers.put("revealbottomcardsofdrawdeck", new RevealBottomCardsOfDrawDeck());
         effectAppenderProducers.put("optional", new Optional());
         effectAppenderProducers.put("costtoeffect", new CostToEffect());
         effectAppenderProducers.put("spot", new Spot());

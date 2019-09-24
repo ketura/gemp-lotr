@@ -888,5 +888,90 @@
         "amount": -2
       }
     }
+  },
+  "1_200": {
+    "title": "The Underdeeps of Moria",
+    "culture": "moria",
+    "cost": 2,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": {
+      "type": "activated",
+      "phase": "shadow",
+      "cost": {
+        "type": "removeTwilight",
+        "amount": 3
+      },
+      "effect": [
+        {
+          "type": "revealBottomCardsOfDrawDeck",
+          "memorize": "revealedCards"
+        },
+        {
+          "type": "putCardsFromDeckIntoHand",
+          "filter": "all(memory(revealedCards),culture(moria),orc)"
+        },
+        {
+          "type": "discardCardsFromDrawDeck",
+          "filter": "all(memory(revealedCards),zone(deck))"
+        }
+      ]
+    }
+  },
+  "1_201": {
+    "title": "Unfamiliar Territory",
+    "culture": "moria",
+    "cost": 0,
+    "type": "event",
+    "keyword": "skirmish",
+    "effects": {
+      "type": "event",
+      "effect": {
+        "type": "modifyStrength",
+        "filter": "choose(culture(moria),orc)",
+        "memorize": "chosenOrc",
+        "amount": {
+          "type": "condition",
+          "condition": {
+            "type": "memoryMatches",
+            "memory": "chosenOrc",
+            "filter": "inSkirmishAgainst(archer)"
+          },
+          "true": 4,
+          "false": 2
+        }
+      }
+    }
+  },
+  "1_202": {
+    "title": "What is this new devilry",
+    "culture": "moria",
+    "cost": 2,
+    "type": "condition",
+    "keyword": [
+      "search",
+      "support area"
+    ],
+    "effects": [
+      {
+        "type": "extraCost",
+        "cost": {
+          "type": "exert",
+          "filter": "choose(culture(moria),orc)"
+        }
+      },
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyCost",
+          "filter": "companion",
+          "condition": {
+            "type": "location",
+            "filter": "siteBlock(fellowship),siteNumber(5-9)"
+          },
+          "amount": 2
+        }
+      }
+    ]
   }
 }

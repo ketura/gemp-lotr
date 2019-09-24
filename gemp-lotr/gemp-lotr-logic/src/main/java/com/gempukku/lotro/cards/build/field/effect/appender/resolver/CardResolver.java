@@ -40,6 +40,8 @@ public class CardResolver {
                                                      String memory, String choicePlayer, String choiceText, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         if (type.startsWith("memory(") && type.endsWith(")")) {
             String sourceMemory = type.substring(type.indexOf("(") + 1, type.lastIndexOf(")"));
+            if (sourceMemory.contains("(") || sourceMemory.contains(")"))
+                throw new InvalidCardDefinitionException("Memory name cannot contain parenthesis");
             return new DelayedAppender() {
                 @Override
                 public boolean isPlayableInFull(ActionContext actionContext) {
@@ -152,9 +154,12 @@ public class CardResolver {
                 }
             };
         } else if (type.startsWith("memory(") && type.endsWith(")")) {
+            String sourceMemory = type.substring(type.indexOf("(") + 1, type.lastIndexOf(")"));
+            if (sourceMemory.contains("(") || sourceMemory.contains(")"))
+                throw new InvalidCardDefinitionException("Memory name cannot contain parenthesis");
+
             final PlayerSource handSource = PlayerResolver.resolvePlayer(handPlayer, environment);
 
-            String sourceMemory = type.substring(type.indexOf("(") + 1, type.lastIndexOf(")"));
             return new DelayedAppender() {
                 @Override
                 public boolean isPlayableInFull(ActionContext actionContext) {
@@ -265,9 +270,12 @@ public class CardResolver {
 
     public static EffectAppender resolveCardsInDiscard(String type, FilterableSource choiceFilter, FilterableSource playabilityFilter, ValueSource countSource, String memory, String choicePlayer, String choiceText, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         if (type.startsWith("memory(") && type.endsWith(")")) {
+            String sourceMemory = type.substring(type.indexOf("(") + 1, type.lastIndexOf(")"));
+            if (sourceMemory.contains("(") || sourceMemory.contains(")"))
+                throw new InvalidCardDefinitionException("Memory name cannot contain parenthesis");
+
             final PlayerSource playerSource = PlayerResolver.resolvePlayer(choicePlayer, environment);
 
-            String sourceMemory = type.substring(type.indexOf("(") + 1, type.lastIndexOf(")"));
             return new DelayedAppender() {
                 @Override
                 public boolean isPlayableInFull(ActionContext actionContext) {
@@ -358,6 +366,8 @@ public class CardResolver {
     public static EffectAppender resolveCardsInDeck(String type, FilterableSource choiceFilter, ValueSource countSource, String memory, String choicePlayer, String choiceText, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         if (type.startsWith("memory(") && type.endsWith(")")) {
             String sourceMemory = type.substring(type.indexOf("(") + 1, type.lastIndexOf(")"));
+            if (sourceMemory.contains("(") || sourceMemory.contains(")"))
+                throw new InvalidCardDefinitionException("Memory name cannot contain parenthesis");
             return new DelayedAppender() {
                 @Override
                 public boolean isPlayableInFull(ActionContext actionContext) {
@@ -372,6 +382,28 @@ public class CardResolver {
                             actionContext.setCardMemory(memory, actionContext.getCardsFromMemory(sourceMemory));
                         }
                     };
+                }
+            };
+        } else if (type.startsWith("all(") && type.endsWith(")")) {
+            final String filter = type.substring(type.indexOf("(") + 1, type.lastIndexOf(")"));
+            final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
+            final PlayerSource playerSource = PlayerResolver.resolvePlayer(choicePlayer, environment);
+            return new DelayedAppender() {
+                @Override
+                protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
+                    return new UnrespondableEffect() {
+                        @Override
+                        protected void doPlayEffect(LotroGame game) {
+                            final String player = playerSource.getPlayer(actionContext);
+                            final Filterable filterable = filterableSource.getFilterable(actionContext);
+                            actionContext.setCardMemory(memory, Filters.filter(game.getGameState().getDeck(player), game, filterable));
+                        }
+                    };
+                }
+
+                @Override
+                public boolean isPlayableInFull(ActionContext actionContext) {
+                    return true;
                 }
             };
         } else if (type.startsWith("choose(") && type.endsWith(")")) {
@@ -465,6 +497,8 @@ public class CardResolver {
             };
         } else if (type.startsWith("memory(") && type.endsWith(")")) {
             String sourceMemory = type.substring(type.indexOf("(") + 1, type.lastIndexOf(")"));
+            if (sourceMemory.contains("(") || sourceMemory.contains(")"))
+                throw new InvalidCardDefinitionException("Memory name cannot contain parenthesis");
             return new DelayedAppender() {
                 @Override
                 public boolean isPlayableInFull(ActionContext actionContext) {

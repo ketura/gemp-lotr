@@ -410,7 +410,7 @@
         },
         {
           "type": "discardCardsFromDrawDeck",
-          "filter": "memory(cardsOnTop),zone(deck)"
+          "filter": "all(memory(cardsOnTop),zone(deck))"
         }
       ]
     }
@@ -449,7 +449,7 @@
         },
         {
           "type": "discardCardsFromDrawDeck",
-          "filter": "memory(cardsOnTop),zone(deck)"
+          "filter": "all(memory(cardsOnTop),zone(deck))"
         }
       ]
     }
