@@ -14,6 +14,7 @@ import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.lotro.logic.effects.ShuffleDeckEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDeckEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndPutCardFromDeckIntoHandEffect;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
@@ -55,10 +56,10 @@ public class Card31_002 extends AbstractEvent {
 						for (int i = 0; i < twilightCost; i++) {
 							if (index == 0) {
 								action.appendEffect(
-										new ChooseAndPutCardFromDeckIntoHandEffect(action, playerId, 0, 1, Culture.DWARVEN, CardType.ARTIFACT));
+										new ChooseAndPlayCardFromDeckEffect(playerId, Culture.DWARVEN, CardType.ARTIFACT));
 							} else {
 								action.appendEffect(
-										new ChooseAndPutCardFromDeckIntoHandEffect(action, playerId, 1, 1, Culture.DWARVEN, CardType.POSSESSION));
+										new ChooseAndPlayCardFromDeckEffect(playerId, Culture.DWARVEN, CardType.POSSESSION));
 							}
 						}
 						action.appendEffect(new ShuffleDeckEffect(playerId));
