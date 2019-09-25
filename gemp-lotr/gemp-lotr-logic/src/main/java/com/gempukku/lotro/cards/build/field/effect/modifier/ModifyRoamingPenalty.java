@@ -13,7 +13,7 @@ public class ModifyRoamingPenalty implements ModifierSourceProducer {
 
         final int amount = FieldUtils.getInteger(object.get("amount"), "amount");
         final JSONObject[] conditionArray = FieldUtils.getObjectArray(object.get("condition"), "condition");
-        final String filter = FieldUtils.getString(object.get("filter"), "filter", "self");
+        final String filter = FieldUtils.getString(object.get("filter"), "filter");
 
         final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
         final Requirement[] requirements = environment.getRequirementFactory().getRequirements(conditionArray, environment);

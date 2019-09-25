@@ -45,6 +45,7 @@
           "type": "location",
           "filter": "or(river,forest)"
         },
+        "filter": "self",
         "amount": 3
       }
     }

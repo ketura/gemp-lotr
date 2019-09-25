@@ -31,6 +31,7 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("canttakewounds", new CantTakeWounds());
         effectAppenderProducers.put("choice", new Choice());
         effectAppenderProducers.put("assignfpcharactertoskirmish", new AssignFpCharacterToSkirmish());
+        effectAppenderProducers.put("cancelallassignments", new CancelAllAssignments());
         effectAppenderProducers.put("putcardsfromhandonbottomofdeck", new PutCardsFromHandOnBottomOfDeck());
         effectAppenderProducers.put("putcardsfromhandontopofdeck", new PutCardsFromHandOnTopOfDeck());
         effectAppenderProducers.put("doesnotaddtoarcherytotal", new DoesNotAddToArcheryTotal());
@@ -87,6 +88,7 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("putcardsfromdeckintohand", new PutCardsFromDeckIntoHand());
         effectAppenderProducers.put("addmodifier", new AddModifier());
         effectAppenderProducers.put("playnextsite", new PlayNextSite());
+        effectAppenderProducers.put("playsite", new PlaySite());
         effectAppenderProducers.put("duplicate", new Duplicate());
         effectAppenderProducers.put("revealcardsfromhand", new RevealCardsFromHand());
         effectAppenderProducers.put("addtokens", new AddTokens());

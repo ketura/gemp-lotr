@@ -11,7 +11,7 @@ public class CantTakeWounds implements ModifierSourceProducer {
         FieldUtils.validateAllowedFields(object, "filter", "condition");
 
         final JSONObject[] conditionArray = FieldUtils.getObjectArray(object.get("condition"), "condition");
-        final String filter = FieldUtils.getString(object.get("filter"), "filter", "self");
+        final String filter = FieldUtils.getString(object.get("filter"), "filter");
 
         final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
         final Requirement[] requirements = environment.getRequirementFactory().getRequirements(conditionArray, environment);

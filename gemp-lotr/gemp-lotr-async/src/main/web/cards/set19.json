@@ -442,6 +442,7 @@
               "filter": "companion,not(self),not(ring bearer)"
             }
           },
+          "filter": "self",
           "keyword": "archer"
         }
       },
@@ -456,6 +457,7 @@
               "filter": "companion,not(self),not(ring bearer)"
             }
           },
+          "filter": "self",
           "keyword": "defender+1"
         }
       },
@@ -470,6 +472,7 @@
               "filter": "companion,not(self),not(ring bearer)"
             }
           },
+          "filter": "self",
           "phase": "skirmish"
         }
       }

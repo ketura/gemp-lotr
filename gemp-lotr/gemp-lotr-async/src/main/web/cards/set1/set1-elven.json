@@ -545,7 +545,8 @@
         "condition": {
           "type": "location",
           "filter": "siteBlock(fellowship),or(siteNumber(6),siteNumber(7),siteNumber(8))"
-        }
+        },
+        "filter": "self"
       }
     }
   },

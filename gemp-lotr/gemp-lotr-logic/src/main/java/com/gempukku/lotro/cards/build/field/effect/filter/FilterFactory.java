@@ -59,6 +59,8 @@ public class FilterFactory {
                 actionContext -> Filters.region(GameUtils.getRegion(actionContext.getSource().getSiteNumber())));
         simpleFilters.put("currentsite",
                 (actionContext) -> Filters.currentSite);
+        simpleFilters.put("currentsitenumber",
+                (actionContext -> Filters.siteNumber(actionContext.getGame().getGameState().getCurrentSiteNumber())));
         simpleFilters.put("siteincurrentregion",
                 (actionContext) -> Filters.siteInCurrentRegion);
         simpleFilters.put("idinstored",
@@ -331,6 +333,8 @@ public class FilterFactory {
 
     public FilterableSource generateFilter(String value, CardGenerationEnvironment environment) throws
             InvalidCardDefinitionException {
+        if (value == null)
+            throw new InvalidCardDefinitionException("Filter not specified");
         String filterStrings[] = splitIntoFilters(value);
         if (filterStrings.length == 0)
             return (actionContext) -> Filters.any;

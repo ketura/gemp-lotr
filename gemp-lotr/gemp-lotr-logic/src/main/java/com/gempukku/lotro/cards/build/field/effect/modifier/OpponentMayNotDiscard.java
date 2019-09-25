@@ -13,7 +13,7 @@ public class OpponentMayNotDiscard implements ModifierSourceProducer {
     public ModifierSource getModifierSource(JSONObject object, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         FieldUtils.validateAllowedFields(object, "filter");
 
-        final String filter = FieldUtils.getString(object.get("filter"), "filter", "self");
+        final String filter = FieldUtils.getString(object.get("filter"), "filter");
         final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
 
         return (actionContext) -> {

@@ -11,7 +11,7 @@ public class CantBeExerted implements ModifierSourceProducer {
         FieldUtils.validateAllowedFields(object, "filter", "condition", "by");
 
         final JSONObject[] conditionArray = FieldUtils.getObjectArray(object.get("condition"), "condition");
-        final String filter = FieldUtils.getString(object.get("filter"), "filter", "self");
+        final String filter = FieldUtils.getString(object.get("filter"), "filter");
         final String byFilter = FieldUtils.getString(object.get("by"), "by", "any");
 
         final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);

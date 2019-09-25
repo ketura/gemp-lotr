@@ -47,6 +47,7 @@ public class ModifierSourceFactory {
         modifierProducers.put("cantplayphaseeventsorphasespecialabilities", new CantPlayPhaseEventsOrPhaseSpecialAbilities());
         modifierProducers.put("cancelstrengthbonusfrom", new CancelStrengthBonusFrom());
         modifierProducers.put("cancelstrengthbonusto", new CancelStrengthBonusTo());
+        modifierProducers.put("ringtextisinactive", new RingTextIsInactive());
     }
 
     public ModifierSource getModifier(JSONObject object, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {

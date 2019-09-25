@@ -14,7 +14,7 @@ public class AddSignet implements ModifierSourceProducer {
     public ModifierSource getModifierSource(JSONObject object, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         FieldUtils.validateAllowedFields(object, "filter", "signet");
 
-        final String filter = FieldUtils.getString(object.get("filter"), "filter", "self");
+        final String filter = FieldUtils.getString(object.get("filter"), "filter");
         final Signet signet = FieldUtils.getEnum(Signet.class, object.get("signet"), "signet");
 
         final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);

@@ -15,7 +15,7 @@ public class AddKeyword implements ModifierSourceProducer {
         FieldUtils.validateAllowedFields(object, "filter", "condition", "keyword", "amount");
 
         final JSONObject[] conditionArray = FieldUtils.getObjectArray(object.get("condition"), "condition");
-        final String filter = FieldUtils.getString(object.get("filter"), "filter", "self");
+        final String filter = FieldUtils.getString(object.get("filter"), "filter");
         final String keywordString = FieldUtils.getString(object.get("keyword"), "keyword");
 
         final String[] keywordSplit = keywordString.split("\\+");

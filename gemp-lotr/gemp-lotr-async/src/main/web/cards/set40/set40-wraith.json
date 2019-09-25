@@ -22,7 +22,8 @@
           "condition": {
             "type": "canSpot",
             "filter": "self,attachedTo(ring bearer)"
-          }
+          },
+          "filter": "any"
         }
       },
       {

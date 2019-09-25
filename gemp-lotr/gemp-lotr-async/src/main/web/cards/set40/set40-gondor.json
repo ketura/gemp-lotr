@@ -39,6 +39,7 @@
           "type": "location",
           "filter": "your"
         },
+        "filter": "self",
         "keyword": "defender+1"
       }
     }

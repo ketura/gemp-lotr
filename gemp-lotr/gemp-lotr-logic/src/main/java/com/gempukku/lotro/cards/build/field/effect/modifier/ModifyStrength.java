@@ -14,7 +14,7 @@ public class ModifyStrength implements ModifierSourceProducer {
 
         final ValueSource valueSource = ValueResolver.resolveEvaluator(object.get("amount"), 1, environment);
         final JSONObject[] conditionArray = FieldUtils.getObjectArray(object.get("condition"), "condition");
-        final String filter = FieldUtils.getString(object.get("filter"), "filter", "self");
+        final String filter = FieldUtils.getString(object.get("filter"), "filter");
 
         final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
         final Requirement[] requirements = environment.getRequirementFactory().getRequirements(conditionArray, environment);

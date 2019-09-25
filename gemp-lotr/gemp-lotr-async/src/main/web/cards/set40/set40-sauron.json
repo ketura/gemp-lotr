@@ -21,7 +21,8 @@
           "condition": {
             "type": "cantSpotFPCultures",
             "amount": 3
-          }
+          },
+          "filter": "self"
         }
       },
       {
@@ -504,6 +505,7 @@
             "amount": 3
           }
         ],
+        "filter": "self",
         "amount": 2
       }
     }
@@ -780,6 +782,7 @@
           "filter": "tracker",
           "count": 3
         },
+        "filter": "self",
         "keyword": "fierce"
       }
     }

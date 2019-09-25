@@ -123,6 +123,7 @@
           "count": 6,
           "filter": "companion"
         },
+        "filter": "self",
         "keyword": "fierce"
       }
     }

@@ -13,7 +13,7 @@ public class RemoveKeyword implements ModifierSourceProducer {
         FieldUtils.validateAllowedFields(object, "filter", "condition", "keyword");
 
         final JSONObject[] conditionArray = FieldUtils.getObjectArray(object.get("condition"), "condition");
-        final String filter = FieldUtils.getString(object.get("filter"), "filter", "self");
+        final String filter = FieldUtils.getString(object.get("filter"), "filter");
 
         Keyword keyword = FieldUtils.getEnum(Keyword.class, object.get("keyword"), "keyword");
 

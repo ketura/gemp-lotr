@@ -14,7 +14,7 @@ public class CantTakeMoreWoundsThan implements ModifierSourceProducer {
 
         final ValueSource objectSource = ValueResolver.resolveEvaluator(object.get("amount"), 1, environment);
         final JSONObject[] conditionArray = FieldUtils.getObjectArray(object.get("condition"), "condition");
-        final String filter = FieldUtils.getString(object.get("filter"), "filter", "self");
+        final String filter = FieldUtils.getString(object.get("filter"), "filter");
         final Phase phase = FieldUtils.getEnum(Phase.class, object.get("phase"), "phase");
 
         final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
