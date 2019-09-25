@@ -68,6 +68,12 @@ public class ValueResolver {
                 };
             } else if (type.equalsIgnoreCase("siteNumber")) {
                 return actionContext -> (game, cardAffected) -> game.getGameState().getCurrentSiteNumber();
+            } else if (type.equalsIgnoreCase("siteNumberInMemory")) {
+                FieldUtils.validateAllowedFields(object, "memory");
+                final String memory = FieldUtils.getString(object.get("memory"), "memory");
+                return actionContext -> (game, cardAffected) -> {
+                    return actionContext.getCardFromMemory(memory).getSiteNumber();
+                };
             } else if (type.equalsIgnoreCase("forRegionNumber")) {
                 FieldUtils.validateAllowedFields(object);
                 return (actionContext) -> (game, cardAffected) -> GameUtils.getRegion(actionContext.getGame());

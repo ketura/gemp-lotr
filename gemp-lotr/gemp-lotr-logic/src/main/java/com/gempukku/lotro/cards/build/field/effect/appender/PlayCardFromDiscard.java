@@ -37,7 +37,6 @@ public class PlayCardFromDiscard implements EffectAppenderProducer {
         MultiEffectAppender result = new MultiEffectAppender();
         result.setPlayabilityCheckedForEffect(true);
 
-
         result.addEffectAppender(
                 CardResolver.resolveCardsInDiscard(filter,
                         (actionContext) -> {

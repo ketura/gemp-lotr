@@ -712,5 +712,351 @@
         }
       }
     ]
+  },
+  "1_226": {
+    "title": "Their Power Is In Terror",
+    "culture": "wraith",
+    "cost": 0,
+    "type": "event",
+    "keyword": "maneuver",
+    "effects": {
+      "type": "event",
+      "cost": {
+        "type": "exert",
+        "filter": "choose(nazgul)"
+      },
+      "effect": {
+        "type": "wound",
+        "filter": "all(ally)"
+      }
+    }
+  },
+  "1_227": {
+    "title": "Threshold of Shadow",
+    "culture": "wraith",
+    "cost": 1,
+    "type": "event",
+    "keyword": "skirmish",
+    "effects": {
+      "type": "event",
+      "effect": {
+        "type": "modifyStrength",
+        "filter": "choose(nazgul)",
+        "amount": {
+          "type": "condition",
+          "condition": {
+            "type": "canSpotBurdens",
+            "amount": 5
+          },
+          "true": 4,
+          "false": 2
+        }
+      }
+    }
+  },
+  "1_228": {
+    "title": "The Twilight World",
+    "culture": "wraith",
+    "cost": 0,
+    "type": "event",
+    "keyword": "response",
+    "effects": {
+      "type": "responseEvent",
+      "trigger": {
+        "type": "putsOnRing"
+      },
+      "cost": {
+        "type": "exert",
+        "filter": "choose(nazgul)"
+      },
+      "effect": {
+        "type": "addBurdens",
+        "amount": 2
+      }
+    }
+  },
+  "1_229": {
+    "title": "*Úlairë Attëa",
+    "subtitle": "Keeper of Dol Guldur",
+    "culture": "wraith",
+    "cost": 6,
+    "type": "minion",
+    "race": "nazgul",
+    "strength": 12,
+    "vitality": 3,
+    "site": 3,
+    "keyword": "fierce",
+    "effects": {
+      "type": "activated",
+      "phase": "skirmish",
+      "cost": {
+        "type": "removeTwilight"
+      },
+      "effect": {
+        "type": "conditional",
+        "condition": {
+          "type": "perPhaseLimit",
+          "limit": 5
+        },
+        "effect": [
+          {
+            "type": "incrementPerPhaseLimit",
+            "limit": 5
+          },
+          {
+            "type": "modifyStrength",
+            "filter": "self",
+            "amount": 1
+          }
+        ]
+      }
+    }
+  },
+  "1_230": {
+    "title": "*Úlairë Cantëa",
+    "subtitle": "Lieutenant of Dol Guldur",
+    "culture": "wraith",
+    "cost": 5,
+    "type": "minion",
+    "race": "nazgul",
+    "strength": 10,
+    "vitality": 3,
+    "site": 3,
+    "keyword": "fierce",
+    "effects": {
+      "type": "activated",
+      "phase": "skirmish",
+      "cost": {
+        "type": "exert",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "discard",
+        "filter": "choose(weapon,attachedTo(character,inSkirmishAgainst(self)))"
+      }
+    }
+  },
+  "1_231": {
+    "title": "*Úlairë Enquëa",
+    "subtitle": "Lieutenant of Morgul",
+    "culture": "wraith",
+    "cost": 6,
+    "type": "minion",
+    "race": "nazgul",
+    "strength": 11,
+    "vitality": 4,
+    "site": 3,
+    "keyword": "fierce",
+    "condition": {
+      "type": "or",
+      "condition": [
+        {
+          "type": "canSpot",
+          "count": 6,
+          "filter": "companion"
+        },
+        {
+          "type": "canSpotBurdens",
+          "amount": 5
+        }
+      ]
+    },
+    "effects": {
+      "type": "activated",
+      "phase": "maneuver",
+      "cost": {
+        "type": "exert",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "wound",
+        "filter": "choose(companion,not(ring bearer))"
+      }
+    }
+  },
+  "1_232": {
+    "title": "*Úlairë Lemenya",
+    "subtitle": "Lieutenant of Morgul",
+    "culture": "wraith",
+    "cost": 4,
+    "type": "minion",
+    "race": "nazgul",
+    "strength": 9,
+    "vitality": 2,
+    "site": 3,
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyStrength",
+        "filter": "or(companion,ally),hasAttached(culture(wraith),condition)",
+        "amount": -2
+      }
+    }
+  },
+  "1_233": {
+    "title": "*Úlairë Nelya",
+    "subtitle": "Lieutenant of Morgul",
+    "culture": "wraith",
+    "cost": 5,
+    "type": "minion",
+    "race": "nazgul",
+    "strength": 10,
+    "vitality": 3,
+    "site": 2,
+    "keyword": "fierce",
+    "effects": {
+      "type": "activated",
+      "phase": "shadow",
+      "cost": [
+        {
+          "type": "exert",
+          "filter": "self"
+        },
+        {
+          "type": "spot",
+          "filter": "choose(not(your),site)",
+          "memorize": "spottedSite"
+        }
+      ],
+      "effect": {
+        "type": "playSite",
+        "block": "fellowship",
+        "number": {
+          "type": "siteNumberInMemory",
+          "memory": "spottedSite"
+        }
+      }
+    }
+  },
+  "1_234": {
+    "title": "*Úlairë Nertëa",
+    "subtitle": "Messenger of Dol Guldur",
+    "culture": "wraith",
+    "cost": 4,
+    "type": "minion",
+    "race": "nazgul",
+    "strength": 9,
+    "vitality": 2,
+    "site": 3,
+    "effects": {
+      "type": "trigger",
+      "trigger": {
+        "type": "played",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "duplicate",
+        "amount": {
+          "type": "forEachYouCanSpot",
+          "filter": "companion",
+          "over": 4
+        },
+        "effect": {
+          "type": "optional",
+          "text": "Would you like to play minion from your discard?",
+          "effect": {
+            "type": "playCardFromDiscard",
+            "filter": "choose(minion)"
+          }
+        }
+      }
+    }
+  },
+  "1_235": {
+    "title": "*Úlairë Otsëa",
+    "subtitle": "Lieutenant of Morgul",
+    "culture": "wraith",
+    "cost": 4,
+    "type": "minion",
+    "race": "nazgul",
+    "strength": 9,
+    "vitality": 3,
+    "site": 3,
+    "effects": {
+      "type": "activated",
+      "phase": "shadow",
+      "cost": {
+        "type": "exert",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "addKeyword",
+        "filter": "choose(culture(wraith),minion)",
+        "keyword": "fierce",
+        "until": "start(regroup)"
+      }
+    }
+  },
+  "1_236": {
+    "title": "*Úlairë Toldëa",
+    "subtitle": "Messenger of Morgul",
+    "culture": "wraith",
+    "cost": 6,
+    "type": "minion",
+    "race": "nazgul",
+    "strength": 12,
+    "vitality": 3,
+    "site": 3,
+    "keyword": "fierce",
+    "effects": {
+      "type": "activated",
+      "phase": "assignment",
+      "condition": {
+        "type": "canSpotBurdens",
+        "amount": 4
+      },
+      "effect": {
+        "type": "assignFpCharacterToSkirmish",
+        "fpCharacter": "choose(companion,not(ring bearer))",
+        "against": "self"
+      }
+    }
+  },
+  "1_237": {
+    "title": "The Witch-king",
+    "subtitle": "Lord of Angmar",
+    "culture": "wraith",
+    "cost": 8,
+    "type": "minion",
+    "race": "nazgul",
+    "strength": 14,
+    "vitality": 4,
+    "site": 3,
+    "keyword": "fierce",
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyStrength",
+        "filter": "self",
+        "amount": {
+          "type": "forEachYouCanSpot",
+          "filter": "another,nazgul",
+          "multiplier": 2
+        }
+      }
+    }
+  },
+  "1_238": {
+    "title": "Wreathed in Shadow",
+    "culture": "wraith",
+    "cost": 0,
+    "type": "condition",
+    "condition": {
+      "type": "canSpot",
+      "filter": "nazgul"
+    },
+    "keyword": "support area",
+    "effects": {
+      "type": "activated",
+      "phase": "archery",
+      "cost": {
+        "type": "removeTwilight"
+      },
+      "effect": {
+        "type": "modifyArcheryTotal",
+        "side": "free people",
+        "amount": -1
+      }
+    }
   }
 }
