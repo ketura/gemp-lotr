@@ -1,0 +1,331 @@
+{
+  "1_239": {
+    "title": "All Thought Bent on It",
+    "culture": "sauron",
+    "cost": 2,
+    "type": "event",
+    "keyword": [
+      "search",
+      "maneuver"
+    ],
+    "condition": [
+      {
+        "type": "canSpot",
+        "filter": "culture(sauron),orc"
+      },
+      {
+        "type": "canSpot",
+        "count": 5,
+        "filter": "companion"
+      }
+    ],
+    "effects": {
+      "type": "event",
+      "effect": {
+        "type": "exert",
+        "player": "fp",
+        "filter": "choose(companion)",
+        "count": {
+          "type": "forEachYouCanSpot",
+          "filter": "companion",
+          "over": 4
+        }
+      }
+    }
+  },
+  "1_240": {
+    "title": "Band of the Eye",
+    "culture": "sauron",
+    "cost": 4,
+    "type": "minion",
+    "race": "orc",
+    "strength": 12,
+    "vitality": 3,
+    "site": 6,
+    "effects": {
+      "type": "activatedTrigger",
+      "trigger": {
+        "type": "winsSkirmish",
+        "filter": "self"
+      },
+      "cost": {
+        "type": "removeTwilight",
+        "amount": 2
+      },
+      "effect": {
+        "type": "discardCardAtRandomFromHand",
+        "forced": true,
+        "hand": "fp"
+      }
+    }
+  },
+  "1_241": {
+    "title": "Curse From Mordor",
+    "culture": "sauron",
+    "cost": 0,
+    "type": "event",
+    "keyword": "shadow",
+    "condition": {
+      "type": "canSpot",
+      "filter": "culture(sauron),orc"
+    },
+    "effects": {
+      "type": "event",
+      "effect": {
+        "type": "discard",
+        "filter": "choose(culture(elven),condition)"
+      }
+    }
+  },
+  "1_242": {
+    "title": "The Dark Lord's Summons",
+    "culture": "sauron",
+    "cost": 1,
+    "type": "condition",
+    "keyword": [
+      "search",
+      "support area"
+    ],
+    "condition": {
+      "type": "canSpot",
+      "filter": "culture(sauron),orc"
+    },
+    "effects": {
+      "type": "activated",
+      "phase": "shadow",
+      "cost": {
+        "type": "removeTwilight",
+        "amount": 3
+      },
+      "effect": [
+        {
+          "type": "revealTopCardsOfDrawDeck",
+          "count": 1,
+          "memorize": "revealedCards"
+        },
+        {
+          "type": "putCardsFromDeckIntoHand",
+          "filter": "all(memory(revealedCards),culture(sauron))"
+        },
+        {
+          "type": "discardCardsFromDrawDeck",
+          "filter": "all(memory(revealedCards),not(culture(sauron)))"
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "type": "memoryMatches",
+            "memory": "revealedCards",
+            "filter": "not(culture(sauron))"
+          },
+          "effect": {
+            "type": "discardFromHand",
+            "forced": false,
+            "count": 1
+          }
+        }
+      ]
+    }
+  },
+  "1_243": {
+    "title": "Despair",
+    "culture": "sauron",
+    "cost": 2,
+    "type": "event",
+    "keyword": "maneuver",
+    "condition": [
+      {
+        "type": "isMore",
+        "firstNumber": {
+          "type": "sum",
+          "source": [
+            {
+              "type": "forEachInDeadPile",
+              "filter": "companion"
+            },
+            {
+              "type": "forEachBurden"
+            }
+          ]
+        },
+        "secondNumber": 11
+      },
+      {
+        "type": "canSpot",
+        "filter": "culture(sauron),orc"
+      }
+    ],
+    "effects": {
+      "type": "event",
+      "effect": {
+        "type": "corruptRingBearer"
+      }
+    }
+  },
+  "1_244": {
+    "title": "Desperate Defense of the Ring",
+    "culture": "sauron",
+    "cost": 1,
+    "type": "condition",
+    "target": "companion",
+    "effects": [
+      {
+        "type": "extraCost",
+        "cost": {
+          "type": "exert",
+          "filter": "choose(culture(sauron),orc)"
+        }
+      },
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "assignedToSkirmish",
+          "filter": "bearer"
+        },
+        "effect": {
+          "type": "choice",
+          "player": "fp",
+          "texts": [
+            "Discard 3 cards from hand",
+            "Add a burden"
+          ],
+          "effects": [
+            {
+              "type": "discardFromHand",
+              "count": 3,
+              "forced": false
+            },
+            {
+              "type": "addBurdens"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "1_245": {
+    "title": "Desperate Measures",
+    "culture": "sauron",
+    "cost": 2,
+    "type": "event",
+    "keyword": "maneuver",
+    "condition": {
+      "type": "canSpot",
+      "filter": "culture(sauron),orc"
+    },
+    "effects": {
+      "type": "event",
+      "cost": {
+        "type": "removeBurdens"
+      },
+      "effect": {
+        "type": "discardTopCardsFromDeck",
+        "deck": "fp",
+        "forced": true,
+        "count": 5
+      }
+    }
+  },
+  "1_246": {
+    "title": "Enduring Evil",
+    "culture": "sauron",
+    "cost": 0,
+    "type": "event",
+    "keyword": "skirmish",
+    "effects": {
+      "type": "event",
+      "cost": {
+        "type": "chooseHowManyBurdensToSpot",
+        "memorize": "spottedBurdens"
+      },
+      "effect": {
+        "type": "modifyStrength",
+        "filter": "choose(character,inSkirmishAgainst(culture(sauron),orc))",
+        "amount": {
+          "type": "fromMemory",
+          "memory": "spottedBurdens",
+          "multiplier": -1
+        }
+      }
+    }
+  },
+  "1_247": {
+    "title": "Enheartened Foe",
+    "culture": "sauron",
+    "cost": 0,
+    "type": "event",
+    "keyword": "response",
+    "effects": {
+      "type": "responseEvent",
+      "trigger": {
+        "type": "winsSkirmish",
+        "filter": "culture(sauron),orc",
+        "memorize": "winner"
+      },
+      "effect": {
+        "type": "addKeyword",
+        "filter": "memory(winner)",
+        "keyword": "fierce",
+        "until": "start(regroup)"
+      }
+    }
+  },
+  "1_248": {
+    "title": "Forces of Mordor",
+    "culture": "sauron",
+    "cost": 0,
+    "type": "event",
+    "keyword": "shadow",
+    "effects": {
+      "type": "event",
+      "cost": {
+        "type": "chooseHowManyToSpot",
+        "filter": "culture(sauron),minion",
+        "memorize": "spottedCount"
+      },
+      "effect": {
+        "type": "addTwilight",
+        "amount": {
+          "type": "fromMemory",
+          "memory": "spottedCount"
+        }
+      }
+    }
+  },
+  "1_262": {
+    "title": "Orc Assassin",
+    "culture": "sauron",
+    "cost": 2,
+    "type": "minion",
+    "race": "orc",
+    "strength": 6,
+    "vitality": 2,
+    "site": 6,
+    "keyword": "tracker",
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyRoamingPenalty",
+          "filter": "culture(sauron),minion,your",
+          "amount": -1
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "assignment",
+        "condition": {
+          "type": "canSpot",
+          "filter": "hobbit,companion",
+          "count": 2
+        },
+        "effect": {
+          "type": "assignFpCharacterToSkirmish",
+          "player": "fp",
+          "fpCharacter": "choose(hobbit)",
+          "against": "self"
+        }
+      }
+    ]
+  }
+}
