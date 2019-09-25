@@ -66,10 +66,6 @@ public class NewSealedLeagueData implements LeagueData {
             if (currentTime >= serie.getStart()) {
                 CardCollection leagueProduct = _leagueProduct.getCollectionForSerie(_leagueType.getSealedCode(), i);
 
-                for (CardCollection.Item item : leagueProduct.getAll()) {
-                    startingCollection.addItem(item.getBlueprintId(), item.getCount());
-                }
-
                 for (CardCollection.Item serieCollectionItem : leagueProduct.getAll())
                     startingCollection.addItem(serieCollectionItem.getBlueprintId(), serieCollectionItem.getCount());
             }
