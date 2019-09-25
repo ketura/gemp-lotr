@@ -39,6 +39,7 @@ public class RequirementFactory {
         requirementProducers.put("perturnlimit", new PerTurnLimit());
         requirementProducers.put("perphaselimit", new PerPhaseLimit());
         requirementProducers.put("cardsinhandmorethan", new CardsInHandMoreThan());
+        requirementProducers.put("cardsindeckcount", new CardsInDeckCount());
     }
 
     public Requirement getRequirement(JSONObject object, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {

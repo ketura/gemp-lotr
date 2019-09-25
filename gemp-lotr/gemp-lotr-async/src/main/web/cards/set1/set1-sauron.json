@@ -292,6 +292,350 @@
       }
     }
   },
+  "1_249": {
+    "title": "Gleaming Spires Will Crumble",
+    "culture": "sauron",
+    "cost": 1,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyStrength",
+          "filter": "culture(sauron),orc,inSkirmishAgainst(culture(gondor),character)",
+          "amount": 2
+        }
+      },
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "losesSkirmish",
+          "filter": "your,culture(sauron),orc"
+        },
+        "effect": {
+          "type": "discard",
+          "filter": "self"
+        }
+      }
+    ]
+  },
+  "1_250": {
+    "title": "Hate",
+    "culture": "sauron",
+    "cost": 0,
+    "type": "event",
+    "keyword": "maneuver",
+    "effects": {
+      "type": "event",
+      "cost": {
+        "type": "exert",
+        "filter": "choose(culture(sauron),orc)"
+      },
+      "effect": {
+        "type": "wound",
+        "filter": "choose(companion,not(ring bearer))"
+      }
+    }
+  },
+  "1_251": {
+    "title": "A Host Avails Little",
+    "culture": "sauron",
+    "cost": 3,
+    "type": "event",
+    "keyword": [
+      "search",
+      "maneuver"
+    ],
+    "condition": [
+      {
+        "type": "canSpot",
+        "filter": "culture(sauron),orc"
+      },
+      {
+        "type": "canSpot",
+        "count": 6,
+        "filter": "companion"
+      }
+    ],
+    "effects": {
+      "type": "event",
+      "effect": {
+        "type": "duplicate",
+        "amount": {
+          "type": "forEachYouCanSpot",
+          "filter": "companion",
+          "over": 5
+        },
+        "effect": {
+          "type": "wound",
+          "filter": "choose(companion,not(ring bearer))"
+        }
+      }
+    }
+  },
+  "1_252": {
+    "title": "The Irresistible Shadow",
+    "culture": "sauron",
+    "cost": 0,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": [
+      {
+        "type": "extraCost",
+        "cost": {
+          "type": "exert",
+          "filter": "choose(culture(sauron),orc)"
+        }
+      },
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "condition",
+          "condition": [
+            {
+              "type": "canSpotBurdens",
+              "amount": 5
+            },
+            {
+              "type": "cardsInDeckCount",
+              "deck": "fp",
+              "count": 0
+            }
+          ]
+        },
+        "effect": {
+          "type": "corruptRingBearer"
+        }
+      }
+    ]
+  },
+  "1_253": {
+    "title": "Journey Into Danger",
+    "culture": "sauron",
+    "cost": 0,
+    "type": "condition",
+    "keyword": [
+      "search",
+      "support area"
+    ],
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyCost",
+        "condition": {
+          "type": "canSpot",
+          "count": 5,
+          "filter": "companion"
+        },
+        "filter": "companion",
+        "amount": 2
+      }
+    }
+  },
+  "1_254": {
+    "title": "Mordor Enraged",
+    "culture": "sauron",
+    "cost": 0,
+    "type": "condition",
+    "target": "culture(sauron),minion",
+    "effects": {
+      "type": "activated",
+      "phase": "shadow",
+      "cost": {
+        "type": "exert",
+        "filter": "bearer"
+      },
+      "effect": {
+        "type": "addTwilight",
+        "amount": {
+          "type": "forEachYouCanSpot",
+          "filter": "archer,companion"
+        }
+      }
+    }
+  },
+  "1_255": {
+    "title": "Mordor's Strength",
+    "culture": "sauron",
+    "cost": 1,
+    "type": "event",
+    "keyword": "skirmish",
+    "effects": {
+      "type": "event",
+      "cost": {
+        "type": "exert",
+        "filter": "choose(culture(sauron),orc)",
+        "memorize": "exertedOrc"
+      },
+      "effect": {
+        "type": "wound",
+        "filter": "choose(character,inSkirmishAgainst(memory(exertedOrc)))"
+      }
+    }
+  },
+  "1_256": {
+    "title": "Morgul Hunter",
+    "culture": "sauron",
+    "cost": 5,
+    "type": "minion",
+    "race": "orc",
+    "strength": 9,
+    "vitality": 4,
+    "site": 6,
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyStrength",
+        "filter": "self",
+        "amount": {
+          "type": "forEachYouCanSpot",
+          "filter": "companion"
+        }
+      }
+    }
+  },
+  "1_257": {
+    "title": "Morgul Skirmisher",
+    "culture": "sauron",
+    "cost": 3,
+    "type": "minion",
+    "race": "orc",
+    "strength": 9,
+    "vitality": 3,
+    "site": 6,
+    "effects": {
+      "type": "activated",
+      "phase": "maneuver",
+      "cost": {
+        "type": "removeTwilight",
+        "amount": 3
+      },
+      "effect": {
+        "type": "exert",
+        "filter": "choose(hobbit,not(ring bearer))"
+      }
+    }
+  },
+  "1_258": {
+    "title": "Morgul Skulker",
+    "culture": "sauron",
+    "cost": 2,
+    "type": "minion",
+    "race": "orc",
+    "strength": 7,
+    "vitality": 2,
+    "site": 6,
+    "effects": {
+      "type": "trigger",
+      "optional": true,
+      "trigger": {
+        "type": "played",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "shuffleCardsFromDiscardIntoDrawDeck",
+        "filter": "choose(culture(wraith))",
+        "count": "0-2"
+      }
+    }
+  },
+  "1_259": {
+    "title": "Morgul Warden",
+    "culture": "sauron",
+    "cost": 3,
+    "type": "minion",
+    "race": "orc",
+    "strength": 9,
+    "vitality": 3,
+    "site": 6,
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyStrength",
+        "filter": "self",
+        "amount": {
+          "type": "forEachYouCanSpot",
+          "filter": "another,culture(sauron),orc"
+        }
+      }
+    }
+  },
+  "1_260": {
+    "title": "The Number Must Be Few",
+    "culture": "sauron",
+    "cost": 2,
+    "type": "condition",
+    "keyword": [
+      "search",
+      "support area"
+    ],
+    "effects": {
+      "type": "trigger",
+      "trigger": {
+        "type": "condition",
+        "condition": [
+          {
+            "type": "perTurnLimit",
+            "limit": 1
+          },
+          {
+            "type": "canSpot",
+            "count": 7,
+            "filter": "companion"
+          }
+        ]
+      },
+      "effect": [
+        {
+          "type": "incrementPerTurnLimit",
+          "limit": 1
+        },
+        {
+          "type": "addModifier",
+          "modifier": {
+            "type": "modifyMoveLimit",
+            "amount": -1
+          }
+        }
+      ]
+    }
+  },
+  "1_261": {
+    "title": "Orc Ambusher",
+    "culture": "sauron",
+    "cost": 1,
+    "type": "minion",
+    "race": "orc",
+    "strength": 5,
+    "vitality": 2,
+    "site": 6,
+    "keyword": "tracker",
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyRoamingPenalty",
+          "filter": "culture(sauron),minion,your",
+          "amount": -1
+        }
+      },
+      {
+        "type": "activatedTrigger",
+        "trigger": {
+          "type": "played",
+          "filter": "side(free people),regroup,event"
+        },
+        "cost": {
+          "type": "exert",
+          "filter": "self"
+        },
+        "effect": {
+          "type": "cancelEvent"
+        }
+      }
+    ]
+  },
   "1_262": {
     "title": "Orc Assassin",
     "culture": "sauron",
