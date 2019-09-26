@@ -1,21 +1,22 @@
 package com.gempukku.lotro.cards.set31.gollum;
 
-import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
-import com.gempukku.lotro.logic.timing.PlayConditions;
-import com.gempukku.lotro.logic.timing.TriggerConditions;
-import com.gempukku.lotro.logic.effects.AddBurdenEffect;
-import com.gempukku.lotro.logic.effects.ChoiceEffect;
-import com.gempukku.lotro.logic.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
-import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDeckEffect;
-import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDiscardEffect;
 import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
-import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
+import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
+import com.gempukku.lotro.logic.effects.ChoiceEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDeckEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDiscardEffect;
+import com.gempukku.lotro.logic.modifiers.Modifier;
+import com.gempukku.lotro.logic.modifiers.SpotCondition;
+import com.gempukku.lotro.logic.modifiers.cost.AddBurdenExtraPlayCostModifier;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.PlayConditions;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -36,13 +37,11 @@ public class Card31_019 extends AbstractPermanent {
     }
 
     @Override
-    public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (TriggerConditions.played(game, effectResult, Filters.owner(game.getGameState().getCurrentPlayerId()), Culture.GANDALF, CardType.EVENT)) {
-            RequiredTriggerAction action = new RequiredTriggerAction(self);
-            action.appendEffect(new AddBurdenEffect(self.getOwner(), self, 1));
-            return Collections.singletonList(action);
-        }
-        return null;
+    public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
+        return Collections.singletonList(
+                new AddBurdenExtraPlayCostModifier(self, 1,
+                        new SpotCondition(Filters.name("Gollum")),
+                        Culture.GANDALF, CardType.EVENT));
     }
 
     @Override
@@ -55,19 +54,19 @@ public class Card31_019 extends AbstractPermanent {
             List<Effect> possibleEffects = new LinkedList<Effect>();
             possibleEffects.add(
                     new ChooseAndPlayCardFromDeckEffect(playerId, Filters.gollum) {
-                @Override
-                public String getText(LotroGame game) {
-                    return "Play Gollum from your draw deck";
-                }
-            });
+                        @Override
+                        public String getText(LotroGame game) {
+                            return "Play Gollum from your draw deck";
+                        }
+                    });
             if (PlayConditions.canPlayFromDiscard(playerId, game, Filters.gollum)) {
                 possibleEffects.add(
                         new ChooseAndPlayCardFromDiscardEffect(playerId, game, Filters.gollum) {
-                    @Override
-                    public String getText(LotroGame game) {
-                        return "Play Gollum from your discard pile";
-                    }
-                });
+                            @Override
+                            public String getText(LotroGame game) {
+                                return "Play Gollum from your discard pile";
+                            }
+                        });
             }
             action.appendEffect(
                     new ChoiceEffect(action, playerId, possibleEffects));
