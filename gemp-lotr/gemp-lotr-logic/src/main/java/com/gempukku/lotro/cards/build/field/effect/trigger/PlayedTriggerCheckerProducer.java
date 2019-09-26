@@ -14,16 +14,24 @@ import org.json.simple.JSONObject;
 public class PlayedTriggerCheckerProducer implements TriggerCheckerProducer {
     @Override
     public TriggerChecker getTriggerChecker(JSONObject value, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(value, "filter", "memorize");
+        FieldUtils.validateAllowedFields(value, "filter", "on", "memorize");
 
         final String filterString = FieldUtils.getString(value.get("filter"), "filter");
+        final String onString = FieldUtils.getString(value.get("on"), "on");
         final String memorize = FieldUtils.getString(value.get("memorize"), "memorize");
         final FilterableSource filter = environment.getFilterFactory().generateFilter(filterString, environment);
+        final FilterableSource onFilter = (onString != null) ? environment.getFilterFactory().generateFilter(filterString, environment) : null;
         return new TriggerChecker() {
             @Override
             public boolean accepts(ActionContext actionContext) {
                 final Filterable filterable = filter.getFilterable(actionContext);
-                final boolean played = TriggerConditions.played(actionContext.getGame(), actionContext.getEffectResult(), filterable);
+                boolean played;
+                if (onFilter != null) {
+                    final Filterable onFilterable = onFilter.getFilterable(actionContext);
+                    played = TriggerConditions.playedOn(actionContext.getGame(), actionContext.getEffectResult(), onFilterable, filterable);
+                } else {
+                    played = TriggerConditions.played(actionContext.getGame(), actionContext.getEffectResult(), filterable);
+                }
                 if (played && memorize != null) {
                     PhysicalCard playedCard = ((PlayCardResult) actionContext.getEffectResult()).getPlayedCard();
                     actionContext.setCardMemory(memorize, playedCard);

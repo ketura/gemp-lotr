@@ -671,5 +671,149 @@
         }
       }
     ]
+  },
+  "1_263": {
+    "title": "Orc Banner",
+    "culture": "sauron",
+    "cost": 1,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": {
+      "type": "trigger",
+      "trigger": {
+        "type": "losesSkirmish",
+        "filter": "or(companion,ally)",
+        "against": "culture(sauron),orc"
+      },
+      "effect": {
+        "type": "modifyStrength",
+        "filter": "all(culture(sauron),orc)",
+        "amount": 1,
+        "until": "start(regroup)"
+      }
+    }
+  },
+  "1_264": {
+    "title": "Orc Bowmen",
+    "culture": "sauron",
+    "cost": 3,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyArcheryTotal",
+        "side": "shadow",
+        "condition": {
+          "type": "canSpot",
+          "filter": "culture(sauron),orc"
+        },
+        "amount": 1
+      }
+    }
+  },
+  "1_265": {
+    "title": "Orc Butchery",
+    "culture": "sauron",
+    "cost": 0,
+    "type": "event",
+    "keyword": "response",
+    "condition": {
+      "type": "canSpot",
+      "filter": "culture(sauron),orc,inSkirmish"
+    },
+    "effects": {
+      "type": "responseEvent",
+      "trigger": {
+        "type": "killed",
+        "filter": "companion"
+      },
+      "effect": {
+        "type": "discardTopCardsFromDeck",
+        "deck": "fp",
+        "forced": true,
+        "count": {
+          "type": "forEachInDeadPile",
+          "multiplier": 3
+        }
+      }
+    }
+  },
+  "1_266": {
+    "title": "Orc Chieftain",
+    "culture": "sauron",
+    "cost": 2,
+    "type": "minion",
+    "race": "orc",
+    "strength": 7,
+    "vitality": 2,
+    "site": 6,
+    "effects": {
+      "type": "trigger",
+      "trigger": {
+        "type": "played",
+        "filter": "your,weapon",
+        "on": "self"
+      },
+      "condition": {
+        "type": "perTurnLimit",
+        "limit": 1
+      },
+      "effect": [
+        {
+          "type": "incrementPerTurnLimit",
+          "limit": 1
+        },
+        {
+          "type": "addTwilight",
+          "amount": 2
+        }
+      ]
+    }
+  },
+  "1_267": {
+    "title": "Orc Hunters",
+    "culture": "sauron",
+    "cost": 3,
+    "type": "minion",
+    "race": "orc",
+    "strength": 9,
+    "vitality": 2,
+    "site": 6,
+    "effects": {
+      "type": "activated",
+      "phase": "skirmish",
+      "cost": {
+        "type": "exert",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "wound",
+        "filter": "choose(character,inSkirmishAgainst(self))"
+      }
+    }
+  },
+  "1_268": {
+    "title": "Orc Inquisitor",
+    "culture": "sauron",
+    "cost": 3,
+    "type": "minion",
+    "race": "orc",
+    "strength": 9,
+    "vitality": 3,
+    "site": 6,
+    "effects": {
+      "type": "trigger",
+      "optional": true,
+      "trigger": {
+        "type": "played",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "discardCardAtRandomFromHand",
+        "hand": "fp",
+        "forced": true
+      }
+    }
   }
 }
