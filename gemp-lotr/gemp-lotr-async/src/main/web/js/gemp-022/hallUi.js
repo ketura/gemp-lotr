@@ -120,28 +120,15 @@ var GempLotrHallUI = Class.extend({
 
         var content = $("<div></div>");
 
-        var toggleContent = $("<div>Toggle tournament queues</div>").button({
-            icons: {
-                primary: "ui-icon-circlesmall-minus"
-            },
-            text: false
-        });
-
         var that = this;
         var toggle = function() {
-            if (toggleContent.button("option", "icons")["primary"] == "ui-icon-circlesmall-minus")
-                toggleContent.button("option", "icons", {primary: "ui-icon-circlesmall-plus"});
-            else
-                toggleContent.button("option", "icons", {primary: "ui-icon-circlesmall-minus"});
             content.toggle("blind", {}, 200);
             that.updateHallSettings();
         };
-        toggleContent.css({width: "13px", height: "15px"});
-        toggleContent.click(toggle);
 
-        header.append(toggleContent);
-        header.append(" Tournament queues");
+        header.append("Tournament queues");
         header.append(" <span class='count'>(0)</span>");
+        header.click(toggle);
 
         var table = $("<table class='tables queues'></table>");
         table.append("<tr><th width='10%'>Format</th><th width='8%'>Collection</th><th width='20%'>Queue name</th><th width='16%'>Starts</th><th width='10%'>System</th><th width='6%'>Players</th><th width='8%'>Cost</th><th width='12%'>Prizes</th><th width='10%'>Actions</th></tr>");
@@ -150,9 +137,10 @@ var GempLotrHallUI = Class.extend({
         this.tablesDiv.append(header);
         this.tablesDiv.append(content);
 
-        if (!displayed) {
-            toggleContent.button("option", "icons", {primary: "ui-icon-circlesmall-plus"});
-            content.css({"display":"none"});
+        if (displayed) {
+            content.show();
+        } else {
+            content.hide();
         }
     },
 
@@ -161,27 +149,14 @@ var GempLotrHallUI = Class.extend({
 
         var content = $("<div></div>");
 
-        var toggleContent = $("<div>Toggle tournaments in progress</div>").button({
-            icons: {
-                primary: "ui-icon-circlesmall-minus"
-            },
-            text: false
-        });
-
         var that = this;
         var toggle = function() {
-            if (toggleContent.button("option", "icons")["primary"] == "ui-icon-circlesmall-minus")
-                toggleContent.button("option", "icons", {primary: "ui-icon-circlesmall-plus"});
-            else
-                toggleContent.button("option", "icons", {primary: "ui-icon-circlesmall-minus"});
             content.toggle("blind", {}, 200);
             that.updateHallSettings();
         };
-        toggleContent.css({width: "13px", height: "15px"});
-        toggleContent.click(toggle);
-        header.append(toggleContent);
-        header.append(" Tournaments in progress");
+        header.append("Tournaments in progress");
         header.append(" <span class='count'>(0)</span>");
+        header.click(toggle);
 
         var table = $("<table class='tables tournaments'></table>");
         table.append("<tr><th width='10%'>Format</th><th width='10%'>Collection</th><th width='25%'>Tournament name</th><th width='15%'>System</th><th width='10%'>Stage</th><th width='10%'>Round</th><th width='10%'>Players</th><th width='10%'>Actions</th></tr>");
@@ -190,9 +165,10 @@ var GempLotrHallUI = Class.extend({
         this.tablesDiv.append(header);
         this.tablesDiv.append(content);
 
-        if (!displayed) {
-            toggleContent.button("option", "icons", {primary: "ui-icon-circlesmall-plus"});
-            content.css({"display":"none"});
+        if (displayed) {
+            content.show();
+        } else {
+            content.hide();
         }
     },
 
@@ -201,27 +177,14 @@ var GempLotrHallUI = Class.extend({
 
         var content = $("<div></div>");
 
-        var toggleContent = $("<div>Toggle waiting tables</div>").button({
-            icons: {
-                primary: "ui-icon-circlesmall-minus"
-            },
-            text: false
-        });
-
         var that = this;
         var toggle = function() {
-            if (toggleContent.button("option", "icons")["primary"] == "ui-icon-circlesmall-minus")
-                toggleContent.button("option", "icons", {primary: "ui-icon-circlesmall-plus"});
-            else
-                toggleContent.button("option", "icons", {primary: "ui-icon-circlesmall-minus"});
             content.toggle("blind", {}, 200);
             that.updateHallSettings();
         };
-        toggleContent.css({width: "13px", height: "15px"});
-        toggleContent.click(toggle);
-        header.append(toggleContent);
-        header.append(" Waiting tables");
+        header.append("Waiting tables");
         header.append(" <span class='count'>(0)</span>");
+        header.click(toggle);
 
         var table = $("<table class='tables waitingTables'></table>");
         table.append("<tr><th width='20%'>Format</th><th width='40%'>Tournament</th><th width='10%'>Status</th><th width='20%'>Players</th><th width='10%'>Actions</th></tr>");
@@ -230,9 +193,10 @@ var GempLotrHallUI = Class.extend({
         this.tablesDiv.append(header);
         this.tablesDiv.append(content);
 
-        if (!displayed) {
-            toggleContent.button("option", "icons", {primary: "ui-icon-circlesmall-plus"});
-            content.css({"display":"none"});
+        if (displayed) {
+            content.show();
+        } else {
+            content.hide();
         }
     },
 
@@ -241,27 +205,14 @@ var GempLotrHallUI = Class.extend({
 
         var content = $("<div></div>");
 
-        var toggleContent = $("<div>Toggle playing tables</div>").button({
-            icons: {
-                primary: "ui-icon-circlesmall-minus"
-            },
-            text: false
-        });
-
         var that = this;
         var toggle = function() {
-            if (toggleContent.button("option", "icons")["primary"] == "ui-icon-circlesmall-minus")
-                toggleContent.button("option", "icons", {primary: "ui-icon-circlesmall-plus"});
-            else
-                toggleContent.button("option", "icons", {primary: "ui-icon-circlesmall-minus"});
             content.toggle("blind", {}, 200);
             that.updateHallSettings();
         };
-        toggleContent.css({width: "13px", height: "15px"});
-        toggleContent.click(toggle);
-        header.append(toggleContent);
-        header.append(" Playing tables");
+        header.append("Playing tables");
         header.append(" <span class='count'>(0)</span>");
+        header.click(toggle);
 
         var table = $("<table class='tables playingTables'></table>");
         table.append("<tr><th width='20%'>Format</th><th width='40%'>Tournament</th><th width='10%'>Status</th><th width='20%'>Players</th><th width='10%'>Actions</th></tr>");
@@ -270,9 +221,10 @@ var GempLotrHallUI = Class.extend({
         this.tablesDiv.append(header);
         this.tablesDiv.append(content);
 
-        if (!displayed) {
-            toggleContent.button("option", "icons", {primary: "ui-icon-circlesmall-plus"});
-            content.css({"display":"none"});
+        if (displayed) {
+            content.show();
+        } else {
+            content.hide();
         }
     },
 
@@ -281,27 +233,14 @@ var GempLotrHallUI = Class.extend({
 
         var content = $("<div></div>");
 
-        var toggleContent = $("<div>Toggle finished tables</div>").button({
-            icons: {
-                primary: "ui-icon-circlesmall-minus"
-            },
-            text: false
-        });
-
         var that = this;
         var toggle = function() {
-            if (toggleContent.button("option", "icons")["primary"] == "ui-icon-circlesmall-minus")
-                toggleContent.button("option", "icons", {primary: "ui-icon-circlesmall-plus"});
-            else
-                toggleContent.button("option", "icons", {primary: "ui-icon-circlesmall-minus"});
             content.toggle("blind", {}, 200);
             that.updateHallSettings();
         };
-        toggleContent.css({width: "13px", height: "15px"});
-        toggleContent.click(toggle);
-        header.append(toggleContent);
-        header.append(" Finished tables");
+        header.append("Finished tables");
         header.append(" <span class='count'>(0)</span>");
+        header.click(toggle);
 
         var table = $("<table class='tables finishedTables'></table>");
         table.append("<tr><th width='20%'>Format</th><th width='40%'>Tournament</th><th width='10%'>Status</th><th width='20%'>Players</th><th width='10%'>Winner</th></tr>");
@@ -310,9 +249,10 @@ var GempLotrHallUI = Class.extend({
         this.tablesDiv.append(header);
         this.tablesDiv.append(content);
 
-        if (!displayed) {
-            toggleContent.button("option", "icons", {primary: "ui-icon-circlesmall-plus"});
-            content.css({"display":"none"});
+        if (displayed) {
+            content.show();
+        } else {
+            content.hide();
         }
     },
 
