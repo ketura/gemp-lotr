@@ -498,7 +498,8 @@
           "condition": {
             "type": "location",
             "filter": "underground"
-          }
+          },
+          "amount": 2
         }
       },
       {
@@ -808,7 +809,7 @@
       "phase": "shadow",
       "cost": {
         "type": "discardFromHand",
-        "forced": false
+        "forced": false,
         "count": 3
       },
       "effect": {

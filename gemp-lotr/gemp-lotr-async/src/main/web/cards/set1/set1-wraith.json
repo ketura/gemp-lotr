@@ -847,23 +847,23 @@
     "vitality": 4,
     "site": 3,
     "keyword": "fierce",
-    "condition": {
-      "type": "or",
-      "condition": [
-        {
-          "type": "canSpot",
-          "count": 6,
-          "filter": "companion"
-        },
-        {
-          "type": "canSpotBurdens",
-          "amount": 5
-        }
-      ]
-    },
     "effects": {
       "type": "activated",
       "phase": "maneuver",
+      "condition": {
+        "type": "or",
+        "condition": [
+          {
+            "type": "canSpot",
+            "count": 6,
+            "filter": "companion"
+          },
+          {
+            "type": "canSpotBurdens",
+            "amount": 5
+          }
+        ]
+      },
       "cost": {
         "type": "exert",
         "filter": "self"

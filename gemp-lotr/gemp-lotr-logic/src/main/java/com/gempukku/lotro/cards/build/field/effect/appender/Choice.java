@@ -37,11 +37,16 @@ public class Choice implements EffectAppenderProducer {
         return new DelayedAppender() {
             @Override
             protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
+                final String choosingPlayer = playerSource.getPlayer(actionContext);
+                ActionContext delegateActionContext = new DelegateActionContext(actionContext,
+                        choosingPlayer, actionContext.getGame(), actionContext.getSource(),
+                        actionContext.getEffectResult(), actionContext.getEffect());
+
                 int textIndex = 0;
                 List<EffectAppender> playableEffectAppenders = new LinkedList<>();
                 List<String> effectTexts = new LinkedList<>();
                 for (EffectAppender possibleEffectAppender : possibleEffectAppenders) {
-                    if (possibleEffectAppender.isPlayableInFull(actionContext)) {
+                    if (possibleEffectAppender.isPlayableInFull(delegateActionContext)) {
                         playableEffectAppenders.add(possibleEffectAppender);
                         effectTexts.add(textArray[textIndex]);
                     }
@@ -58,14 +63,10 @@ public class Choice implements EffectAppenderProducer {
 
                 if (playableEffectAppenders.size() == 1) {
                     SubAction subAction = new SubAction(action);
-                    playableEffectAppenders.get(0).appendEffect(cost, subAction, actionContext);
+                    playableEffectAppenders.get(0).appendEffect(cost, subAction, delegateActionContext);
                     return new StackActionEffect(subAction);
                 }
 
-                final String choosingPlayer = playerSource.getPlayer(actionContext);
-                ActionContext delegateActionContext = new DelegateActionContext(actionContext,
-                        choosingPlayer, actionContext.getGame(), actionContext.getSource(),
-                        actionContext.getEffectResult(), actionContext.getEffect());
                 SubAction subAction = new SubAction(action);
                 subAction.appendCost(
                         new PlayoutDecisionEffect(choosingPlayer,

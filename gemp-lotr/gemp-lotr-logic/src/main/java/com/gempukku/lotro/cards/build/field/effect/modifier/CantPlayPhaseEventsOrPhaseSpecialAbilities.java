@@ -13,6 +13,9 @@ public class CantPlayPhaseEventsOrPhaseSpecialAbilities implements ModifierSourc
         FieldUtils.validateAllowedFields(object, "phase", "condition");
 
         final Phase phase = FieldUtils.getEnum(Phase.class, object.get("phase"), "phase");
+        if (phase == null)
+            throw new InvalidCardDefinitionException("Has to have a phase defined");
+
         final JSONObject[] conditionArray = FieldUtils.getObjectArray(object.get("condition"), "condition");
 
         final Requirement[] requirements = environment.getRequirementFactory().getRequirements(conditionArray, environment);

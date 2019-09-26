@@ -532,7 +532,8 @@
           "condition": {
             "type": "location",
             "filter": "hasAttached(self)"
-          }
+          },
+          "phase": "skirmish"
         }
       },
       {
