@@ -810,7 +810,8 @@
         "effect": {
           "type": "addTokens",
           "culture": "elven",
-          "filter": "self"
+          "filter": "self",
+          "amount": 2
         }
       },
       {

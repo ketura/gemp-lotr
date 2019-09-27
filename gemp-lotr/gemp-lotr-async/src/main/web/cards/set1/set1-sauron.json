@@ -815,5 +815,406 @@
         "forced": true
       }
     }
+  },
+  "1_269": {
+    "title": "Orc Scimitar",
+    "culture": "sauron",
+    "cost": 1,
+    "type": "possession",
+    "possession": "hand weapon",
+    "strength": 2,
+    "target": "culture(sauron),orc",
+    "effects": {
+      "type": "activated",
+      "phase": "skirmish",
+      "condition": {
+        "type": "perPhaseLimit",
+        "limit": 3
+      },
+      "cost": {
+        "type": "removeTwilight"
+      },
+      "effect": [
+        {
+          "type": "incrementPerPhaseLimit",
+          "limit": 3
+        },
+        {
+          "type": "modifyStrength",
+          "filter": "bearer",
+          "amount": 1
+        }
+      ]
+    }
+  },
+  "1_270": {
+    "title": "Orc Scouting Band",
+    "culture": "sauron",
+    "cost": 3,
+    "type": "minion",
+    "race": "orc",
+    "strength": 8,
+    "vitality": 2,
+    "site": 6,
+    "keyword": "tracker",
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyRoamingPenalty",
+          "filter": "culture(sauron),minion,your",
+          "amount": -1
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "skirmish",
+        "cost": {
+          "type": "exert",
+          "filter": "self"
+        },
+        "effect": {
+          "type": "wound",
+          "filter": "choose(character,inSkirmishAgainst(self))"
+        }
+      }
+    ]
+  },
+  "1_271": {
+    "title": "Orc Soldier",
+    "culture": "sauron",
+    "cost": 2,
+    "type": "minion",
+    "race": "orc",
+    "strength": 7,
+    "vitality": 2,
+    "site": 6,
+    "effects": {
+      "type": "activated",
+      "phase": "skirmish",
+      "cost": {
+        "type": "exert",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "wound",
+        "filter": "choose(character,inSkirmishAgainst(self))"
+      }
+    }
+  },
+  "1_272": {
+    "title": "Orc War Band",
+    "culture": "sauron",
+    "cost": 4,
+    "type": "minion",
+    "race": "orc",
+    "strength": 10,
+    "vitality": 2,
+    "site": 6,
+    "effects": {
+      "type": "activated",
+      "phase": "skirmish",
+      "cost": {
+        "type": "exert",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "wound",
+        "filter": "choose(character,inSkirmishAgainst(self))"
+      }
+    }
+  },
+  "1_273": {
+    "title": "The Ring's Oppresion",
+    "culture": "sauron",
+    "cost": 3,
+    "type": "event",
+    "keyword": "response",
+    "condition": {
+      "type": "canSpot",
+      "filter": "culture(sauron),orc,inSkirmish"
+    },
+    "effects": {
+      "type": "responseEvent",
+      "trigger": {
+        "type": "killed",
+        "filter": "companion"
+      },
+      "effect": {
+        "type": "addBurdens",
+        "amount": {
+          "type": "condition",
+          "condition": {
+            "type": "ringIsOn"
+          },
+          "true": 3,
+          "false": 1
+        }
+      }
+    }
+  },
+  "1_274": {
+    "title": "Sauron's Defenses",
+    "culture": "sauron",
+    "cost": 1,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": [
+      {
+        "type": "extraCost",
+        "cost": {
+          "type": "exert",
+          "filter": "choose(culture(sauron),orc)"
+        }
+      },
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "condition",
+          "condition": [
+            {
+              "type": "perTurnLimit",
+              "limit": 1
+            },
+            {
+              "type": "isMore",
+              "firstNumber": {
+                "type": "forEachInDeadPile",
+                "filter": "companion"
+              },
+              "secondNumber": 2
+            }
+          ]
+        },
+        "effect": [
+          {
+            "type": "incrementPerTurnLimit",
+            "limit": 1
+          },
+          {
+            "type": "addModifier",
+            "modifier": {
+              "type": "modifyMoveLimit",
+              "amount": -1
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "1_275": {
+    "title": "Seeking It Always",
+    "culture": "sauron",
+    "cost": 1,
+    "type": "condition",
+    "keyword": [
+      "search",
+      "support area"
+    ],
+    "effects": {
+      "type": "activatedTrigger",
+      "trigger": {
+        "type": "played",
+        "filter": "stealth,event"
+      },
+      "cost": {
+        "type": "exert",
+        "filter": "choose(culture(sauron),tracker)"
+      },
+      "effect": {
+        "type": "cancelEvent"
+      }
+    }
+  },
+  "1_276": {
+    "title": "Seeking Its Master",
+    "culture": "sauron",
+    "cost": 1,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": {
+      "type": "activated",
+      "phase": "shadow",
+      "cost": [
+        {
+          "type": "exert",
+          "filter": "choose(culture(sauron),orc)"
+        },
+        {
+          "type": "removeTwilight",
+          "amount": 2
+        }
+      ],
+      "effect": {
+        "type": "drawCards"
+      }
+    }
+  },
+  "1_277": {
+    "title": "Shadow's Reach",
+    "culture": "sauron",
+    "cost": 1,
+    "type": "event",
+    "keyword": "shadow",
+    "effects": {
+      "type": "event",
+      "cost": {
+        "type": "exert",
+        "filter": "choose(culture(sauron),orc)"
+      },
+      "effect": {
+        "type": "discard",
+        "filter": "choose(side(free people),condition)"
+      }
+    }
+  },
+  "1_278": {
+    "title": "Strength Born of Fear",
+    "culture": "sauron",
+    "cost": 1,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": {
+      "type": "activated",
+      "phase": "skirmish",
+      "cost": {
+        "type": "removeTwilight",
+        "amount": 3
+      },
+      "effect": {
+        "type": "modifyStrength",
+        "filter": "choose(culture(sauron),orc)",
+        "amount": 1
+      }
+    }
+  },
+  "1_279": {
+    "title": "*Thin and Stretched",
+    "culture": "sauron",
+    "cost": 0,
+    "type": "condition",
+    "target": "ring bearer",
+    "effects": [
+      {
+        "type": "extraCost",
+        "cost": {
+          "type": "exert",
+          "filter": "choose(culture(sauron),orc)"
+        }
+      },
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "endOfTurn"
+        },
+        "condition": [
+          {
+            "type": "not",
+            "condition": {
+              "type": "wasAssignedToSkirmish",
+              "filter": "bearer"
+            }
+          },
+          {
+            "type": "wasAssignedToSkirmish",
+            "filter": "companion,not(bearer)"
+          }
+        ],
+        "effect": {
+          "type": "addBurdens",
+          "amount": 1
+        }
+      }
+    ]
+  },
+  "1_280": {
+    "title": "*Tower Lieutenant",
+    "culture": "sauron",
+    "cost": 4,
+    "type": "minion",
+    "race": "orc",
+    "strength": 10,
+    "vitality": 3,
+    "site": 6,
+    "effects": {
+      "type": "trigger",
+      "trigger": {
+        "type": "winsSkirmish",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "discardCardAtRandomFromHand",
+        "hand": "fp",
+        "forced": true,
+        "count": 2
+      }
+    }
+  },
+  "1_281": {
+    "title": "Under the Watching Eye",
+    "culture": "sauron",
+    "cost": 0,
+    "type": "condition",
+    "keyword": [
+      "search",
+      "support area"
+    ],
+    "effects": [
+      {
+        "type": "extraCost",
+        "cost": {
+          "type": "exert",
+          "filter": "choose(culture(sauron),tracker)"
+        }
+      },
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "moves"
+        },
+        "effect": {
+          "type": "exert",
+          "player": "fp",
+          "filter": "choose(companion)"
+        }
+      }
+    ]
+  },
+  "1_282": {
+    "title": "The Weight of a Legacy",
+    "culture": "sauron",
+    "cost": 0,
+    "type": "condition",
+    "strength": -1,
+    "target": "name(Aragorn)",
+    "effects": {
+      "type": "extraCost",
+      "cost": {
+        "type": "exert",
+        "filter": "choose(culture(sauron),orc)"
+      }
+    }
+  },
+  "1_283": {
+    "title": "You Bring Great Evil",
+    "culture": "sauron",
+    "cost": 1,
+    "type": "condition",
+    "condition": {
+      "type": "canSpot",
+      "filter": "culture(sauron),orc"
+    },
+    "target": "companion,not(elf)",
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "cantHeal",
+        "filter": "bearer",
+        "condition": {
+          "type": "location",
+          "filter": "sanctuary"
+        }
+      }
+    }
   }
 }
