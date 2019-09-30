@@ -21,7 +21,7 @@ public class ResponseEventEffectProcessor implements EffectProcessor {
 
             DefaultActionSource triggerActionSource = new DefaultActionSource();
             triggerActionSource.addPlayRequirement(triggerChecker);
-            EffectUtils.processCostsAndEffects(value, environment, triggerActionSource);
+            EffectUtils.processRequirementsCostsAndEffects(value, environment, triggerActionSource);
 
             if (before) {
                 blueprint.appendOptionalInHandBeforeAction(triggerActionSource);

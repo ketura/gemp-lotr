@@ -17,7 +17,7 @@ public class EventEffectProcessor implements EffectProcessor {
         DefaultActionSource actionSource = new DefaultActionSource();
         actionSource.setRequiresRanger(requiresRanger);
 
-        EffectUtils.processCostsAndEffects(value, environment, actionSource);
+        EffectUtils.processRequirementsCostsAndEffects(value, environment, actionSource);
 
         blueprint.setPlayEventAction(actionSource);
     }
