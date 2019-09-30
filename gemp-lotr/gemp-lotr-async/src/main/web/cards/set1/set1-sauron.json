@@ -596,7 +596,8 @@
           "modifier": {
             "type": "modifyMoveLimit",
             "amount": -1
-          }
+          },
+          "until": "endOfTurn"
         }
       ]
     }
@@ -996,7 +997,8 @@
             "modifier": {
               "type": "modifyMoveLimit",
               "amount": -1
-            }
+            },
+            "until": "endOfTurn"
           }
         ]
       }

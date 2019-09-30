@@ -118,7 +118,7 @@ var GempLotrHallUI = Class.extend({
     addQueuesTable: function(displayed) {
         var header = $("<div class='eventHeader queues'></div>");
 
-        var content = $("<div></div>");
+        var content = $("<div class='visibilityToggle'></div>");
 
         var that = this;
         var toggle = function() {
@@ -147,7 +147,7 @@ var GempLotrHallUI = Class.extend({
     addTournamentsTable: function(displayed) {
         var header = $("<div class='eventHeader tournaments'></div>");
 
-        var content = $("<div></div>");
+        var content = $("<div class='visibilityToggle'></div>");
 
         var that = this;
         var toggle = function() {
@@ -175,7 +175,7 @@ var GempLotrHallUI = Class.extend({
     addWaitingTablesTable: function(displayed) {
         var header = $("<div class='eventHeader waitingTables'></div>");
 
-        var content = $("<div></div>");
+        var content = $("<div class='visibilityToggle'></div>");
 
         var that = this;
         var toggle = function() {
@@ -203,7 +203,7 @@ var GempLotrHallUI = Class.extend({
     addPlayingTablesTable: function(displayed) {
         var header = $("<div class='eventHeader playingTables'></div>");
 
-        var content = $("<div></div>");
+        var content = $("<div class='visibilityToggle'></div>");
 
         var that = this;
         var toggle = function() {
@@ -231,7 +231,7 @@ var GempLotrHallUI = Class.extend({
     addFinishedTablesTable: function(displayed) {
         var header = $("<div class='eventHeader finishedTables'></div>");
 
-        var content = $("<div></div>");
+        var content = $("<div class='visibilityToggle'></div>");
 
         var that = this;
         var toggle = function() {
@@ -257,10 +257,10 @@ var GempLotrHallUI = Class.extend({
     },
 
     updateHallSettings: function() {
-        var icons = $(".ui-button-icon-primary", this.tablesDiv);
+        var visibilityToggle = $(".visibilityToggle", this.tablesDiv);
         var getSettingValue =
             function(index) {
-                return $(icons[index]).hasClass("ui-icon-circlesmall-minus") ? "1" : "0";
+                return $(visibilityToggle[index]).is(":visible") ? "1" : "0";
             };
 
         var newHallSettings = getSettingValue(0) + "|" + getSettingValue(1) + "|" + getSettingValue(2) + "|" + getSettingValue(3) + "|" + getSettingValue(4);
