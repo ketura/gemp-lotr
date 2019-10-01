@@ -649,6 +649,10 @@ public class GameState {
         return Collections.unmodifiableList(_adventureDecks.get(playerId));
     }
 
+    public List<? extends PhysicalCard> getInPlay() {
+        return Collections.unmodifiableList(_inPlay);
+    }
+
     public String getCurrentPlayerId() {
         return _currentPlayerId;
     }

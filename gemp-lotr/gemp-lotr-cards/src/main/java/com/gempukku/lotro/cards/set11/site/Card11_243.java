@@ -1,7 +1,5 @@
 package com.gempukku.lotro.cards.set11.site;
 
-import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
-import com.gempukku.lotro.logic.effects.AddUntilStartOfPhaseModifierEffect;
 import com.gempukku.lotro.common.CardType;
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Keyword;
@@ -11,6 +9,8 @@ import com.gempukku.lotro.game.AbstractActionProxy;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
+import com.gempukku.lotro.logic.cardtype.AbstractShadowsSite;
+import com.gempukku.lotro.logic.effects.AddUntilStartOfPhaseModifierEffect;
 import com.gempukku.lotro.logic.modifiers.RemoveKeywordModifier;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
@@ -37,40 +37,53 @@ public class Card11_243 extends AbstractShadowsSite {
     public List<RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult, final PhysicalCard self) {
         if (game.getModifiersQuerying().getUntilStartOfPhaseLimitCounter(self, Phase.REGROUP).getUsedLimit() < 1
                 && !game.getGameState().getCurrentPhase().equals(Phase.REGROUP)) {
-            game.getActionsEnvironment().addUntilStartOfPhaseActionProxy(
-                    new AbstractActionProxy() {
-                        private Set<Integer> _minionsMarked = new HashSet<Integer>();
-
+            RequiredTriggerAction action = new RequiredTriggerAction(self);
+            action.appendEffect(
+                    new UnrespondableEffect() {
                         @Override
-                        public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult) {
-                            Set<PhysicalCard> toLose = new HashSet<PhysicalCard>();
-                            final Set<Integer> toLoseInts = new HashSet<Integer>();
-                            for (PhysicalCard minion : Filters.filterActive(game, Filters.inSkirmishAgainst(Culture.ROHAN, CardType.COMPANION))) {
-                                if (!_minionsMarked.contains(minion.getCardId())) {
-                                    toLose.add(minion);
-                                    toLoseInts.add(minion.getCardId());
-                                }
-                            }
-
-                            if (toLose.size() > 0) {
-                                RequiredTriggerAction action = new RequiredTriggerAction(self);
-                                action.appendEffect(
-                                        new UnrespondableEffect() {
-                                            @Override
-                                            protected void doPlayEffect(LotroGame game) {
-                                                _minionsMarked.addAll(toLoseInts);
-                                            }
-                                        });
-                                action.appendEffect(
-                                        new AddUntilStartOfPhaseModifierEffect(
-                                                new RemoveKeywordModifier(self, Filters.in(toLose), Keyword.FIERCE), Phase.REGROUP));
-                                return Collections.singletonList(action);
-                            }
-                            return null;
+                        protected void doPlayEffect(LotroGame game) {
+                            game.getModifiersQuerying().getUntilStartOfPhaseLimitCounter(self, Phase.REGROUP).incrementToLimit(1, 1);
                         }
-                    }, Phase.REGROUP);
+                    });
+            action.appendEffect(
+                    new UnrespondableEffect() {
+                        @Override
+                        protected void doPlayEffect(LotroGame game) {
+                            game.getActionsEnvironment().addUntilStartOfPhaseActionProxy(
+                                    new AbstractActionProxy() {
+                                        private Set<Integer> _minionsMarked = new HashSet<Integer>();
 
-            game.getModifiersQuerying().getUntilStartOfPhaseLimitCounter(self, Phase.REGROUP).incrementToLimit(1, 1);
+                                        @Override
+                                        public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult) {
+                                            Set<PhysicalCard> toLose = new HashSet<PhysicalCard>();
+                                            final Set<Integer> toLoseInts = new HashSet<Integer>();
+                                            for (PhysicalCard minion : Filters.filterActive(game, Filters.inSkirmishAgainst(Culture.ROHAN, CardType.COMPANION))) {
+                                                if (!_minionsMarked.contains(minion.getCardId())) {
+                                                    toLose.add(minion);
+                                                    toLoseInts.add(minion.getCardId());
+                                                }
+                                            }
+
+                                            if (toLose.size() > 0) {
+                                                RequiredTriggerAction action = new RequiredTriggerAction(self);
+                                                action.appendEffect(
+                                                        new UnrespondableEffect() {
+                                                            @Override
+                                                            protected void doPlayEffect(LotroGame game) {
+                                                                _minionsMarked.addAll(toLoseInts);
+                                                            }
+                                                        });
+                                                action.appendEffect(
+                                                        new AddUntilStartOfPhaseModifierEffect(
+                                                                new RemoveKeywordModifier(self, Filters.in(toLose), Keyword.FIERCE), Phase.REGROUP));
+                                                return Collections.singletonList(action);
+                                            }
+                                            return null;
+                                        }
+                                    }, Phase.REGROUP);
+                        }
+                    });
+            return Collections.singletonList(action);
         }
         return null;
     }

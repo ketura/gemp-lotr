@@ -123,11 +123,7 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
 
     @Override
     public List<Action> getRequiredBeforeTriggers(Effect effect) {
-        GatherRequiredBeforeTriggers gatherActions = new GatherRequiredBeforeTriggers(effect);
-
-        _lotroGame.getGameState().iterateActiveTextCards(gatherActions);
-
-        List<Action> gatheredActions = gatherActions.getActions();
+        List<Action> gatheredActions = new LinkedList<>();
 
         for (ActionProxy actionProxy : _actionProxies) {
             List<? extends RequiredTriggerAction> actions = actionProxy.getRequiredBeforeTriggers(_lotroGame, effect);
@@ -180,11 +176,7 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
 
     @Override
     public List<Action> getRequiredAfterTriggers(Collection<? extends EffectResult> effectResults) {
-        GatherRequiredAfterTriggers gatherActions = new GatherRequiredAfterTriggers(effectResults);
-
-        _lotroGame.getGameState().iterateActiveTextCards(gatherActions);
-
-        List<Action> gatheredActions = gatherActions.getActions();
+        List<Action> gatheredActions = new LinkedList<>();
 
         if (effectResults != null) {
             for (ActionProxy actionProxy : _actionProxies) {

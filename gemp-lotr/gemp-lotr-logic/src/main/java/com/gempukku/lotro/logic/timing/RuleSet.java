@@ -57,6 +57,8 @@ public class RuleSet {
 
         new ActivateResponseAbilitiesRule(_actionsEnvironment).applyRule();
 
+        new RequiredTriggersRule(_actionsEnvironment).applyRule();
+
         new TakeOffRingRule(_actionsEnvironment).applyRule();
     }
 }
