@@ -3,14 +3,12 @@ package com.gempukku.lotro.game.state.actions;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.common.Zone;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.ActionProxy;
 import com.gempukku.lotro.game.ActionsEnvironment;
 import com.gempukku.lotro.game.CompletePhysicalCardVisitor;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
-import com.gempukku.lotro.logic.PlayUtils;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.timing.Action;
@@ -164,16 +162,17 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
 
     @Override
     public List<Action> getOptionalBeforeActions(String playerId, Effect effect) {
-        GatherOptionalBeforeActions gatherActions = new GatherOptionalBeforeActions(playerId, effect);
+        List<Action> result = new LinkedList<>();
 
-        _lotroGame.getGameState().iterateActivableCards(playerId, gatherActions);
-
-        List<Action> result = new LinkedList<Action>();
-
-        for (Action action : gatherActions.getActions()) {
-            action.setPerformingPlayer(playerId);
-            if (_lotroGame.getModifiersQuerying().canPlayAction(_lotroGame, playerId, action))
-                result.add(action);
+        for (ActionProxy actionProxy : _actionProxies) {
+            List<? extends Action> actions = actionProxy.getOptionalBeforeActions(playerId, _lotroGame, effect);
+            if (actions != null) {
+                for (Action action : actions) {
+                    action.setPerformingPlayer(playerId);
+                    if (_lotroGame.getModifiersQuerying().canPlayAction(_lotroGame, playerId, action))
+                        result.add(action);
+                }
+            }
         }
 
         return result;
@@ -247,16 +246,19 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
 
     @Override
     public List<Action> getOptionalAfterActions(String playerId, Collection<? extends EffectResult> effectResults) {
-        GatherOptionalAfterActions gatherAfterActions = new GatherOptionalAfterActions(playerId, effectResults);
+        List<Action> result = new LinkedList<>();
 
-        _lotroGame.getGameState().iterateActivableCards(playerId, gatherAfterActions);
-
-        List<Action> result = new LinkedList<Action>();
-
-        for (Action action : gatherAfterActions.getActions()) {
-            action.setPerformingPlayer(playerId);
-            if (_lotroGame.getModifiersQuerying().canPlayAction(_lotroGame, playerId, action))
-                result.add(action);
+        for (ActionProxy actionProxy : _actionProxies) {
+            for (EffectResult effectResult : effectResults) {
+                List<? extends Action> actions = actionProxy.getOptionalAfterActions(playerId, _lotroGame, effectResult);
+                if (actions != null) {
+                    for (Action action : actions) {
+                        action.setPerformingPlayer(playerId);
+                        if (_lotroGame.getModifiersQuerying().canPlayAction(_lotroGame, playerId, action))
+                            result.add(action);
+                    }
+                }
+            }
         }
 
         return result;
@@ -356,37 +358,6 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
         }
     }
 
-    private class GatherOptionalBeforeActions extends CompletePhysicalCardVisitor {
-        private String _playerId;
-        private Effect _effect;
-        private List<Action> _actions = new LinkedList<Action>();
-
-        private GatherOptionalBeforeActions(String playerId, Effect effect) {
-            _playerId = playerId;
-            _effect = effect;
-        }
-
-        @Override
-        public void doVisitPhysicalCard(PhysicalCard physicalCard) {
-            if (!_lotroGame.getModifiersQuerying().hasTextRemoved(_lotroGame, physicalCard)) {
-                if (physicalCard.getZone().isInPlay()) {
-                    List<? extends Action> actions = physicalCard.getBlueprint().getOptionalInPlayBeforeActions(_playerId, _lotroGame, _effect, physicalCard);
-                    if (actions != null)
-                        _actions.addAll(actions);
-                } else if (physicalCard.getZone() == Zone.HAND
-                        && PlayUtils.checkPlayRequirements(_lotroGame, physicalCard, Filters.any, 0, 0, false, false)) {
-                    List<? extends Action> actions = physicalCard.getBlueprint().getPlayResponseEventBeforeActions(_playerId, _lotroGame, _effect, physicalCard);
-                    if (actions != null)
-                        _actions.addAll(actions);
-                }
-            }
-        }
-
-        public List<Action> getActions() {
-            return _actions;
-        }
-    }
-
     private class GatherOptionalAfterTriggers extends CompletePhysicalCardVisitor {
         private String _playerId;
         private Collection<? extends EffectResult> _effectResults;
@@ -433,40 +404,6 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
                 List<? extends Action> actions = physicalCard.getBlueprint().getOptionalBeforeTriggers(_playerId, _lotroGame, _effect, physicalCard);
                 if (actions != null)
                     _actions.addAll(actions);
-            }
-        }
-
-        public List<Action> getActions() {
-            return _actions;
-        }
-    }
-
-    private class GatherOptionalAfterActions extends CompletePhysicalCardVisitor {
-        private String _playerId;
-        private Collection<? extends EffectResult> _effectResults;
-        private List<Action> _actions = new LinkedList<Action>();
-
-        private GatherOptionalAfterActions(String playerId, Collection<? extends EffectResult> effectResults) {
-            _playerId = playerId;
-            _effectResults = effectResults;
-        }
-
-        @Override
-        protected void doVisitPhysicalCard(PhysicalCard physicalCard) {
-            if (!_lotroGame.getModifiersQuerying().hasTextRemoved(_lotroGame, physicalCard)) {
-                if (_effectResults != null)
-                    for (EffectResult effectResult : _effectResults) {
-                        if (physicalCard.getZone().isInPlay()) {
-                            List<? extends Action> actions = physicalCard.getBlueprint().getOptionalInPlayAfterActions(_playerId, _lotroGame, effectResult, physicalCard);
-                            if (actions != null)
-                                _actions.addAll(actions);
-                        } else if (physicalCard.getZone() == Zone.HAND
-                                && PlayUtils.checkPlayRequirements(_lotroGame, physicalCard, Filters.any, 0, 0, false, false)) {
-                            List<? extends Action> actions = physicalCard.getBlueprint().getPlayResponseEventAfterActions(_playerId, _lotroGame, effectResult, physicalCard);
-                            if (actions != null)
-                                _actions.addAll(actions);
-                        }
-                    }
             }
         }
 

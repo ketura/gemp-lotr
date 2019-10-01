@@ -52,8 +52,10 @@ public class RuleSet {
         new FollowerRule(_actionsEnvironment).applyRule();
 
         new PlayPermanentRule(_modifiersLogic).applyRule();
-
         new PlayEventRule(_modifiersLogic).applyRule();
+        new PlayResponseEventRule(_actionsEnvironment).applyRule();
+
+        new ActivateResponseAbilitiesRule(_actionsEnvironment).applyRule();
 
         new TakeOffRingRule(_actionsEnvironment).applyRule();
     }

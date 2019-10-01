@@ -6,6 +6,7 @@ import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.TimeResolver;
 import com.gempukku.lotro.cards.build.field.effect.trigger.TriggerChecker;
+import com.gempukku.lotro.game.AbstractActionProxy;
 import com.gempukku.lotro.game.ActionProxy;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.AbstractCostToEffectAction;
@@ -56,7 +57,7 @@ public class AddTrigger implements EffectAppenderProducer {
     }
 
     private ActionProxy createActionProxy(CostToEffectAction action, ActionContext actionContext, boolean optional, TriggerChecker trigger, Requirement[] requirements, EffectAppender[] costs, EffectAppender[] effects) {
-        return new ActionProxy() {
+        return new AbstractActionProxy() {
             private boolean checkRequirements(ActionContext actionContext) {
                 for (Requirement requirement : requirements) {
                     if (!requirement.accepts(actionContext))
