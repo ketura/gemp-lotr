@@ -33,7 +33,7 @@ public class Card2_057 extends AbstractResponseEvent {
     }
 
     @Override
-    public List<PlayEventAction> getOptionalInHandAfterActions(String playerId, final LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<PlayEventAction> getPlayResponseEventAfterActions(String playerId, final LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (PlayUtils.checkPlayRequirements(game, self, Filters.any, 0, 0, false, false)
                 && effectResult.getType() == EffectResult.Type.SKIRMISH_ABOUT_TO_END) {
             SkirmishAboutToEndResult checkSkirmish = (SkirmishAboutToEndResult) effectResult;
@@ -54,7 +54,7 @@ public class Card2_057 extends AbstractResponseEvent {
     }
 
     @Override
-    public List<PlayEventAction> getOptionalInHandBeforeActions(String playerId, LotroGame game, Effect effect, final PhysicalCard self) {
+    public List<PlayEventAction> getPlayResponseEventBeforeActions(String playerId, LotroGame game, Effect effect, final PhysicalCard self) {
         if (PlayUtils.checkPlayRequirements(game, self, Filters.any, 0, 0, false, false)
                 && Filters.canSpot(game, Filters.name("The Balrog"), Filters.inSkirmish)
                 && (TriggerConditions.isGettingKilled(effect, game, Filters.hasAttached(Filters.name("Whip of Many Thongs")))

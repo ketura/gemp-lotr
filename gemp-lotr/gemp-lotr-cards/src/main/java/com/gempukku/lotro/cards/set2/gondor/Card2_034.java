@@ -35,7 +35,7 @@ public class Card2_034 extends AbstractResponseEvent {
     }
 
     @Override
-    public List<PlayEventAction> getOptionalInHandBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
+    public List<PlayEventAction> getPlayResponseEventBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
         if (TriggerConditions.isGettingWounded(effect, game, CardType.COMPANION)
                 && PlayConditions.canExert(self, game, Culture.GONDOR, CardType.COMPANION)
                 && PlayUtils.checkPlayRequirements(game, self, Filters.any, 0, 0, false, false)) {

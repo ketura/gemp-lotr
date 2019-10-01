@@ -336,7 +336,8 @@
             {
               "type": "modifyStrength",
               "until": "start(regroup)",
-              "filter": "all(bearer)"
+              "filter": "all(bearer)",
+              "amount": -2
             }
           ]
         }

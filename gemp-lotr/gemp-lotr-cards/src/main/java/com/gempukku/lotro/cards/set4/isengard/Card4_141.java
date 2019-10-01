@@ -36,7 +36,7 @@ public class Card4_141 extends AbstractResponseEvent {
     }
 
     @Override
-    public List<PlayEventAction> getOptionalInHandAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<PlayEventAction> getPlayResponseEventAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.forEachKilled(game, effectResult, Filters.or(CardType.COMPANION, CardType.ALLY))
                 && PlayConditions.canExert(self, game, Culture.ISENGARD, CardType.MINION)
                 && PlayUtils.checkPlayRequirements(game, self, Filters.any, 0, 0, false, false)) {

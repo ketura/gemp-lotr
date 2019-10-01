@@ -52,7 +52,7 @@ public class Card5_096 extends AbstractEvent {
     }
 
     @Override
-    public List<PlayEventAction> getOptionalInHandAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<PlayEventAction> getPlayResponseEventAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (effectResult.getType() == EffectResult.Type.FOR_EACH_REVEALED_FROM_HAND) {
             RevealCardFromHandResult revealResult = (RevealCardFromHandResult) effectResult;
             if (revealResult.getSource().getOwner().equals(game.getGameState().getCurrentPlayerId())

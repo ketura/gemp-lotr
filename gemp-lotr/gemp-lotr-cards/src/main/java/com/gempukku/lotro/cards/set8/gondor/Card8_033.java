@@ -38,7 +38,7 @@ public class Card8_033 extends AbstractResponseEvent {
     }
 
     @Override
-    public List<PlayEventAction> getOptionalInHandBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
+    public List<PlayEventAction> getPlayResponseEventBeforeActions(String playerId, LotroGame game, Effect effect, PhysicalCard self) {
         if (TriggerConditions.isGettingKilled(effect, game, Culture.GONDOR, Race.WRAITH)
                 && PlayUtils.checkPlayRequirements(game, self, Filters.any, 0, 0, false, false)) {
             KillEffect killEffect = (KillEffect) effect;

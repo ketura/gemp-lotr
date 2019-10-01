@@ -8,6 +8,7 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.*;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
+import com.gempukku.lotro.logic.PlayUtils;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.timing.Action;
@@ -441,8 +442,9 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
                     List<? extends Action> actions = physicalCard.getBlueprint().getOptionalInPlayBeforeActions(_playerId, _lotroGame, _effect, physicalCard);
                     if (actions != null)
                         _actions.addAll(actions);
-                } else if (physicalCard.getZone() == Zone.HAND) {
-                    List<? extends Action> actions = physicalCard.getBlueprint().getOptionalInHandBeforeActions(_playerId, _lotroGame, _effect, physicalCard);
+                } else if (physicalCard.getZone() == Zone.HAND
+                        && PlayUtils.checkPlayRequirements(_lotroGame, physicalCard, Filters.any, 0, 0, false, false)) {
+                    List<? extends Action> actions = physicalCard.getBlueprint().getPlayResponseEventBeforeActions(_playerId, _lotroGame, _effect, physicalCard);
                     if (actions != null)
                         _actions.addAll(actions);
                 }
@@ -527,8 +529,9 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
                             List<? extends Action> actions = physicalCard.getBlueprint().getOptionalInPlayAfterActions(_playerId, _lotroGame, effectResult, physicalCard);
                             if (actions != null)
                                 _actions.addAll(actions);
-                        } else if (physicalCard.getZone() == Zone.HAND) {
-                            List<? extends Action> actions = physicalCard.getBlueprint().getOptionalInHandAfterActions(_playerId, _lotroGame, effectResult, physicalCard);
+                        } else if (physicalCard.getZone() == Zone.HAND
+                                && PlayUtils.checkPlayRequirements(_lotroGame, physicalCard, Filters.any, 0, 0, false, false)) {
+                            List<? extends Action> actions = physicalCard.getBlueprint().getPlayResponseEventAfterActions(_playerId, _lotroGame, effectResult, physicalCard);
                             if (actions != null)
                                 _actions.addAll(actions);
                         }

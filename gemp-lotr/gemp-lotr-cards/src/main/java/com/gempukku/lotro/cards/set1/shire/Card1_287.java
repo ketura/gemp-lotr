@@ -30,7 +30,7 @@ public class Card1_287 extends AbstractResponseEvent {
     }
 
     @Override
-    public List<PlayEventAction> getOptionalInHandBeforeActions(String playerId, LotroGame game, Effect effect, final PhysicalCard self) {
+    public List<PlayEventAction> getPlayResponseEventBeforeActions(String playerId, LotroGame game, Effect effect, final PhysicalCard self) {
         if (TriggerConditions.isGettingHealed(effect, game, Filters.ringBearer)) {
             final PlayEventAction action = new PlayEventAction(self);
             action.appendCost(

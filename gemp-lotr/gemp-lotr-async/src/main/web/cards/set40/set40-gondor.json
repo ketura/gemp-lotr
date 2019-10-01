@@ -840,7 +840,7 @@
     "subtitle": "Asëa Aranion",
     "culture": "gondor",
     "cost": 1,
-    "type": "condition",
+    "type": "possession",
     "target": "companion",
     "condition": {
       "type": "canSpot",

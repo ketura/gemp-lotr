@@ -35,7 +35,7 @@ public class Card10_017 extends AbstractResponseEvent {
     }
 
     @Override
-    public List<PlayEventAction> getOptionalInHandAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
+    public List<PlayEventAction> getPlayResponseEventAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.moves(game, effectResult)
                 && PlayUtils.checkPlayRequirements(game, self, Filters.any, 0, 0, false, false)
                 && game.getGameState().getCurrentPhase() == Phase.REGROUP) {
