@@ -7,8 +7,8 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.cardtype.AbstractAttachable;
 import com.gempukku.lotro.logic.modifiers.AbstractExtraPlayCostModifier;
 import com.gempukku.lotro.logic.modifiers.CantAddBurdensModifier;
-import com.gempukku.lotro.logic.modifiers.Condition;
 import com.gempukku.lotro.logic.modifiers.Modifier;
+import com.gempukku.lotro.logic.modifiers.condition.CardPlayedInCurrentTurnCondition;
 import com.gempukku.lotro.logic.modifiers.cost.ExertExtraPlayCostModifier;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
@@ -50,11 +50,6 @@ public class Card20_394 extends AbstractAttachable {
     @Override
     public List<? extends Modifier> getInPlayModifiers(LotroGame game, final PhysicalCard self) {
         return Collections.singletonList(new CantAddBurdensModifier(self,
-                new Condition() {
-                    @Override
-                    public boolean isFullfilled(LotroGame game) {
-                        return game.getActionsEnvironment().getPlayedCardsInCurrentTurn().contains(self);
-                    }
-                }, Side.SHADOW));
+                new CardPlayedInCurrentTurnCondition(self), Side.SHADOW));
     }
 }

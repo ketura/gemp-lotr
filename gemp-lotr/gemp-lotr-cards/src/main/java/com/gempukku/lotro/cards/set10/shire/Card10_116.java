@@ -1,7 +1,6 @@
 package com.gempukku.lotro.cards.set10.shire;
 
 import com.gempukku.lotro.common.*;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
@@ -10,7 +9,7 @@ import com.gempukku.lotro.logic.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
 import com.gempukku.lotro.logic.modifiers.CantBeOverwhelmedModifier;
-import com.gempukku.lotro.logic.modifiers.Condition;
+import com.gempukku.lotro.logic.modifiers.condition.CardPlayedInCurrentPhaseCondition;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
@@ -42,12 +41,7 @@ public class Card10_116 extends AbstractPermanent {
                             action.insertEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
                                             new CantBeOverwhelmedModifier(self, card,
-                                                    new Condition() {
-                                                        @Override
-                                                        public boolean isFullfilled(LotroGame game) {
-                                                            return Filters.filter(game.getActionsEnvironment().getPlayedCardsInCurrentPhase(), game, Side.SHADOW, CardType.EVENT).size() == 0;
-                                                        }
-                                                    })));
+                                                    new CardPlayedInCurrentPhaseCondition(Side.SHADOW, CardType.EVENT))));
                         }
                     });
             action.appendEffect(

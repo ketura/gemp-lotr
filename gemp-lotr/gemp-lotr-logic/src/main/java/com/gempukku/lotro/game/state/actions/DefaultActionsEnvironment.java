@@ -1,11 +1,13 @@
 package com.gempukku.lotro.game.state.actions;
 
-import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.common.Side;
 import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.filters.Filters;
-import com.gempukku.lotro.game.*;
+import com.gempukku.lotro.game.ActionProxy;
+import com.gempukku.lotro.game.ActionsEnvironment;
+import com.gempukku.lotro.game.CompletePhysicalCardVisitor;
+import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.PlayUtils;
@@ -16,10 +18,6 @@ import com.gempukku.lotro.logic.timing.ActionStack;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.processes.GatherPlayableActionsFromDiscardVisitor;
-import com.gempukku.lotro.logic.timing.results.AssignedToSkirmishResult;
-import com.gempukku.lotro.logic.timing.results.CharacterLostSkirmishResult;
-import com.gempukku.lotro.logic.timing.results.CharacterWonSkirmishResult;
-import com.gempukku.lotro.logic.timing.results.PlayCardResult;
 import org.apache.log4j.Logger;
 
 import java.util.*;
@@ -33,65 +31,14 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
     private Map<Phase, List<ActionProxy>> _untilEndOfPhaseActionProxies = new HashMap<Phase, List<ActionProxy>>();
     private List<ActionProxy> _untilEndOfTurnActionProxies = new LinkedList<ActionProxy>();
 
-    private List<PhysicalCard> _playedCardsInPhase = new LinkedList<PhysicalCard>();
-    private List<PhysicalCard> _playedCardsInTurn = new LinkedList<PhysicalCard>();
-
     private Set<EffectResult> _effectResults = new HashSet<EffectResult>();
 
-    private Set<PhysicalCard> _wonSkirmishesInTurn = new HashSet<PhysicalCard>();
-    private Set<PhysicalCard> _lostSkirmishesInTurn = new HashSet<PhysicalCard>();
-    private Set<PhysicalCard> _assignedInTurn = new HashSet<PhysicalCard>();
+    private List<EffectResult> turnEffectResults = new LinkedList<>();
+    private List<EffectResult> phaseEffectResults = new LinkedList<>();
 
     public DefaultActionsEnvironment(LotroGame lotroGame, ActionStack actionStack) {
         _lotroGame = lotroGame;
         _actionStack = actionStack;
-
-        addAlwaysOnActionProxy(
-                new AbstractActionProxy() {
-                    @Override
-                    public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame lotroGame, EffectResult effectResults) {
-                        if (effectResults.getType() == EffectResult.Type.PLAY) {
-                            PlayCardResult playResult = (PlayCardResult) effectResults;
-                            _playedCardsInPhase.add(playResult.getPlayedCard());
-                            _playedCardsInTurn.add(playResult.getPlayedCard());
-                        }
-                        return null;
-                    }
-                });
-        addAlwaysOnActionProxy(
-                new AbstractActionProxy() {
-                    @Override
-                    public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult) {
-                        if (effectResult.getType() == EffectResult.Type.CHARACTER_WON_SKIRMISH) {
-                            final CharacterWonSkirmishResult winResult = (CharacterWonSkirmishResult) effectResult;
-                            _wonSkirmishesInTurn.add(winResult.getWinner());
-                        }
-                        return null;
-                    }
-                });
-        addAlwaysOnActionProxy(
-                new AbstractActionProxy() {
-                    @Override
-                    public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult) {
-                        if (effectResult.getType() == EffectResult.Type.CHARACTER_LOST_SKIRMISH) {
-                            final CharacterLostSkirmishResult winResult = (CharacterLostSkirmishResult) effectResult;
-                            _lostSkirmishesInTurn.add(winResult.getLoser());
-                        }
-                        return null;
-                    }
-                });
-        addAlwaysOnActionProxy(
-                new AbstractActionProxy() {
-                    @Override
-                    public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult) {
-                        if (effectResult.getType() == EffectResult.Type.ASSIGNED_TO_SKIRMISH) {
-                            AssignedToSkirmishResult assignResult = (AssignedToSkirmishResult) effectResult;
-                            _assignedInTurn.add(assignResult.getAssignedCard());
-                        }
-                        return null;
-                    }
-                }
-        );
     }
 
     public List<ActionProxy> getUntilStartOfPhaseActionProxies(Phase phase) {
@@ -101,6 +48,8 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
     @Override
     public void emitEffectResult(EffectResult effectResult) {
         _effectResults.add(effectResult);
+        turnEffectResults.add(effectResult);
+        phaseEffectResults.add(effectResult);
     }
 
     public Set<EffectResult> consumeEffectResults() {
@@ -127,16 +76,23 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
             _actionProxies.removeAll(list);
             list.clear();
         }
-        _playedCardsInPhase.clear();
+        phaseEffectResults.clear();
     }
 
     public void removeEndOfTurnActionProxies() {
         _actionProxies.removeAll(_untilEndOfTurnActionProxies);
         _untilEndOfTurnActionProxies.clear();
-        _wonSkirmishesInTurn.clear();
-        _lostSkirmishesInTurn.clear();
-        _assignedInTurn.clear();
-        _playedCardsInTurn.clear();
+        turnEffectResults.clear();
+    }
+
+    @Override
+    public List<EffectResult> getTurnEffectResults() {
+        return Collections.unmodifiableList(turnEffectResults);
+    }
+
+    @Override
+    public List<EffectResult> getPhaseEffectResults() {
+        return Collections.unmodifiableList(phaseEffectResults);
     }
 
     @Override
@@ -351,31 +307,6 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
     @Override
     public <T extends Action> T findTopmostActionOfType(Class<T> clazz) {
         return _actionStack.findTopmostActionOfType(clazz);
-    }
-
-    @Override
-    public List<PhysicalCard> getPlayedCardsInCurrentPhase() {
-        return Collections.unmodifiableList(_playedCardsInPhase);
-    }
-
-    @Override
-    public List<PhysicalCard> getPlayedCardsInCurrentTurn() {
-        return Collections.unmodifiableList(_playedCardsInTurn);
-    }
-
-    @Override
-    public boolean hasWonSkirmishThisTurn(LotroGame game, Filterable... filters) {
-        return Filters.filter(_wonSkirmishesInTurn, game, filters).size() > 0;
-    }
-
-    @Override
-    public boolean hasLostSkirmishThisTurn(LotroGame game, Filterable... filters) {
-        return Filters.filter(_lostSkirmishesInTurn, game, filters).size() > 0;
-    }
-
-    @Override
-    public boolean wasAssignedThisTurn(LotroGame game, Filterable... filters) {
-        return Filters.filter(_assignedInTurn, game, filters).size() > 0;
     }
 
     private class GatherRequiredAfterTriggers extends CompletePhysicalCardVisitor {

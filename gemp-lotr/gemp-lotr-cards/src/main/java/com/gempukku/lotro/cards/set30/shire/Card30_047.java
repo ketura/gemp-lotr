@@ -1,15 +1,18 @@
 package com.gempukku.lotro.cards.set30.shire;
 
-import com.gempukku.lotro.logic.cardtype.AbstractAttachableFPPossession;
-import com.gempukku.lotro.logic.timing.TriggerConditions;
-import com.gempukku.lotro.logic.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
-import com.gempukku.lotro.common.*;
+import com.gempukku.lotro.common.CardType;
+import com.gempukku.lotro.common.Culture;
+import com.gempukku.lotro.common.PossessionClass;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
+import com.gempukku.lotro.logic.cardtype.AbstractAttachableFPPossession;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndDiscardCardsFromPlayEffect;
+import com.gempukku.lotro.logic.modifiers.condition.CardPlayedInCurrentPhaseCondition;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.TriggerConditions;
 
 import java.util.Collections;
 import java.util.List;
@@ -38,7 +41,7 @@ public class Card30_047 extends AbstractAttachableFPPossession {
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
         if (TriggerConditions.winsSkirmish(game, effectResult, self.getAttachedTo())
-                && Filters.filter(game.getActionsEnvironment().getPlayedCardsInCurrentPhase(), game, Filters.owner(playerId), Culture.DWARVEN, CardType.EVENT).size() > 0) {
+                && new CardPlayedInCurrentPhaseCondition(Filters.owner(playerId), Culture.DWARVEN, CardType.EVENT).isFullfilled(game)) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
 			action.setText("Choose a condition");
             action.appendEffect(

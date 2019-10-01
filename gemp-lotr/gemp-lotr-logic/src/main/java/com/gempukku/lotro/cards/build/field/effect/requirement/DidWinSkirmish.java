@@ -6,6 +6,10 @@ import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.Requirement;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.common.Filterable;
+import com.gempukku.lotro.filters.Filter;
+import com.gempukku.lotro.filters.Filters;
+import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.results.CharacterWonSkirmishResult;
 import org.json.simple.JSONObject;
 
 public class DidWinSkirmish implements RequirementProducer {
@@ -19,7 +23,18 @@ public class DidWinSkirmish implements RequirementProducer {
 
         return actionContext -> {
             final Filterable filterable = filterableSource.getFilterable(actionContext);
-            return actionContext.getGame().getActionsEnvironment().hasWonSkirmishThisTurn(actionContext.getGame(), filterable);
+
+            final Filter aFilter = Filters.and(filterable);
+
+            for (EffectResult effectResult : actionContext.getGame().getActionsEnvironment().getTurnEffectResults()) {
+                if (effectResult.getType() == EffectResult.Type.CHARACTER_WON_SKIRMISH) {
+                    CharacterWonSkirmishResult winResult = (CharacterWonSkirmishResult) effectResult;
+                    if (aFilter.accepts(actionContext.getGame(), winResult.getWinner()))
+                        return true;
+                }
+            }
+
+            return false;
         };
     }
 }

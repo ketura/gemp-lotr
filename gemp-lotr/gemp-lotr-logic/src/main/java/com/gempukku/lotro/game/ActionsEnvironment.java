@@ -1,8 +1,6 @@
 package com.gempukku.lotro.game;
 
-import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.timing.Action;
 import com.gempukku.lotro.logic.timing.Effect;
@@ -39,13 +37,7 @@ public interface ActionsEnvironment {
 
     public <T extends Action> T findTopmostActionOfType(Class<T> clazz);
 
-    public List<PhysicalCard> getPlayedCardsInCurrentPhase();
+    public List<EffectResult> getTurnEffectResults();
 
-    public List<PhysicalCard> getPlayedCardsInCurrentTurn();
-
-    public boolean hasWonSkirmishThisTurn(LotroGame game, Filterable... filters);
-
-    public boolean hasLostSkirmishThisTurn(LotroGame game, Filterable... filters);
-
-    public boolean wasAssignedThisTurn(LotroGame game, Filterable... filters);
+    public List<EffectResult> getPhaseEffectResults();
 }
