@@ -11,6 +11,11 @@ import java.util.List;
 
 public abstract class AbstractActionProxy implements ActionProxy {
     @Override
+    public List<? extends Action> getPhaseActions(String playerId, LotroGame game) {
+        return null;
+    }
+
+    @Override
     public List<? extends Action> getOptionalBeforeActions(String playerId, LotroGame game, Effect effect) {
         return null;
     }
@@ -36,7 +41,7 @@ public abstract class AbstractActionProxy implements ActionProxy {
     }
 
     @Override
-    public List<? extends OptionalTriggerAction> getOptionalBeforeTriggers(String playerId, LotroGame lotroGame, Effect effect) {
+    public List<? extends OptionalTriggerAction> getOptionalBeforeTriggers(String playerId, LotroGame game, Effect effect) {
         return null;
     }
 }

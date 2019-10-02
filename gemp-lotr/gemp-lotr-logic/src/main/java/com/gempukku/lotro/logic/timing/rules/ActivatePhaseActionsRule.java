@@ -9,16 +9,14 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.game.state.actions.DefaultActionsEnvironment;
 import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.timing.Action;
-import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.LinkedList;
 import java.util.List;
 
-public class ActivateResponseAbilitiesRule {
+public class ActivatePhaseActionsRule {
     private DefaultActionsEnvironment actionsEnvironment;
 
-    public ActivateResponseAbilitiesRule(DefaultActionsEnvironment actionsEnvironment) {
+    public ActivatePhaseActionsRule(DefaultActionsEnvironment actionsEnvironment) {
         this.actionsEnvironment = actionsEnvironment;
     }
 
@@ -26,34 +24,27 @@ public class ActivateResponseAbilitiesRule {
         actionsEnvironment.addAlwaysOnActionProxy(
                 new AbstractActionProxy() {
                     @Override
-                    public List<? extends Action> getOptionalBeforeActions(String playerId, LotroGame game, Effect effect) {
+                    public List<? extends Action> getPhaseActions(String playerId, LotroGame game) {
                         List<Action> result = new LinkedList<>();
                         for (PhysicalCard activableCard : Filters.filter(game.getGameState().getInPlay(), game, getActivatableCardsFilter(playerId))) {
                             if (!game.getModifiersQuerying().hasTextRemoved(game, activableCard)) {
-                                final List<? extends ActivateCardAction> actions = activableCard.getBlueprint().getOptionalInPlayBeforeActions(playerId, game, effect, activableCard);
+                                final List<? extends ActivateCardAction> actions = activableCard.getBlueprint().getPhaseActionsInPlay(playerId, game, activableCard);
                                 if (actions != null)
                                     result.addAll(actions);
+
+                                final List<? extends Action> extraActions = game.getModifiersQuerying().getExtraPhaseActions(game, activableCard);
+                                if (extraActions != null) {
+                                    for (Action action : extraActions) {
+                                        if (action != null)
+                                            result.add(action);
+                                    }
+                                }
                             }
                         }
 
                         return result;
                     }
-
-                    @Override
-                    public List<? extends Action> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult) {
-                        List<Action> result = new LinkedList<>();
-                        for (PhysicalCard activableCard : Filters.filter(game.getGameState().getInPlay(), game, getActivatableCardsFilter(playerId))) {
-                            if (!game.getModifiersQuerying().hasTextRemoved(game, activableCard)) {
-                                final List<? extends ActivateCardAction> actions = activableCard.getBlueprint().getOptionalInPlayAfterActions(playerId, game, effectResult, activableCard);
-                                if (actions != null)
-                                    result.addAll(actions);
-                            }
-                        }
-
-                        return result;
-                    }
-                }
-        );
+                });
     }
 
     private Filter getActivatableCardsFilter(String playerId) {

@@ -10,15 +10,17 @@ import com.gempukku.lotro.logic.timing.EffectResult;
 import java.util.List;
 
 public interface ActionProxy {
-    public List<? extends Action> getOptionalBeforeActions(String playerId, LotroGame game, Effect effect);
+    List<? extends Action> getPhaseActions(String playerId, LotroGame game);
 
-    public List<? extends RequiredTriggerAction> getRequiredBeforeTriggers(LotroGame game, Effect effect);
+    List<? extends Action> getOptionalBeforeActions(String playerId, LotroGame game, Effect effect);
 
-    public List<? extends OptionalTriggerAction> getOptionalBeforeTriggers(String playerId, LotroGame game, Effect effect);
+    List<? extends RequiredTriggerAction> getRequiredBeforeTriggers(LotroGame game, Effect effect);
 
-    public List<? extends Action> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult);
+    List<? extends OptionalTriggerAction> getOptionalBeforeTriggers(String playerId, LotroGame game, Effect effect);
 
-    public List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult);
+    List<? extends Action> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult);
 
-    public List<? extends OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult);
+    List<? extends RequiredTriggerAction> getRequiredAfterTriggers(LotroGame game, EffectResult effectResult);
+
+    List<? extends OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult);
 }

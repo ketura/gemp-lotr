@@ -43,21 +43,25 @@ public class RuleSet {
 
         new ToilRule(_modifiersLogic).applyRule();
 
-        new HealByDiscardRule(_modifiersLogic).applyRule();
-
-        new TransferItemRule(_modifiersLogic).applyRule();
+        new TransferItemRule(_actionsEnvironment).applyRule();
 
         new StatModifiersRule(_modifiersLogic).applyRule();
 
         new FollowerRule(_actionsEnvironment).applyRule();
 
-        new PlayPermanentRule(_modifiersLogic).applyRule();
-        new PlayEventRule(_modifiersLogic).applyRule();
+        new PlayCardInPhaseRule(_actionsEnvironment).applyRule();
         new PlayResponseEventRule(_actionsEnvironment).applyRule();
 
         new ActivateResponseAbilitiesRule(_actionsEnvironment).applyRule();
+        new ActivatePhaseActionsRule(_actionsEnvironment).applyRule();
+        new ActivatePhaseActionsFromDiscardRule(_actionsEnvironment).applyRule();
+        new ActivatePhaseActionsFromStackedRule(_actionsEnvironment).applyRule();
 
         new RequiredTriggersRule(_actionsEnvironment).applyRule();
+        new OptionalTriggersRule(_actionsEnvironment).applyRule();
+        new OptionalTriggersFromHandRule(_actionsEnvironment).applyRule();
+
+        new HealByDiscardRule(_actionsEnvironment).applyRule();
 
         new TakeOffRingRule(_actionsEnvironment).applyRule();
     }

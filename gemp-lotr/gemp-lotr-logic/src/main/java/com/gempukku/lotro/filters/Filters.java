@@ -437,6 +437,13 @@ public class Filters {
         }
     };
 
+    public static final Filter active = new Filter() {
+        @Override
+        public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
+            return game.getGameState().isCardInPlayActive(physicalCard);
+        }
+    };
+
     public static final Filter canTakeWounds(final PhysicalCard woundSource, final int count) {
         return new Filter() {
             @Override

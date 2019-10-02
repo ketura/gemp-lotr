@@ -7,18 +7,17 @@ import com.gempukku.lotro.game.AbstractActionProxy;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.game.state.actions.DefaultActionsEnvironment;
-import com.gempukku.lotro.logic.actions.ActivateCardAction;
-import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
 import java.util.LinkedList;
 import java.util.List;
 
-public class ActivateResponseAbilitiesRule {
+public class OptionalTriggersRule {
     private DefaultActionsEnvironment actionsEnvironment;
 
-    public ActivateResponseAbilitiesRule(DefaultActionsEnvironment actionsEnvironment) {
+    public OptionalTriggersRule(DefaultActionsEnvironment actionsEnvironment) {
         this.actionsEnvironment = actionsEnvironment;
     }
 
@@ -26,11 +25,11 @@ public class ActivateResponseAbilitiesRule {
         actionsEnvironment.addAlwaysOnActionProxy(
                 new AbstractActionProxy() {
                     @Override
-                    public List<? extends Action> getOptionalBeforeActions(String playerId, LotroGame game, Effect effect) {
-                        List<Action> result = new LinkedList<>();
+                    public List<? extends OptionalTriggerAction> getOptionalBeforeTriggers(String playerId, LotroGame game, Effect effect) {
+                        List<OptionalTriggerAction> result = new LinkedList<>();
                         for (PhysicalCard activableCard : Filters.filter(game.getGameState().getInPlay(), game, getActivatableCardsFilter(playerId))) {
                             if (!game.getModifiersQuerying().hasTextRemoved(game, activableCard)) {
-                                final List<? extends ActivateCardAction> actions = activableCard.getBlueprint().getOptionalInPlayBeforeActions(playerId, game, effect, activableCard);
+                                final List<? extends OptionalTriggerAction> actions = activableCard.getBlueprint().getOptionalBeforeTriggers(playerId, game, effect, activableCard);
                                 if (actions != null)
                                     result.addAll(actions);
                             }
@@ -40,11 +39,11 @@ public class ActivateResponseAbilitiesRule {
                     }
 
                     @Override
-                    public List<? extends Action> getOptionalAfterActions(String playerId, LotroGame game, EffectResult effectResult) {
-                        List<Action> result = new LinkedList<>();
+                    public List<? extends OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult) {
+                        List<OptionalTriggerAction> result = new LinkedList<>();
                         for (PhysicalCard activableCard : Filters.filter(game.getGameState().getInPlay(), game, getActivatableCardsFilter(playerId))) {
                             if (!game.getModifiersQuerying().hasTextRemoved(game, activableCard)) {
-                                final List<? extends ActivateCardAction> actions = activableCard.getBlueprint().getOptionalInPlayAfterActions(playerId, game, effectResult, activableCard);
+                                final List<? extends OptionalTriggerAction> actions = activableCard.getBlueprint().getOptionalAfterTriggers(playerId, game, effectResult, activableCard);
                                 if (actions != null)
                                     result.addAll(actions);
                             }

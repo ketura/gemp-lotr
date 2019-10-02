@@ -1,7 +1,6 @@
 package com.gempukku.lotro.logic.timing.rules;
 
 import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Phase;
 import com.gempukku.lotro.filters.Filter;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.AbstractActionProxy;
@@ -9,8 +8,6 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.game.state.actions.DefaultActionsEnvironment;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
-import com.gempukku.lotro.logic.modifiers.condition.OrCondition;
-import com.gempukku.lotro.logic.modifiers.condition.PhaseCondition;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 
@@ -59,9 +56,16 @@ public class RequiredTriggersRule {
     }
 
     private Filter getActivatableCardsFilter() {
-        return Filters.conditionFilter(
-                Filters.or(Filters.currentSite, Filters.and(Filters.not(CardType.SITE))),
-                new OrCondition(new PhaseCondition(Phase.PUT_RING_BEARER), new PhaseCondition(Phase.PLAY_STARTING_FELLOWSHIP)),
-                Filters.and(Filters.not(CardType.SITE)));
+        return Filters.or(
+                Filters.and(CardType.SITE,
+                        new Filter() {
+                            @Override
+                            public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
+                                if (game.getGameState().getCurrentPhase().isRealPhase())
+                                    return Filters.currentSite.accepts(game, physicalCard);
+                                return false;
+                            }
+                        }),
+                Filters.and(Filters.not(CardType.SITE), Filters.active));
     }
 }
