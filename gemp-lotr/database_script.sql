@@ -284,4 +284,12 @@ CREATE TABLE `transfer` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
+CREATE TABLE `ignores` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `playerName` varchar(10) NOT NULL,
+  `ignoredName` varchar(10) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `PLAYER_IGNORES` (`playerName`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
 -- Dump completed on 2017-06-12  4:24:31
