@@ -39,8 +39,7 @@ public class Card6_034 extends AbstractEvent {
                 new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.ENT) {
                     @Override
                     protected void forEachCardExertedCallback(PhysicalCard character) {
-                        int bonus = Math.min(4, Filters.countActive(game, Race.ENT)
-                                + game.getModifiersQuerying().getSpotBonus(game, Race.ENT));
+                        int bonus = Math.min(4, Filters.countSpottable(game, Race.ENT));
                         action.appendEffect(
                                 new AddUntilEndOfPhaseModifierEffect(
                                         new StrengthModifier(self, character, bonus)));

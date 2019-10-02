@@ -28,7 +28,7 @@ public class Card32_065 extends AbstractEvent {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new PlayoutDecisionEffect(playerId,
-                        new ForEachYouSpotDecision(1, "How many Wise characters do you wish to spot?", game, Integer.MAX_VALUE, Keyword.WISE) {
+                        new ForEachYouSpotDecision(1, "How many Wise characters do you wish to spot?", game, Keyword.WISE) {
                             @Override
                             public void decisionMade(String result) throws DecisionResultInvalidException {
                                 int count = getValidatedResult(result);

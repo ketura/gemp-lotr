@@ -6,8 +6,8 @@ import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
-import com.gempukku.lotro.logic.modifiers.Condition;
 import com.gempukku.lotro.logic.modifiers.Modifier;
+import com.gempukku.lotro.logic.modifiers.SpotCondition;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 
 import java.util.Collections;
@@ -31,19 +31,13 @@ public class Card15_030 extends AbstractCompanion {
 
     @Override
     public int getTwilightCostModifier(LotroGame game, PhysicalCard self, PhysicalCard target) {
-        return -Filters.countActive(game, Race.ENT)
-                - game.getModifiersQuerying().getSpotBonus(game, Race.ENT);
+        return -Filters.countSpottable(game, Race.ENT);
     }
 
     @Override
     public List<? extends Modifier> getInPlayModifiers(LotroGame game, final PhysicalCard self) {
         return Collections.singletonList(new StrengthModifier(self, self,
-                new Condition() {
-                    @Override
-                    public boolean isFullfilled(LotroGame game) {
-                        return Filters.countActive(game, Filters.not(self), Race.ENT)
-                                + game.getModifiersQuerying().getSpotBonus(game, Race.ENT) >= 4;
-                    }
-                }, 4));
+                // All Ents, minus itself
+                new SpotCondition(5, Race.ENT), 4));
     }
 }

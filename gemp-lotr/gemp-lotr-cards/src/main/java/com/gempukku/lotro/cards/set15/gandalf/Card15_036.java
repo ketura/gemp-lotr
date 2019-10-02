@@ -11,8 +11,8 @@ import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
 import com.gempukku.lotro.logic.effects.RevealCardEffect;
 import com.gempukku.lotro.logic.effects.SelfExertEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndPlayCardFromDeckEffect;
-import com.gempukku.lotro.logic.modifiers.Condition;
 import com.gempukku.lotro.logic.modifiers.Modifier;
+import com.gempukku.lotro.logic.modifiers.SpotCondition;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.timing.UnrespondableEffect;
@@ -40,13 +40,7 @@ public class Card15_036 extends AbstractCompanion {
     @Override
     public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(new StrengthModifier(self, self,
-                new Condition() {
-                    @Override
-                    public boolean isFullfilled(LotroGame game) {
-                        return Filters.countActive(game, Race.ENT)
-                                + game.getModifiersQuerying().getSpotBonus(game, Race.ENT) >= 4;
-                    }
-                }, 3));
+                new SpotCondition(4, Race.ENT), 3));
     }
 
     @Override

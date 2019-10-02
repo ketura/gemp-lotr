@@ -38,8 +38,7 @@ public class Card6_035 extends AbstractCompanion {
 
     @Override
     public int getTwilightCostModifier(LotroGame game, PhysicalCard self, PhysicalCard target) {
-        return -Filters.countActive(game, Filters.or(Race.ENT, Filters.and(Race.HOBBIT, Filters.unboundCompanion)))
-                - game.getModifiersQuerying().getSpotBonus(game, Race.ENT);
+        return -(Filters.countSpottable(game, Race.ENT) + Filters.countSpottable(game, Race.HOBBIT, Filters.unboundCompanion));
     }
 
     @Override

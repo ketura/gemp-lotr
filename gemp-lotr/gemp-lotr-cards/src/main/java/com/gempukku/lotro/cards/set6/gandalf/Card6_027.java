@@ -2,12 +2,11 @@ package com.gempukku.lotro.cards.set6.gandalf;
 
 import com.gempukku.lotro.common.Culture;
 import com.gempukku.lotro.common.Race;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.cardtype.AbstractCompanion;
-import com.gempukku.lotro.logic.modifiers.Condition;
 import com.gempukku.lotro.logic.modifiers.Modifier;
+import com.gempukku.lotro.logic.modifiers.SpotCondition;
 import com.gempukku.lotro.logic.modifiers.StrengthModifier;
 
 import java.util.Collections;
@@ -32,12 +31,6 @@ public class Card6_027 extends AbstractCompanion {
     @Override
     public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(new StrengthModifier(self, self,
-                new Condition() {
-                    @Override
-                    public boolean isFullfilled(LotroGame game) {
-                        return Filters.countActive(game, Race.ENT)
-                                + game.getModifiersQuerying().getSpotBonus(game, Race.ENT) >= 3;
-                    }
-                }, 2));
+                new SpotCondition(3, Race.ENT), 2));
     }
 }

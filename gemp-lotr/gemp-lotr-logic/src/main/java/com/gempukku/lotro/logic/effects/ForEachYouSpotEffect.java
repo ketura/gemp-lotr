@@ -29,7 +29,7 @@ public abstract class ForEachYouSpotEffect extends AbstractSuccessfulEffect {
     @Override
     public void playEffect(LotroGame game) {
         game.getUserFeedback().sendAwaitingDecision(_playerId,
-                new ForEachYouSpotDecision(1, "Choose how many you wish to spot", game, Integer.MAX_VALUE, _filters) {
+                new ForEachYouSpotDecision(1, "Choose how many you wish to spot", game, _filters) {
                     @Override
                     public void decisionMade(String result) throws DecisionResultInvalidException {
                         spottedCards(getValidatedResult(result));

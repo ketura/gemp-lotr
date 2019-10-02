@@ -10,6 +10,7 @@ import com.gempukku.lotro.logic.effects.ChoiceEffect;
 import com.gempukku.lotro.logic.effects.ShuffleDeckEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndPutCardFromDeckIntoHandEffect;
 import com.gempukku.lotro.logic.timing.Effect;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -30,7 +31,7 @@ public class Card15_032 extends AbstractEvent {
 
     @Override
     public boolean checkPlayRequirements(LotroGame game, PhysicalCard self) {
-        return (Filters.countActive(game, Race.ENT) + game.getModifiersQuerying().getSpotBonus(game, Race.ENT)) >= 1;
+        return Filters.canSpot(game, Race.ENT);
     }
 
     @Override
@@ -44,7 +45,7 @@ public class Card15_032 extends AbstractEvent {
                         return "Take a GANDALF companion into hand from your draw deck";
                     }
                 });
-        if ((Filters.countActive(game, Race.ENT) + game.getModifiersQuerying().getSpotBonus(game, Race.ENT)) >= 2) {
+        if (PlayConditions.canSpot(game, 2, Race.ENT)) {
             possibleEffects.add(
                     new ChooseAndPutCardFromDeckIntoHandEffect(action, playerId, 1, 1, Culture.GANDALF, CardType.COMPANION) {
                         @Override

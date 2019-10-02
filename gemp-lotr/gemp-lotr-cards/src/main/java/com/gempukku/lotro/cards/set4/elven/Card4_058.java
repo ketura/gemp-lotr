@@ -30,7 +30,7 @@ public class Card4_058 extends AbstractEvent {
         final PlayEventAction action = new PlayEventAction(self);
         action.appendEffect(
                 new PlayoutDecisionEffect(playerId,
-                        new ForEachYouSpotDecision(1, "Choose number of Elf companions you wish to spot", game, Integer.MAX_VALUE, Filters.and(Race.ELF, CardType.COMPANION)) {
+                        new ForEachYouSpotDecision(1, "Choose number of Elf companions you wish to spot", game, Filters.and(Race.ELF, CardType.COMPANION)) {
                             @Override
                             public void decisionMade(String result) throws DecisionResultInvalidException {
                                 int spotted = getValidatedResult(result);

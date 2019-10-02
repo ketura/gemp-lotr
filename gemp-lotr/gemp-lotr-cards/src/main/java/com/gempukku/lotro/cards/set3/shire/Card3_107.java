@@ -45,7 +45,7 @@ public class Card3_107 extends AbstractAttachableFPPossession {
                     new ChooseAndDiscardCardsFromPlayEffect(action, playerId, 1, 1, Keyword.PIPEWEED, CardType.POSSESSION));
             action.appendEffect(
                     new PlayoutDecisionEffect(playerId,
-                            new ForEachYouSpotDecision(1, "Choose number of pipes you wish to spot", game, Integer.MAX_VALUE, PossessionClass.PIPE) {
+                            new ForEachYouSpotDecision(1, "Choose number of pipes you wish to spot", game, PossessionClass.PIPE) {
                                 @Override
                                 public void decisionMade(String result) throws DecisionResultInvalidException {
                                     final int spotCount = getValidatedResult(result);
