@@ -8,7 +8,7 @@ import com.gempukku.lotro.logic.actions.PlayEventAction;
 import com.gempukku.lotro.logic.cardtype.AbstractEvent;
 import com.gempukku.lotro.logic.effects.AddUntilStartOfPhaseModifierEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
-import com.gempukku.lotro.logic.modifiers.RemoveSpecialAbilitiesModifier;
+import com.gempukku.lotro.logic.modifiers.PlayersCantUseCardSpecialAbilitiesModifier;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
 /**
@@ -40,7 +40,7 @@ public class Card20_249 extends AbstractEvent {
                     protected void forEachCardExertedCallback(PhysicalCard character) {
                         action.appendEffect(
                                 new AddUntilStartOfPhaseModifierEffect(
-                                        new RemoveSpecialAbilitiesModifier(self, character), Phase.REGROUP));
+                                        new PlayersCantUseCardSpecialAbilitiesModifier(self, character), Phase.REGROUP));
                     }
                 });
         return action;

@@ -13,9 +13,7 @@ import com.gempukku.lotro.logic.effects.AddUntilStartOfPhaseModifierEffect;
 import com.gempukku.lotro.logic.effects.AssignmentEffect;
 import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
-import com.gempukku.lotro.logic.modifiers.AbstractModifier;
-import com.gempukku.lotro.logic.modifiers.ModifierEffect;
-import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.modifiers.PlayersCantUseCardPhaseSpecialAbilitiesModifier;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
@@ -53,15 +51,8 @@ public class Card13_013 extends AbstractPermanent {
                                                     new AssignmentEffect(playerId, companion, minion));
                                             action.appendEffect(
                                                     new AddUntilStartOfPhaseModifierEffect(
-                                                            new AbstractModifier(self, "Can't use skirmish special abilities", null, ModifierEffect.ACTION_MODIFIER) {
-                                                                @Override
-                                                                public boolean canPlayAction(LotroGame game, String performingPlayer, Action action) {
-                                                                    if (action.getActionTimeword() == Phase.SKIRMISH && action.getType() == Action.Type.SPECIAL_ABILITY
-                                                                            && (action.getActionSource() == minion || action.getActionSource() == companion))
-                                                                        return false;
-                                                                    return true;
-                                                                }
-                                                            }, Phase.REGROUP));
+                                                            new PlayersCantUseCardPhaseSpecialAbilitiesModifier(
+                                                                    self, Phase.SKIRMISH, Filters.or(minion, companion)), Phase.REGROUP));
                                         }
                                     });
                         }

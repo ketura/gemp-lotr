@@ -6,10 +6,8 @@ import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.RequiredTriggerAction;
 import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
-import com.gempukku.lotro.logic.modifiers.AbstractModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifierEffect;
-import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.modifiers.PlayerCantPlayPhaseEventsOrPhaseSpecialAbilitiesModifier;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
@@ -49,16 +47,7 @@ public class Card4_147 extends AbstractPermanent {
     @Override
     public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
-                new AbstractModifier(self, null, null, ModifierEffect.ACTION_MODIFIER) {
-                    @Override
-                    public boolean canPlayAction(LotroGame game, String performingPlayer, Action action) {
-                        if (!performingPlayer.equals(game.getGameState().getCurrentPlayerId()))
-                            return true;
-                        if (action.getActionTimeword() == Phase.ARCHERY)
-                            return false;
-
-                        return true;
-                    }
-                });
+                new PlayerCantPlayPhaseEventsOrPhaseSpecialAbilitiesModifier(
+                        self, game.getGameState().getCurrentPlayerId(), Phase.ARCHERY));
     }
 }

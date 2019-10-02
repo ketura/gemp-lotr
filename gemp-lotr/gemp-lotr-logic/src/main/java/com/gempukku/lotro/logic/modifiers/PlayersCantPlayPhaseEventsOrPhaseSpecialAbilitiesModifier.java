@@ -19,7 +19,8 @@ public class PlayersCantPlayPhaseEventsOrPhaseSpecialAbilitiesModifier extends A
 
     @Override
     public boolean canPlayAction(LotroGame game, String performingPlayer, Action action) {
-        if (action.getActionTimeword() == _phase)
+        if ((action.getType() == Action.Type.PLAY_CARD || action.getType() == Action.Type.SPECIAL_ABILITY)
+                && action.getActionTimeword() == _phase)
             return false;
         return true;
     }

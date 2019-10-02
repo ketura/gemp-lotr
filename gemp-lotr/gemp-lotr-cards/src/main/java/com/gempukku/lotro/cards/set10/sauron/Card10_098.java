@@ -11,9 +11,7 @@ import com.gempukku.lotro.logic.actions.PlayEventAction;
 import com.gempukku.lotro.logic.cardtype.AbstractResponseEvent;
 import com.gempukku.lotro.logic.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.logic.effects.ChooseAndDiscardCardsFromHandEffect;
-import com.gempukku.lotro.logic.modifiers.AbstractModifier;
-import com.gempukku.lotro.logic.modifiers.ModifierEffect;
-import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.modifiers.PlayerCantPlayCardsModifier;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
@@ -45,14 +43,7 @@ public class Card10_098 extends AbstractResponseEvent {
                     new ChooseAndDiscardCardsFromHandEffect(action, playerId, false, 1, Culture.SAURON, CardType.MINION));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new AbstractModifier(self, null, null, ModifierEffect.ACTION_MODIFIER) {
-                                @Override
-                                public boolean canPlayAction(LotroGame game, String performingPlayer, Action action) {
-                                    if (action.getPerformingPlayer().equals(game.getGameState().getCurrentPlayerId()) && action.getType() == Action.Type.PLAY_CARD)
-                                        return false;
-                                    return true;
-                                }
-                            }));
+                            new PlayerCantPlayCardsModifier(self, game.getGameState().getCurrentPlayerId())));
             return Collections.singletonList(action);
         }
         return null;

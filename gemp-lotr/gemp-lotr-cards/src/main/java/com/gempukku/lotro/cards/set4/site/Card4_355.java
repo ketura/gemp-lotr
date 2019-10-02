@@ -6,10 +6,8 @@ import com.gempukku.lotro.common.SitesBlock;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.cardtype.AbstractSite;
-import com.gempukku.lotro.logic.modifiers.AbstractModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.ModifierEffect;
-import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.modifiers.PlayersCantPlayPhaseEventsOrPhaseSpecialAbilitiesModifier;
 
 import java.util.Collections;
 import java.util.List;
@@ -30,13 +28,6 @@ public class Card4_355 extends AbstractSite {
     @Override
     public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
         return Collections.singletonList(
-                new AbstractModifier(self, null, null, ModifierEffect.ACTION_MODIFIER) {
-                    @Override
-                    public boolean canPlayAction(LotroGame game, String performingPlayer, Action action) {
-                        if (action.getActionTimeword() == Phase.SKIRMISH)
-                            return false;
-                        return true;
-                    }
-                });
+                new PlayersCantPlayPhaseEventsOrPhaseSpecialAbilitiesModifier(self, Phase.SKIRMISH));
     }
 }

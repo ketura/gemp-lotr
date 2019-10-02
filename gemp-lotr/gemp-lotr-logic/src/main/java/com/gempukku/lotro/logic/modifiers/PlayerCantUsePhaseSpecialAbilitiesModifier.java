@@ -21,7 +21,8 @@ public class PlayerCantUsePhaseSpecialAbilitiesModifier extends AbstractModifier
 
     @Override
     public boolean canPlayAction(LotroGame game, String performingPlayer, Action action) {
-        if (performingPlayer.equals(_playerId) && action.getActionTimeword() == _phase && action.getType() == Action.Type.SPECIAL_ABILITY)
+        if (action.getType() == Action.Type.SPECIAL_ABILITY
+                && performingPlayer.equals(_playerId) && action.getActionTimeword() == _phase)
             return false;
         return true;
     }

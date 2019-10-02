@@ -8,7 +8,7 @@ import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.logic.effects.TransferPermanentEffect;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.RemoveSpecialAbilitiesModifier;
+import com.gempukku.lotro.logic.modifiers.PlayersCantUseCardSpecialAbilitiesModifier;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
@@ -44,6 +44,6 @@ public class Card12_169 extends AbstractPermanent {
 
     @Override
     public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
-return Collections.singletonList(new RemoveSpecialAbilitiesModifier(self, Filters.hasAttached(self)));
-}
+        return Collections.singletonList(new PlayersCantUseCardSpecialAbilitiesModifier(self, Filters.hasAttached(self)));
+    }
 }

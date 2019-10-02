@@ -6,7 +6,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.cardtype.AbstractMinion;
 import com.gempukku.lotro.logic.modifiers.Modifier;
-import com.gempukku.lotro.logic.modifiers.RemoveSpecialAbilitiesModifier;
+import com.gempukku.lotro.logic.modifiers.PlayersCantUseCardSpecialAbilitiesModifier;
 import com.gempukku.lotro.logic.modifiers.SpotCondition;
 
 import java.util.Collections;
@@ -32,8 +32,9 @@ public class Card11_186 extends AbstractMinion {
 
     @Override
     public List<? extends Modifier> getInPlayModifiers(LotroGame game, PhysicalCard self) {
-return Collections.singletonList(new RemoveSpecialAbilitiesModifier(self,
-new SpotCondition(self, Filters.assignedToSkirmish),
-Filters.or(CardType.COMPANION, Filters.and(Side.FREE_PEOPLE, CardType.POSSESSION))));
-}
+        return Collections.singletonList(
+                new PlayersCantUseCardSpecialAbilitiesModifier(self,
+                        new SpotCondition(self, Filters.assignedToSkirmish),
+                        Filters.or(CardType.COMPANION, Filters.and(Side.FREE_PEOPLE, CardType.POSSESSION))));
+    }
 }

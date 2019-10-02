@@ -7,10 +7,8 @@ import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.cardtype.AbstractMinion;
 import com.gempukku.lotro.logic.effects.AddUntilEndOfPhaseModifierEffect;
 import com.gempukku.lotro.logic.effects.ReturnCardsToHandEffect;
-import com.gempukku.lotro.logic.modifiers.AbstractModifier;
 import com.gempukku.lotro.logic.modifiers.ArcheryTotalModifier;
-import com.gempukku.lotro.logic.modifiers.ModifierEffect;
-import com.gempukku.lotro.logic.timing.Action;
+import com.gempukku.lotro.logic.modifiers.PlayerCantUsePhaseSpecialAbilitiesModifier;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
@@ -45,16 +43,7 @@ public class Card8_100 extends AbstractMinion {
                             new ArcheryTotalModifier(self, Side.FREE_PEOPLE, -2)));
             action.appendEffect(
                     new AddUntilEndOfPhaseModifierEffect(
-                            new AbstractModifier(self, null, null, ModifierEffect.ACTION_MODIFIER) {
-                                @Override
-                                public boolean canPlayAction(LotroGame game, String performingPlayer, Action action) {
-                                    if (performingPlayer.equals(game.getGameState().getCurrentPlayerId())
-                                            && action.getType() == Action.Type.SPECIAL_ABILITY
-                                            && action.getActionTimeword() == Phase.ARCHERY)
-                                        return false;
-                                    return true;
-                                }
-                            }));
+                            new PlayerCantUsePhaseSpecialAbilitiesModifier(self, game.getGameState().getCurrentPlayerId(), Phase.ARCHERY)));
             return Collections.singletonList(action);
         }
         return null;
