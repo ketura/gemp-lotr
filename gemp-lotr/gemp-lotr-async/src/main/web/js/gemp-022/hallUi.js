@@ -122,6 +122,10 @@ var GempLotrHallUI = Class.extend({
 
         var that = this;
         var toggle = function() {
+            if (content.hasClass("hidden"))
+                content.removeClass("hidden");
+            else
+                content.addClass("hidden");
             content.toggle("blind", {}, 200);
             that.updateHallSettings();
         };
@@ -140,6 +144,7 @@ var GempLotrHallUI = Class.extend({
         if (displayed) {
             content.show();
         } else {
+            content.addClass("hidden");
             content.hide();
         }
     },
@@ -151,6 +156,10 @@ var GempLotrHallUI = Class.extend({
 
         var that = this;
         var toggle = function() {
+            if (content.hasClass("hidden"))
+                content.removeClass("hidden");
+            else
+                content.addClass("hidden");
             content.toggle("blind", {}, 200);
             that.updateHallSettings();
         };
@@ -168,6 +177,7 @@ var GempLotrHallUI = Class.extend({
         if (displayed) {
             content.show();
         } else {
+            content.addClass("hidden");
             content.hide();
         }
     },
@@ -179,6 +189,10 @@ var GempLotrHallUI = Class.extend({
 
         var that = this;
         var toggle = function() {
+            if (content.hasClass("hidden"))
+                content.removeClass("hidden");
+            else
+                content.addClass("hidden");
             content.toggle("blind", {}, 200);
             that.updateHallSettings();
         };
@@ -196,6 +210,7 @@ var GempLotrHallUI = Class.extend({
         if (displayed) {
             content.show();
         } else {
+            content.addClass("hidden");
             content.hide();
         }
     },
@@ -207,6 +222,10 @@ var GempLotrHallUI = Class.extend({
 
         var that = this;
         var toggle = function() {
+            if (content.hasClass("hidden"))
+                content.removeClass("hidden");
+            else
+                content.addClass("hidden");
             content.toggle("blind", {}, 200);
             that.updateHallSettings();
         };
@@ -224,6 +243,7 @@ var GempLotrHallUI = Class.extend({
         if (displayed) {
             content.show();
         } else {
+            content.addClass("hidden");
             content.hide();
         }
     },
@@ -235,6 +255,10 @@ var GempLotrHallUI = Class.extend({
 
         var that = this;
         var toggle = function() {
+            if (content.hasClass("hidden"))
+                content.removeClass("hidden");
+            else
+                content.addClass("hidden");
             content.toggle("blind", {}, 200);
             that.updateHallSettings();
         };
@@ -252,6 +276,7 @@ var GempLotrHallUI = Class.extend({
         if (displayed) {
             content.show();
         } else {
+            content.addClass("hidden");
             content.hide();
         }
     },
@@ -260,10 +285,11 @@ var GempLotrHallUI = Class.extend({
         var visibilityToggle = $(".visibilityToggle", this.tablesDiv);
         var getSettingValue =
             function(index) {
-                return $(visibilityToggle[index]).is(":visible") ? "1" : "0";
+                return $(visibilityToggle[index]).hasClass("hidden") ? "0" : "1";
             };
 
         var newHallSettings = getSettingValue(0) + "|" + getSettingValue(1) + "|" + getSettingValue(2) + "|" + getSettingValue(3) + "|" + getSettingValue(4);
+        console.log("New settings: " + newHallSettings);
         $.cookie("hallSettings", newHallSettings, { expires:365 });
     },
 
