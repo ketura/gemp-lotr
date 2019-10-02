@@ -39,8 +39,8 @@ public class EndOfPhaseGameProcess implements GameProcess {
 
                     @Override
                     public void playEffect(LotroGame game) {
-                        ((ModifiersLogic) game.getModifiersEnvironment()).removeEndOfPhase(_phase);
-                        ((DefaultActionsEnvironment) game.getActionsEnvironment()).removeEndOfPhaseActionProxies(_phase);
+                        ((ModifiersLogic) game.getModifiersEnvironment()).signalEndOfPhase(_phase);
+                        ((DefaultActionsEnvironment) game.getActionsEnvironment()).signalEndOfPhase(_phase);
                     }
                 });
         game.getActionsEnvironment().addActionToStack(action);

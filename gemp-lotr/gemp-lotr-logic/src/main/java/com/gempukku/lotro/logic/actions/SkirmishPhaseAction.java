@@ -30,8 +30,8 @@ public class SkirmishPhaseAction extends SystemQueueAction {
                 new UnrespondableEffect() {
                     @Override
                     protected void doPlayEffect(LotroGame game) {
-                        ((ModifiersLogic) game.getModifiersEnvironment()).removeStartOfPhase(Phase.SKIRMISH);
-                        ((DefaultActionsEnvironment) game.getActionsEnvironment()).removeStartOfPhaseActionProxies(Phase.SKIRMISH);
+                        ((ModifiersLogic) game.getModifiersEnvironment()).signalStartOfPhase(Phase.SKIRMISH);
+                        ((DefaultActionsEnvironment) game.getActionsEnvironment()).signalStartOfPhase(Phase.SKIRMISH);
                     }
                 });
         appendEffect(
@@ -67,8 +67,8 @@ public class SkirmishPhaseAction extends SystemQueueAction {
                 new UnrespondableEffect() {
                     @Override
                     protected void doPlayEffect(LotroGame game) {
-                        ((ModifiersLogic) game.getModifiersEnvironment()).removeEndOfPhase(Phase.SKIRMISH);
-                        ((DefaultActionsEnvironment) game.getActionsEnvironment()).removeEndOfPhaseActionProxies(Phase.SKIRMISH);
+                        ((ModifiersLogic) game.getModifiersEnvironment()).signalEndOfPhase(Phase.SKIRMISH);
+                        ((DefaultActionsEnvironment) game.getActionsEnvironment()).signalEndOfPhase(Phase.SKIRMISH);
                     }
                 });
     }

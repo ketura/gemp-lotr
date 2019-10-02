@@ -157,7 +157,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
         }
     }
 
-    public void removeEndOfPhase(Phase phase) {
+    public void signalEndOfPhase(Phase phase) {
         List<Modifier> list = _untilEndOfPhaseModifiers.get(phase);
         if (list != null) {
             removeModifiers(list);
@@ -171,7 +171,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
         _woundsPerPhaseMap.clear();
     }
 
-    public void removeStartOfPhase(Phase phase) {
+    public void signalStartOfPhase(Phase phase) {
         List<Modifier> list = _untilStartOfPhaseModifiers.get(phase);
         if (list != null) {
             removeModifiers(list);
@@ -183,7 +183,7 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
             counterMap.clear();
     }
 
-    public void removeEndOfTurn() {
+    public void signalEndOfTurn() {
         removeModifiers(_untilEndOfTurnModifiers);
         _untilEndOfTurnModifiers.clear();
 

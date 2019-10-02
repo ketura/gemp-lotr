@@ -54,7 +54,7 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
         _actionProxies.add(actionProxy);
     }
 
-    public void removeStartOfPhaseActionProxies(Phase phase) {
+    public void signalStartOfPhase(Phase phase) {
         List<ActionProxy> list = _untilStartOfPhaseActionProxies.get(phase);
         if (list != null) {
             _actionProxies.removeAll(list);
@@ -62,7 +62,7 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
         }
     }
 
-    public void removeEndOfPhaseActionProxies(Phase phase) {
+    public void signalEndOfPhase(Phase phase) {
         List<ActionProxy> list = _untilEndOfPhaseActionProxies.get(phase);
         if (list != null) {
             _actionProxies.removeAll(list);
@@ -71,7 +71,7 @@ public class DefaultActionsEnvironment implements ActionsEnvironment {
         phaseEffectResults.clear();
     }
 
-    public void removeEndOfTurnActionProxies() {
+    public void signalEndOfTurn() {
         _actionProxies.removeAll(_untilEndOfTurnActionProxies);
         _untilEndOfTurnActionProxies.clear();
         turnEffectResults.clear();

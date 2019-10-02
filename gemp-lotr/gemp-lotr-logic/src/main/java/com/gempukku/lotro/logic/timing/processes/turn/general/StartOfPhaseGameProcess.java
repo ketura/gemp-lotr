@@ -47,8 +47,8 @@ public class StartOfPhaseGameProcess implements GameProcess {
 
                     @Override
                     public void playEffect(LotroGame game) {
-                        ((ModifiersLogic) game.getModifiersEnvironment()).removeStartOfPhase(_phase);
-                        ((DefaultActionsEnvironment) game.getActionsEnvironment()).removeStartOfPhaseActionProxies(_phase);
+                        ((ModifiersLogic) game.getModifiersEnvironment()).signalStartOfPhase(_phase);
+                        ((DefaultActionsEnvironment) game.getActionsEnvironment()).signalStartOfPhase(_phase);
                     }
                 });
 

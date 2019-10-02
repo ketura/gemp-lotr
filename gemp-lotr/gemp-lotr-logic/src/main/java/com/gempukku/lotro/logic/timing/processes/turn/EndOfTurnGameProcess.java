@@ -31,8 +31,8 @@ public class EndOfTurnGameProcess implements GameProcess {
 
                     @Override
                     public void playEffect(LotroGame game) {
-                        ((ModifiersLogic) game.getModifiersEnvironment()).removeEndOfTurn();
-                        ((DefaultActionsEnvironment) game.getActionsEnvironment()).removeEndOfTurnActionProxies();
+                        ((ModifiersLogic) game.getModifiersEnvironment()).signalEndOfTurn();
+                        ((DefaultActionsEnvironment) game.getActionsEnvironment()).signalEndOfTurn();
                         game.getGameState().stopAffectingCardsForCurrentPlayer();
                         game.getGameState().setCurrentPhase(Phase.BETWEEN_TURNS);
                     }
