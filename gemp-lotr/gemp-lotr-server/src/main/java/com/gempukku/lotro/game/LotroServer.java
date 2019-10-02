@@ -99,9 +99,10 @@ public class LotroServer extends AbstractServer {
             } else
                 _chatServer.createChatRoom(getChatRoomName(gameId), false, 30);
 
+            // Allow spectators for leagues, but not tournaments
             LotroGameMediator lotroGameMediator = new LotroGameMediator(gameId, gameSettings.getLotroFormat(), participants, _lotroCardBlueprintLibrary,
                     gameSettings.getMaxSecondsPerPlayer(), gameSettings.getMaxSecondsPerDecision(),
-                    !gameSettings.isCompetitive(), !gameSettings.isCompetitive(), gameSettings.isPrivateGame());
+                    gameSettings.getLeague() != null || !gameSettings.isCompetitive(), !gameSettings.isCompetitive(), gameSettings.isPrivateGame());
             lotroGameMediator.addGameResultListener(
                     new GameResultListener() {
                         @Override
