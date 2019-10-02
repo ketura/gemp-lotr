@@ -26,7 +26,7 @@ public class ResolveSkirmishDamageAction extends RequiredTriggerAction {
 
     @Override
     public Type getType() {
-        return Type.OTHER;
+        return Type.RESOLVE_DAMAGE;
     }
 
     @Override

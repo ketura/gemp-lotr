@@ -41,6 +41,6 @@ public class TransferPermanentAction extends ActivateCardAction {
 
     @Override
     public Type getType() {
-        return Type.OTHER;
+        return Type.TRANSFER;
     }
 }

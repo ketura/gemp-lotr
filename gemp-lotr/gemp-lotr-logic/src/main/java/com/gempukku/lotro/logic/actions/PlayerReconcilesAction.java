@@ -32,7 +32,7 @@ public class PlayerReconcilesAction implements Action {
 
     @Override
     public Type getType() {
-        return Type.OTHER;
+        return Type.RECONCILE;
     }
 
     @Override
