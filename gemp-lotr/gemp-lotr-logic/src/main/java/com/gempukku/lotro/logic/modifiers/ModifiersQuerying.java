@@ -138,8 +138,6 @@ public interface ModifiersQuerying {
 
     public Side hasInitiative(LotroGame game);
 
-    public boolean canBeSpotted(LotroGame game, PhysicalCard card);
-
     public int getNumberOfSpottableFPCultures(LotroGame game, String playerId);
 
     public int getNumberOfSpottableShadowCultures(LotroGame game, String playerId);

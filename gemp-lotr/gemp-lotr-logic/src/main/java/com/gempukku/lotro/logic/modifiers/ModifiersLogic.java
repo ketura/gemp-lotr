@@ -973,11 +973,6 @@ public class ModifiersLogic implements ModifiersEnvironment, ModifiersQuerying {
     }
 
     @Override
-    public boolean canBeSpotted(LotroGame game, PhysicalCard card) {
-        return true;
-    }
-
-    @Override
     public int getNumberOfSpottableFPCultures(LotroGame game, String playerId) {
         Set<Culture> spottableCulturesBasedOnCards = new HashSet<Culture>();
         for (PhysicalCard spottableFPCard : Filters.filterActive(game, Side.FREE_PEOPLE, Filters.spottable)) {

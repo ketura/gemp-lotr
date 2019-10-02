@@ -1027,12 +1027,7 @@ public class Filters {
     public static final Filter roamingMinion = Filters.and(CardType.MINION, Keyword.ROAMING);
     public static final Filter mounted = Filters.or(Filters.hasAttached(PossessionClass.MOUNT), Keyword.MOUNTED);
 
-    public static Filter spottable = new Filter() {
-        @Override
-        public boolean accepts(LotroGame game, PhysicalCard physicalCard) {
-            return game.getModifiersQuerying().canBeSpotted(game, physicalCard);
-        }
-    };
+    public static Filter spottable = (game, physicalCard) -> true;
 
     private static class FindFirstActiveCardInPlayVisitor implements PhysicalCardVisitor {
         private LotroGame game;
