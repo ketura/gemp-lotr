@@ -94,6 +94,7 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("addtokens", new AddTokens());
         effectAppenderProducers.put("removetokens", new RemoveTokens());
         effectAppenderProducers.put("transfer", new Transfer());
+        effectAppenderProducers.put("transfertosupport", new TransferToSupport());
         effectAppenderProducers.put("transferfromdiscard", new TransferFromDiscard());
         effectAppenderProducers.put("foreachshadowplayer", new ForEachShadowPlayer());
         effectAppenderProducers.put("returntohand", new ReturnToHand());
@@ -104,6 +105,7 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("removecardsindiscardfromgame", new RemoveCardsInDiscardFromGame());
         effectAppenderProducers.put("makeselfringbearer", new MakeSelfRingBearer());
         effectAppenderProducers.put("choosearace", new ChooseARace());
+        effectAppenderProducers.put("chooseakeyword", new ChooseAKeyword());
         effectAppenderProducers.put("storewhileinzone", new StoreWhileInZone());
         effectAppenderProducers.put("resetwhileinzonedata", new ResetWhileInZoneData());
         effectAppenderProducers.put("appendcardidstowhileinzone", new AppendCardIdsToWhileInZone());

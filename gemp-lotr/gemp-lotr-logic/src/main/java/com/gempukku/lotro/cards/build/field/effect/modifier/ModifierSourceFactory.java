@@ -17,6 +17,7 @@ public class ModifierSourceFactory {
         modifierProducers.put("removekeyword", new RemoveKeyword());
         modifierProducers.put("archerytotal", new ArcheryTotal());
         modifierProducers.put("cantbeexerted", new CantBeExerted());
+        modifierProducers.put("cantbediscarded", new CantBeDiscarded());
         modifierProducers.put("cantbeoverwhelmedmultiplier", new CantBeOverwhelmedMultiplier());
         modifierProducers.put("canttakemorewoundsthan", new CantTakeMoreWoundsThan());
         modifierProducers.put("canttakewounds", new CantTakeWounds());

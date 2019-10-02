@@ -100,6 +100,8 @@ public interface LotroCardBlueprint {
     OptionalTriggerAction getDiscardedFromPlayOptionalTrigger(String playerId, LotroGame game, PhysicalCard self);
 
 
+    RequiredTriggerAction getKilledRequiredTrigger(LotroGame game, PhysicalCard self);
+
     OptionalTriggerAction getKilledOptionalTrigger(String playerId, LotroGame game, PhysicalCard self);
 
     SitesBlock getSiteBlock();

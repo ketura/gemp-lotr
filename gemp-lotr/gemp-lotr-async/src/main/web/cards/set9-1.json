@@ -90,6 +90,7 @@
       },
       {
         "type": "killedTrigger",
+        "optional": true,
         "condition": {
           "type": "isSide",
           "side": "free people"

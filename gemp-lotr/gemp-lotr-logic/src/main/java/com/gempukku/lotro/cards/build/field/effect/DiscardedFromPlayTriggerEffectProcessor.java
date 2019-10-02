@@ -7,7 +7,7 @@ import com.gempukku.lotro.cards.build.field.EffectProcessor;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import org.json.simple.JSONObject;
 
-public class KilledTriggerEffectProcessor implements EffectProcessor {
+public class DiscardedFromPlayTriggerEffectProcessor implements EffectProcessor {
     @Override
     public void processEffect(JSONObject value, BuiltLotroCardBlueprint blueprint, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         FieldUtils.validateAllowedFields(value, "optional", "condition", "cost", "effect");
@@ -17,8 +17,8 @@ public class KilledTriggerEffectProcessor implements EffectProcessor {
         DefaultActionSource triggerActionSource = new DefaultActionSource();
         EffectUtils.processRequirementsCostsAndEffects(value, environment, triggerActionSource);
         if (optional)
-            blueprint.setKilledOptionalTriggerAction(triggerActionSource);
+            blueprint.setDiscardedFromPlayOptionalTriggerAction(triggerActionSource);
         else
-            blueprint.setKilledRequiredTriggerAction(triggerActionSource);
+            blueprint.setDiscardedFromPlayRequiredTriggerAction(triggerActionSource);
     }
 }

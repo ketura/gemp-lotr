@@ -117,7 +117,8 @@
     "setName": "Main Deck",
     "rarityFile": "/set30-rarity.txt",
     "originalSet": false,
-    "merchantable": false
+    "merchantable": false,
+    "needsLoading": false
   },
   {
     "setId": "31",

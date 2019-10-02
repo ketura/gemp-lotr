@@ -36,10 +36,12 @@ public class RequirementFactory {
         requirementProducers.put("ismore", new IsMore());
         requirementProducers.put("hasinzonedata", new HasInZoneData());
         requirementProducers.put("isside", new IsSideRequirementProducer());
+        requirementProducers.put("isowner", new IsOwnerRequirementProducer());
         requirementProducers.put("perturnlimit", new PerTurnLimit());
         requirementProducers.put("perphaselimit", new PerPhaseLimit());
         requirementProducers.put("cardsinhandmorethan", new CardsInHandMoreThan());
         requirementProducers.put("cardsindeckcount", new CardsInDeckCount());
+        requirementProducers.put("playedcardthisphase", new PlayedCardThisPhase());
     }
 
     public Requirement getRequirement(JSONObject object, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {

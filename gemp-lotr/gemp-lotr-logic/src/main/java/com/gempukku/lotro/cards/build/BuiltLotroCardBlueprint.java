@@ -70,7 +70,12 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
     private List<FilterableSource> copiedFilters;
 
     private ActionSource playEventAction;
-    private ActionSource killedTriggerAction;
+    private ActionSource killedRequiredTriggerAction;
+    private ActionSource killedOptionalTriggerAction;
+    private ActionSource discardedFromPlayRequiredTriggerAction;
+    private ActionSource discardedFromPlayOptionalTriggerAction;
+
+    private AidCostSource aidCostSource;
 
     private ExtraPossessionClassTest extraPossessionClassTest;
 
@@ -221,8 +226,24 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
         this.playEventAction = playEventAction;
     }
 
-    public void setKilledTriggerAction(ActionSource killedTriggerAction) {
-        this.killedTriggerAction = killedTriggerAction;
+    public void setAidCostSource(AidCostSource aidCostSource) {
+        this.aidCostSource = aidCostSource;
+    }
+
+    public void setKilledRequiredTriggerAction(ActionSource killedRequiredTriggerAction) {
+        this.killedRequiredTriggerAction = killedRequiredTriggerAction;
+    }
+
+    public void setKilledOptionalTriggerAction(ActionSource killedOptionalTriggerAction) {
+        this.killedOptionalTriggerAction = killedOptionalTriggerAction;
+    }
+
+    public void setDiscardedFromPlayRequiredTriggerAction(ActionSource discardedFromPlayRequiredTriggerAction) {
+        this.discardedFromPlayRequiredTriggerAction = discardedFromPlayRequiredTriggerAction;
+    }
+
+    public void setDiscardedFromPlayOptionalTriggerAction(ActionSource discardedFromPlayOptionalTriggerAction) {
+        this.discardedFromPlayOptionalTriggerAction = discardedFromPlayOptionalTriggerAction;
     }
 
     public void setTitle(String title) {
@@ -816,22 +837,45 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
 
     @Override
     public RequiredTriggerAction getDiscardedFromPlayRequiredTrigger(LotroGame game, PhysicalCard self) {
-        return null;
+        if (discardedFromPlayRequiredTriggerAction == null)
+            return null;
+
+        DefaultActionContext actionContext = new DefaultActionContext(self.getOwner(), game, self, null, null);
+        RequiredTriggerAction action = new RequiredTriggerAction(self);
+        discardedFromPlayRequiredTriggerAction.createAction(action, actionContext);
+        return action;
     }
 
     @Override
     public OptionalTriggerAction getDiscardedFromPlayOptionalTrigger(String playerId, LotroGame game, PhysicalCard self) {
-        return null;
-    }
-
-    @Override
-    public OptionalTriggerAction getKilledOptionalTrigger(String playerId, LotroGame game, PhysicalCard self) {
-        if (killedTriggerAction == null)
+        if (discardedFromPlayOptionalTriggerAction == null)
             return null;
 
         DefaultActionContext actionContext = new DefaultActionContext(playerId, game, self, null, null);
         OptionalTriggerAction action = new OptionalTriggerAction(self);
-        killedTriggerAction.createAction(action, actionContext);
+        discardedFromPlayOptionalTriggerAction.createAction(action, actionContext);
+        return action;
+    }
+
+    @Override
+    public RequiredTriggerAction getKilledRequiredTrigger(LotroGame game, PhysicalCard self) {
+        if (killedRequiredTriggerAction == null)
+            return null;
+
+        DefaultActionContext actionContext = new DefaultActionContext(self.getOwner(), game, self, null, null);
+        RequiredTriggerAction action = new RequiredTriggerAction(self);
+        killedRequiredTriggerAction.createAction(action, actionContext);
+        return action;
+    }
+
+    @Override
+    public OptionalTriggerAction getKilledOptionalTrigger(String playerId, LotroGame game, PhysicalCard self) {
+        if (killedOptionalTriggerAction == null)
+            return null;
+
+        DefaultActionContext actionContext = new DefaultActionContext(playerId, game, self, null, null);
+        OptionalTriggerAction action = new OptionalTriggerAction(self);
+        killedOptionalTriggerAction.createAction(action, actionContext);
         return action;
     }
 
@@ -842,12 +886,19 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
 
     @Override
     public boolean canPayAidCost(LotroGame game, PhysicalCard self) {
-        return false;
+        if (aidCostSource == null)
+            return false;
+
+        DefaultActionContext actionContext = new DefaultActionContext(self.getOwner(), game, self, null, null);
+        return aidCostSource.canPayAidCost(actionContext);
     }
 
     @Override
     public void appendAidCosts(LotroGame game, CostToEffectAction action, PhysicalCard self) {
-
+        if (aidCostSource != null) {
+            DefaultActionContext actionContext = new DefaultActionContext(self.getOwner(), game, self, null, null);
+            aidCostSource.appendAidCost(action, actionContext);
+        }
     }
 
     @Override
@@ -934,5 +985,7 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
         if (Arrays.asList(CardType.POSSESSION, CardType.CONDITION, CardType.ARTIFACT).contains(cardType)
                 && targetFilters == null && (keywords == null || !keywords.containsKey(Keyword.SUPPORT_AREA)))
             throw new InvalidCardDefinitionException("Possession, condition or artifact without a filter needs a SUPPORT_AREA keyword");
+        if (cardType == CardType.FOLLOWER && aidCostSource == null)
+            throw new InvalidCardDefinitionException("Follower requires an aid cost");
     }
 }
