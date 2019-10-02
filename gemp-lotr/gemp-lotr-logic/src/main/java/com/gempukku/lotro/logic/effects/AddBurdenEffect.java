@@ -32,7 +32,7 @@ public class AddBurdenEffect extends AbstractEffect implements Preventable {
 
     @Override
     public boolean isPrevented(LotroGame game) {
-        return _prevented == getBurdensToAdd(game);
+        return _prevented >= getBurdensToAdd(game);
     }
 
     @Override

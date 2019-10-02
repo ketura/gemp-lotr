@@ -559,7 +559,7 @@
         "type": "activatedTrigger",
         "trigger": {
           "type": "winsSkirmish",
-          "filter": "culture(moria),goblin"
+          "filter": "culture(moria),goblin,inSkirmish"
         },
         "effect": {
           "type": "stackCards",

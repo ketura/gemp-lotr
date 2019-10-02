@@ -461,7 +461,7 @@
         "type": "activatedTrigger",
         "trigger": {
           "type": "winsSkirmish",
-          "filter": "your,culture(moria),orc"
+          "filter": "your,culture(moria),orc,inSkirmish"
         },
         "effect": {
           "type": "stackCards",
