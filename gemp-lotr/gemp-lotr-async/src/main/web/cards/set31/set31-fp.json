@@ -1,0 +1,425 @@
+{
+  "31_1": {
+    "title": "Dwarven Axe",
+    "culture": "dwarven",
+    "cost": 1,
+    "type": "possession",
+    "possession": "hand weapon",
+    "strength": 2,
+    "target": "culture(dwarven),character",
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "addKeyword",
+        "filter": "bearer",
+        "condition": {
+          "type": "location",
+          "filter": "mountain"
+        },
+        "keyword": "damage+1"
+      }
+    }
+  },
+  "31_2": {
+    "title": "Dwarven Song",
+    "culture": "dwarven",
+    "cost": 3,
+    "type": "event",
+    "keyword": "regroup",
+    "effects": {
+      "type": "event",
+      "cost": {
+        "type": "discard",
+        "filter": "choose(culture(dwarven),follower,attachedTo(any))",
+        "memorize": "discardedFollower"
+      },
+      "effect": {
+        "type": "choice",
+        "texts": [
+          "Play possessions",
+          "Play artifacts"
+        ],
+        "effects": [
+          {
+            "type": "duplicate",
+            "effect": {
+              "type": "playCardFromDrawDeck",
+              "filter": "choose(culture(dwarven),possession)"
+            },
+            "amount": {
+              "type": "twilightCostInMemory",
+              "memory": "discardedFollower"
+            }
+          },
+          {
+            "type": "duplicate",
+            "effect": {
+              "type": "playCardFromDrawDeck",
+              "filter": "choose(culture(dwarven),artifact)"
+            },
+            "amount": {
+              "type": "twilightCostInMemory",
+              "memory": "discardedFollower"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "31_3": {
+    "title": "*Emeralds of Girion",
+    "culture": "dwarven",
+    "cost": 2,
+    "type": "artifact",
+    "keyword": "support area",
+    "effects": [
+      {
+        "type": "activated",
+        "phase": "fellowship",
+        "cost": {
+          "type": "addTwilight",
+          "amount": 1
+        },
+        "effect": {
+          "type": "putStackedCardsIntoHand",
+          "filter": "choose(any)",
+          "on": "self"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "regroup",
+        "cost": {
+          "type": "exert",
+          "filter": "choose(ally)"
+        },
+        "effect": {
+          "type": "stackCardsFromHand",
+          "filter": "choose(culture(dwarven),event)",
+          "where": "self"
+        }
+      }
+    ]
+  },
+  "31_4": {
+    "title": "*Great Barricade",
+    "culture": "dwarven",
+    "cost": 2,
+    "type": "possession",
+    "keyword": [
+      "support area",
+      "fortification"
+    ],
+    "effects": [
+      {
+        "type": "extraCost",
+        "cost": {
+          "type": "exert",
+          "filter": "choose(culture(dwarven),companion)"
+        }
+      },
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "moves"
+        },
+        "condition": {
+          "type": "phase",
+          "phase": "regroup"
+        },
+        "effect": {
+          "type": "discard",
+          "filter": "self"
+        }
+      },
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyStrength",
+          "filter": "minion,inSkirmishAgainst(culture(dwarven),companion)",
+          "condition": {
+            "type": "location",
+            "filter": "siteNumber(7-8)"
+          },
+          "amount": -3
+        }
+      }
+    ]
+  },
+  "31_5": {
+    "title": "*Mithril-coat",
+    "culture": "dwarven",
+    "cost": 2,
+    "type": "artifact",
+    "vitality": 1,
+    "target": "name(Bilbo)",
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyArcheryTotal",
+          "side": "shadow",
+          "amount": -1
+        }
+      },
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyCost",
+          "condition": {
+            "type": "canSpot",
+            "filter": "bearer,inSkirmish"
+          },
+          "filter": "side(shadow),event",
+          "amount": 2
+        }
+      }
+    ]
+  },
+  "31_6": {
+    "title": "*Oakenshield",
+    "culture": "dwarven",
+    "cost": 1,
+    "type": "possession",
+    "possession": "shield",
+    "strength": 1,
+    "target": "name(Thorin)",
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyCost",
+          "filter": "culture(dwarven),event",
+          "amount": -1
+        }
+      },
+      {
+        "type": "activatedTrigger",
+        "trigger": {
+          "type": "aboutToTakeWound",
+          "filter": "bearer"
+        },
+        "cost": [
+          {
+            "type": "memorize",
+            "filter": "bearer",
+            "memory": "bearer"
+          },
+          {
+            "type": "discard",
+            "filter": "self"
+          }
+        ],
+        "effect": {
+          "type": "preventWound",
+          "filter": "choose(memory(bearer))"
+        }
+      }
+    ]
+  },
+  "31_7": {
+    "title": "*The Arkenstone",
+    "culture": "dwarven",
+    "cost": 2,
+    "type": "artifact",
+    "keyword": "support area",
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyCost",
+          "filter": "name(Smaug)",
+          "amount": -4
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "fellowship",
+        "cost": {
+          "type": "addTwilight",
+          "amount": 1
+        },
+        "effect": {
+          "type": "putStackedCardsIntoHand",
+          "filter": "choose(any)",
+          "on": "self"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "maneuver",
+        "effect": {
+          "type": "stackCardsFromHand",
+          "filter": "choose(culture(dwarven))",
+          "where": "self"
+        }
+      }
+    ]
+  },
+  "31_8": {
+    "title": "*Elf Army",
+    "culture": "elven",
+    "cost": 3,
+    "type": "ally",
+    "allyHome": "hobbit,5",
+    "race": "elf",
+    "strength": 7,
+    "vitality": 4,
+    "keyword": "archer",
+    "effects": {
+      "type": "activated",
+      "phase": "maneuver",
+      "condition": {
+        "type": "isMore",
+        "firstNumber": {
+          "type": "forEachYouCanSpot",
+          "filter": "minion"
+        },
+        "secondNumber": {
+          "type": "forEachYouCanSpot",
+          "filter": "companion"
+        }
+      },
+      "cost": {
+        "type": "exert",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "canParticipateInArcheryFireAndSkirmishes",
+        "filter": "self",
+        "until": "start(regroup)"
+      }
+    }
+  },
+  "31_9": {
+    "title": "*Legolas",
+    "subtitle": "Prince of Mirkwood",
+    "culture": "elven",
+    "cost": 2,
+    "type": "ally",
+    "allyHome": "hobbit,5",
+    "race": "elf",
+    "strength": 6,
+    "vitality": 3,
+    "keyword": "archer",
+    "effects": {
+      "type": "activated",
+      "phase": "archery",
+      "condition": {
+        "type": "canSpot",
+        "filter": "orc"
+      },
+      "cost": {
+        "type": "exert",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "modifyArcheryTotal",
+        "side": "free people",
+        "amount": {
+          "type": "condition",
+          "condition": {
+            "type": "location",
+            "filter": "or(river,forest)"
+          },
+          "true": 2,
+          "false": 1
+        }
+      }
+    }
+  },
+  "31_10": {
+    "title": "*Tauriel",
+    "subtitle": "Staunch Defender",
+    "culture": "elven",
+    "cost": 2,
+    "type": "ally",
+    "allyHome": "hobbit,5",
+    "race": "elf",
+    "strength": 6,
+    "vitality": 3,
+    "keyword": "archer",
+    "effects": {
+      "type": "activated",
+      "phase": "maneuver",
+      "cost": {
+        "type": "exert",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "returnToHand",
+        "filter": "choose(orc,strengthLessThan(8))"
+      }
+    }
+  },
+  "31_11": {
+    "title": "The Evil Becomes Stronger",
+    "culture": "elven",
+    "cost": 2,
+    "type": "event",
+    "keyword": "archery",
+    "effects": {
+      "type": "event",
+      "cost": {
+        "type": "spot",
+        "filter": "choose(culture(elven),archer,ally)",
+        "memorize": "chosenAlly"
+      },
+      "effect": [
+        {
+          "type": "exert",
+          "filter": "choose(minion)"
+        },
+        {
+          "type": "modifyStrength",
+          "filter": "memory(chosenAlly)",
+          "amount": 2,
+          "until": "start(regroup)"
+        },
+        {
+          "type": "canParticipateInArcheryFireAndSkirmishes",
+          "filter": "memory(chosenAlly)",
+          "until": "start(regroup)"
+        }
+      ]
+    }
+  },
+  "31_12": {
+    "title": "*Thranduil",
+    "subtitle": "Elven King",
+    "culture": "elven",
+    "cost": 4,
+    "type": "ally",
+    "allyHome": "hobbit,5",
+    "race": "elf",
+    "strength": 9,
+    "vitality": 4,
+    "effects": {
+      "type": "activated",
+      "phase": "maneuver",
+      "cost": {
+        "type": "choice",
+        "texts": [
+          "Exert Thorin twice",
+          "Discard a DWARVEN artifact"
+        ],
+        "effects": [
+          {
+            "type": "exert",
+            "filter": "self",
+            "times": 2
+          },
+          {
+            "type": "discard",
+            "filter": "choose(culture(dwarven),artifact)"
+          }
+        ]
+      },
+      "effect": {
+        "type": "canParticipateInArcheryFireAndSkirmishes",
+        "filter": "self",
+        "until": "start(regroup)"
+      }
+    }
+  }
+}
