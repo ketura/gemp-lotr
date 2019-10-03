@@ -54,6 +54,7 @@ public class RuleSet {
 
         new ActivateResponseAbilitiesRule(_actionsEnvironment).applyRule();
         new ActivatePhaseActionsRule(_actionsEnvironment).applyRule();
+        new ActivatePhaseActionsFromHandRule(_actionsEnvironment).applyRule();
         new ActivatePhaseActionsFromDiscardRule(_actionsEnvironment).applyRule();
         new ActivatePhaseActionsFromStackedRule(_actionsEnvironment).applyRule();
 

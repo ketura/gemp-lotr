@@ -269,7 +269,24 @@ public class CardResolver {
     }
 
     public static EffectAppender resolveCardsInDiscard(String type, FilterableSource choiceFilter, FilterableSource playabilityFilter, ValueSource countSource, String memory, String choicePlayer, String choiceText, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        if (type.startsWith("memory(") && type.endsWith(")")) {
+        if (type.equals("self")) {
+            return new DelayedAppender() {
+                @Override
+                public boolean isPlayableInFull(ActionContext actionContext) {
+                    return actionContext.getSource().getZone() == Zone.DISCARD;
+                }
+
+                @Override
+                protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
+                    return new UnrespondableEffect() {
+                        @Override
+                        protected void doPlayEffect(LotroGame game) {
+                            actionContext.setCardMemory(memory, actionContext.getSource());
+                        }
+                    };
+                }
+            };
+        } else if (type.startsWith("memory(") && type.endsWith(")")) {
             String sourceMemory = type.substring(type.indexOf("(") + 1, type.lastIndexOf(")"));
             if (sourceMemory.contains("(") || sourceMemory.contains(")"))
                 throw new InvalidCardDefinitionException("Memory name cannot contain parenthesis");

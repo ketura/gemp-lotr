@@ -51,8 +51,12 @@ public class Optional implements EffectAppenderProducer {
 
             @Override
             public boolean isPlayableInFull(ActionContext actionContext) {
+                final String choosingPlayer = playerSource.getPlayer(actionContext);
+                ActionContext delegate = new DelegateActionContext(actionContext,
+                        choosingPlayer, actionContext.getGame(), actionContext.getSource(),
+                        actionContext.getEffectResult(), actionContext.getEffect());
                 for (EffectAppender effectAppender : effectAppenders) {
-                    if (!effectAppender.isPlayableInFull(actionContext))
+                    if (!effectAppender.isPlayableInFull(delegate))
                         return false;
                 }
 

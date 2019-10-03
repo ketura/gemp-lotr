@@ -21,6 +21,7 @@ public class ModifierSourceFactory {
         modifierProducers.put("cantbeoverwhelmedmultiplier", new CantBeOverwhelmedMultiplier());
         modifierProducers.put("canttakemorewoundsthan", new CantTakeMoreWoundsThan());
         modifierProducers.put("canttakewounds", new CantTakeWounds());
+        modifierProducers.put("extracosttoplay", new ExtraCostToPlay());
         modifierProducers.put("modifycost", new ModifyCost());
         modifierProducers.put("modifyplayoncost", new ModifyPlayOnCost());
         modifierProducers.put("modifyroamingpenalty", new ModifyRoamingPenalty());

@@ -421,5 +421,239 @@
         "until": "start(regroup)"
       }
     }
+  },
+  "31_13": {
+    "title": "*Beorn",
+    "subtitle": "Skin-Changer",
+    "culture": "gandalf",
+    "cost": 3,
+    "type": "follower",
+    "strength": 2,
+    "vitality": 1,
+    "effects": [
+      {
+        "type": "aidCost",
+        "cost": {
+          "type": "exert",
+          "filter": "choose(name(Gandalf))"
+        }
+      },
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "cantBeDiscarded",
+          "filter": "self",
+          "by": "side(shadow)"
+        }
+      },
+      {
+        "type": "trigger",
+        "optional": true,
+        "trigger": {
+          "type": "winsSkirmish",
+          "filter": "bearer"
+        },
+        "effect": {
+          "type": "putCardsFromDiscardIntoHand",
+          "filter": "choose(culture(gandalf))"
+        }
+      }
+    ]
+  },
+  "31_14": {
+    "title": "The Eagles Are Coming",
+    "culture": "gandalf",
+    "cost": 3,
+    "type": "event",
+    "keyword": [
+      "spell",
+      "skirmish"
+    ],
+    "effects": {
+      "type": "event",
+      "cost": {
+        "type": "exert",
+        "filter": "choose(name(Gandalf))"
+      },
+      "effect": [
+        {
+          "type": "choice",
+          "texts": [
+            "Play GANDALF follower from your draw deck",
+            "Play GANDALF follower from your discard pile"
+          ],
+          "effects": [
+            {
+              "type": "playCardFromDrawDeck",
+              "filter": "choose(culture(gandalf),follower)"
+            },
+            {
+              "type": "playCardFromDiscard",
+              "filter": "choose(culture(gandalf),follower)"
+            }
+          ]
+        },
+        {
+          "type": "optional",
+          "text": "Would you like to attach a GANDALF follower from your support area to a companion?",
+          "effect": {
+            "type": "transfer",
+            "filter": "choose(culture(gandalf),follower,zone(support))",
+            "where": "choose(companion)"
+          }
+        }
+      ]
+    }
+  },
+  "31_15": {
+    "title": "*Gwaihir",
+    "subtitle": "Lord of the Eagles",
+    "culture": "gandalf",
+    "cost": 1,
+    "type": "follower",
+    "strength": 1,
+    "effects": [
+      {
+        "type": "aidCost",
+        "cost": {
+          "type": "discardFromHand",
+          "forced": false,
+          "filter": "choose(culture(gandalf))"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "skirmish",
+        "condition": {
+          "type": "canSpot",
+          "filter": "self,attachedTo(any)"
+        },
+        "cost": [
+          {
+            "type": "memorize",
+            "filter": "bearer",
+            "memory": "bearer"
+          },
+          {
+            "type": "transferToSupport",
+            "filter": "self"
+          }
+        ],
+        "effect": {
+          "type": "conditional",
+          "condition": {
+            "type": "canSpot",
+            "filter": "inSkirmish,mounted,orc"
+          },
+          "effect": {
+            "type": "cancelSkirmish",
+            "filter": "memory(bearer)"
+          }
+        }
+      }
+    ]
+  },
+  "31_16": {
+    "title": "His Wrath Was Redoubled",
+    "culture": "gandalf",
+    "cost": 3,
+    "type": "event",
+    "keyword": [
+      "assignment",
+      "spell"
+    ],
+    "effects": {
+      "type": "event",
+      "cost": {
+        "type": "choice",
+        "texts": [
+          "Discard Beorn",
+          "Discard 2 DWARVEN followers"
+        ],
+        "effects": [
+          {
+            "type": "discard",
+            "filter": "choose(name(Beorn))"
+          },
+          {
+            "type": "discard",
+            "count": 2,
+            "filter": "choose(culture(dwarven),follower)"
+          }
+        ]
+      },
+      "effect": {
+        "type": "duplicate",
+        "amount": 3,
+        "effect": {
+          "type": "wound",
+          "player": "shadowPlayer",
+          "filter": "choose(minion,not(name(Smaug)))"
+        }
+      }
+    }
+  },
+  "31_17": {
+    "title": "*Radagast",
+    "subtitle": "The Brown",
+    "culture": "gandalf",
+    "type": "ally",
+    "allyHome": "hobbit,5",
+    "race": "wizard",
+    "cost": 4,
+    "strength": 8,
+    "vitality": 4,
+    "keyword": "wise",
+    "effects": {
+      "type": "activated",
+      "phase": "fellowship",
+      "cost": {
+        "type": "playCardFromDiscard",
+        "filter": "choose(name(gandalf))"
+      },
+      "effect": [
+        {
+          "type": "addModifier",
+          "modifier": {
+            "type": "modifyMoveLimit",
+            "amount": 1
+          },
+          "until": "endOfTurn"
+        },
+        {
+          "type": "optional",
+          "player": "shadowPlayer",
+          "text": "Would you like to draw 2 cards?",
+          "effect": {
+            "type": "drawCards",
+            "count": 2
+          }
+        }
+      ]
+    }
+  },
+  "31_18": {
+    "title": "*Wizard Staff",
+    "culture": "gandalf",
+    "cost": 2,
+    "type": "artifact",
+    "possession": "staff",
+    "vitality": 1,
+    "target": "wizard",
+    "effects": {
+      "type": "trigger",
+      "optional": true,
+      "trigger": {
+        "type": "startOfTurn"
+      },
+      "cost": {
+        "type": "exert",
+        "filter": "bearer"
+      },
+      "effect": {
+        "type": "putCardsFromDeckIntoHand",
+        "filter": "choose(culture(gandalf),spell)"
+      }
+    }
   }
 }

@@ -36,7 +36,7 @@ public class Card20_015 extends AbstractMinion {
         if (PlayConditions.canUseStackedShadowCardDuringPhase(game, Phase.SHADOW, self, 0)
                 && PlayConditions.stackedOn(self, game, Filters.siteControlled(self.getOwner()))
                 && PlayUtils.checkPlayRequirements(game, self, Filters.any, 0, -1, false, false)) {
-            ActivateCardAction action = new ActivateCardAction(self);
+            PlayActivateCardAction action = new ActivateCardAction(self);
             action.appendEffect(
                     new ChooseAndPlayCardFromStackedEffect(playerId, self.getStackedOn(), -1, self));
             return Collections.singletonList(action);

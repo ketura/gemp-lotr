@@ -54,6 +54,7 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
     private List<ActionSource> optionalInHandAfterTriggers;
 
     private List<ActionSource> inPlayPhaseActions;
+    private List<ActionSource> inDiscardPhaseActions;
     private List<ActionSource> fromStackedPhaseActions;
 
     private List<ModifierSource> inPlayModifiers;
@@ -208,6 +209,12 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
         if (inPlayPhaseActions == null)
             inPlayPhaseActions = new LinkedList<>();
         inPlayPhaseActions.add(actionSource);
+    }
+
+    public void appendInDiscardPhaseAction(ActionSource actionSource) {
+        if (inDiscardPhaseActions == null)
+            inDiscardPhaseActions = new LinkedList<>();
+        inDiscardPhaseActions.add(actionSource);
     }
 
     public void appendFromStackedPhaseAction(ActionSource actionSource) {
@@ -434,6 +441,11 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
         }
 
         return Filters.and(result);
+    }
+
+    @Override
+    public List<? extends Action> getPhaseActionsFromDiscard(String playerId, LotroGame game, PhysicalCard self) {
+        return getActivatedActions(playerId, game, self, inDiscardPhaseActions);
     }
 
     @Override
@@ -798,11 +810,6 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
     }
 
     // Default implementations - not needed (for now)
-
-    @Override
-    public List<? extends Action> getPhaseActionsFromDiscard(String playerId, LotroGame game, PhysicalCard self) {
-        return null;
-    }
 
     @Override
     public boolean isExtraPossessionClass(LotroGame game, PhysicalCard self, PhysicalCard attachedTo) {

@@ -161,13 +161,14 @@ public class ValueResolver {
                     return new CountStackedEvaluator(on1, filterableSource.getFilterable(actionContext));
                 };
             } else if (type.equalsIgnoreCase("forEachYouCanSpot")) {
-                FieldUtils.validateAllowedFields(object, "filter", "over", "limit", "multiplier");
+                FieldUtils.validateAllowedFields(object, "filter", "over", "limit", "multiplier", "divider");
                 final String filter = FieldUtils.getString(object.get("filter"), "filter");
                 final int over = FieldUtils.getInteger(object.get("over"), "over", 0);
                 final int limit = FieldUtils.getInteger(object.get("limit"), "limit", Integer.MAX_VALUE);
                 final int multiplier = FieldUtils.getInteger(object.get("multiplier"), "multiplier", 1);
+                final int divider = FieldUtils.getInteger(object.get("divider"), "divider", 1);
                 final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
-                return actionContext -> new MultiplyEvaluator(multiplier, new CountSpottableEvaluator(over, limit, filterableSource.getFilterable(actionContext)));
+                return actionContext -> new DivideEvaluator(divider, new MultiplyEvaluator(multiplier, new CountSpottableEvaluator(over, limit, filterableSource.getFilterable(actionContext))));
             } else if (type.equalsIgnoreCase("forEachInDiscard")) {
                 FieldUtils.validateAllowedFields(object, "filter", "multiplier");
                 final String filter = FieldUtils.getString(object.get("filter"), "filter");
@@ -230,6 +231,14 @@ public class ValueResolver {
                 final int multiplier = FieldUtils.getInteger(object.get("multiplier"), "multiplier");
                 final ValueSource valueSource = ValueResolver.resolveEvaluator(object.get("source"), 0, environment);
                 return (actionContext) -> new MultiplyEvaluator(multiplier, valueSource.getEvaluator(actionContext));
+            } else if (type.equalsIgnoreCase("cardAffectedLimitPerPhase")) {
+                FieldUtils.validateAllowedFields(object, "limit", "source");
+                final int limit = FieldUtils.getInteger(object.get("limit"), "limit");
+                final ValueSource valueSource = ValueResolver.resolveEvaluator(object.get("source"), 0, environment);
+                return (actionContext -> new CardAffectedPhaseLimitEvaluator(
+                        actionContext.getSource(),
+                        actionContext.getGame().getGameState().getCurrentPhase(),
+                        limit, valueSource.getEvaluator(actionContext)));
             } else if (type.equalsIgnoreCase("forEachVitality")) {
                 FieldUtils.validateAllowedFields(object, "multiplier", "over", "filter");
                 final int multiplier = FieldUtils.getInteger(object.get("multiplier"), "multiplier", 1);
