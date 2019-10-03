@@ -207,9 +207,6 @@ var Card = Class.extend({
         var img = fixedImages[blueprintId];
         if (img != null)
             return img;
-        img = set20[blueprintId];
-        if (img != null)
-            return img;
         img = set40[blueprintId];
         if (img != null)
             return img;

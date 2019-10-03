@@ -105,14 +105,6 @@
     "needsLoading": false
   },
   {
-    "setId": "20",
-    "setName": "Second Edition",
-    "rarityFile": "/set20-rarity.txt",
-    "originalSet": false,
-    "merchantable": false,
-    "needsLoading": false
-  },
-  {
     "setId": "30",
     "setName": "Main Deck",
     "rarityFile": "/set30-rarity.txt",

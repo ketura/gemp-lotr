@@ -469,5 +469,240 @@
         }
       }
     ]
+  },
+  "31_30": {
+    "title": "Goblin Runner",
+    "culture": "moria",
+    "cost": 1,
+    "type": "minion",
+    "race": "orc",
+    "strength": 5,
+    "vitality": 1,
+    "site": 4,
+    "effects": {
+      "type": "trigger",
+      "optional": true,
+      "trigger": {
+        "type": "played",
+        "filter": "self"
+      },
+      "condition": {
+        "type": "canSpot",
+        "filter": "another,culture(moria)"
+      },
+      "effect": {
+        "type": "addTwilight",
+        "amount": 2
+      }
+    }
+  },
+  "31_31": {
+    "title": "Goblin Scimitar",
+    "culture": "moria",
+    "cost": 0,
+    "type": "possession",
+    "possession": "hand weapon",
+    "strength": 2,
+    "condition": {
+      "type": "canSpot",
+      "filter": "culture(moria)"
+    },
+    "target": "orc",
+    "effects": {
+      "type": "trigger",
+      "optional": true,
+      "trigger": {
+        "type": "played",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "drawCards"
+      }
+    }
+  },
+  "31_32": {
+    "title": "Goblin Sneak",
+    "culture": "moria",
+    "cost": 1,
+    "type": "minion",
+    "race": "orc",
+    "strength": 5,
+    "vitality": 1,
+    "site": 4,
+    "effects": {
+      "type": "trigger",
+      "optional": true,
+      "trigger": {
+        "type": "played",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "putCardsFromDiscardOnBottomOfDrawDeck",
+        "filter": "choose(orc)",
+        "count": {
+          "type": "condition",
+          "condition": {
+            "type": "location",
+            "filter": "underground"
+          },
+          "true": 2,
+          "false": 1
+        }
+      }
+    }
+  },
+  "31_33": {
+    "title": "Goblin Song",
+    "culture": "moria",
+    "cost": 1,
+    "type": "event",
+    "keyword": "maneuver",
+    "effects": [
+      {
+        "type": "activatedInDiscard",
+        "phase": "maneuver",
+        "cost": {
+          "type": "exert",
+          "filter": "choose(name(The Great Goblin))",
+          "times": 2
+        },
+        "effect": {
+          "type": "playCardFromDiscard",
+          "filter": "self"
+        }
+      },
+      {
+        "type": "event",
+        "cost": {
+          "type": "exert",
+          "count": 2,
+          "filter": "choose(orc)"
+        },
+        "effect": {
+          "type": "discard",
+          "filter": "choose(culture(dwarven),or(possession,artifact),attachedTo(companion))"
+        }
+      }
+    ]
+  },
+  "31_34": {
+    "title": "Goblin Swarms",
+    "culture": "moria",
+    "cost": 1,
+    "type": "condition",
+    "keyword": "support area",
+    "condition": {
+      "type": "canSpot",
+      "filter": "culture(moria)"
+    },
+    "effects": [
+      {
+        "type": "activatedTrigger",
+        "trigger": {
+          "type": "winsSkirmish",
+          "filter": "your,orc,inSkirmish"
+        },
+        "effect": {
+          "type": "stackCards",
+          "filter": "choose(your,orc,inSkirmish)",
+          "where": "self"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "shadow",
+        "effect": {
+          "type": "playCardFromStacked",
+          "filter": "choose(orc)",
+          "on": "self"
+        }
+      }
+    ]
+  },
+  "31_35": {
+    "title": "Great Goblin's Power",
+    "culture": "moria",
+    "cost": 0,
+    "type": "condition",
+    "keyword": "support area",
+    "condition": {
+      "type": "canSpot",
+      "filter": "culture(moria)"
+    },
+    "effects": [
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "played",
+          "filter": "your,weapon"
+        },
+        "effect": {
+          "type": "addTwilight",
+          "amount": 1
+        }
+      },
+      {
+        "type": "activatedTrigger",
+        "trigger": {
+          "type": "aboutToTakeWound",
+          "filter": "orc"
+        },
+        "cost": {
+          "type": "choice",
+          "texts": [
+            "Discard this condition",
+            "Remove (3)"
+          ],
+          "effects": [
+            {
+              "type": "discard",
+              "filter": "self"
+            },
+            {
+              "type": "removeTwilight",
+              "amount": 3
+            }
+          ]
+        },
+        "effect": {
+          "type": "preventWound",
+          "filter": "choose(orc)"
+        }
+      }
+    ]
+  },
+  "31_36": {
+    "title": "*The Great Goblin",
+    "subtitle": "Chieftain of the Misty Mountains",
+    "culture": "moria",
+    "cost": 4,
+    "type": "minion",
+    "race": "orc",
+    "strength": 10,
+    "vitality": 3,
+    "site": 4,
+    "keyword": "fierce",
+    "effects": {
+      "type": "activated",
+      "phase": "maneuver",
+      "cost": {
+        "type": "exert",
+        "filter": "self",
+        "times": 2
+      },
+      "effect": [
+        {
+          "type": "revealHand",
+          "hand": "fp",
+          "memorize": "revealedCards"
+        },
+        {
+          "type": "discardFromHand",
+          "hand": "fp",
+          "filter": "choose(culture(dwarven),event)",
+          "forced": true
+        }
+      ]
+    }
   }
 }

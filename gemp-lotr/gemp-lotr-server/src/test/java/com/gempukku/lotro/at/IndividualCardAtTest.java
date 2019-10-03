@@ -926,11 +926,11 @@ public class IndividualCardAtTest extends AbstractAtTest {
     public void trollMonstrousFiend() throws CardNotFoundException, DecisionResultInvalidException {
         initializeSimplestGame();
 
-        PhysicalCardImpl troll = new PhysicalCardImpl(100, "20_256", P2, _library.getLotroCardBlueprint("20_256"));
-        PhysicalCardImpl runner1 = new PhysicalCardImpl(101, "20_268", P2, _library.getLotroCardBlueprint("20_268"));
-        PhysicalCardImpl runner2 = new PhysicalCardImpl(102, "20_268", P2, _library.getLotroCardBlueprint("20_268"));
-        PhysicalCardImpl runner3 = new PhysicalCardImpl(103, "20_268", P2, _library.getLotroCardBlueprint("20_268"));
-        PhysicalCardImpl runner4 = new PhysicalCardImpl(104, "20_268", P2, _library.getLotroCardBlueprint("20_268"));
+        PhysicalCardImpl troll = createCard(P2, "40_157");
+        PhysicalCardImpl runner1 = createCard(P2, "40_169");
+        PhysicalCardImpl runner2 = createCard(P2, "40_169");
+        PhysicalCardImpl runner3 = createCard(P2, "40_169");
+        PhysicalCardImpl runner4 = createCard(P2, "40_169");
 
         skipMulligans();
 
@@ -983,8 +983,8 @@ public class IndividualCardAtTest extends AbstractAtTest {
         _userFeedback.setGame(_game);
         _game.startGame();
 
-        PhysicalCardImpl cheapMinion = new PhysicalCardImpl(100, "40_165", P2, _library.getLotroCardBlueprint("40_165"));
-        PhysicalCardImpl randomCard1 = new PhysicalCardImpl(101, "20_268", P1, _library.getLotroCardBlueprint("20_268"));
+        PhysicalCardImpl cheapMinion = createCard(P2, "40_165");
+        PhysicalCardImpl randomCard1 = createCard(P1, "40_169");
 
         // Bidding
         playerDecided(P1, "1");
