@@ -15,19 +15,26 @@ import org.json.simple.JSONObject;
 public class IncrementPerPhaseLimit implements EffectAppenderProducer {
     @Override
     public EffectAppender createEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(effectObject, "limit");
+        FieldUtils.validateAllowedFields(effectObject, "limit", "perPlayer");
 
         final int limit = FieldUtils.getInteger(effectObject.get("limit"), "limit", 1);
+        final boolean perPlayer = FieldUtils.getBoolean(effectObject.get("perPlayer"), "perPlayer", false);
 
         return new DelayedAppender() {
             @Override
             protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
-                return new IncrementPhaseLimitEffect(actionContext.getSource(), limit);
+                if (perPlayer)
+                    return new IncrementPhaseLimitEffect(actionContext.getSource(), actionContext.getPerformingPlayer() + "_", limit);
+                else
+                    return new IncrementPhaseLimitEffect(actionContext.getSource(), limit);
             }
 
             @Override
             public boolean isPlayableInFull(ActionContext actionContext) {
-                return PlayConditions.checkPhaseLimit(actionContext.getGame(), actionContext.getSource(), limit);
+                if (perPlayer)
+                    return PlayConditions.checkPhaseLimit(actionContext.getGame(), actionContext.getSource(), actionContext.getPerformingPlayer() + "_", limit);
+                else
+                    return PlayConditions.checkPhaseLimit(actionContext.getGame(), actionContext.getSource(), limit);
             }
         };
     }

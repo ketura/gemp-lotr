@@ -253,7 +253,8 @@ public class SortAndFilterCards {
                 .replace('é', 'e')
                 .replace('ú', 'u')
                 .replace('ë', 'e')
-                .replace('û', 'u');
+                .replace('û', 'u')
+                .replace('ó', 'o');
     }
 
     private <T extends Enum> Set<T> getEnumFilter(T[] enumValues, Class<T> enumType, String prefix, Set<T> defaultResult, String[] filterParams) {

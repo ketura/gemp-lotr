@@ -13,9 +13,9 @@ import java.util.Set;
 public class RemoveCardsFromTheGameEffect extends AbstractEffect {
     private String _playerPerforming;
     private PhysicalCard _source;
-    private Collection<PhysicalCard> _cardsToRemove;
+    private Collection<? extends PhysicalCard> _cardsToRemove;
 
-    public RemoveCardsFromTheGameEffect(String playerPerforming, PhysicalCard source, Collection<PhysicalCard> cardsToRemove) {
+    public RemoveCardsFromTheGameEffect(String playerPerforming, PhysicalCard source, Collection<? extends PhysicalCard> cardsToRemove) {
         _playerPerforming = playerPerforming;
         _source = source;
         _cardsToRemove = cardsToRemove;

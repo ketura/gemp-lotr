@@ -15,6 +15,7 @@ public class EffectAppenderFactory {
     public EffectAppenderFactory() {
         effectAppenderProducers.put("stacktopcardsofdrawdeck", new StackTopCardsOfDrawDeck());
         effectAppenderProducers.put("discard", new DiscardFromPlay());
+        effectAppenderProducers.put("removefromthegame", new RemoveFromTheGame());
         effectAppenderProducers.put("preventdiscard", new PreventCardEffectAppender());
         effectAppenderProducers.put("exert", new Exert());
         effectAppenderProducers.put("exhaust", new Exhaust());

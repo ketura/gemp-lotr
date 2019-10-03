@@ -117,7 +117,8 @@
     "setName": "The Short Rest",
     "rarityFile": "/set31-rarity.txt",
     "originalSet": false,
-    "merchantable": false
+    "merchantable": false,
+    "needsLoading": false
   },
   {
     "setId": "32",
