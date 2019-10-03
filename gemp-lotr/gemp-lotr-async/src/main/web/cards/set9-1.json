@@ -660,7 +660,7 @@
         "effects": [
           {
             "type": "exert",
-            "filter": "self",
+            "filter": "bearer",
             "times": 2
           },
           {
@@ -767,7 +767,7 @@
         "effects": [
           {
             "type": "exert",
-            "filter": "self",
+            "filter": "bearer",
             "times": 2
           },
           {
