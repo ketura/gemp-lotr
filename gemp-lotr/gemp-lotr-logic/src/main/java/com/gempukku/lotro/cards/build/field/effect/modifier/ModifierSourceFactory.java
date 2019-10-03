@@ -50,6 +50,7 @@ public class ModifierSourceFactory {
         modifierProducers.put("cancelstrengthbonusfrom", new CancelStrengthBonusFrom());
         modifierProducers.put("cancelstrengthbonusto", new CancelStrengthBonusTo());
         modifierProducers.put("ringtextisinactive", new RingTextIsInactive());
+        modifierProducers.put("addactivated", new AddActivated());
     }
 
     public ModifierSource getModifier(JSONObject object, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {

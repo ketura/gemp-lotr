@@ -1,10 +1,8 @@
 package com.gempukku.lotro.cards.build.field.effect.trigger;
 
-import com.gempukku.lotro.cards.build.ActionContext;
-import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
-import com.gempukku.lotro.cards.build.FilterableSource;
-import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
+import com.gempukku.lotro.cards.build.*;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
+import com.gempukku.lotro.cards.build.field.effect.appender.resolver.PlayerResolver;
 import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
@@ -14,10 +12,13 @@ import org.json.simple.JSONObject;
 public class Discarded implements TriggerCheckerProducer {
     @Override
     public TriggerChecker getTriggerChecker(JSONObject value, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(value, "filter", "memorize");
+        FieldUtils.validateAllowedFields(value, "filter", "memorize", "player");
 
         final String filter = FieldUtils.getString(value.get("filter"), "filter", "any");
         final String memorize = FieldUtils.getString(value.get("memorize"), "memorize");
+        final String player = FieldUtils.getString(value.get("player"), "player");
+
+        PlayerSource playerSource = (player != null) ? PlayerResolver.resolvePlayer(player, environment) : null;
 
         final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
 
@@ -30,10 +31,16 @@ public class Discarded implements TriggerCheckerProducer {
             @Override
             public boolean accepts(ActionContext actionContext) {
                 final Filterable filterable = filterableSource.getFilterable(actionContext);
-                final boolean result = TriggerConditions.forEachDiscardedFromPlay(actionContext.getGame(), actionContext.getEffectResult(), filterable);
+                boolean result = TriggerConditions.forEachDiscardedFromPlay(actionContext.getGame(), actionContext.getEffectResult(), filterable);
+                if (result && playerSource != null) {
+                    // Need to check if it was that player discarding the card
+                    final String performingPlayer = ((DiscardCardsFromPlayResult) actionContext.getEffectResult()).getPerformingPlayer();
+                    if (performingPlayer == null || !performingPlayer.equals(playerSource.getPlayer(actionContext)))
+                        result = false;
+                }
                 if (result && memorize != null) {
-                    final PhysicalCard exertedCard = ((DiscardCardsFromPlayResult) actionContext.getEffectResult()).getDiscardedCard();
-                    actionContext.setCardMemory(memorize, exertedCard);
+                    final PhysicalCard discardedCard = ((DiscardCardsFromPlayResult) actionContext.getEffectResult()).getDiscardedCard();
+                    actionContext.setCardMemory(memorize, discardedCard);
                 }
                 return result;
             }
