@@ -18,9 +18,11 @@ public class CardPlayedInCurrentPhaseCondition implements Condition {
     @Override
     public boolean isFullfilled(LotroGame game) {
         for (EffectResult effectResult : game.getActionsEnvironment().getPhaseEffectResults()) {
-            PlayCardResult playResult = (PlayCardResult) effectResult;
-            if (filter.accepts(game, playResult.getPlayedCard()))
-                return true;
+            if (effectResult instanceof PlayCardResult) {
+                PlayCardResult playResult = (PlayCardResult) effectResult;
+                if (filter.accepts(game, playResult.getPlayedCard()))
+                    return true;
+            }
         }
 
         return false;
