@@ -442,10 +442,10 @@ function createCardDiv(image, text, foil, tokens, noBorder, errata) {
 
 function getFoilImg() {
     var foilPresentation = $.cookie("foilPresentation");
-    if (foilPresentation == "true" || foilPresentation == null) {
-        return "foil.gif";
-    } else {
+    if (foilPresentation == "false" || foilPresentation == null) {
         return "holo.jpg";
+    } else {
+        return "foil.gif";
     }
 }
 

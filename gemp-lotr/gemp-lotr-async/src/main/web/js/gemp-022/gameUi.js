@@ -401,7 +401,7 @@ var GempLotrGameUI = Class.extend({
         $("#settingsBox").append("<input id='foilPresentation' type='checkbox' value='selected' /><label for='foilPresentation'>Use animated foiling</label><br />");
 
         var foilPresentation = $.cookie("foilPresentation");
-        if (foilPresentation == "true" || foilPresentation == null) {
+        if (foilPresentation == "true") {
             $("#foilPresentation").prop("checked", true);
             this.settingsFoilPresentation = true;
         }
