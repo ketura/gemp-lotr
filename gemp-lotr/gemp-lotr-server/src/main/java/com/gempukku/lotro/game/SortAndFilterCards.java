@@ -211,7 +211,7 @@ public class SortAndFilterCards {
         List<String> result = new LinkedList<String>();
         for (String filterParam : filterParams) {
             if (filterParam.startsWith("name:"))
-                result.add(filterParam.substring("name:".length()));
+                result.add(replaceSpecialCharacters(filterParam.substring("name:".length()).toLowerCase()));
         }
         return result;
     }
@@ -242,10 +242,17 @@ public class SortAndFilterCards {
 
     private boolean containsAllWords(LotroCardBlueprint blueprint, List<String> words) {
         for (String word : words) {
-            if (blueprint == null || !GameUtils.getFullName(blueprint).toLowerCase().contains(word.toLowerCase()))
+            if (blueprint == null || !replaceSpecialCharacters(GameUtils.getFullName(blueprint).toLowerCase()).contains(word))
                 return false;
         }
         return true;
+    }
+
+    private String replaceSpecialCharacters(String text) {
+        return text
+                .replace('é', 'e')
+                .replace('ú', 'u')
+                .replace('ë', 'e');
     }
 
     private <T extends Enum> Set<T> getEnumFilter(T[] enumValues, Class<T> enumType, String prefix, Set<T> defaultResult, String[] filterParams) {
