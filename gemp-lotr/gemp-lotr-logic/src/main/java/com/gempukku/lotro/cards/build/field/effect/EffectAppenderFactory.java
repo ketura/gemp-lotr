@@ -122,6 +122,7 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("placenowoundforexert", new PlaceNoWoundForExert());
         effectAppenderProducers.put("shufflehandintodrawdeck", new ShuffleHandIntoDrawDeck());
         effectAppenderProducers.put("getcardsfromtopofdeck", new GetCardsFromTopOfDeck());
+        effectAppenderProducers.put("removetext", new RemoveText());
     }
 
     public EffectAppender getEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {

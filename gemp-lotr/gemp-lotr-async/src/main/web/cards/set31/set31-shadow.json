@@ -704,5 +704,56 @@
         }
       ]
     }
+  },
+  "31_37": {
+    "title": "*Bolg",
+    "subtitle": "Servant of Sauron",
+    "culture": "sauron",
+    "type": "minion",
+    "race": "orc",
+    "cost": 4,
+    "strength": 9,
+    "vitality": 3,
+    "site": 5,
+    "keyword": "damage+1",
+    "effects": [
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "played",
+          "filter": "self"
+        },
+        "effect": {
+          "type": "duplicate",
+          "amount": {
+            "type": "forEachYouCanSpot",
+            "filter": "culture(dwarven),companion",
+            "over": 3
+          },
+          "effect": {
+            "type": "optional",
+            "text": "Do you want to play an Orc from your discard pile?",
+            "effect": {
+              "type": "playCardFromDiscard",
+              "filter": "choose(orc)"
+            }
+          }
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "maneuver",
+        "condition": {
+          "type": "canSpot",
+          "filter": "culture(elven),archer"
+        },
+        "effect": {
+          "type": "addKeyword",
+          "filter": "self",
+          "keyword": "fierce",
+          "until": "start(regroup)"
+        }
+      }
+    ]
   }
 }

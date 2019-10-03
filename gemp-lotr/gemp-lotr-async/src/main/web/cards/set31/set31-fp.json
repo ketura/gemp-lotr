@@ -655,5 +655,199 @@
         "filter": "choose(culture(gandalf),spell)"
       }
     }
+  },
+  "31_38": {
+    "title": "An Acorn from Beorn's House",
+    "culture": "shire",
+    "cost": 1,
+    "type": "possession",
+    "target": "name(Bilbo)",
+    "effects": {
+      "type": "activated",
+      "phase": "regroup",
+      "cost": {
+        "type": "discard",
+        "filter": "self"
+      },
+      "effect": [
+        {
+          "type": "removeBurdens",
+          "amount": 1
+        },
+        {
+          "type": "discard",
+          "filter": "choose(side(shadow),condition)"
+        }
+      ]
+    }
+  },
+  "31_39": {
+    "title": "An Invisible Ring",
+    "culture": "shire",
+    "cost": 1,
+    "type": "event",
+    "keyword": "skirmish",
+    "effects": {
+      "type": "event",
+      "effect": [
+        {
+          "type": "modifyStrength",
+          "filter": "choose(name(Bilbo))",
+          "memorize": "bilbo",
+          "amount": 2
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "type": "ringIsOn"
+          },
+          "effect": {
+            "type": "removeText",
+            "filter": "choose(minion,not(name(Sauron)),inSkirmishAgainst(memory(bilbo)))",
+            "until": "start(regroup)"
+          }
+        }
+      ]
+    }
+  },
+  "31_40": {
+    "title": "Barrels",
+    "culture": "shire",
+    "type": "event",
+    "keyword": "regroup",
+    "cost": 1,
+    "effects": {
+      "type": "event",
+      "cost": {
+        "type": "exert",
+        "count": 2,
+        "filter": "choose(culture(dwarven),companion)"
+      },
+      "effect": [
+        {
+          "type": "discard",
+          "count": "0-2",
+          "filter": "choose(minion,not(name(Smaug)))"
+        },
+        {
+          "type": "drawCards",
+          "count": 3
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "type": "location",
+            "filter": "river"
+          },
+          "effect": {
+            "type": "addModifier",
+            "modifier": {
+              "type": "modifyMoveLimit",
+              "amount": 1
+            },
+            "until": "endOfTurn"
+          }
+        }
+      ]
+    }
+  },
+  "31_41": {
+    "title": "*Burglar's Contract",
+    "culture": "shire",
+    "type": "possession",
+    "cost": 1,
+    "resistance": 1,
+    "target": "name(Bilbo)",
+    "effects": {
+      "type": "activated",
+      "phase": "skirmish",
+      "cost": [
+        {
+          "type": "addBurdens",
+          "amount": 1
+        },
+        {
+          "type": "exert",
+          "filter": "bearer"
+        }
+      ],
+      "effect": {
+        "type": "modifyStrength",
+        "filter": "choose(not(bearer),companion)",
+        "amount": {
+          "type": "cardAffectedLimitPerPhase",
+          "limit": 4,
+          "source": 2
+        }
+      }
+    }
+  },
+  "31_42": {
+    "title": "*Old Thrush",
+    "culture": "shire",
+    "type": "follower",
+    "race": "bird",
+    "cost": 1,
+    "strength": 1,
+    "effects": [
+      {
+        "type": "aidCost",
+        "cost": {
+          "type": "exert",
+          "filter": "choose(name(Bilbo))"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "maneuver",
+        "cost": {
+          "type": "discard",
+          "filter": "self"
+        },
+        "effect": {
+          "type": "choice",
+          "texts": [
+            "Take a card from your draw deck into hand",
+            "Take a card from your discard into hand"
+          ],
+          "effects": [
+            {
+              "type": "putCardsFromDeckIntoHand",
+              "filter": "choose(side(free people),not(or(culture(gandalf),culture(elven))))"
+            }
+            {
+              "type": "putCardsFromDiscardIntoHand",
+              "filter": "choose(side(free people),not(or(culture(gandalf),culture(elven))))"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "31_43": {
+    "title": "Skillful Negociator",
+    "culture": "shire",
+    "type": "event",
+    "keyword": "maneuver",
+    "cost": 1,
+    "effects": {
+      "type": "event",
+      "cost": [
+        {
+          "type": "spot",
+          "filter": "choose(ally)",
+          "memorize": "chosenAlly"
+        },
+        {
+          "type": "exert",
+          "filter": "choose(name(Bilbo))"
+        }
+      ],
+      "effect": {
+        "type": "canParticipateInArcheryFireAndSkirmishes",
+        "filter": "memory(chosenAlly)",
+        "until": "start(regroup)"
+      }
+    }
   }
 }
