@@ -24,7 +24,7 @@ public class ModifyPlayOnCost implements ModifierSourceProducer {
         final Requirement[] conditions = environment.getRequirementFactory().getRequirements(conditionArray, environment);
         final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
         final FilterableSource onFilterableSource = environment.getFilterFactory().generateFilter(onFilter, environment);
-        final ValueSource amountSource = ValueResolver.resolveEvaluator(object.get("amount"), 0, environment);
+        final ValueSource amountSource = ValueResolver.resolveEvaluator(object.get("amount"), environment);
 
         return actionContext -> {
             final Filterable filterable = filterableSource.getFilterable(actionContext);

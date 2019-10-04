@@ -436,7 +436,8 @@
           "condition": {
             "type": "location",
             "filter": "hasAttached(self)"
-          }
+          },
+          "amount": -2
         }
       },
       {

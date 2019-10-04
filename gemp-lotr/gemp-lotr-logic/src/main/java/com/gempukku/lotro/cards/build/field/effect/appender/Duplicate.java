@@ -21,7 +21,7 @@ public class Duplicate implements EffectAppenderProducer {
     public EffectAppender createEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         FieldUtils.validateAllowedFields(effectObject, "amount", "effect");
 
-        final ValueSource amountSource = ValueResolver.resolveEvaluator(effectObject.get("amount"), 1, environment);
+        final ValueSource amountSource = ValueResolver.resolveEvaluator(effectObject.get("amount"), environment);
         final JSONObject effect = (JSONObject) effectObject.get("effect");
 
         final EffectAppender effectAppender = environment.getEffectAppenderFactory().getEffectAppender(effect, environment);

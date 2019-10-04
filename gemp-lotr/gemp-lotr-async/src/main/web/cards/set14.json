@@ -262,7 +262,8 @@
         "condition": {
           "type": "location",
           "filter": "or(forest,river)"
-        }
+        },
+        "amount": 3
       }
     }
   },

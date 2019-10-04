@@ -15,7 +15,7 @@ public class PotentialDiscount implements EffectProcessor {
     public void processEffect(JSONObject value, BuiltLotroCardBlueprint blueprint, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         FieldUtils.validateAllowedFields(value, "amount", "discount");
 
-        final ValueSource amountSource = ValueResolver.resolveEvaluator(value.get("amount"), 0, environment);
+        final ValueSource amountSource = ValueResolver.resolveEvaluator(value.get("amount"), environment);
         final JSONObject discount = (JSONObject) value.get("discount");
 
         final String discountType = FieldUtils.getString(discount.get("type"), "type");

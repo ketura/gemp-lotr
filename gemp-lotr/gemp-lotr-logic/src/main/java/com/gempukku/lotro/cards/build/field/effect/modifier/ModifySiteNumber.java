@@ -14,7 +14,7 @@ public class ModifySiteNumber implements ModifierSourceProducer {
 
         final JSONObject[] conditionArray = FieldUtils.getObjectArray(object.get("condition"), "condition");
         final String filter = FieldUtils.getString(object.get("filter"), "filter");
-        final ValueSource amount = ValueResolver.resolveEvaluator(object.get("amount"), 0, environment);
+        final ValueSource amount = ValueResolver.resolveEvaluator(object.get("amount"), environment);
 
         final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(filter, environment);
         final Requirement[] requirements = environment.getRequirementFactory().getRequirements(conditionArray, environment);

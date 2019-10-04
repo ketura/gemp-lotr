@@ -31,7 +31,7 @@ public class PutCardsFromHandOnBottomOfDeck implements EffectAppenderProducer {
 
         ValueSource valueSource;
         if (optional)
-            valueSource = ValueResolver.resolveEvaluator("0-1", 1, environment);
+            valueSource = ValueResolver.resolveEvaluator("0-1", environment);
         else
             valueSource = new ConstantEvaluator(1);
 

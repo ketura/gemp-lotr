@@ -16,7 +16,13 @@ import org.json.simple.JSONObject;
 import java.util.Collection;
 
 public class ValueResolver {
-    public static ValueSource resolveEvaluator(Object value, int defaultValue, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
+    public static ValueSource resolveEvaluator(Object value, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
+        return resolveEvaluator(value, null, environment);
+    }
+
+    public static ValueSource resolveEvaluator(Object value, Integer defaultValue, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
+        if (value == null && defaultValue == null)
+            throw new InvalidCardDefinitionException("Value not defined");
         if (value == null)
             return new ConstantEvaluator(defaultValue);
         if (value instanceof Number)

@@ -21,7 +21,7 @@ public class ModifyArcheryTotal implements EffectAppenderProducer {
     public EffectAppender createEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         FieldUtils.validateAllowedFields(effectObject, "amount", "side");
 
-        final ValueSource valueSource = ValueResolver.resolveEvaluator(effectObject.get("amount"), 0, environment);
+        final ValueSource valueSource = ValueResolver.resolveEvaluator(effectObject.get("amount"), environment);
         final Side side = FieldUtils.getEnum(Side.class, effectObject.get("side"), "side");
 
         if (side == null)

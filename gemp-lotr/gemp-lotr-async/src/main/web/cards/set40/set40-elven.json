@@ -379,6 +379,7 @@
         {
           "type": "modifyStrength",
           "filter": "choose(elf)",
+          "amount": 1,
           "memorize": "chosenElf"
         },
         {

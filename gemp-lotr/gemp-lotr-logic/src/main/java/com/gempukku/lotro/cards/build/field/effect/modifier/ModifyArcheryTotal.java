@@ -13,7 +13,7 @@ public class ModifyArcheryTotal implements ModifierSourceProducer {
     public ModifierSource getModifierSource(JSONObject object, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         FieldUtils.validateAllowedFields(object, "side", "condition", "amount");
 
-        final ValueSource valueSource = ValueResolver.resolveEvaluator(object.get("amount"), 1, environment);
+        final ValueSource valueSource = ValueResolver.resolveEvaluator(object.get("amount"), environment);
         final JSONObject[] conditionArray = FieldUtils.getObjectArray(object.get("condition"), "condition");
         final Side side = FieldUtils.getEnum(Side.class, object.get("side"), "side");
 

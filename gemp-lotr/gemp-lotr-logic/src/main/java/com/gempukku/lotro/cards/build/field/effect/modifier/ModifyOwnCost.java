@@ -14,7 +14,7 @@ public class ModifyOwnCost implements EffectProcessor {
         FieldUtils.validateAllowedFields(value, "amount", "condition", "on");
 
         final String onFilter = FieldUtils.getString(value.get("on"), "on", "any");
-        final ValueSource amountSource = ValueResolver.resolveEvaluator(value.get("amount"), 0, environment);
+        final ValueSource amountSource = ValueResolver.resolveEvaluator(value.get("amount"), environment);
         final JSONObject[] conditionArray = FieldUtils.getObjectArray(value.get("condition"), "condition");
 
         final FilterableSource onFilterableSource = environment.getFilterFactory().generateFilter(onFilter, environment);

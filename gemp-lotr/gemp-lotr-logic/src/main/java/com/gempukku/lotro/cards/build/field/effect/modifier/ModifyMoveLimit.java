@@ -15,7 +15,7 @@ public class ModifyMoveLimit implements ModifierSourceProducer {
     public ModifierSource getModifierSource(JSONObject object, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         FieldUtils.validateAllowedFields(object, "amount");
 
-        final ValueSource valueSource = ValueResolver.resolveEvaluator(object.get("amount"), 1, environment);
+        final ValueSource valueSource = ValueResolver.resolveEvaluator(object.get("amount"), environment);
 
         return (actionContext) -> {
             final Evaluator evaluator = valueSource.getEvaluator(actionContext);

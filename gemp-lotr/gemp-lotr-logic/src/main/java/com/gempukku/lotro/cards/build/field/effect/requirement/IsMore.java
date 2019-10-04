@@ -13,8 +13,8 @@ public class IsMore implements RequirementProducer {
     public Requirement getPlayRequirement(JSONObject object, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         FieldUtils.validateAllowedFields(object, "firstNumber", "secondNumber");
 
-        final ValueSource firstNumber = ValueResolver.resolveEvaluator(object.get("firstNumber"), 0, environment);
-        final ValueSource secondNumber = ValueResolver.resolveEvaluator(object.get("secondNumber"), 0, environment);
+        final ValueSource firstNumber = ValueResolver.resolveEvaluator(object.get("firstNumber"), environment);
+        final ValueSource secondNumber = ValueResolver.resolveEvaluator(object.get("secondNumber"), environment);
 
         return actionContext -> {
             final int first = firstNumber.getEvaluator(actionContext).evaluateExpression(actionContext.getGame(), null);

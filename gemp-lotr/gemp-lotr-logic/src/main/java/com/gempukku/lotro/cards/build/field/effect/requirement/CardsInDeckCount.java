@@ -13,7 +13,7 @@ public class CardsInDeckCount implements RequirementProducer {
 
         final String deck = FieldUtils.getString(object.get("deck"), "deck", "you");
         final PlayerSource playerSource = PlayerResolver.resolvePlayer(deck, environment);
-        final ValueSource valueSource = ValueResolver.resolveEvaluator(object.get("count"), 0, environment);
+        final ValueSource valueSource = ValueResolver.resolveEvaluator(object.get("count"), environment);
 
         return actionContext -> {
             final String player = playerSource.getPlayer(actionContext);

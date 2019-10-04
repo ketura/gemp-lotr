@@ -243,7 +243,7 @@ public class FilterFactory {
                             return Filters.maxPrintedTwilightCost(value);
                         };
                     } else {
-                        final ValueSource valueSource = ValueResolver.resolveEvaluator(parameter, 0, environment);
+                        final ValueSource valueSource = ValueResolver.resolveEvaluator(parameter, environment);
                         return actionContext -> {
                             final int value = valueSource.getEvaluator(actionContext).evaluateExpression(actionContext.getGame(), null);
                             return Filters.maxPrintedTwilightCost(value);
@@ -259,7 +259,7 @@ public class FilterFactory {
                             return Filters.minPrintedTwilightCost(value);
                         };
                     } else {
-                        final ValueSource valueSource = ValueResolver.resolveEvaluator(parameter, 0, environment);
+                        final ValueSource valueSource = ValueResolver.resolveEvaluator(parameter, environment);
                         return actionContext -> {
                             final int value = valueSource.getEvaluator(actionContext).evaluateExpression(actionContext.getGame(), null);
                             return Filters.minPrintedTwilightCost(value);
