@@ -1,4 +1,148 @@
 {
+  "1_284": {
+    "title": "*Bilbo",
+    "subtitle": "Retired Adventurer",
+    "culture": "shire",
+    "cost": 2,
+    "type": "ally",
+    "allyHome": "fellowship,3",
+    "race": "hobbit",
+    "strength": 2,
+    "vitality": 3,
+    "effects": {
+      "type": "activated",
+      "phase": "fellowship",
+      "cost": {
+        "type": "exert",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "shuffleCardsFromDiscardIntoDrawDeck",
+        "filter": "choose(culture(shire))"
+      }
+    }
+  },
+  "1_285": {
+    "title": "*Bilbo's Pipe",
+    "culture": "shire",
+    "cost": 1,
+    "type": "possession",
+    "possession": "pipe",
+    "target": "hobbit",
+    "effects": {
+      "type": "activated",
+      "phase": "fellowship",
+      "cost": [
+        {
+          "type": "discard",
+          "filter": "choose(pipeweed,possession)"
+        },
+        {
+          "type": "chooseHowManyToSpot",
+          "filter": "pipe",
+          "memorize": "numberOfPipes"
+        }
+      ],
+      "effect": {
+        "type": "shuffleCardsFromDiscardIntoDrawDeck",
+        "count": {
+          "type": "fromMemory",
+          "memory": "numberOfPipes"
+        },
+        "filter": "choose(tale)"
+      }
+    }
+  },
+  "1_286": {
+    "title": "Bounder",
+    "culture": "shire",
+    "cost": 1,
+    "type": "ally",
+    "allyHome": "fellowship,2",
+    "race": "hobbit",
+    "strength": 2,
+    "vitality": 2,
+    "effects": {
+      "type": "activated",
+      "phase": "skirmish",
+      "cost": {
+        "type": "exert",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "cantBeOverwhelmedMultiplier",
+        "filter": "choose(hobbit)"
+      }
+    }
+  },
+  "1_287": {
+    "title": "Extraordinary Resilience",
+    "culture": "shire",
+    "cost": 0,
+    "type": "event",
+    "keyword": "response",
+    "effects": {
+      "type": "responseEvent",
+      "trigger": {
+        "type": "aboutToHeal",
+        "filter": "ring bearer"
+      },
+      "cost": {
+        "type": "preventHeal",
+        "filter": "choose(ring bearer)"
+      },
+      "effect": {
+        "type": "removeBurdens"
+      }
+    }
+  },
+  "1_288": {
+    "title": "*Farmer Maggot",
+    "subtitle": "Chaser of Rascals",
+    "culture": "shire",
+    "cost": 1,
+    "type": "ally",
+    "allyHome": "fellowship,1",
+    "race": "hobbit",
+    "strength": 2,
+    "vitality": 3,
+    "effects": {
+      "type": "activated",
+      "phase": "fellowship",
+      "cost": {
+        "type": "exert",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "heal",
+        "filter": "choose(or(name(Merry),name(Pippin)))"
+      }
+    }
+  },
+  "1_289": {
+    "title": "*Frodo",
+    "subtitle": "Old Bilbo's Heir",
+    "culture": "shire",
+    "cost": 0,
+    "type": "companion",
+    "race": "hobbit",
+    "strength": 3,
+    "vitality": 4,
+    "resistance": 10,
+    "signet": "gandalf",
+    "keyword": "can start with ring",
+    "effects": {
+      "type": "trigger",
+      "optional": true,
+      "trigger": {
+        "type": "startOfTurn"
+      },
+      "effect": {
+        "type": "heal",
+        "filter": "choose(hobbit,ally)"
+      }
+    }
+  },
   "1_297": {
     "title": "Hobbit Party Guest",
     "culture": "shire",

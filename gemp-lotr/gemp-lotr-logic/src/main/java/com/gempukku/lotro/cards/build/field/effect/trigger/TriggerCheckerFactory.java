@@ -15,6 +15,7 @@ public class TriggerCheckerFactory {
         triggerCheckers.put("played", new PlayedTriggerCheckerProducer());
         triggerCheckers.put("playedfromstacked", new PlayedFromStacked());
         triggerCheckers.put("abouttodiscard", new AboutToDiscardFromPlay());
+        triggerCheckers.put("abouttoheal", new AboutToHeal());
         triggerCheckers.put("losesskirmish", new LosesSkirmish());
         triggerCheckers.put("winsskirmish", new WinsSkirmish());
         triggerCheckers.put("cancelledskirmish", new CancelledSkirmish());
