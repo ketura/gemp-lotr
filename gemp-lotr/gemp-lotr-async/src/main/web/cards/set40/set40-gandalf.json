@@ -414,7 +414,7 @@
             "until": "endOfTurn"
           },
           {
-            "type": "canParticipateInArcheryFireAndSkirmishes",
+            "type": "allyCanParticipateInArcheryFireAndSkirmishes",
             "filter": "self",
             "until": "endOfTurn"
           }

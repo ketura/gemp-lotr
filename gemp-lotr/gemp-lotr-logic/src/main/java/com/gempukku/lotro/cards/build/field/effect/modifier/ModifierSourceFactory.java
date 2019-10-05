@@ -52,6 +52,7 @@ public class ModifierSourceFactory {
         modifierProducers.put("ringtextisinactive", new RingTextIsInactive());
         modifierProducers.put("addactivated", new AddActivated());
         modifierProducers.put("hastomoveifable", new HasToMoveIfAble());
+        modifierProducers.put("allycanparticipateinarcheryfireandskirmishes", new AllyCanParticipateInArcheryFireAndSkirmishes());
     }
 
     public ModifierSource getModifier(JSONObject object, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {

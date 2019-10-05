@@ -47,6 +47,8 @@ public class TriggerCheckerFactory {
 
     public TriggerChecker getTriggerChecker(JSONObject object, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         final String triggerType = FieldUtils.getString(object.get("type"), "type");
+        if (triggerType == null)
+            throw new InvalidCardDefinitionException("Trigger type not defined");
         final TriggerCheckerProducer triggerCheckerProducer = triggerCheckers.get(triggerType.toLowerCase());
         if (triggerCheckerProducer == null)
             throw new InvalidCardDefinitionException("Unable to find trigger of type: " + triggerType);

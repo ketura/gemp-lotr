@@ -536,7 +536,7 @@
           "memorize": "exertedAlly"
         },
         {
-          "type": "canParticipateInArcheryFireAndSkirmishes",
+          "type": "allyCanParticipateInArcheryFireAndSkirmishes",
           "filter": "memory(exertedAlly)",
           "until": "start(regroup)"
         }

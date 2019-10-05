@@ -85,7 +85,8 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("addthreats", new AddThreats());
         effectAppenderProducers.put("sideplayercantplayphaseeventsorusephasespecialabilities", new SidePlayerCantPlayPhaseEventsOrUsePhaseSpecialAbilities());
         effectAppenderProducers.put("shadowcanthaveinitiative", new ShadowCantHaveInitiative());
-        effectAppenderProducers.put("canparticipateinarcheryfireandskirmishes", new CanParticipateInArcheryFireAndSkirmishes());
+        effectAppenderProducers.put("allycanparticipateinarcheryfireandskirmishes", new AllyCanParticipateInArcheryFireAndSkirmishes());
+        effectAppenderProducers.put("allycanparticipateinskirmishes", new AllyCanParticipateInSkirmishes());
         effectAppenderProducers.put("revealrandomcardsfromhand", new RevealRandomCardsFromHand());
         effectAppenderProducers.put("putcardsfromdeckintohand", new PutCardsFromDeckIntoHand());
         effectAppenderProducers.put("addmodifier", new AddModifier());

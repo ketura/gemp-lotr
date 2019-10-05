@@ -1,0 +1,394 @@
+{
+  "32_25": {
+    "title": "*Alfrid",
+    "subtitle": "Lickspittle",
+    "culture": "men",
+    "cost": 2,
+    "type": "minion",
+    "race": "man",
+    "strength": 4,
+    "vitality": 3,
+    "site": 6,
+    "effects": [
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "assignedToSkirmish",
+          "filter": "culture(esgaroth),ally"
+        },
+        "effect": {
+          "type": "exert",
+          "filter": "choose(culture(dwarven),companion)"
+        }
+      },
+      {
+        "type": "activatedInDiscard",
+        "phase": "maneuver",
+        "cost": {
+          "type": "heal",
+          "filter": "choose(culture(esgaroth),ally)"
+        },
+        "effect": {
+          "type": "playCardFromDiscard",
+          "filter": "self"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "skirmish",
+        "cost": {
+          "type": "exert",
+          "filter": "self",
+          "times": 2
+        },
+        "effect": {
+          "type": "playCardFromDrawDeck",
+          "filter": "choose(side(shadow),condition)"
+        }
+      }
+    ]
+  },
+  "32_26": {
+    "title": "*War of Gold",
+    "culture": "mirkwood",
+    "cost": 2,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": [
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "moves"
+        },
+        "effect": {
+          "type": "addTwilight",
+          "amount": {
+            "type": "forEachYouCanSpot",
+            "filter": "ally",
+            "limit": 3
+          }
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "maneuver",
+        "cost": {
+          "type": "discard",
+          "filter": "self"
+        },
+        "effect": [
+          {
+            "type": "conditional",
+            "condition": {
+              "type": "not",
+              "condition": {
+                "type": "canSpot",
+                "filter": "culture(dwarven),ally"
+              }
+            },
+            "effect": {
+              "type": "discard",
+              "filter": "choose(culture(dwarven),possession)"
+            }
+          },
+          {
+            "type": "wound",
+            "filter": "choose(culture(dwarven),ally)"
+          }
+        ]
+      }
+    ]
+  },
+  "32_27": {
+    "title": "Assaulting Goblin",
+    "culture": "moria",
+    "cost": 2,
+    "type": "minion",
+    "race": "orc",
+    "strength": 7,
+    "vitality": 2,
+    "site": 4,
+    "effects": {
+      "type": "activatedTrigger",
+      "trigger": {
+        "type": "aboutToTakeWound",
+        "filter": "another,orc"
+      },
+      "condition": {
+        "type": "location",
+        "filter": "battleground"
+      },
+      "cost": {
+        "type": "exert",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "preventWound",
+        "filter": "choose(another,orc)"
+      }
+    }
+  },
+  "32_28": {
+    "title": "*Azog",
+    "subtitle": "Commander of the Wolves Army",
+    "culture": "moria",
+    "cost": 4,
+    "type": "minion",
+    "race": "orc",
+    "strength": 9,
+    "vitality": 3,
+    "site": 4,
+    "keyword": "damage+1",
+    "effects": {
+      "type": "activated",
+      "phase": "maneuver",
+      "cost": {
+        "type": "exert",
+        "filter": "self"
+      },
+      "condition": {
+        "type": "location",
+        "filter": "battleground"
+      },
+      "effect": {
+        "type": "playCardFromDiscard",
+        "filter": "choose(culture(moria),minion)",
+        "cost": -2
+      }
+    }
+  },
+  "32_29": {
+    "title": "*Azog's Mace",
+    "culture": "moria",
+    "cost": 2,
+    "type": "possession",
+    "possession": "hand weapon",
+    "strength": 2,
+    "target": "orc",
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "addKeyword",
+          "filter": "bearer,name(Azog)",
+          "keyword": "fierce"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "shadow",
+        "cost": {
+          "type": "exert",
+          "filter": "bearer",
+          "times": 2
+        },
+        "effect": {
+          "type": "duplicate",
+          "amount": {
+            "type": "forEachYouCanSpot",
+            "filter": "culture(dwarven),companion",
+            "over": 3
+          },
+          "effect": {
+            "type": "playCardFromDiscard",
+            "filter": "choose(orc)"
+          }
+        }
+      }
+    ]
+  },
+  "32_30": {
+    "title": "Dark Bats",
+    "culture": "moria",
+    "cost": 1,
+    "type": "minion",
+    "race": "creature",
+    "strength": 4,
+    "vitality": 2,
+    "site": 4,
+    "effects": {
+      "type": "activated",
+      "phase": "shadow",
+      "cost": {
+        "type": "exert",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "preventable",
+        "player": "fp",
+        "text": "Would you like to add 2 doubts to prevent shadow player drawing 3 cards?",
+        "cost": {
+          "type": "conditional",
+          "condition": {
+            "type": "not",
+            "condition": {
+              "type": "canSpot",
+              "count": 3,
+              "filter": "orc"
+            }
+          },
+          "effect": {
+            "type": "addBurdens",
+            "amount": 2
+          }
+        },
+        "effect": {
+          "type": "drawCards",
+          "count": 3
+        }
+      }
+    }
+  },
+  "32_31": {
+    "title": "Demolition Troll",
+    "culture": "moria",
+    "cost": 5,
+    "type": "minion",
+    "race": "troll",
+    "strength": 10,
+    "vitality": 3,
+    "site": 4,
+    "effects": {
+      "type": "activated",
+      "phase": "skirmish",
+      "cost": {
+        "type": "exert",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "modifyStrength",
+        "filter": "choose(culture(moria),minion)",
+        "amount": {
+          "type": "cardAffectedLimitPerPhase",
+          "limit": 2,
+          "source": 2
+        }
+      }
+    }
+  },
+  "32_32": {
+    "title": "Vicious Warg",
+    "culture": "moria",
+    "cost": 3,
+    "type": "possession",
+    "possession": "mount",
+    "strength": 3,
+    "vitality": 1,
+    "target": "orc",
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "addKeyword",
+          "filter": "bearer",
+          "keyword": "fierce"
+        }
+      },
+      {
+        "type": "trigger",
+        "optional": true,
+        "trigger": {
+          "type": "played",
+          "filter": "self"
+        },
+        "condition": {
+          "type": "location",
+          "filter": "battleground,not(siteNumber(9))"
+        },
+        "effect": {
+          "type": "addTwilight",
+          "amount": 4
+        }
+      }
+    ]
+  },
+  "32_33": {
+    "title": "*Were-worms",
+    "culture": "moria",
+    "cost": 0,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": [
+      {
+        "type": "trigger",
+        "optional": true,
+        "trigger": {
+          "type": "winsSkirmish",
+          "filter": "culture(moria),minion"
+        },
+        "effect": {
+          "type": "addTokens",
+          "culture": "moria",
+          "filter": "self"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "shadow",
+        "condition": {
+          "type": "location",
+          "filter": "battleground"
+        },
+        "cost": [
+          {
+            "type": "memorizeNumber",
+            "memory": "numberOfTokens",
+            "amount": {
+              "type": "forEachToken",
+              "culture": "moria",
+              "filter": "self"
+            }
+          },
+          {
+            "type": "discard",
+            "filter": "self"
+          }
+        ],
+        "effect": {
+          "type": "addTwilight",
+          "amount": {
+            "type": "fromMemory",
+            "memory": "numberOfTokens",
+            "multiplier": 2,
+            "limit": 8
+          }
+        }
+      }
+    ]
+  },
+  "32_34": {
+    "title": "*The Wolves Army",
+    "culture": "moria",
+    "cost": 5,
+    "type": "minion",
+    "race": "orc",
+    "strength": 10,
+    "vitality": 4,
+    "site": 4,
+    "effects": {
+      "type": "trigger",
+      "optional": true,
+      "trigger": {
+        "type": "played",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "choice",
+        "texts": [
+          "Play a MORIA card from your draw deck",
+          "Play a MORIA card from your discard pile"
+        ],
+        "effects": [
+          {
+            "type": "playCardFromDrawDeck",
+            "filter": "choose(culture(moria),not(response))"
+          },
+          {
+            "type": "playCardFromDiscard",
+            "filter": "choose(culture(moria),not(response))"
+          }
+        ]
+      }
+    }
+  }
+}

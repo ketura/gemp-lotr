@@ -932,7 +932,7 @@
           "until": "start(regroup)"
         },
         {
-          "type": "canParticipateInArcheryFireAndSkirmishes",
+          "type": "allyCanParticipateInArcheryFireAndSkirmishes",
           "filter": "memory(exertedAlly)",
           "until": "start(regroup)"
         }
@@ -960,7 +960,7 @@
           "until": "start(regroup)"
         },
         {
-          "type": "canParticipateInArcheryFireAndSkirmishes",
+          "type": "allyCanParticipateInArcheryFireAndSkirmishes",
           "filter": "memory(exertedAlly)",
           "until": "start(regroup)"
         }

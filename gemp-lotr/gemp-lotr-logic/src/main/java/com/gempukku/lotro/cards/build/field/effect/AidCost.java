@@ -11,18 +11,26 @@ public class AidCost implements EffectProcessor {
     public void processEffect(JSONObject value, BuiltLotroCardBlueprint blueprint, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         FieldUtils.validateAllowedFields(value, "cost");
 
-        final EffectAppender costAppender = environment.getEffectAppenderFactory().getEffectAppender((JSONObject) value.get("cost"), environment);
+        final JSONObject[] costArray = FieldUtils.getObjectArray(value.get("cost"), "cost");
+
+        final EffectAppender[] costAppenders = environment.getEffectAppenderFactory().getEffectAppenders(costArray, environment);
 
         blueprint.setAidCostSource(
                 new AidCostSource() {
                     @Override
                     public boolean canPayAidCost(DefaultActionContext actionContext) {
-                        return costAppender.isPlayableInFull(actionContext);
+                        for (EffectAppender costAppender : costAppenders) {
+                            if (!costAppender.isPlayableInFull(actionContext))
+                                return false;
+                        }
+
+                        return true;
                     }
 
                     @Override
                     public void appendAidCost(CostToEffectAction action, DefaultActionContext actionContext) {
-                        costAppender.appendEffect(true, action, actionContext);
+                        for (EffectAppender costAppender : costAppenders)
+                            costAppender.appendEffect(true, action, actionContext);
                     }
                 });
     }

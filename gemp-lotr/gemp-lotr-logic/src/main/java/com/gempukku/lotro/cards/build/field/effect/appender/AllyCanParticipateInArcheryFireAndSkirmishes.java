@@ -20,7 +20,7 @@ import org.json.simple.JSONObject;
 
 import java.util.Collection;
 
-public class CanParticipateInArcheryFireAndSkirmishes implements EffectAppenderProducer {
+public class AllyCanParticipateInArcheryFireAndSkirmishes implements EffectAppenderProducer {
     @Override
     public EffectAppender createEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         FieldUtils.validateAllowedFields(effectObject, "filter", "until", "count");

@@ -285,7 +285,7 @@
         "filter": "self"
       },
       "effect": {
-        "type": "canParticipateInArcheryFireAndSkirmishes",
+        "type": "allyCanParticipateInArcheryFireAndSkirmishes",
         "filter": "self",
         "until": "start(regroup)"
       }
@@ -377,7 +377,7 @@
           "until": "start(regroup)"
         },
         {
-          "type": "canParticipateInArcheryFireAndSkirmishes",
+          "type": "allyCanParticipateInArcheryFireAndSkirmishes",
           "filter": "memory(chosenAlly)",
           "until": "start(regroup)"
         }
@@ -416,7 +416,7 @@
         ]
       },
       "effect": {
-        "type": "canParticipateInArcheryFireAndSkirmishes",
+        "type": "allyCanParticipateInArcheryFireAndSkirmishes",
         "filter": "self",
         "until": "start(regroup)"
       }
@@ -844,7 +844,7 @@
         }
       ],
       "effect": {
-        "type": "canParticipateInArcheryFireAndSkirmishes",
+        "type": "allyCanParticipateInArcheryFireAndSkirmishes",
         "filter": "memory(chosenAlly)",
         "until": "start(regroup)"
       }
