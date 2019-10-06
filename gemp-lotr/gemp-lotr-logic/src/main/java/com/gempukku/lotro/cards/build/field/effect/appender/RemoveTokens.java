@@ -35,7 +35,7 @@ public class RemoveTokens implements EffectAppenderProducer {
         final String filter = FieldUtils.getString(effectObject.get("filter"), "filter", "self");
         final String memory = FieldUtils.getString(effectObject.get("memorize"), "memorize", "_temp");
 
-        final Token token = Token.findTokenForCulture(culture);
+        final Token token = (culture != null) ? Token.findTokenForCulture(culture) : null;
 
         MultiEffectAppender result = new MultiEffectAppender();
 
