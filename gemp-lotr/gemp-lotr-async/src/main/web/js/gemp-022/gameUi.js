@@ -1,75 +1,75 @@
 var GempLotrGameUI = Class.extend({
-    padding:5,
+    padding: 5,
 
-    bottomPlayerId:null,
-    replayMode:null,
-    spectatorMode:null,
+    bottomPlayerId: null,
+    replayMode: null,
+    spectatorMode: null,
 
-    currentPlayerId:null,
-    allPlayerIds:null,
+    currentPlayerId: null,
+    allPlayerIds: null,
 
-    playerPositions:null,
-    cardActionDialog:null,
-    smallDialog:null,
-    gameStateElem:null,
-    alertBox:null,
-    alertText:null,
-    alertButtons:null,
-    infoDialog:null,
+    playerPositions: null,
+    cardActionDialog: null,
+    smallDialog: null,
+    gameStateElem: null,
+    alertBox: null,
+    alertText: null,
+    alertButtons: null,
+    infoDialog: null,
 
-    advPathGroup:null,
-    supportOpponent:null,
-    charactersOpponent:null,
-    shadow:null,
-    charactersPlayer:null,
-    supportPlayer:null,
-    hand:null,
-    specialGroup:null,
+    advPathGroup: null,
+    supportOpponent: null,
+    charactersOpponent: null,
+    shadow: null,
+    charactersPlayer: null,
+    supportPlayer: null,
+    hand: null,
+    specialGroup: null,
 
-    discardPileDialogs:null,
-    discardPileGroups:null,
-    adventureDeckDialogs:null,
-    adventureDeckGroups:null,
-    deadPileDialogs:null,
-    deadPileGroups:null,
+    discardPileDialogs: null,
+    discardPileGroups: null,
+    adventureDeckDialogs: null,
+    adventureDeckGroups: null,
+    deadPileDialogs: null,
+    deadPileGroups: null,
 
-    statsDiv:null,
+    statsDiv: null,
 
-    skirmishGroupDiv:null,
-    fpStrengthDiv:null,
-    fpDamageBonusDiv:null,
-    shadowStrengthDiv:null,
-    shadowDamageBonusDiv:null,
-    skirmishShadowGroup:null,
-    skirmishFellowshipGroup:null,
+    skirmishGroupDiv: null,
+    fpStrengthDiv: null,
+    fpDamageBonusDiv: null,
+    shadowStrengthDiv: null,
+    shadowDamageBonusDiv: null,
+    skirmishShadowGroup: null,
+    skirmishFellowshipGroup: null,
 
-    extraActionsGroup:null,
+    extraActionsGroup: null,
 
-    assignGroupDivs:null,
-    shadowAssignGroups:null,
-    freePeopleAssignGroups:null,
+    assignGroupDivs: null,
+    shadowAssignGroups: null,
+    freePeopleAssignGroups: null,
 
-    selectionFunction:null,
+    selectionFunction: null,
 
-    chatBoxDiv:null,
-    chatBox:null,
-    communication:null,
-    channelNumber:null,
+    chatBoxDiv: null,
+    chatBox: null,
+    communication: null,
+    channelNumber: null,
 
-    settingsFoilPresentation:false,
-    settingsAutoPass:false,
-    settingsAutoAccept:false,
-    settingsAlwaysDropDown:false,
+    settingsFoilPresentation: "static",
+    settingsAutoPass: false,
+    settingsAutoAccept: false,
+    settingsAlwaysDropDown: false,
 
-    windowWidth:null,
-    windowHeight:null,
+    windowWidth: null,
+    windowHeight: null,
 
-    tabPane:null,
+    tabPane: null,
 
-    animations:null,
+    animations: null,
     replayPlay: false,
 
-    init:function (url, replayMode) {
+    init: function (url, replayMode) {
         this.replayMode = replayMode;
 
         log("ui initialized");
@@ -78,22 +78,22 @@ var GempLotrGameUI = Class.extend({
         this.animations = new GameAnimations(this);
 
         this.communication = new GempLotrCommunication(url,
-                function (xhr, ajaxOptions, thrownError) {
-                    if (thrownError != "abort") {
-                        if (xhr != null) {
-                            if (xhr.status == 401) {
-                                that.chatBox.appendMessage("Game problem - You're not logged in, go to the <a href='index.html'>main page</a> to log in", "warningMessage");
-                                return;
-                            } else {
-                                that.chatBox.appendMessage("There was a problem communicating with the server (" + xhr.status + "), if the game is finished, it has been removed, otherwise you have lost connection to the server.", "warningMessage");
-                                that.chatBox.appendMessage("Refresh the page (press F5) to resume the game, or press back on your browser to get back to the Game Hall.", "warningMessage");
-                                return;
-                            }
+            function (xhr, ajaxOptions, thrownError) {
+                if (thrownError != "abort") {
+                    if (xhr != null) {
+                        if (xhr.status == 401) {
+                            that.chatBox.appendMessage("Game problem - You're not logged in, go to the <a href='index.html'>main page</a> to log in", "warningMessage");
+                            return;
+                        } else {
+                            that.chatBox.appendMessage("There was a problem communicating with the server (" + xhr.status + "), if the game is finished, it has been removed, otherwise you have lost connection to the server.", "warningMessage");
+                            that.chatBox.appendMessage("Refresh the page (press F5) to resume the game, or press back on your browser to get back to the Game Hall.", "warningMessage");
+                            return;
                         }
-                        that.chatBox.appendMessage("There was a problem communicating with the server, if the game is finished, it has been removed, otherwise you have lost connection to the server.", "warningMessage");
-                        that.chatBox.appendMessage("Refresh the page (press F5) to resume the game, or press back on your browser to get back to the Game Hall.", "warningMessage");
                     }
-                });
+                    that.chatBox.appendMessage("There was a problem communicating with the server, if the game is finished, it has been removed, otherwise you have lost connection to the server.", "warningMessage");
+                    that.chatBox.appendMessage("Refresh the page (press F5) to resume the game, or press back on your browser to get back to the Game Hall.", "warningMessage");
+                }
+            });
 
         $.expr[':'].cardId = function (obj, index, meta, stack) {
             var cardIds = meta[3].split(",");
@@ -103,16 +103,22 @@ var GempLotrGameUI = Class.extend({
 
         if (this.replayMode) {
             var replayDiv = $("<div class='replay' style='position:absolute'></div>");
-            var slowerBut = $("<button id='slowerButton'>Slower</button>").button({ icons: {primary:'ui-icon-triangle-1-w'}, text: false});
-            var fasterBut = $("<button id='fasterButton'>Faster</button>").button({ icons: {primary:'ui-icon-triangle-1-e'}, text: false});
+            var slowerBut = $("<button id='slowerButton'>Slower</button>").button({
+                icons: {primary: 'ui-icon-triangle-1-w'},
+                text: false
+            });
+            var fasterBut = $("<button id='fasterButton'>Faster</button>").button({
+                icons: {primary: 'ui-icon-triangle-1-e'},
+                text: false
+            });
             slowerBut.click(
-                    function() {
-                        that.animations.replaySpeed = Math.min(2, that.animations.replaySpeed + 0.2);
-                    });
+                function () {
+                    that.animations.replaySpeed = Math.min(2, that.animations.replaySpeed + 0.2);
+                });
             fasterBut.click(
-                    function() {
-                        that.animations.replaySpeed = Math.max(0.2, that.animations.replaySpeed - 0.2);
-                    });
+                function () {
+                    that.animations.replaySpeed = Math.max(0.2, that.animations.replaySpeed - 0.2);
+                });
             replayDiv.append(slowerBut);
             replayDiv.append(fasterBut);
             replayDiv.append("<br/>");
@@ -121,7 +127,7 @@ var GempLotrGameUI = Class.extend({
             replayDiv.append(replayBut);
 
             $("#main").append(replayDiv);
-            replayDiv.css({"z-index":1000});
+            replayDiv.css({"z-index": 1000});
         }
 
         this.shadowAssignGroups = {};
@@ -147,7 +153,7 @@ var GempLotrGameUI = Class.extend({
         this.addBottomLeftTabPane();
     },
 
-    getReorganizableCardGroupForCardData:function (cardData) {
+    getReorganizableCardGroupForCardData: function (cardData) {
         if (this.charactersPlayer.cardBelongs(cardData)) {
             return this.charactersPlayer;
         }
@@ -189,7 +195,7 @@ var GempLotrGameUI = Class.extend({
         return null;
     },
 
-    layoutGroupWithCard:function (cardId) {
+    layoutGroupWithCard: function (cardId) {
         var cardData = $(".card:cardId(" + cardId + ")").data("card");
         if (this.advPathGroup.cardBelongs(cardData)) {
             this.advPathGroup.layoutCards();
@@ -246,7 +252,7 @@ var GempLotrGameUI = Class.extend({
         this.layoutUI(false);
     },
 
-    initializeGameUI:function () {
+    initializeGameUI: function () {
         this.advPathGroup = new AdvPathCardGroup($("#main"));
 
         var that = this;
@@ -281,11 +287,11 @@ var GempLotrGameUI = Class.extend({
         this.specialGroup.setBounds(this.padding, this.padding, 580 - 2 * (this.padding), 250 - 2 * (this.padding));
 
         this.gameStateElem = $("<div class='ui-widget-content'></div>");
-        this.gameStateElem.css({"border-radius":"7px"});
+        this.gameStateElem.css({"border-radius": "7px"});
 
         for (var i = 0; i < this.allPlayerIds.length; i++) {
             this.gameStateElem.append("<div class='player'>" + (i + 1) + ". " + this.allPlayerIds[i] + "<div id='clock" + i + "' class='clock'></div>"
-                    + "<div class='playerStats'><div id='deck" + i + "' class='deckSize'></div><div id='hand" + i + "' class='handSize'></div><div id='threats" + i + "' class='threatsSize'></div><div id='showStats" + i + "' class='showStats'></div><div id='discard" + i + "' class='discardSize'></div><div id='deadPile" + i + "' class='deadPileSize'></div><div id='adventureDeck" + i + "' class='adventureDeckSize'></div></div></div>");
+                + "<div class='playerStats'><div id='deck" + i + "' class='deckSize'></div><div id='hand" + i + "' class='handSize'></div><div id='threats" + i + "' class='threatsSize'></div><div id='showStats" + i + "' class='showStats'></div><div id='discard" + i + "' class='discardSize'></div><div id='deadPile" + i + "' class='deadPileSize'></div><div id='adventureDeck" + i + "' class='adventureDeckSize'></div></div></div>");
         }
 
         this.gameStateElem.append("<div class='twilightPool'>0</div>");
@@ -295,62 +301,76 @@ var GempLotrGameUI = Class.extend({
 
         for (var i = 0; i < this.allPlayerIds.length; i++) {
             var showBut = $("<div class='slimButton'>+</div>").button().click(
-                    (function (playerIndex) {
-                        return function () {
-                            $(".player").each(
-                                    function (index) {
-                                        if (index == playerIndex) {
-                                            if ($(this).hasClass("opened")) {
-                                                $(this).removeClass("opened").css({width:150 - that.padding});
-                                                $("#discard" + playerIndex).css({display:"none"});
-                                                $("#deadPile" + playerIndex).css({display:"none"});
-                                                $("#adventureDeck" + playerIndex).css({display:"none"});
-                                            } else {
-                                                $(this).addClass("opened").css({width:150 - that.padding + 126});
-                                                $("#discard" + playerIndex).css({display:"table-cell"});
-                                                $("#deadPile" + playerIndex).css({display:"table-cell"});
-                                                $("#adventureDeck" + playerIndex).css({display:"table-cell"});
-                                            }
-                                        }
-                                    });
-                        };
-                    })(i));
+                (function (playerIndex) {
+                    return function () {
+                        $(".player").each(
+                            function (index) {
+                                if (index == playerIndex) {
+                                    if ($(this).hasClass("opened")) {
+                                        $(this).removeClass("opened").css({width: 150 - that.padding});
+                                        $("#discard" + playerIndex).css({display: "none"});
+                                        $("#deadPile" + playerIndex).css({display: "none"});
+                                        $("#adventureDeck" + playerIndex).css({display: "none"});
+                                    } else {
+                                        $(this).addClass("opened").css({width: 150 - that.padding + 126});
+                                        $("#discard" + playerIndex).css({display: "table-cell"});
+                                        $("#deadPile" + playerIndex).css({display: "table-cell"});
+                                        $("#adventureDeck" + playerIndex).css({display: "table-cell"});
+                                    }
+                                }
+                            });
+                    };
+                })(i));
 
             $("#showStats" + i).append(showBut);
         }
 
         if (!this.spectatorMode) {
             $("#discard" + this.getPlayerIndex(this.bottomPlayerId)).addClass("clickable").click(
-                    (function (index) {
-                        return function () {
-                            openSizeDialog(that.discardPileDialogs[that.bottomPlayerId]);
-                        };
-                    })(i));
+                (function (index) {
+                    return function () {
+                        openSizeDialog(that.discardPileDialogs[that.bottomPlayerId]);
+                    };
+                })(i));
             $("#adventureDeck" + this.getPlayerIndex(this.bottomPlayerId)).addClass("clickable").click(
-                    (function (index) {
-                        return function () {
-                            openSizeDialog(that.adventureDeckDialogs[that.bottomPlayerId]);
-                        };
-                    })(i));
+                (function (index) {
+                    return function () {
+                        openSizeDialog(that.adventureDeckDialogs[that.bottomPlayerId]);
+                    };
+                })(i));
         }
 
         for (var i = 0; i < this.allPlayerIds.length; i++) {
             $("#deadPile" + i).addClass("clickable").click(
-                    (function (index) {
-                        return function () {
-                            openSizeDialog(that.deadPileDialogs[that.allPlayerIds[index]]);
-                        };
-                    })(i));
+                (function (index) {
+                    return function () {
+                        openSizeDialog(that.deadPileDialogs[that.allPlayerIds[index]]);
+                    };
+                })(i));
         }
 
         this.alertBox = $("<div class='ui-widget-content'></div>");
-        this.alertBox.css({"border-radius":"7px"});
+        this.alertBox.css({"border-radius": "7px"});
 
         this.alertText = $("<div></div>");
-        this.alertText.css({position:"absolute", left:"0px", top:"0px", width:"100%", height:"50px", scroll:"auto"});
+        this.alertText.css({
+            position: "absolute",
+            left: "0px",
+            top: "0px",
+            width: "100%",
+            height: "50px",
+            scroll: "auto"
+        });
 
         this.alertButtons = $("<div class='alertButtons'></div>");
-        this.alertButtons.css({position:"absolute", left:"0px", top:"50px", width:"100%", height:"30px", scroll:"auto"});
+        this.alertButtons.css({
+            position: "absolute",
+            left: "0px",
+            top: "50px",
+            width: "100%",
+            height: "30px",
+            scroll: "auto"
+        });
 
         this.alertBox.append(this.alertText);
         this.alertBox.append(this.alertButtons);
@@ -358,7 +378,7 @@ var GempLotrGameUI = Class.extend({
         $("#main").append(this.alertBox);
 
         this.statsDiv = $("<div class='ui-widget-content stats'></div>");
-        this.statsDiv.css({"border-radius":"7px"});
+        this.statsDiv.css({"border-radius": "7px"});
         this.statsDiv.append("<div class='fpArchery'></div> <div class='shadowArchery'></div> <div class='move'></div>");
         $("#main").append(this.statsDiv);
 
@@ -367,22 +387,22 @@ var GempLotrGameUI = Class.extend({
         };
 
         $("body").click(
-                function (event) {
-                    return that.clickCardFunction(event);
-                });
+            function (event) {
+                return that.clickCardFunction(event);
+            });
         $("body").mousedown(
-                function (event) {
-                    $("body").bind("mousemove", dragFunc);
-                    return that.dragStartCardFunction(event);
-                });
+            function (event) {
+                $("body").bind("mousemove", dragFunc);
+                return that.dragStartCardFunction(event);
+            });
         $("body").mouseup(
-                function (event) {
-                    $("body").unbind("mousemove", dragFunc);
-                    return that.dragStopCardFunction(event);
-                });
+            function (event) {
+                $("body").unbind("mousemove", dragFunc);
+                return that.dragStopCardFunction(event);
+            });
     },
 
-    addBottomLeftTabPane:function () {
+    addBottomLeftTabPane: function () {
         var that = this;
         var tabsLabels = "<li><a href='#chatBox' class='slimTab'>Chat</a></li>";
         var tabsBodies = "<div id='chatBox' class='slimPanel'></div>";
@@ -398,18 +418,26 @@ var GempLotrGameUI = Class.extend({
 
         this.chatBoxDiv = $("#chatBox");
 
-        $("#settingsBox").append("<input id='foilPresentation' type='checkbox' value='selected' /><label for='foilPresentation'>Use animated foiling</label><br />");
+        var foilSelection = $("<select id='foilPresentation' style='font-size: 80%;'>" +
+            "<option value='static'>Static layer</option>" +
+            "<option value='animated'>Animated layer</option>" +
+            "<option value='none'>None</option>" +
+            "</select>");
+
+        $("#settingsBox").append("Foil presentation: ");
+        $("#settingsBox").append(foilSelection);
+        $("#settingsBox").append("<br/>");
 
         var foilPresentation = $.cookie("foilPresentation");
-        if (foilPresentation == "true") {
-            $("#foilPresentation").prop("checked", true);
-            this.settingsFoilPresentation = true;
+        if (foilPresentation != null) {
+            foilSelection.val(foilPresentation);
+            this.settingsFoilPresentation = foilPresentation;
         }
 
         $("#foilPresentation").bind("change", function () {
-            var selected = $("#foilPresentation").prop("checked");
-            that.settingsFoilPresentation = selected;
-            $.cookie("foilPresentation", "" + selected, { expires:365 });
+            var value = "" + foilSelection.val();
+            that.settingsFoilPresentation = value;
+            $.cookie("foilPresentation", value, {expires: 365});
         });
 
         $("#settingsBox").append("<input id='autoAccept' type='checkbox' value='selected' /><label for='autoAccept'>Auto-accept after selecting action or card</label><br />");
@@ -423,7 +451,7 @@ var GempLotrGameUI = Class.extend({
         $("#autoAccept").bind("change", function () {
             var selected = $("#autoAccept").prop("checked");
             that.settingsAutoAccept = selected;
-            $.cookie("autoAccept", "" + selected, { expires:365 });
+            $.cookie("autoAccept", "" + selected, {expires: 365});
         });
 
         $("#settingsBox").append("<input id='alwaysDropDown' type='checkbox' value='selected' /><label for='alwaysDropDown'>Always display drop-down in answer selection</label><br />");
@@ -437,7 +465,7 @@ var GempLotrGameUI = Class.extend({
         $("#alwaysDropDown").bind("change", function () {
             var selected = $("#alwaysDropDown").prop("checked");
             that.settingsAlwaysDropDown = selected;
-            $.cookie("alwaysDropDown", "" + selected, { expires:365 });
+            $.cookie("alwaysDropDown", "" + selected, {expires: 365});
         });
 
         $("#settingsBox").append("Phases when game auto-passes for you, if you have no phase actions to play<br />");
@@ -477,7 +505,7 @@ var GempLotrGameUI = Class.extend({
 
             if (newAutoPassPhases.length > 0)
                 newAutoPassPhases = newAutoPassPhases.substr(1);
-            $.cookie("autoPassPhases", newAutoPassPhases, { expires:365 });
+            $.cookie("autoPassPhases", newAutoPassPhases, {expires: 365});
         });
 
         var playerListener = function (players) {
@@ -495,18 +523,18 @@ var GempLotrGameUI = Class.extend({
         if (!this.spectatorMode && !this.replayMode) {
             $("#gameOptionsBox").append("<button id='concedeGame'>Concede game</button><br/>");
             $("#concedeGame").button().click(
-                    function () {
-                        that.communication.concede();
-                    });
+                function () {
+                    that.communication.concede();
+                });
             $("#gameOptionsBox").append("<button id='cancelGame'>Request game cancel</button>");
             $("#cancelGame").button().click(
-                    function () {
-                        that.communication.cancel();
-                    });
+                function () {
+                    that.communication.cancel();
+                });
         }
     },
 
-    clickCardFunction:function (event) {
+    clickCardFunction: function (event) {
         var tar = $(event.target);
 
         if (tar.hasClass("cardHint")) {
@@ -538,15 +566,15 @@ var GempLotrGameUI = Class.extend({
         return true;
     },
 
-    dragCardId:null,
-    dragCardIndex:null,
-    draggedCardIndex:null,
-    dragStartX:null,
-    dragStartY:null,
-    successfulDrag:null,
-    draggingHorizontaly:false,
+    dragCardId: null,
+    dragCardIndex: null,
+    draggedCardIndex: null,
+    dragStartX: null,
+    dragStartY: null,
+    successfulDrag: null,
+    draggingHorizontaly: false,
 
-    dragStartCardFunction:function (event) {
+    dragStartCardFunction: function (event) {
         this.successfulDrag = false;
         var tar = $(event.target);
         if (tar.hasClass("actionArea")) {
@@ -564,7 +592,7 @@ var GempLotrGameUI = Class.extend({
         return true;
     },
 
-    dragContinuesCardFunction:function (event) {
+    dragContinuesCardFunction: function (event) {
         if (this.dragCardId != null) {
             if (!this.draggingHorizontaly && Math.abs(this.dragStartX - event.clientX) >= 20) {
                 var cardElems = $(".card:cardId(" + this.dragCardId + ")");
@@ -622,7 +650,7 @@ var GempLotrGameUI = Class.extend({
         }
     },
 
-    dragStopCardFunction:function (event) {
+    dragStopCardFunction: function (event) {
         if (this.dragCardId != null) {
             if (this.dragStartY - event.clientY >= 20 && !this.draggingHorizontaly) {
                 var cardElems = $(".card:cardId(" + this.dragCardId + ")");
@@ -642,7 +670,7 @@ var GempLotrGameUI = Class.extend({
         return true;
     },
 
-    displayCard:function (card, extraSpace) {
+    displayCard: function (card, extraSpace) {
         this.infoDialog.html("");
         this.infoDialog.html("<div style='scroll: auto'></div>");
         var floatCardDiv = $("<div style='float: left;'></div>");
@@ -659,15 +687,21 @@ var GempLotrGameUI = Class.extend({
 
         if (card.horizontal) {
             // 500x360
-            this.infoDialog.dialog({width:Math.min(500 + horSpace, windowWidth), height:Math.min(360 + vertSpace, windowHeight)});
+            this.infoDialog.dialog({
+                width: Math.min(500 + horSpace, windowWidth),
+                height: Math.min(360 + vertSpace, windowHeight)
+            });
         } else {
             // 360x500
-            this.infoDialog.dialog({width:Math.min(360 + horSpace, windowWidth), height:Math.min(500 + vertSpace, windowHeight)});
+            this.infoDialog.dialog({
+                width: Math.min(360 + horSpace, windowWidth),
+                height: Math.min(500 + vertSpace, windowHeight)
+            });
         }
         this.infoDialog.dialog("open");
     },
 
-    displayCardInfo:function (card) {
+    displayCardInfo: function (card) {
         var showModifiers = false;
         var cardId = card.cardId;
         if (!this.replayMode && (cardId.length < 4 || cardId.substring(0, 4) != "temp"))
@@ -679,28 +713,28 @@ var GempLotrGameUI = Class.extend({
             this.getCardModifiersFunction(cardId, this.setCardModifiers);
     },
 
-    setCardModifiers:function (html) {
+    setCardModifiers: function (html) {
         $("#cardEffects").replaceWith(html);
     },
 
-    initializeDialogs:function () {
+    initializeDialogs: function () {
         this.smallDialog = $("<div></div>")
-                .dialog({
-            autoOpen:false,
-            closeOnEscape:false,
-            resizable:false,
-            width:400,
-            height:200
-        });
+            .dialog({
+                autoOpen: false,
+                closeOnEscape: false,
+                resizable: false,
+                width: 400,
+                height: 200
+            });
 
         this.cardActionDialog = $("<div></div>")
-                .dialog({
-            autoOpen:false,
-            closeOnEscape:false,
-            resizable:true,
-            width:600,
-            height:300
-        });
+            .dialog({
+                autoOpen: false,
+                closeOnEscape: false,
+                resizable: true,
+                width: 600,
+                height: 300
+            });
 
         var that = this;
 
@@ -714,32 +748,32 @@ var GempLotrGameUI = Class.extend({
         var height = $(window).height();
 
         this.infoDialog = $("<div></div>")
-                .dialog({
-            autoOpen:false,
-            closeOnEscape:true,
-            resizable:false,
-            title:"Card information"
-        });
+            .dialog({
+                autoOpen: false,
+                closeOnEscape: true,
+                resizable: false,
+                title: "Card information"
+            });
 
         var swipeOptions = {
-            threshold:20,
-            swipeUp:function (event) {
-                that.infoDialog.prop({ scrollTop:that.infoDialog.prop("scrollHeight") });
+            threshold: 20,
+            swipeUp: function (event) {
+                that.infoDialog.prop({scrollTop: that.infoDialog.prop("scrollHeight")});
                 return false;
             },
-            swipeDown:function (event) {
-                that.infoDialog.prop({ scrollTop:0 });
+            swipeDown: function (event) {
+                that.infoDialog.prop({scrollTop: 0});
                 return false;
             }
         };
         this.infoDialog.swipe(swipeOptions);
     },
 
-    windowResized:function () {
+    windowResized: function () {
         this.animations.windowResized();
     },
 
-    layoutUI:function (sizeChanged) {
+    layoutUI: function (sizeChanged) {
         var padding = this.padding;
         var width = $(window).width();
         var height = $(window).height();
@@ -780,7 +814,13 @@ var GempLotrGameUI = Class.extend({
         var currentPlayerTurn = (this.currentPlayerId == this.bottomPlayerId);
 
         if (this.advPathGroup != null) {
-            this.statsDiv.css({position:"absolute", left:padding + "px", top:height - (padding * 2) - chatHeight - 34 + "px", width:advPathWidth - 4, height:30});
+            this.statsDiv.css({
+                position: "absolute",
+                left: padding + "px",
+                top: height - (padding * 2) - chatHeight - 34 + "px",
+                width: advPathWidth - 4,
+                height: 30
+            });
 
             this.advPathGroup.setBounds(padding, padding, advPathWidth, height - (padding * 3) - chatHeight - 34 - padding);
             this.supportOpponent.setBounds(advPathWidth + specialUiWidth + (padding * 2), padding + yScales[0] * heightPerScale, width - (advPathWidth + specialUiWidth + padding * 3), heightScales[0] * heightPerScale);
@@ -796,23 +836,85 @@ var GempLotrGameUI = Class.extend({
                 var groupHeight = currentPlayerTurn ? (heightScales[2] * heightPerScale + heightScales[3] * heightPerScale + padding) : (heightScales[1] * heightPerScale + heightScales[2] * heightPerScale + padding);
                 var x = advPathWidth + specialUiWidth + (padding * 2) + charsWidthWithAssignments + padding + i * (groupWidth + padding);
                 var y = currentPlayerTurn ? (padding * 3 + yScales[2] * heightPerScale) : (padding * 2 + yScales[1] * heightPerScale);
-                this.skirmishGroupDiv.css({left:x + "px", top:y + "px", width:groupWidth, height:groupHeight, position:"absolute"});
+                this.skirmishGroupDiv.css({
+                    left: x + "px",
+                    top: y + "px",
+                    width: groupWidth,
+                    height: groupHeight,
+                    position: "absolute"
+                });
                 var strengthBoxSize = 40;
                 var dmgBoxSize = 30;
                 if (currentPlayerTurn) {
                     this.skirmishShadowGroup.setBounds(x + 3, y + 3, groupWidth - 6, heightScales[2] * heightPerScale - 6);
                     this.skirmishFellowshipGroup.setBounds(x + 3, y + heightScales[2] * heightPerScale + padding + 3, groupWidth - 6, heightScales[3] * heightPerScale - 6);
-                    this.fpStrengthDiv.css({position:"absolute", left:groupWidth - strengthBoxSize - 2 + "px", top:groupHeight - strengthBoxSize - 2 + "px", width:strengthBoxSize, height:strengthBoxSize, "z-index":50});
-                    this.fpDamageBonusDiv.css({position:"absolute", left:groupWidth - strengthBoxSize - dmgBoxSize - 2 + "px", top:groupHeight - dmgBoxSize - 2 + "px", width:dmgBoxSize, height:dmgBoxSize, "z-index":50});
-                    this.shadowStrengthDiv.css({position:"absolute", left:groupWidth - strengthBoxSize - 2 + "px", top:2 + "px", width:strengthBoxSize, height:strengthBoxSize, "z-index":50});
-                    this.shadowDamageBonusDiv.css({position:"absolute", left:groupWidth - strengthBoxSize - dmgBoxSize - 2 + "px", top:2 + "px", width:dmgBoxSize, height:dmgBoxSize, "z-index":50});
+                    this.fpStrengthDiv.css({
+                        position: "absolute",
+                        left: groupWidth - strengthBoxSize - 2 + "px",
+                        top: groupHeight - strengthBoxSize - 2 + "px",
+                        width: strengthBoxSize,
+                        height: strengthBoxSize,
+                        "z-index": 50
+                    });
+                    this.fpDamageBonusDiv.css({
+                        position: "absolute",
+                        left: groupWidth - strengthBoxSize - dmgBoxSize - 2 + "px",
+                        top: groupHeight - dmgBoxSize - 2 + "px",
+                        width: dmgBoxSize,
+                        height: dmgBoxSize,
+                        "z-index": 50
+                    });
+                    this.shadowStrengthDiv.css({
+                        position: "absolute",
+                        left: groupWidth - strengthBoxSize - 2 + "px",
+                        top: 2 + "px",
+                        width: strengthBoxSize,
+                        height: strengthBoxSize,
+                        "z-index": 50
+                    });
+                    this.shadowDamageBonusDiv.css({
+                        position: "absolute",
+                        left: groupWidth - strengthBoxSize - dmgBoxSize - 2 + "px",
+                        top: 2 + "px",
+                        width: dmgBoxSize,
+                        height: dmgBoxSize,
+                        "z-index": 50
+                    });
                 } else {
                     this.skirmishFellowshipGroup.setBounds(x + 3, y + 3, groupWidth - 6, heightScales[1] * heightPerScale - 6);
                     this.skirmishShadowGroup.setBounds(x + 3, y + heightScales[1] * heightPerScale + padding + 3, groupWidth - 6, heightScales[2] * heightPerScale - 6);
-                    this.shadowStrengthDiv.css({position:"absolute", left:groupWidth - strengthBoxSize - 2 + "px", top:groupHeight - strengthBoxSize - 2 + "px", width:strengthBoxSize, height:strengthBoxSize, "z-index":50});
-                    this.shadowDamageBonusDiv.css({position:"absolute", left:groupWidth - strengthBoxSize - dmgBoxSize - 2 + "px", top:groupHeight - dmgBoxSize - 2 + "px", width:dmgBoxSize, height:dmgBoxSize, "z-index":50});
-                    this.fpStrengthDiv.css({position:"absolute", left:groupWidth - strengthBoxSize - 2 + "px", top:2 + "px", width:strengthBoxSize, height:strengthBoxSize, "z-index":50});
-                    this.fpDamageBonusDiv.css({position:"absolute", left:groupWidth - strengthBoxSize - dmgBoxSize - 2 + "px", top:2 + "px", width:dmgBoxSize, height:dmgBoxSize, "z-index":50});
+                    this.shadowStrengthDiv.css({
+                        position: "absolute",
+                        left: groupWidth - strengthBoxSize - 2 + "px",
+                        top: groupHeight - strengthBoxSize - 2 + "px",
+                        width: strengthBoxSize,
+                        height: strengthBoxSize,
+                        "z-index": 50
+                    });
+                    this.shadowDamageBonusDiv.css({
+                        position: "absolute",
+                        left: groupWidth - strengthBoxSize - dmgBoxSize - 2 + "px",
+                        top: groupHeight - dmgBoxSize - 2 + "px",
+                        width: dmgBoxSize,
+                        height: dmgBoxSize,
+                        "z-index": 50
+                    });
+                    this.fpStrengthDiv.css({
+                        position: "absolute",
+                        left: groupWidth - strengthBoxSize - 2 + "px",
+                        top: 2 + "px",
+                        width: strengthBoxSize,
+                        height: strengthBoxSize,
+                        "z-index": 50
+                    });
+                    this.fpDamageBonusDiv.css({
+                        position: "absolute",
+                        left: groupWidth - strengthBoxSize - dmgBoxSize - 2 + "px",
+                        top: 2 + "px",
+                        width: dmgBoxSize,
+                        height: dmgBoxSize,
+                        "z-index": 50
+                    });
                 }
                 i++;
             }
@@ -824,7 +926,13 @@ var GempLotrGameUI = Class.extend({
                     var groupHeight = currentPlayerTurn ? (heightScales[2] * heightPerScale + heightScales[3] * heightPerScale + padding) : (heightScales[1] * heightPerScale + heightScales[2] * heightPerScale + padding);
                     var x = advPathWidth + specialUiWidth + (padding * 2) + charsWidthWithAssignments + padding + i * (groupWidth + padding);
                     var y = currentPlayerTurn ? (padding * 3 + yScales[2] * heightPerScale) : (padding * 2 + yScales[1] * heightPerScale);
-                    this.assignGroupDivs[assignIndex].css({left:x + "px", top:y + "px", width:groupWidth, height:groupHeight, position:"absolute"});
+                    this.assignGroupDivs[assignIndex].css({
+                        left: x + "px",
+                        top: y + "px",
+                        width: groupWidth,
+                        height: groupHeight,
+                        position: "absolute"
+                    });
                     if (currentPlayerTurn) {
                         this.shadowAssignGroups[characterId].setBounds(x + 3, y + 3, groupWidth - 6, heightScales[2] * heightPerScale - 6);
                         this.freePeopleAssignGroups[characterId].setBounds(x + 3, y + heightScales[2] * heightPerScale + padding + 3, groupWidth - 6, heightScales[3] * heightPerScale - 6);
@@ -841,9 +949,21 @@ var GempLotrGameUI = Class.extend({
             if (!this.spectatorMode)
                 this.hand.setBounds(advPathWidth + specialUiWidth + (padding * 2), padding * 6 + yScales[5] * heightPerScale, width - (advPathWidth + specialUiWidth + padding * 3), heightScales[5] * heightPerScale);
 
-            this.gameStateElem.css({ position:"absolute", left:padding * 2 + advPathWidth, top:padding, width:specialUiWidth - padding, height:height - padding * 4 - alertHeight - chatHeight});
+            this.gameStateElem.css({
+                position: "absolute",
+                left: padding * 2 + advPathWidth,
+                top: padding,
+                width: specialUiWidth - padding,
+                height: height - padding * 4 - alertHeight - chatHeight
+            });
             this.extraActionsGroup.setBounds(padding * 2 + advPathWidth, padding + 160, specialUiWidth - padding, height - padding * 4 - alertHeight - chatHeight - 160);
-            this.alertBox.css({ position:"absolute", left:padding * 2 + advPathWidth, top:height - (padding * 2) - alertHeight - chatHeight, width:specialUiWidth - padding, height:alertHeight });
+            this.alertBox.css({
+                position: "absolute",
+                left: padding * 2 + advPathWidth,
+                top: height - (padding * 2) - alertHeight - chatHeight,
+                width: specialUiWidth - padding,
+                height: alertHeight
+            });
 
 
             for (var playerId in this.discardPileGroups)
@@ -858,89 +978,102 @@ var GempLotrGameUI = Class.extend({
                 if (this.deadPileGroups.hasOwnProperty(playerId))
                     this.deadPileGroups[playerId].layoutCards();
         }
-        this.tabPane.css({ position:"absolute", left:padding, top:height - padding - chatHeight, width:specialUiWidth + advPathWidth - padding, height:chatHeight - padding});
+        this.tabPane.css({
+            position: "absolute",
+            left: padding,
+            top: height - padding - chatHeight,
+            width: specialUiWidth + advPathWidth - padding,
+            height: chatHeight - padding
+        });
         this.chatBox.setBounds(4, 4 + 25, specialUiWidth + advPathWidth - 8, chatHeight - 8 - 25);
 
         if (this.replayMode) {
-            $(".replay").css({position:"absolute", left:width - 66 - 4 - padding, top:height - 97 - 2 - padding, width:66, height:97, "z-index":1000});
+            $(".replay").css({
+                position: "absolute",
+                left: width - 66 - 4 - padding,
+                top: height - 97 - 2 - padding,
+                width: 66,
+                height: 97,
+                "z-index": 1000
+            });
         }
     },
 
-    startReplaySession:function (replayId) {
+    startReplaySession: function (replayId) {
         var that = this;
         this.communication.getReplay(replayId,
-                function (xml) {
-                    that.processXmlReplay(xml, true);
-                });
+            function (xml) {
+                that.processXmlReplay(xml, true);
+            });
     },
 
-    startGameSession:function () {
+    startGameSession: function () {
         var that = this;
         this.communication.startGameSession(
-                function (xml) {
-                    that.processXml(xml, false);
-                }, this.gameErrorMap());
+            function (xml) {
+                that.processXml(xml, false);
+            }, this.gameErrorMap());
     },
 
-    updateGameState:function () {
+    updateGameState: function () {
         var that = this;
         this.communication.updateGameState(
-                this.channelNumber,
-                function (xml) {
-                    that.processXml(xml, true);
-                }, this.gameErrorMap());
+            this.channelNumber,
+            function (xml) {
+                that.processXml(xml, true);
+            }, this.gameErrorMap());
     },
 
-    decisionFunction:function (decisionId, result) {
+    decisionFunction: function (decisionId, result) {
         var that = this;
         this.stopAnimatingTitle();
         this.communication.gameDecisionMade(decisionId, result,
-                this.channelNumber,
-                function (xml) {
-                    that.processXml(xml, true);
-                }, this.gameErrorMap());
+            this.channelNumber,
+            function (xml) {
+                that.processXml(xml, true);
+            }, this.gameErrorMap());
     },
 
-    gameErrorMap:function() {
+    gameErrorMap: function () {
         var that = this;
         return {
-            "0": function() {
+            "0": function () {
                 that.showErrorDialog("Server connection error", "Unable to connect to server. Either server is down or there is a problem with your internet connection.", true, false, false);
             },
-            "401":function() {
+            "401": function () {
                 that.showErrorDialog("Authentication error", "You are not logged in", false, true, false);
             },
-            "403":function() {
+            "403": function () {
                 that.showErrorDialog("Game access forbidden", "This game is private and does not allow spectators.", false, false, true);
             },
-            "409":function() {
+            "409": function () {
                 that.showErrorDialog("Concurrent access error", "You are observing this Game Hall from another browser or window. Close this window or if you wish to observe it here, click \"Refresh page\".", true, false, false);
             },
-            "410":function() {
+            "410": function () {
                 that.showErrorDialog("Inactivity error", "You were inactive for too long and have been removed from observing this game. If you wish to start again, click \"Refresh page\".", true, false, false);
             }
         };
     },
 
-    showErrorDialog:function(title, text, reloadButton, mainPageButton, gameHallButton) {
+    showErrorDialog: function (title, text, reloadButton, mainPageButton, gameHallButton) {
         var buttons = {};
         if (reloadButton) {
             buttons["Refresh page"] =
-            function () {
-                location.reload(true);
-            };
+                function () {
+                    location.reload(true);
+                };
         }
         if (mainPageButton) {
             buttons["Go to main page"] =
-            function() {
-                location.href = "/gemp-lotr/";
-            };
+                function () {
+                    location.href = "/gemp-lotr/";
+                };
         }
         if (gameHallButton) {
             buttons["Go to Game Hall"] =
-            function() {
-                location.href = "/gemp-lotr/hall.html";
-            };
+                function () {
+                    location.href = "/gemp-lotr/hall.html";
+                };
         }
 
         var dialog = $("<div></div>").dialog({
@@ -952,25 +1085,25 @@ var GempLotrGameUI = Class.extend({
         }).text(text);
     },
 
-    getCardModifiersFunction:function (cardId, func) {
+    getCardModifiersFunction: function (cardId, func) {
         var that = this;
         this.communication.getGameCardModifiers(cardId,
-                function (html) {
-                    that.setCardModifiers(html);
-                });
+            function (html) {
+                that.setCardModifiers(html);
+            });
     },
 
-    processXml:function (xml, animate) {
+    processXml: function (xml, animate) {
         log(xml);
         var root = xml.documentElement;
         if (root.tagName == 'gameState' || root.tagName == 'update')
             this.processGameEventsXml(root, animate);
     },
 
-    replayGameEventNextIndex:0,
-    replayGameEvents:null,
+    replayGameEventNextIndex: 0,
+    replayGameEvents: null,
 
-    processXmlReplay:function (xml, animate) {
+    processXmlReplay: function (xml, animate) {
         var that = this;
         log(xml);
         var root = xml.documentElement;
@@ -979,49 +1112,49 @@ var GempLotrGameUI = Class.extend({
             this.replayGameEventNextIndex = 0;
 
             $("#replayButton").click(
-                    function() {
-                        if (that.replayPlay) {
-                            that.replayPlay = false;
-                            $("#replayButton").attr("src", "images/play.png");
-                        } else {
-                            that.replayPlay = true;
-                            $("#replayButton").attr("src", "images/pause.png");
-                            that.playNextReplayEvent();
-                        }
-                    });
+                function () {
+                    if (that.replayPlay) {
+                        that.replayPlay = false;
+                        $("#replayButton").attr("src", "images/play.png");
+                    } else {
+                        that.replayPlay = true;
+                        $("#replayButton").attr("src", "images/pause.png");
+                        that.playNextReplayEvent();
+                    }
+                });
 
             this.playNextReplayEvent();
         }
     },
 
-    shouldPlay:function () {
+    shouldPlay: function () {
         return this.replayPlay;
     },
 
-    playNextReplayEvent:function () {
+    playNextReplayEvent: function () {
         if (this.shouldPlay()) {
             var that = this;
             if (this.replayGameEventNextIndex < this.replayGameEvents.length) {
                 $("#main").queue(
-                        function (next) {
-                            that.cleanupDecision();
-                            next();
-                        });
+                    function (next) {
+                        that.cleanupDecision();
+                        next();
+                    });
                 var gameEvent = this.replayGameEvents[this.replayGameEventNextIndex];
                 this.processGameEvent(gameEvent, true);
 
                 this.replayGameEventNextIndex++;
 
                 $("#main").queue(
-                        function (next) {
-                            that.playNextReplayEvent();
-                            next();
-                        });
+                    function (next) {
+                        that.playNextReplayEvent();
+                        next();
+                    });
             }
         }
     },
 
-    processGameEvent:function (gameEvent, animate) {
+    processGameEvent: function (gameEvent, animate) {
         var eventType = gameEvent.getAttribute("type");
         if (eventType == "PCIP") {
             this.animations.putCardInPlay(gameEvent, animate);
@@ -1072,7 +1205,7 @@ var GempLotrGameUI = Class.extend({
         }
     },
 
-    processGameEventsXml:function (element, animate) {
+    processGameEventsXml: function (element, animate) {
         try {
             this.channelNumber = element.getAttribute("cn");
 
@@ -1126,47 +1259,47 @@ var GempLotrGameUI = Class.extend({
 
     keepAnimating: false,
 
-    startAnimatingTitle: function() {
+    startAnimatingTitle: function () {
         var that = this;
         this.keepAnimating = true;
-        setTimeout(function() {
+        setTimeout(function () {
             that.setDecisionTitle();
         }, 500);
     },
 
-    stopAnimatingTitle: function() {
+    stopAnimatingTitle: function () {
         this.keepAnimating = false;
         window.document.title = "Game of Gemp-LotR";
     },
 
-    setDecisionTitle: function() {
+    setDecisionTitle: function () {
         if (this.keepAnimating) {
             window.document.title = "Waiting for your decision";
             var that = this;
-            setTimeout(function() {
+            setTimeout(function () {
                 that.setNormalTitle();
             }, 500);
         }
     },
 
-    setNormalTitle: function() {
+    setNormalTitle: function () {
         if (this.keepAnimating) {
             window.document.title = "Game of Gemp-LotR";
             var that = this;
-            setTimeout(function() {
+            setTimeout(function () {
                 that.setDecisionTitle();
             }, 500);
         }
     },
 
-    getPlayerIndex:function (playerId) {
+    getPlayerIndex: function (playerId) {
         for (var plId = 0; plId < this.allPlayerIds.length; plId++)
             if (this.allPlayerIds[plId] == playerId)
                 return plId;
         return -1;
     },
 
-    layoutZones:function () {
+    layoutZones: function () {
         this.advPathGroup.layoutCards();
         this.charactersPlayer.layoutCards();
         this.charactersOpponent.layoutCards();
@@ -1187,7 +1320,7 @@ var GempLotrGameUI = Class.extend({
         }
     },
 
-    participant:function (element) {
+    participant: function (element) {
         var participantId = element.getAttribute("participantId");
         this.allPlayerIds = element.getAttribute("allParticipantIds").split(",");
 
@@ -1203,14 +1336,14 @@ var GempLotrGameUI = Class.extend({
             this.spectatorMode = false;
 
             var discardPileDialog = $("<div></div>").dialog({
-                autoOpen:false,
-                closeOnEscape:true,
-                resizable:true,
-                title:"Discard - " + participantId,
-                minHeight:80,
-                minWidth:200,
-                width:600,
-                height:300
+                autoOpen: false,
+                closeOnEscape: true,
+                resizable: true,
+                title: "Discard - " + participantId,
+                minHeight: 80,
+                minWidth: 200,
+                width: 600,
+                height: 300
             });
 
             this.discardPileDialogs[participantId] = discardPileDialog;
@@ -1225,14 +1358,14 @@ var GempLotrGameUI = Class.extend({
             });
 
             var adventureDeckDialog = $("<div></div>").dialog({
-                autoOpen:false,
-                closeOnEscape:true,
-                resizable:true,
-                title:"Adventure deck - " + participantId,
-                minHeight:80,
-                minWidth:200,
-                width:600,
-                height:300
+                autoOpen: false,
+                closeOnEscape: true,
+                resizable: true,
+                title: "Adventure deck - " + participantId,
+                minHeight: 80,
+                minWidth: 200,
+                width: 600,
+                height: 300
             });
 
             this.adventureDeckDialogs[participantId] = adventureDeckDialog;
@@ -1249,14 +1382,14 @@ var GempLotrGameUI = Class.extend({
 
         for (var i = 0; i < this.allPlayerIds.length; i++) {
             var deadPileDialog = $("<div></div>").dialog({
-                autoOpen:false,
-                closeOnEscape:true,
-                resizable:true,
-                title:"Dead pile - " + this.allPlayerIds[i],
-                minHeight:80,
-                minWidth:200,
-                width:600,
-                height:300
+                autoOpen: false,
+                closeOnEscape: true,
+                resizable: true,
+                title: "Dead pile - " + this.allPlayerIds[i],
+                minHeight: 80,
+                minWidth: 200,
+                width: 600,
+                height: 300
             });
             this.deadPileDialogs[this.allPlayerIds[i]] = deadPileDialog;
             this.deadPileGroups[this.allPlayerIds[i]] = new NormalCardGroup(deadPileDialog, function (card) {
@@ -1276,7 +1409,7 @@ var GempLotrGameUI = Class.extend({
         this.layoutUI(true);
     },
 
-    getDecisionParameter:function (decision, name) {
+    getDecisionParameter: function (decision, name) {
         var parameters = decision.getElementsByTagName("parameter");
         for (var i = 0; i < parameters.length; i++)
             if (parameters[i].getAttribute("name") == name)
@@ -1285,7 +1418,7 @@ var GempLotrGameUI = Class.extend({
         return null;
     },
 
-    getDecisionParameters:function (decision, name) {
+    getDecisionParameters: function (decision, name) {
         var result = new Array();
         var parameters = decision.getElementsByTagName("parameter");
         for (var i = 0; i < parameters.length; i++)
@@ -1295,7 +1428,7 @@ var GempLotrGameUI = Class.extend({
         return result;
     },
 
-    cleanupDecision:function () {
+    cleanupDecision: function () {
         this.smallDialog.dialog("close");
         this.cardActionDialog.dialog("close");
         this.clearSelection();
@@ -1305,19 +1438,19 @@ var GempLotrGameUI = Class.extend({
             this.alertButtons.html("");
         // ****CCG League****: Border around alert box
         if (this.alertBox != null)
-            this.alertBox.css({"border-radius":"7px", "border-color":""});
+            this.alertBox.css({"border-radius": "7px", "border-color": ""});
 
         $(".card").each(
-                function () {
-                    var card = $(this).data("card");
-                    if (card.zone == "EXTRA")
-                        $(this).remove();
-                });
+            function () {
+                var card = $(this).data("card");
+                if (card.zone == "EXTRA")
+                    $(this).remove();
+            });
         if (this.extraActionsGroup != null)
             this.extraActionsGroup.layoutCards();
     },
 
-    integerDecision:function (decision) {
+    integerDecision: function (decision) {
         var id = decision.getAttribute("id");
         var text = decision.getAttribute("text");
         var val = 0;
@@ -1335,35 +1468,36 @@ var GempLotrGameUI = Class.extend({
 
         var that = this;
         this.smallDialog
-                .html(text + "<br /><input id='integerDecision' type='text' value='0'>");
+            .html(text + "<br /><input id='integerDecision' type='text' value='0'>");
 
         if (!this.replayMode) {
             this.smallDialog.dialog("option", "buttons",
-            {
-                "OK":function () {
-                    $(this).dialog("close");
-                    that.decisionFunction(id, $("#integerDecision").val());
-                }
-            });
+                {
+                    "OK": function () {
+                        $(this).dialog("close");
+                        that.decisionFunction(id, $("#integerDecision").val());
+                    }
+                });
         }
 
-        $("#integerDecision").SpinnerControl({ type:'range',
-            typedata:{
-                min:parseInt(min),
-                max:parseInt(max),
-                interval:1,
-                decimalplaces:0
+        $("#integerDecision").SpinnerControl({
+            type: 'range',
+            typedata: {
+                min: parseInt(min),
+                max: parseInt(max),
+                interval: 1,
+                decimalplaces: 0
             },
-            defaultVal:val,
-            width:'50px',
-            backColor:"#000000"
+            defaultVal: val,
+            width: '50px',
+            backColor: "#000000"
         });
 
         this.smallDialog.dialog("open");
         $('.ui-dialog :button').blur();
     },
 
-    multipleChoiceDecision:function (decision) {
+    multipleChoiceDecision: function (decision) {
         var id = decision.getAttribute("id");
         var text = decision.getAttribute("text");
 
@@ -1371,7 +1505,7 @@ var GempLotrGameUI = Class.extend({
 
         var that = this;
         this.smallDialog
-                .html(text);
+            .html(text);
 
         if (results.length > 2 || this.settingsAlwaysDropDown) {
             var html = "<br /><select id='multipleChoiceDecision' selectedIndex='0'>";
@@ -1382,12 +1516,12 @@ var GempLotrGameUI = Class.extend({
 
             if (!this.replayMode) {
                 this.smallDialog.dialog("option", "buttons",
-                {
-                    "OK":function () {
-                        that.smallDialog.dialog("close");
-                        that.decisionFunction(id, $("#multipleChoiceDecision").val());
-                    }
-                });
+                    {
+                        "OK": function () {
+                            that.smallDialog.dialog("close");
+                            that.decisionFunction(id, $("#multipleChoiceDecision").val());
+                        }
+                    });
             }
         } else {
             this.smallDialog.append("<br />");
@@ -1398,12 +1532,12 @@ var GempLotrGameUI = Class.extend({
                 var but = $("<button></button>").html(results[i]).button();
                 if (!this.replayMode) {
                     but.click(
-                            (function (ind) {
-                                return function () {
-                                    that.smallDialog.dialog("close");
-                                    that.decisionFunction(id, "" + ind);
-                                }
-                            })(i));
+                        (function (ind) {
+                            return function () {
+                                that.smallDialog.dialog("close");
+                                that.decisionFunction(id, "" + ind);
+                            }
+                        })(i));
                 }
                 this.smallDialog.append(but);
             }
@@ -1415,7 +1549,7 @@ var GempLotrGameUI = Class.extend({
         $('.ui-dialog :button').blur();
     },
 
-    ensureCardHasBoxes:function (cardDiv) {
+    ensureCardHasBoxes: function (cardDiv) {
         if ($(".cardStrength", cardDiv).length == 0) {
             var tokenOverlay = $(".tokenOverlay", cardDiv);
 
@@ -1432,24 +1566,24 @@ var GempLotrGameUI = Class.extend({
             tokenOverlay.append(cardVitalityDiv);
 
             var cardSiteNumberBgDiv = $("<div class='cardSiteNumberBg'><img src='images/o_icon_compass.png' width='100%' height='100%'></div>");
-            cardSiteNumberBgDiv.css({display:"none"});
+            cardSiteNumberBgDiv.css({display: "none"});
             tokenOverlay.append(cardSiteNumberBgDiv);
 
             var cardSiteNumberDiv = $("<div class='cardSiteNumber'></div>");
-            cardSiteNumberDiv.css({display:"none"});
+            cardSiteNumberDiv.css({display: "none"});
             tokenOverlay.append(cardSiteNumberDiv);
 
             var cardResistanceBgDiv = $("<div class='cardResistanceBg'><img src='images/o_icon_resistance.png' width='100%' height='100%'></div>");
-            cardResistanceBgDiv.css({display:"none"});
+            cardResistanceBgDiv.css({display: "none"});
             tokenOverlay.append(cardResistanceBgDiv);
 
             var cardResistanceDiv = $("<div class='cardResistance'></div>");
-            cardResistanceDiv.css({display:"none"});
+            cardResistanceDiv.css({display: "none"});
             tokenOverlay.append(cardResistanceDiv);
 
             var sizeListeners = new Array();
             sizeListeners[0] = {
-                sizeChanged:function (cardElem, width, height) {
+                sizeChanged: function (cardElem, width, height) {
                     var maxDimension = Math.max(width, height);
 
                     var size = 0.0865 * maxDimension;
@@ -1475,14 +1609,68 @@ var GempLotrGameUI = Class.extend({
                     var thirdBoxY = 0.845 * height;
                     var thirdBoxSize = 0.115 * height;
 
-                    $(".cardStrengthBg", cardElem).css({position:"absolute", left:strBgX + "px", top:strBgY + "px", width:strBgWidth, height:strBgHeight});
-                    $(".cardStrength", cardElem).css({position:"absolute", "font-size":fontPerc, left:x + "px", top:strengthY + "px", width:size, height:size});
-                    $(".cardVitalityBg", cardElem).css({position:"absolute", left:vitBgX + "px", top:vitBgY + "px", width:vitalityBgSize, height:vitalityBgSize});
-                    $(".cardVitality", cardElem).css({position:"absolute", "font-size":fontPerc, left:x + "px", top:vitalityY + "px", width:size, height:size});
-                    $(".cardSiteNumberBg", cardElem).css({position:"absolute", left:thirdBoxX + "px", top:thirdBoxY + "px", width:thirdBoxSize, height:thirdBoxSize});
-                    $(".cardSiteNumber", cardElem).css({position:"absolute", "border-radius":borderRadius, "font-size":fontPerc, left:x + "px", top:minionSiteNumberY + "px", width:size, height:size});
-                    $(".cardResistanceBg", cardElem).css({position:"absolute", left:thirdBoxX + "px", top:thirdBoxY + "px", width:thirdBoxSize, height:thirdBoxSize});
-                    $(".cardResistance", cardElem).css({position:"absolute", "border-radius":borderRadius, "font-size":fontPerc, left:x + "px", top:minionSiteNumberY + "px", width:size, height:size});
+                    $(".cardStrengthBg", cardElem).css({
+                        position: "absolute",
+                        left: strBgX + "px",
+                        top: strBgY + "px",
+                        width: strBgWidth,
+                        height: strBgHeight
+                    });
+                    $(".cardStrength", cardElem).css({
+                        position: "absolute",
+                        "font-size": fontPerc,
+                        left: x + "px",
+                        top: strengthY + "px",
+                        width: size,
+                        height: size
+                    });
+                    $(".cardVitalityBg", cardElem).css({
+                        position: "absolute",
+                        left: vitBgX + "px",
+                        top: vitBgY + "px",
+                        width: vitalityBgSize,
+                        height: vitalityBgSize
+                    });
+                    $(".cardVitality", cardElem).css({
+                        position: "absolute",
+                        "font-size": fontPerc,
+                        left: x + "px",
+                        top: vitalityY + "px",
+                        width: size,
+                        height: size
+                    });
+                    $(".cardSiteNumberBg", cardElem).css({
+                        position: "absolute",
+                        left: thirdBoxX + "px",
+                        top: thirdBoxY + "px",
+                        width: thirdBoxSize,
+                        height: thirdBoxSize
+                    });
+                    $(".cardSiteNumber", cardElem).css({
+                        position: "absolute",
+                        "border-radius": borderRadius,
+                        "font-size": fontPerc,
+                        left: x + "px",
+                        top: minionSiteNumberY + "px",
+                        width: size,
+                        height: size
+                    });
+                    $(".cardResistanceBg", cardElem).css({
+                        position: "absolute",
+                        left: thirdBoxX + "px",
+                        top: thirdBoxY + "px",
+                        width: thirdBoxSize,
+                        height: thirdBoxSize
+                    });
+                    $(".cardResistance", cardElem).css({
+                        position: "absolute",
+                        "border-radius": borderRadius,
+                        "font-size": fontPerc,
+                        left: x + "px",
+                        top: minionSiteNumberY + "px",
+                        width: size,
+                        height: size
+                    });
                 }
             };
 
@@ -1491,16 +1679,16 @@ var GempLotrGameUI = Class.extend({
         }
     },
 
-    createCardDiv:function (card, text) {
+    createCardDiv: function (card, text) {
         var cardDiv = createCardDiv(card.imageUrl, text, card.isFoil(), true, false, card.hasErrata());
 
         cardDiv.data("card", card);
 
         var that = this;
         var swipeOptions = {
-            threshold:20,
-            fallbackToMouseEvents:false,
-            swipeUp:function (event) {
+            threshold: 20,
+            fallbackToMouseEvents: false,
+            swipeUp: function (event) {
                 var tar = $(event.target);
                 if (tar.hasClass("actionArea")) {
                     var selectedCardElem = tar.closest(".card");
@@ -1508,7 +1696,7 @@ var GempLotrGameUI = Class.extend({
                 }
                 return false;
             },
-            click:function (event) {
+            click: function (event) {
                 return that.clickCardFunction(event);
             }
         };
@@ -1517,7 +1705,7 @@ var GempLotrGameUI = Class.extend({
         return cardDiv;
     },
 
-    attachSelectionFunctions:function (cardIds, selection) {
+    attachSelectionFunctions: function (cardIds, selection) {
         if (selection) {
             if (cardIds.length > 0)
                 $(".card:cardId(" + cardIds + ")").addClass("selectableCard");
@@ -1528,7 +1716,7 @@ var GempLotrGameUI = Class.extend({
     },
 
     // Choosing cards from a predefined selection (for example stating fellowship)
-    arbitraryCardsDecision:function (decision) {
+    arbitraryCardsDecision: function (decision) {
         var id = decision.getAttribute("id");
         var text = decision.getAttribute("text");
 
@@ -1545,8 +1733,8 @@ var GempLotrGameUI = Class.extend({
         var selectableCardIds = new Array();
 
         this.cardActionDialog
-                .html("<div id='arbitraryChoice'></div>")
-                .dialog("option", "title", text);
+            .html("<div id='arbitraryChoice'></div>")
+            .dialog("option", "title", text);
 
         // Create the action cards and fill the dialog with them
         for (var i = 0; i < blueprintIds.length; i++) {
@@ -1624,7 +1812,7 @@ var GempLotrGameUI = Class.extend({
     },
 
     // Choosing one action to resolve, for example phase actions
-    cardActionChoiceDecision:function (decision) {
+    cardActionChoiceDecision: function (decision) {
         var id = decision.getAttribute("id");
         var text = decision.getAttribute("text");
 
@@ -1644,7 +1832,7 @@ var GempLotrGameUI = Class.extend({
 
         this.alertText.html(text);
         // ****CCG League****: Border around alert box
-        this.alertBox.css({"border-radius":"7px", "border-color":"#7f7fff", "border-width":"2px"});
+        this.alertBox.css({"border-radius": "7px", "border-color": "#7f7fff", "border-width": "2px"});
 
         var processButtons = function () {
             that.alertButtons.html("");
@@ -1669,15 +1857,15 @@ var GempLotrGameUI = Class.extend({
         var finishChoice = function () {
             that.alertText.html("");
             // ****CCG League****: Border around alert box
-            that.alertBox.css({"border-radius":"7px", "border-color":"", "border-width":"1px"});
+            that.alertBox.css({"border-radius": "7px", "border-color": "", "border-width": "1px"});
             that.alertButtons.html("");
             that.clearSelection();
             $(".card").each(
-                    function () {
-                        var card = $(this).data("card");
-                        if (card.zone == "EXTRA")
-                            $(this).remove();
-                    });
+                function () {
+                    var card = $(this).data("card");
+                    if (card.zone == "EXTRA")
+                        $(this).remove();
+                });
             that.extraActionsGroup.layoutCards();
             that.decisionFunction(id, "" + selectedCardIds);
         };
@@ -1705,14 +1893,14 @@ var GempLotrGameUI = Class.extend({
                     }
 
                     var actions = cardIdElem.data("action");
-                    actions.push({ actionId:actionId, actionText:actionText });
+                    actions.push({actionId: actionId, actionText: actionText});
                 } else {
                     hasVirtual = true;
                     cardIds[i] = "extra" + cardId;
                     var card = new Card(blueprintId, "EXTRA", "extra" + cardId, null);
 
                     var cardDiv = that.createCardDiv(card);
-                    $(cardDiv).css({opacity:"0.8"});
+                    $(cardDiv).css({opacity: "0.8"});
 
                     $("#main").append(cardDiv);
 
@@ -1722,7 +1910,7 @@ var GempLotrGameUI = Class.extend({
                     }
 
                     var actions = cardIdElem.data("action");
-                    actions.push({ actionId:actionId, actionText:actionText });
+                    actions.push({actionId: actionId, actionText: actionText});
                 }
             }
 
@@ -1763,7 +1951,7 @@ var GempLotrGameUI = Class.extend({
         $(':button').blur();
     },
 
-    createActionChoiceContextMenu:function (actions, event, selectActionFunction) {
+    createActionChoiceContextMenu: function (actions, event, selectActionFunction) {
         // Remove context menus that may be showing
         $(".contextMenu").remove();
 
@@ -1778,13 +1966,13 @@ var GempLotrGameUI = Class.extend({
 
         var x = event.pageX;
         var y = event.pageY;
-        $(div).css({left:x, top:y}).fadeIn(150);
+        $(div).css({left: x, top: y}).fadeIn(150);
 
         $(div).find('A').mouseover(
-                function () {
-                    $(div).find('LI.hover').removeClass('hover');
-                    $(this).parent().addClass('hover');
-                }).mouseout(function () {
+            function () {
+                $(div).find('LI.hover').removeClass('hover');
+                $(this).parent().addClass('hover');
+            }).mouseout(function () {
             $(div).find('LI.hover').removeClass('hover');
         });
 
@@ -1812,7 +2000,7 @@ var GempLotrGameUI = Class.extend({
     },
 
     // Choosing one action to resolve, for example required triggered actions
-    actionChoiceDecision:function (decision) {
+    actionChoiceDecision: function (decision) {
         var id = decision.getAttribute("id");
         var text = decision.getAttribute("text");
 
@@ -1825,8 +2013,8 @@ var GempLotrGameUI = Class.extend({
         var selectedActionIds = new Array();
 
         this.cardActionDialog
-                .html("<div id='arbitraryChoice'></div>")
-                .dialog("option", "title", text);
+            .html("<div id='arbitraryChoice'></div>")
+            .dialog("option", "title", text);
 
         var cardIds = new Array();
 
@@ -1897,7 +2085,7 @@ var GempLotrGameUI = Class.extend({
     },
 
     // Choosing some number of cards, for example to wound
-    cardSelectionDecision:function (decision) {
+    cardSelectionDecision: function (decision) {
         var id = decision.getAttribute("id");
         var text = decision.getAttribute("text");
 
@@ -1909,14 +2097,14 @@ var GempLotrGameUI = Class.extend({
 
         this.alertText.html(text);
         // ****CCG League****: Border around alert box
-        this.alertBox.css({"border-radius":"7px", "border-color":"#7faf7f", "border-width":"2px"});
+        this.alertBox.css({"border-radius": "7px", "border-color": "#7faf7f", "border-width": "2px"});
 
         var selectedCardIds = new Array();
 
         var finishChoice = function () {
             that.alertText.html("");
             // ****CCG League****: Border around alert box
-            that.alertBox.css({"border-radius":"7px", "border-color":"", "border-width":"1px"});
+            that.alertBox.css({"border-radius": "7px", "border-color": "", "border-width": "1px"});
             that.alertButtons.html("");
             that.clearSelection();
             that.decisionFunction(id, "" + selectedCardIds);
@@ -1972,7 +2160,7 @@ var GempLotrGameUI = Class.extend({
             processButtons();
     },
 
-    assignMinionsDecision:function (decision) {
+    assignMinionsDecision: function (decision) {
         var id = decision.getAttribute("id");
         var text = decision.getAttribute("text");
 
@@ -1983,7 +2171,7 @@ var GempLotrGameUI = Class.extend({
 
         this.alertText.html(text);
         // ****CCG League****: Border around alert box
-        this.alertBox.css({"border-radius":"7px", "border-color":"#7faf7f", "border-width":"2px"});
+        this.alertBox.css({"border-radius": "7px", "border-color": "#7faf7f", "border-width": "2px"});
         if (!this.replayMode) {
             this.alertButtons.html("<button id='Done'>Done</button>");
             $("#Done").button().click(function () {
@@ -2012,7 +2200,7 @@ var GempLotrGameUI = Class.extend({
 
                 that.alertText.html("");
                 // ****CCG League****: Border around alert box
-                that.alertBox.css({"border-radius":"7px", "border-color":"", "border-width":"1px"});
+                that.alertBox.css({"border-radius": "7px", "border-color": "", "border-width": "1px"});
                 that.alertButtons.html("");
                 that.clearSelection();
 
@@ -2023,7 +2211,7 @@ var GempLotrGameUI = Class.extend({
         this.doAssignments(freeCharacters, minions);
     },
 
-    unassignMinion:function (minionId) {
+    unassignMinion: function (minionId) {
         var previousCharacterId = $(".card:cardId(" + minionId + ")").data("card").assign;
         delete $(".card:cardId(" + minionId + ")").data("card").assign;
 
@@ -2041,7 +2229,7 @@ var GempLotrGameUI = Class.extend({
         }
     },
 
-    assignMinion:function (minionId, characterId) {
+    assignMinion: function (minionId, characterId) {
         if ($(".card:cardId(" + minionId + ")").data("card").assign != null)
             this.unassignMinion(minionId);
 
@@ -2056,7 +2244,7 @@ var GempLotrGameUI = Class.extend({
             }, false);
 
             var newDiv = $("<div class='ui-widget-content'></div>");
-            newDiv.css({"border-radius":"7px"});
+            newDiv.css({"border-radius": "7px"});
             $("#main").append(newDiv);
             this.assignGroupDivs.push(newDiv);
         }
@@ -2064,7 +2252,7 @@ var GempLotrGameUI = Class.extend({
         $(".card:cardId(" + minionId + ")").data("card").assign = characterId;
     },
 
-    doAssignments:function (freeCharacters, minions) {
+    doAssignments: function (freeCharacters, minions) {
         var that = this;
         this.selectionFunction = function (cardId) {
             that.clearSelection();
@@ -2087,20 +2275,20 @@ var GempLotrGameUI = Class.extend({
         this.attachSelectionFunctions(minions, true);
     },
 
-    clearSelection:function () {
+    clearSelection: function () {
         $(".selectableCard").removeClass("selectableCard").data("action", null);
         $(".actionableCard").removeClass("actionableCard").data("action", null);
         $(".selectedCard").removeClass("selectedCard");
         this.selectionFunction = null;
     },
 
-    dialogResize:function (dialog, group) {
+    dialogResize: function (dialog, group) {
         var width = dialog.width() + 10;
         var height = dialog.height() + 10;
         group.setBounds(this.padding, this.padding, width - 2 * this.padding, height - 2 * this.padding);
     },
 
-    arbitraryDialogResize:function (texts) {
+    arbitraryDialogResize: function (texts) {
         if (texts) {
             var width = this.cardActionDialog.width() + 10;
             var height = this.cardActionDialog.height() - 10;
