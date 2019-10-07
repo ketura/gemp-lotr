@@ -436,11 +436,8 @@
         "modifier": {
           "type": "addKeyword",
           "condition": {
-            "type": "not",
-            "condition": {
-              "type": "canSpot",
-              "filter": "companion,not(self),not(ring bearer)"
-            }
+            "type": "cantSpot",
+            "filter": "companion,not(self),not(ring bearer)"
           },
           "filter": "self",
           "keyword": "archer"
@@ -451,11 +448,8 @@
         "modifier": {
           "type": "addKeyword",
           "condition": {
-            "type": "not",
-            "condition": {
-              "type": "canSpot",
-              "filter": "companion,not(self),not(ring bearer)"
-            }
+            "type": "cantSpot",
+            "filter": "companion,not(self),not(ring bearer)"
           },
           "filter": "self",
           "keyword": "defender+1"
@@ -466,11 +460,8 @@
         "modifier": {
           "type": "cantTakeMoreWoundsThan",
           "condition": {
-            "type": "not",
-            "condition": {
-              "type": "canSpot",
-              "filter": "companion,not(self),not(ring bearer)"
-            }
+            "type": "cantSpot",
+            "filter": "companion,not(self),not(ring bearer)"
           },
           "filter": "self",
           "phase": "skirmish"

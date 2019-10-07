@@ -4,21 +4,20 @@ import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
-import com.gempukku.lotro.logic.actions.PlayEventAction;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
 
 import java.util.Collections;
 
 public class PutPlayedEventIntoHandEffect extends AbstractEffect {
-    private PlayEventAction _action;
+    private PhysicalCard card;
 
-    public PutPlayedEventIntoHandEffect(PlayEventAction action) {
-        _action = action;
+    public PutPlayedEventIntoHandEffect(PhysicalCard card) {
+        this.card = card;
     }
 
     @Override
     public String getText(LotroGame game) {
-        return "Put " + GameUtils.getFullName(_action.getEventPlayed()) + " into hand";
+        return "Put " + GameUtils.getFullName(card) + " into hand";
     }
 
     @Override
@@ -28,18 +27,16 @@ public class PutPlayedEventIntoHandEffect extends AbstractEffect {
 
     @Override
     public boolean isPlayableInFull(LotroGame game) {
-        Zone zone = _action.getEventPlayed().getZone();
+        Zone zone = card.getZone();
         return zone == Zone.VOID || zone == Zone.VOID_FROM_HAND;
     }
 
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
         if (isPlayableInFull(game)) {
-            PhysicalCard eventPlayed = _action.getEventPlayed();
-            game.getGameState().sendMessage(_action.getPerformingPlayer() + " puts " + GameUtils.getCardLink(eventPlayed) + " into hand");
-            _action.skipDiscardPart();
-            game.getGameState().removeCardsFromZone(eventPlayed.getOwner(), Collections.singletonList(eventPlayed));
-            game.getGameState().addCardToZone(game, eventPlayed, Zone.HAND);
+            game.getGameState().sendMessage(card.getOwner() + " puts " + GameUtils.getCardLink(card) + " into hand");
+            game.getGameState().removeCardsFromZone(card.getOwner(), Collections.singletonList(card));
+            game.getGameState().addCardToZone(game, card, Zone.HAND);
             return new FullEffectResult(true);
         }
         return new FullEffectResult(false);

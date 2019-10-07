@@ -4,21 +4,20 @@ import com.gempukku.lotro.common.Zone;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
-import com.gempukku.lotro.logic.actions.PlayEventAction;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
 
 import java.util.Collections;
 
 public class PutPlayedEventOnBottomOfDeckEffect extends AbstractEffect {
-    private PlayEventAction _action;
+    private PhysicalCard card;
 
-    public PutPlayedEventOnBottomOfDeckEffect(PlayEventAction action) {
-        _action = action;
+    public PutPlayedEventOnBottomOfDeckEffect(PhysicalCard card) {
+        this.card = card;
     }
 
     @Override
     public String getText(LotroGame game) {
-        return "Put " + GameUtils.getFullName(_action.getEventPlayed()) + " on bottom of your deck";
+        return "Put " + GameUtils.getFullName(card) + " on bottom of your deck";
     }
 
     @Override
@@ -28,18 +27,16 @@ public class PutPlayedEventOnBottomOfDeckEffect extends AbstractEffect {
 
     @Override
     public boolean isPlayableInFull(LotroGame game) {
-        Zone zone = _action.getEventPlayed().getZone();
+        Zone zone = card.getZone();
         return zone == Zone.VOID || zone == Zone.VOID_FROM_HAND;
     }
 
     @Override
     protected FullEffectResult playEffectReturningResult(LotroGame game) {
         if (isPlayableInFull(game)) {
-            PhysicalCard eventPlayed = _action.getEventPlayed();
-            game.getGameState().sendMessage(_action.getPerformingPlayer() + " puts " + GameUtils.getCardLink(eventPlayed) + " on bottom of his/her deck");
-            _action.skipDiscardPart();
-            game.getGameState().removeCardsFromZone(eventPlayed.getOwner(), Collections.singletonList(eventPlayed));
-            game.getGameState().putCardOnBottomOfDeck(eventPlayed);
+            game.getGameState().sendMessage(card.getOwner() + " puts " + GameUtils.getCardLink(card) + " on bottom of his/her deck");
+            game.getGameState().removeCardsFromZone(card.getOwner(), Collections.singletonList(card));
+            game.getGameState().putCardOnBottomOfDeck(card);
             return new FullEffectResult(true);
         }
         return new FullEffectResult(false);

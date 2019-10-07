@@ -25,11 +25,12 @@ import java.util.Collection;
 public class PlayCardFromDrawDeck implements EffectAppenderProducer {
     @Override
     public EffectAppender createEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(effectObject, "filter", "on", "cost");
+        FieldUtils.validateAllowedFields(effectObject, "filter", "on", "cost", "memorize");
 
         final String filter = FieldUtils.getString(effectObject.get("filter"), "filter");
         final String onFilter = FieldUtils.getString(effectObject.get("on"), "on");
         final ValueSource costModifierSource = ValueResolver.resolveEvaluator(effectObject.get("cost"), 0, environment);
+        final String memorize = FieldUtils.getString(effectObject.get("memorize"), "memorize", "_temp");
 
         final FilterableSource onFilterableSource = (onFilter != null) ? environment.getFilterFactory().generateFilter(onFilter, environment) : null;
 
@@ -47,12 +48,12 @@ public class PlayCardFromDrawDeck implements EffectAppenderProducer {
                             }
                             return Filters.playable(actionContext.getGame(), costModifier);
                         },
-                        new ConstantEvaluator(1), "_temp", "you", "Choose card to play", environment));
+                        new ConstantEvaluator(1), memorize, "you", "Choose card to play", environment));
         result.addEffectAppender(
                 new DelayedAppender() {
                     @Override
                     protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
-                        final Collection<? extends PhysicalCard> cardsToPlay = actionContext.getCardsFromMemory("_temp");
+                        final Collection<? extends PhysicalCard> cardsToPlay = actionContext.getCardsFromMemory(memorize);
                         if (cardsToPlay.size() == 1) {
                             final int costModifier = costModifierSource.getEvaluator(actionContext).evaluateExpression(actionContext.getGame(), actionContext.getSource());
 

@@ -142,6 +142,20 @@ public class FilterFactory {
         parameterFilters.put("name",
                 (parameter, environment) -> (actionContext) -> (Filter)
                         (game, physicalCard) -> physicalCard.getBlueprint().getTitle().equalsIgnoreCase(parameter));
+        parameterFilters.put("nameInStackedOn",
+                (parameter, environment) -> {
+                    final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(parameter, environment);
+                    return actionContext -> {
+                        final Filterable sourceFilterable = filterableSource.getFilterable(actionContext);
+                        return (Filter) (game, physicalCard) -> {
+                            for (PhysicalCard cardToCompareTo : Filters.filterActive(game, sourceFilterable)) {
+                                if (cardToCompareTo.getBlueprint().getTitle().equals(physicalCard.getBlueprint().getTitle()))
+                                    return true;
+                            }
+                            return false;
+                        };
+                    };
+                });
         parameterFilters.put("inSkirmishAgainst",
                 (parameter, environment) -> {
                     final FilterableSource filterableSource = environment.getFilterFactory().generateFilter(parameter, environment);

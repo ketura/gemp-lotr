@@ -62,7 +62,7 @@ public class Card6_011 extends AbstractEvent {
                                             new PutPlayedEventOnTopOfDeckEffect(action));
                                 else
                                     action.insertEffect(
-                                            new PutPlayedEventOnBottomOfDeckEffect(action));
+                                            new PutPlayedEventOnBottomOfDeckEffect(self));
                             }
                         }) {
                     @Override

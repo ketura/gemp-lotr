@@ -14,6 +14,7 @@ import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.logic.timing.EffectResult;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
+import com.gempukku.lotro.logic.timing.results.PlayCardResult;
 
 import java.util.Collections;
 import java.util.List;
@@ -41,8 +42,9 @@ public class Card4_095 extends AbstractResponseEvent {
             PlayEventAction action = new PlayEventAction(self);
             action.appendCost(
                     new ChooseAndExertCharactersEffect(action, playerId, 1, 1, 2, Filters.gandalf));
+            PhysicalCard playedCard = ((PlayCardResult) effectResult).getPlayedCard();
             action.appendEffect(
-                    new PutPlayedEventIntoHandEffect(action));
+                    new PutPlayedEventIntoHandEffect(playedCard));
             return Collections.singletonList(action);
         }
         return null;

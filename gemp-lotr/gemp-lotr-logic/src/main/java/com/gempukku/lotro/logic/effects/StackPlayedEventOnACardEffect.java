@@ -39,7 +39,6 @@ public class StackPlayedEventOnACardEffect extends AbstractEffect {
         if (isPlayableInFull(game)) {
             PhysicalCard eventPlayed = _action.getEventPlayed();
             game.getGameState().sendMessage(_action.getPerformingPlayer() + " stacks " + GameUtils.getCardLink(eventPlayed) + " on " + GameUtils.getCardLink(_stackOn));
-            _action.skipDiscardPart();
             game.getGameState().removeCardsFromZone(eventPlayed.getOwner(), Collections.singletonList(eventPlayed));
             game.getGameState().stackCard(game, eventPlayed, _stackOn);
             return new FullEffectResult(true);

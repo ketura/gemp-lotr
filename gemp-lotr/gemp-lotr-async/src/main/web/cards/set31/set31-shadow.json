@@ -369,11 +369,8 @@
         "type": "activated",
         "phase": "regroup",
         "condition": {
-          "type": "not",
-          "condition": {
-            "type": "canSpot",
-            "filter": "name(Thorin)"
-          }
+          "type": "cantSpot",
+          "filter": "name(Thorin)"
         },
         "cost": {
           "type": "exert",
@@ -408,11 +405,8 @@
         "type": "activated",
         "phase": "regroup",
         "condition": {
-          "type": "not",
-          "condition": {
-            "type": "canSpot",
-            "filter": "name(Thorin)"
-          }
+          "type": "cantSpot",
+          "filter": "name(Thorin)"
         },
         "cost": {
           "type": "exert",

@@ -72,11 +72,8 @@
           {
             "type": "conditional",
             "condition": {
-              "type": "not",
-              "condition": {
-                "type": "canSpot",
-                "filter": "side(free people),or(possession,condition)"
-              }
+              "type": "cantSpot",
+              "filter": "side(free people),or(possession,condition)"
             },
             "effect": {
               "type": "discard",

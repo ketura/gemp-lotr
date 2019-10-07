@@ -50,7 +50,7 @@ public class Card11_049 extends AbstractEvent {
                                 subAction.appendCost(
                                         new AddBurdenEffect(playerId, self, 1));
                                 subAction.appendEffect(
-                                        new PutPlayedEventIntoHandEffect(action));
+                                        new PutPlayedEventIntoHandEffect(self));
                                 game.getActionsEnvironment().addActionToStack(subAction);
                             }
                         }));

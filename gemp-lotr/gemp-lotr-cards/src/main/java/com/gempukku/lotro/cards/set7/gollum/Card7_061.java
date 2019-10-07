@@ -50,7 +50,7 @@ public class Card7_061 extends AbstractEvent {
                 && PlayUtils.checkPlayRequirements(game, self, Filters.any, 0, 0, false, false)) {
             final PlayEventAction playCardAction = getPlayEventCardAction(playerId, game, self);
             playCardAction.appendEffect(
-                    new PutPlayedEventOnBottomOfDeckEffect(playCardAction));
+                    new PutPlayedEventOnBottomOfDeckEffect(self));
             return Collections.singletonList(playCardAction);
         }
         return null;

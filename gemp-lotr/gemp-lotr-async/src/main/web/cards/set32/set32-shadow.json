@@ -80,11 +80,8 @@
           {
             "type": "conditional",
             "condition": {
-              "type": "not",
-              "condition": {
-                "type": "canSpot",
-                "filter": "culture(dwarven),ally"
-              }
+              "type": "cantSpot",
+              "filter": "culture(dwarven),ally"
             },
             "effect": {
               "type": "discard",
@@ -220,12 +217,9 @@
         "cost": {
           "type": "conditional",
           "condition": {
-            "type": "not",
-            "condition": {
-              "type": "canSpot",
-              "count": 3,
-              "filter": "orc"
-            }
+            "type": "cantSpot",
+            "count": 3,
+            "filter": "orc"
           },
           "effect": {
             "type": "addBurdens",
@@ -390,5 +384,1196 @@
         ]
       }
     }
+  },
+  "32_35": {
+    "title": "*Azog",
+    "subtitle": "Servant of Sauron",
+    "culture": "sauron",
+    "cost": 4,
+    "type": "minion",
+    "race": "orc",
+    "strength": 9,
+    "vitality": 3,
+    "site": 5,
+    "keyword": "damage+1",
+    "effects": [
+      {
+        "type": "trigger",
+        "optional": true,
+        "trigger": {
+          "type": "winsSkirmish",
+          "filter": "self"
+        },
+        "cost": {
+          "type": "exert",
+          "filter": "self"
+        },
+        "effect": {
+          "type": "discard",
+          "filter": "choose(possession,attachedTo(culture(dwarven),companion))"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "maneuver",
+        "condition": {
+          "type": "canSpot",
+          "count": 4,
+          "filter": "minion"
+        },
+        "effect": {
+          "type": "addKeyword",
+          "filter": "self",
+          "keyword": "fierce",
+          "until": "start(regroup)"
+        }
+      }
+    ]
+  },
+  "32_36": {
+    "title": "*Bolg",
+    "subtitle": "Captain of the Orc Army",
+    "culture": "sauron",
+    "cost": 4,
+    "type": "minion",
+    "race": "orc",
+    "strength": 9,
+    "vitality": 3,
+    "site": 4,
+    "keyword": "damage+1",
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyStrength",
+          "filter": "another,orc",
+          "amount": 1
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "regroup",
+        "condition": {
+          "type": "cantSpot",
+          "filter": "self,mounted"
+        },
+        "cost": {
+          "type": "exert",
+          "filter": "self"
+        },
+        "effect": {
+          "type": "playCardFromDiscard",
+          "filter": "choose(orc)",
+          "cost": -2
+        }
+      }
+    ]
+  },
+  "32_37": {
+    "title": "Danger Wrapped In Shadow",
+    "culture": "sauron",
+    "cost": 2,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": [
+      {
+        "type": "activated",
+        "phase": "shadow",
+        "limitPerPhase": 1,
+        "cost": {
+          "type": "removeTwilight",
+          "amount": 2
+        },
+        "effect": {
+          "type": "choice",
+          "texts": [
+            "Play a SAURON card from your draw deck",
+            "Play a SAURON card from your discard pile"
+          ],
+          "effects": [
+            {
+              "type": "playCardFromDrawDeck",
+              "filter": "choose(culture(sauron),not(and(response,event)))"
+            },
+            {
+              "type": "playCardFromDiscard",
+              "filter": "choose(culture(sauron),not(and(response,event)))",
+              "removedTwilight": 2
+            }
+          ]
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "skirmish",
+        "cost": {
+          "type": "choice",
+          "texts": [
+            "Remove a doubt",
+            "Exert Sauron"
+          ],
+          "effects": [
+            {
+              "type": "removeBurdens"
+            },
+            {
+              "type": "exert",
+              "filter": "choose(name(Sauron))"
+            }
+          ]
+        },
+        "effect": {
+          "type": "modifyStrength",
+          "filter": "choose(orc)",
+          "amount": {
+            "type": "cardAffectedLimitPerPhase",
+            "limit": 3,
+            "source": 1
+          }
+        }
+      }
+    ]
+  },
+  "32_38": {
+    "title": "Hidden Attack",
+    "culture": "sauron",
+    "cost": 0,
+    "type": "event",
+    "keyword": "regroup",
+    "condition": {
+      "type": "canSpot",
+      "filter": "orc"
+    },
+    "effects": {
+      "type": "event",
+      "effect": [
+        {
+          "type": "playCardFromDiscard",
+          "filter": "choose(culture(sauron),orc)"
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "type": "canSpotInDeadPile",
+            "filter": "character"
+          },
+          "effect": {
+            "type": "playCardFromDiscard",
+            "filter": "choose(culture(sauron),orc)"
+          }
+        }
+      ]
+    }
+  },
+  "32_39": {
+    "title": "Jail",
+    "culture": "sauron",
+    "cost": 2,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": [
+      {
+        "type": "activated",
+        "phase": "regroup",
+        "cost": {
+          "type": "discard",
+          "filter": "choose(minion)"
+        },
+        "effect": [
+          {
+            "type": "chooseActiveCards",
+            "text": "Choose a Wise character",
+            "filter": "choose(wise,character)",
+            "memorize": "wiseCharacter"
+          },
+          {
+            "type": "preventable",
+            "player": "fp",
+            "text": "Would you like to exert {wiseCharacter} twice to prevent putting them in prison",
+            "cost": {
+              "type": "exert",
+              "filter": "choose(memory(wiseCharacter))",
+              "times": 2
+            },
+            "effect": {
+              "type": "stackCards",
+              "filter": "memory(wiseCharacter)",
+              "where": "self"
+            }
+          }
+        ]
+      },
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "cantPlayCards",
+          "filter": "nameInStackedOn(self)"
+        }
+      }
+    ]
+  },
+  "32_40": {
+    "title": "*The Orc Army",
+    "culture": "sauron",
+    "cost": 5,
+    "type": "minion",
+    "race": "orc",
+    "strength": 10,
+    "vitality": 3,
+    "site": 4,
+    "effects": [
+      {
+        "type": "trigger",
+        "optional": true,
+        "trigger": {
+          "type": "startOfPhase",
+          "phase": "regroup"
+        },
+        "effect": {
+          "type": "heal",
+          "filter": "all(orc)",
+          "times": 2
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "regroup",
+        "condition": {
+          "type": "cantSpot",
+          "filter": "self,mounted"
+        },
+        "cost": {
+          "type": "exert",
+          "filter": "self"
+        },
+        "effect": {
+          "type": "wound",
+          "player": "fp",
+          "filter": "choose(companion)"
+        }
+      }
+    ]
+  },
+  "32_41": {
+    "title": "Orkish Bow",
+    "culture": "sauron",
+    "cost": 2,
+    "type": "possession",
+    "possession": "ranged weapon",
+    "strength": 1,
+    "target": "culture(sauron),orc",
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "addKeyword",
+          "keyword": "archer",
+          "filter": "bearer"
+        }
+      },
+      {
+        "type": "trigger",
+        "optional": true,
+        "trigger": {
+          "type": "played",
+          "filter": "self"
+        },
+        "effect": [
+          {
+            "type": "chooseActiveCards",
+            "text": "Choose card to discard",
+            "filter": "choose(culture(dwarven),weapon)",
+            "memorize": "chosenWeapon"
+          },
+          {
+            "type": "memorize",
+            "memory": "bearer",
+            "filter": "hasAttached(memory(chosenWeapon))"
+          },
+          {
+            "type": "preventable",
+            "text": "Would you like to exert {bearer} to prevent discarding of {chosenWeapon}?",
+            "player": "fp",
+            "cost": {
+              "type": "exert",
+              "filter": "choose(memory(bearer))"
+            },
+            "effect": {
+              "type": "discard",
+              "filter": "memory(chosenWeapon)"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "32_42": {
+    "title": "Orkish Pursuer",
+    "culture": "sauron",
+    "cost": 3,
+    "type": "minion",
+    "race": "orc",
+    "strength": 8,
+    "vitality": 3,
+    "site": 4,
+    "effects": [
+      {
+        "type": "trigger",
+        "optional": true,
+        "trigger": {
+          "type": "winsSkirmish",
+          "filter": "self"
+        },
+        "cost": {
+          "type": "exert",
+          "filter": "self",
+          "times": 2
+        },
+        "effect": {
+          "type": "addBurdens"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "regroup",
+        "condition": {
+          "type": "cantSpot",
+          "filter": "self,mounted"
+        },
+        "cost": {
+          "type": "exert",
+          "filter": "self"
+        },
+        "effect": {
+          "type": "wound",
+          "player": "fp",
+          "filter": "choose(companion)"
+        }
+      }
+    ]
+  },
+  "32_43": {
+    "title": "Orkish Veteran",
+    "culture": "sauron",
+    "cost": 2,
+    "type": "minion",
+    "race": "orc",
+    "strength": 7,
+    "vitality": 2,
+    "site": 4,
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "addKeyword",
+          "condition": {
+            "type": "location",
+            "filter": "siteNumber(9)"
+          },
+          "filter": "orc",
+          "keyword": "archer"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "regroup",
+        "cost": {
+          "type": "discard",
+          "filter": "choose(orc)"
+        },
+        "effect": {
+          "type": "wound",
+          "player": "fp",
+          "filter": "choose(companion)"
+        }
+      }
+    ]
+  },
+  "32_44": {
+    "title": "*Ring of Thror",
+    "subtitle": "Last of the Seven Rings",
+    "culture": "sauron",
+    "cost": 0,
+    "type": "artifact",
+    "possession": "ring",
+    "vitality": 1,
+    "target": "name(Sauron)",
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "addKeyword",
+          "filter": "bearer",
+          "keyword": "fierce"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "skirmish",
+        "cost": {
+          "type": "removeTwilight",
+          "amount": 2
+        },
+        "effect": {
+          "type": "addKeyword",
+          "filter": "choose(or(name(Sauron),and(culture(wraith),minion)))",
+          "keyword": "damage",
+          "amount": {
+            "type": "cardAffectedLimitPerPhase",
+            "limit": 1,
+            "source": 1
+          }
+        }
+      }
+    ]
+  },
+  "32_45": {
+    "title": "*Sauron",
+    "subtitle": "The Necromancer",
+    "culture": "sauron",
+    "cost": 5,
+    "type": "minion",
+    "race": "maia",
+    "strength": 13,
+    "vitality": 4,
+    "site": 5,
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyStrength",
+          "filter": "culture(gundabad),orc",
+          "amount": 1
+        }
+      },
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "addKeyword",
+          "filter": "culture(gundabad),orc",
+          "keyword": "fierce"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "assignment",
+        "cost": {
+          "type": "exert",
+          "filter": "self"
+        },
+        "effect": [
+          {
+            "type": "chooseActiveCards",
+            "filter": "choose(minion,or(culture(gundabad),culture(wraith)),assignableToSkirmishAgainst(companion,not(name(Bilbo))))",
+            "text": "Choose minion to assign to a companion",
+            "memorize": "chosenMinion"
+          },
+          {
+            "type": "chooseActiveCards",
+            "filter": "choose(companion,not(name(Bilbo)),assignableToSkirmishAgainst(memory(chosenMinion)))",
+            "text": "Choose companion",
+            "memorize": "chosenCompanion"
+          },
+          {
+            "type": "preventable",
+            "player": "fp",
+            "text": "Would you like to add 2 doubts or exert {chosenCompanion} to prevent it from being assigned to {chosenMinion}?",
+            "cost": {
+              "type": "choice",
+              "texts": [
+                "Add 2 doubts",
+                "Exert the companion"
+              ],
+              "effects": [
+                {
+                  "type": "addBurdens",
+                  "amount": 2
+                },
+                {
+                  "type": "exert",
+                  "filter": "choose(memory(chosenCompanion))"
+                }
+              ]
+            },
+            "effect": {
+              "type": "assignFpCharacterToSkirmish",
+              "fpCharacter": "choose(memory(chosenCompanion))",
+              "against": "choose(memory(chosenMinion))"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "32_58": {
+    "title": "Dissention",
+    "culture": "smaug",
+    "cost": 2,
+    "type": "event",
+    "keyword": "skirmish",
+    "effects": [
+      {
+        "type": "activatedInDiscard",
+        "phase": "skirmish",
+        "cost": {
+          "type": "exert",
+          "filter": "choose(name(Smaug))",
+          "times": 2
+        },
+        "effect": {
+          "type": "playCardFromDiscard",
+          "filter": "self"
+        }
+      },
+      {
+        "type": "event",
+        "cost": {
+          "type": "chooseHowManyBurdensToSpot",
+          "memorize": "burdenCount"
+        },
+        "effect": {
+          "type": "modifyStrength",
+          "filter": "choose(culture(dwarven),companion)",
+          "amount": {
+            "type": "fromMemory",
+            "memory": "burdenCount",
+            "multiplier": -1
+          }
+        }
+      }
+    ]
+  },
+  "32_60": {
+    "title": "Smaug's Awakening",
+    "culture": "smaug",
+    "cost": 0,
+    "type": "event",
+    "keyword": "shadow",
+    "effects": {
+      "type": "event",
+      "effect": [
+        {
+          "type": "choice",
+          "texts": [
+            "Play Smaug from your draw deck",
+            "Play Smaug from your discard pile"
+          ],
+          "effects": [
+            {
+              "type": "playCardFromDrawDeck",
+              "filter": "choose(name(Smaug))",
+              "cost": -8,
+              "memorize": "playedSmaug"
+            },
+            {
+              "type": "playCardFromDiscard",
+              "filter": "choose(name(Smaug))",
+              "cost": -8,
+              "memorize": "playedSmaug"
+            }
+          ]
+        },
+        {
+          "type": "modifyStrength",
+          "filter": "memory(playedSmaug)",
+          "amount": -4,
+          "until": "start(regroup)"
+        },
+        {
+          "type": "addKeyword",
+          "filter": "memory(playedSmaug)",
+          "keyword": "damage",
+          "amount": -1,
+          "until": "start(regroup)"
+        },
+        {
+          "type": "optional",
+          "text": "Would you like to discard 2 Orcs to take this event back into hand?",
+          "effect": {
+            "type": "costToEffect",
+            "cost": {
+              "type": "discard",
+              "filter": "choose(orc)",
+              "count": 2
+            },
+            "effect": {
+              "type": "putPlayedEventIntoHand"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "32_61": {
+    "title": "*Terrifying Legend",
+    "culture": "smaug",
+    "cost": 0,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": [
+      {
+        "type": "trigger",
+        "optional": true,
+        "trigger": {
+          "type": "killed",
+          "filter": "companion"
+        },
+        "effect": [
+          {
+            "type": "discard",
+            "filter": "choose(weapon)"
+          },
+          {
+            "type": "conditional",
+            "condition": {
+              "type": "canSpot",
+              "filter": "name(Smaug)"
+            },
+            "effect": {
+              "type": "exert",
+              "filter": "all(ally)"
+            }
+          }
+        ]
+      },
+      {
+        "type": "activated",
+        "phase": "regroup",
+        "cost": [
+          {
+            "type": "discard",
+            "filter": "choose(minion)"
+          },
+          {
+            "type": "removeTwilight",
+            "amount": 3
+          }
+        ],
+        "effect": {
+          "type": "discard",
+          "filter": "choose(man,ally)"
+        }
+      }
+    ]
+  },
+  "32_62": {
+    "title": "*Twisted Gold of Dragon",
+    "culture": "smaug",
+    "cost": 1,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": [
+      {
+        "type": "trigger",
+        "optional": true,
+        "trigger": {
+          "type": "played",
+          "filter": "your,name(Smaug)"
+        },
+        "effect": {
+          "type": "playCardFromDrawDeck",
+          "filter": "choose(side(shadow),condition)"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "shadow",
+        "cost": {
+          "type": "discard",
+          "filter": "choose(orc)",
+          "count": 3
+        },
+        "effect": {
+          "type": "choice",
+          "texts": [
+            "Play Smaug from your draw deck",
+            "Play Smaug from your discard pile"
+          ],
+          "effects": [
+            {
+              "type": "playCardFromDrawDeck",
+              "filter": "choose(name(Smaug))",
+              "cost": -6
+            },
+            {
+              "type": "playCardFromDiscard",
+              "filter": "choose(name(Smaug))",
+              "cost": -6
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "32_63": {
+    "title": "*Wrath of the Dragon",
+    "culture": "smaug",
+    "cost": 2,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": [
+      {
+        "type": "trigger",
+        "optional": true,
+        "trigger": {
+          "type": "killed",
+          "filter": "character"
+        },
+        "condition": {
+          "type": "canSpot",
+          "filter": "name(Smaug),inSkirmish"
+        },
+        "effect": {
+          "type": "playCardFromDiscard",
+          "filter": "choose(orc)"
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "skirmish",
+        "cost": {
+          "type": "choice",
+          "texts": [
+            "Discard this condition",
+            "Exert Smaug twice"
+          ],
+          "effects": [
+            {
+              "type": "discard",
+              "filter": "self"
+            },
+            {
+              "type": "exert",
+              "filter": "choose(name(Smaug))",
+              "times": 2
+            }
+          ]
+        },
+        "effect": {
+          "type": "playCardFromDiscard",
+          "filter": "choose(side(shadow),condition)"
+        }
+      }
+    ]
+  },
+  "32_64": {
+    "title": "Dol Guldur Blade",
+    "culture": "wraith",
+    "cost": 0,
+    "type": "possession",
+    "possession": "hand weapon",
+    "strength": 2,
+    "target": "culture(wraith),minion",
+    "effects": [
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "played",
+          "filter": "self"
+        },
+        "effect": {
+          "type": "addTwilight",
+          "amount": 2
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "maneuver",
+        "cost": {
+          "type": "discard",
+          "filter": "choose(orc)"
+        },
+        "effect": {
+          "type": "choice",
+          "texts": [
+            "Play a WRAITH card from your draw deck",
+            "Play a WRAITH card from your discard pile"
+          ],
+          "effects": [
+            {
+              "type": "playCardFromDrawDeck",
+              "filter": "choose(culture(wraith),not(response,event))"
+            },
+            {
+              "type": "playCardFromDiscard",
+              "filter": "choose(culture(wraith),not(response,event))"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "32_65": {
+    "title": "The Great Enemy",
+    "culture": "wraith",
+    "cost": 1,
+    "type": "event",
+    "keyword": "shadow",
+    "effects": {
+      "type": "event",
+      "effect": [
+        {
+          "type": "chooseHowManyToSpot",
+          "filter": "wise,character",
+          "memorize": "countOfCharacters"
+        },
+        {
+          "type": "putCardsFromDiscardIntoHand",
+          "filter": "choose(minion)",
+          "count": {
+            "type": "fromMemory",
+            "memory": "countOfCharacters"
+          }
+        }
+      ]
+    }
+  },
+  "32_66": {
+    "title": "*He Is Summoning His Servants",
+    "culture": "wraith",
+    "cost": 2,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyStrength",
+          "condition": {
+            "type": "cantSpot",
+            "count": 2,
+            "filter": "wise,character"
+          },
+          "filter": "culture(wraith),minion",
+          "amount": 2
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "shadow",
+        "cost": {
+          "type": "discardFromHand",
+          "forced": false,
+          "filter": "choose(orc)"
+        },
+        "effect": {
+          "type": "playCardFromDiscard",
+          "filter": "choose(culture(wraith),minion)"
+        }
+      }
+    ]
+  },
+  "32_67": {
+    "title": "*Úlairë Attëa",
+    "subtitle": "Revived",
+    "culture": "wraith",
+    "cost": 6,
+    "type": "minion",
+    "race": "nazgul",
+    "strength": 12,
+    "vitality": 3,
+    "site": 5,
+    "keyword": "fierce",
+    "effects": [
+      {
+        "type": "modifyOwnCost",
+        "amount": {
+          "type": "forEachYouCanSpot",
+          "filter": "wise,character",
+          "limit": 2,
+          "multiplier": -1
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "skirmish",
+        "cost": {
+          "type": "removeTwilight",
+          "amount": 1
+        },
+        "effect": {
+          "type": "modifyStrength",
+          "filter": "choose(another,culture(wraith),minion)",
+          "amount": {
+            "type": "cardAffectedLimitPerPhase",
+            "limit": 3,
+            "source": 1
+          }
+        }
+      }
+    ]
+  },
+  "32_68": {
+    "title": "*Úlairë Cantëa",
+    "subtitle": "Revived",
+    "culture": "wraith",
+    "cost": 5,
+    "type": "minion",
+    "race": "nazgul",
+    "strength": 10,
+    "vitality": 3,
+    "site": 5,
+    "keyword": "fierce",
+    "effects": {
+      "type": "trigger",
+      "optional": true,
+      "trigger": {
+        "type": "transferred",
+        "filter": "side(free people),follower",
+        "to": "character"
+      },
+      "cost": {
+        "type": "exert",
+        "filter": "self"
+      },
+      "effect": {
+        "type": "discard",
+        "filter": "choose(weapon)"
+      }
+    }
+  },
+  "32_69": {
+    "title": "*Úlairë Enquëa",
+    "subtitle": "Revived",
+    "culture": "wraith",
+    "cost": 6,
+    "type": "minion",
+    "race": "nazgul",
+    "strength": 11,
+    "vitality": 4,
+    "site": 5,
+    "keyword": "fierce",
+    "effects": [
+      {
+        "type": "modifyOwnCost",
+        "amount": {
+          "type": "forEachYouCanSpot",
+          "filter": "wise,character",
+          "limit": 2,
+          "multiplier": -1
+        }
+      },
+      {
+        "type": "trigger",
+        "optional": true,
+        "trigger": {
+          "type": "discarded",
+          "player": "fp",
+          "filter": "condition"
+        },
+        "effect": {
+          "type": "exert",
+          "filter": "choose(companion)"
+        }
+      }
+    ]
+  },
+  "32_70": {
+    "title": "*Úlairë Lemenya",
+    "subtitle": "Revived",
+    "culture": "wraith",
+    "cost": 4,
+    "type": "minion",
+    "race": "nazgul",
+    "strength": 9,
+    "vitality": 2,
+    "site": 5,
+    "keyword": "fierce",
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifySiteNumber",
+          "filter": "culture(wraith),minion",
+          "amount": -3
+        }
+      },
+      {
+        "type": "trigger",
+        "optional": true,
+        "trigger": {
+          "type": "discarded",
+          "player": "fp",
+          "filter": "condition"
+        },
+        "effect": {
+          "type": "exert",
+          "filter": "choose(ally)"
+        }
+      }
+    ]
+  },
+  "32_71": {
+    "title": "*Úlairë Nelya",
+    "subtitle": "Revived",
+    "culture": "wraith",
+    "cost": 5,
+    "type": "minion",
+    "race": "nazgul",
+    "strength": 10,
+    "vitality": 3,
+    "site": 5,
+    "keyword": "fierce",
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "addKeyword",
+        "condition": {
+          "type": "canSpot",
+          "filter": "follower,attachedTo(companion)"
+        },
+        "filter": "self",
+        "keyword": "damage+1"
+      }
+    }
+  },
+  "32_72": {
+    "title": "*Úlairë Nertëa",
+    "subtitle": "Revived",
+    "culture": "wraith",
+    "cost": 4,
+    "type": "minion",
+    "race": "nazgul",
+    "strength": 9,
+    "vitality": 2,
+    "site": 5,
+    "keyword": "fierce",
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifySiteNumber",
+          "filter": "culture(wraith),minion",
+          "amount": -3
+        }
+      },
+      {
+        "type": "activatedTrigger",
+        "trigger": {
+          "type": "discarded",
+          "player": "fp",
+          "filter": "condition"
+        },
+        "cost": {
+          "type": "exert",
+          "filter": "self"
+        },
+        "effect": {
+          "type": "playCardFromDiscard",
+          "filter": "choose(culture(wraith),minion)",
+          "cost": -8
+        }
+      }
+    ]
+  },
+  "32_73": {
+    "title": "*Úlairë Otsëa",
+    "subtitle": "Revived",
+    "culture": "wraith",
+    "cost": 4,
+    "type": "minion",
+    "race": "nazgul",
+    "strength": 9,
+    "vitality": 3,
+    "site": 5,
+    "keyword": "fierce",
+    "effects": [
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifySiteNumber",
+          "filter": "culture(wraith),minion",
+          "amount": -3
+        }
+      },
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "modifyStrength",
+          "condition": {
+            "type": "canSpot",
+            "filter": "follower,attachedTo(companion)"
+          },
+          "filter": "culture(wraith),minion",
+          "amount": 1
+        }
+      }
+    ]
+  },
+  "32_74": {
+    "title": "*Úlairë Toldëa",
+    "subtitle": "Revived",
+    "culture": "wraith",
+    "cost": 6,
+    "type": "minion",
+    "race": "nazgul",
+    "strength": 12,
+    "vitality": 3,
+    "site": 5,
+    "keyword": "fierce",
+    "effects": [
+      {
+        "type": "modifyOwnCost",
+        "amount": {
+          "type": "forEachYouCanSpot",
+          "filter": "wise,character",
+          "limit": 2,
+          "multiplier": -1
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "skirmish",
+        "cost": {
+          "type": "removeTwilight",
+          "amount": 3
+        },
+        "effect": {
+          "type": "modifyStrength",
+          "filter": "choose(another,culture(wraith),minion)",
+          "amount": {
+            "type": "cardAffectedLimitPerPhase",
+            "limit": 4,
+            "source": 2
+          }
+        }
+      }
+    ]
+  },
+  "32_75": {
+    "title": "*The Witch-king",
+    "subtitle": "Revived",
+    "culture": "wraith",
+    "cost": 8,
+    "type": "minion",
+    "race": "nazgul",
+    "strength": 14,
+    "vitality": 4,
+    "site": 5,
+    "keyword": "fierce",
+    "effects": [
+      {
+        "type": "modifyOwnCost",
+        "amount": {
+          "type": "forEachYouCanSpot",
+          "filter": "wise,character",
+          "multiplier": -1
+        }
+      },
+      {
+        "type": "activated",
+        "phase": "skirmish",
+        "cost": {
+          "type": "discardFromHand",
+          "forced": false,
+          "count": 3
+        },
+        "effect": {
+          "type": "addKeyword",
+          "filter": "choose(culture(wraith),minion)",
+          "keyword": "damage+1"
+        }
+      }
+    ]
   }
 }

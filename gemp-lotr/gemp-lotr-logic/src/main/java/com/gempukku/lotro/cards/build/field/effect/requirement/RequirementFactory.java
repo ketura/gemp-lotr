@@ -16,6 +16,7 @@ public class RequirementFactory {
         requirementProducers.put("not", new NotRequirementProducer());
         requirementProducers.put("or", new OrRequirementProducer());
         requirementProducers.put("canspot", new CanSpot());
+        requirementProducers.put("cantspot", new CantSpot());
         requirementProducers.put("canspotindeadpile", new CanSpotInDeadPile());
         requirementProducers.put("canspotburdens", new CanSpotBurdens());
         requirementProducers.put("canspotthreats", new CanSpotThreats());

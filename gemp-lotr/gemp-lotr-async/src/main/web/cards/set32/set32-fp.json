@@ -32,11 +32,8 @@
         "type": "activated",
         "phase": "assignment",
         "condition": {
-          "type": "not",
-          "condition": {
-            "type": "canSpot",
-            "filter": "name(Thorin)"
-          }
+          "type": "cantSpot",
+          "filter": "name(Thorin)"
         },
         "effect": {
           "type": "allyCanParticipateInSkirmishes",

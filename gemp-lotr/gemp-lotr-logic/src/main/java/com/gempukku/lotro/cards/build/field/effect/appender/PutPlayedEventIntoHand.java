@@ -7,11 +7,11 @@ import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
-import com.gempukku.lotro.logic.effects.PutPlayedEventOnBottomOfDeckEffect;
+import com.gempukku.lotro.logic.effects.PutPlayedEventIntoHandEffect;
 import com.gempukku.lotro.logic.timing.Effect;
 import org.json.simple.JSONObject;
 
-public class PutPlayedEventOnBottomOfDrawDeck implements EffectAppenderProducer {
+public class PutPlayedEventIntoHand implements EffectAppenderProducer {
     @Override
     public EffectAppender createEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
         FieldUtils.validateAllowedFields(effectObject);
@@ -19,7 +19,7 @@ public class PutPlayedEventOnBottomOfDrawDeck implements EffectAppenderProducer 
         return new DelayedAppender() {
             @Override
             protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
-                return new PutPlayedEventOnBottomOfDeckEffect(actionContext.getSource());
+                return new PutPlayedEventIntoHandEffect(actionContext.getSource());
             }
         };
     }

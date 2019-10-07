@@ -49,7 +49,7 @@ public class Card12_126 extends AbstractEvent {
                             subAction.appendCost(
                                     new ChooseAndDiscardCardsFromHandEffect(subAction, playerId, false, 2));
                             subAction.appendEffect(
-                                    new PutPlayedEventIntoHandEffect(action));
+                                    new PutPlayedEventIntoHandEffect(self));
                             action.insertEffect(
                                     new OptionalEffect(
                                             action, playerId,

@@ -789,11 +789,8 @@
         "filter": "self"
       },
       "condition": {
-        "type": "not",
-        "condition": {
-          "type": "canSpot",
-          "filter": "name(Aragorn)"
-        }
+        "type": "cantSpot",
+        "filter": "name(Aragorn)"
       },
       "effect": {
         "type": "addThreats",
@@ -870,11 +867,8 @@
         "filter": "self"
       },
       "condition": {
-        "type": "not",
-        "condition": {
-          "type": "canSpot",
-          "filter": "name(Sam)"
-        }
+        "type": "cantSpot",
+        "filter": "name(Sam)"
       },
       "effect": {
         "type": "addBurdens"

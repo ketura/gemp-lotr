@@ -37,7 +37,6 @@ public class RemovePlayedEventFromGameEffect extends AbstractEffect {
         if (isPlayableInFull(game)) {
             PhysicalCard eventPlayed = _action.getEventPlayed();
             game.getGameState().sendMessage(_action.getPerformingPlayer() + " removes " + GameUtils.getCardLink(eventPlayed) + " from the game");
-            _action.skipDiscardPart();
             game.getGameState().removeCardsFromZone(eventPlayed.getOwner(), Collections.singletonList(eventPlayed));
             game.getGameState().addCardToZone(game, eventPlayed, Zone.REMOVED);
             return new FullEffectResult(true);

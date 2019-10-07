@@ -338,11 +338,8 @@
         "type": "modifyCost",
         "filter": "minion",
         "condition": {
-          "type": "not",
-          "condition": {
-            "type": "canSpot",
-            "filter": "culture(dwarven),name(The Arkenstone)"
-          }
+          "type": "cantSpot",
+          "filter": "culture(dwarven),name(The Arkenstone)"
         },
         "amount": -1
       }

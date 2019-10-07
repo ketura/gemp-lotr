@@ -23,8 +23,6 @@ public class PlayEventAction extends AbstractCostToEffectAction {
 
     private boolean _cardDiscarded;
 
-    private boolean _skipDiscardCard;
-
     private boolean _discountResolved;
     private boolean _discountApplied;
 
@@ -56,10 +54,6 @@ public class PlayEventAction extends AbstractCostToEffectAction {
         return _requiresRanger;
     }
 
-    public void skipDiscardPart() {
-        _skipDiscardCard = true;
-    }
-
     @Override
     public PhysicalCard getActionSource() {
         return _eventPlayed;
@@ -86,7 +80,7 @@ public class PlayEventAction extends AbstractCostToEffectAction {
 
             if (playedFromZone == Zone.DECK)
                 game.getGameState().shuffleDeck(_eventPlayed.getOwner());
-            
+
             game.getGameState().eventPlayed(_eventPlayed);
         }
 
@@ -128,7 +122,7 @@ public class PlayEventAction extends AbstractCostToEffectAction {
             }
         }
 
-        if (!_cardDiscarded && !_skipDiscardCard) {
+        if (!_cardDiscarded && (_eventPlayed.getZone() == Zone.VOID || _eventPlayed.getZone() == Zone.VOID_FROM_HAND)) {
             _cardDiscarded = true;
             game.getGameState().removeCardsFromZone(_eventPlayed.getOwner(), Collections.singleton(_eventPlayed));
             game.getGameState().addCardToZone(game, _eventPlayed, Zone.DISCARD);

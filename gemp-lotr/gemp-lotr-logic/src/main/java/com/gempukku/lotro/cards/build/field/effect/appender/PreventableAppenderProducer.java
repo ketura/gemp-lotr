@@ -28,6 +28,8 @@ public class PreventableAppenderProducer implements EffectAppenderProducer {
 
         if (text == null)
             throw new InvalidCardDefinitionException("Text is required for preventable effect");
+        if (player == null)
+            throw new InvalidCardDefinitionException("Player is required for preventable effect");
 
         final PlayerSource preventingPlayerSource = PlayerResolver.resolvePlayer(player, environment);
         final EffectAppender[] effectAppenders = environment.getEffectAppenderFactory().getEffectAppenders(effectArray, environment);

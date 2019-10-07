@@ -35,7 +35,7 @@ public class Card12_139 extends AbstractEvent {
         if (PlayConditions.canSpot(game, 6, CardType.COMPANION))
             action.appendEffect(
                     new OptionalEffect(action, playerId,
-                            new PutPlayedEventIntoHandEffect(action) {
+                            new PutPlayedEventIntoHandEffect(self) {
                                 @Override
                                 public String getText(LotroGame game) {
                                     return "Return " + GameUtils.getFullName(self) + " to your hand";
