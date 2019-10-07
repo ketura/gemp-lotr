@@ -10,6 +10,7 @@ import com.gempukku.lotro.logic.effects.ChooseActiveCardEffect;
 import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
 import com.gempukku.lotro.logic.modifiers.CantBeOverwhelmedModifier;
 import com.gempukku.lotro.logic.modifiers.condition.CardPlayedInCurrentPhaseCondition;
+import com.gempukku.lotro.logic.modifiers.condition.NotCondition;
 import com.gempukku.lotro.logic.timing.PlayConditions;
 
 import java.util.Collections;
@@ -41,7 +42,7 @@ public class Card10_116 extends AbstractPermanent {
                             action.insertEffect(
                                     new AddUntilEndOfPhaseModifierEffect(
                                             new CantBeOverwhelmedModifier(self, card,
-                                                    new CardPlayedInCurrentPhaseCondition(Side.SHADOW, CardType.EVENT))));
+                                                    new NotCondition(new CardPlayedInCurrentPhaseCondition(Side.SHADOW, CardType.EVENT)))));
                         }
                     });
             action.appendEffect(
