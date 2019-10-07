@@ -16,6 +16,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class GameStats {
+    private Integer wearingRing;
+
     private Integer _fellowshipArchery;
     private Integer _shadowArchery;
 
@@ -42,6 +44,16 @@ public class GameStats {
      */
     public boolean updateGameStats(LotroGame game) {
         boolean changed = false;
+        PlayerOrder playerOrder = game.getGameState().getPlayerOrder();
+
+        final PhysicalCard ringBearer = game.getGameState().getRingBearer(game.getGameState().getCurrentPlayerId());
+        if (game.getGameState().isWearingRing() && (wearingRing == null || wearingRing != ringBearer.getCardId())) {
+            changed = true;
+            wearingRing = ringBearer.getCardId();
+        } else if (!game.getGameState().isWearingRing() && wearingRing != null) {
+            changed = true;
+            wearingRing = null;
+        }
 
         if (game.getGameState().getCurrentPhase() == Phase.ARCHERY) {
             int newFellowshipArcheryTotal = RuleUtils.calculateFellowshipArcheryTotal(game);
@@ -115,7 +127,6 @@ public class GameStats {
         }
 
         Map<String, Map<Zone, Integer>> newZoneSizes = new HashMap<String, Map<Zone, Integer>>();
-        PlayerOrder playerOrder = game.getGameState().getPlayerOrder();
         if (playerOrder != null) {
             for (String player : playerOrder.getAllPlayers()) {
                 final HashMap<Zone, Integer> playerZoneSizes = new HashMap<Zone, Integer>();
@@ -199,6 +210,10 @@ public class GameStats {
         return changed;
     }
 
+    public Integer getWearingRing() {
+        return wearingRing;
+    }
+
     public Integer getFellowshipArchery() {
         return _fellowshipArchery;
     }
@@ -261,6 +276,7 @@ public class GameStats {
 
     public GameStats makeACopy() {
         GameStats copy = new GameStats();
+        copy.wearingRing = wearingRing;
         copy._fellowshipArchery = _fellowshipArchery;
         copy._fellowshipSkirmishStrength = _fellowshipSkirmishStrength;
         copy._fellowshipSkirmishDamageBonus = _fellowshipSkirmishDamageBonus;

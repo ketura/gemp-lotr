@@ -57,6 +57,8 @@ public class EventSerializer {
             eventElem.setAttribute("message", gameEvent.getMessage());
         if (gameEvent.getGameStats() != null) {
             GameStats gameStats = gameEvent.getGameStats();
+            if (gameStats.getWearingRing() != null)
+                eventElem.setAttribute("wearingRing", String.valueOf(gameStats.getWearingRing()));
             eventElem.setAttribute("fellowshipArchery", String.valueOf(gameStats.getFellowshipArchery()));
             eventElem.setAttribute("shadowArchery", String.valueOf(gameStats.getShadowArchery()));
 
