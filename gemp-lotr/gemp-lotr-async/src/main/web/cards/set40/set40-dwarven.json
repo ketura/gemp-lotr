@@ -152,6 +152,10 @@
     "cost": 0,
     "type": "event",
     "keyword": "skirmish",
+    "text": [
+      "Make a Dwarf strength +2 (or +3 if there is a card stacked on a {dwarven} condition.)",
+      "[quote]Gimli's axe struck true in the skulls of many Orcs and Uruk-hai.[/quote]"
+    ],
     "effects": {
       "type": "event",
       "effect": {
@@ -402,6 +406,12 @@
     "vitality": 4,
     "resistance": 7,
     "keyword": "damage+1",
+    "text": [
+      "[keyword]Damage +1.[/keyword]",
+      "While in your starting fellowship, Gimli's twilight cost is -1.",
+      "At the beginning of the fellowship phase, you may stack a Free Peoples card from hand on a {dwarven} support area condition to take a {dwarven} event from your discard pile into hand.",
+      "[quote]What are we waiting for?![/quote]"
+    ],
     "effects": [
       {
         "type": "modifyOwnCost",
