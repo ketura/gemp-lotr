@@ -37,6 +37,9 @@ public class TextLayerRecipe implements LayerRecipe {
             } else if (horizontalAlignment.equals("center")) {
                 final int width = fontMetrics.stringWidth(text);
                 graphics.drawString(text, textBox.getX() + (textBox.getWidth() - width) / 2, textBox.getY() + fontMetrics.getAscent());
+            } else if (horizontalAlignment.equals("right")) {
+                final int width = fontMetrics.stringWidth(text);
+                graphics.drawString(text, textBox.getX() + (textBox.getWidth() - width), textBox.getY() + fontMetrics.getAscent());
             } else {
                 throw new ImageGenerationException("Unable to recognize horizontal alignment: " + horizontalAlignment);
             }

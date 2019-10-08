@@ -28,6 +28,7 @@ public class JSONImageRecipe implements ImageRecipe {
     private List<LayerRecipe> layers = new LinkedList<>();
     private Map<Path, Image> imageCache = new HashMap<>();
     private Map<FontDefinition, Font> fontCache = new HashMap<>();
+    private Map<String, Function<RenderContext, ?>> functionMap;
 
     public JSONImageRecipe(File file) {
         JSONParser parser = new JSONParser();
@@ -36,27 +37,27 @@ public class JSONImageRecipe implements ImageRecipe {
             width = ((Number) recipe.get("width")).intValue();
             height = ((Number) recipe.get("height")).intValue();
 
-            Map<String, Function<RenderContext, ?>> functionMap = new HashMap<>();
+            functionMap = new HashMap<>();
             for (Map.Entry<String, JSONObject> function : (Set<Map.Entry<String, JSONObject>>) ((JSONObject) recipe.get("functions")).entrySet()) {
                 final JSONObject functionObj = function.getValue();
                 final String type = (String) functionObj.get("type");
                 if (type.equalsIgnoreCase("boolean"))
-                    functionMap.put(function.getKey(), createBooleanProvider(functionObj.get("function"), functionMap));
+                    functionMap.put(function.getKey(), createBooleanProvider(functionObj.get("function")));
             }
 
             JSONArray jsonLayers = (JSONArray) recipe.get("layers");
             for (JSONObject jsonLayer : (List<JSONObject>) jsonLayers) {
-                layers.add(createLayerRecipe(jsonLayer, functionMap));
+                layers.add(createLayerRecipe(jsonLayer));
             }
         } catch (IOException | ParseException e) {
             throw new RecipeGenerationException("Unable to generate recipe", e);
         }
     }
 
-    private LayerRecipe createLayerRecipe(JSONObject jsonLayer, Map<String, Function<RenderContext, ?>> functionMap) {
+    private LayerRecipe createLayerRecipe(JSONObject jsonLayer) {
         String type = (String) jsonLayer.get("type");
         if (type.equalsIgnoreCase("image")) {
-            Function<RenderContext, Path> pathProvider = createPathProvider(jsonLayer.get("path"), functionMap);
+            Function<RenderContext, Path> pathProvider = createPathProvider(jsonLayer.get("path"));
             final Function<RenderContext, Integer> x = createIntProvider(jsonLayer.get("x"));
             final Function<RenderContext, Integer> y = createIntProvider(jsonLayer.get("y"));
             final Function<RenderContext, Integer> width = createIntProvider(jsonLayer.get("width"));
@@ -76,32 +77,38 @@ public class JSONImageRecipe implements ImageRecipe {
                     },
                     x, y, width, height);
         } else if (type.equalsIgnoreCase("text")) {
-            Function<RenderContext, Font> font = createFontProvider(jsonLayer.get("font"), functionMap);
+            Function<RenderContext, Font> font = createFontProvider(jsonLayer.get("font"));
             Function<RenderContext, Paint> paint = createPaintProvider(jsonLayer.get("paint"), "black");
-            final Function<RenderContext, String> text = createStringProvider(jsonLayer.get("text"), functionMap);
-            Function<RenderContext, TextBox> textBox = createTextBoxProvider(jsonLayer.get("box"), functionMap);
+            final Function<RenderContext, String> text = createStringProvider(jsonLayer.get("text"));
+            Function<RenderContext, TextBox> textBox = createTextBoxProvider(jsonLayer.get("box"));
 
             return new TextLayerRecipe(
                     font, text, paint, textBox);
         } else if (type.equalsIgnoreCase("textBox")) {
-            final Function<RenderContext, String[]> text = createStringArrayProvider(jsonLayer.get("text"), functionMap);
+            final Function<RenderContext, String[]> text = createStringArrayProvider(jsonLayer.get("text"));
             JSONObject object = (JSONObject) jsonLayer.get("font");
             Map<String, Function<RenderContext, Font>> map = new HashMap<>();
             for (Map.Entry<String, Object> fontEntry : (Set<Map.Entry<String, Object>>) object.entrySet()) {
-                map.put(fontEntry.getKey(), createFontProvider(fontEntry.getValue(), functionMap));
+                map.put(fontEntry.getKey(), createFontProvider(fontEntry.getValue()));
             }
             Map<String, String> glyphMap = (JSONObject) jsonLayer.get("glyphs");
 
             Function<String, Function<RenderContext, Font>> fontStyleProvider = map::get;
-            Function<RenderContext, TextBox> textBox = createTextBoxProvider(jsonLayer.get("box"), functionMap);
+            Function<RenderContext, TextBox> textBox = createTextBoxProvider(jsonLayer.get("box"));
 
             return new TextBoxLayerRecipe(
                     fontStyleProvider,
                     s -> glyphMap.get(s),
                     text, textBox);
+        } else if (type.equalsIgnoreCase("rotate")) {
+            final LayerRecipe layer = createLayerRecipe((JSONObject) jsonLayer.get("layer"));
+            final Function<RenderContext, Integer> angle = createIntProvider(jsonLayer.get("angle"));
+            final Function<RenderContext, Integer> x = createIntProvider(jsonLayer.get("x"));
+            final Function<RenderContext, Integer> y = createIntProvider(jsonLayer.get("y"));
+            return new RotateLayerRecipe(layer, angle, x, y);
         } else if (type.equalsIgnoreCase("conditional")) {
-            Function<RenderContext, Boolean> condition = createBooleanProvider(jsonLayer.get("condition"), functionMap);
-            final List<LayerRecipe> values = getObjects(jsonLayer.get("values")).stream().map(value -> createLayerRecipe(value, functionMap)).collect(toList());
+            Function<RenderContext, Boolean> condition = createBooleanProvider(jsonLayer.get("condition"));
+            final List<LayerRecipe> values = getObjects(jsonLayer.get("values")).stream().map(value -> createLayerRecipe(value)).collect(toList());
 
             return (renderContext, graphics) -> {
                 if (condition.apply(renderContext)) {
@@ -113,12 +120,12 @@ public class JSONImageRecipe implements ImageRecipe {
         throw new RecipeGenerationException("Unable to find layer recipe of type: " + type);
     }
 
-    private Function<RenderContext, String[]> createStringArrayProvider(Object value, Map<String, Function<RenderContext, ?>> functionMap) {
+    private Function<RenderContext, String[]> createStringArrayProvider(Object value) {
         if (value instanceof JSONObject) {
             JSONObject valueObj = (JSONObject) value;
             final String type = (String) valueObj.get("type");
             if (type.equalsIgnoreCase("cardProperty")) {
-                final Function<RenderContext, String> name = createStringProvider(valueObj.get("name"), functionMap);
+                final Function<RenderContext, String> name = createStringProvider(valueObj.get("name"));
                 return renderContext -> {
                     final String propertyName = name.apply(renderContext);
 
@@ -152,7 +159,7 @@ public class JSONImageRecipe implements ImageRecipe {
         throw new RecipeGenerationException("Unable to find paint recipe of type: " + paintVal);
     }
 
-    private Function<RenderContext, TextBox> createTextBoxProvider(Object box, Map<String, Function<RenderContext, ?>> functionMap) {
+    private Function<RenderContext, TextBox> createTextBoxProvider(Object box) {
         if (box instanceof JSONObject) {
             JSONObject boxObj = (JSONObject) box;
             final String type = (String) boxObj.get("type");
@@ -161,7 +168,7 @@ public class JSONImageRecipe implements ImageRecipe {
                 final Function<RenderContext, Integer> y = createIntProvider(boxObj.get("y"));
                 final Function<RenderContext, Integer> width = createIntProvider(boxObj.get("width"));
                 final Function<RenderContext, Integer> height = createIntProvider(boxObj.get("height"));
-                final Function<RenderContext, String> horizontalAlignment = createStringProvider(boxObj.get("horAlign"), functionMap);
+                final Function<RenderContext, String> horizontalAlignment = createStringProvider(boxObj.get("horAlign"));
 
                 return renderContext -> new TextBox() {
                     @Override
@@ -194,12 +201,12 @@ public class JSONImageRecipe implements ImageRecipe {
         throw new RecipeGenerationException("Unable to find text box recipe of type: " + box);
     }
 
-    private Function<RenderContext, Font> createFontProvider(Object font, Map<String, Function<RenderContext, ?>> functionMap) {
+    private Function<RenderContext, Font> createFontProvider(Object font) {
         if (font instanceof JSONObject) {
             JSONObject fontObj = (JSONObject) font;
             final String type = (String) fontObj.get("type");
             if (type.equalsIgnoreCase("ttf")) {
-                Function<RenderContext, Path> pathProvider = createPathProvider(fontObj.get("path"), functionMap);
+                Function<RenderContext, Path> pathProvider = createPathProvider(fontObj.get("path"));
                 Function<RenderContext, Float> sizeProvider = createFloatProvider(fontObj.get("size"));
                 Function<RenderContext, Integer> styleProvider = createIntProvider(fontObj.get("style"));
 
@@ -223,18 +230,18 @@ public class JSONImageRecipe implements ImageRecipe {
         throw new RecipeGenerationException("Unable to find font recipe: " + font);
     }
 
-    private Function<RenderContext, Path> createPathProvider(Object path, Map<String, Function<RenderContext, ?>> functionMap) {
+    private Function<RenderContext, Path> createPathProvider(Object path) {
         if (path instanceof String) {
             return renderContext -> Paths.get((String) path);
         } else if (path instanceof JSONObject) {
             JSONObject pathObj = (JSONObject) path;
             final String type = (String) pathObj.get("type");
             if (type.equalsIgnoreCase("string")) {
-                final Function<RenderContext, String> value = createStringProvider(pathObj.get("value"), functionMap);
+                final Function<RenderContext, String> value = createStringProvider(pathObj.get("value"));
                 return renderContext -> Paths.get(value.apply(renderContext));
             } else if (type.equalsIgnoreCase("resolve")) {
-                final Function<RenderContext, Path> parent = createPathProvider(pathObj.get("parent"), functionMap);
-                final Function<RenderContext, String> child = createStringProvider(pathObj.get("child"), functionMap);
+                final Function<RenderContext, Path> parent = createPathProvider(pathObj.get("parent"));
+                final Function<RenderContext, String> child = createStringProvider(pathObj.get("child"));
                 return renderContext -> {
                     final Path path1 = parent.apply(renderContext);
                     final String childStr = child.apply(renderContext);
@@ -245,11 +252,11 @@ public class JSONImageRecipe implements ImageRecipe {
         throw new RecipeGenerationException("Unable to recognize path type: " + path);
     }
 
-    private Function<RenderContext, String> createStringProvider(Object string, Map<String, Function<RenderContext, ?>> functionMap) {
-        return createStringProvider(string, functionMap, null);
+    private Function<RenderContext, String> createStringProvider(Object string) {
+        return createStringProvider(string, null);
     }
 
-    private Function<RenderContext, String> createStringProvider(Object string, Map<String, Function<RenderContext, ?>> functionMap, String defaultValue) {
+    private Function<RenderContext, String> createStringProvider(Object string, String defaultValue) {
         if (string == null)
             return renderContext -> defaultValue;
         if (string instanceof String) {
@@ -258,22 +265,22 @@ public class JSONImageRecipe implements ImageRecipe {
             JSONObject stringObj = (JSONObject) string;
             final String type = (String) stringObj.get("type");
             if (type.equalsIgnoreCase("property")) {
-                Function<RenderContext, String> propertyName = createStringProvider(stringObj.get("name"), functionMap);
+                Function<RenderContext, String> propertyName = createStringProvider(stringObj.get("name"));
                 return renderContext ->
                         renderContext.getProperties().getProperty(
                                 propertyName.apply(renderContext));
             } else if (type.equalsIgnoreCase("map")) {
-                final Function<RenderContext, String> key = createStringProvider(stringObj.get("key"), functionMap);
+                final Function<RenderContext, String> key = createStringProvider(stringObj.get("key"));
                 Map<String, String> map = (Map<String, String>) stringObj.get("map");
                 return renderContext -> map.get(key.apply(renderContext));
             } else if (type.equalsIgnoreCase("replace")) {
-                final Function<RenderContext, String> source = createStringProvider(stringObj.get("source"), functionMap);
-                final Function<RenderContext, String> match = createStringProvider(stringObj.get("match"), functionMap);
-                final Function<RenderContext, String> with = createStringProvider(stringObj.get("with"), functionMap);
+                final Function<RenderContext, String> source = createStringProvider(stringObj.get("source"));
+                final Function<RenderContext, String> match = createStringProvider(stringObj.get("match"));
+                final Function<RenderContext, String> with = createStringProvider(stringObj.get("with"));
 
                 return renderContext -> source.apply(renderContext).replace(match.apply(renderContext), with.apply(renderContext));
             } else if (type.equalsIgnoreCase("capitalize")) {
-                final Function<RenderContext, String> source = createStringProvider(stringObj.get("value"), functionMap);
+                final Function<RenderContext, String> source = createStringProvider(stringObj.get("value"));
 
                 return renderContext -> {
                     final String text = source.apply(renderContext);
@@ -284,7 +291,7 @@ public class JSONImageRecipe implements ImageRecipe {
                     return String.join(" ", textSplit);
                 };
             } else if (type.equalsIgnoreCase("cardProperty")) {
-                final Function<RenderContext, String> name = createStringProvider(stringObj.get("name"), functionMap);
+                final Function<RenderContext, String> name = createStringProvider(stringObj.get("name"));
 
                 return renderContext -> {
                     final String propertyName = name.apply(renderContext);
@@ -298,9 +305,9 @@ public class JSONImageRecipe implements ImageRecipe {
                     throw new ImageGenerationException("Unable to get card property: " + propertyName + ", unknown type: " + value);
                 };
             } else if (type.equalsIgnoreCase("cardPropertyValueIn")) {
-                final Function<RenderContext, String> name = createStringProvider(stringObj.get("name"), functionMap);
+                final Function<RenderContext, String> name = createStringProvider(stringObj.get("name"));
                 final JSONArray values = (JSONArray) stringObj.get("values");
-                final List<Function<RenderContext, String>> list = (List<Function<RenderContext, String>>) values.stream().map(value -> createStringProvider(value, functionMap)).collect(toList());
+                final List<Function<RenderContext, String>> list = (List<Function<RenderContext, String>>) values.stream().map(value -> createStringProvider(value)).collect(toList());
 
                 return renderContext -> {
                     final String propertyName = name.apply(renderContext);
@@ -316,7 +323,7 @@ public class JSONImageRecipe implements ImageRecipe {
                 };
             } else if (type.equalsIgnoreCase("append")) {
                 final JSONArray values = (JSONArray) stringObj.get("values");
-                final List<Function<RenderContext, String>> list = (List<Function<RenderContext, String>>) values.stream().map(value -> createStringProvider(value, functionMap)).collect(toList());
+                final List<Function<RenderContext, String>> list = (List<Function<RenderContext, String>>) values.stream().map(value -> createStringProvider(value)).collect(toList());
 
                 return renderContext -> {
                     StringBuilder sb = new StringBuilder();
@@ -328,8 +335,8 @@ public class JSONImageRecipe implements ImageRecipe {
                     return sb.toString();
                 };
             } else if (type.equalsIgnoreCase("optional")) {
-                Function<RenderContext, Boolean> condition = createBooleanProvider(stringObj.get("condition"), functionMap);
-                final Function<RenderContext, String> value = createStringProvider(stringObj.get("value"), functionMap);
+                Function<RenderContext, Boolean> condition = createBooleanProvider(stringObj.get("condition"));
+                final Function<RenderContext, String> value = createStringProvider(stringObj.get("value"));
 
                 return renderContext -> {
                     if (condition.apply(renderContext))
@@ -341,18 +348,18 @@ public class JSONImageRecipe implements ImageRecipe {
         throw new RecipeGenerationException("Unable to recognize String: " + string);
     }
 
-    private Function<RenderContext, Boolean> createBooleanProvider(Object condition, Map<String, Function<RenderContext, ?>> functionMap) {
+    private Function<RenderContext, Boolean> createBooleanProvider(Object condition) {
         if (condition instanceof JSONObject) {
             JSONObject conditionObj = (JSONObject) condition;
             final String type = (String) conditionObj.get("type");
             if (type.equalsIgnoreCase("cardHasProperty")) {
-                final Function<RenderContext, String> name = createStringProvider(conditionObj.get("name"), functionMap);
+                final Function<RenderContext, String> name = createStringProvider(conditionObj.get("name"));
 
                 return renderContext -> renderContext.getCardInfo().get(name.apply(renderContext)) != null;
             } else if (type.equalsIgnoreCase("cardHasPropertyValueIn")) {
-                final Function<RenderContext, String> name = createStringProvider(conditionObj.get("name"), functionMap);
+                final Function<RenderContext, String> name = createStringProvider(conditionObj.get("name"));
                 final JSONArray values = (JSONArray) conditionObj.get("values");
-                final List<Function<RenderContext, String>> list = (List<Function<RenderContext, String>>) values.stream().map(value -> createStringProvider(value, functionMap)).collect(toList());
+                final List<Function<RenderContext, String>> list = (List<Function<RenderContext, String>>) values.stream().map(value -> createStringProvider(value)).collect(toList());
 
                 return renderContext -> {
                     String[] propertyValues = getStringArray(renderContext.getCardInfo().get(name.apply(renderContext)));
@@ -366,16 +373,16 @@ public class JSONImageRecipe implements ImageRecipe {
                     return false;
                 };
             } else if (type.equalsIgnoreCase("cardPropertyGreaterThanZero")) {
-                final Function<RenderContext, String> name = createStringProvider(conditionObj.get("name"), functionMap);
+                final Function<RenderContext, String> name = createStringProvider(conditionObj.get("name"));
 
                 return renderContext -> ((Number) renderContext.getCardInfo().get(name.apply(renderContext))).floatValue() > 0;
             } else if (type.equalsIgnoreCase("not")) {
-                final Function<RenderContext, Boolean> opposite = createBooleanProvider(conditionObj.get("condition"), functionMap);
+                final Function<RenderContext, Boolean> opposite = createBooleanProvider(conditionObj.get("condition"));
 
                 return renderContext -> !opposite.apply(renderContext);
             } else if (type.equalsIgnoreCase("or")) {
                 final JSONArray values = (JSONArray) conditionObj.get("conditions");
-                final List<Function<RenderContext, Boolean>> list = (List<Function<RenderContext, Boolean>>) values.stream().map(value -> createBooleanProvider(value, functionMap)).collect(Collectors.toList());
+                final List<Function<RenderContext, Boolean>> list = (List<Function<RenderContext, Boolean>>) values.stream().map(value -> createBooleanProvider(value)).collect(Collectors.toList());
 
                 return renderContext -> {
                     for (Function<RenderContext, Boolean> oneCondition : list) {
@@ -385,7 +392,7 @@ public class JSONImageRecipe implements ImageRecipe {
                     return false;
                 };
             } else if (type.equalsIgnoreCase("function")) {
-                final Function<RenderContext, String> name = createStringProvider(conditionObj.get("name"), functionMap);
+                final Function<RenderContext, String> name = createStringProvider(conditionObj.get("name"));
                 return renderContext -> (Boolean) functionMap.get(name.apply(renderContext)).apply(renderContext);
             }
         }
@@ -412,7 +419,18 @@ public class JSONImageRecipe implements ImageRecipe {
     private Function<RenderContext, Integer> createIntProvider(Object value) {
         if (value instanceof Number) {
             return renderContext -> ((Number) value).intValue();
+        } else if (value instanceof JSONObject) {
+            final JSONObject valueObj = (JSONObject) value;
+            final String type = (String) valueObj.get("type");
+            if (type.equalsIgnoreCase("conditional")) {
+                final Function<RenderContext, Boolean> condition = createBooleanProvider(valueObj.get("condition"));
+                final Function<RenderContext, Integer> aTrue = createIntProvider(valueObj.get("true"));
+                final Function<RenderContext, Integer> aFalse = createIntProvider(valueObj.get("false"));
+
+                return renderContext -> condition.apply(renderContext) ? aTrue.apply(renderContext) : aFalse.apply(renderContext);
+            }
         }
+
         throw new RecipeGenerationException("Unable to recognize int: " + value);
     }
 
