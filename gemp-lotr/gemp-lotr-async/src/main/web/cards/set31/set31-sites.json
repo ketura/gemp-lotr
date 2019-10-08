@@ -158,6 +158,7 @@
       },
       "effect": {
         "type": "choice",
+        "player": "fp",
         "texts": [
           "Exert Thorin",
           "Exert 2 other companions"
@@ -255,6 +256,13 @@
           "type": "played",
           "filter": "orc",
           "memorize": "playedOrc"
+        },
+        "condition": {
+          "type": "not",
+          "condition": {
+            "type": "hasInZoneData",
+            "filter": "self"
+          }
         },
         "effect": {
           "type": "appendCardIdsToWhileInZone",

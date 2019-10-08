@@ -374,6 +374,13 @@
           "filter": "nazgul",
           "memorize": "playedNazgul"
         },
+        "condition": {
+          "type": "not",
+          "condition": {
+            "type": "hasInZoneData",
+            "filter": "self"
+          }
+        },
         "effect": {
           "type": "appendCardIdsToWhileInZone",
           "memory": "playedNazgul"
