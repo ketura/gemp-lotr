@@ -43,6 +43,12 @@ public class LotroCardBlueprintBuilder implements CardGenerationEnvironment {
         fieldProcessors.put("target", new TargetFieldProcessor());
         fieldProcessors.put("condition", new RequirementFieldProcessor());
         fieldProcessors.put("allyhome", new AllyHomeFieldProcessor());
+        fieldProcessors.put("text", new FieldProcessor() {
+            @Override
+            public void processField(String key, Object value, BuiltLotroCardBlueprint blueprint, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
+                // Ignore
+            }
+        });
     }
 
     public LotroCardBlueprint buildFromJson(JSONObject json) throws InvalidCardDefinitionException {

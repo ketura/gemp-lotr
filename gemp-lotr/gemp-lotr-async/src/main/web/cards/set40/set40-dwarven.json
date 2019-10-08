@@ -8,6 +8,11 @@
       "support area",
       "tale"
     ],
+    "text": [
+      "[uKeyword]Tale.[/uKeyword] When you play this condition, stack the top card of your draw deck here.",
+      "[keyword]Response:[/keyword] If a Shadow card is about to discard any number of your {dwarven} conditions, discard this condition to prevent that.",
+      "[quote]\"Here lies Balin, son of Fundin, Lord of Moria.\"[/quote]"
+    ],
     "effects": [
       {
         "type": "trigger",
@@ -44,6 +49,10 @@
     "cost": 0,
     "type": "event",
     "keyword": "skirmish",
+    "text": [
+      "Exert a Dwarf to wound up to 2 Goblins.",
+      "[quote]\"There is one Dwarf yet in Moria who still draws breath!\"[/quote]"
+    ],
     "effects": {
       "type": "event",
       "cost": {
@@ -63,6 +72,10 @@
     "cost": 2,
     "type": "event",
     "keyword": "skirmish",
+    "text": [
+      "If Gimli is not assigned to skirmish, exert him and discard 2 cards stacked on a {dwarven} condition to have him replace another Dwarf in skirmish. Gimli is strength +2 and [keyword]damage +1[/keyword] while in that skirmish.",
+      "[quote]Gimli's despair over Balin's death was quickly replaced by fury.[/quote]"
+    ],
     "effects": {
       "type": "event",
       "cost": [
@@ -102,6 +115,10 @@
     "cost": 0,
     "type": "event",
     "keyword": "skirmish",
+    "text": [
+      "Stack the top 3 cards of your draw deck on a {dwarven} support area condition to make a Dwarf take no more than one wound in a skirmish.",
+      "[quote]The Dwarves of the Mountain Races cut their teeth in battle at an early age.[/quote]"
+    ],
     "effects": {
       "type": "event",
       "cost": {
@@ -123,6 +140,11 @@
     "cost": 0,
     "type": "event",
     "keyword": "skirmish",
+    "text": [
+      "To play, exert 2 Dwarves and discard 2 cards stacked on a {dwarven} condition.",
+      "Each exerted Dwarf is strength +2 until the regroup phase.",
+      "[quote]Dwarves are renowned for their fierce loyalty to one another.[/quote]"
+    ],
     "effects": {
       "type": "event",
       "cost": [

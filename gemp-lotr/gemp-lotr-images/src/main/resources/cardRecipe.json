@@ -871,6 +871,22 @@
           "size": 9,
           "style": 0
         },
+        "uKeyword": {
+          "type": "ttf",
+          "path": {
+            "type": "resolve",
+            "parent": {
+              "type": "string",
+              "value": {
+                "type": "property",
+                "name": "lotro.resources.folder"
+              }
+            },
+            "child": "fonts/o_lotrb___.ttf"
+          },
+          "size": 9,
+          "style": 0
+        },
         "quote": {
           "type": "ttf",
           "path": {
