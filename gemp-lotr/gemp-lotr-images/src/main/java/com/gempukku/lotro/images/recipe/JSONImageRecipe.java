@@ -272,7 +272,13 @@ public class JSONImageRecipe implements ImageRecipe {
             } else if (type.equalsIgnoreCase("map")) {
                 final Function<RenderContext, String> key = createStringProvider(stringObj.get("key"));
                 Map<String, String> map = (Map<String, String>) stringObj.get("map");
-                return renderContext -> map.get(key.apply(renderContext));
+                return renderContext -> {
+                    final String mapKey = key.apply(renderContext);
+                    final String value = map.get(mapKey);
+                    if (value == null)
+                        throw new ImageGenerationException("Missing value in map for key: " + mapKey);
+                    return value;
+                };
             } else if (type.equalsIgnoreCase("replace")) {
                 final Function<RenderContext, String> source = createStringProvider(stringObj.get("source"));
                 final Function<RenderContext, String> match = createStringProvider(stringObj.get("match"));

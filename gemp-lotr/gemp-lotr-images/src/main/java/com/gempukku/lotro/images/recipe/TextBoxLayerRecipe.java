@@ -30,25 +30,36 @@ public class TextBoxLayerRecipe implements LayerRecipe {
     @Override
     public void renderLayer(RenderContext renderContext, Graphics2D graphics) {
         final String[] textLines = text.apply(renderContext);
+        if (textLines.length > 0) {
+            AttributedCharacterIterator[] iteratorLines = new AttributedCharacterIterator[textLines.length];
+            for (int i = 0; i < textLines.length; i++) {
+                iteratorLines[i] = createAttributedCharacterIterator(textLines[i], renderContext);
+            }
 
-        AttributedCharacterIterator[] iteratorLines = new AttributedCharacterIterator[textLines.length];
-        for (int i = 0; i < textLines.length; i++) {
-            iteratorLines[i] = createAttributedCharacterIterator(textLines[i], renderContext);
-        }
-
-        final TextBox box = textBox.apply(renderContext);
+            final TextBox box = textBox.apply(renderContext);
 //        graphics.setPaint(Color.WHITE);
 //        graphics.fillRect(box.getX(), box.getY(), box.getWidth(), box.getHeight());
 
-        Point2D.Float pen = new Point2D.Float(box.getX(), box.getY());
-        FontRenderContext frc = graphics.getFontRenderContext();
+            FontRenderContext frc = graphics.getFontRenderContext();
+
+            // Dry run to check for height
+            float textHeight = processText((layout, x, y) -> {
+            }, iteratorLines, 0, 0, box.getWidth(), frc);
+
+            float textAscent = Math.min(0.125f, (1 - textHeight / box.getHeight()) / 2f) * box.getHeight();
+            processText((layout, x, y) -> layout.draw(graphics, x, y), iteratorLines, box.getX(), box.getY() + textAscent, box.getWidth(), frc);
+        }
+    }
+
+    private float processText(LineRenderingCallback callback, AttributedCharacterIterator[] iteratorLines, float x, float y, float width, FontRenderContext frc) {
+        Point2D.Float pen = new Point2D.Float(x, y);
 
         for (AttributedCharacterIterator styledText : iteratorLines) {
             // let styledText be an AttributedCharacterIterator containing at least
             // one character
 
             LineBreakMeasurer measurer = new LineBreakMeasurer(styledText, frc);
-            float wrappingWidth = box.getWidth();
+            float wrappingWidth = width;
 
             while (measurer.getPosition() < styledText.getEndIndex()) {
                 TextLayout layout = measurer.nextLayout(wrappingWidth);
@@ -57,12 +68,13 @@ public class TextBoxLayerRecipe implements LayerRecipe {
                 float dx = layout.isLeftToRight() ?
                         0 : (wrappingWidth - layout.getAdvance());
 
-                layout.draw(graphics, pen.x + dx, pen.y);
+                callback.drawLine(layout, pen.x + dx, pen.y);
                 pen.y += layout.getDescent() + layout.getLeading();
             }
             // Paragraph break
             pen.y += 2;
         }
+        return pen.y;
     }
 
     private AttributedCharacterIterator createAttributedCharacterIterator(String text, RenderContext renderContext) {
@@ -131,5 +143,9 @@ public class TextBoxLayerRecipe implements LayerRecipe {
 
     private interface TextParsingCallback {
         void appendText(String text, String style);
+    }
+
+    private interface LineRenderingCallback {
+        void drawLine(TextLayout layout, float x, float y);
     }
 }

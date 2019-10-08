@@ -63,6 +63,9 @@ public class ImageGenerator {
         }
 
         ImageGenerator generator = new ImageGenerator(properties, new File(properties.getProperty("recipe.file")));
-        generator.generateImagesFromCardsFile(new File(args[1]));
+        File folder = new File(args[1]);
+        for (File file : folder.listFiles()) {
+            generator.generateImagesFromCardsFile(file);
+        }
     }
 }
