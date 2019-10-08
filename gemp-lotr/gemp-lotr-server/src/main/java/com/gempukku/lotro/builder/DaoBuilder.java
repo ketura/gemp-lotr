@@ -9,6 +9,7 @@ import com.gempukku.lotro.common.ApplicationConfiguration;
 import com.gempukku.lotro.db.*;
 import com.gempukku.lotro.game.CardSets;
 import com.gempukku.lotro.game.LotroCardBlueprintLibrary;
+import com.gempukku.lotro.log.LoggingProxy;
 import com.gempukku.lotro.tournament.TournamentDAO;
 import com.gempukku.lotro.tournament.TournamentMatchDAO;
 import com.gempukku.lotro.tournament.TournamentPlayerDAO;
@@ -25,40 +26,40 @@ public class DaoBuilder {
         LotroCardBlueprintLibrary library = new LotroCardBlueprintLibrary();
         library.init(new File(ApplicationConfiguration.getProperty("card.path")), (CardSets) objectMap.get(CardSets.class));
         objectMap.put(LotroCardBlueprintLibrary.class, library);
-        objectMap.put(LeagueParticipationDAO.class, new DbLeagueParticipationDAO(dbAccess));
-        objectMap.put(LeagueMatchDAO.class, new DbLeagueMatchDAO(dbAccess));
-        objectMap.put(TournamentDAO.class, new DbTournamentDAO(dbAccess));
-        objectMap.put(TournamentPlayerDAO.class, new DbTournamentPlayerDAO(dbAccess));
-        objectMap.put(TournamentMatchDAO.class, new DbTournamentMatchDAO(dbAccess));
+        objectMap.put(LeagueParticipationDAO.class, LoggingProxy.createLoggingProxy(LeagueParticipationDAO.class, new DbLeagueParticipationDAO(dbAccess)));
+        objectMap.put(LeagueMatchDAO.class, LoggingProxy.createLoggingProxy(LeagueMatchDAO.class, new DbLeagueMatchDAO(dbAccess)));
+        objectMap.put(TournamentDAO.class, LoggingProxy.createLoggingProxy(TournamentDAO.class, new DbTournamentDAO(dbAccess)));
+        objectMap.put(TournamentPlayerDAO.class, LoggingProxy.createLoggingProxy(TournamentPlayerDAO.class, new DbTournamentPlayerDAO(dbAccess)));
+        objectMap.put(TournamentMatchDAO.class, LoggingProxy.createLoggingProxy(TournamentMatchDAO.class, new DbTournamentMatchDAO(dbAccess)));
 
-        DbMerchantDAO dbMerchantDao = new DbMerchantDAO(dbAccess);
+        MerchantDAO dbMerchantDao = LoggingProxy.createLoggingProxy(MerchantDAO.class, new DbMerchantDAO(dbAccess));
         CachedMerchantDAO merchantDao = new CachedMerchantDAO(dbMerchantDao);
         objectMap.put(MerchantDAO.class, merchantDao);
 
-        objectMap.put(LeagueDAO.class, new DbLeagueDAO(dbAccess));
-        objectMap.put(GameHistoryDAO.class, new DbGameHistoryDAO(dbAccess));
+        objectMap.put(LeagueDAO.class, LoggingProxy.createLoggingProxy(LeagueDAO.class, new DbLeagueDAO(dbAccess)));
+        objectMap.put(GameHistoryDAO.class, LoggingProxy.createLoggingProxy(GameHistoryDAO.class, new DbGameHistoryDAO(dbAccess)));
 
-        DbIgnoreDAO dbIgnoreDao = new DbIgnoreDAO(dbAccess);
+        IgnoreDAO dbIgnoreDao = LoggingProxy.createLoggingProxy(IgnoreDAO.class, new DbIgnoreDAO(dbAccess));
         CachedIgnoreDAO ignoreDao = new CachedIgnoreDAO(dbIgnoreDao);
         objectMap.put(IgnoreDAO.class, ignoreDao);
 
-        DbDeckDAO dbDeckDao = new DbDeckDAO(dbAccess, library);
+        DeckDAO dbDeckDao = LoggingProxy.createLoggingProxy(DeckDAO.class, new DbDeckDAO(dbAccess, library));
         CachedDeckDAO deckDao = new CachedDeckDAO(dbDeckDao);
         objectMap.put(DeckDAO.class, deckDao);
 
-        DbCollectionDAO dbCollectionDao = new DbCollectionDAO(dbAccess, collectionSerializer);
+        CollectionDAO dbCollectionDao = LoggingProxy.createLoggingProxy(CollectionDAO.class, new DbCollectionDAO(dbAccess, collectionSerializer));
         CachedCollectionDAO collectionDao = new CachedCollectionDAO(dbCollectionDao);
         objectMap.put(CollectionDAO.class, collectionDao);
 
-        DbPlayerDAO dbPlayerDao = new DbPlayerDAO(dbAccess);
+        PlayerDAO dbPlayerDao = LoggingProxy.createLoggingProxy(PlayerDAO.class, new DbPlayerDAO(dbAccess));
         CachedPlayerDAO playerDao = new CachedPlayerDAO(dbPlayerDao);
         objectMap.put(PlayerDAO.class, playerDao);
 
-        DbTransferDAO dbTransferDao = new DbTransferDAO(dbAccess);
+        TransferDAO dbTransferDao = LoggingProxy.createLoggingProxy(TransferDAO.class, new DbTransferDAO(dbAccess));
         CachedTransferDAO transferDao = new CachedTransferDAO(dbTransferDao);
         objectMap.put(TransferDAO.class, transferDao);
 
-        DbIpBanDAO dbIpBanDao = new DbIpBanDAO(dbAccess);
+        IpBanDAO dbIpBanDao = LoggingProxy.createLoggingProxy(IpBanDAO.class, new DbIpBanDAO(dbAccess));
         CachedIpBanDAO ipBanDao = new CachedIpBanDAO(dbIpBanDao);
         objectMap.put(IpBanDAO.class, ipBanDao);
 
