@@ -124,12 +124,31 @@ public class JSONImageRecipe implements ImageRecipe {
         if (value instanceof JSONObject) {
             JSONObject valueObj = (JSONObject) value;
             final String type = (String) valueObj.get("type");
-            if (type.equalsIgnoreCase("cardProperty")) {
+            if (type.equalsIgnoreCase("append")) {
+                final JSONArray values = (JSONArray) valueObj.get("values");
+
+                List<Function<RenderContext, String[]>> providers = (List<Function<RenderContext, String[]>>) values.stream().map(appendValue -> createStringArrayProvider(appendValue)).collect(Collectors.toList());
+
+                return (renderContext -> {
+                    List<String> result = new LinkedList<>();
+                    for (Function<RenderContext, String[]> provider : providers) {
+                        final String[] texts = provider.apply(renderContext);
+                        if (texts != null)
+                            result.addAll(Arrays.asList(texts));
+                    }
+                    return result.toArray(new String[0]);
+                });
+            } else if (type.equalsIgnoreCase("cardProperty")) {
                 final Function<RenderContext, String> name = createStringProvider(valueObj.get("name"));
+                final String prefix = (String) valueObj.get("prefix");
+                final String postfix = (String) valueObj.get("postfix");
                 return renderContext -> {
                     final String propertyName = name.apply(renderContext);
 
-                    return getStringArray(renderContext.getCardInfo().get(propertyName));
+                    final String[] stringArray = getStringArray(renderContext.getCardInfo().get(propertyName));
+                    for (int i = 0; i < stringArray.length; i++)
+                        stringArray[i] = ((prefix != null) ? prefix : "") + stringArray[i] + ((postfix != null) ? postfix : "");
+                    return stringArray;
                 };
             }
         }

@@ -867,8 +867,19 @@
           "comment": "Card text",
           "type": "textBox",
           "text": {
-            "type": "cardProperty",
-            "name": "text"
+            "type": "append",
+            "values": [
+              {
+                "type": "cardProperty",
+                "name": "text"
+              },
+              {
+                "type": "cardProperty",
+                "name": "quote",
+                "prefix": "[quote]",
+                "postfix": "[/quote]"
+              }
+            ]
           },
           "font": {
             "default": {

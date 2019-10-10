@@ -42,7 +42,7 @@ public class ImageGenerator {
 
                 JPEGImageWriteParam jpegParams = new JPEGImageWriteParam(null);
                 jpegParams.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
-                jpegParams.setCompressionQuality(0.9f);
+                jpegParams.setCompressionQuality(1f);
 
                 final ImageWriter writer = ImageIO.getImageWritersByFormatName("jpg").next();
                 final File resultFile = new File(output, cardEntry.getKey() + ".jpg");
