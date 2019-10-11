@@ -49,6 +49,12 @@ public class LotroCardBlueprintBuilder implements CardGenerationEnvironment {
                 // Ignore
             }
         });
+        fieldProcessors.put("quote", new FieldProcessor() {
+            @Override
+            public void processField(String key, Object value, BuiltLotroCardBlueprint blueprint, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
+                // Ignore
+            }
+        });
     }
 
     public LotroCardBlueprint buildFromJson(JSONObject json) throws InvalidCardDefinitionException {

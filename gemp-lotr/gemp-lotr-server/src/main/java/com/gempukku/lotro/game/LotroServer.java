@@ -97,7 +97,7 @@ public class LotroServer extends AbstractServer {
                     allowedUsers.add(participant.getPlayerId());
                 _chatServer.createPrivateChatRoom(getChatRoomName(gameId), false, allowedUsers, 30);
             } else
-                _chatServer.createChatRoom(getChatRoomName(gameId), false, 30);
+                _chatServer.createChatRoom(getChatRoomName(gameId), false, 30, false, null);
 
             // Allow spectators for leagues, but not tournaments
             LotroGameMediator lotroGameMediator = new LotroGameMediator(gameId, gameSettings.getLotroFormat(), participants, _lotroCardBlueprintLibrary,

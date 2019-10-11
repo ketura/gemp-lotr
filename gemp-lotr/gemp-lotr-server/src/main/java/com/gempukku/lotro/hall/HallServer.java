@@ -90,7 +90,8 @@ public class HallServer extends AbstractServer {
 
         tableHolder = new TableHolder(leagueService, ignoreDAO);
 
-        _hallChat = _chatServer.createChatRoom("Game Hall", true, 15);
+        _hallChat = _chatServer.createChatRoom("Game Hall", true, 15, true,
+                "You're now in the Game Hall, use /help to get a list of available commands");
         _hallChat.addChatCommandCallback("ban",
                 new ChatCommandCallback() {
                     @Override
@@ -157,6 +158,42 @@ public class HallServer extends AbstractServer {
                         final Set<String> ignoredUsers = ignoreDAO.getIgnoredUsers(from);
                         _hallChat.sendToUser(from, from, "/listIgnores");
                         _hallChat.sendToUser("System", from, "Your ignores: " + Arrays.toString(ignoredUsers.toArray(new String[0])));
+                    }
+                });
+        _hallChat.addChatCommandCallback("incognito",
+                new ChatCommandCallback() {
+                    @Override
+                    public void commandReceived(String from, String parameters, boolean admin) throws ChatCommandErrorException {
+                        _hallChat.setIncognito(from, true);
+                        _hallChat.sendToUser(from, from, "/incognito");
+                        _hallChat.sendToUser("System", from, "You are now incognito (do not appear in user list)");
+                    }
+                });
+        _hallChat.addChatCommandCallback("endIncognito",
+                new ChatCommandCallback() {
+                    @Override
+                    public void commandReceived(String from, String parameters, boolean admin) throws ChatCommandErrorException {
+                        _hallChat.setIncognito(from, false);
+                        _hallChat.sendToUser(from, from, "/endIncognito");
+                        _hallChat.sendToUser("System", from, "You are no longer incognito");
+                    }
+                });
+        _hallChat.addChatCommandCallback("help",
+                new ChatCommandCallback() {
+                    @Override
+                    public void commandReceived(String from, String parameters, boolean admin) throws ChatCommandErrorException {
+                        _hallChat.sendToUser("System", from, "List of available commands:");
+                        _hallChat.sendToUser("System", from, "/ignore username - Adds user 'username' to list of your ignores");
+                        _hallChat.sendToUser("System", from, "/unignore username - Removes user 'username' from list of your ignores");
+                        _hallChat.sendToUser("System", from, "/listIgnores - Lists all your ignored users");
+                        _hallChat.sendToUser("System", from, "/incognito - Makes you incognito (not visible in user list)");
+                        _hallChat.sendToUser("System", from, "/endIncognito - Turns your visibility 'on' again");
+                        if (admin) {
+                            _hallChat.sendToUser("System", from, "Admin only commands:");
+                            _hallChat.sendToUser("System", from, "/ban username - Bans user 'username' permanently");
+                            _hallChat.sendToUser("System", from, "/banIp ip - Bans specified ip permanently");
+                            _hallChat.sendToUser("System", from, "/banIpRange ip - Bans ips with the specified prefix, ie. 10.10.10.");
+                        }
                     }
                 });
 

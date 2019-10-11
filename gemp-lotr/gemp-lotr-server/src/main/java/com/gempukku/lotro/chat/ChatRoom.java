@@ -1,21 +1,27 @@
 package com.gempukku.lotro.chat;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class ChatRoom {
-    private int _maxMessageHistoryCount = 500;
-    private LinkedList<ChatMessage> _lastMessages = new LinkedList<ChatMessage>();
-    private Map<String, ChatRoomListener> _chatRoomListeners = new TreeMap<String, ChatRoomListener>(
-            new Comparator<String>() {
-                @Override
-                public int compare(String o1, String o2) {
-                    return o1.compareToIgnoreCase(o2);
-                }
-            });
-    private boolean _muteJoinPartMessages;
+    private static final int MAX_MESSAGE_HISTORY_COUNT = 500;
+    private LinkedList<ChatMessage> _lastMessages = new LinkedList<>();
+    private Map<String, ChatRoomInfo> _chatRoomListeners = new TreeMap<>(
+            String::compareToIgnoreCase);
+    private boolean muteJoinPartMessages;
+    private boolean allowIncognito;
 
-    public ChatRoom(boolean muteJoinPartMessages) {
-        _muteJoinPartMessages = muteJoinPartMessages;
+    public ChatRoom(boolean muteJoinPartMessages, boolean allowIncognito) {
+        this.muteJoinPartMessages = muteJoinPartMessages;
+        this.allowIncognito = allowIncognito;
+    }
+
+    public void setUserIncognitoMode(String username, boolean incognito) {
+        if (allowIncognito) {
+            final ChatRoomInfo chatRoomInfo = _chatRoomListeners.get(username);
+            if (chatRoomInfo != null)
+                chatRoomInfo.incognito = incognito;
+        }
     }
 
     public void postMessage(String from, String message, boolean addToHistory, boolean fromAdmin) {
@@ -24,13 +30,13 @@ public class ChatRoom {
             _lastMessages.add(chatMessage);
             shrinkLastMessages();
         }
-        for (Map.Entry<String, ChatRoomListener> listeners : _chatRoomListeners.entrySet())
-            listeners.getValue().messageReceived(chatMessage);
+        for (Map.Entry<String, ChatRoomInfo> listeners : _chatRoomListeners.entrySet())
+            listeners.getValue().chatRoomListener.messageReceived(chatMessage);
     }
 
     public void postToUser(String from, String to, String message) {
         ChatMessage chatMessage = new ChatMessage(new Date(), from, message, false);
-        final ChatRoomListener chatRoomListener = _chatRoomListeners.get(to);
+        final ChatRoomListener chatRoomListener = _chatRoomListeners.get(to).chatRoomListener;
         if (chatRoomListener != null) {
             chatRoomListener.messageReceived(chatMessage);
         }
@@ -38,26 +44,41 @@ public class ChatRoom {
 
     public void joinChatRoom(String playerId, ChatRoomListener listener) {
         boolean wasInRoom = _chatRoomListeners.containsKey(playerId);
-        _chatRoomListeners.put(playerId, listener);
+        _chatRoomListeners.put(playerId, new ChatRoomInfo(listener, false));
         for (ChatMessage lastMessage : _lastMessages)
             listener.messageReceived(lastMessage);
-        if (!wasInRoom && !_muteJoinPartMessages)
+        if (!wasInRoom && !muteJoinPartMessages)
             postMessage("System", playerId + " joined the room", true, false);
     }
 
     public void partChatRoom(String playerId) {
         boolean wasInRoom = (_chatRoomListeners.remove(playerId) != null);
-        if (wasInRoom && !_muteJoinPartMessages)
+        if (wasInRoom && !muteJoinPartMessages)
             postMessage("System", playerId + " left the room", true, false);
     }
 
-    public Collection<String> getUsersInRoom() {
-        return new ArrayList<String>(_chatRoomListeners.keySet());
+    public Collection<String> getUsersInRoom(boolean includeIncognito) {
+        if (includeIncognito)
+            return new ArrayList<>(_chatRoomListeners.keySet());
+        else {
+            return _chatRoomListeners.entrySet().stream().filter(
+                    entry -> !entry.getValue().incognito).map(Map.Entry::getKey).collect(Collectors.toList());
+        }
     }
 
     private void shrinkLastMessages() {
-        while (_lastMessages.size() > _maxMessageHistoryCount) {
+        while (_lastMessages.size() > MAX_MESSAGE_HISTORY_COUNT) {
             _lastMessages.removeFirst();
+        }
+    }
+
+    private class ChatRoomInfo {
+        private ChatRoomListener chatRoomListener;
+        private boolean incognito;
+
+        public ChatRoomInfo(ChatRoomListener chatRoomListener, boolean incognito) {
+            this.chatRoomListener = chatRoomListener;
+            this.incognito = incognito;
         }
     }
 }
