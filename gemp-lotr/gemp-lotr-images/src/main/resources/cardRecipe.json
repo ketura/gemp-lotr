@@ -188,10 +188,10 @@
                 "type": "cardHasProperty",
                 "name": "subtitle"
               },
-              "true": 16,
-              "false": 21
+              "true": 35,
+              "false": 50
             },
-            "y": 180,
+            "y": 600,
             "layer": {
               "type": "text",
               "font": {
@@ -204,12 +204,12 @@
                   },
                   "child": {
                     "type": "property",
-                    "name": "subtitle.font"
+                    "name": "title.font"
                   }
                 },
                 "size": {
                   "type": "property",
-                  "name": "subtitle.size"
+                  "name": "title.size"
                 },
                 "style": 0
               },
@@ -230,12 +230,12 @@
                     "type": "cardHasProperty",
                     "name": "subtitle"
                   },
-                  "true": 16,
-                  "false": 21
+                  "true": 35,
+                  "false": 50
                 },
-                "y": 180,
-                "width": 127,
-                "height": 24,
+                "y": 600,
+                "width": 440,
+                "height": 70,
                 "horAlign": "right"
               }
             }
@@ -292,8 +292,8 @@
           "values": {
             "type": "rotate",
             "angle": -90,
-            "x": 26,
-            "y": 180,
+            "x": 65,
+            "y": 600,
             "layer": {
               "type": "text",
               "font": {
@@ -321,10 +321,10 @@
               },
               "box": {
                 "type": "box",
-                "x": 26,
-                "y": 180,
-                "width": 127,
-                "height": 24,
+                "x": 65,
+                "y": 600,
+                "width": 440,
+                "height": 70,
                 "horAlign": "right"
               }
             }
@@ -397,7 +397,7 @@
                   "value": {
                     "type": "append",
                     "values": [
-                      " {bullet} ",
+                      " [bullet]•[/bullet] ",
                       {
                         "type": "capitalize",
                         "value": {
@@ -429,7 +429,7 @@
                   "value": {
                     "type": "append",
                     "values": [
-                      " {bullet} ",
+                      " [bullet]•[/bullet] ",
                       {
                         "type": "capitalize",
                         "value": {
@@ -473,7 +473,7 @@
                 },
                 "style": 0
               },
-              "glyph": {
+              "bullet": {
                 "type": "ttf",
                 "path": {
                   "type": "resolve",
@@ -481,16 +481,18 @@
                     "type": "property",
                     "name": "lotro.resources.folder"
                   },
-                  "child": "LOTRSymbols.ttf"
+                  "child": {
+                    "type": "property",
+                    "name": "type.font"
+                  }
                 },
-                "size": 38,
+                "size": 30,
                 "style": 0
               }
             },
             "glyphs": {
               "shire": "#",
-              "dwarven": "@",
-              "bullet": "•"
+              "dwarven": "@"
             },
             "minYStart": 1,
             "box": {
@@ -511,28 +513,9 @@
             "name": "isNonCharacter"
           },
           "values": {
-            "type": "text",
-            "font": {
-              "type": "ttf",
-              "path": {
-                "type": "resolve",
-                "parent": {
-                  "type": "property",
-                  "name": "lotro.resources.folder"
-                },
-                "child": {
-                  "type": "property",
-                  "name": "type.font"
-                }
-              },
-              "size": {
-                "type": "property",
-                "name": "type.size"
-              },
-              "style": 0
-            },
+            "type": "textBox",
             "text": {
-              "type": "append",
+              "type": "appendText",
               "values": [
                 {
                   "comment": "Card type",
@@ -552,7 +535,7 @@
                   "value": {
                     "type": "append",
                     "values": [
-                      " • ",
+                      " [bullet]•[/bullet] ",
                       {
                         "type": "capitalize",
                         "value": {
@@ -573,7 +556,7 @@
                   "value": {
                     "type": "append",
                     "values": [
-                      " • ",
+                      " [bullet]•[/bullet] ",
                       {
                         "type": "capitalize",
                         "value": {
@@ -605,7 +588,7 @@
                   "value": {
                     "type": "append",
                     "values": [
-                      " • ",
+                      " [bullet]•[/bullet] ",
                       {
                         "type": "capitalize",
                         "value": {
@@ -629,12 +612,54 @@
                 }
               ]
             },
+            "font": {
+              "default": {
+                "type": "ttf",
+                "path": {
+                  "type": "resolve",
+                  "parent": {
+                    "type": "property",
+                    "name": "lotro.resources.folder"
+                  },
+                  "child": {
+                    "type": "property",
+                    "name": "type.font"
+                  }
+                },
+                "size": {
+                  "type": "property",
+                  "name": "type.size"
+                },
+                "style": 0
+              },
+              "bullet": {
+                "type": "ttf",
+                "path": {
+                  "type": "resolve",
+                  "parent": {
+                    "type": "property",
+                    "name": "lotro.resources.folder"
+                  },
+                  "child": {
+                    "type": "property",
+                    "name": "type.font"
+                  }
+                },
+                "size": 30,
+                "style": 0
+              }
+            },
+            "glyphs": {
+              "shire": "#",
+              "dwarven": "@"
+            },
+            "minYStart": 1,
             "box": {
               "type": "box",
-              "x": 18,
-              "y": 197,
-              "width": 240,
-              "height": 30,
+              "x": 170,
+              "y": 611,
+              "width": 521,
+              "height": 40,
               "horAlign": "center"
             }
           }

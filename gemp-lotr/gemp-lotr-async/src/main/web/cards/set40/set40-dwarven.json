@@ -518,6 +518,12 @@
     "possession": "hand weapon",
     "strength": 2,
     "target": "dwarf",
+    "text": [
+      "Bearer must be a Dwarf.",
+      "If bearer is Gimli, he is [keyword]damage +1[/keyword].",
+      "Each time bearer wins a skirmish, you may stack a {dwarven} event from your discard pile one a {dwarven} support are condition."
+    ],
+    "quote": "Gimli masterfully wielded his axe in combat.",
     "effects": [
       {
         "type": "modifier",
