@@ -1,8 +1,8 @@
 {
-  "width": 240,
-  "height": 335,
+  "width": 751,
+  "height": 1044,
   "functions": {
-    "isNoun": {
+    "isCharacter": {
       "type": "boolean",
       "function": {
         "type": "cardHasPropertyValueIn",
@@ -14,7 +14,7 @@
         ]
       }
     },
-    "isVerb": {
+    "isNonCharacter": {
       "type": "boolean",
       "function": {
         "type": "not",
@@ -52,11 +52,8 @@
           "path": {
             "type": "resolve",
             "parent": {
-              "type": "string",
-              "value": {
-                "type": "property",
-                "name": "lotro.resources.folder"
-              }
+              "type": "property",
+              "name": "lotro.resources.folder"
             },
             "child": {
               "type": "map",
@@ -71,9 +68,9 @@
                     "type": "optional",
                     "condition": {
                       "type": "function",
-                      "name": "isNoun"
+                      "name": "isCharacter"
                     },
-                    "value": "_noun"
+                    "value": "_character"
                   },
                   {
                     "type": "optional",
@@ -90,51 +87,51 @@
                     "type": "optional",
                     "condition": {
                       "type": "function",
-                      "name": "isVerb"
+                      "name": "isNonCharacter"
                     },
-                    "value": "_verb"
+                    "value": "_non-character"
                   }
                 ]
               },
               "map": {
-                "dwarven_noun": "card_templates/o_dwarven_noun.png",
-                "dwarven_artifact_verb": "card_templates/o_dwarven_artifact_foil.png",
-                "dwarven_verb": "card_templates/o_dwarven_verb.png",
-                "elven_noun": "card_templates/o_elven_noun.png",
-                "elven_artifact_verb": "card_templates/o_elven_artifact.png",
-                "elven_verb": "card_templates/o_elven_verb.png",
-                "gandalf_noun": "card_templates/o_gandalf_noun.png",
-                "gandalf_artifact_verb": "card_templates/o_gandalf_artifact.png",
-                "gandalf_verb": "card_templates/o_gandalf_verb.png",
-                "gondor_noun": "card_templates/o_gondor_noun.png",
-                "gondor_artifact_verb": "card_templates/o_gondor_artifact.png",
-                "gondor_verb": "card_templates/o_gondor_verb.png",
-                "isengard_noun": "card_templates/o_isengard_noun.png",
-                "isengard_artifact_verb": "card_templates/o_isengard_artifact.png",
-                "isengard_verb": "card_templates/o_isengard_verb.png",
-                "moria_noun": "card_templates/o_moria_noun.png",
-                "moria_verb": "card_templates/o_moria_verb.png",
-                "sauron_noun": "card_templates/o_sauron_noun.png",
-                "sauron_verb": "card_templates/o_sauron_verb.png",
-                "shire_noun": "card_templates/o_shire_noun.png",
-                "shire_verb": "card_templates/o_shire_verb.png",
-                "wraith_noun": "card_templates/o_ringwraith_noun.png",
-                "wraith_artifact_verb": "card_templates/o_ringwraith_artifact_foil.png",
-                "wraith_verb": "card_templates/o_ringwraith_verb.png"
+                "dwarven_character": "Joe-resources/Dwarven Character.png",
+                "dwarven_artifact_non-character": "Joe-resources/Dwarven Artifact.png",
+                "dwarven_non-character": "Joe-resources/Dwarven Non-Character.png",
+                "elven_character": "card_templates/o_elven_noun.png",
+                "elven_artifact_non-character": "card_templates/o_elven_artifact.png",
+                "elven_non-character": "card_templates/o_elven_verb.png",
+                "gandalf_character": "card_templates/o_gandalf_noun.png",
+                "gandalf_artifact_non-character": "card_templates/o_gandalf_artifact.png",
+                "gandalf_non-character": "card_templates/o_gandalf_verb.png",
+                "gondor_character": "card_templates/o_gondor_noun.png",
+                "gondor_artifact_non-character": "card_templates/o_gondor_artifact.png",
+                "gondor_non-character": "card_templates/o_gondor_verb.png",
+                "isengard_character": "card_templates/o_isengard_noun.png",
+                "isengard_artifact_non-character": "card_templates/o_isengard_artifact.png",
+                "isengard_non-character": "card_templates/o_isengard_verb.png",
+                "moria_character": "card_templates/o_moria_noun.png",
+                "moria_non-character": "card_templates/o_moria_verb.png",
+                "sauron_character": "card_templates/o_sauron_noun.png",
+                "sauron_non-character": "card_templates/o_sauron_verb.png",
+                "shire_character": "card_templates/o_shire_noun.png",
+                "shire_non-character": "card_templates/o_shire_verb.png",
+                "wraith_character": "card_templates/o_ringwraith_noun.png",
+                "wraith_artifact_non-character": "card_templates/o_ringwraith_artifact_foil.png",
+                "wraith_non-character": "card_templates/o_ringwraith_verb.png"
               }
             }
           },
           "x": 0,
           "y": 0,
-          "width": 240,
-          "height": 335
+          "width": 751,
+          "height": 1044
         },
         {
-          "comment": "Title noun",
+          "comment": "Title character",
           "type": "conditional",
           "condition": {
             "type": "function",
-            "name": "isNoun"
+            "name": "isCharacter"
           },
           "values": {
             "type": "text",
@@ -143,15 +140,18 @@
               "path": {
                 "type": "resolve",
                 "parent": {
-                  "type": "string",
-                  "value": {
-                    "type": "property",
-                    "name": "lotro.resources.folder"
-                  }
+                  "type": "property",
+                  "name": "lotro.resources.folder"
                 },
-                "child": "fonts/o_wap_matbolsmallcap.ttf"
+                "child": {
+                  "type": "property",
+                  "name": "title.font"
+                }
               },
-              "size": 13,
+              "size": {
+                "type": "property",
+                "name": "title.size"
+              },
               "style": 0
             },
             "text": {
@@ -165,19 +165,19 @@
             },
             "box": {
               "type": "box",
-              "x": 48,
-              "y": 16,
-              "width": 192,
-              "height": 24
+              "x": 150,
+              "y": 50,
+              "width": 400,
+              "height": 34
             }
           }
         },
         {
-          "comment": "Title verb",
+          "comment": "Title non-character",
           "type": "conditional",
           "condition": {
             "type": "function",
-            "name": "isVerb"
+            "name": "isNonCharacter"
           },
           "values": {
             "type": "rotate",
@@ -199,15 +199,18 @@
                 "path": {
                   "type": "resolve",
                   "parent": {
-                    "type": "string",
-                    "value": {
-                      "type": "property",
-                      "name": "lotro.resources.folder"
-                    }
+                    "type": "property",
+                    "name": "lotro.resources.folder"
                   },
-                  "child": "fonts/o_wap_matbolsmallcap.ttf"
+                  "child": {
+                    "type": "property",
+                    "name": "subtitle.font"
+                  }
                 },
-                "size": 13,
+                "size": {
+                  "type": "property",
+                  "name": "subtitle.size"
+                },
                 "style": 0
               },
               "text": {
@@ -239,11 +242,11 @@
           }
         },
         {
-          "comment": "Subtitle noun",
+          "comment": "Subtitle character",
           "type": "conditional",
           "condition": {
             "type": "function",
-            "name": "isNoun"
+            "name": "isCharacter"
           },
           "values": {
             "type": "text",
@@ -252,15 +255,18 @@
               "path": {
                 "type": "resolve",
                 "parent": {
-                  "type": "string",
-                  "value": {
-                    "type": "property",
-                    "name": "lotro.resources.folder"
-                  }
+                  "type": "property",
+                  "name": "lotro.resources.folder"
                 },
-                "child": "fonts/o_wap_matbolsmallcap.ttf"
+                "child": {
+                  "type": "property",
+                  "name": "subtitle.font"
+                }
               },
-              "size": 12,
+              "size": {
+                "type": "property",
+                "name": "subtitle.size"
+              },
               "style": 0
             },
             "text": {
@@ -269,19 +275,19 @@
             },
             "box": {
               "type": "box",
-              "x": 48,
-              "y": 30,
-              "width": 192,
-              "height": 24
+              "x": 150,
+              "y": 98,
+              "width": 400,
+              "height": 30
             }
           }
         },
         {
-          "comment": "Subtitle verb",
+          "comment": "Subtitle non-character",
           "type": "conditional",
           "condition": {
             "type": "function",
-            "name": "isVerb"
+            "name": "isNonCharacter"
           },
           "values": {
             "type": "rotate",
@@ -295,15 +301,18 @@
                 "path": {
                   "type": "resolve",
                   "parent": {
-                    "type": "string",
-                    "value": {
-                      "type": "property",
-                      "name": "lotro.resources.folder"
-                    }
+                    "type": "property",
+                    "name": "lotro.resources.folder"
                   },
-                  "child": "fonts/o_wap_matbolsmallcap.ttf"
+                  "child": {
+                    "type": "property",
+                    "name": "subtitle.font"
+                  }
                 },
-                "size": 12,
+                "size": {
+                  "type": "property",
+                  "name": "subtitle.size"
+                },
                 "style": 0
               },
               "text": {
@@ -330,15 +339,18 @@
             "path": {
               "type": "resolve",
               "parent": {
-                "type": "string",
-                "value": {
-                  "type": "property",
-                  "name": "lotro.resources.folder"
-                }
+                "type": "property",
+                "name": "lotro.resources.folder"
               },
-              "child": "fonts/o_wap_matbolsmallcap.ttf"
+              "child": {
+                "type": "property",
+                "name": "numbers.font"
+              }
             },
-            "size": 22,
+            "size": {
+              "type": "property",
+              "name": "numbers.size"
+            },
             "style": 0
           },
           "text": {
@@ -347,19 +359,19 @@
           },
           "box": {
             "type": "box",
-            "x": 13,
-            "y": 19,
-            "width": 30,
-            "height": 30,
+            "x": 51,
+            "y": 53,
+            "width": 67,
+            "height": 69,
             "horAlign": "center"
           }
         },
         {
-          "comment": "Type line noun",
+          "comment": "Type line character",
           "type": "conditional",
           "condition": {
             "type": "function",
-            "name": "isNoun"
+            "name": "isCharacter"
           },
           "values": {
             "type": "text",
@@ -368,15 +380,18 @@
               "path": {
                 "type": "resolve",
                 "parent": {
-                  "type": "string",
-                  "value": {
-                    "type": "property",
-                    "name": "lotro.resources.folder"
-                  }
+                  "type": "property",
+                  "name": "lotro.resources.folder"
                 },
-                "child": "fonts/o_wap_matbolsmallcap.ttf"
+                "child": {
+                  "type": "property",
+                  "name": "type.font"
+                }
               },
-              "size": 13,
+              "size": {
+                "type": "property",
+                "name": "type.size"
+              },
               "style": 0
             },
             "text": {
@@ -459,19 +474,19 @@
             "box": {
               "type": "box",
               "x": 0,
-              "y": 197,
-              "width": 240,
+              "y": 615,
+              "width": 751,
               "height": 30,
               "horAlign": "center"
             }
           }
         },
         {
-          "comment": "Type line verb",
+          "comment": "Type line non-character",
           "type": "conditional",
           "condition": {
             "type": "function",
-            "name": "isVerb"
+            "name": "isNonCharacter"
           },
           "values": {
             "type": "text",
@@ -480,15 +495,18 @@
               "path": {
                 "type": "resolve",
                 "parent": {
-                  "type": "string",
-                  "value": {
-                    "type": "property",
-                    "name": "lotro.resources.folder"
-                  }
+                  "type": "property",
+                  "name": "lotro.resources.folder"
                 },
-                "child": "fonts/o_wap_matbolsmallcap.ttf"
+                "child": {
+                  "type": "property",
+                  "name": "type.font"
+                }
               },
-              "size": 13,
+              "size": {
+                "type": "property",
+                "name": "type.size"
+              },
               "style": 0
             },
             "text": {
@@ -613,24 +631,15 @@
               "path": {
                 "type": "resolve",
                 "parent": {
-                  "type": "string",
-                  "value": {
-                    "type": "property",
-                    "name": "lotro.resources.folder"
-                  }
+                  "type": "property",
+                  "name": "lotro.resources.folder"
                 },
-                "child": {
-                  "type": "map",
-                  "key": "dwarven_verb",
-                  "map": {
-                    "dwarven_verb": "card_images/o_icon_strength.png"
-                  }
-                }
+                "child": "Joe-resources/Strength Icon.png"
               },
-              "x": 11,
-              "y": 205,
-              "width": 38,
-              "height": 57
+              "x": 45,
+              "y": 645,
+              "width": 111,
+              "height": 172
             },
             {
               "comment": "Strength text",
@@ -641,15 +650,18 @@
                 "path": {
                   "type": "resolve",
                   "parent": {
-                    "type": "string",
-                    "value": {
-                      "type": "property",
-                      "name": "lotro.resources.folder"
-                    }
+                    "type": "property",
+                    "name": "lotro.resources.folder"
                   },
-                  "child": "fonts/o_wap_matbolsmallcap.ttf"
+                  "child": {
+                    "type": "property",
+                    "name": "numbers.font"
+                  }
                 },
-                "size": 22,
+                "size": {
+                  "type": "property",
+                  "name": "numbers.size"
+                },
                 "style": 0
               },
               "text": {
@@ -678,10 +690,10 @@
               },
               "box": {
                 "type": "box",
-                "x": 10,
-                "y": 220,
-                "width": 38,
-                "height": 30,
+                "x": 45,
+                "y": 685,
+                "width": 90,
+                "height": 50,
                 "horAlign": "center"
               }
             }
@@ -701,24 +713,15 @@
               "path": {
                 "type": "resolve",
                 "parent": {
-                  "type": "string",
-                  "value": {
-                    "type": "property",
-                    "name": "lotro.resources.folder"
-                  }
+                  "type": "property",
+                  "name": "lotro.resources.folder"
                 },
-                "child": {
-                  "type": "map",
-                  "key": "dwarven_verb",
-                  "map": {
-                    "dwarven_verb": "card_images/o_icon_vitality.png"
-                  }
-                }
+                "child": "Joe-resources/Vitality Icon.png"
               },
-              "x": 9,
-              "y": 250,
-              "width": 40,
-              "height": 39
+              "x": 35,
+              "y": 780,
+              "width": 114,
+              "height": 118
             },
             {
               "comment": "Vitality text",
@@ -729,15 +732,18 @@
                 "path": {
                   "type": "resolve",
                   "parent": {
-                    "type": "string",
-                    "value": {
-                      "type": "property",
-                      "name": "lotro.resources.folder"
-                    }
+                    "type": "property",
+                    "name": "lotro.resources.folder"
                   },
-                  "child": "fonts/o_wap_matbolsmallcap.ttf"
+                  "child": {
+                    "type": "property",
+                    "name": "numbers.font"
+                  }
                 },
-                "size": 22,
+                "size": {
+                  "type": "property",
+                  "name": "numbers.size"
+                },
                 "style": 0
               },
               "text": {
@@ -766,10 +772,10 @@
               },
               "box": {
                 "type": "box",
-                "x": 9,
-                "y": 258,
-                "width": 40,
-                "height": 30,
+                "x": 45,
+                "y": 800,
+                "width": 90,
+                "height": 50,
                 "horAlign": "center"
               }
             }
@@ -789,24 +795,15 @@
               "path": {
                 "type": "resolve",
                 "parent": {
-                  "type": "string",
-                  "value": {
-                    "type": "property",
-                    "name": "lotro.resources.folder"
-                  }
+                  "type": "property",
+                  "name": "lotro.resources.folder"
                 },
-                "child": {
-                  "type": "map",
-                  "key": "dwarven_verb",
-                  "map": {
-                    "dwarven_verb": "card_images/o_icon_resistance.png"
-                  }
-                }
+                "child": "Joe-resources/Resistance Icon.png"
               },
-              "x": 10,
-              "y": 283,
-              "width": 40,
-              "height": 40
+              "x": 35,
+              "y": 890,
+              "width": 114,
+              "height": 118
             },
             {
               "comment": "Resistance text",
@@ -817,15 +814,18 @@
                 "path": {
                   "type": "resolve",
                   "parent": {
-                    "type": "string",
-                    "value": {
-                      "type": "property",
-                      "name": "lotro.resources.folder"
-                    }
+                    "type": "property",
+                    "name": "lotro.resources.folder"
                   },
-                  "child": "fonts/o_wap_matbolsmallcap.ttf"
+                  "child": {
+                    "type": "property",
+                    "name": "numbers.font"
+                  }
                 },
-                "size": 22,
+                "size": {
+                  "type": "property",
+                  "name": "numbers.size"
+                },
                 "style": 0
               },
               "text": {
@@ -854,10 +854,10 @@
               },
               "box": {
                 "type": "box",
-                "x": 10,
-                "y": 292,
-                "width": 40,
-                "height": 30,
+                "x": 45,
+                "y": 911,
+                "width": 90,
+                "height": 50,
                 "horAlign": "center"
               }
             }
@@ -887,15 +887,18 @@
               "path": {
                 "type": "resolve",
                 "parent": {
-                  "type": "string",
-                  "value": {
-                    "type": "property",
-                    "name": "lotro.resources.folder"
-                  }
+                  "type": "property",
+                  "name": "lotro.resources.folder"
                 },
-                "child": "fonts/o_lotrrg__.ttf"
+                "child": {
+                  "type": "property",
+                  "name": "text.font"
+                }
               },
-              "size": 9,
+              "size": {
+                "type": "property",
+                "name": "text.size"
+              },
               "style": 0
             },
             "glyph": {
@@ -903,15 +906,15 @@
               "path": {
                 "type": "resolve",
                 "parent": {
-                  "type": "string",
-                  "value": {
-                    "type": "property",
-                    "name": "lotro.resources.folder"
-                  }
+                  "type": "property",
+                  "name": "lotro.resources.folder"
                 },
                 "child": "LOTRSymbols.ttf"
               },
-              "size": 8,
+              "size": {
+                "type": "property",
+                "name": "glyph.size"
+              },
               "style": 0
             },
             "keyword": {
@@ -919,15 +922,18 @@
               "path": {
                 "type": "resolve",
                 "parent": {
-                  "type": "string",
-                  "value": {
-                    "type": "property",
-                    "name": "lotro.resources.folder"
-                  }
+                  "type": "property",
+                  "name": "lotro.resources.folder"
                 },
-                "child": "fonts/o_lotrb___.ttf"
+                "child": {
+                  "type": "property",
+                  "name": "keyword.font"
+                }
               },
-              "size": 9,
+              "size": {
+                "type": "property",
+                "name": "keyword.size"
+              },
               "style": 0
             },
             "uKeyword": {
@@ -935,15 +941,18 @@
               "path": {
                 "type": "resolve",
                 "parent": {
-                  "type": "string",
-                  "value": {
-                    "type": "property",
-                    "name": "lotro.resources.folder"
-                  }
+                  "type": "property",
+                  "name": "lotro.resources.folder"
                 },
-                "child": "fonts/o_lotrb___.ttf"
+                "child": {
+                  "type": "property",
+                  "name": "keyword.font"
+                }
               },
-              "size": 9,
+              "size": {
+                "type": "property",
+                "name": "keyword.size"
+              },
               "style": 0
             },
             "quote": {
@@ -951,15 +960,18 @@
               "path": {
                 "type": "resolve",
                 "parent": {
-                  "type": "string",
-                  "value": {
-                    "type": "property",
-                    "name": "lotro.resources.folder"
-                  }
+                  "type": "property",
+                  "name": "lotro.resources.folder"
                 },
-                "child": "fonts/o_lotr-cmt.ttf"
+                "child": {
+                  "type": "property",
+                  "name": "flavor.font"
+                }
               },
-              "size": 9,
+              "size": {
+                "type": "property",
+                "name": "flavor.size"
+              },
               "style": 0
             }
           },
@@ -969,10 +981,10 @@
           },
           "box": {
             "type": "box",
-            "x": 55,
-            "y": 216,
-            "width": 168,
-            "height": 95
+            "x": 168,
+            "y": 663,
+            "width": 500,
+            "height": 318
           }
         }
       ]

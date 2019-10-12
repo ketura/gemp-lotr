@@ -37,8 +37,10 @@ public class TextBoxLayerRecipe implements LayerRecipe {
             }
 
             final TextBox box = textBox.apply(renderContext);
-//        graphics.setPaint(Color.WHITE);
-//        graphics.fillRect(box.getX(), box.getY(), box.getWidth(), box.getHeight());
+
+//            graphics.setPaint(Color.WHITE);
+//            graphics.fillRect(box.getX(), box.getY(), box.getWidth(), box.getHeight());
+//            graphics.setColor(Color.BLACK);
 
             FontRenderContext frc = graphics.getFontRenderContext();
 
@@ -72,7 +74,7 @@ public class TextBoxLayerRecipe implements LayerRecipe {
                 pen.y += layout.getDescent() + layout.getLeading();
             }
             // Paragraph break
-            pen.y += 2;
+            pen.y += 5;
         }
         return pen.y;
     }

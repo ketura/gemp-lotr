@@ -255,9 +255,11 @@ public class JSONImageRecipe implements ImageRecipe {
         } else if (path instanceof JSONObject) {
             JSONObject pathObj = (JSONObject) path;
             final String type = (String) pathObj.get("type");
-            if (type.equalsIgnoreCase("string")) {
-                final Function<RenderContext, String> value = createStringProvider(pathObj.get("value"));
-                return renderContext -> Paths.get(value.apply(renderContext));
+            if (type.equalsIgnoreCase("property")) {
+                Function<RenderContext, String> propertyName = createStringProvider(pathObj.get("name"));
+                return renderContext ->
+                        Paths.get(renderContext.getProperties().getProperty(
+                                propertyName.apply(renderContext)));
             } else if (type.equalsIgnoreCase("resolve")) {
                 final Function<RenderContext, Path> parent = createPathProvider(pathObj.get("parent"));
                 final Function<RenderContext, String> child = createStringProvider(pathObj.get("child"));
@@ -437,6 +439,15 @@ public class JSONImageRecipe implements ImageRecipe {
     private Function<RenderContext, Float> createFloatProvider(Object value) {
         if (value instanceof Number) {
             return renderContext -> ((Number) value).floatValue();
+        } else if (value instanceof JSONObject) {
+            final JSONObject valueObj = (JSONObject) value;
+            final String type = (String) valueObj.get("type");
+            if (type.equals("property")) {
+                Function<RenderContext, String> propertyName = createStringProvider(valueObj.get("name"));
+                return renderContext ->
+                        Float.parseFloat(renderContext.getProperties().getProperty(
+                                propertyName.apply(renderContext)));
+            }
         }
         throw new RecipeGenerationException("Unable to recognize float: " + value);
     }

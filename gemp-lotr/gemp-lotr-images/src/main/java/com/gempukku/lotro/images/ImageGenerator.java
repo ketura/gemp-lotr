@@ -37,18 +37,21 @@ public class ImageGenerator {
         try (Reader reader = new FileReader(file)) {
             final JSONObject cardsObject = (JSONObject) parser.parse(reader);
             for (Map.Entry<String, JSONObject> cardEntry : (Set<Map.Entry<String, JSONObject>>) cardsObject.entrySet()) {
-                BufferedImage bufferedImage = new BufferedImage(jsonImageRecipe.getWidth(), jsonImageRecipe.getHeight(), BufferedImage.TYPE_INT_RGB);
-                jsonImageRecipe.renderImage(properties, cardEntry.getValue(), bufferedImage);
+                final String cardId = cardEntry.getKey();
+                if (cardId.equals("40_3") || cardId.equals("40_17")) {
+                    BufferedImage bufferedImage = new BufferedImage(jsonImageRecipe.getWidth(), jsonImageRecipe.getHeight(), BufferedImage.TYPE_INT_RGB);
+                    jsonImageRecipe.renderImage(properties, cardEntry.getValue(), bufferedImage);
 
-                JPEGImageWriteParam jpegParams = new JPEGImageWriteParam(null);
-                jpegParams.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
-                jpegParams.setCompressionQuality(1f);
+                    JPEGImageWriteParam jpegParams = new JPEGImageWriteParam(null);
+                    jpegParams.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
+                    jpegParams.setCompressionQuality(1f);
 
-                final ImageWriter writer = ImageIO.getImageWritersByFormatName("jpg").next();
-                final File resultFile = new File(output, cardEntry.getKey() + ".jpg");
-                try (FileImageOutputStream outputStream = new FileImageOutputStream(resultFile)) {
-                    writer.setOutput(outputStream);
-                    writer.write(null, new IIOImage(bufferedImage, null, null), jpegParams);
+                    final ImageWriter writer = ImageIO.getImageWritersByFormatName("jpg").next();
+                    final File resultFile = new File(output, cardId + ".jpg");
+                    try (FileImageOutputStream outputStream = new FileImageOutputStream(resultFile)) {
+                        writer.setOutput(outputStream);
+                        writer.write(null, new IIOImage(bufferedImage, null, null), jpegParams);
+                    }
                 }
             }
         } catch (IOException | ParseException e) {

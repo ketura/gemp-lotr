@@ -20,26 +20,30 @@ public class TextLayerRecipe implements LayerRecipe {
     public void renderLayer(RenderContext renderContext, Graphics2D graphics) {
         final String text = textProvider.apply(renderContext);
         if (text != null) {
+            final TextBox textBox = textBoxProvider.apply(renderContext);
+
+//            graphics.setPaint(Color.WHITE);
+//            graphics.fillRect(textBox.getX(), textBox.getY(), textBox.getWidth(), textBox.getHeight());
+//            graphics.setColor(Color.BLACK);
+
             final Font font = fontProvider.apply(renderContext);
             graphics.setFont(font);
             graphics.setPaint(paintProvider.apply(renderContext));
 
             final FontMetrics fontMetrics = graphics.getFontMetrics();
 
-            final TextBox textBox = textBoxProvider.apply(renderContext);
 
-//            graphics.setPaint(Color.WHITE);
-//            graphics.fillRect(textBox.getX(), textBox.getY(), textBox.getWidth(), textBox.getHeight());
+            int yMargin = (textBox.getHeight() - fontMetrics.getHeight()) / 2;
 
             final String horizontalAlignment = textBox.getHorizontalAlignment();
             if (horizontalAlignment == null) {
-                graphics.drawString(text, textBox.getX(), textBox.getY() + fontMetrics.getAscent());
+                graphics.drawString(text, textBox.getX(), textBox.getY() + yMargin + fontMetrics.getAscent());
             } else if (horizontalAlignment.equals("center")) {
                 final int width = fontMetrics.stringWidth(text);
-                graphics.drawString(text, textBox.getX() + (textBox.getWidth() - width) / 2, textBox.getY() + fontMetrics.getAscent());
+                graphics.drawString(text, textBox.getX() + (textBox.getWidth() - width) / 2, textBox.getY() + yMargin + fontMetrics.getAscent());
             } else if (horizontalAlignment.equals("right")) {
                 final int width = fontMetrics.stringWidth(text);
-                graphics.drawString(text, textBox.getX() + (textBox.getWidth() - width), textBox.getY() + fontMetrics.getAscent());
+                graphics.drawString(text, textBox.getX() + (textBox.getWidth() - width), textBox.getY() + yMargin + fontMetrics.getAscent());
             } else {
                 throw new ImageGenerationException("Unable to recognize horizontal alignment: " + horizontalAlignment);
             }
