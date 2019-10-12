@@ -714,7 +714,7 @@
               "box": {
                 "type": "box",
                 "x": 45,
-                "y": 685,
+                "y": 681,
                 "width": 90,
                 "height": 50,
                 "horAlign": "center"
@@ -1003,12 +1003,12 @@
             "shire": "#",
             "dwarven": "@"
           },
-          "minYStart": 0.15,
+          "minYStart": 0.10,
           "box": {
             "type": "box",
-            "x": 160,
+            "x": 162,
             "y": 690,
-            "width": 540,
+            "width": 536,
             "height": 265
           }
         }
