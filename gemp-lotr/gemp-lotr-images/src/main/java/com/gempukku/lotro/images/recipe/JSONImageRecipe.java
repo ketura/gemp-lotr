@@ -81,9 +81,10 @@ public class JSONImageRecipe implements ImageRecipe {
             Function<RenderContext, Paint> paint = createPaintProvider(jsonLayer.get("paint"), "black");
             final Function<RenderContext, String> text = createStringProvider(jsonLayer.get("text"));
             Function<RenderContext, TextBox> textBox = createTextBoxProvider(jsonLayer.get("box"));
+            Function<RenderContext, Boolean> dropShadow = createBooleanProvider(jsonLayer.get("dropShadow"), false);
 
             return new TextLayerRecipe(
-                    font, text, paint, textBox);
+                    font, text, paint, textBox, dropShadow);
         } else if (type.equalsIgnoreCase("textBox")) {
             final Function<RenderContext, String[]> text = createStringArrayProvider(jsonLayer.get("text"));
             JSONObject object = (JSONObject) jsonLayer.get("font");
@@ -95,11 +96,12 @@ public class JSONImageRecipe implements ImageRecipe {
 
             Function<String, Function<RenderContext, Font>> fontStyleProvider = map::get;
             Function<RenderContext, TextBox> textBox = createTextBoxProvider(jsonLayer.get("box"));
+            final Function<RenderContext, Float> minYStart = createFloatProvider(jsonLayer.get("minYStart"));
 
             return new TextBoxLayerRecipe(
                     fontStyleProvider,
                     s -> glyphMap.get(s),
-                    text, textBox);
+                    text, textBox, minYStart);
         } else if (type.equalsIgnoreCase("rotate")) {
             final LayerRecipe layer = createLayerRecipe((JSONObject) jsonLayer.get("layer"));
             final Function<RenderContext, Integer> angle = createIntProvider(jsonLayer.get("angle"));
@@ -124,7 +126,20 @@ public class JSONImageRecipe implements ImageRecipe {
         if (value instanceof JSONObject) {
             JSONObject valueObj = (JSONObject) value;
             final String type = (String) valueObj.get("type");
-            if (type.equalsIgnoreCase("append")) {
+            if (type.equalsIgnoreCase("appendText")) {
+                final JSONArray values = (JSONArray) valueObj.get("values");
+                final List<Function<RenderContext, String>> list = (List<Function<RenderContext, String>>) values.stream().map(text -> createStringProvider(text)).collect(toList());
+
+                return renderContext -> {
+                    StringBuilder sb = new StringBuilder();
+                    for (Function<RenderContext, String> valueProvider : list) {
+                        final String textValue = valueProvider.apply(renderContext);
+                        if (textValue != null)
+                            sb.append(textValue);
+                    }
+                    return new String[]{sb.toString()};
+                };
+            } else if (type.equalsIgnoreCase("append")) {
                 final JSONArray values = (JSONArray) valueObj.get("values");
 
                 List<Function<RenderContext, String[]>> providers = (List<Function<RenderContext, String[]>>) values.stream().map(appendValue -> createStringArrayProvider(appendValue)).collect(Collectors.toList());
@@ -211,8 +226,16 @@ public class JSONImageRecipe implements ImageRecipe {
                     }
 
                     @Override
-                    public String getHorizontalAlignment() {
-                        return horizontalAlignment.apply(renderContext);
+                    public HorizontalAlignment getHorizontalAlignment() {
+                        final String align = horizontalAlignment.apply(renderContext);
+                        if (align == null || align.equalsIgnoreCase("left"))
+                            return (availableWidth, usedWidth) -> 0;
+                        else if (align.equalsIgnoreCase("center"))
+                            return (availableWidth, usedWidth) -> (availableWidth - usedWidth) / 2;
+                        else if (align.equalsIgnoreCase("right"))
+                            return (availableWidth, usedWidth) -> (availableWidth - usedWidth);
+
+                        throw new ImageGenerationException("Unable to recognize horizontal alignment: " + align);
                     }
                 };
             }
@@ -376,7 +399,15 @@ public class JSONImageRecipe implements ImageRecipe {
     }
 
     private Function<RenderContext, Boolean> createBooleanProvider(Object condition) {
-        if (condition instanceof JSONObject) {
+        return createBooleanProvider(condition, null);
+    }
+
+    private Function<RenderContext, Boolean> createBooleanProvider(Object condition, Boolean defaultValue) {
+        if (condition == null && defaultValue != null)
+            return renderContext -> defaultValue;
+        else if (condition instanceof Boolean)
+            return renderContext -> (Boolean) condition;
+        else if (condition instanceof JSONObject) {
             JSONObject conditionObj = (JSONObject) condition;
             final String type = (String) conditionObj.get("type");
             if (type.equalsIgnoreCase("cardHasProperty")) {

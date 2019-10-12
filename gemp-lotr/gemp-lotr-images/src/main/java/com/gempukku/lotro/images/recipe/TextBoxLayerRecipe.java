@@ -5,6 +5,7 @@ import java.awt.font.FontRenderContext;
 import java.awt.font.LineBreakMeasurer;
 import java.awt.font.TextAttribute;
 import java.awt.font.TextLayout;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 import java.text.AttributedCharacterIterator;
 import java.text.AttributedString;
@@ -15,16 +16,19 @@ public class TextBoxLayerRecipe implements LayerRecipe {
     private Function<String, String> glyphProvider;
     private Function<RenderContext, String[]> text;
     private Function<RenderContext, TextBox> textBox;
+    private Function<RenderContext, Float> minYStart;
 
     public TextBoxLayerRecipe(
             Function<String, Function<RenderContext, Font>> fontStyleProvider,
             Function<String, String> glyphProvider,
             Function<RenderContext, String[]> text,
-            Function<RenderContext, TextBox> textBox) {
+            Function<RenderContext, TextBox> textBox,
+            Function<RenderContext, Float> minYStart) {
         this.fontStyleProvider = fontStyleProvider;
         this.glyphProvider = glyphProvider;
         this.text = text;
         this.textBox = textBox;
+        this.minYStart = minYStart;
     }
 
     @Override
@@ -46,19 +50,26 @@ public class TextBoxLayerRecipe implements LayerRecipe {
 
             // Dry run to check for height
             float textHeight = processText((layout, x, y) -> {
-            }, iteratorLines, 0, 0, box.getWidth(), frc);
+            }, iteratorLines, 0, 0, box.getWidth(), box.getHorizontalAlignment(), frc);
 
-            float textAscent = Math.min(0.125f, (1 - textHeight / box.getHeight()) / 2f) * box.getHeight();
-            processText((layout, x, y) -> layout.draw(graphics, x, y), iteratorLines, box.getX(), box.getY() + textAscent, box.getWidth(), frc);
+            final float boxPercUsed = textHeight / box.getHeight();
+            float textAscent = Math.min(minYStart.apply(renderContext), (1 - boxPercUsed) / 2f) * box.getHeight();
+            processText((layout, x, y) -> layout.draw(graphics, x, y), iteratorLines, box.getX(), box.getY() + textAscent, box.getWidth(), box.getHorizontalAlignment(), frc);
         }
     }
 
-    private float processText(LineRenderingCallback callback, AttributedCharacterIterator[] iteratorLines, float x, float y, float width, FontRenderContext frc) {
+    private float processText(LineRenderingCallback callback, AttributedCharacterIterator[] iteratorLines, float x, float y, float width, TextBox.HorizontalAlignment horizontalAlignment, FontRenderContext frc) {
         Point2D.Float pen = new Point2D.Float(x, y);
 
+        boolean firstParagraph = true;
         for (AttributedCharacterIterator styledText : iteratorLines) {
             // let styledText be an AttributedCharacterIterator containing at least
             // one character
+
+            // Paragraph break
+            if (!firstParagraph) {
+                pen.y += 5;
+            }
 
             LineBreakMeasurer measurer = new LineBreakMeasurer(styledText, frc);
             float wrappingWidth = width;
@@ -67,14 +78,13 @@ public class TextBoxLayerRecipe implements LayerRecipe {
                 TextLayout layout = measurer.nextLayout(wrappingWidth);
 
                 pen.y += (layout.getAscent());
-                float dx = layout.isLeftToRight() ?
-                        0 : (wrappingWidth - layout.getAdvance());
+                float xShift = horizontalAlignment.getXShift(wrappingWidth, layout.getAdvance());
 
-                callback.drawLine(layout, pen.x + dx, pen.y);
+                callback.drawLine(layout, pen.x + xShift, pen.y);
                 pen.y += layout.getDescent() + layout.getLeading();
             }
-            // Paragraph break
-            pen.y += 5;
+
+            firstParagraph = false;
         }
         return pen.y;
     }
@@ -86,11 +96,20 @@ public class TextBoxLayerRecipe implements LayerRecipe {
         AttributedString string = new AttributedString(resultText.toString());
         parseText(text, new TextParsingCallback() {
             private int index = 0;
+            private boolean lowered = false;
 
             @Override
             public void appendText(String text, String style) {
                 String resultStyle = (style != null) ? style : "default";
-                string.addAttribute(TextAttribute.FONT, fontStyleProvider.apply(resultStyle).apply(renderContext), index, index + text.length());
+                Font font = fontStyleProvider.apply(resultStyle).apply(renderContext);
+                if (resultStyle.equals("glyph") && !lowered) {
+                    font = font.deriveFont(AffineTransform.getTranslateInstance(0, 3));
+                    lowered = true;
+                } else if (!resultStyle.equals("glyph") && lowered) {
+                    font = font.deriveFont(AffineTransform.getTranslateInstance(0, -3));
+                    lowered = false;
+                }
+                string.addAttribute(TextAttribute.FONT, font, index, index + text.length());
                 string.addAttribute(TextAttribute.FOREGROUND, Color.BLACK, index, index + text.length());
                 index += text.length();
             }

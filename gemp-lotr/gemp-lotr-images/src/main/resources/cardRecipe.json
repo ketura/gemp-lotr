@@ -334,6 +334,7 @@
           "comment": "Cost",
           "type": "text",
           "paint": "white",
+          "dropShadow": true,
           "font": {
             "type": "ttf",
             "path": {
@@ -374,28 +375,9 @@
             "name": "isCharacter"
           },
           "values": {
-            "type": "text",
-            "font": {
-              "type": "ttf",
-              "path": {
-                "type": "resolve",
-                "parent": {
-                  "type": "property",
-                  "name": "lotro.resources.folder"
-                },
-                "child": {
-                  "type": "property",
-                  "name": "type.font"
-                }
-              },
-              "size": {
-                "type": "property",
-                "name": "type.size"
-              },
-              "style": 0
-            },
+            "type": "textBox",
             "text": {
-              "type": "append",
+              "type": "appendText",
               "values": [
                 {
                   "comment": "Card type",
@@ -415,7 +397,7 @@
                   "value": {
                     "type": "append",
                     "values": [
-                      " • ",
+                      " {bullet} ",
                       {
                         "type": "capitalize",
                         "value": {
@@ -447,7 +429,7 @@
                   "value": {
                     "type": "append",
                     "values": [
-                      " • ",
+                      " {bullet} ",
                       {
                         "type": "capitalize",
                         "value": {
@@ -471,12 +453,52 @@
                 }
               ]
             },
+            "font": {
+              "default": {
+                "type": "ttf",
+                "path": {
+                  "type": "resolve",
+                  "parent": {
+                    "type": "property",
+                    "name": "lotro.resources.folder"
+                  },
+                  "child": {
+                    "type": "property",
+                    "name": "type.font"
+                  }
+                },
+                "size": {
+                  "type": "property",
+                  "name": "type.size"
+                },
+                "style": 0
+              },
+              "glyph": {
+                "type": "ttf",
+                "path": {
+                  "type": "resolve",
+                  "parent": {
+                    "type": "property",
+                    "name": "lotro.resources.folder"
+                  },
+                  "child": "LOTRSymbols.ttf"
+                },
+                "size": 40,
+                "style": 0
+              }
+            },
+            "glyphs": {
+              "shire": "#",
+              "dwarven": "@",
+              "bullet": "•"
+            },
+            "minYStart": 1,
             "box": {
               "type": "box",
               "x": 0,
-              "y": 615,
+              "y": 611,
               "width": 751,
-              "height": 30,
+              "height": 40,
               "horAlign": "center"
             }
           }
@@ -645,6 +667,7 @@
               "comment": "Strength text",
               "type": "text",
               "paint": "white",
+              "dropShadow": true,
               "font": {
                 "type": "ttf",
                 "path": {
@@ -727,6 +750,7 @@
               "comment": "Vitality text",
               "type": "text",
               "paint": "white",
+              "dropShadow": true,
               "font": {
                 "type": "ttf",
                 "path": {
@@ -979,12 +1003,13 @@
             "shire": "#",
             "dwarven": "@"
           },
+          "minYStart": 0.15,
           "box": {
             "type": "box",
-            "x": 168,
-            "y": 663,
-            "width": 500,
-            "height": 318
+            "x": 160,
+            "y": 690,
+            "width": 540,
+            "height": 265
           }
         }
       ]

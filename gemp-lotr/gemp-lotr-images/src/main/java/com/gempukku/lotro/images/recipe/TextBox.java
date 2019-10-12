@@ -9,5 +9,9 @@ public interface TextBox {
 
     int getHeight();
 
-    String getHorizontalAlignment();
+    HorizontalAlignment getHorizontalAlignment();
+
+    interface HorizontalAlignment {
+        float getXShift(float availableWidth, float usedWidth);
+    }
 }
