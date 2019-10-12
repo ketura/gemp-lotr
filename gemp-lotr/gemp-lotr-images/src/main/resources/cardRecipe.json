@@ -690,30 +690,11 @@
             },
             {
               "comment": "Strength text",
-              "type": "text",
+              "type": "textBox",
               "paint": "white",
               "dropShadow": true,
-              "font": {
-                "type": "ttf",
-                "path": {
-                  "type": "resolve",
-                  "parent": {
-                    "type": "property",
-                    "name": "lotro.resources.folder"
-                  },
-                  "child": {
-                    "type": "property",
-                    "name": "numbers.font"
-                  }
-                },
-                "size": {
-                  "type": "property",
-                  "name": "numbers.size"
-                },
-                "style": 0
-              },
               "text": {
-                "type": "append",
+                "type": "appendText",
                 "values": [
                   {
                     "type": "optional",
@@ -727,15 +708,65 @@
                         "type": "cardPropertyGreaterThanZero",
                         "name": "strength"
                       },
-                      "value": "+"
+                      "value": "[symbol]+[/symbol]"
                     }
                   },
                   {
-                    "type": "cardProperty",
-                    "name": "strength"
+                    "type": "replace",
+                    "source": {
+                      "type": "cardProperty",
+                      "name": "strength"
+                    },
+                    "match": "-",
+                    "with": "[symbol]-[/symbol]"
                   }
                 ]
               },
+              "font": {
+                "default": {
+                  "type": "ttf",
+                  "path": {
+                    "type": "resolve",
+                    "parent": {
+                      "type": "property",
+                      "name": "lotro.resources.folder"
+                    },
+                    "child": {
+                      "type": "property",
+                      "name": "numbers.font"
+                    }
+                  },
+                  "size": {
+                    "type": "property",
+                    "name": "numbers.size"
+                  },
+                  "style": 0
+                },
+                "symbol": {
+                  "type": "ttf",
+                  "path": {
+                    "type": "resolve",
+                    "parent": {
+                      "type": "property",
+                      "name": "lotro.resources.folder"
+                    },
+                    "child": {
+                      "type": "property",
+                      "name": "numbers.font"
+                    }
+                  },
+                  "size": 29,
+                  "style": 0
+                }
+              },
+              "glyphs": {
+                "shire": "#",
+                "dwarven": "@"
+              },
+              "yShifts": {
+                "symbol": -10
+              },
+              "minYStart": 1,
               "box": {
                 "type": "box",
                 "x": 45,
@@ -773,30 +804,11 @@
             },
             {
               "comment": "Vitality text",
-              "type": "text",
+              "type": "textBox",
               "paint": "white",
               "dropShadow": true,
-              "font": {
-                "type": "ttf",
-                "path": {
-                  "type": "resolve",
-                  "parent": {
-                    "type": "property",
-                    "name": "lotro.resources.folder"
-                  },
-                  "child": {
-                    "type": "property",
-                    "name": "numbers.font"
-                  }
-                },
-                "size": {
-                  "type": "property",
-                  "name": "numbers.size"
-                },
-                "style": 0
-              },
               "text": {
-                "type": "append",
+                "type": "appendText",
                 "values": [
                   {
                     "type": "optional",
@@ -810,15 +822,65 @@
                         "type": "cardPropertyGreaterThanZero",
                         "name": "vitality"
                       },
-                      "value": "+"
+                      "value": "[symbol]+[/symbol]"
                     }
                   },
                   {
-                    "type": "cardProperty",
-                    "name": "vitality"
+                    "type": "replace",
+                    "source": {
+                      "type": "cardProperty",
+                      "name": "vitality"
+                    },
+                    "match": "-",
+                    "with": "[symbol]-[/symbol]"
                   }
                 ]
               },
+              "font": {
+                "default": {
+                  "type": "ttf",
+                  "path": {
+                    "type": "resolve",
+                    "parent": {
+                      "type": "property",
+                      "name": "lotro.resources.folder"
+                    },
+                    "child": {
+                      "type": "property",
+                      "name": "numbers.font"
+                    }
+                  },
+                  "size": {
+                    "type": "property",
+                    "name": "numbers.size"
+                  },
+                  "style": 0
+                },
+                "symbol": {
+                  "type": "ttf",
+                  "path": {
+                    "type": "resolve",
+                    "parent": {
+                      "type": "property",
+                      "name": "lotro.resources.folder"
+                    },
+                    "child": {
+                      "type": "property",
+                      "name": "numbers.font"
+                    }
+                  },
+                  "size": 29,
+                  "style": 0
+                }
+              },
+              "glyphs": {
+                "shire": "#",
+                "dwarven": "@"
+              },
+              "yShifts": {
+                "symbol": -10
+              },
+              "minYStart": 1,
               "box": {
                 "type": "box",
                 "x": 45,
@@ -856,29 +918,11 @@
             },
             {
               "comment": "Resistance text",
-              "type": "text",
+              "type": "textBox",
               "paint": "white",
-              "font": {
-                "type": "ttf",
-                "path": {
-                  "type": "resolve",
-                  "parent": {
-                    "type": "property",
-                    "name": "lotro.resources.folder"
-                  },
-                  "child": {
-                    "type": "property",
-                    "name": "numbers.font"
-                  }
-                },
-                "size": {
-                  "type": "property",
-                  "name": "numbers.size"
-                },
-                "style": 0
-              },
+              "dropShadow": true,
               "text": {
-                "type": "append",
+                "type": "appendText",
                 "values": [
                   {
                     "type": "optional",
@@ -892,15 +936,65 @@
                         "type": "cardPropertyGreaterThanZero",
                         "name": "resistance"
                       },
-                      "value": "+"
+                      "value": "[symbol]+[/symbol]"
                     }
                   },
                   {
-                    "type": "cardProperty",
-                    "name": "resistance"
+                    "type": "replace",
+                    "source": {
+                      "type": "cardProperty",
+                      "name": "resistance"
+                    },
+                    "match": "-",
+                    "with": "[symbol]-[/symbol]"
                   }
                 ]
               },
+              "font": {
+                "default": {
+                  "type": "ttf",
+                  "path": {
+                    "type": "resolve",
+                    "parent": {
+                      "type": "property",
+                      "name": "lotro.resources.folder"
+                    },
+                    "child": {
+                      "type": "property",
+                      "name": "numbers.font"
+                    }
+                  },
+                  "size": {
+                    "type": "property",
+                    "name": "numbers.size"
+                  },
+                  "style": 0
+                },
+                "symbol": {
+                  "type": "ttf",
+                  "path": {
+                    "type": "resolve",
+                    "parent": {
+                      "type": "property",
+                      "name": "lotro.resources.folder"
+                    },
+                    "child": {
+                      "type": "property",
+                      "name": "numbers.font"
+                    }
+                  },
+                  "size": 29,
+                  "style": 0
+                }
+              },
+              "glyphs": {
+                "shire": "#",
+                "dwarven": "@"
+              },
+              "yShifts": {
+                "symbol": -10
+              },
+              "minYStart": 1,
               "box": {
                 "type": "box",
                 "x": 45,
@@ -1027,6 +1121,9 @@
           "glyphs": {
             "shire": "#",
             "dwarven": "@"
+          },
+          "yShifts": {
+            "glyph": 3
           },
           "minYStart": 0.10,
           "box": {

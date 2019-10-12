@@ -38,7 +38,7 @@ public class ImageGenerator {
             final JSONObject cardsObject = (JSONObject) parser.parse(reader);
             for (Map.Entry<String, JSONObject> cardEntry : (Set<Map.Entry<String, JSONObject>>) cardsObject.entrySet()) {
                 final String cardId = cardEntry.getKey();
-                if (cardId.equals("40_3") || cardId.equals("40_17") || cardId.equals("40_19")) {
+//                if (cardId.equals("40_3") || cardId.equals("40_17") || cardId.equals("40_19")) {
                     BufferedImage bufferedImage = new BufferedImage(jsonImageRecipe.getWidth(), jsonImageRecipe.getHeight(), BufferedImage.TYPE_INT_RGB);
                     jsonImageRecipe.renderImage(properties, cardEntry.getValue(), bufferedImage);
 
@@ -52,7 +52,7 @@ public class ImageGenerator {
                         writer.setOutput(outputStream);
                         writer.write(null, new IIOImage(bufferedImage, null, null), jpegParams);
                     }
-                }
+//                }
             }
         } catch (IOException | ParseException e) {
             throw new ImageGenerationException("Unable to generate image", e);

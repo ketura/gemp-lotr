@@ -14,6 +14,8 @@ import java.util.function.Function;
 public class TextBoxLayerRecipe implements LayerRecipe {
     private Function<String, Function<RenderContext, Font>> fontStyleProvider;
     private Function<String, String> glyphProvider;
+    private Function<RenderContext, Paint> paint;
+    private Function<String, Float> yShifts;
     private Function<RenderContext, String[]> text;
     private Function<RenderContext, TextBox> textBox;
     private Function<RenderContext, Float> minYStart;
@@ -21,11 +23,15 @@ public class TextBoxLayerRecipe implements LayerRecipe {
     public TextBoxLayerRecipe(
             Function<String, Function<RenderContext, Font>> fontStyleProvider,
             Function<String, String> glyphProvider,
+            Function<RenderContext, Paint> paint,
+            Function<String, Float> yShifts,
             Function<RenderContext, String[]> text,
             Function<RenderContext, TextBox> textBox,
             Function<RenderContext, Float> minYStart) {
         this.fontStyleProvider = fontStyleProvider;
         this.glyphProvider = glyphProvider;
+        this.paint = paint;
+        this.yShifts = yShifts;
         this.text = text;
         this.textBox = textBox;
         this.minYStart = minYStart;
@@ -45,6 +51,8 @@ public class TextBoxLayerRecipe implements LayerRecipe {
 //            graphics.setPaint(Color.WHITE);
 //            graphics.fillRect(box.getX(), box.getY(), box.getWidth(), box.getHeight());
 //            graphics.setColor(Color.BLACK);
+
+            graphics.setPaint(paint.apply(renderContext));
 
             FontRenderContext frc = graphics.getFontRenderContext();
 
@@ -96,21 +104,19 @@ public class TextBoxLayerRecipe implements LayerRecipe {
         AttributedString string = new AttributedString(resultText.toString());
         parseText(text, new TextParsingCallback() {
             private int index = 0;
-            private boolean lowered = false;
+            private float yShift = 0;
 
             @Override
             public void appendText(String text, String style) {
                 String resultStyle = (style != null) ? style : "default";
                 Font font = fontStyleProvider.apply(resultStyle).apply(renderContext);
-                if (resultStyle.equals("glyph") && !lowered) {
-                    font = font.deriveFont(AffineTransform.getTranslateInstance(0, 3));
-                    lowered = true;
-                } else if (!resultStyle.equals("glyph") && lowered) {
-                    font = font.deriveFont(AffineTransform.getTranslateInstance(0, -3));
-                    lowered = false;
+                final float value = yShifts.apply(resultStyle);
+                float result = value - yShift;
+                if (result != 0) {
+                    font = font.deriveFont(AffineTransform.getTranslateInstance(0, result));
+                    yShift = value;
                 }
                 string.addAttribute(TextAttribute.FONT, font, index, index + text.length());
-                string.addAttribute(TextAttribute.FOREGROUND, Color.BLACK, index, index + text.length());
                 index += text.length();
             }
         });

@@ -27,7 +27,6 @@ public class JSONImageRecipe implements ImageRecipe {
     private int height;
     private List<LayerRecipe> layers = new LinkedList<>();
     private Map<Path, Image> imageCache = new HashMap<>();
-    private Map<FontDefinition, Font> fontCache = new HashMap<>();
     private Map<String, Function<RenderContext, ?>> functionMap;
 
     public JSONImageRecipe(File file) {
@@ -93,14 +92,25 @@ public class JSONImageRecipe implements ImageRecipe {
                 map.put(fontEntry.getKey(), createFontProvider(fontEntry.getValue()));
             }
             Map<String, String> glyphMap = (JSONObject) jsonLayer.get("glyphs");
+            Function<RenderContext, Paint> paint = createPaintProvider(jsonLayer.get("paint"), "black");
 
             Function<String, Function<RenderContext, Font>> fontStyleProvider = map::get;
             Function<RenderContext, TextBox> textBox = createTextBoxProvider(jsonLayer.get("box"));
             final Function<RenderContext, Float> minYStart = createFloatProvider(jsonLayer.get("minYStart"));
+            Map<String, Number> yShiftsMap = (JSONObject) jsonLayer.get("yShifts");
 
             return new TextBoxLayerRecipe(
                     fontStyleProvider,
-                    s -> glyphMap.get(s),
+                    s -> glyphMap.get(s), paint,
+                    s -> {
+                        if (yShiftsMap == null)
+                            return 0f;
+                        final Number value = yShiftsMap.get(s);
+                        if (value == null)
+                            return 0f;
+                        else
+                            return value.floatValue();
+                    },
                     text, textBox, minYStart);
         } else if (type.equalsIgnoreCase("rotate")) {
             final LayerRecipe layer = createLayerRecipe((JSONObject) jsonLayer.get("layer"));
@@ -256,16 +266,11 @@ public class JSONImageRecipe implements ImageRecipe {
                     final Path path = pathProvider.apply(renderContext);
                     final float size = sizeProvider.apply(renderContext);
                     final int style = styleProvider.apply(renderContext);
-
-                    FontDefinition fontDefinition = new FontDefinition(size, style, path);
-                    return fontCache.computeIfAbsent(fontDefinition,
-                            fontDefinition1 -> {
-                                try {
-                                    return Font.createFont(Font.TRUETYPE_FONT, path.toFile()).deriveFont(style, size);
-                                } catch (FontFormatException | IOException e) {
-                                    throw new ImageGenerationException("Unable to get font", e);
-                                }
-                            });
+                    try {
+                        return Font.createFont(Font.TRUETYPE_FONT, path.toFile()).deriveFont(style, size);
+                    } catch (FontFormatException | IOException e) {
+                        throw new ImageGenerationException("Unable to get font", e);
+                    }
                 };
             }
         }
@@ -468,6 +473,12 @@ public class JSONImageRecipe implements ImageRecipe {
     }
 
     private Function<RenderContext, Float> createFloatProvider(Object value) {
+        return createFloatProvider(value, null);
+    }
+
+    private Function<RenderContext, Float> createFloatProvider(Object value, Float defaultValue) {
+        if (value == null && defaultValue != null)
+            return renderContext -> defaultValue;
         if (value instanceof Number) {
             return renderContext -> ((Number) value).floatValue();
         } else if (value instanceof JSONObject) {
@@ -537,33 +548,6 @@ public class JSONImageRecipe implements ImageRecipe {
             }
         } finally {
             graphics.dispose();
-        }
-    }
-
-    private class FontDefinition {
-        private float size;
-        private int style;
-        private Path fontPath;
-
-        public FontDefinition(float size, int style, Path fontPath) {
-            this.size = size;
-            this.style = style;
-            this.fontPath = fontPath;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            FontDefinition that = (FontDefinition) o;
-            return Float.compare(that.size, size) == 0 &&
-                    style == that.style &&
-                    fontPath.equals(that.fontPath);
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(size, style, fontPath);
         }
     }
 }
