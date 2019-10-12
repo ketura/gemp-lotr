@@ -94,9 +94,9 @@
                 ]
               },
               "map": {
-                "dwarven_character": "Joe-resources/Dwarven Character.png",
-                "dwarven_artifact_non-character": "Joe-resources/Dwarven Artifact.png",
-                "dwarven_non-character": "Joe-resources/Dwarven Non-Character.png",
+                "dwarven_character": "Joe-resources/72780327_2542320152519956_1120830595597860864_n.png",
+                "dwarven_artifact_non-character": "Joe-resources/73005502_950676761942617_7003567006515462144_n.png",
+                "dwarven_non-character": "Joe-resources/72672630_2357069651219894_6740103146959273984_n.png",
                 "elven_character": "card_templates/o_elven_noun.png",
                 "elven_artifact_non-character": "card_templates/o_elven_artifact.png",
                 "elven_non-character": "card_templates/o_elven_verb.png",
@@ -498,7 +498,7 @@
             "box": {
               "type": "box",
               "x": 0,
-              "y": 611,
+              "y": 612,
               "width": 751,
               "height": 40,
               "horAlign": "center"
@@ -657,7 +657,7 @@
             "box": {
               "type": "box",
               "x": 170,
-              "y": 611,
+              "y": 612,
               "width": 521,
               "height": 40,
               "horAlign": "center"
