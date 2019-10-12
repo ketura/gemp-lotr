@@ -483,7 +483,7 @@
                   },
                   "child": "LOTRSymbols.ttf"
                 },
-                "size": 40,
+                "size": 38,
                 "style": 0
               }
             },
@@ -1007,7 +1007,7 @@
           "box": {
             "type": "box",
             "x": 162,
-            "y": 690,
+            "y": 692,
             "width": 536,
             "height": 265
           }
