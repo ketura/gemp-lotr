@@ -409,21 +409,17 @@
                   }
                 },
                 {
-                  "comment": "Type keyword",
+                  "comment": "Location",
                   "type": "optional",
                   "condition": {
                     "type": "cardHasPropertyValueIn",
                     "name": "keyword",
                     "values": [
-                      "fellowship",
-                      "shadow",
-                      "maneuver",
-                      "archery",
-                      "assignment",
-                      "skirmish",
-                      "regroup",
-                      "response",
-                      "support area"
+                      "lothlorien",
+                      "rivendell",
+                      "bree",
+                      "edoras",
+                      "shire"
                     ]
                   },
                   "value": {
@@ -436,15 +432,11 @@
                           "type": "cardPropertyValueIn",
                           "name": "keyword",
                           "values": [
-                            "fellowship",
-                            "shadow",
-                            "maneuver",
-                            "archery",
-                            "assignment",
-                            "skirmish",
-                            "regroup",
-                            "response",
-                            "support area"
+                            "lothlorien",
+                            "rivendell",
+                            "bree",
+                            "edoras",
+                            "shire"
                           ]
                         }
                       }
@@ -1120,7 +1112,10 @@
           },
           "glyphs": {
             "shire": "#",
-            "dwarven": "@"
+            "dwarven": "@",
+            "elven": "*",
+            "isengard": "^",
+            "1": "¤"
           },
           "yShifts": {
             "glyph": 3
