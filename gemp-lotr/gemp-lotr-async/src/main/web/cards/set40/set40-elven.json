@@ -507,7 +507,7 @@
     "vitality": 3,
     "allyHome": "second ed,3",
     "text": [
-      "At the start of each of your turns, heal each Lothlórien ally."
+      "At the start of each of your turns, heal each Lothlórien ally.",
       "[keyword]Skirmish:[/keyword] Exert Galadriel to reveal the top card of your draw deck. If it is an {elven} card, you may discard it to make a minion skirmishing an Elf strength -2."
     ],
     "quote": "\"I know what it is you saw, for it is also in my mind.\"",
@@ -660,7 +660,7 @@
       "filter": "elf"
     },
     "text": [
-      "To play, spot an Elf."
+      "To play, spot an Elf.",
       "Each time you reveal an {elven} card from the top of your draw deck, you may exert Golradir to make an Orc strength -2 until the regroup phase."
     ],
     "quote": "Golradir was among those on hand when the fellowship departed Imladris.",
@@ -693,7 +693,7 @@
     "strength": 2,
     "target": "elf",
     "text": [
-      "Bearer must be an Elf."
+      "Bearer must be an Elf.",
       "If bearer is Arwen, she is [keyword]damage +1[/keyword].",
       "While skirmishing a Nazgûl, bearer is strength +2."
     ],
@@ -863,7 +863,7 @@
     "strength": 1,
     "target": "name(Legolas)",
     "text": [
-      "Bearer must be Legolas."
+      "Bearer must be Legolas.",
       "Each wounded minion skirmishing Legolas is strength -2."
     ],
     "quote": "Legolas prefers to attack his enemies from afar, but he does sometimes make use of his long-knives in close combat.",
@@ -993,7 +993,7 @@
     "vitality": 1,
     "keyword": "tale",
     "text": [
-      "[uKeyword]Tale.[/uKeyword] Bearer must be an Elf."
+      "[uKeyword]Tale.[/uKeyword] Bearer must be an Elf.",
       "[keyword]Skirmish:[/keyword] Discard this condition to make bearer strength +2."
     ],
     "quote": "\"Gil-Galad was an Elven-king / Of him the harpers sadly sing: / the last whose realm was fair and free / between the Mountains and the Sea.\"",
@@ -1026,7 +1026,7 @@
     "type": "artifact",
     "keyword": "support area",
     "text": [
-      "To play, exert an Elf or spot Galadriel."
+      "To play, exert an Elf or spot Galadriel.",
       "[keyword]Fellowship:[/keyword] Exert Galadriel and spot X Elves to look at the top X cards of your draw deck. Return those cards to the top of your draw deck in any order."
     ],
     "quote": "\"The Mirror shows many things...\"",
@@ -1082,8 +1082,8 @@
     "type": "artifact",
     "keyword": "support area",
     "text": [
-      "[keyword]Fellowship:[/keyword] Stack an {elven} card here."
-      "[keyword]Response:[/keyword] If an {elven} condition is about to be discarded, discard 2 cards from here to prevent that."
+      "[keyword]Fellowship:[/keyword] Stack an {elven} card here.",
+      "[keyword]Response:[/keyword] If an {elven} condition is about to be discarded, discard 2 cards from here to prevent that.",
       "[keyword]Regroup:[/keyword] Discard 3 cards from here to heal up to 3 wounds from Elves."
     ],
     "quote": "\"Three Rings for the Elven-kings under the sky...\"",
