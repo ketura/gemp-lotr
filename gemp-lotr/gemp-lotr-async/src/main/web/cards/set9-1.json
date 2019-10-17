@@ -446,6 +446,7 @@
     "culture": "elven",
     "cost": 2,
     "type": "artifact",
+    "possession": "hand weapon",
     "vitality": 1,
     "target": "elf",
     "effects": [
