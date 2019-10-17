@@ -2,6 +2,7 @@ package com.gempukku.lotro.log;
 
 import org.apache.log4j.Logger;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Proxy;
 
 public class LoggingProxy {
@@ -18,6 +19,8 @@ public class LoggingProxy {
                     long start = System.currentTimeMillis();
                     try {
                         return method.invoke(delegate, args);
+                    } catch (InvocationTargetException exp) {
+                        throw exp.getTargetException();
                     } finally {
                         long time = System.currentTimeMillis() - start;
                         String name = method.getName();
