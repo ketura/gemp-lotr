@@ -134,34 +134,39 @@
             "name": "isCharacter"
           },
           "values": {
-            "type": "text",
+            "type": "textBox",
             "font": {
-              "type": "ttf",
-              "path": {
-                "type": "resolve",
-                "parent": {
-                  "type": "property",
-                  "name": "lotro.resources.folder"
+              "default": {
+                "type": "ttf",
+                "path": {
+                  "type": "resolve",
+                  "parent": {
+                    "type": "property",
+                    "name": "lotro.resources.folder"
+                  },
+                  "child": {
+                    "type": "property",
+                    "name": "title.font"
+                  }
                 },
-                "child": {
+                "size": {
                   "type": "property",
-                  "name": "title.font"
-                }
-              },
-              "size": {
-                "type": "property",
-                "name": "title.size"
-              },
-              "style": 0
+                  "name": "title.size"
+                },
+                "style": 0
+              }
             },
             "text": {
-              "type": "replace",
-              "source": {
-                "type": "cardProperty",
-                "name": "title"
-              },
-              "match": "*",
-              "with": "•"
+              "type": "string",
+              "value": {
+                "type": "replace",
+                "source": {
+                  "type": "cardProperty",
+                  "name": "title"
+                },
+                "match": "*",
+                "with": "•"
+              }
             },
             "box": {
               "type": "box",
@@ -191,36 +196,41 @@
               "true": 35,
               "false": 50
             },
-            "y": 600,
+            "y": 570,
             "layer": {
-              "type": "text",
+              "type": "textBox",
               "font": {
-                "type": "ttf",
-                "path": {
-                  "type": "resolve",
-                  "parent": {
-                    "type": "property",
-                    "name": "lotro.resources.folder"
+                "default": {
+                  "type": "ttf",
+                  "path": {
+                    "type": "resolve",
+                    "parent": {
+                      "type": "property",
+                      "name": "lotro.resources.folder"
+                    },
+                    "child": {
+                      "type": "property",
+                      "name": "title.font"
+                    }
                   },
-                  "child": {
+                  "size": {
                     "type": "property",
-                    "name": "title.font"
-                  }
-                },
-                "size": {
-                  "type": "property",
-                  "name": "title.size"
-                },
-                "style": 0
+                    "name": "title.size"
+                  },
+                  "style": 0
+                }
               },
               "text": {
-                "type": "replace",
-                "source": {
-                  "type": "cardProperty",
-                  "name": "title"
-                },
-                "match": "*",
-                "with": "•"
+                "type": "string",
+                "value": {
+                  "type": "replace",
+                  "source": {
+                    "type": "cardProperty",
+                    "name": "title"
+                  },
+                  "match": "*",
+                  "with": "•"
+                }
               },
               "box": {
                 "type": "box",
@@ -233,8 +243,8 @@
                   "true": 35,
                   "false": 50
                 },
-                "y": 600,
-                "width": 440,
+                "y": 570,
+                "width": 410,
                 "height": 70,
                 "horAlign": "right"
               }
@@ -249,29 +259,34 @@
             "name": "isCharacter"
           },
           "values": {
-            "type": "text",
+            "type": "textBox",
             "font": {
-              "type": "ttf",
-              "path": {
-                "type": "resolve",
-                "parent": {
-                  "type": "property",
-                  "name": "lotro.resources.folder"
+              "default": {
+                "type": "ttf",
+                "path": {
+                  "type": "resolve",
+                  "parent": {
+                    "type": "property",
+                    "name": "lotro.resources.folder"
+                  },
+                  "child": {
+                    "type": "property",
+                    "name": "subtitle.font"
+                  }
                 },
-                "child": {
+                "size": {
                   "type": "property",
-                  "name": "subtitle.font"
-                }
-              },
-              "size": {
-                "type": "property",
-                "name": "subtitle.size"
-              },
-              "style": 0
+                  "name": "subtitle.size"
+                },
+                "style": 0
+              }
             },
             "text": {
-              "type": "cardProperty",
-              "name": "subtitle"
+              "type": "string",
+              "value": {
+                "type": "cardProperty",
+                "name": "subtitle"
+              }
             },
             "box": {
               "type": "box",
@@ -295,29 +310,34 @@
             "x": 65,
             "y": 600,
             "layer": {
-              "type": "text",
+              "type": "textBox",
               "font": {
-                "type": "ttf",
-                "path": {
-                  "type": "resolve",
-                  "parent": {
-                    "type": "property",
-                    "name": "lotro.resources.folder"
+                "default": {
+                  "type": "ttf",
+                  "path": {
+                    "type": "resolve",
+                    "parent": {
+                      "type": "property",
+                      "name": "lotro.resources.folder"
+                    },
+                    "child": {
+                      "type": "property",
+                      "name": "subtitle.font"
+                    }
                   },
-                  "child": {
+                  "size": {
                     "type": "property",
-                    "name": "subtitle.font"
-                  }
-                },
-                "size": {
-                  "type": "property",
-                  "name": "subtitle.size"
-                },
-                "style": 0
+                    "name": "subtitle.size"
+                  },
+                  "style": 0
+                }
               },
               "text": {
-                "type": "cardProperty",
-                "name": "subtitle"
+                "type": "string",
+                "value": {
+                  "type": "cardProperty",
+                  "name": "subtitle"
+                }
               },
               "box": {
                 "type": "box",
@@ -332,31 +352,36 @@
         },
         {
           "comment": "Cost",
-          "type": "text",
+          "type": "textBox",
           "paint": "white",
           "dropShadow": true,
           "font": {
-            "type": "ttf",
-            "path": {
-              "type": "resolve",
-              "parent": {
-                "type": "property",
-                "name": "lotro.resources.folder"
+            "default": {
+              "type": "ttf",
+              "path": {
+                "type": "resolve",
+                "parent": {
+                  "type": "property",
+                  "name": "lotro.resources.folder"
+                },
+                "child": {
+                  "type": "property",
+                  "name": "numbers.font"
+                }
               },
-              "child": {
+              "size": {
                 "type": "property",
-                "name": "numbers.font"
-              }
-            },
-            "size": {
-              "type": "property",
-              "name": "numbers.size"
-            },
-            "style": 0
+                "name": "numbers.size"
+              },
+              "style": 0
+            }
           },
           "text": {
-            "type": "cardProperty",
-            "name": "cost"
+            "type": "string",
+            "value": {
+              "type": "cardProperty",
+              "name": "cost"
+            }
           },
           "box": {
             "type": "box",
@@ -377,73 +402,76 @@
           "values": {
             "type": "textBox",
             "text": {
-              "type": "appendText",
-              "values": [
-                {
-                  "comment": "Card type",
-                  "type": "capitalize",
-                  "value": {
-                    "type": "cardProperty",
-                    "name": "type"
-                  }
-                },
-                {
-                  "comment": "Race",
-                  "type": "optional",
-                  "condition": {
-                    "type": "cardHasProperty",
-                    "name": "race"
+              "type": "string",
+              "value": {
+                "type": "appendText",
+                "values": [
+                  {
+                    "comment": "Card type",
+                    "type": "capitalize",
+                    "value": {
+                      "type": "cardProperty",
+                      "name": "type"
+                    }
                   },
-                  "value": {
-                    "type": "append",
-                    "values": [
-                      " [bullet]•[/bullet] ",
-                      {
-                        "type": "capitalize",
-                        "value": {
-                          "type": "cardProperty",
-                          "name": "race"
+                  {
+                    "comment": "Race",
+                    "type": "optional",
+                    "condition": {
+                      "type": "cardHasProperty",
+                      "name": "race"
+                    },
+                    "value": {
+                      "type": "append",
+                      "values": [
+                        " [bullet]•[/bullet] ",
+                        {
+                          "type": "capitalize",
+                          "value": {
+                            "type": "cardProperty",
+                            "name": "race"
+                          }
                         }
-                      }
-                    ]
-                  }
-                },
-                {
-                  "comment": "Location",
-                  "type": "optional",
-                  "condition": {
-                    "type": "cardHasPropertyValueIn",
-                    "name": "keyword",
-                    "values": [
-                      "lothlorien",
-                      "rivendell",
-                      "bree",
-                      "edoras",
-                      "shire"
-                    ]
+                      ]
+                    }
                   },
-                  "value": {
-                    "type": "append",
-                    "values": [
-                      " [bullet]•[/bullet] ",
-                      {
-                        "type": "capitalize",
-                        "value": {
-                          "type": "cardPropertyValueIn",
-                          "name": "keyword",
-                          "values": [
-                            "lothlorien",
-                            "rivendell",
-                            "bree",
-                            "edoras",
-                            "shire"
-                          ]
+                  {
+                    "comment": "Location",
+                    "type": "optional",
+                    "condition": {
+                      "type": "cardHasPropertyValueIn",
+                      "name": "keyword",
+                      "values": [
+                        "lothlorien",
+                        "rivendell",
+                        "bree",
+                        "edoras",
+                        "shire"
+                      ]
+                    },
+                    "value": {
+                      "type": "append",
+                      "values": [
+                        " [bullet]•[/bullet] ",
+                        {
+                          "type": "capitalize",
+                          "value": {
+                            "type": "cardPropertyValueIn",
+                            "name": "keyword",
+                            "values": [
+                              "lothlorien",
+                              "rivendell",
+                              "bree",
+                              "edoras",
+                              "shire"
+                            ]
+                          }
                         }
-                      }
-                    ]
+                      ]
+                    }
                   }
-                }
-              ]
+                ]
+              }
             },
             "font": {
               "default": {
@@ -507,102 +535,105 @@
           "values": {
             "type": "textBox",
             "text": {
-              "type": "appendText",
-              "values": [
-                {
-                  "comment": "Card type",
-                  "type": "capitalize",
-                  "value": {
-                    "type": "cardProperty",
-                    "name": "type"
-                  }
-                },
-                {
-                  "comment": "Race",
-                  "type": "optional",
-                  "condition": {
-                    "type": "cardHasProperty",
-                    "name": "race"
+              "type": "string",
+              "value": {
+                "type": "appendText",
+                "values": [
+                  {
+                    "comment": "Card type",
+                    "type": "capitalize",
+                    "value": {
+                      "type": "cardProperty",
+                      "name": "type"
+                    }
                   },
-                  "value": {
-                    "type": "append",
-                    "values": [
-                      " [bullet]•[/bullet] ",
-                      {
-                        "type": "capitalize",
-                        "value": {
-                          "type": "cardProperty",
-                          "name": "race"
+                  {
+                    "comment": "Race",
+                    "type": "optional",
+                    "condition": {
+                      "type": "cardHasProperty",
+                      "name": "race"
+                    },
+                    "value": {
+                      "type": "append",
+                      "values": [
+                        " [bullet]•[/bullet] ",
+                        {
+                          "type": "capitalize",
+                          "value": {
+                            "type": "cardProperty",
+                            "name": "race"
+                          }
                         }
-                      }
-                    ]
-                  }
-                },
-                {
-                  "comment": "Possession class",
-                  "type": "optional",
-                  "condition": {
-                    "type": "cardHasProperty",
-                    "name": "possession"
+                      ]
+                    }
                   },
-                  "value": {
-                    "type": "append",
-                    "values": [
-                      " [bullet]•[/bullet] ",
-                      {
-                        "type": "capitalize",
-                        "value": {
-                          "type": "cardProperty",
-                          "name": "possession"
+                  {
+                    "comment": "Possession class",
+                    "type": "optional",
+                    "condition": {
+                      "type": "cardHasProperty",
+                      "name": "possession"
+                    },
+                    "value": {
+                      "type": "append",
+                      "values": [
+                        " [bullet]•[/bullet] ",
+                        {
+                          "type": "capitalize",
+                          "value": {
+                            "type": "cardProperty",
+                            "name": "possession"
+                          }
                         }
-                      }
-                    ]
-                  }
-                },
-                {
-                  "comment": "Type keyword",
-                  "type": "optional",
-                  "condition": {
-                    "type": "cardHasPropertyValueIn",
-                    "name": "keyword",
-                    "values": [
-                      "fellowship",
-                      "shadow",
-                      "maneuver",
-                      "archery",
-                      "assignment",
-                      "skirmish",
-                      "regroup",
-                      "response",
-                      "support area"
-                    ]
+                      ]
+                    }
                   },
-                  "value": {
-                    "type": "append",
-                    "values": [
-                      " [bullet]•[/bullet] ",
-                      {
-                        "type": "capitalize",
-                        "value": {
-                          "type": "cardPropertyValueIn",
-                          "name": "keyword",
-                          "values": [
-                            "fellowship",
-                            "shadow",
-                            "maneuver",
-                            "archery",
-                            "assignment",
-                            "skirmish",
-                            "regroup",
-                            "response",
-                            "support area"
-                          ]
+                  {
+                    "comment": "Type keyword",
+                    "type": "optional",
+                    "condition": {
+                      "type": "cardHasPropertyValueIn",
+                      "name": "keyword",
+                      "values": [
+                        "fellowship",
+                        "shadow",
+                        "maneuver",
+                        "archery",
+                        "assignment",
+                        "skirmish",
+                        "regroup",
+                        "response",
+                        "support area"
+                      ]
+                    },
+                    "value": {
+                      "type": "append",
+                      "values": [
+                        " [bullet]•[/bullet] ",
+                        {
+                          "type": "capitalize",
+                          "value": {
+                            "type": "cardPropertyValueIn",
+                            "name": "keyword",
+                            "values": [
+                              "fellowship",
+                              "shadow",
+                              "maneuver",
+                              "archery",
+                              "assignment",
+                              "skirmish",
+                              "regroup",
+                              "response",
+                              "support area"
+                            ]
+                          }
                         }
-                      }
-                    ]
+                      ]
+                    }
                   }
-                }
-              ]
+                ]
+              }
             },
             "font": {
               "default": {
@@ -686,33 +717,36 @@
               "paint": "white",
               "dropShadow": true,
               "text": {
-                "type": "appendText",
-                "values": [
-                  {
-                    "type": "optional",
-                    "condition": {
-                      "type": "cardHasProperty",
-                      "name": "target"
-                    },
-                    "value": {
+                "type": "string",
+                "value": {
+                  "type": "appendText",
+                  "values": [
+                    {
                       "type": "optional",
                       "condition": {
-                        "type": "cardPropertyGreaterThanZero",
+                        "type": "cardHasProperty",
+                        "name": "target"
+                      },
+                      "value": {
+                        "type": "optional",
+                        "condition": {
+                          "type": "cardPropertyGreaterThanZero",
+                          "name": "strength"
+                        },
+                        "value": "[symbol]+[/symbol]"
+                      }
+                    },
+                    {
+                      "type": "replace",
+                      "source": {
+                        "type": "cardProperty",
                         "name": "strength"
                       },
-                      "value": "[symbol]+[/symbol]"
+                      "match": "-",
+                      "with": "[symbol]-[/symbol]"
                     }
-                  },
-                  {
-                    "type": "replace",
-                    "source": {
-                      "type": "cardProperty",
-                      "name": "strength"
-                    },
-                    "match": "-",
-                    "with": "[symbol]-[/symbol]"
-                  }
-                ]
+                  ]
+                }
               },
               "font": {
                 "default": {
@@ -800,33 +834,36 @@
               "paint": "white",
               "dropShadow": true,
               "text": {
-                "type": "appendText",
-                "values": [
-                  {
-                    "type": "optional",
-                    "condition": {
-                      "type": "cardHasProperty",
-                      "name": "target"
-                    },
-                    "value": {
+                "type": "string",
+                "value": {
+                  "type": "appendText",
+                  "values": [
+                    {
                       "type": "optional",
                       "condition": {
-                        "type": "cardPropertyGreaterThanZero",
+                        "type": "cardHasProperty",
+                        "name": "target"
+                      },
+                      "value": {
+                        "type": "optional",
+                        "condition": {
+                          "type": "cardPropertyGreaterThanZero",
+                          "name": "vitality"
+                        },
+                        "value": "[symbol]+[/symbol]"
+                      }
+                    },
+                    {
+                      "type": "replace",
+                      "source": {
+                        "type": "cardProperty",
                         "name": "vitality"
                       },
-                      "value": "[symbol]+[/symbol]"
+                      "match": "-",
+                      "with": "[symbol]-[/symbol]"
                     }
-                  },
-                  {
-                    "type": "replace",
-                    "source": {
-                      "type": "cardProperty",
-                      "name": "vitality"
-                    },
-                    "match": "-",
-                    "with": "[symbol]-[/symbol]"
-                  }
-                ]
+                  ]
+                }
               },
               "font": {
                 "default": {
@@ -914,33 +951,36 @@
               "paint": "white",
               "dropShadow": true,
               "text": {
-                "type": "appendText",
-                "values": [
-                  {
-                    "type": "optional",
-                    "condition": {
-                      "type": "cardHasProperty",
-                      "name": "target"
-                    },
-                    "value": {
+                "type": "string",
+                "value": {
+                  "type": "appendText",
+                  "values": [
+                    {
                       "type": "optional",
                       "condition": {
-                        "type": "cardPropertyGreaterThanZero",
+                        "type": "cardHasProperty",
+                        "name": "target"
+                      },
+                      "value": {
+                        "type": "optional",
+                        "condition": {
+                          "type": "cardPropertyGreaterThanZero",
+                          "name": "resistance"
+                        },
+                        "value": "[symbol]+[/symbol]"
+                      }
+                    },
+                    {
+                      "type": "replace",
+                      "source": {
+                        "type": "cardProperty",
                         "name": "resistance"
                       },
-                      "value": "[symbol]+[/symbol]"
+                      "match": "-",
+                      "with": "[symbol]-[/symbol]"
                     }
-                  },
-                  {
-                    "type": "replace",
-                    "source": {
-                      "type": "cardProperty",
-                      "name": "resistance"
-                    },
-                    "match": "-",
-                    "with": "[symbol]-[/symbol]"
-                  }
-                ]
+                  ]
+                }
               },
               "font": {
                 "default": {

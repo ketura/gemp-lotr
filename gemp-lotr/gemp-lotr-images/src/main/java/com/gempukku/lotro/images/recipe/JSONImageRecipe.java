@@ -75,15 +75,6 @@ public class JSONImageRecipe implements ImageRecipe {
                                 });
                     },
                     x, y, width, height);
-        } else if (type.equalsIgnoreCase("text")) {
-            Function<RenderContext, Font> font = createFontProvider(jsonLayer.get("font"));
-            Function<RenderContext, Paint> paint = createPaintProvider(jsonLayer.get("paint"), "black");
-            final Function<RenderContext, String> text = createStringProvider(jsonLayer.get("text"));
-            Function<RenderContext, TextBox> textBox = createTextBoxProvider(jsonLayer.get("box"));
-            Function<RenderContext, Boolean> dropShadow = createBooleanProvider(jsonLayer.get("dropShadow"), false);
-
-            return new TextLayerRecipe(
-                    font, text, paint, textBox, dropShadow);
         } else if (type.equalsIgnoreCase("textBox")) {
             final Function<RenderContext, String[]> text = createStringArrayProvider(jsonLayer.get("text"));
             JSONObject object = (JSONObject) jsonLayer.get("font");
@@ -96,7 +87,7 @@ public class JSONImageRecipe implements ImageRecipe {
 
             Function<String, Function<RenderContext, Font>> fontStyleProvider = map::get;
             Function<RenderContext, TextBox> textBox = createTextBoxProvider(jsonLayer.get("box"));
-            final Function<RenderContext, Float> minYStart = createFloatProvider(jsonLayer.get("minYStart"));
+            final Function<RenderContext, Float> minYStart = createFloatProvider(jsonLayer.get("minYStart"), 1f);
             Map<String, Number> yShiftsMap = (JSONObject) jsonLayer.get("yShifts");
 
             return new TextBoxLayerRecipe(
@@ -136,18 +127,14 @@ public class JSONImageRecipe implements ImageRecipe {
         if (value instanceof JSONObject) {
             JSONObject valueObj = (JSONObject) value;
             final String type = (String) valueObj.get("type");
-            if (type.equalsIgnoreCase("appendText")) {
-                final JSONArray values = (JSONArray) valueObj.get("values");
-                final List<Function<RenderContext, String>> list = (List<Function<RenderContext, String>>) values.stream().map(text -> createStringProvider(text)).collect(toList());
+            if (type.equalsIgnoreCase("string")) {
+                final Function<RenderContext, String> stringProvider = createStringProvider(valueObj.get("value"));
 
                 return renderContext -> {
-                    StringBuilder sb = new StringBuilder();
-                    for (Function<RenderContext, String> valueProvider : list) {
-                        final String textValue = valueProvider.apply(renderContext);
-                        if (textValue != null)
-                            sb.append(textValue);
-                    }
-                    return new String[]{sb.toString()};
+                    final String stringValue = stringProvider.apply(renderContext);
+                    if (stringValue == null)
+                        return new String[0];
+                    return new String[]{stringValue};
                 };
             } else if (type.equalsIgnoreCase("append")) {
                 final JSONArray values = (JSONArray) valueObj.get("values");
@@ -318,6 +305,19 @@ public class JSONImageRecipe implements ImageRecipe {
                 return renderContext ->
                         renderContext.getProperties().getProperty(
                                 propertyName.apply(renderContext));
+            } else if (type.equalsIgnoreCase("appendText")) {
+                final JSONArray values = (JSONArray) stringObj.get("values");
+                final List<Function<RenderContext, String>> list = (List<Function<RenderContext, String>>) values.stream().map(text -> createStringProvider(text)).collect(toList());
+
+                return renderContext -> {
+                    StringBuilder sb = new StringBuilder();
+                    for (Function<RenderContext, String> valueProvider : list) {
+                        final String textValue = valueProvider.apply(renderContext);
+                        if (textValue != null)
+                            sb.append(textValue);
+                    }
+                    return sb.toString();
+                };
             } else if (type.equalsIgnoreCase("map")) {
                 final Function<RenderContext, String> key = createStringProvider(stringObj.get("key"));
                 Map<String, String> map = (Map<String, String>) stringObj.get("map");
