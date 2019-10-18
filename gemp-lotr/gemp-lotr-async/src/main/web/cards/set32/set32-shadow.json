@@ -357,7 +357,7 @@
     "type": "minion",
     "race": "orc",
     "strength": 10,
-    "vitality": 4,
+    "vitality": 3,
     "site": 4,
     "effects": {
       "type": "trigger",
