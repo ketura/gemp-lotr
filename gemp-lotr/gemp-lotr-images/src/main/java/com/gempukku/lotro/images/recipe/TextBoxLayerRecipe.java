@@ -160,7 +160,10 @@ public class TextBoxLayerRecipe implements LayerRecipe {
             }
             int closeIndex = text.indexOf('}', openIndex);
             String glyphName = text.substring(openIndex + 1, closeIndex);
-            callback.appendText(glyphProvider.apply(glyphName), "glyph");
+            final String glyphText = glyphProvider.apply(glyphName);
+            if (glyphText == null)
+                throw new ImageGenerationException("Unable to resolve glyph with name: " + glyphName);
+            callback.appendText(glyphText, "glyph");
             index = closeIndex + 1;
         }
         String textAfter = text.substring(index);

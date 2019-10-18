@@ -1151,11 +1151,15 @@
             }
           },
           "glyphs": {
-            "shire": "#",
             "dwarven": "@",
             "elven": "*",
+            "gandalf": "$",
             "isengard": "^",
-            "1": "¤"
+            "moria": "{",
+            "shire": "#",
+            "1": "¤",
+            "2": "¥",
+            "X": "£"
           },
           "yShifts": {
             "glyph": 3
