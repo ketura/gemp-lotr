@@ -286,7 +286,7 @@
     "type": "site",
     "block": "hobbit",
     "site": 7,
-    "keyword": "river",
+    "keyword": "mountain",
     "effects": {
       "type": "activated",
       "phase": "regroup",

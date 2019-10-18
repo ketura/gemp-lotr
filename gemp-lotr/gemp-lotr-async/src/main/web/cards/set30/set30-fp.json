@@ -411,6 +411,7 @@
     "culture": "dwarven",
     "cost": 1,
     "type": "follower",
+    "race": "dwarf",
     "strength": 1,
     "effects": [
       {
