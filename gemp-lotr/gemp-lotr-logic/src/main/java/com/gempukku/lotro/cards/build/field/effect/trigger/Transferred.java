@@ -5,7 +5,6 @@ import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
 import com.gempukku.lotro.cards.build.FilterableSource;
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
-import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
 import org.json.simple.JSONObject;
 
@@ -31,7 +30,7 @@ public class Transferred implements TriggerCheckerProducer {
                 return TriggerConditions.transferredCard(actionContext.getGame(),
                         actionContext.getEffectResult(),
                         filterableSource.getFilterable(actionContext),
-                        Filters.any,
+                        null,
                         toFilterableSource.getFilterable(actionContext));
             }
         };

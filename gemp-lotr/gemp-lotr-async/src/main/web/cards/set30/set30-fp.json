@@ -131,6 +131,9 @@
           "type": "winsSkirmish",
           "filter": "bearer"
         },
+        "condition": {
+          "type": "fierceSkirmish"
+        },
         "effect": {
           "type": "discard",
           "filter": "choose(condition)"

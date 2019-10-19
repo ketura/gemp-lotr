@@ -550,7 +550,7 @@
         },
         "effect": {
           "type": "allyCanParticipateInArcheryFireAndSkirmishes",
-          "filter": "self",
+          "filter": "choose(name(Bard))",
           "until": "start(regroup)"
         }
       }

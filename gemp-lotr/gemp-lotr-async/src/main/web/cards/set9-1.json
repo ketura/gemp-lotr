@@ -469,14 +469,24 @@
           "type": "discard",
           "filter": "self"
         },
-        "effect": {
-          "type": "wound",
-          "filter": "choose(minion)",
-          "count": {
-            "type": "forEachYouCanSpot",
-            "filter": "elf"
+        "effect": [
+          {
+            "type": "chooseHowManyToSpot",
+            "filter": "elf",
+            "memorize": "spottedElfCount"
+          },
+          {
+            "type": "duplicate",
+            "amount": {
+              "type": "fromMemory",
+              "memory": "spottedElfCount"
+            },
+            "effect": {
+              "type": "wound",
+              "filter": "choose(minion)"
+            }
           }
-        }
+        ]
       }
     ]
   },
