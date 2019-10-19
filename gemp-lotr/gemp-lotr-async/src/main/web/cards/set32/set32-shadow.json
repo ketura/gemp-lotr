@@ -657,7 +657,7 @@
   "32_41": {
     "title": "Orkish Bow",
     "culture": "sauron",
-    "cost": 2,
+    "cost": 1,
     "type": "possession",
     "possession": "ranged weapon",
     "strength": 1,
