@@ -56,7 +56,10 @@ public abstract class DelayedAppender implements EffectAppender {
     }
 
     protected List<? extends Effect> createEffects(boolean cost, CostToEffectAction action, ActionContext actionContext) {
-        return Collections.singletonList(createEffect(cost, action, actionContext));
+        final Effect effect = createEffect(cost, action, actionContext);
+        if (effect == null)
+            return null;
+        return Collections.singletonList(effect);
     }
 
     @Override

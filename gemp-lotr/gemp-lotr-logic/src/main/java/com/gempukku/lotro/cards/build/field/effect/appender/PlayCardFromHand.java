@@ -16,7 +16,6 @@ import com.gempukku.lotro.logic.effects.StackActionEffect;
 import com.gempukku.lotro.logic.modifiers.evaluator.ConstantEvaluator;
 import com.gempukku.lotro.logic.timing.Effect;
 import com.gempukku.lotro.logic.timing.ExtraFilters;
-import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 import org.json.simple.JSONObject;
 
 import java.util.Collection;
@@ -63,12 +62,7 @@ public class PlayCardFromHand implements EffectAppenderProducer {
                             final CostToEffectAction playCardAction = PlayUtils.getPlayCardAction(game, cardsToPlay.iterator().next(), costModifier, onFilterable, false);
                             return new StackActionEffect(playCardAction);
                         } else {
-                            return new UnrespondableEffect() {
-                                @Override
-                                protected void doPlayEffect(LotroGame game) {
-                                    // do nothing
-                                }
-                            };
+                            return null;
                         }
                     }
                 });

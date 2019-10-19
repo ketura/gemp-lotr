@@ -5,14 +5,12 @@ import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.PlayerResolver;
-import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.decisions.MultipleChoiceAwaitingDecision;
 import com.gempukku.lotro.logic.effects.PlayoutDecisionEffect;
 import com.gempukku.lotro.logic.effects.StackActionEffect;
 import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 import org.json.simple.JSONObject;
 
 import java.util.LinkedList;
@@ -54,12 +52,7 @@ public class Choice implements EffectAppenderProducer {
                 }
 
                 if (playableEffectAppenders.size() == 0)
-                    return new UnrespondableEffect() {
-                        @Override
-                        protected void doPlayEffect(LotroGame game) {
-                            // Do nothin
-                        }
-                    };
+                    return null;
 
                 if (playableEffectAppenders.size() == 1) {
                     SubAction subAction = new SubAction(action);
