@@ -18,7 +18,7 @@
           "type": "condition",
           "condition": {
             "type": "canSpot",
-            "filter": "shadow,condition",
+            "filter": "side(shadow),condition",
             "count": 4
           },
           "true": 2,
