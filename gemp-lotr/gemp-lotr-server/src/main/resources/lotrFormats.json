@@ -44,6 +44,15 @@
         "hall":false
     },
     {
+        "name":"Fellowship block - Highlander",
+        "code":"limited_fotr",
+        "sites":"FELLOWSHIP",
+        "cancelRingBearerSkirmish":true,
+        "maximumSameName":1,
+        "set":[1, 2, 3],
+        "hall":false
+    },
+    {
         "name":"Open - Sets 1-4",
         "code":"open_legacy",
         "sites":"TWO_TOWERS",
