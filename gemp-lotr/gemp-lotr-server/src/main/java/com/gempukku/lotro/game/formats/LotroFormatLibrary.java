@@ -46,11 +46,9 @@ public class LotroFormatLibrary {
                     Boolean winOnControlling5Sites = (Boolean) formatDef.get("winOnControlling5Sites");
                     if (winOnControlling5Sites == null)
                         winOnControlling5Sites = false;
-                    Boolean limited = (Boolean) formatDef.get("limited");
-                    if (limited == null)
-                        limited = false;
+                    Number maximumSameNameCount = (Number) formatDef.get("maximumSameName");
 
-                    int maximumSameName = limited ? 20 : 4;
+                    int maximumSameName = (maximumSameNameCount != null) ? maximumSameNameCount.intValue() : 4;
                     final DefaultLotroFormat format = new DefaultLotroFormat(adventure, library, name, surveyUrl, block, true, 60, maximumSameName, true,
                             cancelRingBearerSkirmish, hasRuleOfFour, winAtEndOfRegroup, winOnControlling5Sites);
 
