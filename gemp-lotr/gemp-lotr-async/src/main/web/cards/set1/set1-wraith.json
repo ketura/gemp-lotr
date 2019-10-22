@@ -474,9 +474,23 @@
           }
         ],
         "effect": {
-          "type": "transfer",
-          "filter": "choose(name(Blade Tip),zone(support))",
-          "where": "choose(companion,inSkirmishAgainst(memory(bearer)))"
+          "type": "choice",
+          "texts": [
+            "Transfer Blade Tip from your support area to a companion bearer is skirmishing",
+            "Transfer Blade Tip from your discard pile to a companion bearer is skirmishing"
+          ],
+          "effects": [
+            {
+              "type": "transfer",
+              "filter": "choose(name(Blade Tip),zone(support))",
+              "where": "choose(companion,inSkirmishAgainst(memory(bearer)),not(hasAttached(name(Blade Tip))))"
+            },
+            {
+              "type": "transferFromDiscard",
+              "filter": "choose(name(Blade Tip))",
+              "where": "choose(companion,inSkirmishAgainst(memory(bearer)),not(hasAttached(name(Blade Tip))))"
+            }
+          ]
         }
       }
     ]
