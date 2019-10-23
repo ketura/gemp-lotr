@@ -61,14 +61,14 @@ public class ValueResolver {
                 FieldUtils.validateAllowedFields(object, "condition", "true", "false");
                 final JSONObject[] conditionArray = FieldUtils.getObjectArray(object.get("condition"), "condition");
                 final Requirement[] conditions = environment.getRequirementFactory().getRequirements(conditionArray, environment);
-                int trueValue = FieldUtils.getInteger(object.get("true"), "true");
-                int falseValue = FieldUtils.getInteger(object.get("false"), "false");
+                ValueSource trueValue = resolveEvaluator(object.get("true"), environment);
+                ValueSource falseValue = resolveEvaluator(object.get("false"), environment);
                 return (actionContext) -> (Evaluator) (game, cardAffected) -> {
                     for (Requirement condition : conditions) {
                         if (!condition.accepts(actionContext))
-                            return falseValue;
+                            return falseValue.getEvaluator(actionContext).evaluateExpression(game, cardAffected);
                     }
-                    return trueValue;
+                    return trueValue.getEvaluator(actionContext).evaluateExpression(game, cardAffected);
                 };
             } else if (type.equalsIgnoreCase("siteNumber")) {
                 return actionContext -> (game, cardAffected) -> game.getGameState().getCurrentSiteNumber();
@@ -245,6 +245,31 @@ public class ValueResolver {
                         actionContext.getSource(),
                         actionContext.getGame().getGameState().getCurrentPhase(),
                         limit, valueSource.getEvaluator(actionContext)));
+            } else if (type.equalsIgnoreCase("forEachStrength")) {
+                FieldUtils.validateAllowedFields(object, "multiplier", "over", "filter");
+                final int multiplier = FieldUtils.getInteger(object.get("multiplier"), "multiplier", 1);
+                final int over = FieldUtils.getInteger(object.get("over"), "over", 0);
+                final String filter = FieldUtils.getString(object.get("filter"), "filter", "any");
+
+                final FilterableSource vitalitySource = environment.getFilterFactory().generateFilter(filter, environment);
+
+                return (actionContext) -> {
+                    if (filter.equals("any")) {
+                        return new MultiplyEvaluator(multiplier,
+                                (game, cardAffected) -> Math.max(0, game.getModifiersQuerying().getStrength(game, cardAffected) - over));
+                    } else {
+                        return new MultiplyEvaluator(multiplier,
+                                (game, cardAffected) -> {
+                                    final Filterable filterable = vitalitySource.getFilterable(actionContext);
+                                    int strength = 0;
+                                    for (PhysicalCard physicalCard : Filters.filterActive(game, filterable)) {
+                                        strength += game.getModifiersQuerying().getStrength(game, physicalCard);
+                                    }
+
+                                    return Math.max(0, strength - over);
+                                });
+                    }
+                };
             } else if (type.equalsIgnoreCase("forEachVitality")) {
                 FieldUtils.validateAllowedFields(object, "multiplier", "over", "filter");
                 final int multiplier = FieldUtils.getInteger(object.get("multiplier"), "multiplier", 1);

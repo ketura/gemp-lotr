@@ -1103,7 +1103,9 @@
             "type": "canSpot",
             "count": 6,
             "filter": "companion"
-          }
+          },
+          "true": 5,
+          "false": 3
         },
         "until": "start(regroup)"
       }
