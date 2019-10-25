@@ -124,6 +124,7 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("incrementperturnlimit", new IncrementPerTurnLimit());
         effectAppenderProducers.put("incrementperphaselimit", new IncrementPerPhaseLimit());
         effectAppenderProducers.put("revealhand", new RevealHand());
+        effectAppenderProducers.put("lookathand", new LookAtHand());
         effectAppenderProducers.put("placenowoundforexert", new PlaceNoWoundForExert());
         effectAppenderProducers.put("shufflehandintodrawdeck", new ShuffleHandIntoDrawDeck());
         effectAppenderProducers.put("getcardsfromtopofdeck", new GetCardsFromTopOfDeck());
