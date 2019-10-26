@@ -19,6 +19,11 @@ public class EffectUtils {
 
     public static void processCostsAndEffects(JSONObject value, CardGenerationEnvironment environment, DefaultActionSource actionSource) throws InvalidCardDefinitionException {
         final JSONObject[] costArray = FieldUtils.getObjectArray(value.get("cost"), "cost");
+        final JSONObject[] effectArray = FieldUtils.getObjectArray(value.get("effect"), "effect");
+
+        if (costArray.length == 0 && effectArray.length == 0)
+            throw new InvalidCardDefinitionException("Action does not contain a cost, nor effect");
+
         final EffectAppenderFactory effectAppenderFactory = environment.getEffectAppenderFactory();
         for (JSONObject cost : costArray) {
             final EffectAppender effectAppender = effectAppenderFactory.getEffectAppender(cost, environment);
@@ -27,7 +32,6 @@ public class EffectUtils {
             actionSource.addCost(effectAppender);
         }
 
-        final JSONObject[] effectArray = FieldUtils.getObjectArray(value.get("effect"), "effect");
         for (JSONObject effect : effectArray) {
             final EffectAppender effectAppender = effectAppenderFactory.getEffectAppender(effect, environment);
             if (effectAppender == null) {
