@@ -238,13 +238,14 @@ public class ValueResolver {
                 final ValueSource valueSource = ValueResolver.resolveEvaluator(object.get("source"), 0, environment);
                 return (actionContext) -> new MultiplyEvaluator(multiplier, valueSource.getEvaluator(actionContext));
             } else if (type.equalsIgnoreCase("cardAffectedLimitPerPhase")) {
-                FieldUtils.validateAllowedFields(object, "limit", "source");
+                FieldUtils.validateAllowedFields(object, "limit", "source","prefix");
                 final int limit = FieldUtils.getInteger(object.get("limit"), "limit");
+                final String prefix = FieldUtils.getString(object.get("prefix"), "prefix", "");
                 final ValueSource valueSource = ValueResolver.resolveEvaluator(object.get("source"), 0, environment);
                 return (actionContext -> new CardAffectedPhaseLimitEvaluator(
                         actionContext.getSource(),
                         actionContext.getGame().getGameState().getCurrentPhase(),
-                        limit, valueSource.getEvaluator(actionContext)));
+                        limit, prefix, valueSource.getEvaluator(actionContext)));
             } else if (type.equalsIgnoreCase("forEachStrength")) {
                 FieldUtils.validateAllowedFields(object, "multiplier", "over", "filter");
                 final int multiplier = FieldUtils.getInteger(object.get("multiplier"), "multiplier", 1);
