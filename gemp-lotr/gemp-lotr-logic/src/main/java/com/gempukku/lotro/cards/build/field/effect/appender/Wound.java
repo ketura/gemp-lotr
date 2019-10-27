@@ -27,7 +27,7 @@ public class Wound implements EffectAppenderProducer {
 
         final String player = FieldUtils.getString(effectObject.get("player"), "player", "you");
         final ValueSource valueSource = ValueResolver.resolveEvaluator(effectObject.get("count"), 1, environment);
-        final int times = FieldUtils.getInteger(effectObject.get("times"), "times", 1);
+        final ValueSource times = ValueResolver.resolveEvaluator(effectObject.get("times"), 1, environment);
         final String filter = FieldUtils.getString(effectObject.get("filter"), "filter");
         final String memory = FieldUtils.getString(effectObject.get("memorize"), "memorize", "_temp");
 
@@ -35,15 +35,16 @@ public class Wound implements EffectAppenderProducer {
 
         result.addEffectAppender(
                 CardResolver.resolveCards(filter,
-                        (actionContext) -> Filters.canTakeWounds(actionContext.getSource(), times),
+                        (actionContext) -> Filters.canTakeWounds(actionContext.getSource(), times.getEvaluator(actionContext).evaluateExpression(actionContext.getGame(), null)),
                         valueSource, memory, player, "Choose cards to wound", environment));
         result.addEffectAppender(
                 new DelayedAppender() {
                     @Override
                     protected List<? extends Effect> createEffects(boolean cost, CostToEffectAction action, ActionContext actionContext) {
                         final Collection<? extends PhysicalCard> cardsFromMemory = actionContext.getCardsFromMemory(memory);
+                        final int timesCount = times.getEvaluator(actionContext).evaluateExpression(actionContext.getGame(), null);
                         List<Effect> result = new LinkedList<>();
-                        for (int i = 0; i < times; i++)
+                        for (int i = 0; i < timesCount; i++)
                             result.add(new WoundCharactersEffect(actionContext.getSource(), Filters.in(cardsFromMemory)));
                         return result;
                     }

@@ -110,6 +110,7 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("removecardsindiscardfromgame", new RemoveCardsInDiscardFromGame());
         effectAppenderProducers.put("makeselfringbearer", new MakeSelfRingBearer());
         effectAppenderProducers.put("choosearace", new ChooseARace());
+        effectAppenderProducers.put("chooseyesorno", new ChooseYesOrNo());
         effectAppenderProducers.put("chooseakeyword", new ChooseAKeyword());
         effectAppenderProducers.put("storewhileinzone", new StoreWhileInZone());
         effectAppenderProducers.put("resetwhileinzonedata", new ResetWhileInZoneData());

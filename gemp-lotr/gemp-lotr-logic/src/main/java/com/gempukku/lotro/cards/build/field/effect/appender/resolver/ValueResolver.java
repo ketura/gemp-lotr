@@ -57,7 +57,27 @@ public class ValueResolver {
         if (value instanceof JSONObject) {
             JSONObject object = (JSONObject) value;
             final String type = FieldUtils.getString(object.get("type"), "type");
-            if (type.equalsIgnoreCase("condition")) {
+            if (type.equalsIgnoreCase("range")) {
+                FieldUtils.validateAllowedFields(object, "from", "to");
+                ValueSource fromValue = resolveEvaluator(object.get("from"), environment);
+                ValueSource toValue = resolveEvaluator(object.get("to"), environment);
+                return new ValueSource() {
+                    @Override
+                    public Evaluator getEvaluator(ActionContext actionContext) {
+                        throw new RuntimeException("Evaluator has resolved to range");
+                    }
+
+                    @Override
+                    public int getMinimum(ActionContext actionContext) {
+                        return fromValue.getEvaluator(actionContext).evaluateExpression(actionContext.getGame(), null);
+                    }
+
+                    @Override
+                    public int getMaximum(ActionContext actionContext) {
+                        return toValue.getEvaluator(actionContext).evaluateExpression(actionContext.getGame(), null);
+                    }
+                };
+            } else if (type.equalsIgnoreCase("condition")) {
                 FieldUtils.validateAllowedFields(object, "condition", "true", "false");
                 final JSONObject[] conditionArray = FieldUtils.getObjectArray(object.get("condition"), "condition");
                 final Requirement[] conditions = environment.getRequirementFactory().getRequirements(conditionArray, environment);
@@ -238,7 +258,7 @@ public class ValueResolver {
                 final ValueSource valueSource = ValueResolver.resolveEvaluator(object.get("source"), 0, environment);
                 return (actionContext) -> new MultiplyEvaluator(multiplier, valueSource.getEvaluator(actionContext));
             } else if (type.equalsIgnoreCase("cardAffectedLimitPerPhase")) {
-                FieldUtils.validateAllowedFields(object, "limit", "source","prefix");
+                FieldUtils.validateAllowedFields(object, "limit", "source", "prefix");
                 final int limit = FieldUtils.getInteger(object.get("limit"), "limit");
                 final String prefix = FieldUtils.getString(object.get("prefix"), "prefix", "");
                 final ValueSource valueSource = ValueResolver.resolveEvaluator(object.get("source"), 0, environment);
