@@ -13,28 +13,29 @@ public class LoggingProxy {
     private static final long DEBUG_LEVEL = 100;
 
     public static <T> T createLoggingProxy(Class<T> clazz, T delegate) {
-        final String simpleName = clazz.getSimpleName();
-        return (T) Proxy.newProxyInstance(LoggingProxy.class.getClassLoader(), new Class[]{clazz},
-                (proxy, method, args) -> {
-                    long start = System.currentTimeMillis();
-                    try {
-                        return method.invoke(delegate, args);
-                    } catch (InvocationTargetException exp) {
-                        throw exp.getTargetException();
-                    } finally {
-                        long time = System.currentTimeMillis() - start;
-                        String name = method.getName();
-                        if (time >= ERROR_LEVEL)
-                            logger.error(simpleName + "::" + name + "(...) " + time + "ms");
-                        else if (time >= WARN_LEVEL)
-                            logger.warn(simpleName + "::" + name + "(...) " + time + "ms");
-                        else if (time >= INFO_LEVEL)
-                            logger.info(simpleName + "::" + name + "(...) " + time + "ms");
-                        else if (time >= DEBUG_LEVEL)
-                            logger.debug(simpleName + "::" + name + "(...) " + time + "ms");
-                        else
-                            logger.trace(simpleName + "::" + name + "(...) " + time + "ms");
-                    }
-                });
+        return delegate;
+//        final String simpleName = clazz.getSimpleName();
+//        return (T) Proxy.newProxyInstance(LoggingProxy.class.getClassLoader(), new Class[]{clazz},
+//                (proxy, method, args) -> {
+//                    long start = System.currentTimeMillis();
+//                    try {
+//                        return method.invoke(delegate, args);
+//                    } catch (InvocationTargetException exp) {
+//                        throw exp.getTargetException();
+//                    } finally {
+//                        long time = System.currentTimeMillis() - start;
+//                        String name = method.getName();
+//                        if (time >= ERROR_LEVEL)
+//                            logger.error(simpleName + "::" + name + "(...) " + time + "ms");
+//                        else if (time >= WARN_LEVEL)
+//                            logger.warn(simpleName + "::" + name + "(...) " + time + "ms");
+//                        else if (time >= INFO_LEVEL)
+//                            logger.info(simpleName + "::" + name + "(...) " + time + "ms");
+//                        else if (time >= DEBUG_LEVEL)
+//                            logger.debug(simpleName + "::" + name + "(...) " + time + "ms");
+//                        else
+//                            logger.trace(simpleName + "::" + name + "(...) " + time + "ms");
+//                    }
+//                });
     }
 }
