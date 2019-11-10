@@ -25,45 +25,60 @@
     "culture": "dwarven",
     "cost": 3,
     "type": "event",
-    "keyword": "regroup",
+    "keyword": "fellowship",
     "effects": {
       "type": "event",
-      "cost": {
-        "type": "discard",
-        "filter": "choose(culture(dwarven),follower,attachedTo(any))",
-        "memorize": "discardedFollower"
-      },
-      "effect": {
-        "type": "choice",
-        "texts": [
-          "Play possessions",
-          "Play artifacts"
-        ],
-        "effects": [
-          {
-            "type": "duplicate",
-            "effect": {
-              "type": "playCardFromDrawDeck",
-              "filter": "choose(culture(dwarven),possession)"
-            },
-            "amount": {
-              "type": "twilightCostInMemory",
-              "memory": "discardedFollower"
-            }
+      "cost": [
+        {
+          "type": "conditional",
+          "condition": {
+            "type": "location",
+            "filter": "siteNumber(1-5),siteBlock(hobbit)"
           },
-          {
+          "cost": {
+            "type": "discard",
+            "filter": "choose(culture(dwarven),follower,attachedTo(any))",
+            "memorize": "discardedFollower"
+          }
+        }
+      ],
+      "effect": [
+        {
+          "type": "conditional",
+          "condition": {
+            "type": "location",
+            "filter": "siteNumber(1-5),siteBlock(hobbit)"
+          },
+          "effect": {
             "type": "duplicate",
             "effect": {
               "type": "playCardFromDrawDeck",
-              "filter": "choose(culture(dwarven),artifact)"
+              "filter": "choose(culture(dwarven),not(event))"
             },
             "amount": {
               "type": "twilightCostInMemory",
               "memory": "discardedFollower"
             }
           }
-        ]
-      }
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "type": "location",
+            "filter": "not(siteNumber(1-5)),siteBlock(hobbit)"
+          },
+          "effect": [
+            {
+              "type": "heal",
+              "choose": "name(Thorin)"
+            },
+            {
+              "type": "heal",
+              "choose": "name(Thorin)"
+            }
+          ]
+        }
+      ]
     }
   },
   "31_3": {
@@ -91,11 +106,11 @@
         "phase": "regroup",
         "cost": {
           "type": "exert",
-          "filter": "choose(ally)"
+          "filter": "choose(culture(elven),ally)"
         },
         "effect": {
-          "type": "stackCardsFromHand",
-          "filter": "choose(culture(dwarven),event)",
+          "type": "stackCardsFromDiscard",
+          "filter": "choose(or(and(culture(elven),event),name(Lore of Imladris)))",
           "where": "self"
         }
       }
@@ -443,7 +458,11 @@
         "modifier": {
           "type": "cantBeDiscarded",
           "filter": "self",
-          "by": "side(shadow)"
+          "by": "side(shadow)",
+          "condition": {
+            "type": "canSpot",
+            "filter": "self,attachedTo(any)"
+          }
         }
       },
       {
@@ -564,33 +583,23 @@
     ],
     "effects": {
       "type": "event",
-      "cost": {
-        "type": "choice",
-        "texts": [
-          "Discard Beorn",
-          "Discard 2 DWARVEN followers"
-        ],
-        "effects": [
-          {
-            "type": "discard",
-            "filter": "choose(name(Beorn))"
+      "effect": [
+        {
+          "type": "addModifier",
+          "modifier": {
+            "type": "modifyStrength",
+            "amount": 2,
+          "filter": "culture(dwarven),companion,hasStacked(follower)"
           },
-          {
-            "type": "discard",
-            "count": 2,
-            "filter": "choose(culture(dwarven),follower)"
-          }
-        ]
-      },
-      "effect": {
-        "type": "duplicate",
-        "amount": 3,
-        "effect": {
-          "type": "wound",
-          "player": "shadowPlayer",
-          "filter": "choose(minion,not(name(Smaug)))"
+          "until": "start(regroup)"
+        },
+        {
+          "type": "addKeyword",
+          "keyword": "defender+1",
+          "filter": "culture(dwarven),companion,hasStacked(follower)",
+          "until": "start(regroup)"
         }
-      }
+      ]
     }
   },
   "31_17": {

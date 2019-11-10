@@ -185,13 +185,23 @@
     "type": "follower",
     "race": "dwarf",
     "strength": 2,
-    "effects": {
-      "type": "aidCost",
-      "cost": {
-        "type": "exert",
-        "filter": "choose(culture(dwarven),companion)"
+    "effects": [
+      {
+        "type": "aidCost",
+        "cost": {
+          "type": "exert",
+          "filter": "choose(culture(dwarven),companion)"
+        }
+      },
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "addKeyword",
+          "filter": "bearer",
+          "keyword": "damage+1",
+        }
       }
-    }
+    ]
   },
   "30_8": {
     "title": "*Dori",
@@ -299,7 +309,7 @@
       "effect": {
         "type": "modifyStrength",
         "filter": "self",
-        "amount": 2
+        "amount": 3
       }
     }
   },
@@ -686,18 +696,18 @@
       "effect": {
         "type": "choice",
         "texts": [
-          "Wound a minion twice",
-          "Discard a Troll"
+          "Discard a Troll",
+          "Wound a minion twice"
         ],
         "effects": [
+          {
+            "type": "discard",
+            "filter": "choose(troll)"
+          },
           {
             "type": "wound",
             "filter": "choose(minion)",
             "times": 2
-          },
-          {
-            "type": "discard",
-            "filter": "choose(troll)"
           }
         ]
       }
@@ -707,7 +717,7 @@
     "title": "*Gandalf",
     "subtitle": "Leader of Dwarves",
     "culture": "gandalf",
-    "cost": 4,
+    "cost": 2,
     "type": "companion",
     "race": "wizard",
     "strength": 7,
@@ -788,7 +798,7 @@
           "type": "cantBeDiscarded",
           "condition": {
             "type": "canSpot",
-            "filter": "dwarf,follower",
+            "filter": "culture(dwarven),follower",
             "count": 2
           },
           "filter": "self"
@@ -800,7 +810,7 @@
         "cost": [
           {
             "type": "discard",
-            "filter": "choose(dwarf,follower)"
+            "filter": "choose(culture(dwarven),follower)"
           },
           {
             "type": "addBurdens",
@@ -835,7 +845,7 @@
         },
         "effect": {
           "type": "wound",
-          "filter": "choose(minion)"
+          "filter": "choose(minion,not(name(Smaug)))"
         }
       },
       {

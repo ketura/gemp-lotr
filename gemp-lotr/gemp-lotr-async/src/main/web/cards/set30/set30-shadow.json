@@ -398,6 +398,10 @@
             "type": "location",
             "filter": "not(mountain)"
           }
+        },
+        "effect": {
+          "type": "discard",
+          "filter": "self"
         }
       },
       {

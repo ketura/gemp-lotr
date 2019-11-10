@@ -23,6 +23,9 @@ public class SortAndFilterCards {
         Set<Culture> cultures = getEnumFilter(Culture.values(), Culture.class, "culture", null, filterParams);
         Set<Keyword> keywords = getEnumFilter(Keyword.values(), Keyword.class, "keyword", Collections.<Keyword>emptySet(), filterParams);
         Integer siteNumber = getSiteNumber(filterParams);
+        Set<Race> races = getEnumFilter(Race.values(), Race.class, "race", null, filterParams);
+        Set<PossessionClass> itemClasses = getEnumFilter(PossessionClass.values(), PossessionClass.class, "itemClass", Collections.<PossessionClass>emptySet(), filterParams);
+        Set<Keyword> phases = getEnumFilter(Keyword.values(),Keyword.class, "phase", Collections.<Keyword>emptySet(), filterParams);
 
         List<T> result = new ArrayList<T>();
         Map<String, LotroCardBlueprint> cardBlueprintMap = new HashMap<>();
@@ -30,12 +33,12 @@ public class SortAndFilterCards {
         for (T item : items) {
             String blueprintId = item.getBlueprintId();
             if (isPack(blueprintId)) {
-                if (acceptsFilters(cardLibrary, cardBlueprintMap, formatLibrary, rarities, blueprintId, side, type, rarity, sets, cardTypes, cultures, keywords, words, siteNumber))
+                if (acceptsFilters(cardLibrary, cardBlueprintMap, formatLibrary, rarities, blueprintId, side, type, rarity, sets, cardTypes, cultures, keywords, words, siteNumber, races, itemClasses, phases))
                     result.add(item);
             } else {
                 try {
                     cardBlueprintMap.put(blueprintId, cardLibrary.getLotroCardBlueprint(blueprintId));
-                    if (acceptsFilters(cardLibrary, cardBlueprintMap, formatLibrary, rarities, blueprintId, side, type, rarity, sets, cardTypes, cultures, keywords, words, siteNumber))
+                    if (acceptsFilters(cardLibrary, cardBlueprintMap, formatLibrary, rarities, blueprintId, side, type, rarity, sets, cardTypes, cultures, keywords, words, siteNumber, races, itemClasses, phases))
                         result.add(item);
                 } catch (CardNotFoundException e) {
                     // Ignore the card
@@ -74,7 +77,7 @@ public class SortAndFilterCards {
 
     private boolean acceptsFilters(
             LotroCardBlueprintLibrary library, Map<String, LotroCardBlueprint> cardBlueprint, LotroFormatLibrary formatLibrary, Map<String, SetDefinition> rarities, String blueprintId, Side side, String type, String[] rarity, String[] sets,
-            Set<CardType> cardTypes, Set<Culture> cultures, Set<Keyword> keywords, List<String> words, Integer siteNumber) {
+            Set<CardType> cardTypes, Set<Culture> cultures, Set<Keyword> keywords, List<String> words, Integer siteNumber, Set<Race> races, Set<PossessionClass> itemClasses, Set<Keyword> phases) {
         if (isPack(blueprintId)) {
             if (type == null || type.equals("pack"))
                 return true;
@@ -93,7 +96,10 @@ public class SortAndFilterCards {
                                     if (containsAllKeywords(blueprint, keywords))
                                         if (containsAllWords(blueprint, words))
                                             if (siteNumber == null || blueprint.getSiteNumber() == siteNumber)
-                                                return true;
+                                                if (races == null || races.contains(blueprint.getRace()))
+                                                    if (containsAllClasses(blueprint, itemClasses))
+                                                        if (containsAllKeywords(blueprint, phases))
+                                                            return true;
             }
         }
         return false;
@@ -236,6 +242,26 @@ public class SortAndFilterCards {
         for (Keyword keyword : keywords) {
             if (blueprint == null || !blueprint.hasKeyword(keyword))
                 return false;
+        }
+        return true;
+    }
+
+    private boolean containsAllClasses(LotroCardBlueprint blueprint, Set<PossessionClass> possessionClasses) {
+        for (PossessionClass filterPossessionClass : possessionClasses) {
+            if (blueprint == null)
+                return false;
+            else {
+                if (blueprint.getPossessionClasses() == null) {
+                    if (filterPossessionClass == PossessionClass.CLASSLESS)
+                        return true;
+                    return false;
+                }            
+                for (PossessionClass blueprintPossessionClass : blueprint.getPossessionClasses()) {
+                    if (filterPossessionClass == blueprintPossessionClass)
+                        return true;
+                }
+                return false;
+            }
         }
         return true;
     }

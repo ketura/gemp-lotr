@@ -39,6 +39,9 @@ var CardFilter = Class.extend({
         $("#culture2").buttonset("option", "disabled", !enable);
         $("#cardType").prop("disabled", !enable);
         $("#keyword").prop("disabled", !enable);
+        $("#race").prop("disabled", !enable);
+        $("#itemClass").prop("disabled", !enable);
+        $("#phase").prop("disabled", !enable);
     },
 
     setFilter: function (filter) {
@@ -168,6 +171,7 @@ var CardFilter = Class.extend({
             + "<option value='P'>Promo</option>"
             + "<option value='X'>Rare+</option>"
             + "<option value='S'>Fixed</option>"
+            + "<option value='C,U,P,S'>Poorman's</option>"
             + "</select>");
 
         this.fullFilterDiv.append(this.setSelect);
@@ -273,6 +277,61 @@ var CardFilter = Class.extend({
             + "<option value='nonFoil'>Non-foils</option>"
             + "<option value='tengwar'>Tengwar</option>"
             + "</select>");
+
+        combos.append(" <select id ='race' style='font-size: 80%'>"
+            + "<option value=''>All races</option>"
+            + "<option value='BALROG'>Balrog</option>"
+            + "<option value='CREATURE'>Creature</option>"
+            + "<option value='DWARF'>Dwarf</option>"
+            + "<option value='ELF'>Elf</option>"
+            + "<option value='ENT'>Ent</option>"
+            + "<option value='HALF_TROLL'>Half-troll</option>"
+            + "<option value='HOBBIT'>Hobbit</option>"
+            + "<option value='MAIA'>Maia</option>"
+            + "<option value='MAN'>Man</option>"
+            + "<option value='NAZGUL'>Nazgul</option>"
+            + "<option value='ORC'>Orc</option>"
+            + "<option value='SPIDER'>Spider</option>"
+            + "<option value='TREE'>Tree</option>"
+            + "<option value='TROLL'>Troll</option>"
+            + "<option value='URUK_HAI'>Uruk-hai</option>"
+            + "<option value='WIZARD'>Wizard</option>"
+            + "<option value='WRAITH'>Wraith</option>"
+            + "<option value='DRAGON'>Dragon</option>"
+            + "<option value='EAGLE'>Eagle</option>"
+            + "</select>");
+        combos.append(" <select id ='itemClass' style='font-size: 80%'>"
+            + "<option value=''>All classes</option>"
+            + "<option value='ARMOR'>Armor</option>"
+            + "<option value='BOX'>Box</option>"
+            + "<option value='BRACERS'>Bracers</option>"
+            + "<option value='BROOCH'>Brooch</option>"
+            + "<option value='CLOAK'>Cloak</option>"
+            + "<option value='GAUNTLETS'>Gauntlets</option>"
+            + "<option value='HAND_WEAPON'>Hand Weapon</option>"
+            + "<option value='HELM'>Helm</option>"
+            + "<option value='HORN'>Horn</option>"
+            + "<option value='MOUNT'>Mount</option>"
+            + "<option value='PALANTIR'>Palantir</option>"
+            + "<option value='PHIAL'>Phial</option>"
+            + "<option value='PIPE'>Pipe</option>"
+            + "<option value='RANGED_WEAPON'>Ranged Weapon</option>"
+            + "<option value='RING'>Ring</option>"
+            + "<option value='SHIELD'>Shield</option>"
+            + "<option value='STAFF'>Staff</option>"
+            + "<option value='CLASSLESS'>Classless</option>"
+            + "</select>");
+        combos.append(" <select id ='phase' style='font-size: 80%'>"
+            + "<option value=''>All Phases</option>"
+            + "<option value='FELLOWSHIP'>Fellowship</option>"
+            + "<option value='SHADOW'>Shadow</option>"
+            + "<option value='MANEUVER'>Maneuver</option>"
+            + "<option value='ARCHERY'>Archery</option>"
+            + "<option value='ASSIGNMENT'>Assignment</option>"
+            + "<option value='SKIRMISH'>Skirmish</option>"
+            + "<option value='REGROUP'>Regroup</option>"
+            + "<option value='RESPONSE'>Response</option>"
+            + "</select>");
         this.filterDiv.append(combos);
 
         elem.append(this.filterDiv);
@@ -297,10 +356,53 @@ var CardFilter = Class.extend({
             that.getCollection();
             return true;
         };
+        
+        //Hide dynamic filters by default
+        $("#race").hide();
+        $("#itemClass").hide();
+        $("#phase").hide();
+        
+        var changeDynamicFilters = function () {
+            var cardType = $("#cardType option:selected").prop("value");
+            if (cardType.includes("COMPANION") || cardType.includes("ALLY") || cardType.includes("MINION")) {
+                $("#race").show();
+                $("#itemClass").hide();
+                $("#itemClass").val("");
+                $("#phase").hide();
+                $("#phase").val("");
+            } else if (cardType.includes("POSSESSION") || cardType.includes("ARTIFACT")) {
+                $("#race").hide();
+                $("#race").val("");
+                $("#itemClass").show();
+                $("#phase").hide();
+                $("#phase").val("");
+            } else if (cardType.includes("EVENT")) {
+                $("#race").hide();
+                $("#race").val("");
+                $("#itemClass").hide();
+                $("#itemClass").val("");
+                $("#phase").show();
+            } else {
+                $("#race").hide();
+                $("#race").val("");
+                $("#itemClass").hide();
+                $("#itemClass").val("");
+                $("#phase").hide();
+                $("#phase").val("")
+            }
+            that.filter = that.calculateNormalFilter();
+            that.start = 0;
+            that.getCollection();
+            return true;
+            
+        };
 
-        $("#cardType").change(filterOut);
+        $("#cardType").change(changeDynamicFilters);
         $("#keyword").change(filterOut);
         $("#type").change(filterOut);
+        $("#race").change(filterOut);
+        $("#itemClass").change(filterOut);
+        $("#phase").change(filterOut);
 
         //Additional Hobbit Draft labels
         $("#labelDWARVEN,#labelELVEN,#labelGANDALF,#labelGONDOR,#labelROHAN,#labelSHIRE,#labelGOLLUM,#labelDUNLAND,#labelISENGARD,#labelMEN,#labelMORIA,#labelORC,#labelRAIDER,#labelSAURON,#labelURUK_HAI,#labelWRAITH,#labelESGAROTH,#labelGUNDABAD").click(filterOut);
@@ -351,10 +453,22 @@ var CardFilter = Class.extend({
         if (type != "")
             type = " type:" + type;
 
+        var race = $("#race option:selected").prop("value");
+        if (race != "")
+            race = " race:" + race;
+
+        var itemClass = $("#itemClass option:selected").prop("value");
+        if (itemClass != "")
+            itemClass = " itemClass:" + itemClass
+
+        var phase = $("#phase option:selected").prop("value");
+        if (phase != "")
+            phase = " phase:" + phase;
+
         if (cultures.length > 0)
-            return cardType + " culture:" + cultures + keyword + type;
+            return cardType + " culture:" + cultures + keyword + type + race + itemClass + phase;
         else
-            return cardType + keyword + type;
+            return cardType + keyword + type + race + itemClass + phase;
     },
 
     calculateFullFilterPostfix: function () {
