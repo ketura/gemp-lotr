@@ -352,17 +352,29 @@
     "effects": {
       "type": "event",
       "effect": {
-        "type": "heal",
-        "filter": "choose(companion)",
-        "count": {
-          "type": "condition",
-          "condition": {
-            "type": "canSpot",
-            "filter": "name(Elrond)"
+        "type": "choice",
+        "texts": [
+          "Heal a companion",
+          "Heal 2 Dwarf companions"
+        ],
+        "effects": [
+          {
+            "type": "heal",
+             "filter": "choose(companion)"
           },
-          "true": 2,
-          "false": 1
-        }
+          {
+            "type": "conditional",
+            "condition": {
+              "type": "canSpot",
+              "filter": "name(Elrond)"
+            },
+            "effect": {
+              "type": "heal",
+              "filter": "choose(companion, race(dwarf))",
+              "count": 2
+            }
+          }
+        ]
       }
     }
   },

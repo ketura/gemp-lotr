@@ -1582,7 +1582,7 @@
         },
         "effect": {
           "type": "modifyStrength",
-          "filter": "choose(another,culture(wraith),minion)",
+          "filter": "choose(culture(wraith),minion)",
           "amount": {
             "type": "cardAffectedLimitPerPhase",
             "limit": 4,

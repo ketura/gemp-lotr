@@ -103,58 +103,31 @@
     "vitality": 2,
     "site": 3,
     "keyword": "archer",
-    "effects": [
-      {
-        "type": "killedTrigger",
-        "optional": true,
-        "condition": [
-          {
-            "type": "isOwner"
-          },
-          {
-            "type": "not",
-            "condition": {
-              "type": "phase",
-              "phase": "regroup"
-            }
-          }
-        ],
-        "cost": {
-          "type": "removeTwilight",
-          "amount": 3
+    "effects": {
+      "type": "discardedFromPlayTrigger",
+      "optional": true,
+      "condition": [
+        {
+          "type": "isOwner"
         },
-        "effect": {
-          "type": "wound",
-          "filter": "choose(ally)",
-          "times": 2
+        {
+          "type": "not",
+          "condition": {
+            "type": "phase",
+            "phase": "regroup"
+          }
         }
+      ],
+      "cost": {
+        "type": "removeTwilight",
+        "amount": 3
       },
-      {
-        "type": "discardedFromPlayTrigger",
-        "optional": true,
-        "condition": [
-          {
-            "type": "isOwner"
-          },
-          {
-            "type": "not",
-            "condition": {
-              "type": "phase",
-              "phase": "regroup"
-            }
-          }
-        ],
-        "cost": {
-          "type": "removeTwilight",
-          "amount": 3
-        },
-        "effect": {
-          "type": "wound",
-          "filter": "choose(ally)",
-          "times": 2
-        }
+      "effect": {
+        "type": "wound",
+        "filter": "choose(ally)",
+        "times": 2
       }
-    ]
+    }
   },
   "30_37": {
     "title": "*Not at Home",
