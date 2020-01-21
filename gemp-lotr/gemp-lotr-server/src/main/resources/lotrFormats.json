@@ -320,6 +320,19 @@
         "hall": true
     },
     {
+        "name": "Hobbit: Fire and Water",
+        "code": "hobbit_faw",
+        "sites": "HOBBIT",
+        "cancelRingBearerSkirmish": true,
+        "restricted": ["30_2", "30_5", "30_6", "30_7", "30_8", "30_9", "30_10", "30_11", "30_12", "30_15", "30_19",
+          "30_25", "30_26", "30_27", "30_28", "30_29", "30_43", "30_44", "30_45", "30_46", "30_48", "30_58"],
+        "limit2": ["30_1"],
+        "limit3": [],
+        "set": [30, 33],
+        "restrictedName": ["Gandalf","Bilbo"],
+        "hall": false
+    },
+    {
         "name":"Fellowship block - Highlander",
         "code":"fotr_highlander",
         "sites":"FELLOWSHIP",
@@ -333,8 +346,9 @@
         "code":"limited_hobbit",
         "sites":"HOBBIT",
         "cancelRingBearerSkirmish":true,
+        "limited":true,
+        "set":[30, 31, 32, 33],
         "maximumSameName":100,
-        "set":[30, 31],
         "hall":false
     },
     {

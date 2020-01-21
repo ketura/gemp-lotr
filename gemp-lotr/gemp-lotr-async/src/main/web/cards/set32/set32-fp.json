@@ -211,7 +211,7 @@
     ]
   },
   "32_8": {
-    "title": "*Roäc",
+    "title": "*Roac",
     "subtitle": "Son of Carc",
     "culture": "dwarven",
     "cost": 1,
@@ -271,7 +271,7 @@
         "type": "aidCost",
         "cost": [
           {
-            "type": "exert",
+            "type": "spot",
             "filter": "choose(name(Gandalf))"
           },
           {
@@ -785,7 +785,7 @@
         "filter": "choose(minion)",
         "amount": {
           "type": "forEachYouCanSpot",
-          "filter": "or(name(Gandalf),name(Elrond),name(Galadriel))"
+          "filter": "or(name(Gandalf),name(Elrond),name(Galadriel))",
           "multiplier": -1
         },
         "until": "start(regroup)"

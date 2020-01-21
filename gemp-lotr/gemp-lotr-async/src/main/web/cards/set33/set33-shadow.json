@@ -1,0 +1,402 @@
+{
+  "33_22": {
+    "title": "*Bill Ferny Sr.",
+    "subtitle": "Servant of Azog",
+    "culture": "gundabad",
+    "cost": 2,
+    "type": "minion",
+    "race": "man",
+    "strength": 4,
+    "vitality": 2,
+    "site": 2
+  },
+  "33_23": {
+    "title": "Scouting Warg",
+    "culture": "gundabad",
+    "cost": 4,
+    "type": "possession",
+    "possession": "mount",
+    "strength": 3,
+    "vitality": 2,
+    "target": "orc"
+  },
+  "33_24": {
+    "title": "Alfrid's Influence",
+    "culture": "men",
+    "cost": 1,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyStrength",
+        "filter": "archer,or(companion,ally)",
+        "amount": -1
+      }
+    }
+  },
+  "33_25": {
+    "title": "*Braga",
+    "subtitle": "Captain of the Guard",
+    "culture": "men",
+    "cost": 3,
+    "type": "minion",
+    "race": "man",
+    "strength": 9,
+    "vitality": 3,
+    "site": 6,
+    "keyword": "fierce"
+  },
+  "33_26": {
+    "title": "Gangsquad Spies",
+    "culture": "men",
+    "cost": 3,
+    "type": "minion",
+    "race": "man",
+    "strength": 9,
+    "vitality": 3,
+    "site": 6,
+    "keyword": "fierce"
+  },
+  "33_27": {
+    "title": "Laketown Patrol",
+    "culture": "men",
+    "cost": 4,
+    "type": "minion",
+    "race": "man",
+    "strength": 10,
+    "vitality": 3,
+    "site": 6,
+    "keyword": "fierce"
+  },
+  "33_28": {
+    "title": "Spear of the Guard",
+    "culture": "men",
+    "cost": 0,
+    "type": "possession",
+    "possession": "hand weapon",
+    "strength": 2,
+    "target": "culture(men),man"
+  },
+  "33_29": {
+    "title": "Ancient Grudge",
+    "culture": "gundabad",
+    "cost": 2,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyStrength",
+        "filter": "archer,or(companion,ally)",
+        "amount": -1
+      }
+    }
+  },
+  "33_30": {
+    "title": "*Borders of the Forest",
+    "culture": "gundabad",
+    "cost": 1,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyStrength",
+        "filter": "archer,or(companion,ally)",
+        "amount": -1
+      }
+    }
+  },
+  "33_31": {
+    "title": "*Elf-guards",
+    "culture": "gundabad",
+    "cost": 1,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyStrength",
+        "filter": "archer,or(companion,ally)",
+        "amount": -1
+      }
+    }
+  },
+  "33_32": {
+    "title": "Elven Jails",
+    "culture": "gundabad",
+    "cost": 2,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyStrength",
+        "filter": "archer,or(companion,ally)",
+        "amount": -1
+      }
+    }
+  },
+  "33_33": {
+    "title": "Secretive People",
+    "culture": "gundabad",
+    "cost": 1,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyStrength",
+        "filter": "archer,or(companion,ally)",
+        "amount": -1
+      }
+    }
+  },
+  "33_34": {
+    "title": "*The Elvenking",
+    "culture": "gundabad",
+    "cost": 3,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyStrength",
+        "filter": "archer,or(companion,ally)",
+        "amount": -1
+      }
+    }
+  },
+  "33_35": {
+    "title": "Boulder Rock",
+    "culture": "moria",
+    "cost": 1,
+    "type": "possession",
+    "vitality": 1,
+    "target": "troll"
+  },
+  "33_36": {
+    "title": "Bridging Troll",
+    "culture": "moria",
+    "cost": 5,
+    "type": "minion",
+    "race": "troll",
+    "strength": 10,
+    "vitality": 3,
+    "site": 4
+  },
+  "33_37": {
+    "title": "Catapult Troll",
+    "culture": "moria",
+    "cost": 5,
+    "type": "minion",
+    "race": "troll",
+    "strength": 10,
+    "vitality": 3,
+    "site": 4
+  },
+  "33_38": {
+    "title": "Goblin Archer",
+    "culture": "moria",
+    "cost": 2,
+    "type": "minion",
+    "race": "orc",
+    "strength": 4,
+    "vitality": 1,
+    "site": 4,
+    "keyword": "archer"
+  },
+  "33_39": {
+    "title": "Goblin Band",
+    "culture": "moria",
+    "cost": 3,
+    "type": "minion",
+    "race": "orc",
+    "strength": 7,
+    "vitality": 2,
+    "site": 4,
+    "keyword": "archer"
+  },
+  "33_40": {
+    "title": "Goblin Bow",
+    "culture": "moria",
+    "cost": 1,
+    "type": "possession",
+    "possession": "ranged weapon",
+    "vitality": 1,
+    "target": "orc",
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "addKeyword",
+        "filter": "bearer",
+        "keyword": "archer"
+      }
+    }
+  },
+  "33_41": {
+    "title": "Goblin Troop",
+    "culture": "moria",
+    "cost": 4,
+    "type": "minion",
+    "race": "orc",
+    "strength": 8,
+    "vitality": 3,
+    "site": 4,
+    "keyword": "archer"
+  },
+  "33_42": {
+    "title": "Granite Giant",
+    "culture": "moria",
+    "cost": 5,
+    "type": "minion",
+    "race": "dragon",
+    "strength": 11,
+    "vitality": 3,
+    "site": 4
+  },
+  "33_43": {
+    "title": "*Great Goblin's Sceptre",
+    "culture": "moria",
+    "cost": 1,
+    "type": "possession",
+    "possession": "hand weapon",
+    "strength": 2,
+    "vitality": 1,
+    "target": "orc"
+  },
+  "33_44": {
+    "title": "Lavastone Giant",
+    "culture": "moria",
+    "cost": 7,
+    "type": "minion",
+    "race": "dragon",
+    "strength": 14,
+    "vitality": 4,
+    "site": 4
+  },
+  "33_45": {
+    "title": "*The Great Goblin",
+    "subtitle": "Goblin King",
+    "culture": "moria",
+    "cost": 4,
+    "type": "minion",
+    "race": "orc",
+    "strength": 10,
+    "vitality": 3,
+    "site": 4,
+    "keyword": "fierce"
+  },
+  "33_46": {
+    "title": "Hidden",
+    "culture": "sauron",
+    "cost": 0,
+    "type": "event",
+    "keyword": "assignment",
+    "effects": {
+      "type": "event",
+      "effect": {
+        "type": "removeBurdens"
+      }
+    }
+  },
+  "33_47": {
+    "title": "Malevolent Orc",
+    "culture": "sauron",
+    "cost": 2,
+    "type": "minion",
+    "race": "orc",
+    "strength": 7,
+    "vitality": 2,
+    "site": 5
+  },
+  "33_48": {
+    "title": "Orc Ambusher",
+    "culture": "sauron",
+    "cost": 1,
+    "type": "minion",
+    "race": "orc",
+    "strength": 5,
+    "vitality": 2,
+    "site": 5
+  },
+  "33_49": {
+    "title": "Orc Sentinel",
+    "culture": "sauron",
+    "cost": 1,
+    "type": "minion",
+    "race": "orc",
+    "strength": 5,
+    "vitality": 2,
+    "site": 5
+  },
+  "33_50": {
+    "title": "Orc Underling",
+    "culture": "sauron",
+    "cost": 1,
+    "type": "minion",
+    "race": "orc",
+    "strength": 5,
+    "vitality": 2,
+    "site": 5
+  },
+  "33_51": {
+    "title": "Rise of the Necromancer",
+    "culture": "sauron",
+    "cost": 2,
+    "type": "event",
+    "keyword": "skirmish",
+    "effects": {
+      "type": "event",
+      "effect": {
+        "type": "removeBurdens"
+      }
+    }
+  },
+  "33_59": {
+    "title": "*Dragon-sickness",
+    "culture": "gundabad",
+    "cost": 2,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyStrength",
+        "filter": "archer,or(companion,ally)",
+        "amount": -1
+      }
+    }
+  },
+  "33_60": {
+    "title": "*The Last Lights of Durin's Day",
+    "culture": "gundabad",
+    "cost": 0,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyStrength",
+        "filter": "archer,or(companion,ally)",
+        "amount": -1
+      }
+    }
+  },
+  "33_61": {
+    "title": "*Dark Sorcery",
+    "culture": "wraith",
+    "cost": 2,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": {
+      "type": "modifier",
+      "modifier": {
+        "type": "modifyStrength",
+        "filter": "archer,or(companion,ally)",
+        "amount": -1
+      }
+    }
+  }
+}

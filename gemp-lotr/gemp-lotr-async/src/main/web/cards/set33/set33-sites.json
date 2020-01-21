@@ -1,0 +1,35 @@
+{
+  "33_55": {
+    "title": "Prancing Pony",
+    "cost": 0,
+    "type": "site",
+    "block": "hobbit",
+    "site": 1
+  },
+  "33_56": {
+    "title": "Great East Road",
+    "cost": 4,
+    "type": "site",
+    "block": "hobbit",
+    "site": 2,
+    "keyword": "forest"
+  },
+  "33_57": {
+    "title": "The Last Homely House",
+    "cost": 1,
+    "type": "site",
+    "block": "hobbit",
+    "site": 3
+  },
+  "33_58": {
+    "title": "Front Gate of Erebor",
+    "cost": 8,
+    "type": "site",
+    "block": "hobbit",
+    "site": 7,
+    "keyword": [
+      "mountain",
+      "river"
+    ]
+  }
+}

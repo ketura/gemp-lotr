@@ -129,6 +129,13 @@
     "merchantable": false
   },
   {
+    "setId": "33",
+    "setName": "Fire and Water",
+    "rarityFile": "/set33-rarity.txt",
+    "originalSet": false,
+    "merchantable": false
+  },
+  {
     "setId": "40",
     "setName": "Second Edition",
     "rarityFile": "/set40-rarity.txt",

@@ -214,7 +214,7 @@
     "title": "*Azog",
     "subtitle": "The Defiler",
     "culture": "gundabad",
-    "cost": 3,
+    "cost": 4,
     "type": "minion",
     "race": "orc",
     "strength": 9,
@@ -245,6 +245,7 @@
     "strength": 9,
     "vitality": 3,
     "site": 3,
+    "keyword": "damage+1",
     "effects": {
       "type": "trigger",
       "optional": true,
@@ -259,7 +260,7 @@
       },
       "effect": {
         "type": "addBurdens",
-        "amount": 2
+        "amount": 1
       }
     }
   },
@@ -1143,6 +1144,7 @@
         "optional": true,
         "trigger": {
           "type": "discarded",
+          "filter": "condition",
           "player": "fp"
         },
         "effect": {

@@ -4,10 +4,13 @@ import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.filters.Filters;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
+import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.actions.OptionalTriggerAction;
 import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.logic.effects.AddTokenEffect;
+import com.gempukku.lotro.logic.effects.SelfDiscardEffect;
+import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndRemoveFromTheGameCardsInDiscardEffect;
 import com.gempukku.lotro.logic.modifiers.AbstractExtraPlayCostModifier;
 import com.gempukku.lotro.logic.modifiers.Modifier;
@@ -15,6 +18,7 @@ import com.gempukku.lotro.logic.modifiers.SpotCondition;
 import com.gempukku.lotro.logic.modifiers.condition.AndCondition;
 import com.gempukku.lotro.logic.modifiers.condition.CanSpotCultureTokensCondition;
 import com.gempukku.lotro.logic.timing.EffectResult;
+import com.gempukku.lotro.logic.timing.PlayConditions;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
 
 import java.util.Collections;
@@ -64,5 +68,22 @@ public class Card17_002 extends AbstractPermanent {
                         new ChooseAndRemoveFromTheGameCardsInDiscardEffect(action, card, card.getOwner(), 1, 1, Culture.ORC));
             }
         });
+    }
+    
+    @Override
+    public List<? extends ActivateCardAction> getPhaseActionsInPlay(String playerId, LotroGame game, PhysicalCard self) {
+        if (PlayConditions.canUseFPCardDuringPhase(game, Phase.SKIRMISH, self)
+                && PlayConditions.canSelfDiscard(self, game)) {
+            ActivateCardAction action = new ActivateCardAction(self);
+            action.appendCost(
+                    new SelfDiscardEffect(self));
+            int countActive = Filters.countActive(game, Race.DWARF);
+            for (int i = 0; i < countActive; i++) {
+                action.appendEffect(
+                        new ChooseAndExertCharactersEffect(action, playerId, 1, 1, CardType.MINION));
+            }
+            return Collections.singletonList(action);
+        }
+        return null;
     }
 }

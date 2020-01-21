@@ -23,8 +23,8 @@ import java.util.List;
  * Culture: Smaug
  * Twilight Cost: 0
  * Type: Condition • Support area
- * Game Text: Each time Smaug wins a skirmish, you may add a doubt (or 2 doubts if a Dwarven companion he was
- * skirmishing is killed).
+ * Game Text: Each time Smaug wins a skirmish or kills a [Dwarven] companion in a skirmish, you may add a doubt.
+ * While Bilbo wears The One Ring, he cannot be wounded by Smaug.
  */
 public class Card32_059 extends AbstractPermanent {
     public Card32_059() {
@@ -33,15 +33,12 @@ public class Card32_059 extends AbstractPermanent {
 
     @Override
     public List<OptionalTriggerAction> getOptionalAfterTriggers(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (PlayConditions.checkPhaseLimit(game, self, 1)
-                && (TriggerConditions.forEachKilledBy(game, effectResult, Filters.name("Smaug"), Filters.and(CardType.COMPANION, Culture.DWARVEN))
-                || TriggerConditions.losesSkirmishInvolving(game, effectResult, Filters.or(CardType.COMPANION, CardType.ALLY), Filters.name("Smaug")))) {
+        if (TriggerConditions.forEachKilledBy(game, effectResult, Filters.name("Smaug"), Filters.and(CardType.COMPANION, Culture.DWARVEN))
+                || TriggerConditions.losesSkirmishInvolving(game, effectResult, Filters.or(CardType.COMPANION, CardType.ALLY), Filters.name("Smaug"))) {
             OptionalTriggerAction action = new OptionalTriggerAction(self);
-            action.appendEffect(
-                    new IncrementPhaseLimitEffect(self, 1));
             if (TriggerConditions.forEachKilledBy(game, effectResult, Filters.name("Smaug"), Filters.and(CardType.COMPANION, Culture.DWARVEN))) {
                 action.appendEffect(
-                        new AddBurdenEffect(game.getGameState().getCurrentPlayerId(), self, 2));
+                        new AddBurdenEffect(game.getGameState().getCurrentPlayerId(), self, 1));
             } else if (TriggerConditions.losesSkirmishInvolving(game, effectResult, Filters.or(CardType.COMPANION, CardType.ALLY), Filters.name("Smaug"))) {
                 action.appendEffect(
                         new AddBurdenEffect(game.getGameState().getCurrentPlayerId(), self, 1));

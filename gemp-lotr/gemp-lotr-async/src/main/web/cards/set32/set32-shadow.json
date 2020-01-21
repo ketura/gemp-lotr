@@ -157,7 +157,7 @@
   "32_29": {
     "title": "*Azog's Mace",
     "culture": "moria",
-    "cost": 2,
+    "cost": 1,
     "type": "possession",
     "possession": "hand weapon",
     "strength": 2,
@@ -943,6 +943,58 @@
       }
     ]
   },
+  "32_59": {
+    "title": "*Dragon's Malice",
+    "culture": "smaug",
+    "cost": 0,
+    "type": "condition",
+    "keyword": "support area",
+    "effects": [
+      {
+        "type": "trigger",
+        "optional": true,
+        "trigger": {
+          "type": "losesSkirmish",
+          "filter": "or(companion,ally)",
+          "against": "name(Smaug)"
+        },
+        "effect": {
+          "type": "addBurdens",
+          "amount": 1
+        
+        }
+      },
+      {
+        "type": "trigger",
+        "optional": true,
+        "trigger": {
+          "type": "killed",
+          "filter": "companion,culture(dwarven)"
+        },
+        "effect": {
+          "type": "addBurdens",
+          "amount": 1
+        
+        }
+      },
+      {
+        "type": "modifier",
+        "modifier": {
+          "type": "cantTakeWounds",
+          "filter": "name(Bilbo)",
+          "condition": [
+            {
+              "type": "ringIsOn",
+            },
+            {
+              "type": "canSpot",
+              "filter": "name(Bilbo),inSkirmishAgainst(name(Smaug))"
+            }
+          ]
+        }
+      }
+    ]
+  },
   "32_60": {
     "title": "Smaug's Awakening",
     "culture": "smaug",
@@ -1530,7 +1582,7 @@
         },
         "effect": {
           "type": "modifyStrength",
-          "filter": "choose(another,culture(wraith),minion)",
+          "filter": "choose(culture(wraith),minion)",
           "amount": {
             "type": "cardAffectedLimitPerPhase",
             "limit": 4,

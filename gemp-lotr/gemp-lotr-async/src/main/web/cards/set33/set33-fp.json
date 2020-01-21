@@ -1,0 +1,242 @@
+{
+  "33_1": {
+    "title": "*Ancient Forges",
+    "culture": "dwarven",
+    "cost": 2,
+    "type": "possession",
+    "keyword": [
+      "support area",
+      "fortification"
+    ]
+  },
+  "33_2": {
+    "title": "At Your Service!",
+    "culture": "dwarven",
+    "cost": 2,
+    "type": "event",
+    "keyword": "fellowship",
+    "effects": {
+      "type": "event",
+      "effect": {
+        "type": "removeBurdens"
+      }
+    }
+  },
+  "33_3": {
+    "title": "*Balin's Armor",
+    "culture": "dwarven",
+    "cost": 1,
+    "type": "possession",
+    "possession": "armor",
+    "vitality": 1,
+    "target": "name(Balin)"
+  },
+  "33_4": {
+    "title": "Blunt the Knives!",
+    "culture": "dwarven",
+    "cost": 0,
+    "type": "event",
+    "keyword": "fellowship",
+    "effects": {
+      "type": "event",
+      "effect": {
+        "type": "removeBurdens"
+      }
+    }
+  },
+  "33_5": {
+    "title": "*Dwarven Cooking Pot",
+    "culture": "dwarven",
+    "cost": 1,
+    "type": "possession",
+    "keyword": "support area"
+  },
+  "33_6": {
+    "title": "*Dwarven Ponies",
+    "culture": "dwarven",
+    "cost": 1,
+    "type": "possession",
+    "keyword": "support area"
+  },
+  "33_7": {
+    "title": "Dwarven Warhammer",
+    "culture": "dwarven",
+    "cost": 2,
+    "type": "possession",
+    "possession": "hand weapon",
+    "strength": 2,
+    "target": "culture(dwarven),companion"
+  },
+  "33_8": {
+    "title": "Eager to Brawl",
+    "culture": "dwarven",
+    "cost": 1,
+    "type": "event",
+    "keyword": "fellowship",
+    "effects": {
+      "type": "event",
+      "effect": {
+        "type": "removeBurdens"
+      }
+    }
+  },
+  "33_9": {
+    "title": "*Horn of Erebor",
+    "culture": "dwarven",
+    "cost": 2,
+    "type": "possession",
+    "keyword": [
+      "support area",
+      "fortification"
+    ]
+  },
+  "33_10": {
+    "title": "*Iron Hills Chariot",
+    "culture": "dwarven",
+    "cost": 1,
+    "type": "possession",
+    "keyword": "support area"
+  },
+  "33_11": {
+    "title": "*Ori's Slingshot",
+    "culture": "dwarven",
+    "cost": 0,
+    "type": "possession",
+    "keyword": "support area"
+  },
+  "33_12": {
+    "title": "*Thror",
+    "subtitle": "Overthrown King",
+    "culture": "dwarven",
+    "cost": 0,
+    "type": "companion",
+    "race": "dwarf",
+    "strength": 7,
+    "vitality": 5
+  },
+  "33_13": {
+    "title": "*Hadafang",
+    "culture": "elven",
+    "cost": 1,
+    "type": "artifact",
+    "possession": "hand weapon",
+    "strength": 2,
+    "target": "name(elrond)"
+  },
+  "33_14": {
+    "title": "*Lindir",
+    "subtitle": "Elven Minstrel",
+    "culture": "elven",
+    "cost": 2,
+    "type": "ally",
+    "allyHome": "hobbit,3",
+    "race": "elf",
+    "strength": 5,
+    "vitality": 4
+  },
+  "33_15": {
+    "title": "Moon-letters",
+    "culture": "elven",
+    "cost": 1,
+    "type": "event",
+    "keyword": "fellowship",
+    "effects": {
+      "type": "event",
+      "effect": {
+        "type": "removeBurdens"
+      }
+    }
+  },
+  "33_16": {
+    "title": "*Rivendell Scout",
+    "culture": "elven",
+    "cost": 2,
+    "type": "ally",
+    "allyHome": "hobbit,3",
+    "race": "elf",
+    "strength": 6,
+    "vitality": 3,
+    "keyword": "archer"
+  },
+  "33_17": {
+    "title": "*Vilya",
+    "culture": "elven",
+    "cost": 0,
+    "type": "artifact",
+    "possession": "ring",
+    "vitality": 0,
+    "target": "name(elrond)"
+  },
+  "33_18": {
+    "title": "Wise Advice",
+    "culture": "elven",
+    "cost": 2,
+    "type": "event",
+    "keyword": "fellowship",
+    "effects": {
+      "type": "event",
+      "effect": {
+        "type": "removeBurdens"
+      }
+    }
+  },
+  "33_19": {
+    "title": "*Betsy Butterbur",
+    "subtitle": "Prancing Pony Proprietor",
+    "culture": "gandalf",
+    "cost": 0,
+    "type": "ally",
+    "allyHome": "hobbit,1",
+    "race": "man",
+    "strength": 1,
+    "vitality": 2
+  },
+  "33_20": {
+    "title": "Burning Fir Cones",
+    "culture": "gandalf",
+    "cost": 1,
+    "type": "possession",
+    "keyword": "support area"
+  },
+  "33_21": {
+    "title": "No Finer Blade",
+    "culture": "gandalf",
+    "cost": 1,
+    "type": "event",
+    "keyword": "skirmish",
+    "effects": {
+      "type": "event",
+      "effect": {
+        "type": "removeBurdens"
+      }
+    }
+  },
+  "33_52": {
+    "title": "*Bilbo's Pony",
+    "culture": "shire",
+    "cost": 1,
+    "type": "possession",
+    "possession": "mount",
+    "strength": 1,
+    "target": "name(bilbo)"
+  },
+  "33_53": {
+    "title": "*Master Worryword",
+    "subtitle": "Hobbit Farmer",
+    "culture": "shire",
+    "cost": 1,
+    "type": "ally",
+    "allyHome": "hobbit,1",
+    "race": "hobbit",
+    "strength": 2,
+    "vitality": 3
+  },
+  "33_54": {
+    "title": "*There and Back Again",
+    "culture": "shire",
+    "cost": 1,
+    "type": "possession",
+    "resistance": 1,
+    "target": "name(bilbo)"
+  }
+}

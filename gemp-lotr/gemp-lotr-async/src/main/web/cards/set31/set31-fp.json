@@ -25,45 +25,41 @@
     "culture": "dwarven",
     "cost": 3,
     "type": "event",
-    "keyword": "regroup",
+    "keyword": "fellowship",
     "effects": {
       "type": "event",
-      "cost": {
-        "type": "discard",
-        "filter": "choose(culture(dwarven),follower,attachedTo(any))",
-        "memorize": "discardedFollower"
-      },
-      "effect": {
-        "type": "choice",
-        "texts": [
-          "Play possessions",
-          "Play artifacts"
-        ],
-        "effects": [
-          {
-            "type": "duplicate",
-            "effect": {
-              "type": "playCardFromDrawDeck",
-              "filter": "choose(culture(dwarven),possession)"
-            },
-            "amount": {
-              "type": "twilightCostInMemory",
-              "memory": "discardedFollower"
-            }
+      "effect": [
+        {
+          "type": "conditional",
+          "condition": {
+            "type": "location",
+            "filter": "siteNumber(1-5),siteBlock(hobbit)"
           },
-          {
+          "effect": {
             "type": "duplicate",
             "effect": {
               "type": "playCardFromDrawDeck",
-              "filter": "choose(culture(dwarven),artifact)"
+              "filter": "choose(culture(dwarven),not(event))"
             },
             "amount": {
               "type": "twilightCostInMemory",
               "memory": "discardedFollower"
             }
           }
-        ]
-      }
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "type": "location",
+            "filter": "siteNumber(6-9),siteBlock(hobbit)"
+          },
+          "effect": {
+            "type": "heal",
+            "filter": "choose(name(Thorin))",
+            "times": 2
+          }
+        }
+      ]
     }
   },
   "31_3": {
@@ -91,11 +87,11 @@
         "phase": "regroup",
         "cost": {
           "type": "exert",
-          "filter": "choose(ally)"
+          "filter": "choose(culture(elven),ally)"
         },
         "effect": {
-          "type": "stackCardsFromHand",
-          "filter": "choose(culture(dwarven),event)",
+          "type": "stackCardsFromDiscard",
+          "filter": "choose(or(and(culture(elven),event),name(Lore of Imladris)))",
           "where": "self"
         }
       }
@@ -443,7 +439,11 @@
         "modifier": {
           "type": "cantBeDiscarded",
           "filter": "self",
-          "by": "side(shadow)"
+          "by": "side(shadow)",
+          "condition": {
+            "type": "canSpot",
+            "filter": "self,attachedTo(any)"
+          }
         }
       },
       {
@@ -564,33 +564,20 @@
     ],
     "effects": {
       "type": "event",
-      "cost": {
-        "type": "choice",
-        "texts": [
-          "Discard Beorn",
-          "Discard 2 DWARVEN followers"
-        ],
-        "effects": [
-          {
-            "type": "discard",
-            "filter": "choose(name(Beorn))"
-          },
-          {
-            "type": "discard",
-            "count": 2,
-            "filter": "choose(culture(dwarven),follower)"
-          }
-        ]
-      },
-      "effect": {
-        "type": "duplicate",
-        "amount": 3,
-        "effect": {
-          "type": "wound",
-          "player": "shadowPlayer",
-          "filter": "choose(minion,not(name(Smaug)))"
+      "effect": [
+        {
+          "type": "modifyStrength",
+          "filter": "all(culture(dwarven),companion,hasStacked(follower))",
+          "amount": 2,
+          "until": "start(regroup)"
+        },
+        {
+          "type": "addKeyword",
+          "filter": "all(culture(dwarven),companion,hasStacked(and(follower,culture(gandalf))))",
+          "keyword": "defender+1",
+          "until": "start(regroup)"
         }
-      }
+      ]
     }
   },
   "31_17": {
