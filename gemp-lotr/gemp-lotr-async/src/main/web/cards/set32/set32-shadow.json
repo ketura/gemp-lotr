@@ -954,14 +954,12 @@
         "type": "trigger",
         "optional": true,
         "trigger": {
-          "type": "losesSkirmish",
-          "filter": "or(companion,ally)",
-          "against": "name(Smaug)"
+          "type": "winsSkirmish",
+          "filter": "name(Smaug)"
         },
         "effect": {
           "type": "addBurdens",
           "amount": 1
-        
         }
       },
       {
@@ -971,10 +969,13 @@
           "type": "killed",
           "filter": "companion,culture(dwarven)"
         },
+        "condition": {
+          "type": "canSpot",
+          "filter": "name(Smaug),inSkirmish"
+        },
         "effect": {
           "type": "addBurdens",
           "amount": 1
-        
         }
       },
       {
@@ -984,7 +985,7 @@
           "filter": "name(Bilbo)",
           "condition": [
             {
-              "type": "ringIsOn",
+              "type": "ringIsOn"
             },
             {
               "type": "canSpot",
