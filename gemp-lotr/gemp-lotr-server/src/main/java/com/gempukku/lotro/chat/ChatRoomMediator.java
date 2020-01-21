@@ -23,17 +23,20 @@ public class ChatRoomMediator {
     private ReadWriteLock _lock = new ReentrantReadWriteLock();
 
     private Map<String, ChatCommandCallback> _chatCommandCallbacks = new HashMap<String, ChatCommandCallback>();
+    private String welcomeMessage;
 
-    public ChatRoomMediator(IgnoreDAO ignoreDAO, String roomName, boolean muteJoinPartMessages, int secondsTimeoutPeriod) {
-        this(ignoreDAO, roomName, muteJoinPartMessages, secondsTimeoutPeriod, null);
+    public ChatRoomMediator(IgnoreDAO ignoreDAO, String roomName, boolean muteJoinPartMessages, int secondsTimeoutPeriod, boolean allowIncognito, String welcomeMessage) {
+        this(ignoreDAO, roomName, muteJoinPartMessages, secondsTimeoutPeriod, null, allowIncognito);
+        this.welcomeMessage = welcomeMessage;
     }
 
-    public ChatRoomMediator(IgnoreDAO ignoreDAO, String roomName, boolean muteJoinPartMessages, int secondsTimeoutPeriod, Set<String> allowedPlayers) {
+    public ChatRoomMediator(IgnoreDAO ignoreDAO, String roomName, boolean muteJoinPartMessages, int secondsTimeoutPeriod, Set<String> allowedPlayers,
+                            boolean allowIncognito) {
         this.ignoreDAO = ignoreDAO;
         _logger = Logger.getLogger("chat."+roomName);
         _allowedPlayers = allowedPlayers;
         _channelInactivityTimeoutPeriod = 1000 * secondsTimeoutPeriod;
-        _chatRoom = new ChatRoom(muteJoinPartMessages);
+        _chatRoom = new ChatRoom(muteJoinPartMessages, allowIncognito);
     }
 
     public void addChatCommandCallback(String command, ChatCommandCallback callback) {
@@ -49,7 +52,10 @@ public class ChatRoomMediator {
             ChatCommunicationChannel value = new ChatCommunicationChannel(ignoreDAO.getIgnoredUsers(playerId));
             _listeners.put(playerId, value);
             _chatRoom.joinChatRoom(playerId, value);
-            return value.consumeMessages();
+            final List<ChatMessage> chatMessages = value.consumeMessages();
+            if (welcomeMessage != null)
+                chatMessages.add(new ChatMessage(new Date(), "System", welcomeMessage, false));
+            return chatMessages;
         } finally {
             _lock.writeLock().unlock();
         }
@@ -88,6 +94,15 @@ public class ChatRoomMediator {
 
             _logger.trace(playerId+": "+message);
             _chatRoom.postMessage(playerId, message, true, admin);
+        } finally {
+            _lock.writeLock().unlock();
+        }
+    }
+
+    public void setIncognito(String username, boolean incognito) {
+        _lock.writeLock().lock();
+        try {
+            _chatRoom.setUserIncognitoMode(username, incognito);
         } finally {
             _lock.writeLock().unlock();
         }
@@ -142,10 +157,10 @@ public class ChatRoomMediator {
         }
     }
 
-    public Collection<String> getUsersInRoom() {
+    public Collection<String> getUsersInRoom(boolean admin) {
         _lock.readLock().lock();
         try {
-            return _chatRoom.getUsersInRoom();
+            return _chatRoom.getUsersInRoom(admin);
         } finally {
             _lock.readLock().unlock();
         }

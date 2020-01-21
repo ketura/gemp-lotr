@@ -482,9 +482,9 @@ public class NewCardsAtTest extends AbstractAtTest {
         skipMulligans();
 
         playerDecided(P1, "0");
+        playerDecided(P1, "2");
         playerDecided(P1, "");
 
-        playerDecided(P1, "2");
         playerDecided(P1, "" + blackBreath.getCardId());
         playerDecided(P1, "" + blackBreath2.getCardId());
 
@@ -509,9 +509,9 @@ public class NewCardsAtTest extends AbstractAtTest {
         skipMulligans();
 
         playerDecided(P1, "0");
+        playerDecided(P1, "1");
         playerDecided(P1, "");
 
-        playerDecided(P1, "1");
         playerDecided(P1, "" + blackBreath.getCardId());
         assertEquals(AwaitingDecisionType.CARD_ACTION_CHOICE, _userFeedback.getAwaitingDecision(P1).getDecisionType());
 

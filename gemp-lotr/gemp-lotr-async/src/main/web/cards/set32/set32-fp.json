@@ -444,7 +444,7 @@
         },
         "effect": {
           "type": "heal",
-          "filter": "self"
+          "filter": "choose(name(Gandalf))"
         }
       },
       {
@@ -757,7 +757,8 @@
         {
           "type": "modifyStrength",
           "filter": "memory(exertedAlly)",
-          "amount": 3
+          "amount": 3,
+          "until": "start(regroup)"
         },
         {
           "type": "allyCanParticipateInArcheryFireAndSkirmishes",
@@ -786,7 +787,8 @@
           "type": "forEachYouCanSpot",
           "filter": "or(name(Gandalf),name(Elrond),name(Galadriel))",
           "multiplier": -1
-        }
+        },
+        "until": "start(regroup)"
       }
     }
   },

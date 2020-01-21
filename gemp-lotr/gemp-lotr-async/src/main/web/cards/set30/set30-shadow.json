@@ -16,7 +16,7 @@
           "condition": {
             "type": "memoryMatches",
             "memory": "chosenMinion",
-            "filter": "hasAttached(follower)"
+            "filter": "inSkirmishAgainst(hasAttached(follower))"
           },
           "true": 4,
           "false": 2

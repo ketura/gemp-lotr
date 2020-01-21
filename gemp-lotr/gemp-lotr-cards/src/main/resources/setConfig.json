@@ -8,7 +8,8 @@
   {
     "setId": "1",
     "setName": "The Fellowship of the Ring",
-    "rarityFile": "/set1-rarity.txt"
+    "rarityFile": "/set1-rarity.txt",
+    "needsLoading": false
   },
   {
     "setId": "2",

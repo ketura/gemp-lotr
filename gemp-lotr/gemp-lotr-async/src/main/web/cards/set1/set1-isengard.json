@@ -87,7 +87,7 @@
       },
       "effect": {
         "type": "putCardsFromDiscardOnBottomOfDrawDeck",
-        "filter": "all(name(nameFromMemory(playedUrukHai)))"
+        "filter": "all(nameFromMemory(playedUrukHai))"
       }
     }
   },
@@ -773,7 +773,7 @@
           "type": "modifyStrength",
           "filter": "self",
           "amount": {
-            "type": "forEachInMemory",
+            "type": "fromMemory",
             "memory": "spottedUrukHai"
           }
         }

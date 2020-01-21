@@ -14,6 +14,11 @@
       "type": "canSpot",
       "filter": "name(Gandalf)"
     },
+    "text": [
+      "To play, spot Gandalf.",
+      "[keyword]Maneuver:[/keyword] Exert Albert Dreary to discard an {isengard} or {moria} condition."
+    ],
+    "quote": "Typical of Bree-folk, Albert is a plain but stout-hearted fellow. He does not seek trouble, but he is willing to protect his home.",
     "effects": {
       "type": "activated",
       "phase": "maneuver",
@@ -33,6 +38,11 @@
     "cost": 0,
     "type": "event",
     "keyword": "skirmish",
+    "text": [
+      "Make Gandalf strength +1.",
+      "If Gandalf wins this skirmish, you may draw 2 cards."
+    ],
+    "quote": "\"This is The One Ring...\"",
     "effects": {
       "type": "event",
       "effect": [
@@ -72,6 +82,11 @@
       "type": "canSpot",
       "filter": "name(Gandalf)"
     },
+    "text": [
+      "To play, spot Gandalf.",
+      "[keyword]Maneuver or Regroup:[/keyword] Exert Barliman Butterbur to heal a companion."
+    ],
+    "quote": "Barliman was good-hearted but notorious for his terrible memory.",
     "effects": {
       "type": "activated",
       "phase": [
@@ -101,6 +116,11 @@
       "type": "canSpot",
       "filter": "name(Gandalf)"
     },
+    "text": [
+      "[uKeyword]Spell.[/uKeyword] To play, spot Gandalf and another unbound companion.",
+      "The Shadow player may not play skirmish events or use skirmish special abilities during that companion's skirmish."
+    ],
+    "quote": "\"... wielder of the flame of Anor.\"",
     "effects": {
       "type": "event",
       "cost": {
@@ -132,6 +152,11 @@
       "type": "canSpot",
       "filter": "name(Gandalf)"
     },
+    "text": [
+      "[uKeyword]Spell.[/uKeyword]",
+      "Spot Gandalf to make an unbound companions strength +2 (or strength +3 if that companion has 4 or more resistance)."
+    ],
+    "quote": "\"I hear it's going to be a party of special magnificence.\"",
     "effects": {
       "type": "event",
       "effect": {
@@ -160,6 +185,11 @@
       "fellowship",
       "spell"
     ],
+    "text": [
+      "[uKeyword]Spell.[/uKeyword]",
+      "Exert Gandalf and add {X} to discard up to two Shadow conditions with a combined twilight cost of X or less."
+    ],
+    "quote": "\"Riddles in the dark...\"",
     "effects": {
       "type": "event",
       "cost": [
@@ -213,6 +243,8 @@
     "strength": 6,
     "vitality": 4,
     "resistance": 8,
+    "text": "Gandalf is strength +1 for each Hobbit companion you can spot.",
+    "quote": "\"You've officially been labeled a disturber of the peace.\"",
     "effects": {
       "type": "modifier",
       "modifier": {
@@ -235,6 +267,8 @@
     "strength": 7,
     "vitality": 4,
     "resistance": 8,
+    "text": "Each time you play a {gandalf} spell, you may draw a card.",
+    "quote": "\"He had a long white beard and bushy eyebrows that stuck out beyond the brim of his hat.\"",
     "effects": {
       "type": "trigger",
       "trigger": {
@@ -254,6 +288,11 @@
     "type": "possession",
     "possession": "pipe",
     "target": "name(Gandalf)",
+    "text": [
+      "Bearer must be Gandalf.",
+      "[keyword]Maneuver:[/keyword] Discard a pipeweed possession and spot X pipes to draw X cards (limit once per phase)."
+    ],
+    "quote": "Gandalf learned to smoke pipe-weed from the Hobbits and is known to blow elaborate smoke-rings.",
     "effects": {
       "type": "activated",
       "phase": "maneuver",
@@ -288,6 +327,12 @@
     "vitality": 1,
     "resistance": 1,
     "target": "name(Gandalf)",
+    "text": [
+      "Bearer must be Gandalf.",
+      "During the turn Gandalf's Staff is played, the Shadow player may not have initiative.",
+      "[keyword]Maneuver:[/keyword] Exert Gandalf twice to discard a Shadow condition."
+    ],
+    "quote": "The staff of Gandalf the Grey was made of brown wood with a jewel fixed at the top.",
     "effects": [
       {
         "type": "trigger",
@@ -324,6 +369,11 @@
     "possession": "hand weapon",
     "strength": 2,
     "target": "name(Gandalf)",
+    "text": [
+      "Bearer must be Gandalf.",
+      "While skirmishing an Orc or Goblin, Gandalf is strength +2 and [keyword]damage +1[/keyword]."
+    ],
+    "quote": "Glamdring was used by Gandalf to slay the Great Goblin.",
     "effects": [
       {
         "type": "modifier",
@@ -351,6 +401,12 @@
     "strength": 1,
     "keyword": "spell",
     "target": "name(Gandalf)",
+    "text": [
+      "[uKeyword]Spell.[/uKeyword] Bearer must be Gandalf.",
+      "Gandalf takes no more than one wound in a skirmish.",
+      "If you lose initiative, discard this condition and wound Gandalf."
+    ],
+    "quote": "The Valar sent Olórin to Middle-earth, to counsel and assist all those who opposed the Dark Lord Sauron.",
     "effects": [
       {
         "type": "modifier",
@@ -393,6 +449,12 @@
       "type": "canSpot",
       "filter": "name(Gandalf)"
     },
+    "text": [
+      "To play, spot Gandalf.",
+      "[keyword]Maneuver:[/keyword] At sites 1-5, exert Gandalf twice to make Gwaihir strength +3 and allow him to participate in archery fire and skirmishes.",
+      "[keyword]Skirmish:[/keyword] At sites 6-9, exert Gwaihir twice to cancel a skirmish involving Gandalf."
+    ],
+    "quote": "\"Gwaihir was descended from Thorondor, the greatest Eagle.\"",
     "effects": [
       {
         "type": "activated",
@@ -448,6 +510,11 @@
       "regroup",
       "spell"
     ],
+    "text": [
+      "[uKeyword]Spell.[/uKeyword]",
+      "Exert Gandalf to take a {gandalf} card from your discard pile into hand."
+    ],
+    "quote": "\"If in doubt, Meriadoc, always follow your nose.\"",
     "effects": {
       "type": "event",
       "cost": {
@@ -469,6 +536,12 @@
     "resistance": 1,
     "keyword": "spell",
     "target": "name(Frodo)",
+    "text": [
+      "[uKeyword]Spell.[/uKeyword]",
+      "To play, exert Gandalf. Plays on Frodo.",
+      "[keyword]Fellowship or Regroup:[/keyword] Discard 2 {gandalf} cards from hand to remove a burden."
+    ],
+    "quote": "\"... as long as it is yours to bear.\"",
     "effects": [
       {
         "type": "extraCost",
@@ -508,6 +581,11 @@
       "type": "canSpot",
       "filter": "name(Gandalf)"
     },
+    "text": [
+      "[uKeyword]Spell.[/uKeyword]",
+      "Spot Gandalf to reveal a card at random from your opponent's hand. If it is a Free Peoples card, heal a companion or ally. If it is a Shadow card, exert a minion."
+    ],
+    "quote": "\"Let us risk a little light!\"",
     "effects": {
       "type": "event",
       "effect": [
@@ -550,6 +628,11 @@
     "cost": 2,
     "type": "condition",
     "keyword": "support area",
+    "text": [
+      "At the start of each of your turns, you may spot Gandalf to draw a card.",
+      "[keyword]Fellowship:[/keyword] Exert Gandalf to take a {gandalf} card from your draw deck into hand. Discard this condition."
+    ],
+    "quote": "\"There are questions that need answering.\"",
     "effects": [
       {
         "type": "trigger",
@@ -586,11 +669,17 @@
     ]
   },
   "40_80": {
-    "title": "*Keep it Secret, Keep it Safe",
+    "title": "Keep it Secret, Keep it Safe",
     "culture": "gandalf",
     "cost": 1,
     "type": "condition",
     "keyword": "support area",
+    "text": [
+      "To play, exert Gandalf.",
+      "While you can spot Gandalf and have initiative, the twilight cost of each Free Peoples artifact, condition, and possession is -1.",
+      "Discard this condition if you lose initiative."
+    ],
+    "quote": "\"The enemy has many spies.\"",
     "effects": [
       {
         "type": "extraCost",
@@ -638,6 +727,12 @@
     "strength": 1,
     "keyword": "spell",
     "target": "name(Gandalf)",
+    "text": [
+      "[uKeyword]Spell.[/uKeyword]",
+      "Bearer must be Gandalf. He is [keyword]damage +1[/keyword].",
+      "If you lose initiative, discard this condition and make Gandalf strength -2 until the regroup phase."
+    ],
+    "quote": "Olórin, like the other Wizards, took the shape of an old man.",
     "effects": [
       {
         "type": "modifier",
@@ -679,6 +774,11 @@
       "filter": "name(Gandalf)"
     },
     "target": "unbound,companion,not(name(Gandalf))",
+    "text": [
+      "To play, spot Gandalf. Bearer must be an unbound companion (except Gandalf).",
+      "[keyword]Response:[/keyword] If bearer is about to take a wound in a skirmish, discard 2 {gandalf} cards from hand to prevent that wound."
+    ],
+    "quote": "\"Stay close to Gandalf!\"",
     "effects": {
       "type": "activatedTrigger",
       "condition": {
@@ -715,6 +815,12 @@
       "count": 2,
       "filter": "hobbit,companion"
     },
+    "text": [
+      "[uKeyword]Spell.[/uKeyword]",
+      "To play, spot 2 Hobbit companions and exert Gandalf twice.",
+      "Until the regroup phase, Hobbit companions are strength +3 and take no more than one wound in a skirmish."
+    ],
+    "quote": "\"Hobbits really are amazing creatures...\"",
     "effects": {
       "type": "event",
       "cost": {
@@ -752,6 +858,11 @@
       "skirmish",
       "spell"
     ],
+    "text": [
+      "[uKeyword]Spell.[/uKeyword]",
+      "Make Gandalf strength +2 (or +4 if you can spot 4 or fewer burdens.)"
+    ],
+    "quote": "A legend says that Gandalf was given by Yavanna the Elfstone of Eärendil, to bring to the peoples of Middle-earth as a token that the Valar had not forsaken them.",
     "effects": {
       "type": "event",
       "effect": {
@@ -775,6 +886,8 @@
     "cost": 2,
     "type": "event",
     "keyword": "skirmish",
+    "text": "If Gandalf is not assigned to a skirmish, have him replace another unbound companion in a skirmish. Gandalf is strength +2 while in that skirmish.",
+    "quote": "\"The Black Speech of Mordor may yet be heard in every corner of the West!\"",
     "effects": {
       "type": "event",
       "cost": {
@@ -809,6 +922,8 @@
       "type": "canSpot",
       "filter": "name(Gandalf)"
     },
+    "text": "Spot Gandalf to discard a Shadow possession or Shadow artifact.",
+    "quote": "\"I have not passed through fire and death to bandy crooked words with a serving-man till the lightning falls.\"",
     "effects": {
       "type": "event",
       "effect": {
@@ -830,6 +945,11 @@
       "type": "canSpot",
       "filter": "name(Gandalf)"
     },
+    "text": [
+      "Spot Gandalf to play the fellowship's next site (replacing opponent's site if necessary).",
+      "Draw a card if you play an underground site."
+    ],
+    "quote": "\"Picking up his staff he stood before the rock and said in a clear voice: Mellon!\"",
     "effects": {
       "type": "event",
       "effect": [
@@ -861,6 +981,8 @@
       "type": "canSpot",
       "filter": "name(Gandalf)"
     },
+    "text": "Spot Gandalf and exert a companion of another culture to take a card from that companion's culture into hand from your draw deck.",
+    "quote": "Gandalf often offered counsel to the leaders of Free Peoples.",
     "effects": {
       "type": "event",
       "cost": {
@@ -880,6 +1002,8 @@
     "cost": 1,
     "type": "event",
     "keyword": "fellowship",
+    "text": "Play a {gandalf} character from your draw deck.",
+    "quote": "\"A wizard is never late, Frodo Baggins, nor is he early. He arrives precisely when he means to.\"",
     "effects": {
       "type": "event",
       "effect": {
@@ -896,6 +1020,11 @@
     "possession": "staff",
     "strength": 1,
     "target": "wizard",
+    "text": [
+      "Bearer must be a Wizard.",
+      "[keyword]Skirmish:[/keyword] Exert bearer twice to make a minion strength -3."
+    ],
+    "quote": "\"We must have power - power to order things as we will for that Good which only the Wise can see.\"",
     "effects": {
       "type": "activated",
       "phase": "skirmish",
@@ -920,6 +1049,8 @@
     "strength": 7,
     "vitality": 4,
     "resistance": 8,
+    "text": "Each time you play a {gandalf} spell, you may draw a card.",
+    "quote": "\"He had a long white beard and bushy eyebrows that stuck out beyond the brim of his hat.\"",
     "effects": {
       "type": "trigger",
       "trigger": {
@@ -942,6 +1073,8 @@
       "type": "canSpot",
       "filter": "name(Gandalf)"
     },
+    "text": "Spot Gandalf to make a minion strength -2 (or -3 if it is skirmishing a companion with 5 or more resistance.)",
+    "quote": "\"The Dark Fire will not avail you, Flame of Udûn!\"",
     "effects": {
       "type": "event",
       "effect": {

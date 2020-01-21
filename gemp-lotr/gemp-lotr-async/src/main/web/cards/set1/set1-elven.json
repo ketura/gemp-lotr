@@ -453,7 +453,7 @@
         "type": "extraCost",
         "cost": {
           "type": "exert",
-          "filter": "choose(ally)"
+          "filter": "choose(elf,ally)"
         }
       },
       {

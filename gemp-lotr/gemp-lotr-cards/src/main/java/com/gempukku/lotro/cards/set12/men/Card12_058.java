@@ -1,9 +1,6 @@
 package com.gempukku.lotro.cards.set12.men;
 
-import com.gempukku.lotro.common.CardType;
-import com.gempukku.lotro.common.Culture;
-import com.gempukku.lotro.common.Phase;
-import com.gempukku.lotro.common.Side;
+import com.gempukku.lotro.common.*;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
@@ -36,7 +33,7 @@ public class Card12_058 extends AbstractPermanent {
 
     @Override
     public List<? extends ActivateCardAction> getOptionalInPlayAfterActions(String playerId, LotroGame game, EffectResult effectResult, PhysicalCard self) {
-        if (TriggerConditions.forEachDiscardedFromPlay(game, effectResult, Culture.MEN, CardType.POSSESSION)) {
+        if (TriggerConditions.forEachDiscardedFromPlay(game, effectResult, Culture.MEN, CardType.POSSESSION, Zone.DISCARD)) {
             DiscardCardsFromPlayResult result = (DiscardCardsFromPlayResult) effectResult;
             final PhysicalCard discardedCard = result.getDiscardedCard();
             ActivateCardAction action = new ActivateCardAction(self);

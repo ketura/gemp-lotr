@@ -4,10 +4,12 @@ import com.gempukku.lotro.async.HttpProcessingException;
 import com.gempukku.lotro.async.ResponseWriter;
 import com.gempukku.lotro.chat.ChatServer;
 import com.gempukku.lotro.game.GameHistoryService;
+import com.gempukku.lotro.game.Player;
 import com.gempukku.lotro.hall.HallServer;
 import org.jboss.netty.channel.MessageEvent;
 import org.jboss.netty.handler.codec.http.HttpMethod;
 import org.jboss.netty.handler.codec.http.HttpRequest;
+import org.jboss.netty.handler.codec.http.QueryStringDecoder;
 
 import java.lang.reflect.Type;
 import java.util.Map;
@@ -27,11 +29,17 @@ public class StatusRequestHandler extends LotroServerRequestHandler implements U
     @Override
     public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, MessageEvent e) throws Exception {
         if (uri.equals("") && request.getMethod() == HttpMethod.GET) {
+            QueryStringDecoder queryDecoder = new QueryStringDecoder(request.getUri());
+            String participantId = getQueryParameterSafely(queryDecoder, "participantId");
+
+            Player resourceOwner = getResourceOwnerSafely(request, participantId);
             StringBuilder sb = new StringBuilder();
+
+            boolean admin = resourceOwner.getType().contains("a");
 
             int day = 1000 * 60 * 60 * 24;
             int week = 1000 * 60 * 60 * 24 * 7;
-            sb.append("Tables count: ").append(_hallServer.getTablesCount()).append(", players in hall: ").append(_chatServer.getChatRoom("Game Hall").getUsersInRoom().size())
+            sb.append("Tables count: ").append(_hallServer.getTablesCount()).append(", players in hall: ").append(_chatServer.getChatRoom("Game Hall").getUsersInRoom(admin).size())
                     .append(", games played in last 24 hours: ").append(_gameHistoryService.getGamesPlayedCount(System.currentTimeMillis() - day, day))
                     .append(",<br/> active players in last week: ").append(_gameHistoryService.getActivePlayersCount(System.currentTimeMillis() - week, week));
 

@@ -143,7 +143,7 @@ public class DbTransferDAO implements TransferDAO {
                     statement.close();
                 }
 
-                sql = "update transfer set notify=0 where player=?";
+                sql = "update transfer set notify=0 where player=? and notify=1";
                 statement = connection.prepareStatement(sql);
                 try {
                     statement.setString(1, player);

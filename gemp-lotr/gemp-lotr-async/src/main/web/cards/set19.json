@@ -755,6 +755,10 @@
             "type": "location",
             "filter": "not(marsh)"
           }
+        },
+        "effect": {
+          "type": "discard",
+          "filter": "self"
         }
       },
       {
@@ -797,6 +801,10 @@
             "type": "location",
             "filter": "not(marsh)"
           }
+        },
+        "effect": {
+          "type": "discard",
+          "filter": "self"
         }
       },
       {

@@ -8,12 +8,10 @@ import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
 import com.gempukku.lotro.cards.build.field.effect.appender.resolver.ValueResolver;
-import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.actions.CostToEffectAction;
 import com.gempukku.lotro.logic.actions.SubAction;
 import com.gempukku.lotro.logic.effects.StackActionEffect;
 import com.gempukku.lotro.logic.timing.Effect;
-import com.gempukku.lotro.logic.timing.UnrespondableEffect;
 import org.json.simple.JSONObject;
 
 public class Duplicate implements EffectAppenderProducer {
@@ -36,12 +34,7 @@ public class Duplicate implements EffectAppenderProducer {
                         effectAppender.appendEffect(cost, subAction, actionContext);
                     return new StackActionEffect(subAction);
                 } else {
-                    return new UnrespondableEffect() {
-                        @Override
-                        protected void doPlayEffect(LotroGame game) {
-                            // Ignore
-                        }
-                    };
+                    return null;
                 }
             }
 

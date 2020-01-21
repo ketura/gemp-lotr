@@ -18,7 +18,7 @@
           "type": "condition",
           "condition": {
             "type": "canSpot",
-            "filter": "shadow,condition",
+            "filter": "side(shadow),condition",
             "count": 4
           },
           "true": 2,
@@ -130,6 +130,9 @@
         "trigger": {
           "type": "winsSkirmish",
           "filter": "bearer"
+        },
+        "condition": {
+          "type": "fierceSkirmish"
         },
         "effect": {
           "type": "discard",
@@ -433,6 +436,7 @@
     "culture": "dwarven",
     "cost": 1,
     "type": "follower",
+    "race": "dwarf",
     "strength": 1,
     "effects": [
       {

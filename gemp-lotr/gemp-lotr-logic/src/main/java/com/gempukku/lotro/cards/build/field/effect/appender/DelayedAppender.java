@@ -23,27 +23,32 @@ public abstract class DelayedAppender implements EffectAppender {
 
     @Override
     public final void appendEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
-        action.appendEffect(
-                new UnrespondableEffect() {
-                    @Override
-                    protected void doPlayEffect(LotroGame game) {
-                        // Need to insert them, but in the reverse order
-                        final List<? extends Effect> effects = createEffects(cost, action, actionContext);
-                        if (effects != null) {
-                            final Effect[] effectsArray = effects.toArray(new Effect[0]);
-                            for (int i = effectsArray.length - 1; i >= 0; i--)
-                                if (cost)
-                                    action.insertCost(effectsArray[i]);
-                                else
-                                    action.insertEffect(effectsArray[i]);
-                        }
-                    }
+        final UnrespondableEffect effect = new UnrespondableEffect() {
+            @Override
+            protected void doPlayEffect(LotroGame game) {
+                // Need to insert them, but in the reverse order
+                final List<? extends Effect> effects = createEffects(cost, action, actionContext);
+                if (effects != null) {
+                    final Effect[] effectsArray = effects.toArray(new Effect[0]);
+                    for (int i = effectsArray.length - 1; i >= 0; i--)
+                        if (cost)
+                            action.insertCost(effectsArray[i]);
+                        else
+                            action.insertEffect(effectsArray[i]);
+                }
+            }
 
-                    @Override
-                    public String getText(LotroGame game) {
-                        return text;
-                    }
-                });
+            @Override
+            public String getText(LotroGame game) {
+                return text;
+            }
+        };
+
+        if (cost) {
+            action.appendCost(effect);
+        } else {
+            action.appendEffect(effect);
+        }
     }
 
     protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
@@ -51,7 +56,10 @@ public abstract class DelayedAppender implements EffectAppender {
     }
 
     protected List<? extends Effect> createEffects(boolean cost, CostToEffectAction action, ActionContext actionContext) {
-        return Collections.singletonList(createEffect(cost, action, actionContext));
+        final Effect effect = createEffect(cost, action, actionContext);
+        if (effect == null)
+            return null;
+        return Collections.singletonList(effect);
     }
 
     @Override

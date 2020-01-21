@@ -848,9 +848,12 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
             return null;
 
         DefaultActionContext actionContext = new DefaultActionContext(self.getOwner(), game, self, null, null);
-        RequiredTriggerAction action = new RequiredTriggerAction(self);
-        discardedFromPlayRequiredTriggerAction.createAction(action, actionContext);
-        return action;
+        if (discardedFromPlayRequiredTriggerAction.isValid(actionContext)) {
+            RequiredTriggerAction action = new RequiredTriggerAction(self);
+            discardedFromPlayRequiredTriggerAction.createAction(action, actionContext);
+            return action;
+        }
+        return null;
     }
 
     @Override
@@ -859,9 +862,12 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
             return null;
 
         DefaultActionContext actionContext = new DefaultActionContext(playerId, game, self, null, null);
-        OptionalTriggerAction action = new OptionalTriggerAction(self);
-        discardedFromPlayOptionalTriggerAction.createAction(action, actionContext);
-        return action;
+        if (discardedFromPlayOptionalTriggerAction.isValid(actionContext)) {
+            OptionalTriggerAction action = new OptionalTriggerAction(self);
+            discardedFromPlayOptionalTriggerAction.createAction(action, actionContext);
+            return action;
+        }
+        return null;
     }
 
     @Override
@@ -870,9 +876,12 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
             return null;
 
         DefaultActionContext actionContext = new DefaultActionContext(self.getOwner(), game, self, null, null);
-        RequiredTriggerAction action = new RequiredTriggerAction(self);
-        killedRequiredTriggerAction.createAction(action, actionContext);
-        return action;
+        if (killedRequiredTriggerAction.isValid(actionContext)) {
+            RequiredTriggerAction action = new RequiredTriggerAction(self);
+            killedRequiredTriggerAction.createAction(action, actionContext);
+            return action;
+        }
+        return null;
     }
 
     @Override
@@ -881,9 +890,12 @@ public class BuiltLotroCardBlueprint implements LotroCardBlueprint {
             return null;
 
         DefaultActionContext actionContext = new DefaultActionContext(playerId, game, self, null, null);
-        OptionalTriggerAction action = new OptionalTriggerAction(self);
-        killedOptionalTriggerAction.createAction(action, actionContext);
-        return action;
+        if (killedOptionalTriggerAction.isValid(actionContext)) {
+            OptionalTriggerAction action = new OptionalTriggerAction(self);
+            killedOptionalTriggerAction.createAction(action, actionContext);
+            return action;
+        }
+        return null;
     }
 
     @Override

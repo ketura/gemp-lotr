@@ -9,6 +9,11 @@
       "type": "canSpot",
       "filter": "elf,archer,companion"
     },
+    "text": [
+      "To play, spot an Elf archer companion.",
+      "Make a fellowship archery total -X (to a minimum of 0) to discard X shadow conditions."
+    ],
+    "quote": "The arrows of the Galadhrim can pierce more than just flesh.",
     "effects": {
       "type": "event",
       "cost": {
@@ -37,6 +42,11 @@
     "vitality": 3,
     "resistance": 8,
     "keyword": "ranger",
+    "text": [
+      "[uKeyword]Ranger.[/uKeyword]",
+      "While at a river or forest, Arwen is strength +3."
+    ],
+    "quote": "“I do not fear them.”",
     "effects": {
       "type": "modifier",
       "modifier": {
@@ -60,6 +70,11 @@
     "strength": 6,
     "vitality": 3,
     "resistance": 8,
+    "text": [
+      "At the start of each of your turns, you may spot Elrond to heal Arwen.",
+      "[keyword]Fellowship:[/keyword] Exert Arwen to heal a Rivendell ally."
+    ],
+    "quote": "“She belongs with her people.”",
     "effects": [
       {
         "type": "trigger",
@@ -99,6 +114,11 @@
     "possession": "ranged weapon",
     "strength": 1,
     "target": "name(Legolas)",
+    "text": [
+      "Bearer must be Legolas.",
+      "At the beginning of the archery phase, you may exert Legolas to wound a minion."
+    ],
+    "quote": "“My gift for you, Legolas, is a bow of the Galadhrim, worthy of the skill of our woodland kin.”",
     "effects": {
       "type": "trigger",
       "trigger": {
@@ -126,6 +146,12 @@
       "type": "canSpot",
       "filter": "elf,companion"
     },
+    "text": [
+      "To play, spot an Elf companion.",
+      "Each time a Nazgûl is played, that Nazgûl must exert.",
+      "Discard this condition at the beginning of the regroup phase."
+    ],
+    "quote": "“Nin o Chithaeglir, lasto beth daer, Rimmo nin Bruinen, dan in Ulair!”",
     "effects": [
       {
         "type": "trigger",
@@ -163,6 +189,8 @@
     "strength": 6,
     "vitality": 3,
     "allyHome": "second ed,3",
+    "text": "[keyword]Maneuver:[/keyword] Exert celeborn to reveal the top card of your draw deck. If it is an {elven} card, you may discard it to wound a minion.",
+    "quote": "“Every league you travel South the danger will increase.”",
     "effects": [
       {
         "type": "activated",
@@ -210,6 +238,11 @@
     "cost": 3,
     "type": "condition",
     "keyword": "support area",
+    "text": [
+      "The twilight cost of this condition is -1 for each unwounded {elven} archer companion you can spot.",
+      "[keyword]Archery:[/keyword] Exert 2 {elven} archer companions and discard this condition to make the fellowship archery total +2."
+    ],
+    "quote": "The Galadhrim work in tandem in their precision targeting.",
     "effects": [
       {
         "type": "modifyOwnCost",
@@ -254,6 +287,11 @@
       "type": "canSpot",
       "filter": "elf"
     },
+    "text": [
+      "To play spot an Elf.",
+      "Until the regroup phase, each wounded minion loses [keyword]fierce[/keyword] and cannot gain [keyword]fierce[/keyword]."
+    ],
+    "quote": "“Bring him down!”",
     "effects": {
       "type": "event",
       "effect": {
@@ -275,6 +313,11 @@
     "strength": 8,
     "vitality": 4,
     "allyHome": "second ed,3",
+    "text": [
+      "At the start of each of your turns, heal each Rivendell ally.",
+      "[keyword]Regroup:[/keyword] Exert Elrond twice to reveal the top card of your draw deck. If it is an {elven} card, you may discard it to heal a companion. If it is a Shadow card, you may discard it to discard a Shadow condition."
+    ],
+    "quote": "“You have only one choice; the Ring must be destroyed.”",
     "effects": [
       {
         "type": "trigger",
@@ -352,12 +395,17 @@
     ]
   },
   "40_42": {
-    "title": "elven bow",
+    "title": "Elven Bow",
     "culture": "elven",
     "cost": 1,
     "type": "possession",
     "possession": "ranged weapon",
     "target": "elf",
+    "text": [
+      "Bearer must be an Elf.",
+      "Bearer is an [keyword]archer[/keyword]."
+    ],
+    "quote": "“We live now upon an island amid many perils, and our hands are more often upon the bowstring than upon the harp.”",
     "effects": {
       "type": "modifier",
       "modifier": {
@@ -373,6 +421,11 @@
     "cost": 0,
     "type": "event",
     "keyword": "skirmish",
+    "text": [
+      "Make an Elf strength +1.",
+      "If that Elf wins this skirmish, you may place up to 2 {elven} cards from your discard pile on top of your draw deck."
+    ],
+    "quote": "Elves possess uncanny quickness and dexterity.",
     "effects": {
       "type": "event",
       "effect": [
@@ -408,6 +461,11 @@
       "count": 2,
       "filter": "elf"
     },
+    "text": [
+      "To play, spot 2 Elves.",
+      "[keyword]Fellowship:[/keyword] Add {1} to look at the top card of your draw deck. You may discard this condition to discard that card."
+    ],
+    "quote": "“The White Wizard approaches...”",
     "effects": {
       "type": "activated",
       "phase": "fellowship",
@@ -448,6 +506,11 @@
     "strength": 3,
     "vitality": 3,
     "allyHome": "second ed,3",
+    "text": [
+      "At the start of each of your turns, heal each Lothlórien ally.",
+      "[keyword]Skirmish:[/keyword] Exert Galadriel to reveal the top card of your draw deck. If it is an {elven} card, you may discard it to make a minion skirmishing an Elf strength -2."
+    ],
+    "quote": "“I know what it is you saw, for it is also in my mind.”",
     "effects": [
       {
         "type": "trigger",
@@ -506,6 +569,8 @@
     "cost": 1,
     "type": "event",
     "keyword": "regroup",
+    "text": "Exert Galadriel and reveal the top card of your draw deck to discard a Shadow condition (or 2 Shadow conditions if you reveal an {elven} card).",
+    "quote": "“Even the smallest person can change the course of the future.”",
     "effects": {
       "type": "event",
       "cost": {
@@ -549,6 +614,12 @@
       "count": 3,
       "filter": "elf"
     },
+    "text": [
+      "To play, spot 3 Elves.",
+      "While skirmishing a Nazgûl, Glorfindel is not overwhelmed unless his strength is tripled.",
+      "[keyword]Skirmish:[/keyword] Exert Glorfindel to make a Nazgûl he is skirmishing lose fierce and unable to gain fierce until the regroup phase."
+    ],
+    "quote": "“... on his brow sat wisdom, and in his hand was strength.”",
     "effects": [
       {
         "type": "modifier",
@@ -588,6 +659,11 @@
       "type": "canSpot",
       "filter": "elf"
     },
+    "text": [
+      "To play, spot an Elf.",
+      "Each time you reveal an {elven} card from the top of your draw deck, you may exert Golradir to make an Orc strength -2 until the regroup phase."
+    ],
+    "quote": "Golradir was among those on hand when the fellowship departed Imladris.",
     "effects": {
       "type": "trigger",
       "trigger": {
@@ -616,6 +692,12 @@
     "possession": "hand weapon",
     "strength": 2,
     "target": "elf",
+    "text": [
+      "Bearer must be an Elf.",
+      "If bearer is Arwen, she is [keyword]damage +1[/keyword].",
+      "While skirmishing a Nazgûl, bearer is strength +2."
+    ],
+    "quote": "“If you want him, come and claim him!”",
     "effects": [
       {
         "type": "modifier",
@@ -646,6 +728,8 @@
       "count": 3,
       "filter": "elf"
     },
+    "text": "Spot 3 Elves to make a minion skirmishing and Elf strength -3.",
+    "quote": "“We still remember, we who dwell...”",
     "effects": {
       "type": "event",
       "effect": {
@@ -666,6 +750,11 @@
     "vitality": 3,
     "resistance": 8,
     "keyword": "archer",
+    "text": [
+      "[keyword]Archer.[/keyword]",
+      "At the beginning of the archery phase, you may exert Legolas to wound a minion. If you do, Legolas does not add to the fellowship archery total."
+    ],
+    "quote": "“Oft hope is born when all is forlorn.”",
     "effects": {
       "type": "trigger",
       "trigger": {
@@ -700,6 +789,11 @@
     "vitality": 3,
     "resistance": 8,
     "keyword": "archer",
+    "text": [
+      "[keyword]Archer.[/keyword]",
+      "[keyword]Archery:[/keyword] If Legolas is at a battleground, exert him to add 1 to the fellowship archery total."
+    ],
+    "quote": "Legolas uses his bow with lethal precision.",
     "effects": {
       "type": "activated",
       "phase": "archery",
@@ -728,6 +822,11 @@
       "type": "canSpot",
       "filter": "elf"
     },
+    "text": [
+      "To play, spot an Elf.",
+      "Each time the fellowship moves to a sanctuary, you may exert an Elf to remove a burden (or 2 burdens if that Elf is Galadriel)."
+    ],
+    "quote": "“Do not let your hearts be troubled. Tonight you will sleep in peace.”",
     "effects": {
       "type": "trigger",
       "trigger": {
@@ -763,6 +862,11 @@
     "possession": "hand weapon",
     "strength": 1,
     "target": "name(Legolas)",
+    "text": [
+      "Bearer must be Legolas.",
+      "Each wounded minion skirmishing Legolas is strength -2."
+    ],
+    "quote": "Legolas prefers to attack his enemies from afar, but he does sometimes make use of his long-knives in close combat.",
     "effects": {
       "type": "modifier",
       "modifier": {
@@ -773,11 +877,13 @@
     }
   },
   "40_55": {
-    "title": "Lorien Patrol",
+    "title": "Lórien Patrol",
     "culture": "elven",
     "cost": 1,
     "type": "event",
     "keyword": "archery",
+    "text": "Exert an {elven} ally and add a threat to wound a minion. If it is an {isengard} minion, wound it again.",
+    "quote": "“Strange creatures bearing the mark of the White Hand have been seen on our borders.”",
     "effects": {
       "type": "event",
       "cost": [
@@ -816,6 +922,8 @@
     "cost": 0,
     "type": "condition",
     "keyword": "support area",
+    "text": "Each time you reveal a card from the top of your draw deck, you may exert an Elf to make a minion strength -1 until the regroup phase.",
+    "quote": "“You have your own choice to make Aragorn... to rise above the height of all your fathers since the days of Elendil, or to fall into darkness... with all that is left of your kin.”",
     "effects": {
       "type": "trigger",
       "trigger": {
@@ -840,6 +948,8 @@
     "cost": 1,
     "type": "condition",
     "keyword": "support area",
+    "text": "Each time the fellowship moves during the regroup phase, reveal the top card of your draw deck. If it is an {elven} card, you may make the Shadow player wound a minion.",
+    "quote": "The Elves of Lothlórien are swift, silent, and lethal.",
     "effects": {
       "type": "trigger",
       "trigger": {
@@ -879,9 +989,14 @@
     "culture": "elven",
     "cost": 1,
     "type": "condition",
-    "target": "elf,companion",
+    "target": "elf",
     "vitality": 1,
     "keyword": "tale",
+    "text": [
+      "[uKeyword]Tale.[/uKeyword] Bearer must be an Elf.",
+      "[keyword]Skirmish:[/keyword] Discard this condition to make bearer strength +2."
+    ],
+    "quote": "“Gil-Galad was an Elven-king / Of him the harpers sadly sing: / the last whose realm was fair and free / between the Mountains and the Sea.”",
     "effects": {
       "type": "activated",
       "phase": "skirmish",
@@ -910,6 +1025,11 @@
     "cost": 2,
     "type": "artifact",
     "keyword": "support area",
+    "text": [
+      "To play, exert an Elf or spot Galadriel.",
+      "[keyword]Fellowship:[/keyword] Exert Galadriel and spot X Elves to look at the top X cards of your draw deck. Return those cards to the top of your draw deck in any order."
+    ],
+    "quote": "“The Mirror shows many things...”",
     "effects": [
       {
         "type": "extraCost",
@@ -961,6 +1081,12 @@
     "cost": 0,
     "type": "artifact",
     "keyword": "support area",
+    "text": [
+      "[keyword]Fellowship:[/keyword] Stack an {elven} card here.",
+      "[keyword]Response:[/keyword] If an {elven} condition is about to be discarded, discard 2 cards from here to prevent that.",
+      "[keyword]Regroup:[/keyword] Discard 3 cards from here to heal up to 3 wounds from Elves."
+    ],
+    "quote": "“Three Rings for the Elven-kings under the sky...”",
     "effects": [
       {
         "type": "activated",
@@ -1026,6 +1152,8 @@
       "count": 2,
       "filter": "elf,archer"
     },
+    "text": "Spot 2 Elf archers to make the fellowship archery total +2 (or +3 if at a forest).",
+    "quote": "“The Dwarf breathes so loud...”",
     "effects": {
       "type": "event",
       "effect": {

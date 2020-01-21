@@ -74,6 +74,7 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("cantbeoverwhelmedmultiplier", new CantBeOverwhelmedMultiplier());
         effectAppenderProducers.put("cancelskirmish", new CancelSkirmish());
         effectAppenderProducers.put("discardfromhand", new DiscardFromHand());
+        effectAppenderProducers.put("chooseandaddtwilight", new ChooseAndRemoveTwilight());
         effectAppenderProducers.put("chooseandremovetwilight", new ChooseAndRemoveTwilight());
         effectAppenderProducers.put("removetwilight", new RemoveTwilight());
         effectAppenderProducers.put("removethreats", new RemoveThreats());
@@ -109,6 +110,7 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("removecardsindiscardfromgame", new RemoveCardsInDiscardFromGame());
         effectAppenderProducers.put("makeselfringbearer", new MakeSelfRingBearer());
         effectAppenderProducers.put("choosearace", new ChooseARace());
+        effectAppenderProducers.put("chooseyesorno", new ChooseYesOrNo());
         effectAppenderProducers.put("chooseakeyword", new ChooseAKeyword());
         effectAppenderProducers.put("storewhileinzone", new StoreWhileInZone());
         effectAppenderProducers.put("resetwhileinzonedata", new ResetWhileInZoneData());
@@ -123,6 +125,7 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("incrementperturnlimit", new IncrementPerTurnLimit());
         effectAppenderProducers.put("incrementperphaselimit", new IncrementPerPhaseLimit());
         effectAppenderProducers.put("revealhand", new RevealHand());
+        effectAppenderProducers.put("lookathand", new LookAtHand());
         effectAppenderProducers.put("placenowoundforexert", new PlaceNoWoundForExert());
         effectAppenderProducers.put("shufflehandintodrawdeck", new ShuffleHandIntoDrawDeck());
         effectAppenderProducers.put("getcardsfromtopofdeck", new GetCardsFromTopOfDeck());

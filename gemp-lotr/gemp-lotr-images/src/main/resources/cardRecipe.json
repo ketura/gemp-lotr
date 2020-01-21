@@ -1,0 +1,1179 @@
+{
+  "width": 751,
+  "height": 1044,
+  "functions": {
+    "isCharacter": {
+      "type": "boolean",
+      "function": {
+        "type": "cardHasPropertyValueIn",
+        "name": "type",
+        "values": [
+          "companion",
+          "ally",
+          "minion"
+        ]
+      }
+    },
+    "isNonCharacter": {
+      "type": "boolean",
+      "function": {
+        "type": "not",
+        "condition": {
+          "type": "cardHasPropertyValueIn",
+          "name": "type",
+          "values": [
+            "companion",
+            "ally",
+            "minion"
+          ]
+        }
+      }
+    }
+  },
+  "layers": [
+    {
+      "comment": "nonSiteNonRing",
+      "type": "conditional",
+      "condition": {
+        "type": "not",
+        "condition": {
+          "type": "cardHasPropertyValueIn",
+          "name": "type",
+          "values": [
+            "site",
+            "the one ring"
+          ]
+        }
+      },
+      "values": [
+        {
+          "comment": "Card background",
+          "type": "image",
+          "path": {
+            "type": "resolve",
+            "parent": {
+              "type": "property",
+              "name": "lotro.resources.folder"
+            },
+            "child": {
+              "type": "map",
+              "key": {
+                "type": "append",
+                "values": [
+                  {
+                    "type": "cardProperty",
+                    "name": "culture"
+                  },
+                  {
+                    "type": "optional",
+                    "condition": {
+                      "type": "function",
+                      "name": "isCharacter"
+                    },
+                    "value": "_character"
+                  },
+                  {
+                    "type": "optional",
+                    "condition": {
+                      "type": "cardHasPropertyValueIn",
+                      "name": "type",
+                      "values": [
+                        "artifact"
+                      ]
+                    },
+                    "value": "_artifact"
+                  },
+                  {
+                    "type": "optional",
+                    "condition": {
+                      "type": "function",
+                      "name": "isNonCharacter"
+                    },
+                    "value": "_non-character"
+                  }
+                ]
+              },
+              "map": {
+                "dwarven_character": "Joe-resources/72780327_2542320152519956_1120830595597860864_n.png",
+                "dwarven_artifact_non-character": "Joe-resources/73005502_950676761942617_7003567006515462144_n.png",
+                "dwarven_non-character": "Joe-resources/72672630_2357069651219894_6740103146959273984_n.png",
+                "elven_character": "card_templates/o_elven_noun.png",
+                "elven_artifact_non-character": "card_templates/o_elven_artifact.png",
+                "elven_non-character": "card_templates/o_elven_verb.png",
+                "gandalf_character": "card_templates/o_gandalf_noun.png",
+                "gandalf_artifact_non-character": "card_templates/o_gandalf_artifact.png",
+                "gandalf_non-character": "card_templates/o_gandalf_verb.png",
+                "gondor_character": "card_templates/o_gondor_noun.png",
+                "gondor_artifact_non-character": "card_templates/o_gondor_artifact.png",
+                "gondor_non-character": "card_templates/o_gondor_verb.png",
+                "isengard_character": "card_templates/o_isengard_noun.png",
+                "isengard_artifact_non-character": "card_templates/o_isengard_artifact.png",
+                "isengard_non-character": "card_templates/o_isengard_verb.png",
+                "moria_character": "card_templates/o_moria_noun.png",
+                "moria_non-character": "card_templates/o_moria_verb.png",
+                "sauron_character": "card_templates/o_sauron_noun.png",
+                "sauron_non-character": "card_templates/o_sauron_verb.png",
+                "shire_character": "card_templates/o_shire_noun.png",
+                "shire_non-character": "card_templates/o_shire_verb.png",
+                "wraith_character": "card_templates/o_ringwraith_noun.png",
+                "wraith_artifact_non-character": "card_templates/o_ringwraith_artifact_foil.png",
+                "wraith_non-character": "card_templates/o_ringwraith_verb.png"
+              }
+            }
+          },
+          "x": 0,
+          "y": 0,
+          "width": 751,
+          "height": 1044
+        },
+        {
+          "comment": "Title character",
+          "type": "conditional",
+          "condition": {
+            "type": "function",
+            "name": "isCharacter"
+          },
+          "values": {
+            "type": "textBox",
+            "font": {
+              "default": {
+                "type": "ttf",
+                "path": {
+                  "type": "resolve",
+                  "parent": {
+                    "type": "property",
+                    "name": "lotro.resources.folder"
+                  },
+                  "child": {
+                    "type": "property",
+                    "name": "title.font"
+                  }
+                },
+                "size": {
+                  "type": "property",
+                  "name": "title.size"
+                },
+                "style": 0
+              }
+            },
+            "text": {
+              "type": "string",
+              "value": {
+                "type": "replace",
+                "source": {
+                  "type": "cardProperty",
+                  "name": "title"
+                },
+                "match": "*",
+                "with": "•"
+              }
+            },
+            "box": {
+              "type": "box",
+              "x": 150,
+              "y": 50,
+              "width": 400,
+              "height": 34
+            }
+          }
+        },
+        {
+          "comment": "Title non-character",
+          "type": "conditional",
+          "condition": {
+            "type": "function",
+            "name": "isNonCharacter"
+          },
+          "values": {
+            "type": "rotate",
+            "angle": -90,
+            "x": {
+              "type": "conditional",
+              "condition": {
+                "type": "cardHasProperty",
+                "name": "subtitle"
+              },
+              "true": 35,
+              "false": 50
+            },
+            "y": 570,
+            "layer": {
+              "type": "textBox",
+              "font": {
+                "default": {
+                  "type": "ttf",
+                  "path": {
+                    "type": "resolve",
+                    "parent": {
+                      "type": "property",
+                      "name": "lotro.resources.folder"
+                    },
+                    "child": {
+                      "type": "property",
+                      "name": "title.font"
+                    }
+                  },
+                  "size": {
+                    "type": "property",
+                    "name": "title.size"
+                  },
+                  "style": 0
+                }
+              },
+              "text": {
+                "type": "string",
+                "value": {
+                  "type": "replace",
+                  "source": {
+                    "type": "cardProperty",
+                    "name": "title"
+                  },
+                  "match": "*",
+                  "with": "•"
+                }
+              },
+              "box": {
+                "type": "box",
+                "x": {
+                  "type": "conditional",
+                  "condition": {
+                    "type": "cardHasProperty",
+                    "name": "subtitle"
+                  },
+                  "true": 35,
+                  "false": 50
+                },
+                "y": 570,
+                "width": 410,
+                "height": 70,
+                "horAlign": "right"
+              }
+            }
+          }
+        },
+        {
+          "comment": "Subtitle character",
+          "type": "conditional",
+          "condition": {
+            "type": "function",
+            "name": "isCharacter"
+          },
+          "values": {
+            "type": "textBox",
+            "font": {
+              "default": {
+                "type": "ttf",
+                "path": {
+                  "type": "resolve",
+                  "parent": {
+                    "type": "property",
+                    "name": "lotro.resources.folder"
+                  },
+                  "child": {
+                    "type": "property",
+                    "name": "subtitle.font"
+                  }
+                },
+                "size": {
+                  "type": "property",
+                  "name": "subtitle.size"
+                },
+                "style": 0
+              }
+            },
+            "text": {
+              "type": "string",
+              "value": {
+                "type": "cardProperty",
+                "name": "subtitle"
+              }
+            },
+            "box": {
+              "type": "box",
+              "x": 150,
+              "y": 98,
+              "width": 400,
+              "height": 30
+            }
+          }
+        },
+        {
+          "comment": "Subtitle non-character",
+          "type": "conditional",
+          "condition": {
+            "type": "function",
+            "name": "isNonCharacter"
+          },
+          "values": {
+            "type": "rotate",
+            "angle": -90,
+            "x": 65,
+            "y": 600,
+            "layer": {
+              "type": "textBox",
+              "font": {
+                "default": {
+                  "type": "ttf",
+                  "path": {
+                    "type": "resolve",
+                    "parent": {
+                      "type": "property",
+                      "name": "lotro.resources.folder"
+                    },
+                    "child": {
+                      "type": "property",
+                      "name": "subtitle.font"
+                    }
+                  },
+                  "size": {
+                    "type": "property",
+                    "name": "subtitle.size"
+                  },
+                  "style": 0
+                }
+              },
+              "text": {
+                "type": "string",
+                "value": {
+                  "type": "cardProperty",
+                  "name": "subtitle"
+                }
+              },
+              "box": {
+                "type": "box",
+                "x": 65,
+                "y": 600,
+                "width": 440,
+                "height": 70,
+                "horAlign": "right"
+              }
+            }
+          }
+        },
+        {
+          "comment": "Cost",
+          "type": "textBox",
+          "paint": "white",
+          "dropShadow": true,
+          "font": {
+            "default": {
+              "type": "ttf",
+              "path": {
+                "type": "resolve",
+                "parent": {
+                  "type": "property",
+                  "name": "lotro.resources.folder"
+                },
+                "child": {
+                  "type": "property",
+                  "name": "numbers.font"
+                }
+              },
+              "size": {
+                "type": "property",
+                "name": "numbers.size"
+              },
+              "style": 0
+            }
+          },
+          "text": {
+            "type": "string",
+            "value": {
+              "type": "cardProperty",
+              "name": "cost"
+            }
+          },
+          "box": {
+            "type": "box",
+            "x": 51,
+            "y": 53,
+            "width": 67,
+            "height": 69,
+            "horAlign": "center"
+          }
+        },
+        {
+          "comment": "Type line character",
+          "type": "conditional",
+          "condition": {
+            "type": "function",
+            "name": "isCharacter"
+          },
+          "values": {
+            "type": "textBox",
+            "text": {
+              "type": "string",
+              "value": {
+                "type": "appendText",
+                "values": [
+                  {
+                    "comment": "Card type",
+                    "type": "capitalize",
+                    "value": {
+                      "type": "cardProperty",
+                      "name": "type"
+                    }
+                  },
+                  {
+                    "comment": "Race",
+                    "type": "optional",
+                    "condition": {
+                      "type": "cardHasProperty",
+                      "name": "race"
+                    },
+                    "value": {
+                      "type": "append",
+                      "values": [
+                        " [bullet]•[/bullet] ",
+                        {
+                          "type": "capitalize",
+                          "value": {
+                            "type": "cardProperty",
+                            "name": "race"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "comment": "Location",
+                    "type": "optional",
+                    "condition": {
+                      "type": "cardHasPropertyValueIn",
+                      "name": "keyword",
+                      "values": [
+                        "lothlorien",
+                        "rivendell",
+                        "bree",
+                        "edoras",
+                        "shire"
+                      ]
+                    },
+                    "value": {
+                      "type": "append",
+                      "values": [
+                        " [bullet]•[/bullet] ",
+                        {
+                          "type": "capitalize",
+                          "value": {
+                            "type": "cardPropertyValueIn",
+                            "name": "keyword",
+                            "values": [
+                              "lothlorien",
+                              "rivendell",
+                              "bree",
+                              "edoras",
+                              "shire"
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            "font": {
+              "default": {
+                "type": "ttf",
+                "path": {
+                  "type": "resolve",
+                  "parent": {
+                    "type": "property",
+                    "name": "lotro.resources.folder"
+                  },
+                  "child": {
+                    "type": "property",
+                    "name": "type.font"
+                  }
+                },
+                "size": {
+                  "type": "property",
+                  "name": "type.size"
+                },
+                "style": 0
+              },
+              "bullet": {
+                "type": "ttf",
+                "path": {
+                  "type": "resolve",
+                  "parent": {
+                    "type": "property",
+                    "name": "lotro.resources.folder"
+                  },
+                  "child": {
+                    "type": "property",
+                    "name": "type.font"
+                  }
+                },
+                "size": 30,
+                "style": 0
+              }
+            },
+            "glyphs": {
+              "shire": "#",
+              "dwarven": "@"
+            },
+            "minYStart": 1,
+            "box": {
+              "type": "box",
+              "x": 0,
+              "y": 612,
+              "width": 751,
+              "height": 40,
+              "horAlign": "center"
+            }
+          }
+        },
+        {
+          "comment": "Type line non-character",
+          "type": "conditional",
+          "condition": {
+            "type": "function",
+            "name": "isNonCharacter"
+          },
+          "values": {
+            "type": "textBox",
+            "text": {
+              "type": "string",
+              "value": {
+                "type": "appendText",
+                "values": [
+                  {
+                    "comment": "Card type",
+                    "type": "capitalize",
+                    "value": {
+                      "type": "cardProperty",
+                      "name": "type"
+                    }
+                  },
+                  {
+                    "comment": "Race",
+                    "type": "optional",
+                    "condition": {
+                      "type": "cardHasProperty",
+                      "name": "race"
+                    },
+                    "value": {
+                      "type": "append",
+                      "values": [
+                        " [bullet]•[/bullet] ",
+                        {
+                          "type": "capitalize",
+                          "value": {
+                            "type": "cardProperty",
+                            "name": "race"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "comment": "Possession class",
+                    "type": "optional",
+                    "condition": {
+                      "type": "cardHasProperty",
+                      "name": "possession"
+                    },
+                    "value": {
+                      "type": "append",
+                      "values": [
+                        " [bullet]•[/bullet] ",
+                        {
+                          "type": "capitalize",
+                          "value": {
+                            "type": "cardProperty",
+                            "name": "possession"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "comment": "Type keyword",
+                    "type": "optional",
+                    "condition": {
+                      "type": "cardHasPropertyValueIn",
+                      "name": "keyword",
+                      "values": [
+                        "fellowship",
+                        "shadow",
+                        "maneuver",
+                        "archery",
+                        "assignment",
+                        "skirmish",
+                        "regroup",
+                        "response",
+                        "support area"
+                      ]
+                    },
+                    "value": {
+                      "type": "append",
+                      "values": [
+                        " [bullet]•[/bullet] ",
+                        {
+                          "type": "capitalize",
+                          "value": {
+                            "type": "cardPropertyValueIn",
+                            "name": "keyword",
+                            "values": [
+                              "fellowship",
+                              "shadow",
+                              "maneuver",
+                              "archery",
+                              "assignment",
+                              "skirmish",
+                              "regroup",
+                              "response",
+                              "support area"
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            "font": {
+              "default": {
+                "type": "ttf",
+                "path": {
+                  "type": "resolve",
+                  "parent": {
+                    "type": "property",
+                    "name": "lotro.resources.folder"
+                  },
+                  "child": {
+                    "type": "property",
+                    "name": "type.font"
+                  }
+                },
+                "size": {
+                  "type": "property",
+                  "name": "type.size"
+                },
+                "style": 0
+              },
+              "bullet": {
+                "type": "ttf",
+                "path": {
+                  "type": "resolve",
+                  "parent": {
+                    "type": "property",
+                    "name": "lotro.resources.folder"
+                  },
+                  "child": {
+                    "type": "property",
+                    "name": "type.font"
+                  }
+                },
+                "size": 30,
+                "style": 0
+              }
+            },
+            "glyphs": {
+              "shire": "#",
+              "dwarven": "@"
+            },
+            "minYStart": 1,
+            "box": {
+              "type": "box",
+              "x": 170,
+              "y": 612,
+              "width": 521,
+              "height": 40,
+              "horAlign": "center"
+            }
+          }
+        },
+        {
+          "comment": "Strength",
+          "type": "conditional",
+          "condition": {
+            "type": "cardHasProperty",
+            "name": "strength"
+          },
+          "values": [
+            {
+              "comment": "Strength icon",
+              "type": "image",
+              "path": {
+                "type": "resolve",
+                "parent": {
+                  "type": "property",
+                  "name": "lotro.resources.folder"
+                },
+                "child": "Joe-resources/Strength Icon.png"
+              },
+              "x": 45,
+              "y": 645,
+              "width": 111,
+              "height": 172
+            },
+            {
+              "comment": "Strength text",
+              "type": "textBox",
+              "paint": "white",
+              "dropShadow": true,
+              "text": {
+                "type": "string",
+                "value": {
+                  "type": "appendText",
+                  "values": [
+                    {
+                      "type": "optional",
+                      "condition": {
+                        "type": "cardHasProperty",
+                        "name": "target"
+                      },
+                      "value": {
+                        "type": "optional",
+                        "condition": {
+                          "type": "cardPropertyGreaterThanZero",
+                          "name": "strength"
+                        },
+                        "value": "[symbol]+[/symbol]"
+                      }
+                    },
+                    {
+                      "type": "replace",
+                      "source": {
+                        "type": "cardProperty",
+                        "name": "strength"
+                      },
+                      "match": "-",
+                      "with": "[symbol]-[/symbol]"
+                    }
+                  ]
+                }
+              },
+              "font": {
+                "default": {
+                  "type": "ttf",
+                  "path": {
+                    "type": "resolve",
+                    "parent": {
+                      "type": "property",
+                      "name": "lotro.resources.folder"
+                    },
+                    "child": {
+                      "type": "property",
+                      "name": "numbers.font"
+                    }
+                  },
+                  "size": {
+                    "type": "property",
+                    "name": "numbers.size"
+                  },
+                  "style": 0
+                },
+                "symbol": {
+                  "type": "ttf",
+                  "path": {
+                    "type": "resolve",
+                    "parent": {
+                      "type": "property",
+                      "name": "lotro.resources.folder"
+                    },
+                    "child": {
+                      "type": "property",
+                      "name": "numbers.font"
+                    }
+                  },
+                  "size": 29,
+                  "style": 0
+                }
+              },
+              "glyphs": {
+                "shire": "#",
+                "dwarven": "@"
+              },
+              "yShifts": {
+                "symbol": -10
+              },
+              "minYStart": 1,
+              "box": {
+                "type": "box",
+                "x": 45,
+                "y": 681,
+                "width": 90,
+                "height": 50,
+                "horAlign": "center"
+              }
+            }
+          ]
+        },
+        {
+          "comment": "Vitality",
+          "type": "conditional",
+          "condition": {
+            "type": "cardHasProperty",
+            "name": "vitality"
+          },
+          "values": [
+            {
+              "comment": "Vitality icon",
+              "type": "image",
+              "path": {
+                "type": "resolve",
+                "parent": {
+                  "type": "property",
+                  "name": "lotro.resources.folder"
+                },
+                "child": "Joe-resources/Vitality Icon.png"
+              },
+              "x": 35,
+              "y": 780,
+              "width": 114,
+              "height": 118
+            },
+            {
+              "comment": "Vitality text",
+              "type": "textBox",
+              "paint": "white",
+              "dropShadow": true,
+              "text": {
+                "type": "string",
+                "value": {
+                  "type": "appendText",
+                  "values": [
+                    {
+                      "type": "optional",
+                      "condition": {
+                        "type": "cardHasProperty",
+                        "name": "target"
+                      },
+                      "value": {
+                        "type": "optional",
+                        "condition": {
+                          "type": "cardPropertyGreaterThanZero",
+                          "name": "vitality"
+                        },
+                        "value": "[symbol]+[/symbol]"
+                      }
+                    },
+                    {
+                      "type": "replace",
+                      "source": {
+                        "type": "cardProperty",
+                        "name": "vitality"
+                      },
+                      "match": "-",
+                      "with": "[symbol]-[/symbol]"
+                    }
+                  ]
+                }
+              },
+              "font": {
+                "default": {
+                  "type": "ttf",
+                  "path": {
+                    "type": "resolve",
+                    "parent": {
+                      "type": "property",
+                      "name": "lotro.resources.folder"
+                    },
+                    "child": {
+                      "type": "property",
+                      "name": "numbers.font"
+                    }
+                  },
+                  "size": {
+                    "type": "property",
+                    "name": "numbers.size"
+                  },
+                  "style": 0
+                },
+                "symbol": {
+                  "type": "ttf",
+                  "path": {
+                    "type": "resolve",
+                    "parent": {
+                      "type": "property",
+                      "name": "lotro.resources.folder"
+                    },
+                    "child": {
+                      "type": "property",
+                      "name": "numbers.font"
+                    }
+                  },
+                  "size": 29,
+                  "style": 0
+                }
+              },
+              "glyphs": {
+                "shire": "#",
+                "dwarven": "@"
+              },
+              "yShifts": {
+                "symbol": -10
+              },
+              "minYStart": 1,
+              "box": {
+                "type": "box",
+                "x": 45,
+                "y": 800,
+                "width": 90,
+                "height": 50,
+                "horAlign": "center"
+              }
+            }
+          ]
+        },
+        {
+          "comment": "Resistance",
+          "type": "conditional",
+          "condition": {
+            "type": "cardHasProperty",
+            "name": "resistance"
+          },
+          "values": [
+            {
+              "comment": "Resistance icon",
+              "type": "image",
+              "path": {
+                "type": "resolve",
+                "parent": {
+                  "type": "property",
+                  "name": "lotro.resources.folder"
+                },
+                "child": "Joe-resources/Resistance Icon.png"
+              },
+              "x": 35,
+              "y": 890,
+              "width": 114,
+              "height": 118
+            },
+            {
+              "comment": "Resistance text",
+              "type": "textBox",
+              "paint": "white",
+              "dropShadow": true,
+              "text": {
+                "type": "string",
+                "value": {
+                  "type": "appendText",
+                  "values": [
+                    {
+                      "type": "optional",
+                      "condition": {
+                        "type": "cardHasProperty",
+                        "name": "target"
+                      },
+                      "value": {
+                        "type": "optional",
+                        "condition": {
+                          "type": "cardPropertyGreaterThanZero",
+                          "name": "resistance"
+                        },
+                        "value": "[symbol]+[/symbol]"
+                      }
+                    },
+                    {
+                      "type": "replace",
+                      "source": {
+                        "type": "cardProperty",
+                        "name": "resistance"
+                      },
+                      "match": "-",
+                      "with": "[symbol]-[/symbol]"
+                    }
+                  ]
+                }
+              },
+              "font": {
+                "default": {
+                  "type": "ttf",
+                  "path": {
+                    "type": "resolve",
+                    "parent": {
+                      "type": "property",
+                      "name": "lotro.resources.folder"
+                    },
+                    "child": {
+                      "type": "property",
+                      "name": "numbers.font"
+                    }
+                  },
+                  "size": {
+                    "type": "property",
+                    "name": "numbers.size"
+                  },
+                  "style": 0
+                },
+                "symbol": {
+                  "type": "ttf",
+                  "path": {
+                    "type": "resolve",
+                    "parent": {
+                      "type": "property",
+                      "name": "lotro.resources.folder"
+                    },
+                    "child": {
+                      "type": "property",
+                      "name": "numbers.font"
+                    }
+                  },
+                  "size": 29,
+                  "style": 0
+                }
+              },
+              "glyphs": {
+                "shire": "#",
+                "dwarven": "@"
+              },
+              "yShifts": {
+                "symbol": -10
+              },
+              "minYStart": 1,
+              "box": {
+                "type": "box",
+                "x": 45,
+                "y": 911,
+                "width": 90,
+                "height": 50,
+                "horAlign": "center"
+              }
+            }
+          ]
+        },
+        {
+          "comment": "Card text",
+          "type": "textBox",
+          "text": {
+            "type": "append",
+            "values": [
+              {
+                "type": "cardProperty",
+                "name": "text"
+              },
+              {
+                "type": "cardProperty",
+                "name": "quote",
+                "prefix": "[quote]",
+                "postfix": "[/quote]"
+              }
+            ]
+          },
+          "font": {
+            "default": {
+              "type": "ttf",
+              "path": {
+                "type": "resolve",
+                "parent": {
+                  "type": "property",
+                  "name": "lotro.resources.folder"
+                },
+                "child": {
+                  "type": "property",
+                  "name": "text.font"
+                }
+              },
+              "size": {
+                "type": "property",
+                "name": "text.size"
+              },
+              "style": 0
+            },
+            "glyph": {
+              "type": "ttf",
+              "path": {
+                "type": "resolve",
+                "parent": {
+                  "type": "property",
+                  "name": "lotro.resources.folder"
+                },
+                "child": "LOTRSymbols.ttf"
+              },
+              "size": {
+                "type": "property",
+                "name": "glyph.size"
+              },
+              "style": 0
+            },
+            "keyword": {
+              "type": "ttf",
+              "path": {
+                "type": "resolve",
+                "parent": {
+                  "type": "property",
+                  "name": "lotro.resources.folder"
+                },
+                "child": {
+                  "type": "property",
+                  "name": "keyword.font"
+                }
+              },
+              "size": {
+                "type": "property",
+                "name": "keyword.size"
+              },
+              "style": 0
+            },
+            "uKeyword": {
+              "type": "ttf",
+              "path": {
+                "type": "resolve",
+                "parent": {
+                  "type": "property",
+                  "name": "lotro.resources.folder"
+                },
+                "child": {
+                  "type": "property",
+                  "name": "keyword.font"
+                }
+              },
+              "size": {
+                "type": "property",
+                "name": "keyword.size"
+              },
+              "style": 0
+            },
+            "quote": {
+              "type": "ttf",
+              "path": {
+                "type": "resolve",
+                "parent": {
+                  "type": "property",
+                  "name": "lotro.resources.folder"
+                },
+                "child": {
+                  "type": "property",
+                  "name": "flavor.font"
+                }
+              },
+              "size": {
+                "type": "property",
+                "name": "flavor.size"
+              },
+              "style": 0
+            }
+          },
+          "glyphs": {
+            "dwarven": "@",
+            "elven": "*",
+            "gandalf": "$",
+            "isengard": "^",
+            "moria": "{",
+            "shire": "#",
+            "1": "¤",
+            "2": "¥",
+            "X": "£"
+          },
+          "yShifts": {
+            "glyph": 3
+          },
+          "minYStart": 0.10,
+          "box": {
+            "type": "box",
+            "x": 162,
+            "y": 692,
+            "width": 536,
+            "height": 265
+          }
+        }
+      ]
+    }
+  ]
+}
