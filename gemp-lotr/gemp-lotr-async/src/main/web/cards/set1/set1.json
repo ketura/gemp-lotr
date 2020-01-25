@@ -9,17 +9,20 @@
     "effects": [
       {
         "type": "activatedTrigger",
-        "condition": {
-          "type": "ringIsActive"
-        },
-        "trigger": {
-          "type": "aboutToTakeWound",
-          "filter": "bearer"
-        },
-        "effect": {
-          "type": "putOnRing"
+        "condition": [
+        { 
+            "type": "ringIsActive"
         }
-      },
+        ],
+        "trigger": {
+            "type": "aboutToTakeWound",
+            "filter": "bearer"
+        },
+        "effect": [
+        { 
+            "type": "putOnRing"
+        }
+      ],
       {
         "type": "trigger",
         "condition": [
