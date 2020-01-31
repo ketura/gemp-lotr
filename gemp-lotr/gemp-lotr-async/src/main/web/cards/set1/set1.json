@@ -16,9 +16,19 @@
           "type": "aboutToTakeWound",
           "filter": "bearer"
         },
-        "effect": {
-          "type": "putOnRing"
-        }
+        "effect": [
+          {
+            "type": "putOnRing"
+          },
+          {
+            "type": "negateWound",
+            "filter": "all(bearer)"
+          },
+          {
+            "type": "addBurdens",
+            "amount": 2
+          }
+        ]
       },
       {
         "type": "trigger",
@@ -99,14 +109,14 @@
         ],
         "effect": [
           {
+            "type": "putOnRing"
+          },
+          {
             "type": "negateWound",
             "filter": "all(bearer)"
           },
           {
             "type": "addBurdens"
-          },
-          {
-            "type": "putOnRing"
           }
         ]
       }
@@ -429,6 +439,7 @@
       "effect": {
         "type": "discardFromHand",
         "hand": "fp",
+        "player": "fp",
         "forced": true,
         "count": 1
       }
@@ -767,7 +778,7 @@
         "type": "choice",
         "player": "fp",
         "texts": [
-          "Exert Gimli",
+          "Exert Frodo",
           "Exert 2 other companions"
         ],
         "effects": [
