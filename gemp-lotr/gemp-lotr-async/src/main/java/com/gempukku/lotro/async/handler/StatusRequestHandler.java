@@ -29,17 +29,11 @@ public class StatusRequestHandler extends LotroServerRequestHandler implements U
     @Override
     public void handleRequest(String uri, HttpRequest request, Map<Type, Object> context, ResponseWriter responseWriter, MessageEvent e) throws Exception {
         if (uri.equals("") && request.getMethod() == HttpMethod.GET) {
-            QueryStringDecoder queryDecoder = new QueryStringDecoder(request.getUri());
-            String participantId = getQueryParameterSafely(queryDecoder, "participantId");
-
-            Player resourceOwner = getResourceOwnerSafely(request, participantId);
             StringBuilder sb = new StringBuilder();
-
-            boolean admin = resourceOwner.getType().contains("a");
 
             int day = 1000 * 60 * 60 * 24;
             int week = 1000 * 60 * 60 * 24 * 7;
-            sb.append("Tables count: ").append(_hallServer.getTablesCount()).append(", players in hall: ").append(_chatServer.getChatRoom("Game Hall").getUsersInRoom(admin).size())
+            sb.append("Tables count: ").append(_hallServer.getTablesCount()).append(", players in hall: ").append(_chatServer.getChatRoom("Game Hall").getUsersInRoom(false).size())
                     .append(", games played in last 24 hours: ").append(_gameHistoryService.getGamesPlayedCount(System.currentTimeMillis() - day, day))
                     .append(",<br/> active players in last week: ").append(_gameHistoryService.getActivePlayersCount(System.currentTimeMillis() - week, week));
 

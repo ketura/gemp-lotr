@@ -373,7 +373,7 @@
             },
             "effect": {
               "type": "heal",
-              "filter": "choose(companion, race(dwarf))",
+              "filter": "choose(companion,dwarf)",
               "count": 2
             }
           }
