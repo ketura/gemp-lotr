@@ -402,7 +402,7 @@
         "effects": [
           {
             "type": "exert",
-            "filter": "self",
+            "filter": "name(Thorin)",
             "times": 2
           },
           {
