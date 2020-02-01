@@ -787,6 +787,10 @@
       {
         "type": "activated",
         "phase": "maneuver",
+        "condition": {
+          "type": "canSpot",
+          "filter": "self,attachedTo(any)"
+        },
         "cost": {
           "type": "discard",
           "filter": "self"
