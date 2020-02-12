@@ -773,7 +773,10 @@
     "culture": "gandalf",
     "cost": 3,
     "type": "event",
-    "keyword": "maneuver",
+    "keyword": [
+      "spell",
+      "maneuver"
+    ],
     "effects": {
       "type": "event",
       "effect": {
