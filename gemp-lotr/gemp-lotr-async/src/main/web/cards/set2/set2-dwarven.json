@@ -159,7 +159,7 @@
     "type": "companion",
     "race": "dwarf",
     "strength": 5,
-    "vitality": 2,
+    "vitality": 3,
     "resistance": 6,
     "condition": {
       "type": "canSpot",
