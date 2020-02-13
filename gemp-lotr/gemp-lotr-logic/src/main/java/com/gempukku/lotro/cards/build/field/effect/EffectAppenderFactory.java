@@ -74,7 +74,7 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("cantbeoverwhelmedmultiplier", new CantBeOverwhelmedMultiplier());
         effectAppenderProducers.put("cancelskirmish", new CancelSkirmish());
         effectAppenderProducers.put("discardfromhand", new DiscardFromHand());
-        effectAppenderProducers.put("chooseandaddtwilight", new ChooseAndRemoveTwilight());
+        effectAppenderProducers.put("chooseandaddtwilight", new ChooseAndAddTwilight());
         effectAppenderProducers.put("chooseandremovetwilight", new ChooseAndRemoveTwilight());
         effectAppenderProducers.put("removetwilight", new RemoveTwilight());
         effectAppenderProducers.put("removethreats", new RemoveThreats());
