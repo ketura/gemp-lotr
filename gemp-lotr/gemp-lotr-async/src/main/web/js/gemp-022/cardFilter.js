@@ -109,7 +109,7 @@ var CardFilter = Class.extend({
         this.setSelect = $("<select style='width: 130px; font-size: 80%;'>"
             + "<option value=''>All Sets</option>"
             + "<option value='0-19'>Official Sets</option>"
-            + "<option value='30-33'>The Hobbit Sets</option>"
+            + "<option value='30-32'>The Hobbit Sets</option>"
             + "<option value='40'>Second Edition Sets</option>"
             + "<option disabled>----------</option>"
             + "<option value='fotr_block'>Fellowship Block</option>"
@@ -124,7 +124,6 @@ var CardFilter = Class.extend({
             + "<option value='standard'>Standard</option>"
             + "<option value='hobbit_tsr'> The Hobbit: The Short Rest</option>"
             + "<option value='hobbit_tcb'> The Hobbit: The Clouds Burst</option>"
-            + "<option value='hobbit_faw'> The Hobbit: Fire and Water</option>"
             + "<option value='2nd_ed'>Second Edition</option>"
             + "<option disabled>----------</option>"
             + "<option value='0'>00 - Promo</option>"
@@ -150,7 +149,6 @@ var CardFilter = Class.extend({
             + "<option value='30'>30 - The Hobbit: Main Deck</option>"
             + "<option value='31'>31 - The Hobbit: Expansion 1</option>"
             + "<option value='32'>32 - The Hobbit: Expansion 2</option>"
-            + "<option value='33'>33 - The Hobbit: Expansion 3</option>"
             + "<option value='40'>40 - Second Edition</option>"
             + "</select>");
         this.nameInput = $("<input type='text' placeholder='Card name' value='' style='width: 110px; font-size: 70%;'>");
