@@ -8,6 +8,7 @@ import com.gempukku.lotro.logic.actions.ActivateCardAction;
 import com.gempukku.lotro.logic.cardtype.AbstractPermanent;
 import com.gempukku.lotro.logic.effects.AddTwilightEffect;
 import com.gempukku.lotro.logic.effects.ChooseArbitraryCardsEffect;
+import com.gempukku.lotro.logic.effects.IncrementPhaseLimitEffect;
 import com.gempukku.lotro.logic.effects.PutCardFromStackedIntoHandEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseAndExertCharactersEffect;
 import com.gempukku.lotro.logic.effects.choose.ChooseCardsFromDeckEffect;
@@ -59,18 +60,22 @@ public class Card31_007 extends AbstractPermanent {
         }
         if (PlayConditions.canUseFPCardDuringPhase(game, Phase.REGROUP, self)) {
             final ActivateCardAction action = new ActivateCardAction(self);
-            action.appendCost(
-                    new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.DWARF));
-            action.appendEffect(
-                    new ChooseCardsFromDeckEffect(playerId, 1, 1, CardType.EVENT, Culture.DWARVEN) {
-                @Override
-                protected void cardsSelected(LotroGame game, Collection<PhysicalCard> cards) {
-                    for (PhysicalCard card : cards) {
-					    game.getGameState().removeCardsFromZone(playerId, Collections.singleton(card));
-                        game.getGameState().stackCard(game, card, self);
+            if (PlayConditions.checkPhaseLimit(game, self, 1)) {
+                action.appendCost(
+                        new IncrementPhaseLimitEffect(self, 1));
+                action.appendCost(
+                        new ChooseAndExertCharactersEffect(action, playerId, 1, 1, Race.DWARF));
+                action.appendEffect(
+                        new ChooseCardsFromDeckEffect(playerId, 1, 1, CardType.EVENT, Culture.DWARVEN) {
+                    @Override
+                    protected void cardsSelected(LotroGame game, Collection<PhysicalCard> cards) {
+                        for (PhysicalCard card : cards) {
+                            game.getGameState().removeCardsFromZone(playerId, Collections.singleton(card));
+                            game.getGameState().stackCard(game, card, self);
+                        }
                     }
-                }
-            });
+                });
+            }
             return Collections.singletonList(action);
         }
         return null;
