@@ -1371,7 +1371,8 @@
         "count": 6
       },
       "cost": {
-        "type": "discard",
+        "type": "discardFromHand",
+        "forced": false,
         "filter": "choose(nazgul)"
       },
       "effect": {
