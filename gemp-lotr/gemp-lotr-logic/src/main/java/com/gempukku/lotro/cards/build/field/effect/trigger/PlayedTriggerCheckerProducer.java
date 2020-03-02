@@ -9,16 +9,18 @@ import com.gempukku.lotro.common.Filterable;
 import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.logic.timing.TriggerConditions;
 import com.gempukku.lotro.logic.timing.results.PlayCardResult;
+import com.gempukku.lotro.logic.timing.results.PlayEventResult;
 import org.json.simple.JSONObject;
 
 public class PlayedTriggerCheckerProducer implements TriggerCheckerProducer {
     @Override
     public TriggerChecker getTriggerChecker(JSONObject value, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(value, "filter", "on", "memorize");
+        FieldUtils.validateAllowedFields(value, "filter", "on", "memorize", "exertsRanger");
 
         final String filterString = FieldUtils.getString(value.get("filter"), "filter");
         final String onString = FieldUtils.getString(value.get("on"), "on");
         final String memorize = FieldUtils.getString(value.get("memorize"), "memorize");
+        boolean exertsRanger = FieldUtils.getBoolean(value.get("exertsRanger"), "exertsRanger", false);
         final FilterableSource filter = environment.getFilterFactory().generateFilter(filterString, environment);
         final FilterableSource onFilter = (onString != null) ? environment.getFilterFactory().generateFilter(onString, environment) : null;
         return new TriggerChecker() {
@@ -32,9 +34,16 @@ public class PlayedTriggerCheckerProducer implements TriggerCheckerProducer {
                 } else {
                     played = TriggerConditions.played(actionContext.getGame(), actionContext.getEffectResult(), filterable);
                 }
-                if (played && memorize != null) {
-                    PhysicalCard playedCard = ((PlayCardResult) actionContext.getEffectResult()).getPlayedCard();
-                    actionContext.setCardMemory(memorize, playedCard);
+
+                if (played) {
+                    PlayCardResult playCardResult = (PlayCardResult) actionContext.getEffectResult();
+                    if (exertsRanger && playCardResult instanceof PlayEventResult && !((PlayEventResult) playCardResult).isRequiresRanger())
+                        return false;
+
+                    if (memorize != null) {
+                        PhysicalCard playedCard = playCardResult.getPlayedCard();
+                        actionContext.setCardMemory(memorize, playedCard);
+                    }
                 }
                 return played;
             }

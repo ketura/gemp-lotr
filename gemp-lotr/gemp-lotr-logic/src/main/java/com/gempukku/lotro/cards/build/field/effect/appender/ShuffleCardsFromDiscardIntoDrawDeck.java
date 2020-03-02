@@ -20,7 +20,7 @@ import java.util.Collection;
 public class ShuffleCardsFromDiscardIntoDrawDeck implements EffectAppenderProducer {
     @Override
     public EffectAppender createEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(effectObject, "filter", "where", "count");
+        FieldUtils.validateAllowedFields(effectObject, "filter", "count");
 
         final String filter = FieldUtils.getString(effectObject.get("filter"), "filter", "choose(any)");
         final ValueSource valueSource = ValueResolver.resolveEvaluator(effectObject.get("count"), 1, environment);

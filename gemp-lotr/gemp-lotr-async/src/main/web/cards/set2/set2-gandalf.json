@@ -17,8 +17,8 @@
       "type": "modifier",
       "modifier": {
         "type": "cantLookOrRevealHand",
-        "player": "owner",
-        "hand": "shadowPlayer"
+        "player": "shadowPlayer",
+        "hand": "owner"
       }
     }
   },
