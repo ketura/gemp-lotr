@@ -21,7 +21,7 @@ public abstract class AbstractSuccessfulEffect implements Effect {
         return GameUtils.getAppendedTextNames(cards);
     }
 
-    protected final String getAppendedNames(Collection<PhysicalCard> cards) {
+    protected final String getAppendedNames(Collection<? extends PhysicalCard> cards) {
         return GameUtils.getAppendedNames(cards);
     }
 }

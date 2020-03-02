@@ -95,6 +95,7 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("playsite", new PlaySite());
         effectAppenderProducers.put("duplicate", new Duplicate());
         effectAppenderProducers.put("revealcardsfromhand", new RevealCardsFromHand());
+        effectAppenderProducers.put("revealcards", new RevealCards());
         effectAppenderProducers.put("addtokens", new AddTokens());
         effectAppenderProducers.put("removetokens", new RemoveTokens());
         effectAppenderProducers.put("transfer", new Transfer());
@@ -105,6 +106,7 @@ public class EffectAppenderFactory {
         effectAppenderProducers.put("reconcilehand", new ReconcileHand());
         effectAppenderProducers.put("shufflecardsfromdiscardintodrawdeck", new ShuffleCardsFromDiscardIntoDrawDeck());
         effectAppenderProducers.put("chooseactivecards", new ChooseActiveCards());
+        effectAppenderProducers.put("choosecardsfromdiscard", new ChooseCardsFromDiscard());
         effectAppenderProducers.put("putplayedeventonbottomofdrawdeck", new PutPlayedEventOnBottomOfDrawDeck());
         effectAppenderProducers.put("putplayedeventintohand", new PutPlayedEventIntoHand());
         effectAppenderProducers.put("removecardsindiscardfromgame", new RemoveCardsInDiscardFromGame());
