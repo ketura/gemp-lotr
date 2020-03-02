@@ -756,7 +756,7 @@
       "type": "event",
       "cost": {
         "type": "exert",
-        "filter": "choose(hobbit)"
+        "filter": "choose(hobbit,companion)"
       },
       "effect": {
         "type": "removeBurdens",

@@ -970,7 +970,7 @@
   },
   "1_353": {
     "title": "Anduin Confluence",
-    "cost": 5,
+    "cost": 6,
     "type": "site",
     "site": 7,
     "block": "fellowship",
