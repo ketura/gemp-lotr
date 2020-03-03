@@ -15,13 +15,13 @@ import java.util.Collections;
 
 public class RevealCardEffect extends AbstractSuccessfulEffect {
     private PhysicalCard _source;
-    private Collection<PhysicalCard> _cards;
+    private Collection<? extends PhysicalCard> _cards;
 
     public RevealCardEffect(PhysicalCard source, PhysicalCard card) {
         this(source, Collections.singleton(card));
     }
 
-    public RevealCardEffect(PhysicalCard source, Collection<PhysicalCard> cards) {
+    public RevealCardEffect(PhysicalCard source, Collection<? extends PhysicalCard> cards) {
         _source = source;
         _cards = cards;
     }
