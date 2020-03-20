@@ -346,7 +346,12 @@
             "type": "addKeyword",
             "filter": "memory(chosenDwarf)",
             "keyword": "damage",
-            "amount": "1"
+            "amount": {
+              "type": "cardAffectedLimitPerPhase",
+              "prefix": "dmg-",
+              "source": 1,
+              "limit": 3
+            }
           }
         }
       ]
