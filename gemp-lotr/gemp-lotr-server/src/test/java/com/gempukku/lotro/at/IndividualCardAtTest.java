@@ -556,7 +556,7 @@ public class IndividualCardAtTest extends AbstractAtTest {
 
         AwaitingDecision playShadowEffect = _userFeedback.getAwaitingDecision(P2);
         assertEquals(AwaitingDecisionType.CARD_ACTION_CHOICE, playShadowEffect.getDecisionType());
-        playerDecided(P2, getCardActionId(playShadowEffect, "Use Úlairë "));
+        playerDecided(P2, getCardActionId(playShadowEffect, "Use Ulaire "));
 
         AwaitingDecision rushOfSteedsOptional = _userFeedback.getAwaitingDecision(P1);
         assertEquals(AwaitingDecisionType.CARD_ACTION_CHOICE, rushOfSteedsOptional.getDecisionType());

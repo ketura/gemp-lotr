@@ -976,7 +976,7 @@
     ]
   },
   "19_25": {
-    "title": "*Éomer",
+    "title": "*Eomer",
     "subtitle": "Eored Captain",
     "culture": "rohan",
     "cost": 3,
@@ -1000,7 +1000,7 @@
     }
   },
   "19_26": {
-    "title": "*Éowyn",
+    "title": "*Eowyn",
     "subtitle": "Lady of the Mark",
     "culture": "rohan",
     "cost": 2,
@@ -1322,7 +1322,7 @@
     ]
   },
   "19_35": {
-    "title": "*Úlairë Attëa",
+    "title": "*Ulaire Attea",
     "subtitle": "Dark Predator",
     "culture": "wraith",
     "cost": 6,
@@ -1352,7 +1352,7 @@
     }
   },
   "19_36": {
-    "title": "*Úlairë Enquëa",
+    "title": "*Ulaire Enquea",
     "subtitle": "Dark Threat",
     "culture": "wraith",
     "cost": 6,
@@ -1382,7 +1382,7 @@
     }
   },
   "19_37": {
-    "title": "*Úlairë Lemenya",
+    "title": "*Ulaire Lemenya",
     "subtitle": "Dark Enemy",
     "culture": "wraith",
     "cost": 4,
@@ -1405,7 +1405,7 @@
     }
   },
   "19_38": {
-    "title": "*Úlairë Nertëa",
+    "title": "*Ulaire Nertea",
     "subtitle": "Dark Horseman",
     "culture": "wraith",
     "cost": 4,
@@ -1445,7 +1445,7 @@
     ]
   },
   "19_39": {
-    "title": "*Úlairë Toldëa",
+    "title": "*Ulaire Toldea",
     "subtitle": "Dark Shadow",
     "culture": "wraith",
     "cost": 6,

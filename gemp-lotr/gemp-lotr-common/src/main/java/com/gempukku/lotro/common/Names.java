@@ -1,19 +1,19 @@
 package com.gempukku.lotro.common;
 
 public class Names {
-    public static final String attea = "Úlairë Attëa";
-    public static final String cantea = "Úlairë Cantëa";
-    public static final String enquea = "Úlairë Enquëa";
-    public static final String lemenya = "Úlairë Lemenya";
-    public static final String nelya = "Úlairë Nelya";
-    public static final String nertea = "Úlairë Nertëa";
-    public static final String otsea = "Úlairë Otsëa";
-    public static final String toldea = "Úlairë Toldëa";
+    public static final String attea = "Ulaire Attea";
+    public static final String cantea = "Ulaire Cantea";
+    public static final String enquea = "Ulaire Enquea";
+    public static final String lemenya = "Ulaire Lemenya";
+    public static final String nelya = "Ulaire Nelya";
+    public static final String nertea = "Ulaire Nertea";
+    public static final String otsea = "Ulaire Otsea";
+    public static final String toldea = "Ulaire Toldea";
 
     public static final String witchKing = "The Witch-king";
     public static final String caveTroll = "Cave Troll of Moria";
 
-    public static final String eomer = "Éomer";
-    public static final String eowyn = "Éowyn";
-    public static final String theoden = "Théoden";
+    public static final String eomer = "Eomer";
+    public static final String eowyn = "Eowyn";
+    public static final String theoden = "Theoden";
 }
