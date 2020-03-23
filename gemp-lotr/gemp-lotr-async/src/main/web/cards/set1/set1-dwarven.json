@@ -409,7 +409,7 @@
       "effect": [
         {
           "type": "revealTopCardsOfDrawDeck",
-          "filter": "choose(deck(fp, shadow))"
+          "filter": "choose(deck(fp, shadow))",
           "count": 3,
           "memorize": "revealedCards"
         },
