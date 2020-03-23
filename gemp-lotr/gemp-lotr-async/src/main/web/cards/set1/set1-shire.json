@@ -434,7 +434,7 @@
       "effect": {
         "type": "discardFromHand",
         "forced": false,
-        "count": 2
+        "count": "0-2"
       }
     }
   },
