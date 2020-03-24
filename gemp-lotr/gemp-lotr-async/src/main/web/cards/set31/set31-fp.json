@@ -28,6 +28,34 @@
     "keyword": "fellowship",
     "effects": {
       "type": "event",
+      "cost": {
+        "type": "choice",
+        "texts": [
+          "Sites 1-5",
+          "Sites 6-9"
+        ],
+        "effects": [
+          {
+            "type": "conditional",
+            "condition": {
+              "type": "location",
+              "filter": "siteNumber(1-5),siteBlock(hobbit)"
+            },
+            "effect": {
+              "type": "discard",
+              "filter": "choose(culture(dwarven),follower)",
+              "memorize": "discardedFollower"
+            }
+          },
+          {
+            "type": "conditional",
+            "condition": {
+              "type": "location",
+              "filter": "not(siteNumber(1-5),siteBlock(hobbit))"
+            }
+          }
+        ]
+      },
       "effect": [
         {
           "type": "conditional",
@@ -37,13 +65,13 @@
           },
           "effect": {
             "type": "duplicate",
-            "effect": {
-              "type": "playCardFromDrawDeck",
-              "filter": "choose(culture(dwarven),not(event))"
-            },
             "amount": {
               "type": "twilightCostInMemory",
               "memory": "discardedFollower"
+            },
+            "effect": {
+              "type": "playCardFromDrawDeck",
+              "filter": "choose(culture(dwarven),not(event))"
             }
           }
         },
@@ -51,7 +79,7 @@
           "type": "conditional",
           "condition": {
             "type": "location",
-            "filter": "siteNumber(6-9),siteBlock(hobbit)"
+            "filter": "not(siteNumber(1-5),siteBlock(hobbit))"
           },
           "effect": {
             "type": "heal",

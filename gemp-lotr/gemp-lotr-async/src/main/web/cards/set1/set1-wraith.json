@@ -140,6 +140,10 @@
       {
         "type": "activated",
         "phase": "skirmish",
+        "condition": {
+          "type": "canSpot",
+          "filter": "self,zone(support)"
+        },
         "effect": {
           "type": "transfer",
           "filter": "choose(self,zone(support))",
@@ -216,6 +220,10 @@
           "type": "winsSkirmish",
           "filter": "nazgul",
           "memorize": "winner"
+        },
+        "condition": {
+          "type": "canSpot",
+          "filter": "self,zone(support)"
         },
         "effect": {
           "type": "transfer",
