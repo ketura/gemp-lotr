@@ -28,6 +28,7 @@ public class RequirementFactory {
         requirementProducers.put("phase", new PhaseRequirement());
         requirementProducers.put("ringisactive", new RingIsActive());
         requirementProducers.put("memorymatches", new MemoryMatches());
+        requirementProducers.put("memoryis", new MemoryIs());
         requirementProducers.put("cantspotfpcultures", new CantSpotFPCultures());
         requirementProducers.put("haveinitiative", new HaveInitiative());
         requirementProducers.put("fierceskirmish", new FierceSkirmish());
