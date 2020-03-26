@@ -5,6 +5,7 @@ import com.gempukku.lotro.game.PhysicalCard;
 import com.gempukku.lotro.game.state.LotroGame;
 import com.gempukku.lotro.logic.GameUtils;
 import com.gempukku.lotro.logic.timing.AbstractEffect;
+import com.gempukku.lotro.logic.timing.results.DiscardCardsFromPlayResult;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -48,9 +49,21 @@ public class RemoveCardsFromTheGameEffect extends AbstractEffect {
             if (physicalCard.getZone().isInPlay())
                 removedCards.add(physicalCard);
 
-        game.getGameState().removeCardsFromZone(_playerPerforming, removedCards);
+        Set<PhysicalCard> discardedCards = new HashSet<PhysicalCard>();
+
+        Set<PhysicalCard> toMoveFromZoneToDiscard = new HashSet<PhysicalCard>();
+
+        DiscardUtils.cardsToChangeZones(game, removedCards, discardedCards, toMoveFromZoneToDiscard);
+
+        Set<PhysicalCard> toRemoveFromZone = new HashSet<>();
+        toRemoveFromZone.addAll(removedCards);
+        toRemoveFromZone.addAll(toMoveFromZoneToDiscard);
+
+        game.getGameState().removeCardsFromZone(_playerPerforming, toRemoveFromZone);
         for (PhysicalCard removedCard : removedCards)
             game.getGameState().addCardToZone(game, removedCard, Zone.REMOVED);
+        for (PhysicalCard card : toMoveFromZoneToDiscard)
+            game.getGameState().addCardToZone(game, card, Zone.DISCARD);
 
         game.getGameState().sendMessage(_playerPerforming + " removed " + GameUtils.getAppendedNames(removedCards) + " from the game using " + GameUtils.getCardLink(_source));
 
