@@ -791,10 +791,14 @@
         {
           "type": "removeTwilight",
           "amount": {
-            "type": "forEachMatchingInMemory",
-            "memory": "revealedCards",
-            "filter": "orc",
-            "limit": 4
+            "type": "cardPhaseLimit",
+            "limit":  4,
+            "amount": {
+              "type": "forEachMatchingInMemory",
+              "memory": "revealedCards",
+              "filter": "orc",
+              "limit": 4
+            }
           }
         }
       ]

@@ -172,6 +172,13 @@ public class ValueResolver {
                 final int limit = FieldUtils.getInteger(object.get("value"), "value");
                 ValueSource valueSource = resolveEvaluator(object.get("amount"), 0, environment);
                 return (actionContext) -> new LimitEvaluator(valueSource.getEvaluator(actionContext), limit);
+            } else if (type.equalsIgnoreCase("cardphaselimit")) {
+                FieldUtils.validateAllowedFields(object, "limit", "amount");
+                final int limit = FieldUtils.getInteger(object.get("limit"), "limit");
+                ValueSource valueSource = resolveEvaluator(object.get("amount"), 0, environment);
+                return (actionContext) -> new CardPhaseLimitEvaluator(actionContext.getGame(), actionContext.getSource(),
+                        actionContext.getGame().getGameState().getCurrentPhase(), limit,
+                        valueSource.getEvaluator(actionContext));
             } else if (type.equalsIgnoreCase("countStacked")) {
                 FieldUtils.validateAllowedFields(object, "on", "filter");
                 final String on = FieldUtils.getString(object.get("on"), "on");
