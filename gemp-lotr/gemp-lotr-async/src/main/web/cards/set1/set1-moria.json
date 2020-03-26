@@ -93,9 +93,10 @@
       "effect": {
         "type": "modifyStrength",
         "filter": "choose(culture(moria),orc)",
+        "memorize": "chosenOrc",
         "amount": {
           "type": "forEachYouCanSpot",
-          "filter": "another,culture(moria),orc",
+          "filter": "not(memory(chosenOrc)),culture(moria),orc",
           "limit": 4
         }
       }
