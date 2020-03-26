@@ -83,10 +83,16 @@
         "type": "trigger",
         "trigger": {
           "type": "condition",
-          "condition": {
-            "type": "location",
-            "filter": "underground"
-          }
+          "condition": [
+            {
+              "type": "location",
+              "filter": "underground"
+            },
+            {
+              "type": "canSpot",
+              "filter": "self,attachedTo(companion)"
+            }
+          ]
         },
         "effect": {
           "type": "discard",
