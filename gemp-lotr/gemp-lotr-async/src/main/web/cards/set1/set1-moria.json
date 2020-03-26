@@ -429,7 +429,7 @@
       "type": "trigger",
       "trigger": {
         "type": "killed",
-        "filter": "companion,inSkirmish",
+        "filter": "companion",
         "memorize": "killedCompanion"
       },
       "condition": {
