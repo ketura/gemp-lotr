@@ -21,6 +21,8 @@ import com.gempukku.lotro.logic.timing.Effect;
 import org.json.simple.JSONObject;
 
 import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.function.Function;
 
 public class AddKeyword implements EffectAppenderProducer {
@@ -58,11 +60,15 @@ public class AddKeyword implements EffectAppenderProducer {
         result.addEffectAppender(
                 new DelayedAppender() {
                     @Override
-                    protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
+                    protected List<? extends Effect> createEffects(boolean cost, CostToEffectAction action, ActionContext actionContext) {
+                        List<Effect> result = new LinkedList<>();
                         final Collection<? extends PhysicalCard> cardsFromMemory = actionContext.getCardsFromMemory(memory);
-                        final int keywordCount = amount.getEvaluator(actionContext).evaluateExpression(actionContext.getGame(), null);
-                        return new AddUntilModifierEffect(
-                                new KeywordModifier(actionContext.getSource(), Filters.in(cardsFromMemory), keywordFunction.apply(actionContext), keywordCount), until);
+                        for (PhysicalCard physicalCard : cardsFromMemory) {
+                            final int keywordCount = amount.getEvaluator(actionContext).evaluateExpression(actionContext.getGame(), physicalCard);
+                            result.add(new AddUntilModifierEffect(
+                                    new KeywordModifier(actionContext.getSource(), physicalCard, keywordFunction.apply(actionContext), keywordCount), until));
+                        }
+                        return result;
                     }
                 });
 
