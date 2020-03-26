@@ -94,7 +94,7 @@ public class LotroCardBlueprintLibrary {
 
     private void loadCardsFromFile(File file, boolean validateNew) {
         JSONParser parser = new JSONParser();
-        try (FileReader reader = new FileReader(file)) {
+        try (Reader reader = new InputStreamReader(new FileInputStream(file), "UTF-8")) {
             final JSONObject cardsFile = (JSONObject) parser.parse(reader);
             final Set<Map.Entry<String, JSONObject>> cardsInFile = cardsFile.entrySet();
             for (Map.Entry<String, JSONObject> cardEntry : cardsInFile) {
