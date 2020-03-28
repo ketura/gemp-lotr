@@ -110,7 +110,7 @@
       "type": "modifier",
       "modifier": {
         "type": "modifyStrength",
-        "filter": "bearer,inSkirmishAgainst(mounted,minion)",
+        "filter": "bearer,inSkirmishAgainst(hasAttached(mount),minion)",
         "amount": 1
       }
     }
