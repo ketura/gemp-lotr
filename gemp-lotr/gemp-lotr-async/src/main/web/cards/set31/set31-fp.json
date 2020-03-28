@@ -519,11 +519,6 @@
         },
         "cost": [
           {
-            "type": "memorize",
-            "filter": "bearer",
-            "memory": "bearer"
-          },
-          {
             "type": "transferToSupport",
             "filter": "self"
           }
@@ -536,7 +531,7 @@
           },
           "effect": {
             "type": "cancelSkirmish",
-            "filter": "memory(bearer)"
+            "filter": "bearer"
           }
         }
       }
@@ -556,13 +551,13 @@
       "effect": [
         {
           "type": "modifyStrength",
-          "filter": "all(culture(dwarven),companion,hasStacked(follower))",
+          "filter": "all(culture(dwarven),companion,hasAttached(follower))",
           "amount": 2,
           "until": "start(regroup)"
         },
         {
           "type": "addKeyword",
-          "filter": "all(culture(dwarven),companion,hasStacked(and(follower,culture(gandalf))))",
+          "filter": "all(culture(dwarven),companion,hasAttached(and(follower,culture(gandalf))))",
           "keyword": "defender+1",
           "until": "start(regroup)"
         }
