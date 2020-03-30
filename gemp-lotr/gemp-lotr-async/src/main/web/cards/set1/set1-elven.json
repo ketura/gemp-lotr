@@ -206,14 +206,26 @@
           "memorize": "cardsInHand"
         },
         {
-          "type": "discardFromHand",
-          "hand": "shadowPlayer",
-          "player": "shadowPlayer",
-          "forced": true,
-          "count": {
-            "type": "forEachMatchingInMemory",
-            "memory": "cardsInHand",
-            "filter": "orc"
+          "type": "conditional",
+          "condition": {
+            "type": "isMore",
+            "firstNumber": {
+              "type": "forEachMatchingInMemory",
+              "memory": "cardsInHand",
+              "filter": "orc"
+            },
+            "secondNumber": 0
+          },
+          "effect": {
+            "type": "discardFromHand",
+            "hand": "shadowPlayer",
+            "player": "shadowPlayer",
+            "forced": true,
+            "count": {
+              "type": "forEachMatchingInMemory",
+              "memory": "cardsInHand",
+              "filter": "orc"
+            }
           }
         }
       ]

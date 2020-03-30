@@ -35,6 +35,7 @@ public class FilterFactory {
         simpleFilters.put("unique", (actionContext) -> Filters.unique);
         simpleFilters.put("bearer", (actionContext -> Filters.hasAttached(actionContext.getSource())));
         simpleFilters.put("character", (actionContext) -> Filters.character);
+        simpleFilters.put("mounted", (actionContext) -> Filters.mounted);
         simpleFilters.put("weapon", (actionContext) -> Filters.weapon);
         simpleFilters.put("wounded", (actionContext) -> Filters.wounded);
         simpleFilters.put("unwounded", (actionContext) -> Filters.unwounded);
