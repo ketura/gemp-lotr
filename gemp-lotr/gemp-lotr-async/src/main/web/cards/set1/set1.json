@@ -569,6 +569,20 @@
         "effect": {
           "type": "resetWhileInZoneData"
         }
+      },
+      {
+        "type": "trigger",
+        "trigger": {
+          "type": "movesFrom",
+          "filter": "self"
+        },
+        "condition": {
+          "type": "phase",
+          "phase": "regroup"
+        },
+        "effect": {
+          "type": "resetWhileInZoneData"
+        }
       }
     ]
   },

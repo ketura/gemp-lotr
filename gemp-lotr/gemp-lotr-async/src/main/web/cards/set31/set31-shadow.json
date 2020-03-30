@@ -82,7 +82,7 @@
         "cost": [
           {
             "type": "exert",
-            "filter": "choose(name(Gollum),not(roaming))"
+            "filter": "choose(self,not(roaming))"
           },
           {
             "type": "assignFpCharacterToSkirmish",
@@ -304,7 +304,7 @@
   "31_26": {
     "title": "Threatening Warg",
     "culture": "gundabad",
-    "cost": 3,
+    "cost": 4,
     "type": "possession",
     "possession": "mount",
     "strength": 4,
@@ -1157,7 +1157,7 @@
   "31_65": {
     "title": "Caught in a Sack",
     "culture": "troll",
-    "cost": 2,
+    "cost": 0,
     "type": "condition",
     "keyword": "support area",
     "effects": [

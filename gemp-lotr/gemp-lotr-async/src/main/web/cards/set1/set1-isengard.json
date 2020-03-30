@@ -958,23 +958,18 @@
     "effects": {
       "type": "activated",
       "phase": "skirmish",
-      "condition": {
-        "type": "perPhaseLimit",
-        "limit": 3
+      "cost": {
+        "type": "removeTwilight"
       },
-      "cost": [
-        {
-          "type": "incrementPerPhaseLimit",
-          "limit": 3
-        },
-        {
-          "type": "removeTwilight"
-        }
-      ],
       "effect": {
         "type": "modifyStrength",
         "filter": "self",
-        "amount": 1
+        "amount": {
+          "type": "cardAffectedLimitPerPhase",
+          "prefix": "str-",
+          "source": 1,
+          "limit": 3
+        }
       }
     }
   },
