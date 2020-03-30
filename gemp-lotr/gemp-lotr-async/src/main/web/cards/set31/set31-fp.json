@@ -532,7 +532,7 @@
           "type": "conditional",
           "condition": {
             "type": "canSpot",
-            "filter": "inSkirmish,hasAttached(mount),orc"
+            "filter": "inSkirmish,mounted,orc"
           },
           "effect": {
             "type": "cancelSkirmish",
