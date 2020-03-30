@@ -519,6 +519,11 @@
         },
         "cost": [
           {
+            "type": "memorize",
+            "filter": "bearer",
+            "memory": "bearer"
+          },
+          {
             "type": "transferToSupport",
             "filter": "self"
           }
@@ -527,11 +532,11 @@
           "type": "conditional",
           "condition": {
             "type": "canSpot",
-            "filter": "inSkirmish,mounted,orc"
+            "filter": "inSkirmish,hasAttached(mount),orc"
           },
           "effect": {
             "type": "cancelSkirmish",
-            "filter": "bearer"
+            "filter": "memory(bearer)"
           }
         }
       }
