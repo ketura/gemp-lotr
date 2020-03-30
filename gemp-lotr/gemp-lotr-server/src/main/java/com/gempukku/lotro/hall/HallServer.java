@@ -200,6 +200,9 @@ public class HallServer extends AbstractServer {
         _tournamentQueues.put("fotr_queue", new ImmediateRecurringQueue(1500, "fotr_block",
                 CollectionType.ALL_CARDS, "fotrQueue-", "Fellowship Block", 4,
                 true, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes(cardSets, "onDemand"), _pairingMechanismRegistry.getPairingMechanism("singleElimination")));
+        _tournamentQueues.put("ts_queue", new ImmediateRecurringQueue(1500, "towers_standard",
+                CollectionType.ALL_CARDS, "tsQueue-", "Towers Standard", 4,
+                true, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes(cardSets, "onDemand"), _pairingMechanismRegistry.getPairingMechanism("singleElimination")));
         _tournamentQueues.put("movie_queue", new ImmediateRecurringQueue(1500, "movie",
                 CollectionType.ALL_CARDS, "movieQueue-", "Movie Block", 4,
                 true, tournamentService, _tournamentPrizeSchemeRegistry.getTournamentPrizes(cardSets, "onDemand"), _pairingMechanismRegistry.getPairingMechanism("singleElimination")));
