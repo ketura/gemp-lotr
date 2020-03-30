@@ -455,7 +455,7 @@
         "phase": "regroup",
         "condition": {
           "type": "cantSpot",
-          "filter": "self,hasAttached(mount)"
+          "filter": "self,mounted"
         },
         "cost": {
           "type": "exert",
@@ -640,7 +640,7 @@
         "phase": "regroup",
         "condition": {
           "type": "cantSpot",
-          "filter": "self,hasAttached(mount)"
+          "filter": "self,mounted"
         },
         "cost": {
           "type": "exert",
@@ -738,7 +738,7 @@
         "phase": "regroup",
         "condition": {
           "type": "cantSpot",
-          "filter": "self,hasAttached(mount)"
+          "filter": "self,mounted"
         },
         "cost": {
           "type": "exert",
