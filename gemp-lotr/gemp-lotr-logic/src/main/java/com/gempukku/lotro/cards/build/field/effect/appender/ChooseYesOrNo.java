@@ -16,7 +16,7 @@ import org.json.simple.JSONObject;
 public class ChooseYesOrNo implements EffectAppenderProducer {
     @Override
     public EffectAppender createEffectAppender(JSONObject effectObject, CardGenerationEnvironment environment) throws InvalidCardDefinitionException {
-        FieldUtils.validateAllowedFields(effectObject, "text", "player", "memorize", "yes", "no");
+        FieldUtils.validateAllowedFields(effectObject, "text", "memorize", "yes", "no");
 
         final String text = FieldUtils.getString(effectObject.get("text"), "text");
         if (text == null)
@@ -24,12 +24,11 @@ public class ChooseYesOrNo implements EffectAppenderProducer {
         final String memorize = FieldUtils.getString(effectObject.get("memorize"), "memorize");
         final String yesAnswer = FieldUtils.getString(effectObject.get("yes"), "yes");
         final String noAnswer = FieldUtils.getString(effectObject.get("no"), "no");
-        String player = FieldUtils.getString(effectObject.get("player"), "player", "you");
 
         return new DelayedAppender() {
             @Override
             protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
-                return new PlayoutDecisionEffect(player,
+                return new PlayoutDecisionEffect(actionContext.getPerformingPlayer(),
                         new YesNoDecision(text) {
                             @Override
                             protected void yes() {
