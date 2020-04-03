@@ -3,6 +3,7 @@ package com.gempukku.lotro.cards.build.field.effect.appender;
 import com.gempukku.lotro.cards.build.ActionContext;
 import com.gempukku.lotro.cards.build.CardGenerationEnvironment;
 import com.gempukku.lotro.cards.build.InvalidCardDefinitionException;
+import com.gempukku.lotro.cards.build.PlayerSource;
 import com.gempukku.lotro.cards.build.field.FieldUtils;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppender;
 import com.gempukku.lotro.cards.build.field.effect.EffectAppenderProducer;
@@ -24,12 +25,12 @@ public class ChooseYesOrNo implements EffectAppenderProducer {
         final String memorize = FieldUtils.getString(effectObject.get("memorize"), "memorize");
         final String yesAnswer = FieldUtils.getString(effectObject.get("yes"), "yes");
         final String noAnswer = FieldUtils.getString(effectObject.get("no"), "no");
-        String player = FieldUtils.getString(effectObject.get("player"), "player", "you");
+        PlayerSource playerSource = PlayerResolver.resolvePlayer(FieldUtils.getString(effectObject.get("player"), "player", "you"), environment);
 
         return new DelayedAppender() {
             @Override
             protected Effect createEffect(boolean cost, CostToEffectAction action, ActionContext actionContext) {
-                return new PlayoutDecisionEffect(player,
+                return new PlayoutDecisionEffect(playerSource.getPlayer(actionContext),
                         new YesNoDecision(text) {
                             @Override
                             protected void yes() {
