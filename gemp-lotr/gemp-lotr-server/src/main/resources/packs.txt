@@ -61,6 +61,12 @@ BR - Saruman Starter
 (S)BL - Starter
 BL - Arwen Starter
 BL - Boromir Starter
+(S)HU - Starter
+HU - Aragorn Starter
+HU - Mauhur Starter
+(S)RoS - Starter
+RoS - Uruk Rampage Starter
+RoS - Evil Man Starter
 Special-01
 Special-02
 Special-03
