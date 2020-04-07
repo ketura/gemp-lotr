@@ -5,6 +5,7 @@ public enum SealedLeagueType {
     TTT_BLOCK("ttt_block", "limited_ttt"),
     MOVIE_BLOCK("movie", "limited_king"),
     WAR_BLOCK("war_block", "limited_shadows"),
+    HUNTERS_BLOCK("hunters_block", "limited_hunters"),
     MOVIE_SPECIAL_BLOCK("movie_special", "limited_king"),
     TS_SPECIAL_BLOCK("ts_special", "limited_ttt");
 
